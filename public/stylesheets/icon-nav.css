@@ -1,0 +1,22 @@
+/* Icon Navigation Component */
+
+.icon-nav{
+    text-align: center;
+    display: block;
+}
+
+.icon-nav svg{
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.q-mark {
+    width:20px;
+}
+
+.cls-1 {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-miterlimit: 10;
+}

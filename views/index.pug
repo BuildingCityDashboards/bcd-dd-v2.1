@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  section.hero
+    .bg-img(style='background-image:url("images/dublin-2.jpg")')
+      .content-wrapper.grad-overlay
+        .container
+          .row
+            .col-sm-12.mb-3
+              h2.text-center DUBLIN DASHBOARD
+          include component/carousel-charts.pug
+          include component/carousel-charts.pug
+          include component/searchbar.pug
+          include component/icon-nav.pug
+
+  section.map
+    .content-wrapper
+      .container
+        include component/lp-map.pug
+
+block append scripts
+  script(src="https://d3js.org/d3.v4.min.js")
+  script(src='javascripts/dublinco.js')
+  script(src='javascripts/map.js')

@@ -1,0 +1,63 @@
+name,address,eircode,x,y
+Lusk,"Main Street, Lusk, Co. Dublin.",,321680.281,254507.844
+Hartstown,"Cherryfield Lawns, Hartstown, Dublin 15",,305087.25,239159.41
+Rathmines,"36 Upper Rathmines Road, Dublin 6.",,315666.24,231421.527
+Rathfarnham,"Dispensary Road, off Grange Road, Rathfarnham, Dublin 14.",,314677.922,228328.995
+Brookfield,"Rossfield Avenue, Tallaght, Dublin 24.",,306458.625,227611.766
+Killinarden,"Killinarden, Tallaght, Dublin 24.",,308147.364,226308.931
+Mary Mercer,"Fortunestown Road, Jobstown, Tallaght, Dublin 24.",,306760.25,226537.172
+Limekiln Lane,"Whitehall Road West, Walkinstown, Dublin 12.",,311621.511,230081.795
+Rowlagh,"Rowlagh, Clondalkin, Dublin 22.",,306823.305,233842.685
+Boot Road,"Boot Road, Clondalkin, Dublin 22.",,306933.557,230778.083
+Rathcoole,"Main Street, Rathcoole, Co. Dublin.",,302502.053,226758.647
+Corduff,"Corduff Green, Blanchardstown, Dublin 15.",,308052.875,239802.828
+Lisburn Street,"Lisburn Street, Dublin 7.",,315047.281,234756.609
+Roselawn,"Roselawn Road, Castleknock, Dublin 15.",,307679.641,238326.038
+Ballymun,"Ballymun Health Care Facility, Civic Offices, Ballymun Road, Dublin 11",,315552,239738
+East Wall,"Church Road, Dublin 3.",,317471.803,234957.758
+Killester,"Killester Avenue, Dublin 5.",,319008.351,237834.415
+Marino,"1A Griffith Avenue, Dublin 9.",,318016.453,236772.703
+Summerhill,"90 Summerhill, Dublin 1.",,316430.844,235404.094
+Darndale,"Darndale Primary Care Centre, Darndale/Belcamp Village Centre, Darndale, Dublin 17.",,320150.563,240531.625
+Donabate,"St. Patrick's Terrace, Donabate, Co. Dublin.",,323028.663,249968.009
+Edenmore,"Edenmore Shopping Centre, Edenmore Park, Raheny, Dublin 5.",,320958.055,239073.707
+Oldtown,"Clonmethan, Oldtown, Co. Dublin.",,311621.094,253337.313
+Portmarnock,"Strand Shopping Centre, Portmarnock, Co. Dublin.",,323803.281,242763
+Raheny,"33 Main Street, Raheny, Dublin 5.",,321483.004,238066.99
+Coolock,"Cromcastle Road, Coolock, Dublin 5.",,318719.23,239825.639
+Damastown,"Damastown Industrial Estate, Mulhuddart, Dublin 15",,305859.66,241179.77
+Mountview,"Shelerin Road, Clonsilla, Dublin 15.",,305931.281,238840
+Clontarf,"161 - 171 Vernon Avenue, Dublin 3.",,320096.071,236944.558
+Skerries,"Thomas Hand Street, Skerries, Co. Dublin.",,325192.344,260445.531
+Millmount,"Millmount Avenue, Drumcondra, Dublin 9.",,315960.502,236895.032
+Wellmount,"Wellmount Park, Finglas, Dublin 11.",,312390.283,238543.333
+Larkhill,"Collins Avenue Extension, Dublin 9.",,316476.012,238584.203
+Swords,"Bridge Street, Swords, Co. Dublin.",,318164.75,246976.281
+Howth,"Main Street, Howth, Co. Dublin.",,328793.362,239038.174
+Terenure,"68 Terenure Road North, Dublin 6.",,314484.063,230455.219
+Lucan,"1a Sarsfield Park, Co. Dublin",,303318.281,235189.938
+Malahide,"New Street, Malahide, Co. Dublin.",,322692.853,246111.994
+Kilbarrack,"Foxfield Crescent, Kilbarrack, Dublin 5.",,322772.442,238763.854
+Deansrath,"St. Cuthbert's Road, Clondalkin, Dublin 22.",,305035.688,231526.25
+Armagh Road Primary Care Services,"HSE, SAINT COLUMBA'S, ARMAGH ROAD, DUBLIN 12",,312734.1213,231305.257
+Cabra,"Quarry Road, Cabra, Dublin 7.",,313954.9116,236279.1999
+Donnybrook,"HSE COMMUNITY CARE, VERGEMOUNT HALL, CLONSKEAGH ROAD, DUBLIN 6",,317299.9281,230967.8872
+Ranelagh Primary Care Centre,"22-26 Sandford Road, Ranelagh, Dublin 6",,316749.2806,231706.9699
+Blackrock,"George's Avenue, Blackrock, Co. Dublin.",,321468.0486,229400.8399
+Cabinteely,"Meadowvale, Clonkeen Road, Blackrock, Co. Dublin.",,323114.5466,226030.0859
+Dun Laoghaire,"Centenary House, 35 York Road, Dun Laoghaire, Co. Dublin.",,323801.3316,228179.0649
+Dalkey,"Kilbegnet Close, Dalkey, Co. Dublin.",,326378.3286,226803.5009
+Shankill,"Lower Road, Shankill, Co. Dublin.",,325178.8336,221581.2889
+Stillorgan,"St. Brigids, Church Road, Stillorgan, Co. Dublin.",,320418.7726,227466.8199
+Chamber House ,"Chamber House, Chamber Square, Tallaght, Dublin 24",,308435.4336,227663.8541
+Loughlinstown,"Loughlinstown Drive, Loughlinstown, Co. Dublin.",,324968.6132,223493.1379
+Sallynoggin,"1 Oakdale Drive, Upper Glenageary Road, Dun Laoghaire, Co. Dublin.",,324247.2152,227183.6319
+Lucan,"Rosse Court Resource Centre, Balgaddy Road, Lucan, Co. Dublin",,305909.5012,233424.8589
+Curlew Road,"HSE, HEALTH CENTRE, DUBLIN 12",,311944.6176,232293.9358
+North Strand,Dublin 1.,,316841.5332,235350.8459
+"Cherry Orchard, Primary Care Centre","Ballyfermot, Dublin 10.",,308450.1262,233055.4999
+Baggot Street Health Centre,"City Of Dublin Royal Hospital, 14/18 Baggot Street Upper, Dublin 4, ",D04PH96,316948.5316,232945.1409
+"Ballinteer Health Centre, ","Ballinteer Avenue, Dublin 16, ",D16YX93,316572.8846,226485.8789
+Balbriggan Health Centre,"53 Hampton Street, Balbriggan, Co. Dublin, ",K32CF60,320494.1092,263457.747
+"Baldoyle Health Centre, ","Willie Nolan Road, Dublin 13, ",D13PY27,324420.3586,240365.854
+Ballygall Health Centre,"Seamus Ennis Road, Dublin 11, ",D11C898,313317.0166,239132.444

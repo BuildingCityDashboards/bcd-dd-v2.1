@@ -1,0 +1,19 @@
+- var sideLinks = { "HOME": "/", "THEMES": "/themes", "STORIES": "/stories", "TOOLS": "/tools", "QUERIES": "/queries"  }
+
+mixin nav-item(name, link)
+    li.nav-item
+        a.nav-link(href=link)= name
+
+button.side-menu__toggler.side-menu__toggler--closed
+    div(class='hamburger-btn')
+        div(class='bar1') 
+        div(class='bar2')
+        div(class='bar3')
+
+nav.side-menu
+        .side-menu__header 
+            h3 BCD
+        
+        ul.nav.navbar-nav
+            each val, key in sideLinks
+                +nav-item(key, val)

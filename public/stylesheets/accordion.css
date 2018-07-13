@@ -1,0 +1,115 @@
+.bx--accordion{
+    padding:0;
+    list-style:none;
+    width:100%
+}
+.bx--accordion__item{
+    transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
+    border-top:1px solid #dfe3e6;
+    overflow:hidden
+}
+.bx--accordion__item:focus{
+    outline:none
+}
+.bx--accordion__item:focus .bx--accordion__arrow{
+    outline:1px solid #3d70b2;
+    overflow:visible;
+    outline-offset:-0.5px
+}
+.bx--accordion__item:last-child{
+    border-bottom:1px solid #dfe3e6
+}
+.bx--accordion__heading{
+    font-family:"ibm-plex-sans",Helvetica Neue,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    letter-spacing:0;
+    display:inline-block;
+    background:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    border:0;
+    padding:0;
+    cursor:pointer;
+    width:100%;
+    color:#152934;
+    display:-ms-flexbox;
+    display:flex;
+    -ms-flex-align:center;
+    align-items:center;
+    -ms-flex-pack:start;
+    justify-content:flex-start;
+    -ms-flex-direction:row;
+    flex-direction:row;
+    cursor:pointer;
+    padding:.5rem 0
+}
+.bx--accordion__heading::-moz-focus-inner{
+    border:0
+}
+.bx--accordion__heading:focus{
+    outline:none
+}
+.bx--accordion__heading:focus .bx--accordion__arrow{
+    outline:1px solid #3d70b2;
+    overflow:visible;
+    outline-offset:-0.5px
+}
+.bx--accordion__arrow{
+    transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
+    height:1.25rem;
+    width:1.25rem;
+    padding:.25rem .125rem .25rem .25rem;
+    margin:0 0 0 .25rem;
+    fill:#5a6872
+}
+.bx--accordion__title{
+    margin:0 0 0 1rem
+}
+.bx--accordion__content{
+    transition:all 300ms cubic-bezier(0, 0, 0.25, 1);
+    padding:0 1rem 0 2.5rem;
+    height:0;
+    visibility:hidden;
+    opacity:0
+}
+.bx--accordion__content p{
+    font-size:0.875rem
+}
+.bx--accordion__item--active{
+    overflow:visible
+}
+.bx--accordion__item--active .bx--accordion__content{
+    padding-top:1rem;
+    padding-bottom:1.5rem;
+    height:auto;
+    visibility:visible;
+    opacity:1;
+    transition:all 300ms cubic-bezier(0.25, 0, 1, 1)
+}
+.bx--accordion__item--active .bx--accordion__arrow{
+    transform:rotate(90deg);
+    fill:#3d70b2
+}
+.bx--accordion.bx--skeleton .bx--accordion__heading,.bx--accordion.bx--skeleton .bx--accordion__button{
+    cursor:default
+}
+.bx--accordion.bx--skeleton .bx--accordion__arrow{
+    pointer-events:none;
+    fill:#5a6872;
+    cursor:default
+}
+.bx--accordion.bx--skeleton .bx--accordion__arrow:hover,.bx--accordion.bx--skeleton .bx--accordion__arrow:focus,.bx--accordion.bx--skeleton .bx--accordion__arrow:active{
+    border:none;
+    outline:none;
+    cursor:default
+}
+.bx--skeleton .bx--accordion__heading:focus .bx--accordion__arrow{
+    border:none;
+    outline:none;
+    cursor:default
+}
+.bx--accordion__title.bx--skeleton__text{
+    margin-bottom:0
+}

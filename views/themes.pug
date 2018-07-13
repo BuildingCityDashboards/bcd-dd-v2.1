@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    .container
+        h1= title
+        p Welcome to #{title}
+
+
+block append scripts
+    script(src="http://d3js.org/d3.v3.min.js")
+    script(src="/javascripts/test.js")

@@ -1,0 +1,203 @@
+/* Base Styles */
+/* NOTE */
+
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -ms-overflow-style: scrollbar;
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #313131;
+    background: #f8f8f8; 
+}
+
+.land-page{ background: #001f35; }
+
+/* Typography */
+h1, h2, h3, h4 {
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+}
+h1 { font-size: 3.75rem; font-weight: 700; }
+h2 { font-size: 3.0rem; font-weight: 700; }
+h3 { font-size: 2.25rem; }
+h4 { font-size: 1.5rem; }
+  
+p { margin-top: 0; }
+  
+/* Links*/
+  a {
+    color: #63c1de; 
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    border-bottom: 1px solid transparent;
+    -moz-transition: all 0.15s;
+    -o-transition: all 0.15s;
+    -webkit-transition: all 0.15s;
+    transition: all 0.15s;
+}
+  a:hover {
+    color: #63c1de; 
+    border-color: #888888; 
+}
+  
+  
+
+
+header {
+  padding: 15px;
+}
+
+.container {
+  padding:15px;
+  width: 1280px;
+}
+
+a {
+  color: #ffffff;
+}
+
+.menu {
+  background-color: #021420;
+  color: white;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  transition: all .5s;
+  z-index: 10;
+  left: 0;
+}
+
+.sidenav-toggled .menu {
+  left: -250px;
+}
+
+.menu-btn {
+  width: 80px;
+}
+
+.sticky {
+  background: #001f35;
+  transition: all 0.5s ease-in;
+}
+.sticky-brand {
+  opacity: 0;
+}
+
+.sticky .sticky-brand {
+  opacity: 1;
+  transition: all 0.5s ease-in;
+}
+
+.hamburger-btn {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  padding: 3px;
+  float: left;
+}
+
+.bar1, .bar2, .bar3{
+  background-color: #ffffff;
+  display: block;
+  height: 2px;
+  width: 15px;
+  transition-duration: .5s;
+}
+
+.bar2{
+  margin:4px 0;
+  width: 12px;
+}
+
+.bar1.rotateRight {
+
+  transform: rotate(45deg);
+  transform-origin: 0px;
+
+  position: relative;
+}
+
+.bar3.rotateLeft {
+
+  transform: rotate(-45deg);
+  transform-origin: 0px;
+
+  bottom: 1px;
+  position: relative;
+}
+
+.bar2.trasparent {
+  background-color: transparent;
+}
+
+.splash{
+  text-align: center;
+}
+
+.country-on{
+  fill: #63C1DE;
+}
+
+.line-chart{
+  margin-right:40px;
+  width:100%
+}
+.line-chart:last-child{
+  margin-right:0
+}
+.line-chart path.activity{
+  stroke:#16c1f3;
+  stroke-width:4;
+  fill:none;
+  stroke-linecap:round
+}
+.line-chart .cursor{
+  fill:#fff;
+  stroke:#16c1f3;
+  stroke-width:2
+}
+.line-chart .label{
+  font-size:12px;
+  font-weight:500;
+  text-anchor:end;
+  fill:rgba(150,150,150,.3)
+}
+.line-chart .label.today{
+  fill:#16c1f3;
+  text-anchor:start
+}
+.line-chart path.reference{
+  stroke:rgba(150,150,150,.3)
+}
+.line-chart path.today{
+  opacity:1
+}
+.line-chart .axis line,.line-chart .axis path{
+  fill:none;
+  stroke:rgba(0,0,0,.1);
+  stroke-width:1
+}
+.line-chart .y path{
+  stroke:none;
+  fill:none;
+  stroke-width:0
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+/* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
+@media screen and (prefers-reduced-motion: reduce) {
+  .collape {
+    transition: none;
+  }
+}

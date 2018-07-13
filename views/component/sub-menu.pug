@@ -1,0 +1,8 @@
+- var subLinks = { "EMPLOYMENT": "/employment", "ENVIRONMENT": "/environment", "HEALTH": "/health", "HOUSING": "/housing", "DEMOGRAPHICS": "/demographics" }
+
+mixin dropdown-item(name, link)
+    a.dropdown-item(href=link)= name
+
+ul
+    each val, key in subLinks
+        +dropdown-item(key, val)
