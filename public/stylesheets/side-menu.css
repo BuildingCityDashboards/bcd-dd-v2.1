@@ -23,7 +23,7 @@
     left: calc(248px - 4rem);
     width: 4rem;
     height: 4rem;
-    background-color: #313131;
+    background-color: transparent;
     border: none;
     padding: 1.25rem;
     cursor: pointer;

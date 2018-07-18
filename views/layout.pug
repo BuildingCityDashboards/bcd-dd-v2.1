@@ -20,10 +20,10 @@ html(lang='en')
   body
     div(id="root" role="region" aria-label="root container")
       .wrapper
+        include component/navbar.pug
         include component/side-menu.pug
         .bcd--container
           main
-            include component/navbar.pug
             //-add subnav.pug here if its the themes page
             block content
     
