@@ -5,6 +5,11 @@
     display: block;
 }
 
+.icon-nav__link{
+    display: block;
+    border: none;
+}
+
 .icon-nav svg{
     max-width: 50px;
     max-height: 50px;
