@@ -1,9 +1,13 @@
 extends layout
 
+block append head
+
+block navigation
+
 block content
   section.hero
     .bg-img(style='background-image:url("images/dublin-2.jpg")')
-      .content-wrapper.grad-overlay
+      .content-wrapper.content-wrapper--grad-overlay
         .container
           .row
             .col-sm-12.mb-3
@@ -15,7 +19,7 @@ block content
           #include testHTML.html
 
   section.map
-    .content-wrapper
+    .content-wrapper.content-wrapper--darkblue
       .container
         include component/lp-map.pug
 

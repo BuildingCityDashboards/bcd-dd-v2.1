@@ -1,7 +1,10 @@
 extends layout
 
+block navigation
+    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard")
+
 block content
-    .container
+    .container.mt-5.py-5
         h1= title
         p Welcome to #{title}
 

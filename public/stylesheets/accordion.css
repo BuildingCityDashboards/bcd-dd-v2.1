@@ -1,26 +1,25 @@
-.bx--accordion{
+.accordion{
     padding:0;
     list-style:none;
     width:100%
 }
-.bx--accordion__item{
+.accordion__item{
     transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
     border-top:1px solid #dfe3e6;
     overflow:hidden
 }
-.bx--accordion__item:focus{
-    outline:none
+.accordion__item:focus{
+    outline:none    
 }
-.bx--accordion__item:focus .bx--accordion__arrow{
-    outline:1px solid #3d70b2;
+.accordion__item:focus .accordion__arrow{
+    outline:1px solid #16c1f3;
     overflow:visible;
     outline-offset:-0.5px
 }
-.bx--accordion__item:last-child{
+.accordion__item:last-child{
     border-bottom:1px solid #dfe3e6
 }
-.bx--accordion__heading{
-    font-family:"ibm-plex-sans",Helvetica Neue,Arial,sans-serif;
+.accordion__heading{
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     letter-spacing:0;
@@ -45,18 +44,18 @@
     cursor:pointer;
     padding:.5rem 0
 }
-.bx--accordion__heading::-moz-focus-inner{
+.accordion__heading::-moz-focus-inner{
     border:0
 }
-.bx--accordion__heading:focus{
+.accordion__heading:focus{
     outline:none
 }
-.bx--accordion__heading:focus .bx--accordion__arrow{
-    outline:1px solid #3d70b2;
+.accordion__heading:focus .accordion__arrow{
+    outline:1px solid #16c1f3;
     overflow:visible;
     outline-offset:-0.5px
 }
-.bx--accordion__arrow{
+.accordion__arrow{
     transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
     height:1.25rem;
     width:1.25rem;
@@ -64,23 +63,20 @@
     margin:0 0 0 .25rem;
     fill:#5a6872
 }
-.bx--accordion__title{
+.accordion__title{
     margin:0 0 0 1rem
 }
-.bx--accordion__content{
+.accordion__content{
     transition:all 300ms cubic-bezier(0, 0, 0.25, 1);
     padding:0 1rem 0 2.5rem;
     height:0;
     visibility:hidden;
     opacity:0
 }
-.bx--accordion__content p{
-    font-size:0.875rem
-}
-.bx--accordion__item--active{
+.accordion__item--active{
     overflow:visible
 }
-.bx--accordion__item--active .bx--accordion__content{
+.accordion__item--active .accordion__content{
     padding-top:1rem;
     padding-bottom:1.5rem;
     height:auto;
@@ -88,28 +84,7 @@
     opacity:1;
     transition:all 300ms cubic-bezier(0.25, 0, 1, 1)
 }
-.bx--accordion__item--active .bx--accordion__arrow{
+.accordion__item--active .accordion__arrow{
     transform:rotate(90deg);
-    fill:#3d70b2
-}
-.bx--accordion.bx--skeleton .bx--accordion__heading,.bx--accordion.bx--skeleton .bx--accordion__button{
-    cursor:default
-}
-.bx--accordion.bx--skeleton .bx--accordion__arrow{
-    pointer-events:none;
-    fill:#5a6872;
-    cursor:default
-}
-.bx--accordion.bx--skeleton .bx--accordion__arrow:hover,.bx--accordion.bx--skeleton .bx--accordion__arrow:focus,.bx--accordion.bx--skeleton .bx--accordion__arrow:active{
-    border:none;
-    outline:none;
-    cursor:default
-}
-.bx--skeleton .bx--accordion__heading:focus .bx--accordion__arrow{
-    border:none;
-    outline:none;
-    cursor:default
-}
-.bx--accordion__title.bx--skeleton__text{
-    margin-bottom:0
+    fill:#16c1f3;
 }

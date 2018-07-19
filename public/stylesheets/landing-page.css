@@ -1,0 +1,36 @@
+.hero {
+    position: relative;
+    padding-top: 30px;
+}
+
+.bg-img {
+    height: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 0;
+}
+
+.content-wrapper--grad-overlay{
+    color: var(--white);
+}
+
+.content-wrapper--grad-overlay::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-image: -webkit-linear-gradient(top, rgba(20, 27, 46, 0.15) 0%,rgba(20, 27, 46, 0.3) 10%,rgba(20, 27, 46, 0.25) 60%,#001f35 100%),
+                      -webkit-linear-gradient(top, rgba(0,31,53,1) 0%, rgba(20, 27, 46,0) 100%);
+  }
+
+.content-wrapper--darkblue{
+    background: var(--very-dark-blue);
+    color: var(--white);
+}

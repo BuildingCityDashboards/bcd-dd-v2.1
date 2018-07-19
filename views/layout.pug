@@ -10,28 +10,33 @@ html(lang='en')
 
     title= title
 
+    link(rel='stylesheet', href='/stylesheets/bcd.css')
     link(rel='stylesheet', href='/stylesheets/side-menu.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/landing-page.css')
   
   block head
 
   body
-    div(id="root" role="region" aria-label="root container")
+    #root
       .wrapper
         include component/navbar.pug
+        
+        block navigation
+
         include component/side-menu.pug
         .bcd--container
           main
             //-add subnav.pug here if its the themes page
             block content
     
-    block scripts
     script(src="/javascripts/vendor/jquery/jquery.min.js")
     script(src="/javascripts/vendor/popper.js/umd/popper.min.js")
     script(src="/javascripts/vendor/bootstrap/js/bootstrap.min.js")
     script(src="/javascripts/side-menu.js")
+    block scripts
 
 
 

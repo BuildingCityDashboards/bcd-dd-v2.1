@@ -1,33 +1,38 @@
 extends layout
 
+//- Including component mixins
+include component/accordion
+
+block navigation
+    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard")
+
 block content
-    div(class="container")
+    div(class="container mt-5 py-5")
         div.row.my-5
-            div.col-sm-6
-                h2 Story One
-                ul(data-accordion class="bx--accordion")
-                    li(data-accordion-item class="bx--accordion__item")
-                        button(class="bx--accordion__heading" aria-expanded="false" aria-controls="pane1")
-                            p(class="bx--accordion__title") Read More
-                            svg(class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12")
-                                path(fill-rule="nonzero" d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z")
-                        div(id="pane1" class="bx--accordion__content lead")
-                            |Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                            |nisi ut aliquip ex ea commodo consequat.
-            div.col-sm-6
-                h2 Story Two
-                ul(data-accordion class="bx--accordion")
-                    li(data-accordion-item class="bx--accordion__item")
-                        button(class="bx--accordion__heading" aria-expanded="false" aria-controls="pane2")
-                            p(class="bx--accordion__title") Read More
-                            svg(class="bx--accordion__arrow" width="7" height="12" viewBox="0 0 7 12")
-                                path(fill-rule="nonzero" d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z")
-                        div(id="pane2" class="bx--accordion__content lead")
-                            |Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                            |nisi ut aliquip ex ea commodo consequat.
+            .col-sm-6
+              h2 Health Stories
+              +accordion("one")
+                +accordion-item("New Story One")
+                  |  Some content here
+                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  |nisi ut aliquip ex ea commodo consequat.
+                +accordion-item("New Story Two")
+                  |  Some content here
+                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  |nisi ut aliquip ex ea commodo consequat. 
+            .col-sm-6
+              h2 Education Stories
+              +accordion("two")
+                +accordion-item("New Story Three")
+                  |  Some content here
+                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                  |nisi ut aliquip ex ea commodo consequat. 
+
 block append scripts
-  script(src='https://unpkg.com/carbon-components/scripts/carbon-components.min.js')
+  script(src='/javascripts/accordion.js')
