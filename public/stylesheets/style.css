@@ -188,6 +188,31 @@ a {
   display: none;
 }
 
+.bg-dark {
+  background-color: #002035!important;
+  color: white;
+}
+
+.card{
+  background: transparent;
+}
+
+.border-blue{
+  border-color: var(--vivid-cyan);
+}
+
+.border-yellow{
+  border-color: var(--yellow);
+}
+
+.border-red{
+  border-color: var(--vivid-red);
+}
+
+.border-teal{
+  border-color: var(--teal);
+}
+
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
   .collape {

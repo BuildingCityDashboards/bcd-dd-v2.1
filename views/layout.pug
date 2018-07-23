@@ -16,6 +16,7 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/landing-page.css')
+    link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
   
   block head
 
@@ -31,11 +32,16 @@ html(lang='en')
           main
             //-add subnav.pug here if its the themes page
             block content
+     
+      include component/footer.pug
+
+      //- include component/scroll-to-top.pug
     
     script(src="/javascripts/vendor/jquery/jquery.min.js")
     script(src="/javascripts/vendor/popper.js/umd/popper.min.js")
     script(src="/javascripts/vendor/bootstrap/js/bootstrap.min.js")
     script(src="/javascripts/side-menu.js")
+    script(src="/javascripts/scrollprogress.js")
     block scripts
 
 

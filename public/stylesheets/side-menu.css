@@ -7,7 +7,6 @@
 
 .bcd--container{
     width: 100%;
-    transition: 250ms ease;
     overflow-x: hidden;
     display: -ms-flexbox;
     display: flex;
@@ -37,7 +36,7 @@
 }
 
 .side-menu {
-    width: 15.625rem;
+    width: 15.63rem;
     height: 100%;
     padding: 0 0 1rem;
     position: fixed;
@@ -64,10 +63,9 @@
     margin:0;
 }
 
-
 @media (max-width: 768px) {
     .side-menu {
-        margin-left: -250px;
+        margin-left: -15.63rem;
     }
     .side-menu.active {
         margin-left: 0;

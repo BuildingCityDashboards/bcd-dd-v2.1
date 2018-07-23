@@ -11,10 +11,6 @@ body {
 
 .hero{
   position: relative;
-  /* height: 100vh;
-  width: 100vw;
-  overflow: hidden; */
-  /* padding-top: 30px; */
 }
 .content-wrapper {
   min-height: calc(100vh - 56px);

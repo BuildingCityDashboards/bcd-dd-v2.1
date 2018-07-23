@@ -1,0 +1,39 @@
+.scroll-to-top {
+    position: fixed;
+    right: 15px;
+    bottom: 50%;
+    text-align: center;
+    color: white;
+    background: #343a40;
+    border: none;
+    border-radius: 50%;
+  }
+  
+  .scroll-to-top:focus, .scroll-to-top:hover {
+    color: white;
+  }
+  
+  .scroll-to-top:hover {
+    background: #343a40;
+  }
+  
+  .scroll-to-top i {
+    font-weight: 800;
+  }
+  
+  .progress-indicator {
+    width: 60px;
+    height: 60px;
+  }
+  
+  /* .holder-circle{
+    fill: #002035;
+  } */
+  
+  svg .animated-circle {
+    fill: transparent;
+    stroke-width: 3px;
+    stroke: var(--vivid-cyan);
+    stroke-dasharray: 157;
+    stroke-dashoffset: 157;
+  }

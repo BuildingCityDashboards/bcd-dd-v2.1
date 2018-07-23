@@ -6,37 +6,51 @@ include component/accordion
 block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard")
 
-block content
-    div(class="container mt-5 py-5")
-      header
-        h1= title
-        p Some description about the #{title}
+block content    
+      header.bg-dark.mt-5.py-5
+        .container
+         .col-sm-10
+            h1= title
+            p.lead Some description about the #{title}
+              |. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              |nisi ut aliquip ex ea commodo consequat.
+              |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              |nisi ut aliquip ex ea commodo consequat.
+              |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+              | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              |nisi ut aliquip ex ea commodo consequat.
       section
-        div.row.my-5
-            .col-sm-6
-              h2 Health Stories
-              +accordion("one")
-                +accordion-item("New Story One")
-                  |  Some content here
-                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  |nisi ut aliquip ex ea commodo consequat.
-                +accordion-item("New Story Two")
-                  |  Some content here
-                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  |nisi ut aliquip ex ea commodo consequat. 
-            .col-sm-6
-              h2 Education Stories
-              +accordion("two")
-                +accordion-item("New Story Three")
-                  |  Some content here
-                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  |nisi ut aliquip ex ea commodo consequat. 
+        .container
+          .row.my-5
+              .col-sm-8
+                h2 Health Stories
+                +accordion("one")
+                  +accordion-item("New Story One")
+                    |Some content here
+                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    |nisi ut aliquip ex ea commodo consequat.
+                  +accordion-item("New Story Two")
+                    |  Some content here
+                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    |nisi ut aliquip ex ea commodo consequat. 
+              .col-sm-8
+                h2 Education Stories
+                +accordion("two")
+                  +accordion-item("New Story Three")
+                    |  Some content here
+                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                    |nisi ut aliquip ex ea commodo consequat. 
 
 block append scripts
   script(src='/javascripts/accordion.js')
