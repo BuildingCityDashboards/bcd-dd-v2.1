@@ -1,0 +1,74 @@
+<!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />-->
+<!--<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"/>-->
+<!--<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"/>-->
+       
+<section id="page">
+    <!--<header>header</header>
+    <!--<nav>navbar</nav>-->
+    <!--<div class="sidebar">sidebar</div>-->
+    <div class="viz1">Main Visualisation
+        <div class="chart1">
+            <div id='map'></div>
+        </div>
+
+    </div>
+
+    <div class="context1">
+        <div>
+            <h1>Dublin Health Centers</h1>
+            <p> The map shows the locations of a variety of health 
+                service types across the county including hospitals, 
+                pharmacies etc. </p>
+            <p>
+                Select the map and charts to explore and find out more.
+            </p>
+   
+            <div class='dc-data-count'>
+                <p>The map currently shows <span class='filter-count'></span>
+                    <span id="type_filter_text"></span>
+                    out of a total of <span class='total-count'></span> 
+                    health locations.<br>
+                </p>
+            </div>
+        </div>
+
+        <div id="hospital-number">
+            <button type="button" id="hospital_button" value="0">
+                <img src="/images/themes/health/Hospital.png" style="width:30px; height:30px" alt=""/>
+                Hospitals</button>
+        </div>
+
+        <div id="gp-number">
+            <button type="button" id="gp_button" value="1">
+                <img src="/images/themes/health/GP.png" style="width:30px; height:30px" alt=""/>
+                General Practitioners</button>
+        </div>
+
+        <div id="pharmacy-number">
+            <button type="button" id="pharmacy_button" value="2">
+                <img src="/images/themes/health/Pharmacy.png" style="width:30px; height:30px" alt=""/>
+                Pharmacies</button>
+        </div>
+
+        <div id="healthCenter-number">
+            <button type="button" id="healthCenter_button" value="3">
+                <img src="/images/themes/health/HealthCenter.png" style="width:30px; height:30px" alt=""/>
+                Health Centers</button>
+        </div>
+
+        <div id="dentist-number">
+            <button type="button" id="dentist_button" value="4">
+                <img src="/images/themes/health/Dentist.png" style="width:30px; height:30px" alt=""/>
+                Dentists</button>
+        </div>
+        <div> <button type="button" autofocus id="all_button" value="4">Show All Health Locations</button>
+        </div>
+
+    </div>
+    <div>
+        <span id="chosen-type-text"></span>
+    </div>
+
+    <div class="context2" id="type-chart"></div>
+
+</section>

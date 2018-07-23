@@ -1,0 +1,225 @@
+/* 
+    Created on : 10-May-2018, 23:08:45
+    Author     : Liam
+*/
+
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+p, li, h3, a{
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: normal;
+    font-size: 14pt;
+    margin: 6px 10px 3px 10px;
+}
+b{  
+    
+    font-size: 14pt;
+}
+
+h1, h2 {  
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: bold;
+    text-align:left;
+    margin: 10px 10px 10px 10px;
+}
+
+span{
+    margin: 0px;
+}
+
+/*//mobile first*/
+.wrapper{
+    background-color: whitesmoke;
+    margin: 20px 20px 20px 20px;
+    display: grid;;
+    width:100%;
+    height: 1200px;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    /*grid-gap:1em;*/
+    /* grid-auto-rows:100px; */
+    /*grid-auto-rows: minmax(100px, auto);*/
+    grid-template-areas:
+        "v1"
+        "v2"
+        "ct" 
+        "bt"
+          
+        ;
+
+}
+
+.context-text{
+    text-align: justify;
+    text-justify: inter-word;
+    /*margin: 20px 8px 10px 8px;*/
+    grid-area: ct;
+}
+
+.button-table{
+    grid-area: bt;
+    margin: 0;
+}
+
+.viz1 {
+    height: 400px;
+    margin: 20px;
+    display: grid;
+    align-content: space-between;
+    grid-template-areas: 
+        "m" 
+        ;      
+    grid-template-columns: 1fr; 
+    grid-area: v1;
+}
+.viz2 {
+
+    display: grid;
+    align-content: space-between;
+    grid-template-areas: 
+        "tp"
+        ;      
+    grid-template-columns: 1fr; 
+    grid-area: v2;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
+    grid-area: m;
+}
+
+
+#type-pie{
+    grid-area: tp;
+}
+/*420
+@media screen and (min-width: 420px)  {
+    #page{
+        display: grid;
+        width:100%;
+        height: 600px;
+
+                grid-gap:1em;
+                grid-auto-rows:100px; 
+                grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+            "context1 v1 v1"        
+            "context2 v1 v1"
+            ;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 2px;
+
+    }
+}   
+iPad Pro
+@media screen and (min-width: 1024px)  {
+    #page{
+        display: grid;
+        width:100%;
+        height:600px ;
+        grid-gap:1em;
+         grid-auto-rows:100px; 
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+            "context1 v1 v1"        
+            "context2 v1 v1"
+            ;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 2px;
+
+    }
+}*/
+/*Desktop*/
+@media screen and (min-width: 1200px)  {
+    .wrapper{
+        margin: 25px 50px 50px 50px;
+        height: 700px;
+        width: auto;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 2fr;
+/*        grid-gap:1em;
+         grid-auto-rows:100px; 
+        grid-auto-rows: minmax(100px, auto);*/
+        grid-template-areas:
+            "ct v1"
+            "v2 v1"                      
+            "v2 v1";
+
+    }
+
+    .context-text{
+        text-align: justify;
+        text-justify: inter-word;
+        grid-area: ct;
+    }
+
+    
+    .viz1 {
+        height: 600px;
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "ln"
+            ;      
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto;
+        grid-area: v1;
+    }
+    .viz2 {
+        height: auto;
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "qs"
+            ;      
+        grid-template-columns: 1fr; 
+        grid-area: v2;
+    }
+
+    #line {
+        height: inherit;
+        width: 100%;
+        grid-area: ln;
+    }
+    
+    #qs {
+        height: inherit;
+        width: 100%;
+        grid-area: qs;
+        
+    }
+    
+    
+
+
+    
+
+}
+/*
+nested chart.js charts*/
+
+
+/*
+#page > div:nth-child(odd){
+    background-color: lightgrey;
+}*/
+/*
+
+page > div:nth-child(even){
+    background-color: white;
+}
+
+
+
+
+
+*/
+
+
