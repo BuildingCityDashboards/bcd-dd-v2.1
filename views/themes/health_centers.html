@@ -1,37 +1,97 @@
-<!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />-->
-<!--<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"/>-->
-<!--<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"/>-->
-       
-<section id="page">
-    <!--<header>header</header>
-    <!--<nav>navbar</nav>-->
-    <!--<div class="sidebar">sidebar</div>-->
-    <div class="viz1">Main Visualisation
-        <div class="chart1">
-            <div id='map'></div>
-        </div>
+<div class="wrapper">
+    <div class='context-text'>
+        <h1>Dublin Health Centers</h1>
+        <p> The map shows the locations of a variety of health 
+            service types across the county, including hospitals, 
+            pharmacies, dentists etc. <br></p>
 
+        <div class='dc-data-count'>
+            <p>Currently showing<br><span class='filter-count'></span>
+                <span class="filter-text" id="type-filter-text"></span>
+                <br>out of a total of<br><span class='total-count'></span><br> 
+                health locations.
+            </p>
+        </div>
+    </div>
+    <div class="button-table">
+        <table style="width:100%; text-align:center; 
+               font-family: 'Proxima Nova', sans-serif; font-weight: normal; font-size: 12pt;">
+            <tr>
+                <td>
+                    <input type="image" src="/images/themes/health/Hospital.png" id="hospital_button" style="width:60px; height:60px"/>
+                </td>
+                <td>
+                    <input type="image" src="/images/themes/health/GP.png" id="gp_button" style="width:60px; height:60px"/>
+                </td>
+                <td>
+                    <input type="image" src="/images/themes/health/Dentist.png" id="dentist_button" style="width:60px; height:60px"/>
+                </td>
+                <td>
+                    <input type="image" src="/images/themes/health/Pharmacy.png" id="pharmacy_button" style="width:60px; height:60px"/>
+                </td>
+
+                <td>
+                    <input type="image" src="/images/themes/health/HealthCenter.png" id="healthCenter_button" style="width:60px; height:60px"/>
+                </td>
+                <td>
+                    <input type="image" src="/images/themes/health/All.png" id="all_button" style="width:60px; height:60px"/>
+                </td>
+            </tr>
+            <tr>
+                <td><div id="buttonHead0" >Hospital</div></td>
+                <td><div id="buttonHead1" >General<br>Practice</div></td>
+                <td><div id="buttonHead2" >Dentist</div></td>
+                <td><div id="buttonHead3" >Pharmacy</div></td>
+                <td><div id="buttonHead4" >Health<br>Center</div></td>
+                <td><div id="buttonHead5" >Show<br>All</div></td>
+            </tr>
+        </table>
+    </div>            
+    <div class='viz1'>
+        <div id='map'></div>
+    </div>
+    <div class="viz2">
+        <!--<div id="type-pie"></div>-->
+    </div>
+</div>
+
+
+
+<!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css"/>-->
+
+<!--<section id="page">-->
+<!--<header>header</header>-->
+<!--<nav>navbar</nav>
+<div class="sidebar">sidebar</div>
+<div class="viz1">Main Visualisation
+    <div class="chart1">
+        <div id='map'></div>
     </div>
 
-    <div class="context1">
-        <div>
-            <h2>Dublin Health Centers</h2>
-            <p> The map shows the locations of a variety of health 
-                service types across the county including hospitals, 
-                pharmacies etc. </p>
-            <p>
-                Select the map and charts to explore and find out more.
-            </p>
-   
-            <div class='dc-data-count'>
-                <p>The map currently shows <span class='filter-count'></span>
-                    <span id="type_filter_text"></span>
-                    out of a total of <span class='total-count'></span> 
-                    health locations.<br>
-                </p>
-            </div>
-        </div>
+</div>
 
+<div class="context1">
+    <div>
+        <h2>Dublin Health Centers</h2>
+        <p> The map shows the locations of a variety of health 
+            service types across the county including hospitals, 
+            pharmacies etc. </p>
+        <p>
+            Select the map and charts to explore and find out more.
+        </p>
+
+        <div class='dc-data-count'>
+            <p>The map currently shows <br> <span class='filter-count'></span>
+                <span id="type_filter_text"></span> <br>
+                out of a total of <br><span class='total-count'></span><br> 
+                health locations.<br>
+            </p>
+        </div>
+    </div>
+
+    <div class='row'>
         <div id="hospital-number">
             <button type="button" id="hospital_button" value="0">
                 <img src="/images/themes/health/Hospital.png" style="width:30px; height:30px" alt=""/>
@@ -65,10 +125,11 @@
         </div>
 
     </div>
-    <div>
-        <span id="chosen-type-text"></span>
-    </div>
+</div>
+<div>
+    <span id="chosen-type-text">chosen type</span>
+</div>
 
-    <div class="context2" id="type-chart"></div>
+<div class="context2" id="type-chart"></div>
 
 </section>
