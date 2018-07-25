@@ -1,7 +1,7 @@
 - var sideLinks = { "HOME": "/", "THEMES": "/themes", "STORIES": "/stories", "TOOLS": "/tools", "QUERIES": "/queries"  }
 
 mixin nav-item(name, link)
-    li.nav-item
+    li.side-menu__nav-item
         a.nav-link.px-2(href=link)= name
 
 button.side-menu__toggler.side-menu__toggler--closed
@@ -14,6 +14,8 @@ nav.side-menu
         .side-menu__header 
             h3 BCD
         
-        ul.nav.navbar-nav
+        ul.side-menu__nav.nav.navbar-nav
             each val, key in sideLinks
                 +nav-item(key, val)
+
+        .side-menu__footer

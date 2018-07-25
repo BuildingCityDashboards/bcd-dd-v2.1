@@ -1,34 +1,17 @@
 /* Base Styles */
-/* NOTE */
-
 html {
+    font-family: sans-serif;
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -ms-overflow-style: scrollbar;
     -webkit-tap-highlight-color: transparent;
 }
+
 body {
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: 400;
     color: #313131;
     background: #f8f8f8; 
 }
-
-.land-page{ background: #001f35; }
-
-/* Typography */
-h1, h2, h3, h4 {
-    margin-top: 0;
-    margin-bottom: 1.2rem;
-}
-h1 { font-size: 3.75rem; font-weight: 700; }
-h2 { font-size: 3.0rem; font-weight: 700; }
-h3 { font-size: 2.25rem; }
-h4 { font-size: 1.5rem; }
-  
-p { margin-top: 0; }
   
 /* Links*/
   a {
@@ -48,45 +31,8 @@ p { margin-top: 0; }
     border-color: #888888; 
 }
 
-.container {
-  padding:0 15px;
-  width: 1280px;
-}
-
 a {
   color: #ffffff;
-}
-
-.menu {
-  background-color: #021420;
-  color: white;
-  width: 250px;
-  height: 100%;
-  position: fixed;
-  transition: all .5s;
-  z-index: 10;
-  left: 0;
-}
-
-.sidenav-toggled .menu {
-  left: -250px;
-}
-
-.menu-btn {
-  width: 80px;
-}
-
-.sticky {
-  background: #001f35;
-  transition: all 0.5s ease-in;
-}
-.sticky-brand {
-  opacity: 0;
-}
-
-.sticky .sticky-brand {
-  opacity: 1;
-  transition: all 0.5s ease-in;
 }
 
 .hamburger-btn {
@@ -131,14 +77,12 @@ a {
   background-color: transparent;
 }
 
-.splash{
-  text-align: center;
-}
-
+/* this should be in a map.css file */
 .country-on{
   fill: #63C1DE;
 }
 
+ /* charts */
 .line-chart{
   margin-right:40px;
   width:100%
@@ -184,19 +128,26 @@ a {
   stroke-width:0
 }
 
+/* do we need this? */
 .collapse:not(.show) {
   display: none;
 }
 
+/* this is used for the stories page it's a modifier for page title sections! */
 .bg-dark {
-  background-color: #002035!important;
+  background-color: var(--very-dark-blue)!important;
   color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
 }
 
+/* temp bootstrap override for the cards charts  */
 .card{
   background: transparent;
 }
 
+/* borders for the charts should be in charts.css */
 .border-blue{
   border-color: var(--vivid-cyan);
 }

@@ -8,17 +8,6 @@
     border-top:1px solid #dfe3e6;
     overflow:hidden
 }
-.accordion__item:focus{
-    outline:none    
-}
-.accordion__item:focus .accordion__arrow{
-    outline:1px solid #16c1f3;
-    overflow:visible;
-    outline-offset:-0.5px
-}
-.accordion__item:last-child{
-    border-bottom:1px solid #dfe3e6
-}
 .accordion__heading{
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -44,6 +33,32 @@
     cursor:pointer;
     padding:.5rem 0
 }
+.accordion__arrow{
+    transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
+    height:1.25rem;
+    width:1.25rem;
+    padding:.25rem .125rem .25rem .25rem;
+    margin:0 0 0 .25rem;
+    fill:#5a6872
+}
+.accordion__content{
+    transition:all 300ms cubic-bezier(0, 0, 0.25, 1);
+    padding:0 1rem 0 2.5rem;
+    height:0;
+    visibility:hidden;
+    opacity:0
+}
+.accordion__item:focus{
+    outline:none    
+}
+.accordion__item:focus .accordion__arrow{
+    outline:1px solid #16c1f3;
+    overflow:visible;
+    outline-offset:-0.5px
+} 
+.accordion__item:last-child{
+    border-bottom:1px solid #dfe3e6
+}
 .accordion__heading::-moz-focus-inner{
     border:0
 }
@@ -54,24 +69,6 @@
     outline:1px solid #16c1f3;
     overflow:visible;
     outline-offset:-0.5px
-}
-.accordion__arrow{
-    transition:all 250ms cubic-bezier(0.5, 0, 0.1, 1);
-    height:1.25rem;
-    width:1.25rem;
-    padding:.25rem .125rem .25rem .25rem;
-    margin:0 0 0 .25rem;
-    fill:#5a6872
-}
-.accordion__title{
-    margin:0 0 0 1rem
-}
-.accordion__content{
-    transition:all 300ms cubic-bezier(0, 0, 0.25, 1);
-    padding:0 1rem 0 2.5rem;
-    height:0;
-    visibility:hidden;
-    opacity:0
 }
 .accordion__item--active{
     overflow:visible
@@ -88,3 +85,10 @@
     transform:rotate(90deg);
     fill:#16c1f3;
 }
+
+/* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
+@media screen and (prefers-reduced-motion: reduce) {
+    .accordion__item, .accordion__arrow{
+      transition: none;
+    }
+  }

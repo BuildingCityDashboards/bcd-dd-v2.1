@@ -10,32 +10,33 @@ html(lang='en')
 
     title= title
 
-    link(rel='stylesheet', href='/stylesheets/bcd.css')
-    link(rel='stylesheet', href='/stylesheets/side-menu.css')
     link(rel='stylesheet', href='/stylesheets/bootstrap/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/accordion.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    
     link(rel='stylesheet', href='/stylesheets/landing-page.css')
+    link(rel='stylesheet', href='/stylesheets/bcd-root.css')
+    link(rel='stylesheet', href='/stylesheets/base-style.css')
+    link(rel='stylesheet', href='/stylesheets/type.css')
+    link(rel='stylesheet', href='/stylesheets/side-menu.css')
+    link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
   
   block head
 
-  body
-    #root
-      .wrapper
-        include component/navbar.pug
+  body.page
+    .page__root
+      include component/navbar.pug
         
-        block navigation
+      block navigation
 
-        include component/side-menu.pug
-        .bcd--container
-          main
-            //-add subnav.pug here if its the themes page
-            block content
+      include component/side-menu.pug
+      .bcd--container
+        main
+          //-add subnav.pug here if its the themes page
+          block content
      
-      include component/footer.pug
+    include component/footer.pug
 
-      //- include component/scroll-to-top.pug
+    //- include component/scroll-to-top.pug
     
     script(src="/javascripts/vendor/jquery/jquery.min.js")
     script(src="/javascripts/vendor/popper.js/umd/popper.min.js")

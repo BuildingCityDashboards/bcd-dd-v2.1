@@ -4,6 +4,7 @@
 }
 
 .bg-img {
+    min-height: 662px;
     height: 100%;
     left: 0;
     right: 0;
@@ -33,4 +34,12 @@
 .content-wrapper--darkblue{
     background: var(--very-dark-blue);
     color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+}
+
+.about__header{
+    font-size:2rem;
+    text-transform:uppercase;
 }
