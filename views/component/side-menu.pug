@@ -1,20 +1,23 @@
-- var sideLinks = { "HOME": "/", "THEMES": "/themes", "STORIES": "/stories", "TOOLS": "/tools", "QUERIES": "/queries"  }
+- var sideLinks = { "HOME": "", "THEMES": "themes", "STORIES": "stories", "QUERIES": "queries", "TOOLS": "tools"  }
 
 mixin nav-item(name, link)
     li.side-menu__nav-item
-        a.nav-link.px-2(href=link)= name
+        a.side-menu__nav-link(href="/"+link)
+            +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
+            span= name
 
-button.side-menu__toggler.side-menu__toggler--closed
-    div(class='hamburger-btn')
-        div(class='bar1') 
-        div(class='bar2')
-        div(class='bar3')
+button.side-menu__toggler
+    .menu-button
+        .menu-button__bar.menu-button__bar--top 
+        .menu-button__bar.menu-button__bar--middle 
+        .menu-button__bar.menu-button__bar--bottom
 
 nav.side-menu
         .side-menu__header 
-            h3 BCD
+            img.side-menu__img(src="../images/bcd-logo.png" alt="BCD-Logo")
+            h3.side-menu__h3 BCD
         
-        ul.side-menu__nav.nav.navbar-nav
+        ul.side-menu__nav
             each val, key in sideLinks
                 +nav-item(key, val)
 
