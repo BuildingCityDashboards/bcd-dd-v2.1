@@ -1,0 +1,25 @@
+/* Root Variables */
+:root {
+  --dark-grey: #313131;
+  --white: #ffffff;
+  --light-blue: #aae0fa;
+  --teal: #00929e;
+  --yellow: #ffc20e;
+  --vivid-cyan: #16c1f3;
+  --vivid-red: #da1e4d;
+  --strong-blue: #086fb8;
+  --dark-blue:#003d68;
+  --very-dark-blue:#001f35;
+  --brown: #8c3529;
+  --soft-blue: #6f9ceb;
+  --grayish-blue: #6d7c8f;
+  --very-light-grey: #f8f8f8;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+

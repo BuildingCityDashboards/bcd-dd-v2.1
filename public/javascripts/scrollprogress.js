@@ -12,19 +12,19 @@ $(window).on('load', function(){
     // get sizes of the window and the body 
     function setSizes(){
         wh = $w.height();
-        console.log("window height"+wh);
+        // console.log("window height"+wh);
         h = $('body').height();
-        console.log("body height is "+h);
+        // console.log("body height is "+h);
         // get the  final scroll value
         scrollHeight = h - wh;
-        console.log(scrollHeight);
+        // console.log(scrollHeight);
     };
 
     // calculate the offset using the circumference and percentage
     // update the dashoffset    
     function updateProgress(perc){
         var circle_offset = circumference * perc;
-        console.log(circle_offset);
+        // console.log(circle_offset);
         $circle.css({
             "stroke-dashoffset" : circumference - circle_offset
         });
@@ -36,7 +36,7 @@ $(window).on('load', function(){
     $w.on('scroll', function(){
         // get percentage using Math max and min to limit the range 0-100
         var perc = Math.max(0, Math.min(1, $w.scrollTop()/scrollHeight));
-        console.log(perc);
+        // console.log(perc);
         updateProgress(perc);
     }).on('resize', function(){
         setSizes();

@@ -1,6 +1,7 @@
 extends layout
 
 block append head
+  link(rel='stylesheet', href='/stylesheets/icon-nav.css')
 
 block navigation
 
@@ -16,7 +17,6 @@ block content
           include component/carousel-charts.pug
           //- include component/searchbar.pug
           include component/icon-nav.pug
-          #include testHTML.html
 
   section.map
     .content-wrapper.content-wrapper--darkblue
