@@ -6,7 +6,7 @@ var select1 = dc.selectMenu('#select1'),
         select3 = dc.selectMenu('#select3'),
         dataTable = dc.dataTable('#datatable');
 
-var xRecords; //the crossfilter
+var hospitalRecords; //the crossfilter
 var nameDim, specialityDim, ageDim, dateDim, yearDim, allDim, waitDim; //some dimensions for analysis
 var nameGroup, specialityGroup, ageGroup, dateGroup, yearGroup, waitGroup, allGroup; //some groupings 
 
@@ -14,17 +14,19 @@ var nameGroup, specialityGroup, ageGroup, dateGroup, yearGroup, waitGroup, allGr
 d3.csv("/data/OP_Waiting_Lists_Dublin_Hospitals_2014-2018_2.csv").then(function (opWaitData) {
     /*Hospital Data*****************************/
 //                            console.log("opWaitData- \n" + opWaitData.length);
-    processData(opWaitData);
+    processHospitals(opWaitData);
 
 });
 
-function processData(opWData) {
+function processHospitals(opWData) {
     opWData.forEach(function (d) {
 //                    set up useful properties for the data
         d.count = +d.Count; //coorece to a number
 //                    d.dateString = d.ArchiveDate; //date stored as a string
-        var format = d3.time.format("%d/%m/%Y");
-        d.date = format.parse(d.ArchiveDate); // date stored in JS Date format
+//        var format = d3.time.format("%d/%m/%Y");
+//        d.date = format.parse(d.ArchiveDate); // date stored in JS Date format
+        var timeParse = d3.timeParse("%d/%m/%Y");
+        d.date = timeParse(d.ArchiveDate); // date stored in JS Date format
         d.wait = d["Time Bands"]; //we can add a more standardised property than the raw column names
         d.age = d["AgeProfile"]; //note this adds more fields to the data
         d.name = d["Hospital"];
@@ -32,58 +34,58 @@ function processData(opWData) {
         d.year = d.date.getFullYear();
     }
     );
-    xRecords = crossfilter(opWData);
-//                    console.log("cf: " + xRecords.size());
+    hospitalRecords = crossfilter(opWData);
+//                    console.log("cf: " + hospitalRecords.size());
 
 //                    specify which property will serve as the accessor for the dimension
 //                    this is used to order the dimension (??? correct ???)
-    nameDim = xRecords.dimension(function (d) {
+    nameDim = hospitalRecords.dimension(function (d) {
         return d.name;
     });
     nameGroup = nameDim.group();
 //                    console.log("nameDim: " + JSON.stringify(nameDim.top(3)));
     console.log("nameGroup: " + JSON.stringify(nameGroup.all()));
 
-    specialityDim = xRecords.dimension(function (d) {
+    specialityDim = hospitalRecords.dimension(function (d) {
         return d.speciality;
     });
     specialityGroup = specialityDim.group();
 //                    console.log("specialityDim: " + JSON.stringify(specialityDim.top(3)));
 //                    console.log("specialityGroup: " + JSON.stringify(specialityGroup.all()));
 
-    ageDim = xRecords.dimension(function (d) {
+    ageDim = hospitalRecords.dimension(function (d) {
         return d.age;
     });
     ageGroup = ageDim.group();
 //                    console.log("ageDim: " + JSON.stringify(ageDim.top(3)));
 //                    console.log("ageGroup: " + JSON.stringify(ageGroup.all()));
 
-//                dateStringDim = xRecords.dimension(function (d) {
+//                dateStringDim = hospitalRecords.dimension(function (d) {
 //                    return d.dateString;
 //                });
 //                dateStringGroup = dateStringDim.group();
     //as dates are strings, groups will not be ordered in chronological order...
 //                    console.log("\ndateStringGroup.all(): " + JSON.stringify(dateStringGroup.all()));
 
-    dateDim = xRecords.dimension(function (d) {
+    dateDim = hospitalRecords.dimension(function (d) {
         return d.date;
     });
     dateGroup = dateDim.group();
     //as dates are formatted, groups will be ordered chronologically...
 //                    console.log("\ndateGroup.all(): " + JSON.stringify(dateGroup.all()));
 //                    console.log("\ndateGroup.top(1)[0]: " + JSON.stringify(dateGroup.top(1)[0]));
-    yearDim = xRecords.dimension(function (d) {
+    yearDim = hospitalRecords.dimension(function (d) {
         return d.year;
     });
     yearGroup = yearDim.group();
 
 
-    waitDim = xRecords.dimension(function (d) {
+    waitDim = hospitalRecords.dimension(function (d) {
         return d.wait;
     });
     waitGroup = waitDim.group();
 
-    allDim = xRecords.dimension(function (d) {
+    allDim = hospitalRecords.dimension(function (d) {
         return d;
     });
     allGroup = allDim.groupAll();
@@ -188,7 +190,7 @@ function makeCharts() {
             .stack(wait_15_18_Group, '15-18 Months')
             .stack(wait_18Plus_Group, '18+ Months')
             .transitionDuration(750)
-            .x(d3.time.scale().domain([earliest, latest]))
+            .x(d3.scaleTime().domain([earliest, latest]))
             .elasticY(true)
             .yAxis().ticks(4)
             ;
@@ -250,7 +252,7 @@ function makeCharts() {
                     console.log("Click on legend: " + nme);
                     waitDim.filter(nme);
                     dc.redrawAll();
-                })
+                });
     });
 
 
@@ -315,7 +317,7 @@ function makeCharts() {
             .order(d3.descending)
             .size(Infinity)
             ;
-    update();
+//    update();
 //                dataTable.render();
 
 
@@ -367,7 +369,7 @@ function makeCharts() {
 //                            .yAxis().ticks(4);
 
 //                    add all charts/ dc elements we want to co-interact to an array for ease
-    var dcCharts = [timeLine, select1, select2, select3, dataTable];
+    var dcCharts = [timeLine, select1, select2, select3]; //, dataTable];
 
 //                    use underscore each to check all the interactive elements 
     _.each(dcCharts, function (dcChart) {
@@ -402,36 +404,36 @@ function makeCharts() {
     dc.renderAll();
 
 }
-
-// use odd page size to show the effect better
-var ofs = 0, pag = 17;
-function display() {
-    d3.select('#begin')
-            .text(ofs);
-    d3.select('#end')
-            .text(ofs + pag - 1);
-    d3.select('#last')
-            .attr('disabled', ofs - pag < 0 ? 'true' : null);
-    d3.select('#next')
-            .attr('disabled', ofs + pag >= xRecords.size() ? 'true' : null);
-    d3.select('#size').text(xRecords.size());
-}
-function update() {
-    dataTable.beginSlice(ofs);
-    dataTable.endSlice(ofs + pag);
-    display();
-}
-function next() {
-    ofs += pag;
-    update();
-    dataTable.redraw();
-}
-function last() {
-    ofs -= pag;
-    update();
-    dataTable.redraw();
-}
-
+//
+//// use odd page size to show the effect better
+//var ofs = 0, pag = 17;
+//function display() {
+//    d3.select('#begin')
+//            .text(ofs);
+//    d3.select('#end')
+//            .text(ofs + pag - 1);
+//    d3.select('#last')
+//            .attr('disabled', ofs - pag < 0 ? 'true' : null);
+//    d3.select('#next')
+//            .attr('disabled', ofs + pag >= hospitalRecords.size() ? 'true' : null);
+//    d3.select('#size').text(hospitalRecords.size());
+//}
+//function update() {
+//    dataTable.beginSlice(ofs);
+//    dataTable.endSlice(ofs + pag);
+//    display();
+//}
+//function next() {
+//    ofs += pag;
+//    update();
+//    dataTable.redraw();
+//}
+//function last() {
+//    ofs -= pag;
+//    update();
+//    dataTable.redraw();
+//}
+//
 
 
 //                    opWaitData.forEach(function (d) {
@@ -440,60 +442,5 @@ function last() {
 ////                        allHospitalData = allHospitalData.concat(d); //need to concat to add each new array element
 //                    });
 //                    console.log("# records for OP wait data" + allHospitalData.length + "\n");
-
-
-//                var chart = dc.barChart("#test");
-//                d3.csv("morley.csv").then(function (experiments) {
-//
-//                    experiments.forEach(function (x) {
-//                        x.Speed = +x.Speed;
-//                    });
-//
-//                    var ndx = crossfilter(experiments),
-//                            runDimension = ndx.dimension(function (d) {
-//                                return +d.Run;
-//                            }),
-//                            speedSumGroup = runDimension.group().reduce(function (p, v) {
-//                        p[v.Expt] = (p[v.Expt] || 0) + v.Speed;
-//                        return p;
-//                    }, function (p, v) {
-//                        p[v.Expt] = (p[v.Expt] || 0) - v.Speed;
-//                        return p;
-//                    }, function () {
-//                        return {};
-//                    });
-//
-//                    function sel_stack(i) {
-//                        return function (d) {
-//                            return d.value[i];
-//                        };
-//                    }
-//
-//                    chart
-//                            .width(768)
-//                            .height(480)
-//                            .x(d3.scaleLinear().domain([1, 21]))
-//                            .margins({left: 80, top: 20, right: 10, bottom: 20})
-//                            .brushOn(false)
-//                            .clipPadding(10)
-//                            .title(function (d) {
-//                                return d.key + '[' + this.layer + ']: ' + d.value[this.layer];
-//                            })
-//                            .dimension(runDimension)
-//                            .group(speedSumGroup, "1", sel_stack('1'))
-//                            .renderLabel(true);
-//
-//                    chart.legend(dc.legend());
-//
-//                    dc.override(chart, 'legendables', function () {
-//                        var items = chart._legendables();
-//                        return items.reverse();
-//                    });
-//
-//                    for (var i = 2; i < 6; ++i)
-//                        chart.stack(speedSumGroup, '' + i, sel_stack(i));
-//                    chart.render();
-//
-//                });
 
 

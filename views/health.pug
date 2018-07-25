@@ -13,11 +13,11 @@ block content
     .container.mt-5.py-5
         
         h1= title
-        p Welcome to #{title}
-        p Health Centers
+        //p Welcome to #{title}
+        //p Health Centers
         include themes/health_centers.html
-        p Hospitals
-        //        include themes/hospitals.html
+        //p Hospitals
+        //include themes/hospitals.html
 
 
 block append scripts
@@ -26,11 +26,8 @@ block append scripts
         script(src="http://code.jquery.com/jquery-2.1.0.min.js")       
         script(src="/lib/proj4.js" type="text/javascript")
         script(src="/lib/crossfilter.js" type="text/javascript")
-        //              script(src="/lib/d3v355/d3.min.js" type="text/javascript")
-        script(src="/lib/d3v5/d3.js" type="text/javascript")
+        script(src="https://d3js.org/d3.v5.js" type="text/javascript")
         script(src="/lib/dc.js" type="text/javascript")
         script(src="/lib/underscore-min.js" type="text/javascript")
         script(src="/lib/queue.js" type="text/javascript")
         script(src="/javascripts/themes/health_centers.js" type="text/javascript")
-        //script(src="/javascripts/themes/hospitals.js" type="text/javascript")
-        //        script(src="/javascripts/test.js")

@@ -1,21 +1,23 @@
 /* 
+    Created on : 10-May-2018, 23:08:45
     Author     : Liam
 */
+
 
 *{
     margin: 0;
     padding: 0;
-    /*background-color: goldenrod;*/
-    /*box-sizing: border-box; padding and border are included in the total width and height of the elements*/
-    /*border: solid 2px #e5e5e5;*/
-
 }
 
 p, li, h3, a{
     font-family: 'Proxima Nova', sans-serif;
     font-weight: normal;
-    margin: 6px 10px 6px 10px;
-
+    font-size: 14pt;
+    margin: 6px 10px 3px 10px;
+}
+b{  
+    
+    font-size: 14pt;
 }
 
 h1, h2 {  
@@ -25,22 +27,14 @@ h1, h2 {
     margin: 10px 10px 10px 10px;
 }
 
-img, span{
+span{
     margin: 0px;
-}
-
-/*For text included with dc-data-count*/
-.filter-text{
-    color: #3182bd;
-    font-weight: bold;
-    font-size: 30px; 
-
 }
 
 /*//mobile first*/
 .wrapper{
     background-color: whitesmoke;
-    margin: 20px 0px 20px 0px;
+    margin: 20px 20px 20px 20px;
     display: grid;;
     width:100%;
     height: 1200px;
@@ -50,11 +44,11 @@ img, span{
     /* grid-auto-rows:100px; */
     /*grid-auto-rows: minmax(100px, auto);*/
     grid-template-areas:
-        "ct" 
-        "v1"       
-        "bt"
+        "v1"
         "v2"
-
+        "ct" 
+        "bt"
+          
         ;
 
 }
@@ -145,21 +139,18 @@ iPad Pro
 /*Desktop*/
 @media screen and (min-width: 1200px)  {
     .wrapper{
-        margin: 20px 0px 20px 0px;;
+        margin: 25px 50px 50px 50px;
         height: 700px;
         width: auto;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns: 1fr 2fr;
-        /*        grid-gap:1em;
-                 grid-auto-rows:100px; 
-                grid-auto-rows: minmax(100px, auto);*/
+/*        grid-gap:1em;
+         grid-auto-rows:100px; 
+        grid-auto-rows: minmax(100px, auto);*/
         grid-template-areas:
             "ct v1"
-            "ct v1"
-            "ct v1"
-            "v2 bt"
-
-            ;
+            "v2 v1"                      
+            "v2 v1";
 
     }
 
@@ -169,49 +160,66 @@ iPad Pro
         grid-area: ct;
     }
 
-    .button-table{
-        grid-area: bt;
-    }
-
+    
     .viz1 {
-        height: 500px;
+        height: 600px;
         display: grid;
         align-content: space-between;
         grid-template-areas: 
-            "map"
+            "ln"
             ;      
         grid-template-columns: 1fr; 
         grid-template-rows: auto;
         grid-area: v1;
     }
     .viz2 {
-
+        height: auto;
         display: grid;
         align-content: space-between;
         grid-template-areas: 
-            "tp"
+            "qs"
             ;      
         grid-template-columns: 1fr; 
         grid-area: v2;
     }
 
-    #map {
+    #line {
         height: inherit;
         width: 100%;
-        grid-area: map;
+        grid-area: ln;
     }
+    
+    #qs {
+        height: inherit;
+        width: 100%;
+        grid-area: qs;
+        
+    }
+    
+    
 
 
-    #type-pie{
-        grid-area: tp;
-    }
+    
 
 }
 /*
 nested chart.js charts*/
 
 
-
+/*
 #page > div:nth-child(odd){
     background-color: lightgrey;
+}*/
+/*
+
+page > div:nth-child(even){
+    background-color: white;
 }
+
+
+
+
+
+*/
+
+

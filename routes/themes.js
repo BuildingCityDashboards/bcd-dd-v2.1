@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET themes page. */
 router.get('/', function(req, res, next) {
-  res.render('themes', { title: 'Themes Page' });
+  res.redirect('/themes/health');
 });
 
 router.get('/health', function(req, res, next) {
