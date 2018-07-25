@@ -11,7 +11,7 @@ var nameDim, specialityDim, ageDim, dateDim, yearDim, allDim, waitDim; //some di
 var nameGroup, specialityGroup, ageGroup, dateGroup, yearGroup, waitGroup, allGroup; //some groupings 
 
 
-d3.csv("data/OP_Waiting_Lists_Dublin_Hospitals_2014-2018_2.csv").then(function (opWaitData) {
+d3.csv("/data/OP_Waiting_Lists_Dublin_Hospitals_2014-2018_2.csv").then(function (opWaitData) {
     /*Hospital Data*****************************/
 //                            console.log("opWaitData- \n" + opWaitData.length);
     processData(opWaitData);

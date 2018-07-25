@@ -1,0 +1,162 @@
+<!--<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dublin Hospital Waiting Lists</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         data and charting
+        <script src="vendor/crossfilter.js" type="text/javascript"></script>
+        <script src="http://d3js.org/d3.v3.js"></script>
+        <script src="https://d3js.org/d3.v5.js"></script>
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+
+        <script src="vendor/dc.js" type="text/javascript"></script>
+        <script src="vendor/underscore-min.js" type="text/javascript"></script>
+        <link href="css/dc.css" rel="stylesheet" type="text/css"/>
+        <link href="css/dc.css" rel="stylesheet" type="text/css"/>
+        <link href="css/hospital_wait_grid.css" rel="stylesheet" type="text/css"/>
+        <style>
+            .dc-chart g.chart-body {
+                clip-path: none;
+            }
+        </style>
+        <style>
+
+/*      body {
+        font: 1.1em sans-serif;
+      }*/
+
+      #cal{
+        width: 800px;
+        margin: 0 auto;
+      }
+/*      .background {
+        fill: #eee;
+      }*/
+
+      line {
+        stroke: #fff;
+      }
+
+      text.active {
+        fill: red;
+      }
+
+      .day {
+        fill: #fff;
+        stroke: #ccc;
+      }
+
+      .month {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+      .year-title {
+        font-size: 1.5em;
+      }
+
+      /* color ranges */
+      .RdYlGn .q0-11{fill:rgb(165,0,38)}
+      .RdYlGn .q1-11{fill:rgb(215,48,39)}
+      .RdYlGn .q2-11{fill:rgb(244,109,67)}
+      .RdYlGn .q3-11{fill:rgb(253,174,97)}
+      .RdYlGn .q4-11{fill:rgb(254,224,139)}
+      .RdYlGn .q5-11{fill:rgb(255,255,191)}
+      .RdYlGn .q6-11{fill:rgb(217,239,139)}
+      .RdYlGn .q7-11{fill:rgb(166,217,106)}
+      .RdYlGn .q8-11{fill:rgb(102,189,99)}
+      .RdYlGn .q9-11{fill:rgb(26,152,80)}
+      .RdYlGn .q10-11{fill:rgb(0,104,55)}
+
+      /* hover info */
+      #tooltip {
+        background-color: #fff;
+        border: 2px solid #ccc;
+        padding: 10px;
+      }
+
+    </style>
+
+    </head>
+    <body>-->
+        <div class ='wrapper'>
+            <div class='context-text'>
+                <h1>Dublin Hospital Waiting Lists</h1>
+                <div id="text">
+                    <p>The chart currently shows waiting periods over time for 
+                        <b><span id="specialism_text">all types of treatment</span></b>,
+                        at <b><span id="hospital_text">all hospitals</span></b>, 
+                        for patients <b><span id="age_text"> of all ages</span></b>.</p>
+                    </div>
+            </div>
+            <div class="viz1">
+
+                <div id="line">
+                </div>
+
+            </div>
+            <div class ='vis2'>
+                <div id='qs' >
+                    <p>
+                        Do you have an upcoming treatment or procedure?<br> 
+                    You can see 
+                    how long people have waited for it by selecting options from the menus 
+                    below.
+                    </p>
+                    <div id="select2" style="width:100%" >
+                        <div>
+                            <h3>Choose your treatment type or specialization:</h3>
+                            <a class='reset'
+                               href='javascript:select2.filterAll();dc.redrawAll();'
+                               style='visibility: hidden;'>Reset</a>
+                        </div>
+                    </div>
+                    <div id="select3" style="width:100%" >
+                        <div>
+                            <h3>Choose your age range below:</h3>
+                            <a class='reset'
+                               href='javascript:select3.filterAll();dc.redrawAll();'
+                               style='visibility: hidden;'>Reset</a>
+                        </div>
+                    </div>
+                    <div id="select1" style="width:100%">
+                        <div>
+                            <h3>Choose a hospital:</h3>
+                            <a class='reset'
+                               href='javascript:select1.filterAll();dc.redrawAll();'
+                               style='visibility: hidden;'>Reset</a>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+
+
+        </div>
+        
+          <div id="cal" class="clearfix"></div>
+        
+        <!--        <div class="container">
+        -->            
+
+<!--                    </div>
+                    <div id='table_div'>
+                        <p>The most common waiting time for the chosen options is
+                            ranked in the table below</p>
+                        <table id="datatable">
+                        </table>
+                        <div id="paging">
+                            Showing <span id="begin"></span>-<span id="end"></span> of <span id="size"></span>.
+                            <input id="last" class="btn" type="Button" value="Previous" onclick="javascript:last()" />
+                            <input id="next" class="btn" type="button" value="Next" onclick="javascript:next()"/>
+                        </div>
+                    </div>-->
+                <!--</div>-->
+                <!--
+        -->
+
+
+<!--<script src="js/hospitals.js" type="text/javascript"></script>
+
+    </body>
+</html>-->
