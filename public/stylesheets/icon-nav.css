@@ -10,18 +10,25 @@
     border: none;
 }
 
-.icon-nav svg{
-    max-width: 50px;
-    max-height: 50px;
-}
-
 .q-mark {
     width:20px;
 }
 
-.cls-1 {
+.icon {
     fill: none;
-    stroke: #fff;
+    stroke: #ffffff;
     stroke-linecap: round;
     stroke-miterlimit: 10;
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.icon--small{
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+    stroke-width: 2px;
+    stroke:#d1d1d1cf;
+    float: left;
+    margin-right: 1rem;
+    margin-top: .25rem;
 }

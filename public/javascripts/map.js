@@ -70,7 +70,7 @@ function renderMap(root) {
     .append("path")
     .attr("d", path)
     .attr("fill", "#001F35")
-    .attr("stroke", "#FFF")
+    .attr("stroke", "#d1d1d182")
     .attr("stroke-width", 1)
     .attr("class", "country")
     .on("mouseover", mouseOverHandler)

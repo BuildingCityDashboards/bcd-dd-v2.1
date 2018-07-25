@@ -1,0 +1,38 @@
+// List of all icons here
+svg(xmlns='http://www.w3.org/2000/svg', style="display:none")
+  defs
+    symbol#icon__themes(viewbox='0 0 50 50')
+        polyline(points="2.42 26.42 17.42 17.03 28.1 23.59 41.37 11.32")
+        polyline(points="0.5 36.28 47.16 36.28 47.16 0.5")
+    symbol#icon__stories(viewbox='0 0 50 50')
+        path(d="M-288.25-118.56h9.12a4.44,4.44,0,0,0,4.63-4.26v-22.34a4.5,4.5,0,0,0-4.63-4.34h-35.74a4.5,4.5,0,0,0-4.63,4.34v22.34a4.44,4.44,0,0,0,4.63,4.26l17.87.14,8.24,7.26" transform="translate(320 150)")
+        line(x1="6.27" y1="9.74" x2="19.48" y2="9.74")
+        line(x1="6.27" y1="16.09" x2="15" y2="16.09")
+        polyline(points="26.98 20.47 29.61 15.13 34.13 20.28 38.63 10.64")
+        line(x1="6.27" y1="22.47" x2="19.48" y2="22.47")
+    symbol#icon__queries(viewBox='0 0 24 24')
+        path(fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', d='M20,9c0,4.9-8,13-8,13 S4,13.9,4,9c0-5.1,4.1-8,8-8S20,3.9,20,9z', stroke-linejoin='miter')
+        circle(data-color='color-2', fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', cx='12', cy='9', r='3', stroke-linejoin='miter')
+    symbol#icon__tools(viewBox='0 0 50 50')
+        path(d="M29.28,15.61l-2.73-4,2.73-3.53h9.17a10.27,10.27,0,0,0-9.17-6.43,10,10,0,0,0-9.72,12.16h0L5,29.29a4.72,4.72,0,0,0,6.71,6.65L26.78,21.25h0A10,10,0,0,0,38.41,15.6H29.28Z")
+        path(d="M30,25.52l6.8,6.3c2,1.89,2.72,4.52,1.51,5.83h0c-1.21,1.31-3.88.83-5.93-1.07l-6.8-6.3Z")
+        line(x1="24.02" y1="31.95" x2="25.62" y2="30.28")
+        line(x1="31.9" y1="23.66" x2="30.04" y2="25.52")
+        line(x1="23.37" y1="24.58" x2="27.11" y2="28.4")
+        line(x1="24.47" y1="23.66" x2="28.18" y2="27.44")
+        path(d="M17.24,16.28,11.62,10.4h0a4.08,4.08,0,0,0-1.09-4.69L5.12.71.71,5.47l5.4,5a4.06,4.06,0,0,0,4.39,1h0l5.76,5.88")
+    symbol#icon__(viewbox='0 0 24 24')
+        path(fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', d='M20,9c0,4.9-8,13-8,13 S4,13.9,4,9c0-5.1,4.1-8,8-8S20,3.9,20,9z', stroke-linejoin='miter')
+        circle(data-color='color-2', fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', cx='12', cy='9', r='3', stroke-linejoin='miter')
+
+// Mixins, used on or off of the page
+mixin svg(svg_url, svg_id)
+  if svg_id
+    svg()&attributes(attributes)
+      use(xlink:href= svg_url + '#' + svg_id)
+  else
+    svg()&attributes(attributes)
+      use(xlink:href= svg_url)
+
+//- a.action(href="#!")
+//-   +svg("","location")(class="icon-md icon-stroke")

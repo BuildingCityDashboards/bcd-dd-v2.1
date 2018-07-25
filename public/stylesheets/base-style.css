@@ -35,48 +35,6 @@ a {
   color: #ffffff;
 }
 
-.hamburger-btn {
-  position: relative;
-  display: block;
-  cursor: pointer;
-  padding: 3px;
-  float: left;
-}
-
-.bar1, .bar2, .bar3{
-  background-color: #ffffff;
-  display: block;
-  height: 2px;
-  width: 15px;
-  transition-duration: .5s;
-}
-
-.bar2{
-  margin:4px 0;
-  width: 12px;
-}
-
-.bar1.rotateRight {
-
-  transform: rotate(45deg);
-  transform-origin: 0px;
-
-  position: relative;
-}
-
-.bar3.rotateLeft {
-
-  transform: rotate(-45deg);
-  transform-origin: 0px;
-
-  bottom: 1px;
-  position: relative;
-}
-
-.bar2.trasparent {
-  background-color: transparent;
-}
-
 /* this should be in a map.css file */
 .country-on{
   fill: #63C1DE;

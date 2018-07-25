@@ -19,17 +19,19 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/side-menu.css')
     link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
+    link(rel='stylesheet', href='/stylesheets/icon-nav.css')
   
   block head
 
   body.page
+    include component/icons.pug
     .page__root
       include component/navbar.pug
         
       block navigation
 
       include component/side-menu.pug
-      .bcd--container
+      .bcd-container
         main
           //-add subnav.pug here if its the themes page
           block content
