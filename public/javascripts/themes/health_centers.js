@@ -65,12 +65,6 @@ var pharmacyIcon = L.icon({
     popupAnchor: [-3, -76]
 });
 
-// Variables for handling data dimensions and crossfiltering
-var typeCount = dc.dataCount('.dc-data-count');
-//var chartHeight = 200;
-//var typePie = dc.pieChart("#type-pie");
-//typePie.colors(['#f1eef6', '#d0d1e6', '#a6bddb', '#74a9cf', '#3690c0', '#0570b0', '#034e7b']);
-
 //  2. Import data- create arrays for each input file, with each element holding one data object
 var allHealthCenters = []; //single array to hold ALL the data
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -79,29 +73,19 @@ proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200
 proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
 proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
 
-//Use d3 to asynchronously load from multiple files
-//
-//this worked with d3 v 4 but not in v5
-//queue()
-//        .defer(d3.csv, "data/DublinHospitalList.csv")
-//        .defer(d3.csv, "data/DublinGPList.csv")
-//        .defer(d3.csv, "data/DublinPharmacyList.csv")
-//        .defer(d3.csv, "data/DublinDentalPracticeList.csv")
-//        .defer(d3.csv, "data/DublinHealthCenterList.csv")
-//        .await(processHealthCenters); //when all files are imported, call the data wrangling functions
 
 
 //in d3 v5 use Promises
 Promise.all([
-  d3.csv('/data/DublinHospitalList.csv'),
-  d3.csv('/data/DublinGPList.csv'),
-  d3.csv('/data/DublinPharmacyList.csv'),
-  d3.csv('/data/DublinDentalPracticeList.csv'),
-  d3.csv('/data/DublinHealthCenterList.csv')
+    d3.csv('/data/DublinHospitalList.csv'),
+    d3.csv('/data/DublinGPList.csv'),
+    d3.csv('/data/DublinPharmacyList.csv'),
+    d3.csv('/data/DublinDentalPracticeList.csv'),
+    d3.csv('/data/DublinHealthCenterList.csv')
 ])
-.then(([h,g,p,d,hc]) =>  {
-  processHealthCenters(h,g,p,d,hc);
-});
+        .then(([h, g, p, d, hc]) => {
+            processHealthCenters(h, g, p, d, hc);
+        });
 
 //perform some basic conditioning of data, including co-ordinate mapping to latlng
 function processHealthCenters(hospitalData, gpData, pharmacyData, dentistData, healthCenterData) {
@@ -204,6 +188,7 @@ function processHealthCenters(hospitalData, gpData, pharmacyData, dentistData, h
 //                3. Create subsets of data as necessary using d3
     //Create a Crossfilter instance
     var healthCenterRecords = crossfilter(allHealthCenters);
+    allHealthCenters = null; //works for GC?
     console.log("crossfilter count: " + healthCenterRecords.size());
 //               Define Dimensions
     var typeDim = healthCenterRecords.dimension(function (d) {
@@ -215,18 +200,18 @@ function processHealthCenters(hospitalData, gpData, pharmacyData, dentistData, h
         return d;
     });
 
-    var typeGroup = typeDim.group(); // an array containing a key ('Hospital', 
+//    var typeGroup = typeDim.group(); // an array containing a key ('Hospital', 
     //'GP' etc. and value (no. of occurances) e.g '8', '638'
     var allGroup = allDim.groupAll();
 
-    typeCount.dimension(healthCenterRecords)
+//when a filter is applied to typeDim, the typeCount numerical element will update
+    var typeCount = dc.dataCount('.dc-data-count')
+            .dimension(healthCenterRecords)
             .group(allGroup);
 
     dc.renderAll();
     makeMap();
-
-
-//                4. Load map data
+    //                4. Load map data
     function makeMap() {
         healthCluster.clearLayers();
         map.removeLayer(healthCluster);
@@ -254,14 +239,13 @@ function processHealthCenters(hospitalData, gpData, pharmacyData, dentistData, h
         }
     }
 
-    //Button helper functions
+//Button helper functions
     d3.select('#hospital_button').on('click', function (filter) {
         typeDim.filter("hospitals");
-        d3.select('#type-filter-text').html("<br>"+"hospitals");
+        d3.select('#type-filter-text').html("<br>" + "hospitals");
 //        typePie.filter(null)
 //                .filter("hospitals");
-        d3.select('#chosen-type-text').text("Available datasets for hospitals:"); //TODO: hacky- fix using filter and dim
-        
+//        d3.select('#chosen-type-text').text("Available datasets for hospitals:"); //TODO: hacky- fix using filter and dim
         dc.redrawAll();
         makeMap();
     });
@@ -269,34 +253,34 @@ function processHealthCenters(hospitalData, gpData, pharmacyData, dentistData, h
     d3.select('#gp_button').on('click', function () {
         d3.select('#chosen-type-text').text("Available datasets for general practitioners:");
         typeDim.filter("general practitioners");
-        d3.select('#type-filter-text').html("<br>"+"general practitioners");
+        d3.select('#type-filter-text').html("<br>" + "general practitioners");
 //        typePie.filter(null)
 //                .filter("general practitioners");
         dc.redrawAll();
         makeMap();
     });
     d3.select('#pharmacy_button').on('click', function () {
-        d3.select('#chosen-type-text').text("Available datasets for pharmacies:");
+//        d3.select('#chosen-type-text').text("Available datasets for pharmacies:");
         typeDim.filter("pharmacies");
-        d3.select('#type-filter-text').html("<br>"+"pharmacies");
+        d3.select('#type-filter-text').html("<br>" + "pharmacies");
 //        typePie.filter(null)
 //                .filter("pharmacies");
         dc.redrawAll();
         makeMap();
     });
     d3.select('#healthCenter_button').on('click', function () {
-        d3.select('#chosen-type-text').text("Available datasets for health centers:");
+//        d3.select('#chosen-type-text').text("Available datasets for health centers:");
         typeDim.filter("health centers");
-        d3.select('#type-filter-text').html("<br>"+"health centers");
+        d3.select('#type-filter-text').html("<br>" + "health centers");
 //        typePie.filter(null)
 //                .filter("health centers");
         dc.redrawAll();
         makeMap();
     });
     d3.select('#dentist_button').on('click', function () {
-        d3.select('#chosen-type-text').text("Available datasets for dentists:");
+//        d3.select('#chosen-type-text').text("Available datasets for dentists:");
         typeDim.filter("dentists");
-        d3.select('#type-filter-text').html("<br>"+"dentists");
+        d3.select('#type-filter-text').html("<br>" + "dentists");
 //        typePie.filter(null)
 //                .filter("dentists");
         dc.redrawAll();
@@ -333,3 +317,5 @@ function getPopupContent(c) {
     }
     return str;
 }
+
+
