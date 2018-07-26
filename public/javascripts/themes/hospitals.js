@@ -4,7 +4,6 @@
 var select1 = dc.selectMenu('#select1'),
         select2 = dc.selectMenu('#select2'),
         select3 = dc.selectMenu('#select3');
-//        dataTable = dc.dataTable('#datatable');
 
 var waitListXF; //the crossfilter
 var nameDim, specialityDim, ageDim, dateDim, yearDim, allWaitlistDim, waitDim; //some dimensions for analysis
@@ -93,12 +92,12 @@ function processData(opWData) {
 function makeCharts() {
 
 //try some filters to reduce data for plotting
-//                    filter out all but a single hospital by name
-//                    nameDim.filter("Tallaght Hospital");
-//                    filter leaving multiple hospitals in (union operation)
-//                    nameDim.filterFunction(function (d) {
-//                        return d === "Tallaght Hospital" || d === "Beaumont Hospital";
-//                    });
+//filter out all but a single hospital by name
+//nameDim.filter("Tallaght Hospital");
+//filter leaving multiple hospitals in (union operation)
+//nameDim.filterFunction(function (d) {
+//return d === "Tallaght Hospital" || d === "Beaumont Hospital";
+//});
 
 //                    console.log("\nwaitGroup.all(): " + JSON.stringify(waitGroup.all()));
 //                    

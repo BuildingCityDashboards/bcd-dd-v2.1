@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/health', function(req, res, next) {
-  res.render('health', { title: 'Themes: Health' });
+  res.render('themes_health', { title: 'Themes: Health' });
 });
 
 /* API csv routes for themes */
