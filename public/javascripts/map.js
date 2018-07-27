@@ -7,7 +7,7 @@ const OVERLAY_MULTIPLIER = 1;
 const ZOOM_DURATION = 500;
 const ZOOM_IN_STEP = 2;
 const ZOOM_OUT_STEP = 1 / ZOOM_IN_STEP;
-const HOVER_COLOR = "#63C1DE";
+const HOVER_COLOR = "#16c1f3";
 
 // Event Handlers
 const zoom = d3
@@ -15,31 +15,34 @@ const zoom = d3
   .scaleExtent(ZOOM_THRESHOLD);
 
 function mouseOverHandler(d, i) {
-  d3.select(this).attr("fill", HOVER_COLOR);
+  // d3.select(this).attr("fill", HOVER_COLOR);
   d3.select(this).style("cursor", "pointer"); 
+  d3.select("#region" + d.properties.OBJECTID).attr("fill", HOVER_COLOR);
+
 }
 
 function mouseOutHandler(d, i) {
-  d3.select(this).attr("fill", "#001F35");
+  // d3.select(this).attr("fill", "#001F35");
   d3.select(this).style("cursor", "default"); 
+  d3.select("#region" + d.properties.OBJECTID).attr("fill", "#001F35");
 }
 
 function clickHandler(d, i) {
-  d3.selectAll(".country").classed("country-on", false)
-  d3.select(this).classed("country-on", true)
-  d3.select("#map__text").text(` ${d.properties.ENGLISH}`)
-  d3.select("#region__text").text(`In 2016 the total population in ${d.properties.ENGLISH} was: ${d.properties.POPULATION}, `)
-  d3.select("#region__sex").text(`of which Males numbered ${d.properties.MALES} and Females were ${d.properties.FEMALES}. `)
-  d3.select("#region__house").text(`The total housing stock was ${d.properties.HOUSESTOCK} of which vacant households (excluding holiday homes) numbered ${d.properties.VACANT}`)
+  d3.selectAll(".region").classed("region-on", false)
+  // d3.select(this).classed("region-on", true)
+  d3.select("#region" + d.properties.OBJECTID).classed("region-on", true)
+  d3.select("#region__title").text(`${d.properties.ENGLISH}`)
+  d3.select("#region__title__small").text(`${d.properties.ENGLISH} was `)
+  d3.select("#region__population").text(`${d.properties.POPULATION}`)
+  d3.select("#region__house").text(`${d.properties.HOUSESTOCK}`)
+  d3.select("#region__vacant").text(`${d.properties.VACANT}.`)
+  d3.select(".lp-map__compare").style("visibility", "visible");
 }
 
 // SVG container for placing the map,
 // and overlay a transparent rectangle for pan and zoom.
 const svg = d3
-  .select("#map__container")
-  .append("svg")
-  .attr("width", WIDTH)
-  .attr("height", HEIGHT);
+  .select("#map__container");
 
 const g = svg.append("g");
 
@@ -58,7 +61,6 @@ const path = d3.geoPath().projection(projection);
 
 // 1. Plot the map from data source `dublincoco`
 // 2. Place the local aut name in the map
-renderMap(dublincoco);
 
 function renderMap(root) {
   // Draw local aut and register event listeners
@@ -72,7 +74,8 @@ function renderMap(root) {
     .attr("fill", "#001F35")
     .attr("stroke", "#d1d1d182")
     .attr("stroke-width", 1)
-    .attr("class", "country")
+    .attr("class", "region")
+    .attr("id", d => "region" + d.properties.OBJECTID)
     .on("mouseover", mouseOverHandler)
     .on("mouseout", mouseOutHandler)
     .on("click", clickHandler);
@@ -84,10 +87,17 @@ function renderMap(root) {
     .data(root.features)
     .enter()
     .append("text")
+    .attr("id", d => "regionLabel" + d.properties.OBJECTID)
     .attr("transform", d => `translate(${path.centroid(d)})`)
     .attr("text-anchor", "middle")
     .attr("fill", "#FFF")
-    .attr("font-size", 10)
+    .attr("font-size", 14)
     .attr("cursor", "pointer")
+    .on("mouseover", mouseOverHandler)
+    .on("mouseout", mouseOutHandler)
+    .on("click", clickHandler)
     .text(d => d.properties.ENGLISH);
+
 }
+
+renderMap(dublincoco);

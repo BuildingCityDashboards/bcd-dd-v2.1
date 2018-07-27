@@ -35,11 +35,6 @@ a {
   color: #ffffff;
 }
 
-/* this should be in a map.css file */
-.country-on{
-  fill: #63C1DE;
-}
-
  /* charts */
 .line-chart{
   margin-right:40px;

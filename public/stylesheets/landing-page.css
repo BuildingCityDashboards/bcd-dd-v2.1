@@ -43,3 +43,21 @@
     font-size:2rem;
     text-transform:uppercase;
 }
+
+#region__total-population, #region__total-house, #region__total-vacant{
+    font-weight: 600;
+    color: var(--vivid-cyan);
+}
+
+#region__population, #region__house, #region__vacant{
+    font-weight: 600;
+    color: var(--vivid-cyan);
+}
+
+.region-on{
+    fill: #16c1f3;
+}
+
+.lp-map__compare{
+    visibility: hidden;
+}
