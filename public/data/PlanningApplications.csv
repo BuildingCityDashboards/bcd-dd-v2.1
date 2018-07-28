@@ -1,0 +1,37 @@
+Year,Region,ApplicationsReceived,DecisionsGrant,DecisionsRefuse,Appeals
+2009,Dun Laoghaire Rathdown,1475,1102,278,260
+2009,Fingal,1143,961,240,182
+2009,South Dublin,909,715,144,110
+2009,Dublin City,2201,1946,322,414
+2010,Dun Laoghaire Rathdown,1231,995,185,200
+2010,Fingal,1027,814,168,133
+2010,South Dublin,773,666,105,24
+2010,Dublin City,1991,1691,260,348
+2011,Dun Laoghaire Rathdown,1019,841,131,142
+2011,Fingal,775,737,105,91
+2011,South Dublin,688,589,91,27
+2011,Dublin City,1646,1421,183,240
+2012,Dun Laoghaire Rathdown,939,745,108,98
+2012,Fingal,823,735,93,85
+2012,South Dublin,581,504,51,48
+2012,Dublin City,1515,1326,135,194
+2013,Dun Laoghaire Rathdown,1107,888,96,NULL
+2013,Fingal,833,692,74,NULL
+2013,South Dublin,604,454,55,NULL
+2013,Dublin City,1791,1561,176,NULL
+2014,Dun Laoghaire Rathdown,1331,992,165,NULL
+2014,Fingal,983,826,88,NULL
+2014,South Dublin,599,521,56,NULL
+2014,Dublin City,1868,1636,195,NULL
+2015,Dun Laoghaire Rathdown,1342,1359,149,NULL
+2015,Fingal,1066,880,84,NULL
+2015,South Dublin,735,635,82,NULL
+2015,Dublin City,2734,1859,243,NULL
+2016,Dun Laoghaire Rathdown,1545,1467,194,NULL
+2016,Fingal,1146,986,92,NULL
+2016,South Dublin,830,640,98,NULL
+2016,Dublin City,2440,2106,270,NULL
+2017,Dun Laoghaire Rathdown,1744,1542,193,NULL
+2017,Fingal,1206,1056,108,NULL
+2017,South Dublin,805,702,122,NULL
+2017,Dublin City,2715,2311,256,NULL

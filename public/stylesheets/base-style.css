@@ -95,26 +95,27 @@ a {
   -o-font-smoothing: antialiased;
 }
 
-/* temp bootstrap override for the cards charts  */
-.card{
-  background: transparent;
+/* select formating */
+select {
+  width: 100%;
+  height:2rem;
+  padding-right: 2.4rem;
+  padding-left: 2.4rem;
+  border: .1rem solid #c4cdd5;
+  border-radius: .6rem;
+  line-height: 4.8rem;
+  font-size: .875rem;
+  color: #161d25;
+  background-color: #fff;
+  box-shadow: inset 0 0 0 0.2rem rgba(92,106,196,0), inset 0 0.1rem 0.2rem 0 rgba(99,115,129,.2);
+  transition-property: border-color,box-shadow;
+  transition-duration: .24s;
+  transition-timing-function: cubic-bezier(.64,0,.35,1);
 }
 
-/* borders for the charts should be in charts.css */
-.border-blue{
-  border-color: var(--vivid-cyan);
-}
-
-.border-yellow{
-  border-color: var(--yellow);
-}
-
-.border-red{
-  border-color: var(--vivid-red);
-}
-
-.border-teal{
-  border-color: var(--teal);
+select:hover:not([disabled]) {
+  border-color: transparent;
+  box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */

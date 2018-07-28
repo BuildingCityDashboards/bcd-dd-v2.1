@@ -1,6 +1,22 @@
 .row.mb-5
   .col-xl-3.col-sm-6.mb-3
-    .card.text-white.o-hidden.border-blue.p-3
+    .card.text-white.o-hidden.border-blue
+      .card-header Dublin Median House Prices
+        span.card__icon
+          <svg class="card__svg" width="14px" height="14px" viewBox="0 0 24 24">
+          <title></title>
+          g.card__g
+            <circle cx="12" cy="12" r="12">
+              path(d="M7.13504464,5.71841649 L12.8894972,5.71841649 C15.7120926,5.71841649 17.6241734,7.55765608 17.6241734,10.3802515 C17.6241734,13.1755315 15.611936,15.0056659 12.689184,15.0056659 L10.4766334,15.0056659 L10.4766334,18.8571429 L7.13504464,18.8571429 L7.13504464,5.71841649 Z M10.4766334,8.28606779 L10.4766334,12.4835403 L11.9880877,12.4835403 C13.4084906,12.4835403 14.246164,11.7551286 14.246164,10.3893566 C14.246164,9.00537437 13.4175957,8.28606779 12.006298,8.28606779 L10.4766334,8.28606779 Z")
+      .card-body.card-graph
+        #rt-chart1.line-chart(width='205', height='70')
+        //- a(href='#')
+        //-   span.float-left See More
+        //-   span.float-right
+        //-     i.fa.fa-angle-right
+
+  .col-xl-3.col-sm-6.mb-3
+    .card.text-white.o-hidden.border-yellow
       .card-body.card-graph
         .mr-5
           | Real Time Data Vis
@@ -11,7 +27,7 @@
         //-     i.fa.fa-angle-right
 
   .col-xl-3.col-sm-6.mb-3
-    .card.text-white.o-hidden.border-yellow.p-3
+    .card.text-white.o-hidden.border-teal
       .card-body.card-graph
         .mr-5
           | Real Time Data Vis
@@ -22,18 +38,7 @@
         //-     i.fa.fa-angle-right
 
   .col-xl-3.col-sm-6.mb-3
-    .card.text-white.o-hidden.border-teal.p-3
-      .card-body.card-graph
-        .mr-5
-          | Real Time Data Vis
-        #rt-chart1.line-chart(width='205', height='70')
-        //- a(href='#')
-        //-   span.float-left See More
-        //-   span.float-right
-        //-     i.fa.fa-angle-right
-
-  .col-xl-3.col-sm-6.mb-3
-    .card.text-white.o-hidden.border-red.p-3
+    .card.text-white.o-hidden.border-red
       .card-body.card-graph
         .mr-5
           | Real Time Data Vis

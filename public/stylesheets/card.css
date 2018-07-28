@@ -1,0 +1,66 @@
+.card{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: transparent;
+    background-clip: border-box;
+    border: 1px solid;
+    border-radius: .25rem;
+}
+
+.card__header{
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card__body{
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.card__title{
+    margin-bottom: .75rem;
+}
+
+.card__text{
+
+}
+.card__icon{
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}
+
+.card__svg{
+    color: var(--vivid-red);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.card__g{
+    fill: currentColor;
+}
+
+/* border utilities classes, need to add these to a util.css*/
+.border-blue{
+border-color: var(--vivid-cyan);
+}
+
+.border-yellow{
+border-color: var(--yellow);
+}
+
+.border-red{
+border-color: var(--vivid-red);
+}
+
+.border-teal{
+border-color: var(--teal);
+}
