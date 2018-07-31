@@ -147,3 +147,36 @@
     min-height: 4rem;
     background: var(--strong-blue);
 }
+
+/* .side-menu__overlay{
+background: #086eb9b5;
+position: fixed;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+z-index: 1010;
+transition: all 0.35s;
+} */
+
+/* dropdown component*/
+.dropdown {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 3fr 1fr;
+    grid-template-areas: "link arrow" "menu menu"
+}
+
+.dropdown__link {
+    grid-area: link;
+}
+
+.dropdown__toggle {
+    grid-area: arrow;
+}
+
+.dropdown__menu {
+    grid-area:  menu;
+    display: none;
+}

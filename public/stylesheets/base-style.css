@@ -20,7 +20,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     font-smoothing: antialiased;
-    border-bottom: 1px solid transparent;
     -moz-transition: all 0.15s;
     -o-transition: all 0.15s;
     -webkit-transition: all 0.15s;
@@ -29,6 +28,7 @@ body {
   a:hover {
     color: #63c1de; 
     border-color: #888888; 
+    text-decoration: none;
 }
 
 a {

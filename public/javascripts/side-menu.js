@@ -7,3 +7,5 @@ $('.side-menu__toggler').on('click', function () {
     // toggle class for toggler button
     $(this).toggleClass('side-menu__toggler--close');
 });    
+
+$('.card__icon').popover(); 

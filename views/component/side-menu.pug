@@ -1,10 +1,22 @@
 - var sideLinks = { "HOME": "", "THEMES": "themes", "STORIES": "stories", "QUERIES": "queries", "TOOLS": "tools"  }
+include sub-menu.pug
 
 mixin nav-item(name, link)
     li.side-menu__nav-item
         a.side-menu__nav-link(href="/"+link)
             +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
             span= name
+
+mixin nav-dropdown(name, link)
+    li.side-menu__nav-item.dropdown
+        a.side-menu__nav-link.dropdown__link(href="/"+link)
+            +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
+            span= name
+        a.dropdown-toggle.dropdown__toggle
+        span.sr-only Toggle Dropdown
+        .dropdown__menu
+            each val, key in subLinks
+                +dropdown-item(key, val, link) 
 
 button.side-menu__toggler
     .menu-button
@@ -18,7 +30,11 @@ nav.side-menu
             h3.side-menu__h3 BCD
         
         ul.side-menu__nav
-            each val, key in sideLinks
-                +nav-item(key, val)
-
+            each parent, key in sideLinks
+                if parent === 'themes'
+                  +nav-dropdown(key, parent)
+                else
+                    +nav-item(key, parent)
         .side-menu__footer
+
+.side-menu__overlay

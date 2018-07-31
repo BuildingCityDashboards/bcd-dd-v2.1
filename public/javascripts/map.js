@@ -1,24 +1,12 @@
 const WIDTH = window.innerWidth;
-// const HEIGHT = window.innerHeight;
-// const HEIGHT = document.getElementById('map__container').offsetWidth
 const HEIGHT = 700;
-const ZOOM_THRESHOLD = [0.3, 7];
-const OVERLAY_MULTIPLIER = 1;
-const ZOOM_DURATION = 500;
-const ZOOM_IN_STEP = 2;
-const ZOOM_OUT_STEP = 1 / ZOOM_IN_STEP;
 const HOVER_COLOR = "#16c1f3";
 
 // Event Handlers
-const zoom = d3
-  .zoom()
-  .scaleExtent(ZOOM_THRESHOLD);
-
 function mouseOverHandler(d, i) {
   // d3.select(this).attr("fill", HOVER_COLOR);
   d3.select(this).style("cursor", "pointer"); 
   d3.select("#region" + d.properties.OBJECTID).attr("fill", HOVER_COLOR);
-
 }
 
 function mouseOutHandler(d, i) {

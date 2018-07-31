@@ -39,7 +39,7 @@
 }
 
 .card__svg{
-    color: var(--vivid-red);
+    color: var(--vivid-cyan);
     display: inline-block;
     vertical-align: middle;
 }
