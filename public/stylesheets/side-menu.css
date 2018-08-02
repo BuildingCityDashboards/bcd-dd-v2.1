@@ -136,6 +136,16 @@
     color: #d1d1d1cf;
 }
 
+.side-menu__nav-link:hover{
+    text-decoration: none;
+    background-color: #f8f9fa;
+    color: #454648;
+}
+
+.side-menu__nav-link:hover .icon{
+    stroke:#454648;
+}
+
 .side-menu__icon{
     float: right;
 }
@@ -176,7 +186,18 @@ transition: all 0.35s;
     grid-area: arrow;
 }
 
+.dropdown__toggle:hover{
+    text-decoration: none;
+    background-color: #f8f9fa;
+}
+
 .dropdown__menu {
     grid-area:  menu;
-    display: none;
+    /* display: none; */
+}
+
+.dropdown-item{
+    padding-left: 4rem;
+    font-size: .875rem;
+    color:#d1d1d1cf;
 }

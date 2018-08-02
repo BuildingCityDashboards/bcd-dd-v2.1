@@ -1,0 +1,10 @@
+mixin card-chart(style, Header, title, text, Chartid)
+  div(class=style)
+    .card-header=Header
+      span(class="card__icon" data-container="body" data-placement="bottom" data-content=text)
+        <svg class="card__svg" width="14px" height="14px" viewBox="0 0 24 24">
+        <title>=title</title>
+        g.card__g
+          <circle cx="12" cy="12" r="12">
+    .card-body.card-graph
+      div(id=Chartid class="line-chart" width="205" height="70")

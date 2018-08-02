@@ -1,4 +1,41 @@
-.row.mb-5
+include card-chart
+.row.mb-2
+  .col-xl-3.col-sm-6.mb-3
+    +card-chart("card text-white o-hidden border-blue", "Dublin Median House Prices", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
+  .col-xl-3.col-sm-6.mb-3
+    .card.text-white.o-hidden.border-yellow
+      .card-body.card-graph
+        .mr-5
+          | Real Time Data Vis
+        #rt-chart1.line-chart(width='205', height='70')
+        //- a(href='#')
+        //-   span.float-left See More
+        //-   span.float-right
+        //-     i.fa.fa-angle-right
+
+  .col-xl-3.col-sm-6.mb-3
+    .card.text-white.o-hidden.border-teal
+      .card-body.card-graph
+        .mr-5
+          | Real Time Data Vis
+        #rt-chart1.line-chart(width='205', height='70')
+        //- a(href='#')
+        //-   span.float-left See More
+        //-   span.float-right
+        //-     i.fa.fa-angle-right
+
+  .col-xl-3.col-sm-6.mb-3
+    .card.text-white.o-hidden.border-red
+      .card-body.card-graph
+        .mr-5
+          | Real Time Data Vis
+        #rt-chart1.line-chart(width='205', height='70')
+        //- a(href='#')
+        //-   span.float-left See More
+        //-   span.float-right
+        //-     i.fa.fa-angle-right
+
+.row.mb-2
   .col-xl-3.col-sm-6.mb-3
     .card.text-white.o-hidden.border-blue
       .card-header Dublin Median House Prices
@@ -47,4 +84,13 @@
         //-   span.float-left See More
         //-   span.float-right
         //-     i.fa.fa-angle-right
-    
+.row.mb-5
+  .col-md-12.justify-content-md-center
+   nav.nav.nav-pills.nav-fill
+    a(class="nav-item nav-link" href="#") All
+    a(class="nav-item nav-link" href="#") Demographics
+    a(class="nav-item nav-link" href="#") Employment
+    a(class="nav-item nav-link" href="#") Environment
+    a(class="nav-item nav-link" href="#") Health
+    a(class="nav-item nav-link" href="#") Housing
+    a(class="nav-item nav-link" href="#") Transport

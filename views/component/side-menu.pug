@@ -12,8 +12,9 @@ mixin nav-dropdown(name, link)
         a.side-menu__nav-link.dropdown__link(href="/"+link)
             +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
             span= name
-        a.dropdown-toggle.dropdown__toggle
-        span.sr-only Toggle Dropdown
+        a.dropdown__toggle
+            +svg("","icon__arrow")(class="icon icon--small side-menu__icon")
+            span.sr-only Toggle Dropdown
         .dropdown__menu
             each val, key in subLinks
                 +dropdown-item(key, val, link) 

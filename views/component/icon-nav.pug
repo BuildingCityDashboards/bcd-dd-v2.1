@@ -1,18 +1,30 @@
-.row.mb-5.justify-content-md-center
-  .col-sm-2.mb-3.icon-nav
-    a.icon-nav__link(href="/themes")
-      +svg("","icon__themes")(class="icon")
-      h5 THEMES
-  .col-sm-2.mb-3.icon-nav
-    a.icon-nav__link(href="/stories")
-      +svg("","icon__stories")(class="icon")
-      h5 STORIES
-  .col-sm-2.mb-3.icon-nav
-    a.icon-nav__link(href="/queries")
-       +svg("","icon__queries")(class="icon")
-       h5 QUERIES
-  .col-sm-2.mb-3.icon-nav
-    a.icon-nav__link(href="/tools")
-        +svg("","icon__tools")(class="icon")
-        h5 TOOLS
+.row.mb-5.justify-content-sm-center.icon-nav
+  .col-sm-2.mb-3.icon-nav__item.icon-nav__item--box
+    a.icon-nav__link--box(href="/themes")
+      .icon__circle
+        +svg("","icon__themes")(class="icon icon--box")
+      h5.icon__header.icon__header--box Themes
+      .icon__desc--box 
+        p Some short description about the page it links to.
+  .col-sm-2.mb-3.icon-nav__item.icon-nav__item--box
+    a.icon-nav__link.icon-nav__link--box(href="/stories")
+      .icon__circle
+        +svg("","icon__stories")(class="icon icon--box")
+      h5.icon__header.icon__header--box Stories
+      .icon__desc--box
+        p Some short description about the page it links to.
+  .col-sm-2.mb-3.icon-nav__item.icon-nav__item--box
+    a.icon-nav__link.icon-nav__link--box(href="/queries")
+       .icon__circle
+         +svg("","icon__queries")(class="icon icon--box")
+       h5.icon__header.icon__header--box Queries
+       .icon__desc--box
+         p Some short description about the page it links to.
+  .col-sm-2.mb-3.icon-nav__item.icon-nav__item--box
+    a.icon-nav__link.icon-nav__link--box(href="/tools")
+      .icon__circle
+          +svg("","icon__tools")(class="icon icon--box")
+      h5.icon__header.icon__header--box Tools
+      .icon__desc--box
+        p Some short description about the page it links to.
 // need the read more function here

@@ -1,8 +1,10 @@
 /* Icon Navigation Component */
 
-.icon-nav{
+.icon-nav__item{
     text-align: center;
     display: block;
+    flex: 0 0 19.666667%;
+    max-width: 19.666667%;
 }
 
 .icon-nav__link{
@@ -19,8 +21,8 @@
     stroke: #ffffff;
     stroke-linecap: round;
     stroke-miterlimit: 10;
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 36px;
+    max-height: 36px;
 }
 
 .icon--small{
@@ -31,4 +33,60 @@
     float: left;
     margin-right: 1rem;
     margin-top: .25rem;
+}
+
+.icon__header{
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.icon-nav__link--box{
+    display: block;
+    padding: 20px 16px 16px;
+    border-radius: 6px;
+    background: #002035ab;
+    border: 1px solid #16c1f37a;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    transform: translate3d(0,0,0);
+    transition-property: -webkit-box-shadow,-webkit-transform;
+    transition-property: box-shadow,transform;
+    transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(.16,1,.29,.99);
+
+}
+
+.icon-nav__link--box:hover{
+    color: #ffffff;
+    box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
+    transform: translate3d(0,-4px,0);
+    transition-property: -webkit-box-shadow,-webkit-transform;
+    transition-property: box-shadow,transform;
+    transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
+    transition-duration: .6s;
+    transition-timing-function: cubic-bezier(.16,1,.29,.99);
+}
+
+.icon--box{
+    position: absolute;
+    left: 42%;
+    top: 20%;
+}
+
+.icon__circle{
+    width: 65px;
+    height: 65px;
+    margin: auto;
+    padding-top: 15px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, #1CB5E0 0%, #036484 100%);
+}
+
+.icon__header--box{
+    padding-top: 8px;
+}
+
+.icon__desc--box p {
+    color: #b1b1b1;
+    font-size: .875rem;
 }

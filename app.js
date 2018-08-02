@@ -17,6 +17,13 @@ var app = express();
 
 // cosmodb connection
 //Set up mongoose connection
+var mongoose = require('mongoose');
+// make sure to include port in URL as current version of mongoose needs it 
+var mongoDB = 'mongodb://localhost:27017/bcd_dashboards';
+mongoose.connect(mongoDB,{ useNewUrlParser: true });
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -5,6 +5,7 @@
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 0;
+    min-height: 150px;
     word-wrap: break-word;
     background-color: transparent;
     background-clip: border-box;
