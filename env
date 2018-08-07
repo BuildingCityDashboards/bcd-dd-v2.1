@@ -1,3 +1,0 @@
-PORT=3000
-DATABASE_URL=mongodb://localhost:27017/bcd_dashboards
-MONGO_DATABASE_URI=mongodb://bcd-dd-db:BqbVXY1xoQWlXJDfMXZcdPWmbHfKnZ8kgm3a2r4g3HTtbsVYbrdAI6Hxplh0CTq0LlKnUlBj96dfBbYc6KdlkQ==@bcd-dd-db.documents.azure.com:10250/mean?ssl=true&sslverifycertificate=false
