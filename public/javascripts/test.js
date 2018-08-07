@@ -1,4 +1,4 @@
-d3.csv("http://localhost:3000/themes/api/opw", function(data) {
+d3.json("http://localhost:3000/authorities", function(data) {
     console.log(data);
   });
 
