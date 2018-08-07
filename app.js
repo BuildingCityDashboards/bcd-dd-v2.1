@@ -21,7 +21,7 @@ var mongoose = require('mongoose');
 // make sure to include port in URL as current version of mongoose needs it 
 // var mongoDB = 'mongo ds020168.mlab.com:20168/local_library_express -u liam -p library1';
 var mongoDB = 'mongodb://liam:library1@ds020168.mlab.com:20168/local_library_express'
-//var mongoDB = 'mongodb://localhost:27017/bcd_dashboards';
+// var mongoDB = process.env.DATABASE_URL;
 mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

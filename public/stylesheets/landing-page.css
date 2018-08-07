@@ -39,6 +39,14 @@
     -o-font-smoothing: antialiased;
 }
 
+.content-wrapper--blackblue{
+    background: var(--black-blue);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+}
+
 .about__header{
     font-size:2rem;
     text-transform:uppercase;
