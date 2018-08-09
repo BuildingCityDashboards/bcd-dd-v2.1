@@ -5,30 +5,45 @@
 //var dubLat = 53.3498;
 //var dubLng = -6.2603;
 
-var map_APIToken = "pk.eyJ1IjoibGlhbW9zdWxsaXZhbiIsImEiOiJjajNkYjhyZnAwMDAyMzNsN2FyZnY3cWQzIn0.c1qL12vFZfc2weViolmnTw";
-var dub_lng = -8.80;
-var dub_lat = 51.75;
-var corkX, corkY;
-var corkCityURL = '/data/tools/planning/json/PlanningApplications_CorkCity_';
-var corkCountyURL = '/data/tools/planning/json/PlanningApplications_CorkCounty_';
-var corkCountyURL_1 = '/data/tools/planning/json/PlanningApplications_CorkCounty_1.geojson';
+var dub_lng = -6.2603;
+var dub_lat = 53.3498;
+var dublinX, dublinY;
+//data loading
+var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
+//var corkCityURL = '/data/tools/planning/json/PlanningApplications_CorkCity_';
+//var corkCountyURL = '/data/tools/planning/json/PlanningApplications_CorkCounty_';
+//var corkCountyURL_1 = '/data/tools/planning/json/PlanningApplications_CorkCounty_1.geojson';
 var min_zoom = 9, max_zoom = 18;
 var zoom = min_zoom;
-var map_url = 'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png' + "?access_token=" + map_APIToken;
-var map = L.map('map-div').setView([dub_lat, dub_lng], zoom);
+// tile layer with correct attribution
+var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmUrl_BW = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
+var osmUrl_Hot = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+var stamenTonerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
+var stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png';
+var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var osmAttrib_Hot = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
+var stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+
+var map = new L.Map('map-div');
+var osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_zoom, attribution: stamenTonerAttrib});
+map.setView(new L.LatLng(dub_lat, dub_lng), zoom);
+map.addLayer(osm);
+
 //console.log("drawing map");
 var mapHeight = 600;
 var chartHeight = (mapHeight / 3);
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
+
 //We'd like to use d3's simple json loader with queue, but it doesn't play well with geojson...
 //queue()
 //        .defer(d3.json, "../data/corkCity_20.json")
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(corkCityURL, 0, 2);
+loadJsonFile(dublinDataURI, 0, 5);
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -36,7 +51,13 @@ loadJsonFile(corkCityURL, 0, 2);
 function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) {
 
     var promises = []; //this will hold an array of promises
-//             ***TODO: serach dir for # of files and for-each
+
+    /***TODO: 
+     Lazy load JSON files after page load.
+     Search dir for # of files and for-each
+     Don't waterfall file loading for performance.
+     Add progress bar for file load.
+     ****/
 
     for (i = fileOffset_; i < fileCount_; i++) {
         promises.push(getData(i));
@@ -45,7 +66,7 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
     function getData(id) {
         var url = JSONsrc_ + id + '.geojson';
 //        var url ="../data/PlanningApplications_CorkCity_0.geojson";
-        return $.getJSON(url); // this returns a "promise"
+        return $.getJSON(url); // this returns a Promise
     }
 
 
@@ -67,21 +88,18 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 //                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
 //                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
 
-//        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
+        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
 //                    console.log("Features loaded: "+JSON.stringify(jsonFeaturesArr));
 
         makeGraphs(null, jsonFeaturesArr);
     }); //end of when()
-} //end of loadJSONFIle
+} //end of loadJSONFile
 
 
 
 
 //////////////////////////////////////////////////////////////////////////////
 function makeGraphs(error, recordsJson) {
-
-
-
 //       console.log("json: "+JSON.stringify(recordsJson.features));
 
 //Clean features data
@@ -89,7 +107,7 @@ function makeGraphs(error, recordsJson) {
 //for geoJSON, access e.g. .features.ReceivedDate  
     var records = recordsJson;
     //	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
-    var i = 0;
+//    var i = 0;
     records.forEach(function (d) {
         //		d["timestamp"] = dateFormat.parse(d["timestamp"]);
         //		d["timestamp"].setMinutes(0);
@@ -102,11 +120,13 @@ function makeGraphs(error, recordsJson) {
 //d.properties.DecisionDate
         d.geometry.x = +d.geometry.x;
         d.geometry.y = +d.geometry.y;
+        d.properties.ReceivedDate = +d.properties.ReceivedDate;
+        d.properties.DecisionDate = +d.properties.DecisionDate;
 //                    console.log("x:" + d.geometry.x);
 //                    console.log("y:" + d.geometry.y);
 //                      d["y"] = +d["y"];
 
-        i += 1;
+//        i += 1;
     });
     console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -116,9 +136,11 @@ function makeGraphs(error, recordsJson) {
     var authorityDim = xRecords.dimension(function (d) {
         return d.properties.PlanningAuthority;
     });
+
     var rDateDim = xRecords.dimension(function (d) {
         return d.properties.ReceivedDate;
     });
+
     var dDateDim = xRecords.dimension(function (d) {
         return d.properties.DecisionDate;
     });
@@ -139,9 +161,19 @@ function makeGraphs(error, recordsJson) {
     var recordsByLocation = locationDim.group();
     var all = xRecords.groupAll();
     //Values to be used in charts
-    var minDate = rDateDim.bottom(1); //returns the whole record with earliest date
+    
+    //null dates have been coerced to 0, so scan through to find earliest valid date
+    //probably really inefficient!
+    var minDate = 0; var index=1; 
+    while(minDate === 0){
+              console.log("i: "+index);
+              minDate= rDateDim.bottom(index)[index-1].properties.ReceivedDate;
+              index+=1;              
+           } //returns the whole record with earliest date
+    
     var maxDate = rDateDim.top(1);
-    console.log("min: " + JSON.stringify(minDate[0].properties.ReceivedDate)
+    
+    console.log("min: " + JSON.stringify(minDate)
             + " | max: " + JSON.stringify(maxDate[0].properties.ReceivedDate));
     //Charts
     var numberRecordsND = dc.numberDisplay("#number-records-nd");
@@ -155,18 +187,21 @@ function makeGraphs(error, recordsJson) {
                 return d;
             })
             .group(all);
+
+    timeChart
+            .width(600)
+            .height(chartHeight)
+            .brushOn(true)
+            .margins({top: 10, right: 50, bottom: 20, left: 20})
+            .dimension(rDateDim)
+            .group(recordsByRDate)
+            .transitionDuration(500)
+            .x(d3.scaleTime().domain([minDate, maxDate[0].properties.ReceivedDate]))
+            .elasticY(true)
+            .yAxis().ticks(4);
     
-//    timeChart
-//            .width(600)
-//            .height(chartHeight)
-//            .brushOn(true)
-//            .margins({top: 10, right: 50, bottom: 20, left: 20})
-//            .dimension(rDateDim)
-//            .group(recordsByRDate)
-//            .transitionDuration(500)
-//            .x(d3.time.scale().domain([minDate[0].properties.ReceivedDate, maxDate[0].properties.ReceivedDate]))
-//            .elasticY(true)
-//            .yAxis().ticks(4);
+    timeChart.render();
+
     decisionChart
             .width(600)
             .height(chartHeight)
@@ -193,13 +228,13 @@ function makeGraphs(error, recordsJson) {
 }
 ;
 var cityClusters = L.markerClusterGroup();
-var streetMap = L.tileLayer(map_url,
-        {
-            id: 'mapbox.streets',
-            attribution: 'Tiles by <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
-            maxZoom: max_zoom,
-            minZoom: min_zoom
-        }).addTo(map);
+//var streetMap = L.tileLayer(map_url,
+//        {
+//            id: 'mapbox.streets',
+//            attribution: 'Tiles by <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+//            maxZoom: max_zoom,
+//            minZoom: min_zoom
+//        }).addTo(map);
 
 function makeMap() {
     cityClusters.clearLayers();
