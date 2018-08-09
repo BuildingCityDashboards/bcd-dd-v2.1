@@ -42,10 +42,11 @@
 
 .icon-nav__link--box{
     display: block;
-    padding: 20px 16px 16px;
+    height: 150px;
+    padding: .875rem;
     border-radius: 6px;
-    background: #002035ab;
-    border: 1px solid #16c1f37a;
+    /* background: #002035ab;
+    border: 1px solid #16c1f37a; */
     box-shadow: 0 2px 8px rgba(0,0,0,.05);
     transform: translate3d(0,0,0);
     transition-property: -webkit-box-shadow,-webkit-transform;
@@ -58,8 +59,9 @@
 
 .icon-nav__link--box:hover{
     color: #ffffff;
+    border: 2px solid #16c1f37a;
     box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
-    transform: translate3d(0,-4px,0);
+    transform: translate3d(0,-8px,0);
     transition-property: -webkit-box-shadow,-webkit-transform;
     transition-property: box-shadow,transform;
     transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
@@ -83,7 +85,7 @@
 }
 
 .icon__header--box{
-    padding-top: 8px;
+    text-transform: uppercase;
 }
 
 .icon__desc--box p {

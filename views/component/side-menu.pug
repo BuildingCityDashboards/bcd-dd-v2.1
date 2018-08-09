@@ -19,17 +19,13 @@ mixin nav-dropdown(name, link)
             each val, key in subLinks
                 +dropdown-item(key, val, link) 
 
-button.side-menu__toggler
+button.side-menu__toggler.s-m__trigger
     .menu-button
         .menu-button__bar.menu-button__bar--top 
         .menu-button__bar.menu-button__bar--middle 
         .menu-button__bar.menu-button__bar--bottom
 
 nav.side-menu
-        .side-menu__header 
-            img.side-menu__img(src="../images/bcd-logo.png" alt="BCD-Logo")
-            h3.side-menu__h3 BCD
-        
         ul.side-menu__nav
             each parent, key in sideLinks
                 if parent === 'themes'
@@ -37,5 +33,10 @@ nav.side-menu
                 else
                     +nav-item(key, parent)
         .side-menu__footer
+          a(href="https://dashboards.maynoothuniversity.ie/" target="_blank")
+            img.side-menu__img(src="../images/bcd-logo.png" alt="BCD-Logo")
+            p.side-menu__p.side-menu__p--top Building
+            p.side-menu__p City
+            p.side-menu__p Dashboards
 
-.side-menu__overlay
+.side-menu__overlay.s-m__trigger

@@ -16,7 +16,6 @@ const smap = {
 
 const collapse = (selector, cmd) => {
   const targetNodes = Array.from(document.querySelectorAll(selector));
-  targetNodes.forEach(target => {
-    target.classList[smap[cmd]]('show');
+  targetNodes.forEach(target => {target.classList[smap[cmd]]('show');
   });
 }

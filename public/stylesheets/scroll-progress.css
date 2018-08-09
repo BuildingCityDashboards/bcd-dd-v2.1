@@ -32,7 +32,7 @@
   
   svg .animated-circle {
     fill: transparent;
-    stroke-width: 3px;
+    stroke-width: 9px;
     stroke: var(--vivid-cyan);
     stroke-dasharray: 157;
     stroke-dashoffset: 157;
