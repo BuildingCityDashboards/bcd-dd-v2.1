@@ -1,6 +1,7 @@
 extends layout
 
 block append head
+  link(rel="stylesheet", href="/stylesheets/tabs.css")
 
 block navigation
 
@@ -11,7 +12,7 @@ block content
         .container
           .row
             .col-sm-12.mb-3
-              h2.text-center DUBLIN DASHBOARD
+              h2.text-center.hero__title DUBLIN DASHBOARD
           include component/carousel-charts.pug
           //- include component/searchbar.pug
           include component/icon-nav.pug

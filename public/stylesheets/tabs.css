@@ -1,0 +1,18 @@
+.tab-charts{
+    min-height: 340px;
+}
+
+.tab-link{
+    display: block;
+    margin: 0 .5rem;
+    padding: .5rem 1rem;
+    font-size: .875rem;
+    border: 1px solid;
+    border-radius: 1.25rem;
+}
+
+.tab-link.active, .tab-link:hover, .tab-link:focus{
+    color: var(--white);
+    border-color: var(--vivid-cyan);
+    background: var(--vivid-cyan);
+}

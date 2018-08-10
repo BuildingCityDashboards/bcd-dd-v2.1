@@ -27,7 +27,7 @@
     left: 0;
     width: 4rem;
     height: 4rem;
-    background-color: transparent;
+    background-color: var(--vivid-cyan);
     border: none;
     padding: 1.25rem;
     cursor: pointer;
@@ -205,6 +205,7 @@
 
 .dropdown__toggle {
     grid-area: arrow;
+    padding: .5rem 1rem;
 }
 
 .dropdown__toggle:hover{
@@ -221,4 +222,11 @@
     padding-left: 4rem;
     font-size: .875rem;
     color:#d1d1d1cf;
+}
+
+
+@media (min-width: 576px){
+    .side-menu__toggler{
+        background: transparent;
+    }
 }

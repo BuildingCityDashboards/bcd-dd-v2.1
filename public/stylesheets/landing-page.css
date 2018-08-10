@@ -1,6 +1,12 @@
 .hero {
     position: relative;
-    padding-top: 30px;
+    padding-top: 1rem;
+}
+
+.hero__title{
+    font-weight: 500;
+    letter-spacing: .25rem;
+    font-size: 1.75rem;
 }
 
 .bg-img {
@@ -72,11 +78,12 @@
     visibility: hidden;
 }
 
-.tab-link{
-    display: block;
-    margin: 0 .5rem;
-    padding: .5rem 1rem;
-    font-size: .875rem;
-    border: 1px solid;
-    border-radius: 1.25rem;
+@media (min-width: 576px){
+    .hero__title{
+        font-size: 2.5rem;
+    }
+
+    .hero{
+        padding-top: 2rem;
+    }
 }

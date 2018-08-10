@@ -4,7 +4,7 @@
 
 .footer-nav{
     margin: 16px 0;
-    border-right: 1px solid #343a40;
+    border: none;
 }
 
 .footer-link{
@@ -39,4 +39,10 @@
 
 .p-maynooth{
     
+}
+
+@media (min-width: 992px){
+    .footer-nav{
+        border-right: 1px solid #343a40;
+    }
 }
