@@ -148,7 +148,7 @@ iPad Pro
         margin: 20px 0px 20px 0px;;
         height: auto;
         width: auto;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr;
         /*        grid-gap:1em;
                  grid-auto-rows:100px; 
@@ -157,10 +157,28 @@ iPad Pro
             "v1 v1"
             "v1 v1"
             "bt bt"
-            "ct ct"
+            "v3 v2"
+            "v3 v2";
 
-            ;
-
+    }
+    
+     #planning-map {
+        height: inherit;
+        width: 100%;
+        grid-area: pm;
+    }
+    
+    #time-chart{
+        height: inherit;
+        width: 100%;
+        grid-area: tc;
+        
+    }
+    #decision-row-chart{
+        height: inherit;
+        width: 100%;
+        grid-area: dr;
+        
     }
 
     .context-text{
@@ -168,7 +186,7 @@ iPad Pro
         text-justify: inter-word;
         grid-area: ct;
     }
-
+    
     .button-table{
         grid-area: bt;
     }
@@ -189,24 +207,24 @@ iPad Pro
         display: grid;
         align-content: space-between;
         grid-template-areas: 
-            "tp"
+            "dr"
+            
             ;      
         grid-template-columns: 1fr; 
         grid-area: v2;
     }
+    .viz3 {
 
-    #planning-map {
-        height: inherit;
-        width: 100%;
-        grid-area: pm;
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "tc"
+            ;      
+        grid-template-columns: 1fr; 
+        grid-area: v3;
     }
-    
-    #time-chart{
-        height: inherit;
-        width: 100%;
-        grid-area: pm;
-        
-    }
+
+   
 
 
 /*    #type-pie{

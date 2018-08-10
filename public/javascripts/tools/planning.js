@@ -38,7 +38,7 @@ map.addLayer(osm);
 
 //console.log("drawing map");
 var mapHeight = 600;
-var chartHeight = (mapHeight / 3);
+var chartHeight = (mapHeight / 2);
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
@@ -49,7 +49,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 0, 39);
+loadJsonFile(dublinDataURI, 0, 3);
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
