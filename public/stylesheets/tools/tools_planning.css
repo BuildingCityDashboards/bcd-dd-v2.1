@@ -1,0 +1,238 @@
+/* 
+    Author     : Liam
+*/
+
+*{
+    margin: 0;
+    padding: 0;
+    /*background-color: goldenrod;*/
+    /*box-sizing: border-box; padding and border are included in the total width and height of the elements*/
+    /*border: solid 2px #e5e5e5;*/
+
+}
+
+h3{
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: normal;
+    margin: 6px 10px 6px 10px;
+
+}
+
+h1, h2 {  
+    font-family: 'Proxima Nova', sans-serif;
+    font-weight: bold;
+    text-align:left;
+    margin: 10px 10px 10px 10px;
+}
+
+img, span{
+    margin: 0px;
+}
+
+/*For text included with dc-data-count*/
+.filter-text{
+    color: #3182bd;
+    font-weight: bold;
+    font-size: 30px; 
+
+}
+
+/*//mobile first*/
+.wrapper{
+    background-color: whitesmoke;
+    margin: 20px 0px 20px 0px;
+    display: grid;;
+    width:100%;
+    height: 1200px;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr;
+    /*grid-gap:1em;*/
+    /* grid-auto-rows:100px; */
+    /*grid-auto-rows: minmax(100px, auto);*/
+    grid-template-areas:
+        "v1" 
+        "v1"       
+        "v1"
+        "v1"
+
+        ;
+
+}
+
+.context-text{
+    text-align: justify;
+    text-justify: inter-word;
+    /*margin: 20px 8px 10px 8px;*/
+    grid-area: ct;
+}
+
+.button-table{
+    grid-area: bt;
+    margin: 0;
+}
+
+.viz1 {
+    height: 500px;
+    /*margin: 20px;*/
+    display: grid;
+    align-content: space-between;
+    grid-template-areas: 
+        "pm" 
+        ;      
+    grid-template-columns: 1fr; 
+    grid-area: v1;
+}
+.viz2 {
+
+    display: grid;
+    align-content: space-between;
+    grid-template-areas: 
+        "tp"
+        ;      
+    grid-template-columns: 1fr; 
+    grid-area: v2;
+}
+
+#planning_map {
+    height: inherit;
+    width: 100%;
+    grid-area: pm;
+}
+
+
+/*#type-pie{
+    grid-area: tp;
+}*/
+/*420
+@media screen and (min-width: 420px)  {
+    #page{
+        display: grid;
+        width:100%;
+        height: 600px;
+
+                grid-gap:1em;
+                grid-auto-rows:100px; 
+                grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+            "context1 v1 v1"        
+            "context2 v1 v1"
+            ;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 2px;
+
+    }
+}   
+iPad Pro
+@media screen and (min-width: 1024px)  {
+    #page{
+        display: grid;
+        width:100%;
+        height:600px ;
+        grid-gap:1em;
+         grid-auto-rows:100px; 
+        grid-auto-rows: minmax(100px, auto);
+        grid-template-areas:
+            "context1 v1 v1"        
+            "context2 v1 v1"
+            ;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 2px;
+
+    }
+}*/
+/*Desktop*/
+@media screen and (min-width: 1200px)  {
+    .wrapper{
+        margin: 20px 0px 20px 0px;;
+        height: auto;
+        width: auto;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        /*        grid-gap:1em;
+                 grid-auto-rows:100px; 
+                grid-auto-rows: minmax(100px, auto);*/
+        grid-template-areas:
+            "v1 v1"
+            "v1 v1"
+            "bt bt"
+            "v3 v2"
+            "v3 v2";
+
+    }
+    
+     #planning-map {
+        height: inherit;
+        width: 100%;
+        grid-area: pm;
+    }
+    
+    #time-chart{
+        height: inherit;
+        width: 100%;
+        grid-area: tc;
+        
+    }
+    #decision-row-chart{
+        height: inherit;
+        width: 100%;
+        grid-area: dr;
+        
+    }
+
+    .context-text{
+        text-align: justify;
+        text-justify: inter-word;
+        grid-area: ct;
+    }
+    
+    .button-table{
+        grid-area: bt;
+    }
+
+    .viz1 {
+        height: 500px;
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "pm"
+            ;      
+        /*grid-template-columns: 1fr;*/ 
+        grid-template-rows: auto;
+        grid-area: v1;
+    }
+    .viz2 {
+
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "dr"
+            
+            ;      
+        grid-template-columns: 1fr; 
+        grid-area: v2;
+    }
+    .viz3 {
+
+        display: grid;
+        align-content: space-between;
+        grid-template-areas: 
+            "tc"
+            ;      
+        grid-template-columns: 1fr; 
+        grid-area: v3;
+    }
+
+   
+
+
+/*    #type-pie{
+        grid-area: tp;
+    }*/
+
+}
+
+#page > div:nth-child(odd){
+    background-color: lightgrey;
+}

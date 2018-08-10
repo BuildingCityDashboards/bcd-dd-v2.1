@@ -1,66 +1,122 @@
-<!--<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="./">Interactive Cork Planning Application Data</a>
+<div class="wrapper">
+    <!--    <div class='context-text'>
+            <h1>Dublin Planning Tool</h1>
+             Time Chart  
+    
+            <p>Number of Applications Received Over Time</p>
+    
+    
+        </div>-->
+
+    <!-- Map -->  
+    <div class="viz1">
+        <div id="planning-map">
+            <!--            <div>Planning Applications Locations</div>-->
         </div>
     </div>
-</div>-->
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- Time Chart --> 
-        <div class="col-sm-6">
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Number of Applications Received Over Time
-                </div>
-                <div class="chart-stage">
-                    <div id="time-chart">
-                    </div>
-                </div>
-            </div>
+    <div class="button-table">
+        <table style="width:100%; text-align:left; 
+               font-family: 'Proxima Nova', sans-serif; font-weight: normal; font-size: 12pt;">
+            <tr>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
+                    Start date:<input type="date" id="start_date" style="height:auto"/>
+                </td>
+                <!--                <td>
+                                    <input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>
+                                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Dublin City
+                
+                                </td>
+                                <td>
+                                    <input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>
+                                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Fingal
+                                </td>
+                                <td>
+                                    <input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>
+                                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Dún Laoghaire-Rathdown
+                                </td>-->
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Pharmacy.png" id="pharmacy_check" style="width:60px; height:60px"/>-->
+                    End date:
+                    <input type="date" id="end_date" style="height:auto"/>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
+                    <input type="button" id="council_toggle" style="height:auto"/>Choose local authorities:
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Dublin City
+
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Fingal
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Dún Laoghaire-Rathdown
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Pharmacy.png" id="pharmacy_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="sdc_check" style="height:auto" checked/>South Dublin
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
+                    <input type="button" id="council_toggle" style="height:auto"/>Choose decision type:
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Granted
+
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Denied
+                </td>
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Pending
+                </td>                        
+            </tr>
+
+        </table>
+    </div>            
+
+    <!--    Decision 
+        <div >
+            Application Decision
         </div>
+    -->   
+    <div class="viz2">
+        <div id="decision-row-chart"></div>
+    </div>
         <!-- Time Chart -->
-        <!-- Map -->  
-        <div class="col-sm-6"> 
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Planning Applications Locations
-                </div>
-                <div class="chart-stage">
-                    <div id="map-div" style="width:100%; height:400px">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Map -->   
-        <!--Decision--> 
-        <div class="col-sm-6">
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Application Decision
-                </div>
-                <div class="chart-stage">
-                    <div id="decision-row-chart"></div>
-                </div>
-            </div>
-        </div>
-        <!--Decision--> 
+    <div class="viz3">
 
-        <!--Number of events-->   
-        <div class="col-sm-6"> 
-            <div class="chart-wrapper">
-                <div class="chart-title">
-                    Total Number of Applications Selected
-                </div>
-                <div class="chart-stage">
-                    <div id="number-records-nd"></div>
-                </div>
-            </div>
+        <div id="time-chart">
         </div>
-        <!--Number of events-->
     </div>
+
+    <!--
+            <div class="chart-title">
+                Total Number of Applications Selected
+            </div>-->
+    <!--    <div class='dc-data-count'>
+            <p>Currently showing<br><span id='number-records-nd'></span>
+                <span class="filter-text" id="type-filter-text"></span>
+                <br>out of a total of<br><span class='total-count'></span><br> 
+                planning applications.
+            </p>
+        </div>-->
 </div>
-<hr>
-<!--<p class="small text-muted">Built with &#9829; by <a href="https://keen.io">Keen IO</a></p>-->
+
+
 
