@@ -5,15 +5,21 @@
 //var dubLat = 53.3498;
 //var dubLng = -6.2603;
 
+//Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
+proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
+//Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
+proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
+proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
+
 var dub_lng = -6.2603;
-var dub_lat = 53.3498;
+var dub_lat = 53.36;
 var dublinX, dublinY;
 //data loading
 var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
 //var corkCityURL = '/data/tools/planning/json/PlanningApplications_CorkCity_';
 //var corkCountyURL = '/data/tools/planning/json/PlanningApplications_CorkCounty_';
 //var corkCountyURL_1 = '/data/tools/planning/json/PlanningApplications_CorkCounty_1.geojson';
-var min_zoom = 9, max_zoom = 18;
+var min_zoom = 10, max_zoom = 16;
 var zoom = min_zoom;
 // tile layer with correct attribution
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -25,7 +31,7 @@ var osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a
 var osmAttrib_Hot = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 var stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
-var map = new L.Map('map-div');
+var map = new L.Map('planning-map');
 var osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_zoom, attribution: stamenTonerAttrib});
 map.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 map.addLayer(osm);
@@ -43,7 +49,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 0, 5);
+loadJsonFile(dublinDataURI, 0, 39);
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -100,6 +106,8 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 
 //////////////////////////////////////////////////////////////////////////////
 function makeGraphs(error, recordsJson) {
+
+
 //       console.log("json: "+JSON.stringify(recordsJson.features));
 
 //Clean features data
@@ -108,6 +116,10 @@ function makeGraphs(error, recordsJson) {
     var records = recordsJson;
     //	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
 //    var i = 0;
+    //Convert from Irish Grid to useable latlong
+    var firstProjection = "EPSG:3857";
+    var secondProjection = "EPSG:4326";
+
     records.forEach(function (d) {
         //		d["timestamp"] = dateFormat.parse(d["timestamp"]);
         //		d["timestamp"].setMinutes(0);
@@ -118,39 +130,41 @@ function makeGraphs(error, recordsJson) {
 //d.properties.PlanningAuthority
 //d.properties.Decision
 //d.properties.DecisionDate
-        d.geometry.x = +d.geometry.x;
-        d.geometry.y = +d.geometry.y;
+
+//        d.geometry.coordinates[0] = +d.geometry.coordinates[0];
+//        d.geometry.coordinates[1] = +d.geometry.coordinates[1];
+        var result = proj4(firstProjection, secondProjection, [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
+        d.x = result[0];
+        d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
         d.properties.DecisionDate = +d.properties.DecisionDate;
-//                    console.log("x:" + d.geometry.x);
-//                    console.log("y:" + d.geometry.y);
-//                      d["y"] = +d["y"];
 
-//        i += 1;
     });
-    console.log("record count: " + i);
+//    console.log("record count: " + i);
     //Create a Crossfilter instance
-    var xRecords = crossfilter(records);
-    console.log("crossfilter count: " + xRecords.size());
+    var planningXF = crossfilter(records);
+    console.log("crossfilter count: " + planningXF.size());
 //               Define Dimensions
-    var authorityDim = xRecords.dimension(function (d) {
+    var authorityDim = planningXF.dimension(function (d) {
         return d.properties.PlanningAuthority;
     });
 
-    var rDateDim = xRecords.dimension(function (d) {
+    var rDateDim = planningXF.dimension(function (d) {
         return d.properties.ReceivedDate;
     });
 
-    var dDateDim = xRecords.dimension(function (d) {
+    var dDateDim = planningXF.dimension(function (d) {
         return d.properties.DecisionDate;
     });
-    var decisionDim = xRecords.dimension(function (d) {
+    var decisionDim = planningXF.dimension(function (d) {
         return d.properties.Decision;
     });
-    var locationDim = xRecords.dimension(function (d) {
-        return d.geometry;
-    });
-    allDim = xRecords.dimension(function (d) {
+//    var locationDim = planningXF.dimension(function (d) {
+//        return d.loc;
+//    });
+
+
+    allDim = planningXF.dimension(function (d) {
         return d;
     });
     //Group Data
@@ -158,23 +172,24 @@ function makeGraphs(error, recordsJson) {
     var recordsByRDate = rDateDim.group();
     var recordsByDDate = dDateDim.group();
     var recordsByDecision = decisionDim.group();
-    var recordsByLocation = locationDim.group();
-    var all = xRecords.groupAll();
+//    var recordsByLocation = locationDim.group();
+    var all = planningXF.groupAll();
     //Values to be used in charts
-    
+
     //null dates have been coerced to 0, so scan through to find earliest valid date
     //probably really inefficient!
-    var minDate = 0; var index=1; 
-    while(minDate === 0){
-              console.log("i: "+index);
-              minDate= rDateDim.bottom(index)[index-1].properties.ReceivedDate;
-              index+=1;              
-           } //returns the whole record with earliest date
-    
-    var maxDate = rDateDim.top(1);
-    
+    var minDate = 0;
+    var index = 1;
+    while (minDate === 0) {
+        console.log("i: " + index);
+        minDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
+        index += 1;
+    } //returns the whole record with earliest date
+
+    var maxDate = rDateDim.top(1)[0].properties.ReceivedDate;
+
     console.log("min: " + JSON.stringify(minDate)
-            + " | max: " + JSON.stringify(maxDate[0].properties.ReceivedDate));
+            + " | max: " + JSON.stringify(maxDate));
     //Charts
     var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
@@ -196,10 +211,10 @@ function makeGraphs(error, recordsJson) {
             .dimension(rDateDim)
             .group(recordsByRDate)
             .transitionDuration(500)
-            .x(d3.scaleTime().domain([minDate, maxDate[0].properties.ReceivedDate]))
+            .x(d3.scaleTime().domain([minDate, maxDate]))
             .elasticY(true)
             .yAxis().ticks(4);
-    
+
     timeChart.render();
 
     decisionChart
@@ -214,6 +229,7 @@ function makeGraphs(error, recordsJson) {
             .elasticX(true)
             .xAxis().ticks(4)
             ;
+    decisionChart.render();
     makeMap();
 //    dcCharts = [timeChart, decisionChart];
 ////Update the map if any dc chart get filtered
@@ -237,6 +253,8 @@ var cityClusters = L.markerClusterGroup();
 //        }).addTo(map);
 
 function makeMap() {
+
+
     cityClusters.clearLayers();
     map.removeLayer(cityClusters);
 //    var baseMaps = {
@@ -256,7 +274,9 @@ function makeMap() {
 
 
     _.each(allDim.top(Infinity), function (d) {
-        var marker = new L.Marker(new L.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]));
+        var marker = new L.Marker(
+                new L.LatLng(d.y, d.x)
+                );
         marker.bindPopup(getContent(d));
         cityClusters.addLayer(marker);
 //       markers.push([d.geometry.coordinates[0], d.geometry.coordinates[1], "test"]);
