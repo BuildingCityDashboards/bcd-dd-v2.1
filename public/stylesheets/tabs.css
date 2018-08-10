@@ -1,3 +1,7 @@
+.tab-content{
+    position: relative;
+}
+
 .tab-charts{
     min-height: 340px;
 }
@@ -15,4 +19,52 @@
     color: var(--white);
     border-color: var(--vivid-cyan);
     background: var(--vivid-cyan);
+}
+
+.tab-charts__row{
+    position: relative;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+.tab-charts__row::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.tab-charts__row::-webkit-scrollbar-thumb {
+    background: var(--vivid-cyan);
+    border-radius: 10px;
+}
+
+.arrow-left{
+    position: absolute;
+    left: -70px;
+    top: 40%;
+    background: transparent;
+    height: 40px;
+    width: 50px;
+    transform: rotate(90deg);
+    border:none;
+}
+
+.arrow-right{
+    position: absolute;
+    right: -70px;
+    top: 40%;
+    background: transparent;
+    height: 40px;
+    width: 50px;
+    transform: rotate(-90deg);
+    border: none;
+}
+
+.icon-arrow{
+    max-height: 50px;
+    max-width: 50px;
+}
+
+.arrow-left:focus, .arrow-right:focus{
+    outline: none;
 }

@@ -33,7 +33,7 @@
     cursor: pointer;
     z-index: 8000;
     border-radius: 0;
-    transition: 250ms ease;;
+    transition: 250ms ease;
 }
 
 .side-menu__toggler:focus{
