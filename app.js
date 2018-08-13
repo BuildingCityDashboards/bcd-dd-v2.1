@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var logger = require("./utils/logger");
 require('dotenv').config();
 
+
 // get routes files
 var index = require('./routes/index');
 var themes = require('./routes/themes');
@@ -53,6 +54,9 @@ app.use('/stories', stories);
 app.use('/tools', tools);
 app.use('/queries', queries);
 app.use('/api/themes', themes);
+
+////additional fnctionality from node modules
+//var noUiSlider = require('nouislider');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

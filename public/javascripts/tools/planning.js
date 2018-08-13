@@ -5,6 +5,33 @@
 //var dubLat = 53.3498;
 //var dubLng = -6.2603;
 
+//var slider = document.getElementById('siteSizeSlider');
+////document.getElementById('input-number-min').setAttribute("value", 1231200000000);
+////document.getElementById('input-number-max').setAttribute("value", 1516886449143);
+//var inputNumberMin = document.getElementById('siteSizeMin');
+//var inputNumberMax = document.getElementById('siteSizeMax');
+//
+//noUiSlider.create(slider, {
+//    start: [20, 80],
+//    connect: true,
+//    range: {
+//        'min': 0,
+//        'max': 100
+//    }
+//});
+
+//slider.noUiSlider.on('update', function (values, handle) {
+////handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+//if (handle === 0) {
+//    document.getElementById('siteSizeMin').value = values[0];
+//} else {
+//    document.getElementById('siteSizeMax').value = values[1];
+//}
+////    rangeMin = document.getElementById('input-number-min').value;
+////    rangeMax = document.getElementById('input-number-max').value; 
+//});
+
+
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
 //Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -138,7 +165,7 @@ function makeGraphs(error, recordsJson) {
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
         d.properties.DecisionDate = +d.properties.DecisionDate;
-
+//        d.properties.AreaofSite = +d.properties.AreaofSite;
     });
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -159,6 +186,11 @@ function makeGraphs(error, recordsJson) {
     var decisionDim = planningXF.dimension(function (d) {
         return d.properties.Decision;
     });
+    var areaDim = planningXF.dimension(function (d) {
+        return d.properties.AreaofSite;
+    });
+    
+    
 //    var locationDim = planningXF.dimension(function (d) {
 //        return d.loc;
 //    });
@@ -172,9 +204,16 @@ function makeGraphs(error, recordsJson) {
     var recordsByRDate = rDateDim.group();
     var recordsByDDate = dDateDim.group();
     var recordsByDecision = decisionDim.group();
+    
 //    var recordsByLocation = locationDim.group();
     var all = planningXF.groupAll();
     //Values to be used in charts
+    
+//    
+//    var minAreaSize = areaDim.bottom(1)[0];//.properties.AreaofSite;
+//    console.log("min area: " + JSON.stringify(minAreaSize));
+//       var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
+//    console.log("max area: " + minAreaSize);
 
     //null dates have been coerced to 0, so scan through to find earliest valid date
     //probably really inefficient!
