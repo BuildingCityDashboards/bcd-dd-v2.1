@@ -1,7 +1,7 @@
 
 /* Map variables and instantiation */
 
-var authorityNames = {};
+var authorityNames = [];
 
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -34,7 +34,7 @@ map.addLayer(osm);
 
 //console.log("drawing map");
 var mapHeight = 600;
-var chartHeight = (mapHeight / 2);
+var chartHeight = 600;
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
@@ -45,7 +45,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 0, 6);
+loadJsonFile(dublinDataURI, 10, 2);
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -81,10 +81,19 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 
         for (var i = 0, len = arguments.length; i < len; i++) {
             //  arguments[i][0] is a single object with all the file JSON data
-            var arg = arguments[i][0];
+            var arg = arguments[i][0].features;
+            var clean = arg.map(function (d) {
+                var cleanD = {};
+                d3.keys(d).forEach(function (k) {
+                    cleanD[_.trim(k)] = _.trim(d[k]);
+                });
+                return cleanD;
+            });
+
+
 //                        jsonFeaturesArr = jsonFeaturesArr.concat(arg);
-            jsonFeaturesArr = jsonFeaturesArr.concat(arg.features); //  make a 1-D array of all the features
-//                        console.log("featsArr has length:  " + jsonFeaturesArr.length);
+            jsonFeaturesArr = jsonFeaturesArr.concat(clean); //  make a 1-D array of all the feature
+            console.log("json 0:  " + JSON.stringify(jsonFeaturesArr[0]));
 //            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
         }
 //                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
@@ -117,11 +126,7 @@ function makeGraphs(error, recordsJson) {
     var secondProjection = "EPSG:4326";
 
     records.forEach(function (d) {
-        //		d["timestamp"] = dateFormat.parse(d["timestamp"]);
-        //		d["timestamp"].setMinutes(0);
-        //		d["timestamp"].setSeconds(0);
-//                    		d["x"] = +d["x"];
-//                    d.properties.ReceivedDate.setMinutes(0);
+        //                    d.properties.ReceivedDate.setMinutes(0);
 //                    d.properties.ReceivedDate.setSeconds(0);
 //d.properties.PlanningAuthority
 //d.properties.Decision
@@ -135,6 +140,7 @@ function makeGraphs(error, recordsJson) {
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
+
     });
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -153,8 +159,11 @@ function makeGraphs(error, recordsJson) {
 //        return d.properties.DecisionDate;
 //    });
     var decisionDim = planningXF.dimension(function (d) {
+
+        console.log('.');
         return d.properties.Decision;
     });
+
     var areaDim = planningXF.dimension(function (d) {
         return d.properties.AreaofSite;
     });
@@ -169,6 +178,8 @@ function makeGraphs(error, recordsJson) {
     });
     //Group Data
     var recordsByAuthority = authorityDim.group();
+    console.log("LAs:" + JSON.stringify(recordsByAuthority.all()));
+
     var recordsByRDate = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
     var recordsByDecision = decisionDim.group();
@@ -195,8 +206,8 @@ function makeGraphs(error, recordsJson) {
 
     var maxDate = rDateDim.top(1)[0].properties.ReceivedDate;
 
-    console.log("min: " + JSON.stringify(minDate)
-            + " | max: " + JSON.stringify(maxDate));
+//    console.log("min: " + JSON.stringify(minDate)
+//            + " | max: " + JSON.stringify(maxDate));
     //Charts
     var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
