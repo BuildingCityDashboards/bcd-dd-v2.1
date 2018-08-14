@@ -1,35 +1,7 @@
 
 /* Map variables and instantiation */
 
-//var map = new L.Map('map');
-//var dubLat = 53.3498;
-//var dubLng = -6.2603;
-
-//var slider = document.getElementById('siteSizeSlider');
-////document.getElementById('input-number-min').setAttribute("value", 1231200000000);
-////document.getElementById('input-number-max').setAttribute("value", 1516886449143);
-//var inputNumberMin = document.getElementById('siteSizeMin');
-//var inputNumberMax = document.getElementById('siteSizeMax');
-//
-//noUiSlider.create(slider, {
-//    start: [20, 80],
-//    connect: true,
-//    range: {
-//        'min': 0,
-//        'max': 100
-//    }
-//});
-
-//slider.noUiSlider.on('update', function (values, handle) {
-////handle = 0 if min-slider is moved and handle = 1 if max slider is moved
-//if (handle === 0) {
-//    document.getElementById('siteSizeMin').value = values[0];
-//} else {
-//    document.getElementById('siteSizeMax').value = values[1];
-//}
-////    rangeMin = document.getElementById('input-number-min').value;
-////    rangeMax = document.getElementById('input-number-max').value; 
-//});
+var authorityNames = {};
 
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -43,9 +15,6 @@ var dub_lat = 53.36;
 var dublinX, dublinY;
 //data loading
 var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
-//var corkCityURL = '/data/tools/planning/json/PlanningApplications_CorkCity_';
-//var corkCountyURL = '/data/tools/planning/json/PlanningApplications_CorkCounty_';
-//var corkCountyURL_1 = '/data/tools/planning/json/PlanningApplications_CorkCounty_1.geojson';
 var min_zoom = 10, max_zoom = 16;
 var zoom = min_zoom;
 // tile layer with correct attribution
@@ -76,7 +45,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 0, 3);
+loadJsonFile(dublinDataURI, 0, 6);
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -92,7 +61,7 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
      Add progress bar for file load.
      ****/
 
-    for (i = fileOffset_; i < fileCount_; i++) {
+    for (i = fileOffset_; i < (fileOffset_ + fileCount_); i++) {
         promises.push(getData(i));
     }
 
@@ -164,8 +133,8 @@ function makeGraphs(error, recordsJson) {
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
-        d.properties.DecisionDate = +d.properties.DecisionDate;
-//        d.properties.AreaofSite = +d.properties.AreaofSite;
+//        d.properties.DecisionDate = +d.properties.DecisionDate;
+        d.properties.AreaofSite = +d.properties.AreaofSite;
     });
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -180,21 +149,20 @@ function makeGraphs(error, recordsJson) {
         return d.properties.ReceivedDate;
     });
 
-    var dDateDim = planningXF.dimension(function (d) {
-        return d.properties.DecisionDate;
-    });
+//    var dDateDim = planningXF.dimension(function (d) {
+//        return d.properties.DecisionDate;
+//    });
     var decisionDim = planningXF.dimension(function (d) {
         return d.properties.Decision;
     });
     var areaDim = planningXF.dimension(function (d) {
         return d.properties.AreaofSite;
     });
-    
-    
+
+
 //    var locationDim = planningXF.dimension(function (d) {
 //        return d.loc;
 //    });
-
 
     allDim = planningXF.dimension(function (d) {
         return d;
@@ -202,21 +170,21 @@ function makeGraphs(error, recordsJson) {
     //Group Data
     var recordsByAuthority = authorityDim.group();
     var recordsByRDate = rDateDim.group();
-    var recordsByDDate = dDateDim.group();
+//    var recordsByDDate = dDateDim.group();
     var recordsByDecision = decisionDim.group();
-    
+
 //    var recordsByLocation = locationDim.group();
     var all = planningXF.groupAll();
     //Values to be used in charts
-    
-//    
-//    var minAreaSize = areaDim.bottom(1)[0];//.properties.AreaofSite;
-//    console.log("min area: " + JSON.stringify(minAreaSize));
-//       var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
-//    console.log("max area: " + minAreaSize);
+
+    //null sizes have been coerced to zero so we'll use that on the size slider
+    var minAreaSize = areaDim.bottom(1)[0].properties.AreaofSite; //probably zero
+    //console.log("min area: " + minAreaSize);
+    var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
+//    console.log("max area: " + maxAreaSize);
 
     //null dates have been coerced to 0, so scan through to find earliest valid date
-    //probably really inefficient!
+    /*TODO: probably really inefficient, use a native corssfilter func*/
     var minDate = 0;
     var index = 1;
     while (minDate === 0) {
@@ -235,12 +203,12 @@ function makeGraphs(error, recordsJson) {
     var decisionChart = dc.rowChart("#decision-row-chart");
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
-    numberRecordsND
-            .formatNumber(d3.format("d"))
-            .valueAccessor(function (d) {
-                return d;
-            })
-            .group(all);
+//    numberRecordsND
+//            .formatNumber(d3.format("d"))
+//            .valueAccessor(function (d) {
+//                return d;
+//            })
+//            .group(all);
 
     timeChart
             .width(600)
@@ -268,8 +236,9 @@ function makeGraphs(error, recordsJson) {
             .elasticX(true)
             .xAxis().ticks(4)
             ;
+
     decisionChart.render();
-    makeMap();
+
 //    dcCharts = [timeChart, decisionChart];
 ////Update the map if any dc chart get filtered
 //    _.each(dcCharts, function (dcChart) {
@@ -278,78 +247,121 @@ function makeGraphs(error, recordsJson) {
 ////            console.log("chart filtered");
 //        });
 //    });
-//    dc.renderAll();
 
+    ;
+    //UI elements
+
+    var areaSlider = document.getElementById('area-slider');
+//document.getElementById('input-number-min').setAttribute("value", 1231200000000);
+//document.getElementById('input-number-max').setAttribute("value", 1516886449143);
+//    var inputNumberMin = document.getElementById('min-area-nb');
+//    var inputNumberMax = document.getElementById('max-area-nb');
+
+    noUiSlider.create(areaSlider, {
+        start: [minAreaSize, maxAreaSize],
+        connect: true,
+        //tooltips: [ true, true ],
+        range: {
+            'min': [minAreaSize, minAreaSize],
+            '25%': [100.0, 100.0], //TODO: formularise
+            '50%': [1000.0, 1000.0],
+            '75%': [10000.0, 10000.0],
+            'max': [maxAreaSize, maxAreaSize]
+        }
+    });
+
+    areaSlider.noUiSlider.on('update', function (values, handle) {
+//handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+        if (handle === 0) {
+            document.getElementById('min-area-nb').value = values[0];
+        } else {
+            document.getElementById('max-area-nb').value = values[1];
+        }
+        areaDim.filterRange([values[0], values[1]]);
+        makeMap();
+        update();
+
+//    rangeMin = document.getElementById('input-number-min').value;
+//    rangeMax = document.getElementById('input-number-max').value; 
+    });
+
+    d3.selectAll('input').on('change', function () {
+        if (this.type === 'checkbox') {
+            console.log("checkbox " +
+                    this.id + " : " + this.checked
+                    );
+            if (this.id === 'dcc-check') {
+                if (!this.checked) {
+                    console.log("Filter OUT dcc");
+                    authorityDim.filter("Fingal");
+                    makeMap();
+                } else {
+                    console.log("Filter IN dcc");
+                    authorityDim.filterAll();
+                    makeMap();
+
+                }
+            } else if (this.id === 'fing-check') {
+                if (!this.checked) {
+                    console.log("Filter OUT Fingal");
+//                    authorityDim.filter("Fingal");
+//                    makeMap();
+                } else {
+                    console.log("Filter IN Fingal");
+//                    authorityDim.filterAll();
+//                    makeMap();
+
+                }
+            } else if (this.id === 'dlr-check') {
+                if (!this.checked) {
+                    console.log("Filter OUT DLR");
+//                    authorityDim.filter("Fingal");
+//                    makeMap();
+                } else {
+                    console.log("Filter IN DLR");
+//                    authorityDim.filterAll();
+//                    makeMap();
+
+                }
+            } else {
+                if (!this.checked) {
+                    console.log("Filter OUT South D");
+//                    authorityDim.filter("Fingal");
+//                    makeMap();
+                } else {
+                    console.log("Filter IN South D");
+//                    authorityDim.filterAll();
+//                    makeMap();
+
+                }
+            }
+        }
+        update();
+    });
+
+    function update() {
+        timeChart.redraw();
+        decisionChart.redraw();
+    }
 }
 ;
-var cityClusters = L.markerClusterGroup();
-//var streetMap = L.tileLayer(map_url,
-//        {
-//            id: 'mapbox.streets',
-//            attribution: 'Tiles by <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
-//            maxZoom: max_zoom,
-//            minZoom: min_zoom
-//        }).addTo(map);
-
+var planningClusters = L.markerClusterGroup();
 function makeMap() {
 
-
-    cityClusters.clearLayers();
-    map.removeLayer(cityClusters);
-//    var baseMaps = {
-//        "Streets": streetMap
-//    }, planningMaps;
-
-//                              map.clearLayers();
-
-//                            _.each(allDim.top(Infinity), function (d) {
-////                                var loc = d.brewery.location;
-////                                var name = d.brewery.brewery_name;
-////                                var marker = L.marker([loc.lat, loc.lng]);
-////                                marker.bindPopup("<p>" + name + " " + loc.brewery_city + " " + loc.brewery_state + "</p>");
-//                                breweryMarkers.addLayer(marker);
-//                            });
-//                            map.addLayer(breweryMarkers);
-
-
+    planningClusters.clearLayers();
+    map.removeLayer(planningClusters);
     _.each(allDim.top(Infinity), function (d) {
         var marker = new L.Marker(
                 new L.LatLng(d.y, d.x)
                 );
         marker.bindPopup(getContent(d));
-        cityClusters.addLayer(marker);
+        planningClusters.addLayer(marker);
 //       markers.push([d.geometry.coordinates[0], d.geometry.coordinates[1], "test"]);
 //        map.addLayer(new L.Marker(new L.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]), "test"));
 //        console.log("d.geo:"+JSON.stringify(allDim));
 //console.log("d:"+JSON.stringify(d.properties.DevelopmentAddress));
-
     });
-    map.addLayer(cityClusters);
-    //console.log("Make Map:"+JSON.stringify(geoData[0]));
-
-//    var heat = L.heatLayer(geoData,{
-//			radius: 10,
-//			blur: 20, 
-//			maxZoom: 1
-//		}).addTo(map);
-
-//    var mapData = L.geoJson(jsonFeaturesArr, {
-//        onEachFeature: function (feature, layer) {
-//            layer.bindPopup(getContent());
-
-//       map.addLayer(mapLayer);
-//    cityClusters.addLayer(mapData);
-//    map.addLayer(cityClusters);
-//        makeGraphs(null, jsonFeaturesArr);
-
-
-//        clusterName_.addLayer(mapData);
-//        map_.addLayer(clusterName_);
-////                    map_.fitBounds(mapData.getBounds());
-
-
-//    makeGraphs(null, jsonFeaturesArr);
-//    console.log("jsonFeaturesArr length: " + jsonFeaturesArr.length);
+    map.addLayer(planningClusters);
 }
 
 function getContent(d_) {

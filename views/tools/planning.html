@@ -18,24 +18,24 @@
     <div class="button-table">
         <table style="width:100%; text-align:left; 
                font-family: 'Proxima Nova', sans-serif; font-weight: normal; font-size: 12pt;">
-            <tr>
+            <tr>   
+                <td>
+                    <label class="switch">
+                        <input type="checkbox" id="date-switch">
+                        <span class="slider-switch"></span>
+                    </label>                   
+                </td>
+                <td>
+                    Date Range (Applications Received)
+                </td>
+
                 <td>
                     <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
                     Start date:<input type="date" id="start_date" style="height:auto"/>
                 </td>
-                <!--                <td>
-                                    <input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>
-                                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Dublin City
-                
-                                </td>
-                                <td>
-                                    <input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>
-                                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Fingal
-                                </td>
-                                <td>
-                                    <input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>
-                                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Dún Laoghaire-Rathdown
-                                </td>-->
+                <td>
+
+                </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Pharmacy.png" id="pharmacy_check" style="width:60px; height:60px"/>-->
                     End date:
@@ -45,49 +45,86 @@
             </tr>
             <tr>
                 <td>
-                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
-                    <input type="button" id="council_toggle" style="height:auto"/>Choose local authorities:
+                    <label class="switch">
+                        <input type="checkbox" id="authorirty-switch">
+                        <span class="slider-switch"></span>
+                    </label>                   
+                </td>
+                <td>
+                    Local Authority
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Dublin City
+                    <input type="checkbox" id="dcc-check" style="height:auto" checked/>Dublin City
 
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Fingal
+                    <input type="checkbox" id="fing-check" style="height:auto" checked/>Fingal
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Dún Laoghaire-Rathdown
+                    <input type="checkbox" id="dlr-check" style="height:auto" checked/>Dún Laoghaire-Rathdown
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Pharmacy.png" id="pharmacy_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="sdc_check" style="height:auto" checked/>South Dublin
+                    <input type="checkbox" id="sdc-check" style="height:auto" checked/>South Dublin
                 </td>
 
             </tr>
             <tr>
                 <td>
-                    <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
-                    <input type="button" id="council_toggle" style="height:auto"/>Choose decision type:
+                    <label class="switch">
+                        <input type="checkbox" id="decision-switch">
+                        <span class="slider-switch"></span>
+                    </label>                   
+                </td>
+                <td>
+                    Decision Type
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Hospital.png" id="hospital_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="dcc_check" style="height:auto" checked/>Granted
+                    <input type="checkbox" id="granted_check" style="height:auto" checked/>Grant
 
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/GP.png" id="gp_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="fing_check" style="height:auto" checked/>Denied
+                    <input type="checkbox" id="denied_check" style="height:auto" checked/>Refuse
                 </td>
                 <td>
                     <!--<input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>-->
-                    <input type="checkbox" id="dlr_check" style="height:auto" checked/>Pending
+                    <input type="checkbox" id="pending_check" style="height:auto" checked/>Invalidate
+                </td> 
+                <td>
+                    <!--<input type="image" src="/images/themes/health/Dentist.png" id="dentist_check" style="width:60px; height:60px"/>-->
+                    <input type="checkbox" id="other_check" style="height:auto" checked/>Other
+                </td> 
+            </tr>
+            <tr>
+                <td>
+                    <label class="switch">
+                        <input type="checkbox" id="area-switch">
+                        <span class="slider-switch"></span>
+                    </label>                   
+                </td>
+                <td>
+                    Site Area Range
+                </td>
+                <td>
+                    <input type="number" id="min-area-nb" style="height:auto" />Min
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    <div id="area-slider"></div>
+                </td>
+                <td>
+                    <input type="number" id="max-area-nb" style="height:auto" />Max
                 </td>                        
             </tr>
-            
-            
+
+
 
         </table>
     </div>            
@@ -100,12 +137,12 @@
     <div class="viz2">
         <div id="decision-row-chart"></div>
     </div>
-        <!-- Time Chart -->
+    <!-- Time Chart -->
     <div class="viz3">
 
         <div id="time-chart">
         </div>
-        <div id="slider_test"></div>
+
     </div>
 
     <!--
