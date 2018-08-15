@@ -6,6 +6,11 @@ router.get('/', function(req, res, next) {
   res.redirect('/themes/health');
 });
 
+// for testing
+router.get('/test', function(req, res, next) {
+  res.render('themes', { title: 'Themes Page' });
+});
+
 router.get('/health', function(req, res, next) {
   res.render('themes_health', { title: 'Themes: Health' });
 });

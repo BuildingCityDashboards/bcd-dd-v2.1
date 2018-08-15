@@ -43,6 +43,18 @@ p, .p{
   font-weight: 300;
 }
 
+.header{
+  padding: 1rem 0;
+}
+
+.header__h1{
+
+}
+
+.header__h2{
+  text-align: center;
+}
+
 .header__lead{
   font-size: 1.375rem;
   font-weight: 300;

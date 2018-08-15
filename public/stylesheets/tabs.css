@@ -29,14 +29,15 @@
 }
 
 .tab-charts__row::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 0;
+    height: 0;
+    background: transparent;
 }
 
-.tab-charts__row::-webkit-scrollbar-thumb {
+/* .tab-charts__row::-webkit-scrollbar-thumb {
     background: var(--vivid-cyan);
     border-radius: 10px;
-}
+} */
 
 .arrow-left{
     position: absolute;
