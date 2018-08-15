@@ -2,6 +2,8 @@
 /* Map variables and instantiation */
 
 var authorityNames = [];
+var authorityNamesChecked = authorityNames;
+
 
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -34,7 +36,7 @@ map.addLayer(osm);
 
 //console.log("drawing map");
 var mapHeight = 600;
-var chartHeight = 600;
+var chartHeight = 1000;
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
@@ -45,7 +47,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 10, 2);
+loadJsonFile(dublinDataURI, 9, 10); //0-38 inclusive
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -82,31 +84,20 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
         for (var i = 0, len = arguments.length; i < len; i++) {
             //  arguments[i][0] is a single object with all the file JSON data
             var arg = arguments[i][0].features;
-            var clean = arg.map(function (d) {
-                var cleanD = {};
-                d3.keys(d).forEach(function (k) {
-                    cleanD[_.trim(k)] = _.trim(d[k]);
-                });
-                return cleanD;
-            });
+            //  make a 1-D array of all the features
+            jsonFeaturesArr = jsonFeaturesArr.concat(arg);
 
 
-//                        jsonFeaturesArr = jsonFeaturesArr.concat(arg);
-            jsonFeaturesArr = jsonFeaturesArr.concat(clean); //  make a 1-D array of all the feature
-            console.log("json 0:  " + JSON.stringify(jsonFeaturesArr[0]));
 //            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
         }
 //                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
 //                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
 
         console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
-//                    console.log("Features loaded: "+JSON.stringify(jsonFeaturesArr));
-
+        console.log("jsonFeatures[1000] clean:  " + JSON.stringify(jsonFeaturesArr[1000]));
         makeGraphs(null, jsonFeaturesArr);
     }); //end of when()
 } //end of loadJSONFile
-
-
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -129,19 +120,29 @@ function makeGraphs(error, recordsJson) {
         //                    d.properties.ReceivedDate.setMinutes(0);
 //                    d.properties.ReceivedDate.setSeconds(0);
 //d.properties.PlanningAuthority
-//d.properties.Decision
 //d.properties.DecisionDate
 
 //        d.geometry.coordinates[0] = +d.geometry.coordinates[0];
 //        d.geometry.coordinates[1] = +d.geometry.coordinates[1];
-        var result = proj4(firstProjection, secondProjection, [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
+        var result = proj4(firstProjection, secondProjection,
+                [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
+        d.properties.Decision = _.trim(d.properties.Decision); //clean leading & trailing whitespaces
+        d.properties.DecisionCategory = d.properties.Decision;
 
-    });
+    }); //end of forEach
+
+    function categorize(s) {
+        regex = /GRANT/;
+        if (regex.test(s)) {
+            //console.log("we found it in the string!");
+        }
+    }
+
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
     var planningXF = crossfilter(records);
@@ -160,8 +161,14 @@ function makeGraphs(error, recordsJson) {
 //    });
     var decisionDim = planningXF.dimension(function (d) {
 
-        console.log('.');
+//        console.log('.');
         return d.properties.Decision;
+    });
+
+    var decisionCategoryDim = planningXF.dimension(function (d) {
+
+//        console.log('.');
+        return d.properties.DecisionCategory;
     });
 
     var areaDim = planningXF.dimension(function (d) {
@@ -177,12 +184,18 @@ function makeGraphs(error, recordsJson) {
         return d;
     });
     //Group Data
-    var recordsByAuthority = authorityDim.group();
-    console.log("LAs:" + JSON.stringify(recordsByAuthority.all()));
+    var authorityGroup = authorityDim.group();
+    //Store names of LAs in array as strings
+    for (i = 0; i < authorityGroup.all().length; i += 1) {
+        authorityNames.push(authorityGroup.all()[i].key);
+    }
+    console.log("LAs:" + authorityNames);
+    //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
-    var recordsByRDate = rDateDim.group();
+    var receivedDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
-    var recordsByDecision = decisionDim.group();
+    var decisionGroup = decisionDim.group();
+    var decisionCategoryGroup = decisionCategoryDim.group();
 
 //    var recordsByLocation = locationDim.group();
     var all = planningXF.groupAll();
@@ -194,20 +207,23 @@ function makeGraphs(error, recordsJson) {
     var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
 //    console.log("max area: " + maxAreaSize);
 
-    //null dates have been coerced to 0, so scan through to find earliest valid date
-    /*TODO: probably really inefficient, use a native corssfilter func*/
-    var minDate = 0;
-    var index = 1;
-    while (minDate === 0) {
-        console.log("i: " + index);
-        minDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
-        index += 1;
-    } //returns the whole record with earliest date
+
+    //Find earliest date with d3
+    var minDate = d3.min(records, function (d) {
+        return d.properties.ReceivedDate;
+    });
+    //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
+//    var index = 1;
+//    while (minDate === 0) {
+//        console.log("i: " + index);
+//        minDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
+//        index += 1;
+//    } //returns the whole record with earliest date
 
     var maxDate = rDateDim.top(1)[0].properties.ReceivedDate;
 
-//    console.log("min: " + JSON.stringify(minDate)
-//            + " | max: " + JSON.stringify(maxDate));
+    console.log("minDate: " + JSON.stringify(minDate)
+            + " | maxDate: " + JSON.stringify(maxDate));
     //Charts
     var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
@@ -227,7 +243,7 @@ function makeGraphs(error, recordsJson) {
             .brushOn(true)
             .margins({top: 10, right: 50, bottom: 20, left: 20})
             .dimension(rDateDim)
-            .group(recordsByRDate)
+            .group(receivedDateGroup)
             .transitionDuration(500)
             .x(d3.scaleTime().domain([minDate, maxDate]))
             .elasticY(true)
@@ -238,8 +254,8 @@ function makeGraphs(error, recordsJson) {
     decisionChart
             .width(600)
             .height(chartHeight)
-            .dimension(decisionDim)
-            .group(recordsByDecision)
+            .dimension(decisionCategoryDim)
+            .group(decisionCategoryGroup)
 //                        .ordering(function (d) {
 //                            return -d.value;
 //                        })
@@ -304,49 +320,61 @@ function makeGraphs(error, recordsJson) {
             if (this.id === 'dcc-check') {
                 if (!this.checked) {
                     console.log("Filter OUT dcc");
-                    authorityDim.filter("Fingal");
-                    makeMap();
+                    authorityNamesChecked = authorityNames.filter(function (d) {
+                        return d !== "Dublin City Council"; //TODO: remove hard-coded values
+                    });
+//                    console.log("LA Names: " + authorityNamesChecked);
+
                 } else {
                     console.log("Filter IN dcc");
-                    authorityDim.filterAll();
-                    makeMap();
-
+                    authorityNamesChecked.push("Dublin City Council");
+//                    console.log("LA Names: " + authorityNamesChecked);
                 }
             } else if (this.id === 'fing-check') {
                 if (!this.checked) {
                     console.log("Filter OUT Fingal");
-//                    authorityDim.filter("Fingal");
-//                    makeMap();
+                    authorityNamesChecked = authorityNames.filter(function (d) {
+                        return d !== "Fingal County Council";
+                    });
                 } else {
                     console.log("Filter IN Fingal");
-//                    authorityDim.filterAll();
-//                    makeMap();
+                    authorityNamesChecked.push("Fingal County Council");
+
 
                 }
             } else if (this.id === 'dlr-check') {
                 if (!this.checked) {
                     console.log("Filter OUT DLR");
-//                    authorityDim.filter("Fingal");
-//                    makeMap();
+                    authorityNamesChecked = authorityNames.filter(function (d) {
+                        return d !== "Dun Laoghaire Rathdown County Council";
+                    });
+
                 } else {
                     console.log("Filter IN DLR");
-//                    authorityDim.filterAll();
-//                    makeMap();
+                    authorityNamesChecked.push("Dun Laoghaire Rathdown County Council");
 
                 }
             } else {
                 if (!this.checked) {
                     console.log("Filter OUT South D");
-//                    authorityDim.filter("Fingal");
-//                    makeMap();
+                    authorityNamesChecked = authorityNames.filter(function (d) {
+                        return d !== "South Dublin County Council";
+                    });
+
                 } else {
                     console.log("Filter IN South D");
-//                    authorityDim.filterAll();
-//                    makeMap();
+                    authorityNamesChecked.push("South Dublin County Council");
 
                 }
             }
+
         }
+        authorityDim.filterFunction(function (d) {
+            return authorityNamesChecked.includes(d);
+
+        });
+
+        makeMap();
         update();
     });
 
