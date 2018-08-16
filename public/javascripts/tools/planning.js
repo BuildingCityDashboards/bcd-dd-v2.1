@@ -2,8 +2,8 @@
 /* Map variables and instantiation */
 
 var authorityNames = [];
-var authorityNamesChecked = authorityNames;
-
+var authorityNamesChecked = []; //list of selected 
+var regex = /GRANT/;
 
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -133,15 +133,18 @@ function makeGraphs(error, recordsJson) {
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision); //clean leading & trailing whitespaces
         d.properties.DecisionCategory = d.properties.Decision;
+//        d.properties.DecisionCategory = categorize(d.properties.Decision);
 
     }); //end of forEach
 
     function categorize(s) {
-        regex = /GRANT/;
+
         if (regex.test(s)) {
+            return s;
             //console.log("we found it in the string!");
         }
     }
+
 
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -188,6 +191,7 @@ function makeGraphs(error, recordsJson) {
     //Store names of LAs in array as strings
     for (i = 0; i < authorityGroup.all().length; i += 1) {
         authorityNames.push(authorityGroup.all()[i].key);
+        authorityNamesChecked=authorityNames;
     }
     console.log("LAs:" + authorityNames);
     //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
@@ -318,36 +322,45 @@ function makeGraphs(error, recordsJson) {
                     this.id + " : " + this.checked
                     );
             if (this.id === 'dcc-check') {
+                //if the checkbox has been unticked and the LA is found in the checked list,
+                //remove it from checked list
                 if (!this.checked) {
-                    console.log("Filter OUT dcc");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Dublin City Council"; //TODO: remove hard-coded values
-                    });
-//                    console.log("LA Names: " + authorityNamesChecked);
-
+                    if (authorityNamesChecked.includes("Dublin City Council")) {
+                        console.log("Filter OUT dcc");
+                        authorityNamesChecked = authorityNames.filter(function (d) {
+                            return d !== "Dublin City Council"; //TODO: remove hard-coded values
+                        });
+                    }
+                    //if the checkbox has been ticked and the LA is in the list of  LAs in the data
+                    //add it back to checked list. Otherwise ignore.
                 } else {
-                    console.log("Filter IN dcc");
-                    authorityNamesChecked.push("Dublin City Council");
-//                    console.log("LA Names: " + authorityNamesChecked);
+                    if (authorityNames.includes("Dublin City Council")) {
+                        console.log("Filter IN dcc");
+                        authorityNamesChecked.push("Dublin City Council");
+                    }
                 }
             } else if (this.id === 'fing-check') {
                 if (!this.checked) {
-                    console.log("Filter OUT Fingal");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Fingal County Council";
-                    });
+                    if (authorityNamesChecked.includes("Fingal County Council")) {
+                        console.log("Filter OUT Fingal");
+                        authorityNamesChecked = authorityNames.filter(function (d) {
+                            return d !== "Fingal County Council";
+                        });
+                    }
                 } else {
+                    if (authorityNames.includes("Fingal County Council")) {
                     console.log("Filter IN Fingal");
                     authorityNamesChecked.push("Fingal County Council");
-
-
+                }
                 }
             } else if (this.id === 'dlr-check') {
                 if (!this.checked) {
-                    console.log("Filter OUT DLR");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Dun Laoghaire Rathdown County Council";
-                    });
+                    if (authorityNamesChecked.includes("Dun Laoghaire Rathdown County Council")) {
+                        console.log("Filter OUT DLR");
+                        authorityNamesChecked = authorityNames.filter(function (d) {
+                            return d !== "Dun Laoghaire Rathdown County Council";
+                        });
+                    }
 
                 } else {
                     console.log("Filter IN DLR");
@@ -356,30 +369,29 @@ function makeGraphs(error, recordsJson) {
                 }
             } else {
                 if (!this.checked) {
-                    console.log("Filter OUT South D");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "South Dublin County Council";
-                    });
+                    if (authorityNamesChecked.includes("South Dublin County Council")) {
+                        console.log("Filter OUT South D");
+                        authorityNamesChecked = authorityNames.filter(function (d) {
+                            return d !== "South Dublin County Council";
+                        });
+                    }
 
                 } else {
                     console.log("Filter IN South D");
                     authorityNamesChecked.push("South Dublin County Council");
-
                 }
             }
-
         }
+        console.log("LA Names: " + authorityNamesChecked);
         authorityDim.filterFunction(function (d) {
             return authorityNamesChecked.includes(d);
-
         });
-
         makeMap();
         update();
     });
 
     function update() {
-        timeChart.redraw();
+//        timeChart.redraw();
         decisionChart.redraw();
     }
 }
