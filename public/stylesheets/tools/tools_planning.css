@@ -43,7 +43,7 @@ img, span{
     margin: 20px 0px 20px 0px;
     display: grid;;
     width:100%;
-    height: 1200px;
+    height: 1000px;
     grid-template-rows: auto;
     grid-template-columns: 1fr;
     /*grid-gap:1em;*/
@@ -154,7 +154,6 @@ iPad Pro
                  grid-auto-rows:100px; 
                 grid-auto-rows: minmax(100px, auto);*/
         grid-template-areas:
-            "v1 v1"
             "v1 v1"
             "bt bt"
             "v3 v2"

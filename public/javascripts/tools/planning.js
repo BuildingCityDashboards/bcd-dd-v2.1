@@ -2,8 +2,7 @@
 /* Map variables and instantiation */
 
 var authorityNames = [];
-var authorityNamesChecked = authorityNames;
-
+var regex = /GRANT/;
 
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -47,7 +46,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 9, 10); //0-38 inclusive
+loadJsonFile(dublinDataURI, 9, 5); //0-38 inclusive
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -133,15 +132,18 @@ function makeGraphs(error, recordsJson) {
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision); //clean leading & trailing whitespaces
         d.properties.DecisionCategory = d.properties.Decision;
+//        d.properties.DecisionCategory = categorize(d.properties.Decision);
 
     }); //end of forEach
 
     function categorize(s) {
-        regex = /GRANT/;
+
         if (regex.test(s)) {
+            return s;
             //console.log("we found it in the string!");
         }
     }
+
 
 //    console.log("record count: " + i);
     //Create a Crossfilter instance
@@ -190,6 +192,7 @@ function makeGraphs(error, recordsJson) {
         authorityNames.push(authorityGroup.all()[i].key);
     }
     console.log("LAs:" + authorityNames);
+
     //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
     var receivedDateGroup = rDateDim.group();
@@ -213,6 +216,8 @@ function makeGraphs(error, recordsJson) {
         return d.properties.ReceivedDate;
     });
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
+    //
+//***TODO: compare for performance    
 //    var index = 1;
 //    while (minDate === 0) {
 //        console.log("i: " + index);
@@ -225,8 +230,8 @@ function makeGraphs(error, recordsJson) {
     console.log("minDate: " + JSON.stringify(minDate)
             + " | maxDate: " + JSON.stringify(maxDate));
     //Charts
-    var numberRecordsND = dc.numberDisplay("#number-records-nd");
-    var timeChart = dc.barChart("#time-chart");
+//    var numberRecordsND = dc.numberDisplay("#number-records-nd");
+//    var timeChart = dc.barChart("#time-chart");
     var decisionChart = dc.rowChart("#decision-row-chart");
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
@@ -237,19 +242,19 @@ function makeGraphs(error, recordsJson) {
 //            })
 //            .group(all);
 
-    timeChart
-            .width(600)
-            .height(chartHeight)
-            .brushOn(true)
-            .margins({top: 10, right: 50, bottom: 20, left: 20})
-            .dimension(rDateDim)
-            .group(receivedDateGroup)
-            .transitionDuration(500)
-            .x(d3.scaleTime().domain([minDate, maxDate]))
-            .elasticY(true)
-            .yAxis().ticks(4);
-
-    timeChart.render();
+//    timeChart
+//            .width(600)
+//            .height(chartHeight)
+//            .brushOn(true)
+//            .margins({top: 10, right: 50, bottom: 20, left: 20})
+//            .dimension(rDateDim)
+//            .group(receivedDateGroup)
+//            .transitionDuration(500)
+//            .x(d3.scaleTime().domain([minDate, maxDate]))
+//            .elasticY(true)
+//            .yAxis().ticks(4);
+//
+//    timeChart.render();
 
     decisionChart
             .width(600)
@@ -306,84 +311,62 @@ function makeGraphs(error, recordsJson) {
         }
         areaDim.filterRange([values[0], values[1]]);
         makeMap();
-        update();
+        updateCharts();
 
 //    rangeMin = document.getElementById('input-number-min').value;
 //    rangeMax = document.getElementById('input-number-max').value; 
     });
 
-    d3.selectAll('input').on('change', function () {
-        if (this.type === 'checkbox') {
-            console.log("checkbox " +
-                    this.id + " : " + this.checked
-                    );
-            if (this.id === 'dcc-check') {
-                if (!this.checked) {
-                    console.log("Filter OUT dcc");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Dublin City Council"; //TODO: remove hard-coded values
-                    });
-//                    console.log("LA Names: " + authorityNamesChecked);
+    //initialise checkbox to checked only if LA present in data
+    //disbale checkbox if no data for that LA
+    //
+//    $(document).ready(function () {
+    d3.selectAll('.la-checkbox').each(function (d) {
+        var cb = d3.select(this);
 
-                } else {
-                    console.log("Filter IN dcc");
-                    authorityNamesChecked.push("Dublin City Council");
-//                    console.log("LA Names: " + authorityNamesChecked);
-                }
-            } else if (this.id === 'fing-check') {
-                if (!this.checked) {
-                    console.log("Filter OUT Fingal");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Fingal County Council";
-                    });
-                } else {
-                    console.log("Filter IN Fingal");
-                    authorityNamesChecked.push("Fingal County Council");
+        if (authorityNames.includes(cb.property("value"))) {
+            cb.property("checked", true);
 
-
-                }
-            } else if (this.id === 'dlr-check') {
-                if (!this.checked) {
-                    console.log("Filter OUT DLR");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "Dun Laoghaire Rathdown County Council";
-                    });
-
-                } else {
-                    console.log("Filter IN DLR");
-                    authorityNamesChecked.push("Dun Laoghaire Rathdown County Council");
-
-                }
-            } else {
-                if (!this.checked) {
-                    console.log("Filter OUT South D");
-                    authorityNamesChecked = authorityNames.filter(function (d) {
-                        return d !== "South Dublin County Council";
-                    });
-
-                } else {
-                    console.log("Filter IN South D");
-                    authorityNamesChecked.push("South Dublin County Council");
-
+        } else {
+            cb.property("checked", false);
+            cb.property("disabled", true);
+        }
+        ;
+    });
+//push the LA nmae into the authorityNamesChecked array if box is ticked and it is in authorityNames
+    d3.selectAll(".la-checkbox").on('change', function () {
+        var authorityNamesChecked = []; //list of LAs with checked boxes
+        d3.selectAll(".la-checkbox").each(function (d) {
+            var cb = d3.select(this);
+            if (cb.property("checked")) {
+                if (authorityNames.includes(cb.property("value"))) {
+                    authorityNamesChecked.push(cb.property("value"));
                 }
             }
-
-        }
-        authorityDim.filterFunction(function (d) {
-            return authorityNamesChecked.includes(d);
-
         });
 
+//        if(authorityNamesChecked.length > 0){
+//          newData = data.filter(function(d,i){return choices.includes(d);});
+//        } else {
+//          newData = data;     
+//        } 
+
+        console.log("LA Names: " + authorityNames);
+        console.log("LA Names Checked: " + authorityNamesChecked);
+        authorityDim.filterFunction(function (d) {
+            return authorityNamesChecked.includes(d);
+        });
         makeMap();
-        update();
+        updateCharts();
     });
 
-    function update() {
-        timeChart.redraw();
+    function updateCharts() {
+//        timeChart.redraw();
         decisionChart.redraw();
     }
 }
-;
+; //end of makeGraphs
+
 var planningClusters = L.markerClusterGroup();
 function makeMap() {
 
