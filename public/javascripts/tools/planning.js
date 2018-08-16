@@ -46,7 +46,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 9, 10); //0-38 inclusive
+loadJsonFile(dublinDataURI, 9, 5); //0-38 inclusive
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -216,6 +216,8 @@ function makeGraphs(error, recordsJson) {
         return d.properties.ReceivedDate;
     });
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
+    //
+//***TODO: compare for performance    
 //    var index = 1;
 //    while (minDate === 0) {
 //        console.log("i: " + index);
@@ -228,8 +230,8 @@ function makeGraphs(error, recordsJson) {
     console.log("minDate: " + JSON.stringify(minDate)
             + " | maxDate: " + JSON.stringify(maxDate));
     //Charts
-    var numberRecordsND = dc.numberDisplay("#number-records-nd");
-    var timeChart = dc.barChart("#time-chart");
+//    var numberRecordsND = dc.numberDisplay("#number-records-nd");
+//    var timeChart = dc.barChart("#time-chart");
     var decisionChart = dc.rowChart("#decision-row-chart");
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
@@ -240,19 +242,19 @@ function makeGraphs(error, recordsJson) {
 //            })
 //            .group(all);
 
-    timeChart
-            .width(600)
-            .height(chartHeight)
-            .brushOn(true)
-            .margins({top: 10, right: 50, bottom: 20, left: 20})
-            .dimension(rDateDim)
-            .group(receivedDateGroup)
-            .transitionDuration(500)
-            .x(d3.scaleTime().domain([minDate, maxDate]))
-            .elasticY(true)
-            .yAxis().ticks(4);
-
-    timeChart.render();
+//    timeChart
+//            .width(600)
+//            .height(chartHeight)
+//            .brushOn(true)
+//            .margins({top: 10, right: 50, bottom: 20, left: 20})
+//            .dimension(rDateDim)
+//            .group(receivedDateGroup)
+//            .transitionDuration(500)
+//            .x(d3.scaleTime().domain([minDate, maxDate]))
+//            .elasticY(true)
+//            .yAxis().ticks(4);
+//
+//    timeChart.render();
 
     decisionChart
             .width(600)
@@ -309,7 +311,7 @@ function makeGraphs(error, recordsJson) {
         }
         areaDim.filterRange([values[0], values[1]]);
         makeMap();
-        update();
+        updateCharts();
 
 //    rangeMin = document.getElementById('input-number-min').value;
 //    rangeMax = document.getElementById('input-number-max').value; 
@@ -321,9 +323,10 @@ function makeGraphs(error, recordsJson) {
 //    $(document).ready(function () {
     d3.selectAll('.la-checkbox').each(function (d) {
         var cb = d3.select(this);
+
         if (authorityNames.includes(cb.property("value"))) {
             cb.property("checked", true);
-            
+
         } else {
             cb.property("checked", false);
             cb.property("disabled", true);
@@ -354,10 +357,10 @@ function makeGraphs(error, recordsJson) {
             return authorityNamesChecked.includes(d);
         });
         makeMap();
-        update();
+        updateCharts();
     });
 
-    function update() {
+    function updateCharts() {
 //        timeChart.redraw();
         decisionChart.redraw();
     }
