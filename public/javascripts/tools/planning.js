@@ -4,7 +4,6 @@
 var authorityNames = [];
 var regex = /GRANT/;
 
-
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
 //Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -46,7 +45,7 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 9, 5); //0-38 inclusive
+loadJsonFile(dublinDataURI, 9, 20); //0-38 inclusive
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -100,15 +99,13 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 
 
 //////////////////////////////////////////////////////////////////////////////
-function makeGraphs(error, recordsJson) {
-
-
+function makeGraphs(error, records) {
 //       console.log("json: "+JSON.stringify(recordsJson.features));
 
 //Clean features data
 //for plain JSON, access e.g. .properties.ReceivedDate
 //for geoJSON, access e.g. .features.ReceivedDate  
-    var records = recordsJson;
+//    var records = recordsJson;
     //	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
 //    var i = 0;
     //Convert from Irish Grid to useable latlong
@@ -130,19 +127,30 @@ function makeGraphs(error, recordsJson) {
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
-        d.properties.Decision = _.trim(d.properties.Decision); //clean leading & trailing whitespaces
+        d.properties.Decision = _.trim(d.properties.Decision).toUpperCase(); //clean leading & trailing whitespaces
+        if (d.properties.Decision === '') {
+            d.properties.Decision = 'UNKNOWN';
+        }
         d.properties.DecisionCategory = d.properties.Decision;
+//        if (d.properties.Decision.indexOf("GRANT")!==-1) {
+////            console.log("G index: " + d.properties.Decision.indexOf("GRANT"));
+//          d.properties.DecisionCategory = "GRANT";
+//        }
+        
+        
+//        if (regex.exec(d.properties.Decision)) {
+        
+//        }
 //        d.properties.DecisionCategory = categorize(d.properties.Decision);
 
     }); //end of forEach
 
-    function categorize(s) {
-
-        if (regex.test(s)) {
-            return s;
-            //console.log("we found it in the string!");
-        }
-    }
+//    function categorize(s) {
+//        if (regex.test(s)) {
+//            return s;
+//            //console.log("we found it in the string!");
+//        }
+//    }
 
 
 //    console.log("record count: " + i);
@@ -231,7 +239,7 @@ function makeGraphs(error, recordsJson) {
             + " | maxDate: " + JSON.stringify(maxDate));
     //Charts
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
-//    var timeChart = dc.barChart("#time-chart");
+    var timeChart = dc.barChart("#time-chart");
     var decisionChart = dc.rowChart("#decision-row-chart");
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
@@ -242,19 +250,19 @@ function makeGraphs(error, recordsJson) {
 //            })
 //            .group(all);
 
-//    timeChart
-//            .width(600)
-//            .height(chartHeight)
-//            .brushOn(true)
-//            .margins({top: 10, right: 50, bottom: 20, left: 20})
-//            .dimension(rDateDim)
-//            .group(receivedDateGroup)
-//            .transitionDuration(500)
-//            .x(d3.scaleTime().domain([minDate, maxDate]))
-//            .elasticY(true)
-//            .yAxis().ticks(4);
-//
-//    timeChart.render();
+    timeChart
+            .width(600)
+            .height(chartHeight)
+            .brushOn(true)
+            .margins({top: 10, right: 50, bottom: 20, left: 20})
+            .dimension(rDateDim)
+            .group(receivedDateGroup)
+            .transitionDuration(500)
+            .x(d3.scaleTime().domain([minDate, maxDate]))
+            .elasticY(true)
+            .yAxis().ticks(4);
+
+    timeChart.render();
 
     decisionChart
             .width(600)
@@ -271,14 +279,14 @@ function makeGraphs(error, recordsJson) {
 
     decisionChart.render();
 
-//    dcCharts = [timeChart, decisionChart];
+    dcCharts = [timeChart, decisionChart];
 ////Update the map if any dc chart get filtered
-//    _.each(dcCharts, function (dcChart) {
-//        dcChart.on("filtered", function (chart, filter) {
-//            makeMap();
-////            console.log("chart filtered");
-//        });
-//    });
+    _.each(dcCharts, function (dcChart) {
+        dcChart.on("filtered", function (chart, filter) {
+            makeMap();
+//            console.log("chart filtered");
+        });
+    });
 
     ;
     //UI elements
@@ -344,12 +352,6 @@ function makeGraphs(error, recordsJson) {
                 }
             }
         });
-
-//        if(authorityNamesChecked.length > 0){
-//          newData = data.filter(function(d,i){return choices.includes(d);});
-//        } else {
-//          newData = data;     
-//        } 
 
         console.log("LA Names: " + authorityNames);
         console.log("LA Names Checked: " + authorityNamesChecked);
