@@ -2,7 +2,6 @@
 /* Map variables and instantiation */
 
 var authorityNames = [];
-var authorityNamesChecked = []; //list of selected 
 var regex = /GRANT/;
 
 
@@ -191,9 +190,9 @@ function makeGraphs(error, recordsJson) {
     //Store names of LAs in array as strings
     for (i = 0; i < authorityGroup.all().length; i += 1) {
         authorityNames.push(authorityGroup.all()[i].key);
-        authorityNamesChecked=authorityNames;
     }
     console.log("LAs:" + authorityNames);
+
     //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
     var receivedDateGroup = rDateDim.group();
@@ -316,73 +315,41 @@ function makeGraphs(error, recordsJson) {
 //    rangeMax = document.getElementById('input-number-max').value; 
     });
 
-    d3.selectAll('input').on('change', function () {
-        if (this.type === 'checkbox') {
-            console.log("checkbox " +
-                    this.id + " : " + this.checked
-                    );
-            if (this.id === 'dcc-check') {
-                //if the checkbox has been unticked and the LA is found in the checked list,
-                //remove it from checked list
-                if (!this.checked) {
-                    if (authorityNamesChecked.includes("Dublin City Council")) {
-                        console.log("Filter OUT dcc");
-                        authorityNamesChecked = authorityNames.filter(function (d) {
-                            return d !== "Dublin City Council"; //TODO: remove hard-coded values
-                        });
-                    }
-                    //if the checkbox has been ticked and the LA is in the list of  LAs in the data
-                    //add it back to checked list. Otherwise ignore.
-                } else {
-                    if (authorityNames.includes("Dublin City Council")) {
-                        console.log("Filter IN dcc");
-                        authorityNamesChecked.push("Dublin City Council");
-                    }
-                }
-            } else if (this.id === 'fing-check') {
-                if (!this.checked) {
-                    if (authorityNamesChecked.includes("Fingal County Council")) {
-                        console.log("Filter OUT Fingal");
-                        authorityNamesChecked = authorityNames.filter(function (d) {
-                            return d !== "Fingal County Council";
-                        });
-                    }
-                } else {
-                    if (authorityNames.includes("Fingal County Council")) {
-                    console.log("Filter IN Fingal");
-                    authorityNamesChecked.push("Fingal County Council");
-                }
-                }
-            } else if (this.id === 'dlr-check') {
-                if (!this.checked) {
-                    if (authorityNamesChecked.includes("Dun Laoghaire Rathdown County Council")) {
-                        console.log("Filter OUT DLR");
-                        authorityNamesChecked = authorityNames.filter(function (d) {
-                            return d !== "Dun Laoghaire Rathdown County Council";
-                        });
-                    }
-
-                } else {
-                    console.log("Filter IN DLR");
-                    authorityNamesChecked.push("Dun Laoghaire Rathdown County Council");
-
-                }
-            } else {
-                if (!this.checked) {
-                    if (authorityNamesChecked.includes("South Dublin County Council")) {
-                        console.log("Filter OUT South D");
-                        authorityNamesChecked = authorityNames.filter(function (d) {
-                            return d !== "South Dublin County Council";
-                        });
-                    }
-
-                } else {
-                    console.log("Filter IN South D");
-                    authorityNamesChecked.push("South Dublin County Council");
+    //initialise checkbox to checked only if LA present in data
+    //disbale checkbox if no data for that LA
+    //
+//    $(document).ready(function () {
+    d3.selectAll('.la-checkbox').each(function (d) {
+        var cb = d3.select(this);
+        if (authorityNames.includes(cb.property("value"))) {
+            cb.property("checked", true);
+            
+        } else {
+            cb.property("checked", false);
+            cb.property("disabled", true);
+        }
+        ;
+    });
+//push the LA nmae into the authorityNamesChecked array if box is ticked and it is in authorityNames
+    d3.selectAll(".la-checkbox").on('change', function () {
+        var authorityNamesChecked = []; //list of LAs with checked boxes
+        d3.selectAll(".la-checkbox").each(function (d) {
+            var cb = d3.select(this);
+            if (cb.property("checked")) {
+                if (authorityNames.includes(cb.property("value"))) {
+                    authorityNamesChecked.push(cb.property("value"));
                 }
             }
-        }
-        console.log("LA Names: " + authorityNamesChecked);
+        });
+
+//        if(authorityNamesChecked.length > 0){
+//          newData = data.filter(function(d,i){return choices.includes(d);});
+//        } else {
+//          newData = data;     
+//        } 
+
+        console.log("LA Names: " + authorityNames);
+        console.log("LA Names Checked: " + authorityNamesChecked);
         authorityDim.filterFunction(function (d) {
             return authorityNamesChecked.includes(d);
         });
@@ -395,7 +362,8 @@ function makeGraphs(error, recordsJson) {
         decisionChart.redraw();
     }
 }
-;
+; //end of makeGraphs
+
 var planningClusters = L.markerClusterGroup();
 function makeMap() {
 
