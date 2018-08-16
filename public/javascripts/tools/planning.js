@@ -390,24 +390,24 @@ function makeMap() {
 
 function getContent(d_) {
     var str = '';
-    if (d_.properties.PlanningAuthority) {
-        str += '<h3>' + d_.properties.PlanningAuthority + '</h3><br>';
-    }
     if (d_.properties.ApplicationNumber) {
         str += '<p> #' + d_.properties.ApplicationNumber + '</p><br>';
     }
     if (d_.properties.DevelopmentAddress) {
         str += '<p>' + d_.properties.DevelopmentAddress + '</p><br>';
     }
+    if (d_.properties.PlanningAuthority) {
+        str += '<p>' + d_.properties.PlanningAuthority + '</p><br>';
+    }
     if (d_.properties.ReceivedDate) {
-        str += '<strong>Application date</strong>: ' + new Date(d_.properties.ReceivedDate) + '<br>';
+        str += '<strong>Application received</strong>: ' + new Date(d_.properties.ReceivedDate) + '<br>';
     }
     if (d_.properties.Decision) {
         str += '<strong>Decision</strong>: ' + d_.properties.Decision + '<br>';
     }
-    if (d_.properties.DecisionDate) {
-        str += '<strong>Decision date</strong>: ' + new Date(d_.properties.DecisionDate);
-    }
+//    if (d_.properties.DecisionDate) {
+//        str += '<strong>Decision date</strong>: ' + new Date(d_.properties.DecisionDate);
+//    }
     ;
     return str;
 }
