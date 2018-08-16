@@ -1,0 +1,27 @@
+.axis {
+    font: 10px sans-serif;
+  }
+  
+  
+  .line {
+    fill: none;
+    stroke-width: 2px;
+  }
+  
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
+  
+  .focus circle {
+    fill: #777;
+    stroke: #777;
+    stroke-width: 1px;
+  }
+    
+  .hover-line {
+    stroke: #777;
+    stroke-width: 1px;
+    stroke-dasharray: 5,5;
+  }
+  
