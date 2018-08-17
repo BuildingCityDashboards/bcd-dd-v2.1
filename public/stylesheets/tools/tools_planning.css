@@ -148,7 +148,7 @@ iPad Pro
         margin: 20px 0px 20px 0px;;
         height: auto;
         width: auto;
-        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns: 1fr 1fr;
         /*        grid-gap:1em;
                  grid-auto-rows:100px; 
@@ -157,8 +157,7 @@ iPad Pro
             "v1 v1"
             "bt bt"
             "v3 v2"
-            "v3 v2";
-
+            ;
     }
     
      #planning-map {
@@ -187,11 +186,12 @@ iPad Pro
     }
     
     .button-table{
+        height: 100px;
         grid-area: bt;
     }
 
     .viz1 {
-        height: 500px;
+        height: 400px;
         display: grid;
         align-content: space-between;
         grid-template-areas: 
@@ -202,7 +202,7 @@ iPad Pro
         grid-area: v1;
     }
     .viz2 {
-
+        height: 300px;
         display: grid;
         align-content: space-between;
         grid-template-areas: 
@@ -213,7 +213,7 @@ iPad Pro
         grid-area: v2;
     }
     .viz3 {
-
+        height: 300px;
         display: grid;
         align-content: space-between;
         grid-template-areas: 

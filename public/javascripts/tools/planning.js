@@ -45,7 +45,8 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 0, 39); //0-38 inclusive
+loadJsonFile(dublinDataURI, 9, 10); //0-38 inclusive
+//
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -91,8 +92,8 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 //                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
 //                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
 
-        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
-        console.log("jsonFeatures[1000] clean:  " + JSON.stringify(jsonFeaturesArr[1000]));
+//        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
+//        console.log("jsonFeatures[1000] clean:  " + JSON.stringify(jsonFeaturesArr[1000]));
         makeGraphs(null, jsonFeaturesArr);
     }); //end of when()
 } //end of loadJSONFile
@@ -199,6 +200,7 @@ function makeGraphs(error, records) {
     allDim = planningXF.dimension(function (d) {
         return d;
     });
+    
     
     //Group Data
     var authorityGroup = authorityDim.group();
