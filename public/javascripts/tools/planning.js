@@ -2,6 +2,7 @@
 /* Map variables and instantiation */
 
 var authorityNames = [];
+var decisionCategories = [];
 var regex = /GRANT/;
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -34,18 +35,17 @@ map.addLayer(osm);
 
 //console.log("drawing map");
 var mapHeight = 600;
-var chartHeight = 1000;
+var chartHeight = 400;
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
-
 //We'd like to use d3's simple json loader with queue, but it doesn't play well with geojson...
 //queue()
 //        .defer(d3.json, "../data/corkCity_20.json")
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 9, 20); //0-38 inclusive
+loadJsonFile(dublinDataURI, 0, 39); //0-38 inclusive
 ////////////////////////////////////////////////////////////////////////////
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -125,23 +125,32 @@ function makeGraphs(error, records) {
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
+        
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision).toUpperCase(); //clean leading & trailing whitespaces
-        if (d.properties.Decision === '') {
-            d.properties.Decision = 'UNKNOWN';
-        }
+//        if (d.properties.Decision === '') {
+//            d.properties.Decision = 'OTHER';
+//            
+//        }
         d.properties.DecisionCategory = d.properties.Decision;
-//        if (d.properties.Decision.indexOf("GRANT")!==-1) {
-////            console.log("G index: " + d.properties.Decision.indexOf("GRANT"));
-//          d.properties.DecisionCategory = "GRANT";
+/*TODO: profile this for performance and explore regex*/
+        if (d.properties.Decision.indexOf("GRANT")!==-1) {
+          d.properties.DecisionCategory = "GRANT";
+        }
+        else if (d.properties.Decision.indexOf("REFUSE")!==-1) {
+          d.properties.DecisionCategory = "REFUSE";
+        }
+//        else if (d.properties.Decision.indexOf("WITHDRAW")!==-1) {
+//          d.properties.DecisionCategory = "WITHDRAW";
 //        }
-        
-        
-//        if (regex.exec(d.properties.Decision)) {
-        
-//        }
-//        d.properties.DecisionCategory = categorize(d.properties.Decision);
+        else if (d.properties.Decision.indexOf("INVALID")!==-1) {
+          d.properties.DecisionCategory = "INVALID";
+        }
+        else{
+            d.properties.DecisionCategory = "OTHER";
+        }
+
 
     }); //end of forEach
 
@@ -184,22 +193,20 @@ function makeGraphs(error, records) {
     var areaDim = planningXF.dimension(function (d) {
         return d.properties.AreaofSite;
     });
-
-
 //    var locationDim = planningXF.dimension(function (d) {
 //        return d.loc;
 //    });
-
     allDim = planningXF.dimension(function (d) {
         return d;
     });
+    
     //Group Data
     var authorityGroup = authorityDim.group();
     //Store names of LAs in array as strings
     for (i = 0; i < authorityGroup.all().length; i += 1) {
         authorityNames.push(authorityGroup.all()[i].key);
     }
-    console.log("LAs:" + authorityNames);
+//    console.log("LAs:" + authorityNames);
 
     //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
@@ -207,6 +214,10 @@ function makeGraphs(error, records) {
 //    var recordsByDDate = dDateDim.group();
     var decisionGroup = decisionDim.group();
     var decisionCategoryGroup = decisionCategoryDim.group();
+    for (i = 0; i < decisionCategoryGroup.all().length; i += 1) {
+        decisionCategories.push(decisionCategoryGroup.all()[i].key);
+    }
+//    console.log("decisionCategories:" + decisionCategories);    
 
 //    var recordsByLocation = locationDim.group();
     var all = planningXF.groupAll();
@@ -219,24 +230,34 @@ function makeGraphs(error, records) {
 //    console.log("max area: " + maxAreaSize);
 
 
+
+    //Treat date data so zeros and future dates are excluded from charts(but still in data dims)
     //Find earliest date with d3
-    var minDate = d3.min(records, function (d) {
-        return d.properties.ReceivedDate;
-    });
+//    var minChartDate = d3.min(records, function (d) {
+//        return d.properties.ReceivedDate;
+//    });
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
     //
 //***TODO: compare for performance    
-//    var index = 1;
-//    while (minDate === 0) {
-//        console.log("i: " + index);
-//        minDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
-//        index += 1;
-//    } //returns the whole record with earliest date
+    var minChartDate=0, index=1;
+    while (minChartDate === 0) {
+        minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
+        index += 1;
+        
+    } //returns the whole record with earliest date
 
-    var maxDate = rDateDim.top(1)[0].properties.ReceivedDate;
+    
+    var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
+    var now = Date.now();
+    if(maxChartDate > now){
+        maxChartDate = now;
+    };
+    console.log("minChartDate: " + JSON.stringify(minChartDate)
+            + " | maxChartDate: " + JSON.stringify(maxChartDate)
+            + "| now: "+now);
+    
 
-    console.log("minDate: " + JSON.stringify(minDate)
-            + " | maxDate: " + JSON.stringify(maxDate));
+
     //Charts
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
@@ -258,7 +279,7 @@ function makeGraphs(error, records) {
             .dimension(rDateDim)
             .group(receivedDateGroup)
             .transitionDuration(500)
-            .x(d3.scaleTime().domain([minDate, maxDate]))
+            .x(d3.scaleTime().domain([minChartDate, maxChartDate]))
             .elasticY(true)
             .yAxis().ticks(4);
 
@@ -325,6 +346,8 @@ function makeGraphs(error, records) {
 //    rangeMax = document.getElementById('input-number-max').value; 
     });
 
+//handle the Local Authoirty checkboxes
+
     //initialise checkbox to checked only if LA present in data
     //disbale checkbox if no data for that LA
     //
@@ -341,7 +364,7 @@ function makeGraphs(error, records) {
         }
         ;
     });
-//push the LA nmae into the authorityNamesChecked array if box is ticked and it is in authorityNames
+//push the LA name into the authorityNamesChecked array if box is ticked and it is in authorityNames
     d3.selectAll(".la-checkbox").on('change', function () {
         var authorityNamesChecked = []; //list of LAs with checked boxes
         d3.selectAll(".la-checkbox").each(function (d) {
@@ -361,9 +384,46 @@ function makeGraphs(error, records) {
         makeMap();
         updateCharts();
     });
+    
+    
+    //handle the decision checkboxes...
+    //initalise
+    d3.selectAll('.decision-checkbox').each(function (d) {
+        var cb = d3.select(this);
+
+        if (decisionCategories.includes(cb.property("value"))) {
+            cb.property("checked", true);
+
+        } else {
+            cb.property("checked", false);
+            cb.property("disabled", true);
+        }
+        ;
+    });
+//push the decision into the decisionsChecked array if box is ticked and it is in decisionCategories
+    d3.selectAll(".decision-checkbox").on('change', function () {
+        var decisionCategoriesChecked = []; //list of LAs with checked boxes
+        d3.selectAll(".decision-checkbox").each(function (d) {
+            var cb = d3.select(this);
+            if (cb.property("checked")) {
+                if (decisionCategories.includes(cb.property("value"))) {
+                    decisionCategoriesChecked.push(cb.property("value"));
+                }
+            }
+        });
+
+        console.log("Decision categories: " + decisionCategories);
+        console.log("Decision categories checked: " + decisionCategoriesChecked);
+        decisionCategoryDim.filterFunction(function (d) {
+            return decisionCategoriesChecked.includes(d);
+        });
+        makeMap();
+        updateCharts();
+    });
+    
 
     function updateCharts() {
-//        timeChart.redraw();
+        timeChart.redraw();
         decisionChart.redraw();
     }
 }
