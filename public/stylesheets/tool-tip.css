@@ -1,27 +1,42 @@
 .axis {
-    font: 10px sans-serif;
-  }
+  font: 10px sans-serif;
+}
+
+
+.line {
+  fill: none;
+  stroke-width: 2px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus circle {
+  fill: #777;
+  stroke: #777;
+  stroke-width: 1px;
+}
   
-  
-  .line {
-    fill: none;
-    stroke-width: 2px;
-  }
-  
-  .overlay {
-    fill: none;
-    pointer-events: all;
-  }
-  
-  .focus circle {
-    fill: #777;
-    stroke: #777;
-    stroke-width: 1px;
-  }
-    
-  .hover-line {
-    stroke: #777;
-    stroke-width: 1px;
-    stroke-dasharray: 5,5;
-  }
-  
+.hover-line {
+  stroke: #777;
+  stroke-width: 1px;
+  stroke-dasharray: 5,5;
+}
+
+.tool-tip {
+  position: absolute;
+  width: auto;
+  min-width: 60px;
+  padding: 10px;
+  background-color: #1b1e21d6;
+  border-radius: 5px;
+  pointer-events: none;
+  display: none;
+  font-family: sans-serif;
+  font-size: .75rem;
+  font-weight: bold;
+  color: #ffffff;
+  opacity: 1;
+}
