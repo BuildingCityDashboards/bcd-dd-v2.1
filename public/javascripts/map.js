@@ -4,15 +4,15 @@ const HOVER_COLOR = "#16c1f3";
 
 // Event Handlers
 function mouseOverHandler(d, i) {
-  // d3.select(this).attr("fill", HOVER_COLOR);
-  d3.select(this).style("cursor", "pointer"); 
-  d3.select("#region" + d.properties.OBJECTID).attr("fill", HOVER_COLOR);
+  d3.select(this).attr("fill", HOVER_COLOR)
+    .style("cursor", "pointer"); 
+  // d3.select("#region" + d.properties.OBJECTID).attr("fill", HOVER_COLOR);
 }
 
 function mouseOutHandler(d, i) {
-  // d3.select(this).attr("fill", "#001F35");
-  d3.select(this).style("cursor", "default"); 
-  d3.select("#region" + d.properties.OBJECTID).attr("fill", "#001F35");
+  d3.select(this).attr("fill", "#001F35")
+    .style("cursor", "default"); 
+  // d3.select("#region" + d.properties.OBJECTID).attr("fill", "#001F35");
 }
 
 function clickHandler(d, i) {
@@ -81,10 +81,11 @@ function renderMap(root) {
     .attr("fill", "#FFF")
     .attr("font-size", 14)
     .attr("cursor", "pointer")
-    .on("mouseover", mouseOverHandler)
-    .on("mouseout", mouseOutHandler)
+    // .on("mouseover", mouseOverHandler)
+    // .on("mouseout", mouseOutHandler)
     .on("click", clickHandler)
-    .text(d => d.properties.ENGLISH);
+    .text(d => d.properties.ENGLISH)
+    .style('pointer-events', 'none');
 
 }
 
