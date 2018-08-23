@@ -45,7 +45,9 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-loadJsonFile(dublinDataURI, 9, 10); //0-38 inclusive
+//loadJsonFile(baseurl, startOffset, no of files
+loadJsonFile(dublinDataURI, 0, 39); //0-38 inclusive
+//
 //
 ////////////////////////////////////////////////////////////////////////////
 
@@ -126,7 +128,7 @@ function makeGraphs(error, records) {
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
-        
+
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision).toUpperCase(); //clean leading & trailing whitespaces
@@ -135,20 +137,18 @@ function makeGraphs(error, records) {
 //            
 //        }
         d.properties.DecisionCategory = d.properties.Decision;
-/*TODO: profile this for performance and explore regex*/
-        if (d.properties.Decision.indexOf("GRANT")!==-1) {
-          d.properties.DecisionCategory = "GRANT";
-        }
-        else if (d.properties.Decision.indexOf("REFUSE")!==-1) {
-          d.properties.DecisionCategory = "REFUSE";
+        /*TODO: profile this for performance and explore regex*/
+        if (d.properties.Decision.indexOf("GRANT") !== -1) {
+            d.properties.DecisionCategory = "GRANT";
+        } else if (d.properties.Decision.indexOf("REFUSE") !== -1) {
+            d.properties.DecisionCategory = "REFUSE";
         }
 //        else if (d.properties.Decision.indexOf("WITHDRAW")!==-1) {
 //          d.properties.DecisionCategory = "WITHDRAW";
 //        }
-        else if (d.properties.Decision.indexOf("INVALID")!==-1) {
-          d.properties.DecisionCategory = "INVALID";
-        }
-        else{
+        else if (d.properties.Decision.indexOf("INVALID") !== -1) {
+            d.properties.DecisionCategory = "INVALID";
+        } else {
             d.properties.DecisionCategory = "OTHER";
         }
 
@@ -200,8 +200,8 @@ function makeGraphs(error, records) {
     allDim = planningXF.dimension(function (d) {
         return d;
     });
-    
-    
+
+
     //Group Data
     var authorityGroup = authorityDim.group();
     //Store names of LAs in array as strings
@@ -229,10 +229,11 @@ function makeGraphs(error, records) {
     var minAreaSize = areaDim.bottom(1)[0].properties.AreaofSite; //probably zero
     //console.log("min area: " + minAreaSize);
     var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
-//    console.log("max area: " + maxAreaSize);
-
-
-
+    console.log("max area: " + maxAreaSize);
+    var medianAreaSize = d3.mean(records, function(d){
+                return d.properties.AreaofSite;
+    });
+    console.log("median area: " + medianAreaSize);
     //Treat date data so zeros and future dates are excluded from charts(but still in data dims)
     //Find earliest date with d3
 //    var minChartDate = d3.min(records, function (d) {
@@ -241,23 +242,26 @@ function makeGraphs(error, records) {
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
     //
 //***TODO: compare for performance    
-    var minChartDate=0, index=1;
+    var minChartDate = 0, index = 1;
     while (minChartDate === 0) {
         minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
         index += 1;
-        
+
     } //returns the whole record with earliest date
 
-    
+
+
+
     var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
     var now = Date.now();
-    if(maxChartDate > now){
+    if (maxChartDate > now) {
         maxChartDate = now;
-    };
+    }
+    ;
     console.log("minChartDate: " + JSON.stringify(minChartDate)
             + " | maxChartDate: " + JSON.stringify(maxChartDate)
-            + "| now: "+now);
-    
+            + "| now: " + now);
+
 
 
     //Charts
@@ -324,15 +328,16 @@ function makeGraphs(error, records) {
         start: [minAreaSize, maxAreaSize],
         connect: true,
         //tooltips: [ true, true ],
+     
         range: {
             'min': [minAreaSize, minAreaSize],
-            '25%': [100.0, 100.0], //TODO: formularise
-            '50%': [1000.0, 1000.0],
-            '75%': [10000.0, 10000.0],
+//            '25%': [100.0, 100.0], //TODO: formularise
+            '50%': [medianAreaSize, medianAreaSize],
+//            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
             'max': [maxAreaSize, maxAreaSize]
         }
-    });
-
+    });    
+    
     areaSlider.noUiSlider.on('update', function (values, handle) {
 //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
         if (handle === 0) {
@@ -386,8 +391,8 @@ function makeGraphs(error, records) {
         makeMap();
         updateCharts();
     });
-    
-    
+
+
     //handle the decision checkboxes...
     //initalise
     d3.selectAll('.decision-checkbox').each(function (d) {
@@ -422,7 +427,7 @@ function makeGraphs(error, records) {
         makeMap();
         updateCharts();
     });
-    
+
 
     function updateCharts() {
         timeChart.redraw();
