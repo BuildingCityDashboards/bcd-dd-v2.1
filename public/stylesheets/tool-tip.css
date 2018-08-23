@@ -8,7 +8,7 @@
   stroke-width: 2px;
 }
 
-.overlay {
+.overlay, .overlay2 {
   fill: none;
   pointer-events: all;
 }

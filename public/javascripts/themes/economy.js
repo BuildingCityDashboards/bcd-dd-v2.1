@@ -1,6 +1,18 @@
     // var section = d3.select("#economy");
     // var article = d3.select("#income_poverty", section);
-
+    var parseTime = d3.timeParse("%d/%m/%Y");
+    var formatTime = d3.timeFormat("%d/%m/%Y");
+    var nut3regions = [
+        "Border",
+        "Midland",
+        "West",
+        "Dublin",
+        "Mid-East",
+        "Mid-West",
+        "South-East",
+        "South-West",
+        "Ireland",
+    ]
 
     // margins top: 50, right: 100, bottom: 50, left: 50
     var margin = {top: 50, right: 150, bottom: 100, left: 80},
@@ -11,13 +23,13 @@
     d3.csv("../data/Economy/IncomeAndLivingData.csv").then(function(data){
 
     var tooltip = d3.select('#chart1')
-    .append('div')  
-    .attr('class', 'tool-tip');    
+        .append('div')  
+        .attr('class', 'tool-tip');    
     
-    console.log(data);
+        // console.log(data);
     
     var keys = data.columns;
-    console.log(keys);
+        // console.log(keys);
 
     // blank array
     var transposedData = [];
@@ -35,92 +47,85 @@
     });
 
     // get the div cart-area and add svg 400 x400
-    var g = d3.select("#chart1")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // var g = d3.select("#chart1")
+    //     .append("svg")
+    //     .attr("width", width + margin.left + margin.right)
+    //     .attr("height", height + margin.top + margin.bottom)
+    //         .append("g")
+    //         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    //  x label
-    g.append("text")
-        .attr("x", width/2)
-        .attr("y", height + 60)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .text("Median Real Household Disposable Income");
+    // //  x label
+    // g.append("text")
+    //     .attr("x", width/2)
+    //     .attr("y", height + 60)
+    //     .attr("font-size", "20px")
+    //     .attr("text-anchor", "middle")
+    //     .text("Median Real Household Disposable Income");
     
-     // y label
-    g.append("text")
-        .attr("x", - (height/2))
-        .attr("y", -60)
-        .attr("font-size", "20px")
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90)")
-        .text("Euros");
+    //  // y label
+    // g.append("text")
+    //     .attr("x", - (height/2))
+    //     .attr("y", -60)
+    //     .attr("font-size", "20px")
+    //     .attr("text-anchor", "middle")
+    //     .attr("transform", "rotate(-90)")
+    //     .text("Euros");
 
-    // set band scale
-    var x = d3.scaleBand().domain(
-        transposedData.map((d)=>{ return d.year; })
-        ).range([0, width])
-        .paddingInner(.2)
-        .paddingOuter(.2);
+    // // set band scale
+    // var x = d3.scaleBand().domain(
+    //     transposedData.map((d)=>{ return d.year; })
+    //     ).range([0, width])
+    //     .paddingInner(.2)
+    //     .paddingOuter(.2);
     
-    // set linear scale
-    var y = d3.scaleLinear()
-        .domain([0, d3.max(transposedData, (d)=>{ 
-        return d.value;    
-        })])
-        .range([height, 0]); 
+    // // set linear scale
+    // var y = d3.scaleLinear()
+    //     .domain([0, d3.max(transposedData, (d)=>{ 
+    //     return d.value;    
+    //     })])
+    //     .range([height, 0]); 
 
-    // x axis
-    var xAxis = d3.axisBottom(x);
-    g.append("g")
-        .attr("class", "x-axis")
-        .attr("transform", "translate(0, " + height +")")
-        .call(xAxis);
+    // // x axis
+    // var xAxis = d3.axisBottom(x);
+    // g.append("g")
+    //     .attr("class", "x-axis")
+    //     .attr("transform", "translate(0, " + height +")")
+    //     .call(xAxis);
 
-    // y axis
-    var yAxis = d3.axisLeft(y)
-        .tickFormat((d => {return "€" + d3.format(".1s")(d);}));
-    g.append("g")
-        .attr("class", "y-axis")
-        .call(yAxis);
+    // // y axis
+    // var yAxis = d3.axisLeft(y)
+    //     .tickFormat((d => {return "€" + d3.format(".1s")(d);}));
+    // g.append("g")
+    //     .attr("class", "y-axis")
+    //     .call(yAxis);
     
-    // Bars
-    // select all rectangles and associate with the data
-    var rects = g.selectAll("rect")
-        .data(transposedData.filter(d => {
-            return (d.region === "Dublin" && d.type ==="Median Real Household Disposable Income (Euro)");
-        }
-    ))
-    .enter()
-    .append("rect")
-        .attr("x", (d) => {return x(d.year);})
-        .attr("y", (d) => {return y(d.value);})
-        .attr("width", x.bandwidth)
-        .attr("height", (d) =>{return height - y(d.value);})
-        .attr("fill", "#3182bd")
-        .on( 'mouseover', function( d ){
-            var dx  = parseFloat(d3.select(this).attr('x')) + x.bandwidth(); 
-            var dy  = parseFloat(d3.select(this).attr('y')) + 10;
-            tooltip
-                .style( 'left', dx + "px" )
-                .style( 'top', dy + "px" )
-                .style( 'display', 'block' )
-                .text("The value is: €" + d.value);
-        })
-        .on( 'mouseout', function(){
-            tooltip
-                .style( 'display', 'none' );
-        });
-        // .append("title")
-        // .text( d=> {
-        //     return ("The value is : €" + d.value);
-        // }); // simple just using the title feature    
-        // .on("mouseover", tooltipOver)
-        // .on("mousemove", function(d){tooltipMove(d);})
-        // .on("mouseout", tooltipOut);
+    // // Bars
+    // // select all rectangles and associate with the data
+    // var rects = g.selectAll("rect")
+    //     .data(transposedData.filter(d => {
+    //         return (d.region === "Dublin" && d.type ==="Median Real Household Disposable Income (Euro)");
+    //     }
+    // ))
+    // .enter()
+    // .append("rect")
+    //     .attr("x", (d) => {return x(d.year);})
+    //     .attr("y", (d) => {return y(d.value);})
+    //     .attr("width", x.bandwidth)
+    //     .attr("height", (d) =>{return height - y(d.value);})
+    //     .attr("fill", "#3182bd")
+    //     .on( 'mouseover', function( d ){
+    //         var dx  = parseFloat(d3.select(this).attr('x')) + x.bandwidth(); 
+    //         var dy  = parseFloat(d3.select(this).attr('y')) + 10;
+    //         tooltip
+    //             .style( 'left', dx + "px" )
+    //             .style( 'top', dy + "px" )
+    //             .style( 'display', 'block' )
+    //             .text("The value is: €" + d.value);
+    //     })
+    //     .on( 'mouseout', function(){
+    //         tooltip
+    //             .style( 'display', 'none' );
+    //     });
 
 /* 
 
@@ -183,17 +188,20 @@
     // manual categories - replace with dynamic
     var xData = ["risk", "poverty", "deprivation"];
 
-    var newList = d3.nest()
+    newList = d3.nest()
         .key(d => { return d.region })
         .key(d => { return d.type })
         .entries(transposedData);
 
+
+    // console.log(newList);
+    
     var risk = newList.find( d => d.key === "Dublin").values.find(d => d.key === "At Risk of Poverty Rate (%)").values,
         poverty = newList.find( d => d.key === "Dublin").values.find(d => d.key === "Deprivation Rate (%)").values,
         deprivation = newList.find( d => d.key === "Dublin").values.find(d => d.key === "Consistent Poverty Rate (%)").values;
 
+    // console.log(newList);
     // console.log(risk);
-
     // join risk and poverty
     var test = join( poverty, risk, "year", "year", function(risk, poverty) {
         return {
@@ -222,7 +230,7 @@
         .order(d3.stackOrderNone)
         .offset(d3.stackOffsetNone);
 
-    var series = stack(completeArray);
+    series = stack(completeArray);
 
     x2.domain(completeArray.map(function (d) {
         return d.year;
@@ -234,7 +242,7 @@
     colour.domain(xData);
     //colour.domain(sample.columns.slice(1));
 
-    console.log(series);
+    // console.log(series);
 
     var layer = g.selectAll(".stack")
         .data(series)
@@ -250,7 +258,7 @@
             .attr("height", function(d) { return y2(d[0]) - y2(d[1]); })
             .attr("width", x2.bandwidth())
             .on( 'mouseover', function( d ){
-                var dx  = parseFloat(d3.select(this).attr('x')) + x.bandwidth(); 
+                var dx  = parseFloat(d3.select(this).attr('x')) + x2.bandwidth(); 
                 var dy  = parseFloat(d3.select(this).attr('y')) + 10;
                 tooltip2
                     .style( 'left', dx + "px" )
@@ -288,6 +296,7 @@
         .attr("text-anchor", "start")
         .text(function(d) { return d; });
 
+    const IncomeChart = new BarChart("#chart1", "Dublin", "Median Real Household Disposable Income (Euro)", "Median Real Household Disposable Income", "Euros");
     })
     // catch any error and log to console
     .catch(function(error){
@@ -296,10 +305,48 @@
 
 // Employment Figures Charts
 
+d3.csv("../data/Economy/employment2.csv").then(function(data){
+
+    data.map(function(d){
+        d['ILO Participation Rate (15 years and over) (%)'] = +d['ILO Participation Rate (15 years and over) (%)']
+        d['ILO Unemployment Rate (15 - 74 years) (%)'] = +d['ILO Unemployment Rate (15 - 74 years) (%)']
+        d['Persons aged 15 years and over in Employment (Thousand)'] = +d['Persons aged 15 years and over in Employment (Thousand)']
+        d['Persons aged 15 years and over in Labour Force (Thousand)'] = +d['Persons aged 15 years and over in Labour Force (Thousand)']
+        d['Unemployed Persons aged 15 years and over (Thousand)'] = +d['Unemployed Persons aged 15 years and over (Thousand)']
+        d.quarter = d.quarter;
+        d.region = d.region;
+        return d;
+    });
+
+    stackData = data;
+    multilineData = data;
+
+    console.log("mutliline Data", multilineData);
+
+    keys = data.columns.slice(2);
+    console.log(keys);
+    const employmentCharts = new StackedAreaChart("#chartNew", "Persons aged 15 years and over in Employment (Thousand)", "Euros");
+
+    $("#chart-select").on("change", function(){
+        employmentCharts.getData();
+    });
+
+    $("#multi-select").on("change", function(){
+        mlineChart.getData();
+    });
+
+    const mlineChart = new MultiLineChart("#chartMulti", "Persons aged 15 years and over in Employment (Thousand)", "Euros");
+
+
+})// catch any error and log to console
+.catch(function(error){
+console.log(error);
+});
+
 // load csv data and turn value into a number
 d3.csv("../data/Economy/employment.csv").then(function(data){
-
-    var keys = data.columns.slice(1);
+    
+    // console.log("Inital Data", data);
 
     var transposedData = [];
     data.forEach(d => {
@@ -318,22 +365,62 @@ d3.csv("../data/Economy/employment.csv").then(function(data){
         }}
     });
 
-    var entries = d3.nest()
+    // console.log("rotated the quarters", transposedData);
+
+    entries = d3.nest()
         .key(d => { return d.type })
         .key(d => { return d.region })
         .entries(transposedData);
+
+    // console.log("nested by type and then region", entries);
+
+    // // 1. nest array objects by type and then quarter.        DONE
+    // // 2. need to select the array that its key matchs the select opition like setOne 
+    // // 3. then for each quarter array need to create an object that has the quarter, date
+    // // 4. then need to match region with value like objCombined and push this to obj in step 2
     
-    // console.log(entries);
-    
+    // // step 1
+    // entriesNew = d3.nest()
+    //     .key(d => { return d.type })
+    //     .key(d => { return d.quarter })
+    //     .entries(transposedData);
+
+    // console.log("Nested by type and then quarter", entriesNew);
+
+    // // Step 2 
+    // // need to bind the value of the selector to this, for now just use fixed data
+    // var setOne = entriesNew.find( d => d.key === "Numbers in Employment").values;
+    //     // .values.find(d => d.key === "2001Q1").values;// remove this after I figure step 3
+
+    // console.log("Employment Only type", setOne);
+
+    // // step 3
+    // var objFull = [];
+    // setOne.forEach(d => {
+    //     var obj = {};
+    //         obj.quarter = d.key;
+    //         obj.type = d.values[0].type;
+    //         obj.date = d.values[0].date;
+
+    //     //step 4 
+    //     var objCombined = d.values.reduce((obj, item) => (obj[item.region] = item.value, obj) ,{});
+
+    //     //merge the objects and push to the array
+    //     var objMerged = {...obj, ...objCombined}
+    //     objFull.push(objMerged);
+    // });
+
+    // console.log("merged the regions and values", objFull);
+
     var dublin = entries.find( d => d.key === "Numbers in Employment").values.find(d => d.key === "Dublin");
     var state = entries.find( d => d.key === "Numbers in Employment").values.find(d => d.key === "Ireland");
     // console.log(dublin);
 
     dublinData = dublin.values;
-        // console.log(dublinData);
+    // console.log(dublinData);
 
     stateData = state.values;
-        // console.log(stateData);
+    // console.log(stateData);
 
 // margins top: 50, right: 100, bottom: 50, left: 50
 var margin = {top: 50, right: 150, bottom: 100, left: 80},
@@ -352,8 +439,6 @@ var g = svg.append("g")
 
 // For tooltip
 var bisectDate = d3.bisector(function(d) { return d.date; }).left;
-
-
 
 
 // Scales
@@ -402,98 +487,106 @@ y.domain([0 , 2500]);
 
 
 // Add line to chart
-g.append("path")
+var groupchart1 = g.append("g")
+    .attr("class", "group-1");
+
+var groupchart2 = g.append("g")
+    .attr("class", "group-2");
+
+groupchart1.append("path")
     .attr("class", "line")
     .attr("fill", "none")
     .attr("stroke", "#3182bd")
     .attr("stroke-width", "2px")
-    .attr("d", line(dublinData));
+    .attr("d", line(dublinData));	
 
-// Add the scatterplot
-g.selectAll("dot")	
-.data(dublinData)			
-.enter().append("circle")								
-.attr("r", 2)
-.attr("fill", "#3182bd")		
-.attr("cx", function(d) { return x(d.date); })		 
-.attr("cy", function(d) { return y(d.value); });		
-// .on("mouseover", function(d) {		
-//     div.transition()		
-//         .duration(200)		
-//         .style("opacity", .9);		
-//     div	.html(d.quater + "<br/>"  + d.vale)	
-//         .style("left", (d3.event.pageX) + "px")		
-//         .style("top", (d3.event.pageY - 28) + "px");	
-//     })					
-// .on("mouseout", function(d) {		
-//     div.transition()		
-//         .duration(500)		
-//         .style("opacity", 0);	
-// });
-
-// Add line to chart
-g.append("path")
+groupchart2.append("path")
     .attr("class", "line")
     .attr("fill", "none")
-    .attr("stroke", "#9ecae1")
+    .attr("stroke", "#3182bd")
     .attr("stroke-width", "2px")
     .attr("d", line(stateData));
-
-
 
 /* 
 tooltip
 */
 
-var focus = g.append("g")
-    .attr("class", "focus")
-    .style("display", "none");
+var tooltipList = g.append("g")
+        .attr("class", "tool-tip-list");
 
-focus.append("line")
+tooltipList.append("line")
     .attr("class", "x-hover-line hover-line")
     .attr("y1", 0)
-    .attr("y2", height);
+    .attr("y2", height)
+    .style("display", "none");
 
-focus.append("line")
+tooltipList.append("line")
     .attr("class", "y-hover-line hover-line")
     .attr("x1", 0)
-    .attr("x2", width);
+    .attr("x2", width)
+    .style("display", "none");
 
-focus.append("circle")
-    .attr("r", 7.5);
+tooltipList.selectAll("dot")	
+    .data(dublinData)			
+    .enter().append("circle")
+    .attr("class", "dot")								
+    .attr("r", 6)
+    .attr("fill", "#3182bd")
+    .attr("fill-opacity", "1e-06")
+    .attr("stroke-opacity", "1e-06")		
+    .attr("cx", function(d) { return x(d.date); })		 
+    .attr("cy", function(d) { return y(d.value); })
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
+    .on("mousemove", mousemove);	
 
-focus.append("text")
+tooltipList.append("text")
     .attr("x", 15)
     .attr("dy", ".31em");
 
-g.append("rect")
-    .attr("class", "overlay")
-    .attr("width", width)
-    .attr("height", height)
-    .on("mouseover", function() { focus.style("display", null); })
-    .on("mouseout", function() { focus.style("display", "none"); })
-    .on("mousemove", mousemove);
+    tooltipList.selectAll("dot")	
+    .data(stateData)			
+    .enter().append("circle")
+    .attr("class", "dot")								
+    .attr("r", 6)
+    .attr("fill", "#3182bd")
+    .attr("fill-opacity", "1e-06")
+    .attr("stroke-opacity", "1e-06")		
+    .attr("cx", function(d) { return x(d.date); })		 
+    .attr("cy", function(d) { return y(d.value); })
+	
 
-g.append("rect")
-    .attr("class", "overlay")
-    .attr("width", width)
-    .attr("height", height)
-    .on("mouseover", function() { focus.style("display", null); })
-    .on("mouseout", function() { focus.style("display", "none"); })
-    .on("mousemove", mousemove);
+tooltipList.append("text")
+    .attr("x", 15)
+    .attr("dy", ".31em");
+
+function mouseover() {
+    d3.select(this).attr("fill-opacity", "0.8");
+    tooltipList.select(".x-hover-line").style("display", null);
+    tooltipList.select(".y-hover-line").style("display", null);
+    tooltipList.select("text").style("display", null);
+}
+
+function mouseout() {
+    d3.select(this).attr("fill-opacity", "1e-06");
+    tooltipList.select(".x-hover-line").style("display", "none");
+    tooltipList.select(".y-hover-line").style("display", "none");
+    tooltipList.select("text").style("display", "none");
+}
 
 function mousemove() {
     var x0 = x.invert(d3.mouse(this)[0]),
         i = bisectDate(dublinData, x0, 1),
         d0 = dublinData[i - 1],
         d1 = dublinData[i];
-
+        // fix out of range issue
         d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
 
-    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-    focus.select("text").text("Value: " + d.value + " Date: " + d.quarter);
-    focus.select(".x-hover-line").attr("y2", height - y(d.value));
-    focus.select(".y-hover-line").attr("x2", -x(d.date));
+    tooltipList.select(".x-hover-line").attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    tooltipList.select(".y-hover-line").attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
+    tooltipList.select("text").text("Value: " + d.value + " Quarter: " + d.quarter);
+    tooltipList.select(".x-hover-line").attr("y2", height - y(d.value));
+    tooltipList.select(".y-hover-line").attr("x2", -x(d.date));
 }
 
 })
@@ -509,9 +602,9 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
         lookupIndex = [],
         output = [];
     
-    for (var i = 0; i < l; i++) { // loop through l items
+    for (var i = 0; i < l; i++) { // loop through the lookup array
         var row = lookupTable[i];
-        lookupIndex[row[lookupKey]] = row; // create an index for lookup table
+        lookupIndex[row[lookupKey]] = row; // create a index for lookup table
     }
     
     for (var j = 0; j < m; j++) { // loop through m items
@@ -522,25 +615,3 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
     
     return output;
 }
-
-
-// function tooltipOver() {
-//     div.style("display", "inline");
-// }
-  
-// function tooltipMove(d) {
-//     div
-//         .text(d.value)
-//         // .style("left", (d3.event.clientX) + "px")
-//         .style("left", (d3.select(this).attr('y')) + "px")
-//         .style("top", (d3.select(this).attr('y')) + "px");
-
-//         console.log(d3.event.clientY);
-//         console.log((d3.event.clientY / 2) + (height/2));
-//         console.log(d3.event.clientY - height + 80);
-
-// }
-  
-// function tooltipOut() {
-//     div.style("display", "none");
-// }

@@ -27,8 +27,19 @@ section#economy
       .row.wrapper
         .col-md-4
           h3 Chart Title
+          p Source: CSO
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+          select(id="chart-select" class="form-control")
+              <option selected value="Persons aged 15 years and over in Employment (Thousand)">Employment Count</option>
+              <option value="Unemployed Persons aged 15 years and over (Thousand)">Unemployment Count</option>
+              <option value="Persons aged 15 years and over in Labour Force (Thousand)">Labour Force</option>
+              <option value="ILO Unemployment Rate (15 - 74 years) (%)">Unemployment Rate</option>
+              <option value="ILO Participation Rate (15 years and over) (%)">Participation Rate</option>
         .col-md-8
-          .chart-2
+          #chartNew.chart-2
 
       .row.wrapper
         .col-md-4
@@ -52,7 +63,6 @@ section#economy
         .col-md-8
           #chart1.chart-test
 
-
       .row.wrapper
         .col-md-4
           h3 Survey on Income and Living Conditions for Dublin
@@ -72,8 +82,19 @@ section#economy
       .row
         .col-md-4
           h3 Chart Title
+          p Source: CSO
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+          select(id="multi-select" class="form-control")
+            <option selected value="Persons aged 15 years and over in Employment (Thousand)">Employment Count</option>
+            <option value="Unemployed Persons aged 15 years and over (Thousand)">Unemployment Count</option>
+            <option value="Persons aged 15 years and over in Labour Force (Thousand)">Labour Force</option>
+            <option value="ILO Unemployment Rate (15 - 74 years) (%)">Unemployment Rate</option>
+            <option value="ILO Participation Rate (15 years and over) (%)">Participation Rate</option>
         .col-md-8
-          .chart-1
+          #chartMulti
 
       .row
         .col-md-4
