@@ -402,8 +402,8 @@ function makeGraphs(error, records) {
             }
         });
 
-        console.log("LA Names: " + authorityNames);
-        console.log("LA Names Checked: " + authorityNamesChecked);
+//        console.log("LA Names: " + authorityNames);
+//        console.log("LA Names Checked: " + authorityNamesChecked);
         authorityDim.filterFunction(function (d) {
             return authorityNamesChecked.includes(d);
         });
@@ -416,10 +416,8 @@ function makeGraphs(error, records) {
     //initalise
     d3.selectAll('.decision-checkbox').each(function (d) {
         var cb = d3.select(this);
-
         if (decisionCategories.includes(cb.property("value"))) {
             cb.property("checked", true);
-
         } else {
             cb.property("checked", false);
             cb.property("disabled", true);
@@ -437,7 +435,6 @@ function makeGraphs(error, records) {
                 }
             }
         });
-
         console.log("Decision categories: " + decisionCategories);
         console.log("Decision categories checked: " + decisionCategoriesChecked);
         decisionCategoryDim.filterFunction(function (d) {
@@ -449,21 +446,22 @@ function makeGraphs(error, records) {
     d3.select("#search-result").html("");
     d3.select("#app-number-search").on('change', function () {
         let searchQuery = this.value;
-        console.log("Search for App Number: " + searchQuery + "\n");
+//        console.log("Search for App Number: " + searchQuery + "\n");
         appNumberDim.filter(searchQuery);
-        console.log("Size: " + appNumberDim.top(Infinity).length);
-        if (appNumberDim.top(Infinity).length === 0) {
+        let len = appNumberDim.top(Infinity).length;
+//        console.log("Size: " + appNumberDim.top(Infinity).length);
+        if (len === 0) {
             appNumberDim.filterAll();
             d3.select("#search-result").html("No records found");
-        } else {
-            d3.select("#search-result").html("Found " + appNumberDim.top(Infinity).length + "record");
+        } else if(len===1){
+            d3.select("#search-result").html("Found " + len + " record");
+        }
+        else {
+            d3.select("#search-result").html("Found " + len + " records");
         }
         updateCharts();
         makeMap();
     });
-//
-    var searchQuery = '';
-
 
     function updateCharts() {
         timeChart.redraw();
