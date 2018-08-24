@@ -174,6 +174,12 @@ function makeGraphs(error, records) {
     var rDateDim = planningXF.dimension(function (d) {
         return d.properties.ReceivedDate;
     });
+    var appNumberDim = planningXF.dimension(function (d) {
+        return d.properties.ApplicationNumber;
+    });
+//    var appNumberGroup = appNumberDim.group();
+
+    console.log("App #: " + appNumberDim.top(5)[4].properties.ApplicationNumber);
 
 //    var dDateDim = planningXF.dimension(function (d) {
 //        return d.properties.DecisionDate;
@@ -219,7 +225,7 @@ function makeGraphs(error, records) {
         decisionCategories.push(decisionCategoryGroup.all()[i].key);
     }
     var areaGroup = areaDim.group();
-    
+
 //    console.log("decisionCategories:" + decisionCategories);    
 
 //    var recordsByLocation = locationDim.group();
@@ -231,8 +237,8 @@ function makeGraphs(error, records) {
     //console.log("min area: " + minAreaSize);
     var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
     console.log("max area: " + maxAreaSize);
-    var medianAreaSize = d3.mean(records, function(d){
-                return d.properties.AreaofSite;
+    var medianAreaSize = d3.mean(records, function (d) {
+        return d.properties.AreaofSite;
     });
     console.log("median area: " + medianAreaSize);
     //Treat date data so zeros and future dates are excluded from charts(but still in data dims)
@@ -276,7 +282,7 @@ function makeGraphs(error, records) {
 
     timeChart
             .width(600)
-            .height(chartHeight/2)
+            .height(chartHeight / 2)
             .brushOn(true)
             .margins({top: 10, right: 50, bottom: 20, left: 40})
             .dimension(rDateDim)
@@ -291,7 +297,7 @@ function makeGraphs(error, records) {
 
     sizeChart
             .width(600)
-            .height(chartHeight/2)
+            .height(chartHeight / 2)
             .brushOn(true)
             .margins({top: 10, right: 50, bottom: 20, left: 40})
             .dimension(areaDim)
@@ -341,7 +347,7 @@ function makeGraphs(error, records) {
         start: [minAreaSize, maxAreaSize],
         connect: true,
         //tooltips: [ true, true ],
-     
+
         range: {
             'min': [minAreaSize, minAreaSize],
 //            '25%': [100.0, 100.0], //TODO: formularise
@@ -349,8 +355,8 @@ function makeGraphs(error, records) {
 //            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
             'max': [maxAreaSize, maxAreaSize]
         }
-    });    
-    
+    });
+
     areaSlider.noUiSlider.on('update', function (values, handle) {
 //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
         if (handle === 0) {
@@ -440,12 +446,32 @@ function makeGraphs(error, records) {
         makeMap();
         updateCharts();
     });
+    d3.select("#search-result").html("");
+    d3.select("#app-number-search").on('change', function () {
+        let searchQuery = this.value;
+        console.log("Search for App Number: " + searchQuery + "\n");
+        appNumberDim.filter(searchQuery);
+        console.log("Size: " + appNumberDim.top(Infinity).length);
+        if (appNumberDim.top(Infinity).length === 0) {
+            appNumberDim.filterAll();
+            d3.select("#search-result").html("No records found");
+        } else {
+            d3.select("#search-result").html("Found " + appNumberDim.top(Infinity).length + "record");
+        }
+        updateCharts();
+        makeMap();
+    });
+//
+    var searchQuery = '';
 
 
     function updateCharts() {
         timeChart.redraw();
+        sizeChart.redraw();
         decisionChart.redraw();
     }
+
+
 }
 ; //end of makeGraphs
 
