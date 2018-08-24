@@ -172,6 +172,12 @@ iPad Pro
         grid-area: tc;
         
     }
+    #size-chart{
+        height: inherit;
+        width: 100%;
+        grid-area: sc;
+        
+    }
     #decision-row-chart{
         height: inherit;
         width: 100%;
@@ -218,6 +224,7 @@ iPad Pro
         align-content: space-between;
         grid-template-areas: 
             "tc"
+            "sc"
             ;      
         grid-template-columns: 1fr; 
         grid-area: v3;

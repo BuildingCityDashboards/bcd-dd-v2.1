@@ -1,9 +1,8 @@
-
 /* Map variables and instantiation */
 
 var authorityNames = [];
 var decisionCategories = [];
-var regex = /GRANT/;
+//var regex = /GRANT/;
 
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
@@ -46,7 +45,7 @@ var allDim;
 
 //... so we'll use the more powerful Promise pattern
 //loadJsonFile(baseurl, startOffset, no of files
-loadJsonFile(dublinDataURI, 0, 39); //0-38 inclusive
+loadJsonFile(dublinDataURI, 9, 5); //0-38 inclusive
 //
 //
 ////////////////////////////////////////////////////////////////////////////
@@ -114,7 +113,7 @@ function makeGraphs(error, records) {
     //Convert from Irish Grid to useable latlong
     var firstProjection = "EPSG:3857";
     var secondProjection = "EPSG:4326";
-
+    var areaFormat = d3.format(",.2r");
     records.forEach(function (d) {
         //                    d.properties.ReceivedDate.setMinutes(0);
 //                    d.properties.ReceivedDate.setSeconds(0);
@@ -212,13 +211,15 @@ function makeGraphs(error, records) {
 
     //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
-    var receivedDateGroup = rDateDim.group();
+    var rDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
     var decisionGroup = decisionDim.group();
     var decisionCategoryGroup = decisionCategoryDim.group();
     for (i = 0; i < decisionCategoryGroup.all().length; i += 1) {
         decisionCategories.push(decisionCategoryGroup.all()[i].key);
     }
+    var areaGroup = areaDim.group();
+    
 //    console.log("decisionCategories:" + decisionCategories);    
 
 //    var recordsByLocation = locationDim.group();
@@ -249,9 +250,6 @@ function makeGraphs(error, records) {
 
     } //returns the whole record with earliest date
 
-
-
-
     var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
     var now = Date.now();
     if (maxChartDate > now) {
@@ -262,11 +260,10 @@ function makeGraphs(error, records) {
             + " | maxChartDate: " + JSON.stringify(maxChartDate)
             + "| now: " + now);
 
-
-
     //Charts
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
+    var sizeChart = dc.barChart("#size-chart");
     var decisionChart = dc.rowChart("#decision-row-chart");
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
@@ -279,17 +276,33 @@ function makeGraphs(error, records) {
 
     timeChart
             .width(600)
-            .height(chartHeight)
+            .height(chartHeight/2)
             .brushOn(true)
-            .margins({top: 10, right: 50, bottom: 20, left: 20})
+            .margins({top: 10, right: 50, bottom: 20, left: 40})
             .dimension(rDateDim)
-            .group(receivedDateGroup)
+            .group(rDateGroup)
             .transitionDuration(500)
             .x(d3.scaleTime().domain([minChartDate, maxChartDate]))
+//            .elasticX(true)
             .elasticY(true)
             .yAxis().ticks(4);
 
     timeChart.render();
+
+    sizeChart
+            .width(600)
+            .height(chartHeight/2)
+            .brushOn(true)
+            .margins({top: 10, right: 50, bottom: 20, left: 40})
+            .dimension(areaDim)
+            .group(areaGroup)
+            .transitionDuration(500)
+            .x(d3.scaleLog().domain([0.1, 100]))
+//            .elasticX(true)
+            .elasticY(true)
+            .yAxis().ticks(4);
+    sizeChart.render();
+
 
     decisionChart
             .width(600)
@@ -306,7 +319,7 @@ function makeGraphs(error, records) {
 
     decisionChart.render();
 
-    dcCharts = [timeChart, decisionChart];
+    dcCharts = [timeChart, sizeChart, decisionChart];
 ////Update the map if any dc chart get filtered
     _.each(dcCharts, function (dcChart) {
         dcChart.on("filtered", function (chart, filter) {
@@ -471,6 +484,9 @@ function getContent(d_) {
     }
     if (d_.properties.Decision) {
         str += '<strong>Decision</strong>: ' + d_.properties.Decision + '<br>';
+    }
+    if (d_.properties.AreaofSite) {
+        str += '<strong>Area of site</strong>: ' + d_.properties.AreaofSite + '<br>';
     }
 //    if (d_.properties.DecisionDate) {
 //        str += '<strong>Decision date</strong>: ' + new Date(d_.properties.DecisionDate);
