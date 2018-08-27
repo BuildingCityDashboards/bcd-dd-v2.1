@@ -1,10 +1,15 @@
-/* Map variables and instantiation */
+/*
+ * 
+ * TODO: import SA_DublinCity_i geojsons instead of lagre generalised file
+ * 
+ */
 
-var authorityNames = [];
-var decisionCategories = [];
+var authorityNames = []; //names of authoirites as strings
+var decisionCategories = []; //types of decisions as strings
 //var regex = /GRANT/;
 
 
+/* Map variables and instantiation */
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
 //Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -207,6 +212,10 @@ function makeGraphs(error, records) {
         //d.properties.DecisionDate
         //d.geometry.coordinates[0] = +d.geometry.coordinates[0];
         //d.geometry.coordinates[1] = +d.geometry.coordinates[1];
+        
+        /***TODO: query the data with outSR as 4326 and compare load times 
+         * without these projections***/
+        
         var result = proj4(firstProjection, secondProjection,
                 [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
         d.x = result[0];
