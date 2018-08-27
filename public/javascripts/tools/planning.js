@@ -119,12 +119,13 @@ function createSAMap(url_) {
 
         function onEachFeature(feature, layer) {
             layer.bindPopup(
-                    '<h3>SA #' + feature.properties.SMALL_AREA + '<h3>'+
+                    '<h3>SA #' + feature.properties.SMALL_AREA + '<h3>' +
                     '<p>ED: ' + feature.properties.EDNAME + '<p>'
                     );
             //bind click
             layer.on({
-                click: function(){
+                click: function () {
+
                     console.log(JSON.stringify(feature));
                 }
             });
@@ -132,39 +133,6 @@ function createSAMap(url_) {
 
 
 
-//        saLayer_CorkCity.setStyle(saStyle_CorkCity);
-
-//        saLayer_CorkCounty.setStyle(saStyle_CorkCounty);
-//        saLayer_CorkCounty.addTo(map);
-//        arguments[0].features.forEach(function (d) {
-//            d.geometry.x = +d.geometry.x;
-//            d.geometry.y = +d.geometry.y;
-//            console.log("x:" + d.geometry.x);
-//            console.log("y:" + d.geometry.y);
-////                      d["y"] = +d["y"];
-//
-//        });
-//    console.log("record count: " + i);
-////    //Create a Crossfilter instance
-//        var xRecords = crossfilter(records);
-//        console.log("crossfilter count: " + xRecords.size());
-////    makeMap();
-//        for (var i = 0, len = arguments.length; i < len; i++) {
-//            //  arguments[i][0] is a single object with all the file JSON data
-//            var arg = arguments[i][0];
-////                        jsonFeaturesArr = jsonFeaturesArr.concat(arg);
-//            jsonFeaturesArr = jsonFeaturesArr.concat(arg.features); //  make a 1-D array of all the features
-//                        console.log("featsArr has length:  " + jsonFeaturesArr.length);
-////            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
-//        }
-//                    console.lo    g(".done() - jsonData has length " + jsonFeaturesArr.length);
-//                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
-
-//        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
-//                    console.log("Features loaded: "+JSON.stringify(jsonFeaturesArr));
-
-//        makeGraphs(null, jsonFeaturesArr);
-//    addSmallAreas(saLayer_DublinCity);
 //       map.addLayer(saLayer_DublinCity);
         saLayer_DublinCity.addTo(map);
     }); //end of done function
@@ -231,27 +199,25 @@ function makeGraphs(error, records) {
 //Convert from Irish Grid to useable latlong
     var firstProjection = "EPSG:3857";
     var secondProjection = "EPSG:4326";
-    var areaFormat = d3.format(",.2r");
+//    var areaFormat = d3.format(",.2r");
     records.forEach(function (d) {
-        //                    d.properties.ReceivedDate.setMinutes(0);
-//                    d.properties.ReceivedDate.setSeconds(0);
-//d.properties.PlanningAuthority
-//d.properties.DecisionDate
-
-//        d.geometry.coordinates[0] = +d.geometry.coordinates[0];
-//        d.geometry.coordinates[1] = +d.geometry.coordinates[1];
+        //d.properties.ReceivedDate.setMinutes(0);
+        //d.properties.ReceivedDate.setSeconds(0);
+        //d.properties.PlanningAuthority
+        //d.properties.DecisionDate
+        //d.geometry.coordinates[0] = +d.geometry.coordinates[0];
+        //d.geometry.coordinates[1] = +d.geometry.coordinates[1];
         var result = proj4(firstProjection, secondProjection,
                 [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
-//        d.properties.DecisionDate = +d.properties.DecisionDate;
+        //d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision).toUpperCase(); //clean leading & trailing whitespaces
-//        if (d.properties.Decision === '') {
-//            d.properties.Decision = 'OTHER';
-//            
-//        }
+        //if (d.properties.Decision === '') {
+        //d.properties.Decision = 'OTHER';
+        //}
         d.properties.DecisionCategory = d.properties.Decision;
         /*TODO: profile this for performance and explore regex*/
         if (d.properties.Decision.indexOf("GRANT") !== -1) {
@@ -259,9 +225,9 @@ function makeGraphs(error, records) {
         } else if (d.properties.Decision.indexOf("REFUSE") !== -1) {
             d.properties.DecisionCategory = "REFUSE";
         }
-//        else if (d.properties.Decision.indexOf("WITHDRAW")!==-1) {
-//          d.properties.DecisionCategory = "WITHDRAW";
-//        }
+        //else if (d.properties.Decision.indexOf("WITHDRAW")!==-1) {
+        //d.properties.DecisionCategory = "WITHDRAW";
+        //}
         else if (d.properties.Decision.indexOf("INVALID") !== -1) {
             d.properties.DecisionCategory = "INVALID";
         } else {
@@ -279,11 +245,10 @@ function makeGraphs(error, records) {
 //    }
 
 
-//    console.log("record count: " + i);
     //Create a Crossfilter instance
     var planningXF = crossfilter(records);
     console.log("crossfilter count: " + planningXF.size());
-//               Define Dimensions
+    //Define dimensions
     var authorityDim = planningXF.dimension(function (d) {
         return d.properties.PlanningAuthority;
     });
@@ -295,18 +260,14 @@ function makeGraphs(error, records) {
     });
 //    var appNumberGroup = appNumberDim.group();
 
-    console.log("App #: " + appNumberDim.top(5)[4].properties.ApplicationNumber);
+//    console.log("App #: " + appNumberDim.top(5)[4].properties.ApplicationNumber);
 //    var dDateDim = planningXF.dimension(function (d) {
 //        return d.properties.DecisionDate;
 //    });
     var decisionDim = planningXF.dimension(function (d) {
-
-//        console.log('.');
         return d.properties.Decision;
     });
     var decisionCategoryDim = planningXF.dimension(function (d) {
-
-//        console.log('.');
         return d.properties.DecisionCategory;
     });
     var areaDim = planningXF.dimension(function (d) {
@@ -324,9 +285,8 @@ function makeGraphs(error, records) {
     for (i = 0; i < authorityGroup.all().length; i += 1) {
         authorityNames.push(authorityGroup.all()[i].key);
     }
-//    console.log("LAs:" + authorityNames);
-
-//console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
+    //    console.log("LAs:" + authorityNames);
+    //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
     var rDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
@@ -428,7 +388,7 @@ function makeGraphs(error, records) {
             ;
     decisionChart.render();
     dcCharts = [timeChart, sizeChart, decisionChart];
-////Update the map if any dc chart get filtered
+////Update the map if any dc chart gets filtered
     _.each(dcCharts, function (dcChart) {
         dcChart.on("filtered", function (chart, filter) {
             makeMap();
@@ -439,16 +399,10 @@ function makeGraphs(error, records) {
     //UI elements
 
     var areaSlider = document.getElementById('area-slider');
-//document.getElementById('input-number-min').setAttribute("value", 1231200000000);
-//document.getElementById('input-number-max').setAttribute("value", 1516886449143);
-//    var inputNumberMin = document.getElementById('min-area-nb');
-//    var inputNumberMax = document.getElementById('max-area-nb');
-
     noUiSlider.create(areaSlider, {
         start: [minAreaSize, maxAreaSize],
         connect: true,
         //tooltips: [ true, true ],
-
         range: {
             'min': [minAreaSize, minAreaSize],
 //            '25%': [100.0, 100.0], //TODO: formularise
