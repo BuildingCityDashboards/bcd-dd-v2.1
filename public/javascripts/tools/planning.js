@@ -4,6 +4,7 @@ var authorityNames = [];
 var decisionCategories = [];
 //var regex = /GRANT/;
 
+
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
 //Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
@@ -15,6 +16,7 @@ var dub_lat = 53.36;
 var dublinX, dublinY;
 //data loading
 var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
+var dublinSAURI = '/data/tools/small_areas/';
 var min_zoom = 10, max_zoom = 16;
 var zoom = min_zoom;
 // tile layer with correct attribution
@@ -44,15 +46,134 @@ var allDim;
 //        .await(makeGraphs);
 
 //... so we'll use the more powerful Promise pattern
-//loadJsonFile(baseurl, startOffset, no of files
-loadJsonFile(dublinDataURI, 9, 5); //0-38 inclusive
+//loadJsonFiles(baseurl, startOffset, no of files
+loadJsonFiles(dublinDataURI, 9, 5); //0-38 inclusive
+
+createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
 //
 ////////////////////////////////////////////////////////////////////////////
+//[]; //this will hold an array of promises
+//             ***TODO: serach dir for # of files and for-each
+
+//    for (i = fileOffset_; i < fileCount_; i++) {
+//        promise.push(getData(i));
+//    }
+
+//    function getData(id) {
+//        var url = JSONsrc_ + id + '.geojson';
+////        var url ="../data/PlanningApplications_CorkCity_0.geojson";
+//        return $.getJSON(url); // this returns a "promise"
+//    }
+
+
+//    var countByDateArr; //will store number of planning apps per date
+
+
+
+function createSAMap(url_) {
+
+    var promise = [];
+    promise.push($.getJSON(url_));
+    $.when.apply($, promise).done(function () {
+
+// This callback will be called with multiple arguments,
+// one for each promise call
+// Each argument is an array with the following structure: [data, statusText, jqXHR]
+        var saAll = arguments[0].features;
+        console.log("SA features length: " + saAll.length);
+        console.log("First point: " + JSON.stringify(saAll[0].geometry.coordinates[0][0]));
+
+//        var smallArea = arguments[0].features[0].geometry.coordinates; //2-d array of points
+//console.log("args: " + JSON.stringify(smallArea[0]));
+//smallArea[0].forEach(function (p){
+//    console.log("pt: " + JSON.stringify(p));
+//});
+        var saStyle_DublinCity = {
+            color: "#6baed6",
+            fillColor: getColor,
+            weight: 1,
+            opacity: 1
+        };
+
+        function style(f) {
+            return {
+                fillColor: getColor(Math.floor(Math.random() * 1000)),
+                weight: 1,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 0.5
+            };
+        }
+        ;
+
+        saLayer_DublinCity = L.geoJSON(saAll,
+                {
+                    filter: function (f, l) {
+                        return f.properties.COUNTYNAME === "Dublin City";
+                    },
+                    style: style,
+                    onEachFeature: onEachFeature
+                });
+
+        function onEachFeature(feature, layer) {
+            layer.bindPopup(
+                    '<h3>SA #' + feature.properties.SMALL_AREA + '<h3>'+
+                    '<p>ED: ' + feature.properties.EDNAME + '<p>'
+                    );
+            //bind click
+            layer.on({
+                click: function(){
+                    console.log(JSON.stringify(feature));
+                }
+            });
+        }
+
+
+
+//        saLayer_CorkCity.setStyle(saStyle_CorkCity);
+
+//        saLayer_CorkCounty.setStyle(saStyle_CorkCounty);
+//        saLayer_CorkCounty.addTo(map);
+//        arguments[0].features.forEach(function (d) {
+//            d.geometry.x = +d.geometry.x;
+//            d.geometry.y = +d.geometry.y;
+//            console.log("x:" + d.geometry.x);
+//            console.log("y:" + d.geometry.y);
+////                      d["y"] = +d["y"];
+//
+//        });
+//    console.log("record count: " + i);
+////    //Create a Crossfilter instance
+//        var xRecords = crossfilter(records);
+//        console.log("crossfilter count: " + xRecords.size());
+////    makeMap();
+//        for (var i = 0, len = arguments.length; i < len; i++) {
+//            //  arguments[i][0] is a single object with all the file JSON data
+//            var arg = arguments[i][0];
+////                        jsonFeaturesArr = jsonFeaturesArr.concat(arg);
+//            jsonFeaturesArr = jsonFeaturesArr.concat(arg.features); //  make a 1-D array of all the features
+//                        console.log("featsArr has length:  " + jsonFeaturesArr.length);
+////            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
+//        }
+//                    console.lo    g(".done() - jsonData has length " + jsonFeaturesArr.length);
+//                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
+
+//        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
+//                    console.log("Features loaded: "+JSON.stringify(jsonFeaturesArr));
+
+//        makeGraphs(null, jsonFeaturesArr);
+//    addSmallAreas(saLayer_DublinCity);
+//       map.addLayer(saLayer_DublinCity);
+        saLayer_DublinCity.addTo(map);
+    }); //end of done function
+}
+; //end of createSAMap
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
 //Adds to Leaflet layers to referenced map and clusters
-function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) {
+function loadJsonFiles(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) {
 
     var promises = []; //this will hold an array of promises
 
@@ -69,7 +190,6 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
 
     function getData(id) {
         var url = JSONsrc_ + id + '.geojson';
-//        var url ="../data/PlanningApplications_CorkCity_0.geojson";
         return $.getJSON(url); // this returns a Promise
     }
 
@@ -86,8 +206,6 @@ function loadJsonFile(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map
             var arg = arguments[i][0].features;
             //  make a 1-D array of all the features
             jsonFeaturesArr = jsonFeaturesArr.concat(arg);
-
-
 //            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
         }
 //                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
@@ -108,9 +226,9 @@ function makeGraphs(error, records) {
 //for plain JSON, access e.g. .properties.ReceivedDate
 //for geoJSON, access e.g. .features.ReceivedDate  
 //    var records = recordsJson;
-    //	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
+//	var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
 //    var i = 0;
-    //Convert from Irish Grid to useable latlong
+//Convert from Irish Grid to useable latlong
     var firstProjection = "EPSG:3857";
     var secondProjection = "EPSG:4326";
     var areaFormat = d3.format(",.2r");
@@ -127,7 +245,6 @@ function makeGraphs(error, records) {
         d.x = result[0];
         d.y = result[1];
         d.properties.ReceivedDate = +d.properties.ReceivedDate;
-
 //        d.properties.DecisionDate = +d.properties.DecisionDate;
         d.properties.AreaofSite = +d.properties.AreaofSite;
         d.properties.Decision = _.trim(d.properties.Decision).toUpperCase(); //clean leading & trailing whitespaces
@@ -170,7 +287,6 @@ function makeGraphs(error, records) {
     var authorityDim = planningXF.dimension(function (d) {
         return d.properties.PlanningAuthority;
     });
-
     var rDateDim = planningXF.dimension(function (d) {
         return d.properties.ReceivedDate;
     });
@@ -180,7 +296,6 @@ function makeGraphs(error, records) {
 //    var appNumberGroup = appNumberDim.group();
 
     console.log("App #: " + appNumberDim.top(5)[4].properties.ApplicationNumber);
-
 //    var dDateDim = planningXF.dimension(function (d) {
 //        return d.properties.DecisionDate;
 //    });
@@ -189,13 +304,11 @@ function makeGraphs(error, records) {
 //        console.log('.');
         return d.properties.Decision;
     });
-
     var decisionCategoryDim = planningXF.dimension(function (d) {
 
 //        console.log('.');
         return d.properties.DecisionCategory;
     });
-
     var areaDim = planningXF.dimension(function (d) {
         return d.properties.AreaofSite;
     });
@@ -205,8 +318,6 @@ function makeGraphs(error, records) {
     allDim = planningXF.dimension(function (d) {
         return d;
     });
-
-
     //Group Data
     var authorityGroup = authorityDim.group();
     //Store names of LAs in array as strings
@@ -215,7 +326,7 @@ function makeGraphs(error, records) {
     }
 //    console.log("LAs:" + authorityNames);
 
-    //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
+//console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
     var rDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
@@ -225,7 +336,6 @@ function makeGraphs(error, records) {
         decisionCategories.push(decisionCategoryGroup.all()[i].key);
     }
     var areaGroup = areaDim.group();
-
 //    console.log("decisionCategories:" + decisionCategories);    
 
 //    var recordsByLocation = locationDim.group();
@@ -253,7 +363,6 @@ function makeGraphs(error, records) {
     while (minChartDate === 0) {
         minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
         index += 1;
-
     } //returns the whole record with earliest date
 
     var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
@@ -265,7 +374,6 @@ function makeGraphs(error, records) {
     console.log("minChartDate: " + JSON.stringify(minChartDate)
             + " | maxChartDate: " + JSON.stringify(maxChartDate)
             + "| now: " + now);
-
     //Charts
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
@@ -292,9 +400,7 @@ function makeGraphs(error, records) {
 //            .elasticX(true)
             .elasticY(true)
             .yAxis().ticks(4);
-
     timeChart.render();
-
     sizeChart
             .width(600)
             .height(chartHeight / 2)
@@ -308,8 +414,6 @@ function makeGraphs(error, records) {
             .elasticY(true)
             .yAxis().ticks(4);
     sizeChart.render();
-
-
     decisionChart
             .width(600)
             .height(chartHeight)
@@ -322,9 +426,7 @@ function makeGraphs(error, records) {
             .elasticX(true)
             .xAxis().ticks(4)
             ;
-
     decisionChart.render();
-
     dcCharts = [timeChart, sizeChart, decisionChart];
 ////Update the map if any dc chart get filtered
     _.each(dcCharts, function (dcChart) {
@@ -333,7 +435,6 @@ function makeGraphs(error, records) {
 //            console.log("chart filtered");
         });
     });
-
     ;
     //UI elements
 
@@ -356,7 +457,6 @@ function makeGraphs(error, records) {
             'max': [maxAreaSize, maxAreaSize]
         }
     });
-
     areaSlider.noUiSlider.on('update', function (values, handle) {
 //handle = 0 if min-slider is moved and handle = 1 if max slider is moved
         if (handle === 0) {
@@ -367,11 +467,9 @@ function makeGraphs(error, records) {
         areaDim.filterRange([values[0], values[1]]);
         makeMap();
         updateCharts();
-
 //    rangeMin = document.getElementById('input-number-min').value;
 //    rangeMax = document.getElementById('input-number-max').value; 
     });
-
 //handle the Local Authoirty checkboxes
 
     //initialise checkbox to checked only if LA present in data
@@ -380,10 +478,8 @@ function makeGraphs(error, records) {
 //    $(document).ready(function () {
     d3.selectAll('.la-checkbox').each(function (d) {
         var cb = d3.select(this);
-
         if (authorityNames.includes(cb.property("value"))) {
             cb.property("checked", true);
-
         } else {
             cb.property("checked", false);
             cb.property("disabled", true);
@@ -401,7 +497,6 @@ function makeGraphs(error, records) {
                 }
             }
         });
-
 //        console.log("LA Names: " + authorityNames);
 //        console.log("LA Names Checked: " + authorityNamesChecked);
         authorityDim.filterFunction(function (d) {
@@ -410,8 +505,6 @@ function makeGraphs(error, records) {
         makeMap();
         updateCharts();
     });
-
-
     //handle the decision checkboxes...
     //initalise
     d3.selectAll('.decision-checkbox').each(function (d) {
@@ -453,16 +546,14 @@ function makeGraphs(error, records) {
         if (len === 0) {
             appNumberDim.filterAll();
             d3.select("#search-result").html("No records found");
-        } else if(len===1){
+        } else if (len === 1) {
             d3.select("#search-result").html("Found " + len + " record");
-        }
-        else {
+        } else {
             d3.select("#search-result").html("Found " + len + " records");
         }
         updateCharts();
         makeMap();
     });
-
     function updateCharts() {
         timeChart.redraw();
         sizeChart.redraw();
@@ -474,6 +565,7 @@ function makeGraphs(error, records) {
 ; //end of makeGraphs
 
 var planningClusters = L.markerClusterGroup();
+var saLayer_DublinCity;
 function makeMap() {
 
     planningClusters.clearLayers();
@@ -490,6 +582,11 @@ function makeMap() {
 //console.log("d:"+JSON.stringify(d.properties.DevelopmentAddress));
     });
     map.addLayer(planningClusters);
+
+}
+
+function addSmallAreas() {
+    map.addLayer(saLayer_DublinCity);
 }
 
 function getContent(d_) {
@@ -519,3 +616,13 @@ function getContent(d_) {
     return str;
 }
 ;
+function getColor(d) {
+    return d > 1000 ? '#800026' :
+            d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+            d > 100 ? '#FC4E2A' :
+            d > 50 ? '#FD8D3C' :
+            d > 20 ? '#FEB24C' :
+            d > 10 ? '#FED976' :
+            '#FFEDA0';
+}
