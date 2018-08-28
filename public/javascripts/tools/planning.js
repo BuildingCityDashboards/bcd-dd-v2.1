@@ -53,10 +53,9 @@ var allDim;
 //... so we'll use the more powerful Promise pattern
 //loadJsonFiles(baseurl, startOffset, no of files
 loadJsonFiles(dublinDataURI, 9, 5); //0-38 inclusive
-
 createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
-//
+
 ////////////////////////////////////////////////////////////////////////////
 //[]; //this will hold an array of promises
 //             ***TODO: serach dir for # of files and for-each
@@ -212,10 +211,10 @@ function makeGraphs(error, records) {
         //d.properties.DecisionDate
         //d.geometry.coordinates[0] = +d.geometry.coordinates[0];
         //d.geometry.coordinates[1] = +d.geometry.coordinates[1];
-        
+
         /***TODO: query the data with outSR as 4326 and compare load times 
          * without these projections***/
-        
+
         var result = proj4(firstProjection, secondProjection,
                 [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
         d.x = result[0];
@@ -332,7 +331,7 @@ function makeGraphs(error, records) {
     while (minChartDate === 0) {
         minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
         index += 1;
-    } //returns the whole record with earliest date
+    } //returns the whole record with earliest date that's not null or zero
 
     var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
     var now = Date.now();
@@ -400,7 +399,7 @@ function makeGraphs(error, records) {
 ////Update the map if any dc chart gets filtered
     _.each(dcCharts, function (dcChart) {
         dcChart.on("filtered", function (chart, filter) {
-            makeMap();
+            updateMap();
 //            console.log("chart filtered");
         });
     });
@@ -428,7 +427,7 @@ function makeGraphs(error, records) {
             document.getElementById('max-area-nb').value = values[1];
         }
         areaDim.filterRange([values[0], values[1]]);
-        makeMap();
+        updateMap();
         updateCharts();
 //    rangeMin = document.getElementById('input-number-min').value;
 //    rangeMax = document.getElementById('input-number-max').value; 
@@ -465,7 +464,7 @@ function makeGraphs(error, records) {
         authorityDim.filterFunction(function (d) {
             return authorityNamesChecked.includes(d);
         });
-        makeMap();
+        updateMap();
         updateCharts();
     });
     //handle the decision checkboxes...
@@ -496,7 +495,7 @@ function makeGraphs(error, records) {
         decisionCategoryDim.filterFunction(function (d) {
             return decisionCategoriesChecked.includes(d);
         });
-        makeMap();
+        updateMap();
         updateCharts();
     });
     d3.select("#search-result").html("");
@@ -514,9 +513,28 @@ function makeGraphs(error, records) {
         } else {
             d3.select("#search-result").html("Found " + len + " records");
         }
+        /*TODO: add reset button, clear 'no records'*/
+        
         updateCharts();
-        makeMap();
+        updateMap();
     });
+    
+    d3.select("#start_date").on('input', function () {
+        var sd = Date.parse(this.value);
+        console.log('start date: '+sd);
+        rDateDim.filterRange([sd, 1535449912721]);
+        updateCharts();
+        updateMap();
+    });    
+    
+    d3.select("#end_date").on('input', function () {
+        var ed = Date.parse(this.value);
+        console.log('end date: '+ed);
+        rDateDim.filterRange([0, ed]);
+        updateCharts();
+        updateMap();
+           });    
+    
     function updateCharts() {
         timeChart.redraw();
         sizeChart.redraw();
@@ -529,7 +547,7 @@ function makeGraphs(error, records) {
 
 var planningClusters = L.markerClusterGroup();
 var saLayer_DublinCity;
-function makeMap() {
+function updateMap() {
 
     planningClusters.clearLayers();
     map.removeLayer(planningClusters);
@@ -538,18 +556,15 @@ function makeMap() {
                 new L.LatLng(d.y, d.x)
                 );
         marker.bindPopup(getContent(d));
+//        marker.on('click', function (e, d) {
+//            console.log('click: '+JSON.stringify(e));
+//            console.log('object:'+d);
+//            
+//        });
         planningClusters.addLayer(marker);
-//       markers.push([d.geometry.coordinates[0], d.geometry.coordinates[1], "test"]);
-//        map.addLayer(new L.Marker(new L.LatLng(d.geometry.coordinates[1], d.geometry.coordinates[0]), "test"));
-//        console.log("d.geo:"+JSON.stringify(allDim));
-//console.log("d:"+JSON.stringify(d.properties.DevelopmentAddress));
+
     });
     map.addLayer(planningClusters);
-
-}
-
-function addSmallAreas() {
-    map.addLayer(saLayer_DublinCity);
 }
 
 function getContent(d_) {
@@ -558,19 +573,27 @@ function getContent(d_) {
         str += '<p> #' + d_.properties.ApplicationNumber + '</p><br>';
     }
     if (d_.properties.DevelopmentAddress) {
-        str += '<p>' + d_.properties.DevelopmentAddress + '</p><br>';
+        str += '<b> Address: </b>' + d_.properties.DevelopmentAddress + '<br>';
+    } else {
+        str += '<b> Address: </b> not listed (see description)<br>';
     }
     if (d_.properties.PlanningAuthority) {
-        str += '<p>' + d_.properties.PlanningAuthority + '</p><br>';
+        str += '<strong>Authority: </strong>: ' + d_.properties.PlanningAuthority + '</strong><br>';
     }
     if (d_.properties.ReceivedDate) {
-        str += '<strong>Application received</strong>: ' + new Date(d_.properties.ReceivedDate) + '<br>';
+        str += '<strong>Application received</strong>: ' + new Date(d_.properties.ReceivedDate).toDateString() + '<br>';
     }
     if (d_.properties.Decision) {
         str += '<strong>Decision</strong>: ' + d_.properties.Decision + '<br>';
+    } else {
+        str += '<strong>Decision: </strong>' + 'Not found/pending <br>';
     }
     if (d_.properties.AreaofSite) {
         str += '<strong>Area of site</strong>: ' + d_.properties.AreaofSite + '<br>';
+    }
+
+    if (d_.properties.DevelopmentDescription) {
+        str += '<br><strong>Description</strong>: ' + d_.properties.DevelopmentDescription + '<br>';
     }
 //    if (d_.properties.DecisionDate) {
 //        str += '<strong>Decision date</strong>: ' + new Date(d_.properties.DecisionDate);
