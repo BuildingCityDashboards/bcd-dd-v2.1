@@ -7,8 +7,8 @@
 var authorityNames = []; //names of authoirites as strings
 var decisionCategories = []; //types of decisions as strings
 //var regex = /GRANT/;
-
-
+var minChartDate, maxChartDate;
+var now = Date.now();
 /* Map variables and instantiation */
 //Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
@@ -327,14 +327,16 @@ function makeGraphs(error, records) {
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
     //
 //***TODO: compare for performance    
-    var minChartDate = 0, index = 1;
+    minChartDate = 0, index = 1;
     while (minChartDate === 0) {
         minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
         index += 1;
     } //returns the whole record with earliest date that's not null or zero
+    d3.select("#start_date").value = minChartDate;
 
-    var maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
-    var now = Date.now();
+
+    maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
+    
     if (maxChartDate > now) {
         maxChartDate = now;
     }
@@ -514,33 +516,49 @@ function makeGraphs(error, records) {
             d3.select("#search-result").html("Found " + len + " records");
         }
         /*TODO: add reset button, clear 'no records'*/
-        
+
         updateCharts();
         updateMap();
     });
     
+    console.log("d3: "+d3.select("#end_date").node().value);
+    
+
     d3.select("#start_date").on('input', function () {
         var sd = Date.parse(this.value);
-        console.log('start date: '+sd);
-        rDateDim.filterRange([sd, 1535449912721]);
+        var ed = Date.parse(d3.select("#end_date").node().value);
+        console.log('start date: ' + sd +'\t exisitng end: '+ed);
+        rDateDim.filterRange([sd, ed]);
         updateCharts();
         updateMap();
     });    
-    
+
     d3.select("#end_date").on('input', function () {
         var ed = Date.parse(this.value);
-        console.log('end date: '+ed);
-        rDateDim.filterRange([0, ed]);
+        var sd = Date.parse(d3.select("#start_date").node().value);
+        console.log('end date: ' + ed +'\t exisitng start: '+sd);
+        rDateDim.filterRange([sd, ed]);
         updateCharts();
         updateMap();
-           });    
+    });     
+    
+    var early= new Date(minChartDate);
+    var day = ("0" + early.getDate()).slice(-2);
+    var month = ("0" + (early.getMonth() + 1)).slice(-2);
+    var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
+    $('#start_date').val(earlyDay);
+   
+    var late = new Date(maxChartDate);
+    day = ("0" + late.getDate()).slice(-2);
+    month = ("0" + (late.getMonth() + 1)).slice(-2);
+    var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
+    $('#end_date').val(lateDay);
     
     function updateCharts() {
         timeChart.redraw();
         sizeChart.redraw();
         decisionChart.redraw();
     }
-
 
 }
 ; //end of makeGraphs
@@ -612,3 +630,8 @@ function getColor(d) {
             d > 10 ? '#FED976' :
             '#FFEDA0';
 }
+
+$(document).ready(function () {
+    console.log("ready");
+
+});
