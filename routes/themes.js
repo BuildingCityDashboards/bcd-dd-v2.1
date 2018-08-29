@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 // for testing
-router.get('/test', function(req, res, next) {
-  res.render('themes', { title: 'Themes Page' });
+router.get('/economy', function(req, res, next) {
+  res.render('themes_economy', { title: 'Themes Page' });
 });
 
 router.get('/health', function(req, res, next) {

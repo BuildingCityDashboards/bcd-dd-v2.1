@@ -14,9 +14,7 @@
 }
 
 .focus circle {
-  fill: #777;
-  stroke: #777;
-  stroke-width: 1px;
+  stroke-width: 2px;
 }
   
 .hover-line {
@@ -27,16 +25,17 @@
 
 .tool-tip {
   position: absolute;
-  width: auto;
-  min-width: 60px;
+  width: 250px;
+  min-height: 100px;
   padding: 10px;
-  background-color: #1b1e21d6;
-  border-radius: 5px;
+  background-color: #ffffff;
+  border: 1px solid rgb(210, 214, 223);
+  border-radius: 5x;
   pointer-events: none;
   display: none;
   font-family: sans-serif;
   font-size: .75rem;
   font-weight: bold;
-  color: #ffffff;
+  color: #313131;
   opacity: 1;
 }

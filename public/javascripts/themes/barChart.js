@@ -16,146 +16,151 @@ class BarChart{
 
     // initialise method to draw chart area
     init(){
-
-        this.margin = { 
+        var dv = this; 
+        dv.margin = { 
             top: 50, 
             right: 150, 
             bottom: 100, 
             left: 80
         };
 
-        this.height = 500 - this.margin.top - this.margin.bottom;
-        // this.width = (this.element.offsetWidth) - this.margin.left - this.margin.right;
-        this.width = 950 - this.margin.left - this.margin.right;
+        dv.height = 500 - dv.margin.top - dv.margin.bottom;
+        // dv.width = (dv.element.offsetWidth) - dv.margin.left - dv.margin.right;
+        dv.width = 950 - dv.margin.left - dv.margin.right;
 
-        this.tooltip = d3.select(this.element)
+        dv.tooltip = d3.select(dv.element)
             .append('div')  
             .attr('class', 'tool-tip');  
 
         // select parent element and append SVG + g
-        this.svg = d3.select(this.element)
+        dv.svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", this.width + this.margin.left + this.margin.right)
-            .attr("height", this.height + this.margin.top + this.margin.bottom);
+            .attr("width", dv.width + dv.margin.left + dv.margin.right)
+            .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
 
-        this.g = this.svg.append("g")
-            .attr("transform", "translate(" + this.margin.left + 
-                ", " + this.margin.top + ")");
+        dv.g = dv.svg.append("g")
+            .attr("transform", "translate(" + dv.margin.left + 
+                ", " + dv.margin.top + ")");
 
         // transition 
-        this.t = () => { return d3.transition().duration(1000); }
+        dv.t = () => { return d3.transition().duration(1000); }
 
-        // this.color = d3.scaleOrdinal(d3.schemeGreys[4]);
+        // dv.color = d3.scaleOrdinal(d3.schemeGreys[4]);
 
-        this.x = d3.scaleBand()
-            .range([0, this.width])
+        dv.x = d3.scaleBand()
+            .range([0, dv.width])
             .padding(0.2);
 
-        this.y = d3.scaleLinear()
-            .range([this.height, 0]);
+        dv.y = d3.scaleLinear()
+            .range([dv.height, 0]);
 
-        this.yAxisCall = d3.axisLeft();
+        dv.yAxisCall = d3.axisLeft();
 
-        this.xAxisCall = d3.axisBottom()
+        dv.xAxisCall = d3.axisBottom()
             .tickFormat(d => {return d});
 
-        this.xAxis = this.g.append("g")
+        dv.xAxis = dv.g.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + this.height +")");
+            .attr("transform", "translate(0," + dv.height +")");
         
-        this.yAxis = this.g.append("g")
+        dv.yAxis = dv.g.append("g")
             .attr("class", "y axis");
 
         // X title
-        this.g.append("text")
+        dv.g.append("text")
             .attr("class", "title")
             .attr("x", width/2)
             .attr("y", height + 60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
-            .text(this.titleX);
+            .text(dv.titleX);
 
         // Y title
-        this.g.append("text")
+        dv.g.append("text")
             .attr("x", - (height/2))
             .attr("y", -60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text(this.titleY);
+            .text(dv.titleY);
 
-        this.getData();
+        dv.getData();
 
     }
 
     getData(){
-        var vis = this;
+        var dv = this;
 
-        vis.dataFiltered = newList.find( d => d.key === vis.variableRegion).values.find(d => d.key === vis.variableType).values;
-        vis.update();
+        dv.dataFiltered = newList.find( 
+            d => d.key === dv.variableRegion)
+            .values.find(
+                d => d.key === dv.variableType
+            ).values;
+
+        dv.update();
     };
 
     update(){
-        var vis = this;
+        var dv = this;
 
         // Update scales
-        vis.x.domain(vis.dataFiltered.map((d)=>{ return d.year; }));
-        vis.y.domain([0, d3.max(vis.dataFiltered, (d) => { return +d.value; })]);
+        dv.x.domain(dv.dataFiltered.map((d)=>{ return d.year; }));
+        dv.y.domain([0, d3.max(dv.dataFiltered, (d) => { return +d.value; })]);
 
         // Update axes
-        vis.xAxisCall.scale(vis.x);
-        vis.xAxis.transition(vis.t()).call(vis.xAxisCall);
+        dv.xAxisCall.scale(dv.x);
+        dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         
-        vis.yAxisCall.scale(vis.y);
-        vis.yAxis.transition(vis.t()).call(vis.yAxisCall);
+        dv.yAxisCall.scale(dv.y);
+        dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
 
         // join new data with old elements.
-        vis.rects = vis.g.selectAll("rect").data(vis.dataFiltered, function(d){
+        dv.rects = dv.g.selectAll("rect").data(dv.dataFiltered, function(d){
             return d.year;
         });
 
         // exit old elements not present in new data.
-        vis.rects.exit()
+        dv.rects.exit()
             .attr("class", "exit")
-            .transition(vis.t())
+            .transition(dv.t())
             .attr("height", 0)
-            .attr("y", vis.height)
+            .attr("y", dv.height)
             .style("fill-opacity", "0.1")
             .remove();
 
         // update old elements present in new data.
-        vis.rects.attr("class", "update")
-            .transition(vis.t())
-                .attr("y", function(d){ return vis.y(d.value); })
-                .attr("height", function(d){ return (vis.height - vis.y(d.value)); })
-                .attr("x", function(d){ return vis.x(d.year) })
-                .attr("width", vis.x.bandwidth)
+        dv.rects.attr("class", "update")
+            .transition(dv.t())
+                .attr("y", function(d){ return dv.y(d.value); })
+                .attr("height", function(d){ return (dv.height - dv.y(d.value)); })
+                .attr("x", function(d){ return dv.x(d.year) })
+                .attr("width", dv.x.bandwidth)
 
-        // ENTER new elements present in new data.
-        vis.rects
+        // enter new elements present in new data.
+        dv.rects
             .enter()
             .append("rect")
             .attr("class", "enter")
             .attr("fill", "#3182bd")
             .attr("height", 0)
-            .attr("x", function(d){ return vis.x(d.year); })
-            .attr("width", vis.x.bandwidth)
+            .attr("x", function(d){ return dv.x(d.year); })
+            .attr("width", dv.x.bandwidth)
             .attr("y", height)
-            .transition(vis.t())
-            .attr("y", function(d){ return vis.y(d.value); })
-            .attr("height", function(d){ return (vis.height - vis.y(d.value)); });
+            .transition(dv.t())
+            .attr("y", function(d){ return dv.y(d.value); })
+            .attr("height", function(d){ return (dv.height - dv.y(d.value)); });
         
-        vis.g.selectAll("rect")
+        dv.g.selectAll("rect")
             .on("mouseover", function(){ 
-                vis.tooltip.style("display", null); 
+                dv.tooltip.style("display", null); 
             })
             .on("mouseout", function(){ 
-                vis.tooltip.style("display", "none"); 
+                dv.tooltip.style("display", "none"); 
             })
             .on("mouseover", function(d){
-                var dx  = parseFloat(d3.select(this).attr('x')) + vis.x.bandwidth(), 
+                var dx  = parseFloat(d3.select(this).attr('x')) + dv.x.bandwidth(), 
                     dy  = parseFloat(d3.select(this).attr('y')) + 10;
-                vis.tooltip
+                dv.tooltip
                     .style( 'left', dx + "px" )
                     .style( 'top', dy + "px" )
                     .style( 'display', 'block' )
