@@ -190,7 +190,8 @@
             "%"
         ];
         
-        const employmentCharts = new StackedAreaChart("#chartNew", "Persons aged 15 years and over in Employment (Thousand)", "Euros");
+        const employmentCharts = new StackedAreaChart("#chartNew", 
+        "Persons aged 15 years and over in Employment (Thousand)", "Euros");
         
         })// catch any error and log to console
         .catch(function(error){
