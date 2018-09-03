@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET themes page. */
+//router.get('/', function(req, res, next) {
+//  res.redirect('/themes/health');
+//});
 router.get('/', function(req, res, next) {
-  res.redirect('/themes/health');
+  res.render('themes', { title: 'Themes Page' });
 });
 
 // for testing
