@@ -104,9 +104,11 @@ class MultiLineChart{
 
     }
 
-    getData(data){
+    getData(data, valueString){
         let dv = this;
-            dv.data = data;
+            dv.data = data,
+            dv.value = valueString;
+            console.log("value string is:", dv.value);
         // btnValue !== undefined ? dv.variable = btnValue : dv.variable = dv.keys[0];
         // console.log(dv.data);        
 
@@ -142,13 +144,13 @@ class MultiLineChart{
         
         // for the y domain to track negative numbers 
         const minValue = d3.min(dv.data, function (d) {
-            return d3.min(d.values, function (d) { return d.value; });
+            return d3.min(d.values, function (d) { return d[dv.value]; });
         });
 
         // Set Y axis scales 0 if positive number else use minValue
         dv.y.domain([ minValue >=0 ? 0 : minValue,
           d3.max(dv.data, function (d) { 
-            return d3.max(d.values, function (d) { return d.value; });
+            return d3.max(d.values, function (d) { return d[dv.value]; });
           })
         ]);
 
@@ -174,7 +176,7 @@ class MultiLineChart{
                 return dv.x(d.date); 
             })
             .y(function(d) { //this works
-                return dv.y(d.value); 
+                return dv.y(d[dv.value]); 
             });
             // .curve(d3.curveBasis);
 
@@ -290,9 +292,9 @@ class MultiLineChart{
                 let tooltip = d3.select(dv.element).select(id); 
                 
                 if(d !== undefined){
-                    tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d.value) + ")");
+                    tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
 
-                    tooltip.select("text").text(d.value);
+                    tooltip.select("text").text(d[dv.value]);
                     focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                 }
             });
