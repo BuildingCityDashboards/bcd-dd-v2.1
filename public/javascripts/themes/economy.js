@@ -18,73 +18,139 @@
             yLabels = ["Thousands", "% Change", "% Change"];
         console.log("data",data);
 
-        // data.forEach(d => {
-        //     for(var i = 0, n = columnNames.length; i < n; ++i){
-        //         d[columnNames[i]] = +d[columnNames[i]];
-        //     }
-        //     return d;
-        // });
+        data.forEach(d => {
+            d.date = parseTime(d.quarter);
+            for(var i = 0, n = columnNames.length; i < n; ++i){
+                d[columnNames[i]] = +d[columnNames[i]]; 
+            }
+            return d;
+        })
 
-        // let annualData = d3.nest()
-        //     .key(function(d) { return d.quarter; })
-        //     .rollup(function(d) { return d3.sum(d, function(d) {return d.value; });
-        //     }).entries(data);
-        
-        //     console.log("annual figures", annualData);
-
-        const types = columnNames.map(name => { 
-            return {
-              name: name, 
-              values: data.map(d => { 
-                let dates = parseTime(d.quarter);
-                return {
-                  date: dates,
-                  region: d.region, 
-                  quarter: d.quarter,
-                  year: dates.getFullYear(),
-                  value: +(d[name])
-                  };
-              }),
-            };
-          });
+        const types = d3.nest()
+            .key(function(d){ return d[groupBy];})
+            .entries(data);
 
         console.log("types", types);
 
-        let countData = types.find( d => d.name === columnNames[0] );
-          console.log("filtered data", countData);
-            countData = d3.nest()
-            .key(function(d){ return d[groupBy];})
-            .entries(countData.values);
+        let grouping = types.map(d => d.key);
+        console.log("key names of the grouping", grouping );
 
-        let qChangeData = (types.find( d => d.name === columnNames[1] ));
-        qChangeData = d3.nest()
-        .key(function(d){ return d[groupBy];})
-        .entries(qChangeData.values);
+        let annualData = data;
 
-        // let annualData = 
+        let annual = annualData.filter((e) => {
+                    var dateStr = "01/10/";
+                    return (e.quarter.indexOf(dateStr) !== -1);
+                  });
 
-        console.log("filtered data", qChangeData, countData);
+                  console.log("this is just the last quarter data", annual);
 
+            annual = d3.nest()
+                  .key(function(d){ return d[groupBy];})
+                  .entries(annual);
+
+                  console.log("this is the last quarter data nested!", annual);
+                
+            annual.forEach( ad => {
+                ad.values.map( (d, i) => {
+                    if(ad.values[i - 1] && i < (ad.values.length - 1)){
+                        let selectType = columnNames[0];
+                        let prev = ad.values[i - 1][selectType] ;
+                        let diff = ((d[selectType]  - prev)/d[selectType] ) * 100;
+                        let year = d.date.getYear();
+
+                        console.log("how many loops?", year);
+
+                        d.key = d.key;
+                        d.date = d.date;
+                        d.diff = diff;
+                    } else{
+                        d.diff = 0;
+                        d.date = d.date;
+                    }
+                });
+            });
+
+        console.log("whats this data set values",annual);
+
+      
+        
+
+
+        // // categories the data into types based on the columns
+        // const types = columnNames.map(name => { 
+        //     return {
+        //       name: name, 
+        //       values: data.map(d => { 
+        //         let dates = parseTime(d.quarter);
+        //         return {
+        //           date: dates,
+        //           region: d.region, 
+        //           quarter: d.quarter,
+        //           year: dates.getFullYear(),
+        //           value: +(d[name])
+        //           };
+        //       }),
+        //     };
+        //   });
+
+        
+
+        // let countData = types.find( d => d.name === columnNames[0] );
+        //     countData = d3.nest()
+        //     .key(function(d){ return d[groupBy];})
+        //     .entries(countData.values);
+
+        // let qChangeData = (types.find( d => d.name === columnNames[1] ));
+        //     qChangeData = d3.nest()
+        //     .key(function(d){ return d[groupBy];})
+        //     .entries(qChangeData.values);
+
+        // console.log("first qChangeData", qChangeData);
+
+        // let annualData = types.find( d => d.name === columnNames[0] );
+        //     annualData = d3.nest()
+        //                 .key(function(d){ return d[groupBy];})
+        //                 .key(function(d){ return d.year;})
+        //                 .rollup(function(v) { return d3.sum(v, function(d) { return d.value; });})
+        //                 .entries(annualData.values);
+        // console.log("this shiuyld have more valuies but it doesn't", annualData);
+        
+        // annualData.forEach( data => {
+        //     data.values.map( (d, i) => {
+        //         if(data.values[i - 1] && i < (data.values.length - 1)){
+        //             let prev = data.values[i - 1].value;
+        //             let diff = ((d.value - prev)/d.value) * 100;
+        //             console.log("how many loops?");
+        //             d.key = d.key;
+        //             d.date = parseYear(d.key);
+        //             d.diff = diff;
+        //         } else{
+        //             d.diff = 0;
+        //             d.date = parseYear(d.key);
+        //         }
+        //     });
+
+        // });
+
+        // console.log("whats this data set values",annualData)
   
         // let regionData = d3.nest()
         //       .key(function(d){ return d[groupBy];})
         //       .entries(countData.values);
 
-        let grouping = countData.map(d => d.key);
-        console.log("grouping from countData", grouping );
-
         const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
-        mlineChart.getData(countData);
-
-        let employmentButtons = d3.selectAll(".employment-btn");
-        console.log("employmentButtons", employmentButtons);
+        mlineChart.getData(types, columnNames[0]);
 
         d3.select(".employment_count").on("click", function(){
-            mlineChart.getData(countData);
+            mlineChart.getData(types, columnNames[0]);
         });
         
         d3.select(".employment_qrate").on("click", function(){
-            mlineChart.getData(qChangeData);
+            mlineChart.getData(types, columnNames[1]);
+        });
+
+        d3.select(".employment_arate").on("click", function(){
+            mlineChart.getData(annual, "diff");
         });
 
         console.log(mlineChart);
@@ -357,7 +423,7 @@
         let grouping = nestData.map(d => d.key);
         
         const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "€", xValue, grouping);
-              employeesBySizeChart.getData(nestData);
+              employeesBySizeChart.getData(nestData, "value");
     })
     // catch any error and log to console
     .catch(function(error){
