@@ -1,110 +1,27 @@
-section#economy
-    
-    header.header
+extends layout
+
+block navigation
+    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard")
+
+block content
+  .container
+    header.header.mt-5.pt-5.pt-2
       .row
-        .col-6
-          h1.header__h1 Economy
-          p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        .col-sm-8
+          h1= title
+          p.header__lead Some description about the #{title}
+            |. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-    article.article
-      .row
-        .col-md-12
-          h2.header__h2 Employment Statistics
+    include themes_economy_charts
 
-      .row.wrapper
-        .col-md-4
-          h3 Numbers in Employment
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          div#chart-employment
 
-      .row.wrapper
-        .col-md-4
-          h3 Chart Title
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-          select(id="chart-select" class="form-control")
-              <option selected value="Persons aged 15 years and over in Employment (Thousand)">Employment Count</option>
-              <option value="Unemployed Persons aged 15 years and over (Thousand)">Unemployment Count</option>
-              <option value="Persons aged 15 years and over in Labour Force (Thousand)">Labour Force</option>
-              <option value="ILO Unemployment Rate (15 - 74 years) (%)">Unemployment Rate</option>
-              <option value="ILO Participation Rate (15 years and over) (%)">Participation Rate</option>
-        .col-md-8
-          #chartNew.chart-2
-
-      .row.wrapper
-        .col-md-4
-          h3 Chart Title
-        .col-md-8
-          .chart-3
-    
-    article#income_poverty.article
-      .row
-        .col-md-12
-          h2.header__h2 Income & Poverty
-      
-      .row.wrapper
-        .col-md-4
-          h3 Survey on Income and Living Conditions for Dublin
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #chart1.chart-test
-
-      .row.wrapper
-        .col-md-4
-          h3 Survey on Income and Living Conditions for Dublin
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #chart2.chart-test
-
-    article.article
-      .row
-        .col-md-12
-          h2.header__h2 Industry Sectors
-
-      .row
-        .col-md-4
-          h3 Chart Title
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-          select(id="multi-select" class="form-control")
-            <option selected value="Persons aged 15 years and over in Employment (Thousand)">Employment Count</option>
-            <option value="Unemployed Persons aged 15 years and over (Thousand)">Unemployment Count</option>
-            <option value="Persons aged 15 years and over in Labour Force (Thousand)">Labour Force</option>
-            <option value="ILO Unemployment Rate (15 - 74 years) (%)">Unemployment Rate</option>
-            <option value="ILO Participation Rate (15 years and over) (%)">Participation Rate</option>
-        .col-md-8
-          #chartMulti
-
-      .row
-        .col-md-4
-          h3 Chart Title
-        .col-md-8
-          .chart-2
-
-      .row
-        .col-md-4
-          h3 Chart Title
-        .col-md-8
-          .chart-3
-    
+append scripts
+  script(src="/lib/d3v5/d3.js" type="text/javascript")
+  script(src="/javascripts/themes/barChart.js" type="text/javascript")
+  script(src="/javascripts/themes/stackbarChart.js" type="text/javascript")
+  script(src="/javascripts/themes/stackedareaChart.js" type="text/javascript")
+  script(src="/javascripts/themes/multiline-chart.js" type="text/javascript")
+  script(src="/javascripts/themes/groupedbar-chart.js" type="text/javascript")
+  script(src="/javascripts/themes/economy.js" type="text/javascript")
