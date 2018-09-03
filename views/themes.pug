@@ -14,14 +14,17 @@ block content
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-    //include themes_economy
-    include themes_health
+    include themes_economy
+    //include themes_health
 
 append scripts
+    script(src="/lib/crossfilter.js" type="text/javascript")
     script(src="/lib/d3v5/d3.js" type="text/javascript")
+    script(src="/lib/dc.js" type="text/javascript")
+    script(src="/lib/underscore-min.js" type="text/javascript")
     script(src="/javascripts/themes/barChart.js" type="text/javascript")
     script(src="/javascripts/themes/stackbarChart.js" type="text/javascript")
     script(src="/javascripts/themes/stackedareaChart.js" type="text/javascript")
     script(src="/javascripts/themes/multiline-chart.js" type="text/javascript")
-    //script(src="/javascripts/themes/economy.js" type="text/javascript")
-    script(src="/javascripts/themes/health.js" type="text/javascript")
+    script(src="/javascripts/themes/economy.js" type="text/javascript")
+    //script(src="/javascripts/themes/trolleys.js" type="text/javascript")
