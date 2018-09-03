@@ -17,7 +17,7 @@
   stroke-width: 2px;
 }
   
-.hover-line {
+.focus_line {
   stroke: #777;
   stroke-width: 1px;
   stroke-dasharray: 5,5;
@@ -25,8 +25,7 @@
 
 .tool-tip {
   position: absolute;
-  width: 250px;
-  min-height: 100px;
+  min-width: 240px;
   padding: 10px;
   background-color: #ffffff;
   border: 1px solid rgb(210, 214, 223);

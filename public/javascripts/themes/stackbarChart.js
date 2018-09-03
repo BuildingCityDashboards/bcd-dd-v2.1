@@ -15,23 +15,30 @@ class StackBarChart {
 
         let dv = this;
 
+        let elementNode = d3.select(dv.element).node();
+        let elementWidth = elementNode.getBoundingClientRect().width; 
+        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+        
         // margin
         dv.margin = { 
             top: 50, 
-            right: 150, 
-            bottom: 100, 
+            right: 100, 
+            bottom: 80, 
             left: 80
         };
 
         // dimension settings - need to adjust these based on parent size
-        let height = 500 - dv.margin.top - dv.margin.bottom;
-        let width = 900 - dv.margin.left - dv.margin.right;
+        // let height = 500 - dv.margin.top - dv.margin.bottom;
+        // let width = 900 -dv.margin.left -dv.margin.right;
+        
+        dv.width = elementWidth - dv.margin.left - dv.margin.right;
+        dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
         
         // add the svg to the target element
         const svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", width + dv.margin.left + dv.margin.right)
-            .attr("height", height + dv.margin.top + dv.margin.bottom);
+            .attr("width", dv.width + dv.margin.left + dv.margin.right)
+            .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
        
         // add the g to the svg and transform by top and left margin
         dv.g = svg.append("g")
@@ -40,18 +47,18 @@ class StackBarChart {
 
         // stack function
         dv.stack = d3.stack().keys(dv.columns);
+        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8","#003d68"];
 
         // set colour function
-        dv.colour = d3.scaleOrdinal(["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8","#003d68"]);
+        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
 
         // set scales functions
         dv.x = d3.scaleBand()
-            .rangeRound([0, width])
-            .padding(0.3)
-            .align(0.3);
+            .range([0, dv.width])
+            .padding(0.2);
 
         dv.y = d3.scaleLinear()
-            .range([height, 0]);
+            .range([dv.height, 0]);
 
         dv.yAxisCall = d3.axisLeft();
 
@@ -59,7 +66,7 @@ class StackBarChart {
 
         dv.xAxis = dv.g.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height +")");
+            .attr("transform", "translate(0," + dv.height +")");
         
         dv.yAxis = dv.g.append("g")
             .attr("class", "y axis");
@@ -67,8 +74,8 @@ class StackBarChart {
         // X title
         dv.xLabel = dv.g.append("text")
             .attr("class", "xtitle")
-            .attr("x", width/2)
-            .attr("y", height + 60)
+            .attr("x", dv.width/2)
+            .attr("y", dv.height + 60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .text(dv.xTitle);
@@ -76,7 +83,7 @@ class StackBarChart {
         // Y title
         dv.yLabel = dv.g.append("text")
             .attr("class", "ytitle")
-            .attr("x", - (height/2))
+            .attr("x", - (dv.height/2))
             .attr("y", -60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
@@ -93,7 +100,6 @@ class StackBarChart {
 
         let dv = this;
         
-        dv.series = dv.stack(dv.data);
 
         dv.update();
     }
@@ -103,21 +109,26 @@ class StackBarChart {
     
         let dv = this;
 
+        dv.series = dv.stack(dv.data);
+
         // transition 
         const t = () => { return d3.transition().duration(1000); };
 
         const yAxisCall = d3.axisLeft();
         const xAxisCall = d3.axisBottom();
 
-        console.log("income data", dv.series);
+        // console.log("income data", dv.series);
 
         dv.x.domain(dv.data.map( d => {
-            console.log("x domain date list: ", d.date);
+            // console.log("x domain date list: ", d.date);
             return d.date;
         }));
 
         // have a check to see what domain values to use
-        dv.y.domain([0, d3.max(dv.series[dv.series.length - 1],function (d) { return d[0] + d[1];})]).nice();
+        dv.y.domain([0, d3.max(
+            dv.series, d => { return d3.max(d, d => { return d[1]; }); 
+        })]).nice();
+
         // dv.y.domain([0, 100]);
 
         xAxisCall.scale(dv.x);
@@ -143,22 +154,60 @@ class StackBarChart {
                     return dv.x(d.data.date); 
                 })
                 .attr("y", d => { 
-                    console.log("this is the y value: ", d);
+                    // console.log("this is the y value: ", d);
                     return dv.y(d[1]); 
                 })
                 .attr("height", d => { return dv.y(d[0]) - dv.y(d[1]);})
                 .attr("width", dv.x.bandwidth())
+                .style("stroke-width", "1")
                 .on( 'mouseover', function( d ){
-                    var dx  = parseFloat(d3.select(this).attr('x')) + (dv.x.bandwidth() * 2); 
-                    var dy  = parseFloat(d3.select(this).attr('y')) - 50;
+                    let dx  = parseFloat(d3.select(this).attr('x')) + (dv.x.bandwidth() * 2), 
+                        dy  = parseFloat(d3.select(this).attr('y')) + dv.margin.top,
+                        value = Math.round((d[1] - d[0]) * 10) / 10,
+                        fill = d3.select(this).style("fill"),
+                        text = Object.keys(d.data).find(key => d.data[key] == value);
+
                     dv.tooltip
                         .style( 'left', dx + "px" )
                         .style( 'top', dy + "px" )
-                        .style( 'display', 'block' )
-                        .text("the value for " + d.data.region + " is : " + (d[1]-d[0]));
+                        .style( 'display', 'block' );
+                    
+                    dv.tooltip.append("div")
+                        .attr("class", "tip-box")
+                        .style("background", fill)
+                        .style("opacity", 0.75)
+                        .style("width", "18px")
+                        .style("height", "18px")
+                        .style("margin-right", "5px")
+                        .style("float", "left");
+
+                    dv.tooltip.append("div")
+                        .attr("class", "tip-text")
+                        .style("font", "12px sans-serif")
+                        .style("line-height", "1.25rem")
+                        .text(
+                            dv.yTitle !== "€" ? (text + " : "  + value + " " + dv.yTitle) : (text + " : " + dv.yTitle + value)
+                        );
+                        
+                    // dv.tooltip
+                    //     .style( 'left', dx + "px" )
+                    //     .style( 'top', dy + "px" )
+                    //     .style( 'display', 'block' );
+                    //     for (var key in filtered) {
+                    //         if (filtered.hasOwnProperty(key)) {
+                    //             let tip = dv.tooltip.append("div")
+                    //                 .attr("class", "tip-text")
+                    //                 .text(key + " : " + filtered[key]);
+                    //                 tip.insert("div", ".tip-text")
+                    //                 .style("background", dv.colour(key));
+                    //         }
+                    //     }
 
                 })
                 .on( 'mouseout', function(){
+                    d3.select(dv.element).selectAll(".tip-box").remove();
+                    d3.select(dv.element).selectAll(".tip-text").remove();
+                    
                     dv.tooltip
                         .style( 'display', 'none' );
                 });
@@ -170,7 +219,7 @@ class StackBarChart {
                 .attr("height", 100)
                 .attr("rx", 3)
                 .attr("ry", 3)
-                .style("fill","rgb(255, 255, 255)")
+                .style("fill","#001f35")
                 .style("stroke", "rgb(210, 214, 223)")
                 .style("stroke-width", "1");
 
@@ -181,8 +230,9 @@ class StackBarChart {
 
         // create legend group
         let legend = dv.g.append("g")
-        .attr("transform", "translate(" + (-50) + 
-                    ", " + (0) + ")"); // if the legend needs to be moved
+        .attr("transform", "translate(0,0)");
+        // .attr("transform", "translate(" + (-75) + 
+        //             ", " + (0) + ")"); // if the legend needs to be moved
         
         let legends = legend.selectAll(".legend")
         .data(dv.columns.reverse())
@@ -193,14 +243,14 @@ class StackBarChart {
             .style("font", "12px sans-serif");
         
         legends.append("rect")
-            .attr("x", width + 18)
+            .attr("x", dv.width + 18)
             .attr("width", 18)
             .attr("height", 18)
             .attr("fill", dv.colour)
             .attr("fill-opacity", 0.75);
         
         legends.append("text")
-            .attr("x", width + 44)
+            .attr("x", dv.width + 44)
             .attr("y", 9)
             .attr("dy", ".35rem")
             .attr("text-anchor", "start")

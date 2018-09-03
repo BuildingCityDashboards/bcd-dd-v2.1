@@ -10,123 +10,134 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
     article.article
       .row
-        .col-md-12
-          h2.header__h2 Employment Statistics
+        .col-lg-12
+          h2.header__h2.mb-2 Employment Statistics
 
-      .row.wrapper
-        .col-md-4
+      .row.wrapper.py-3
+        .col-lg-4
           h3 Numbers in Employment
           p Source: CSO
+          p Persons aged 15 years and over in Employment (Thousand)
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
+          
+          div#chart-select1
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark employment-btn employment_count" value="countData">Count</button>
+            <button type="button" class="btn btn-dark employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
+            <button type="button" class="btn btn-dark employment-btn employment_arate" value="ILO Participation Rate (15 years and over) (%)">Annual % Change</button>
           div#chart-employment
 
-      .row.wrapper
-        .col-md-4
+      .row.wrapper.py-3
+        .col-lg-4
           h3 Numbers Unemployed
           p Source: CSO
+          p Unemployed Persons aged 15 years and over (Thousand)
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-          select(id="chart-select" class="form-control")
-              <option selected value="Persons aged 15 years and over in Employment (Thousand)">Employment Count</option>
-              <option value="Unemployed Persons aged 15 years and over (Thousand)">Unemployment Count</option>
-              <option value="Persons aged 15 years and over in Labour Force (Thousand)">Labour Force</option>
-              <option value="ILO Unemployment Rate (15 - 74 years) (%)">Unemployment Rate</option>
-              <option value="ILO Participation Rate (15 years and over) (%)">Participation Rate</option>
-        .col-md-8
+          div#chart-select2
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
+            <button type="button" class="btn btn-dark">Quartley % Change</button>
+            <button type="button" class="btn btn-dark">Annual % Change</button>
+            <button type="button" class="btn btn-dark">Rate</button>
           #chartNew.chart-2
 
-      .row.wrapper
-        .col-md-4
-          h3 Gross Value Added per Capita at Basic Prices
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Gross Value Added
           p Source: CSO
+          p Gross Value Added per Capita at Basic Prices
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
           #chart-gva
     
     article#income_poverty.article
       .row
-        .col-md-12
-          h2.header__h2 Income & Poverty
+        .col-lg-12
+          h2.header__h2.mb-5 Income & Poverty
       
-      .row.wrapper
-        .col-md-4
-          h3 Survey on Income and Living Conditions for Dublin
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Median Real Household Disposable Income
           p Source: CSO
+          p Survey on Income and Living Conditions for Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #chart1.chart-test
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
+          #chart-disposable-income
 
-      .row.wrapper
-        .col-md-4
-          h3 Survey on Income and Living Conditions for Dublin
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Poverty Rating
           p Source: CSO
+          p Survey on Income and Living Conditions for Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #chart2.chart-test
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Rate</button>
+          #chart-poverty-rate
 
     article.article
       .row
-        .col-md-12
-          h2.header__h2 Industry Sectors
+        .col-lg-12
+          h2.header__h2.mb-5 Industry Sectors
 
-      .row
-        .col-md-4
-          h3 Chart Title
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Numbers by Employment Sector in Dublin
           p Source: CSO
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-          div#seriesMenu1
-          
-        .col-md-8
-          #chartMulti
 
-      .row
-        .col-md-4
-          h3 Chart Title
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
+          #chart-employment-sector
+
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Number of Employees by Size of Company
           p Source: CSO
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #income-chart
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
+          #chart-employees-by-size
 
-      .row
-        .col-md-4
-          h3 Chart Title
-          p Source: CSO
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Overseas Visitors
+          p Source: Failte Ireland/CSO/DCC
+          p Total Overseas Visitors to Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #sector-chart
-
-      .row
-        .col-md-4
-          h3 Chart Title
-          p Source: CSO
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
-          #companySize-chart
-    
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark active">Count</button>
+          #chart-overseas-vistors

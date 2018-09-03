@@ -16,18 +16,24 @@ class StackedAreaChart {
     init(){
         let dv = this;
         
-        // this is getting repetitive
+        let elementNode = d3.select(dv.element).node();
+        let elementWidth = elementNode.getBoundingClientRect().width; 
+        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+        
+        // margin
         dv.margin = { 
             top: 50, 
-            right: 150, 
-            bottom: 100, 
+            right: 100, 
+            bottom: 80, 
             left: 80
         };
 
-        // need to get the width and height from the element
-        dv.height = 500 - dv.margin.top - dv.margin.bottom;
-        // dv.width = (dv.element.offsetWidth) - dv.margin.left - dv.margin.right;
-        dv.width = 900 - dv.margin.left - dv.margin.right;
+        // dimension settings - need to adjust these based on parent size
+        // let height = 500 - dv.margin.top - dv.margin.bottom;
+        // let width = 900 -dv.margin.left -dv.margin.right;
+        
+        dv.width = elementWidth - dv.margin.left - dv.margin.right;
+        dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
         // select parent element and append SVG + g
         const svg = d3.select(dv.element)
@@ -40,10 +46,12 @@ class StackedAreaChart {
                 ", " + dv.margin.top + ")");
 
         dv.chartTop = $(dv.element + " svg g").offset().top;
-        console.log(dv.chartTop);
+        // console.log(dv.chartTop);
 
-        // dv.colour = d3.scaleOrdinal(d3.schemeBlues[9]);
-        dv.colour = d3.scaleOrdinal(["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8","#003d68"]);
+        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8","#003d68"];
+
+        // set colour function
+        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
 
         // for the tooltip from the d3 book
         dv.bisectDate = d3.bisector(function(d) { return parseTime(d.date); }).left;
@@ -62,8 +70,8 @@ class StackedAreaChart {
         // X title
         dv.g.append("text")
             .attr("class", "title")
-            .attr("x", width/2)
-            .attr("y", height + 60)
+            .attr("x", dv.width/2)
+            .attr("y", dv.height + 60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .text(dv.titleX);
@@ -86,8 +94,8 @@ class StackedAreaChart {
     getData(){
         let dv = this;
 
-        let variable = $("#chart-select").val();
-        // console.log(variable);
+        let variable = "Unemployed Persons aged 15 years and over (Thousand)";
+        // console.log("the variable is", d3.select(dv.element).select(".series1"));
 
         // 1. nest the data by quarter
         dv.quarterNest = d3.nest()
@@ -136,7 +144,7 @@ class StackedAreaChart {
         const xAxisCall = d3.axisBottom();
 
         const DataStacked = (stack(dv.dataFiltered));
-        console.log("data stacked output: ", DataStacked);
+        // console.log("data stacked output: ", DataStacked);
 
         // get the the combined max value for the y scale
         let maxDateVal = d3.max(dv.dataFiltered, d => {
@@ -183,7 +191,7 @@ class StackedAreaChart {
                 .style("fill", function(d){
                     return dv.colour(d.key);
                 })
-                .style("fill-opacity", 0.5);
+                .style("fill-opacity", 0.75);
 
         
         
@@ -201,21 +209,7 @@ class StackedAreaChart {
         let focus = dv.g.append("g")
             .attr("class", "focus")
             .style("display", "none");
-
-        console.log(focus);
-        nut3regions.forEach( d => {
-            dv.tooltip = focus.append("g")
-                .attr("class", "tooltip_" + d);
-
-            dv.tooltip.append("circle")
-                .attr("r", 5)
-                .attr("fill", dv.colour(d));
-
-            dv.tooltip.append("text")
-                .attr("x", 9)
-                .attr("dy", ".35rem");
-        });
-
+        
         // Year Label
         focus.append("text")
             .attr("class", "focus_quarter")
@@ -226,11 +220,26 @@ class StackedAreaChart {
         focus.append("line")
             .attr("class", "focus_line")
             .attr("y1", 0)
-            .attr("y2", height);
+            .attr("y2", dv.height);
+
+        // console.log(focus);
+        nut3regions.forEach( d => {
+            dv.tooltip = focus.append("g")
+                .attr("class", "tooltip_" + d);
+
+            dv.tooltip.append("circle")
+            .attr("r", 5)
+            .attr("fill", "white")
+            .attr("stroke", dv.colour(d));
+
+            dv.tooltip.append("text")
+                .attr("x", 9)
+                .attr("dy", ".35rem");
+        });
 
         dv.g.append("rect")
-            .attr("width", width-50)
-            .attr("height", height)
+            .attr("width", dv.width + 10)
+            .attr("height", dv.height)
             .style("fill", "none")
             .style("pointer-events", "all")
             .on("mouseover", () => { 
@@ -249,7 +258,7 @@ class StackedAreaChart {
             nut3regions.forEach( (region, idx) => {
 
                 let regionData = DataStacked[idx];
-                console.log("this should be an Array: ", regionData);
+                // console.log("this should be an Array: ", regionData);
 
                     // this is from the d3 book
                     let x0 = dv.x.invert(mouse[0]),
@@ -257,25 +266,36 @@ class StackedAreaChart {
                     d0 = regionData[i - 1],
                     d1 = regionData[i],
                     d;
-                    console.log("d0 is: ", d0);
-                    console.log("d1 is: ", d1);
-                    console.log("x0 is: ", x0);
-                    console.log("i is: ",i);
+                    // console.log("d0 is: ", d0);
+                    // console.log("d1 is: ", d1);
+                    // console.log("x0 is: ", x0);
+                    // console.log("i is: ",i);
     
-                    if(d1 !== undefined){
+                    // if(d0 !== undefined){
 
-                        d = x0 - d0.data.date > d1.data.date - x0 ? d1 : d0;
-                        let id = ".tooltip_" + region;
-                        console.log("tool tip to select .",id);
+                    //     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
+                        
+                    //     let id = ".tooltip_" + region;
 
-                        // only this element tooltips
-                        let tooltip = d3.select(dv.element).select(id); 
-                        // console.log("tooltip selected", tooltip);
-                            console.log((d.data.date));
+                    //     // only this element tooltips
+                    //     let tooltip = d3.select(dv.element).select(id); 
+                    //     // console.log("tooltip selected", tooltip);
 
-                            tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + "," + dv.y(d[1]) + ")");
-
-                            tooltip.select("text").text(d.data[region]);
+                    //         tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + "," + dv.y(d[1]) + ")");
+                    //         focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + ", 0)");
+                    //         tooltip.select("text").text(d.data[region]);
+                    // }
+                    
+                    d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : d = d0;
+                
+                    let id = ".tooltip_" + region;
+    
+                    let tooltip = d3.select(dv.element).select(id); 
+                    
+                    if(d !== undefined){
+                        tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + "," + dv.y(d[1]) + ")");
+                        tooltip.select("text").text(d.data[region]);
+                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + ", 0)");
                     }
             });
         }    
@@ -286,18 +306,19 @@ class StackedAreaChart {
 
         // create legend group
         var legend = dv.g.append("g")
-            .attr("transform", "translate(" + (-50) + 
-                        ", " + (0) + ")"); // if the legend needs to be moved
+            .attr("transform", "translate(0,0)");
+            // .attr("transform", "translate(" + (0) + 
+            //             ", " + (0) + ")"); // if the legend needs to be moved
 
         // create legend array, this needs to come from the data.
         var legendArray = [
-            {label: "Dublin", colour: dv.colour("Dublin")},
-            {label: "Ireland", colour: dv.colour("Ireland")}
+            {label: "Ireland", colour: dv.colour("Ireland")},
+            {label: "Dublin", colour: dv.colour("Dublin")}
         ];
 
         // get data and enter onto the legend group
         var legend = legend.selectAll(".legend")
-            .data(legendArray.reverse())
+            .data(legendArray)
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d, i) { return "translate(0," + i * 40 + ")"; })
@@ -306,17 +327,17 @@ class StackedAreaChart {
         // add legend boxes    
         legend.append("rect")
             .attr("class", "legendRect")
-            .attr("x", width + 25)
+            .attr("x", dv.width + 25)
             // style similar to hospital legend
             .attr("width", 25)
             .attr("height", 25)
             .attr("fill", d => { return d.colour; })
-            .attr("fill-opacity", 0.5);
+            .attr("fill-opacity", 0.75);
         
         // add legend text
         legend.append("text")
             .attr("class", "legendText")
-            .attr("x", width + 60)
+            .attr("x", dv.width + 60)
             .attr("y", 12)
             .attr("dy", ".35em")
             .attr("text-anchor", "start")
