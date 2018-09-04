@@ -11,156 +11,54 @@
     ];
 
     /*** This employment Chart ***/
-    d3.csv("../data/Economy/QNQ22_employment.csv").then(function(data){
+    d3.csv("../data/Economy/QNQ22_employment.csv").then(data => {
         const columnNames = data.columns.slice(2),
             xValue = data.columns[0],
             groupBy = data.columns[1],
             yLabels = ["Thousands", "% Change", "% Change"];
         console.log("data",data);
 
-        data.forEach(d => {
+    
+        const valueData = data.map( d => {
             d.date = parseTime(d.quarter);
             for(var i = 0, n = columnNames.length; i < n; ++i){
                 d[columnNames[i]] = +d[columnNames[i]]; 
             }
             return d;
-        })
+        });
 
         const types = d3.nest()
-            .key(function(d){ return d[groupBy];})
-            .entries(data);
+            .key( regions => { return regions[groupBy];})
+            .entries(valueData);
 
-        console.log("types", types);
-
-        let grouping = types.map(d => d.key);
-        console.log("key names of the grouping", grouping );
-
-        let annualData = data;
-
-        let annual = annualData.filter((e) => {
-                    var dateStr = "01/10/";
-                    return (e.quarter.indexOf(dateStr) !== -1);
-                  });
-
-                  console.log("this is just the last quarter data", annual);
-
-            annual = d3.nest()
-                  .key(function(d){ return d[groupBy];})
-                  .entries(annual);
-
-                  console.log("this is the last quarter data nested!", annual);
-                
-            annual.forEach( ad => {
-                ad.values.map( (d, i) => {
-                    if(ad.values[i - 1] && i < (ad.values.length - 1)){
-                        let selectType = columnNames[0];
-                        let prev = ad.values[i - 1][selectType] ;
-                        let diff = ((d[selectType]  - prev)/d[selectType] ) * 100;
-                        let year = d.date.getYear();
-
-                        console.log("how many loops?", year);
-
-                        d.key = d.key;
-                        d.date = d.date;
-                        d.diff = diff;
-                    } else{
-                        d.diff = 0;
-                        d.date = d.date;
-                    }
-                });
-            });
-
-        console.log("whats this data set values",annual);
-
-      
-        
-
-
-        // // categories the data into types based on the columns
-        // const types = columnNames.map(name => { 
-        //     return {
-        //       name: name, 
-        //       values: data.map(d => { 
-        //         let dates = parseTime(d.quarter);
-        //         return {
-        //           date: dates,
-        //           region: d.region, 
-        //           quarter: d.quarter,
-        //           year: dates.getFullYear(),
-        //           value: +(d[name])
-        //           };
-        //       }),
-        //     };
-        //   });
-
-        
-
-        // let countData = types.find( d => d.name === columnNames[0] );
-        //     countData = d3.nest()
-        //     .key(function(d){ return d[groupBy];})
-        //     .entries(countData.values);
-
-        // let qChangeData = (types.find( d => d.name === columnNames[1] ));
-        //     qChangeData = d3.nest()
-        //     .key(function(d){ return d[groupBy];})
-        //     .entries(qChangeData.values);
-
-        // console.log("first qChangeData", qChangeData);
-
-        // let annualData = types.find( d => d.name === columnNames[0] );
-        //     annualData = d3.nest()
-        //                 .key(function(d){ return d[groupBy];})
-        //                 .key(function(d){ return d.year;})
-        //                 .rollup(function(v) { return d3.sum(v, function(d) { return d.value; });})
-        //                 .entries(annualData.values);
-        // console.log("this shiuyld have more valuies but it doesn't", annualData);
-        
-        // annualData.forEach( data => {
-        //     data.values.map( (d, i) => {
-        //         if(data.values[i - 1] && i < (data.values.length - 1)){
-        //             let prev = data.values[i - 1].value;
-        //             let diff = ((d.value - prev)/d.value) * 100;
-        //             console.log("how many loops?");
-        //             d.key = d.key;
-        //             d.date = parseYear(d.key);
-        //             d.diff = diff;
-        //         } else{
-        //             d.diff = 0;
-        //             d.date = parseYear(d.key);
-        //         }
-        //     });
-
-        // });
-
-        // console.log("whats this data set values",annualData)
-  
-        // let regionData = d3.nest()
-        //       .key(function(d){ return d[groupBy];})
-        //       .entries(countData.values);
+        const grouping = types.map(region => region.key); 
 
         const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
-        mlineChart.getData(types, columnNames[0]);
+        mlineChart.getData(columnNames[0], types);
 
         d3.select(".employment_count").on("click", function(){
-            mlineChart.getData(types, columnNames[0]);
+            mlineChart.getData(columnNames[0], types);
         });
         
         d3.select(".employment_qrate").on("click", function(){
-            mlineChart.getData(types, columnNames[1]);
+            mlineChart.getData(columnNames[1], types);
         });
 
-        d3.select(".employment_arate").on("click", function(){
-            mlineChart.getData(annual, "diff");
-        });
+        // d3.select(".employment_arate").on("click", function(){
+        //     mlineChart.getData("diff", annual);
+        // });
 
-        console.log(mlineChart);
+        // d3.select(window).on('resize', function(){
+        //     console.log("screen is beeing adjusted");
+        //     mlineChart.getData(); 
+        // });
     })
     .catch(function(error){
         console.log(error);
         });
 
     /*** This unemployment Chart ***/
-    d3.csv("../data/Economy/QNQ22_2.csv").then(function(data){
+    d3.csv("../data/Economy/QNQ22_2.csv").then(data => {
 
         const columnNames = data.columns.slice(2);
         const staticNames = data.columns.slice(0,2);
@@ -172,11 +70,11 @@
             return d;
         });
 
-        var types = columnNames.map(function(name) { // Nest the data into an array of objects with new keys
+        var types = columnNames.map(name => { // Nest the data into an array of objects with new keys
 
             return {
               name: name, // "name": the csv headers except date
-              values: data.map(function(d) { // "values": which has an array of the dates and ratings
+              values: data.map( d => { // "values": which has an array of the dates and ratings
                 return {
                   date: d.quarter,
                   region: d.region, 
@@ -203,7 +101,7 @@
         const groupBy = data.columns[1];
 
         const regionEmployment = d3.nest()
-        .key(function(d){ return d[groupBy];})
+        .key( d => { return d[groupBy];})
         .entries(employment.values);
 
         console.log("nested figs", regionEmployment);
@@ -256,8 +154,7 @@
             "%"
         ];
         
-        const employmentCharts = new StackedAreaChart("#chartNew", 
-        "Persons aged 15 years and over in Employment (Thousand)", "Euros");
+        const employmentCharts = new StackedAreaChart("#chartNew", "Persons aged 15 years and over in Employment (Thousand)", "Euros");
         
         })// catch any error and log to console
         .catch(function(error){
@@ -266,7 +163,7 @@
 
 
     /*** This the Gross Value Added per Capita at Basic Prices Chart ***/
-    d3.csv("../data/Economy/RAA01.csv").then(function(data){
+    d3.csv("../data/Economy/RAA01.csv").then( data => {
 
         // console.log("Income New Data", data);
 
@@ -282,7 +179,7 @@
 
 
     /*** This Survey on Income and Living Conditions for Dublin Charts ***/
-    d3.csv("../data/Economy/SIA20.csv").then(function(data){
+    d3.csv("../data/Economy/SIA20.csv").then( data => {
 
         let columnNames = data.columns.slice(2);
         // console.log(columnNames);
@@ -298,7 +195,7 @@
     });
 
     // load csv data and turn value into a number
-    d3.csv("../data/Economy/IncomeAndLivingData.csv").then(function(data){   
+    d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
         var keys = data.columns;
         
         // console.log(keys);
@@ -335,7 +232,7 @@
     });
 
     // load csv data and turn value into a number
-    d3.csv("../data/Economy/IncomeAndLivingData.csv").then(function(data){   
+    d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
         let columnNames = data.columns.slice(2);
         // console.log(columnNames);
         let employeesSizeData = data;
@@ -349,7 +246,7 @@
 
     /*** Industry Sectors Charts here ***/
     //#chart-employment-sector
-    d3.csv("../data/Economy/QNQ40.csv").then(function(data){ 
+    d3.csv("../data/Economy/QNQ40.csv").then( data => { 
 
         let columnNames = data.columns.slice(2);
 
@@ -401,7 +298,7 @@
     
     //#chart-employees-by-size
     // load csv data and turn value into a number
-    d3.csv("../data/Economy/BRA08.csv").then(function(data){ 
+    d3.csv("../data/Economy/BRA08.csv").then( data => { 
 
         let columnNames = data.columns.slice(3),
         xValue = data.columns[0];
@@ -415,25 +312,27 @@
             return d;
         });
 
-        let employeesBySizeData = data;
+        const employeesBySizeData = data;
+        
         let nestData = d3.nest()
-            .key(function(d){ return d.type;})
+            .key( d =>{ return d.type;})
             .entries(employeesBySizeData);
         console.log("employeesBySizeData Data", nestData);
 
         let grouping = nestData.map(d => d.key);
         
         const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "€", xValue, grouping);
-              employeesBySizeChart.getData(nestData, "value");
+              employeesBySizeChart.getData("value", nestData);
     })
     // catch any error and log to console
     .catch(function(error){
     console.log(error);
     });
     
+
     //#chart-overseas-vistors
         // load csv data and turn value into a number
-        d3.csv("../data/Economy/overseasvisitors.csv").then(function(data){ 
+        d3.csv("../data/Economy/overseasvisitors.csv").then( data => { 
 
             let columnNames = data.columns.slice(1),
                 xValue = data.columns[0];
