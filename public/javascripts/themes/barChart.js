@@ -1,12 +1,12 @@
 class BarChart{
 
 // constructor function
-    constructor (_data, _element, _variableRegion, _variableType, _titleX, _titleY){
+    constructor (_data, _element, _variableX, _variableY, _titleX, _titleY){
         // load in arguments from config object
         this.data = _data;
         this.element = _element;
-        this.variableRegion = _variableRegion;
-        this.variableType = _variableType;
+        this.variableX = _variableX;
+        this.variableY = _variableY;
         this.titleX = _titleX;
         this.titleY = _titleY;
         
@@ -105,12 +105,6 @@ class BarChart{
     getData(){
         var dv = this;
 
-        dv.dataFiltered = dv.data.find( 
-            d => d.key === dv.variableRegion)
-            .values.find(
-                d => d.key === dv.variableType
-            ).values;
-
         dv.update();
     };
 
@@ -118,8 +112,8 @@ class BarChart{
         var dv = this;
 
         // Update scales
-        dv.x.domain(dv.dataFiltered.map((d)=>{ return d.year; }));
-        dv.y.domain([0, d3.max(dv.dataFiltered, (d) => { return +d.value; })]);
+        dv.x.domain(dv.data.map((d)=>{ return d[dv.variableX]; }));
+        dv.y.domain([0, d3.max(dv.data, (d) => { return d[dv.variableY]; })]);
 
         // Update axes
         dv.xAxisCall.scale(dv.x);
@@ -129,8 +123,8 @@ class BarChart{
         dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
 
         // join new data with old elements.
-        dv.rects = dv.g.selectAll("rect").data(dv.dataFiltered, function(d){
-            return d.year;
+        dv.rects = dv.g.selectAll("rect").data(dv.data, function(d){
+            return d[dv.variableX];
         });
 
         // exit old elements not present in new data.
@@ -145,9 +139,9 @@ class BarChart{
         // update old elements present in new data.
         dv.rects.attr("class", "update")
             .transition(dv.t())
-                .attr("y", function(d){ return dv.y(d.value); })
-                .attr("height", function(d){ return (dv.height - dv.y(d.value)); })
-                .attr("x", function(d){ return dv.x(d.year) })
+                .attr("y", function(d){ return dv.y(d[dv.variableY]); })
+                .attr("height", function(d){ return (dv.height - dv.y(d[dv.variableY])); })
+                .attr("x", function(d){ return dv.x(d[dv.variableX]) })
                 .attr("width", dv.x.bandwidth)
 
         // enter new elements present in new data.
@@ -158,12 +152,12 @@ class BarChart{
             .attr("fill", dv.colour)
             .attr("fill-opacity", ".75")
             .attr("height", 0)
-            .attr("x", function(d){ return dv.x(d.year); })
+            .attr("x", function(d){ return dv.x(d[dv.variableX]); })
             .attr("width", dv.x.bandwidth)
             .attr("y", dv.height)
             .transition(dv.t())
-            .attr("y", function(d){ return dv.y(d.value); })
-            .attr("height", function(d){ return (dv.height - dv.y(d.value)); })
+            .attr("y", function(d){ return dv.y(d[dv.variableY]); })
+            .attr("height", function(d){ return (dv.height - dv.y(d[dv.variableY])); })
             .style("stroke", dv.colour)
             .style("stroke-width", "1");
         
@@ -181,7 +175,7 @@ class BarChart{
                     .style( 'left', dx + "px" )
                     .style( 'top', dy + "px" )
                     .style( 'display', 'block' )
-                    .text("The value is: €" + (d.value));
+                    .text("The value is: €" + (d[dv.variableY]));
             });
     }
 

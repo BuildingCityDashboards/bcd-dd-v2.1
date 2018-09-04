@@ -80,7 +80,7 @@ class MultiLineChart{
             .attr("class", "xtitle")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
-            .attr("font-size", "20px")
+            .attr("font-size", "1rem")
             .attr("text-anchor", "middle")
             .text(dv.titleX);
 
@@ -89,7 +89,7 @@ class MultiLineChart{
             .attr("class", "ytitle")
             .attr("x", - (dv.height/2))
             .attr("y", -60)
-            .attr("font-size", "20px")
+            .attr("font-size", "1rem")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
@@ -121,6 +121,7 @@ class MultiLineChart{
 
         // Update scales
         dv.x.domain(d3.extent(dv.data[0].values, d => {
+            console.log("this is the extent of the d x range", d.date);
             return (d.date); }));
         
         // for the y domain to track negative numbers 
@@ -136,7 +137,7 @@ class MultiLineChart{
         ]);
 
         // Update axes - what about ticks for smaller devices??
-        dv.xAxisCall.scale(dv.x);
+        dv.xAxisCall.scale(dv.x).tickFormat(d3.timeFormat("%Y"));
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.transition(dv.t()).call(dv.yAxisCall);

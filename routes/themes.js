@@ -5,13 +5,18 @@ var router = express.Router();
 //router.get('/', function(req, res, next) {
 //  res.redirect('/themes/health');
 //});
+
 router.get('/', function(req, res, next) {
   res.render('themes', { title: 'Themes Page' });
 });
 
-// for testing
+router.get('/demographics', function(req, res, next) {
+  res.render('themes_demographics', { title: 'Demographics Page' });
+});
+
+
 router.get('/economy', function(req, res, next) {
-  res.render('themes_economy', { title: 'Themes Page' });
+  res.render('themes_economy', { title: 'Economy Page' });
 });
 
 router.get('/health', function(req, res, next) {

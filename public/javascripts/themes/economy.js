@@ -63,12 +63,12 @@
         const columnNames = data.columns.slice(2);
         const staticNames = data.columns.slice(0,2);
 
-        data.forEach(d => {
-            for(var i = 0, n = columnNames.length; i < n; ++i){
-                d[columnNames[i]] = +d[columnNames[i]];
-            }
-            return d;
-        });
+        // data.forEach(d => {
+        //     for(var i = 0, n = columnNames.length; i < n; ++i){
+        //         d[columnNames[i]] = +d[columnNames[i]];
+        //     }
+        //     return d;
+        // });
 
         var types = columnNames.map(name => { // Nest the data into an array of objects with new keys
 
@@ -220,9 +220,13 @@
             .key(d => { return d.type })
             .entries(transposedData);
 
-        // console.log("the data to use", newList);
+        let dataFiltered = newList.find( d => d.key === "Dublin").values.find(
+                d => d.key === "Median Real Household Disposable Income (Euro)"
+            ).values;
 
-        const disosableIncomeChart = new BarChart( newList,"#chart-disposable-income", "Dublin", "Median Real Household Disposable Income (Euro)", "Median Real Household Disposable Income", "Euros");
+        console.log("the data to use", dataFiltered);
+
+        const disosableIncomeChart = new BarChart( dataFiltered, "#chart-disposable-income", "year", "value", "Median Real Household Disposable Income", "Euros");
         
         // console.log("this should be the bar chart area", disosableIncomeChart);
     })
@@ -350,6 +354,15 @@
             // console.log("Overseas Data", overseasVisitorsData);
         
             const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
+        //  let newDatatest = columnNames.map( key => { 
+        //     return {
+        //         key: key, 
+        //         value: data.map[key]
+        //      }; 
+        // });
+        
+        // console.log("this is a random test of the grouped bar chart", newDatatest);
+        
         })
         // catch any error and log to console
         .catch(function(error){
