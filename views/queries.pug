@@ -1,5 +1,4 @@
 extends layout
-
 //- Including Accordion mixins
 include component/accordion
 
@@ -12,13 +11,9 @@ block content
             div.col-sm-12
               h2 Queries
               +accordion("one")
-                +accordion-item("Query One")
-                  |  Some content here
-                  |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                  |nisi ut aliquip ex ea commodo consequat.
-                +accordion-item("Query Two")
+                +accordion-item("Hospital waiting lists- how long do patients wait for procedures?")
+                  include queries_health.pug
+                +accordion-item("Find planning applications near me")
                   |  Some content here
                   |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                   | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -26,3 +21,4 @@ block content
                   |nisi ut aliquip ex ea commodo consequat.
 block append scripts
   script(src='/javascripts/accordion.js')
+  
