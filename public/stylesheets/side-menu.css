@@ -208,7 +208,7 @@
     padding: .5rem 1rem;
 }
 
-.dropdown__toggle:hover{
+.dropdown__toggle:hover, .dropdown__toggle:active, .dropdown__toggle:focus{
     text-decoration: none;
     background-color: #f8f9fa;
 }
@@ -222,6 +222,12 @@
     padding-left: 4rem;
     font-size: .875rem;
     color:#d1d1d1cf;
+}
+
+.dropdown-item:active {
+    text-decoration: none;
+    background-color: #f8f9fa;
+    color: #16181b;
 }
 
 
