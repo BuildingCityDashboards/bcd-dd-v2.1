@@ -23,6 +23,11 @@ router.get('/health', function(req, res, next) {
   res.render('themes_health', { title: 'Themes: Health' });
 });
 
+router.get('/transport', function(req, res, next) {
+  res.render('themes_transport', { title: 'Themes: Transport' });
+});
+
+
 /* API csv routes for themes */
 router.get('/api/opw', function(req, res, next) {
   res.download('public/data/opw.csv');
