@@ -113,7 +113,7 @@ function updateMapBuses(data__) {
     });
     map.addLayer(busCluster);
 }
-
+//arg is object
 function getBikeContent(d_) {
     let str = '';
     if (d_.name) {
@@ -165,12 +165,13 @@ function getBusContent(d_) {
 
 //Handle button in map popup and get RTPI data
 let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
-let rtpiResults = [];
+
 function displayRTPI(sid_) {
     d3.json(busAPIBase + sid_)
             .then(function (data) {
 //                console.log("Button press " + sid_ + "\n");
-                let rtpi = "<br><br><strong> Next Buses: </strong> <br>";
+                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
+                let rtpi=rtpiBase;
                 if (data.results.length > 0) {
 //                    console.log("RTPI " + JSON.stringify(data.results[0]));
                     _.each(data.results, function (d, i) {
@@ -180,10 +181,12 @@ function displayRTPI(sid_) {
 
                 } else {
                     //console.log("No RTPI data available");
-                    rtpi += "No Real Time Inormation Available<br>";
+                    rtpi += "No Real Time Information Available<br>";
                 }
-               markerRef.getPopup().setContent(markerRef.getPopup().getContent()+rtpi);
+                console.log("split "+markerRef.getPopup().getContent().split(rtpi)[0]);
+               markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(rtpiBase)[0]+rtpi);
             });
+            
 }
 let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using underscore
 
@@ -191,7 +194,6 @@ let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using undersco
 $("div").on('click', '.busRTPIbutton', function () {
     displayRTPIBounced($(this).attr("data"));
 });
-
 
 //    /*****************************/
 //
