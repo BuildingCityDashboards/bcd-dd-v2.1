@@ -38,9 +38,9 @@ class BarChart{
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
-        dv.tooltip = d3.select(dv.element)
+        dv.tooltip = d3.select(".page__root")
             .append('div')  
-            .attr('class', 'tool-tip');  
+            .attr('class', 'tool-tip'); 
 
         // add the svg to the target element
         const svg = d3.select(dv.element)
@@ -82,18 +82,17 @@ class BarChart{
 
         // X title
         dv.g.append("text")
-            .attr("class", "title")
+            .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
-            .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .text(dv.titleX);
 
         // Y title
         dv.g.append("text")
+            .attr("class", "titleY")
             .attr("x", - (dv.height/2))
             .attr("y", -60)
-            .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
@@ -168,12 +167,12 @@ class BarChart{
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            .on("mouseover", function(d){
+            .on("mousemove", function(d){
                 var dx  = parseFloat(d3.select(this).attr('x')) + dv.x.bandwidth(), 
                     dy  = parseFloat(d3.select(this).attr('y')) + 10;
                 dv.tooltip
-                    .style( 'left', dx + "px" )
-                    .style( 'top', dy + "px" )
+                    .style( 'left', (d3.event.pageX+10) + "px" )
+                    .style( 'top', (d3.event.pageY) + "px" )
                     .style( 'display', 'block' )
                     .text("The value is: €" + (d[dv.variableY]));
             });

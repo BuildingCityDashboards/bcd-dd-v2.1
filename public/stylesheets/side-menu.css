@@ -206,6 +206,7 @@
 .dropdown__toggle {
     grid-area: arrow;
     padding: .5rem 1rem;
+    cursor: pointer;
 }
 
 .dropdown__toggle:hover, .dropdown__toggle:active, .dropdown__toggle:focus{
@@ -213,9 +214,25 @@
     background-color: #f8f9fa;
 }
 
+.dropdown__toggle:hover .icon, .dropdown__toggle:active .icon, .dropdown__toggle:focus .icon{
+    stroke: #021420;
+}
+
 .dropdown__menu {
     grid-area:  menu;
-    /* display: none; */
+    display: none;
+}
+
+.dropdown--show .dropdown__menu{
+    display: block;
+}
+
+.dropdown--show .dropdown__toggle .icon{
+    /* transform: rotate(180deg); */
+}
+
+.dropdown__toggle .icon{
+    margin:0;
 }
 
 .dropdown-item{

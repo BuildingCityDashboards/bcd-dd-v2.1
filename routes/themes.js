@@ -27,6 +27,10 @@ router.get('/transport', function(req, res, next) {
   res.render('themes_transport', { title: 'Themes: Transport' });
 });
 
+router.get('/education', function(req, res, next) {
+  res.render('themes_education', { title: 'Education Page' });
+});
+
 
 /* API csv routes for themes */
 router.get('/api/opw', function(req, res, next) {

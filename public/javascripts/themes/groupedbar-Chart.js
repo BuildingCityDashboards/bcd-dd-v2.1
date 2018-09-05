@@ -2,7 +2,7 @@ class GroupedBarChart{
 
     // constructor function
     constructor (_data, _keys, _xValue, _element, _titleX, _titleY){
-        // load in arguments from config object
+
         this.data = _data;
         this.keys = _keys;
         this.xValue = _xValue;
@@ -37,7 +37,7 @@ class GroupedBarChart{
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
-        dv.tooltip = d3.select(dv.element)
+        dv.tooltip = d3.select(".page__root")
             .append('div')  
             .attr('class', 'tool-tip');  
 
@@ -76,26 +76,25 @@ class GroupedBarChart{
             .tickFormat(d => {return d});
 
         dv.xAxis = dv.g.append("g")
-            .attr("class", "x axis")
+            .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
         
         dv.yAxis = dv.g.append("g")
-            .attr("class", "y axis");
+            .attr("class", "y-axis");
     
         // X title
         dv.g.append("text")
-            .attr("class", "title")
+            .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
-            .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .text(dv.titleX);
     
         // Y title
         dv.g.append("text")
+            .attr("class", "titleY")
             .attr("x", - (dv.height/2))
             .attr("y", -60)
-            .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
@@ -168,20 +167,67 @@ class GroupedBarChart{
         
         dv.g.selectAll("rect")
             .on("mouseover", function(){ 
-                dv.tooltip.style("display", null); 
+                dv.tooltip.style("display", "inline-block"); 
             })
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            .on("mouseover", function(d){
-                var dx  = parseFloat(d3.select(this).attr('x')) + dv.x1.bandwidth(), 
+            .on("mousemove", function(d){
+                let dx  = parseFloat(d3.select(this).attr('x')) + dv.x0.bandwidth() + 100, 
                     dy  = parseFloat(d3.select(this).attr('y')) + 10;
+                var x = d3.event.pageX, 
+                    y = d3.event.clientY;
+                console.log("mouse positions", x, y);
+
                 dv.tooltip
-                    .style( 'left', dx + "px" )
-                    .style( 'top', dy + "px" )
-                    .style( 'display', 'block' )
+                    .style( 'left', (d3.event.pageX+10) + "px" )
+                    .style( 'top', (d3.event.pageY) + "px" )
+                    .style( 'display', "inline-block" )
                     .text("The value is: " + (d.value)); // what should the value be ?
             });
+
+        dv.addLegend();
+    }
+
+    addLegend(){
+        let dv = this;
+
+        let legend = dv.g.append("g")
+            .attr("transform", "translate(0,0)");
+
+        let legendArray = [];
+
+        dv.keys.forEach((d,i) =>{
+            let obj = {};
+                obj.label = d;
+                obj.colour = dv.colour(d);
+                legendArray.push(obj);
+        });
+
+        console.log("the grouped charts legend array", legendArray);
+        
+        let legends = legend.selectAll(".legend")
+                .data(legendArray)
+                .enter()
+                .append("g")
+                .attr("class", "legend")
+                .attr("transform", (d, i)=> {
+                    return "translate(0," + i * 40 + ")"; 
+                });
+
+            legends.append("rect")
+                .attr("class", "legendRect")
+                .attr("x", dv.width + 5)
+                .attr("fill", d => { return d.colour; })
+                .attr("fill-opacity", 0.75);
+
+            legends.append("text")
+                .attr("class", "legendText")
+                .attr("x", dv.width + 30)
+                .attr("y", 12)
+                .attr("dy", ".35em")
+                .attr("text-anchor", "start")
+                .text(d => { return d.label; }); 
     }
     
 }
