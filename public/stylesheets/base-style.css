@@ -150,7 +150,6 @@ padding-left: 5px;
 color: var(--vivid-cyan);
 }
 
-
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
 .collape {

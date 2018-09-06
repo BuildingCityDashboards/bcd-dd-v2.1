@@ -25,8 +25,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 4rem;
+    height: 4rem;
     background-color: var(--vivid-cyan);
     border: none;
     padding: 1.25rem;
@@ -83,7 +83,7 @@
   }
 
 .side-menu {
-    width: 14rem;
+    width: 70%;
     height: 100%;
     padding: 0 0 1rem;
     position: fixed;
@@ -246,9 +246,22 @@
     color: #16181b;
 }
 
+.navbar{
+    padding: .25rem 1rem;
+}
+  
+
 
 @media (min-width: 576px){
     .side-menu__toggler{
         background: transparent;
     }
+
+    .navbar{
+        padding: .5rem 1rem;
+      }
+
+      .side-menu {
+        width: 14rem;
+      }
 }
