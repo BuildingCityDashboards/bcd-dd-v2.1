@@ -4,7 +4,7 @@ const svg = d3.select("#map__container");
 const elementNode = svg.node();
 let elementWidth = elementNode.getBoundingClientRect().width; 
 let aspectRatio = elementWidth < 500 ? elementWidth * 1.5 : elementWidth * 1.5;
-let viewBox = elementWidth < 550 ? elementWidth < 500 ? "-120 -60 400 400" : "-60 120 400 400" : "-60 180 400 400";
+let viewBox = elementWidth < 550 ? elementWidth < 504 ? "-120 -60 400 400" : "-60 120 400 400" : "-60 180 400 400";
 
 
 const WIDTH = elementWidth;

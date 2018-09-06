@@ -13,51 +13,43 @@ function dataSets (data, columns){
 
 Promise.all([
     d3.csv("/data/Economy/QNQ22_employment.csv"),
-    d3.csv("/data/Demographics/CNA13.csv"),
+    d3.csv("/data/Demographics/population.csv"),
     d3.csv("data/Housing/houseComp.csv"),
+    d3.csv("data/Housing/propertyprices.csv"),
 ]).then( dataFiles => {
 
     const economyData = dataFiles[0];
     const demographicsData = dataFiles[1];
     const houseCompData = dataFiles[2];
+    const priceList = dataFiles[3];
 
     console.log("house comp data", houseCompData);
 
     const columnNames1 = economyData.columns.slice(2);
-    
     const columnNames2 = demographicsData.columns.slice(2);
-
     const columnNames3 = houseCompData.columns.slice(1);
+    const columnNames4 = priceList.columns.slice(1);
 
     const empValue = columnNames1[1];
     const unempValue = columnNames1[1];
 
+    const annualPopRate = columnNames2[1];
+
     const xValue = houseCompData.columns[0];
-    
-    const annualPop = columnNames2[1];
-    const annualCat = demographicsData.columns[0];
+    const xValue2 = priceList.columns[0];
 
     const dataSet = dataSets(economyData, columnNames1);
     const dataSet2 = dataSets(demographicsData, columnNames2);
     const dataSet3 = dataSets(houseCompData, columnNames3);
+    const dataSet4 = dataSets(priceList, columnNames4);
 
     dataSet.forEach( d => {
         d.quarter = parseTime(d.quarter);
-    });
-
-    dataSet2.forEach( d => {
-        d.date = parseYear(d.date);
     });
     
     const dateFiltered = dataSet.filter( d => {
         return d.quarter >= new Date("Tue Jan 01 2016 00:00:00");
     });
-
-    const dateFiltered2 = dataSet2.filter( d => {
-        return d.date >= new Date("Tue Jan 01 1990 00:00:00");
-    });
-
-    console.log("the population fitlered by date", dateFiltered2);
 
     const dublinData =  dateFiltered.filter( d => {
         return d.region === "Dublin";
@@ -67,19 +59,26 @@ Promise.all([
         return d.region === "Ireland";
     });
 
-    const bothAnnualRate = dateFiltered2.filter( d => {
-        return d.category === "Both Sexes";
+    const dublinAnnualRate = dataSet2.filter( d => {
+        return d.region === "Dublin";
     });
 
+    const irelandAnnualRate = dataSet2.filter( d => {
+        return d.region === "Ireland";
+    });
+
+    console.log("these are the datasets for pop for ireland and dublin", dublinAnnualRate, irelandAnnualRate);
 
     // charts setup here
 
-    const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, "#hc-glance", "title 1", "title2");
+    const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, "#hc-glance", "Units", "title2");
    
+    const priceListQuartley = new GroupedBarChart(dataSet4, columnNames4, xValue2, "#ap-glance", "€", "title2");
     // const dublinData = DublinOnly.filter( d => {
     //     return d.quarter >= new Date("Tue Jan 01 2013 00:00:00");
     // });
-    console.log("dataSet:", bothAnnualRate);
+    
+    // for now will just copy but need to create a class for this chart objects
     const lv = dublinData.length;
 
     let elementNode = d3.select("#test-glance").node();
@@ -165,6 +164,80 @@ Promise.all([
         .attr("class", "label employment")
         .attr("fill", "#16c1f3")
         .text("Q2 2017 : " + lastValue[unempValue] + "%");
+
+
+    const size = dublinAnnualRate.length;   
+    const lValue = dublinAnnualRate[size-1];
+    const lValue2 = irelandAnnualRate[size-1];
+        
+    // setting the line values range
+    let x2 = d3.scaleLinear().range([0, w-5]);
+    let y2 = d3.scaleLinear().range([h, 0]);
+        
+    // setup the line chart
+    let valuelineRate = d3.line()
+        .x(function(d,i) { return x2(d.date); })
+        .y(function(d) { return y2(d[annualPopRate]); })
+        .curve(d3.curveBasis);
+    
+    // Adds the svg canvas
+    let svg2 = d3.select("#pr-glance")
+        .append("svg")
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2])
+        .append("g")
+        .attr("transform", "translate(" + m[3] + "," + "10" + ")");
+        // Scale the range of the data
+        let maxDublin = dublinAnnualRate.length > 0 ? d3.max(dublinAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
+        let maxIreland = irelandAnnualRate.length > 0 ? d3.max(irelandAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
+        x2.domain(d3.extent(dublinAnnualRate, d => {
+            return (d.date); }));
+        y2.domain([0, Math.max(maxDublin, maxIreland)]);
+        
+        svg2.append("path")
+            .attr("d", valuelineRate(irelandAnnualRate))
+            .attr("stroke","rgba(150,150,150,.3)")
+            .attr("stroke-width", 4)
+            .attr("fill", "none")
+            .attr("stroke-linecap", "round");
+     
+        svg2.append("path")
+            .attr("class", "activity")
+            .attr("d", valuelineRate(dublinAnnualRate))
+            .attr("stroke","#16c1f3")
+            .attr("stroke-width", 4)
+            .attr("fill", "none")
+            .attr("stroke-linecap", "round");
+        
+        svg2.append("text")
+            .attr("dx", 0)
+            .attr("dy", 105)
+            .attr("class", "label yesterday")
+            .attr("fill", "#f8f9fabd")
+            .text("Ireland");
+    
+        svg2.append("text")
+            .attr("x", w)
+            .attr("y", h + 30)
+            .attr("text-anchor", "end")
+            .attr("class", "label employment")
+            .attr("fill", "#f8f9fabd")
+            .text("2016: " + lValue2[annualPopRate] + " (No. per 1000 Pop.)");
+    
+        svg2.append("text")
+            .attr("dx", 0)
+            .attr("dy", 2)
+            .attr("class", "label employment")
+            .attr("fill", "#16c1f3")
+            .text("Dublin")
+    
+        svg2.append("text")
+            .attr("x", w)
+            .attr("y", 2)
+            .attr("text-anchor", "end")
+            .attr("class", "label employment")
+            .attr("fill", "#16c1f3")
+            .text("2016 : " + lValue[annualPopRate] + " (No. per 1000 Pop.)");
 
 }).catch(function(error){
     console.log(error);
@@ -317,6 +390,7 @@ class GroupedBarChart{
             .attr("class", "label")
             .attr("fill", "#16c1f3")
             .text(dv.keys[0]);
+
         // Last Month Value in Units
         dv.g.append("text")
             .attr("x", dv.width)
@@ -324,7 +398,8 @@ class GroupedBarChart{
             .attr("text-anchor", "end")
             .attr("class", "label")
             .attr("fill", "#16c1f3")
-            .text(dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " units");
+            .text(dv.titleX === "€" ? dv.data[last].date + " : " + dv.titleX + dv.data[last][dv.keys[0]] :
+                  dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " " + dv.titleX);
     
         dv.update();
     
@@ -373,7 +448,8 @@ class GroupedBarChart{
             .attr("fill-opacity", ".75");
 
             d3.select(".parent g:nth-last-child(1) rect")
-                .attr("fill", "#16c1f3");
+                .attr("fill", "#16c1f3")
+                .attr("fill-opacity", "1");
         
         // dv.g.selectAll("rect")
         //     .on("mouseover", function(){ 

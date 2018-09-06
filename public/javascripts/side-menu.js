@@ -43,9 +43,3 @@ $('.dropdown__toggle').click(function () {
 //         menu.classList.toggle("side-menu--open");
 //         button.classList.toggle("side-menu__toggler--close");
 //         })});
-
-// $('.card__icon').popover(); 
-
-// $(function () {
-//     $('[data-toggle="tooltip"]').tooltip()
-//   })
