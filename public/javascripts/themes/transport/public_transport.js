@@ -1,4 +1,4 @@
-let bikeTime = d3.timeFormat("%a %B %d, %Y, %H:%M");
+let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 
 //  1. declare map variables and initialise base map
 let map = new L.Map('chart-public-transport');
@@ -17,7 +17,7 @@ let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/
 let osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
-let osm = new L.TileLayer(stamenTonerUrl, {
+let osm = new L.TileLayer(stamenTonerUrl_Lite, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
@@ -25,25 +25,30 @@ let osm = new L.TileLayer(stamenTonerUrl, {
 
 map.setView(new L.LatLng(dubLat, dubLng), zoom);
 map.addLayer(osm);
-let markerRef; //horrible hack!!!
-map.on('popupopen', function(e) {
+let markerRef; //TODO: fix horrible hack!!!
+map.on('popupopen', function (e) {
     markerRef = e.popup._source;
-  //console.log("ref: "+JSON.stringify(e));
+    //console.log("ref: "+JSON.stringify(e));
 });
+
 
 let bikeCluster = L.markerClusterGroup();
 let busCluster = L.markerClusterGroup();
-//let iconAX = 15;  //icon Anchor X
-//let iconAY = 15; //icon Anchor Y
+let iconAX = 15;  //icon Anchor X
+let iconAY = 15; //icon Anchor Y
 //            Custom map icons
-//let hospitalIcon = L.icon({
-//    iconUrl: 'img/Hospital.png',
-//    iconSize: [30, 30],
-//    iconAnchor: [iconAX, iconAY],
-//    popupAnchor: [-3, -76]
-//});
-
-
+let dublinBikeMapIcon = L.icon({
+    iconUrl: '/images/transport/bicycle-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY]//,
+    //popupAnchor: [-3, -76]
+});
+let dublinBusMapIcon = L.icon({
+    iconUrl: '/images/transport/bus-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY]//,
+    //popupAnchor: [-3, -76]
+});
 
 d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb899283cf1b42a97fc627eb7682ae8ff7d").then(function (data) {
     //console.log(data[0]);
@@ -63,7 +68,6 @@ function processBikes(data_) {
         d.lng = +d.position.lng;
         //add a property to act as key for filtering
         d.type = "Dublin Bike Station";
-
 
     });
     console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
@@ -87,16 +91,13 @@ function processBusStops(res_) {
 //    console.log("# of bus stops is " + res_.length + "\n"); // +
     updateMapBuses(res_);
 //        allHealthCenters = allHealthCenters.concat(d); //need to concat to add each new array element
-}
-;
-
-
+};
 
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
     map.removeLayer(bikeCluster);
     _.each(data__, function (d, i) {
-        bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng))//, {icon: getIcon(d.type)})
+        bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
                 .bindPopup(getBikeContent(d)));
     });
     map.addLayer(bikeCluster);
@@ -106,9 +107,9 @@ function updateMapBuses(data__) {
     busCluster.clearLayers();
     map.removeLayer(busCluster);
     _.each(data__, function (d, i) {
-        let marker = L.circleMarker(new L.LatLng(d.lat, d.lng));
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBusMapIcon});
         marker.bindPopup(getBusContent(d));
-        busCluster.addLayer(marker);//, {icon: getIcon(d.type)})
+        busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
     map.addLayer(busCluster);
@@ -122,20 +123,22 @@ function getBikeContent(d_) {
     if (d_.type) {
         str += d_.type + '<br>';
     }
-    if (d_.address && d_.address !== d_.name) {
-        str += d_.address + '<br>';
+//    if (d_.address && d_.address !== d_.name) {
+//        str += d_.address + '<br>';
+//    }
+    if (d_.available_bikes) {
+        str += '<br><b>'+d_.available_bikes+'</b>'+' bikes are available<br>';
     }
     if (d_.available_bike_stands) {
-        str += d_.available_bike_stands + ' stands are available<br>';
+        str += '<b>'+d_.available_bike_stands+'</b>'+' stands are available<br>';
     }
-    if (d_.available_bikes) {
-        str += d_.available_bikes + ' bikes are available<br>';
+    
+    if (d_.last_update) {
+        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
     }
-//    if (d_.last_update) {
-//        str += 'Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
-//    }
     return str;
 }
+
 
 function getBusContent(d_) {
     let str = '';
@@ -152,6 +155,9 @@ function getBusContent(d_) {
             str += ' ';
         });
         str += '<br>';
+    }
+    if (d_.address && d_.address !== d_.name) {
+            str += d_.address + '<br>';
     }
     if (d_.stopid) {
         //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
@@ -171,22 +177,30 @@ function displayRTPI(sid_) {
             .then(function (data) {
 //                console.log("Button press " + sid_ + "\n");
                 let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
-                let rtpi=rtpiBase;
+                let rtpi = rtpiBase;
                 if (data.results.length > 0) {
 //                    console.log("RTPI " + JSON.stringify(data.results[0]));
                     _.each(data.results, function (d, i) {
                         //console.log(d.route + " Due: " + d.duetime + "");
-                        rtpi += "<br>"+ d.route + " : " + d.duetime +" mins";
-                   });
-
+                        //only return n results
+                        if(i<=7){
+                        rtpi += "<br><b>" + d.route +"</b> "+d.direction + " to " + d.destination;
+                        if (d.duetime === "Due") {
+                            rtpi += "  <b>" + d.duetime+ "</b>";
+                        } else {
+                            rtpi += "  <b>" + d.duetime + " mins</b>";
+                        }
+                    }
+                        
+                    });
                 } else {
                     //console.log("No RTPI data available");
                     rtpi += "No Real Time Information Available<br>";
                 }
-                console.log("split "+markerRef.getPopup().getContent().split(rtpi)[0]);
-               markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(rtpiBase)[0]+rtpi);
+                console.log("split " + markerRef.getPopup().getContent().split(rtpi)[0]);
+                markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(rtpiBase)[0] + rtpi);
             });
-            
+
 }
 let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using underscore
 
@@ -194,6 +208,7 @@ let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using undersco
 $("div").on('click', '.busRTPIbutton', function () {
     displayRTPIBounced($(this).attr("data"));
 });
+
 
 //    /*****************************/
 //
