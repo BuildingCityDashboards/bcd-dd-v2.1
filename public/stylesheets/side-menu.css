@@ -25,8 +25,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
     background-color: var(--vivid-cyan);
     border: none;
     padding: 1.25rem;
@@ -149,7 +149,6 @@
     display: flex;
     padding: .5rem 1rem;
     align-items: center;
-    height: 100%;
     font-weight: 500;
     font-size: .875rem;
     color: #d1d1d1cf;
@@ -206,6 +205,7 @@
 .dropdown__toggle {
     grid-area: arrow;
     padding: .5rem 1rem;
+    cursor: pointer;
 }
 
 .dropdown__toggle:hover, .dropdown__toggle:active, .dropdown__toggle:focus{
@@ -213,9 +213,25 @@
     background-color: #f8f9fa;
 }
 
+.dropdown__toggle:hover .icon, .dropdown__toggle:active .icon, .dropdown__toggle:focus .icon{
+    stroke: #021420;
+}
+
 .dropdown__menu {
     grid-area:  menu;
-    /* display: none; */
+    display: none;
+}
+
+.dropdown--show .dropdown__menu{
+    display: block;
+}
+
+.dropdown--show .dropdown__toggle .icon{
+    /* transform: rotate(180deg); */
+}
+
+.dropdown__toggle .icon{
+    margin:0;
 }
 
 .dropdown-item{

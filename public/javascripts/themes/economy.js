@@ -1,5 +1,5 @@
-    // var section = d3.select("#economy");
-    // var article = d3.select("#income_poverty");
+    // let section = d3.select("#economy");
+    // let article = d3.select("#income_poverty");
     
     var parseTime = d3.timeParse("%d/%m/%Y");
     var formatTime = d3.timeFormat("%d/%m/%Y");
@@ -11,15 +11,23 @@
     ];
 
     /*** This employment Chart ***/
-    d3.csv("../data/Economy/QNQ22_employment.csv").then(data => {
-        const columnNames = data.columns.slice(2),
-            xValue = data.columns[0],
-            groupBy = data.columns[1],
-            yLabels = ["Thousands", "% Change", "% Change"];
-        console.log("data",data);
+    Promise.all([
+        d3.csv("../data/Economy/QNQ22_employment.csv"),
+        d3.csv("../data/Economy/annualemploymentchanges.csv"),
+    ]).then(datafiles => {
+        const QNQ22 = datafiles[0];
+        const annual = datafiles[1];
 
+        const columnNames = QNQ22.columns.slice(2),
+            groupBy = QNQ22.columns[1],
+            yLabels = ["Thousands", "% Change", "% Change"];
+        console.log("QNQ22",QNQ22);
+
+        const columnNamesB = annual.columns.slice(2),
+        groupByB = annual.columns[0],
+        yLabelsB = ["% Change"];
     
-        const valueData = data.map( d => {
+        const valueData = QNQ22.map( d => {
             d.date = parseTime(d.quarter);
             for(var i = 0, n = columnNames.length; i < n; ++i){
                 d[columnNames[i]] = +d[columnNames[i]]; 
@@ -27,9 +35,22 @@
             return d;
         });
 
+        const valueDataB = annual.map( d => {
+            d.date = parseYear(d.date);
+            for(var i = 0, n = columnNamesB.length; i < n; ++i){
+                d[columnNamesB[i]] = +d[columnNamesB[i]]; 
+            }
+            return d;
+        });
+
         const types = d3.nest()
             .key( regions => { return regions[groupBy];})
             .entries(valueData);
+        
+        const typesB = d3.nest()
+            .key( regions => { return regions[groupByB];})
+            .entries(valueDataB);
+
 
         const grouping = types.map(region => region.key); 
 
@@ -44,14 +65,15 @@
             mlineChart.getData(columnNames[1], types);
         });
 
-        // d3.select(".employment_arate").on("click", function(){
-        //     mlineChart.getData("diff", annual);
-        // });
+        d3.select(".employment_arate").on("click", function(){
+            mlineChart.getData(columnNamesB[0], typesB);
+        });
 
         // d3.select(window).on('resize', function(){
         //     console.log("screen is beeing adjusted");
         //     mlineChart.getData(); 
         // });
+    
     })
     .catch(function(error){
         console.log(error);
@@ -390,3 +412,137 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
     
     return output;
 }
+
+function dataSets (data, columns){
+    coercedData = data.map( d => {
+        for( var i = 0, n = columns.length; i < n; i++ ){
+            d[columns[i]] = +d[columns[i]];
+        }
+    return d;
+    });
+    return coercedData;
+}
+
+
+d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
+    
+    console.log("this is the employment figs", data);
+    const columnNames = data.columns.slice(2);
+    const xValue = data.columns[0];
+    const empValue = columnNames[1];
+    const unempValue = columnNames[1];
+
+    const dataSet = dataSets(data, columnNames);
+
+    dataSet.forEach( d => {
+        d.quarter = parseTime(d.quarter);
+    });
+    
+    const newData = dataSet.filter( d => {
+        return d.quarter >= new Date("Tue Jan 01 2016 00:00:00");
+    });
+
+    const smallSetDublinOnly =  newData.filter( d => {
+        return d.region === "Dublin";
+    });
+
+    const smallSetIrelandOnly = newData.filter( d => {
+        return d.region === "Ireland";
+    });
+
+    // const smallSetDublinOnly = DublinOnly.filter( d => {
+    //     return d.quarter >= new Date("Tue Jan 01 2013 00:00:00");
+    // });
+    console.log("dataSet:", smallSetDublinOnly);
+    const lv = smallSetDublinOnly.length;
+
+    let lastValue = smallSetDublinOnly[lv-1]
+    let lastValue2 = smallSetIrelandOnly[lv-1]
+    
+    // dimensions margins, width and height
+    let m = [20, 10, 25, 10],
+        w = 300 - m[1] - m[3],
+        h = 120 - m[0] - m[2];
+    
+    // setting the line values range
+    let x = d3.scaleTime().range([0, w-5]);
+    let y = d3.scaleLinear().range([h, 0]);
+    
+    // setup the line chart
+    let valueline = d3.line()
+        .x(function(d,i) { return x(d.quarter); })
+        .y(function(d) { return y(d[empValue]); })
+        .curve(d3.curveBasis);
+
+    let valueline2 = d3.line()
+        .x(function(d,i) { return x(d.quarter); })
+        .y(function(d) { return y(d[unempValue]); })
+        .curve(d3.curveBasis);
+
+    // Adds the svg canvas
+    let svg = d3.select("#test-glance")
+        .append("svg")
+        .attr("width", w + m[1] + m[3])
+        .attr("height", h + m[0] + m[2])
+        .append("g")
+        .attr("transform", "translate(" + m[3] + "," + "10" + ")");
+        // Scale the range of the data
+        let maxToday = smallSetDublinOnly.length > 0 ? d3.max(smallSetDublinOnly, function(d) { return d[empValue]; }) : 0;
+        let maxReference = smallSetIrelandOnly.length > 0 ? d3.max(smallSetIrelandOnly, function(d) { return d[unempValue]; }) : 0;
+        x.domain(d3.extent(smallSetDublinOnly, d => {
+            return (d.quarter); }));
+        y.domain([0, Math.max(maxToday, maxReference)]);
+    
+
+    svg.append("path")
+        .attr("class", "activity unemployment")
+        .attr("d", valueline2(smallSetIrelandOnly))
+        .attr("stroke","rgba(150,150,150,.3)")
+        .attr("stroke-width", 4)
+        .attr("fill", "none")
+        .attr("stroke-linecap", "round");
+ 
+    svg.append("path")
+        .attr("class", "activity employment")
+        .attr("d", valueline(smallSetDublinOnly))
+        .attr("stroke","#16c1f3")
+        .attr("stroke-width", 4)
+        .attr("fill", "none")
+        .attr("stroke-linecap", "round");
+    
+    svg.append("text")
+        .attr("dx", 0)
+        .attr("dy", 105)
+        .attr("class", "label yesterday")
+        .attr("fill", "rgba(150,150,150,.3)")
+        .text("Ireland");
+
+    svg.append("text")
+        .attr("dx", 150)
+        .attr("dy", 105)
+        .attr("class", "label employment")
+        .attr("fill", "rgba(150,150,150,.3)")
+        .text("Q2 2017 : " + lastValue2[empValue] + "%");
+
+    svg.append("text")
+        .attr("dx", 0)
+        .attr("dy", 2)
+        .attr("class", "label employment")
+        .attr("fill", "#16c1f3")
+        .text("Dublin")
+
+    svg.append("text")
+        .attr("dx", 150)
+        .attr("dy", 2)
+        .attr("class", "label employment")
+        .attr("fill", "#16c1f3")
+        .text("Q2 2017 : " + lastValue[unempValue] + "%");
+
+}).catch(function(error){
+    console.log(error);
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+

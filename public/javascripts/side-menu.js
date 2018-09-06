@@ -9,6 +9,15 @@ $('.s-m__trigger').on('click', function(e){
     $('body').toggleClass('body--lock');
 });
 
+$('.dropdown__toggle').click(function () {
+    $(this).parent().toggleClass('dropdown--show');
+});
+
+
+
+// function myFunction() {
+//     document.getElementById("myDropdown").classList.toggle("show");
+// }
 // // alternative no jquery
 // // function to get node array 
 // function getNodeArray(selector){
@@ -34,5 +43,3 @@ $('.s-m__trigger').on('click', function(e){
 //         menu.classList.toggle("side-menu--open");
 //         button.classList.toggle("side-menu__toggler--close");
 //         })});
-
-$('.card__icon').popover(); 

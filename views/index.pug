@@ -23,9 +23,10 @@ block content
       .container
         include component/lp-map.pug
 
-  include component/scroll-to-top
+  //- include component/scroll-to-top
 
 block append scripts
-  script(src="https://d3js.org/d3.v4.min.js")
+  script(src="lib/d3v5/d3.js")
   script(src='javascripts/dublinco.js')
   script(src='javascripts/map.js')
+  script(src='javascripts/data_glance.js')

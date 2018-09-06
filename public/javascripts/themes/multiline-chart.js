@@ -77,19 +77,17 @@ class MultiLineChart{
 
         // X title
         dv.xLabel = dv.g.append("text")
-            .attr("class", "xtitle")
+            .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
-            .attr("font-size", "1rem")
             .attr("text-anchor", "middle")
             .text(dv.titleX);
 
         // Y title
         dv.yLabel = dv.g.append("text")
-            .attr("class", "ytitle")
+            .attr("class", "titleY")
             .attr("x", - (dv.height/2))
             .attr("y", -60)
-            .attr("font-size", "1rem")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
@@ -121,7 +119,6 @@ class MultiLineChart{
 
         // Update scales
         dv.x.domain(d3.extent(dv.data[0].values, d => {
-            console.log("this is the extent of the d x range", d.date);
             return (d.date); }));
         
         // for the y domain to track negative numbers 
@@ -195,7 +192,7 @@ class MultiLineChart{
             // .attr("d", function(d) { 
             //     return d.active ? dv.line(d.values) : null; })
             .style("stroke", d => { return dv.colour(d.key); })
-            .style("stroke-width", "2px")
+            .style("stroke-width", "4px")
             .style("fill", "none");  
         
         // dv.regions.transition(dv.t)

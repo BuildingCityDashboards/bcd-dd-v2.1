@@ -1,14 +1,23 @@
 section#economy
-    
+
     header.header.mt-5.pt-5.pt-2
       .row
-        .col-6
+        .col-md-6
           h1.header__h1 Economy
           p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-    article.article
+
+        .col-md-6.pt-5
+          div(class="card o-hidden border-blue" style="width: 350px; margin: auto;")
+            div(class="card-header" style="font-weigth: 600; background: none;") Employment Quartley % Change
+            div(class="card__body card-graph")
+              div(id="test-glance")
+
+          
+
+    article.article.pt-5
       .row
         .col-lg-12
           h2.header__h2.mb-2 Employment Statistics

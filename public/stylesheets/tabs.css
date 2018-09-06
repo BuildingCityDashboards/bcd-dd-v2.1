@@ -23,9 +23,6 @@
 
 .tab-charts__row{
     position: relative;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    -webkit-overflow-scrolling: touch;
 }
 
 .tab-charts__row::-webkit-scrollbar {
@@ -68,4 +65,15 @@
 
 .arrow-left:focus, .arrow-right:focus{
     outline: none;
+}
+
+@media (min-width: 768px){
+
+    .tab-charts__row{
+        position: relative;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
 }

@@ -11,7 +11,6 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
           yLabels =["Population (000s)", "Rate %"];
 
     const valueData = data.map( d => {
-
             d.date = parseYear(d.date);
             for( var i = 0, n = columnNames.length; i < n; i++ ){
                 d[columnNames[i]] = +d[columnNames[i]];
