@@ -1,147 +1,159 @@
 /* Base Styles */
 html {
-    font-family: sans-serif;
-    line-height: 1.5;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -ms-overflow-style: scrollbar;
-    -webkit-tap-highlight-color: transparent;
+  font-family: sans-serif;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-    color: #313131;
-    background: #f8f8f8; 
-    position: relative;
+  color: #313131;
+  background: #f8f8f8; 
+  position: relative;
 }
-  
+
 /* Links*/
-  a {
-    color: #63c1de; 
-    text-decoration: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-font-smoothing: antialiased;
-    font-smoothing: antialiased;
-    -moz-transition: all 0.15s;
-    -o-transition: all 0.15s;
-    -webkit-transition: all 0.15s;
-    transition: all 0.15s;
+a {
+  color: #63c1de; 
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -moz-transition: all 0.15s;
+  -o-transition: all 0.15s;
+  -webkit-transition: all 0.15s;
+  transition: all 0.15s;
 }
-  a:hover {
-    color: #63c1de; 
-    text-decoration: none;
+a:hover {
+  color: #63c1de; 
+  text-decoration: none;
 }
 
 a {
-  color: #ffffff;
+color: #ffffff;
 }
 
- /* charts */
+/* charts */
 .line-chart{
-  margin-right:40px;
-  width:100%
+margin-right:40px;
+width:100%
 }
 .line-chart:last-child{
-  margin-right:0
+margin-right:0
 }
 .line-chart path.activity{
-  stroke:#16c1f3;
-  stroke-width:4;
-  fill:none;
-  stroke-linecap:round
+stroke:#16c1f3;
+stroke-width:4;
+fill:none;
+stroke-linecap:round
 }
 .line-chart .cursor{
-  fill:#fff;
-  stroke:#16c1f3;
-  stroke-width:2
+fill:#fff;
+stroke:#16c1f3;
+stroke-width:2
 }
 .line-chart .label, .no-axis{
-  font-size:12px;
-  font-weight:500;
+font-size:12px;
+font-weight:500;
 }
 .line-chart .label.today{
-  fill:#16c1f3;
-  text-anchor:start
+fill:#16c1f3;
+text-anchor:start
 }
 .line-chart path.reference{
-  stroke:rgba(150,150,150,.3)
+stroke:rgba(150,150,150,.3)
 }
 .line-chart path.today{
-  opacity:1
+opacity:1
 }
 .line-chart .axis line,.line-chart .axis path{
-  fill:none;
-  stroke:rgba(0,0,0,.1);
-  stroke-width:1
+fill:none;
+stroke:rgba(0,0,0,.1);
+stroke-width:1
 }
 .line-chart .y path{
-  stroke:none;
-  fill:none;
-  stroke-width:0
+stroke:none;
+fill:none;
+stroke-width:0
 }
 
 .no-axis path{
-  display: none;
+display: none;
 }
 
 .no-axis text{
-  fill: #f8f9fabd;
+fill: #f8f9fabd;
 }
 
 /* do we need this? */
 .collapse:not(.show) {
-  display: none;
+display: none;
 }
 
 /* this is used for the stories page it's a modifier for page title sections! */
 .bg-dark {
-  background-color: var(--very-dark-blue)!important;
-  color: white;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
+background-color: var(--very-dark-blue)!important;
+color: white;
+-webkit-font-smoothing: antialiased;
+-moz-font-smoothing: antialiased;
+-o-font-smoothing: antialiased;
 }
 
 /* select formating */
 select {
-  width: 100%;
-  height:2rem;
-  padding-right: 2.4rem;
-  padding-left: 2.4rem;
-  border: .1rem solid #c4cdd5;
-  border-radius: .6rem;
-  line-height: 4.8rem;
-  font-size: .875rem;
-  color: #161d25;
-  background-color: #fff;
-  box-shadow: inset 0 0 0 0.2rem rgba(92,106,196,0), inset 0 0.1rem 0.2rem 0 rgba(99,115,129,.2);
-  transition-property: border-color,box-shadow;
-  transition-duration: .24s;
-  transition-timing-function: cubic-bezier(.64,0,.35,1);
+width: 100%;
+height:2rem;
+padding-right: 2.4rem;
+padding-left: 2.4rem;
+border: .1rem solid #c4cdd5;
+border-radius: .6rem;
+line-height: 4.8rem;
+font-size: .875rem;
+color: #161d25;
+background-color: #fff;
+box-shadow: inset 0 0 0 0.2rem rgba(92,106,196,0), inset 0 0.1rem 0.2rem 0 rgba(99,115,129,.2);
+transition-property: border-color,box-shadow;
+transition-duration: .24s;
+transition-timing-function: cubic-bezier(.64,0,.35,1);
 }
 
 select:hover:not([disabled]) {
-  border-color: transparent;
-  box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
+border-color: transparent;
+box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
 }
 
 /* charts styles */
 
 .titleX, .titleY{
-  font-size: 1.25rem;
+font-size: 1.25rem;
 }
 
 .legendText{
-  font-size: .75rem;
+font-size: .75rem;
 }
 
 .legendRect{
-  width: 20px;
-  height: 20px;
+width: 20px;
+height: 20px;
 }
+
+.nav-link{
+padding-right: 0;
+float: left;
+font-weight: 600;
+}
+
+.nav-link-ptitle{
+padding-left: 5px;
+color: var(--vivid-cyan);
+}
+
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
-  .collape {
-    transition: none;
-  }
+.collape {
+  transition: none;
+}
 }

@@ -1,4 +1,4 @@
-mixin navbar(classes, href, navTitle)
+mixin navbar(classes, href, navTitle, pageTitle)
   - var style = (typeof style === 'undefined') ? "default" : style
   - var href = (typeof style === 'undefined') ? "#" : href
   nav( role="navigation", class=classes )
@@ -6,3 +6,5 @@ mixin navbar(classes, href, navTitle)
       .navbar-brand.mx-auto 
         a.nav-link(href=href) 
           =navTitle
+        span.nav-link.nav-link-ptitle : 
+          =pageTitle 

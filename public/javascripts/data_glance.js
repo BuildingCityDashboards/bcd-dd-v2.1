@@ -398,7 +398,7 @@ class GroupedBarChart{
             .attr("text-anchor", "end")
             .attr("class", "label")
             .attr("fill", "#16c1f3")
-            .text(dv.titleX === "€" ? dv.data[last].date + " : " + dv.titleX + dv.data[last][dv.keys[0]] :
+            .text(dv.titleX === "€" ? dv.data[last].date + " : " + dv.titleX + d3.format(",")(dv.data[last][dv.keys[0]]) :
                   dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " " + dv.titleX);
     
         dv.update();
