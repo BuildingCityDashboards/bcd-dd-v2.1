@@ -22,18 +22,19 @@ class BarChart{
         let elementNode = d3.select(dv.element).node();
         let elementWidth = elementNode.getBoundingClientRect().width; 
         let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+
+        const breakPoint = 678;
         
         // margin
         dv.margin = { 
-            top: 50, 
-            right: 100, 
-            bottom: 80, 
-            left: 80
+            top: 50,
+            bottom: 80
         };
 
-        // dimension settings - need to adjust these based on parent size
-        // let height = 500 - dv.margin.top - dv.margin.bottom;
-        // let width = 900 -dv.margin.left -dv.margin.right;
+        dv.margin.right = elementWidth < breakPoint ? 0 : 100;
+        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
+
+        console.log(dv.margin);
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
