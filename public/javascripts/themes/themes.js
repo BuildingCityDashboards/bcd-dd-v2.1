@@ -287,13 +287,13 @@ function dataSets (data, columns){
         .text("Q2 2017 : " + lastValue[unempValue] + "%");
 
 
-    const size = dublinAnnualRate.length;   
-    const lValue = dublinAnnualRate[size-1];
-    const lValue2 = irelandAnnualRate[size-1];
+    const size = dublinAnnualRate.length,   
+          lValue = dublinAnnualRate[size-1],
+          lValue2 = irelandAnnualRate[size-1];
         
     // setting the line values range
-    let x2 = d3.scaleLinear().range([0, w-5]);
-    let y2 = d3.scaleLinear().range([h, 0]);
+    let x2 = d3.scaleLinear().range([0, w-5]),
+        y2 = d3.scaleLinear().range([h, 0]);
         
     // setup the line chart
     let valuelineRate = d3.line()

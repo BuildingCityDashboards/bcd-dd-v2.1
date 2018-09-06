@@ -27,7 +27,7 @@ class MultiLineChart{
             bottom: 80
         };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 100;
+        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
         dv.margin.left = elementWidth < breakPoint ? 0 : 80;
 
         console.log(dv.margin);

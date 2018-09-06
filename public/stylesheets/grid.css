@@ -16,12 +16,12 @@
 
 @media (min-width: 576px){
     .container {
-        margin-left:5%;
-        margin-right:5%;
+        margin-left:2.5%;
+        margin-right:2.5%;
         padding-left:12px;
         padding-right:12px;
         /* override bootstrap */
-        width: calc((100% - 10%));
+        width: calc((100% - 5%));
     }
 
     .row {

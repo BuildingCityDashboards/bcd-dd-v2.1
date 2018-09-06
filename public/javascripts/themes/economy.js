@@ -176,7 +176,7 @@
             "%"
         ];
         
-        const employmentCharts = new StackedAreaChart("#chartNew", "Persons aged 15 years and over in Employment (Thousand)", "Euros");
+        const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands");
         
         })// catch any error and log to console
         .catch(function(error){
@@ -192,7 +192,7 @@
         let columnNames = data.columns.slice(1);
         let incomeData = data;
 
-        const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Count");
+        const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
     
     })
     .catch(function(error){
@@ -248,7 +248,7 @@
 
         console.log("the data to use", dataFiltered);
 
-        const disosableIncomeChart = new BarChart( dataFiltered, "#chart-disposable-income", "year", "value", "Median Real Household Disposable Income", "Euros");
+        const disosableIncomeChart = new BarChart( dataFiltered, "#chart-disposable-income", "year", "value", "Years", "€");
         
         // console.log("this should be the bar chart area", disosableIncomeChart);
     })

@@ -27,7 +27,7 @@ class StackBarChart {
             bottom: 80
         };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 100;
+        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
         dv.margin.left = elementWidth < breakPoint ? 0 : 80;
 
         console.log(dv.margin);
@@ -48,7 +48,7 @@ class StackBarChart {
 
         // stack function
         dv.stack = d3.stack().keys(dv.columns);
-        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8","#003d68"];
+        dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
 
         // set colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
