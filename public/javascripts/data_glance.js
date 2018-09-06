@@ -31,6 +31,8 @@ Promise.all([
 
     const empValue = columnNames1[1];
     const unempValue = columnNames1[1];
+
+    const xValue = houseCompData.columns[0];
     
     const annualPop = columnNames2[1];
     const annualCat = demographicsData.columns[0];
@@ -69,6 +71,11 @@ Promise.all([
         return d.category === "Both Sexes";
     });
 
+
+    // charts setup here
+
+    const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, "#hc-glance", "title 1", "title2");
+   
     // const dublinData = DublinOnly.filter( d => {
     //     return d.quarter >= new Date("Tue Jan 01 2013 00:00:00");
     // });
@@ -213,4 +220,181 @@ class DataGlanceLine{
             .curve(d3.curveBasis);
     }
 
+}
+
+class GroupedBarChart{
+
+    // constructor function
+    constructor (_data, _keys, _xValue, _element, _titleX, _titleY){
+
+        this.data = _data;
+        this.keys = _keys;
+        this.xValue = _xValue;
+        this.element = _element;
+        this.titleX = _titleX;
+        this.titleY = _titleY;
+
+        this.init();
+    }
+
+    // initialise method to draw chart area
+    init(){
+        let dv = this; 
+        let last = dv.data.length -1;
+
+        let eNode = d3.select(dv.element).node();
+        let eWidth = eNode.getBoundingClientRect().width; 
+        
+        // margin
+        dv.m = [20, 10, 25, 10]
+        
+        dv.width = eWidth - dv.m[1] - dv.m[3];
+        dv.height = 120 - dv.m[0] - dv.m[2];
+
+        console.log("values of dimensions", dv.width, dv.height);
+
+        dv.tooltip = d3.select(".page__root")
+            .append('div')  
+            .attr('class', 'tool-tip');  
+
+        // add the svg to the target element
+        const svg = d3.select(dv.element)
+            .append("svg")
+            .attr("width", dv.width + dv.m[1] + dv.m[3])
+            .attr("height", dv.height + dv.m[0] + dv.m[2]);
+       
+        // add the g to the svg and transform by top and left margin
+        dv.g = svg.append("g")
+            .attr("transform", "translate(" + dv.m[3] + "," + "10" + ")");
+    
+        // transition 
+        dv.t = () => { return d3.transition().duration(1000); }
+    
+        dv.colourScheme = ["#aae0fa","#00929e","#16c1f3","#16c1f3","#da1e4d","#086fb8","#16c1f3"];
+
+        // set colour function
+        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+
+        dv.x0 = d3.scaleBand()
+            .range([0, dv.width])
+            .padding(0.05);
+
+        dv.x1 = d3.scaleBand()
+            .paddingInner(0.1);
+    
+        dv.y = d3.scaleLinear()
+            .range([dv.height, 0]);
+
+        // dv.xAxisCall = d3.axisBottom()
+        // .tickSize(0);
+
+        // dv.xAxis = dv.g.append("g")
+        //     .attr("class", "no-axis x-axis")
+        //     .attr("transform", "translate(0," + (dv.height + 10) +")");
+    
+        // Start Month
+        dv.g.append("text")
+            .attr("class", "label")
+            .attr("x", 0)
+            .attr("y", dv.height + 30)
+            .attr("text-anchor", "start")
+            .attr("fill", "#f8f9fabd")
+            .text(dv.data[0].date);
+    
+        // Last Month
+        dv.g.append("text")
+            .attr("class", "label")
+            .attr("x", dv.width)
+            .attr("y", dv.height + 30)
+            .attr("text-anchor", "end")
+            .attr("fill", "#f8f9fabd")
+            .text(dv.data[last].date);
+        
+        // Title 
+        dv.g.append("text")
+            .attr("dx", 0)
+            .attr("dy", 2)
+            .attr("class", "label")
+            .attr("fill", "#16c1f3")
+            .text(dv.keys[0]);
+        // Last Month Value in Units
+        dv.g.append("text")
+            .attr("x", dv.width)
+            .attr("y", 2)
+            .attr("text-anchor", "end")
+            .attr("class", "label")
+            .attr("fill", "#16c1f3")
+            .text(dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " units");
+    
+        dv.update();
+    
+    }
+    
+    update(){
+        let dv = this;
+
+        // Update scales
+        console.log("grouped bar chart data", dv.data);
+        dv.x0.domain(dv.data.map(d => { return d[dv.xValue]; }));
+        dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
+        dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
+
+        // Update axes
+        // dv.xAxisCall.scale(dv.x0);
+        // dv.xAxis.call(dv.xAxisCall);
+        
+        // dv.yAxisCall.scale(dv.y);
+        // dv.yAxis.call(dv.yAxisCall);
+
+        // join new data with old elements.
+        dv.rects = dv.g.append("g")
+            .attr("class","parent")
+            .selectAll("g")
+            .data(dv.data)
+            .enter()
+            .append("g")
+            .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ", 10)"; })
+            .selectAll("rect")
+            .data(d => { return dv.keys.map( key => { 
+                    return {
+                        key: key, 
+                        value: d[key]
+                     }; 
+                }); 
+            })
+            .enter().append("rect")
+            .attr("x", d => { return dv.x1(d.key); })
+            .attr("y", d => { return dv.y(d.value); })
+            .attr("width", dv.x1.bandwidth())
+            .attr("height", d => { return (dv.height - dv.y(d.value)) ; })
+            .attr("rx","2")
+            .attr("ry","2")
+            .attr("fill", "rgba(29, 158, 201, 0.42)")
+            .attr("fill-opacity", ".75");
+
+            d3.select(".parent g:nth-last-child(1) rect")
+                .attr("fill", "#16c1f3");
+        
+        // dv.g.selectAll("rect")
+        //     .on("mouseover", function(){ 
+        //         dv.tooltip.style("display", "inline-block"); 
+        //     })
+        //     .on("mouseout", function(){ 
+        //         dv.tooltip.style("display", "none"); 
+        //     })
+        //     .on("mousemove", function(d){
+        //         let dx  = parseFloat(d3.select(this).attr('x')) + dv.x0.bandwidth() + 100, 
+        //             dy  = parseFloat(d3.select(this).attr('y')) + 10;
+        //         var x = d3.event.pageX, 
+        //             y = d3.event.clientY;
+        //         console.log("mouse positions", x, y);
+
+        //         dv.tooltip
+        //             .style( 'left', (d3.event.pageX+10) + "px" )
+        //             .style( 'top', (d3.event.pageY) + "px" )
+        //             .style( 'display', "inline-block" )
+        //             .text("The value is: " + (d.value)); // what should the value be ?
+        //     });
+    }
+    
 }

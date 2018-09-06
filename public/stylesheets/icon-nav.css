@@ -3,8 +3,8 @@
 .icon-nav__item{
     text-align: center;
     display: block;
-    flex: 0 0 19.666667%;
-    max-width: 19.666667%;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 
 .icon-nav__link{
@@ -91,4 +91,11 @@
 .icon__desc--box p {
     color: #b1b1b1;
     font-size: .875rem;
+}
+
+@media (min-width: 768px){
+    .icon-nav__item{
+        flex: 0 0 19.666667%;
+        max-width: 19.666667%;
+    }
 }

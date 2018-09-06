@@ -54,7 +54,7 @@ a {
   stroke:#16c1f3;
   stroke-width:2
 }
-.line-chart .label{
+.line-chart .label, .no-axis{
   font-size:12px;
   font-weight:500;
 }
@@ -77,6 +77,14 @@ a {
   stroke:none;
   fill:none;
   stroke-width:0
+}
+
+.no-axis path{
+  display: none;
+}
+
+.no-axis text{
+  fill: #f8f9fabd;
 }
 
 /* do we need this? */

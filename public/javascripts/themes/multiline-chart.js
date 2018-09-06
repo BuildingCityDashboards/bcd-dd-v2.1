@@ -192,7 +192,7 @@ class MultiLineChart{
             // .attr("d", function(d) { 
             //     return d.active ? dv.line(d.values) : null; })
             .style("stroke", d => { return dv.colour(d.key); })
-            .style("stroke-width", "2px")
+            .style("stroke-width", "4px")
             .style("fill", "none");  
         
         // dv.regions.transition(dv.t)

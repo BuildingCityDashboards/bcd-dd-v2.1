@@ -514,14 +514,14 @@ d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
         .attr("dx", 0)
         .attr("dy", 105)
         .attr("class", "label yesterday")
-        .attr("fill", "#f8f9fabd")
+        .attr("fill", "rgba(150,150,150,.3)")
         .text("Ireland");
 
     svg.append("text")
         .attr("dx", 150)
         .attr("dy", 105)
         .attr("class", "label employment")
-        .attr("fill", "#f8f9fabd")
+        .attr("fill", "rgba(150,150,150,.3)")
         .text("Q2 2017 : " + lastValue2[empValue] + "%");
 
     svg.append("text")
@@ -541,4 +541,8 @@ d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
 }).catch(function(error){
     console.log(error);
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
 
