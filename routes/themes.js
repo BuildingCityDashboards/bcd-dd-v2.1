@@ -31,6 +31,13 @@ router.get('/education', function(req, res, next) {
   res.render('themes_education', { title: 'Education Page' });
 });
 
+router.get('/environment', function(req, res, next) {
+  res.render('themes_environment', { title: 'Environment Page' });
+});
+
+router.get('/housing', function(req, res, next) {
+  res.render('themes_housing', { title: 'Housing Page' });
+});
 
 /* API csv routes for themes */
 router.get('/api/opw', function(req, res, next) {
