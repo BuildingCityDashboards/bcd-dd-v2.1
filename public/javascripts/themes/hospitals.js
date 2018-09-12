@@ -11,17 +11,16 @@ var nameGroup, specialityGroup, ageGroup, dateGroup, yearGroup, waitGroup, allWa
 
 
 d3.csv("/data/OP_Waiting_Lists_Dublin_Hospitals_2014-2018_2.csv").then(function (opWaitData) {
-    console.log("opWaitData- \n" + opWaitData.length);
+//    console.log("opWaitData- \n" + opWaitData.length);
     processData(opWaitData);
 
 });
-
+var timeParse = d3.timeParse("%d/%m/%Y");
 function processData(opWData) {
     opWData.forEach(function (d) {
 //                    set up useful properties for the data
         d.count = +d.Count; //coorece to a number
 //                    d.dateString = d.ArchiveDate; //date stored as a string
-        var timeParse = d3.timeParse("%d/%m/%Y");
         d.date = timeParse(d.ArchiveDate); // date stored in JS Date format
         d.wait = d["Time Bands"]; //we can add a more standardised property than the raw column names
         d.age = d["AgeProfile"]; //note this adds more fields to the data

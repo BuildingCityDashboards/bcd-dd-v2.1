@@ -34,6 +34,8 @@ map.on('popupopen', function (e) {
 
 let bikeCluster = L.markerClusterGroup();
 let busCluster = L.markerClusterGroup();
+let carparkCluster = L.markerClusterGroup();
+
 let iconAX = 15;  //icon Anchor X
 let iconAY = 15; //icon Anchor Y
 //            Custom map icons
@@ -41,28 +43,107 @@ let dublinBikeMapIcon = L.icon({
     iconUrl: '/images/transport/bicycle-15.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY]//,
-    //popupAnchor: [-3, -76]
+            //popupAnchor: [-3, -76]
 });
-let dublinBusMapIcon = L.icon({
-    iconUrl: '/images/transport/bus-15.svg',
+
+/*
+ * Carparks
+ */
+let carparkMapIcon = L.icon({
+    iconUrl: '/images/transport/parking-garage-15.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY]//,
-    //popupAnchor: [-3, -76]
+            //popupAnchor: [-3, -76]
 });
+
+//create points on map for carparks even if RTI not available
+d3.json("/data/Transport/cpCaps.json").then(function (data) {
+//    let keys = d3.keys(data.carparks);
+//    console.log("carpark data.carparks :" + JSON.stringify(data.carparks[keys[0]]));
+//   
+  processCarparks(data.carparks); //This is not an array?
+});
+
+function processCarparks(data_) {
+    let keys = d3.keys(data_);
+    let carparks = [];
+    console.log("Car Park data \n");
+    //console.log("keys: "+keys);
+    //TODO convert to arrow function/ d3
+    for(let i=0; i< keys.length; i+=1){
+        carparks.push(data_[keys[i]][0]);
+    };
+     carparks.forEach(function (d) {
+        //add a property to act as key for filtering
+        d.type = "Carpark";        
+    });
+    console.log("Car Parks: " + JSON.stringify(carparks));
+    updateMapCarparks(carparks);
+};
+
+function updateMapCarparks(data__) {
+    carparkCluster.clearLayers();
+    map.removeLayer(carparkCluster);
+    _.each(data__, function (d, i) {
+        let marker = L.marker(new L.LatLng(d.lat, d.lon), {icon: carparkMapIcon});
+        marker.bindPopup(getCarparkContent(d));
+        carparkCluster.addLayer(marker);
+//        console.log("getMarkerID: "+marker.optiid);
+    });
+    map.addLayer(carparkCluster);
+}
+function getCarparkContent(d_) {
+    let str = '';
+    if (d_.name) {
+        str += d_.name + '<br>';
+    }
+    if (d_.Totalspaces) {
+        str += 'Capacity is ' + d_.Totalspaces + '<br>';
+    }
+    if(d_.spaces){
+        str+= d_.spaces+' spaces are available';
+    }
+    else{
+        str+= 'We don\'t currently know how many spaces are available';
+    }
+    if (d_.name) {
+        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
+        str += '<br/><button type="button" class="btn btn-primary carparkbutton" data="'
+                + d_.name + '">Check Available Spaces</button>';
+    }
+    ;
+    return str;
+}
+let carparksAvailable =[];
+//CORS error on dev- use URL in production
+//d3.xml("http://www.dublincity.ie/dublintraffic/carparks.xml").then(function (data) {
+d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
+    //TODO: convert to arrow function + d3
+    for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+//        console.log("Name: " + xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name")
+//                + "\tspaces: " + xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces"));
+        let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+        let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+        carparksAvailable.push({"name": name,
+            "spaces": spaces
+        });
+    }
+//    processCarparksStatic(data);
+    console.log("carparks available: " + JSON.stringify(carparksAvailable));
+});
+
+/*
+ * Bikes
+ */
 
 d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb899283cf1b42a97fc627eb7682ae8ff7d").then(function (data) {
     //console.log(data[0]);
     processBikes(data);
 });
 
-d3.json("/data/Travel/busstopinformation_bac.json").then(function (data) {
-    console.log(data.results[0]);
-    processBusStops(data.results); //TODO: bottleneck?
-});
-
 function processBikes(data_) {
 
-    console.log("Bike data \n");
+    //console.log("Bike data \n");
     data_.forEach(function (d) {
         d.lat = +d.position.lat;
         d.lng = +d.position.lng;
@@ -70,13 +151,63 @@ function processBikes(data_) {
         d.type = "Dublin Bike Station";
 
     });
-    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-
-    console.log("# of bike stations is " + data_.length + "\n"); // +
+//    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
+//    console.log("# of bike stations is " + data_.length + "\n"); // +
     updateMapBikes(data_);
 //        allHealthCenters = allHealthCenters.concat(d); //need to concat to add each new array element
 }
 ;
+function updateMapBikes(data__) {
+    bikeCluster.clearLayers();
+    map.removeLayer(bikeCluster);
+    _.each(data__, function (d, i) {
+        bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
+                .bindPopup(getBikeContent(d)));
+    });
+    map.addLayer(bikeCluster);
+}
+
+//arg is object
+function getBikeContent(d_) {
+    let str = '';
+    if (d_.name) {
+        str += d_.name + '<br>';
+    }
+    if (d_.type) {
+        str += d_.type + '<br>';
+    }
+//    if (d_.address && d_.address !== d_.name) {
+//        str += d_.address + '<br>';
+//    }
+    if (d_.available_bikes) {
+        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
+    }
+    if (d_.available_bike_stands) {
+        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
+    }
+
+    if (d_.last_update) {
+        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
+    }
+    return str;
+}
+
+/*
+ * Bus Stops
+ */
+
+let dublinBusMapIcon = L.icon({
+    iconUrl: '/images/transport/bus-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY]//,
+            //popupAnchor: [-3, -76]
+});
+
+d3.json("/data/Transport/busstopinformation_bac.json").then(function (data) {
+//    console.log("data.results[0]" + JSON.stringify(data.results[0]));
+    processBusStops(data.results); //TODO: bottleneck?
+});
+
 
 function processBusStops(res_) {
     console.log("Bus data \n");
@@ -91,18 +222,8 @@ function processBusStops(res_) {
 //    console.log("# of bus stops is " + res_.length + "\n"); // +
     updateMapBuses(res_);
 //        allHealthCenters = allHealthCenters.concat(d); //need to concat to add each new array element
-};
-
-function updateMapBikes(data__) {
-    bikeCluster.clearLayers();
-    map.removeLayer(bikeCluster);
-    _.each(data__, function (d, i) {
-        bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
-                .bindPopup(getBikeContent(d)));
-    });
-    map.addLayer(bikeCluster);
 }
-
+;
 function updateMapBuses(data__) {
     busCluster.clearLayers();
     map.removeLayer(busCluster);
@@ -113,30 +234,6 @@ function updateMapBuses(data__) {
 //        console.log("getMarkerID: "+marker.optiid);
     });
     map.addLayer(busCluster);
-}
-//arg is object
-function getBikeContent(d_) {
-    let str = '';
-    if (d_.name) {
-        str += d_.name + '<br>';
-    }
-    if (d_.type) {
-        str += d_.type + '<br>';
-    }
-//    if (d_.address && d_.address !== d_.name) {
-//        str += d_.address + '<br>';
-//    }
-    if (d_.available_bikes) {
-        str += '<br><b>'+d_.available_bikes+'</b>'+' bikes are available<br>';
-    }
-    if (d_.available_bike_stands) {
-        str += '<b>'+d_.available_bike_stands+'</b>'+' stands are available<br>';
-    }
-    
-    if (d_.last_update) {
-        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
-    }
-    return str;
 }
 
 
@@ -157,7 +254,7 @@ function getBusContent(d_) {
         str += '<br>';
     }
     if (d_.address && d_.address !== d_.name) {
-            str += d_.address + '<br>';
+        str += d_.address + '<br>';
     }
     if (d_.stopid) {
         //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
@@ -183,15 +280,15 @@ function displayRTPI(sid_) {
                     _.each(data.results, function (d, i) {
                         //console.log(d.route + " Due: " + d.duetime + "");
                         //only return n results
-                        if(i<=7){
-                        rtpi += "<br><b>" + d.route +"</b> "+d.direction + " to " + d.destination;
-                        if (d.duetime === "Due") {
-                            rtpi += "  <b>" + d.duetime+ "</b>";
-                        } else {
-                            rtpi += "  <b>" + d.duetime + " mins</b>";
+                        if (i <= 7) {
+                            rtpi += "<br><b>" + d.route + "</b> " + d.direction + " to " + d.destination;
+                            if (d.duetime === "Due") {
+                                rtpi += "  <b>" + d.duetime + "</b>";
+                            } else {
+                                rtpi += "  <b>" + d.duetime + " mins</b>";
+                            }
                         }
-                    }
-                        
+
                     });
                 } else {
                     //console.log("No RTPI data available");

@@ -11,4 +11,11 @@
         margin: 20px;
 }
 
+#chart-scats {
+        /*height: inherit;*/
+        height: 500px;
+        width: 100%;
+        margin: 20px;
+}
+
 
