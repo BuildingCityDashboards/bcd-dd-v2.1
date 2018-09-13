@@ -121,39 +121,59 @@ function getCarparkContent(d_, k_) {
 //Handle button in map popup and get carpark data
 function displayCarpark(k_) {
     //CORS error on dev- use URL in production
-    d3.xml("https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
-//    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
-   
-//        if (error) {
-//            console.log("error retrieving data");
-//            return;
+    fetch("https://www.dublincity.ie/dublintraffic/cpdata.xml",
+            {
+                method: "GET", // *GET, POST, PUT, DELETE, etc.
+                mode: "no-cors", // no-cors, cors, *same-origin
+                headers: {
+                    Accept: 'text/xml',
+                },
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Here's a list of repos!
+                console.log("fetch success: " + data);
+            })
+            .catch(function (error) {
+
+                console.log("fetch error: " + error);
+                // If there is any error you will catch them here
+            });
+
+
+//    d3.xml("https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
+////    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
+//
+////        if (error) {
+////            console.log("error retrieving data");
+////            return;
+////        }
+//        //TODO: convert to arrow function + d3
+//        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
+//        console.log("timestamp :" + timestamp);
+//        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+//            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+//            if (name === k_) {
+//                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+////                console.log("found:"+name+" spaces: "+spaces+"marker"
+////                        +markerRef.getPopup().getContent());
+//                if (spaces !== ' ') {
+//                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+//                            + '<br><br> Free spaces: '
+//                            + spaces
+//                            + '<br> Last updated: '
+//                            + timestamp
+//                            );
+//                } else {
+//                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+//                            + '<br><br> No information on free spaces available'
+//                            + '<br> Last updated: '
+//                            + timestamp
+//                            );
+//                }
+//            }
 //        }
-        //TODO: convert to arrow function + d3
-        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-        console.log("timestamp :" + timestamp);
-        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-            if (name === k_) {
-                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-//                console.log("found:"+name+" spaces: "+spaces+"marker"
-//                        +markerRef.getPopup().getContent());
-                if (spaces !== ' ') {
-                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
-                            + '<br><br> Free spaces: '
-                            + spaces
-                            + '<br> Last updated: '
-                            + timestamp
-                            );
-                } else {
-                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
-                            + '<br><br> No information on free spaces available'
-                            + '<br> Last updated: '
-                            + timestamp
-                            );
-                }
-            }
-        }
-    });
+//    });
 }
 let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using underscore
 
