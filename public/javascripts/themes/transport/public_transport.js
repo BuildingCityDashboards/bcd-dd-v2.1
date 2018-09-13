@@ -60,39 +60,48 @@ let carparkMapIcon = L.icon({
 d3.json("/data/Transport/cpCaps.json").then(function (data) {
 //    let keys = d3.keys(data.carparks);
 //    console.log("carpark data.carparks :" + JSON.stringify(data.carparks[keys[0]]));
-//   
-  processCarparks(data.carparks); //This is not an array?
+    console.log("data.carparks :" + JSON.stringify(data.carparks));
+
+    updateMapCarparks(data.carparks);
 });
 
-function processCarparks(data_) {
-    let keys = d3.keys(data_);
-    let carparks = [];
-    console.log("Car Park data \n");
-    //console.log("keys: "+keys);
-    //TODO convert to arrow function/ d3
-    for(let i=0; i< keys.length; i+=1){
-        carparks.push(data_[keys[i]][0]);
-    };
-     carparks.forEach(function (d) {
-        //add a property to act as key for filtering
-        d.type = "Carpark";        
-    });
-    console.log("Car Parks: " + JSON.stringify(carparks));
-    updateMapCarparks(carparks);
-};
+//function processCarparks(data_) {
+//    let keys = d3.keys(data_);
+////    let carparks = [];
+////    console.log("Car Park data \n");
+////    console.log("keys: "+keys);
+//    
+//    //TODO convert to arrow function/ d3
+////    for (let i = 0; i < keys.length; i += 1) {
+////        carparks.push(data_[keys[i]]);
+////        console.log("push: " + JSON.stringify(data_[keys[i]]));
+////    }
+////    ;
+//    data_.forEach(function (d, i) {
+//        d.id = d.keys[i];        
+//    });
+//    console.log("Car Parks [key]: " + JSON.stringify(data_["PARNELL"]));
+//    updateMapCarparks(data_);
+//    
+//};
+
 
 function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
     map.removeLayer(carparkCluster);
-    _.each(data__, function (d, i) {
-        let marker = L.marker(new L.LatLng(d.lat, d.lon), {icon: carparkMapIcon});
-        marker.bindPopup(getCarparkContent(d));
+    let keys = d3.keys(data__);
+    console.log("keys: " + keys);
+    _.each(data__, function (d, k) {
+        console.log("d: " + JSON.stringify(d) + "key: " + k);
+        let marker = L.marker(new L.LatLng(d[0].lat, d[0].lon), {icon: carparkMapIcon});
+        marker.bindPopup(getCarparkContent(d[0], k));
         carparkCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
     map.addLayer(carparkCluster);
 }
-function getCarparkContent(d_) {
+
+function getCarparkContent(d_, k_) {
     let str = '';
     if (d_.name) {
         str += d_.name + '<br>';
@@ -100,41 +109,63 @@ function getCarparkContent(d_) {
     if (d_.Totalspaces) {
         str += 'Capacity is ' + d_.Totalspaces + '<br>';
     }
-    if(d_.spaces){
-        str+= d_.spaces+' spaces are available';
-    }
-    else{
-        str+= 'We don\'t currently know how many spaces are available';
-    }
     if (d_.name) {
         //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
         str += '<br/><button type="button" class="btn btn-primary carparkbutton" data="'
-                + d_.name + '">Check Available Spaces</button>';
+                + k_ + '">Check Available Spaces</button>';
     }
     ;
     return str;
 }
-let carparksAvailable =[];
-//CORS error on dev- use URL in production
-//d3.xml("http://www.dublincity.ie/dublintraffic/carparks.xml").then(function (data) {
-d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
-    //TODO: convert to arrow function + d3
-    for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-//        console.log("Name: " + xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name")
-//                + "\tspaces: " + xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces"));
-        let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-        let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-        carparksAvailable.push({"name": name,
-            "spaces": spaces
-        });
-    }
-//    processCarparksStatic(data);
-    console.log("carparks available: " + JSON.stringify(carparksAvailable));
+
+//Handle button in map popup and get carpark data
+function displayCarpark(k_) {
+    //CORS error on dev- use URL in production
+    d3.xml("http://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
+//    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
+   
+//        if (error) {
+//            console.log("error retrieving data");
+//            return;
+//        }
+        //TODO: convert to arrow function + d3
+        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
+        console.log("timestamp :" + timestamp);
+        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+            if (name === k_) {
+                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+//                console.log("found:"+name+" spaces: "+spaces+"marker"
+//                        +markerRef.getPopup().getContent());
+                if (spaces !== ' ') {
+                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+                            + '<br><br> Free spaces: '
+                            + spaces
+                            + '<br> Last updated: '
+                            + timestamp
+                            );
+                } else {
+                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+                            + '<br><br> No information on free spaces available'
+                            + '<br> Last updated: '
+                            + timestamp
+                            );
+                }
+            }
+        }
+    });
+}
+let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using underscore
+
+//TODO: replace jQ w/ d3 version
+$("div").on('click', '.carparkbutton', function () {
+    displayCarparkBounced($(this).attr("data"));
 });
 
-/*
+
+/************************************
  * Bikes
- */
+ ************************************/
 
 d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb899283cf1b42a97fc627eb7682ae8ff7d").then(function (data) {
     //console.log(data[0]);
@@ -221,7 +252,6 @@ function processBusStops(res_) {
 //    console.log("Bus Stop: \n" + JSON.stringify(res_[0]));
 //    console.log("# of bus stops is " + res_.length + "\n"); // +
     updateMapBuses(res_);
-//        allHealthCenters = allHealthCenters.concat(d); //need to concat to add each new array element
 }
 ;
 function updateMapBuses(data__) {
