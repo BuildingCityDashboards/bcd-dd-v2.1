@@ -40,13 +40,18 @@ let waterLevelMapIcon = L.icon({
             //popupAnchor: [-3, -76]
 });
 
-proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
-//Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
-proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
-proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
+//
+proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
++x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
+////Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 
+////+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
+//proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 \n\
+//+y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
+//proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 \n\
+//+x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
 
-const firstProjection = "EPSG:3857";
-const secondProjection = "EPSG:4326";
+var firstProjection = "EPSG:29902";
+var secondProjection = "EPSG:4326";
 
 
 /************************************
@@ -118,26 +123,15 @@ d3.csv("/data/Environment/Register of Hydrometric Stations in Ireland 2017_Dubli
 
 function processHydronet(data_) {
 
-//    let carparks = [];
-//    console.log("Car Park data \n");
-//    console.log("keys: "+keys);
-
-    //TODO convert to arrow function/ d3
-//    for (let i = 0; i < keys.length; i += 1) {
-//        carparks.push(data_[keys[i]]);
-//        console.log("push: " + JSON.stringify(data_[keys[i]]));
-//    }
-//    ;
     data_.forEach(function (d, i) {
         
-        var result = proj4(firstProjection, secondProjection,
-                [+d["EASTING"], +d["NORTHING"]]);
-        d.lat = result[0];
-        d.lng = result[1];
-        
-        console.log("d.x: " + d.lat);
+        let result = proj4(firstProjection, secondProjection, 
+                [+d["EASTING"],+d["NORTHING"]]);
+        d.lat = result[1];
+        d.lng = result[0];
+//        console.log("d: " + d["EASTING"]+" | "+d["NORTHING"]);
+//        console.log("dlat " + d.lat+" | dlng "+d.lng);
     });
-
     updateMapHydronet(data_);
 
 }
@@ -151,18 +145,18 @@ function updateMapHydronet(data__) {
 //    console.log("keys: " + keys);
     _.each(data__, function (d, k) {
 //        console.log("d: " + JSON.stringify(d) + "key: " + k);
-        let marker = L.marker(new L.LatLng(d[0].lat, d[0].lon), {icon: waterLevelIcon});
-        marker.bindPopup(getCarparkContent(d[0], k));
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: waterLevelMapIcon});
+        marker.bindPopup(getHydronetContent(d, k));
         hydronetCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
     map.addLayer(hydronetCluster);
 }
 
-function getCarparkContent(d_, k_) {
+function getHydronetContent(d_, k_) {
     let str = '';
-    if (d_.name) {
-        str += d_.name + '<br>';
+    if (d_["Station Name"]) {
+        str += d_["Station Name"] + '<br>';
     }
     if (d_.Totalspaces) {
         str += 'Capacity is ' + d_.Totalspaces + '<br>';
