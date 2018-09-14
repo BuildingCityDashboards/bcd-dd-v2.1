@@ -141,39 +141,39 @@ function displayCarpark(k_) {
             });
 
 
-//    d3.xml("https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
-////    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
-//
-////        if (error) {
-////            console.log("error retrieving data");
-////            return;
-////        }
-//        //TODO: convert to arrow function + d3
-//        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-//        console.log("timestamp :" + timestamp);
-//        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-//            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-//            if (name === k_) {
-//                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-////                console.log("found:"+name+" spaces: "+spaces+"marker"
-////                        +markerRef.getPopup().getContent());
-//                if (spaces !== ' ') {
-//                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
-//                            + '<br><br> Free spaces: '
-//                            + spaces
-//                            + '<br> Last updated: '
-//                            + timestamp
-//                            );
-//                } else {
-//                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
-//                            + '<br><br> No information on free spaces available'
-//                            + '<br> Last updated: '
-//                            + timestamp
-//                            );
-//                }
-//            }
+    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
+//    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
+
+//        if (error) {
+//            console.log("error retrieving data");
+//            return;
 //        }
-//    });
+        //TODO: convert to arrow function + d3
+        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
+        console.log("timestamp :" + timestamp);
+        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+            if (name === k_) {
+                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+//                console.log("found:"+name+" spaces: "+spaces+"marker"
+//                        +markerRef.getPopup().getContent());
+                if (spaces !== ' ') {
+                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+                            + '<br><br> Free spaces: '
+                            + spaces
+                            + '<br> Last updated: '
+                            + timestamp
+                            );
+                } else {
+                    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+                            + '<br><br> No information on free spaces available'
+                            + '<br> Last updated: '
+                            + timestamp
+                            );
+                }
+            }
+        }
+    });
 }
 let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using underscore
 
