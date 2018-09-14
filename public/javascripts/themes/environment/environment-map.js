@@ -136,8 +136,6 @@ function processHydronet(data_) {
 
 }
 ;
-
-
 function updateMapHydronet(data__) {
     hydronetCluster.clearLayers();
     map.removeLayer(hydronetCluster);
