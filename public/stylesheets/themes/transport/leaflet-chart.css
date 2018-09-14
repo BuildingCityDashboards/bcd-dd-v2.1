@@ -2,8 +2,6 @@
     Author     : Liam
 */
 
-
-
 #chart-public-transport {
         /*height: inherit;*/
         height: 500px;
@@ -12,6 +10,13 @@
 }
 
 #chart-scats {
+        /*height: inherit;*/
+        height: 500px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-environment-map   {
         /*height: inherit;*/
         height: 500px;
         width: 100%;
