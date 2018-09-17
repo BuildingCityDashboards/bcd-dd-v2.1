@@ -31,7 +31,6 @@ map.on('popupopen', function (e) {
     //console.log("ref: "+JSON.stringify(e));
 });
 
-
 let bikeCluster = L.markerClusterGroup();
 let busCluster = L.markerClusterGroup();
 let carparkCluster = L.markerClusterGroup();
@@ -61,9 +60,6 @@ d3.json("/data/Transport/cpCaps.json").then(function (data) {
     console.log("data.carparks :" + JSON.stringify(data.carparks));
     updateMapCarparks(data.carparks);
 });
-
-
-
 
 function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
