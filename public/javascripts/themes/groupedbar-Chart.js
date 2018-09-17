@@ -176,15 +176,24 @@ class GroupedBarChart{
             .on("mousemove", function(d){
                 let dx  = parseFloat(d3.select(this).attr('x')) + dv.x0.bandwidth() + 100, 
                     dy  = parseFloat(d3.select(this).attr('y')) + 10;
-                var x = d3.event.pageX, 
-                    y = d3.event.clientY;
-                console.log("mouse positions", x, y);
+                let x = d3.event.pageX, 
+                    y = d3.event.clientY,
+                    fill = d3.select(this).style("fill");
 
                 dv.tooltip
                     .style( 'left', (d3.event.pageX+10) + "px" )
                     .style( 'top', (d3.event.pageY) + "px" )
                     .style( 'display', "inline-block" )
                     .text("The value is: " + (d.value)); // what should the value be ?
+                
+                dv.tooltip.append("div")
+                    .attr("class", "tip-box")
+                    .style("background", fill)
+                    .style("opacity", 0.75)
+                    .style("width", "18px")
+                    .style("height", "18px")
+                    .style("margin-right", "5px")
+                    .style("float", "left");
             });
 
         dv.addLegend();
@@ -232,3 +241,32 @@ class GroupedBarChart{
     }
     
 }
+
+let tooltipOffset = {
+    y: -55,
+    x: 0
+}
+
+function getTooltipPosition([mouseX, mouseY]){
+    let tooltipX, tooltipY;
+
+    // show tooltip to the right
+    if ((mouseX - 250) < 0) {
+        // Tooltip on the right
+        tooltipX = 250 - 185;
+    } else {
+        // Tooltip on the left
+        tooltipX = -205
+    }
+
+    if (mouseY) {
+        tooltipY = tooltipOffset.y;
+        // tooltipY = mouseY + tooltipOffset.y;
+    } else {
+        tooltipY = tooltipOffset.y;
+    }
+
+    return [tooltipX, tooltipY];
+}
+
+console.log("mouse position test", getTooltipPosition([300, 300]));

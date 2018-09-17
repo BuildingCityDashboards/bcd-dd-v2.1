@@ -293,6 +293,11 @@ class DataGlanceLine{
             .curve(d3.curveBasis);
     }
 
+    drawArea(){}
+    setAxis(){}
+    getData(){}
+
+
 }
 
 class GroupedBarChart{
@@ -474,3 +479,8 @@ class GroupedBarChart{
     }
     
 }
+
+
+d3.xml("https://www.dublincity.ie/dublintraffic/cpdata.xml", {crossOrigin: "*"}).then(function (xmlDoc){
+    console.log("test data", xmlDoc);
+})

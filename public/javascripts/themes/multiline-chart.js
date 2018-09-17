@@ -163,7 +163,7 @@ class MultiLineChart{
             })
             .y( d => { //this works
                 return dv.y(d[dv.value]); 
-            });
+            }).curve(d3.curveCatmullRom);
             // .curve(d3.curveBasis);
 
         // Adapted from the tooltip based on the example in the d3 Book
@@ -206,9 +206,23 @@ class MultiLineChart{
     }
 
     addTooltip(){
+
+        //build container and add to chart
+        //draw tooltip
+        // format data
+        //get position
+        //get values
+        // reset function?
+        // update Content function
+        // update position and size
+        // update title
+        // date formatter or format before?
+        // helper text wrap
+
         let dv = this;
-                // add group to contain all the focus elements
-                let focus = dv.g.append("g")
+
+        // add group to contain all the focus elements
+        let focus = dv.g.append("g")
                 .attr("class", "focus")
                 .style("display", "none");
             
@@ -223,10 +237,46 @@ class MultiLineChart{
                 .attr("class", "focus_line")
                 .attr("y1", 0)
                 .attr("y2", dv.height);
+
+        let bcdTooltip = focus.append("g")
+                .attr("class", "bcd-tooltip")
+                .attr("width", "250")
+                .attr("height", "45");
+            
+        let toolGroup =  bcdTooltip.append("g")
+                .attr("class", "tooltip-group");
+            
+            toolGroup.append("rect")
+                .attr("class", "tooltip-container")
+                .attr("width", "250")
+                .attr("height", "45")
+                .attr("rx", "3")
+                .attr("ry", "3")
+                .attr("fill","#ffffff")
+                .attr("stroke", "#16c1f3")
+                .attr("stroke-width", "1");
+
+            toolGroup.append("text")
+                .text("test tooltip")
+                .attr("x", "5")
+                .attr("y", "16")
+                .attr("dy", ".35rem")
+                .style("fill", "rgb(109, 113, 122)");
+
+            toolGroup.append("line")
+                .attr("x1","5")
+                .attr("x2","240")
+                .attr("y1","31")
+                .attr("y2","31")
+                .style("stroke", "#16c1f3");
+
+        let tooltipBody = toolGroup.append("g")
+            .attr("class", "tooltip-body")
+            .style("transform", "translateY(8px)");
             
             // attach group append circle and text for each region
             dv.keys.forEach( (d,i) => {
-                let tooltip = focus.append("g")
+            let tooltip = focus.append("g")
                     .attr("class", "tooltip_" + i);
     
                 tooltip.append("circle")
@@ -239,6 +289,21 @@ class MultiLineChart{
                 tooltip.append("text")
                     .attr("x", 9)
                     .attr("dy", ".35em");
+
+            let tooltipBodyItem = tooltipBody.append("g")
+                    .attr("class", "tooltipbody_" + i);
+
+                tooltipBodyItem.append("text")
+                    .attr("class", "tp-text-left")
+                    .attr("x", "0")
+                    .attr( "dy","1em");
+
+                tooltipBodyItem.append("text")
+                    .attr("class", "tp-text-right");
+
+                tooltipBodyItem.append("circle")
+                    .attr("class", "tp-circle")
+                    .attr("r", "5");
     
             });
     
@@ -253,17 +318,15 @@ class MultiLineChart{
                 .on("mouseover", () => { focus.style("display", null); })
                 .on("mouseout", () => { focus.style("display", "none"); })
                 .on("mousemove", mousemove);
-    
-                // console.log("this is the width at the focus overlay", dv.width);
-    
+            
             function mousemove(){
-                focus.style("visibility","visible")
+                focus.style("visibility","visible");
                 let mouse = d3.mouse(this);
     
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
                     let x0 = dv.x.invert(mouse[0]),
-                    i = dv.bisectDate(reg.values, x0, 1),
+                    i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d;  
@@ -271,14 +334,21 @@ class MultiLineChart{
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     
                     let id = ".tooltip_" + idx;
-                    console.log("tool tip to select #",id);
-    
-                    let tooltip = d3.select(dv.element).select(id); 
+                    let tpId = ".tooltipbody_" + idx;
+
+                    let tooltip = d3.select(dv.element).select(id);
+                    let tooltipBody = d3.select(dv.element).select(tpId); 
+                        tooltipBody.attr("transform", "translate(0," + idx * 40 + ")");
                     
                     if(d !== undefined){
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
-    
                         tooltip.select("text").text(d[dv.value]);
+
+                        // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
+                        tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
+                        tooltipBody.select(".tp-text-right").text(d[dv.value]);
+                        console.log("this is the data item", d);
+
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
                 });
@@ -295,7 +365,7 @@ class MultiLineChart{
 
         // create legend array, this needs to come from the data.
         
-        let legendArray = []
+        let legendArray = [];
         
         dv.keys.forEach( (d,i) => {
 
@@ -322,7 +392,7 @@ class MultiLineChart{
         // console.log(legendArray);
 
         // get data and enter onto the legend group
-        var legend = legend.selectAll(".legend")
+        var legends = legend.selectAll(".legend")
             .data(legendArray)
             .enter().append("g")
             .attr("class", "legend")
@@ -339,7 +409,7 @@ class MultiLineChart{
         
         // console.log("width at the legend draw", dv.width);
         // add legend boxes    
-        legend.append("rect")
+        legends.append("rect")
             .attr("class", "legendRect")
             .attr("x", dv.width + 25)
             .attr("width", 25)
@@ -347,7 +417,7 @@ class MultiLineChart{
             .attr("fill", d => { return d.colour; })
             .attr("fill-opacity", 0.75);
 
-        legend.append("text")
+        legends.append("text")
             .attr("class", "legendText")
             .attr("x", dv.width + 60)
             .attr("y", 12)
@@ -355,7 +425,6 @@ class MultiLineChart{
             .attr("text-anchor", "start")
             .text(d => { return d.label; }); 
     }
-
 
             // // taking from the d3 book
             // .on("click", d => {
@@ -399,4 +468,84 @@ class MultiLineChart{
     //     });
     // }
 
+    // textWrap(text, width, xpos = 0) {
+    //     text.each(function() {
+    //         let words,
+    //             word,
+    //             line,
+    //             lineNumber,
+    //             lineHeight,
+    //             y,
+    //             dy,
+    //             tspan;
+
+    //         text = d3Selection.select(this);
+
+    //         words = text.text().split(/\s+/).reverse();
+    //         line = [];
+    //         lineNumber = 0;
+    //         lineHeight = 1.2;
+    //         y = text.attr('y');
+    //         dy = parseFloat(text.attr('dy'));
+    //         tspan = text
+    //             .text(null)
+    //             .append('tspan')
+    //             .attr('x', xpos)
+    //             .attr('y', y)
+    //             .attr('dy', dy + 'em');
+
+    //         while ((word = words.pop())) {
+    //             line.push(word);
+    //             tspan.text(line.join(' '));
+
+    //             // fixes for IE wrap text issue
+    //             const textWidth = getTextWidth(line.join(' '), 16, 'Karla, sans-serif');
+
+    //             if (textWidth > width) {
+    //                 line.pop();
+    //                 tspan.text(line.join(' '));
+
+    //                 if (lineNumber < entryLineLimit - 1) {
+    //                     line = [word];
+    //                     tspan = text.append('tspan')
+    //                         .attr('x', xpos)
+    //                         .attr('y', y)
+    //                         .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+    //                         .text(word);
+    //                 }
+    //             }
+    //         }
+    //     });
+
+    // }
+
 }
+
+//     let tpOffset = {
+//         y: -25,
+//         x: 0
+//     }
+
+// function getTooltipPosition([mouseX, mouseY]){
+//     let tooltipX, tooltipY;
+
+//     // show tooltip on the right
+//     if ((mouseX - 250) < 0) {
+//         // Tooltip on the right
+//         tooltipX = 250 - 185;
+//     } else {
+//         // else show tooltip to the left
+//         tooltipX = -205
+//     }
+
+//     if (mouseY) {
+//         tooltipY = tpOffset.y;
+//         // tooltipY = mouseY + tpOffset.y;
+//     } else {
+//         tooltipY = tpOffset.y;
+//     }
+
+//     return [tooltipX, tooltipY];
+// }
+
+// console.log("mouse position test", getTooltipPosition([300, 300]));
