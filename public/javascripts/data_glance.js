@@ -293,6 +293,11 @@ class DataGlanceLine{
             .curve(d3.curveBasis);
     }
 
+    drawArea(){}
+    setAxis(){}
+    getData(){}
+
+
 }
 
 class GroupedBarChart{
