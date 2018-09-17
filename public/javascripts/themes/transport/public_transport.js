@@ -31,7 +31,6 @@ map.on('popupopen', function (e) {
     //console.log("ref: "+JSON.stringify(e));
 });
 
-
 let bikeCluster = L.markerClusterGroup();
 let busCluster = L.markerClusterGroup();
 let carparkCluster = L.markerClusterGroup();
@@ -46,9 +45,9 @@ let dublinBikeMapIcon = L.icon({
             //popupAnchor: [-3, -76]
 });
 
-/*
+/************************************
  * Carparks
- */
+ ************************************/
 let carparkMapIcon = L.icon({
     iconUrl: '/images/transport/parking-garage-15.svg',
     iconSize: [30, 30], //orig size
@@ -58,33 +57,9 @@ let carparkMapIcon = L.icon({
 
 //create points on map for carparks even if RTI not available
 d3.json("/data/Transport/cpCaps.json").then(function (data) {
-//    let keys = d3.keys(data.carparks);
-//    console.log("carpark data.carparks :" + JSON.stringify(data.carparks[keys[0]]));
     console.log("data.carparks :" + JSON.stringify(data.carparks));
-
     updateMapCarparks(data.carparks);
 });
-
-//function processCarparks(data_) {
-//    let keys = d3.keys(data_);
-////    let carparks = [];
-////    console.log("Car Park data \n");
-////    console.log("keys: "+keys);
-//    
-//    //TODO convert to arrow function/ d3
-////    for (let i = 0; i < keys.length; i += 1) {
-////        carparks.push(data_[keys[i]]);
-////        console.log("push: " + JSON.stringify(data_[keys[i]]));
-////    }
-////    ;
-//    data_.forEach(function (d, i) {
-//        d.id = d.keys[i];        
-//    });
-//    console.log("Car Parks [key]: " + JSON.stringify(data_["PARNELL"]));
-//    updateMapCarparks(data_);
-//    
-//};
-
 
 function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
@@ -121,26 +96,26 @@ function getCarparkContent(d_, k_) {
 //Handle button in map popup and get carpark data
 function displayCarpark(k_) {
     //CORS error on dev- use URL in production
-    fetch("https://www.dublincity.ie/dublintraffic/cpdata.xml",
-            {
-                method: "GET", // *GET, POST, PUT, DELETE, etc.
-                mode: "no-cors", // no-cors, cors, *same-origin
-                headers: {
-                    Accept: 'text/xml',
-                },
-            })
-            .then(response => response.text())
-            .then(data => {
-                // Here's a list of repos!
-                console.log("fetch success: " + data);
-            })
-            .catch(function (error) {
+//    fetch("https://www.dublincity.ie/dublintraffic/cpdata.xml",
+//            {
+//                method: "GET", // *GET, POST, PUT, DELETE, etc.
+//                mode: "no-cors", // no-cors, cors, *same-origin
+//                headers: {
+//                    Accept: 'text/xml',
+//                },
+//            })
+//            .then(response => response.text())
+//            .then(data => {
+//                // Here's a list of repos!
+//                console.log("fetch success: " + data);
+//            })
+//            .catch(function (error) {
+//
+//                console.log("fetch error: " + error);
+//                // If there is any error you will catch them here
+//            });
 
-                console.log("fetch error: " + error);
-                // If there is any error you will catch them here
-            });
-
-
+//TODO use cors server in Express
     d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
 //    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
 
@@ -243,9 +218,9 @@ function getBikeContent(d_) {
     return str;
 }
 
-/*
+/************************************
  * Bus Stops
- */
+ ************************************/
 
 let dublinBusMapIcon = L.icon({
     iconUrl: '/images/transport/bus-15.svg',
@@ -355,102 +330,5 @@ let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using undersco
 $("div").on('click', '.busRTPIbutton', function () {
     displayRTPIBounced($(this).attr("data"));
 });
-
-
-//    /*****************************/
-//
-////                3. Create subsets of data as necessary using d3
-//    //Create a Crossfilter instance
-//    let xRecords = crossfilter(allHealthCenters);
-//    console.log("crossfilter count: " + xRecords.size());
-////               Define Dimensions
-//    let typeDim = xRecords.dimension(function (d) {
-////                    console.log("hospitals d:" + JSON.stringify(d.type));
-//        return d.type;
-//    });
-//
-//    let allDim = xRecords.dimension(function (d) {
-//        return d;
-//    });
-//
-//    let typeGroup = typeDim.group(); // an array containing a key ('Hospital', 
-//    //'GP' etc. and value (no. of occurances) e.g '8', '638'
-//    let allGroup = allDim.groupAll();
-//
-//    typeCount.dimension(xRecords)
-//            .group(allGroup);
-//
-//    typePie.width(500)
-//            .height(300)
-//            .slicesCap(5)
-//            .innerRadius(25)
-//            .dimension(typeDim)
-//            .group(typeGroup)
-//            .legend(dc.legend())
-//            .transitionDuration(750)
-//            // workaround for #703: not enough data is accessible through .label() to display percentages
-//            .on('pretransition', function (chart) {
-//                chart.selectAll('text.pie-slice').text(function (d) {
-//                    return d.data.key + ' ' + dc.utils.printSingleValue((d.endAngle - d.startAngle) / (2 * Math.PI) * 100) + '%';
-//                })
-//            });
-//
-//
-////    let dcCharts = [typePie]; //the charts upon which we want to detect application of filters
-//
-////Update the map if any dc chart gets filtered. Filters apply across the crossfilter (duh)
-////    _.each(dcCharts, function (dcChart) {
-////        dcChart.on("filtered", function (chart, filter) {
-////            updateMap();
-////            if(filter!==null){
-////            d3.select('#type-filter-text').html("<br>"+filter);
-////        }
-////        else{
-////            d3.select('#type-filter-text').html("");
-////        }
-////        });
-////    });
-//    dc.renderAll();
-//    updateMap();
-//
-//
-////                4. Load map data
-
-//
-//    function getIcon(t) {
-//        if (t === "hospitals") {
-//            return hospitalIcon;
-//        } else if (t === "general practitioners") {
-//            return gpIcon;
-//        } else if (t === "dentists") {
-//            return dentistIcon;
-//        } else if (t === "pharmacies") {
-//            return pharmacyIcon;
-//        } else {
-//            return healthCenterIcon;
-//        }
-//    }
-//
-//    //Button helper functions
-//    d3.select('#hospital_button').on('click', function () {
-//        typeDim.filter("hospitals");
-//        typePie.filter(null)
-//                .filter("hospitals");
-//        d3.select('#chosen-type-text').text("Available datasets for hospitals:"); //TODO: hacky- fix using filter and dim
-//        dc.redrawAll();
-//        updateMap();
-//    });
-//
-
-//    d3.select('#all_button').on('click', function () {
-//        d3.select('#chosen-type-text').text("Choose a health location type to see available datasets.");
-//        d3.select('#type-filter-text').text('');
-//        dc.filterAll();
-//        dc.redrawAll();
-//        updateMap();
-//    });
-//
-//
-//}//End of processInputs()
 
 
