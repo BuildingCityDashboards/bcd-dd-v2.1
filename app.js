@@ -6,7 +6,6 @@ var morgan = require('morgan');
 var logger = require("./utils/logger");
 require('dotenv').config();
 
-
 // get routes files
 var index = require('./routes/index');
 var themes = require('./routes/themes');
