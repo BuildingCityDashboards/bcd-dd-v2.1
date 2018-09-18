@@ -6,6 +6,8 @@ var morgan = require('morgan');
 var logger = require("./utils/logger");
 require('dotenv').config();
 
+var cron = require("node-cron");
+
 // get routes files
 var index = require('./routes/index');
 var themes = require('./routes/themes');
@@ -74,6 +76,16 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+cron.schedule("*/5 * * * *", function() {
+  var http = require('https');
+  var fs = require('fs');
+  
+  var file = fs.createWriteStream("./public/data/Transport/carpark.xml");
+  var request = http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function(response) {
+    response.pipe(file);
+  });
 });
 
 module.exports = app;
