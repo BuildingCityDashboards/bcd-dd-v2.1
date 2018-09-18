@@ -95,29 +95,8 @@ function getCarparkContent(d_, k_) {
 
 //Handle button in map popup and get carpark data
 function displayCarpark(k_) {
-    //CORS error on dev- use URL in production
-//    fetch("https://www.dublincity.ie/dublintraffic/cpdata.xml",
-//            {
-//                method: "GET", // *GET, POST, PUT, DELETE, etc.
-//                mode: "no-cors", // no-cors, cors, *same-origin
-//                headers: {
-//                    Accept: 'text/xml',
-//                },
-//            })
-//            .then(response => response.text())
-//            .then(data => {
-//                // Here's a list of repos!
-//                console.log("fetch success: " + data);
-//            })
-//            .catch(function (error) {
-//
-//                console.log("fetch error: " + error);
-//                // If there is any error you will catch them here
-//            });
-
-//TODO use cors server in Express
-    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
-//    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
+//    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
+    d3.xml("/data/Transport/carpark.xml").then(function (xmlDoc) {
 
 //        if (error) {
 //            console.log("error retrieving data");

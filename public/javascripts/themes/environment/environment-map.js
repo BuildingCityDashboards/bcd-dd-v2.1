@@ -49,9 +49,8 @@ var secondProjection = "EPSG:4326";
  * OPW Water Levels
  ************************************/
 
-let corsAnywhere = "https://cors-anywhere.herokuapp.com/";
-d3.json(corsAnywhere + "https://waterlevel.ie/geojson/latest/")
-//d3.json('/data/Environment/waterlevel.json')
+
+d3.json('/data/Environment/waterlevel.json')
         .then(function (data) {
 //            console.log(data.features);
             processWaterLevels(data.features);

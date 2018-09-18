@@ -160,25 +160,26 @@ iPad Pro
         height: auto;
         width: auto;
         grid-template-rows: 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:1fr 1fr 1fr;
         /*        grid-gap:1em;
                  grid-auto-rows:100px; 
                 grid-auto-rows: minmax(100px, auto);*/
         grid-template-areas:
-            "v1 v1"
-            "bt bt"
-            "v3 v2"
+            "v1 v1 v2"
+            "v1 v1 v3"
+            "bt bt bt"
+            
             ;
     }
     
      #planning-map {
-        height: inherit;
+        height: 600px;
         width: 100%;
         grid-area: pm;
     }
     
     #time-chart{
-        height: inherit;
+        height: 200px;
         width: 100%;
         grid-area: tc;
         
@@ -190,7 +191,7 @@ iPad Pro
         
     }
     #decision-row-chart{
-        height: inherit;
+        height: 200px;
         width: 100%;
         grid-area: dr;
         
@@ -203,7 +204,7 @@ iPad Pro
     }
     
     .button-table{
-        height: 100px;
+        height: 200px;
         grid-area: bt;
     }
 
