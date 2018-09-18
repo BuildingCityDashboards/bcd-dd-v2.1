@@ -243,19 +243,11 @@ function makeGraphs(error, records) {
         }
 
 
-    }); //end of forEach
-
-//    function categorize(s) {
-//        if (regex.test(s)) {
-//            return s;
-//            //console.log("we found it in the string!");
-//        }
-//    }
-
+    }); 
 
     //Create a Crossfilter instance
     var planningXF = crossfilter(records);
-    console.log("crossfilter count: " + planningXF.size());
+    //console.log("crossfilter count: " + planningXF.size());
     //Define dimensions
     var authorityDim = planningXF.dimension(function (d) {
         return d.properties.PlanningAuthority;
@@ -266,12 +258,6 @@ function makeGraphs(error, records) {
     var appNumberDim = planningXF.dimension(function (d) {
         return d.properties.ApplicationNumber;
     });
-//    var appNumberGroup = appNumberDim.group();
-
-//    console.log("App #: " + appNumberDim.top(5)[4].properties.ApplicationNumber);
-//    var dDateDim = planningXF.dimension(function (d) {
-//        return d.properties.DecisionDate;
-//    });
     var decisionDim = planningXF.dimension(function (d) {
         return d.properties.Decision;
     });
@@ -298,7 +284,7 @@ function makeGraphs(error, records) {
 
     var rDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
-    var decisionGroup = decisionDim.group();
+    //var decisionGroup = decisionDim.group();
     var decisionCategoryGroup = decisionCategoryDim.group();
     for (i = 0; i < decisionCategoryGroup.all().length; i += 1) {
         decisionCategories.push(decisionCategoryGroup.all()[i].key);
@@ -314,11 +300,11 @@ function makeGraphs(error, records) {
     var minAreaSize = areaDim.bottom(1)[0].properties.AreaofSite; //probably zero
     //console.log("min area: " + minAreaSize);
     var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
-    console.log("max area: " + maxAreaSize);
+    //console.log("max area: " + maxAreaSize);
     var medianAreaSize = d3.mean(records, function (d) {
         return d.properties.AreaofSite;
     });
-    console.log("median area: " + medianAreaSize);
+    //console.log("median area: " + medianAreaSize);
     //Treat date data so zeros and future dates are excluded from charts(but still in data dims)
     //Find earliest date with d3
 //    var minChartDate = d3.min(records, function (d) {
@@ -333,8 +319,6 @@ function makeGraphs(error, records) {
         index += 1;
     } //returns the whole record with earliest date that's not null or zero
     d3.select("#start_date").value = minChartDate;
-
-
     maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
     
     if (maxChartDate > now) {
@@ -357,6 +341,8 @@ function makeGraphs(error, records) {
 //                return d;
 //            })
 //            .group(all);
+
+
 
     timeChart
             .width(600)

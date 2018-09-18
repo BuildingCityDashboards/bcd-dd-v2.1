@@ -3,7 +3,7 @@
 */
 
 *{
-    margin: 0;
+    margin: 20;
     padding: 0;
     /*background-color: goldenrod;*/
     /*box-sizing: border-box; padding and border are included in the total width and height of the elements*/
@@ -98,6 +98,17 @@ img, span{
     width: 100%;
     grid-area: pm;
 }
+input:checked {
+    background-color: #086fb8;
+}
+
+
+/*.decision-checkbox input:checked{
+    height: 26px;
+    width: 26px;
+    background-color: #086fb8;
+    
+}*/
 
 
 /*#type-pie{

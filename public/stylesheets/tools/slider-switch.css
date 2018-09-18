@@ -36,7 +36,7 @@
 }
 
 input:checked + .slider-switch {
-  background-color: #2196F3;
+  background-color: #086fb8;
 }
 
 input:focus + .slider-switch {
