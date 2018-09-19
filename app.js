@@ -78,24 +78,23 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/***TODO: Archive to db***/
 cron.schedule("*/5 * * * *", function() {
   var http = require('https');
-  var fs = require('fs');
-  
+  var fs = require('fs');  
   var file = fs.createWriteStream("./public/data/Transport/cpdata.xml");
   var request = http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function(response) {
     response.pipe(file);
   });
 });
 
-cron.schedule("*/15 * * * *", function() {
-  var https = require('https');
+cron.schedule("*/1 * * * *", function() {
+  var http = require('http');
   var fs = require('fs');
   var file = fs.createWriteStream("./public/data/Environment/waterlevel.json");
-  var request = https.get("https://waterlevel.ie/geojson/latest/", function(response) {
+  var request = http.get("http://waterlevel.ie/geojson/latest/", function(response) {
     response.pipe(file);
   });
 });
-
 
 module.exports = app;
