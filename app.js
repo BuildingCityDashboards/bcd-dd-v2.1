@@ -88,14 +88,14 @@ cron.schedule("*/5 * * * *", function() {
   });
 });
 
-cron.schedule("*/5 * * * *", function() {
-  var http = require('https');
+cron.schedule("*/15 * * * *", function() {
+  var https = require('https');
   var fs = require('fs');
-  
   var file = fs.createWriteStream("./public/data/Environment/waterlevel.json");
-  var request = http.get("https://waterlevel.ie/geojson/latest/", function(response) {
+  var request = https.get("https://waterlevel.ie/geojson/latest/", function(response) {
     response.pipe(file);
   });
 });
+
 
 module.exports = app;

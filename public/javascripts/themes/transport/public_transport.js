@@ -96,7 +96,7 @@ function getCarparkContent(d_, k_) {
 //Handle button in map popup and get carpark data
 function displayCarpark(k_) {
 //    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
-    d3.xml("/data/Transport/carpark.xml").then(function (xmlDoc) {
+    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
 
 //        if (error) {
 //            console.log("error retrieving data");
