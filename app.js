@@ -88,7 +88,7 @@ cron.schedule("*/5 * * * *", function() {
   });
 });
 
-cron.schedule("*/1 * * * *", function() {
+cron.schedule("*/15 * * * *", function() {
   var http = require('http');
   var fs = require('fs');
   var file = fs.createWriteStream("./public/data/Environment/waterlevel.json");
