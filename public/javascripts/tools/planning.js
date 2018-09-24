@@ -41,7 +41,7 @@ map.addLayer(osm);
 
 //console.log("drawing map");
 var mapHeight = 600;
-var chartHeight = 400;
+var chartHeight = 200;
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
 var allDim;
@@ -52,7 +52,7 @@ var allDim;
 
 //... so we'll use the more powerful Promise pattern
 //loadJsonFiles(baseurl, startOffset, no of files
-loadJsonFiles(dublinDataURI, 9, 5); //0-38 inclusive
+loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
 createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
 

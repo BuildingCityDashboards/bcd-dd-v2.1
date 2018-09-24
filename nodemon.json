@@ -1,0 +1,4 @@
+{   
+    "ignore": ["/public/data/Environment/*",
+    "/public/data/Transport/*"] 
+}
