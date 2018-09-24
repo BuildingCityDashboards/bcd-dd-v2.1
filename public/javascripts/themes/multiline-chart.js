@@ -221,6 +221,10 @@ class MultiLineChart{
 
         let dv = this;
 
+            dv.ttWidth = 250,
+            dv.ttHeight = 48
+            dv.ttBorderRadius = 3;
+
         // add group to contain all the focus elements
         let focus = dv.g.append("g")
                 .attr("class", "focus")
@@ -245,34 +249,36 @@ class MultiLineChart{
             
         let toolGroup =  bcdTooltip.append("g")
                 .attr("class", "tooltip-group");
+
+        dv.drawTooltip();
             
-            toolGroup.append("rect")
-                .attr("class", "tooltip-container")
-                .attr("width", "250")
-                .attr("height", "45")
-                .attr("rx", "3")
-                .attr("ry", "3")
-                .attr("fill","#ffffff")
-                .attr("stroke", "#16c1f3")
-                .attr("stroke-width", "1");
+            // toolGroup.append("rect")
+            //     .attr("class", "tooltip-container")
+            //     .attr("width", "250")
+            //     .attr("height", "45")
+            //     .attr("rx", "3")
+            //     .attr("ry", "3")
+            //     .attr("fill","#ffffff")
+            //     .attr("stroke", "#16c1f3")
+            //     .attr("stroke-width", "1");
 
-            toolGroup.append("text")
-                .text("test tooltip")
-                .attr("x", "5")
-                .attr("y", "16")
-                .attr("dy", ".35rem")
-                .style("fill", "rgb(109, 113, 122)");
+            // toolGroup.append("text")
+            //     .text("test tooltip")
+            //     .attr("x", "5")
+            //     .attr("y", "16")
+            //     .attr("dy", ".35rem")
+            //     .style("fill", "rgb(109, 113, 122)");
 
-            toolGroup.append("line")
-                .attr("x1","5")
-                .attr("x2","240")
-                .attr("y1","31")
-                .attr("y2","31")
-                .style("stroke", "#16c1f3");
+            // toolGroup.append("line")
+            //     .attr("x1","5")
+            //     .attr("x2","240")
+            //     .attr("y1","31")
+            //     .attr("y2","31")
+            //     .style("stroke", "#16c1f3");
 
-        let tooltipBody = toolGroup.append("g")
-            .attr("class", "tooltip-body")
-            .style("transform", "translateY(8px)");
+        // let tooltipBody = toolGroup.append("g")
+        //     .attr("class", "tooltip-body")
+        //     .style("transform", "translateY(8px)");
             
             // attach group append circle and text for each region
             dv.keys.forEach( (d,i) => {
@@ -290,20 +296,20 @@ class MultiLineChart{
                     .attr("x", 9)
                     .attr("dy", ".35em");
 
-            let tooltipBodyItem = tooltipBody.append("g")
-                    .attr("class", "tooltipbody_" + i);
+            // let tooltipBodyItem = tooltipBody.append("g")
+            //         .attr("class", "tooltipbody_" + i);
 
-                tooltipBodyItem.append("text")
-                    .attr("class", "tp-text-left")
-                    .attr("x", "0")
-                    .attr( "dy","1em");
+            //     tooltipBodyItem.append("text")
+            //         .attr("class", "tp-text-left")
+            //         .attr("x", "0")
+            //         .attr( "dy","1em"); 
 
-                tooltipBodyItem.append("text")
-                    .attr("class", "tp-text-right");
+            //     tooltipBodyItem.append("text")
+            //         .attr("class", "tp-text-right");
 
-                tooltipBodyItem.append("circle")
-                    .attr("class", "tp-circle")
-                    .attr("r", "5");
+            //     tooltipBodyItem.append("circle")
+            //         .attr("class", "tp-circle")
+            //         .attr("r", "5");
     
             });
     
@@ -353,6 +359,63 @@ class MultiLineChart{
                     }
                 });
             }
+    }
+
+    drawTooltip(){
+        let dv = this;
+        console.log("this should be a number", dv.ttHeight);
+
+        let tooltipTextContainer = dv.g.selectAll(".tooltip-group")
+          .append("g")
+            .attr("class","tooltip-text");
+
+        let tooltip = tooltipTextContainer
+            .append("rect")
+            .attr("class", "tooltip-container")
+            .attr("width", dv.ttWidth)
+            .attr("height", dv.ttHeight)
+            .attr("rx", dv.ttBorderRadius)
+            .attr("ry", dv.ttBorderRadius)
+            .attr("fill","#ffffff")
+            .attr("stroke", "#16c1f3")
+            .attr("stroke-width", "1");
+
+        let tooltipTitle = tooltipTextContainer
+          .append("text")
+            .attr("class", "tooltip-title")
+            .attr("x", -tooltipWidth / 4 + 16)
+            .attr("dy", ".35em")
+            .attr("y", 16)
+            .style("fill", titleFillColor);
+
+        // let tooltipDivider = tooltipTextContainer
+        //   .append('line')
+        //     .classed('tooltip-divider', true)
+        //     .attr('x1', -tooltipWidth / 4 + 16)
+        //     .attr('x2', 265)
+        //     .attr('y1', 31)
+        //     .attr('y2', 31)
+        //     .style('stroke', borderStrokeColor);
+
+        // let tooltipBody = tooltipTextContainer
+        //   .append('g')
+        //     .classed('tooltip-body', true)
+        //     .style('transform', 'translateY(8px)')
+        //     .style('fill', textFillColor);
+        
+    
+    }
+
+    updateTooltip(){
+
+    }
+
+    updateItems(){
+
+    }
+
+    updateLocationAndDimensions(){
+        
     }
 
     addLegend(){
