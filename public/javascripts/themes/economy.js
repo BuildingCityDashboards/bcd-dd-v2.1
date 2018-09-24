@@ -52,21 +52,25 @@
             .entries(valueDataB);
 
 
-        const grouping = types.map(region => region.key); 
+        const grouping = types.map(region => region.key);
 
         const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
         mlineChart.getData(columnNames[0], types);
+        mlineChart.addTooltip("Quarter:", "€");
 
         d3.select(".employment_count").on("click", function(){
             mlineChart.getData(columnNames[0], types);
+            mlineChart.addTooltip("Quarter:", "€");
         });
         
         d3.select(".employment_qrate").on("click", function(){
             mlineChart.getData(columnNames[1], types);
+            mlineChart.addTooltip("Quarter:", "%");
         });
 
         d3.select(".employment_arate").on("click", function(){
             mlineChart.getData(columnNamesB[0], typesB);
+            mlineChart.addTooltip("Year:", "%");
         });
 
         // d3.select(window).on('resize', function(){
@@ -347,8 +351,9 @@
 
         let grouping = nestData.map(d => d.key);
         
-        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "€", xValue, grouping);
+        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "Thousands", xValue, grouping);
               employeesBySizeChart.getData("value", nestData);
+              employeesBySizeChart.addTooltip("Year:", "000");
     })
     // catch any error and log to console
     .catch(function(error){

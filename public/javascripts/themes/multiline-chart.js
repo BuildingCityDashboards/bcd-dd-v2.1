@@ -200,35 +200,26 @@ class MultiLineChart{
             
         dv.regions.exit()
             .transition(dv.t).remove();
-        
-        dv.addTooltip();
     
     }
 
-    addTooltip(){
-
-        //build container and add to chart
-        //draw tooltip
-        // format data
-        //get position
-        //get values
-        // reset function?
-        // update Content function
-        // update position and size
-        // update title
-        // date formatter or format before?
-        // helper text wrap
+    addTooltip(title, format){
 
         let dv = this;
-
+            dv.ttTitle = title;
+            dv.valueFormat = format;
             dv.ttWidth = 250,
-            dv.ttHeight = 48
+            dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
+            dv.formatYear = d3.timeFormat("%Y");
+
+            // formats thousands, Millions, Euros and Percentage
 
         // add group to contain all the focus elements
         let focus = dv.g.append("g")
                 .attr("class", "focus")
-                .style("display", "none");
+                .style("display", "none")
+                .style("visibility", "hidden");
             
             // Year label
             focus.append("text")
@@ -241,76 +232,36 @@ class MultiLineChart{
                 .attr("class", "focus_line")
                 .attr("y1", 0)
                 .attr("y2", dv.height);
+        
+        let tooltipCircles = focus.append("g")
+                .attr("class", "focus-circles");
 
         let bcdTooltip = focus.append("g")
                 .attr("class", "bcd-tooltip")
-                .attr("width", "250")
-                .attr("height", "45");
+                .attr("width", dv.ttWidth)
+                .attr("height", dv.ttHeight);
             
         let toolGroup =  bcdTooltip.append("g")
-                .attr("class", "tooltip-group");
+                .attr("class", "tooltip-group")
+                .style("visibility", "hidden");
 
-        dv.drawTooltip();
-            
-            // toolGroup.append("rect")
-            //     .attr("class", "tooltip-container")
-            //     .attr("width", "250")
-            //     .attr("height", "45")
-            //     .attr("rx", "3")
-            //     .attr("ry", "3")
-            //     .attr("fill","#ffffff")
-            //     .attr("stroke", "#16c1f3")
-            //     .attr("stroke-width", "1");
-
-            // toolGroup.append("text")
-            //     .text("test tooltip")
-            //     .attr("x", "5")
-            //     .attr("y", "16")
-            //     .attr("dy", ".35rem")
-            //     .style("fill", "rgb(109, 113, 122)");
-
-            // toolGroup.append("line")
-            //     .attr("x1","5")
-            //     .attr("x2","240")
-            //     .attr("y1","31")
-            //     .attr("y2","31")
-            //     .style("stroke", "#16c1f3");
-
-        // let tooltipBody = toolGroup.append("g")
-        //     .attr("class", "tooltip-body")
-        //     .style("transform", "translateY(8px)");
+            dv.drawTooltip();
             
             // attach group append circle and text for each region
             dv.keys.forEach( (d,i) => {
-            let tooltip = focus.append("g")
+                let tooltip = dv.g.select(".focus-circles")
+                    .append("g")
                     .attr("class", "tooltip_" + i);
     
                 tooltip.append("circle")
                     .attr("r", 0)
                     .transition(dv.t)
                     .attr("r", 5)
-                    .attr("fill", "white")
+                    .attr("fill", dv.colour(d))
                     .attr("stroke", dv.colour(d));
-    
-                tooltip.append("text")
-                    .attr("x", 9)
-                    .attr("dy", ".35em");
+                
+                dv.updateTooltip(d,i);
 
-            // let tooltipBodyItem = tooltipBody.append("g")
-            //         .attr("class", "tooltipbody_" + i);
-
-            //     tooltipBodyItem.append("text")
-            //         .attr("class", "tp-text-left")
-            //         .attr("x", "0")
-            //         .attr( "dy","1em"); 
-
-            //     tooltipBodyItem.append("text")
-            //         .attr("class", "tp-text-right");
-
-            //     tooltipBodyItem.append("circle")
-            //         .attr("class", "tp-circle")
-            //         .attr("r", "5");
-    
             });
     
             // append a rectangle overlay to capture the mouse
@@ -327,8 +278,10 @@ class MultiLineChart{
             
             function mousemove(){
                 focus.style("visibility","visible");
+                toolGroup.style("visibility","visible");
+
                 let mouse = d3.mouse(this);
-    
+
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
                     let x0 = dv.x.invert(mouse[0]),
@@ -341,19 +294,19 @@ class MultiLineChart{
                     
                     let id = ".tooltip_" + idx;
                     let tpId = ".tooltipbody_" + idx;
+                    let ttTitle = dv.g.select(".tooltip-title");
 
+                    dv.updatePosition(mouse[0], 10);
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
-                        tooltipBody.attr("transform", "translate(0," + idx * 40 + ")");
+                        tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
                     
                     if(d !== undefined){
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
-                        tooltip.select("text").text(d[dv.value]);
-
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
-                        tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
+                        // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
                         tooltipBody.select(".tp-text-right").text(d[dv.value]);
-                        console.log("this is the data item", d);
+                        ttTitle.text(dv.ttTitle + " " + dv.formatYear(d.date));
 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
@@ -363,9 +316,8 @@ class MultiLineChart{
 
     drawTooltip(){
         let dv = this;
-        console.log("this should be a number", dv.ttHeight);
 
-        let tooltipTextContainer = dv.g.selectAll(".tooltip-group")
+        let tooltipTextContainer = dv.g.select(".tooltip-group")
           .append("g")
             .attr("class","tooltip-text");
 
@@ -376,46 +328,101 @@ class MultiLineChart{
             .attr("height", dv.ttHeight)
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
-            .attr("fill","#ffffff")
-            .attr("stroke", "#16c1f3")
+            .attr("fill","#f8f8f8")
+            .attr("stroke", "#6c757d")
             .attr("stroke-width", "1");
 
         let tooltipTitle = tooltipTextContainer
           .append("text")
+            .text("test tooltip")
             .attr("class", "tooltip-title")
-            .attr("x", -tooltipWidth / 4 + 16)
-            .attr("dy", ".35em")
+            .attr("x", 5)
             .attr("y", 16)
-            .style("fill", titleFillColor);
+            .attr("dy", ".35em")
+            .style("fill", "#1d2124");
 
-        // let tooltipDivider = tooltipTextContainer
-        //   .append('line')
-        //     .classed('tooltip-divider', true)
-        //     .attr('x1', -tooltipWidth / 4 + 16)
-        //     .attr('x2', 265)
-        //     .attr('y1', 31)
-        //     .attr('y2', 31)
-        //     .style('stroke', borderStrokeColor);
+        let tooltipDivider = tooltipTextContainer
+            .append("line")
+                .attr("class", "tooltip-divider")
+                .attr("x1", 5)
+                .attr("x2", 240)
+                .attr("y1", 31)
+                .attr("y2", 31)
+                .style("stroke", "#6c757d");
 
-        // let tooltipBody = tooltipTextContainer
-        //   .append('g')
-        //     .classed('tooltip-body', true)
-        //     .style('transform', 'translateY(8px)')
-        //     .style('fill', textFillColor);
-        
-    
+        let tooltipBody = tooltipTextContainer
+                .append("g")
+                .attr("class","tooltip-body")
+                // .style("transform", "translateY(8px)")
+                .attr("transform", "translate(5,50)");
     }
 
-    updateTooltip(){
+    updateTooltip(d,i){
+        let dv = this;
 
+        let tooltipBodyItem = dv.g.select(".tooltip-body")
+            .append("g")
+            .attr("class", "tooltipbody_" + i);
+
+        tooltipBodyItem.append("text")
+            .text(d)
+            .attr("class", "tp-text-left")
+            .attr("x", "12")
+            .attr("dy", ".35em");
+
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-right")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 40)
+            .attr("text-anchor","end");
+
+        tooltipBodyItem.append("circle")
+            .attr("class", "tp-circle")
+            .attr("r", "6")
+            .attr("fill", dv.colour(d));
+        
+        dv.updateSize();
     }
 
     updateItems(){
 
     }
 
-    updateLocationAndDimensions(){
-        
+    updatePosition(xPosition, yPosition){
+        let dv = this;
+        // get the x and y values - y is static
+        let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
+        // move the tooltip
+        dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+    }
+
+    updateSize(){
+        let dv = this;
+        let height = dv.g.select(".tooltip-body").node().getBBox().height;
+        dv.ttHeight += height + 5;
+        dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
+        console.log("what is the tooltip height now", dv.ttHeight);
+    }
+
+    resetSize() {
+        let dv = this;
+        dv.ttHeight = 50;
+    }
+
+    getTooltipPosition([mouseX, mouseY]) {
+        let dv = this;
+        let ttX,
+            ttY = mouseY;
+
+        // show right
+        if ((mouseX - dv.ttWidth) < dv.ttWidth) {
+            ttX = mouseX;
+        } else {
+            // show left
+            ttX = mouseX -255
+        }
+        return [ttX, ttY];
     }
 
     addLegend(){

@@ -241,32 +241,3 @@ class GroupedBarChart{
     }
     
 }
-
-let tooltipOffset = {
-    y: -55,
-    x: 0
-}
-
-function getTooltipPosition([mouseX, mouseY]){
-    let tooltipX, tooltipY;
-
-    // show tooltip to the right
-    if ((mouseX - 250) < 0) {
-        // Tooltip on the right
-        tooltipX = 250 - 185;
-    } else {
-        // Tooltip on the left
-        tooltipX = -205
-    }
-
-    if (mouseY) {
-        tooltipY = tooltipOffset.y;
-        // tooltipY = mouseY + tooltipOffset.y;
-    } else {
-        tooltipY = tooltipOffset.y;
-    }
-
-    return [tooltipX, tooltipY];
-}
-
-console.log("mouse position test", getTooltipPosition([300, 300]));
