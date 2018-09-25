@@ -34,6 +34,10 @@ class StackBarChart {
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
+
+        dv.tooltip = d3.select(".page__root")
+            .append('div')  
+            .attr('class', 'tool-tip');  
         
         // add the svg to the target element
         const svg = d3.select(dv.element)
@@ -161,69 +165,39 @@ class StackBarChart {
                 .attr("height", d => { return dv.y(d[0]) - dv.y(d[1]);})
                 .attr("width", dv.x.bandwidth())
                 .style("stroke-width", "1")
-                .on( 'mouseover', function( d ){
-                    let dx  = parseFloat(d3.select(this).attr('x')) + (dv.x.bandwidth() * 2), 
-                        dy  = parseFloat(d3.select(this).attr('y')) + dv.margin.top,
-                        value = Math.round((d[1] - d[0]) * 10) / 10,
+                .on("mouseover", function(d){ 
+                    let value = Math.round((d[1] - d[0]) * 10) / 10,
                         fill = d3.select(this).style("fill"),
                         text = Object.keys(d.data).find(key => d.data[key] == value);
 
-                    dv.tooltip
-                        .style( 'left', dx + "px" )
-                        .style( 'top', dy + "px" )
-                        .style( 'display', 'block' );
-                    
+                    dv.tooltip.style("display", "inline-block");
+
                     dv.tooltip.append("div")
                         .attr("class", "tip-box")
-                        .style("background", fill)
-                        .style("opacity", 0.75)
-                        .style("width", "18px")
-                        .style("height", "18px")
-                        .style("margin-right", "5px")
-                        .style("float", "left");
+                        .style("background", fill);
 
                     dv.tooltip.append("div")
                         .attr("class", "tip-text")
-                        .style("font", "12px sans-serif")
-                        .style("line-height", "1.25rem")
                         .text(
                             dv.yTitle !== "€" ? (text + " : "  + value + " " + dv.yTitle) : (text + " : " + dv.yTitle + value)
                         );
-                        
-                    // dv.tooltip
-                    //     .style( 'left', dx + "px" )
-                    //     .style( 'top', dy + "px" )
-                    //     .style( 'display', 'block' );
-                    //     for (var key in filtered) {
-                    //         if (filtered.hasOwnProperty(key)) {
-                    //             let tip = dv.tooltip.append("div")
-                    //                 .attr("class", "tip-text")
-                    //                 .text(key + " : " + filtered[key]);
-                    //                 tip.insert("div", ".tip-text")
-                    //                 .style("background", dv.colour(key));
-                    //         }
-                    //     }
-
                 })
-                .on( 'mouseout', function(){
-                    d3.select(dv.element).selectAll(".tip-box").remove();
-                    d3.select(dv.element).selectAll(".tip-text").remove();
-                    
+                .on("mouseout", function(){ 
+                    dv.tooltip.selectAll("div")
+                    .remove();
+                    dv.tooltip.style("display", "none"); 
+                })
+                .on( 'mousemove', function( d ){
+                    let x = d3.event.pageX, 
+                        y = d3.event.pageY,
+                        tooltipX = dv.getTooltipPosition(x);
+
                     dv.tooltip
-                        .style( 'display', 'none' );
+                        .style( 'left', tooltipX + "px" )
+                        .style( 'top', y + "px" )
+                        .style( 'display', 'inline-block' );
+
                 });
-
-            dv.tooltip = d3.select(dv.element)
-                .append('div')  
-                .attr('class', 'tool-tip')
-                .attr("width", 250)
-                .attr("height", 100)
-                .attr("rx", 3)
-                .attr("ry", 3)
-                .style("fill","#001f35")
-                .style("stroke", "rgb(210, 214, 223)")
-                .style("stroke-width", "1");
-
     }
 
     addLegend(){
@@ -257,6 +231,24 @@ class StackBarChart {
             .attr("text-anchor", "start")
             .text(d => { return d; })
             .call(dv.textWrap, 100, dv.width + 44);
+    }
+
+    getTooltipPosition(mouseX) {
+        let dv = this,
+            ttX,
+            chartSize;
+
+            chartSize = dv.width + dv.margin.right + dv.margin.left;
+
+            console.log("width of the chart", chartSize / 2);
+            // show right
+            if ( mouseX < chartSize ) {
+                ttX = mouseX;
+            } else {
+                // show left minus the size of tooltip + 10 padding
+                ttX = mouseX - 250;
+            }
+            return ttX;
     }
 
     textWrap(text, width, xpos = 0, limit=2) {

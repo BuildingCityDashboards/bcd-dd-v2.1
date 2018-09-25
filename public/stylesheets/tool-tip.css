@@ -34,7 +34,19 @@
   display: none;
   font-family: sans-serif;
   font-size: .75rem;
-  font-weight: bold;
+  line-height: 1.25rem;
   color: #313131;
   opacity: 1;
 }
+
+.tip-box{
+  opacity: 0.75;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  float: left;
+}
+
+/* .tip-text{
+  line-height: 1.25rem;
+} */

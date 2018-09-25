@@ -76,6 +76,9 @@ class GroupedBarChart{
         dv.xAxisCall = d3.axisBottom()
             .tickFormat(d => {return d});
 
+        dv.gridLines = dv.g.append("g")
+            .attr("class", "grid-lines");
+
         dv.xAxis = dv.g.append("g")
             .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
@@ -119,6 +122,8 @@ class GroupedBarChart{
         
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.call(dv.yAxisCall);
+
+        dv.drawGridLines();
 
         // // join new data with old elements.
         // dv.rects = dv.g.selectAll("g")
@@ -174,17 +179,18 @@ class GroupedBarChart{
                 dv.tooltip.style("display", "none"); 
             })
             .on("mousemove", function(d){
-                let dx  = parseFloat(d3.select(this).attr('x')) + dv.x0.bandwidth() + 100, 
-                    dy  = parseFloat(d3.select(this).attr('y')) + 10;
+
                 let x = d3.event.pageX, 
-                    y = d3.event.clientY,
+                    y = d3.event.pageY,
                     fill = d3.select(this).style("fill");
 
+                let tooltipX = dv.getTooltipPosition(x);
+
                 dv.tooltip
-                    .style( 'left', (d3.event.pageX+10) + "px" )
-                    .style( 'top', (d3.event.pageY) + "px" )
+                    .style( 'left', (tooltipX + 10) + "px" )
+                    .style( 'top', y + "px" )
                     .style( 'display', "inline-block" )
-                    .text("The value is: " + (d.value)); // what should the value be ?
+                    .text("The value is: " + (d.value)); 
                 
                 dv.tooltip.append("div")
                     .attr("class", "tip-box")
@@ -197,6 +203,23 @@ class GroupedBarChart{
             });
 
         dv.addLegend();
+    }
+
+    drawGridLines(){
+        let dv = this;
+
+        dv.gridLines.selectAll('line')
+            .remove();
+
+        dv.gridLines.selectAll('line.horizontal-line')
+            .data(dv.y.ticks)
+            .enter()
+                .append('line')
+                .attr('class', 'horizontal-line')
+                .attr('x1', (0))
+                .attr('x2', dv.width)
+                .attr('y1', (d) => {console.log("this is the value here", dv.y(d)); return dv.y(d)})
+                .attr('y2', (d) => dv.y(d));
     }
 
     addLegend(){
@@ -238,6 +261,24 @@ class GroupedBarChart{
                 .attr("dy", ".35em")
                 .attr("text-anchor", "start")
                 .text(d => { return d.label; }); 
+    }
+
+    getTooltipPosition(mouseX) {
+        let dv = this,
+            ttX,
+            chartSize;
+
+            chartSize = dv.width + dv.margin.right + dv.margin.left;
+
+            console.log("width of the chart", chartSize);
+            // show right
+            if ( mouseX < chartSize ) {
+                ttX = mouseX;
+            } else {
+                // show left minus the size of tooltip + 10 padding
+                ttX = mouseX - 250;
+            }
+            return ttX;
     }
     
 }

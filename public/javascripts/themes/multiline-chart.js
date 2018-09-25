@@ -64,16 +64,20 @@ class MultiLineChart{
 
     addAxis(){       
         let dv = this;
+
         dv.yAxisCall = d3.axisLeft();
 
         dv.xAxisCall = d3.axisBottom();
 
+        dv.gridLines = dv.g.append("g")
+            .attr("class", "grid-lines");
+
         dv.xAxis = dv.g.append("g")
-            .attr("class", "x axis")
+            .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
         
         dv.yAxis = dv.g.append("g")
-            .attr("class", "y axis");
+            .attr("class", "y-axis");
 
         // X title
         dv.xLabel = dv.g.append("text")
@@ -133,9 +137,12 @@ class MultiLineChart{
             })
         ]);
 
+        dv.drawGridLines();
+
         // Update axes - what about ticks for smaller devices??
         dv.xAxisCall.scale(dv.x).tickFormat(d3.timeFormat("%Y"));
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
+        
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
 
@@ -152,6 +159,7 @@ class MultiLineChart{
 
     update(){
         let dv = this;
+
 
         d3.select(dv.element).select(".focus").remove();
         d3.select(dv.element).select(".focus_overlay").remove();
@@ -297,6 +305,7 @@ class MultiLineChart{
                     let ttTitle = dv.g.select(".tooltip-title");
 
                     dv.updatePosition(mouse[0], 10);
+                    
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
                         tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
@@ -416,7 +425,7 @@ class MultiLineChart{
             ttY = mouseY;
 
         // show right
-        if ((mouseX - dv.ttWidth) < dv.ttWidth) {
+        if (mouseX < dv.width / 2) {
             ttX = mouseX;
         } else {
             // show left
@@ -589,33 +598,21 @@ class MultiLineChart{
 
     // }
 
+    drawGridLines(){
+        let dv = this;
+
+        dv.gridLines.selectAll('line')
+            .remove();
+
+        dv.gridLines.selectAll('line.horizontal-line')
+            .data(dv.y.ticks)
+            .enter()
+                .append('line')
+                .attr('class', 'horizontal-line')
+                .attr('x1', (0))
+                .attr('x2', dv.width)
+                .attr('y1', (d) => {console.log("this is the value here", dv.y(d)); return dv.y(d)})
+                .attr('y2', (d) => dv.y(d));
+    }
+
 }
-
-//     let tpOffset = {
-//         y: -25,
-//         x: 0
-//     }
-
-// function getTooltipPosition([mouseX, mouseY]){
-//     let tooltipX, tooltipY;
-
-//     // show tooltip on the right
-//     if ((mouseX - 250) < 0) {
-//         // Tooltip on the right
-//         tooltipX = 250 - 185;
-//     } else {
-//         // else show tooltip to the left
-//         tooltipX = -205
-//     }
-
-//     if (mouseY) {
-//         tooltipY = tpOffset.y;
-//         // tooltipY = mouseY + tpOffset.y;
-//     } else {
-//         tooltipY = tpOffset.y;
-//     }
-
-//     return [tooltipX, tooltipY];
-// }
-
-// console.log("mouse position test", getTooltipPosition([300, 300]));
