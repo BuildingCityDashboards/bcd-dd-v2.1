@@ -1,5 +1,12 @@
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 
+/*TODO:
+ * 
+ * Check if passing a subset of data increases memory usage e.g. data.properties sent to updateMap
+ * Only use a processing fucntion with a text data file (not json)
+ */
+
+
 //  1. declare map variables and initialise base map
 let map = new L.Map('chart-public-transport');
 let plotlist;
@@ -34,6 +41,7 @@ map.on('popupopen', function (e) {
 let bikeCluster = L.markerClusterGroup();
 let busCluster = L.markerClusterGroup();
 let carparkCluster = L.markerClusterGroup();
+let luasCluster = L.markerClusterGroup();
 
 let iconAX = 15;  //icon Anchor X
 let iconAY = 15; //icon Anchor Y
@@ -44,6 +52,120 @@ let dublinBikeMapIcon = L.icon({
     iconAnchor: [iconAX, iconAY]//,
             //popupAnchor: [-3, -76]
 });
+
+/************************************
+ * Luas
+ ************************************/
+let luasMapIcon = L.icon({
+    iconUrl: '/images/transport/rail-light-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY]//,
+            //popupAnchor: [-3, -76]
+});
+
+//create points on map for Luas stops even if RTI not available
+d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
+
+    processLuas(data);
+});
+
+function processLuas(data_) {
+    console.log("Luas- \n");
+    data_.forEach(function (d) {
+        d.lat = +d.Latitude;
+        d.lng = +d.Longitude;
+        d.StopID = +d.StopID;
+        //add a property to act as key for filtering
+        d.type = "Luas stop";
+//        console.log("luas stop : " + d.Name);
+    });
+    updateMapLuas(data_);
+}
+
+function updateMapLuas(data__) {
+    luasCluster.clearLayers();
+    map.removeLayer(luasCluster);
+    _.each(data__, function (d, k) {
+        console.log("d: " + d.type + "\n");
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: luasMapIcon});
+        marker.bindPopup(getLuasContent(d));
+        luasCluster.addLayer(marker);
+    });
+    map.addLayer(luasCluster);
+}
+
+function getLuasContent(d_) {
+    let str = '';
+    if (d_.Name) {
+        str += '<b>' + d_.Name + '</b><br>';
+    }
+    if (d_.IrishName) {
+        str += '<i>' + d_.IrishName + '</i><br>';
+    }
+    if (d_.LineID) {
+        str += getLuasLine(d_.LineID) + ' Line <br>';
+    }
+    if (d_.Name) {
+        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
+                + d_.StopID + '">Real Time Information</button>';
+    }
+    ;
+
+    return str;
+}
+
+function getLuasLine(id_) {
+    return (id_ === "1" ? "Red" : "Green");
+}
+
+let luasAPIBase = "http://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+function displayLuasRT(sid_) {
+    console.log("Button press " + luasAPIBase + sid_ + "\n");
+    d3.html(luasAPIBase + sid_)
+            .then(function (htmlDoc) {
+//                console.log(html_);
+                let tableData = [];
+                let len = htmlDoc.getElementsByTagName("tr")[0].childNodes.length;
+                console.log("tableData has length "+len+"\n");
+//                for (let i = 0; i < len; i += 1) {
+//                    htmlDoc.getElementsByTagName("th")[i]
+//                            .childNodes[0]
+//                            .nodeValue;
+//                    console.log("\t" + tableData[i]);
+//                }
+//                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
+//                let rtpi = rtpiBase;
+//                if (data.results.length > 0) {
+////                    console.log("RTPI " + JSON.stringify(data.results[0]));
+//                    _.each(data.results, function (d, i) {
+//                        //console.log(d.route + " Due: " + d.duetime + "");
+//                        //only return n results
+//                        if (i <= 7) {
+//                            rtpi += "<br><b>" + d.route + "</b> " + d.direction + " to " + d.destination;
+//                            if (d.duetime === "Due") {
+//                                rtpi += "  <b>" + d.duetime + "</b>";
+//                            } else {
+//                                rtpi += "  <b>" + d.duetime + " mins</b>";
+//                            }
+//                        }
+//
+//                    });
+//                } else {
+//                    //console.log("No RTPI data available");
+//                    rtpi += "No Real Time Information Available<br>";
+//                }
+//                console.log("split " + markerRef.getPopup().getContent().split(rtpi)[0]);
+//                markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(rtpiBase)[0] + rtpi);
+            });
+
+}
+let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
+
+//TODO: replace jQ w/ d3 version
+$("div").on('click', '.luasRTbutton', function () {
+    displayLuasRTBounced($(this).attr("data"));
+});
+
 
 /************************************
  * Carparks
@@ -57,7 +179,7 @@ let carparkMapIcon = L.icon({
 
 //create points on map for carparks even if RTI not available
 d3.json("/data/Transport/cpCaps.json").then(function (data) {
-    console.log("data.carparks :" + JSON.stringify(data.carparks));
+//    console.log("data.carparks :" + JSON.stringify(data.carparks));
     updateMapCarparks(data.carparks);
 });
 
@@ -65,15 +187,15 @@ function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
     map.removeLayer(carparkCluster);
     let keys = d3.keys(data__);
-    console.log("keys: " + keys);
+//    console.log("keys: " + keys);
     _.each(data__, function (d, k) {
-        console.log("d: " + JSON.stringify(d) + "key: " + k);
+//        console.log("d: " + JSON.stringify(d) + "key: " + k);
         let marker = L.marker(new L.LatLng(d[0].lat, d[0].lon), {icon: carparkMapIcon});
         marker.bindPopup(getCarparkContent(d[0], k));
         carparkCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    map.addLayer(carparkCluster);
+    //map.addLayer(carparkCluster);
 }
 
 function getCarparkContent(d_, k_) {
@@ -81,9 +203,9 @@ function getCarparkContent(d_, k_) {
     if (d_.name) {
         str += d_.name + '<br>';
     }
-    if (d_.Totalspaces) {
-        str += 'Capacity is ' + d_.Totalspaces + '<br>';
-    }
+//    if (d_.Totalspaces) {
+//        str += 'Capacity is ' + d_.Totalspaces + '<br>';
+//    }
     if (d_.name) {
         //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
         str += '<br/><button type="button" class="btn btn-primary carparkbutton" data="'
@@ -145,7 +267,7 @@ d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb
     //console.log(data[0]);
     processBikes(data);
 });
-
+/* TODO: performance- move to _each in updateMap */
 function processBikes(data_) {
 
     //console.log("Bike data \n");
@@ -169,7 +291,7 @@ function updateMapBikes(data__) {
         bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
                 .bindPopup(getBikeContent(d)));
     });
-    map.addLayer(bikeCluster);
+    //map.addLayer(bikeCluster);
 }
 
 //arg is object
@@ -237,7 +359,7 @@ function updateMapBuses(data__) {
         busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    map.addLayer(busCluster);
+    //map.addLayer(busCluster);
 }
 
 
