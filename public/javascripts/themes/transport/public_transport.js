@@ -1,9 +1,12 @@
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 
+
 /*TODO:
  * 
  * Check if passing a subset of data increases memory usage e.g. data.properties sent to updateMap
  * Only use a processing fucntion with a text data file (not json)
+ * 
+ * Test support for DOM node methods on Firefox
  */
 
 
@@ -119,43 +122,66 @@ function getLuasLine(id_) {
 }
 
 let luasAPIBase = "http://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+
+
 function displayLuasRT(sid_) {
     console.log("Button press " + luasAPIBase + sid_ + "\n");
+    //Luas API returns html, so we need to parse this into a suitable JSON structure
     d3.html(luasAPIBase + sid_)
             .then(function (htmlDoc) {
-//                console.log(html_);
+                console.log(htmlDoc.body);
+                let infoString = htmlDoc.getElementById("cplBody_lblMessage")
+                        .childNodes[0].nodeValue;
+                //console.log("info: " + infoString + "\n");
+                let headings = htmlDoc.getElementsByTagName("th");
+                //console.log("#cols = " + headings.length + "\n");
+                let rows = htmlDoc.getElementsByTagName("tr");
+                //console.log("#rows = " + rows.length + "\n");
                 let tableData = [];
-                let len = htmlDoc.getElementsByTagName("tr")[0].childNodes.length;
-                console.log("tableData has length "+len+"\n");
-//                for (let i = 0; i < len; i += 1) {
-//                    htmlDoc.getElementsByTagName("th")[i]
-//                            .childNodes[0]
-//                            .nodeValue;
-//                    console.log("\t" + tableData[i]);
-//                }
-//                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
-//                let rtpi = rtpiBase;
-//                if (data.results.length > 0) {
-////                    console.log("RTPI " + JSON.stringify(data.results[0]));
-//                    _.each(data.results, function (d, i) {
-//                        //console.log(d.route + " Due: " + d.duetime + "");
-//                        //only return n results
-//                        if (i <= 7) {
-//                            rtpi += "<br><b>" + d.route + "</b> " + d.direction + " to " + d.destination;
-//                            if (d.duetime === "Due") {
-//                                rtpi += "  <b>" + d.duetime + "</b>";
-//                            } else {
-//                                rtpi += "  <b>" + d.duetime + " mins</b>";
-//                            }
-//                        }
-//
-//                    });
-//                } else {
-//                    //console.log("No RTPI data available");
-//                    rtpi += "No Real Time Information Available<br>";
-//                }
+                for (let i = 1; i < rows.length; i += 1) {
+                    let obj = {};
+                    for (let j = 0; j < headings.length; j += 1) {
+                        let heading = headings[j]
+                                .childNodes[0]
+                                .nodeValue;
+                        let value = rows[i].getElementsByTagName("td")[j].innerHTML;
+                        //console.log("\nvalue: "+ value);
+                        obj[heading] = value;
+                    }
+                    //console.log("\n");
+                    tableData.push(obj);
+                }
+                //console.log("tabledata: " + JSON.stringify(tableData));
+                let luasRTBase = "<br><br> Next Trams after ";
+                let luasRT = luasRTBase + infoString.split("at ")[1]+"<br>";
+                if (tableData.length > 0) {
+//                    console.log("RTPI " + JSON.stringify(data.results[0]));
+                    _.each(tableData, function (d, i) {
+                        //console.log(d.route + " Due: " + d.duetime + "");
+                        //only return n results
+                        if (i <= 7) {
+                            luasRT += "<br><b>" + d["Direction"]
+                                    + "</b> to <b>" + d["Destination"] + "</b>";
+                            if (d["Time"]) {
+                                let min = d["Time"].split(":")[1];
+                                if (min === "00") {
+                                    luasRT += " is <b>Due now</b>";
+
+                                } else {
+                                    luasRT += " is due in <b>" + min + "</b> mins";
+                                }
+                            } else {
+                                "n/a";
+                            }
+                        }
+
+                    });
+                } else {
+                    //console.log("No RTPI data available");
+                    luasRT += "No Real Time Information Available<br>";
+                }
 //                console.log("split " + markerRef.getPopup().getContent().split(rtpi)[0]);
-//                markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(rtpiBase)[0] + rtpi);
+                markerRef.getPopup().setContent(markerRef.getPopup().getContent().split(luasRTBase)[0] + luasRT);
             });
 
 }
