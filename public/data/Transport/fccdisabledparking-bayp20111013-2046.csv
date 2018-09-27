@@ -1,0 +1,1187 @@
+ID,AREA_DESC,ROADNAME,Area,TOTAL_SPACES,DIPPED_FOOTPATH,PARK_SIGN,ROAD_MARKING,OCCUPIED,Adjacent_Services,LAT,LONG
+1,Chapel Street,Chapel Street,,2,TRUE, ,TRUE, ,Hairdressers,53.61029459,-6.186854504
+2,Chapel Street,Chapel Street,,2, , ,TRUE, ,Hairdressers,53.6103352,-6.186735289
+3,Clonard Road,Clonard Road,,1, , ,TRUE, ,Housing,53.60824911,-6.187719696
+4,Carpark at New Savoy Cinema Complex,Carpark at New Savoy Cinema Complex,,1, , ,TRUE, ,"Cinema, Cafe",53.61014397,-6.182680715
+5,High Street,High Street,,3, , ,TRUE, ,Housing,53.60930241,-6.181617976
+6,High Street,High Street,,3, , ,TRUE,TRUE,Housing,53.60917483,-6.18166914
+7,High Street,High Street,,3, , ,TRUE, ,Library,53.60894594,-6.181744886
+8,St. Paul's Cresent,St. Paul's Cresent,,1, , ,TRUE,TRUE,Sports Club,53.60481942,-6.183291529
+9,St. Paul's Cresent,St. Paul's Cresent,,1,TRUE, ,TRUE, ,"Housing, Cricket Club",53.60494254,-6.183861682
+10,Quay Street Outside Nav 1,Quay Street,,1, , ,TRUE,TRUE,Housing,53.58124882,-6.111724109
+11,Quay Street,Quay Street,,1, , ,TRUE, ,Housing,53.5811463,-6.110918226
+12,Quay Street,Quay Street,,1, , ,TRUE,TRUE,Housing,53.58112319,-6.109863343
+13,Quay Street,Quay Street,,1, , ,TRUE,TRUE,Housing,53.58137367,-6.109044226
+14,Quay Street,Quay Street,,1, , ,TRUE,TRUE,Housing,53.58134265,-6.108917836
+15,Strand Street,Strand Street,,1, , ,TRUE,TRUE,Housing,53.58139744,-6.107341521
+16,Little Strand Street,Little Strand Street,,1, , ,TRUE,TRUE,Housing,53.57936961,-6.107731607
+17,Church Street,Church Street,,1, , ,TRUE,TRUE,Housing,53.57936672,-6.108813584
+18,Beau Piers,Beau Piers,,1, , ,TRUE,TRUE,Housing,53.57838661,-6.110941775
+19,Railway Avenue,Railway Avenue,,1, , ,TRUE, ,"GP, Credit Union",53.45119867,-6.155679413
+20,Church Road,Church Road,,1,TRUE, ,TRUE, ,Church,53.44791492,-6.153061522
+21,St. Margarets Park,St. Margarets Park,,1,TRUE, ,TRUE, ,Housing,53.4468714,-6.153982847
+22,Morton Stadium,Morton Stadium,,4, , ,TRUE, ,Sports Club,53.40082427,-6.246489708
+23,Morton Stadium,Morton Stadium,,4, , ,TRUE, ,Sports Club,53.40085397,-6.246463191
+24,Morton Stadium,Morton Stadium,,4, , ,TRUE, ,Sports Club,53.40088364,-6.246438523
+25,Morton Stadium,Morton Stadium,,4, , ,TRUE, ,Sports Club,53.4009048,-6.246420524
+26,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,"Supermarket, Library",53.46196786,-6.229922981
+27,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,"Supermarket, Library",53.46198821,-6.229964581
+28,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,Library,53.46208053,-6.230157855
+29,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,"Supermarket, Library",53.46209471,-6.230198929
+30,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,"Supermarket, Library",53.46215973,-6.230320707
+31,Dunnes Stores/ Public Library,RATHBEALE ROAD,,2, , ,TRUE, ,"Supermarket, Library",53.46217323,-6.23036062
+32,Dunnes Stores/ Public Library,ACCESS TO SHOPPING CENTRE,,2, , ,TRUE, ,Library,53.46226613,-6.230543209
+33,Dunnes Stores/ Public Library,ACCESS TO SHOPPING CENTRE,,2, , ,TRUE, ,"Supermarket, Library",53.462283,-6.230583463
+34,Airside Reid's furniture,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44585464,-6.227307107
+35,Airside Reid's furniture,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44581241,-6.227289705
+36,Airside Reid's furniture,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44599927,-6.227603863
+37,Airside Reid's furniture,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44599643,-6.227552804
+38,Airside Homestore and More,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44714411,-6.2231136
+39,Airside Homestore and More,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44717178,-6.223135216
+40,Airside Homestore and More,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44712714,-6.223180469
+41,Airside Homestore and More,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44715623,-6.223200701
+42,Airside Carpet Right,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44705749,-6.223561079
+43,Airside Carpet Right,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44702679,-6.223539191
+44,Airside Carpet Right,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44704048,-6.223628304
+45,Airside Carpet Right,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44700972,-6.223607215
+46,Airside Cash and Carry Kitchens,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44614903,-6.226198246
+47,Airside Cash and Carry Kitchens,AIRSIDE RETAIL PARK,,2, , ,TRUE, ,Retail Park,53.44612005,-6.226182143
+48,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44599137,-6.226840984
+49,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44600757,-6.226765943
+50,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44597791,-6.226757484
+51,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44601829,-6.226607773
+52,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44605165,-6.226617431
+53,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44606652,-6.226562561
+54,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE,TRUE,Retail Park,53.44603671,-6.226528865
+55,Airside Atlantic Homecare,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44656849,-6.22477016
+56,Airside Atlantic Homecare,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44653755,-6.224744494
+57,Airside Atlantic Homecare,AIRSIDE RETAIL PARK,,4, , ,TRUE, ,Retail Park,53.44659196,-6.224672125
+58,Airside Atlantic Homecare,AIRSIDE RETAIL PARK,,4, , ,TRUE,TRUE,Retail Park,53.4465611,-6.224656712
+59,Airside DID Electrical,AIRSIDE RETAIL PARK,,8, , ,TRUE, ,Retail Park,53.44595622,-6.226825224
+60,Travelodge Airside,NA,,1,TRUE,TRUE,TRUE, ,Hotel,53.44948917,-6.224146976
+61,Frank McGowan Airside,NA,,2,TRUE, ,TRUE, ,Furniture Store,53.44838632,-6.223197816
+62,Frank McGowan Airside,NA,,2,TRUE, ,TRUE, ,Furniture Store,53.44841564,-6.223316403
+63,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44728635,-6.221929334
+64,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44731406,-6.221949192
+65,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44733668,-6.221967037
+66,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44736416,-6.221992904
+67,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44734725,-6.222056321
+68,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44731881,-6.222032773
+69,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44729924,-6.222015656
+70,Airside B & Q,AIRSIDE,,8, ,TRUE,TRUE, ,Retail Park,53.44727008,-6.22199317
+71,The Pavilions Shppping Centre Multi Level Carpark Lv5,NA,,3, ,TRUE,TRUE,TRUE,"Supermarket, Shopping Centre",53.45439421,-6.220099544
+72,The Pavilions Shppping Centre Multi Level Carpark Lv5,NA,,3, ,TRUE,TRUE,TRUE,Shopping Centre,53.45435747,-6.220135786
+73,The Pavilions Shppping Centre Multi Level Carpark Lv5,NA,,3, ,TRUE,TRUE,TRUE,Shopping Centre,53.45432849,-6.220166632
+74,The Pavilions Shppping Centre Multi Level Carpark Lv4,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45433401,-6.220183894
+75,The Pavilions Shppping Centre Multi Level Carpark Lv4,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45436547,-6.220154278
+76,The Pavilions Shppping Centre Multi Level Carpark Lv4,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45440141,-6.220123386
+77,The Pavilions Shppping Centre Multi Level Carpark Lv3,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45434258,-6.220201362
+78,The Pavilions Shppping Centre Multi Level Carpark Lv3,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45437153,-6.220173239
+79,The Pavilions Shppping Centre Multi Level Carpark Lv3,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45440604,-6.22013832
+80,The Pavilions Shppping Centre Multi Level Carpark Lv2,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45434997,-6.220217533
+81,The Pavilions Shppping Centre Multi Level Carpark Lv2,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45437881,-6.220193183
+82,The Pavilions Shppping Centre Multi Level Carpark Lv2,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45441114,-6.220152172
+83,The Pavilions Shppping Centre Multi Level Carpark Lv1,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45435941,-6.220234575
+84,The Pavilions Shppping Centre Multi Level Carpark Lv1,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.4543823,-6.220203259
+85,The Pavilions Shppping Centre Multi Level Carpark Lv1,NA,,3, ,TRUE,TRUE, ,Shopping Centre,53.45441584,-6.220165607
+86,The Pavilions Shppping Centre Multi Level Carpark Lv0,NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.45438666,-6.220214843
+87,The Pavilions Shppping Centre Multi Level Carpark Lv0,NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.45442074,-6.220180222
+88,RNLI Airside,AIRSIDE RETAIL PARK,,2, ,TRUE, , ,Retail Park,53.44466114,-6.219999263
+89,RNLI Airside,AIRSIDE RETAIL PARK,,2, ,TRUE, , ,Retail Park,53.44463983,-6.219985399
+90,Eurocycles eurobaby Airside,AIRSIDE RETAIL PARK,,1, , ,TRUE, ,Retail Park,53.44389169,-6.217999754
+91,Golf Vision Airside,AIRSIDE RETAIL PARK,,1, , ,TRUE, ,Car Dealership,53.44357158,-6.21759532
+92,Opel dealer Airside,AIRSIDE RETAIL PARK,,1, , ,TRUE, ,Car Dealership,53.445838,-6.219800221
+93,Outside Fingal Cafe,MAIN STREET,,1,TRUE,TRUE,TRUE,TRUE,"Bookmakers, Newsagents, Cafe",53.45738223,-6.221084263
+94,Outside IBAT College,MAIN STREET,,1,TRUE,TRUE,TRUE, ,College,53.45729008,-6.220901146
+95,Outside Camera Cabin,MAIN STREET,,1, ,TRUE,TRUE, ,"Bookmakers, Camera Shop, Travel Agent",53.45826677,-6.220370655
+96,Swords Plaza Shopping Multi Storey Car Park Level -1,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45565518,-6.220666662
+97,Swords Plaza Shopping Multi Storey Car Park Level -1,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45556835,-6.220670294
+98,Swords Plaza Shopping Multi Storey Car Park Level -2,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.4556636,-6.220765298
+99,Swords Plaza Shopping Multi Storey Car Park Level -2,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45556296,-6.220775332
+100,Swords Central (Pennys at The Pavillions Shopping Centre) lvl -1,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45559381,-6.220457052
+101,Swords Central (Pennys at The Pavillions Shopping Centre) lvl -1,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45559526,-6.220456991
+102,Swords Central (Pennys at The Pavillions Shopping Centre) lvl -2,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45559386,-6.220454629
+103,Swords Central (Pennys at The Pavillions Shopping Centre) lvl -2,MALAHIDE ROAD,,2, , ,TRUE, ,Shopping Centre,53.45559523,-6.220455109
+104,Swords Business Complex,SWORDS BUSINESS CAMPUS,,1, ,TRUE,TRUE, ,Business Park,53.4689573,-6.215794424
+105,Swords Business Complex,SWORDS BUSINESS CAMPUS,,4, , ,TRUE,TRUE,Business Park,53.46934384,-6.217858961
+106,Swords Business Complex,SWORDS BUSINESS CAMPUS,,4, , ,TRUE, ,Business Park,53.46936265,-6.217835987
+107,Swords Business Complex,SWORDS BUSINESS CAMPUS,,4, , ,TRUE, ,Business Park,53.46938168,-6.21781466
+108,Swords Business Complex,SWORDS BUSINESS CAMPUS,,4, , ,TRUE, ,Business Park,53.46939951,-6.217793687
+109,Renault Airside,NA,,2, , ,TRUE, ,Car Dealership,53.44641403,-6.220158122
+110,Renault Airside,NA,,2, , ,TRUE,TRUE,Car Dealership,53.44643026,-6.220120514
+111,Applegreen Service Station,NA,,1,TRUE, ,TRUE, ,Petrol Station,53.56478568,-6.211801368
+112,Outside Pavillions Main Entrance,NA,,2,TRUE,TRUE,TRUE, ,Shopping Centre,53.45334529,-6.219089695
+113,Outside Pavillions Main Entrance,NA,,2,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.45331595,-6.219142537
+114,Bank of Ireland Carpark,NORTH STREET,,2, , ,TRUE, ,Bank,53.46106286,-6.218351732
+115,Bank of Ireland Carpark,NORTH STREET,,2, , ,TRUE, ,Bank,53.46103671,-6.218352962
+116,Fingal County Council Building,CHAPEL LANE,,3, , ,TRUE, ,Local Authority,53.45874212,-6.218658648
+117,Fingal County Council Building,CHAPEL LANE,,3, , ,TRUE,TRUE,Local Authority,53.45876413,-6.218648341
+118,Fingal County Council Building,CHAPEL LANE,,3, , ,TRUE,TRUE,Local Authority,53.4587899,-6.218635813
+119,Outside Remax (The Plaza Shopping Centre),SAINT COLUMCILLS DRIVE,,1,TRUE,TRUE,TRUE,TRUE,Estate Agent,53.45679351,-6.220143102
+120,Outside Pavillions Main Entrance,NA,,10, ,TRUE,TRUE, ,Shopping Centre,53.45400976,-6.218405484
+121,Outside Pavillions Main Entrance,NA,,10,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.45394556,-6.218456638
+122,Outside Pavillions Main Entrance,NA,,10,TRUE,TRUE,TRUE, ,Shopping Centre,53.45396415,-6.218438584
+123,Outside Pavillions Main Entrance,NA,,10,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.45399118,-6.218425982
+124,Outside Pavillions Main Entrance,NA,,10,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.45391282,-6.218478554
+125,Outside Pavillions Main Entrance,NA,,10, , ,TRUE, ,Shopping Centre,53.45395259,-6.218319892
+126,Outside Pavillions Main Entrance,NA,,10, , ,TRUE,TRUE,Shopping Centre,53.45392636,-6.218325993
+127,Outside Pavillions Main Entrance,NA,,10, , ,TRUE, ,Shopping Centre,53.45389676,-6.218339875
+128,Outside Pavillions Main Entrance,NA,,10, , ,TRUE,TRUE,Shopping Centre,53.45386997,-6.218353533
+129,Woodies DIY,SWORDS INDUSTRIAL ESTATE,,2,TRUE,TRUE,TRUE,TRUE,Hardware Store,53.46124488,-6.211795993
+130,Woodies DIY,SWORDS INDUSTRIAL ESTATE,,2,TRUE,TRUE,TRUE,TRUE,Hardware Store,53.46123771,-6.211853708
+131,Courtlough Shooting Club,NA,,1, , ,TRUE, ,Gun Club,53.56928252,-6.198557104
+132,O'Dwyers GAA,O'DWYER'S GAA CLUB,,4, , ,TRUE, ,Sports Club,53.6169435,-6.195183937
+133,O'Dwyers GAA,O'DWYER'S GAA CLUB,,4, , ,TRUE, ,Sports Club,53.61704722,-6.194897967
+134,O'Dwyers GAA,O'DWYER'S GAA CLUB,,4, , ,TRUE, ,Sports Club,53.61706679,-6.194847191
+135,O'Dwyers GAA,HAMLET LANE,,4, , ,TRUE, ,Sports Club,53.61706814,-6.194336391
+136,Outside Eurospar,THE GREEN,,2,TRUE,TRUE,TRUE,TRUE,"Chemist, Bookmakers, Newsagents, Pub",53.44563838,-6.200859929
+137,Outside Eurospar,THE GREEN,,2,TRUE,TRUE,TRUE,TRUE,"Bookmakers, Restaurant, Shop",53.4456074,-6.200889051
+138,Off Main Street,OAKLEIGH,,1, , ,TRUE, ,Housing,53.61233369,-6.188460573
+139,Houses,DROGHEDA STREET,,1, ,TRUE,TRUE, ,Housing,53.61289665,-6.188477612
+140,Opposite Mace Garage,DROGHEDA STREET,,1, , ,TRUE, ,"Newsagents, Petrol Station",53.61223237,-6.187641816
+141,Fingal Bay Business Park,STEPHENSTOWN INDUSTRIAL ESTATE,,1, , ,TRUE, ,Industrial Estate,53.60528395,-6.186555102
+142,Linn Comm House,Stephenstown Industrial Estate,,1, , ,TRUE, ,Industrial Estate,53.60536653,-6.187636169
+143,Balbriggan Town Centre and Church Carpark,INDUSTRIAL ESTATE,,5, , ,TRUE, ,"Church, Town Centre",53.60483683,-6.187452491
+144,Balrothery Inn,NA,,1,TRUE, ,TRUE, ,Pub,53.58753025,-6.188647048
+145,Balbriggan Fire Station,STEPHENSTOWN INDUSTRIAL ESTATE,,1, , ,TRUE, ,Industrial Estate,53.60575243,-6.186593217
+146,Fingal Bay Business Park,INDUSTRIAL ESTATE,,1, , ,TRUE, ,Business Park,53.6032752,-6.187209763
+147,Super Valu,ACCESS ROAD,,1, ,TRUE,TRUE, ,"Supermarket, Pub",53.61163316,-6.186529063
+148,Super Valu Carpark,ACCESS ROAD,,1, ,TRUE,TRUE, ,Supermarket,53.61191562,-6.186398055
+149,Super Valu Carpark,ACCESS ROAD,,2, , ,TRUE, ,Supermarket,53.6120087,-6.186453768
+150,Super Valu Carpark,ACCESS ROAD,,2, , ,TRUE, ,Supermarket,53.61204614,-6.186391709
+151,Outside National Irish Bank,DROGHEDA STREET,,1, ,TRUE,TRUE, ,Bank,53.61055362,-6.184733732
+152,Off Main Street,CLONARD STREET,,1, ,TRUE,TRUE,TRUE,"Medical Centre, Housing",53.60970554,-6.183918024
+153,Off Main Street,CLONARD STREET,,1, ,TRUE,TRUE, ,"Medical Centre, Housing",53.60983116,-6.183829846
+154,Balbriggan Retail Park,N1,,2, , ,TRUE, ,Retail Park,53.59916795,-6.184777384
+155,Balbriggan Retail Park,N1,,2, , , , ,Retail Park,53.59918189,-6.184706481
+156,Balbriggan Retail Park,N1,,2,TRUE, ,TRUE, ,Retail Park,53.59931346,-6.184353257
+157,Balbriggan Retail Park,N1,,2,TRUE, ,TRUE, ,Retail Park,53.59925877,-6.184313816
+158,Balbriggan Retail Park,N1,,2,TRUE, ,TRUE, ,Retail Park,53.59909492,-6.184208656
+159,PJ's play centre,N1,,2, , , , ,"Retail Park, Creche",53.59904878,-6.184179293
+160,PJ's play centre,N1,,2, , ,TRUE, ,"Retail Park, Creche",53.59902563,-6.18432171
+161,Balbriggan Retail Park,N1,,2, , ,TRUE, ,Retail Park,53.59906325,-6.184351025
+162,Balbriggan Town Centre and Church Carpark,N1,,5, , ,TRUE, ,"Church, Town Centre",53.60469159,-6.184500332
+163,Balbriggan Town Centre and Church Carpark,N1,,5, , , , ,"Church, Town Centre",53.60417084,-6.184651913
+164,Balbriggan Town Centre and Church Carpark,N1,,5, , ,TRUE, ,"Church, Town Centre",53.60423645,-6.184635591
+165,Balbriggan Town Centre and Church Carpark,N1,,5, , , , ,"Church, Town Centre",53.6043605,-6.184597266
+166,Outside Balbriggan Medical Centre,DROGHEDA STREET,,1, ,TRUE,TRUE, ,"Chemist, HealthCentre, Video Shop",53.60994697,-6.183820731
+167,Outside Xtra Vision,DROGHEDA STREET,,1, ,TRUE,TRUE, ,"Chemist, HealthCentre, Bank, Video Shop",53.61010011,-6.183816155
+168,Opposite Texaco Garage,N1,,1,TRUE,TRUE,TRUE, ,Petrol Station,53.60543067,-6.183984442
+169,Opposite Nwaneto shopping plaza,DUBLIN STREET,,1, ,TRUE,TRUE, ,"Shopping Centre, Florist",53.60623312,-6.183869769
+170,Papa Giovani  restaurant,MILL STREET,,2, ,TRUE,TRUE, ,"Cinema, Restaurant",53.61034423,-6.182831697
+171,New Savoy Cinema,MILL STREET,,2, ,TRUE,TRUE,TRUE,"Cinema, Restaurant",53.61035665,-6.182811582
+172,Main Street,DUBLIN STREET,,1, ,TRUE,TRUE,TRUE,Housing,53.60705846,-6.183490602
+173,The White Harte Hotel,DUBLIN STREET,,1, ,TRUE,TRUE,TRUE,Pub Hotel,53.60820535,-6.183246786
+174,Balbriggan Train Station,RAILWAY STATION ACCESS,,4, ,TRUE,TRUE,TRUE,Train,53.61192518,-6.182696372
+175,Balbriggan Train Station,RAILWAY STATION ACCESS,,4, ,TRUE,TRUE,TRUE,Train,53.61190854,-6.182668574
+176,Balbriggan Train Station,RAILWAY STATION ACCESS,,4, ,TRUE,TRUE,TRUE,Train,53.61189616,-6.182651218
+177,Balbriggan Train Station,RAILWAY STATION ACCESS,,4, ,TRUE,TRUE, ,Train,53.61187462,-6.182623855
+178,Balbriggan Golf Club,BALBRIGGAN GOLF COURSE,,1,TRUE, ,TRUE, ,Golf Club,53.59585609,-6.182907074
+179,Houses,QUAY STREET,,2, , ,TRUE, ,Housing,53.61012043,-6.181218659
+180,Houses,QUAY STREET,,2, , ,TRUE, ,Housing,53.61012533,-6.18113684
+181,By Quay,MILL STREET,,1,TRUE,TRUE,TRUE, ,Public Toilet,53.61094161,-6.181236943
+182,Lidl,ACCESS TO LIDL,,4, , ,TRUE, ,Supermarket,53.60566299,-6.179788398
+183,Lidl,ACCESS TO LIDL,,4, , ,TRUE, ,Supermarket,53.60569458,-6.179778479
+184,Lidl,ACCESS TO LIDL,,4, , ,TRUE, ,Supermarket,53.60572336,-6.179773461
+185,Lidl,ACCESS TO LIDL,,4, , ,TRUE, ,Supermarket,53.60575285,-6.179762576
+186,Houses,HAMPTON STREET,,1, ,TRUE,TRUE, ,"Health Centre, Housing",53.60739517,-6.179352335
+187,Balbriggan Health Centre,PUMP LANE,,1, , ,TRUE, ,Health Centre,53.60714971,-6.17913604
+188,Malahide Castle Carpark,BACK ROAD,,2, , ,TRUE, ,Park,53.43993284,-6.166925248
+189,Malahide Castle Carpark,BACK ROAD,,2, , ,TRUE, ,Park,53.43996469,-6.166799862
+190,Pope John Paul II National School,Inbhir Ide Drive,,1, , ,TRUE, ,Secondary School,53.4540331,-6.169446187
+191,Lusk Town Centre,STATION ROAD,,2, , ,TRUE, ,Chemist,53.52570644,-6.164174569
+192,Lusk Town Centre,STATION ROAD,,2,TRUE, ,TRUE, ,Chemist,53.52568132,-6.164205168
+193,Lusk Town Centre (combined Mother/Child space Disabled parking) Super Valu,STATION ROAD,,3,TRUE,TRUE,TRUE,TRUE,"Chemist, Supermarket",53.52654695,-6.164165609
+194,Lusk Town Centre (combined Mother/Child space Disabled parking) Super Valu,STONE MASONS CLOSE,,3,TRUE,TRUE,TRUE, ,"Chemist, Supermarket",53.52652799,-6.164127675
+195,Lusk Town Centre (combined Mother/Child space Disabled parking) Super Valu,STONE MASONS CLOSE,,3,TRUE,TRUE,TRUE,TRUE,"Chemist, Supermarket",53.52649999,-6.16416589
+196,Malahide Castle Carpark,BACK ROAD,,2, , ,TRUE, ,Park,53.44008268,-6.16542367
+197,Malahide Castle Carpark,BACK ROAD,,2, , ,TRUE, ,Park,53.44008733,-6.165376747
+198,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,4, , ,TRUE, ,Park,53.44353864,-6.162918039
+199,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,4, , ,TRUE, ,Park,53.4435416,-6.162973813
+200,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,4, , ,TRUE, ,Park,53.4436271,-6.162959867
+201,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,4, , ,TRUE, ,Park,53.44362582,-6.162905575
+202,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,2, , ,TRUE, ,Park,53.44391551,-6.161863989
+203,Malahide Castle Carpark (nr Childrens Playground),MALAHIDE DEMESNE,,2, , ,TRUE, ,Park,53.4439209,-6.161918829
+204,Lusk Community Centre,ACCESS TO HELTH CENTRE,,2, , ,TRUE, ,Community Centre,53.52360092,-6.158616397
+205,Lusk Community Centre,ACCESS TO HELTH CENTRE,,2, , ,TRUE, ,Community Centre,53.52361074,-6.158674919
+206,Malahide Castle,DUBLIN ROAD,,2, , ,TRUE,TRUE,Park,53.4500339,-6.157095213
+207,Outside Malahide Train Station,DUBLIN ROAD,,1,TRUE, ,TRUE,TRUE,Train,53.45041181,-6.155958678
+208,Malahide Train Station,RAILWAY AVENUE,,5, , ,TRUE,TRUE,Train,53.45076086,-6.156313511
+209,Malahide Train Station,RAILWAY AVENUE,,5, , ,TRUE,TRUE,Train,53.45079346,-6.15631176
+210,Malahide Train Station,RAILWAY AVENUE,,5, , ,TRUE, ,Train,53.45081735,-6.15630915
+211,Malahide Train Station,RAILWAY AVENUE,,5, ,TRUE,TRUE, ,Train,53.45084121,-6.156311851
+212,Malahide Train Station,RAILWAY AVENUE,,5, , ,TRUE, ,Train,53.45087275,-6.156311492
+213,Malahide Marina,MALAHIDE MARINA VILLAGE,,1, , ,TRUE, ,Marina,53.45589435,-6.154692239
+214,Malahide Marina,MALAHIDE MARINA VILLAGE,,1, , ,TRUE, ,Marina,53.45565244,-6.154464206
+215,Malahide Marina,MALAHIDE MARINA VILLAGE,,2, ,TRUE,TRUE, ,Cruzzo's Restaurant,53.45522261,-6.15425537
+216,Malahide Marina,MALAHIDE MARINA VILLAGE,,2, ,TRUE,TRUE, ,Marina,53.45522469,-6.154303584
+217,Outside Starbucks,MALAHIDE MARINA VILLAGE,,1, , ,TRUE, ,"Newsagents, Cafe",53.4522275,-6.153998788
+218,Outside Starbucks,STRAND STREET,,1, ,TRUE,TRUE, ,Cafe,53.4521274,-6.154136817
+219,Outside Foodware Store,OLD STREET,,1, ,TRUE,TRUE,TRUE,Cafe,53.45195669,-6.154996397
+220,Outside Smyths Pub,NEW STREET,,1, , ,TRUE, ,"Health Centre, Pub",53.45102927,-6.153783543
+221,Outside Vinny Vanucchi's Restaurant,CHURCH ROAD,,1, , ,TRUE,TRUE,"Hairdressers, Restaurant",53.44994259,-6.153516338
+222,Outside The Village Newsagent,THE MALL,,1,TRUE,TRUE,TRUE,TRUE,"Newsagents, Supermarket, Bank",53.45089535,-6.152763125
+223,Outside NIB,THE MALL,,1, , ,TRUE,TRUE,"Newsagents, Supermarket, Video Shop, Bank",53.45079142,-6.152964226
+224,Malahide Library,NA,,1,TRUE,TRUE,TRUE, ,Library,53.45034104,-6.152410577
+225,Outside Mal Seads,JAMES TERRACE,,1,TRUE, ,TRUE,TRUE,"Sports Club, Tennis Club",53.4517898,-6.151384565
+226,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41814932,-6.150505126
+227,Portmarnock Train Station,STATION ROAD,,8, ,TRUE,TRUE, ,Train,53.41814552,-6.150463938
+228,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41814502,-6.150425538
+229,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41814256,-6.150374227
+230,Portmarnock Train Station,STATION ROAD,,8, ,TRUE,TRUE, ,Train,53.41813969,-6.150323377
+231,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41813618,-6.150291959
+232,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41813267,-6.150252773
+233,Portmarnock Train Station,STATION ROAD,,8, , ,TRUE, ,Train,53.41813074,-6.150209996
+234,Grand Hotel Malahide,GROVE ROAD,,1, ,TRUE,TRUE,TRUE,Hotel,53.45066658,-6.147999945
+235,Grand Hotel Malahide,BATH AVENUE,,2, , ,TRUE, ,Hotel,53.45016825,-6.146837028
+236,Grand Hotel Malahide,BATH AVENUE,,2, , ,TRUE, ,Hotel,53.45016257,-6.146762942
+237,Grand Hotel Malahide,BATH AVENUE,,2, , ,TRUE, ,Hotel,53.45039345,-6.147104371
+238,Grand Hotel Malahide,BATH AVENUE,,2, , ,TRUE, ,Hotel,53.45040167,-6.147175433
+239,Rush & Lusk Train Station,Rush Road,,3, ,TRUE,TRUE, ,Train,53.52084216,-6.143535169
+240,Rush & Lusk Train Station,Rush Road,,3, ,TRUE,TRUE, ,Train,53.5208617,-6.143515475
+241,Rush & Lusk Train Station,Rush Road,,3, ,TRUE,TRUE, ,Train,53.52087921,-6.143498287
+242,Donabate/Portrane Community Centre,PORTRANE ROAD,,4,TRUE,TRUE,TRUE, ,Community Centre,53.48974571,-6.142769943
+243,Donabate/Portrane Community Centre,PORTRANE ROAD,,4,TRUE,TRUE,TRUE, ,Community Centre,53.48978906,-6.142692299
+244,Donabate/Portrane Community Centre,PORTRANE ROAD,,4,TRUE,TRUE,TRUE, ,Community Centre,53.48977047,-6.142726911
+245,Donabate/Portrane Community Centre,PORTRANE ROAD,,4,TRUE,TRUE,TRUE, ,Community Centre,53.48972581,-6.142820093
+246,Malahide Coast Carpark,COAST ROAD,,2, , ,TRUE, ,Beach,53.45003413,-6.138702162
+247,Malahide Coast Carpark,COAST ROAD,,2, , ,TRUE, ,Beach,53.45004723,-6.138734865
+248,Malahide Coast Carpark,ACCESS ROAD,,2, , ,TRUE, ,Beach,53.4505705,-6.140052715
+249,Malahide Coast Carpark,ACCESS ROAD,,2, , ,TRUE, ,Beach,53.4505857,-6.140083781
+250,The Golf Links Pub,STRAND ROAD,,2,TRUE, ,TRUE,TRUE,Pub,53.42048912,-6.138128474
+251,The Golf Links Pub,STRAND ROAD,,2,TRUE, ,TRUE,TRUE,Pub,53.42047259,-6.138091424
+252,Portmarnock Sports and Leisure Club,BLACKWOOD LANE,,2, , ,TRUE, ,Sports Club,53.43449114,-6.138821503
+253,Portmarnock Sports and Leisure Club,BLACKWOOD LANE,,2, , ,TRUE, ,Sports Club,53.43458259,-6.138842165
+254,Portmarnock Sports and Leisure Club,BLACKWOOD LANE,,2, ,TRUE,TRUE, ,Sports Club,53.43387368,-6.139545547
+255,Portmarnock Sports and Leisure Club,BLACKWOOD LANE,,2, ,TRUE,TRUE, ,Sports Club,53.43387907,-6.139499351
+256,Donabate Medical Centre,PORTRANE ROAD,,1,TRUE, ,TRUE, ,"Chemist, Newsagents, Health Centre, Insurance Broker",53.49248019,-6.135995631
+257,Portmarnock Makin Street,STRAND ROAD,,1, , ,TRUE, ,"Chemist, Cafe, Takeaway",53.42206449,-6.135748007
+258,St Annes Church Portmarnock,STRAND ROAD,,3,TRUE, ,TRUE,TRUE,Church,53.42133073,-6.135992309
+259,St Annes Church Portmarnock,STRAND ROAD,,3,TRUE, ,TRUE,TRUE,Church,53.4214233,-6.136079823
+260,St Annes Church Portmarnock,STRAND ROAD,,3,TRUE, ,TRUE,TRUE,Church,53.42144356,-6.136055345
+261,St Annes Church Portmarnock,STRAND ROAD,,2, , ,TRUE, ,Church,53.421538,-6.135369173
+262,St Annes Church Portmarnock,STRAND ROAD,,2, , ,TRUE,TRUE,Church,53.42157504,-6.135430815
+263,Racecourse Shopping Centre,GRANGE ROAD,,2,TRUE, ,TRUE,TRUE,"Chemist, Newsagents, Supermarket, Hairdresser, Shopping Centre, Takeaway, Florist",53.39670778,-6.137877559
+264,Racecourse Shopping Centre,GRANGE ROAD,,2,TRUE, ,TRUE,TRUE,"Chemist, Newsagents, Supermarket, Hairdresser, Shopping Centre, Takeaway, Florist",53.39671347,-6.137837663
+265,Bayside Train Station,FOOTPATH,,2, , ,TRUE, ,Train,53.39125871,-6.136811344
+266,Bayside Train Station,FOOTPATH,,2, , ,TRUE, ,Train,53.39125928,-6.136852868
+267,Pormarnock Beach Carpark,GOLF LINKS ROAD,,3, , ,TRUE, ,Beach,53.41686051,-6.127745956
+268,Pormarnock Beach Carpark,GOLF LINKS ROAD,,3, , ,TRUE, ,Beach,53.41683063,-6.127747104
+269,Pormarnock Beach Carpark,GOLF LINKS ROAD,,3, , ,TRUE, ,Beach,53.41680239,-6.127743984
+270,Dunnes Stores,WENDELL AVENUE,,1,TRUE, ,TRUE, ,"Chemist, Butcher, Newsagents, Supermarket",53.43469405,-6.130251913
+271,Dunnes Stores,WENDELL AVENUE,,2, , ,TRUE, ,"Chemist, Butcher, Newsagents, Supermarket",53.43485667,-6.1303018
+272,Dunnes Stores,WENDELL AVENUE,,2, , ,TRUE,TRUE,"Chemist, Butcher, Newsagents, Supermarket",53.43487937,-6.130301683
+273,Malahide Utd- Gannon Park,COAST ROAD,,2, , ,TRUE, ,Sports Club,53.44329938,-6.12739523
+274,Malahide Utd- Gannon Park,COAST ROAD,,2, , ,TRUE, ,Sports Club,53.44330547,-6.127443829
+275,Malahide Utd- Gannon Park,COAST ROAD,,2, , ,TRUE, ,Sports Club,53.44343994,-6.127306295
+276,Malahide Utd- Gannon Park,COAST ROAD,,2, , ,TRUE, ,Sports Club,53.44343588,-6.127265961
+277,Robswall Park,COAST ROAD,,4, , ,TRUE, ,Park,53.44352627,-6.12539869
+278,Robswall Park,COAST ROAD,,4, , ,TRUE, ,Park,53.44349634,-6.125383566
+279,Robswall Park,COAST ROAD,,4, , ,TRUE, ,Park,53.44343823,-6.125449051
+280,Robswall Park,COAST ROAD,,4, , ,TRUE, ,Park,53.44341637,-6.125486909
+281,Portmarnock Hotel,STRAND ROAD,,2, , ,TRUE, ,Hotel,53.42991484,-6.125416656
+282,Portmarnock Hotel,STRAND ROAD,,2, , ,TRUE,TRUE,Hotel,53.42992668,-6.125453617
+283,Portmarnock Beach Public Carpark,STRAND ROAD,,2,TRUE, ,TRUE, ,Beach,53.43036253,-6.125408069
+284,Portmarnock Beach Public Carpark,STRAND ROAD,,2, , ,TRUE, ,Beach,53.43034767,-6.125414982
+285,Outside House,COLLEGE STREET,,1, , ,TRUE, ,Housing,53.39726383,-6.128460896
+286,Baldoyle Church,MAIN STREET,,1,TRUE, ,TRUE, ,Church,53.39909723,-6.127174386
+287,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE,TRUE,Train,53.57431281,-6.119284548
+288,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE,TRUE,Train,53.57428503,-6.119247317
+289,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE,TRUE,Train,53.57425658,-6.119212519
+290,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE, ,Train,53.57420834,-6.119147348
+291,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE,TRUE,Train,53.57423098,-6.119176392
+292,Skerries Community Centre,THOMAS HAND STREET,,1,TRUE, ,TRUE, ,Community Centre,53.577555,-6.111679313
+293,Marine Hotel,DUBLIN ROAD,,2, , ,TRUE, ,Hotel,53.38885444,-6.110685953
+294,Houses,NEW STREET,,1, , ,TRUE, ,Housing,53.57872084,-6.110417734
+295,St Ita Hospital,NA,,2,TRUE, ,TRUE, ,Hospital,53.48761209,-6.112539028
+296,St Ita Hospital,NA,,2,TRUE, ,TRUE,TRUE,Hospital,53.48762159,-6.112593077
+297,Outside Jenbini's,CHURCH STREET,,1, , ,TRUE, ,"Hairdressers, Pub",53.57995145,-6.109612958
+298,Skerries Mills,ACCESS SKERRIES MILL,,2, , ,TRUE, ,Tourist Attraction,53.57484497,-6.109276376
+299,Skerries Mills,ACCESS SKERRIES MILL,,2, , ,TRUE,TRUE,Tourist Attraction,53.57483693,-6.109336392
+300,Opposite Super Valu,CHURCH STREET,,1, , ,TRUE, ,"Supermarket, Church",53.57822729,-6.107302429
+301,Opposite Super Valu,CHURCH STREET,,1, , ,TRUE, ,"Supermarket, Church",53.57806897,-6.107095136
+302,Outside Super Valu,CHURCH STREET,,1, , ,TRUE, ,"Supermarket, Church",53.57799486,-6.107202804
+303,Sutton Train Station,FOOTPATH,,1, ,TRUE,TRUE, ,Train,53.39187575,-6.1158674
+304,Sutton Train Station,FOOTPATH,,3, ,TRUE,TRUE,TRUE,Train,53.39190262,-6.116437457
+305,Sutton Train Station,FOOTPATH,,3, ,TRUE,TRUE, ,Train,53.39190444,-6.116487455
+306,Sutton Train Station,FOOTPATH,,3, ,TRUE,TRUE,TRUE,Train,53.39190795,-6.116531626
+307,Off Main Street,THOMAS HAND STREET,,1, , ,TRUE, ,"Housing, Pub",53.58057811,-6.10830422
+308,Suttonians RFC,STATION ROAD,,1, ,TRUE,TRUE, ,Sports Club,53.39095848,-6.115122132
+309,Houses,COLLEGE COURT,,1, , ,TRUE,TRUE,"Newsagents, Housing",53.58092481,-6.107566564
+310,Houses,HARBOUR ROAD,,1,TRUE, ,TRUE, ,Housing,53.58243251,-6.105941748
+311,Opposite Cafe,STRAND STREET,,1, , ,TRUE, ,"Cafe, Restaurant",53.57913999,-6.106394454
+312,Coastal Carpark,CHURCH STREET,,1, , ,TRUE, ,Coast Area,53.57939173,-6.105244015
+313,Opposite Shankey menswear,STRAND STREET,,1, , ,TRUE, ,Clothes Shop,53.57722892,-6.105528808
+314,Houses,STRAND STREET,,1, , ,TRUE,TRUE,"Housing, Restaurant",53.577624,-6.105876798
+315,Opposite The Central Take Away,STRAND STREET,,1, , ,TRUE, ,Takeaway,53.5781079,-6.105950381
+316,Outside Church,STRAND STREET,,2, , ,TRUE, ,"Library, Church",53.57835448,-6.106248381
+317,Outside Church,STRAND STREET,,2, , ,TRUE, ,"Church, Library",53.57845206,-6.106281139
+318,Coast Carpark,NA,,2, , ,TRUE, ,Coast Area,53.58576613,-6.10341821
+319,Coast Carpark,NA,,2, , ,TRUE, ,Coast Area,53.58576483,-6.103362811
+320,Outside Laundry,CHURCH STREET,,1, , ,TRUE, ,Housing,53.57660809,-6.105363862
+321,Fingal Red Island Carpark,NA,,4, ,TRUE,TRUE, ,Coast Area,53.58514358,-6.102159655
+322,Fingal Red Island Carpark,NA,,4, ,TRUE,TRUE, ,Coast Area,53.58516333,-6.102163743
+323,Fingal Red Island Carpark,NA,,4, ,TRUE,TRUE, ,Coast Area,53.5851894,-6.102167008
+324,Fingal Red Island Carpark,NA,,4, ,TRUE,TRUE, ,Coast Area,53.58521838,-6.102176986
+325,SuperQuinn Sutton,HOWTH ROAD,,2, ,TRUE,TRUE, ,"Chemist, Newsagents, Supermarket, Post Office",53.39002285,-6.109430949
+326,SuperQuinn Sutton,HOWTH ROAD,,2, ,TRUE,TRUE,TRUE,"Chemist, Newsagents, Supermarket, Post Office",53.38992268,-6.109420823
+327,SuperQuinn Sutton,HOWTH ROAD,,1,TRUE,TRUE,TRUE, ,"Chemist, Newsagents, Supermarket, Post Office, Hairdresser",53.38988937,-6.109049925
+328,Outside Sharon health and beauty,SANDY ROAD,,1, ,TRUE,TRUE,TRUE,Beauty Clinic,53.52238889,-6.097863945
+329,Outside Rush Hardware,MAIN ST,,1, ,TRUE,TRUE, ,"Chemist, Newsagents",53.52247707,-6.095096033
+330,"Rush Main Street, near doctors",MAIN ST,,1, ,TRUE,TRUE, ,"Housing, GP",53.52213372,-6.092854387
+331,Opposite Post Office,MAIN ST,,2, ,TRUE,TRUE, ,Post Office,53.52196761,-6.09171716
+332,Opposite Post Office,MAIN ST,,2,TRUE,TRUE,TRUE, ,"Newsagents, Post Office",53.52198462,-6.091822786
+333,Sutton Park School,SOUTH HILL,,1,TRUE, ,TRUE, ,Secondary School,53.37627097,-6.093155935
+334,Rush Harbour,LOWER MAIN ST,,1, , ,TRUE, ,"Pub, Housing, Coast Area",53.52251472,-6.08215515
+335,Howth Golf Club,ACCESS TO HOWTH GOLF CLUB,,2, , ,TRUE, ,Sports Club,53.37596884,-6.088042904
+336,Howth Golf Club,ACCESS TO HOWTH GOLF CLUB,,2, , ,TRUE, ,Sports Club,53.37598418,-6.088020303
+337,Howth Train Station,ACCESS ROAD,,1,TRUE, ,TRUE, ,"Train, Pub",53.38886965,-6.0742986
+338,Howth Yacht Club,ACCESS TO YATH CLUB,,3,TRUE, ,TRUE, ,Sports Club,53.38887847,-6.068084592
+339,Howth Yacht Club,ACCESS TO YATH CLUB,,3,TRUE, , , ,Sports Club,53.38884884,-6.068085732
+340,Howth Yacht Club,ACCESS TO YATH CLUB,,3,TRUE,TRUE,TRUE, ,Sports Club,53.38879473,-6.068088618
+341,Howth Yacht Club,ACCESS TO YATH CLUB,,2,TRUE,TRUE,TRUE, ,Sports Club,53.38866841,-6.068115381
+342, ,ACCESS TO YATH CLUB,,2,TRUE, ,TRUE, ,Sports Club,53.38859149,-6.068223036
+343,Outside Church,HARBOUR ROAD,,1, , ,TRUE, ,Church,53.3883745,-6.070599825
+344,Howth Harbour,EAST PIER HOWTH HARBOUR,,1,TRUE, ,TRUE,TRUE,"Newsagents, Restaurant",53.38856783,-6.063871805
+345,Outside Church,MAIN STREET,,1, , ,TRUE,TRUE,"Newsagents, Church, Cafe, Pub, Florist",53.38488894,-6.065075654
+346,Outside Centra,MAIN STREET,,1, , ,TRUE,TRUE,"Newsagents, Church",53.38534864,-6.065129661
+347,Baily Hotel,THORMANBY ROAD,,1,TRUE,TRUE,TRUE, ,Hotel,53.38571143,-6.064897191
+348,Mary Mother of Hope National School,Little Pace Road,,3,TRUE, ,TRUE, ,Primary School,53.40468863,-6.424872457
+349,Mary Mother of Hope National School,Little Pace Road,,3,TRUE, ,TRUE, ,School,53.40471496,-6.424853625
+350,Mary Mother of Hope National School,Little Pace Road,,3,TRUE, ,TRUE, ,Primary School,53.40417896,-6.425190304
+351,Hartstwon Shopping Centre,Hartstown Road,,1, , ,TRUE,TRUE,"Chemist, Bookmakers, Supermarket, Pub",53.39242659,-6.420105833
+352,Hartstown Community School,Hartstown Road,,1, , ,TRUE, ,Secondary School,53.39660679,-6.415470588
+353,Scoil an croi ro Naofa Iosa,Hartstown Road,,1, ,TRUE, ,TRUE,Secondary School,53.40206586,-6.409969103
+354,Mountview Health Centre,Shelerin Road,,1, , ,TRUE, ,Health Centre,53.38918116,-6.40841273
+355,Huntstown Community College,Hartstown Road,,1,TRUE, ,TRUE, ,Community Centre,53.40215269,-6.408068509
+356,Cumann Naomh Peregrine C.L.G,Blakestown Road,,2, , ,TRUE, ,"Secondary School, GAA Club",53.39541658,-6.40506236
+357,Cumann Naomh Peregrine C.L.G,Blakestown Road,,2, , ,TRUE, ,"Secondary School,  Sports Club, GAA Club",53.39533018,-6.405225161
+358,Blakestown Resource Centre,Blakestown Way,,1, , ,TRUE, ,Community Centre,53.39655048,-6.399969131
+359,"Blanchardstown Retail Park, McDonalds",BLAKESTOWN WAY,,2, , ,TRUE, ,Retail Park,53.39279547,-6.395478641
+360,"Blanchardstown Retail Park, McDonalds",BLAKESTOWN WAY,,2, , ,TRUE, ,Retail Park,53.39279532,-6.39553547
+361,Blanchardstown Retail Park,BLANCHARDSTOWN ROAD SOUTH,,12, , ,TRUE, ,Retail Park,53.39452785,-6.39405009
+362,"Blanchardstown Retail Park, Smyth's Toys",BLANCHARDSTOWN ROAD SOUTH,,4,TRUE,TRUE,TRUE, ,Retail Park,53.39483437,-6.393815162
+363,"Blanchardstown Retail Park, Smyth's Toys",BLANCHARDSTOWN ROAD SOUTH,,4,TRUE,TRUE,TRUE, ,Retail Park,53.39481584,-6.393859252
+364,"Blanchardstown Retail Park, Smyth's Toys",BLANCHARDSTOWN ROAD SOUTH,,4,TRUE,TRUE,TRUE, ,Retail Park,53.39479614,-6.393891037
+365,"Blanchardstown Retail Park, Smyth's Toys",BLANCHARDSTOWN ROAD SOUTH,,4,TRUE,TRUE,TRUE, ,Retail Park,53.39477413,-6.393929355
+366,Blanchardstown Retail Park,BLAKESTOWN WAY,,2, , ,TRUE, ,"Bookmakers, Retail Park",53.39278361,-6.394447394
+367,Blanchardstown Retail Park,BLAKESTOWN WAY,,2, , ,TRUE, ,"Bookmakers, Retail Park",53.39278351,-6.394479656
+368,Saint Lukes Church Carpark,Dromheath Avenue,,3, , ,TRUE, ,Church,53.40639196,-6.392863767
+369,Mulhuddart Community Centre,Castlecurragh,,1, , ,TRUE, ,Community Centre,53.40505229,-6.393645902
+370,Coolmine Sports & Leisure Centre,Grove Road,,4, , ,TRUE, ,Sports Club,53.38703493,-6.395072093
+371,Coolmine Sports & Leisure Centre,Grove Road,,4, , ,TRUE,TRUE,Sports Club,53.38705833,-6.395070181
+372,Coolmine Sports & Leisure Centre,Grove Road,,4, , ,TRUE, ,Sports Club,53.38708143,-6.395070655
+373,Coolmine Sports & Leisure Centre,Grove Road,,4, , ,TRUE,TRUE,Sports Club,53.38710786,-6.395068886
+374,Fingal County Council Building,GROVE ROAD,,4, ,TRUE,TRUE, ,Local Authority,53.39069615,-6.393963699
+375,Fingal County Council Building,GROVE ROAD,,4, ,TRUE,TRUE, ,Local Authority,53.39068134,-6.393946031
+376,Fingal County Council Building,GROVE ROAD,,4, ,TRUE,TRUE, ,Local Authority,53.39066937,-6.393926864
+377,Mulhuddart Shopping Centre,Castlecurragh,,2, , ,TRUE, ,"Bookmakers, Supermarket",53.40539592,-6.393517254
+378,Mulhuddart Shopping Centre,Castlecurragh,,2, , ,TRUE, ,"Bookmakers, Supermarket",53.405375,-6.393478337
+379,Saint Lukes Church Carpark,Dromheath Avenue,,3, , ,TRUE, ,Church,53.4063628,-6.392770557
+380,Saint Lukes Church Carpark,Dromheath Avenue,,3, , ,TRUE, ,Church,53.40637559,-6.39281674
+381,Blanchardstown Retail Park,NA,,4, ,TRUE,TRUE, ,"Retail Park, TGI, Leisure Plex",53.39233325,-6.39317158
+382,Blanchardstown Retail Park,NA,,4, ,TRUE,TRUE,TRUE,"Retail Park, TGI, Leisure Plex",53.3923138,-6.393136157
+383,Blanchardstown Retail Park,NA,,4, ,TRUE,TRUE,TRUE,"Retail Park, TGI, Leisure Plex",53.39229219,-6.393094972
+384,Blanchardstown Retail Park,NA,,4, , ,TRUE,TRUE,"Retail Park, TGI, Leisure Plex",53.39227045,-6.39305593
+385,"Blanchardstown Retail Park, Leisure Plex",NA,,2,TRUE,TRUE,TRUE,TRUE,Retail Park,53.3921528,-6.392868124
+386,"Blanchardstown Retail Park, Leisure Plex",NA,,2,TRUE,TRUE,TRUE,TRUE,Retail Park,53.39212882,-6.392825217
+387,Draoicht Theatre/Leisure Plex,NA,,2, ,TRUE,TRUE,TRUE,"Theatre, Leisure Plex, Cafe",53.39157207,-6.392118529
+388,Draoicht Theatre/Leisure Plex,NA,,2, ,TRUE,TRUE,TRUE,"Theatre, Leisure Plex, Cafe",53.39153516,-6.392084802
+389,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.39125762,-6.391641094
+390,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.3912699,-6.391679756
+391,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.39124025,-6.39160118
+392,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.3912155,-6.391557963
+393,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.39119091,-6.39150786
+394,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE, ,Theatre,53.39116657,-6.391435027
+395,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE, ,Theatre,53.39114707,-6.391371526
+396,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE, ,Theatre,53.39112541,-6.391305692
+397,Draoicht Theatre,NA,,9,TRUE,TRUE,TRUE,TRUE,Theatre,53.39110707,-6.391258359
+398,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39296537,-6.391679723
+399,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39294523,-6.391711409
+400,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39292277,-6.391746936
+401,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE, ,Shopping Centre,53.39290634,-6.391779709
+402,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE, ,Shopping Centre,53.39090335,-6.389935054
+403,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE,TRUE,Shopping Centre,53.3908811,-6.389897226
+404,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE,TRUE,Shopping Centre,53.3908586,-6.389855304
+405,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE,TRUE,Shopping Centre,53.39083791,-6.389822285
+406,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE, ,Shopping Centre,53.39082826,-6.39005293
+407,Blanchardstown Shopping Centre (Blue),NA,,6, ,TRUE,TRUE,TRUE,Shopping Centre,53.39084484,-6.390082012
+408,Blanchardstown Shopping Centre (Blue MultiStorey 1),NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.39110552,-6.389972285
+409,Blanchardstown Shopping Centre (Blue MultiStorey 1),NA,,2, ,TRUE,TRUE,TRUE,Shopping Centre,53.39112625,-6.389933116
+410,Blanchardstown Shopping Centre (Blue MultiStorey 2),NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.39110813,-6.389979929
+411,Blanchardstown Shopping Centre (Blue MultiStorey 2),NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.39112986,-6.389941905
+412,Blanchardstown Shopping Centre (Blue MultiStorey 3),NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.3911127,-6.38998723
+413,Blanchardstown Shopping Centre (Blue MultiStorey 3),NA,,2, ,TRUE,TRUE, ,Shopping Centre,53.39113447,-6.389952298
+414,"Blanchardstown Retail Park, TK Maxx",NA,,12, ,TRUE,TRUE, ,Retail Park,53.39452984,-6.393778542
+415,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.3945484,-6.393802405
+416,Blanchardstown Retail Park,NA,,12, ,TRUE,TRUE, ,Retail Park,53.39456382,-6.393832907
+417,Blanchardstown Retail Park,NA,,12, ,TRUE,TRUE, ,Retail Park,53.39457878,-6.393861912
+418,Blanchardstown Retail Park,NA,,12, ,TRUE,TRUE, ,Retail Park,53.39459373,-6.393886806
+419,Blanchardstown Retail Park,NA,,12, ,TRUE,TRUE,TRUE,Retail Park,53.39460964,-6.393914808
+420,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.3944475,-6.393909925
+421,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.39446371,-6.393940053
+422,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.39447729,-6.393965016
+423,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.39449528,-6.39399504
+424,Blanchardstown Retail Park,NA,,12, , ,TRUE, ,Retail Park,53.3945079,-6.394021762
+425,"Blanchardstown Retail Park, Starbucks",NA,,1, , ,TRUE,TRUE,"Cafe, Retail Park",53.39480347,-6.391326532
+426,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39304342,-6.391828146
+427,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE, ,Shopping Centre,53.39302556,-6.391860991
+428,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39300655,-6.391893995
+429,Blanchardstown Shopping Centre (Yellow),NA,,4, ,TRUE,TRUE, ,Shopping Centre,53.3929883,-6.391927347
+430,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39414767,-6.390327286
+431,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39416545,-6.390293373
+432,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39418445,-6.390259707
+433,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39420207,-6.390227443
+434,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39411547,-6.390272153
+435,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39413351,-6.390244014
+436,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39415557,-6.390210124
+437,Blanchardstown Shopping Centre (Green),NA,,8,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39417101,-6.390177348
+438,Coolmine Train Station,Carpenterstown Road,,5,TRUE,TRUE,TRUE, ,Train,53.3773417,-6.392032109
+439,Coolmine Train Station,Carpenterstown Road,,5,TRUE,TRUE,TRUE, ,Train,53.37734161,-6.391996585
+440,Coolmine Train Station,Carpenterstown Road,,5,TRUE,TRUE,TRUE, ,Train,53.37734276,-6.391957657
+441,Coolmine Train Station,Carpenterstown Road,,5,TRUE,TRUE,TRUE, ,Train,53.3773439,-6.391924742
+442,Coolmine Train Station,Carpenterstown Road,,5,TRUE,TRUE,TRUE, ,Train,53.37734415,-6.391887932
+443,"Blanchardstown Retail Park, Homestore",ENTRANCE TO SHOPPING CENTRE,,4, ,TRUE,TRUE, ,Retail Park,53.39555982,-6.39238205
+444,"Blanchardstown Retail Park, Homestore",ENTRANCE TO SHOPPING CENTRE,,4, ,TRUE,TRUE, ,Retail Park,53.39553718,-6.392345792
+445,"Blanchardstown Retail Park, Homestore",ENTRANCE TO SHOPPING CENTRE,,4, ,TRUE,TRUE, ,Retail Park,53.39551225,-6.392303376
+446,"Blanchardstown Retail Park, Homestore",ENTRANCE TO SHOPPING CENTRE,,4, ,TRUE,TRUE,TRUE,Retail Park,53.39549026,-6.392267622
+447,Crowne Plaza Hotel,ENTRANCE TO SHOPPING CENTRE,,2,TRUE, ,TRUE, ,Hotel,53.39545721,-6.390095511
+448,Crowne Plaza Hotel,ENTRANCE TO SHOPPING CENTRE,,2,TRUE, ,TRUE, ,Hotel,53.39544388,-6.39006371
+449,"Blanchardstown Retail Park, PC World",NA,,2,TRUE,TRUE,TRUE, ,Retail Park,53.39480205,-6.388952549
+450,"Blanchardstown Retail Park, PC World",NA,,2,TRUE,TRUE,TRUE, ,Retail Park,53.39478639,-6.388924198
+451,"Blanchardstown Retail Park, Currys",NA,,2,TRUE,TRUE,TRUE, ,Retail Park,53.39392838,-6.38750748
+452,"Blanchardstown Retail Park, Currys",NA,,2,TRUE,TRUE,TRUE, ,Retail Park,53.39390655,-6.387469298
+453,Castleknock Community College,NA,,1, , ,TRUE, ,Secondary School,53.37222741,-6.3901994
+454,Outside Spar,Carpenterstown Road,,2, , ,TRUE, ,"Chemist, Supermarket, Takeaway, Video Shop",53.37231211,-6.389327244
+455,Outside Spar,Carpenterstown Road,,2, , ,TRUE, ,"Chemist, Supermarket, Takeaway, Pub, Video Shop",53.37233076,-6.389343232
+456,"Blanchardstown Retail Park, AIB",NA,,1, , ,TRUE,TRUE,Retail Park,53.38970421,-6.38943764
+457,"Blanchardstown Retail Park, Burtons",WESTEND RETAIL PARK,,3,TRUE,TRUE,TRUE, ,Retail Park,53.39036068,-6.387312764
+458,"Blanchardstown Retail Park, Burtons",WESTEND RETAIL PARK,,3,TRUE,TRUE,TRUE, ,Retail Park,53.39037287,-6.387282268
+459,"Blanchardstown Retail Park, Burtons",WESTEND RETAIL PARK,,3,TRUE,TRUE,TRUE,TRUE,Retail Park,53.39038859,-6.387250468
+460,"Blanchardstown Retail Park, Pavers",WESTEND RETAIL PARK,,5,TRUE,TRUE,TRUE, ,Retail Park,53.39033043,-6.387397516
+461,"Blanchardstown Retail Park, Pavers",WESTEND RETAIL PARK,,5,TRUE,TRUE,TRUE, ,Retail Park,53.3903173,-6.387431301
+462,"Blanchardstown Retail Park, Pavers",WESTEND RETAIL PARK,,5,TRUE,TRUE,TRUE, ,Retail Park,53.39030429,-6.387468329
+463,"Blanchardstown Retail Park, Tjs",WESTEND RETAIL PARK,,5,TRUE,TRUE,TRUE, ,Retail Park,53.39028981,-6.387500809
+464,"Blanchardstown Retail Park, Tjs",WESTEND RETAIL PARK,,5,TRUE,TRUE,TRUE, ,Retail Park,53.39027763,-6.387530975
+465,Outside Carpenters Pub,Carpenterstown Road,,1, , ,TRUE, ,"Pub, Off Licence",53.37193441,-6.38885407
+466,Blanchardstown Retail Park,NA,,3, , ,TRUE, ,Retail Park,53.39156657,-6.386969507
+467,Blanchardstown Retail Park,NA,,3, , ,TRUE, ,Retail Park,53.39158621,-6.386934167
+468,Blanchardstown Retail Park,NA,,3, , ,TRUE, ,Retail Park,53.39160901,-6.386894519
+469,"Blanchardstown Retail Park, Heatons",NA,,2, ,TRUE,TRUE, ,Retail Park,53.39125704,-6.385957398
+470,"Blanchardstown Retail Park, Heatons",NA,,2, ,TRUE,TRUE,TRUE,Retail Park,53.39124244,-6.385998311
+471,"Blanchardstown Retail Park, Argos Extra",NA,,4, ,TRUE,TRUE, ,Retail Park,53.39114607,-6.385817483
+472,"Blanchardstown Retail Park, Argos Extra",NA,,4, ,TRUE,TRUE,TRUE,Retail Park,53.39113056,-6.385851492
+473,"Blanchardstown Retail Park, Argos Extra",NA,,4, ,TRUE,TRUE,TRUE,Retail Park,53.39111748,-6.38588318
+474,"Blanchardstown Retail Park, Argos Extra",NA,,4, ,TRUE,TRUE, ,Retail Park,53.39110614,-6.385912612
+475,Blanchardstown Shopping Centre (Red),NA,,5,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39212865,-6.387723491
+476,Blanchardstown Shopping Centre (Red),NA,,5,TRUE,TRUE,TRUE, ,Shopping Centre,53.39210946,-6.387694565
+477,Blanchardstown Shopping Centre (Red),NA,,5,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.3920944,-6.387667825
+478,Blanchardstown Shopping Centre (Red),NA,,5,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.39207965,-6.387641829
+479,Blanchardstown Shopping Centre (Red),NA,,5,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.3920656,-6.387613785
+480,Blanchardstown Shopping Centre (Red),BLANCHARDSTOWN SHOPPING CENTRE ACCESS,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39261007,-6.387889632
+481,Blanchardstown Shopping Centre (Red),BLANCHARDSTOWN SHOPPING CENTRE ACCESS,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39259514,-6.387920716
+482,Blanchardstown Shopping Centre (Red),BLANCHARDSTOWN SHOPPING CENTRE ACCESS,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39257785,-6.387949621
+483,Blanchardstown Shopping Centre (Red),BLANCHARDSTOWN SHOPPING CENTRE ACCESS,,4, ,TRUE,TRUE,TRUE,Shopping Centre,53.39255758,-6.387979011
+484,Saint Patrick's School,Luttrellstown Avenue,,1, , ,TRUE, ,"Primary School, Community Centre",53.36889725,-6.386948162
+485,Riverdale Community College,BLANCHARDSTOWN ROAD NORTH,,2, , ,TRUE, ,Secondary School,53.40138959,-6.379605591
+486,Riverdale Community College,BLANCHARDSTOWN ROAD NORTH,,2, , ,TRUE, ,Secondary School,53.40138626,-6.379546924
+487,Roselawn Shopping Centre,Roselawn Road,,4,TRUE,TRUE,TRUE, ,"Chemist, Newsagents, Supermarket, Hairdresser, Cafe, Shopping Centre, Pub",53.38297854,-6.381648386
+488,Roselawn Shopping Centre,Roselawn Road,,4,TRUE,TRUE,TRUE,TRUE,"Chemist, Newsagents, Supermarket, Hairdresser, Cafe, Shopping Centre, Pub",53.38301255,-6.381667497
+489,Roselawn Shopping Centre,Roselawn Road,,4,TRUE,TRUE,TRUE,TRUE,"Chemist, Newsagents, Supermarket, Hairdresser, Cafe, Shopping Centre, Pub",53.38304528,-6.381683933
+490,Superquinn Carpark,RAYMOR PARK,,4,TRUE,TRUE,TRUE,TRUE,"Chemist, Bookmakers, Newsagents, Supermarket, Post Office, Hairdresser",53.38649209,-6.378642546
+491,Superquinn Carpark,RAYMOR PARK,,4,TRUE,TRUE,TRUE, ,"Chemist, Bookmakers, Newsagents, Supermarket, Post Office, Hairdresser",53.38650824,-6.378682354
+492,Superquinn Carpark,RAYMOR PARK,,4,TRUE,TRUE,TRUE, ,"Chemist, Bookmakers, Newsagents, Supermarket, Post Office, Hairdresser",53.38652431,-6.378713727
+493,Superquinn Carpark,RAYMOR PARK,,4,TRUE,TRUE,TRUE, ,"Chemist, Bookmakers, Newsagents, Supermarket, Post Office, Hairdresser",53.38653804,-6.378743522
+494,Outside Blanchardstown Youth Reach Centre,Main Street,,1,TRUE,TRUE,TRUE, ,Community Centre,53.38769108,-6.37918022
+495,Church of Saint Thomas the Apostle Carpark,Laurel Lodge Road,,4,TRUE, ,TRUE, ,Church,53.37727507,-6.377458493
+496,Church of Saint Thomas the Apostle Carpark,Laurel Lodge Road,,4, , ,TRUE, ,Church,53.37729831,-6.377518989
+497,Church of Saint Thomas the Apostle Carpark,Laurel Lodge Road,,4, , ,TRUE, ,Church,53.37725429,-6.377654976
+498,Church of Saint Thomas the Apostle Carpark,Laurel Lodge Road,,4, , ,TRUE, ,Church,53.37718035,-6.377489549
+499,Carpark off Main Street,Main Street,,2, , ,TRUE, ,"GP, Restaurant",53.38682232,-6.376401389
+500,Carpark off Main Street,Main Street,,2, , ,TRUE, ,"Chemist, Chartbusters, Bathroom and Tiles",53.38680396,-6.37642799
+501,Laurel Lodge Carpark,Laurel Lodge Road,,1, , ,TRUE, ,"Chemist, Butcher, Bookmakers, Supermarket, Hairdresser",53.37769712,-6.376874063
+502, ,Main Street,,1,TRUE,TRUE,TRUE, ,"Chemist, Newsagents, Hairdresser, Bank,  Adult Education Centre",53.38588538,-6.375161334
+503,Saint Brigids Church Carpark,Church Avenue,,3, ,TRUE,TRUE, ,Church,53.38518952,-6.374948228
+504,Saint Brigids Church Carpark,Church Avenue,,3, ,TRUE,TRUE, ,"Church, Community Centre",53.38518904,-6.374985736
+505,Saint Brigids Church Carpark,Church Avenue,,3, ,TRUE,TRUE, ,"Church, Community Centre",53.38518796,-6.37502754
+506,Carpark off Main Street,Main Street,,1, ,TRUE, , ,Bookshop,53.3860104,-6.373572592
+507,Axa Insurance,Main Street,,1,TRUE,TRUE,TRUE,TRUE,"Hairdressers, Cafe, Takeaway, Insurance",53.3856288,-6.373619114
+508,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE, ,Hospital,53.38795198,-6.370291873
+509,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE, ,Hospital,53.3877028,-6.369277787
+510,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.38768294,-6.369240337
+511,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.38766097,-6.369204256
+512,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE, ,Hospital,53.38764089,-6.369162597
+513,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.38762467,-6.369113565
+514,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.3876077,-6.369068955
+515,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.38759482,-6.369027703
+516,James Connolly Memorial Hospital,JAMES CONNOLLY HOSPITAL,,9, ,TRUE,TRUE,TRUE,Hospital,53.38758442,-6.368989637
+517,Castleknock College Carpark,NA,,3,TRUE, ,TRUE, ,Secondary School,53.36886484,-6.36823766
+518,Castleknock College Carpark,NA,,3,TRUE, ,TRUE, ,Secondary School,53.36882884,-6.368220325
+519,Castleknock College Carpark,NA,,3,TRUE, ,TRUE,TRUE,Secondary School,53.36889613,-6.36825595
+520,Castleknock Centre Carpark,Castleknock Road,,1, , ,TRUE, ,"Chemist, Post Office, Cafe",53.37500734,-6.363002307
+521,Carpark,Castleknock Road,,1, , ,TRUE, ,"Chemist, Supermarket, Hairdresser, LaundryOff License",53.37304874,-6.361261975
+522,Castleknock Educate Together School & Tennis Club Car Park,Beech Park Avenue,,1,TRUE, ,TRUE, ,"Primary School, Sports Club",53.37977355,-6.361834431
+523,Our Lady Mother of the Church Carpark,Beech Park Lawn,,1,TRUE, ,TRUE, ,Church,53.3754144,-6.360735055
+524,Our Lady Mother of the Church Carpark,Beech Park Lawn,,3,TRUE, ,TRUE, ,Church,53.37524314,-6.360691823
+525,Our Lady Mother of the Church Carpark,Beech Park Lawn,,3,TRUE, ,TRUE, ,Church,53.37520722,-6.360828954
+526,Our Lady Mother of the Church Carpark,Beech Park Lawn,,3,TRUE, ,TRUE, ,Church,53.37518904,-6.360896988
+527,Ashleigh Retail Centre Carpark,Castleknock Road,,2, ,TRUE, , ,"Bookmakers, Retail Park, Restaurant, Gym",53.37261431,-6.360374835
+528,Ashleigh Retail Centre Carpark,Castleknock Road,,2, , ,TRUE, ,"Bookmakers, Retail Park, Restaurant, Gym",53.37258781,-6.360387754
+529,Coolmine Rugby Club,RIVER ROAD,,2,TRUE, ,TRUE, ,Sports Club,53.37874701,-6.341463022
+530,Coolmine Rugby Club,RIVER ROAD,,2,TRUE, ,TRUE, ,Sports Club,53.37872569,-6.341482563
+531,Fingal Ravens GAA Club,Fingal Ravens Carpark 1,,2, , ,TRUE, ,Sports Club,53.50372701,-6.303884323
+532,Fingal Ravens GAA Club,Fingal Ravens Carpark 2,,2, , ,TRUE, ,Sports Club,53.50373582,-6.303931078
+533,Rowlestown Church,Rowlestown East,,1,TRUE, ,TRUE, ,"Church, Community Centre",53.4901363,-6.300868095
+534,St. Margarets School,St. Margarets,,1,TRUE, ,TRUE, ,"Primary School, Church",53.43033655,-6.300890916
+535,Sports Link Carpark,NA,,10,TRUE, ,TRUE, ,Sports Club,53.40822538,-6.245847446
+536,Sports Link Carpark,NA,,10,TRUE, ,TRUE, ,Sports Club,53.4082299,-6.246000036
+537,Sports Link Carpark,NA,,10, , ,TRUE, ,Sports Club,53.40823044,-6.246072643
+538,Sports Link Carpark,NA,,10, , ,TRUE, ,Sports Club,53.4082327,-6.246240535
+539,Sports Link Carpark,NA,,10,TRUE, ,TRUE, ,Sports Club,53.40825533,-6.246307747
+540,Sports Link Carpark,NA,,10, , ,TRUE, ,Sports Club,53.40825788,-6.246472684
+541,Sports Link Carpark,NA,,10, , ,TRUE, ,Sports Club,53.4082583,-6.246541423
+542,Sports Link Carpark,NA,,10, , ,TRUE, ,Sports Club,53.40825871,-6.246712533
+543,Sports Link Carpark,NA,,10,TRUE, ,TRUE, ,Sports Club,53.40825988,-6.246781626
+544,Sports Link Carpark,NA,,10,TRUE, ,TRUE, ,Sports Club,53.40825562,-6.246942925
+545,Sports Link Carpark,NA,,3, ,TRUE,TRUE, ,Sports Club,53.40812603,-6.247254365
+546,Sports Link Carpark,NA,,3, ,TRUE,TRUE, ,Sports Club,53.40809896,-6.247254545
+547,Sports Link Carpark,NA,,3, ,TRUE,TRUE, ,Sports Club,53.40807291,-6.247254992
+548,Starlights GAA,NA,,2,TRUE, ,TRUE, ,Sports Club,53.40784447,-6.247779081
+549,Starlights GAA,NA,,2,TRUE, ,TRUE, ,Sports Club,53.40784587,-6.247845489
+550,PST Sports Club,NA,,2,TRUE, ,TRUE, ,Sports Club,53.40824514,-6.241500674
+551,PST Sports Club,NA,,2,TRUE, ,TRUE, ,Sports Club,53.40835946,-6.241453454
+552,Outside Pavillions Main Entrance,NA,,10,TRUE,TRUE,TRUE,TRUE,Shopping Centre,53.45388941,-6.218499548
+553,Balbriggan Town Centre and Church Carpark,N1,,5, , , , ,"Church, Town Centre",53.6044243,-6.184575707
+554,Malahide Castle,DUBLIN ROAD,,2, , ,TRUE, ,Park,53.45003298,-6.157145112
+555,Skerries Train Station,TRAIN STATION ACCESS,,6, ,TRUE,TRUE,TRUE,Train,53.57433768,-6.119319502
+556,Skerries Community Centre,THOMAS HAND STREET,,1,TRUE, ,TRUE, ,Community Centre,53.57755431,-6.11167468
+557,Skerries Community Centre,THOMAS HAND STREET,,1, ,TRUE, , ,Community Centre,53.57796347,-6.111507328
+558,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.5819278,-6.160714359
+559,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58189905,-6.160704299
+560,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58196146,-6.160551035
+561,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58193263,-6.160536033
+562,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58201277,-6.160304958
+563,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58198994,-6.160296761
+564,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58202773,-6.160211006
+565,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58200734,-6.160197758
+566,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58197751,-6.160473298
+567,Ardgillan Demesne,NA,,2, , ,TRUE, ,Park,53.58195077,-6.160457495
+568,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38628049,-6.400052911
+569,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38625635,-6.399915946
+570,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38626107,-6.399761682
+571,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38624953,-6.399624249
+572,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38625231,-6.399470056
+573,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38626031,-6.399343243
+574,Millennium Park,Snugborough Road Extension,, , , ,TRUE, ,Park,53.38626309,-6.39918905
+575,Off Yellow Walls Road,Yellow Walls Road,,2, , ,TRUE, ,Primary School,53.4496354,-6.164523211
+576,Off Yellow Walls Road,Yellow Walls Road,,2, , ,TRUE, ,Primary School,53.44963352,-6.164476554
+577,Outside Fingal Burial Ground,Balgriffin Road,, , , ,TRUE, ,Burial Ground,53.40919017,-6.175187016
+578,Outside Fingal Burial Ground,Balgriffin Road,, , , ,TRUE, ,Burial Ground,53.40920763,-6.174925204
+579,Loughshinny Beach,NA,,2, , ,Yes,No,Beach,53.5471624,-6.080765974
+580,Loughshinny Beach,NA,,2, , ,Yes,No,Beach,53.54716154,-6.080800927
+581,Castlemill Shopping Centre,Hamlet Lane,, , ,TRUE,Yes,No,Shopping Centre,53.61347978,-6.206628229
+582,Castlemill Shopping Centre,Hamlet Lane,, , ,TRUE,Yes,No,Shopping Centre,53.6132286,-6.206067779
+583,Castlemill Shopping Centre,Hamlet Lane,,3, ,TRUE,Yes,No,"GP, Dentist, Chemist, Shopping Centre",53.61338284,-6.206766788
+584,Castlemill Shopping Centre,Hamlet Lane,,3, ,TRUE,Yes,No,"GP, Dentist, Chemist, Shopping Centre",53.61338364,-6.206722349
+585,Castlemill Shopping Centre,Hamlet Lane,,3, ,TRUE,Yes,No,"GP, Dentist, Chemist, Shopping Centre",53.61338301,-6.206680438
+586,Glebe North Soccer Club,Market Green,, , , ,Yes,No,Sports Club,53.60562786,-6.182382673
+587,Skerries Point Shopping Centre,Kellys Bay,,4, , ,Yes,No,Shopping Centre,53.58151075,-6.134639736
+588,Skerries Point Shopping Centre,Kellys Bay,,4, , ,Yes,No,Shopping Centre,53.58151776,-6.134591266
+589,Skerries Point Shopping Centre,Kellys Bay,,4, , ,Yes,No,Shopping Centre,53.58143669,-6.134599854
+590,Skerries Point Shopping Centre,Kellys Bay,,4, , ,Yes,No,Shopping Centre,53.58144607,-6.134550277
+591,Skerries Point Shopping Centre,Kellys Bay,, , , ,Yes,No,Shopping Centre,53.58181237,-6.134625069
+592,Holmpatrick Shopping Centre,Shenick Road,, , , ,Yes,No,Shopping Centre,53.57046045,-6.105799952
+593,Skerries Golf Club,Golf Links Road,,2, , ,Yes,No,Sports Club,53.56447511,-6.11492646
+594,Skerries Golf Club,Golf Links Road,,2, , ,Yes,No,Sports Club,53.56447845,-6.114882162
+595,Skerries Community College,Seacrest,,4, , ,Yes,No,Secondary School,53.57929719,-6.115050717
+596,Skerries Community College,Seacrest,,4, , ,Yes,No,Secondary School,53.57931219,-6.114996795
+597,St. Brendans National School Loughshinny,Loughshinny Road,,2, , ,Yes,No,Primary School,53.54663577,-6.089494176
+598,St. Brendans National School Loughshinny,Loughshinny Road,,2, , ,Yes,No,Primary School,53.54663858,-6.089670154
+599,Shops,Lower Main Street,, , , ,Yes,No,Newsagents,53.52171226,-6.090506659
+600,Houses,Lower Main Street,, , , ,Yes,No,Housing,53.52167692,-6.089197067
+601,Rush South Beach,Convent Lane,,4, , ,Yes,No,Beach,53.51851313,-6.091729535
+602,Rush South Beach,Convent Lane,,4, , ,Yes,No,Beach,53.51850941,-6.091811584
+603,Rush South Beach,Convent Lane,,4, , ,Yes,No,Beach,53.5185051,-6.091856332
+604,Rush South Beach,Convent Lane,,4, , ,Yes,No,Beach,53.51851385,-6.091684948
+605,"St. Maurs Church, Rush",Chapel Green,,2, , ,Yes,No,Church,53.52219458,-6.101222665
+606,"St. Maurs Church, Rush",Chapel Green,,2, , ,Yes,No,Church,53.52226194,-6.101253183
+607,Tower Bay Beach,Seaview Park,,2, , ,Yes,No,Beach,53.48920717,-6.098740561
+608,Tower Bay Beach,Seaview Park,,2, , ,Yes,No,Beach,53.48916808,-6.098638609
+609,"Supervalu, Donabate",Main Street,, , , ,Yes,No,Supermarket,53.486601,-6.149099423
+610,"Supervalu, Donabate",Main Street,, , , ,Yes,No,Supermarket,53.48676316,-6.149303881
+611,Donabate Train Station,NA,, , , ,Yes,No,Train,53.48556928,-6.15166663
+612,Donabate Train Station,NA,, , , ,Yes,No,Train,53.48554001,-6.1516737
+613,Newbridge Demesne,Hearse Road,,4, , ,Yes,No,Park,53.48626076,-6.169895263
+614,Newbridge Demesne,Hearse Road,,4, , ,Yes,No,Park,53.4862705,-6.169949588
+615,Newbridge Demesne,Hearse Road,,4, , ,Yes,No,Park,53.48627927,-6.170005613
+616,Newbridge Demesne,Hearse Road,,4, , ,Yes,No,Park,53.48629091,-6.170054879
+617,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40549883,-6.259390358
+618,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40564207,-6.259554061
+619,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40568756,-6.259792061
+620,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.4057156,-6.259935656
+621,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40574243,-6.260081369
+622,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40583598,-6.260565537
+623,Gulliver Retail Park,Northwood,,2, , ,Yes,No,Retail Park,53.40581586,-6.260626321
+624,Gulliver Retail Park,Northwood,,2, , ,Yes,No,Retail Park,53.40578517,-6.260639981
+625,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40570313,-6.260690888
+626,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40561349,-6.260729698
+627,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40552889,-6.260774504
+628,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40544055,-6.260817396
+629,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40535727,-6.260868354
+630,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40527143,-6.260913211
+631,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40572765,-6.260507927
+632,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40571828,-6.260458683
+633,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40568349,-6.260530407
+634,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40567656,-6.260478997
+635,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40546281,-6.260649003
+636,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40545224,-6.260601877
+637,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40541618,-6.260671585
+638,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40540679,-6.260620274
+639,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40519183,-6.260792396
+640,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40518116,-6.260739072
+641,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40513695,-6.260757418
+642,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40518686,-6.260960083
+643,Gulliver Retail Park,Northwood,, , , ,Yes,No,Retail Park,53.40509858,-6.261007108
+644,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40491262,-6.260880296
+645,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40492202,-6.260931605
+646,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40488154,-6.260951867
+647,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40487094,-6.260902675
+648,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40465471,-6.261072777
+649,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40464528,-6.261019403
+650,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40460357,-6.261039714
+651,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40461012,-6.261093917
+652,Cappagh Hospital,Cappagh Road,, , , ,Yes,No,Hospital,53.39475013,-6.32690819
+653,Cappagh Hospital,Cappagh Road,,2, , ,Yes,No,Hospital,53.39432733,-6.32593
+654,Cappagh Hospital,Cappagh Road,,2, , ,Yes,No,Hospital,53.39427308,-6.32587393
+655,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.3935895,-6.326696152
+656,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39357023,-6.326746485
+657,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39355215,-6.326789227
+658,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39353531,-6.326828686
+659,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39351658,-6.326871455
+660,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.3934966,-6.326916425
+661,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39348112,-6.32696122
+662,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39345985,-6.327006244
+663,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39344313,-6.327054321
+664,Cappagh Hospital,Cappagh Road,,10, , ,Yes,No,Hospital,53.39342181,-6.327096111
+665,Phoenix Park Train Station,Navan Road,,4, , ,Yes,No,Train,53.37741358,-6.345792274
+666,Phoenix Park Train Station,Navan Road,,4, , ,Yes,No,Train,53.37738421,-6.345815843
+667,Phoenix Park Train Station,Navan Road,,4, , ,Yes,No,Train,53.37735678,-6.345840937
+668,Phoenix Park Train Station,Navan Road,,4, , ,Yes,No,Train,53.37732741,-6.345864505
+669,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,Yes,Swimming Pool,53.39639991,-6.369587554
+670,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,Yes,Swimming Pool,53.39642089,-6.36955459
+671,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,Yes,Swimming Pool,53.39644697,-6.369515246
+672,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,Yes,Swimming Pool,53.39647159,-6.369477195
+673,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,No,Swimming Pool,53.39648894,-6.369448081
+674,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,No,Swimming Pool,53.39650996,-6.369417591
+675,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,Yes,Swimming Pool,53.39653388,-6.369382041
+676,National Aquatic Centre,Snugborough Road,,14, ,TRUE,Yes,No,Swimming Pool,53.39656004,-6.369348878
+677,National Aquatic Centre,Snugborough Road,,14, , ,Yes,No,Swimming Pool,53.39658469,-6.3693133
+678,National Aquatic Centre,Snugborough Road,,14, , ,Yes,Yes,Swimming Pool,53.39661006,-6.369276458
+679,National Aquatic Centre,Snugborough Road,,14, , ,Yes,Yes,Swimming Pool,53.39663179,-6.369243465
+680,National Aquatic Centre,Snugborough Road,,14, , ,Yes,Yes,Swimming Pool,53.39665646,-6.369209123
+681,National Aquatic Centre,Snugborough Road,,14, , ,Yes,Yes,Swimming Pool,53.39668256,-6.369171015
+682,National Aquatic Centre,Snugborough Road,,14, , ,Yes,Yes,Swimming Pool,53.39670432,-6.369140495
+683,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.4056445,-6.379115769
+684,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40565431,-6.379163118
+685,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40566391,-6.379195136
+686,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40567884,-6.379243996
+687,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40568841,-6.379274311
+688,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40569919,-6.379318216
+689,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40614041,-6.377458957
+690,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40616817,-6.377478352
+691,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40619897,-6.377495928
+692,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.4062277,-6.37751188
+693,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40625743,-6.377526087
+694,I.T. Blanchardstown,Blanchardstown Road North,,6, , ,Yes,No,College,53.40628721,-6.377543701
+695,I.T. Blanchardstown,Blanchardstown Road North,,3, , ,Yes,No,College,53.40641228,-6.38045352
+696,I.T. Blanchardstown,Blanchardstown Road North,,3, , ,Yes,No,College,53.4063831,-6.380480195
+697,I.T. Blanchardstown,Blanchardstown Road North,,3, , ,Yes,No,College,53.40634988,-6.380508729
+698,"Social Welfare Offices, Blanchardstown",Snugborough Road,,2, , ,Yes,No,Social Welfare Office,53.39101982,-6.384662172
+699,"Social Welfare Offices, Blanchardstown",Snugborough Road,,2, , ,Yes,No,Social Welfare Office,53.39099301,-6.384632709
+700,"Social Welfare Offices, Blanchardstown",Snugborough Road,,2, , ,Yes,No,Social Welfare Office,53.39085619,-6.384081685
+701,"Social Welfare Offices, Blanchardstown",Snugborough Road,,2, , ,Yes,No,Social Welfare Office,53.39087658,-6.384039768
+702,Beechpark,Clonsilla Road,,2, , ,Yes,No,Park,53.38136531,-6.424782791
+703,Beechpark,Clonsila Road,,2, , ,Yes,No,Park,53.38132379,-6.424797894
+704,Waterside House Hotel,Balcarrick Road,, , , ,Yes,No,Hotel,53.47887172,-6.115643497
+705,Corballis Golf Club, ,,2, , ,Yes,No,Sports Club,53.4723877,-6.125570164
+706,Corballis Golf Club, ,,2, , ,Yes,No,Sports Club,53.47236187,-6.125599817
+707,Beaverstown Golf Club, ,, , , ,Yes,No,Sports Club,53.49733161,-6.151222594
+708,Skerries Point Shopping Centre,Kellys Bay Parade,, , , ,Yes,No,Shopping Centre,53.58121569,-6.134232625
+709,Skerries Educate Together National School,Kellys Bay Parade,, , , ,Yes,No,Primary School,53.58311312,-6.134755691
+710,Rush and Lusk Educate Together National School,Rathmore Road,, , , ,Yes,No,Primary School,53.52906145,-6.15748607
+711,"St. Patricks Church, Donabate",Main Street,,2, , ,Yes,No,Church,53.48601284,-6.14831491
+712,"St. Patricks Church, Donabate",Main Street,,2, , ,Yes,No,Church,53.48598951,-6.148212632
+713,"Holy Family National School, River Valley",Forest Park,,2, , ,Yes,No,Primary School,53.45227981,-6.241353719
+714,"Holy Family National School, River Valley",Forest Park,,2, , ,Yes,No,Primary School,53.45225271,-6.241365807
+715,River Valley Community Centre,Rathingle Road,, , , ,Yes,No,Community Centre,53.45344467,-6.243439238
+716,Brackenstown Community Centre,Brackenstown Road,, , , ,Yes,No,Community Centre,53.45953496,-6.237058958
+717,"St. Cronans Church, Brackenstown",Brackenstown Road,,2, , ,Yes,No,Church,53.4592443,-6.23754641
+718,"St. Cronans Church, Brackenstown",Brackenstown Road,,2, , ,Yes,No,Church,53.45920994,-6.237567195
+719,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273882,-6.30358007
+720,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273907,-6.303531081
+721,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273929,-6.303480515
+722,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273864,-6.303434722
+723,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.4027379,-6.303382616
+724,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273727,-6.303338402
+725,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273842,-6.303286219
+726,Charlestown Shopping Centre,St. Margarets Road,,8, , ,Yes,No,Shopping Centre,53.40273574,-6.303231028
+727,Charlestown Shopping Centre,St. Margarets Road,,3, , ,Yes,No,Shopping Centre,53.40264129,-6.303294827
+728,Charlestown Shopping Centre,St. Margarets Road,,3, , ,Yes,No,Shopping Centre,53.40264387,-6.303343701
+729,Charlestown Shopping Centre,St. Margarets Road,,3, , ,Yes,No,Shopping Centre,53.40264459,-6.30339423
+730,LIDL,The Plaza,,3, , ,Yes,No,Shopping Centre,53.42018319,-6.381491007
+731,LIDL,The Plaza,,3, , ,Yes,No,Shopping Centre,53.42015123,-6.381504636
+732,LIDL,The Plaza,,3, , ,Yes,No,Shopping Centre,53.42012422,-6.381518081
+733,LIDL,The Plaza,, , , ,Yes,No,Shopping Centre,53.42001323,-6.381629916
+734,"St Colmcilles Church, Swords",Chapel Lane,,2, ,TRUE,Yes,No,Church,53.45821741,-6.217619236
+735,"St Colmcilles Church, Swords",Chapel Lane,,2, ,TRUE,Yes,No,Church,53.4582458,-6.217694219
+736,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45534562,-6.181944722
+737,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45535148,-6.181991868
+738,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45535811,-6.182033237
+739,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45536569,-6.182080308
+740,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45537236,-6.182124547
+741,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45537991,-6.182170184
+742,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.4553865,-6.182208681
+743,"Church of Sacred Heart, Seabury",Estuary Road,,8, , ,Yes,No,Church,53.45539313,-6.18225005
+744,Seabury Neighbourhood Centre,Old Yellow Walls Road,, , , ,Yes,No,Shopping Centre,53.45557429,-6.180129574
+745,St. Nicholas of Myra Church Kinsealy,Chapel Road,,2, , ,Yes,No,Church,53.42532281,-6.176115246
+746,St. Nicholas of Myra Church Kinsealy,Chapel Road,,2, , ,Yes,No,Church,53.42529789,-6.176116312
+747,Corduff Sports Centre,Blackcourt Road,,2, , ,Yes,No,Sports Club,53.39843849,-6.378427596
+748,Corduff Sports Centre,Blackcourt Road,,2, , ,Yes,No,Sports Club,53.398423,-6.378479674
+749,Kids Inc Creche,Seatown Road,, , , ,Yes,No,Creche,53.45880117,-6.212950816
+750,Balbriggan Educate Together National School,Hamlet Lane,, , , ,Yes,No,National School,53.6121094,-6.206006713
+751,Skerries Community College,Seacrest,,4, , ,Yes,No,Secondary School,53.57932818,-6.1149402
+752,Skerries Community College,Seacrest,,4, , ,Yes,No,Secondary School,53.57934528,-6.114887984
+753,EuroSpar,Kilmore Terrace,,2, , ,Yes,No,Newsagent,53.3932582,-6.367776185
+754,EuroSpar,Kilmore Terrace,,2, , ,Yes,No,Newsagent,53.39322963,-6.367793345
+755,Spar,Clonsilla Road/St. Mochta's Avenue,, , , ,Yes,No,Newsagent,53.38253477,-6.399540455
+756,Spar,Clonsilla Road/St. Mochta's Avenue,, , , ,Yes,No,Newsagent,53.38254869,-6.399725508
+757,Gael Scoil Baile Brigin/Bracken Educate Together National Schools,Castlelands,,2, , ,Yes,No,Primary School,53.60060306,-6.179608904
+758,Gael Scoil Baile Brigin/Bracken Educate Together National Schools,Castlelands,,2, , ,Yes,No,Primary School,53.60057162,-6.179610257
+759,Kettles Country House Hotel,Lispopple Cross Roads,,2, , ,Yes,No,Hotel,53.48266445,-6.288829911
+760,Kettles Country House Hotel,Lispopple Cross Roads,,2, , ,Yes,No,Hotel,53.48270769,-6.288758081
+761,Kettles Country House Hotel,Lispopple Cross Roads,, , , ,Yes,No,Hotel,53.48254889,-6.288059454
+762,Rowlestown National School,NA,,2, , ,Yes,No,Primary School,53.49242269,-6.30040518
+763,Rowlestown National School,NA,,2, , ,Yes,No,Primary School,53.49241939,-6.300335666
+764,"Roganstown Hotel, Golf and Country Club",Naul Road,,2, , ,Yes,No,"Hotel, Sports Club",53.48681343,-6.272916934
+765,"Roganstown Hotel, Golf and Country Club",Naul Road,,2, , ,Yes,No,"Hotel, Sports Club",53.48682583,-6.27286159
+766,"Roganstown Hotel, Golf and Country Club",Naul Road,,2, , ,Yes,No,"Hotel, Sports Club",53.48691824,-6.272509815
+767,"Roganstown Hotel, Golf and Country Club",Naul Road,,2, , ,Yes,No,"Hotel, Sports Club",53.48692954,-6.272465063
+768,St. Margarets Golf and Country Club,NA,, , , ,Yes,No,Sports Club,53.45164752,-6.303952739
+769,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.4190447,-6.379952936
+770,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.41904695,-6.37990245
+771,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.41905064,-6.379849451
+772,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.41909423,-6.379381888
+773,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.41910088,-6.379331235
+774,Park Plaza Tyrrelstown Hotel,Church Street,,3, , ,Yes,No,Hotel,53.41911123,-6.379281669
+775,Park Plaza Tyrrelstown Hotel,Church Street,, , , ,Yes,No,Hotel,53.41914234,-6.379139118
+776,Castleknock Hotel and Country Club,Luttrellstown Road,,3, , ,Yes,No,"Hotel, Sports Club",53.36645629,-6.389930744
+777,Castleknock Hotel and Country Club,Luttrellstown Road,,3, , ,Yes,No,"Hotel, Sports Club",53.36644329,-6.389887973
+778,Castleknock Hotel and Country Club,Luttrellstown Road,,3, , ,Yes,No,"Hotel, Sports Club",53.36642928,-6.38984697
+779,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.37497249,-6.414955855
+780,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.37496073,-6.414903667
+781,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.37494912,-6.414863168
+782,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.37493746,-6.414818773
+783,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.37492579,-6.414774377
+784,Luttrellstown Castle Golf Club,Luttrellstown Road,,6, , ,Yes,No,Sports Club,53.3749124,-6.414731023
+785,Carlton Hotel Dublin Airport,Old Airport Road,,2, , ,Yes,No,Hotel,53.41514237,-6.240434322
+786,Carlton Hotel Dublin Airport,Old Airport Road,,2, , ,Yes,No,Hotel,53.41513494,-6.24038307
+787,Bewleys Hotel Dublin Airport,N32,, , , ,Yes,No,Hotel,53.4117706,-6.217453509
+788,Clarion Hotel Dublin Airport,Dublin Airport,,3, , ,Yes,No,Hotel,53.42730516,-6.23372534
+789,Clarion Hotel Dublin Airport,Dublin Airport,,3, , ,Yes,No,Hotel,53.42733482,-6.233719412
+790,Clarion Hotel Dublin Airport,Dublin Airport,,3, , ,Yes,No,Hotel,53.42736442,-6.233709726
+791,Portmarnock Golf Club,Golf Links Road,,2, , ,Yes,No,Sports Club,53.40741179,-6.124181912
+792,Portmarnock Golf Club,Golf Links Road,,2, , ,Yes,No,Sports Club,53.40742074,-6.12410911
+793,Portmarnock Hotel,Strand Road,,2, , ,Yes,No,Hotel,53.4290547,-6.126219662
+794,Portmarnock Hotel,Strand Road,,2, , ,Yes,No,Hotel,53.42903936,-6.126173614
+795,Carnegie Court Hotel,North Street,,2, , ,Yes,No,Hotel,53.46224959,-6.217565623
+796,Carnegie Court Hotel,North Street,,2, , ,Yes,No,Hotel,53.46226864,-6.217477807
+797,Bell Pub,Navan Road/Castleknock Road,,2, , ,Yes,No,Pub,53.38456028,-6.371820866
+798,Bell Pub,Navan Road/Castleknock Road,,2, , ,Yes,No,Pub,53.38452893,-6.37179827
+799,Lord Mayor Pub,Dublin Street,, , , ,Yes,No,Pub,53.45500302,-6.223361681
+800,Turvey Golf Club,Turvey Avenue,, , , ,Yes,No,Sports Club,53.4927437,-6.175503253
+801,Arro EEC Hardware Store,Stephenstown Industrial Park,,2, , ,Yes,No,Retail Park,53.60053656,-6.193732798
+802,Arro EEC Hardware Store,Stephenstown Industrial Park,,2, , ,Yes,No,Retail Park,53.60052091,-6.193712827
+803,Tierneys Kitchens,Stephenstown Industrial Park,, , , ,Yes,No,Retail Park,53.60116919,-6.19379764
+804,St. Georges National School,Naul Road,, , , ,Yes,No,Primary School,53.60730164,-6.203463651
+805,St. Georges National School,Naul Road,, , , ,Yes,No,Primary School,53.60719046,-6.203389063
+806,Prosper Fingal,Rush Road,, , , ,Yes,No,Prosper Fingal,53.55813167,-6.106665631
+807,CDVEC Youthreach & Creche,Convent Lane,, , , ,Yes,No,"Training Centre, Creche",53.52148332,-6.090497578
+808,Rush National School,Channel Road,,2, , ,Yes,No,Primary School,53.52081306,-6.104995941
+809,Rush National School,Channel Road,,2, , ,Yes,No,Primary School,53.52084937,-6.104915091
+810,"St. Maurs GAA Club, Gael Scoil Ros Eo, Rush Fitness Health Club",Park Road,,2, , ,Yes,No,"Sports Club, Primary School",53.53202681,-6.106151821
+811,"St. Maurs GAA Club, Gael Scoil Ros Eo, Rush Fitness Health Club",Park Road,,2, , ,Yes,No,"Sports Club, Primary School",53.53202757,-6.106199599
+812,Rush Nursing Home,St. Maurs Park,, , , ,Yes,No,Nursing Home,53.52985896,-6.093643501
+813,Elm Green Golf Club,Dunsink Lane,,2, , ,Yes,No,Sports Club,53.38723374,-6.350181974
+814,Elm Green Golf Club,Dunsink Lane,,2, , ,Yes,No,Sports Club,53.38720528,-6.350199771
+815,Houses,Hampton Street,, , , ,Yes,No,Housing,53.60656286,-6.17762883
+816,Ardgillan Community College,Castlelands,, , , ,Yes,No,Secondary School,53.60058503,-6.180090308
+817,Ardgillan Community College,Castlelands,, , , ,Yes,No,Secondary School,53.60057749,-6.180139399
+818,"Brooks Hardware, Heat Merchants, Tubs & Tiles Store",M1 Business Park,, , , ,Yes,No,Retail Park,53.57037285,-6.20981237
+819,Kube Interiors,M1 Business Park,, , , ,Yes,No,Retail Park,53.56908063,-6.211175374
+820,SuperValu Car Park,Tennis Court Lane,,5, , ,Yes,No,Supermarket,53.57802561,-6.107732691
+821,SuperValu Car Park,Tennis Court Lane,,5, , ,Yes,No,Supermarket,53.57804703,-6.107765132
+822,SuperValu Car Park,Tennis Court Lane,,5, , ,Yes,No,Supermarket,53.57806946,-6.107796378
+823,SuperValu Car Park,Tennis Court Lane,,5, , ,Yes,No,Supermarket,53.57809086,-6.107827669
+824,SuperValu Car Park,Tennis Court Lane,,5, , ,Yes,No,Supermarket,53.57813433,-6.107889357
+825,Dental Surgery,Church Street,, , , ,Yes,No,Dentist,53.57758008,-6.106565585
+826,Windmill Medical Centre,Windmill Lane,, , , ,Yes,No,"GP, Chemist",53.57864783,-6.109198072
+827,Havanna House B & B,Dublin Road,, , , ,Yes,No,B & B,53.59337894,-6.184709911
+828,Donabate/Portrane Educate Together,Portrane Road,,2, , ,Yes,No,Primary School,53.48970185,-6.145770458
+829,Donabate/Portrane Educate Together,Portrane Road,,2, , ,Yes,No,Primary School,53.48966015,-6.145717451
+830,Donabate & District Credit Union,Portrane Road,, , , ,Yes,No,Credit Union,53.48907953,-6.145767736
+831,St. Colmcilles National School,Chapel Lane,, , , ,Yes,No,Primary School,53.45725591,-6.214753071
+832,Malahide Hockey Club,The Bawn Grove,,2, , ,Yes,No,Sports Club,53.43991494,-6.150161322
+833,Malahide Hockey Club,The Bawn Grove,,2, , ,Yes,No,Sports Club,53.43995587,-6.150149213
+834,Malahide Community School,Broomfield,,3, , ,Yes,No,Secondary School,53.43889067,-6.152093402
+835,Malahide Community School,Broomfield,,3, , ,Yes,No,Secondary School,53.4388325,-6.152100364
+836,Malahide Community School,Broomfield,,3, , ,Yes,No,Secondary School,53.43877968,-6.152111531
+837,Tara Winthrop Nursing Home,Nevinstown Lane,, , , ,Yes,No,Nursing Home,53.44434897,-6.227352386
+838,Skerries Point Shopping Centre,Kellys Bay,, , , ,Yes,No,Shopping Centre,53.58194617,-6.134657491
+839,RiverValley Shopping Centre,Rathingle Road,,2, , ,Yes,No,"Supermarket, Petrol Station",53.45236806,-6.243678127
+840,RiverValley Shopping Centre,Rathingle Road,,2, , ,Yes,No,"Supermarket, Petrol Station",53.45233745,-6.243689207
+841,RiverValley Shopping Centre,Rathingle Road,,2, , ,Yes,No,"Chemist, Post Office",53.45265183,-6.243548603
+842,RiverValley Shopping Centre,Rathingle Road,,2, , ,Yes,No,"Chemist, Post Office",53.45262269,-6.243559623
+843,"St. Finians Church, RiverValley",Rathingle Road,,2, , ,Yes,No,Church,53.45339418,-6.241031641
+844,"St. Finians Church, RiverValley",Rathingle Road,,2, , ,Yes,No,Church,53.45340522,-6.241085181
+845,Swiftcare Clinic,Airside Retail Park,,5, , ,Yes,No,Health Centre,53.44499718,-6.224838115
+846,Swiftcare Clinic,Airside Retail Park,,5, , ,Yes,No,Health Centre,53.44500932,-6.224789906
+847,Swiftcare Clinic,Airside Retail Park,,5, , ,Yes,No,Health Centre,53.44501869,-6.224740274
+848,Swiftcare Clinic,Airside Retail Park,,5, , ,Yes,No,Health Centre,53.44502806,-6.224690639
+849,Swiftcare Clinic,Airside Retail Park,,5, , ,Yes,No,Health Centre,53.44503823,-6.224633279
+850,Wright Venue,Airside Retail Park,,2, , ,Yes,No,Night Club,53.44542199,-6.224060212
+851,Wright Venue,Airside Retail Park,,2, , ,Yes,No,Night Club,53.44540158,-6.224047215
+852,Fun Galaxy Play Centre,Airside Retail Park,,2, , ,Yes,No,Play Centre,53.44488408,-6.223287099
+853,Fun Galaxy Play Centre,Airside Retail Park,,2, , ,Yes,No,Play Centre,53.44489622,-6.223238889
+854,Metropoint Business Park,Dublin Road,, , , ,Yes,No,Retail Park,53.43777671,-6.227206093
+855,Metropoint Business Park,Dublin Road,,2, , ,Yes,No,Retail Park,53.43793472,-6.226305824
+856,Metropoint Business Park,Dublin Road,,2, , ,Yes,No,Retail Park,53.4379333,-6.226210207
+857,Metropoint Business Park,Dublin Road,,2, , ,Yes,No,Retail Park,53.43749734,-6.226361014
+858,Metropoint Business Park,Dublin Road,,2, , ,Yes,No,Retail Park,53.43749605,-6.226274092
+859,Metropoint Business Park,Dublin Road,, , , ,Yes,No,Retail Park,53.43734744,-6.225884544
+860,Metropoint Business Park,Dublin Road,, , , ,Yes,No,Retail Park,53.43753474,-6.227218345
+861,Coachmans Inn,Dublin Road,,2, , ,Yes,No,"Restaurant, Pub",53.4322757,-6.229173203
+862,Coachmans Inn,Dublin Road,,2, , ,Yes,No,"Restaurant, Pub",53.43227475,-6.229108538
+863,Boroimhe Shopping Centre,Forest Road,,2, ,TRUE,Yes,No,"Shopping Centre, Supermarket, GP, Dentist, Chemist, Creche",53.44683773,-6.237328577
+864,Boroimhe Shopping Centre,Forest Road,,2, ,TRUE,Yes,No,"Shopping Centre, Supermarket, GP, Dentist, Chemist, Creche",53.4467784,-6.237256398
+865,Boroimhe Shopping Centre,Forest Road,,2, ,TRUE,Yes,No,"Shopping Centre, Supermarket, GP, Dentist, Chemist, Creche",53.44659965,-6.237685783
+866,Boroimhe Shopping Centre,Forest Road,,2, ,TRUE,Yes,No,"Shopping Centre, Supermarket, GP, Dentist, Chemist, Creche",53.44657969,-6.237726798
+867,Ridgewood Neighbourhood Centre,Ridgewood Avenue,, , ,TRUE, ,No,"Supermarket, Chemist",53.44465983,-6.244103993
+868,Little Apples Creche,Applewood Lane,, , , ,Yes,No,Creche,53.47069565,-6.229272949
+869,Eurospar Applewood,Applewood Main Street,, , ,TRUE,Yes,No,"Supermarket, Takeaway",53.47089999,-6.231649654
+870,Applewood Medical and Dental Centre,Applewood Main Street,, , ,TRUE,Yes,No,"Health Centre, GP, Dentist, Chemist",53.47112976,-6.232825461
+871,Thornleigh Educate Together National School,Applewood,, , , ,Yes,No,Primary School,53.47206521,-6.233506507
+872,Gaelscoil Brian Boroimhe,Castleview,,2, , ,Yes,No,Primary School,53.47307548,-6.249430324
+873,Gaelscoil Brian Boroimhe,Castleview,,2, , ,Yes,No,Primary School,53.47305358,-6.249465536
+874,"Swords Educate Together, Gaelscoil Brian Boroimhe",Castleview,,2, , ,Yes,No,Primary School,53.47274999,-6.249303218
+875,"Swords Educate Together, Gaelscoil Brian Boroimhe",Castleview,,2, , ,Yes,No,Primary School,53.47273264,-6.249250016
+876,Swords Educate Together,Castleview,,2, , ,Yes,No,Primary School,53.47261959,-6.249983358
+877,Swords Educate Together,Castleview,,2, , ,Yes,No,Primary School,53.47264957,-6.249967419
+878,Lusk National School,Chapel Road,,2, , ,Yes,No,Primary School,53.5289351,-6.16867545
+879,Lusk National School,Chapel Road,,2, , ,Yes,No,Primary School,53.52879643,-6.168252757
+880,Centra Dun Emer,Dun Emer Avenue,, , , ,Yes,No,"Newsagent, Creche",53.52413195,-6.1740366
+881,Emmaus Retreat and Conference Centre,Balheary,,2, , ,Yes,No,Retreat & Conference Centre,53.47386303,-6.215512774
+882,Emmaus Retreat and Conference Centre,Balheary,,2, , ,Yes,No,Retreat & Conference Centre,53.47389618,-6.21550064
+883,Emmaus Retreat and Conference Centre,Balheary,,3, , ,Yes,No,Retreat & Conference Centre,53.47379744,-6.216527327
+884,Emmaus Retreat and Conference Centre,Balheary,,3, , ,Yes,No,Retreat & Conference Centre,53.47379168,-6.216570533
+885,Emmaus Retreat and Conference Centre,Balheary,,3, , ,Yes,No,Retreat & Conference Centre,53.47378848,-6.216613631
+886,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46624783,-6.213519028
+887,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46623034,-6.213543716
+888,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46599746,-6.213503596
+889,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46597785,-6.213466493
+890,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46679336,-6.213278518
+891,Fingallians GAA Club,Spittal Hill,,2, , ,Yes,No,Sports Club,53.46678095,-6.213245104
+892,Emmaus Retreat and Conference Centre,Balheary,, , , ,Yes,No,Retreat & Conference Centre,53.47409541,-6.216121429
+893,Teagasc Kinsealy Research Centre,Malahide Road,, , , ,Yes,No,Teagasc,53.42271981,-6.174624525
+894,Teagasc Kinsealy Research Centre,Malahide Road,,2, , ,Yes,No,Teagasc,53.42238256,-6.175902765
+895,Teagasc Kinsealy Research Centre,Malahide Road,,2, , ,Yes,No,Teagasc,53.42234959,-6.17590879
+896,Kinsealy Garden Centre,Malahide Road,,2, , ,Yes,No,Garden Centre,53.42313385,-6.17678837
+897,Kinsealy Garden Centre,Malahide Road,,2, , ,Yes,No,Garden Centre,53.42315516,-6.176792308
+898,Innisfail GAA Club,Carrs Lane,, , ,TRUE, ,No,Sports Club,53.41086558,-6.183871997
+899,Eurospar,Holywell,, , , ,Yes,No,Supermarket,53.44513468,-6.210349101
+900,St. Nessans Community School,Moyclare Road,, , , ,Yes,No,Secondary School,53.39238501,-6.130784369
+901,Santa Sabina Dominican College Sutton,Greenfield Road,,2, , ,Yes,No,Secondary School,53.38782059,-6.100799365
+902,Santa Sabina Dominican College Sutton,Greenfield Road,,2, , ,Yes,No,Secondary School,53.3877923,-6.100810832
+903,Sportslink,NA,,4, , ,Yes,No,Sports Club,53.40783547,-6.244559185
+904,Sportslink,NA,,4, , ,Yes,No,Sports Club,53.40783475,-6.244510412
+905,Sportslink,NA,,4, , ,Yes,No,Sports Club,53.40783407,-6.244464425
+906,Sportslink,NA,,4, , ,Yes,No,Sports Club,53.40783342,-6.244419834
+907,Mater Christi Secondary School,Cappagh Road,, , , ,Yes,No,Secondary School,53.39244216,-6.323118021
+908,Trinity Gaels GAA Club,Drumnigh Road,,2, , ,Yes,No,Sports Club,53.41400289,-6.164830791
+909,Trinity Gaels GAA Club,Drumnigh Road,,2, , ,Yes,No,Sports Club,53.41394373,-6.16485766
+910,Tyrrelstown Educate Together National School,Powerstown Road,, , , ,Yes,No,Primary School,53.41485643,-6.39047653
+911,Castaheany Educate Together National School,Ongar Village,,2, , ,Yes,No,Primary School,53.39371355,-6.441045515
+912,Castaheany Educate Together National School,Ongar Village,,2, , ,Yes,No,Primary School,53.39374469,-6.441032291
+913,Lidl Supermarket,Blakestown Way,,3, , ,Yes,No,Supermarket,53.39609705,-6.400590952
+914,Lidl Supermarket,Blakestown Way,,3, , ,Yes,No,Supermarket,53.39609149,-6.400540824
+915,Lidl Supermarket,Blakestown Way,,3, , ,Yes,No,Supermarket,53.39608665,-6.40049301
+916,St. Philip the Apostle Church,Mountview Road,, , , ,Yes,No,Church,53.39085236,-6.407421152
+917,Healthwell Clinic,Clonsilla Road,, , , ,Yes,No,"GP, Health Centre",53.38259979,-6.406759524
+918,Church of the Latter Day Saints Clonsilla,Clonsilla Road,,2, , ,Yes,No,Church,53.38251486,-6.413060737
+919,Church of the Latter Day Saints Clonsilla,Clonsilla Road,,2, , ,Yes,No,Church,53.38250292,-6.412996313
+920,St. Thomas National School,Castleknock Vale,,2, , ,Yes,No,Primary School,53.37816293,-6.37696867
+921,St. Thomas National School,Castleknock Vale,,2, , ,Yes,No,Primary School,53.37813524,-6.376996982
+922,St. Mochtas Church,Luttrellstown Road,,2, , ,Yes,No,Church,53.37125794,-6.405187855
+923,St. Mochtas Church,Luttrellstown Road,,2, , ,Yes,No,Church,53.37119811,-6.405316036
+924,St. Margarets Church,NA,, , , ,Yes,No,Church,53.43077441,-6.301219235
+925,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36724951,-6.465646099
+926,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36721982,-6.465491887
+927,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36719804,-6.465371202
+928,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36716906,-6.46521446
+929,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36715036,-6.465099925
+930,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36712284,-6.464940626
+931,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36710341,-6.46482737
+932,St. Catherines Park,NA,,2, , ,Yes,No,Park,53.36726595,-6.465759463
+933,St. Michaels School,Knockmaroon,,2, , ,Yes,No,"Primary School, Secondary School",53.35638386,-6.354944737
+934,St. Michaels School,Knockmaroon,,2, , ,Yes,No,"Primary School, Secondary School",53.35635466,-6.354909297
+935,Santry Demesne Park,Swords Road,, , , ,Yes,No,Park,53.39915688,-6.244885291
+936,TLC Centre Nursing Home,Northwood Park,, , , ,Yes,No,Nursing Home,53.4050685,-6.252497089
+937,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40514536,-6.2608162
+938,Gulliver Retail Park,Northwood,,2, , ,Yes,No,"Supermarket, Chemist, GP, Cafe",53.40362333,-6.260281473
+939,Gulliver Retail Park,Northwood,,2, , ,Yes,No,"Supermarket, Chemist, GP, Cafe",53.4036318,-6.260332839
+940,Gulliver Retail Park,Northwood,,2, , ,Yes,No,"Supermarket, Chemist, GP, Cafe",53.40358014,-6.260056997
+941,Gulliver Retail Park,Northwood,,2, , ,Yes,No,"Supermarket, Chemist, GP, Cafe",53.40357173,-6.260009939
+942,Northwood Fitness Centre,Northwood,,2, , ,Yes,No,Gym,53.40173146,-6.257716129
+943,Northwood Fitness Centre,Northwood,,2, , ,Yes,No,Gym,53.40171164,-6.257702742
+944,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.40679843,-6.276210929
+945,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.4067978,-6.276265084
+946,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.40679437,-6.27631935
+947,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.40679375,-6.276373506
+948,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.4067889,-6.27642783
+949,IKEA,St. Margarets Road,,6, ,TRUE,Yes,No,Furniture Store,53.40678831,-6.276484336
+950,Scoil Choilm National School,Porterstown Road,,2, , ,Yes,No,Primary School,53.37633026,-6.409176943
+951,Scoil Choilm National School,Porterstown Road,,2, , ,Yes,No,Primary School,53.37637145,-6.409160354
+952,Housing,Lanesborough Road,, , , ,Yes,No,Housing,53.40252638,-6.294866922
+953,Housing,Lanesborough Court,, , , ,Yes,No,Housing,53.40484837,-6.293776497
+954,Esso Service Station,R127,, , , ,Yes,No,Petrol Station,53.50098235,-6.194282236
+955,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40458327,-6.261282602
+956,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40455169,-6.261297192
+957,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40451951,-6.26131283
+958,Gulliver Retail Park,Northwood,,4, , ,Yes,No,Retail Park,53.40448979,-6.261329391
+959,Northpoint NCT Centre,Ballymun Road,,2, , ,Yes,No,NCT Centre,53.41041041,-6.26929259
+960,Northpoint NCT Centre,Ballymun Road,,2, , ,Yes,No,NCT Centre,53.41037698,-6.269302821
+961,Northpoint NCT Centre,Ballymun Road,,2, , ,Yes,No,NCT Centre,53.41003454,-6.268231388
+962,Northpoint NCT Centre,Ballymun Road,,2, , ,Yes,No,NCT Centre,53.41000111,-6.268241619
+963,ALSAA Sports and Leisure Centre,Swords Road,, , , ,Yes,No,Sports Club,53.42188363,-6.229551796
+964,ALSAA Sports and Leisure Centre,Swords Road,, , , ,Yes,No,Sports Club,53.42196412,-6.229161278
+965,Travelodge Airside,NA,,4, , ,Yes,No,Hotel,53.44941637,-6.224064562
+966,Travelodge Airside,NA,,4, , ,Yes,No,Hotel,53.4493959,-6.224097423
+967,Travelodge Airside,NA,,4, , ,Yes,No,Hotel,53.44937474,-6.224125148
+968,Travelodge Airside,NA,,4, , ,Yes,No,Hotel,53.44935857,-6.224156797
+969,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.38052818,-6.355979592
+970,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.3805154,-6.355926984
+971,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.38049917,-6.355857704
+972,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.38048804,-6.355808393
+973,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.3804799,-6.355771739
+974,Travelodge Castleknock,Navan Road,,6, , ,Yes,No,Hotel,53.38046954,-6.355719709
+975,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38414071,-6.363253582
+976,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38415332,-6.363283298
+977,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38416595,-6.363314649
+978,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38417959,-6.363348408
+979,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38422075,-6.363467637
+980,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38423592,-6.363506236
+981,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.38424913,-6.363544094
+982,Total Fitness,Blanchardstown Bypass,,4, , ,Yes,No,Gym,53.3842608,-6.363576297
+983,12th Lock,Castleknock Marina,,2, , ,Yes,No,"Hotel, Pub, Marina",53.38228565,-6.366138658
+984,12th Lock,Castleknock Marina,,2, , ,Yes,No,"Hotel, Pub, Marina",53.38227757,-6.366193061
+985,Roselawn Shopping Centre,Roselawn Road,,4, ,TRUE,Yes,No,"Chemist, Newsagents, Supermarket, Hairdresser, Cafe, Shopping Centre, Pub",53.38307439,-6.381704251
+986,Roselawn Shopping Centre,Roselawn Road,, , ,TRUE,Yes,No,"Chemist, Newsagents, Supermarket, Hairdresser, Cafe, Shopping Centre, Pub",53.38344752,-6.381932427
+987,Doctors Surgery,Carpenterstown Road,, , , ,Yes,No,GP,53.37264774,-6.389688678
+988,Clonsilla Inn,Clonsilla Road,, , , ,Yes,No,Pub,53.38260402,-6.407811532
+989,Ongar Village,Main Street,, , , ,Yes,No,"Shopping Centre, Supermarket",53.39576613,-6.439851764
+990,Craobh Chiarain GAA,N32,, , , ,Yes,No,Sports Club,53.40856602,-6.200294514
+991,Craobh Chiarain GAA,N32,, , , ,Yes,No,Sports Club,53.40854092,-6.200311742
+992,Malahide Rugby Club,Estuary Road,,,,,Yes,No,Sports Club,53.45833715,-6.187278381
+993,Malahide Rugby Club,Estuary Road,,,,,Yes,No,Sports Club,53.45836086,-6.187509432
+994,Swords Health Centre,Bridge Street,,,,,Yes,No,Health Centre,53.45998945,-6.22191791
+995,Swords & District Credit Union,North Street,,,,,Yes,No,Credit Union,53.46087916,-6.219382412
+996,Topaz Service Station,R127,,,,,Yes,No,Petrol Station,53.48669519,-6.197958476
+997,Gardenworks Garden Centre,Back Road,,2,,,Yes,No,Garden Centre,53.43881277,-6.168698032
+998,Gardenworks Garden Centre,Back Road,,2,,,Yes,No,Garden Centre,53.43883806,-6.168691368
+999,Malahide Castle CarPark (near PlayGround),Back Road,,4,,,Yes,No,Park,53.44353165,-6.157484362
+1000,Malahide Castle CarPark (near PlayGround),Back Road,,4,,,Yes,No,Park,53.44349644,-6.157485887
+1001,Malahide Castle CarPark (near PlayGround),Back Road,,4,,,Yes,No,Park,53.44346417,-6.157487284
+1002,Malahide Castle CarPark (near PlayGround),Back Road,,4,,,Yes,No,Park,53.44342901,-6.157491264
+1003,St. Oliver Plunketts National School,Grove Road,,3,,,Yes,No,Primary School,53.44739976,-6.151193131
+1004,St. Oliver Plunketts National School,Grove Road,,3,,,Yes,No,Primary School,53.4474,-6.151129713
+1005,St. Oliver Plunketts National School,Grove Road,,3,,,Yes,No,Primary School,53.44740034,-6.151072425
+1006,Naomh Mearnog GAA Club,Torcaill,,2,TRUE, ,TRUE, ,Sports Club,53.43753844,-6.142457321
+1007,Naomh Mearnog GAA Club,Torcaill,,2,TRUE, ,TRUE, ,Sports Club,53.43745075,-6.142453024
+1008,Naomh Mearnog GAA Club,Torcaill,,2,,,Yes,No,Sports Club,53.43754916,-6.142895338
+1009,Naomh Mearnog GAA Club,Torcaill,,2,,,Yes,No,Sports Club,53.43751566,-6.142890908
+1010,Portmarnock AFC Soccer Club,Off Limetree Avenue,,,,,Yes,No,Sports Club,53.44045349,-6.136262874
+1011,White Sands Hotel,Strand Road,,,,,Yes,No,Hotel,53.435108,-6.123775495
+1012,Hollywood Lakes Golf Club,Naul Road,,,,,Yes,No,Sports Club,53.55191851,-6.26781177
+1013,Donabate Health Centre,St. Patricks Terrace,,,,,Yes,No,Health Centre,53.48555864,-6.147223034
+1014,Ballycoolin Training Centre (Fingal County Council),Ballycoolin Business Park,,,,,Yes,No,Training Centre,53.40967043,-6.36120615
+1015,Westmanstown Sports Centre and Golf Club,Luttrellstown Road,,2,,TRUE,Yes,No,Sports Club,53.38007418,-6.441736744
+1016,Westmanstown Sports Centre and Golf Club,Luttrellstown Road,,2,,TRUE,Yes,No,Sports Club,53.38005247,-6.441663795
+1017,Westmanstown Sports Centre and Golf Club,Luttrellstown Road,,2,,TRUE,Yes,No,Sports Club,53.37999645,-6.441395813
+1018,Westmanstown Sports Centre and Golf Club,Luttrellstown Road,,2,,TRUE,Yes,No,Sports Club,53.38001487,-6.441465628
+1019,Porterstown Park,Luttrellstown Road,,2,,,Yes,No,Park,53.37138401,-6.403684452
+1020,Porterstown Park,Luttrellstown Road,,2,,,Yes,No,Park,53.37136171,-6.403595082
+1021,Superquinn,The Plaza,,,,TRUE,Yes,No,Supermarket,53.41994553,-6.381809164
+1022,Superquinn,The Plaza,,,,TRUE,Yes,No,Supermarket,53.41990293,-6.38179254
+1023,Fingal County Council Building,GROVE ROAD,,4, ,TRUE,TRUE,TRUE,Local Authority,53.39063673,-6.393873235
+1024,Fingal County Council Building,GROVE ROAD,,,,TRUE,Yes,No,Local Authority,53.39046031,-6.393587142
+1025,St. Philip the Apostle Church,Mountview Road,,,,,Yes,No,Church,53.39086125,-6.407508655
+1026,St. Philip the Apostle Church,Mountview Road,,,,,Yes,No,Church,53.390871,-6.407641748
+1027,Mountview Community and Sports Centre,Whitechapel Road,,,,,Yes,No,"Community Centre, Sports Club",53.39005321,-6.405328342
+1028,Mountview Community and Sports Centre,Whitechapel Road,,,,,Yes,No,"Community Centre, Sports Club",53.3900453,-6.405278896
+1029,Hartstown Health Centre,Cherryfield Lawn,,2,,,Yes,No,Health Centre,53.39234762,-6.421328935
+1030,Hartstown Health Centre,Cherryfield Lawn,,2,,,Yes,No,Health Centre,53.39231611,-6.421330101
+1031,Scoil Grainne & Scoil Pobail Setanta National Schools,Phibblestown Wood,,2,,,Yes,No,Primary School,53.39826881,-6.435494855
+1032,Scoil Grainne & Scoil Pobail Setanta National Schools,Phibblestown Wood,,2,,,Yes,No,Primary School,53.39824828,-6.435534023
+1033,Rush & Lusk Train Station,Rush Road,,2,,TRUE,Yes,No,Train,53.52075391,-6.143850141
+1034,Rush & Lusk Train Station,Rush Road,,2,,TRUE,Yes,No,Train,53.52073096,-6.143872873
+1035,Rush & Lusk Train Station,Rush Road,,3,,TRUE,Yes,No,Train,53.52042259,-6.14394285
+1036,Rush & Lusk Train Station,Rush Road,,3,,TRUE,Yes,No,Train,53.52044687,-6.143922234
+1037,Rush & Lusk Train Station,Rush Road,,3,,TRUE,Yes,No,Train,53.52046989,-6.143903846
+1038,Rush & Lusk Train Station,Rush Road,,4,,TRUE,Yes,No,Train,53.52079235,-6.143240106
+1039,Rush & Lusk Train Station,Rush Road,,4,,TRUE,Yes,No,Train,53.52075907,-6.143265462
+1040,Rush & Lusk Train Station,Rush Road,,4,,TRUE,Yes,No,Train,53.52072972,-6.143292819
+1041,Rush & Lusk Train Station,Rush Road,,4,,TRUE,Yes,No,Train,53.52070421,-6.143317835
+1042,Rush & Lusk Train Station,Rush Road,,2,,TRUE,Yes,No,Train,53.52061247,-6.143413101
+1043,Rush & Lusk Train Station,Rush Road,,2,,TRUE,Yes,No,Train,53.52058829,-6.143440232
+1044,Rush & Lusk Train Station,Rush Road,,,,,Yes,No,Train,53.52038409,-6.14363167
+1045,Donabate Train Station,Hearse Road,,9, ,TRUE,TRUE, ,Train,53.48604524,-6.151265292
+1046,Donabate Train Station,Hearse Road,,9, ,TRUE,TRUE, ,Train,53.48606867,-6.151262612
+1047,Donabate Train Station,Hearse Road,,9, ,TRUE,TRUE, ,Train,53.48609199,-6.15125977
+1048,Donabate Train Station,Hearse Road,,9,TRUE,TRUE,TRUE, ,Train,53.48611181,-6.151257907
+1049,Donabate Train Station,Hearse Road,,9, ,TRUE,TRUE, ,Train,53.48613277,-6.151253754
+1050,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48615416,-6.151249784
+1051,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48617667,-6.15124674
+1052,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48619797,-6.15124444
+1053,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48622251,-6.15124062
+1054,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48621952,-6.151073652
+1055,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48619496,-6.151076784
+1056,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48617083,-6.151081272
+1057,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48614587,-6.15108511
+1058,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48612541,-6.151088063
+1059,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48610536,-6.151090996
+1060,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48608776,-6.151093138
+1061,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48606689,-6.151096109
+1062,Donabate Train Station,Hearse Road,,9,,TRUE,Yes,,Train,53.48604066,-6.151097251
+1063,Naomh Barrog GAA,Kilbarrack Parade,,2,,,Yes,No,Sports Club,53.39047491,-6.151670399
+1064,Naomh Barrog GAA,Kilbarrack Parade,,2,,,Yes,No,Sports Club,53.39042921,-6.151696106
+1065,Howth Junction Train Station,Kilbarrack Road,,,,,Yes,No,Train,53.39122733,-6.154515121
+1066,Howth Junction Train Station,Kilbarrack Road,,,,,Yes,No,Train,53.39104088,-6.154033987
+1067,LaVerna Day Centre,Grange Road,,,,,Yes,No,Health Centre,53.39788502,-6.138913337
+1068,LaVerna Day Centre,Grange Road,,,,,Yes,No,Health Centre,53.39776695,-6.138947677
+1069,LaVerna Day Centre,Grange Road,,,,,Yes,No,Health Centre,53.39767314,-6.1389722
+1070,St. Marys Girls Primary School,Grange Road,,,,,Yes,No,Primary School,53.39781896,-6.138256675
+1071,Baldoyle Library and Offices,Strand Road,,,,,Yes,No,Library,53.39698896,-6.125724426
+1072,Breffni Gardens,Main Street,,,,,Yes,No,Housing,53.39747579,-6.126669766
+1073,Sisters of Charity Convent,Main Street,,2,,,Yes,No,Convent,53.39824913,-6.127114748
+1074,Sisters of Charity Convent,Main Street,,2,,,Yes,No,Convent,53.39830315,-6.127146295
+1075,St Michaels House,Seapoint Avenue,,2,,,Yes,No,Health Centre,53.39792587,-6.128551437
+1076,St Michaels House,Seapoint Avenue,,2,,,Yes,No,Health Centre,53.39796157,-6.128380288
+1077,Sutton Golf Club,Burrow Road,,,,,Yes,No,Sports Club,53.39580041,-6.114915777
+1078,St Fintans Church,Greenfield Road,,2,,,Yes,No,Church,53.38748452,-6.103846005
+1079,St Fintans Church,Greenfield Road,,2,,,Yes,No,Church,53.38748604,-6.103753603
+1080,St Fintans Church,Greenfield Road,,2,,,Yes,No,Church,53.38755652,-6.103542093
+1081,St Fintans Church,Greenfield Road,,2,,,Yes,No,Church,53.38755561,-6.103484738
+1082,Quay West Restaurant & Bar,Harbour Road,,2,,,Yes,No,Restaurant and Pub,53.3888359,-6.073350997
+1083,Quay West Restaurant & Bar,Harbour Road,,2,,,Yes,No,Restaurant and Pub,53.38882647,-6.073305365
+1084,St Marys Church,Howth Road,,2,,TRUE,No,No,Church,53.3883511,-6.079238564
+1085,St Marys Church,Howth Road,,2,,TRUE,No,No,Church,53.38832957,-6.079240301
+1086,Deerpark Hotel and Golf Club,Deerpark,,,,TRUE,Yes,No,Hotel and Sports Club,53.38070622,-6.077597939
+1087,Radisson SAS Hotel,Dublin Airport,,,,,Yes,No,Hotel,53.42677194,-6.232894804
+1088,Radisson SAS Hotel,Dublin Airport,,,,,Yes,No,Hotel,53.42672582,-6.232869365
+1089,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42313032,-6.227619456
+1090,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42313024,-6.227665708
+1091,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42313177,-6.227717035
+1092,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42313251,-6.227767108
+1093,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42316788,-6.227565219
+1094,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42319551,-6.227565353
+1095,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42322391,-6.227565457
+1096,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42325383,-6.227565495
+1097,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42328374,-6.227564251
+1098,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42331291,-6.227564323
+1099,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42334207,-6.227564393
+1100,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42337276,-6.2275644
+1101,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42340191,-6.227563186
+1102,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.4234326,-6.227563194
+1103,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.423461,-6.227563296
+1104,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42316926,-6.227864504
+1105,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42319763,-6.227863322
+1106,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42322677,-6.22786211
+1107,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42325285,-6.227861025
+1108,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42328351,-6.227858465
+1109,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42331342,-6.227857219
+1110,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42334563,-6.227855879
+1111,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.423374,-6.227854699
+1112,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42340315,-6.227853485
+1113,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42343229,-6.227852273
+1114,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42346295,-6.227849713
+1115,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42322359,-6.227699081
+1116,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42340078,-6.227694277
+1117,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42333864,-6.227695579
+1118,Red Long Term Car Park,Swords Road,,30,,,Yes,No,Airport,53.42328113,-6.227697971
+1119,Donabate/Portrane Educate Together,Portrane Road,,,,,Yes,No,Primary School,53.48958519,-6.14599614
+1120,Kealys Bar,Swords Road,,2,,,Yes,No,Pub,53.42496482,-6.230167679
+1121,Kealys Bar,Swords Road,,2,,,Yes,No,Pub,53.42493914,-6.230172854
+1122,Go Kids Go Play Centre,Coolmine Industrial Estate,,,,,Yes,No,Play Centre,53.38443441,-6.401465593
+1123,Go Kids Go Play Centre,Coolmine Industrial Estate,,,,,Yes,No,Play Centre,53.38451524,-6.40138617
+1124,The Brock Inn,N2,,,,,Yes,No,Pub,53.43300984,-6.332689717
+1125,The White House,N2,,,,,Yes,No,Pub,53.4406292,-6.337818582
+1126,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42807702,-6.242814428
+1127,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42809652,-6.242852548
+1128,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42811945,-6.242889088
+1129,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42814156,-6.242928545
+1130,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42816444,-6.242962201
+1131,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42818567,-6.243000251
+1132,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42820859,-6.243036789
+1133,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4282298,-6.2430734
+1134,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42825444,-6.243109867
+1135,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42827569,-6.243149359
+1136,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4280646,-6.243023988
+1137,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42808413,-6.243063552
+1138,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42810454,-6.243104519
+1139,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42812568,-6.243136806
+1140,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42814961,-6.243183396
+1141,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42817342,-6.243221341
+1142,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4281482,-6.243262748
+1143,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42812523,-6.243223328
+1144,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4281031,-6.243182431
+1145,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42808104,-6.243145857
+1146,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42805811,-6.243109318
+1147,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42803602,-6.243071303
+1148,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42796386,-6.24319971
+1149,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42798422,-6.243237797
+1150,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42800982,-6.243279992
+1151,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4280318,-6.243310802
+1152,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42805647,-6.243348711
+1153,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42802881,-6.243400314
+1154,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42800502,-6.24336381
+1155,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42798292,-6.243324353
+1156,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42795911,-6.243286409
+1157,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42793519,-6.243241261
+1158,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42805006,-6.243439805
+1159,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42807853,-6.243385285
+1160,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42817114,-6.243300729
+1161,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42819893,-6.243257773
+1162,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4279913,-6.243074591
+1163,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4279577,-6.243132204
+1164,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42802653,-6.243011143
+1165,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42792578,-6.243186865
+1166,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42782967,-6.24332635
+1167,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42785174,-6.243362924
+1168,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42787559,-6.24340375
+1169,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42789937,-6.243440253
+1170,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.4279214,-6.243473947
+1171,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42794607,-6.243511855
+1172,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42797078,-6.243552646
+1173,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42798929,-6.243582159
+1174,"Short Term Car Park - Block B, Level 1",,,,,,Yes,No,Airport,53.42801222,-6.243618697
+1175,Dublin Airport Garda Station,,,,,,Yes,No,Garda Station,53.42961246,-6.24479934
+1176,Dublin Airport Garda Station,,,,,,Yes,No,Garda Station,53.42962985,-6.24476192
+1177,Esso Service Station,Rathbeale Road,,,,,Yes,No,Petrol Station,53.46169786,-6.228492007
+1178,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36312755,-6.359956961
+1179,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36313077,-6.359914367
+1180,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36313397,-6.35986965
+1181,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.3631346,-6.359822908
+1182,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36313909,-6.359780265
+1183,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36313848,-6.359735694
+1184,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36314294,-6.359690928
+1185,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.36314614,-6.359646212
+1186,Farmleigh House,Whites Road,,9,,,Yes,No,Park,53.3631493,-6.359599372
