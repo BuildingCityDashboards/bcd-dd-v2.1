@@ -1,13 +1,15 @@
 class StackedAreaChart {
 
     // constructor function
-    constructor (_element, _titleX, _titleY){
+    constructor (_element, _titleX, _titleY, _dateVariable, _keys){
         //valid data input?
 
         // load in arguments from config object
         this.element = _element;
         this.titleX = _titleX;
         this.titleY = _titleY;
+        this.date = _dateVariable;
+        this.keys = _keys;
         
         // create the chart
         this.init();
@@ -55,22 +57,25 @@ class StackedAreaChart {
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
 
         // for the tooltip from the d3 book
-        dv.bisectDate = d3.bisector(function(d) { return parseTime(d.date); }).left;
+        dv.bisectDate = d3.bisector(function(d) { return parseTime(d[dv.date]); }).left;
 
         // set scales
         dv.x = d3.scaleTime().range([0, dv.width]);
         dv.y = d3.scaleLinear().range([dv.height, 0]);
 
+        dv.gridLines = dv.g.append("g")
+            .attr("class", "grid-lines");
+
         dv.xAxis = dv.g.append("g")
-            .attr("class", "x axis")
+            .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
 
         dv.yAxis = dv.g.append("g")
-            .attr("class", "y axis");
+            .attr("class", "y-axis");
 
         // X title
         dv.g.append("text")
-            .attr("class", "title")
+            .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
             .attr("font-size", "20px")
@@ -88,7 +93,7 @@ class StackedAreaChart {
 
         // d3 area function
         dv.area = d3.area()
-            .x(function(d) { return dv.x(parseTime(d.data.date))})
+            .x(function(d) { return dv.x(parseTime(d.data[dv.date]))})
             .y0(function(d) { return dv.y(d[0]); })
             .y1(function(d) { return dv.y(d[1]); });
 
@@ -96,43 +101,13 @@ class StackedAreaChart {
         dv.addLegend();
 
         // call the getdata method
-        dv.getData();
     }
 
-    getData(){
+    // pass the data and the nest value
+    getData(_data){
+
         let dv = this;
-
-        let variable = "Unemployed Persons aged 15 years and over (Thousand)";
-        // console.log("the variable is", d3.select(dv.element).select(".series1"));
-
-        // 1. nest the data by quarter
-        dv.quarterNest = d3.nest()
-            .key(function(d){ return d.quarter; })
-            .entries(stackData);
-
-        // console.log(dv.quarterNest);
-
-        // 2. filter the values by select variable
-        dv.dataFiltered = dv.quarterNest
-        .map(function(q){
-            return q.values.reduce(function(accumulator, current){
-                accumulator.date = q.key
-                accumulator[current.region] = accumulator[current.region] + current[variable]
-                return accumulator;
-            }, {
-                "Border": 0,
-                "Midland": 0,
-                "Mid-East": 0,
-                "Mid-West": 0,
-                "South-East": 0,
-                "South-West": 0,
-                "West": 0,
-                "Dublin": 0,
-                "Ireland": 0
-            });
-        });
-
-        console.log("filtered data stack",dv.dataFiltered);
+            dv.nestedData = _data,
 
         dv.update();
     }
@@ -148,22 +123,23 @@ class StackedAreaChart {
         // d3 stack function
         const stack = d3.stack().keys(nut3regions);
 
+        dv.drawGridLines();
+
         const yAxisCall = d3.axisLeft();
         const xAxisCall = d3.axisBottom();
 
-        const DataStacked = (stack(dv.dataFiltered));
-        // console.log("data stacked output: ", DataStacked);
+        dv.data = (stack(dv.nestedData));
 
         // get the the combined max value for the y scale
-        let maxDateVal = d3.max(dv.dataFiltered, d => {
+        let maxDateVal = d3.max(dv.nestedData, d => {
             var vals = d3.keys(d).map(key => { 
-                return key !== 'date' ? d[key] : 0 
+                return key !== dv.date ? d[key] : 0;
             });
             return d3.sum(vals);
         });
 
         // Update scales
-        dv.x.domain(d3.extent(dv.dataFiltered, (d) => {  return parseTime(d.date); }));
+        dv.x.domain(d3.extent(dv.nestedData, (d) => {  return parseTime(d[dv.date]); }));
         dv.y.domain([0, maxDateVal]);
 
         // Update axes
@@ -175,7 +151,7 @@ class StackedAreaChart {
 
         // select all regions and join data with old
         const regions = dv.g.selectAll(".region")
-            .data(DataStacked);
+            .data(dv.data);
         
         // Exit old elements not present in new data.
         // regions.exit()
@@ -191,7 +167,7 @@ class StackedAreaChart {
 
         // Enter elements
         regions.enter().append("g")
-            .attr("class", function(d){ return "region " + d.key })
+            .attr("class", "region")
             .append("path")
                 .attr("class", "area")
                 // .transition(t)
@@ -200,113 +176,80 @@ class StackedAreaChart {
                     return dv.colour(d.key);
                 })
                 .style("fill-opacity", 0.75);
-
-        
-        
-          // tooltip
-        let tooltips = dv.g.append("g")
-            .attr("class", "tooltip-container")
-            .style("position", "absolute")
-            .style("z-index", "20")
-            .style("visibility", "hidden")
-            .style("top", dv.chartTop + "px");
-        
-        
+             
         // tooltip based on the example in the d3 Book
         // add group to contain all the focus elements
-        let focus = dv.g.append("g")
-            .attr("class", "focus")
-            .style("display", "none");
+        // let focus = dv.g.append("g")
+        //     .attr("class", "focus")
+        //     .style("display", "none");
         
-        // Year Label
-        focus.append("text")
-            .attr("class", "focus_quarter")
-            .attr("x", 9)
-            .attr("y", 7);
+        // // Year Label
+        // focus.append("text")
+        //     .attr("class", "focus_quarter")
+        //     .attr("x", 9)
+        //     .attr("y", 7);
 
-        // Focus line
-        focus.append("line")
-            .attr("class", "focus_line")
-            .attr("y1", 0)
-            .attr("y2", dv.height);
+        // // Focus line
+        // focus.append("line")
+        //     .attr("class", "focus_line")
+        //     .attr("y1", 0)
+        //     .attr("y2", dv.height);
 
-        // console.log(focus);
-        nut3regions.forEach( d => {
-            dv.tooltip = focus.append("g")
-                .attr("class", "tooltip_" + d);
+        // nut3regions.forEach( d => {
+        //     dv.tooltip = focus.append("g")
+        //         .attr("class", "tooltip_" + d);
 
-            dv.tooltip.append("circle")
-            .attr("r", 5)
-            .attr("fill", "white")
-            .attr("stroke", dv.colour(d));
+        //     dv.tooltip.append("circle")
+        //     .attr("r", 5)
+        //     .attr("fill", "white")
+        //     .attr("stroke", dv.colour(d));
 
-            dv.tooltip.append("text")
-                .attr("x", 9)
-                .attr("dy", ".35rem");
-        });
+        //     dv.tooltip.append("text")
+        //         .attr("x", 9)
+        //         .attr("dy", ".35rem");
+        // });
 
-        dv.g.append("rect")
-            .attr("width", dv.width + 10)
-            .attr("height", dv.height)
-            .style("fill", "none")
-            .style("pointer-events", "all")
-            .on("mouseover", () => { 
-                focus.style("display", null); 
-                tooltips.style("visibility", "visible");
-            })
-            .on("mouseout", () => { 
-                focus.style("display", "none"); 
-                tooltips.style("visibility", "hidden");
-            })
-            .on("mousemove", mousemove);
+        // dv.g.append("rect")
+        //     .attr("width", dv.width + 10)
+        //     .attr("height", dv.height)
+        //     .style("fill", "none")
+        //     .style("pointer-events", "all")
+        //     .on("mouseover", () => { 
+        //         focus.style("display", null); 
+        //     })
+        //     .on("mouseout", () => { 
+        //         focus.style("display", "none"); 
+        //     })
+        //     .on("mousemove", mousemove);
 
-        function mousemove() {
-            let mouse = d3.mouse(this);
+        // function mousemove() {
+        //     let mouse = d3.mouse(this);
             
-            nut3regions.forEach( (region, idx) => {
+        //     nut3regions.forEach( (region, idx) => {
 
-                let regionData = DataStacked[idx];
-                // console.log("this should be an Array: ", regionData);
+        //         let regionData = DataStacked[idx];
+        //         // console.log("this should be an Array: ", regionData);
 
-                    // this is from the d3 book
-                    let x0 = dv.x.invert(mouse[0]),
-                    i = dv.bisectDate(dv.dataFiltered, x0, 1),
-                    d0 = regionData[i - 1],
-                    d1 = regionData[i],
-                    d;
-                    // console.log("d0 is: ", d0);
-                    // console.log("d1 is: ", d1);
-                    // console.log("x0 is: ", x0);
-                    // console.log("i is: ",i);
-    
-                    // if(d0 !== undefined){
-
-                    //     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
-                        
-                    //     let id = ".tooltip_" + region;
-
-                    //     // only this element tooltips
-                    //     let tooltip = d3.select(dv.element).select(id); 
-                    //     // console.log("tooltip selected", tooltip);
-
-                    //         tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + "," + dv.y(d[1]) + ")");
-                    //         focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + ", 0)");
-                    //         tooltip.select("text").text(d.data[region]);
-                    // }
+        //             // this is from the d3 book
+        //             let x0 = dv.x.invert(mouse[0]),
+        //             i = dv.bisectDate(dv.nestedData, x0, 1),
+        //             d0 = regionData[i - 1],
+        //             d1 = regionData[i],
+        //             d;
                     
-                    d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : d = d0;
+        //             d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : d = d0;
                 
-                    let id = ".tooltip_" + region;
+        //             let id = ".tooltip_" + region;
     
-                    let tooltip = d3.select(dv.element).select(id); 
+        //             let tooltip = d3.select(dv.element).select(id); 
                     
-                    if(d !== undefined){
-                        tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + "," + dv.y(d[1]) + ")");
-                        tooltip.select("text").text(d.data[region]);
-                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data.date)) + ", 0)");
-                    }
-            });
-        }    
+        //             if(d !== undefined){
+        //                 tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + "," + dv.y(d[1]) + ")");
+        //                 tooltip.select("text").text(d.data[region]);
+        //                 focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + ", 0)");
+        //             }
+        //     });
+        // }    
     }
 
     addLegend(){
@@ -315,8 +258,6 @@ class StackedAreaChart {
         // create legend group
         var legend = dv.g.append("g")
             .attr("transform", "translate(0,0)");
-            // .attr("transform", "translate(" + (0) + 
-            //             ", " + (0) + ")"); // if the legend needs to be moved
 
         // create legend array, this needs to come from the data.
         var legendArray = [
@@ -351,6 +292,247 @@ class StackedAreaChart {
             .attr("text-anchor", "start")
             .text(d => { return d.label; }); 
     }
+
+    drawGridLines(){
+        let dv = this;
+
+        dv.gridLines.selectAll('line')
+            .remove();
+
+        dv.gridLines.selectAll('line.horizontal-line')
+            .data(dv.y.ticks)
+            .enter()
+                .append('line')
+                .attr('class', 'horizontal-line')
+                .attr('x1', (0))
+                .attr('x2', dv.width)
+                .attr('y1', (d) => { return dv.y(d) })
+                .attr('y2', (d) => dv.y(d));
+    }
+
+    addTooltip(title, format, data){
+
+        let dv = this;
+            dv.ttTitle = title;
+            dv.valueFormat = format;
+            dv.ttWidth = 250,
+            dv.ttHeight = 50,
+            dv.ttBorderRadius = 3;
+            dv.formatYear = d3.timeFormat("%Y");
+
+            // formats thousands, Millions, Euros and Percentage
+
+        // add group to contain all the focus elements
+        let focus = dv.g.append("g")
+                .attr("class", "focus")
+                .style("display", "none")
+                .style("visibility", "hidden");
+            
+            // Year label
+            focus.append("text")
+                .attr("class", "focus_quarter")
+                .attr("x", 9)
+                .attr("y", 7);
+            
+            // Focus line
+            focus.append("line")
+                .attr("class", "focus_line")
+                .attr("y1", 0)
+                .attr("y2", dv.height);
+        
+            focus.append("g")
+                .attr("class", "focus-circles");
+
+        let bcdTooltip = focus.append("g")
+                .attr("class", "bcd-tooltip")
+                .attr("width", dv.ttWidth)
+                .attr("height", dv.ttHeight);
+            
+        let toolGroup =  bcdTooltip.append("g")
+                .attr("class", "tooltip-group")
+                .style("visibility", "hidden");
+
+            dv.drawTooltip();
+            
+            // attach group append circle and text for each region
+            dv.keys.forEach( (d,i) => {
+                let tooltip = dv.g.select(".focus-circles")
+                    .append("g")
+                    .attr("class", "tooltip_" + i);
+    
+                tooltip.append("circle")
+                    .attr("r", 0)
+                    .transition(dv.t)
+                    .attr("r", 5)
+                    .attr("fill", dv.colour(d))
+                    .attr("stroke", dv.colour(d));
+                
+                dv.updateTooltip(d,i);
+
+            });
+    
+            // append a rectangle overlay to capture the mouse
+            dv.g.append("rect")
+                .attr("class", "focus_overlay")
+                .attr("width", dv.width + 10) // give a little extra for last value
+                .attr("height", dv.height)
+                .style("fill", "none")
+                .style("pointer-events", "all")
+                .style("visibility", "hidden")
+                .on("mouseover", () => { focus.style("display", null); })
+                .on("mouseout", () => { focus.style("display", "none"); })
+                .on("mousemove", mousemove);
+            
+            function mousemove(){
+                focus.style("visibility","visible");
+                toolGroup.style("visibility","visible");
+
+                let mouse = d3.mouse(this);
+
+                console.log("this is the data source stacked area chart", dv.data);
+                dv.data.forEach((reg, idx) => {
+
+                    // this is from the d3 book
+                    let x0 = dv.x.invert(mouse[0]),
+                    i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
+                    d0 = reg[i - 1],
+                    d1 = reg[i],
+                    d;  
+
+                    // console.log("this is the date value for the line position", d0, d1);
+    
+                    d1 !== undefined ? d = x0 - d0.data[dv.date] > d1.data[dv.date] - x0 ? d1 : d0 : false;
+                    
+                    let id = ".tooltip_" + idx;
+                    let tpId = ".tooltipbody_" + idx;
+                    let ttTitle = dv.g.select(".tooltip-title");
+
+                    dv.updatePosition(mouse[0], 10);
+                    
+                    let tooltip = d3.select(dv.element).select(id);
+                    let tooltipBody = d3.select(dv.element).select(tpId); 
+                        tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
+                    
+                    if(d !== undefined){
+                        console.log("This is the data source selected for stacked area : ", d);
+                        // tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + "," + dv.y(d[dv.value]) + ")");
+                        // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
+                        // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
+                        tooltipBody.select(".tp-text-right").text(d[1] -d[0]);
+                        // ttTitle.text(dv.ttTitle + " " + dv.formatYear(d.date));
+                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + ", 0)");
+                    }
+                });
+            }
+    }
+
+    drawTooltip(){
+        let dv = this;
+
+        let tooltipTextContainer = dv.g.select(".tooltip-group")
+          .append("g")
+            .attr("class","tooltip-text");
+
+        let tooltip = tooltipTextContainer
+            .append("rect")
+            .attr("class", "tooltip-container")
+            .attr("width", dv.ttWidth)
+            .attr("height", dv.ttHeight)
+            .attr("rx", dv.ttBorderRadius)
+            .attr("ry", dv.ttBorderRadius)
+            .attr("fill","#f8f8f8")
+            .attr("stroke", "#6c757d")
+            .attr("stroke-width", "1");
+
+        let tooltipTitle = tooltipTextContainer
+          .append("text")
+            .text("test tooltip")
+            .attr("class", "tooltip-title")
+            .attr("x", 5)
+            .attr("y", 16)
+            .attr("dy", ".35em")
+            .style("fill", "#1d2124");
+
+        let tooltipDivider = tooltipTextContainer
+            .append("line")
+                .attr("class", "tooltip-divider")
+                .attr("x1", 5)
+                .attr("x2", 240)
+                .attr("y1", 31)
+                .attr("y2", 31)
+                .style("stroke", "#6c757d");
+
+        let tooltipBody = tooltipTextContainer
+                .append("g")
+                .attr("class","tooltip-body")
+                // .style("transform", "translateY(8px)")
+                .attr("transform", "translate(5,50)");
+    }
+
+    updateTooltip(d,i){
+        let dv = this;
+
+        let tooltipBodyItem = dv.g.select(".tooltip-body")
+            .append("g")
+            .attr("class", "tooltipbody_" + i);
+
+        tooltipBodyItem.append("text")
+            .text(d)
+            .attr("class", "tp-text-left")
+            .attr("x", "12")
+            .attr("dy", ".35em");
+
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-right")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 40)
+            .attr("text-anchor","end");
+
+        tooltipBodyItem.append("circle")
+            .attr("class", "tp-circle")
+            .attr("r", "6")
+            .attr("fill", dv.colour(d));
+        
+        dv.updateSize();
+    }
+
+    updatePosition(xPosition, yPosition){
+        let dv = this;
+        // get the x and y values - y is static
+        let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
+        // move the tooltip
+        dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+    }
+
+    updateSize(){
+        let dv = this;
+        let height = dv.g.select(".tooltip-body").node().getBBox().height;
+        dv.ttHeight += height + 5;
+        dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
+        console.log("what is the tooltip height now", dv.ttHeight);
+    }
+
+    resetSize() {
+        let dv = this;
+        dv.ttHeight = 50;
+    }
+
+    getTooltipPosition([mouseX, mouseY]) {
+        let dv = this;
+        let ttX,
+            ttY = mouseY;
+
+        // show right
+        if (mouseX < dv.width / 2) {
+            ttX = mouseX;
+        } else {
+            // show left
+            ttX = mouseX -255
+        }
+        return [ttX, ttY];
+    }
+
 
 }
 

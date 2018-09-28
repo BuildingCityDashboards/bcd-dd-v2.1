@@ -29,8 +29,6 @@ class MultiLineChart{
 
         dv.margin.right = elementWidth < breakPoint ? 0 : 150;
         dv.margin.left = elementWidth < breakPoint ? 0 : 80;
-
-        console.log(dv.margin);
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
@@ -84,8 +82,7 @@ class MultiLineChart{
             .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
-            .attr("text-anchor", "middle")
-            .text(dv.titleX);
+            .attr("text-anchor", "middle");
 
         // Y title
         dv.yLabel = dv.g.append("text")
@@ -93,19 +90,16 @@ class MultiLineChart{
             .attr("x", - (dv.height/2))
             .attr("y", -60)
             .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(dv.titleY);
-
-        // console.log("this is the width at scale function", dv.width);
+            .attr("transform", "rotate(-90)");
 
         dv.addLegend();
-        // dv.addSelectForm();
-        
-        // dv.getData();
     }
 
-    getData( _valueString, _data){
+    getData( _valueString, _data, _tX, _tY){
         let dv = this;
+
+        typeof _tX === "undefined" ? dv.titleX = dv.titleX : dv.titleX = _tX;
+        typeof _tY === "undefined" ? dv.titleY = dv.titleY : dv.titleY = _tY;
         
         _data !== null ? dv.data =_data : dv.data = dv.data;
         dv.value = _valueString;
@@ -137,10 +131,15 @@ class MultiLineChart{
             })
         ]);
 
+
+        dv.xLabel.text(dv.titleX);
+        dv.yLabel.text(dv.titleY);
+
         dv.drawGridLines();
+        dv.tickNumber =  dv.data[0].values.length;
 
         // Update axes - what about ticks for smaller devices??
-        dv.xAxisCall.scale(dv.x).tickFormat(d3.timeFormat("%Y"));
+        dv.xAxisCall.scale(dv.x); //ticks(dv.tickNumber);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         
         dv.yAxisCall.scale(dv.y);
@@ -159,10 +158,6 @@ class MultiLineChart{
 
     update(){
         let dv = this;
-
-
-        d3.select(dv.element).select(".focus").remove();
-        d3.select(dv.element).select(".focus_overlay").remove();
 
          // d3 line function
         dv.line = d3.line()
@@ -185,21 +180,23 @@ class MultiLineChart{
         // update the paths
         dv.regions.select(".line")
             .transition(dv.t)
-            .attr("d", d => { return dv.line(d.values); });
-            // .attr("d", function(d) { 
-            //     return d.active ? dv.line(d.values) : null; });
+            // .attr("d", d => {return dv.line(d.values); });
+            .attr("d", d => { 
+                return d.disabled ? null : dv.line(d.values); });
         
         // Enter elements
         dv.regions.enter().append("g")
             .attr("class", "regions")
             .append("path")
+            .style("stroke", d => { console.log("the value of d", d); return dv.colour(d.key); })
             .attr("class", "line")
             .attr("id", d => d.key)
-            .attr("lineId", d => d.key)
-            .attr("d", d => { return dv.line(d.values); })
-            // .attr("d", function(d) { 
-            //     return d.active ? dv.line(d.values) : null; })
-            .style("stroke", d => { return dv.colour(d.key); })
+            // .attr("d", d => {return dv.line(d.values); })
+            .attr("d", d => { 
+                return d.disabled ? null : dv.line(d.values); })
+            // .style("stroke", d => ( dv.data.map(function(v,i) {
+            //     return dv.colour || dv.color[i % 10];
+            //   }).filter(function(d,i) { return !dv.data[i].disabled })))
             .style("stroke-width", "4px")
             .style("fill", "none");  
         
@@ -211,13 +208,17 @@ class MultiLineChart{
     
     }
 
-    addTooltip(title, format){
-
+    addTooltip(title, format, dateField, prefix, postfix){
         let dv = this;
+
+            d3.select(dv.element).select(".focus").remove();
+            d3.select(dv.element).select(".focus_overlay").remove();
+
             dv.ttTitle = title;
             dv.valueFormat = format;
-            dv.ttWidth = 250,
-            dv.ttHeight = 50,
+            dv.dateField = dateField;
+            dv.ttWidth = 250;
+            dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
 
@@ -241,7 +242,7 @@ class MultiLineChart{
                 .attr("y1", 0)
                 .attr("y2", dv.height);
         
-        let tooltipCircles = focus.append("g")
+            focus.append("g")
                 .attr("class", "focus-circles");
 
         let bcdTooltip = focus.append("g")
@@ -297,7 +298,7 @@ class MultiLineChart{
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d;  
-    
+
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     
                     let id = ".tooltip_" + idx;
@@ -314,8 +315,10 @@ class MultiLineChart{
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
-                        tooltipBody.select(".tp-text-right").text(d[dv.value]);
-                        ttTitle.text(dv.ttTitle + " " + dv.formatYear(d.date));
+                        tooltipBody.select(".tp-text-right").text(
+                            d[dv.value] > 100 ? d3.format(",.2r")(d[dv.value]) : d[dv.value]
+                        );
+                        ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
@@ -394,10 +397,6 @@ class MultiLineChart{
         dv.updateSize();
     }
 
-    updateItems(){
-
-    }
-
     updatePosition(xPosition, yPosition){
         let dv = this;
         // get the x and y values - y is static
@@ -411,7 +410,6 @@ class MultiLineChart{
         let height = dv.g.select(".tooltip-body").node().getBBox().height;
         dv.ttHeight += height + 5;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
-        console.log("what is the tooltip height now", dv.ttHeight);
     }
 
     resetSize() {
@@ -444,49 +442,24 @@ class MultiLineChart{
 
         // create legend array, this needs to come from the data.
         
-        let legendArray = [];
+        dv.legendArray = [];
         
-        dv.keys.forEach( (d,i) => {
+        dv.keys.forEach( (d) => {
 
             let obj = {};
                 obj.label = d;
                 obj.colour = dv.colour(d);
-                legendArray.push(obj);
+                dv.legendArray.push(obj);
         });
-
-        // data.forEach(d => {
-        //     for (var key in d) {
-        //         // console.log(key);
-        //         var obj = {};
-        //         if (!(key === "type" || key === "region")){
-        //         obj.type = d.type;
-        //         obj.region = d.region;
-        //         obj.year = key;
-        //         obj.value = +d[key];
-        //         legendArray.push(obj);
-        //     }}
-        // });
-
-        // var legendArray = dv.regionData;
-        // console.log(legendArray);
 
         // get data and enter onto the legend group
         var legends = legend.selectAll(".legend")
-            .data(legendArray)
+            .data(dv.legendArray)
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
             .style("font", "12px sans-serif");
 
-        // // get data and enter onto the legend group
-        // legend = legend.selectAll(".legend")
-        //     .data(dv.regionData)
-        //     .enter().append("g")
-        //     .attr("class", "legend")
-        //     .attr("transform", function(d, i) { return "translate(0," + i * 40 + ")"; })
-        //     .style("font", "12px sans-serif");
-        
-        // console.log("width at the legend draw", dv.width);
         // add legend boxes    
         legends.append("rect")
             .attr("class", "legendRect")
@@ -494,7 +467,20 @@ class MultiLineChart{
             .attr("width", 25)
             .attr("height", 25)
             .attr("fill", d => { return d.colour; })
-            .attr("fill-opacity", 0.75);
+            .attr("fill-opacity", 0.75)
+            .on("click", d => { 
+                // get index of legend item
+                let filterValues = dv.data.findIndex(idx => idx.key === d.label);
+                // set its disabled field to true or false
+                dv.data[filterValues].disabled = !dv.data[filterValues].disabled; 
+                if (!dv.data.filter(function(d) { return !d.disabled }).length) {
+                  dv.data.forEach(function(d) {
+                    d.disabled = false;
+                  });
+                }
+                // dv.getData(dv.value,dv.data);
+                dv.update();
+            });
 
         legends.append("text")
             .attr("class", "legendText")
@@ -505,47 +491,25 @@ class MultiLineChart{
             .text(d => { return d.label; }); 
     }
 
-            // // taking from the d3 book
-            // .on("click", d => {
-            //     console.log(d);
-            //     var active   = d.active ? false : true,
-            //     newOpacity = active ? 1 : 0; 
-            //     console.log("active", active);
-            //     console.log("opactiy", newOpacity);
-            //     // Hide or show the elements based on the ID
-            //     d3.select("#"+d.label)
-            //         .transition().duration(100) 
-            //         .style("opacity", newOpacity); 
-            //     d3.select(dv.element).select(".tooltip_"+d.label)
-            //         .transition().duration(100) 
-            //         .style("opacity", newOpacity);
+        // // taking from the d3 book
+        // .on("click", d => {
+        //     var active   = d.active ? false : true,
+        //     newOpacity = active ? 1 : 0; 
+        //     console.log("active", active);
+        //     console.log("opactiy", newOpacity);
+        //     // Hide or show the elements based on the ID
+        //     d3.select("#"+d.label)
+        //         .transition().duration(100) 
+        //         .style("opacity", newOpacity); 
+        //     d3.select(dv.element).select(".tooltip_"+d.label)
+        //         .transition().duration(100) 
+        //         .style("opacity", newOpacity);
 
-            //     // Update whether or not the elements are active
-            //     d.active = active;
-            //     });
+        //     // Update whether or not the elements are active
+        //     d.active = active;
+        //     });
 
-        // add legend text
     
-    // addSelectForm(){
-    //     var dv = this
-
-    //     dv.list = d3.select("#seriesMenu1")
-    //         .append("select")
-    //         .attr("class","form-control");
-
-    //     dv.list.selectAll("option")
-    //     // add the data and join
-    //         .data(keys)
-    //         .enter()
-    //     // append option with type name as value and text
-    //         .append("option")
-    //         .attr("value", d => d)
-    //         .text( d => d );
-        
-    //     dv.list.on("change", function(){
-    //         mlineChart.getData();
-    //     });
-    // }
 
     // textWrap(text, width, xpos = 0) {
     //     text.each(function() {
@@ -611,7 +575,7 @@ class MultiLineChart{
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
                 .attr('x2', dv.width)
-                .attr('y1', (d) => {console.log("this is the value here", dv.y(d)); return dv.y(d)})
+                .attr('y1', (d) => dv.y(d))
                 .attr('y2', (d) => dv.y(d));
     }
 

@@ -70,15 +70,15 @@ class StackBarChart {
         dv.xAxisCall = d3.axisBottom();
 
         dv.xAxis = dv.g.append("g")
-            .attr("class", "x axis")
+            .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
         
         dv.yAxis = dv.g.append("g")
-            .attr("class", "y axis");
+            .attr("class", "y-axis");
 
         // X title
         dv.xLabel = dv.g.append("text")
-            .attr("class", "xtitle")
+            .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
             .attr("font-size", "20px")
@@ -87,7 +87,7 @@ class StackBarChart {
 
         // Y title
         dv.yLabel = dv.g.append("text")
-            .attr("class", "ytitle")
+            .attr("class", "titleY")
             .attr("x", - (dv.height/2))
             .attr("y", -60)
             .attr("font-size", "20px")

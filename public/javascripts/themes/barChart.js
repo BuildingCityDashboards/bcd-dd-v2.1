@@ -75,11 +75,11 @@ class BarChart{
             .tickFormat(d => {return d});
 
         dv.xAxis = dv.g.append("g")
-            .attr("class", "x axis")
+            .attr("class", "x-axis")
             .attr("transform", "translate(0," + dv.height +")");
         
         dv.yAxis = dv.g.append("g")
-            .attr("class", "y axis");
+            .attr("class", "y-axis");
 
         // X title
         dv.g.append("text")
