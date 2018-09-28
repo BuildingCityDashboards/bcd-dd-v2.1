@@ -57,8 +57,8 @@ let dublinBusMapIcon = L.icon({
 //});
 
 d3.csv("/data/Transport/SCATs_2018_SCITY_clean.csv").then(function (data) {
-    console.log("data length "+data.length);
-    processScatsReadings(data); //TODO: bottleneck?
+    console.log("SCATS data length "+data.length);
+//    processScatsReadings(data); //TODO: bottleneck?
 });
 
 //let scatsXF; //crossfilter for data
