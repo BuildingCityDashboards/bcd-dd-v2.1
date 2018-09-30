@@ -1,7 +1,7 @@
 /* 
     Author     : Liam
 */
-
+/*TODO use proper rules here instead of individual repetition*/
 #chart-public-transport {
         /*height: inherit;*/
         height: 400px;
@@ -9,7 +9,28 @@
         margin: 20px;
 }
 
-#chart-private-transport {
+#chart-transport-bikes {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-bus {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-luas {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-parking {
         /*height: inherit;*/
         height: 400px;
         width: 100%;

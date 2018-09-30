@@ -99,7 +99,7 @@ function getLuasLine(id_) {
     return (id_ === "1" ? "Red" : "Green");
 }
 
-let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+let luasAPIBase = "http://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 
 
 function displayLuasRT(sid_) {
@@ -107,7 +107,7 @@ function displayLuasRT(sid_) {
     //Luas API returns html, so we need to parse this into a suitable JSON structure
     d3.html(luasAPIBase + sid_)
             .then(function (htmlDoc) {
-//                console.log(htmlDoc.body);
+                console.log(htmlDoc.body);
                 let infoString = htmlDoc.getElementById("cplBody_lblMessage")
                         .childNodes[0].nodeValue;
                 //console.log("info: " + infoString + "\n");
