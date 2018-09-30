@@ -31,6 +31,12 @@
     border-radius: .1875rem;
 }
 
+.credit{
+    float: left;
+    margin: 0 45px 15px 0;
+    height: 29px;
+}
+
 .partner{
     float: left;
     margin: 0 45px 15px 0;
