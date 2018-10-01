@@ -439,6 +439,7 @@ $("div").on('click', '.luasRTbutton', function () {
 d3.select(".public_transport_bikes").on("click", function () {
 //    console.log("bikes");
     publicMap.removeLayer(busCluster);
+    publicMap.removeLayer(carparkCluster);
     publicMap.removeLayer(luasCluster);
     if (!publicMap.hasLayer(bikeCluster)) {
         publicMap.addLayer(bikeCluster);
@@ -449,6 +450,7 @@ d3.select(".public_transport_bikes").on("click", function () {
 d3.select(".public_transport_buses").on("click", function () {
 //    console.log("buses");
     publicMap.removeLayer(bikeCluster);
+    publicMap.removeLayer(carparkCluster);
     publicMap.removeLayer(luasCluster);
     if (!publicMap.hasLayer(busCluster)) {
         publicMap.addLayer(busCluster);
@@ -456,10 +458,22 @@ d3.select(".public_transport_buses").on("click", function () {
     publicMap.fitBounds(busCluster.getBounds());
 });
 
+d3.select(".public_transport_carparks").on("click", function () {
+
+    publicMap.removeLayer(bikeCluster);
+    publicMap.removeLayer(busCluster);
+    publicMap.removeLayer(luasCluster);
+    if (!publicMap.hasLayer(carparkCluster)) {
+        publicMap.addLayer(carparkCluster);
+    }
+    publicMap.fitBounds(carparkCluster.getBounds());
+});
+
 d3.select(".public_transport_luas").on("click", function () {
 //    console.log("luas");
     publicMap.removeLayer(bikeCluster);
     publicMap.removeLayer(busCluster);
+    publicMap.removeLayer(carparkCluster);
     if (!publicMap.hasLayer(luasCluster)) {
         publicMap.addLayer(luasCluster);
     }
@@ -476,6 +490,9 @@ d3.select(".public_transport_all").on("click", function () {
     if (!publicMap.hasLayer(bikeCluster)) {
         publicMap.addLayer(bikeCluster);
     }
+    if (!publicMap.hasLayer(carparkCluster)) {
+        publicMap.addLayer(carparkCluster);
+    }    
     publicMap.fitBounds(busCluster.getBounds());
 
 });
