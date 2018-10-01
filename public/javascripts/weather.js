@@ -69,14 +69,38 @@ d3.xml("/data/Environment/weather_met_eireann.xml").then(function (xmlWeather) {
 //    forecasts.forEach(function (f) {
 //        console.log("Aggregate forecast: " + JSON.stringify(f));
 //    });
-document.getElementById("rt-chart1").innerHTML = 
-           "<b>" + forecasts[0].date + "</b>"
-//            + "<strong>Temperature</strong> : " + temperature + " C<br>"
+//    
+let weatherTime = d3.timeFormat("%a, %H:%M");
+let weatherDisplayHTML = 
+           "<b>" + weatherTime(forecasts[0].date) + "</b><br>"
+            + "<h2>" + forecasts[0].temperature + " C</h2>"
 //            + "<strong>Precipitation</strong> : " + precip + " mm <br>"
 //            + "<strong>Wind: Speed</strong> : " + windSpeed + " mps" + "\t Beaufort Scale: " + windB + "<br>"
 //            + "<strong>Wind Direction</strong> : " + windD + "<br>"
 //            + "<strong>Pressure</strong> : " + press + " hPa"
 ;
+
+
+    let weatherNode = d3.select("#rt-chart1").node();
+    let weatherWidth = weatherNode.getBoundingClientRect().width;
+    // dimensions margins, width and height
+    const m = [20, 10, 25, 10],
+            w = weatherWidth - m[1] - m[3],
+            h = 120 - m[0] - m[2];
+
+   let weatherSVG = d3.select("#rt-chart1")
+            .attr("width", w + m[1] + m[3])
+            .attr("height", h + m[0] + m[2])
+            .attr("transform", "translate(" + m[3] + "," + "10" + ")")
+;
+    weatherSVG.append("text")
+        .attr("dx", 0)
+        .attr("dy", 55)
+//        .attr("class", "label")
+        .attr("fill", "#ffffffff")//#f8f9fabd")
+        .html(weatherDisplayHTML);
+//
+
 });
 ////console.log("****Weather Vis loaded****");
 //let cork_lng = [-8.4863, -8.4863, -8.4863]; //west, centre, east
