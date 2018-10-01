@@ -1,0 +1,43 @@
+.row.wrapper.py-3
+  .col-lg-4
+    h3 Public Transport and Parking
+    //p Source: XXX
+    p Bikes, Buses and Trams
+    p The map shows the locations of Dublin's  various public transit 
+      |options. These include:
+      br 
+      |Dublin Bike scheme,
+      br
+      |Dublin Bus bus stops,
+      br
+      |Luas tram stops.
+      br
+    p Explore and interact with the map to find out more.
+
+    div#chart-public-transport-select1
+  .col-lg-8
+    div.ml-5.pt-2
+      <button type="button" class="btn btn-dark employment-btn public_transport_bikes" value="dublinBikes">Bikes</button>
+      <button type="button" class="btn btn-dark employment-btn public_transport_buses" value="dublinBuses">Buses</button>
+      <button type="button" class="btn btn-dark employment-btn public_transport_luas" value="dublinLuas">Luas</button>
+      <button type="button" class="btn btn-dark employment-btn public_transport_all" value="all" >All</button>
+    div#chart-public-transport
+
+//.row.wrapper.py-3
+  .col-lg-4
+    h3 Private Travel
+    //p Source: XXX
+    p Driving and Parking
+    p The map shows the locations of various public car parking 
+      |options and realtime travel information on main routes in and 
+      |around the city
+    p Explore and interact with the map to find out more.
+
+    div#chart-private-transport-select1
+  .col-lg-8
+    div.ml-5.pt-2
+      <button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
+      <button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
+      <button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
+      <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+      div#chart-private-transport      
