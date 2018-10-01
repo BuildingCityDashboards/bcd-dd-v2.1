@@ -1,20 +1,20 @@
 let popupTime = d3.timeFormat("%a %B %d, %H:%M");
-let osm = new L.TileLayer(stamenTerrainUrl, {
+let osmEnv = new L.TileLayer(stamenTerrainUrl, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
-map.setView(new L.LatLng(dubLat, dubLng), zoom);
-map.addLayer(osm);
-let markerRef; //TODO: fix horrible hack!!!
-map.on('popupopen', function (e) {
-    markerRef = e.popup._source;
+let publicMap = new L.Map('chart-environment-map');
+publicMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+publicMap.addLayer(osmEnv);
+let markerRefEnv; //TODO: fix horrible hack!!!
+publicMap.on('popupopen', function (e) {
+    markerRefEnv = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
 });
 let waterLevelCluster = L.markerClusterGroup();
 let hydronetCluster = L.markerClusterGroup();
-let iconAX = 15; //icon Anchor X
-let iconAY = 15; //icon Anchor Y
+
 //            Custom map icons
 let waterLevelMapIcon = L.icon({
     iconUrl: '/images/environment/water-15.svg',
@@ -52,12 +52,12 @@ function processWaterLevels(data_) {
 ;
 function updateMapWaterLevels(data__) {
     waterLevelCluster.clearLayers();
-    map.removeLayer(waterLevelCluster);
+    publicMap.removeLayer(waterLevelCluster);
     _.each(data__, function (d, i) {
         waterLevelCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: waterLevelMapIcon})
                 .bindPopup(getWaterLevelContent(d)));
     });
-    map.addLayer(waterLevelCluster);
+    publicMap.addLayer(waterLevelCluster);
 }
 
 //arg is object
@@ -102,7 +102,7 @@ function processHydronet(data_) {
 ;
 function updateMapHydronet(data__) {
     hydronetCluster.clearLayers();
-    map.removeLayer(hydronetCluster);
+    publicMap.removeLayer(hydronetCluster);
 //    let keys = d3.keys(data__);
 //    console.log("keys: " + keys);
     _.each(data__, function (d, k) {
@@ -112,7 +112,7 @@ function updateMapHydronet(data__) {
         hydronetCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    map.addLayer(hydronetCluster);
+    publicMap.addLayer(hydronetCluster);
 }
 
 function getHydronetContent(d_, k_) {
@@ -147,7 +147,7 @@ function getHydronetContent(d_, k_) {
 
 //Handle button in map popup and get carpark data
 function displayHydronet(k_) {
-    return markerRef.getPopup().setContent(markerRef.getPopup().getContent()
+    return markerRefEnv.getPopup().setContent(markerRefEnv.getPopup().getContent()
             + '<br><br> Data not currently available<br><br>'
             );
 }
