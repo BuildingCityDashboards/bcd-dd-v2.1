@@ -1,6 +1,4 @@
 //TODO: error check and handle
-document.getElementById("rt-chart1").innerHTML = "Test Weather";
-
 d3.xml("/data/Environment/weather_met_eireann.xml").then(function (xmlWeather) {
     //console.log("Weather: " + xmlWeather);
     let timesXML = xmlWeather.getElementsByTagName("time");
@@ -71,7 +69,14 @@ d3.xml("/data/Environment/weather_met_eireann.xml").then(function (xmlWeather) {
 //    forecasts.forEach(function (f) {
 //        console.log("Aggregate forecast: " + JSON.stringify(f));
 //    });
-
+document.getElementById("rt-chart1").innerHTML = 
+           "<b>" + forecasts[0].date + "</b>"
+//            + "<strong>Temperature</strong> : " + temperature + " C<br>"
+//            + "<strong>Precipitation</strong> : " + precip + " mm <br>"
+//            + "<strong>Wind: Speed</strong> : " + windSpeed + " mps" + "\t Beaufort Scale: " + windB + "<br>"
+//            + "<strong>Wind Direction</strong> : " + windD + "<br>"
+//            + "<strong>Pressure</strong> : " + press + " hPa"
+;
 });
 ////console.log("****Weather Vis loaded****");
 //let cork_lng = [-8.4863, -8.4863, -8.4863]; //west, centre, east
