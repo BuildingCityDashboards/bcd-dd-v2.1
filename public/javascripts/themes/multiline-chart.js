@@ -27,8 +27,8 @@ class MultiLineChart{
             bottom: 80
         };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
+        dv.margin.right = elementWidth < breakPoint ? 0 : 140;
+        dv.margin.left = elementWidth < breakPoint ? 0 : 90;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
@@ -188,7 +188,7 @@ class MultiLineChart{
         dv.regions.enter().append("g")
             .attr("class", "regions")
             .append("path")
-            .style("stroke", d => { console.log("the value of d", d); return dv.colour(d.key); })
+            .style("stroke", d => {return dv.colour(d.key); })
             .attr("class", "line")
             .attr("id", d => d.key)
             // .attr("d", d => {return dv.line(d.values); })
@@ -221,8 +221,31 @@ class MultiLineChart{
             dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
+            dv.prefix = prefix ? prefix : " ";
+            dv.postfix = postfix ? postfix: " ";
 
-            // formats thousands, Millions, Euros and Percentage
+            dv.valueFormat = dv.formatValue(dv.valueFormat);
+            // // formats thousands, Millions, Euros and Percentage
+            // switch (dv.valueFormat){
+            //     case "millions":
+            //         dv.valueFormat = d3.format(".2s");
+            //         break;
+            
+            //     case "euros":
+            //         dv.valueFormat = "undefined";
+            //         break;
+            
+            //     case "thousands":
+            //         dv.valueFormat = d3.format(",.2r");
+            //         break;
+            
+            //     case "percentage":
+            //         dv.valueFormat = d3.format(".2  %");
+            //         break;
+            
+            //     default:
+            //         dv.valueFormat = "undefined";
+            // }
 
         // add group to contain all the focus elements
         let focus = dv.g.append("g")
@@ -290,6 +313,7 @@ class MultiLineChart{
                 toolGroup.style("visibility","visible");
 
                 let mouse = d3.mouse(this);
+                let ttTextHeights = 0;
 
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
@@ -301,27 +325,35 @@ class MultiLineChart{
 
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     
-                    let id = ".tooltip_" + idx;
-                    let tpId = ".tooltipbody_" + idx;
-                    let ttTitle = dv.g.select(".tooltip-title");
+                    let id = ".tooltip_" + idx,
+                        tpId = ".tooltipbody_" + idx,
+                        ttTitle = dv.g.select(".tooltip-title");
 
                     dv.updatePosition(mouse[0], 10);
-                    
+
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
-                        tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
+                    let textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+
+                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
+
+                        // tooltipBody.select(".tp-text-right").text(
+                        //     d[dv.value] > 100 ? d3.format(",.2r")(d[dv.value]) : d[dv.value]
+                        // );
                         tooltipBody.select(".tp-text-right").text(
-                            d[dv.value] > 100 ? d3.format(",.2r")(d[dv.value]) : d[dv.value]
+                            dv.valueFormat !=="undefined" ? dv.prefix + dv.valueFormat(d[dv.value]) : dv.prefix + d[dv.value]
                         );
+
                         ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
+                    ttTextHeights += textHeight + 5;
                 });
             }
     }
@@ -380,7 +412,8 @@ class MultiLineChart{
             .text(d)
             .attr("class", "tp-text-left")
             .attr("x", "12")
-            .attr("dy", ".35em");
+            .attr("dy", ".35em")
+            .call(dv.textWrap, 100, 12);
 
         tooltipBodyItem.append("text")
             .attr("class", "tp-text-right")
@@ -408,7 +441,7 @@ class MultiLineChart{
     updateSize(){
         let dv = this;
         let height = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 5;
+        dv.ttHeight += height + 2;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
     }
 
@@ -458,37 +491,48 @@ class MultiLineChart{
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
-            .style("font", "12px sans-serif");
+            .attr("id", (d,i) => "legend-item" + i )
+            .style("font", "12px sans-serif")
+            .attr("cursor", "pointer")
+            .on("click", (d,i) => { 
 
-        // add legend boxes    
-        legends.append("rect")
-            .attr("class", "legendRect")
-            .attr("x", dv.width + 25)
-            .attr("width", 25)
-            .attr("height", 25)
-            .attr("fill", d => { return d.colour; })
-            .attr("fill-opacity", 0.75)
-            .on("click", d => { 
+                let label = d3.select(dv.element).select("#legend-item" + i);
+                    label.classed("active", label.classed("active") ? false : true);
+ 
                 // get index of legend item
                 let filterValues = dv.data.findIndex(idx => idx.key === d.label);
+
                 // set its disabled field to true or false
                 dv.data[filterValues].disabled = !dv.data[filterValues].disabled; 
+
                 if (!dv.data.filter(function(d) { return !d.disabled }).length) {
                   dv.data.forEach(function(d) {
                     d.disabled = false;
                   });
+                  d3.select(dv.element).selectAll(".legend").classed("active", false);
                 }
+
                 // dv.getData(dv.value,dv.data);
                 dv.update();
             });
 
+        // add legend boxes    
+        legends.append("rect")
+            .attr("class", "legendRect")
+            .attr("x", dv.width + 10)
+            .attr("width", 25)
+            .attr("height", 25)
+            .attr("fill", d => { return d.colour; })
+            .attr("fill-opacity", 0.75);
+
         legends.append("text")
             .attr("class", "legendText")
-            .attr("x", dv.width + 60)
+            // .attr("x", dv.width + 40)
             .attr("y", 12)
-            .attr("dy", ".35em")
+            .attr("dy", ".025em")
             .attr("text-anchor", "start")
-            .text(d => { return d.label; }); 
+            .text(d => { return d.label; })
+            .call(dv.textWrap, 100, dv.width + 34); 
     }
 
         // // taking from the d3 book
@@ -509,58 +553,58 @@ class MultiLineChart{
         //     d.active = active;
         //     });
 
+    textWrap(text, width, xpos = 0, limit=2) {
+        text.each(function() {
+            let words,
+                word,
+                line,
+                lineNumber,
+                lineHeight,
+                y,
+                dy,
+                tspan;
+
+            text = d3.select(this);
     
+            words = text.text().split(/\s+/).reverse();
+            line = [];
+            lineNumber = 0;
+            lineHeight = 1;
+            y = text.attr("y");
+            dy = parseFloat(text.attr("dy"));
+            tspan = text
+                .text(null)
+                .append("tspan")
+                .attr("x", xpos)
+                .attr("y", y)
+                .attr("dy", dy + "em");
+    
+            while ((word = words.pop())) {
+                line.push(word);
+                tspan.text(line.join(" "));
 
-    // textWrap(text, width, xpos = 0) {
-    //     text.each(function() {
-    //         let words,
-    //             word,
-    //             line,
-    //             lineNumber,
-    //             lineHeight,
-    //             y,
-    //             dy,
-    //             tspan;
+                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(" "));
 
-    //         text = d3Selection.select(this);
-
-    //         words = text.text().split(/\s+/).reverse();
-    //         line = [];
-    //         lineNumber = 0;
-    //         lineHeight = 1.2;
-    //         y = text.attr('y');
-    //         dy = parseFloat(text.attr('dy'));
-    //         tspan = text
-    //             .text(null)
-    //             .append('tspan')
-    //             .attr('x', xpos)
-    //             .attr('y', y)
-    //             .attr('dy', dy + 'em');
-
-    //         while ((word = words.pop())) {
-    //             line.push(word);
-    //             tspan.text(line.join(' '));
-
-    //             // fixes for IE wrap text issue
-    //             const textWidth = getTextWidth(line.join(' '), 16, 'Karla, sans-serif');
-
-    //             if (textWidth > width) {
-    //                 line.pop();
-    //                 tspan.text(line.join(' '));
-
-    //                 if (lineNumber < entryLineLimit - 1) {
-    //                     line = [word];
-    //                     tspan = text.append('tspan')
-    //                         .attr('x', xpos)
-    //                         .attr('y', y)
-    //                         .attr('dy', ++lineNumber * lineHeight + dy + 'em')
-    //                         .text(word);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    // }
+                    if (lineNumber < limit - 1) {
+                        line = [word];
+                        tspan = text.append("tspan")
+                            .attr("x", xpos)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+                        // if we need two lines for the text, move them both up to center them
+                        text.classed("move-up", true);
+                    } else {
+                        line.push("...");
+                        tspan.text(line.join(" "));
+                        break;
+                    }
+                }
+            }
+        });
+    }
 
     drawGridLines(){
         let dv = this;
@@ -577,6 +621,30 @@ class MultiLineChart{
                 .attr('x2', dv.width)
                 .attr('y1', (d) => dv.y(d))
                 .attr('y2', (d) => dv.y(d));
+    }
+
+    formatValue(format){
+        // formats thousands, Millions, Euros and Percentage
+        switch (format){
+            case "millions":
+                return d3.format(".2s");
+                break;
+        
+            case "euros":
+                return "undefined";
+                break;
+        
+            case "thousands":
+                return d3.format(",");
+                break;
+        
+            case "percentage":
+                return d3.format(".2%");
+                break;
+        
+            default:
+                return "undefined";
+        }
     }
 
 }

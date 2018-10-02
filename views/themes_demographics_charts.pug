@@ -13,7 +13,7 @@ section#economy
         .col-lg-12
           h2.header__h2.mb-2 Population Statistics
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Population of Dublin
           p Source: CSO
@@ -23,12 +23,12 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark demogrpahics-btn demographics_count" value="countData">Count</button>
-            //- <button type="button" class="btn btn-dark demographics-btn demographics_arate" value="rateData"">Rate</button>
-          div#chart-population
+          .pt-2
+            <button type="button" class="btn btn-bcd demogrpahics-btn demographics_count" value="countData">Count</button>
+            //- <button type="button" class="btn btn-bcd demographics-btn demographics_arate" value="rateData"">Rate</button>
+          div#chart-population.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Females per 1000 Males in Dublin
           p Source: CSO
@@ -38,11 +38,11 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
           div#chart-select2
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark">Rate</button>
-          #chart-femalespermales
+          .pt-2
+            <button type="button" class="btn btn-bcd">Rate</button>
+          #chart-femalespermales.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Population Born Outside the State (Excluding N. Ireland)
           p Source: CSO
@@ -51,11 +51,11 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Count</button>
-          #chart-bornOutsideState
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart-bornOutsideState.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Age Profile of Dublin and Ireland
           p Source: CSO
@@ -64,16 +64,16 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Count</button>
-          #chart-ageProfile
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart-ageProfile.chart-holder
     
     article#income_poverty.article
       .row
         .col-lg-12
           h2.header__h2.mb-5 Household Statistics
       
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Number of Households
           p Source: CSO
@@ -83,11 +83,11 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Count</button>
-          #chart-households
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart-households.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Household Composition
           p Source: CSO
@@ -97,6 +97,6 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Count</button>
-          #chart-householdComposition
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart-householdComposition.chart-holder

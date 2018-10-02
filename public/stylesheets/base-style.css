@@ -16,7 +16,7 @@ body {
 
 /* Links*/
 a {
-  color: #63c1de; 
+  color: var(--vivid-cyan); 
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -27,7 +27,7 @@ a {
   transition: all 0.15s;
 }
 a:hover {
-  color: #63c1de; 
+  color: var(--vivid-cyan); 
   text-decoration: none;
 }
 
@@ -182,6 +182,7 @@ select:hover:not([disabled]) {
 .chart-holder{
   background: #f8f8f8;
   margin-top: 1rem;
+  border-radius: .325rem;
 }
 
 .btn-bcd{

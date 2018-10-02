@@ -60,21 +60,27 @@
 
         const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
         mlineChart.getData(columnNames[0], types);
-        mlineChart.addTooltip("", "€", "quarter");
+        mlineChart.addTooltip("", "thousands", "quarter");
 
         d3.select(".employment_count").on("click", function(){
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
             mlineChart.getData(columnNames[0], types, "Quarters", "Thousands");
-            mlineChart.addTooltip("", "€", "quarter");
+            mlineChart.addTooltip("", "thousands", "quarter");
         });
         
         d3.select(".employment_qrate").on("click", function(){
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
             mlineChart.getData(columnNames[1], types, "Quarters", "%");
-            mlineChart.addTooltip("", "%", "quarter");
+            mlineChart.addTooltip("", "percentage", "quarter");
         });
 
         d3.select(".employment_arate").on("click", function(){
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
             mlineChart.getData(columnNamesB[0], typesB, "Years", "%");
-            mlineChart.addTooltip("Year:", "%", "year");
+            mlineChart.addTooltip("Year:", "percentage", "year");
         });
 
         // d3.select(window).on('resize', function(){
@@ -299,7 +305,7 @@
         
         const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "Persons Engaged", xValue, grouping);
               employeesBySizeChart.getData("value", nestData);
-              employeesBySizeChart.addTooltip("Year:", "000", "year");
+              employeesBySizeChart.addTooltip("Year:", "thousands", "year");
     })
     // catch any error and log to console
     .catch(function(error){

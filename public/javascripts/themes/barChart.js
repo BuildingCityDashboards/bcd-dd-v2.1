@@ -93,7 +93,7 @@ class BarChart{
         dv.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (dv.height/2))
-            .attr("y", -60)
+            .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);

@@ -89,7 +89,7 @@ class StackBarChart {
         dv.yLabel = dv.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (dv.height/2))
-            .attr("y", -60)
+            .attr("y", -50)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
@@ -268,35 +268,35 @@ class StackBarChart {
             line = [];
             lineNumber = 0;
             lineHeight = 1;
-            y = text.attr('y');
-            dy = parseFloat(text.attr('dy'));
+            y = text.attr("y");
+            dy = parseFloat(text.attr("dy"));
             tspan = text
                 .text(null)
-                .append('tspan')
-                .attr('x', xpos)
-                .attr('y', y)
-                .attr('dy', dy + 'em');
+                .append("tspan")
+                .attr("x", xpos)
+                .attr("y", y)
+                .attr("dy", dy + "em");
 
             while ((word = words.pop())) {
                 line.push(word);
-                tspan.text(line.join(' '));
+                tspan.text(line.join(" "));
 
                 if (tspan.node() && tspan.node().getComputedTextLength() > width) {
                     line.pop();
-                    tspan.text(line.join(' '));
+                    tspan.text(line.join(" "));
 
                     if (lineNumber < limit - 1) {
                         line = [word];
-                        tspan = text.append('tspan')
-                            .attr('x', xpos)
-                            .attr('y', y)
-                            .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+                        tspan = text.append("tspan")
+                            .attr("x", xpos)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
                             .text(word);
                         // if we need two lines for the text, move them both up to center them
-                        text.classed('adjust-upwards', true);
+                        text.classed("adjust-upwards", true);
                     } else {
-                        line.push('...');
-                        tspan.text(line.join(' '));
+                        line.push("...");
+                        tspan.text(line.join(" "));
                         break;
                     }
                 }
