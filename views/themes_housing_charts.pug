@@ -13,61 +13,129 @@ section#economy
         .col-lg-12
           h2.header__h2.mb-2 Planning and Completions Statistics
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Monthly House Unit Completions
-          p Source: Department of Housing, Planning, Community and Local Government
+          p.small Source: Department of Housing, Planning, Community and Local Government
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark employment-btn employment_count" value="">Count</button>
-            //- <button type="button" class="btn btn-dark employment-btn employment_qrate" value="">Rate</button>
-          div#chart-houseComp
+          .pt-2
+            <button type="button" class="btn btn-bcd active employment-btn employment_count" value="">Count</button>
+            //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
+          div#chart-houseComp.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Quarterly House Unit Completions (By Type)
-          p Source: Department of Housing, Planning, Community and Local Government
+          p.small Source: Department of Housing, Planning, Community and Local Government
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
 
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Rate</button>
-          #chart
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Rate</button>
+          #chart.chart-holder
 
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
-          h3 Planning applications
-          p Source: Department of Housing, Planning, Community and Local Government
+          h3 Planning applications Dublin County Council
+          p.small Source: Department of Housing, Planning, Community and Local Government
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Rate</button>
-          #chart-pupilsSecondLevel
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Rate</button>
+          #chart-planningDCC.chart-holder
+
+      .row.wrapper.py-5
+        .col-lg-4
+          h3 Planning applications Dun Laoghaire Rathdown County Council
+          p.small Source: Department of Housing, Planning, Community and Local Government
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Rate</button>
+          #chart-planningDRCC.chart-holder
+
+      .row.wrapper.py-5
+        .col-lg-4
+          h3 Planning applications Fingal County Council
+          p.small Source: Department of Housing, Planning, Community and Local Government
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Rate</button>
+          #chart-planningFCC.chart-holder
+
+      .row.wrapper.py-5
+        .col-lg-4
+          h3 Planning applications South Dublin County Council
+          p.small Source: Department of Housing, Planning, Community and Local Government
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Rate</button>
+          #chart-planningSDCC.chart-holder
+
+      .row.wrapper.py-5
+        .col-lg-4
+          h3 Available Supply of Housing Land
+          p.small Source: Department of Housing, Planning, Community and Local Government
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          .pt-2
+            <button id="supply_land" type="button" class="btn btn-bcd active">Lands</button>
+            <button id="supply_units" type="button" class="btn btn-bcd">Units</button>
+          #chart-houseSupply.chart-holder
+
+      .row.wrapper.py-5
+        .col-lg-4
+          h3 Annual Contributions to Councils from Developers
+          p.small Source: Department of Housing, Planning, Community and Local Government
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart-houseContributions.chart-holder
+
+
 
     article.article
       .row
         .col-lg-12
           h2.header__h2.mb-2 Property Costs Statistics
       
-      .row.wrapper.py-3
+      .row.wrapper.py-5
         .col-lg-4
           h3 Median House Prices
-          p Source: Department of Housing, Planning, Community and Local Government
+          p.small Source: Department of Housing, Planning, Community and Local Government
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
-          div.ml-5.pt-2
-            <button type="button" class="btn btn-dark active">Count</button>
-          #chart
+          .pt-2
+            <button type="button" class="btn btn-bcd active">Count</button>
+          #chart.chart-holder

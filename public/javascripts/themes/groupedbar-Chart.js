@@ -98,7 +98,7 @@ class GroupedBarChart{
         dv.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (dv.height/2))
-            .attr("y", -60)
+            .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
@@ -256,11 +256,12 @@ class GroupedBarChart{
 
             legends.append("text")
                 .attr("class", "legendText")
-                .attr("x", dv.width + 30)
+                // .attr("x", dv.width + 30)
                 .attr("y", 12)
-                .attr("dy", ".35em")
+                .attr("dy", ".0em")
                 .attr("text-anchor", "start")
-                .text(d => { return d.label; }); 
+                .text(d => { return d.label; })
+                .call(dv.textWrap, 100, dv.width + 30); 
     }
 
     getTooltipPosition(mouseX) {
@@ -279,6 +280,59 @@ class GroupedBarChart{
                 ttX = mouseX - 250;
             }
             return ttX;
+    }
+
+    textWrap(text, width, xpos = 0, limit=2) {
+        text.each(function() {
+            var words,
+                word,
+                line,
+                lineNumber,
+                lineHeight,
+                y,
+                dy,
+                tspan;
+
+            text = d3.select(this);
+
+            words = text.text().split(/\s+/).reverse();
+            line = [];
+            lineNumber = 0;
+            lineHeight = 1;
+            y = text.attr('y');
+            dy = parseFloat(text.attr('dy'));
+            tspan = text
+                .text(null)
+                .append('tspan')
+                .attr('x', xpos)
+                .attr('y', y)
+                .attr('dy', dy + 'em');
+
+            while ((word = words.pop())) {
+                line.push(word);
+                tspan.text(line.join(' '));
+
+                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(' '));
+
+                    if (lineNumber < limit - 1) {
+                        line = [word];
+                        tspan = text.append('tspan')
+                            .attr('x', xpos)
+                            .attr('y', y)
+                            .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+                            .text(word);
+                        // if we need two lines for the text, move them both up to center them
+                        text.classed('adjust-upwards', true);
+                    } else {
+                        line.push('...');
+                        tspan.text(line.join(' '));
+                        break;
+                    }
+                }
+            }
+        });
     }
     
 }

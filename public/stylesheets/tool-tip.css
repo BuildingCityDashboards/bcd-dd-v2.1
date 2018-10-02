@@ -47,6 +47,10 @@
   float: left;
 }
 
+.legend.active{
+  opacity: .25;
+}
+
 /* .tip-text{
   line-height: 1.25rem;
 } */
