@@ -271,7 +271,7 @@ function updateMapLuas(data__) {
     luasCluster.clearLayers();
     luasMap.removeLayer(luasCluster);
     _.each(data__, function (d, k) {
-//        console.log("d: " + d.type + "\n");
+        console.log("k: " + k + "\n");
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: luasMapIcon});
         marker.bindPopup(getLuasContent(d));
         luasCluster.addLayer(marker);
@@ -394,97 +394,6 @@ parkingMap.on('popupopen', function (e) {
     //console.log("ref: "+JSON.stringify(e));
 });
 
-let carparkCluster = L.markerClusterGroup();
-let parkingMapIcon = L.icon({
-    iconUrl: '/images/transport/parking-garage-15.svg',
-    iconSize: [30, 30], //orig size
-    iconAnchor: [iconAX, iconAY]//,
-            //popupAnchor: [-3, -76]
-});
-
-
-//create points on parkingMap for carparks even if RTI not available
-d3.json("/data/Transport/cpCaps.json").then(function (data) {
-//    console.log("data.carparks :" + JSON.stringify(data.carparks));
-    updateMapCarparks(data.carparks);
-});
-
-function updateMapCarparks(data__) {
-    carparkCluster.clearLayers();
-    parkingMap.removeLayer(carparkCluster);
-    let keys = d3.keys(data__);
-//    console.log("keys: " + keys);
-    _.each(data__, function (d, k) {
-//        console.log("d: " + JSON.stringify(d) + "key: " + k);
-        let marker = L.marker(new L.LatLng(d[0].lat, d[0].lon), {icon: parkingMapIcon});
-        marker.bindPopup(getCarparkContent(d[0], k));
-        carparkCluster.addLayer(marker);
-//        console.log("getMarkerID: "+marker.optiid);
-    });
-    parkingMap.addLayer(carparkCluster);
-//    parkingMap.fitBounds(carparkCluster.getBounds());
-}
-
-function getCarparkContent(d_, k_) {
-    let str = '';
-    if (d_.name) {
-        str += d_.name + '<br>';
-    }
-//    if (d_.Totalspaces) {
-//        str += 'Capacity is ' + d_.Totalspaces + '<br>';
-//    }
-    if (d_.name) {
-        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
-        str += '<br/><button type="button" class="btn btn-primary carparkbutton" data="'
-                + k_ + '">Check Available Spaces</button>';
-    }
-    ;
-    return str;
-}
-
-//Handle button in parkingMap popup and get carpark data
-function displayCarpark(k_) {
-//    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
-    d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
-
-//        if (error) {
-//            console.log("error retrieving data");
-//            return;
-//        }
-        //TODO: convert to arrow function + d3
-        let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-        console.log("timestamp :" + timestamp);
-        for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-            let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-            if (name === k_) {
-                let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-//                console.log("found:"+name+" spaces: "+spaces+"marker"
-//                        +markerRefCarpark.getPopup().getContent());
-                if (spaces !== ' ') {
-                    return markerRefCarpark.getPopup().setContent(markerRefCarpark.getPopup().getContent()
-                            + '<br><br> Free spaces: '
-                            + spaces
-                            + '<br> Last updated: '
-                            + timestamp
-                            );
-                } else {
-                    return markerRefCarpark.getPopup().setContent(markerRefCarpark.getPopup().getContent()
-                            + '<br><br> No information on free spaces available'
-                            + '<br> Last updated: '
-                            + timestamp
-                            );
-                }
-            }
-        }
-    });
-}
-let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using underscore
-
-//TODO: replace jQ w/ d3 version
-$("div").on('click', '.carparkbutton', function () {
-    displayCarparkBounced($(this).attr("data"));
-});
-
 /************************************
  * Disabled Parking
  ************************************/
@@ -512,9 +421,9 @@ function processDisabledParking(data_) {
         d.type = "Fingal County Council Disabled Parking Bay";
 //        console.log("DP bay : " + d.lat);
     });
+    d3.select('#fingal-disabled_parking-count').html(data_.length);
     updateMapDisabledParking(data_);
 }
-
 
 function updateMapDisabledParking(data__) {
     disabledParkingCluster.clearLayers();

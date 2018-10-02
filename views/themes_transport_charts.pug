@@ -16,7 +16,9 @@ section#transport
             |<img height='15px' width='15px' src='/images/calendar.svg'>
             br
             br
-            |For up-to-date travel information see our *GETTING AROUND* query
+            |For comprehensive and up-to-date travel information, see our 
+            |<a href="../queries"> "Getting Around"</a> query.
+    
     article.article
       .row
         //.col-lg-12
@@ -25,22 +27,22 @@ section#transport
       .row.wrapper.py-3
         .col-lg-4
           h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
-          //p Source: XXX
+          p Source: <a href="http://www.dublinbikes.ie/" target='blank'>Dublin Bikes Website (opens new)</a>
           p Just Eat dublinbikes is a self-service bike rental system open to 
             |everyone from 14 years of age. It enables you to travel through the 
             |city centre, commute between home and work and get out and about 
             |to enjoy Dublin city at your leisure. Explore the map or visit the 
-            |<a href="http://www.dublinbikes.ie/" target='blank'>Dublin Bikes homepage</a> 
-            |for more information (opens new).
+            |Dublin Bikes website for more information.
           
           div#chart-transport-bikes-figure
             p There are currently <b id='bike-available-count'></b> bikes available around 
               |the city, with <b id='stands-available-count'></b> stands free.
-            p <span><img height='30px' width='30px' src='/images/transport/bicycle-15.svg'></span> 
+              |Click on the bicycle icons on the map for live data at a particular stand.
+             
+            //p <span><img height='30px' width='30px' src='/images/transport/bicycle-15.svg'></span> 
               br
-            p Click on the bicycle icons on the map for live data at a particular stand.
               br
-            p For comprehensive up-to-date travel information, see our 
+            p For comprehensive and up-to-date travel information, see our 
               |<a href="../queries"> "Getting Around"</a> query.
         
           
@@ -55,20 +57,21 @@ section#transport
           
       .row.wrapper.py-3
         .col-lg-4
-          h3 Buses <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
+          h3 Dublin Buses <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
           //p Source: XXX
           p Dublin buses ...
           
-          p For up-to-date travel information see GETTING AROUND
+          p For comprehensive and up-to-date travel information, see our 
+              |<a href="../queries"> "Getting Around"</a> query.
         
           
           div#chart-transport-bus-select
         .col-lg-8
           div.ml-5.pt-2
             //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
-            <button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Buses</button>
+            //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Buses</button>
             //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
-            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+            //<button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
           div#chart-transport-bus
           
       
@@ -76,10 +79,18 @@ section#transport
       .row.wrapper.py-3
         .col-lg-4
           h3 Luas <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
-          //p Source: XXX
-          p Luas...
+          p Source: <a href="https://luas.ie/" target="_blank">Luas Website (opens new)</a>
+          p Luas is Dublin's Light Rail Transit System, operated by Transdev Ireland. 
+            |<a href="http://www.tii.ie/" target="_blank"> Transport Infrastructure Ireland (TII)</a> 
+            |is the state body responsible for Luas.
+          p There are two Luas tram lines, the Red Line and the Green Line. 
+            |The Red Line is 20kms in length and has 32 Stops;  
+            |it runs from Tallaght to The Point and from Saggart to Connolly.
+            |The Green Line is 24.5km in length and has 35 Stops; 
+            |it runs from Brides Glen to Broombridge.
           
-          p For up-to-date travel information see GETTING AROUND
+          p For comprehensive and up-to-date travel information, see our 
+              |<a href="../queries"> "Getting Around"</a> query.
         
           
           div#chart-transport-luas-select
@@ -87,69 +98,30 @@ section#transport
           div.ml-5.pt-2
             //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Bikes</button>
             //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
-            <button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Luas</button>
-            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+            //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Luas</button>
+            //<button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
           div#chart-transport-luas
           
       .row.wrapper.py-3
         .col-lg-4
-          h3 Parking <img height='15px' width='15px' src='/images/calendar.svg'>
-          //p Source: XXX
-          p Parking...
-          
-          p For up-to-date travel information see GETTING AROUND
-        
+          h3 Fingal Disabled Parking Bays <img height='15px' width='15px' src='/images/calendar.svg'>
+          p Source: <a href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank">Data.gov.ie (opens new)</a>
+          p The map shows the locations of disabled car parking bays within the 
+            |Fingal County Council local authority area. In total there are
+            |<b id='fingal-disabled_parking-count'></b> bays located in this data  
+            |from 2011.
+            
+          p City center multi-story car park locations appear on our 
+            |<a href="../queries"> "Getting Around"</a> query. Here you can see
+            | the numbers of free spaces currently available along with
+            | other real-time travel information.
           
           div#chart-transport-parking-select
         .col-lg-8
-          div.ml-5.pt-2
+          //div.ml-5.pt-2
             <button type="button" class="btn btn-dark employment-btn parking_multi" value="">Car Parks</button>
             <button type="button" class="btn btn-dark employment-btn parking_street" value="">Onstreet Parking</button>
             <button type="button" class="btn btn-dark employment-btn parking_disabled" value="">Disabled Parking Bays</button>
             //<button type="button" class="btn btn-dark employment-btn travel_times" value="">Travel Times</button>
             <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
-          div#chart-transport-parking
-          
-//      .row.wrapper.py-3
-//        .col-lg-4
-//          h3 Public Transport
-//          //p Source: XXX
-//          p Bikes, Buses and Trams
-//          p The map shows the locations of Dublin's  various public transit 
-//            |options. These include:
-//            br 
-//            |Dublin Bike scheme,
-//            br
-//            |Dublin Bus bus stops,
-//            br
-//            |Luas tram stops.
-//            br
-//          p Explore and interact with the map to find out more.
-//          
-//          div#chart-public-transport-select1
-//        .col-lg-8
-//          div.ml-5.pt-2
-//            <button type="button" class="btn btn-dark employment-btn public_transport_bikes" value="dublinBikes">Bikes</button>
-//            <button type="button" class="btn btn-dark employment-btn public_transport_buses" value="dublinBuses">Buses</button>
-//            <button type="button" class="btn btn-dark employment-btn public_transport_luas" value="dublinLuas">Luas</button>
-//            <button type="button" class="btn btn-dark employment-btn public_transport_all" value="all" >All</button>
-//          div#chart-public-transport
-
-//      .row.wrapper.py-3
-//        .col-lg-4
-//          h3 Private Travel
-//          //p Source: XXX
-//          p Driving and Parking
-//          p The map shows the locations of various public car parking 
-//            |options and realtime travel information on main routes in and 
-//            |around the city
-//          p Explore and interact with the map to find out more.
-//          
-//          div#chart-private-transport-select1
-//        .col-lg-8
-//          div.ml-5.pt-2
-//            <button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
-//            <button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
-//            <button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
-//            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
-//          div#chart-private-transport      
+          div#chart-transport-parking            
