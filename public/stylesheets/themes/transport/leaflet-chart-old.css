@@ -1,0 +1,26 @@
+/* 
+    Author     : Liam
+*/
+
+#chart-public-transport {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-private-transport {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-environment-map   {
+        /*height: inherit;*/
+        height: 500px;
+        width: 100%;
+        margin: 20px;
+}
+
+

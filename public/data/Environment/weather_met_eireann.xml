@@ -1,0 +1,1550 @@
+<weatherdata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://api.met.no/weatherapi/locationforecast/1.9/schema" created="2018-10-01T15:20:03Z">
+   <meta>
+      <model name="harmonie" termin="2018-10-01T12:00:00Z" runended="2018-10-01T15:18:44Z" nextrun="2018-10-01T16:00:00Z" from="2018-10-01T16:00:00Z" to="2018-10-03T18:00:00Z" />
+      <model name="ec_test_l" termin="2018-10-01T00:00:00Z" runended="2018-10-01T15:18:44Z" nextrun="2018-10-01T18:00:00Z" from="2018-10-04T00:00:00Z" to="2018-10-11T00:00:00Z" />
+      </meta>
+   <product class="pointData">
+      <time datatype="forecast" from="2018-10-01T16:00:00Z" to="2018-10-01T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.8"/>
+            <windDirection id="dd" deg="307.8" name="NW"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <humidity value="52.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.8"/>
+            <cloudiness id="NN" percent="1.6"/>
+            <lowClouds id="LOW" percent="1.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="6.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T15:00:00Z" to="2018-10-01T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Sun" number="1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T17:00:00Z" to="2018-10-01T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.2"/>
+            <windDirection id="dd" deg="302.6" name="NW"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <humidity value="56.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.6"/>
+            <cloudiness id="NN" percent="93.9"/>
+            <lowClouds id="LOW" percent="93.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="6.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T16:00:00Z" to="2018-10-01T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T18:00:00Z" to="2018-10-01T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.7"/>
+            <windDirection id="dd" deg="294.4" name="NW"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <humidity value="57.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.3"/>
+            <cloudiness id="NN" percent="81.7"/>
+            <lowClouds id="LOW" percent="81.7"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="6.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T17:00:00Z" to="2018-10-01T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T19:00:00Z" to="2018-10-01T19:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.0"/>
+            <windDirection id="dd" deg="281.1" name="W"/>
+            <windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+            <humidity value="65.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.3"/>
+            <cloudiness id="NN" percent="99.8"/>
+            <lowClouds id="LOW" percent="99.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="7.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T18:00:00Z" to="2018-10-01T19:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T20:00:00Z" to="2018-10-01T20:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.7"/>
+            <windDirection id="dd" deg="276.9" name="W"/>
+            <windSpeed id="ff" mps="5.1" beaufort="3" name="Lett bris"/>
+            <humidity value="74.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.1"/>
+            <cloudiness id="NN" percent="92.0"/>
+            <lowClouds id="LOW" percent="92.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T19:00:00Z" to="2018-10-01T20:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T21:00:00Z" to="2018-10-01T21:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.4"/>
+            <windDirection id="dd" deg="270.8" name="W"/>
+            <windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+            <humidity value="81.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.6"/>
+            <cloudiness id="NN" percent="96.7"/>
+            <lowClouds id="LOW" percent="93.2"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="55.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T20:00:00Z" to="2018-10-01T21:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T22:00:00Z" to="2018-10-01T22:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.6"/>
+            <windDirection id="dd" deg="271.0" name="W"/>
+            <windSpeed id="ff" mps="4.6" beaufort="3" name="Lett bris"/>
+            <humidity value="84.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.2"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.3"/>
+            <highClouds id="HIGH" percent="60.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T21:00:00Z" to="2018-10-01T22:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T23:00:00Z" to="2018-10-01T23:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.1"/>
+            <windDirection id="dd" deg="278.1" name="W"/>
+            <windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+            <humidity value="89.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.7"/>
+            <cloudiness id="NN" percent="99.7"/>
+            <lowClouds id="LOW" percent="99.7"/>
+            <mediumClouds id="MEDIUM" percent="31.9"/>
+            <highClouds id="HIGH" percent="17.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T22:00:00Z" to="2018-10-01T23:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T00:00:00Z" to="2018-10-02T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.5"/>
+            <windDirection id="dd" deg="288.5" name="W"/>
+            <windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+            <humidity value="92.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.5"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="27.7"/>
+            <highClouds id="HIGH" percent="67.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-01T23:00:00Z" to="2018-10-02T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T01:00:00Z" to="2018-10-02T01:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.6"/>
+            <windDirection id="dd" deg="285.5" name="W"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <humidity value="94.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.1"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.2"/>
+            <mediumClouds id="MEDIUM" percent="0.5"/>
+            <highClouds id="HIGH" percent="96.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T00:00:00Z" to="2018-10-02T01:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T02:00:00Z" to="2018-10-02T02:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.2"/>
+            <windDirection id="dd" deg="297.7" name="NW"/>
+            <windSpeed id="ff" mps="4.3" beaufort="3" name="Lett bris"/>
+            <humidity value="95.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="23.9"/>
+            <highClouds id="HIGH" percent="90.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T01:00:00Z" to="2018-10-02T02:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T03:00:00Z" to="2018-10-02T03:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.7"/>
+            <windDirection id="dd" deg="305.8" name="NW"/>
+            <windSpeed id="ff" mps="5.5" beaufort="3" name="Lett bris"/>
+            <humidity value="92.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.6"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="94.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T02:00:00Z" to="2018-10-02T03:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.1"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T04:00:00Z" to="2018-10-02T04:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.3"/>
+            <windDirection id="dd" deg="307.4" name="NW"/>
+            <windSpeed id="ff" mps="4.6" beaufort="3" name="Lett bris"/>
+            <humidity value="93.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="97.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T03:00:00Z" to="2018-10-02T04:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T05:00:00Z" to="2018-10-02T05:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.4"/>
+            <windDirection id="dd" deg="307.4" name="NW"/>
+            <windSpeed id="ff" mps="5.2" beaufort="3" name="Lett bris"/>
+            <humidity value="93.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.4"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="95.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T04:00:00Z" to="2018-10-02T05:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T06:00:00Z" to="2018-10-02T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.1"/>
+            <windDirection id="dd" deg="303.8" name="NW"/>
+            <windSpeed id="ff" mps="4.5" beaufort="3" name="Lett bris"/>
+            <humidity value="94.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.5"/>
+            <cloudiness id="NN" percent="99.6"/>
+            <lowClouds id="LOW" percent="99.4"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="65.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T05:00:00Z" to="2018-10-02T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T07:00:00Z" to="2018-10-02T07:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.1"/>
+            <windDirection id="dd" deg="300.9" name="NW"/>
+            <windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+            <humidity value="93.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1025.7"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="28.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T06:00:00Z" to="2018-10-02T07:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T08:00:00Z" to="2018-10-02T08:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.2"/>
+            <windDirection id="dd" deg="302.6" name="NW"/>
+            <windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+            <humidity value="93.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="15.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T07:00:00Z" to="2018-10-02T08:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T09:00:00Z" to="2018-10-02T09:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.4"/>
+            <windDirection id="dd" deg="307.0" name="NW"/>
+            <windSpeed id="ff" mps="5.3" beaufort="3" name="Lett bris"/>
+            <humidity value="91.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="21.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="14.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T08:00:00Z" to="2018-10-02T09:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T10:00:00Z" to="2018-10-02T10:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.7"/>
+            <windDirection id="dd" deg="306.5" name="NW"/>
+            <windSpeed id="ff" mps="5.2" beaufort="3" name="Lett bris"/>
+            <humidity value="88.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.5"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T09:00:00Z" to="2018-10-02T10:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T11:00:00Z" to="2018-10-02T11:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.0"/>
+            <windDirection id="dd" deg="305.3" name="NW"/>
+            <windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+            <humidity value="86.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.5"/>
+            <cloudiness id="NN" percent="98.3"/>
+            <lowClouds id="LOW" percent="98.3"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T10:00:00Z" to="2018-10-02T11:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T12:00:00Z" to="2018-10-02T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.8"/>
+            <windDirection id="dd" deg="306.9" name="NW"/>
+            <windSpeed id="ff" mps="4.6" beaufort="3" name="Lett bris"/>
+            <humidity value="85.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.4"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="98.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T11:00:00Z" to="2018-10-02T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T13:00:00Z" to="2018-10-02T13:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.1"/>
+            <windDirection id="dd" deg="309.6" name="NW"/>
+            <windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+            <humidity value="82.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.5"/>
+            <cloudiness id="NN" percent="92.7"/>
+            <lowClouds id="LOW" percent="92.7"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="13.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T12:00:00Z" to="2018-10-02T13:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T14:00:00Z" to="2018-10-02T14:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.2"/>
+            <windDirection id="dd" deg="315.9" name="NW"/>
+            <windSpeed id="ff" mps="5.1" beaufort="3" name="Lett bris"/>
+            <humidity value="80.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.6"/>
+            <cloudiness id="NN" percent="78.4"/>
+            <lowClouds id="LOW" percent="78.4"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T13:00:00Z" to="2018-10-02T14:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T15:00:00Z" to="2018-10-02T15:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.2"/>
+            <windDirection id="dd" deg="319.3" name="NW"/>
+            <windSpeed id="ff" mps="5.3" beaufort="3" name="Lett bris"/>
+            <humidity value="76.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.7"/>
+            <cloudiness id="NN" percent="58.8"/>
+            <lowClouds id="LOW" percent="58.8"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T14:00:00Z" to="2018-10-02T15:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T16:00:00Z" to="2018-10-02T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.7"/>
+            <windDirection id="dd" deg="309.7" name="NW"/>
+            <windSpeed id="ff" mps="4.8" beaufort="3" name="Lett bris"/>
+            <humidity value="76.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.0"/>
+            <cloudiness id="NN" percent="67.0"/>
+            <lowClouds id="LOW" percent="67.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T15:00:00Z" to="2018-10-02T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T17:00:00Z" to="2018-10-02T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.4"/>
+            <windDirection id="dd" deg="318.4" name="NW"/>
+            <windSpeed id="ff" mps="5.0" beaufort="3" name="Lett bris"/>
+            <humidity value="76.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.0"/>
+            <cloudiness id="NN" percent="66.2"/>
+            <lowClouds id="LOW" percent="66.2"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T16:00:00Z" to="2018-10-02T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T18:00:00Z" to="2018-10-02T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.5"/>
+            <windDirection id="dd" deg="318.6" name="NW"/>
+            <windSpeed id="ff" mps="4.6" beaufort="3" name="Lett bris"/>
+            <humidity value="80.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.1"/>
+            <cloudiness id="NN" percent="17.6"/>
+            <lowClouds id="LOW" percent="17.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T17:00:00Z" to="2018-10-02T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T19:00:00Z" to="2018-10-02T19:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.4"/>
+            <windDirection id="dd" deg="319.1" name="NW"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <humidity value="87.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.4"/>
+            <cloudiness id="NN" percent="41.0"/>
+            <lowClouds id="LOW" percent="41.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T18:00:00Z" to="2018-10-02T19:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T20:00:00Z" to="2018-10-02T20:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="317.1" name="NW"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <humidity value="89.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.8"/>
+            <cloudiness id="NN" percent="92.6"/>
+            <lowClouds id="LOW" percent="92.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T19:00:00Z" to="2018-10-02T20:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T21:00:00Z" to="2018-10-02T21:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.7"/>
+            <windDirection id="dd" deg="311.4" name="NW"/>
+            <windSpeed id="ff" mps="3.7" beaufort="3" name="Lett bris"/>
+            <humidity value="86.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.0"/>
+            <cloudiness id="NN" percent="99.6"/>
+            <lowClouds id="LOW" percent="99.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T20:00:00Z" to="2018-10-02T21:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T22:00:00Z" to="2018-10-02T22:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.8"/>
+            <windDirection id="dd" deg="299.5" name="NW"/>
+            <windSpeed id="ff" mps="3.2" beaufort="2" name="Svak vind"/>
+            <humidity value="86.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.3"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T21:00:00Z" to="2018-10-02T22:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T23:00:00Z" to="2018-10-02T23:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.0"/>
+            <windDirection id="dd" deg="278.1" name="W"/>
+            <windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"/>
+            <humidity value="88.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.7"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T22:00:00Z" to="2018-10-02T23:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T00:00:00Z" to="2018-10-03T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.0"/>
+            <windDirection id="dd" deg="261.4" name="W"/>
+            <windSpeed id="ff" mps="2.7" beaufort="2" name="Svak vind"/>
+            <humidity value="86.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.9"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-02T23:00:00Z" to="2018-10-03T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T01:00:00Z" to="2018-10-03T01:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.7"/>
+            <windDirection id="dd" deg="262.3" name="W"/>
+            <windSpeed id="ff" mps="3.1" beaufort="2" name="Svak vind"/>
+            <humidity value="87.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1029.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T00:00:00Z" to="2018-10-03T01:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T02:00:00Z" to="2018-10-03T02:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.6"/>
+            <windDirection id="dd" deg="271.8" name="W"/>
+            <windSpeed id="ff" mps="3.5" beaufort="2" name="Svak vind"/>
+            <humidity value="87.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T01:00:00Z" to="2018-10-03T02:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T03:00:00Z" to="2018-10-03T03:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.5"/>
+            <windDirection id="dd" deg="281.1" name="W"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <humidity value="85.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.5"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T02:00:00Z" to="2018-10-03T03:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T04:00:00Z" to="2018-10-03T04:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.3"/>
+            <windDirection id="dd" deg="284.3" name="W"/>
+            <windSpeed id="ff" mps="3.8" beaufort="3" name="Lett bris"/>
+            <humidity value="85.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.3"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T03:00:00Z" to="2018-10-03T04:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T05:00:00Z" to="2018-10-03T05:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="283.8" name="W"/>
+            <windSpeed id="ff" mps="3.4" beaufort="2" name="Svak vind"/>
+            <humidity value="86.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="2.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.0"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T04:00:00Z" to="2018-10-03T05:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T06:00:00Z" to="2018-10-03T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="285.2" name="W"/>
+            <windSpeed id="ff" mps="3.4" beaufort="2" name="Svak vind"/>
+            <humidity value="84.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.0"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="17.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T05:00:00Z" to="2018-10-03T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T07:00:00Z" to="2018-10-03T07:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.0"/>
+            <windDirection id="dd" deg="281.9" name="W"/>
+            <windSpeed id="ff" mps="2.8" beaufort="2" name="Svak vind"/>
+            <humidity value="84.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.3"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="21.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T06:00:00Z" to="2018-10-03T07:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T08:00:00Z" to="2018-10-03T08:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="279.6" name="W"/>
+            <windSpeed id="ff" mps="2.3" beaufort="2" name="Svak vind"/>
+            <humidity value="84.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T07:00:00Z" to="2018-10-03T08:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T09:00:00Z" to="2018-10-03T09:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.6"/>
+            <windDirection id="dd" deg="266.2" name="W"/>
+            <windSpeed id="ff" mps="1.8" beaufort="1" name="Flau vind"/>
+            <humidity value="83.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1029.1"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="0.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T08:00:00Z" to="2018-10-03T09:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T10:00:00Z" to="2018-10-03T10:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.3"/>
+            <windDirection id="dd" deg="281.7" name="W"/>
+            <windSpeed id="ff" mps="1.8" beaufort="1" name="Flau vind"/>
+            <humidity value="79.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1029.1"/>
+            <cloudiness id="NN" percent="99.8"/>
+            <lowClouds id="LOW" percent="99.7"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="1.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T09:00:00Z" to="2018-10-03T10:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T11:00:00Z" to="2018-10-03T11:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.7"/>
+            <windDirection id="dd" deg="280.4" name="W"/>
+            <windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"/>
+            <humidity value="73.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1029.0"/>
+            <cloudiness id="NN" percent="99.8"/>
+            <lowClouds id="LOW" percent="99.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="35.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T10:00:00Z" to="2018-10-03T11:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T12:00:00Z" to="2018-10-03T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.6"/>
+            <windDirection id="dd" deg="291.8" name="W"/>
+            <windSpeed id="ff" mps="3.0" beaufort="2" name="Svak vind"/>
+            <humidity value="69.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.8"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="63.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T11:00:00Z" to="2018-10-03T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T13:00:00Z" to="2018-10-03T13:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="16.6"/>
+            <windDirection id="dd" deg="296.1" name="NW"/>
+            <windSpeed id="ff" mps="2.2" beaufort="2" name="Svak vind"/>
+            <humidity value="70.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.5"/>
+            <cloudiness id="NN" percent="100.0"/>
+            <lowClouds id="LOW" percent="99.9"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="72.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T12:00:00Z" to="2018-10-03T13:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T14:00:00Z" to="2018-10-03T14:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.4"/>
+            <windDirection id="dd" deg="243.4" name="SW"/>
+            <windSpeed id="ff" mps="4.7" beaufort="3" name="Lett bris"/>
+            <humidity value="80.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1028.2"/>
+            <cloudiness id="NN" percent="99.9"/>
+            <lowClouds id="LOW" percent="99.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="74.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T13:00:00Z" to="2018-10-03T14:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T15:00:00Z" to="2018-10-03T15:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.7"/>
+            <windDirection id="dd" deg="246.7" name="SW"/>
+            <windSpeed id="ff" mps="3.9" beaufort="3" name="Lett bris"/>
+            <humidity value="80.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.9"/>
+            <cloudiness id="NN" percent="99.0"/>
+            <lowClouds id="LOW" percent="97.6"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="61.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T14:00:00Z" to="2018-10-03T15:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T16:00:00Z" to="2018-10-03T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.0"/>
+            <windDirection id="dd" deg="242.6" name="SW"/>
+            <windSpeed id="ff" mps="4.0" beaufort="3" name="Lett bris"/>
+            <humidity value="86.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.5"/>
+            <cloudiness id="NN" percent="99.8"/>
+            <lowClouds id="LOW" percent="99.0"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="66.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T15:00:00Z" to="2018-10-03T16:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T17:00:00Z" to="2018-10-03T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.3"/>
+            <windDirection id="dd" deg="264.4" name="W"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <humidity value="76.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.3"/>
+            <cloudiness id="NN" percent="93.0"/>
+            <lowClouds id="LOW" percent="84.7"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="57.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T16:00:00Z" to="2018-10-03T17:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T18:00:00Z" to="2018-10-03T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.1"/>
+            <windDirection id="dd" deg="277.5" name="W"/>
+            <windSpeed id="ff" mps="3.5" beaufort="2" name="Svak vind"/>
+            <humidity value="75.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1027.3"/>
+            <cloudiness id="NN" percent="92.8"/>
+            <lowClouds id="LOW" percent="90.7"/>
+            <mediumClouds id="MEDIUM" percent="0.0"/>
+            <highClouds id="HIGH" percent="14.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T17:00:00Z" to="2018-10-03T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0" minvalue="0.0" maxvalue="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T00:00:00Z" to="2018-10-04T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.3"/>
+            <windDirection id="dd" deg="207.7" name="SW"/>
+            <windSpeed id="ff" mps="2.9" beaufort="2" name="Svak vind"/>
+            <humidity value="96.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1026.7"/>
+            <cloudiness id="NN" percent="93.6"/>
+            <lowClouds id="LOW" percent="94.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-03T18:00:00Z" to="2018-10-04T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T06:00:00Z" to="2018-10-04T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.5"/>
+            <windDirection id="dd" deg="199.3" name="S"/>
+            <windSpeed id="ff" mps="2.7" beaufort="2" name="Svak vind"/>
+            <humidity value="96.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1023.7"/>
+            <cloudiness id="NN" percent="97.5"/>
+            <lowClouds id="LOW" percent="98.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T00:00:00Z" to="2018-10-04T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T12:00:00Z" to="2018-10-04T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="15.6"/>
+            <windDirection id="dd" deg="215.7" name="SW"/>
+            <windSpeed id="ff" mps="5.3" beaufort="3" name="Lett bris"/>
+            <humidity value="82.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1022.4"/>
+            <cloudiness id="NN" percent="97.9"/>
+            <lowClouds id="LOW" percent="98.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T06:00:00Z" to="2018-10-04T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T18:00:00Z" to="2018-10-04T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.4"/>
+            <windDirection id="dd" deg="237.7" name="SW"/>
+            <windSpeed id="ff" mps="1.5" beaufort="1" name="Flau vind"/>
+            <humidity value="89.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.7"/>
+            <cloudiness id="NN" percent="98.7"/>
+            <lowClouds id="LOW" percent="99.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T12:00:00Z" to="2018-10-04T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.7"/>
+<symbol id="Drizzle" number="46"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T00:00:00Z" to="2018-10-05T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.1"/>
+            <windDirection id="dd" deg="11.8" name="N"/>
+            <windSpeed id="ff" mps="2.7" beaufort="2" name="Svak vind"/>
+            <humidity value="95.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.7"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="11.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-04T18:00:00Z" to="2018-10-05T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="1.1"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T06:00:00Z" to="2018-10-05T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="11.0"/>
+            <windDirection id="dd" deg="74.1" name="E"/>
+            <windSpeed id="ff" mps="2.7" beaufort="2" name="Svak vind"/>
+            <humidity value="95.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1017.6"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T00:00:00Z" to="2018-10-05T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.7"/>
+<symbol id="Drizzle" number="46"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T12:00:00Z" to="2018-10-05T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.2"/>
+            <windDirection id="dd" deg="153.4" name="SE"/>
+            <windSpeed id="ff" mps="4.1" beaufort="3" name="Lett bris"/>
+            <humidity value="88.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1013.2"/>
+            <cloudiness id="NN" percent="98.5"/>
+            <lowClouds id="LOW" percent="93.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T06:00:00Z" to="2018-10-05T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="1.1"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T18:00:00Z" to="2018-10-05T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.1"/>
+            <windDirection id="dd" deg="168.7" name="S"/>
+            <windSpeed id="ff" mps="3.2" beaufort="2" name="Svak vind"/>
+            <humidity value="95.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1006.2"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="99.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T12:00:00Z" to="2018-10-05T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="1.3"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T00:00:00Z" to="2018-10-06T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="5.1"/>
+            <windDirection id="dd" deg="336.3" name="NW"/>
+            <windSpeed id="ff" mps="7.9" beaufort="4" name="Laber bris"/>
+            <humidity value="93.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1004.8"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="18.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="4.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-05T18:00:00Z" to="2018-10-06T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="9.6"/>
+<symbol id="Rain" number="10"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T06:00:00Z" to="2018-10-06T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="6.3"/>
+            <windDirection id="dd" deg="339.9" name="N"/>
+            <windSpeed id="ff" mps="9.1" beaufort="5" name="Frisk bris"/>
+            <humidity value="84.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1006.9"/>
+            <cloudiness id="NN" percent="25.7"/>
+            <lowClouds id="LOW" percent="6.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="3.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T00:00:00Z" to="2018-10-06T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T12:00:00Z" to="2018-10-06T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="10.3"/>
+            <windDirection id="dd" deg="338.7" name="N"/>
+            <windSpeed id="ff" mps="9.7" beaufort="5" name="Frisk bris"/>
+            <humidity value="59.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1012.1"/>
+            <cloudiness id="NN" percent="76.9"/>
+            <lowClouds id="LOW" percent="76.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="2.7"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T06:00:00Z" to="2018-10-06T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T18:00:00Z" to="2018-10-06T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="8.8"/>
+            <windDirection id="dd" deg="317.5" name="NW"/>
+            <windSpeed id="ff" mps="6.5" beaufort="4" name="Laber bris"/>
+            <humidity value="59.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1016.6"/>
+            <cloudiness id="NN" percent="20.9"/>
+            <lowClouds id="LOW" percent="21.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="1.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T12:00:00Z" to="2018-10-06T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T00:00:00Z" to="2018-10-07T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="5.6"/>
+            <windDirection id="dd" deg="316.5" name="NW"/>
+            <windSpeed id="ff" mps="2.7" beaufort="2" name="Svak vind"/>
+            <humidity value="74.9" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.2"/>
+            <cloudiness id="NN" percent="15.0"/>
+            <lowClouds id="LOW" percent="1.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="1.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-06T18:00:00Z" to="2018-10-07T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T06:00:00Z" to="2018-10-07T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="4.5"/>
+            <windDirection id="dd" deg="238.7" name="SW"/>
+            <windSpeed id="ff" mps="1.8" beaufort="1" name="Flau vind"/>
+            <humidity value="85.3" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1020.0"/>
+            <cloudiness id="NN" percent="98.7"/>
+            <lowClouds id="LOW" percent="46.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="2.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T00:00:00Z" to="2018-10-07T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T12:00:00Z" to="2018-10-07T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.2"/>
+            <windDirection id="dd" deg="238.5" name="SW"/>
+            <windSpeed id="ff" mps="4.9" beaufort="3" name="Lett bris"/>
+            <humidity value="67.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1018.6"/>
+            <cloudiness id="NN" percent="98.7"/>
+            <lowClouds id="LOW" percent="98.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T06:00:00Z" to="2018-10-07T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T18:00:00Z" to="2018-10-07T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.7"/>
+            <windDirection id="dd" deg="223.8" name="SW"/>
+            <windSpeed id="ff" mps="4.4" beaufort="3" name="Lett bris"/>
+            <humidity value="82.2" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1015.9"/>
+            <cloudiness id="NN" percent="98.8"/>
+            <lowClouds id="LOW" percent="84.4"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.8"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T12:00:00Z" to="2018-10-07T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T00:00:00Z" to="2018-10-08T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.0"/>
+            <windDirection id="dd" deg="209.3" name="SW"/>
+            <windSpeed id="ff" mps="5.1" beaufort="3" name="Lett bris"/>
+            <humidity value="89.0" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1012.8"/>
+            <cloudiness id="NN" percent="97.6"/>
+            <lowClouds id="LOW" percent="37.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-07T18:00:00Z" to="2018-10-08T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T06:00:00Z" to="2018-10-08T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="13.0"/>
+            <windDirection id="dd" deg="194.9" name="S"/>
+            <windSpeed id="ff" mps="7.5" beaufort="4" name="Laber bris"/>
+            <humidity value="82.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1007.1"/>
+            <cloudiness id="NN" percent="98.9"/>
+            <lowClouds id="LOW" percent="100.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="10.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T00:00:00Z" to="2018-10-08T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T12:00:00Z" to="2018-10-08T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="14.0"/>
+            <windDirection id="dd" deg="268.8" name="W"/>
+            <windSpeed id="ff" mps="5.4" beaufort="3" name="Lett bris"/>
+            <humidity value="87.5" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1004.6"/>
+            <cloudiness id="NN" percent="99.2"/>
+            <lowClouds id="LOW" percent="38.7"/>
+            <dewpointTemperature id="TD" unit="celsius" value="12.1"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T06:00:00Z" to="2018-10-08T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="3.2"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T18:00:00Z" to="2018-10-08T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="10.3"/>
+            <windDirection id="dd" deg="263.4" name="W"/>
+            <windSpeed id="ff" mps="1.7" beaufort="1" name="Flau vind"/>
+            <humidity value="73.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1008.7"/>
+            <cloudiness id="NN" percent="27.4"/>
+            <lowClouds id="LOW" percent="21.3"/>
+            <dewpointTemperature id="TD" unit="celsius" value="5.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T12:00:00Z" to="2018-10-08T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T00:00:00Z" to="2018-10-09T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="6.5"/>
+            <windDirection id="dd" deg="226.1" name="SW"/>
+            <windSpeed id="ff" mps="1.8" beaufort="1" name="Flau vind"/>
+            <humidity value="90.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1009.6"/>
+            <cloudiness id="NN" percent="97.1"/>
+            <lowClouds id="LOW" percent="25.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="4.9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-08T18:00:00Z" to="2018-10-09T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T06:00:00Z" to="2018-10-09T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="8.8"/>
+            <windDirection id="dd" deg="147.9" name="SE"/>
+            <windSpeed id="ff" mps="2.1" beaufort="2" name="Svak vind"/>
+            <humidity value="84.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1006.1"/>
+            <cloudiness id="NN" percent="79.3"/>
+            <lowClouds id="LOW" percent="14.5"/>
+            <dewpointTemperature id="TD" unit="celsius" value="6.2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T00:00:00Z" to="2018-10-09T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T12:00:00Z" to="2018-10-09T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="10.4"/>
+            <windDirection id="dd" deg="111.9" name="E"/>
+            <windSpeed id="ff" mps="7.1" beaufort="4" name="Laber bris"/>
+            <humidity value="93.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="996.1"/>
+            <cloudiness id="NN" percent="99.2"/>
+            <lowClouds id="LOW" percent="100.0"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T06:00:00Z" to="2018-10-09T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="6.8"/>
+<symbol id="Rain" number="10"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T18:00:00Z" to="2018-10-09T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.8"/>
+            <windDirection id="dd" deg="217.1" name="SW"/>
+            <windSpeed id="ff" mps="8.0" beaufort="4" name="Laber bris"/>
+            <humidity value="73.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="994.2"/>
+            <cloudiness id="NN" percent="96.6"/>
+            <lowClouds id="LOW" percent="93.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="8.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T12:00:00Z" to="2018-10-09T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="6.7"/>
+<symbol id="Rain" number="10"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T00:00:00Z" to="2018-10-10T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="11.0"/>
+            <windDirection id="dd" deg="178.4" name="S"/>
+            <windSpeed id="ff" mps="4.2" beaufort="3" name="Lett bris"/>
+            <humidity value="89.6" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="996.7"/>
+            <cloudiness id="NN" percent="97.7"/>
+            <lowClouds id="LOW" percent="36.2"/>
+            <dewpointTemperature id="TD" unit="celsius" value="9.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-09T18:00:00Z" to="2018-10-10T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="Cloud" number="4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T06:00:00Z" to="2018-10-10T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="10.6"/>
+            <windDirection id="dd" deg="224.1" name="SW"/>
+            <windSpeed id="ff" mps="4.5" beaufort="3" name="Lett bris"/>
+            <humidity value="81.7" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="997.1"/>
+            <cloudiness id="NN" percent="99.1"/>
+            <lowClouds id="LOW" percent="2.8"/>
+            <dewpointTemperature id="TD" unit="celsius" value="7.6"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T00:00:00Z" to="2018-10-10T06:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="3.9"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T12:00:00Z" to="2018-10-10T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="12.8"/>
+            <windDirection id="dd" deg="225.6" name="SW"/>
+            <windSpeed id="ff" mps="5.4" beaufort="3" name="Lett bris"/>
+            <humidity value="57.1" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1001.9"/>
+            <cloudiness id="NN" percent="32.9"/>
+            <lowClouds id="LOW" percent="32.6"/>
+            <dewpointTemperature id="TD" unit="celsius" value="4.5"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T06:00:00Z" to="2018-10-10T12:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="LightCloud" number="2"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T18:00:00Z" to="2018-10-10T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="10.3"/>
+            <windDirection id="dd" deg="218.8" name="SW"/>
+            <windSpeed id="ff" mps="3.3" beaufort="2" name="Svak vind"/>
+            <humidity value="71.8" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1003.5"/>
+            <cloudiness id="NN" percent="77.1"/>
+            <lowClouds id="LOW" percent="34.1"/>
+            <dewpointTemperature id="TD" unit="celsius" value="5.4"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T12:00:00Z" to="2018-10-10T18:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="0.0"/>
+<symbol id="PartlyCloud" number="3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-11T00:00:00Z" to="2018-10-11T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <temperature id="TTT" unit="celsius" value="7.8"/>
+            <windDirection id="dd" deg="221.0" name="SW"/>
+            <windSpeed id="ff" mps="2.6" beaufort="2" name="Svak vind"/>
+            <humidity value="90.4" unit="percent"/>
+            <pressure id="pr" unit="hPa" value="1005.2"/>
+            <cloudiness id="NN" percent="97.3"/>
+            <lowClouds id="LOW" percent="13.9"/>
+            <dewpointTemperature id="TD" unit="celsius" value="6.3"/>
+         </location>
+      </time>
+      <time datatype="forecast" from="2018-10-10T18:00:00Z" to="2018-10-11T00:00:00Z">
+         <location altitude="39" latitude="51.8969" longitude="-8.4863">
+            <precipitation unit="mm" value="1.5"/>
+<symbol id="LightRain" number="9"/>
+         </location>
+      </time>
+   </product>
+</weatherdata> 
