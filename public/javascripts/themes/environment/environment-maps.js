@@ -167,16 +167,18 @@ $("div").on('click', '.hydronet-popup-btn', function () {
  * Sound Map
  ************************************/
 let soundMapIcon = L.icon({
-    iconUrl: '/images/environment/cross-15.svg',
+    iconUrl: '/images/environment/microphone-black-shape.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY]//,
             //popupAnchor: [-3, -76]
 });
 
+let iconAttrib = "Microophone icon by <a href=\"https://www.flaticon.com/authors/dave-gandy\">Dave Gandy</a>";
+
 let osmSound = new L.TileLayer(stamenTerrainUrl, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
-    attribution: stamenTonerAttrib
+    attribution: iconAttrib + "  "+stamenTonerAttrib
 });
 
 let soundMap = new L.Map('chart-sound-map');
@@ -227,7 +229,7 @@ function updateMapSoundsites(data__) {
 function getSoundsiteContent(d_) {
     let str = '';
     if (d_["name"]) {
-        str += '<b>' + d_["name"] + '</b><br>';
+        str += '<h3>' + d_["name"] + '</h3>';
     }
     if (d_.type) {
         str += d_.type + '<br>';
@@ -243,10 +245,11 @@ function getSoundReading(p_, d_) {
                     let lastTime = reading.times[reading.times.length - 1];
                     let lastDate = reading.dates[reading.dates.length - 1];
                     p_.setContent(getSoundsiteContent(d_, )
-                            + "<br>Latest reading "
+                            + "<h2>" + lastRead + " dB</h2>"
+                            + "Updated at "
                             + lastTime
                             + " on " + lastDate
-                            + "<br><b>" + lastRead + " dB</b>");
+                            );
                     p_.update();
                 } else {
                     p_.setContent(p_.getContent()
