@@ -1,0 +1,74 @@
+/* 
+    Author     : Liam
+*/
+/*TODO use proper rules here instead of individual repetition*/
+
+#chart-water-map {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+#chart-sound-map{
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-air-map{
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-public-transport {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+#chart-private-transport {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-bikes {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-bus {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-luas {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-transport-parking {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-environment-map   {
+        /*height: inherit;*/
+        height: 500px;
+        width: 100%;
+        margin: 20px;
+}
+
+

@@ -23,8 +23,6 @@ Promise.all([
     const houseCompData = dataFiles[2];
     const priceList = dataFiles[3];
 
-    console.log("house comp data", houseCompData);
-
     const columnNames1 = economyData.columns.slice(2);
     const columnNames2 = demographicsData.columns.slice(2);
     const columnNames3 = houseCompData.columns.slice(1);
@@ -44,7 +42,7 @@ Promise.all([
     const dataSet4 = dataSets(priceList, columnNames4);
 
     dataSet.forEach( d => {
-        d.quarter = parseTime(d.quarter);
+        d.quarter = convertQuarter(d.quarter);
     });
     
     const dateFiltered = dataSet.filter( d => {
@@ -66,8 +64,6 @@ Promise.all([
     const irelandAnnualRate = dataSet2.filter( d => {
         return d.region === "Ireland";
     });
-
-    console.log("these are the datasets for pop for ireland and dublin", dublinAnnualRate, irelandAnnualRate);
 
     // charts setup here
 
@@ -329,8 +325,6 @@ class GroupedBarChart{
         dv.width = eWidth - dv.m[1] - dv.m[3];
         dv.height = 120 - dv.m[0] - dv.m[2];
 
-        console.log("values of dimensions", dv.width, dv.height);
-
         dv.tooltip = d3.select(".page__root")
             .append('div')  
             .attr('class', 'tool-tip');  
@@ -414,7 +408,6 @@ class GroupedBarChart{
         let dv = this;
 
         // Update scales
-        console.log("grouped bar chart data", dv.data);
         dv.x0.domain(dv.data.map(d => { return d[dv.xValue]; }));
         dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
         dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
@@ -468,7 +461,6 @@ class GroupedBarChart{
         //             dy  = parseFloat(d3.select(this).attr('y')) + 10;
         //         var x = d3.event.pageX, 
         //             y = d3.event.clientY;
-        //         console.log("mouse positions", x, y);
 
         //         dv.tooltip
         //             .style( 'left', (d3.event.pageX+10) + "px" )
@@ -478,4 +470,13 @@ class GroupedBarChart{
         //     });
     }
     
+}
+
+function convertQuarter(q){
+    let splitted = q.split('Q');
+    let year = splitted[0];
+    let quarterEndMonth = splitted[1] * 3 - 2;
+    let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
+
+    return date;
 }

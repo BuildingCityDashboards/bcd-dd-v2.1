@@ -8,27 +8,148 @@ section#transport
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
+            br
+            br
+            |The information presented below may be sourced from dynamic and/or real-time data
+            |<img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
+            |or from more static, historical figures
+            |<img height='15px' width='15px' src='/images/calendar.svg'>
+            br
+            br
+            |For up-to-date travel information see our *GETTING AROUND* query
     article.article
       .row
-        .col-lg-12
-          h2.header__h2.mb-2 Realtime Travel
+        //.col-lg-12
+        //  h2.header__h2.mb-2 Realtime Travel
+         
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
+          //p Source: XXX
+          p Just Eat dublinbikes is a self-service bike rental system open to 
+            |everyone from 14 years of age. It enables you to travel through the 
+            |city centre, commute between home and work and get out and about 
+            |to enjoy Dublin city at your leisure. Explore the map or visit the 
+            |<a href="http://www.dublinbikes.ie/" target='blank'>Dublin Bikes homepage</a> 
+            |for more information (opens new).
+          
+          div#chart-transport-bikes-figure
+            p There are currently <b id='bike-available-count'></b> bikes available around 
+              |the city, with <b id='stands-available-count'></b> stands free.
+            p <span><img height='30px' width='30px' src='/images/transport/bicycle-15.svg'></span> 
+              br
+            p Click on the bicycle icons on the map for live data at a particular stand.
+              br
+            p For comprehensive up-to-date travel information, see our 
+              |<a href="../queries"> "Getting Around"</a> query.
+        
+          
+          //div#chart-transport-bikes-select
+        .col-lg-8
+          //div.ml-5.pt-2
+            <button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Bikes</button>
+            //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
+            //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
+            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+          div#chart-transport-bikes
+          
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Buses <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
+          //p Source: XXX
+          p Dublin buses ...
+          
+          p For up-to-date travel information see GETTING AROUND
+        
+          
+          div#chart-transport-bus-select
+        .col-lg-8
+          div.ml-5.pt-2
+            //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
+            <button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Buses</button>
+            //<button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
+            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+          div#chart-transport-bus
+          
+      
 
       .row.wrapper.py-3
         .col-lg-4
-          h3 Public Transport
-          p Source: XXX
-          p Dublin Bikes & Buses
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          h3 Luas <img height='15px' width='15px' src='/images/clock-circular-outline.svg'>
+          //p Source: XXX
+          p Luas...
           
-          div#chart-select1
+          p For up-to-date travel information see GETTING AROUND
+        
+          
+          div#chart-transport-luas-select
         .col-lg-8
           div.ml-5.pt-2
-            <button type="button" class="btn btn-dark employment-btn employment_count" value="dublinBikes">Bikes</button>
-            <button type="button" class="btn btn-dark employment-btn employment_qrate" value="dublinBuses">Buses</button>
-            <button type="button" class="btn btn-dark employment-btn employment_qrate" value="all">All</button>
-          div#chart-public-transport
+            //<button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Bikes</button>
+            //<button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
+            <button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Luas</button>
+            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+          div#chart-transport-luas
+          
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Parking <img height='15px' width='15px' src='/images/calendar.svg'>
+          //p Source: XXX
+          p Parking...
+          
+          p For up-to-date travel information see GETTING AROUND
+        
+          
+          div#chart-transport-parking-select
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark employment-btn parking_multi" value="">Car Parks</button>
+            <button type="button" class="btn btn-dark employment-btn parking_street" value="">Onstreet Parking</button>
+            <button type="button" class="btn btn-dark employment-btn parking_disabled" value="">Disabled Parking Bays</button>
+            //<button type="button" class="btn btn-dark employment-btn travel_times" value="">Travel Times</button>
+            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+          div#chart-transport-parking
+          
+//      .row.wrapper.py-3
+//        .col-lg-4
+//          h3 Public Transport
+//          //p Source: XXX
+//          p Bikes, Buses and Trams
+//          p The map shows the locations of Dublin's  various public transit 
+//            |options. These include:
+//            br 
+//            |Dublin Bike scheme,
+//            br
+//            |Dublin Bus bus stops,
+//            br
+//            |Luas tram stops.
+//            br
+//          p Explore and interact with the map to find out more.
+//          
+//          div#chart-public-transport-select1
+//        .col-lg-8
+//          div.ml-5.pt-2
+//            <button type="button" class="btn btn-dark employment-btn public_transport_bikes" value="dublinBikes">Bikes</button>
+//            <button type="button" class="btn btn-dark employment-btn public_transport_buses" value="dublinBuses">Buses</button>
+//            <button type="button" class="btn btn-dark employment-btn public_transport_luas" value="dublinLuas">Luas</button>
+//            <button type="button" class="btn btn-dark employment-btn public_transport_all" value="all" >All</button>
+//          div#chart-public-transport
 
-      
+//      .row.wrapper.py-3
+//        .col-lg-4
+//          h3 Private Travel
+//          //p Source: XXX
+//          p Driving and Parking
+//          p The map shows the locations of various public car parking 
+//            |options and realtime travel information on main routes in and 
+//            |around the city
+//          p Explore and interact with the map to find out more.
+//          
+//          div#chart-private-transport-select1
+//        .col-lg-8
+//          div.ml-5.pt-2
+//            <button type="button" class="btn btn-dark employment-btn parking_multi" value="dublinBikes">Car Parks</button>
+//            <button type="button" class="btn btn-dark employment-btn parking_street" value="dublinBuses">Onstreet Parking</button>
+//            <button type="button" class="btn btn-dark employment-btn travel_times" value="dublinLuas">Travel Times</button>
+//            <button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
+//          div#chart-private-transport      

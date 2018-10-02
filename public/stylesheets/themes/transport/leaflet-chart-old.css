@@ -4,14 +4,14 @@
 
 #chart-public-transport {
         /*height: inherit;*/
-        height: 500px;
+        height: 400px;
         width: 100%;
         margin: 20px;
 }
 
-#chart-scats {
+#chart-private-transport {
         /*height: inherit;*/
-        height: 500px;
+        height: 400px;
         width: 100%;
         margin: 20px;
 }

@@ -21,21 +21,23 @@
         const columnNames = QNQ22.columns.slice(2),
             groupBy = QNQ22.columns[1],
             yLabels = ["Thousands", "% Change", "% Change"];
-        console.log("QNQ22",QNQ22);
 
         const columnNamesB = annual.columns.slice(2),
         groupByB = annual.columns[0],
         yLabelsB = ["% Change"];
     
         const valueData = QNQ22.map( d => {
-            d.date = parseTime(d.quarter);
+            // d.date = parseTime(d.quarter);
+            d.date = convertQuarter(d.quarter);
             for(var i = 0, n = columnNames.length; i < n; ++i){
                 d[columnNames[i]] = +d[columnNames[i]]; 
             }
+            d.quarter = qToQuarter(d.quarter);
             return d;
         });
-
+        console.log("With Quarters still the same: ",valueData)
         const valueDataB = annual.map( d => {
+            d.year = d.date;
             d.date = parseYear(d.date);
             for(var i = 0, n = columnNamesB.length; i < n; ++i){
                 d[columnNamesB[i]] = +d[columnNamesB[i]]; 
@@ -47,6 +49,8 @@
             .key( regions => { return regions[groupBy];})
             .entries(valueData);
         
+        console.log("this is the mutliline data format", types);
+        
         const typesB = d3.nest()
             .key( regions => { return regions[groupByB];})
             .entries(valueDataB);
@@ -56,21 +60,21 @@
 
         const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
         mlineChart.getData(columnNames[0], types);
-        mlineChart.addTooltip("Quarter:", "€");
+        mlineChart.addTooltip("", "€", "quarter");
 
         d3.select(".employment_count").on("click", function(){
-            mlineChart.getData(columnNames[0], types);
-            mlineChart.addTooltip("Quarter:", "€");
+            mlineChart.getData(columnNames[0], types, "Quarters", "Thousands");
+            mlineChart.addTooltip("", "€", "quarter");
         });
         
         d3.select(".employment_qrate").on("click", function(){
-            mlineChart.getData(columnNames[1], types);
-            mlineChart.addTooltip("Quarter:", "%");
+            mlineChart.getData(columnNames[1], types, "Quarters", "%");
+            mlineChart.addTooltip("", "%", "quarter");
         });
 
         d3.select(".employment_arate").on("click", function(){
-            mlineChart.getData(columnNamesB[0], typesB);
-            mlineChart.addTooltip("Year:", "%");
+            mlineChart.getData(columnNamesB[0], typesB, "Years", "%");
+            mlineChart.addTooltip("Year:", "%", "year");
         });
 
         // d3.select(window).on('resize', function(){
@@ -86,101 +90,42 @@
     /*** This unemployment Chart ***/
     d3.csv("../data/Economy/QNQ22_2.csv").then(data => {
 
-        const columnNames = data.columns.slice(2);
-        const staticNames = data.columns.slice(0,2);
+        let keys = data.columns.slice(2)
+            selector = "Unemployed Persons aged 15 years and over (Thousand)";
 
-        // data.forEach(d => {
-        //     for(var i = 0, n = columnNames.length; i < n; ++i){
-        //         d[columnNames[i]] = +d[columnNames[i]];
-        //     }
-        //     return d;
-        // });
+        let quarterNest = d3.nest()
+            .key(function(d){ return d.quarter; })
+            .entries(data);
 
-        var types = columnNames.map(name => { // Nest the data into an array of objects with new keys
+        // filter the values by select variable
+        let dataFiltered = quarterNest
+            .map(function(q){
+                return q.values.reduce(function(accumulator, current){
+                    
+                    accumulator.date = q.key;
+                    accumulator[current.region] = accumulator[current.region] + current[selector];
 
-            return {
-              name: name, // "name": the csv headers except date
-              values: data.map( d => { // "values": which has an array of the dates and ratings
-                return {
-                  date: d.quarter,
-                  region: d.region, 
-                  value: +(d[name]),
-                  };
-              }),
-            };
-          });
+                    return accumulator;
+                }, {
+                    "Border": 0,
+                    "Midland": 0,
+                    "Mid-East": 0,
+                    "Mid-West": 0,
+                    "South-East": 0,
+                    "South-West": 0,
+                    "West": 0,
+                    "Dublin": 0,
+                    "Ireland": 0
+                });
+            });
 
-        const employment = types.find( d => d.name === columnNames[0] );
-        const unemployment = types.find( d => d.name === columnNames[1] );
-
-        console.log("lets see if this works", employment);
-        console.log("lets see if this works", unemployment);
-
-        stackData = data;
-        multilineData = data;
+            const grouping = ["Dublin", "Ireland"];
+            console.log("this is the grouping values for Stacked Area Chart", grouping);
         
-        // console.log("mutliline Data", multilineData);
-    
-        keys = data.columns.slice(2);
-        
-        const xValue = data.columns[0];
-        const groupBy = data.columns[1];
+        const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-        const regionEmployment = d3.nest()
-        .key( d => { return d[groupBy];})
-        .entries(employment.values);
-
-        console.log("nested figs", regionEmployment);
-
-    
-        // $("#chart-select").on("change", function(){
-        //     employmentCharts.getData();
-        // });
-        
-        // let list = d3.select("#chart-employment")
-        //     .append("div")
-        //     .attr("class","ml-5 pt-2");
-    
-        // list.selectAll("buttons")
-        // // add the data and join
-        //     .data(keys)
-        //     .enter()
-        // // append option with type name as value and text
-        //     .append("buttons")
-        //     .attr("value", d => d)
-        //     .text( d => d )
-        //     .attr("class", "btn btn-dark");
-        
-        // list.on("click", function(){
-        //     mlineChart.getData();// pass data through here?
-        // });
-
-        // let list2 = d3.select("#chart-select2")
-        //     .append("select")
-        //     .attr("class","form-control series2");
-    
-        // list2.selectAll("option")
-        // // add the data and join
-        //     .data(keys)
-        //     .enter()
-        // // append option with type name as value and text
-        //     .append("option")
-        //     .attr("value", d => d)
-        //     .text( d => d );
-        
-        // list2.on("change", function(){
-        //     employmentCharts.getData();
-        // });
-        
-        var yLabels = [
-            "Thousands",
-            "Thousands",
-            "Thousands",
-            "%",
-            "%"
-        ];
-        
-        const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands");
+            employmentCharts.getData(dataFiltered);
+            employmentCharts.addTooltip("Year:", "000");
         
         })// catch any error and log to console
         .catch(function(error){
@@ -337,6 +282,7 @@
             for(var i = 0, n = columnNames.length; i < n; ++i){
 
                 d[columnNames[i]] = +d[columnNames[i]];
+                d.year = d.date;
                 d.date = parseYear(d.date);
             }
             return d;
@@ -351,9 +297,9 @@
 
         let grouping = nestData.map(d => d.key);
         
-        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "Thousands", xValue, grouping);
+        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "Persons Engaged", xValue, grouping);
               employeesBySizeChart.getData("value", nestData);
-              employeesBySizeChart.addTooltip("Year:", "000");
+              employeesBySizeChart.addTooltip("Year:", "000", "year");
     })
     // catch any error and log to console
     .catch(function(error){
@@ -440,7 +386,7 @@ d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
     const dataSet = dataSets(data, columnNames);
 
     dataSet.forEach( d => {
-        d.quarter = parseTime(d.quarter);
+        d.quarter = convertQuarter(d.quarter);
     });
     
     const newData = dataSet.filter( d => {
@@ -546,3 +492,20 @@ d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
 }).catch(function(error){
     console.log(error);
 });
+
+function convertQuarter(q){
+    let splitted = q.split('Q');
+    let year = splitted[0];
+    let quarterEndMonth = splitted[1] * 3 - 2;
+    let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
+    return date;
+}
+
+function qToQuarter(q){
+    let splitted = q.split('Q');
+    let year = splitted[0];
+    let quarter = splitted[1];
+    let quarterString = (year + " Quarter "+ quarter);
+    return quarterString;
+}
+

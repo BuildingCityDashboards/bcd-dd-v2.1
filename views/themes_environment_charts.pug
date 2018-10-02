@@ -9,13 +9,44 @@ section#economy
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
     article.article
-      .row
-        .col-lg-12
-          h2.header__h2.mb-2 Environment Map
-
+       
       .row.wrapper.py-3
         .col-lg-4
-          h3 Water, Air and Sound Monitoring Sites
+          h3 Water Monitoring Sites
+          p Sources: EPA
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          div.ml-5.pt-2
+            <button type="button" class="btn btn-dark employment-btn water-opw-btn" value="">OPW Water </button>
+            <button type="button" class="btn btn-dark employment-btn water-hydronet-btn" value="">EPA Hydronet Water</button>
+            <button type="button" class="btn btn-dark employment-btn water-all-btn" value="">All Monitor Sites</button>
+            
+          div#chart-water-map
+          
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Sound Level Monitoring
+          p Source: EPA
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          //div.ml-5.pt-2
+            <button type="button" class="btn btn-dark employment-btn opw-water-btn" value="">OPW Water </button>
+            <button type="button" class="btn btn-dark employment-btn hydronet-btn" value="">EPA Hydronet Water</button>
+            <button type="button" class="btn btn-dark employment-btn sound-monitor-btn" value="">Sound</button>
+            <button type="button" class="btn btn-dark employment-btn air-montior-btn" value="">Air</button>
+            <button type="button" class="btn btn-dark employment-btn environment-all-btn" value="">All Monitor Sites</button>
+            
+          div#chart-sound-map
+          
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Air Quality
           p Source: EPA
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -23,13 +54,13 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8
           div.ml-5.pt-2
-            <button type="button" class="btn btn-dark employment-btn environment-all-btn" value="">All Monitor Sites</button>
-            <button type="button" class="btn btn-dark employment-btn opw-water-btn" value="">OPW Water </button>
-            <button type="button" class="btn btn-dark employment-btn hydronet-btn" value="">EPA Hydronet Water</button>
-            <button type="button" class="btn btn-dark employment-btn sound-monitor-btn" value="">Sound</button>
-            <button type="button" class="btn btn-dark employment-btn air-montior-btn" value="">Air</button>
+            //<button type="button" class="btn btn-dark employment-btn opw-water-btn" value="">OPW Water </button>
+            //<button type="button" class="btn btn-dark employment-btn hydronet-btn" value="">EPA Hydronet Water</button>
+            //<button type="button" class="btn btn-dark employment-btn sound-monitor-btn" value="">Sound</button>
+            //<button type="button" class="btn btn-dark employment-btn air-montior-btn" value="">Air</button>
+            //<button type="button" class="btn btn-dark employment-btn environment-all-btn" value="">All Monitor Sites</button>
             
-          div#chart-environment-map
+          div#chart-air-map
 
     article.article
       .row
