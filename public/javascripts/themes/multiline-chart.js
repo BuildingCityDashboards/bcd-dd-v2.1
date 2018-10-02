@@ -95,11 +95,14 @@ class MultiLineChart{
         dv.addLegend();
     }
 
-    getData( _valueString, _data, _tX, _tY){
+    getData( _valueString, _data, _tX, _tY, yScaleFormat){
         let dv = this;
+            dv.yScaleFormat = dv.formatValue(yScaleFormat);
 
-        typeof _tX === "undefined" ? dv.titleX = dv.titleX : dv.titleX = _tX;
-        typeof _tY === "undefined" ? dv.titleY = dv.titleY : dv.titleY = _tY;
+        // typeof _tX === "undefined" ? dv.titleX = dv.titleX : dv.titleX = _tX;
+        // typeof _tY === "undefined" ? dv.titleY = dv.titleY : dv.titleY = _tY;
+            _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
+            _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
         
         _data !== null ? dv.data =_data : dv.data = dv.data;
         dv.value = _valueString;
@@ -139,10 +142,11 @@ class MultiLineChart{
         dv.tickNumber =  dv.data[0].values.length;
 
         // Update axes - what about ticks for smaller devices??
-        dv.xAxisCall.scale(dv.x); //ticks(dv.tickNumber);
+        dv.xAxisCall.scale(dv.x); //ticks(dv.tickNumberX);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         
-        dv.yAxisCall.scale(dv.y);
+         //ticks(dv.tickNumberY)
+        dv.yScaleFormat !== "undefined" ? dv.yAxisCall.scale(dv.y).tickFormat(dv.yScaleFormat ) : dv.yAxisCall.scale(dv.y);
         dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
 
         // Update x-axis label based on selector
@@ -225,27 +229,6 @@ class MultiLineChart{
             dv.postfix = postfix ? postfix: " ";
 
             dv.valueFormat = dv.formatValue(dv.valueFormat);
-            // // formats thousands, Millions, Euros and Percentage
-            // switch (dv.valueFormat){
-            //     case "millions":
-            //         dv.valueFormat = d3.format(".2s");
-            //         break;
-            
-            //     case "euros":
-            //         dv.valueFormat = "undefined";
-            //         break;
-            
-            //     case "thousands":
-            //         dv.valueFormat = d3.format(",.2r");
-            //         break;
-            
-            //     case "percentage":
-            //         dv.valueFormat = d3.format(".2  %");
-            //         break;
-            
-            //     default:
-            //         dv.valueFormat = "undefined";
-            // }
 
         // add group to contain all the focus elements
         let focus = dv.g.append("g")

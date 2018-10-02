@@ -135,7 +135,7 @@ Promise.all([
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const contributionChart = new MultiLineChart("#chart-houseContributions", "years", "€", yLabels2, contributionRegionNames);
     // 1. Value Key, 2. Data set
-    contributionChart.getData("value", contributionDataNested, "Years", "€");
+    contributionChart.getData("value", contributionDataNested, "Years", "€", "millions");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
     contributionChart.addTooltip("In Millions - ", "millions", "", "€");
 
