@@ -120,7 +120,7 @@ Promise.all([
 
     svg.append("path")
         .attr("d", valueline2(irelandData))
-        .attr("stroke","rgba(150,150,150,.3)")
+        .attr("stroke","#f8f9fa8c")
         .attr("stroke-width", 4)
         .attr("fill", "none")
         .attr("stroke-linecap", "round");
@@ -192,7 +192,7 @@ Promise.all([
         
         svg2.append("path")
             .attr("d", valuelineRate(irelandAnnualRate))
-            .attr("stroke","rgba(150,150,150,.3)")
+            .attr("stroke","#f8f9fa8c")
             .attr("stroke-width", 4)
             .attr("fill", "none")
             .attr("stroke-linecap", "round");
