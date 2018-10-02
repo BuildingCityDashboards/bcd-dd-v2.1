@@ -2,6 +2,27 @@
     Author     : Liam
 */
 /*TODO use proper rules here instead of individual repetition*/
+
+#chart-water-map {
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+#chart-sound-map{
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
+#chart-air-map{
+        /*height: inherit;*/
+        height: 400px;
+        width: 100%;
+        margin: 20px;
+}
+
 #chart-public-transport {
         /*height: inherit;*/
         height: 400px;
