@@ -275,7 +275,7 @@ let osmAir = new L.TileLayer(stamenTerrainUrl, {
 let airMap = new L.Map('chart-air-map');
 airMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 airMap.addLayer(osmAir);
-let markerRefAird; //TODO: fix horrible hack!!!
+let markerRefAir; //TODO: fix horrible hack!!!
 airMap.on('popupopen', function (e) {
     markerRefAir = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
