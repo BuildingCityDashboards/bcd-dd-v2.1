@@ -44,6 +44,7 @@
     display: block;
     height: 150px;
     padding: 1rem 0rem;
+    color:#f8f8f8;
     border-radius: 6px;
     /* background: #002035ab;
     border: 1px solid #16c1f37a; */
@@ -65,6 +66,7 @@
     transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
     transition-duration: .6s;
     transition-timing-function: cubic-bezier(.16,1,.29,.99);
+    text-decoration: none;
 }
 
 .icon--box{

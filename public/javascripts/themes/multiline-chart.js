@@ -27,8 +27,8 @@ class MultiLineChart{
             bottom: 80
         };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 140;
-        dv.margin.left = elementWidth < breakPoint ? 0 : 90;
+        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
+        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
@@ -88,7 +88,7 @@ class MultiLineChart{
         dv.yLabel = dv.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (dv.height/2))
-            .attr("y", -60)
+            .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)");
 

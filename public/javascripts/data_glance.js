@@ -31,7 +31,7 @@ Promise.all([
     const empValue = columnNames1[1];
     const unempValue = columnNames1[1];
 
-    const annualPopRate = columnNames2[1];
+    const annualPopRate = columnNames2[0];
 
     const xValue = houseCompData.columns[0];
     const xValue2 = priceList.columns[0];
@@ -140,12 +140,12 @@ Promise.all([
         .attr("fill", "#f8f9fabd")
         .text("Ireland");
 
-    svg.append("text")
-        .attr("dx", 150)
-        .attr("dy", 105)
-        .attr("class", "label employment")
-        .attr("fill", "#f8f9fabd")
-        .text("Q2 2017 : " + lastValue2[empValue] + "%");
+    // svg.append("text")
+    //     .attr("dx", 150)
+    //     .attr("dy", 105)
+    //     .attr("class", "label employment")
+    //     .attr("fill", "#f8f9fabd")
+    //     .text("Q2 2017 : " + lastValue2[empValue] + "%");
 
     svg.append("text")
         .attr("dx", 0)
@@ -154,12 +154,12 @@ Promise.all([
         .attr("fill", "#16c1f3")
         .text("Dublin")
 
-    svg.append("text")
-        .attr("dx", 150)
-        .attr("dy", 2)
-        .attr("class", "label employment")
-        .attr("fill", "#16c1f3")
-        .text("Q2 2017 : " + lastValue[unempValue] + "%");
+    // svg.append("text")
+    //     .attr("dx", 150)
+    //     .attr("dy", 2)
+    //     .attr("class", "label employment")
+    //     .attr("fill", "#16c1f3")
+    //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
 
 
     const size = dublinAnnualRate.length;   
@@ -207,41 +207,41 @@ Promise.all([
         
         svg2.append("text")
             .attr("dx", 0)
-            .attr("dy", 105)
+            .attr("dy", 2)
             .attr("class", "label yesterday")
             .attr("fill", "#f8f9fabd")
             .text("Ireland");
     
-        svg2.append("text")
-            .attr("x", w)
-            .attr("y", h + 30)
-            .attr("text-anchor", "end")
-            .attr("class", "label employment")
-            .attr("fill", "#f8f9fabd")
-            .text("2016: " + lValue2[annualPopRate] + " (No. per 1000 Pop.)");
+        // svg2.append("text")
+        //     .attr("x", w)
+        //     .attr("y", h + 30)
+        //     .attr("text-anchor", "end")
+        //     .attr("class", "label employment")
+        //     .attr("fill", "#f8f9fabd")
+        //     .text("2016: " + lValue2[annualPopRate] + " (No. per 1000 Pop.)");
     
         svg2.append("text")
             .attr("dx", 0)
-            .attr("dy", 2)
+            .attr("dy", 105)
             .attr("class", "label employment")
             .attr("fill", "#16c1f3")
             .text("Dublin")
     
-        svg2.append("text")
-            .attr("x", w)
-            .attr("y", 2)
-            .attr("text-anchor", "end")
-            .attr("class", "label employment")
-            .attr("fill", "#16c1f3")
-            .text("2016 : " + lValue[annualPopRate] + " (No. per 1000 Pop.)");
+        // svg2.append("text")
+        //     .attr("x", w)
+        //     .attr("y", 2)
+        //     .attr("text-anchor", "end")
+        //     .attr("class", "label employment")
+        //     .attr("fill", "#16c1f3")
+        //     .text("2016 : " + lValue[annualPopRate] + " (No. per 1000 Pop.)");
 
 }).catch(function(error){
     console.log(error);
 });
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
+// $(function () {
+//     $('[data-toggle="tooltip"]').tooltip();
+// });
 
 
 class DataGlanceLine{
@@ -364,23 +364,23 @@ class GroupedBarChart{
         //     .attr("class", "no-axis x-axis")
         //     .attr("transform", "translate(0," + (dv.height + 10) +")");
     
-        // Start Month
-        dv.g.append("text")
-            .attr("class", "label")
-            .attr("x", 0)
-            .attr("y", dv.height + 30)
-            .attr("text-anchor", "start")
-            .attr("fill", "#f8f9fabd")
-            .text(dv.data[0].date);
+        // // Start Month
+        // dv.g.append("text")
+        //     .attr("class", "label")
+        //     .attr("x", 0)
+        //     .attr("y", dv.height + 30)
+        //     .attr("text-anchor", "start")
+        //     .attr("fill", "#f8f9fabd")
+        //     .text(dv.data[0].date);
     
-        // Last Month
-        dv.g.append("text")
-            .attr("class", "label")
-            .attr("x", dv.width)
-            .attr("y", dv.height + 30)
-            .attr("text-anchor", "end")
-            .attr("fill", "#f8f9fabd")
-            .text(dv.data[last].date);
+        // // Last Month
+        // dv.g.append("text")
+        //     .attr("class", "label")
+        //     .attr("x", dv.width)
+        //     .attr("y", dv.height + 30)
+        //     .attr("text-anchor", "end")
+        //     .attr("fill", "#f8f9fabd")
+        //     .text(dv.data[last].date);
         
         // Title 
         dv.g.append("text")
@@ -390,15 +390,15 @@ class GroupedBarChart{
             .attr("fill", "#16c1f3")
             .text(dv.keys[0]);
 
-        // Last Month Value in Units
-        dv.g.append("text")
-            .attr("x", dv.width)
-            .attr("y", 2)
-            .attr("text-anchor", "end")
-            .attr("class", "label")
-            .attr("fill", "#16c1f3")
-            .text(dv.titleX === "€" ? dv.data[last].date + " : " + dv.titleX + d3.format(",")(dv.data[last][dv.keys[0]]) :
-                  dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " " + dv.titleX);
+        // // Last Month Value in Units
+        // dv.g.append("text")
+        //     .attr("x", dv.width)
+        //     .attr("y", 2)
+        //     .attr("text-anchor", "end")
+        //     .attr("class", "label")
+        //     .attr("fill", "#16c1f3")
+        //     .text(dv.titleX === "€" ? dv.data[last].date + " : " + dv.titleX + d3.format(",")(dv.data[last][dv.keys[0]]) :
+        //           dv.data[last].date + " : " +dv.data[last][dv.keys[0]] + " " + dv.titleX);
     
         dv.update();
     

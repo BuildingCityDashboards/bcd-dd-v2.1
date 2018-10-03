@@ -13,6 +13,14 @@
     border-radius: .25rem;
 }
 
+.card__link{
+    color:#f8f8f8;
+}
+
+.card__link:hover{
+    text-decoration: none;
+}
+
 .card__header{
     padding: .75rem .5rem;
     margin-bottom: 0;
