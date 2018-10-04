@@ -302,5 +302,5 @@ class StackBarChart {
                 }
             }
         });
-        }
+    }
 }

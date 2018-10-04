@@ -152,7 +152,7 @@ Promise.all([
         .attr("dy", 2)
         .attr("class", "label employment")
         .attr("fill", "#16c1f3")
-        .text("Dublin")
+        .text("Dublin");
 
     // svg.append("text")
     //     .attr("dx", 150)
@@ -160,6 +160,25 @@ Promise.all([
     //     .attr("class", "label employment")
     //     .attr("fill", "#16c1f3")
     //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
+        
+    let lastData = dublinData[dublinData.length - 1],
+        previousData = dublinData[dublinData.length - 2];
+        // parentItem = d3.select("#test-glance");
+        // console.log(parentItem.select(function() { return this.parentNode; }).select(function() { return this.parentNode; }));
+
+    let text = d3.select("#data-text p"),
+        textString = text.text(),
+        currentValue = lastData[columnNames1[0]],
+        prevValue = previousData[columnNames1[0]],
+        difference = ((currentValue - prevValue) / currentValue);
+        indicator = difference > 0 ? "up" : "down";
+    d3.select("#emp-chart a")
+    .on("mouseover", (d) => { 
+        text.text("Total Employment in Dublin for Q2 2017 was " + lastData[columnNames1[0]] +",000. That's " + indicator + " by " + d3.format(".2%")(difference) + " on previous quarter");
+    })
+    .on("mouseout", (d) => { 
+        text.text(textString);
+    });
 
 
     const size = dublinAnnualRate.length;   
@@ -205,12 +224,12 @@ Promise.all([
             .attr("fill", "none")
             .attr("stroke-linecap", "round");
         
-        svg2.append("text")
-            .attr("dx", 0)
-            .attr("dy", 2)
-            .attr("class", "label yesterday")
-            .attr("fill", "#f8f9fabd")
-            .text("Ireland");
+        // svg2.append("text")
+        //     .attr("dx", 0)
+        //     .attr("dy", 2)
+        //     .attr("class", "label yesterday")
+        //     .attr("fill", "#f8f9fabd")
+        //     .text("Ireland");
     
         // svg2.append("text")
         //     .attr("x", w)
@@ -222,7 +241,7 @@ Promise.all([
     
         svg2.append("text")
             .attr("dx", 0)
-            .attr("dy", 105)
+            .attr("dy", 2)
             .attr("class", "label employment")
             .attr("fill", "#16c1f3")
             .text("Dublin")

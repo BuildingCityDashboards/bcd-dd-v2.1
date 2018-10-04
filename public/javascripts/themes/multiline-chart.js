@@ -54,7 +54,7 @@ class MultiLineChart{
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
 
         // for the tooltip from the d3 book
-        dv.bisectDate = d3.bisector( d => { return d.date; } ).left;
+        dv.bisectDate = d3.bisector( d => { return d.date; } ).left; // this needs to be dynamic dv.date!!
         
         dv.addAxis();
     
@@ -120,7 +120,7 @@ class MultiLineChart{
 
         // Update scales
         dv.x.domain(d3.extent(dv.data[0].values, d => {
-            return (d.date); }));
+            return (d.date); }));// this needs to be dynamic dv.date!!
         
         // for the y domain to track negative numbers 
         const minValue = d3.min(dv.data, d => {
@@ -142,7 +142,8 @@ class MultiLineChart{
         dv.tickNumber =  dv.data[0].values.length;
 
         // Update axes - what about ticks for smaller devices??
-        dv.xAxisCall.scale(dv.x); //ticks(dv.tickNumberX);
+        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber);
+        // .tickFormat(dv.formatQuarter);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         
          //ticks(dv.tickNumberY)
@@ -166,7 +167,7 @@ class MultiLineChart{
          // d3 line function
         dv.line = d3.line()
             .x( d => {
-                return dv.x(d.date); 
+                return dv.x(d.date); // this needs to be dynamic dv.date!!
             })
             .y( d => { //this works
                 return dv.y(d[dv.value]); 
@@ -321,7 +322,7 @@ class MultiLineChart{
                         tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
-                        tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
+                        tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");// this needs to be dynamic dv.date!!
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
 
@@ -331,10 +332,9 @@ class MultiLineChart{
                         tooltipBody.select(".tp-text-right").text(
                             dv.valueFormat !=="undefined" ? dv.prefix + dv.valueFormat(d[dv.value]) : dv.prefix + d[dv.value]
                         );
-
                         ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
 
-                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
+                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");// this needs to be dynamic dv.date!!
                     }
                     ttTextHeights += textHeight + 5;
                 });
@@ -396,7 +396,7 @@ class MultiLineChart{
             .attr("class", "tp-text-left")
             .attr("x", "12")
             .attr("dy", ".35em")
-            .call(dv.textWrap, 100, 12);
+            .call(dv.textWrap, 110, 12);
 
         tooltipBodyItem.append("text")
             .attr("class", "tp-text-right")
@@ -628,6 +628,14 @@ class MultiLineChart{
             default:
                 return "undefined";
         }
+    }
+
+    formatQuarter(date, i){
+        let newDate = new Date();
+        newDate.setMonth(date.getMonth() + 1);
+        let year = (date.getFullYear());
+        let q = Math.ceil(( newDate.getMonth()) / 3 );
+        return year+" Q" + q;
     }
 
 }

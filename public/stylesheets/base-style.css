@@ -137,7 +137,7 @@ select {
   transition-timing-function: cubic-bezier(.64,0,.35,1);
 }
 
-#data-text{
+#data-text p{
   text-align: center;
   font-size: 1.25rem;
   margin-top: 1rem;
@@ -193,6 +193,14 @@ select:hover:not([disabled]) {
   color: #fff;
   background-color: #00c0f5;
   border-color: #00c0f5;
+}
+
+#chart-employment .x-axis g.tick text{
+  display: none;
+}
+
+#chart-employment .x-axis g.tick:nth-child(4n-6) text {
+  display: inline;
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */

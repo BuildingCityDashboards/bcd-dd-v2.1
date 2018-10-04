@@ -65,9 +65,17 @@
     color: var(--vivid-cyan);
 }
 
-#region__population, #region__house, #region__vacant{
+#region__population, #region__house, #region__vacant, .map span{
     font-weight: 600;
     color: var(--vivid-cyan);
+}
+
+#region__title{
+    color:#f8f8f8;
+}
+
+.about__dublin{
+    column-count: 2;
 }
 
 .region-on{

@@ -15,9 +15,10 @@ div(class="tab-content" id="nav-tabContent")
         +card-chart("/", "card text-white o-hidden border-blue", "M50 Traffic times", "test","rt-chart5")
       .col-xl-3.col-sm-6
         +card-chart("/", "card text-white o-hidden border-teal", "Air Quality", "test","rt-chart7")
-    p(id="data-text") click on a data set for more information...    
+    #data-text 
+      p click on a data set for more information...    
     .row.tab-charts__row
-      .col-xl-3.col-sm-6
+      #emp-chart.col-xl-3.col-sm-6
         +card-chart("themes/economy#employment", "card text-white o-hidden border-red", "Employment Quarterly % Change", "test", "test-glance")  
       .col-xl-3.col-sm-6
         +card-chart("/", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance")
