@@ -10,6 +10,9 @@ Promise.all([
     d3.csv("../data/Environment/recyclings.csv"),
     d3.csv("../data/Environment/organicrecyclings.csv"),
     d3.csv("../data/Environment/watercons.csv"),
+    d3.csv("../data/Environment/riverqualities.csv"),
+    d3.csv("../data/Environment/greenflags.csv"),
+    d3.csv("../data/Environment/localagendas.csv"),
 ]).then(datafiles => {
     
     // setup chart and data for Waste 
@@ -80,6 +83,66 @@ Promise.all([
     // console.log("watercons data processed", waterconsDataProcessed);
     // drawing charts for planning data.
     const waterconsChart = new GroupedBarChart(waterconsDataProcessed, waterconsTypes, waterconsDate, "#chart-watercons", "Years", "Litres");
+
+
+    // data and chart for riverqualities
+    const riverqualitiesData = datafiles[4],
+    riverqualitiesTypes = riverqualitiesData.columns.slice(1),
+    riverqualitiesDate = riverqualitiesData.columns[0],
+    riverqualitiesDataProcessed = dataSets(riverqualitiesData, riverqualitiesTypes);
+
+    // console.log("riverqualities data processed", riverqualitiesDataProcessed);
+    // drawing charts for planning data.
+    const riverqualitiesChart = new GroupedBarChart(riverqualitiesDataProcessed, riverqualitiesTypes, riverqualitiesDate, "#chart-riverqualities", "Years", "% of Surveryed Channel Length (1156.5km)");
+
+
+    // data and chart for green flags
+    const greenflagsData = datafiles[5],
+    greenflagsTypes = greenflagsData.columns.slice(1),
+    greenflagsDate = greenflagsData.columns[0],
+    greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes);
+
+    console.log("greenflags data processed", greenflagsDataProcessed);
+    // drawing charts for planning data.
+    const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools");
+   
+
+
+    // data and chart for localagendas.csv
+    // process the data
+    const localagendasData = datafiles[6],
+          localagendasType = localagendasData.columns.slice(2),
+          localagendasDate = localagendasData.columns[0],
+          localagendasRegions = localagendasData.columns[1],
+          localagendasDataProcessed = dataSets(localagendasData, localagendasType);
+    
+        localagendasDataProcessed.forEach( d => {
+            d.label = d[localagendasDate];
+            d[localagendasDate] = parseYear(d[localagendasDate]);
+        });
+
+    // need to convert date field to readable js date format
+    // nest the processed data by regions
+    const localagendasDataNested =  d3.nest().key( d => { return d[localagendasRegions];})
+        .entries(localagendasDataProcessed);
+
+    console.log(localagendasDataNested);
+
+    // get array of keys from nest
+    const localagendasRegionNames = [];
+        localagendasDataNested.forEach(d => {
+            localagendasRegionNames.push(d.key);
+        });
+
+    // draw the chart
+    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
+    const localagendasChart = new MultiLineChart("#chart-localagendas", "Years", "Number of Projects", [], localagendasRegionNames);
+    
+    // 1. Value Key, 2. Data set, 3. x axis title, 4. y axis title
+    localagendasChart.getData(localagendasType[0], localagendasDataNested, "Years", "Number of Projects");
+    
+    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
+    localagendasChart.addTooltip("Projects - Year ", "thousands", "label","","");
 
 
 }).catch(function(error){
