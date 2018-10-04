@@ -396,7 +396,7 @@ class MultiLineChart{
             .attr("class", "tp-text-left")
             .attr("x", "12")
             .attr("dy", ".35em")
-            .call(dv.textWrap, 110, 12);
+            .call(dv.textWrap, 140, 12);
 
         tooltipBodyItem.append("text")
             .attr("class", "tp-text-right")
@@ -515,7 +515,7 @@ class MultiLineChart{
             .attr("dy", ".025em")
             .attr("text-anchor", "start")
             .text(d => { return d.label; })
-            .call(dv.textWrap, 100, dv.width + 34); 
+            .call(dv.textWrap, 110, dv.width + 34); 
     }
 
         // // taking from the d3 book
