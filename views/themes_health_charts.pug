@@ -8,14 +8,40 @@ section#health
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
+
     article.article
-      .row.wrapper
-        .col-md-4
-          h3 Patients on Hospital Trolleys
-          p Source: XXX
+      .row
+        .col-lg-12
+          h2.header__h2.mb-2 Health Statistics
+
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 No. of Patients Waiting on Trolleys (30 Weekday Rolling Average )
+          p 
+            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW") Source: xxx
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
-        .col-md-8
+        .col-lg-8
+          div.pt-2
+            <button type="button" class="btn btn-bcd active" value="">2016</button>
+            <button type="button" class="btn btn-bcd" value="">2015</button>
+            <button type="button" class="btn btn-bcd" value="">2014</button>
+            <button type="button" class="btn btn-bcd" value="">2013</button>
           div#chart-trolleys.chart-holder
+
+      .row.wrapper.py-3
+        .col-lg-4
+          h3 Population Health in 2011
+          p 
+            a(href="https://www.cso.ie/px/pxeirestat/Database/eirestat/Profile%208%20Our%20Bill%20of%20Health/Profile%208%20Our%20Bill%20of%20Health_statbank.asp?SP=Profile%208%20Our%20Bill%20of%20Health&Planguage=0") Source: CSO
+          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            |nisi ut aliquip ex ea commodo consequat.
+        .col-lg-8
+          div.pt-2
+            <button type="button" class="btn btn-bcd active" value="">Count</button>
+            <button type="button" class="btn btn-bcd" value="">Rate</button>
+          div#chart-healthlevels.chart-holder
