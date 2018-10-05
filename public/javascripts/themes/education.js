@@ -36,6 +36,8 @@ Promise.all([
     const specialSchoolsLevelChart = new GroupedBarChart(dataSet4, columnNames4, xValue3, "#chart-specialSchoolsLevel", "Years", "No of Schools");
    
 
+    // highestEducationChart.selectAll(".tick text").call(texTrap, 100, 50);
+
         // xValue = data.columns[0];
         // groupBy = data.columns[0];
         // yLabels =["Population (000s)", "Rate %"];

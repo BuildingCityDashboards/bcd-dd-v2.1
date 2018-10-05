@@ -21,28 +21,38 @@ Promise.all([
 
     //1.  data processing for house completion chart
     const completionData = datafiles[0],
-          yLabels = [];
+          keys = completionData.columns.slice(1),
+          dateField = completionData.columns[0],
+          compDataProcessed = dataSets(completionData, keys);
 
-    let regionNames = completionData.columns.slice(1);
-    let houseCompData = completionData.columns.slice(1).map(function(region) {
-        return {
-          key: region,
-          values: completionData.map(function(d) {
-            return {label: d.date, date: parseMonth(d.date),  value: +d[region]};
-          }),
-          disabled: false
-        };
-      });
+          compDataProcessed.forEach(function(d) {
+            d.label = d[dateField];
+            d[dateField] = parseMonth(d[dateField]);
+          });
 
-      console.log("house completion data set after processing", houseCompData);
+    // let regionNames = completionData.columns.slice(1);
+    // let houseCompData = completionData.columns.slice(1).map(function(region) {
+    //     return {
+    //       key: region,
+    //       values: completionData.map(function(d) {
+    //         return {label: d.date, date: parseMonth(d.date),  value: +d[region]};
+    //       }),
+    //       disabled: false
+    //     };
+    //   });
 
-    // setup the chart for house completion
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const houseCompChart = new MultiLineChart("#chart-houseComp", "Months", "Units", yLabels, regionNames);
-    // 1. Value Key, 2. Data set
-    houseCompChart.getData("value", houseCompData);
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    houseCompChart.addTooltip("Units - ","thousands", "label");
+    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
+        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+        houseCompCharts.getData(completionData);
+        houseCompCharts.addTooltip("Units - Months:", "000");
+
+    // // setup the chart for house completion
+    // // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
+    // const houseCompChart = new MultiLineChart("#chart-houseComp", "Months", "Units", [], regionNames);
+    // // 1. Value Key, 2. Data set
+    // houseCompChart.getData("value", houseCompData);
+    // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
+    // houseCompChart.addTooltip("Units - ","thousands", "label");
 
     //2.  data processing for planning charts.
     const planningData = datafiles[1],
@@ -50,7 +60,10 @@ Promise.all([
           date = planningData.columns[0],
           planningDataProcessed = dataSets(planningData, types);
 
-    // console.log("planning data processed", planningDataProcessed);
+          planningDataProcessed.forEach(function(d) {
+            d.label = d.date;
+            d.date = parseYear(d.date);
+          });
 
     const dcc = planningDataProcessed.filter( d => {
         return d.region === "Dublin";
@@ -64,7 +77,6 @@ Promise.all([
     const sdcc = planningDataProcessed.filter( d => {
         return d.region === "South Dublin";
     });
-    console.log("NEW DATA", sdcc);
 
     // drawing charts for planning data.
     const dccChart = new GroupedBarChart(dcc, types, date, "#chart-planningDCC", "Years", "Number");
@@ -97,7 +109,6 @@ Promise.all([
                 supplyRegionNames.push(d.key);
         });
 
-    console.log("processed supply data", supplyDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const supplyChart = new MultiLineChart("#chart-houseSupply", "years", "Hectares", yLabels2, supplyRegionNames);
@@ -145,7 +156,6 @@ Promise.all([
                 contributionRegionNames.push(d.key);
         });
 
-    console.log("processed contribution data", contributionDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const contributionChart = new MultiLineChart("#chart-houseContributions", "years", "€", yLabels2, contributionRegionNames);
@@ -179,7 +189,6 @@ Promise.all([
                 housePricesRegionNames.push(d.key);
         });
 
-    console.log("processed housePrices data", housePricesDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const housePricesChart = new MultiLineChart("#chart-housePrices", "Quarters", "€", yLabels4, housePricesRegionNames);
@@ -267,7 +276,6 @@ Promise.all([
                 houseCompByTypeRegionNames.push(d.key);
         });
 
-    console.log("processed houseCompByType data", houseCompByTypeDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const houseCompByTypeChart = new MultiLineChart("#chart-houseCompByType", "Quarters", "Numbers", yLabels2, houseCompByTypeRegionNames);
@@ -322,7 +330,6 @@ Promise.all([
                 nonNewConnectionsRegionNames.push(d.key);
         });
 
-    console.log("processed nonNewConnections data", nonNewConnectionsDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const nonNewConnectionsChart = new MultiLineChart("#chart-nonNewConnections", "Quarters", "Numbers", yLabels2, nonNewConnectionsRegionNames);
@@ -356,7 +363,6 @@ Promise.all([
                 newCompByTypeRegionNames.push(d.key);
         });
 
-    console.log("processed newCompByType data", newCompByTypeDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const newCompByTypeChart = new MultiLineChart("#chart-newCompByType", "Quarters", "Numbers", yLabels2, newCompByTypeRegionNames);

@@ -17,7 +17,7 @@
     ]).then(datafiles => {
         const QNQ22 = datafiles[0];
         const annual = datafiles[1];
-
+        console.log("NEW DATA", QNQ22);
         const columnNames = QNQ22.columns.slice(2),
             groupBy = QNQ22.columns[1],
             yLabels = ["Thousands", "% Change", "% Change"];
@@ -96,42 +96,29 @@
     /*** This unemployment Chart ***/
     d3.csv("../data/Economy/QNQ22_2.csv").then(data => {
 
-        let keys = data.columns.slice(2)
+        let keys = data.columns.slice(2),
             selector = "Unemployed Persons aged 15 years and over (Thousand)";
+        
+        const dataSet = dataSets(data, keys);
+
+        dataSet.forEach(d => {
+            d.label = d.quarter;
+            d.date = parseTime(d.quarter);
+        });
 
         let quarterNest = d3.nest()
             .key(function(d){ return d.quarter; })
-            .entries(data);
+            .entries(dataSet);
 
-        // filter the values by select variable
-        let dataFiltered = quarterNest
-            .map(function(q){
-                return q.values.reduce(function(accumulator, current){
-                    
-                    accumulator.date = q.key;
-                    accumulator[current.region] = accumulator[current.region] + current[selector];
-
-                    return accumulator;
-                }, {
-                    "Border": 0,
-                    "Midland": 0,
-                    "Mid-East": 0,
-                    "Mid-West": 0,
-                    "South-East": 0,
-                    "South-West": 0,
-                    "West": 0,
-                    "Dublin": 0,
-                    "Ireland": 0
-                });
-            });
-
-            const grouping = ["Dublin", "Ireland"];
-            console.log("this is the grouping values for Stacked Area Chart", grouping);
         
+        //need to change method for stack area!!
+        let newData = nestData(dataSet, "label", "region" , selector);
+        const grouping = ["Dublin", "Ireland"];
+
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-            employmentCharts.getData(dataFiltered);
-            employmentCharts.addTooltip("Year:", "000");
+            employmentCharts.getData(newData);
+            employmentCharts.addTooltip("Thousands - Quarter:", "000");
         
         })// catch any error and log to console
         .catch(function(error){
@@ -162,7 +149,6 @@
         // console.log(columnNames);
         let incomeData = data;
 
-        console.log("Income data stacked values", incomeData);
         const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, columnNames, "%", "Survey on Income and Living Conditions for Dublin");
         
     
@@ -515,3 +501,33 @@ function qToQuarter(q){
     return quarterString;
 }
 
+function dataSets (data, columns){
+    coercedData = data.map( d => {
+        for( var i = 0, n = columns.length; i < n; i++ ){
+            d[columns[i]] = +d[columns[i]];
+        }
+    return d;
+    });
+    return coercedData;
+}
+
+function  nestData(data, date, name, value){
+    let nested_data = d3.nest()
+        .key(function(d) { return d[date]; })
+        .entries(data); // its the string not the date obj
+
+        console.log("data before split into objects HAHAHA",nested_data);
+
+    let mqpdata = nested_data.map(function(d){
+        let obj = {
+            label: d.key
+        }
+            d.values.forEach(function(v){
+            obj[v[name]] = v[value];
+            obj.date = v.date;
+        })
+    return obj;
+  })
+  console.log("this is the data sent", mqpdata);
+  return mqpdata;
+}
