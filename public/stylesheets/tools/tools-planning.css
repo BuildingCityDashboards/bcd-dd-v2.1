@@ -2,12 +2,25 @@
     Author     : Liam
 */
 
-*{
+.tool-map{
+    height: 400px;
+}
+
+/*#planning_map {
+    height: inherit;
+    width: 100%;
+    
+}*/
+input:checked {
+    background-color: #086fb8;
+}
+
+/**{
     margin: 20;
     padding: 0;
-    /*background-color: goldenrod;*/
-    /*box-sizing: border-box; padding and border are included in the total width and height of the elements*/
-    /*border: solid 2px #e5e5e5;*/
+    background-color: goldenrod;
+    box-sizing: border-box; padding and border are included in the total width and height of the elements
+    border: solid 2px #e5e5e5;
 
 }
 
@@ -23,22 +36,22 @@ h1, h2 {
     font-weight: bold;
     text-align:left;
     margin: 10px 10px 10px 10px;
-}
+}*/
 
-img, span{
+/*img, span{
     margin: 0px;
-}
+}*/
 
 /*For text included with dc-data-count*/
-.filter-text{
+/*.filter-text{
     color: #3182bd;
     font-weight: bold;
     font-size: 30px; 
 
-}
+}*/
 
 /*//mobile first*/
-.wrapper{
+/*.wrapper{
     background-color: whitesmoke;
     margin: 20px 0px 20px 0px;
     display: grid;;
@@ -46,9 +59,9 @@ img, span{
     height: 1000px;
     grid-template-rows: auto;
     grid-template-columns: 1fr;
-    /*grid-gap:1em;*/
-    /* grid-auto-rows:100px; */
-    /*grid-auto-rows: minmax(100px, auto);*/
+    grid-gap:1em;
+     grid-auto-rows:100px; 
+    grid-auto-rows: minmax(100px, auto);
     grid-template-areas:
         "v1" 
         "v1"       
@@ -62,18 +75,19 @@ img, span{
 .context-text{
     text-align: justify;
     text-justify: inter-word;
-    /*margin: 20px 8px 10px 8px;*/
+    margin: 20px 8px 10px 8px;
     grid-area: ct;
-}
+}*/
 
-.button-table{
+/*.button-table{
     grid-area: bt;
     margin: 0;
-}
+}*/
 
+/*
 .viz1 {
     height: 500px;
-    /*margin: 20px;*/
+    margin: 20px;
     display: grid;
     align-content: space-between;
     grid-template-areas: 
@@ -91,16 +105,9 @@ img, span{
         ;      
     grid-template-columns: 1fr; 
     grid-area: v2;
-}
+}*/
 
-#planning_map {
-    height: inherit;
-    width: 100%;
-    grid-area: pm;
-}
-input:checked {
-    background-color: #086fb8;
-}
+
 
 
 /*.decision-checkbox input:checked{
@@ -154,16 +161,16 @@ iPad Pro
     }
 }*/
 /*Desktop*/
-@media screen and (min-width: 1200px)  {
+/*@media screen and (min-width: 1200px)  {
     .wrapper{
         margin: 20px 0px 20px 0px;;
         height: auto;
         width: auto;
         grid-template-rows: 1fr 1fr 1fr;
         grid-template-columns:1fr 1fr 1fr;
-        /*        grid-gap:1em;
+                grid-gap:1em;
                  grid-auto-rows:100px; 
-                grid-auto-rows: minmax(100px, auto);*/
+                grid-auto-rows: minmax(100px, auto);
         grid-template-areas:
             "v1 v1 v2"
             "v1 v1 v3"
@@ -215,7 +222,7 @@ iPad Pro
         grid-template-areas: 
             "pm"
             ;      
-        /*grid-template-columns: 1fr;*/ 
+        grid-template-columns: 1fr; 
         grid-template-rows: auto;
         grid-area: v1;
     }
@@ -245,12 +252,12 @@ iPad Pro
    
 
 
-/*    #type-pie{
+    #type-pie{
         grid-area: tp;
-    }*/
+    }
 
 }
 
 #page > div:nth-child(odd){
     background-color: lightgrey;
-}
+}*/
