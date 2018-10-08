@@ -40,7 +40,7 @@ map.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 map.addLayer(osm);
 
 //console.log("drawing map");
-//var mapHeight = 600;
+var mapHeight = 600;
 var chartHeight = 200;
 /* Parse GeoJSON */
 var jsonFeaturesArr = []; //all the things!
@@ -393,152 +393,152 @@ function makeGraphs(error, records) {
     });
     ;
     //UI elements
-//
-//    var areaSlider = document.getElementById('area-slider');
-//    noUiSlider.create(areaSlider, {
-//        start: [minAreaSize, maxAreaSize],
-//        connect: true,
-//        //tooltips: [ true, true ],
-//        range: {
-//            'min': [minAreaSize, minAreaSize],
-////            '25%': [100.0, 100.0], //TODO: formularise
-//            '50%': [medianAreaSize, medianAreaSize],
-////            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
-//            'max': [maxAreaSize, maxAreaSize]
-//        }
-//    });
-//    areaSlider.noUiSlider.on('update', function (values, handle) {
-////handle = 0 if min-slider is moved and handle = 1 if max slider is moved
-//        if (handle === 0) {
-//            document.getElementById('min-area-nb').value = values[0];
-//        } else {
-//            document.getElementById('max-area-nb').value = values[1];
-//        }
-//        areaDim.filterRange([values[0], values[1]]);
-//        updateMap();
-//        updateCharts();
-////    rangeMin = document.getElementById('input-number-min').value;
-////    rangeMax = document.getElementById('input-number-max').value; 
-//    });
-////handle the Local Authoirty checkboxes
-//
-//    //initialise checkbox to checked only if LA present in data
-//    //disbale checkbox if no data for that LA
-//    //
-////    $(document).ready(function () {
-//    d3.selectAll('.la-checkbox').each(function (d) {
-//        var cb = d3.select(this);
-//        if (authorityNames.includes(cb.property("value"))) {
-//            cb.property("checked", true);
-//        } else {
-//            cb.property("checked", false);
-//            cb.property("disabled", true);
-//        }
-//        ;
-//    });
-////push the LA name into the authorityNamesChecked array if box is ticked and it is in authorityNames
-//    d3.selectAll(".la-checkbox").on('change', function () {
-//        var authorityNamesChecked = []; //list of LAs with checked boxes
-//        d3.selectAll(".la-checkbox").each(function (d) {
-//            var cb = d3.select(this);
-//            if (cb.property("checked")) {
-//                if (authorityNames.includes(cb.property("value"))) {
-//                    authorityNamesChecked.push(cb.property("value"));
-//                }
-//            }
-//        });
-////        console.log("LA Names: " + authorityNames);
-////        console.log("LA Names Checked: " + authorityNamesChecked);
-//        authorityDim.filterFunction(function (d) {
-//            return authorityNamesChecked.includes(d);
-//        });
-//        updateMap();
-//        updateCharts();
-//    });
-//    //handle the decision checkboxes...
-//    //initalise
-//    d3.selectAll('.decision-checkbox').each(function (d) {
-//        var cb = d3.select(this);
-//        if (decisionCategories.includes(cb.property("value"))) {
-//            cb.property("checked", true);
-//        } else {
-//            cb.property("checked", false);
-//            cb.property("disabled", true);
-//        }
-//        ;
-//    });
-////push the decision into the decisionsChecked array if box is ticked and it is in decisionCategories
-//    d3.selectAll(".decision-checkbox").on('change', function () {
-//        var decisionCategoriesChecked = []; //list of LAs with checked boxes
-//        d3.selectAll(".decision-checkbox").each(function (d) {
-//            var cb = d3.select(this);
-//            if (cb.property("checked")) {
-//                if (decisionCategories.includes(cb.property("value"))) {
-//                    decisionCategoriesChecked.push(cb.property("value"));
-//                }
-//            }
-//        });
-//        console.log("Decision categories: " + decisionCategories);
-//        console.log("Decision categories checked: " + decisionCategoriesChecked);
-//        decisionCategoryDim.filterFunction(function (d) {
-//            return decisionCategoriesChecked.includes(d);
-//        });
-//        updateMap();
-//        updateCharts();
-//    });
-//    d3.select("#search-result").html("");
-//    d3.select("#app-number-search").on('change', function () {
-//        let searchQuery = this.value;
-////        console.log("Search for App Number: " + searchQuery + "\n");
-//        appNumberDim.filter(searchQuery);
-//        let len = appNumberDim.top(Infinity).length;
-////        console.log("Size: " + appNumberDim.top(Infinity).length);
-//        if (len === 0) {
-//            appNumberDim.filterAll();
-//            d3.select("#search-result").html("No records found");
-//        } else if (len === 1) {
-//            d3.select("#search-result").html("Found " + len + " record");
-//        } else {
-//            d3.select("#search-result").html("Found " + len + " records");
-//        }
-//        /*TODO: add reset button, clear 'no records'*/
-//
-//        updateCharts();
-//        updateMap();
-//    });
-//    
-//    console.log("d3: "+d3.select("#end_date").node().value);
-//    
-//
-//    d3.select("#start_date").on('input', function () {
-//        var sd = Date.parse(this.value);
-//        var ed = Date.parse(d3.select("#end_date").node().value);
-//        console.log('start date: ' + sd +'\t exisitng end: '+ed);
-//        rDateDim.filterRange([sd, ed]);
-//        updateCharts();
-//        updateMap();
-//    });    
-//
-//    d3.select("#end_date").on('input', function () {
-//        var ed = Date.parse(this.value);
-//        var sd = Date.parse(d3.select("#start_date").node().value);
-//        console.log('end date: ' + ed +'\t exisitng start: '+sd);
-//        rDateDim.filterRange([sd, ed]);
-//        updateCharts();
-//        updateMap();
-//    });     
-//    
-//    var early= new Date(minChartDate);
-//    var day = ("0" + early.getDate()).slice(-2);
-//    var month = ("0" + (early.getMonth() + 1)).slice(-2);
-//    var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
-//    $('#start_date').val(earlyDay);
-//   
-//    var late = new Date(maxChartDate);
-//    day = ("0" + late.getDate()).slice(-2);
-//    month = ("0" + (late.getMonth() + 1)).slice(-2);
-//    var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
-//    $('#end_date').val(lateDay);
+
+    var areaSlider = document.getElementById('area-slider');
+    noUiSlider.create(areaSlider, {
+        start: [minAreaSize, maxAreaSize],
+        connect: true,
+        //tooltips: [ true, true ],
+        range: {
+            'min': [minAreaSize, minAreaSize],
+//            '25%': [100.0, 100.0], //TODO: formularise
+            '50%': [medianAreaSize, medianAreaSize],
+//            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
+            'max': [maxAreaSize, maxAreaSize]
+        }
+    });
+    areaSlider.noUiSlider.on('update', function (values, handle) {
+//handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+        if (handle === 0) {
+            document.getElementById('min-area-nb').value = values[0];
+        } else {
+            document.getElementById('max-area-nb').value = values[1];
+        }
+        areaDim.filterRange([values[0], values[1]]);
+        updateMap();
+        updateCharts();
+//    rangeMin = document.getElementById('input-number-min').value;
+//    rangeMax = document.getElementById('input-number-max').value; 
+    });
+//handle the Local Authoirty checkboxes
+
+    //initialise checkbox to checked only if LA present in data
+    //disbale checkbox if no data for that LA
+    //
+//    $(document).ready(function () {
+    d3.selectAll('.la-checkbox').each(function (d) {
+        var cb = d3.select(this);
+        if (authorityNames.includes(cb.property("value"))) {
+            cb.property("checked", true);
+        } else {
+            cb.property("checked", false);
+            cb.property("disabled", true);
+        }
+        ;
+    });
+//push the LA name into the authorityNamesChecked array if box is ticked and it is in authorityNames
+    d3.selectAll(".la-checkbox").on('change', function () {
+        var authorityNamesChecked = []; //list of LAs with checked boxes
+        d3.selectAll(".la-checkbox").each(function (d) {
+            var cb = d3.select(this);
+            if (cb.property("checked")) {
+                if (authorityNames.includes(cb.property("value"))) {
+                    authorityNamesChecked.push(cb.property("value"));
+                }
+            }
+        });
+//        console.log("LA Names: " + authorityNames);
+//        console.log("LA Names Checked: " + authorityNamesChecked);
+        authorityDim.filterFunction(function (d) {
+            return authorityNamesChecked.includes(d);
+        });
+        updateMap();
+        updateCharts();
+    });
+    //handle the decision checkboxes...
+    //initalise
+    d3.selectAll('.decision-checkbox').each(function (d) {
+        var cb = d3.select(this);
+        if (decisionCategories.includes(cb.property("value"))) {
+            cb.property("checked", true);
+        } else {
+            cb.property("checked", false);
+            cb.property("disabled", true);
+        }
+        ;
+    });
+//push the decision into the decisionsChecked array if box is ticked and it is in decisionCategories
+    d3.selectAll(".decision-checkbox").on('change', function () {
+        var decisionCategoriesChecked = []; //list of LAs with checked boxes
+        d3.selectAll(".decision-checkbox").each(function (d) {
+            var cb = d3.select(this);
+            if (cb.property("checked")) {
+                if (decisionCategories.includes(cb.property("value"))) {
+                    decisionCategoriesChecked.push(cb.property("value"));
+                }
+            }
+        });
+        console.log("Decision categories: " + decisionCategories);
+        console.log("Decision categories checked: " + decisionCategoriesChecked);
+        decisionCategoryDim.filterFunction(function (d) {
+            return decisionCategoriesChecked.includes(d);
+        });
+        updateMap();
+        updateCharts();
+    });
+    d3.select("#search-result").html("");
+    d3.select("#app-number-search").on('change', function () {
+        let searchQuery = this.value;
+//        console.log("Search for App Number: " + searchQuery + "\n");
+        appNumberDim.filter(searchQuery);
+        let len = appNumberDim.top(Infinity).length;
+//        console.log("Size: " + appNumberDim.top(Infinity).length);
+        if (len === 0) {
+            appNumberDim.filterAll();
+            d3.select("#search-result").html("No records found");
+        } else if (len === 1) {
+            d3.select("#search-result").html("Found " + len + " record");
+        } else {
+            d3.select("#search-result").html("Found " + len + " records");
+        }
+        /*TODO: add reset button, clear 'no records'*/
+
+        updateCharts();
+        updateMap();
+    });
+    
+    console.log("d3: "+d3.select("#end_date").node().value);
+    
+
+    d3.select("#start_date").on('input', function () {
+        var sd = Date.parse(this.value);
+        var ed = Date.parse(d3.select("#end_date").node().value);
+        console.log('start date: ' + sd +'\t exisitng end: '+ed);
+        rDateDim.filterRange([sd, ed]);
+        updateCharts();
+        updateMap();
+    });    
+
+    d3.select("#end_date").on('input', function () {
+        var ed = Date.parse(this.value);
+        var sd = Date.parse(d3.select("#start_date").node().value);
+        console.log('end date: ' + ed +'\t exisitng start: '+sd);
+        rDateDim.filterRange([sd, ed]);
+        updateCharts();
+        updateMap();
+    });     
+    
+    var early= new Date(minChartDate);
+    var day = ("0" + early.getDate()).slice(-2);
+    var month = ("0" + (early.getMonth() + 1)).slice(-2);
+    var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
+    $('#start_date').val(earlyDay);
+   
+    var late = new Date(maxChartDate);
+    day = ("0" + late.getDate()).slice(-2);
+    month = ("0" + (late.getMonth() + 1)).slice(-2);
+    var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
+    $('#end_date').val(lateDay);
     
     function updateCharts() {
         timeChart.redraw();
