@@ -29,8 +29,8 @@ class StackedAreaChart {
             bottom: 80
         };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
+        dv.margin.right = elementWidth < breakPoint ? 50 : 150;
+        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
@@ -147,9 +147,12 @@ class StackedAreaChart {
         dv.y.domain([0, maxDateVal]);
 
         dv.drawGridLines();
+        dv.tickNumber =  dv.nestedData.length;
 
         // Update axes
-        dv.xAxisCall.scale(dv.x);
+        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+            return i < dv.tickNumber ? dv.nestedData[i].label : ""; 
+        });
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
 
         dv.yAxisCall.scale(dv.y);

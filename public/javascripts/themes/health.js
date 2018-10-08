@@ -35,7 +35,7 @@ Promise.all([
 
         // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const trolleysChart = new MultiLineChart("#chart-trolleys", "Quarters", "Numbers", [], trolleysType);
+    const trolleysChart = new MultiLineChart("#chart-trolleys",[], trolleysType);
     // 1. Value Key, 2. Data set
     trolleysChart.getData("value", tData, "Quarters", "Numbers");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix

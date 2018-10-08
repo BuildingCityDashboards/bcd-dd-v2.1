@@ -1,10 +1,8 @@
 class MultiLineChart{
 
-    constructor (_Element, _titleX, _titleY, _yLabels, _keys){
+    constructor (_Element, _yLabels, _keys){
         // this.data = _data;
         this.element = _Element;
-        this.titleX = _titleX;
-        this.titleY = _titleY;
         this.yLabels = _yLabels;
         this.keys = _keys;
 
@@ -98,10 +96,8 @@ class MultiLineChart{
         let dv = this;
             dv.yScaleFormat = dv.formatValue(yScaleFormat);
 
-        // typeof _tX === "undefined" ? dv.titleX = dv.titleX : dv.titleX = _tX;
-        // typeof _tY === "undefined" ? dv.titleY = dv.titleY : dv.titleY = _tY;
-            _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
-            _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
+            _tX ? dv.titleX = _tX: dv.titleX = "";
+            _tY ? dv.titleY = _tY: dv.titleY = "";
         
         _data !== null ? dv.data =_data : dv.data = dv.data;
         dv.value = _valueString;
@@ -139,7 +135,10 @@ class MultiLineChart{
         dv.tickNumber =  dv.data[0].values.length;
 
         // Update axes - what about ticks for smaller devices??
-        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber);
+        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+            return i < dv.tickNumber ? dv.data[0].values[i].label : d;
+        });
+        
         // .tickFormat(dv.formatQuarter);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
         

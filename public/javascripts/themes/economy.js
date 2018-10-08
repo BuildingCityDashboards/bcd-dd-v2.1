@@ -27,7 +27,7 @@
         yLabelsB = ["% Change"];
     
         const valueData = QNQ22.map( d => {
-            // d.date = parseTime(d.quarter);
+            d.label = d.quarter;
             d.date = convertQuarter(d.quarter);
             for(var i = 0, n = columnNames.length; i < n; ++i){
                 d[columnNames[i]] = +d[columnNames[i]]; 
@@ -37,7 +37,7 @@
         });
         console.log("With Quarters still the same: ",valueData)
         const valueDataB = annual.map( d => {
-            d.year = d.date;
+            d.label = d.date;
             d.date = parseYear(d.date);
             for(var i = 0, n = columnNamesB.length; i < n; ++i){
                 d[columnNamesB[i]] = +d[columnNamesB[i]]; 
@@ -58,7 +58,7 @@
 
         const grouping = types.map(region => region.key);
 
-        const mlineChart = new MultiLineChart("#chart-employment", "Quarters", "Thousands", yLabels, grouping);
+        const mlineChart = new MultiLineChart("#chart-employment", yLabels, grouping);
         mlineChart.getData(columnNames[0], types);
         mlineChart.addTooltip("", "thousands", "quarter");
 
@@ -274,7 +274,7 @@
             for(var i = 0, n = columnNames.length; i < n; ++i){
 
                 d[columnNames[i]] = +d[columnNames[i]];
-                d.year = d.date;
+                d.label = d.date;
                 d.date = parseYear(d.date);
             }
             return d;
@@ -289,7 +289,7 @@
 
         let grouping = nestData.map(d => d.key);
         
-        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", "Years", "Persons Engaged", xValue, grouping);
+        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", xValue, grouping);
               employeesBySizeChart.getData("value", nestData);
               employeesBySizeChart.addTooltip("Year:", "thousands", "year");
     })

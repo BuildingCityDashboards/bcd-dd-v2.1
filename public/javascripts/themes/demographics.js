@@ -11,7 +11,7 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
           yLabels =["Population (000s)", "Rate %"];
 
     const valueData = data.map( d => {
-            d.year = d.date;
+            d.label = d.date;
             d.date = parseYear(d.date);
             for( var i = 0, n = columnNames.length; i < n; i++ ){
                 d[columnNames[i]] = +d[columnNames[i]];
@@ -29,9 +29,9 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
 
     const grouping = types.map( d => d.key);
 
-    const populationChart = new MultiLineChart("#chart-population", "Years", yLabels[0], yLabels, grouping);
-    populationChart.getData(columnNames[0], types);
-    populationChart.addTooltip("Year: ","","year");  
+    const populationChart = new MultiLineChart("#chart-population",yLabels, grouping);
+        populationChart.getData(columnNames[0], types, "years", yLabels[0]);
+        populationChart.addTooltip("Year: ","","label");  
 
     d3.select(".demographics_count").on("click", function(){
         populationChart.getData(columnNames[0], types);

@@ -43,7 +43,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const wasteChart = new MultiLineChart("#chart-waste", "Years", "Kg", [], wasteRegionNames);
+    const wasteChart = new MultiLineChart("#chart-waste", [], wasteRegionNames);
     
     // 1. Value Key, 2. Data set, 3. x axis title, 4. y axis title
     wasteChart.getData(wasteType[0], wasteDataNested, "Years", "Kg");
@@ -136,7 +136,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const localagendasChart = new MultiLineChart("#chart-localagendas", "Years", "Number of Projects", [], localagendasRegionNames);
+    const localagendasChart = new MultiLineChart("#chart-localagendas", [], localagendasRegionNames);
     
     // 1. Value Key, 2. Data set, 3. x axis title, 4. y axis title
     localagendasChart.getData(localagendasType[0], localagendasDataNested, "Years", "Number of Projects");

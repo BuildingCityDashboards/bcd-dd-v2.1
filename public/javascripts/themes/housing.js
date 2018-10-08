@@ -32,23 +32,20 @@ Promise.all([
             d[dateField] = parseMonth(d[dateField]);
           });
 
-    const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
+    const dateFilter = filterbyDate(compDataProcessed, dateField, "Sept 01 2017");
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
         houseCompCharts.getData(dateFilter);
-        houseCompCharts.addTooltip("Units - Months:", "000");
+        houseCompCharts.addTooltip("Units by Month:", "000");
+
+
 
     //2.  data processing for planning charts.
     const planningData = datafiles[1],
           types = planningData.columns.slice(2),
           date = planningData.columns[0],
           planningDataProcessed = dataSets(planningData, types);
-
-          planningDataProcessed.forEach(function(d) {
-            d.label = d.date;
-            d.date = parseYear(d.date);
-          });
 
     const dcc = planningDataProcessed.filter( d => {
         return d.region === "Dublin";
@@ -96,7 +93,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const supplyChart = new MultiLineChart("#chart-houseSupply", "years", "Hectares", yLabels2, supplyRegionNames);
+    const supplyChart = new MultiLineChart("#chart-houseSupply", yLabels2, supplyRegionNames);
     // 1. Value Key, 2. Data set
     supplyChart.getData("Hectares", supplyDataNested, "Years", "Hectares");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
@@ -143,7 +140,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const contributionChart = new MultiLineChart("#chart-houseContributions", "years", "€", yLabels2, contributionRegionNames);
+    const contributionChart = new MultiLineChart("#chart-houseContributions", yLabels2, contributionRegionNames);
     // 1. Value Key, 2. Data set
     contributionChart.getData("value", contributionDataNested, "Years", "€", "millions");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
@@ -159,15 +156,17 @@ Promise.all([
           yLabels4 = [];
     
     housePricesDataProcessed.forEach( d => {
-        d.label = qToQuarter(d[housePricesDate]);
+        d.label = (d[housePricesDate]);
         d[housePricesDate] = convertQuarter(d[housePricesDate]);
     });
+
+    const hPricesFiltered  = filterbyDate(housePricesDataProcessed, housePricesDate, "Jan 01 2015");
 
     // need to convert date field to readable js date format
 
     // nest the processed data by regions
         const housePricesDataNested =  d3.nest().key( d => { return d[housePricesRegions];})
-            .entries(housePricesDataProcessed);
+            .entries(hPricesFiltered);
     // get array of keys from nest
         const housePricesRegionNames = [];
         housePricesDataNested.forEach(d => {
@@ -176,7 +175,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const housePricesChart = new MultiLineChart("#chart-housePrices", "Quarters", "€", yLabels4, housePricesRegionNames);
+    const housePricesChart = new MultiLineChart("#chart-housePrices", yLabels4, housePricesRegionNames);
     // 1. Value Key, 2. Data set
     housePricesChart.getData("value", housePricesDataNested, "Quarters", "€", "thousands");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
@@ -198,9 +197,12 @@ Promise.all([
 
     // need to convert date field to readable js date format
 
+    const rentPricesFiltered  = filterbyDate(rentPricesDataProcessed, rentPricesDate, "Jan 01 2015");
+
     // nest the processed data by regions
         const rentPricesDataNested =  d3.nest().key( d => { return d[rentPricesRegions];})
-            .entries(rentPricesDataProcessed);
+            .entries(rentPricesFiltered);
+            
     // get array of keys from nest
         const rentPricesRegionNames = [];
         rentPricesDataNested.forEach(d => {
@@ -209,7 +211,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const rentPricesChart = new MultiLineChart("#chart-rentPrices", "Quarters", "€", yLabels4, rentPricesRegionNames);
+    const rentPricesChart = new MultiLineChart("#chart-rentPrices", yLabels4, rentPricesRegionNames);
     // 1. Value Key, 2. Data set
     rentPricesChart.getData("value", rentPricesDataNested, "Quarters", "€", "thousands");
     // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
@@ -246,7 +248,7 @@ Promise.all([
           houseCompByTypeDataProcessed = dataSets(houseCompByTypeData, houseCompByTypeType);
     
     houseCompByTypeDataProcessed.forEach( d => {
-        d.label = qToQuarter(d[houseCompByTypeDate]);
+        d.label = (d[houseCompByTypeDate]);
         d[houseCompByTypeDate] = convertQuarter(d[houseCompByTypeDate]);
     });
 
@@ -263,7 +265,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const houseCompByTypeChart = new MultiLineChart("#chart-houseCompByType", "Quarters", "Numbers", yLabels2, houseCompByTypeRegionNames);
+    const houseCompByTypeChart = new MultiLineChart("#chart-houseCompByType", yLabels2, houseCompByTypeRegionNames);
     // 1. Value Key, 2. Data set
     houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Quarters", "Numbers");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
@@ -300,13 +302,13 @@ Promise.all([
           nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
     
           nonNewConnectionsDataProcessed.forEach( d => {
-              d.label = qToQuarter(d[nonNewConnectionsDate]);
+              d.label = (d[nonNewConnectionsDate]);
               d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
           });
 
     let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
 
-    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jun 01 2015");
+    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2017");
 
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
     
@@ -323,7 +325,7 @@ Promise.all([
           newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType);
     
           newCompByTypeDataProcessed.forEach( d => {
-              d.label = qToQuarter(d[newCompByTypeDate]);
+              d.label = (d[newCompByTypeDate]);
               d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate]);
           });
 
@@ -340,7 +342,7 @@ Promise.all([
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const newCompByTypeChart = new MultiLineChart("#chart-newCompByType", "Quarters", "Numbers", yLabels2, newCompByTypeRegionNames);
+    const newCompByTypeChart = new MultiLineChart("#chart-newCompByType", yLabels2, newCompByTypeRegionNames);
     // 1. Value Key, 2. Data set
     newCompByTypeChart.getData(newCompByTypeType[0], newCompByTypeDataNested, "Quarters", "Numbers");
     // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
