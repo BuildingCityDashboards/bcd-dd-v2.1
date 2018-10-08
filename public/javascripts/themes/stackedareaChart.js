@@ -160,6 +160,11 @@ class StackedAreaChart {
             .x(function(d) { return dv.x((d.data[dv.date]))})
             .y0(function(d) { return dv.y(d[0]); })
             .y1(function(d) { return dv.y(d[1]); });
+        
+        dv.arealine = d3.line()
+            .curve(dv.area.curve())
+            .x(d => {return dv.x((d.data[dv.date]))})
+            .y(d => {return dv.y(d[1])});
 
          // d3 stack function
         dv.stack = d3.stack().keys(dv.keys);
@@ -175,7 +180,10 @@ class StackedAreaChart {
 
         // select all regions and join data with old
         const regions = dv.g.selectAll(".region")
-            .data(dv.data);
+            .data(dv.data)
+            .enter()
+            .append("g")
+            .attr("class", "region");
         
         // Exit old elements not present in new data.
         // regions.exit()
@@ -183,23 +191,35 @@ class StackedAreaChart {
         //     .attr("y", y(0))
         //     .attr("height", 0)
         //     .remove();
-
-        // update the paths
-        regions.select(".area")
-            .transition(dv.t)
-            .attr("d", dv.area);
-
+        
         // Enter elements
-        regions.enter().append("g")
-            .attr("class", "region")
-            .append("path")
+        regions.append("path")
                 .attr("class", "area")
                 // .transition(t)
                 .attr("d", dv.area)
                 .style("fill", function(d){
                     return dv.colour(d.key);
                 })
-                .style("fill-opacity", 0.75);
+                .style("fill-opacity", 0.7);
+
+        // Enter elements
+        regions.append("path")
+                .attr("class", "area-line")
+                // .transition(t)
+                .attr("d", dv.arealine)
+                .style("stroke", function(d){
+                    return dv.colour(d.key);
+                });
+
+        // update the paths
+        regions.select(".area")
+                .transition(dv.t)
+                .attr("d", dv.area);
+    
+        regions.select(".area-line")
+                .transition(dv.t)
+                .attr("d", dv.arealine);
+
     }
 
     addLegend(){
@@ -336,17 +356,10 @@ class StackedAreaChart {
             
             // attach group append circle and text for each region
 
+            // let reverseData = dv.keys;
+            // reverseData.reverse();
+
             dv.keys.forEach( (d,i) => {
-                let tooltip = dv.g.select(".focus-circles")
-                    .append("g")
-                    .attr("class", "tooltip_" + i);
-    
-                tooltip.append("circle")
-                    .attr("r", 0)
-                    .transition(dv.t)
-                    .attr("r", 5)
-                    .attr("fill", dv.colour(d))
-                    .attr("stroke", dv.colour(d));
                 
                 dv.updateTooltip(d,i);
 
@@ -378,10 +391,10 @@ class StackedAreaChart {
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
 
                 dv.updatePosition(mouse[0], 10);
-
+                let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
 
-                    // console.log(reg, idx);
+                    console.log(reg, idx);
                     let dvalue = dv.data[idx]; 
 
                     let dd0 = dvalue[i - 1],
@@ -395,7 +408,7 @@ class StackedAreaChart {
                         
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
-                        tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
+                        tooltipBody.attr("transform", "translate(5," + (length-idx) * 25 +")");
                     
                     if(d !== undefined){
                         tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1]) + ")");
@@ -455,6 +468,17 @@ class StackedAreaChart {
 
     updateTooltip(d,i){
         let dv = this;
+
+        let tooltip = dv.g.select(".focus-circles")
+            .append("g")
+            .attr("class", "tooltip_" + i);
+
+            tooltip.append("circle")
+                .attr("r", 0)
+                .transition(dv.t)
+                .attr("r", 5)
+                .attr("fill", dv.colour(d))
+                .attr("stroke", dv.colour(d));
 
         let tooltipBodyItem = dv.g.select(".tooltip-body")
             .append("g")

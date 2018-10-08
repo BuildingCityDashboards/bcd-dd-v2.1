@@ -285,7 +285,7 @@ class GroupedBarChart{
 
     textWrap(text, width, xpos = 0, limit=3) {
         text.each(function() {
-            var words,
+            let words,
                 word,
                 line,
                 lineNumber,

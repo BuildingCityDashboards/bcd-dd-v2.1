@@ -30,6 +30,10 @@ Promise.all([
             d[dateField] = parseMonth(d[dateField]);
           });
 
+          const dateFilter = compDataProcessed.filter( d => {
+            return d[dateField] >= new Date("Mar 01 2017");
+        });
+
     // let regionNames = completionData.columns.slice(1);
     // let houseCompData = completionData.columns.slice(1).map(function(region) {
     //     return {
@@ -43,7 +47,7 @@ Promise.all([
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-        houseCompCharts.getData(completionData);
+        houseCompCharts.getData(dateFilter);
         houseCompCharts.addTooltip("Units - Months:", "000");
 
     // // setup the chart for house completion
@@ -287,7 +291,7 @@ Promise.all([
     d3.select("#houseCompByType_total").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Years", "Hectares");
+        houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Years", "Units");
         houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
     });
     
@@ -305,38 +309,38 @@ Promise.all([
         houseCompByTypeChart.addTooltip("Social Houses - ", "thousands", "label");
     });
 
-
     // setup chart and data for esb non new connections of land chart
     // process the data
     const nonNewConnectionsData = datafiles[9],
           nonNewConnectionsType = nonNewConnectionsData.columns.slice(2),
           nonNewConnectionsDate = nonNewConnectionsData.columns[0],
           nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
-          nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType);
+          nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
+          nonNewGroup = ["Non-Domestic", "Reconnection", "Unfinished"]
     
     nonNewConnectionsDataProcessed.forEach( d => {
         d.label = qToQuarter(d[nonNewConnectionsDate]);
         d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
     });
 
-    // need to convert date field to readable js date format
+    let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
 
-    // nest the processed data by regions
-        const nonNewConnectionsDataNested =  d3.nest().key( d => { return d[nonNewConnectionsRegions];})
-            .entries(nonNewConnectionsDataProcessed);
-    // get array of keys from nest
-        const nonNewConnectionsRegionNames = [];
-        nonNewConnectionsDataNested.forEach(d => {
-                nonNewConnectionsRegionNames.push(d.key);
-        });
+    const nonNewConFiltered = nonNewCon.filter( d => {
+        return d[dateField] >= new Date("Jun 01 2015");
+    });
 
-    // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const nonNewConnectionsChart = new MultiLineChart("#chart-nonNewConnections", "Quarters", "Numbers", yLabels2, nonNewConnectionsRegionNames);
-    // 1. Value Key, 2. Data set
-    nonNewConnectionsChart.getData(nonNewConnectionsType[0], nonNewConnectionsDataNested, "Quarters", "Numbers");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    nonNewConnectionsChart.addTooltip("House Type - ", "thousands", "label");
+    const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
+    // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+    nonNewConnectionsChart.getData(nonNewConFiltered);
+    nonNewConnectionsChart.addTooltip("House Type -", "Units");
+
+    // // draw the chart
+    // // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
+    // const nonNewConnectionsChart = new MultiLineChart("#chart-nonNewConnections", "Quarters", "Numbers", yLabels2, nonNewConnectionsRegionNames);
+    // // 1. Value Key, 2. Data set
+    // nonNewConnectionsChart.getData(nonNewConnectionsType[0], nonNewConnectionsDataNested, "Quarters", "Numbers");
+    // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
+    // nonNewConnectionsChart.addTooltip("House Type - ", "thousands", "label");
 
 
     // setup chart and data for New Dwelling Completion by type chart
@@ -407,4 +411,22 @@ function formatQuarter(date){
     let year = (date.getFullYear());
     let q = Math.ceil(( newDate.getMonth()) / 3 );
     return "Quarter "+ q + ' ' + year;
+}
+
+function nestData(data, label, name, value){
+        let nested_data = d3.nest()
+            .key(function(d) { return d[label]; })
+            .entries(data); // its the string not the date obj
+
+        let mqpdata = nested_data.map(function(d){
+            let obj = {
+                label: d.key
+            }
+                d.values.forEach(function(v){
+                obj[v[name]] = v[value];
+                obj.date = v.date;
+            })
+        return obj;
+      })
+    return mqpdata;
 }
