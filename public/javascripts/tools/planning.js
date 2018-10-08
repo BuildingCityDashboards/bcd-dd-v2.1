@@ -243,7 +243,7 @@ function makeGraphs(error, records) {
         }
 
 
-    }); 
+    });
 
     //Create a Crossfilter instance
     var planningXF = crossfilter(records);
@@ -320,7 +320,7 @@ function makeGraphs(error, records) {
     } //returns the whole record with earliest date that's not null or zero
     d3.select("#start_date").value = minChartDate;
     maxChartDate = rDateDim.top(1)[0].properties.ReceivedDate;
-    
+
     if (maxChartDate > now) {
         maxChartDate = now;
     }
@@ -345,7 +345,7 @@ function makeGraphs(error, records) {
 
 
     timeChart
-            .width(600)
+            .width(400)
             .height(chartHeight / 2)
             .brushOn(true)
             .margins({top: 10, right: 50, bottom: 20, left: 40})
@@ -358,7 +358,7 @@ function makeGraphs(error, records) {
             .yAxis().ticks(4);
     timeChart.render();
     sizeChart
-            .width(600)
+            .width(400)
             .height(chartHeight / 2)
             .brushOn(true)
             .margins({top: 10, right: 50, bottom: 20, left: 40})
@@ -371,7 +371,7 @@ function makeGraphs(error, records) {
             .yAxis().ticks(4);
     sizeChart.render();
     decisionChart
-            .width(600)
+            .width(400)
             .height(chartHeight)
             .dimension(decisionCategoryDim)
             .group(decisionCategoryGroup)
@@ -384,6 +384,8 @@ function makeGraphs(error, records) {
             ;
     decisionChart.render();
     dcCharts = [timeChart, sizeChart, decisionChart];
+    
+    
 ////Update the map if any dc chart gets filtered
     _.each(dcCharts, function (dcChart) {
         dcChart.on("filtered", function (chart, filter) {
@@ -394,32 +396,48 @@ function makeGraphs(error, records) {
     ;
     //UI elements
 //
-//    var areaSlider = document.getElementById('area-slider');
-//    noUiSlider.create(areaSlider, {
-//        start: [minAreaSize, maxAreaSize],
-//        connect: true,
-//        //tooltips: [ true, true ],
-//        range: {
-//            'min': [minAreaSize, minAreaSize],
-////            '25%': [100.0, 100.0], //TODO: formularise
-//            '50%': [medianAreaSize, medianAreaSize],
-////            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
-//            'max': [maxAreaSize, maxAreaSize]
-//        }
-//    });
-//    areaSlider.noUiSlider.on('update', function (values, handle) {
-////handle = 0 if min-slider is moved and handle = 1 if max slider is moved
+    var areaSlider = document.getElementById('area-slider');
+    noUiSlider.create(areaSlider, {
+        start: [minAreaSize, maxAreaSize],
+        connect: true,
+        //tooltips: [ true, true ],
+        range: {
+            'min': [minAreaSize, minAreaSize],
+//            '25%': [100.0, 100.0], //TODO: formularise
+            '50%': [medianAreaSize, medianAreaSize],
+//            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
+            'max': [maxAreaSize, maxAreaSize]
+        }
+    });
+    areaSlider.noUiSlider.on('update', function (values, handle) {
+//handle = 0 if min-slider is moved and handle = 1 if max slider is moved
 //        if (handle === 0) {
 //            document.getElementById('min-area-nb').value = values[0];
 //        } else {
 //            document.getElementById('max-area-nb').value = values[1];
 //        }
-//        areaDim.filterRange([values[0], values[1]]);
-//        updateMap();
-//        updateCharts();
-////    rangeMin = document.getElementById('input-number-min').value;
-////    rangeMax = document.getElementById('input-number-max').value; 
-//    });
+        areaDim.filterRange([values[0], values[1]]);
+        updateMap();
+        updateCharts();
+//    rangeMin = document.getElementById('input-number-min').value;
+//    rangeMax = document.getElementById('input-number-max').value; 
+    });
+
+
+    var dateSlider = document.getElementById('date-slider');
+    noUiSlider.create(dateSlider, {
+        start: [minChartDate, maxChartDate],
+        connect: true,
+        //tooltips: [ true, true ],
+        range: {
+            'min' : minChartDate, 
+            'max': maxChartDate
+        }
+    });
+
+
+
+
 ////handle the Local Authoirty checkboxes
 //
 //    //initialise checkbox to checked only if LA present in data
@@ -486,60 +504,59 @@ function makeGraphs(error, records) {
 //        updateMap();
 //        updateCharts();
 //    });
-//    d3.select("#search-result").html("");
-//    d3.select("#app-number-search").on('change', function () {
-//        let searchQuery = this.value;
-////        console.log("Search for App Number: " + searchQuery + "\n");
-//        appNumberDim.filter(searchQuery);
-//        let len = appNumberDim.top(Infinity).length;
-////        console.log("Size: " + appNumberDim.top(Infinity).length);
-//        if (len === 0) {
-//            appNumberDim.filterAll();
-//            d3.select("#search-result").html("No records found");
-//        } else if (len === 1) {
-//            d3.select("#search-result").html("Found " + len + " record");
-//        } else {
-//            d3.select("#search-result").html("Found " + len + " records");
-//        }
-//        /*TODO: add reset button, clear 'no records'*/
-//
-//        updateCharts();
-//        updateMap();
-//    });
+    d3.select("#search-result").html("");
+    d3.select("#app-number-search").on('change', function () {
+        let searchQuery = this.value;
+        console.log("Search for App Number: " + searchQuery + "\n");
+        appNumberDim.filter(searchQuery);
+        let len = appNumberDim.top(Infinity).length;
+//        console.log("Size: " + appNumberDim.top(Infinity).length);
+        if (len === 0) {
+            appNumberDim.filterAll();
+            d3.select("#search-result").html("No records found");
+        } else if (len === 1) {
+            d3.select("#search-result").html("Found " + len + " record");
+        } else {
+            d3.select("#search-result").html("Found " + len + " records");
+        }
+        /*TODO: add reset button, clear 'no records'*/
+        updateCharts();
+        updateMap();
+    });
 //    
 //    console.log("d3: "+d3.select("#end_date").node().value);
 //    
 //
-//    d3.select("#start_date").on('input', function () {
-//        var sd = Date.parse(this.value);
-//        var ed = Date.parse(d3.select("#end_date").node().value);
-//        console.log('start date: ' + sd +'\t exisitng end: '+ed);
-//        rDateDim.filterRange([sd, ed]);
-//        updateCharts();
-//        updateMap();
-//    });    
-//
-//    d3.select("#end_date").on('input', function () {
-//        var ed = Date.parse(this.value);
-//        var sd = Date.parse(d3.select("#start_date").node().value);
-//        console.log('end date: ' + ed +'\t exisitng start: '+sd);
-//        rDateDim.filterRange([sd, ed]);
-//        updateCharts();
-//        updateMap();
-//    });     
-//    
-//    var early= new Date(minChartDate);
-//    var day = ("0" + early.getDate()).slice(-2);
-//    var month = ("0" + (early.getMonth() + 1)).slice(-2);
-//    var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
-//    $('#start_date').val(earlyDay);
-//   
-//    var late = new Date(maxChartDate);
-//    day = ("0" + late.getDate()).slice(-2);
-//    month = ("0" + (late.getMonth() + 1)).slice(-2);
-//    var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
-//    $('#end_date').val(lateDay);
+    d3.select("#start_date").on('input', function () {
+        var sd = Date.parse(this.value);
+        var ed = Date.parse(d3.select("#end_date").node().value);
+        console.log('start date: ' + sd +'\t exisitng end: '+ed);
+        rDateDim.filterRange([sd, ed]);
+        updateCharts();
+        updateMap();
+    });    
+
+    d3.select("#end_date").on('input', function () {
+        var ed = Date.parse(this.value);
+        var sd = Date.parse(d3.select("#start_date").node().value);
+        console.log('end date: ' + ed +'\t exisitng start: '+sd);
+        rDateDim.filterRange([sd, ed]);
+        updateCharts();
+        updateMap();
+    });     
     
+    var early= new Date(minChartDate);
+    var day = ("0" + early.getDate()).slice(-2);
+    var month = ("0" + (early.getMonth() + 1)).slice(-2);
+    var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
+    $('#start_date').val(earlyDay);
+   
+    var late = new Date(maxChartDate);
+    day = ("0" + late.getDate()).slice(-2);
+    month = ("0" + (late.getMonth() + 1)).slice(-2);
+    var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
+    $('#end_date').val(lateDay);
+
     function updateCharts() {
         timeChart.redraw();
         sizeChart.redraw();

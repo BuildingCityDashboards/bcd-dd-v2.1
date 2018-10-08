@@ -1,25 +1,22 @@
 <div class="container-fluid">
+    <!--//top padding hack-->
     <div class="row">
-        <div class="col-md-4">
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-
+        <br>
+        <br>
+        <br>
+    </div>    
+    
+    <div class="row">
+        <div class="col-md-2">
+            <p>Search application number: </p>
         </div>
-        <div class="col-md-4">
-            <form role="form">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">
-                        Application Number
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-                <button type="submit" class="btn btn-bcd">
-                    Search
-                </button>
-            </form>
+        <div class="col-md-2">
+            <input type="text" id="app-number-search" 
+                   style="width:inherit; height:auto; padding: 0px; margin: 0px"/>
         </div>
-        <div class="col-md-4">
+        <div id="search-result" class="col-md-2">
+        </div>
+        <div class="col-md-5">
         </div>
     </div>
     <div class="row">
@@ -29,191 +26,76 @@
 
                     <div class ="tool-map" id="planning-map">
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    Chart
+                    <div id="decision-row-chart"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    Chart
+                    <div id="time-chart">
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    Chart
+                    <div id="size-chart">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <!--//top padding hack-->
     <div class="row">
-        <div class="col-md-1">
-            <button type="button" class="btn btn-bcd">
-            </button>
-        </div>
-        <div class="col-md-2">
-            <p>
-                Local Authority
-            </p>
-        </div>
-        <div class="col-md-8">
-            <div class="btn-group" role="group">
-                <button class="btn btn-bcd" >
-                    Dublin City
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Dublin South
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Dun-Laoighre/Rathdown
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Fingal
-                </button>
-            </div>
-        </div>
-        <div class="col-md-1">
-            halp
-        </div>
-
+        <br>
     </div>
     <div class="row">
         <div class="col-md-1">
-
-            <button type="button" class="btn btn-bcd">
-
-            </button>
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
         </div>
         <div class="col-md-2">
             <p>
-                Decision type
+                Date range	
             </p>
-        </div>
-        <div class="col-md-8">
-            <div class="btn-group" role="group">
-
-                <button class="btn btn-bcd" type="button">
-                    Grant
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Refuse
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Other
-                </button> 
-                <button class="btn btn-bcd" type="button">
-                    Invalid
-                </button>
-            </div>
         </div>
         <div class="col-md-1">
-            halp
+
+            <input type="date" id="start_date" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px"/>
         </div>
 
-    </div>
-    <div class="row">
-        <div class="col-md-1">			 
-            <button type="button" class="btn btn-bcd">
+        <div id="date-slider" class="col-md-2"></div>
 
-            </button>
+        <div class="col-md-1">  
+            <input type="date" id="end_date" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px"/>
         </div>
-        <div class="col-md-2">
-            <p>
-                Date range
-            </p>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div class="form-group">
 
-                    <label for="exampleInputEmail1">
-                        Start date
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div class="form-group">
-
-                    <label for="exampleInputEmail1">
-                        Slider
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div class="form-group">
-
-                    <label for="exampleInputEmail1">
-                        End date
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-            </form>
+        <div class="col-md-5">
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-1">			 
-            <button type="button" class="btn btn-bcd">
-
-            </button>
-        </div>
-        <div class="col-md-2">
-            <p>
-                Size range
-            </p>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div class="form-group">
-
-                    <label for="exampleInputEmail1">
-                        Min area
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div id="area-slider">
-
-                </div>
-            </form>
-        </div>
-        <div class="col-md-3">
-            <form role="form">
-                <div class="form-group">
-
-                    <label for="exampleInputEmail1">
-                        Max area
-                    </label>
-                    <input type="email" class="form-control" id="exampleInputEmail1">
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-1">
-            <button type="button" class="btn btn-bcd">
-            </button>
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
         </div>
         <div class="col-md-2">
             <p>
-                *	
+                Local Authority	
             </p>
         </div>
-
         <div class="col-md-1">
             <button class="btn btn-bcd btn-block" type="button">
                 DCC
@@ -221,12 +103,12 @@
         </div>
         <div class="col-md-1">  
             <button class="btn btn-bcd btn-block" type="button">
-                SDC
+                SDCC
             </button>
         </div>
         <div class="col-md-1">
             <button class="btn btn-bcd btn-block" type="button">
-                DLR
+                DL/RCC
             </button> 
         </div>
         <div class="col-md-1">
@@ -234,15 +116,82 @@
                 FCC
             </button>
         </div>
-        <div class="col-md-5">*
+        <div class="col-md-5">
         </div>
     </div>
+
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-1">
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
+            <p>
+                Decision	
+            </p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Grant
+            </button> 
+        </div>
+        <div class="col-md-1">  
+            <button class="btn btn-bcd btn-block" type="button">
+                Refuse
+            </button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Invalid
+            </button> 
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Other
+            </button>
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>  
+
+    <div class="row">
+        <div class="col-md-1">
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
+        </div>
+        <div class="col-md-2">
+            <p>
+                Size range	
+            </p>
+        </div>
+        <div class="col-md-1">
+            <input type="number" id="min-area-nb" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px" />
+            <!--            <p>Min</p>-->
+        </div>
+
+        <div id="area-slider" class="col-md-2">
+
+        </div>
+        <div   class="col-md-1">  
+            <input type="number" id="max-area-nb" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px" />
+            <!--<p>Max</p>-->
+        </div>
+        <div class="col-md-5">
         </div>
     </div>
+
+
+
+
+
 </div>
