@@ -5,6 +5,8 @@ let parseTime = d3.timeParse("%d/%m/%Y"),
     parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
     parseYear = d3.timeParse("%Y");
 
+const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
+
 Promise.all([
     d3.csv("../data/Housing/constructionsmonthlies.csv"),
     d3.csv("../data/Housing/planningapplications.csv"),
@@ -21,28 +23,21 @@ Promise.all([
 
     //1.  data processing for house completion chart
     const completionData = datafiles[0],
-          yLabels = [];
+          keys = completionData.columns.slice(1),
+          dateField = completionData.columns[0],
+          compDataProcessed = dataSets(completionData, keys);
 
-    let regionNames = completionData.columns.slice(1);
-    let houseCompData = completionData.columns.slice(1).map(function(region) {
-        return {
-          key: region,
-          values: completionData.map(function(d) {
-            return {label: d.date, date: parseMonth(d.date),  value: +d[region]};
-          }),
-          disabled: false
-        };
-      });
+          compDataProcessed.forEach(function(d) {
+            d.label = d[dateField];
+            d[dateField] = parseMonth(d[dateField]);
+          });
 
-      console.log("house completion data set after processing", houseCompData);
+    const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
-    // setup the chart for house completion
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const houseCompChart = new MultiLineChart("#chart-houseComp", "Months", "Units", yLabels, regionNames);
-    // 1. Value Key, 2. Data set
-    houseCompChart.getData("value", houseCompData);
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    houseCompChart.addTooltip("Units - ","thousands", "label");
+    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
+        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+        houseCompCharts.getData(dateFilter);
+        houseCompCharts.addTooltip("Units - Months:", "000");
 
     //2.  data processing for planning charts.
     const planningData = datafiles[1],
@@ -50,7 +45,10 @@ Promise.all([
           date = planningData.columns[0],
           planningDataProcessed = dataSets(planningData, types);
 
-    // console.log("planning data processed", planningDataProcessed);
+          planningDataProcessed.forEach(function(d) {
+            d.label = d.date;
+            d.date = parseYear(d.date);
+          });
 
     const dcc = planningDataProcessed.filter( d => {
         return d.region === "Dublin";
@@ -64,7 +62,6 @@ Promise.all([
     const sdcc = planningDataProcessed.filter( d => {
         return d.region === "South Dublin";
     });
-    console.log("NEW DATA", sdcc);
 
     // drawing charts for planning data.
     const dccChart = new GroupedBarChart(dcc, types, date, "#chart-planningDCC", "Years", "Number");
@@ -97,7 +94,6 @@ Promise.all([
                 supplyRegionNames.push(d.key);
         });
 
-    console.log("processed supply data", supplyDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const supplyChart = new MultiLineChart("#chart-houseSupply", "years", "Hectares", yLabels2, supplyRegionNames);
@@ -145,7 +141,6 @@ Promise.all([
                 contributionRegionNames.push(d.key);
         });
 
-    console.log("processed contribution data", contributionDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const contributionChart = new MultiLineChart("#chart-houseContributions", "years", "€", yLabels2, contributionRegionNames);
@@ -179,7 +174,6 @@ Promise.all([
                 housePricesRegionNames.push(d.key);
         });
 
-    console.log("processed housePrices data", housePricesDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const housePricesChart = new MultiLineChart("#chart-housePrices", "Quarters", "€", yLabels4, housePricesRegionNames);
@@ -267,7 +261,6 @@ Promise.all([
                 houseCompByTypeRegionNames.push(d.key);
         });
 
-    console.log("processed houseCompByType data", houseCompByTypeDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const houseCompByTypeChart = new MultiLineChart("#chart-houseCompByType", "Quarters", "Numbers", yLabels2, houseCompByTypeRegionNames);
@@ -279,7 +272,7 @@ Promise.all([
     d3.select("#houseCompByType_total").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Years", "Hectares");
+        houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Years", "Units");
         houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
     });
     
@@ -297,40 +290,29 @@ Promise.all([
         houseCompByTypeChart.addTooltip("Social Houses - ", "thousands", "label");
     });
 
-
     // setup chart and data for esb non new connections of land chart
     // process the data
     const nonNewConnectionsData = datafiles[9],
           nonNewConnectionsType = nonNewConnectionsData.columns.slice(2),
           nonNewConnectionsDate = nonNewConnectionsData.columns[0],
           nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
-          nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType);
+          nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
+          nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
     
-    nonNewConnectionsDataProcessed.forEach( d => {
-        d.label = qToQuarter(d[nonNewConnectionsDate]);
-        d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
-    });
+          nonNewConnectionsDataProcessed.forEach( d => {
+              d.label = qToQuarter(d[nonNewConnectionsDate]);
+              d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
+          });
 
-    // need to convert date field to readable js date format
+    let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
 
-    // nest the processed data by regions
-        const nonNewConnectionsDataNested =  d3.nest().key( d => { return d[nonNewConnectionsRegions];})
-            .entries(nonNewConnectionsDataProcessed);
-    // get array of keys from nest
-        const nonNewConnectionsRegionNames = [];
-        nonNewConnectionsDataNested.forEach(d => {
-                nonNewConnectionsRegionNames.push(d.key);
-        });
+    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jun 01 2015");
 
-    console.log("processed nonNewConnections data", nonNewConnectionsDataNested);
-    // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const nonNewConnectionsChart = new MultiLineChart("#chart-nonNewConnections", "Quarters", "Numbers", yLabels2, nonNewConnectionsRegionNames);
-    // 1. Value Key, 2. Data set
-    nonNewConnectionsChart.getData(nonNewConnectionsType[0], nonNewConnectionsDataNested, "Quarters", "Numbers");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    nonNewConnectionsChart.addTooltip("House Type - ", "thousands", "label");
-
+    const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
+    
+    // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+    nonNewConnectionsChart.getData(nonNewConFiltered);
+    nonNewConnectionsChart.addTooltip("House Type -", "Units");
 
     // setup chart and data for New Dwelling Completion by type chart
     // process the data
@@ -340,10 +322,10 @@ Promise.all([
           newCompByTypeRegions = newCompByTypeData.columns[1],
           newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType);
     
-    newCompByTypeDataProcessed.forEach( d => {
-        d.label = qToQuarter(d[newCompByTypeDate]);
-        d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate]);
-    });
+          newCompByTypeDataProcessed.forEach( d => {
+              d.label = qToQuarter(d[newCompByTypeDate]);
+              d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate]);
+          });
 
     // need to convert date field to readable js date format
 
@@ -356,7 +338,6 @@ Promise.all([
                 newCompByTypeRegionNames.push(d.key);
         });
 
-    console.log("processed newCompByType data", newCompByTypeDataNested);
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const newCompByTypeChart = new MultiLineChart("#chart-newCompByType", "Quarters", "Numbers", yLabels2, newCompByTypeRegionNames);
@@ -401,4 +382,28 @@ function formatQuarter(date){
     let year = (date.getFullYear());
     let q = Math.ceil(( newDate.getMonth()) / 3 );
     return "Quarter "+ q + ' ' + year;
+}
+
+function filterbyDate(data, dateField, date){
+    return data.filter( d => {
+        return d[dateField] >= new Date(date);
+    });
+}
+
+function nestData(data, label, name, value){
+        let nested_data = d3.nest()
+            .key(function(d) { return d[label]; })
+            .entries(data); // its the string not the date obj
+
+        let mqpdata = nested_data.map(function(d){
+            let obj = {
+                label: d.key
+            }
+                d.values.forEach(function(v){
+                obj[v[name]] = v[value];
+                obj.date = v.date;
+            })
+        return obj;
+      })
+    return mqpdata;
 }

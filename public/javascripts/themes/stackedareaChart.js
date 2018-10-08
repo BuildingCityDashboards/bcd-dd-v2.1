@@ -2,7 +2,6 @@ class StackedAreaChart {
 
     // constructor function
     constructor (_element, _titleX, _titleY, _dateVariable, _keys){
-        //valid data input?
 
         // load in arguments from config object
         this.element = _element;
@@ -14,13 +13,13 @@ class StackedAreaChart {
         // create the chart
         this.init();
     }
+
     // initialise method to draw chart area
     init(){
-        let dv = this;
-        
-        let elementNode = d3.select(dv.element).node();
-        let elementWidth = elementNode.getBoundingClientRect().width; 
-        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+        let dv = this,
+            elementNode = d3.select(dv.element).node(),
+            elementWidth = elementNode.getBoundingClientRect().width,
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
@@ -32,8 +31,6 @@ class StackedAreaChart {
 
         dv.margin.right = elementWidth < breakPoint ? 0 : 150;
         dv.margin.left = elementWidth < breakPoint ? 0 : 80;
-
-        console.log(dv.margin);
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
@@ -48,20 +45,25 @@ class StackedAreaChart {
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
 
-        dv.chartTop = $(dv.element + " svg g").offset().top;
-        // console.log(dv.chartTop);
-
+        // transition 
+        dv.t = () => { return d3.transition().duration(1000); };
+        
         dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
 
         // set colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
 
         // for the tooltip from the d3 book
-        dv.bisectDate = d3.bisector(function(d) { return parseTime(d[dv.date]); }).left;
+        dv.bisectDate = d3.bisector(d => { return (d[dv.date]); }).left;
 
-        // set scales
-        dv.x = d3.scaleTime().range([0, dv.width]);
-        dv.y = d3.scaleLinear().range([dv.height, 0]);
+        dv.addAxis();
+    }
+
+    addAxis(){
+        let dv = this;
+
+        dv.yAxisCall = d3.axisLeft();
+        dv.xAxisCall = d3.axisBottom();
 
         dv.gridLines = dv.g.append("g")
             .attr("class", "grid-lines");
@@ -74,7 +76,7 @@ class StackedAreaChart {
             .attr("class", "y-axis");
 
         // X title
-        dv.g.append("text")
+        dv.xLabel = dv.g.append("text")
             .attr("class", "titleX")
             .attr("x", dv.width/2)
             .attr("y", dv.height + 60)
@@ -91,44 +93,46 @@ class StackedAreaChart {
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
 
-        // d3 area function
-        dv.area = d3.area()
-            .x(function(d) { return dv.x(parseTime(d.data[dv.date]))})
-            .y0(function(d) { return dv.y(d[0]); })
-            .y1(function(d) { return dv.y(d[1]); });
-
         // call the legend method
         dv.addLegend();
-
-        // call the getdata method
     }
+
+    // // pass the data and the nest value
+    // getData(_data, _tX, _tY, yScaleFormat, _name, _value){
+    //     let dv = this;
+    //         // dv.yScaleFormat = dv.formatValue(yScaleFormat);
+
+    //         _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
+    //         _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
+ 
+    //     // TODO filter data set before calling nestData function
+
+    //     let dataProcessed = dv.nestData(_data, "label", _name, _value);
+    //         dv.nestedData = dataProcessed;
+            
+    //         // call function to create/update scales
+    //         dv.createScales();
+    // }
 
     // pass the data and the nest value
-    getData(_data){
-
+    getData(_data, _tX, _tY, yScaleFormat){
         let dv = this;
-            dv.nestedData = _data,
+            dv.yScaleFormat = dv.formatValue(yScaleFormat);
 
-        dv.update();
+            _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
+            _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
+            
+            _data !== null ? dv.nestedData =_data : dv.nestedData = dv.nestedData;
+
+            dv.createScales();
     }
 
-    update(){
+    createScales(){
         let dv = this;
-        d3.select(dv.element).select(".focus").remove();
-        d3.select(dv.element).select(".focus_overlay").remove();
-        
-        // transition 
-        const t = () => { return d3.transition().duration(1000); };
 
-        // d3 stack function
-        const stack = d3.stack().keys(nut3regions);
-
-        dv.drawGridLines();
-
-        const yAxisCall = d3.axisLeft();
-        const xAxisCall = d3.axisBottom();
-
-        dv.data = (stack(dv.nestedData));
+        // set scales
+        dv.x = d3.scaleTime().range([0, dv.width]);
+        dv.y = d3.scaleLinear().range([dv.height, 0]);
 
         // get the the combined max value for the y scale
         let maxDateVal = d3.max(dv.nestedData, d => {
@@ -139,19 +143,47 @@ class StackedAreaChart {
         });
 
         // Update scales
-        dv.x.domain(d3.extent(dv.nestedData, (d) => {  return parseTime(d[dv.date]); }));
+        dv.x.domain(d3.extent(dv.nestedData, (d) => {  return (d[dv.date]); }));
         dv.y.domain([0, maxDateVal]);
 
-        // Update axes
-        xAxisCall.scale(dv.x);
-        dv.xAxis.transition(t()).call(xAxisCall);
+        dv.drawGridLines();
 
-        yAxisCall.scale(dv.y);
-        dv.yAxis.transition(t()).call(yAxisCall);
+        // Update axes
+        dv.xAxisCall.scale(dv.x);
+        dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
+
+        dv.yAxisCall.scale(dv.y);
+        dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
+
+        // d3 area function
+        dv.area = d3.area()
+            .x(function(d) { return dv.x((d.data[dv.date]))})
+            .y0(function(d) { return dv.y(d[0]); })
+            .y1(function(d) { return dv.y(d[1]); });
+        
+        dv.arealine = d3.line()
+            .curve(dv.area.curve())
+            .x(d => {return dv.x((d.data[dv.date]))})
+            .y(d => {return dv.y(d[1])});
+
+         // d3 stack function
+        dv.stack = d3.stack().keys(dv.keys);
+        dv.data = (dv.stack(dv.nestedData));
+
+        dv.update();
+    }
+
+    update(){
+        let dv = this;
+            d3.select(dv.element).select(".focus").remove();
+            d3.select(dv.element).select(".focus_overlay").remove();
 
         // select all regions and join data with old
         const regions = dv.g.selectAll(".region")
-            .data(dv.data);
+            .data(dv.data, d => d)
+            .enter()
+            .append("g")
+            .attr("class", "region");
         
         // Exit old elements not present in new data.
         // regions.exit()
@@ -159,138 +191,104 @@ class StackedAreaChart {
         //     .attr("y", y(0))
         //     .attr("height", 0)
         //     .remove();
-
-        // update the paths
-        regions.select(".area")
-            .transition(t)
-            .attr("d", dv.area);
-
+        
         // Enter elements
-        regions.enter().append("g")
-            .attr("class", "region")
-            .append("path")
+        regions.append("path")
                 .attr("class", "area")
                 // .transition(t)
                 .attr("d", dv.area)
                 .style("fill", function(d){
                     return dv.colour(d.key);
                 })
-                .style("fill-opacity", 0.75);
-             
-        // tooltip based on the example in the d3 Book
-        // add group to contain all the focus elements
-        // let focus = dv.g.append("g")
-        //     .attr("class", "focus")
-        //     .style("display", "none");
-        
-        // // Year Label
-        // focus.append("text")
-        //     .attr("class", "focus_quarter")
-        //     .attr("x", 9)
-        //     .attr("y", 7);
+                .style("fill-opacity", 0.7);
 
-        // // Focus line
-        // focus.append("line")
-        //     .attr("class", "focus_line")
-        //     .attr("y1", 0)
-        //     .attr("y2", dv.height);
+        // Enter elements
+        regions.append("path")
+                .attr("class", "area-line")
+                // .transition(t)
+                .attr("d", dv.arealine)
+                .style("stroke", function(d){
+                    return dv.colour(d.key);
+                });
 
-        // nut3regions.forEach( d => {
-        //     dv.tooltip = focus.append("g")
-        //         .attr("class", "tooltip_" + d);
-
-        //     dv.tooltip.append("circle")
-        //     .attr("r", 5)
-        //     .attr("fill", "white")
-        //     .attr("stroke", dv.colour(d));
-
-        //     dv.tooltip.append("text")
-        //         .attr("x", 9)
-        //         .attr("dy", ".35rem");
-        // });
-
-        // dv.g.append("rect")
-        //     .attr("width", dv.width + 10)
-        //     .attr("height", dv.height)
-        //     .style("fill", "none")
-        //     .style("pointer-events", "all")
-        //     .on("mouseover", () => { 
-        //         focus.style("display", null); 
-        //     })
-        //     .on("mouseout", () => { 
-        //         focus.style("display", "none"); 
-        //     })
-        //     .on("mousemove", mousemove);
-
-        // function mousemove() {
-        //     let mouse = d3.mouse(this);
-            
-        //     nut3regions.forEach( (region, idx) => {
-
-        //         let regionData = DataStacked[idx];
-        //         // console.log("this should be an Array: ", regionData);
-
-        //             // this is from the d3 book
-        //             let x0 = dv.x.invert(mouse[0]),
-        //             i = dv.bisectDate(dv.nestedData, x0, 1),
-        //             d0 = regionData[i - 1],
-        //             d1 = regionData[i],
-        //             d;
-                    
-        //             d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : d = d0;
-                
-        //             let id = ".tooltip_" + region;
+        // update the paths
+        regions.select(".area")
+                .transition(dv.t)
+                .attr("d", dv.area);
     
-        //             let tooltip = d3.select(dv.element).select(id); 
-                    
-        //             if(d !== undefined){
-        //                 tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + "," + dv.y(d[1]) + ")");
-        //                 tooltip.select("text").text(d.data[region]);
-        //                 focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + ", 0)");
-        //             }
-        //     });
-        // }    
+        regions.select(".area-line")
+                .transition(dv.t)
+                .attr("d", dv.arealine);
+
     }
 
     addLegend(){
-        var dv = this;
+        let dv = this;
 
         // create legend group
         var legend = dv.g.append("g")
             .attr("transform", "translate(0,0)");
 
         // create legend array, this needs to come from the data.
-        var legendArray = [
-            {label: "Ireland", colour: dv.colour("Ireland")},
-            {label: "Dublin", colour: dv.colour("Dublin")}
-        ];
+        dv.legendArray = [];
+        
+        dv.keys.forEach( (d) => {
+
+            let obj = {};
+                obj.label = d;
+                obj.colour = dv.colour(d);
+                dv.legendArray.push(obj);
+        });
+        dv.legendArray.reverse();
 
         // get data and enter onto the legend group
-        var legend = legend.selectAll(".legend")
-            .data(legendArray)
+        let legends = legend.selectAll(".legend")
+            .data(dv.legendArray)
             .enter().append("g")
             .attr("class", "legend")
-            .attr("transform", function(d, i) { return "translate(0," + i * 40 + ")"; })
-            .style("font", "12px sans-serif");
+            .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
+            .attr("id", (d,i) => "legend-item" + i )
+            .style("font", "12px sans-serif")
+            .attr("cursor", "pointer")
+            .on("click", (d,i) => { 
+
+                let label = d3.select(dv.element).select("#legend-item" + i);
+                    label.classed("active", label.classed("active") ? false : true);
+ 
+                // get index of legend item
+                let filterValues = dv.keys.findIndex(idx => idx.key === d.label);
+
+                // // set its disabled field to true or false
+                // dv.nestedData[filterValues].disabled = !dv.nestedData[filterValues].disabled; 
+
+                // if (!dv.nestedData.filter(function(d) { return !d.disabled }).length) {
+                //   dv.nestedData.forEach(function(d) {
+                //     d.disabled = false;
+                //   });
+                //   d3.select(dv.element).selectAll(".legend").classed("active", false);
+                // }
+
+                // // dv.getData(dv.value,dv.data);
+                // dv.update();
+            });
         
         // add legend boxes    
-        legend.append("rect")
+        legends.append("rect")
             .attr("class", "legendRect")
-            .attr("x", dv.width + 25)
-            // style similar to hospital legend
+            .attr("x", dv.width + 10)
             .attr("width", 25)
             .attr("height", 25)
             .attr("fill", d => { return d.colour; })
             .attr("fill-opacity", 0.75);
-        
-        // add legend text
-        legend.append("text")
+
+        legends.append("text")
             .attr("class", "legendText")
-            .attr("x", dv.width + 60)
+            // .attr("x", dv.width + 40)
             .attr("y", 12)
-            .attr("dy", ".35em")
+            .attr("dy", ".025em")
             .attr("text-anchor", "start")
-            .text(d => { return d.label; }); 
+            .text(d => { return d.label; })
+            .call(dv.textWrap, 110, dv.width + 34); 
     }
 
     drawGridLines(){
@@ -310,9 +308,11 @@ class StackedAreaChart {
                 .attr('y2', (d) => dv.y(d));
     }
 
-    addTooltip(title, format, data){
+    addTooltip(title, format){
 
         let dv = this;
+            // ttData = data;
+
             dv.ttTitle = title;
             dv.valueFormat = format;
             dv.ttWidth = 250,
@@ -355,17 +355,11 @@ class StackedAreaChart {
             dv.drawTooltip();
             
             // attach group append circle and text for each region
+
+            // let reverseData = dv.keys;
+            // reverseData.reverse();
+
             dv.keys.forEach( (d,i) => {
-                let tooltip = dv.g.select(".focus-circles")
-                    .append("g")
-                    .attr("class", "tooltip_" + i);
-    
-                tooltip.append("circle")
-                    .attr("r", 0)
-                    .transition(dv.t)
-                    .attr("r", 5)
-                    .attr("fill", dv.colour(d))
-                    .attr("stroke", dv.colour(d));
                 
                 dv.updateTooltip(d,i);
 
@@ -387,41 +381,44 @@ class StackedAreaChart {
                 focus.style("visibility","visible");
                 toolGroup.style("visibility","visible");
 
-                let mouse = d3.mouse(this);
-
-                console.log("this is the data source stacked area chart", dv.data);
-                dv.data.forEach((reg, idx) => {
-
-                    // this is from the d3 book
-                    let x0 = dv.x.invert(mouse[0]),
+                let mouse = d3.mouse(this),
+                    x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
-                    d0 = reg[i - 1],
-                    d1 = reg[i],
+                    d0 = dv.nestedData[i - 1],
+                    d1 = dv.nestedData[i],
                     d;  
 
-                    // console.log("this is the date value for the line position", d0, d1);
-    
-                    d1 !== undefined ? d = x0 - d0.data[dv.date] > d1.data[dv.date] - x0 ? d1 : d0 : false;
-                    
-                    let id = ".tooltip_" + idx;
-                    let tpId = ".tooltipbody_" + idx;
-                    let ttTitle = dv.g.select(".tooltip-title");
+                d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
 
-                    dv.updatePosition(mouse[0], 10);
-                    
+                dv.updatePosition(mouse[0], 10);
+                let length = dv.keys.length - 1;
+                dv.keys.forEach( (reg,idx) => {
+
+                    console.log(reg, idx);
+                    let dvalue = dv.data[idx]; 
+
+                    let dd0 = dvalue[i - 1],
+                        dd1 = dvalue[i],
+                        dd;  
+                        dd1 !== undefined ? dd = x0 - dd0.data[dv.date] > dd1.data[dv.date] - x0 ? dd1 : dd0 : false;
+
+                    let id = ".tooltip_" + idx,
+                        tpId = ".tooltipbody_" + idx,
+                        ttTitle = dv.g.select(".tooltip-title");
+                        
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
-                        tooltipBody.attr("transform", "translate(5," + idx * 25 +")");
+                        tooltipBody.attr("transform", "translate(5," + (length-idx) * 25 +")");
                     
                     if(d !== undefined){
-                        console.log("This is the data source selected for stacked area : ", d);
-                        // tooltip.attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + "," + dv.y(d[dv.value]) + ")");
+                        tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1]) + ")");
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
-                        tooltipBody.select(".tp-text-right").text(d[1] -d[0]);
-                        // ttTitle.text(dv.ttTitle + " " + dv.formatYear(d.date));
-                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(parseTime(d.data[dv.date])) + ", 0)");
+                        tooltipBody.select(".tp-text-right").text(d[reg]);
+                        ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
+                        focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
                     }
+
                 });
             }
     }
@@ -472,6 +469,17 @@ class StackedAreaChart {
     updateTooltip(d,i){
         let dv = this;
 
+        let tooltip = dv.g.select(".focus-circles")
+            .append("g")
+            .attr("class", "tooltip_" + i);
+
+            tooltip.append("circle")
+                .attr("r", 0)
+                .transition(dv.t)
+                .attr("r", 5)
+                .attr("fill", dv.colour(d))
+                .attr("stroke", dv.colour(d));
+
         let tooltipBodyItem = dv.g.select(".tooltip-body")
             .append("g")
             .attr("class", "tooltipbody_" + i);
@@ -510,7 +518,6 @@ class StackedAreaChart {
         let height = dv.g.select(".tooltip-body").node().getBBox().height;
         dv.ttHeight += height + 5;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
-        console.log("what is the tooltip height now", dv.ttHeight);
     }
 
     resetSize() {
@@ -533,7 +540,111 @@ class StackedAreaChart {
         return [ttX, ttY];
     }
 
+    textWrap(text, width, xpos = 0, limit=2) {
+        text.each(function() {
+            let words,
+                word,
+                line,
+                lineNumber,
+                lineHeight,
+                y,
+                dy,
+                tspan;
 
+            text = d3.select(this);
+    
+            words = text.text().split(/\s+/).reverse();
+            line = [];
+            lineNumber = 0;
+            lineHeight = 1;
+            y = text.attr("y");
+            dy = parseFloat(text.attr("dy"));
+            tspan = text
+                .text(null)
+                .append("tspan")
+                .attr("x", xpos)
+                .attr("y", y)
+                .attr("dy", dy + "em");
+    
+            while ((word = words.pop())) {
+                line.push(word);
+                tspan.text(line.join(" "));
+
+                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    tspan.text(line.join(" "));
+
+                    if (lineNumber < limit - 1) {
+                        line = [word];
+                        tspan = text.append("tspan")
+                            .attr("x", xpos)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                            .text(word);
+                        // if we need two lines for the text, move them both up to center them
+                        text.classed("move-up", true);
+                    } else {
+                        line.push("...");
+                        tspan.text(line.join(" "));
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    formatValue(format){
+        // formats thousands, Millions, Euros and Percentage
+        switch (format){
+            case "millions":
+                return d3.format(".2s");
+                break;
+        
+            case "euros":
+                return "undefined";
+                break;
+        
+            case "thousands":
+                return d3.format(",");
+                break;
+        
+            case "percentage":
+                return d3.format(".2%");
+                break;
+        
+            default:
+                return "undefined";
+        }
+    }
+
+    formatQuarter(date, i){
+        let newDate = new Date();
+        newDate.setMonth(date.getMonth() + 1);
+        let year = (date.getFullYear());
+        let q = Math.ceil(( newDate.getMonth()) / 3 );
+        return year+" Q" + q;
+    }
+
+    // nestData(data, date, name, value){
+    //     let nested_data = d3.nest()
+    //         .key(function(d) { return d[date]; })
+    //         .entries(data); // its the string not the date obj
+
+    //         console.log("data before split into objects HAHAHA",nested_data);
+
+    //     let mqpdata = nested_data.map(function(d){
+    //         let obj = {
+    //             label: d.key
+    //         }
+    //             d.values.forEach(function(v){
+    //             obj[v[name]] = v[value];
+    //             obj.date = v.date;
+    //         })
+    //     return obj;
+    //   })
+    //   console.log("this is the data sent", mqpdata);
+    //   return mqpdata;
+    // }
 }
 
 

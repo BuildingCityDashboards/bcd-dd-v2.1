@@ -13,11 +13,10 @@ class MultiLineChart{
 
     // initialise method to draw chart area
     init(){
-        let dv = this;
-
-        let elementNode = d3.select(dv.element).node();
-        let elementWidth = elementNode.getBoundingClientRect().width; 
-        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+        let dv = this,
+            elementNode = d3.select(dv.element).node(),
+            elementWidth = elementNode.getBoundingClientRect().width,
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
@@ -115,7 +114,6 @@ class MultiLineChart{
 
         // set scales
         dv.x = d3.scaleTime().range([0, dv.width]);
-
         dv.y = d3.scaleLinear().range([dv.height, 0]);
 
         // Update scales
@@ -133,7 +131,6 @@ class MultiLineChart{
             return d3.max(d.values, d => { return d[dv.value]; });
             })
         ]);
-
 
         dv.xLabel.text(dv.titleX);
         dv.yLabel.text(dv.titleY);
@@ -299,14 +296,16 @@ class MultiLineChart{
                 let mouse = d3.mouse(this);
                 let ttTextHeights = 0;
 
+                
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
+                    console.log("this is the data for LINE CHART forEACH", reg);
                     let x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d;  
-
+                    console.log("this is the data for LINE CHART forEACH", i);
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     
                     let id = ".tooltip_" + idx,

@@ -118,7 +118,8 @@ class GroupedBarChart{
 
         // Update axes
         dv.xAxisCall.scale(dv.x0);
-        dv.xAxis.call(dv.xAxisCall);
+        dv.xAxis.call(dv.xAxisCall)
+        .selectAll(".tick text").call(dv.textWrap, 60, 0);
         
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.call(dv.yAxisCall);
@@ -282,9 +283,9 @@ class GroupedBarChart{
             return ttX;
     }
 
-    textWrap(text, width, xpos = 0, limit=2) {
+    textWrap(text, width, xpos = 0, limit=3) {
         text.each(function() {
-            var words,
+            let words,
                 word,
                 line,
                 lineNumber,

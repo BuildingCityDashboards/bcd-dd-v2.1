@@ -105,6 +105,13 @@ a:hover {
 .titleX, .titleY{
   fill: #6c757d;
 }
+
+.area-line {
+  shape-rendering: geometricPrecision;
+  fill: none;
+  stroke-width: 2;
+}
+
 /* do we need this? */
 .collapse:not(.show) {
   display: none;
