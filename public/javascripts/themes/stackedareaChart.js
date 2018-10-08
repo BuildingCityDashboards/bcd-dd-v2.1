@@ -180,7 +180,7 @@ class StackedAreaChart {
 
         // select all regions and join data with old
         const regions = dv.g.selectAll(".region")
-            .data(dv.data)
+            .data(dv.data, d => d)
             .enter()
             .append("g")
             .attr("class", "region");
