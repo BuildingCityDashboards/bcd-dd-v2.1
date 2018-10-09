@@ -1,17 +1,15 @@
-const HOVER_COLOR = "#16c1f3";
-const svg = d3.select("#map__container");
+const HOVER_COLOR = "#16c1f3",
+      svg = d3.select("#map__container"),
+      elementNode = svg.node(),
+      parentElement = elementNode.parentNode;
+
+let elementWidth = parentElement.getBoundingClientRect().width,
+    aspectRatio = elementWidth < 500 ? elementWidth * 1.5 : elementWidth * 1.5,
+    scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
 
 
-const elementNode = svg.node();
-const parentElement = elementNode.parentNode;
-let elementWidth = parentElement.getBoundingClientRect().width; 
-console.log(elementWidth);
-let aspectRatio = elementWidth < 500 ? elementWidth * 1.5 : elementWidth * 1.5;
-let scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
-
-
-const WIDTH = elementWidth;
-const HEIGHT = aspectRatio;
+const WIDTH = elementWidth,
+      HEIGHT = aspectRatio;
 
     svg.attr("width", WIDTH)
       .attr("height", HEIGHT);
@@ -59,7 +57,6 @@ const projection = d3
 // use above projection.
 const path = d3.geoPath().projection(projection);
 
-
 // 1. Plot the map from data source `dublincoco`
 // 2. Place the local aut name in the map
 
@@ -102,4 +99,49 @@ function renderMap(root) {
 
 }
 
-renderMap(dublincoco);
+function renderTabs(root) {
+  // Draw local aut and register event listeners
+  let tabs = d3.select("#lp-tabs")
+                .selectAll("buttons")
+                .data(root.features)
+                .enter();
+
+        tabs.append("button")
+            .attr("class",  "btn btn-bcd mx-1")
+            .attr("id", d => "region" + d.properties.OBJECTID)
+            .text(d => d.properties.ENGLISH)
+            .on("click", clickHandler);
+
+
+  // // Place name in the middle
+  // g
+  //   .append("g")
+  //   .selectAll("text")
+  //   .data(root.features)
+  //   .enter()
+  //   .append("text")
+  //   .attr("id", d => "regionLabel" + d.properties.OBJECTID)
+  //   .attr("transform", d => `translate(${path.centroid(d)})`)
+  //   .attr("text-anchor", "middle")
+  //   .attr("fill", "#FFF")
+  //   .attr("font-size", 14)
+  //   .attr("cursor", "pointer")
+  //   // .on("mouseover", mouseOverHandler)
+  //   // .on("mouseout", mouseOutHandler)
+  //   .on("click", clickHandler)
+  //   .text(d => d.properties.ENGLISH)
+  //   .style('pointer-events', 'none');
+
+}
+
+
+
+let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    console.log(screenSize);
+
+if(screenSize > 991){
+  renderMap(dublincoco);
+}
+else{
+  renderTabs(dublincoco);
+}
