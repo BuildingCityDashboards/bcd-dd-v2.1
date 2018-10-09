@@ -17,8 +17,6 @@ const locale = {
     "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   }
 
-  d3.formatDefaultLocale(locale);
-
 function dataSets (data, columns){
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
@@ -518,7 +516,6 @@ function formatQuarter(date){
 }
 
 function updateInfoText(selector, startText, endText, data, valueName, labelName, format ){
-    console.log(format);
     let lastData = data[data.length - 1],
         previousData = data[data.length - 2],
         text = d3.select("#data-text p"),
@@ -576,10 +573,9 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 
             text.append("text").text(" " + endString);
         });
-
-        d3.select(selector).on("touchstart", (d) => {
-            text.text(textString);
-        })
+        // d3.select(selector).on("touchstart", (d) => {
+        //     text.text(textString);
+        // })
 }
 
 function infoText(){
