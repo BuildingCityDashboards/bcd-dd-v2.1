@@ -567,10 +567,12 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
             
             text.append("text").text(". That's ");
 
-            text.append("span").text(indicator).attr("class", "bold-text");
-            text.append("text").text(" by ");
+            text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color",indicatorColour);
 
-            text.append("span").text(d3.format(".2%")(difference)).attr("class", "bold-text");
-            text.append("text").text(endString);
+            text.append("text").text(" " + endString);
         });
+}
+
+function infoText(){
+    
 }

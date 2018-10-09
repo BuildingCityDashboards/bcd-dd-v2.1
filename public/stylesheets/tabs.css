@@ -67,7 +67,7 @@
     outline: none;
 }
 
-@media (min-width: 768px){
+@media (max-width: 768px){
 
     .tab-charts__row{
         position: relative;

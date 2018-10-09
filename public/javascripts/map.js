@@ -1,18 +1,20 @@
 const HOVER_COLOR = "#16c1f3";
 const svg = d3.select("#map__container");
 
+
 const elementNode = svg.node();
-let elementWidth = elementNode.getBoundingClientRect().width; 
+const parentElement = elementNode.parentNode;
+let elementWidth = parentElement.getBoundingClientRect().width; 
+console.log(elementWidth);
 let aspectRatio = elementWidth < 500 ? elementWidth * 1.5 : elementWidth * 1.5;
-let viewBox = elementWidth < 550 ? elementWidth < 504 ? "-120 -60 400 400" : "-60 120 400 400" : "-60 180 400 400";
+let scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
 
 
 const WIDTH = elementWidth;
 const HEIGHT = aspectRatio;
 
     svg.attr("width", WIDTH)
-      .attr("height", HEIGHT)
-      .attr("viewBox", viewBox);
+      .attr("height", HEIGHT);
 
 // Event Handlers
 function mouseOverHandler(d, i) {
@@ -47,8 +49,10 @@ const g = svg.append("g");
 // projection config.
 const projection = d3
   .geoMercator()
-  .center([-6.280387, 53.346174]) //53.346174, -6.280387
-  .scale(40000)
+  // .center([-6.280387, 53.346174]) //53.346174, -6.280387
+  // .center([-6.251264, 53.360643])
+  .center([-6.458681, 53.360675])
+  .scale(scaleValue)
   .translate([WIDTH / 4, HEIGHT / 2]);
 
 // SVG path
