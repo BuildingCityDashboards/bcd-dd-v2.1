@@ -1,5 +1,23 @@
 const parseTime = d3.timeParse("%d/%m/%Y");
 const parseYear = d3.timeParse("%Y");
+const breakPoint = 768;
+
+const locale = {
+    "decimal": ".",
+    "thousands": ",",
+    "grouping": [3],
+    "currency": ["€", ""],
+    "dateTime": "%a %b %e %X %Y",
+    "date": "%m/%d/%Y",
+    "time": "%H:%M:%S",
+    "periods": ["AM", "PM"],
+    "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "shortDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+  }
+
+  d3.formatDefaultLocale(locale);
 
 function dataSets (data, columns){
     coercedData = data.map( d => {
@@ -43,6 +61,14 @@ Promise.all([
 
     dataSet.forEach( d => {
         d.quarter = convertQuarter(d.quarter);
+        d.label = formatQuarter(d.quarter);
+        d["Persons aged 15 years and over in Employment (Thousand)"] = d["Persons aged 15 years and over in Employment (Thousand)"] * 1000;
+    });
+
+    console.log(dataSet);
+    dataSet4.forEach( d => {
+        d.quarter = convertQuarter(d.date);
+        d.label = formatQuarter(d.quarter);
     });
     
     const dateFiltered = dataSet.filter( d => {
@@ -70,9 +96,6 @@ Promise.all([
     const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, "#hc-glance", "Units", "title2");
    
     const priceListQuartley = new GroupedBarChart(dataSet4, columnNames4, xValue2, "#ap-glance", "€", "title2");
-    // const dublinData = DublinOnly.filter( d => {
-    //     return d.quarter >= new Date("Tue Jan 01 2013 00:00:00");
-    // });
     
     // for now will just copy but need to create a class for this chart objects
     const lv = dublinData.length;
@@ -160,25 +183,11 @@ Promise.all([
     //     .attr("class", "label employment")
     //     .attr("fill", "#16c1f3")
     //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
-        
-    let lastData = dublinData[dublinData.length - 1],
-        previousData = dublinData[dublinData.length - 2];
-        // parentItem = d3.select("#test-glance");
-        // console.log(parentItem.select(function() { return this.parentNode; }).select(function() { return this.parentNode; }));
 
-    let text = d3.select("#data-text p"),
-        textString = text.text(),
-        currentValue = lastData[columnNames1[0]],
-        prevValue = previousData[columnNames1[0]],
-        difference = ((currentValue - prevValue) / currentValue);
-        indicator = difference > 0 ? "up" : "down";
-    d3.select("#emp-chart a")
-    .on("mouseover", (d) => { 
-        text.text("Total Employment in Dublin for Q2 2017 was " + lastData[columnNames1[0]] +",000. That's " + indicator + " by " + d3.format(".2%")(difference) + " on previous quarter");
-    })
-    .on("mouseout", (d) => { 
-        text.text(textString);
-    });
+    updateInfoText("#emp-chart a", "Total Employment in Dublin for ", " on previous Quarter", dublinData, columnNames1[0], "label", d3.format(".3s"));
+    updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", d3.format("$,"));
+    updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format("s") );
+    updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
 
 
     const size = dublinAnnualRate.length;   
@@ -498,4 +507,81 @@ function convertQuarter(q){
     let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
 
     return date;
+}
+
+function formatQuarter(date){
+    let newDate = new Date();
+    newDate.setMonth(date.getMonth() + 1);
+    let year = (date.getFullYear());
+    let q = Math.ceil(( newDate.getMonth()) / 3 );
+    return "Quarter "+ q + ' in ' + year;
+}
+
+function updateInfoText(selector, startText, endText, data, valueName, labelName, format ){
+    console.log(format);
+    let lastData = data[data.length - 1],
+        previousData = data[data.length - 2],
+        text = d3.select("#data-text p"),
+        textString = text.text(),
+        currentValue = lastData[valueName],
+        prevValue = previousData[valueName],
+        difference = ((currentValue - prevValue) / currentValue),
+        lastElementDate = lastData[labelName],
+        indicatorSymbol = difference > 0 ? "▲ " : "▼ ",
+        indicator = difference > 0 ? "Up" : "Down",
+        indicatorColour = difference > 0 ? "#20c997" : "#da1e4d",
+        startString = startText,
+        endString = endText;
+        // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        // console.log(screenSize);
+
+        d3.select(selector)
+        .on("mouseover", (d) => { 
+
+            text.text(startString);
+            text.append("span").text(lastElementDate).attr("class", "bold-text");
+
+            text.append("text").text(" was ");
+            
+            text.append("span").text(format(currentValue))
+            .attr("class", "bold-text");
+            
+            text.append("text").text(". That's ");
+
+            text.append("span").text(indicatorSymbol).attr("class", "bold-text").style("color",indicatorColour);
+            text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text");
+
+            text.append("text").text(" " + endString);
+        })
+        .on("mouseout", (d) => { 
+            text.text(textString);
+        });
+
+        d3.select(selector).on("blur", (d) => {
+            text.text(textString);
+        });
+          
+        d3.select(selector).on("focus", (d) => {
+            text.text(startString);
+            text.append("span").text(lastElementDate).attr("class", "bold-text");
+
+            text.append("text").text(" was ");
+            
+            text.append("span").text(format(currentValue))
+            .attr("class", "bold-text");
+            
+            text.append("text").text(". That's ");
+
+            text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color",indicatorColour);
+
+            text.append("text").text(" " + endString);
+        });
+
+        d3.select(selector).on("touchstart", (d) => {
+            text.text(textString);
+        })
+}
+
+function infoText(){
+
 }

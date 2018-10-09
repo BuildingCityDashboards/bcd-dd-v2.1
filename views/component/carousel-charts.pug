@@ -7,26 +7,26 @@ div(class="tab-content" id="nav-tabContent")
   //-   +svg("","icon__arrow")(class="icon icon-arrow")
   div(class="tab-pane tab-charts fade show active" id="nav-all")
     .row.tab-charts__row
-      .col-xl-3.col-sm-6
+      .col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-blue", "Weather", "test", "rt-chart1")
-      .col-xl-3.col-sm-6
+      .col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-yellow", "Bike Usage", "test", "rt-chart3")
-      .col-xl-3.col-sm-6
+      .col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-blue", "M50 Traffic times", "test","rt-chart5")
-      .col-xl-3.col-sm-6
+      .col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-teal", "Air Quality", "test","rt-chart7")
     #data-text 
       p click on a data set for more information...    
     .row.tab-charts__row
-      #emp-chart.col-xl-3.col-sm-6
+      #emp-chart.col-xl-3.col-sm-6.col-11
         +card-chart("themes/economy#employment", "card text-white o-hidden border-red", "Employment Quarterly % Change", "test", "test-glance")  
-      .col-xl-3.col-sm-6
-        +card-chart("/", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance")
-      .col-xl-3.col-sm-6
-        +card-chart("/", "card text-white o-hidden border-yellow", "Annual Population", "test","pr-glance")
+      #app-chart.col-xl-3.col-sm-6.col-11
+        +card-chart("themes/housing#propertyprices", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance")
+      #apd-chart.col-xl-3.col-sm-6.col-11
+        +card-chart("themes/demographics#population", "card text-white o-hidden border-yellow", "Annual Population", "test","pr-glance")
         //- stack area chart with just population. 
-      .col-xl-3.col-sm-6
-        +card-chart("/", "card text-white o-hidden border-red", "Monthly House Unit Completions", "test","hc-glance")
+      #huc-chart.col-xl-3.col-sm-6.col-11
+        +card-chart("themes/housing#unitscompmonth", "card text-white o-hidden border-red", "Monthly House Unit Completions", "test","hc-glance")
       //- .col-xl-3.col-sm-6
       //-   +card-chart("/", "card text-white o-hidden border-blue", "Dublin Median House Prices", "test","rt-chart1")
       //-   +card-chart("card text-white o-hidden border-yellow", "Weather Dublin", "test","rt-chart2")
