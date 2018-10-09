@@ -19,17 +19,17 @@ class StackedAreaChart {
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
         // margin
-        dv.margin = { 
-            top: 50,
-            bottom: 80
-        };
+        dv.margin = { };
 
-        dv.margin.right = elementWidth < breakPoint ? 50 : 150;
+        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
+        dv.margin.bottom = elementWidth < breakPoint ? 30 : 80;
+
+        dv.margin.right = elementWidth < breakPoint ? 20 : 150;
         dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
@@ -48,7 +48,7 @@ class StackedAreaChart {
         // transition 
         dv.t = () => { return d3.transition().duration(1000); };
         
-        dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
 
         // set colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
@@ -203,7 +203,7 @@ class StackedAreaChart {
                 .style("fill", function(d){
                     return dv.colour(d.key);
                 })
-                .style("fill-opacity", 0.7);
+                .style("fill-opacity", 0.37);
 
         // Enter elements
         regions.append("path")
@@ -318,7 +318,7 @@ class StackedAreaChart {
 
             dv.ttTitle = title;
             dv.valueFormat = format;
-            dv.ttWidth = 250,
+            dv.ttWidth = 280,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -393,7 +393,7 @@ class StackedAreaChart {
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
 
-                dv.updatePosition(mouse[0], 10);
+                dv.updatePosition(dv.x(d[dv.date]), 0);
                 let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
 
@@ -431,7 +431,8 @@ class StackedAreaChart {
 
         let tooltipTextContainer = dv.g.select(".tooltip-group")
           .append("g")
-            .attr("class","tooltip-text");
+            .attr("class","tooltip-text")
+            .attr("fill","#f8f8f8");
 
         let tooltip = tooltipTextContainer
             .append("rect")
@@ -440,9 +441,9 @@ class StackedAreaChart {
             .attr("height", dv.ttHeight)
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
-            .attr("fill","#f8f8f8")
-            .attr("stroke", "#6c757d")
-            .attr("stroke-width", "1");
+            .attr("fill","#001f35e6")
+            .attr("stroke", "#001f35")
+            .attr("stroke-width", 3);
 
         let tooltipTitle = tooltipTextContainer
           .append("text")
@@ -451,13 +452,13 @@ class StackedAreaChart {
             .attr("x", 5)
             .attr("y", 16)
             .attr("dy", ".35em")
-            .style("fill", "#1d2124");
+            .style("fill", "#a5a5a5");
 
         let tooltipDivider = tooltipTextContainer
             .append("line")
                 .attr("class", "tooltip-divider")
-                .attr("x1", 5)
-                .attr("x2", 240)
+                .attr("x1", 0)
+                .attr("x2", 280)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -534,11 +535,11 @@ class StackedAreaChart {
             ttY = mouseY;
 
         // show right
-        if (mouseX < dv.width / 2) {
-            ttX = mouseX;
+        if (mouseX < dv.width - dv.ttWidth) {
+            ttX = mouseX + 10;
         } else {
             // show left
-            ttX = mouseX -255
+            ttX = mouseX - 290
         }
         return [ttX, ttY];
     }

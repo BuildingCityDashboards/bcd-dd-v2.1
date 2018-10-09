@@ -32,7 +32,7 @@ Promise.all([
             d[dateField] = parseMonth(d[dateField]);
           });
 
-    const dateFilter = filterbyDate(compDataProcessed, dateField, "Sept 01 2017");
+    const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
@@ -308,7 +308,7 @@ Promise.all([
 
     let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
 
-    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2017");
+    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
     

@@ -16,24 +16,21 @@ class GroupedBarChart{
 
     // initialise method to draw chart area
     init(){
-        let dv = this; 
-
-        let elementNode = d3.select(dv.element).node();
-        let elementWidth = elementNode.getBoundingClientRect().width; 
-        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+        let dv = this,
+            elementNode = d3.select(dv.element).node(),
+            elementWidth = elementNode.getBoundingClientRect().width,
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
         // margin
-        dv.margin = { 
-            top: 50,
-            bottom: 80
-        };
+        dv.margin = { };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
+        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
+        dv.margin.bottom = elementWidth < breakPoint ? 30 : 80;
 
-        console.log(dv.margin);
+        dv.margin.right = elementWidth < breakPoint ? 20 : 150;
+        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
