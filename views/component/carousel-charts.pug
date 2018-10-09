@@ -20,12 +20,12 @@ div(class="tab-content" id="nav-tabContent")
     .row.tab-charts__row
       #emp-chart.col-xl-3.col-sm-6
         +card-chart("themes/economy#employment", "card text-white o-hidden border-red", "Employment Quarterly % Change", "test", "test-glance")  
-      .col-xl-3.col-sm-6
+      #app-chart.col-xl-3.col-sm-6
         +card-chart("/", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance")
-      .col-xl-3.col-sm-6
+      #apd-chart.col-xl-3.col-sm-6
         +card-chart("/", "card text-white o-hidden border-yellow", "Annual Population", "test","pr-glance")
         //- stack area chart with just population. 
-      .col-xl-3.col-sm-6
+      #huc-chart.col-xl-3.col-sm-6
         +card-chart("/", "card text-white o-hidden border-red", "Monthly House Unit Completions", "test","hc-glance")
       //- .col-xl-3.col-sm-6
       //-   +card-chart("/", "card text-white o-hidden border-blue", "Dublin Median House Prices", "test","rt-chart1")

@@ -393,7 +393,7 @@ class StackedAreaChart {
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
 
-                dv.updatePosition(dv.x(d[dv.date]), 0);
+                
                 let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
 
@@ -414,6 +414,9 @@ class StackedAreaChart {
                         tooltipBody.attr("transform", "translate(5," + (length-idx) * 25 +")");
                     
                     if(d !== undefined){
+                        
+                        dv.updatePosition(dv.x(d[dv.date]), 0);
+
                         tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1]) + ")");
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);

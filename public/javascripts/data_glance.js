@@ -42,6 +42,7 @@ Promise.all([
     const dataSet4 = dataSets(priceList, columnNames4);
 
     dataSet.forEach( d => {
+        d.label = d.quarter;
         d.quarter = convertQuarter(d.quarter);
     });
     
@@ -160,25 +161,11 @@ Promise.all([
     //     .attr("class", "label employment")
     //     .attr("fill", "#16c1f3")
     //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
-        
-    let lastData = dublinData[dublinData.length - 1],
-        previousData = dublinData[dublinData.length - 2];
-        // parentItem = d3.select("#test-glance");
-        // console.log(parentItem.select(function() { return this.parentNode; }).select(function() { return this.parentNode; }));
 
-    let text = d3.select("#data-text p"),
-        textString = text.text(),
-        currentValue = lastData[columnNames1[0]],
-        prevValue = previousData[columnNames1[0]],
-        difference = ((currentValue - prevValue) / currentValue);
-        indicator = difference > 0 ? "up" : "down";
-    d3.select("#emp-chart a")
-    .on("mouseover", (d) => { 
-        text.text("Total Employment in Dublin for Q2 2017 was " + lastData[columnNames1[0]] +",000. That's " + indicator + " by " + d3.format(".2%")(difference) + " on previous quarter");
-    })
-    .on("mouseout", (d) => { 
-        text.text(textString);
-    });
+    updateInfoText("#emp-chart a", "Total Employment in Dublin for ", "Quarter", dublinData, columnNames1[0], "label" );
+    updateInfoText("#app-chart a", "Average New Property Prices in Dublin ", "Quarter", dataSet4, columnNames4[0], "label" );
+    updateInfoText("#apd-chart a", "The total population of Dublin in ", "Quarter", dataSet2, columnNames2[0], "label" );
+    updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", "Month", dataSet3, columnNames3[0], "label" );
 
 
     const size = dublinAnnualRate.length;   
@@ -498,4 +485,51 @@ function convertQuarter(q){
     let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
 
     return date;
+}
+
+function formatQuarter(date){
+    let newDate = new Date();
+    newDate.setMonth(date.getMonth() + 1);
+    let year = (date.getFullYear());
+    let q = Math.ceil(( newDate.getMonth()) / 3 );
+    return "Quarter "+ q + ' in ' + year;
+}
+
+function updateInfoText(selector, startText, endText, data, valueName, labelName ){
+    let lastData = data[data.length - 1],
+        previousData = data[data.length - 2],
+        text = d3.select("#data-text p"),
+        textString = text.text(),
+        currentValue = lastData[valueName],
+        prevValue = previousData[valueName],
+        difference = ((currentValue - prevValue) / currentValue),
+        lastElementDate = lastData[labelName],
+        indicator = difference > 0 ? "▲ Up" : "▼ Down",
+        startString = startText,
+        endString = endText;
+
+        d3.select(selector)
+        .on("mouseover", (d) => { 
+
+            text.text(startString);
+            text.append("span").text(lastElementDate).attr("class", "bold-text");
+
+            text.append("text").text(" was ");
+            
+            text.append("span").text(currentValue)
+            .attr("class", "bold-text");
+            
+            text.append("text").text(". That's ");
+
+            text.append("span").text(indicator).attr("class", "bold-text");
+            text.append("text").text(" by ");
+
+            text.append("span").text(d3.format(".2%")(difference)).attr("class", "bold-text");
+            text.append("text").text(" on previous ");
+
+            text.append("text").text(endString);
+        })
+        .on("mouseout", (d) => { 
+            text.text(textString);
+        });
 }

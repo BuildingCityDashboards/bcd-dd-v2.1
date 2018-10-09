@@ -45,7 +45,7 @@ class MultiLineChart{
         dv.t = function() { return d3.transition().duration(1000); };
 
         // dv.colour = d3.scaleOrdinal(d3.schemeBlues[9]);
-        dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
 
         // set colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
@@ -311,8 +311,6 @@ class MultiLineChart{
                         tpId = ".tooltipbody_" + idx,
                         ttTitle = dv.g.select(".tooltip-title");
 
-                    dv.updatePosition(mouse[0], 10);
-
                     let tooltip = d3.select(dv.element).select(id);
                     let tooltipBody = d3.select(dv.element).select(tpId); 
                     let textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
@@ -320,6 +318,9 @@ class MultiLineChart{
                         tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
+
+                        dv.updatePosition(dv.x(d.date), 10);
+
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");// this needs to be dynamic dv.date!!
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
@@ -344,7 +345,8 @@ class MultiLineChart{
 
         let tooltipTextContainer = dv.g.select(".tooltip-group")
           .append("g")
-            .attr("class","tooltip-text");
+            .attr("class","tooltip-text")
+            .attr("fill","#f8f8f8");
 
         let tooltip = tooltipTextContainer
             .append("rect")
@@ -353,9 +355,9 @@ class MultiLineChart{
             .attr("height", dv.ttHeight)
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
-            .attr("fill","#f8f8f8")
-            .attr("stroke", "#6c757d")
-            .attr("stroke-width", "1");
+            .attr("fill","#001f35e6")
+            .attr("stroke", "#001f35")
+            .attr("stroke-width", 3);
 
         let tooltipTitle = tooltipTextContainer
           .append("text")
@@ -364,13 +366,14 @@ class MultiLineChart{
             .attr("x", 5)
             .attr("y", 16)
             .attr("dy", ".35em")
-            .style("fill", "#1d2124");
+            .style("fill", "#f8f8f8")
+            .style("font-size", ".875rem");
 
         let tooltipDivider = tooltipTextContainer
             .append("line")
                 .attr("class", "tooltip-divider")
-                .attr("x1", 5)
-                .attr("x2", 240)
+                .attr("x1", 0)
+                .attr("x2", 250)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -438,10 +441,10 @@ class MultiLineChart{
 
         // show right
         if (mouseX < dv.width / 2) {
-            ttX = mouseX;
+            ttX = mouseX + 10;
         } else {
             // show left
-            ttX = mouseX -255
+            ttX = mouseX -260
         }
         return [ttX, ttY];
     }
