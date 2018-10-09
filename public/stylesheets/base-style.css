@@ -212,7 +212,6 @@ select:hover:not([disabled]) {
 
 .bold-text{
   font-weight: 600;
-  color: #00c0f5;
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */

@@ -1,5 +1,6 @@
 const parseTime = d3.timeParse("%d/%m/%Y");
 const parseYear = d3.timeParse("%Y");
+const breakPoint = 768;
 
 const locale = {
     "decimal": ".",
@@ -526,10 +527,13 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         prevValue = previousData[valueName],
         difference = ((currentValue - prevValue) / currentValue),
         lastElementDate = lastData[labelName],
-        indicator = difference > 0 ? "▲ Up" : "▼ Down",
+        indicatorSymbol = difference > 0 ? "▲ " : "▼ ",
+        indicator = difference > 0 ? "Up" : "Down",
         indicatorColour = difference > 0 ? "#20c997" : "#da1e4d",
         startString = startText,
         endString = endText;
+        // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        // console.log(screenSize);
 
         d3.select(selector)
         .on("mouseover", (d) => { 
@@ -544,7 +548,8 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
             
             text.append("text").text(". That's ");
 
-            text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color",indicatorColour);
+            text.append("span").text(indicatorSymbol).attr("class", "bold-text").style("color",indicatorColour);
+            text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text");
 
             text.append("text").text(" " + endString);
         })
@@ -571,8 +576,12 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 
             text.append("text").text(" " + endString);
         });
+
+        d3.select(selector).on("touchstart", (d) => {
+            text.text(textString);
+        })
 }
 
 function infoText(){
-    
+
 }
