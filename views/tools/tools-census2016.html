@@ -1,0 +1,196 @@
+<div class="container-fluid">
+    <!--//top padding hack-->
+    <div class="row">
+        <br>
+        <br>
+        <br>
+    </div>    
+    
+    <div class="row">
+        <div class="col-md-2">
+            <p>Search application number: </p>
+        </div>
+        <div class="col-md-2">
+            <input type="text" id="app-number-search" 
+                   style="width:inherit; height:auto; padding: 0px; margin: 0px"/>
+        </div>
+        <div id="search-result" class="col-md-2">
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class ="tool-map" id="map-census2016">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="decision-row-chart"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="time-chart">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="size-chart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--//top padding hack-->
+    <div class="row">
+        <br>
+    </div>
+    <div class="row">
+        <div class="col-md-1" align="center">
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
+        </div>
+        <div class="col-md-1">
+            <p>
+                Date range	
+            </p>
+        </div>
+        <div class="col-md-1">
+
+            <input type="date" id="start_date" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px"/>
+        </div>
+
+        <div id="date-slider" class="col-md-2"></div>
+
+        <div class="col-md-1">  
+            <input type="date" id="end_date" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px"/>
+        </div>
+
+        <div class="col-md-6">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1" align="center">
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
+        </div>
+        <div class="col-md-1">
+            <p>
+                Local authority	
+            </p>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                DCC
+            </button> 
+        </div>
+        <div class="col-md-1">  
+            <button class="btn btn-bcd btn-block" type="button">
+                SDCC
+            </button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                DL/RCC
+            </button> 
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                FCC
+            </button>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-1" align="center">
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
+        </div>
+        <div class="col-md-1">
+            <p>
+                Decision type	
+            </p>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Grant
+            </button> 
+        </div>
+        <div class="col-md-1">  
+            <button class="btn btn-bcd btn-block" type="button">
+                Refuse
+            </button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Invalid
+            </button> 
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-bcd btn-block" type="button">
+                Other
+            </button>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>  
+
+    <div class="row">
+        <div class="col-md-1" align="center">
+            <!--            <button type="button" class="btn btn-bcd">
+                        </button>-->
+            <label class="switch">
+                <input type="checkbox" id="date-switch" checked>
+                <span class="slider-switch"></span>
+            </label>
+        </div>
+        <div class="col-md-1" >
+            <p >
+                Size range	
+            </p>
+        </div>
+        <div class="col-md-1">
+            <input type="number" id="min-area-nb" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px" />
+            <!--            <p>Min</p>-->
+        </div>
+
+        <div id="area-slider" class="col-md-2">
+
+        </div>
+        <div   class="col-md-1">  
+            <input type="number" id="max-area-nb" style="width:inherit; height:auto; 
+                   padding: 0px; margin: 0px" />
+            <!--<p>Max</p>-->
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+
+
+
+
+
+</div>

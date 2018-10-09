@@ -52,7 +52,7 @@ var allDim;
 
 //data loading
 var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
-var dublinSAURI = '/data/tools/small_areas/';
+var dublinSAURI = '/data/tools/census2016/';
 let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
 let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
 
@@ -76,20 +76,6 @@ createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries
 
 
 //    var countByDateArr; //will store number of planning apps per date
-
-let saData = [];
-d3.csv("/data/tools/small_areas/SAPS2016_SA2017.csv").then(function (data) {
-    processSmallAreas(data);
-});
-
-function processSmallAreas(data_){
-    data_.forEach(function (d) {
-        d.GEOGID = +d.GEOGID; //required?
-    });
-//    console.log(data_[0].GEOGID);
-    
-}
-
 
 
 function createSAMap(url_) {
