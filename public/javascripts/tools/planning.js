@@ -19,9 +19,6 @@ proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0
 var dub_lng = -6.2603;
 var dub_lat = 53.36;
 var dublinX, dublinY;
-//data loading
-var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
-var dublinSAURI = '/data/tools/small_areas/';
 var min_zoom = 10, max_zoom = 16;
 var zoom = min_zoom;
 // tile layer with correct attribution
@@ -52,6 +49,13 @@ var allDim;
 
 //... so we'll use the more powerful Promise pattern
 //loadJsonFiles(baseurl, startOffset, no of files
+
+//data loading
+var dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
+var dublinSAURI = '/data/tools/small_areas/';
+let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
+let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
+
 loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
 createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
@@ -73,10 +77,22 @@ createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries
 
 //    var countByDateArr; //will store number of planning apps per date
 
+let saData = [];
+d3.csv("/data/tools/small_areas/SAPS2016_SA2017.csv").then(function (data) {
+    processSmallAreas(data);
+});
+
+function processSmallAreas(data_){
+    data_.forEach(function (d) {
+        d.GEOGID = +d.GEOGID; //required?
+    });
+//    console.log(data_[0].GEOGID);
+    
+}
+
 
 
 function createSAMap(url_) {
-
     var promise = [];
     promise.push($.getJSON(url_));
     $.when.apply($, promise).done(function () {
@@ -103,19 +119,22 @@ function createSAMap(url_) {
         function style(f) {
             return {
                 fillColor: getColor(Math.floor(Math.random() * 1000)),
-                weight: 1,
+                weight: 0,
                 opacity: 1,
-                color: 'white',
-                dashArray: '3',
+                //color: 'white',
+                //dashArray: '3',
                 fillOpacity: 0.5
             };
         }
         ;
 
-        saLayer_DublinCity = L.geoJSON(saAll,
+        saLayer_DublinAll = L.geoJSON(saAll,
                 {
                     filter: function (f, l) {
-                        return f.properties.COUNTYNAME === "Dublin City";
+                        return f.properties.COUNTYNAME.includes("Dublin") 
+                                || f.properties.COUNTYNAME.includes("Fingal")
+                                || f.properties.COUNTYNAME.includes("Rathdown")
+                        ;
                     },
                     style: style,
                     onEachFeature: onEachFeature
@@ -123,24 +142,25 @@ function createSAMap(url_) {
 
         function onEachFeature(feature, layer) {
             layer.bindPopup(
-                    '<h3>SA #' + feature.properties.SMALL_AREA + '<h3>' +
-                    '<p>ED: ' + feature.properties.EDNAME + '<p>'
+                    '<p><b>' + feature.properties.EDNAME + '</b></p>'
+                    + '<p>'+ feature.properties.COUNTYNAME +'</p>'
+                    +'<p>SA #' + feature.properties.SMALL_AREA + '</p>'                                        
                     );
             //bind click
             layer.on({
                 click: function () {
-
                     console.log(JSON.stringify(feature));
                 }
             });
         }
-
-
-
-//       map.addLayer(saLayer_DublinCity);
-        saLayer_DublinCity.addTo(map);
+//       map.addLayer(saLayer_DublinAll);
+        saLayer_DublinAll.addTo(map);
     }); //end of done function
 }
+
+
+
+
 ; //end of createSAMap
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -258,9 +278,9 @@ function makeGraphs(error, records) {
     var appNumberDim = planningXF.dimension(function (d) {
         return d.properties.ApplicationNumber;
     });
-    var decisionDim = planningXF.dimension(function (d) {
-        return d.properties.Decision;
-    });
+//    var decisionDim = planningXF.dimension(function (d) {
+//        return d.properties.Decision;
+//    });
     var decisionCategoryDim = planningXF.dimension(function (d) {
         return d.properties.DecisionCategory;
     });
@@ -293,7 +313,7 @@ function makeGraphs(error, records) {
 //    console.log("decisionCategories:" + decisionCategories);    
 
 //    var recordsByLocation = locationDim.group();
-    var all = planningXF.groupAll();
+//    var all = planningXF.groupAll();
     //Values to be used in charts
 
     //null sizes have been coerced to zero so we'll use that on the size slider
@@ -341,9 +361,6 @@ function makeGraphs(error, records) {
 //                return d;
 //            })
 //            .group(all);
-
-
-
     timeChart
             .width(400)
             .height(chartHeight / 2)
@@ -357,6 +374,7 @@ function makeGraphs(error, records) {
             .elasticY(true)
             .yAxis().ticks(4);
     timeChart.render();
+    
     sizeChart
             .width(400)
             .height(chartHeight / 2)
@@ -567,9 +585,8 @@ function makeGraphs(error, records) {
 ; //end of makeGraphs
 
 var planningClusters = L.markerClusterGroup();
-var saLayer_DublinCity;
+var saLayer_DublinAll;
 function updateMap() {
-
     planningClusters.clearLayers();
     map.removeLayer(planningClusters);
     _.each(allDim.top(Infinity), function (d) {
