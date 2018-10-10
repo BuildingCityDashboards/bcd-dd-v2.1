@@ -1,11 +1,11 @@
-let minChartDate, maxChartDate;
-let now = Date.now();
+//let minChartDate, maxChartDate;
+//let now = Date.now();
 /* Map variables and instantiation */
-//Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
-proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
-//Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
-proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
-proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
+////Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
+//proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
+////Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
+//proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
+//proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
 let dub_lng = -6.2603;
 let dub_lat = 53.36;
 let dublinX, dublinY;
@@ -21,7 +21,7 @@ let osmAttrib = 'Map data © <a href="http://openstreetmapCensus.org">OpenStreet
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapCensus.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>';
 
-let mapCensus= new L.Map('map-census2016');
+let mapCensus = new L.Map('map-census2016');
 let osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_zoom, attribution: stamenTonerAttrib});
 mapCensus.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 mapCensus.addLayer(osm);
@@ -41,35 +41,97 @@ let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_Nation
 //loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
 //createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 
-let saData = [];
+//crossfilter variables
+
+let idDim;
 
 d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
     processVariables(data);
 });
 
-function processVariables(data_){
+function processVariables(data_) {
     data_.forEach(function (d) {
         d.id = +d.GEOGID.split('_')[1]; //extract the numerical part 
-                                        //corresponding to the boundary geojson
+        //corresponding to the boundary geojson
     });
-    console.log('Variables length = '+data_.length);
+    console.log('Variables length = ' + data_.length);
+    let censusDataXF = crossfilter(data_);
+    idDim = censusDataXF.dimension(function (d) {
+        return +d.GEOGID.split('_')[1];
+    });
 }
 
 d3.json('/data/tools/census2016/Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson')
-        .then(function (data){
-            processBoundaries(data);
-});
+        .then(function (data) {
+            processBoundaries(data.features);
+        });
 
-function processBoundaries(data_){
-    console.log('Boundaries length = '+data_.features.length);
-    
+function processBoundaries(data_) {
+    //console.log('Boundaries length = '+data_.length);
+    createMap(data_);
+
 }
 
-//
-//
-//
-//
-//
+let boundariesDublin;
+
+function createMap(data__) {
+    boundariesDublin = L.geoJSON(data__,
+            {
+                filter: function (f, l) {
+                    return f.properties.COUNTYNAME.includes("Dublin")
+                            || f.properties.COUNTYNAME.includes("Fingal")
+                            || f.properties.COUNTYNAME.includes("Rathdown")
+                            ;
+                },
+                style: style,
+                onEachFeature: onEachFeature
+            });
+
+    function onEachFeature(feature, layer) {
+        layer.bindPopup(
+                '<p><b>' + feature.properties.EDNAME + '</b></p>'
+                + '<p>' + feature.properties.COUNTYNAME + '</p>'
+                + '<p>SA #' + feature.properties.SMALL_AREA + '</p>'
+                );
+        //bind click
+        layer.on({
+            click: function () {
+                idDim.filter(feature.properties.SMALL_AREA);
+                let res = idDim.top(Infinity)[0].T1_1AGE1M;
+//                console.log(idDim.top(Infinity));
+                d3.select("#data-census2016")
+                        .html(res);
+            }
+        });
+    }
+    function style(f) {
+        return {
+            fillColor: '#16c1f3',
+            weight: 1,
+            opacity: 1,
+            //color: 'white',
+            dashArray: '3',
+            fillOpacity: 0.5
+        };
+    }
+    ;   
+
+    function getColor(d) {
+        return d > 1000 ? '#800026' :
+                d > 500 ? '#BD0026' :
+                d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
+                d > 50 ? '#FD8D3C' :
+                d > 20 ? '#FEB24C' :
+                d > 10 ? '#FED976' :
+                '#FFEDA0';
+    }
+    ;
+    boundariesDublin.addTo(mapCensus);
+
+}
+;
+
 //
 ////function createSAMap(url_) {
 //    let promise = [];
@@ -619,18 +681,9 @@ function processBoundaries(data_){
 //    return str;
 //}
 //;
-//function getColor(d) {
-//    return d > 1000 ? '#800026' :
-//            d > 500 ? '#BD0026' :
-//            d > 200 ? '#E31A1C' :
-//            d > 100 ? '#FC4E2A' :
-//            d > 50 ? '#FD8D3C' :
-//            d > 20 ? '#FEB24C' :
-//            d > 10 ? '#FED976' :
-//            '#FFEDA0';
-//}
 
-$(document).ready(function () {
-    console.log("ready");
 
-});
+//$(document).ready(function () {
+//    console.log("ready");
+//
+//});
