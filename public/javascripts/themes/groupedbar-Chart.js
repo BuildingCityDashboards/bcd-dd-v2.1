@@ -108,7 +108,6 @@ class GroupedBarChart{
         let dv = this;
 
         // Update scales
-        console.log("grouped bar chart data", dv.data);
         dv.x0.domain(dv.data.map(d => { return d[dv.xValue]; }));
         dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
         dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
@@ -216,7 +215,7 @@ class GroupedBarChart{
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
                 .attr('x2', dv.width)
-                .attr('y1', (d) => {console.log("this is the value here", dv.y(d)); return dv.y(d)})
+                .attr('y1', (d) => {return dv.y(d)})
                 .attr('y2', (d) => dv.y(d));
     }
 
@@ -234,8 +233,6 @@ class GroupedBarChart{
                 obj.colour = dv.colour(d);
                 legendArray.push(obj);
         });
-
-        console.log("the grouped charts legend array", legendArray);
         
         let legends = legend.selectAll(".legend")
                 .data(legendArray)
@@ -268,8 +265,7 @@ class GroupedBarChart{
             chartSize;
 
             chartSize = dv.width + dv.margin.right + dv.margin.left;
-
-            console.log("width of the chart", chartSize);
+            
             // show right
             if ( mouseX < chartSize ) {
                 ttX = mouseX;

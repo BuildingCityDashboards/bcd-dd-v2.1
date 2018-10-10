@@ -5,41 +5,73 @@ let parseTime = d3.timeParse("%d/%m/%Y"),
     parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
     parseYear = d3.timeParse("%Y");
 
+const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
+
 Promise.all([
     d3.csv("../data/Health/trolleys_transposed.csv"),
     d3.csv("../data/Health/healthlevels2011.csv"),
-    d3.csv("../data/Health/healthlevelscount2011.csv"),
-
+    d3.csv("../data/Health/healthlevelscount2011.csv")
 ]).then(datafiles => {
+    // t is for trolleys
+    const tData = datafiles[0],
+          tKeys = tData.columns.slice(3),
+          tdateField = tData.columns[2],
+          tDataProcessed = dataSets(tData, tKeys);
 
-    const trolleysData = datafiles[0],
-          trolleysType = trolleysData.columns.slice(3);
+          tDataProcessed.forEach( d => {
+            d.label = "W" + d.week;  
+            d.date = parseTime(d[tdateField]);
 
-    const tDataNested =  d3.nest().key( d => { return d.year;})
-          .entries(trolleysData);
+          });  
 
-    const trolleys2016 = tDataNested[3].values;
+          const trolleys2016 = filterByDateRange(tDataProcessed, "date", "Dec 29 2015", "Dec 31 2016");
+          const weeksGroup1 = trolleys2016.slice(0,32);
 
-    const tData = trolleysType.map(function(hosiptal) {
-            return {
-              key: hosiptal,
-              values: trolleys2016.map(function(d) {
-                let value = d[hosiptal] !== "NULL" ? +d[hosiptal] : 0; 
-                return {year: d.year, label: "W" + d.week, date: parseTime(d.date),  value: value};
-              }),
-              disabled: false
-            };
-          });
+          const tCharts = new StackedAreaChart("#chart-trolleys", "Weeks", "No. of Patients", "date", tKeys);
+          // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+          tCharts.getData(weeksGroup1);
+          tCharts.addTooltip("No. of Patients:", "000");
+  
+  
     
-    console.log(tData);
 
-        // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const trolleysChart = new MultiLineChart("#chart-trolleys",[], trolleysType);
-    // 1. Value Key, 2. Data set
-    trolleysChart.getData("value", tData, "Quarters", "Numbers");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    trolleysChart.addTooltip("Patients Waiting - ", "thousands", "label");
+    // const trolleys2016 = filterByDateRange(trolleysData, "date", "Dec 29 2015", "Dec 31 2016");
+    // const trolleys2015 = filterByDateRange(trolleysData, "date", "Dec 29 2014", "Dec 31 2015");
+    // const trolleys2014 = filterByDateRange(trolleysData, "date", "Dec 29 2013", "Dec 31 2014");
+    // const trolleys2013 = filterByDateRange(trolleysData, "date", "Dec 29 2012", "Dec 31 2013");
+
+    // const weeksGroup1 = trolleys2016.slice(0,13);
+    // const weeksGroup2 = trolleys2016.slice(13,26);
+    // const weeksGroup3 = trolleys2016.slice(26,39);
+    // const weeksGroup4 = trolleys2016.slice(39,52);
+    // console.log("Weeks " + weeksGroup1[0].week + " - " + weeksGroup1[12].week, weeksGroup1);
+    // console.log("Weeks " + weeksGroup2[0].week + " - " + weeksGroup2[12].week, weeksGroup2);
+
+    // const types = d3.nest()
+    // .key( d => {
+    //     return d[groupBy];
+    // }).entries(valueData);
+
+    // // TODO: replace with d3 nest function do processing before like with date
+    // const tData = trolleysType.map(function(hosiptal) {
+    //         return {
+    //           key: hosiptal,
+    //           values: trolleys2016.map(function(d) {
+    //             let value = d[hosiptal] !== "NULL" ? +d[hosiptal] : 0; 
+    //             return {year: d.year, label: "W" + d.week, date: d.date,  value: value};
+    //           }),
+    //           disabled: false
+    //         };
+    //       });
+    // console.log(tData);
+
+    //     // draw the chart
+    // // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
+    // const trolleysChart = new MultiLineChart("#chart-trolleys",[], trolleysType);
+    // // 1. Value Key, 2. Data set
+    // trolleysChart.getData("value", tData, "Quarters", "Numbers");
+    // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
+    // trolleysChart.addTooltip("Patients Waiting - ", "thousands", "label");
 
     // d3.select("#trolleys_total").on("click", function(){
     //     $(this).siblings().removeClass('active');
@@ -112,11 +144,12 @@ function qToQuarter(q){
     return quarterString;
 }
 
-function dataSets (data, columns){
+function dataSets(data, columns){
     
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
-            d[columns[i]] = +d[columns[i]];
+            d[columns[i]] !== "NULL" ? d[columns[i]]= +d[columns[i]] : d[columns[i]] = 0;
+            // d[hosiptal] !== "NULL" ? +d[hosiptal] : 0;
         }
         return d;
         });
@@ -133,4 +166,10 @@ function formatQuarter(date){
     let q = Math.ceil(( newDate.getMonth()) / 3 );
     
     return "Quarter "+ q + ' ' + year;
+}
+
+function filterByDateRange(data, dateField, dateOne, dateTwo){
+    return data.filter( d => {
+        return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
+    });
 }

@@ -122,7 +122,7 @@ class StackedAreaChart {
             _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
             _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
             
-            _data !== null ? dv.nestedData =_data : dv.nestedData = dv.nestedData;
+            dv.nestedData =_data;
 
             dv.createScales();
     }
@@ -136,14 +136,15 @@ class StackedAreaChart {
 
         // get the the combined max value for the y scale
         let maxDateVal = d3.max(dv.nestedData, d => {
-            var vals = d3.keys(d).map(key => { 
-                return key !== dv.date ? d[key] : 0;
+            let vals = d3.keys(d).map(key => { 
+                return key === dv.date || typeof d[key] === 'string' ? 0:d[key];
+                // return key !== dv.date ? d[key] : 0;
             });
             return d3.sum(vals);
         });
 
         // Update scales
-        dv.x.domain(d3.extent(dv.nestedData, (d) => {  return (d[dv.date]); }));
+        dv.x.domain(d3.extent(dv.nestedData, (d) => {  console.log(d[dv.date]); return (d[dv.date]); }));
         dv.y.domain([0, maxDateVal]);
 
         dv.drawGridLines();
@@ -385,6 +386,7 @@ class StackedAreaChart {
                 toolGroup.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
+                    ttTextHeights = 0,
                     x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
                     d0 = dv.nestedData[i - 1],
@@ -392,12 +394,10 @@ class StackedAreaChart {
                     d;  
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
-
                 
-                let length = dv.keys.length - 1;
+                // let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
-
-                    console.log(reg, idx);
+                    
                     let dvalue = dv.data[idx]; 
 
                     let dd0 = dvalue[i - 1],
@@ -409,9 +409,11 @@ class StackedAreaChart {
                         tpId = ".tooltipbody_" + idx,
                         ttTitle = dv.g.select(".tooltip-title");
                         
-                    let tooltip = d3.select(dv.element).select(id);
-                    let tooltipBody = d3.select(dv.element).select(tpId); 
-                        tooltipBody.attr("transform", "translate(5," + (length-idx) * 25 +")");
+                    let tooltip = d3.select(dv.element).select(id),
+                        tooltipBody = d3.select(dv.element).select(tpId),
+                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+                        // tipY = textHeight < 20 ? (length-idx) * 25 : (length-idx) * 50;
+                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
                         
@@ -424,7 +426,7 @@ class StackedAreaChart {
                         ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
                     }
-
+                    ttTextHeights += textHeight + 5;
                 });
             }
     }
@@ -495,7 +497,8 @@ class StackedAreaChart {
             .text(d)
             .attr("class", "tp-text-left")
             .attr("x", "12")
-            .attr("dy", ".35em");
+            .attr("dy", ".35em")
+            .call(dv.textWrap, 140, 12);
 
         tooltipBodyItem.append("text")
             .attr("class", "tp-text-right")

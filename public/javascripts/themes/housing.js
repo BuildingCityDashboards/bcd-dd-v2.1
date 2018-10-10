@@ -32,7 +32,8 @@ Promise.all([
             d[dateField] = parseMonth(d[dateField]);
           });
 
-    const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
+    const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
+    // const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
@@ -368,7 +369,7 @@ function qToQuarter(q){
     return quarterString;
 }
 
-function dataSets (data, columns){
+function dataSets(data, columns){
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
             d[columns[i]] = +d[columns[i]];
@@ -389,6 +390,12 @@ function formatQuarter(date){
 function filterbyDate(data, dateField, date){
     return data.filter( d => {
         return d[dateField] >= new Date(date);
+    });
+}
+
+function filterByDateRange(data, dateField, dateOne, dateTwo){
+    return data.filter( d => {
+        return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
     });
 }
 
