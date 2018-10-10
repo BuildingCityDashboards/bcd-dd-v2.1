@@ -102,10 +102,6 @@ a:hover {
   fill: #6c757d;
 }
 
-.titleX, .titleY{
-  fill: #6c757d;
-}
-
 .area-line {
   shape-rendering: geometricPrecision;
   fill: none;
@@ -158,8 +154,8 @@ select:hover:not([disabled]) {
 /* charts styles */
 
 .titleX, .titleY{
-  font-size: 1.25rem;
-  fill: #495057;
+  font-size: 1rem;
+  fill: #6c757d;
 }
 
 .legendText{
@@ -194,6 +190,22 @@ select:hover:not([disabled]) {
   color: #00c0f5;
   background-color: transparent;
   border-color: #00c0f5;
+}
+
+.btn-page{
+  background-color: transparent;
+  color: #838586;
+  font-size: .875rem;
+  border-radius: 0;
+  padding: 0 .5rem;
+}
+
+.btn-page:hover, .btn-page:focus, .btn-page.active{
+  color: #313131;
+}
+
+.btn-page.active{
+  font-weight:600;
 }
 
 .btn-bcd:hover, .btn-bcd:focus, .btn-bcd.active{

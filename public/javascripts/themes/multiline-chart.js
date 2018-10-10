@@ -296,14 +296,14 @@ class MultiLineChart{
                     ttTextHeights = 0;
                 
                 dv.data.forEach((reg, idx) => {
+                    console.log("HELLO", reg);
                     // this is from the d3 book
-                    console.log("this is the data for LINE CHART forEACH", reg);
                     let x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d;  
-                    console.log("this is the data for LINE CHART forEACH", i);
+                    
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     
                     let id = ".tooltip_" + idx,

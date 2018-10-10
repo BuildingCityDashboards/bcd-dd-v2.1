@@ -27,7 +27,7 @@ class StackedAreaChart {
         dv.margin = { };
 
         dv.margin.top = elementWidth < breakPoint ? 40 : 50;
-        dv.margin.bottom = elementWidth < breakPoint ? 30 : 80;
+        dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
         dv.margin.right = elementWidth < breakPoint ? 20 : 150;
         dv.margin.left = elementWidth < breakPoint ? 20 : 80;
@@ -79,9 +79,8 @@ class StackedAreaChart {
         dv.xLabel = dv.g.append("text")
             .attr("class", "titleX")
             .attr("x", dv.width/2)
-            .attr("y", dv.height + 60)
-            .attr("font-size", "20px")
-            .attr("text-anchor", "middle")
+            .attr("y", dv.height + 50)
+            .attr("text-anchor", "start")
             .text(dv.titleX);
 
         // Y title
@@ -144,7 +143,7 @@ class StackedAreaChart {
         });
 
         // Update scales
-        dv.x.domain(d3.extent(dv.nestedData, (d) => {  console.log(d[dv.date]); return (d[dv.date]); }));
+        dv.x.domain(d3.extent(dv.nestedData, (d) => { return (d[dv.date]); }));
         dv.y.domain([0, maxDateVal]);
 
         dv.drawGridLines();
@@ -181,49 +180,51 @@ class StackedAreaChart {
         let dv = this;
             d3.select(dv.element).select(".focus").remove();
             d3.select(dv.element).select(".focus_overlay").remove();
+            dv.g.selectAll(".region")
+                .transition(dv.t())
+                .style("opacity", 0)
+                .remove(); // cheap fix for now
 
         // select all regions and join data with old
-        const regions = dv.g.selectAll(".region")
-            .data(dv.data, d => d)
+        dv.regions = dv.g.selectAll(".area")
+            .data(dv.data, d => {return d})
             .enter()
-            .append("g")
-            .attr("class", "region");
+                .append("g")
+                    .classed("region", true);
         
-        // Exit old elements not present in new data.
-        // regions.exit()
-        //     .transition(t)
-        //     .attr("y", y(0))
-        //     .attr("height", 0)
+        // remove old data not working
+        // dv.regions
+        //     .exit()
+        //     .transition(dv.t())
+        //     .style("opacity", 0)
         //     .remove();
-        
-        // Enter elements
-        regions.append("path")
-                .attr("class", "area")
-                // .transition(t)
-                .attr("d", dv.area)
-                .style("fill", function(d){
-                    return dv.colour(d.key);
-                })
-                .style("fill-opacity", 0.37);
 
-        // Enter elements
-        regions.append("path")
-                .attr("class", "area-line")
-                // .transition(t)
-                .attr("d", dv.arealine)
-                .style("stroke", function(d){
-                    return dv.colour(d.key);
-                });
-
-        // update the paths
-        regions.select(".area")
-                .transition(dv.t)
-                .attr("d", dv.area);
+        dv.regions
+            .append("path")
+            .attr("class", "area")
+            .attr("d", dv.area)
+            .style("fill-opacity", 0.4)
+            .style("fill", (d) => {return dv.colour(d.key);});
     
-        regions.select(".area-line")
-                .transition(dv.t)
-                .attr("d", dv.arealine);
+        dv.regions
+            .append("path")
+            .attr("class", "area-line")
+            .attr("d", dv.arealine)
+            .style("stroke", (d) => {return dv.colour(d.key);});
 
+        // Update
+        dv.g.selectAll(".area")
+            .data(dv.data)
+            .transition(dv.t())
+            .attr("d", dv.area)
+            .style("fill-opacity", 0.4)
+            .style("fill", (d) => {return dv.colour(d.key);});
+    
+        dv.g.selectAll(".area-line")
+            .data(dv.data)
+            .transition(dv.t())
+            .attr("d", dv.arealine);
+    
     }
 
     addLegend(){
@@ -252,29 +253,29 @@ class StackedAreaChart {
             .attr("class", "legend")
             .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
             .attr("id", (d,i) => "legend-item" + i )
-            .style("font", "12px sans-serif")
-            .attr("cursor", "pointer")
-            .on("click", (d,i) => { 
+            .style("font", "12px sans-serif");
+            // .attr("cursor", "pointer")
+            // .on("click", (d,i) => { 
 
-                let label = d3.select(dv.element).select("#legend-item" + i);
-                    label.classed("active", label.classed("active") ? false : true);
+            //     let label = d3.select(dv.element).select("#legend-item" + i);
+            //         label.classed("active", label.classed("active") ? false : true);
  
-                // get index of legend item
-                let filterValues = dv.keys.findIndex(idx => idx.key === d.label);
+            //     // get index of legend item
+            //     let filterValues = dv.keys.findIndex(idx => idx.key === d.label);
 
-                // // set its disabled field to true or false
-                // dv.nestedData[filterValues].disabled = !dv.nestedData[filterValues].disabled; 
+            //     // // set its disabled field to true or false
+            //     // dv.nestedData[filterValues].disabled = !dv.nestedData[filterValues].disabled; 
 
-                // if (!dv.nestedData.filter(function(d) { return !d.disabled }).length) {
-                //   dv.nestedData.forEach(function(d) {
-                //     d.disabled = false;
-                //   });
-                //   d3.select(dv.element).selectAll(".legend").classed("active", false);
-                // }
+            //     // if (!dv.nestedData.filter(function(d) { return !d.disabled }).length) {
+            //     //   dv.nestedData.forEach(function(d) {
+            //     //     d.disabled = false;
+            //     //   });
+            //     //   d3.select(dv.element).selectAll(".legend").classed("active", false);
+            //     // }
 
-                // // dv.getData(dv.value,dv.data);
-                // dv.update();
-            });
+            //     // // dv.getData(dv.value,dv.data);
+            //     // dv.update();
+            // });
         
         // add legend boxes    
         legends.append("rect")
@@ -386,6 +387,7 @@ class StackedAreaChart {
                 toolGroup.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
+            
                     ttTextHeights = 0,
                     x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
@@ -395,26 +397,28 @@ class StackedAreaChart {
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
                 
-                // let length = dv.keys.length - 1;
+                let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
                     
-                    let dvalue = dv.data[idx]; 
+                    let reverseIndex = (length-idx);
+                    let dvalue = dv.data[reverseIndex];
 
                     let dd0 = dvalue[i - 1],
                         dd1 = dvalue[i],
                         dd;  
+                        
                         dd1 !== undefined ? dd = x0 - dd0.data[dv.date] > dd1.data[dv.date] - x0 ? dd1 : dd0 : false;
 
-                    let id = ".tooltip_" + idx,
-                        tpId = ".tooltipbody_" + idx,
+                    let id = ".tooltip_" + reverseIndex,
+                        tpId = ".tooltipbody_" + reverseIndex,
                         ttTitle = dv.g.select(".tooltip-title");
                         
                     let tooltip = d3.select(dv.element).select(id),
                         tooltipBody = d3.select(dv.element).select(tpId),
                         textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
-                        // tipY = textHeight < 20 ? (length-idx) * 25 : (length-idx) * 50;
+
                         tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                    
+ 
                     if(d !== undefined){
                         
                         dv.updatePosition(dv.x(d[dv.date]), 0);
@@ -422,11 +426,11 @@ class StackedAreaChart {
                         tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1]) + ")");
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
-                        tooltipBody.select(".tp-text-right").text(d[reg]);
+                        tooltipBody.select(".tp-text-right").text(d[dv.keys[reverseIndex]]);
                         ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
                     }
-                    ttTextHeights += textHeight + 5;
+                    ttTextHeights += textHeight + 6;
                 });
             }
     }
@@ -511,6 +515,14 @@ class StackedAreaChart {
             .attr("class", "tp-circle")
             .attr("r", "6")
             .attr("fill", dv.colour(d));
+
+        // tooltipBodyItem.append("line")
+        //     .attr("class", "tt-divider")
+        //     .attr("x1", -10)
+        //     .attr("x2", 270)
+        //     .attr("y1", -16.5 )
+        //     .attr("y2", -16.5 )
+        //     .style("stroke", "#6c757d");
         
         dv.updateSize();
     }
@@ -526,7 +538,7 @@ class StackedAreaChart {
     updateSize(){
         let dv = this;
         let height = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 5;
+        dv.ttHeight += height + 1;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
     }
 
@@ -655,7 +667,54 @@ class StackedAreaChart {
     //   console.log("this is the data sent", mqpdata);
     //   return mqpdata;
     // }
+
+slicer( arr, sliceBy ){
+    if ( sliceBy < 1 || !arr ) return () => [];
+    
+    return (p) => {
+        const base = p * sliceBy;
+
+        return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+    };
 }
 
+pagination(_data, _selector, _sliceBy, _pageNumber){
+    
+    const chartObj = this;
+    console.log(chartObj);
+    
+    const slices = slicer( _data, _sliceBy ), 
+          times =  _pageNumber,
+          startSet = slices(times - 1);
+
+          d3.selectAll(".pagination-holder").remove();
+
+    let moreButtons = d3.select(_selector)
+        .append("div")
+        .attr("class", "pagination-holder text-center pb-2");
+
+        chartObj.getData(startSet);
+        chartObj.addTooltip("No. of Patients:", "000");
+
+    for(let i=0; i<times; i++){
+        let wg = slices(i);
+
+        moreButtons.append("button")
+        .attr("type", "button")
+        .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+        .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+        .text(chartObj.titleX + " " + (1+(i*_sliceBy)) +" - "+ ((i+1)*_sliceBy)) // pass this to the function
+        .on("click", function(){
+            if(!$(this).hasClass("active")){
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                chartObj.getData(wg);
+                chartObj.addTooltip("No. of Patients:", "000");
+            }
+        });
+    }
+}
+
+}
 
 

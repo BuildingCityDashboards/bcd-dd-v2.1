@@ -47,6 +47,12 @@
   float: left;
 }
 
+.tooltip-body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+
 .legend.active{
   opacity: .25;
 }

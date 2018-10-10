@@ -16,83 +16,79 @@ Promise.all([
     const tData = datafiles[0],
           tKeys = tData.columns.slice(3),
           tdateField = tData.columns[2],
-          tDataProcessed = dataSets(tData, tKeys);
+          tDataProcessed = dataSets(tData, tKeys)
+          selector = "#chart-trolleys";
 
           tDataProcessed.forEach( d => {
             d.label = "W" + d.week;  
             d.date = parseTime(d[tdateField]);
 
-          });  
+          });
 
-          const trolleys2016 = filterByDateRange(tDataProcessed, "date", "Dec 29 2015", "Dec 31 2016");
-          const weeksGroup1 = trolleys2016.slice(0,32);
+        const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys);
+        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
 
-          const tCharts = new StackedAreaChart("#chart-trolleys", "Weeks", "No. of Patients", "date", tKeys);
-          // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-          tCharts.getData(weeksGroup1);
-          tCharts.addTooltip("No. of Patients:", "000");
-  
-  
-    
+        
+        const trolleys2016 = filterByDateRange(tDataProcessed, "date", "Dec 29 2015", "Dec 31 2016"),
+              trolleys2015 = filterByDateRange(tDataProcessed, "date", "Dec 28 2014", "Dec 31 2015"),
+              trolleys2014 = filterByDateRange(tDataProcessed, "date", "Dec 28 2013", "Dec 31 2014"),
+              trolleys2013 = filterByDateRange(tDataProcessed, "date", "Dec 28 2012", "Dec 31 2013");
 
-    // const trolleys2016 = filterByDateRange(trolleysData, "date", "Dec 29 2015", "Dec 31 2016");
-    // const trolleys2015 = filterByDateRange(trolleysData, "date", "Dec 29 2014", "Dec 31 2015");
-    // const trolleys2014 = filterByDateRange(trolleysData, "date", "Dec 29 2013", "Dec 31 2014");
-    // const trolleys2013 = filterByDateRange(trolleysData, "date", "Dec 29 2012", "Dec 31 2013");
+              tCharts.pagination(trolleys2016, selector, 13, 4);
 
-    // const weeksGroup1 = trolleys2016.slice(0,13);
-    // const weeksGroup2 = trolleys2016.slice(13,26);
-    // const weeksGroup3 = trolleys2016.slice(26,39);
-    // const weeksGroup4 = trolleys2016.slice(39,52);
-    // console.log("Weeks " + weeksGroup1[0].week + " - " + weeksGroup1[12].week, weeksGroup1);
-    // console.log("Weeks " + weeksGroup2[0].week + " - " + weeksGroup2[12].week, weeksGroup2);
+            d3.select("#t2016").on("click", function(){
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                tCharts.pagination(trolleys2016, selector, 13, 4);
+            });
 
-    // const types = d3.nest()
-    // .key( d => {
-    //     return d[groupBy];
-    // }).entries(valueData);
+            d3.select("#t2015").on("click", function(){
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                tCharts.pagination(trolleys2015, selector, 13, 4);
+            });
 
-    // // TODO: replace with d3 nest function do processing before like with date
-    // const tData = trolleysType.map(function(hosiptal) {
-    //         return {
-    //           key: hosiptal,
-    //           values: trolleys2016.map(function(d) {
-    //             let value = d[hosiptal] !== "NULL" ? +d[hosiptal] : 0; 
-    //             return {year: d.year, label: "W" + d.week, date: d.date,  value: value};
-    //           }),
-    //           disabled: false
-    //         };
-    //       });
-    // console.log(tData);
+            d3.select("#t2014").on("click", function(){
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                tCharts.pagination(trolleys2014, selector, 13, 4);
+            });
 
-    //     // draw the chart
-    // // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    // const trolleysChart = new MultiLineChart("#chart-trolleys",[], trolleysType);
-    // // 1. Value Key, 2. Data set
-    // trolleysChart.getData("value", tData, "Quarters", "Numbers");
-    // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    // trolleysChart.addTooltip("Patients Waiting - ", "thousands", "label");
+            d3.select("#t2013").on("click", function(){
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                tCharts.pagination(trolleys2013, selector, 13, 4);
+            });
 
-    // d3.select("#trolleys_total").on("click", function(){
-    //     $(this).siblings().removeClass('active');
-    //     $(this).addClass('active');
-    //     trolleysChart.getData(trolleysType[0], trolleysDataNested, "Years", "Hectares");
-    //     trolleysChart.addTooltip("Total Houses - ", "thousands", "label");
-    // });
-    
-    // d3.select("#trolleys_private").on("click", function(){
-    //     $(this).siblings().removeClass('active');
-    //     $(this).addClass('active');
-    //     trolleysChart.getData(trolleysType[1], trolleysDataNested, "Years", "Units");
-    //     trolleysChart.addTooltip("Private Houses - ", "thousands", "label");
-    // });
+        // all this goes into a function pass the chart obj, selector, xTitle
+        // const slices = slicer( trolleys2016, 13 ),
+        //     times =  4,
+        //     startSet = slices(times - 1);
+        
+        // let moreButtons = d3.select(selector)
+        //         .append("div")
+        //         .attr("class", "text-center pb-2");
 
-    // d3.select("#trolleys_social").on("click", function(){
-    //     $(this).siblings().removeClass('active');
-    //     $(this).addClass('active');
-    //     trolleysChart.getData(trolleysType[2], trolleysDataNested, "Years", "Units");
-    //     trolleysChart.addTooltip("Social Houses - ", "thousands", "label");
-    // });
+        //     tCharts.getData(startSet);
+        //     tCharts.addTooltip("No. of Patients:", "000");
+
+        //     for(i=0; i<times; i++){
+        //         let wg = slices(i);
+
+        //         moreButtons.append("button")
+        //         .attr("type", "button")
+        //         .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+        //         .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+        //         .text("Weeks "+ (1+(i*13)) +" - "+ ((i+1)*13))
+        //         .on("click", function(){
+        //             if(!$(this).hasClass("active")){
+        //                 $(this).siblings().removeClass("active");
+        //                 $(this).addClass("active");
+        //                 tCharts.getData(wg);
+        //                 tCharts.addTooltip("No. of Patients:", "000");
+        //             }
+        //         });
+        //     }
 
     // health levels data and chart
     // data and chart for hl = health levels
@@ -108,15 +104,15 @@ Promise.all([
     const hlChart = new GroupedBarChart(hlDataProcessed, hlTypes, hlDate, "#chart-healthlevels", "Health Level", "Population");
 
     // d3.select("#hlevels_count").on("click", function(){
-    //     $(this).siblings().removeClass('active');
-    //     $(this).addClass('active');
+    //     $(this).siblings().removeClass("active");
+    //     $(this).addClass("active");
     //     trolleysChart.getData(trolleysType[0], trolleysDataNested, "Years", "Hectares");
   
     // });
 
     // d3.select("#hlevels_rate").on("click", function(){
-    //     $(this).siblings().removeClass('active');
-    //     $(this).addClass('active');
+    //     $(this).siblings().removeClass("active");
+    //     $(this).addClass("active");
     //     trolleysChart.getData(trolleysType[0], trolleysDataNested, "Years", "Hectares");
    
     // });
@@ -127,19 +123,19 @@ Promise.all([
 });
 
 function convertQuarter(q){
-    let splitted = q.split('Q');
+    let splitted = q.split("Q");
     let year = splitted[0];
     let quarterEndMonth = splitted[1] * 3 - 2;
-    let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
+    let date = d3.timeParse("%m %Y")(quarterEndMonth + " " + year);
     return date;
 }
 
 function qToQuarter(q){
 
-    let splitted = q.split('Q');
+    let splitted = q.split("Q");
     let year = splitted[0];
     let quarter = splitted[1];
-    let quarterString = ("Quarter "+ quarter + ' ' + year);
+    let quarterString = ("Quarter "+ quarter + " " + year);
 
     return quarterString;
 }
@@ -165,7 +161,7 @@ function formatQuarter(date){
     let year = (date.getFullYear());
     let q = Math.ceil(( newDate.getMonth()) / 3 );
     
-    return "Quarter "+ q + ' ' + year;
+    return "Quarter "+ q + " " + year;
 }
 
 function filterByDateRange(data, dateField, dateOne, dateTwo){
@@ -173,3 +169,48 @@ function filterByDateRange(data, dateField, dateOne, dateTwo){
         return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
     });
 }
+
+function slicer( arr, sliceBy ){
+    if ( sliceBy < 1 || !arr ) return () => [];
+    
+    return (p) => {
+        const base = p * sliceBy;
+
+        return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+    };
+}
+
+// function pagination(_data, _selector, _sliceBy, _pageNumber){
+    
+//     const chartObj = this;
+//     console.log(chartObj);
+    
+//     const slices = slicer( _data, _sliceBy ), 
+//           times =  _pageNumber,
+//           startSet = slices(times - 1);
+
+//     let moreButtons = d3.select(_selector)
+//         .append("div")
+//         .attr("class", "text-center pb-2");
+
+//     // tCharts.getData(startSet);
+//     // tCharts.addTooltip("No. of Patients:", "000");
+
+//     for(i=0; i<times; i++){
+//         let wg = slices(i);
+
+//         moreButtons.append("button")
+//         .attr("type", "button")
+//         .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+//         .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+//         .text("Weeks "+ (1+(i*13)) +" - "+ ((i+1)*13))
+//         // .on("click", function(){
+//         //     if(!$(this).hasClass("active")){
+//         //         $(this).siblings().removeClass("active");
+//         //         $(this).addClass("active");
+//         //         tCharts.getData(wg);
+//         //         tCharts.addTooltip("No. of Patients:", "000");
+//         //     }
+//         // });
+//     }
+// }
