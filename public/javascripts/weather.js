@@ -1,5 +1,5 @@
 //TODO: error check and handle
-d3.xml("/data/Environment/weather_met_eireann.xml").then(function (xmlWeather) {
+d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) {
     //console.log("Weather: " + xmlWeather);
     let timesXML = xmlWeather.getElementsByTagName("time");
     //console.log("#timesXML: " + timesXML.length);

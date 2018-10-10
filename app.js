@@ -97,6 +97,16 @@ cron.schedule("*/15 * * * *", function () {
     });
 });
 
+//Weather (from old Dublin Dashboard)
+cron.schedule("*/5 * * * *", function () {
+    let http = require('http');
+    let fs = require('fs');
+    let file = fs.createWriteStream("./public/data/Environment/met_eireann_forecast.xml");
+    let request = http.get("http://dublindashboard.ie/met_eireann_forecast.xml", function (response) {
+        response.pipe(file);
+    });
+});
+
 
 //Sound level readings
 cron.schedule("*/2 * * * *", function () {

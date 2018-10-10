@@ -44,25 +44,34 @@ let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_Nation
 let saData = [];
 
 d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
-    processSmallAreas(data);
+    processVariables(data);
 });
 
-function processSmallAreas(data_){
+function processVariables(data_){
     data_.forEach(function (d) {
         d.id = +d.GEOGID.split('_')[1]; //extract the numerical part 
                                         //corresponding to the boundary geojson
     });
-    console.log('SA data length = '+data_.length);
+    console.log('Variables length = '+data_.length);
 }
 
 d3.json('/data/tools/census2016/Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson')
-        .then(function (data_){
-            console.log('#boundaries = '+data_.features.length);
+        .then(function (data){
+            processBoundaries(data);
 });
 
+function processBoundaries(data_){
+    console.log('Boundaries length = '+data_.features.length);
+    
+}
 
-
-//function createSAMap(url_) {
+//
+//
+//
+//
+//
+//
+////function createSAMap(url_) {
 //    let promise = [];
 //    promise.push($.getJSON(url_));
 //    $.when.apply($, promise).done(function () {
