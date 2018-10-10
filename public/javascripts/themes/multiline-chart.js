@@ -292,9 +292,8 @@ class MultiLineChart{
                 focus.style("visibility","visible");
                 toolGroup.style("visibility","visible");
 
-                let mouse = d3.mouse(this);
-                let ttTextHeights = 0;
-
+                let mouse = d3.mouse(this),
+                    ttTextHeights = 0;
                 
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
