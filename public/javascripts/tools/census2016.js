@@ -28,26 +28,13 @@ mapCensus.addLayer(osm);
 
 //console.log("drawing map");
 //let mapHeight = 600;
-let chartHeight = 200;
-/* Parse GeoJSON */
-let jsonFeaturesArr = []; //all the things!
-let allDim;
-//data loading
-let dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
-let dublinSAURI = '/data/tools/small_areas/';
-let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
-let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
-
-//loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
-//createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
+let chartHeight = 400;
 
 //crossfilter variables
-
 //let idDim;
-
-//d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
-////    processVariables(data);
-//});
+d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
+//    processVariables(data);
+});
 let idDim;
 function processVariables(data_) {
 //    data_.forEach(function (d) {
@@ -108,7 +95,7 @@ function join(dArr_) {
             features.push(f);
         });
     });
-    console.log("faeturs length = " + features.length);
+//    console.log("features length = " + features.length);
     return features;
 }
 

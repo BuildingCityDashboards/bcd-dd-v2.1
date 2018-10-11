@@ -20,45 +20,46 @@ Promise.all([
           selector = "#chart-trolleys";
 
           tDataProcessed.forEach( d => {
-            d.label = "W" + d.week;  
-            d.date = parseTime(d[tdateField]);
-
+            let d1 = parseTime(d[tdateField]);
+                d1.setDate(d1.getDate()-2);
+                d.label = "W" + d.week;  
+                d.date = d1;
           });
 
         const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
 
         
-        const trolleys2016 = filterByDateRange(tDataProcessed, "date", "Dec 29 2015", "Dec 31 2016"),
-              trolleys2015 = filterByDateRange(tDataProcessed, "date", "Dec 28 2014", "Dec 31 2015"),
-              trolleys2014 = filterByDateRange(tDataProcessed, "date", "Dec 28 2013", "Dec 31 2014"),
-              trolleys2013 = filterByDateRange(tDataProcessed, "date", "Dec 28 2012", "Dec 31 2013");
+        // const trolleys2016 = filterByDateRange(tDataProcessed, "date", "Dec 29 2015", "Dec 31 2016"),
+        //       trolleys2015 = filterByDateRange(tDataProcessed, "date", "Dec 28 2014", "Dec 31 2015"),
+        //       trolleys2014 = filterByDateRange(tDataProcessed, "date", "Dec 28 2013", "Dec 31 2014"),
+        //       trolleys2013 = filterByDateRange(tDataProcessed, "date", "Dec 28 2012", "Dec 31 2013");
 
-              tCharts.pagination(trolleys2016, selector, 13, 4);
+              tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:");
 
-            d3.select("#t2016").on("click", function(){
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-                tCharts.pagination(trolleys2016, selector, 13, 4);
-            });
+            // d3.select("#t2016").on("click", function(){
+            //     $(this).siblings().removeClass("active");
+            //     $(this).addClass("active");
+            //     tCharts.pagination(trolleys2016, selector, 13, 4);
+            // });
 
-            d3.select("#t2015").on("click", function(){
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-                tCharts.pagination(trolleys2015, selector, 13, 4);
-            });
+            // d3.select("#t2015").on("click", function(){
+            //     $(this).siblings().removeClass("active");
+            //     $(this).addClass("active");
+            //     tCharts.pagination(trolleys2015, selector, 13, 4);
+            // });
 
-            d3.select("#t2014").on("click", function(){
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-                tCharts.pagination(trolleys2014, selector, 13, 4);
-            });
+            // d3.select("#t2014").on("click", function(){
+            //     $(this).siblings().removeClass("active");
+            //     $(this).addClass("active");
+            //     tCharts.pagination(trolleys2014, selector, 13, 4);
+            // });
 
-            d3.select("#t2013").on("click", function(){
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-                tCharts.pagination(trolleys2013, selector, 13, 4);
-            });
+            // d3.select("#t2013").on("click", function(){
+            //     $(this).siblings().removeClass("active");
+            //     $(this).addClass("active");
+            //     tCharts.pagination(trolleys2013, selector, 13, 4);
+            // });
 
         // all this goes into a function pass the chart obj, selector, xTitle
         // const slices = slicer( trolleys2016, 13 ),
