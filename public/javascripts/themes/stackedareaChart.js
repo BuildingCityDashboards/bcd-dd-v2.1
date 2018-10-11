@@ -672,20 +672,28 @@ slicer( arr, sliceBy ){
     if ( sliceBy < 1 || !arr ) return () => [];
     
     return (p) => {
-        const base = p * sliceBy;
+        const base = p * sliceBy,
+              size = arr.length;
 
-        return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+        let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+            
+            if (slicedArray.length < sliceBy) return slicedArray = arr.slice(size - sliceBy);
+
+            return slicedArray;
     };
 }
 
-pagination(_data, _selector, _sliceBy, _pageNumber){
-    
+pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
+
     const chartObj = this;
-    console.log(chartObj);
+    console.log(_data);
     
-    const slices = slicer( _data, _sliceBy ), 
+    const slices = chartObj.slicer( _data, _sliceBy ), 
           times =  _pageNumber,
           startSet = slices(times - 1);
+          
+        //  let newStart = [];
+        //  startSet.length < _sliceBy ? newStart = _data.slice(50 - _sliceBy) : newStart = startSet;
 
           d3.selectAll(".pagination-holder").remove();
 
@@ -694,16 +702,33 @@ pagination(_data, _selector, _sliceBy, _pageNumber){
         .attr("class", "pagination-holder text-center pb-2");
 
         chartObj.getData(startSet);
-        chartObj.addTooltip("No. of Patients:", "000");
+        chartObj.addTooltip(_text);
 
     for(let i=0; i<times; i++){
-        let wg = slices(i);
+        let wg = slices(i)
+            wg.length < _sliceBy ? wg = _data.slice(50 - _sliceBy) : wg;
+        
+
+        let wg3 = slices(i),
+            sliceNumber = _sliceBy - 1,
+            secondText;
+
+            if (typeof wg[sliceNumber] != 'undefined'){
+                secondText = wg[sliceNumber]
+            }
+            else{
+                secondText = wg[1];
+            }
+
+        console.log(secondText);
+        let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + "-" + secondText[_label];
 
         moreButtons.append("button")
         .attr("type", "button")
         .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
         .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
-        .text(chartObj.titleX + " " + (1+(i*_sliceBy)) +" - "+ ((i+1)*_sliceBy)) // pass this to the function
+        // .text(_label + " " + (1+(i*_sliceBy)) +" - "+ ((i+1)*_sliceBy)) // pass this to the function
+        .text(textString)
         .on("click", function(){
             if(!$(this).hasClass("active")){
                 $(this).siblings().removeClass("active");

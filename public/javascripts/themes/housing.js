@@ -27,9 +27,10 @@ Promise.all([
           dateField = completionData.columns[0],
           compDataProcessed = dataSets(completionData, keys);
 
-          compDataProcessed.forEach(function(d) {
+          compDataProcessed.forEach(function(d) {  
             d.label = d[dateField];
             d[dateField] = parseMonth(d[dateField]);
+            d.year = formatYear(d[dateField]);
           });
 
     const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
@@ -37,8 +38,10 @@ Promise.all([
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-        houseCompCharts.getData(dateFilter);
-        houseCompCharts.addTooltip("Units by Month:", "000");
+        // houseCompCharts.getData(dateFilter);
+        // houseCompCharts.addTooltip("Units by Month:", "000");
+
+        houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
 
 
 
