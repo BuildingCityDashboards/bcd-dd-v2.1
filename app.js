@@ -20,11 +20,11 @@ var app = express();
 // cosmodb connection
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoCensusDB = process.env.CENSUS_DATABASE_URL;
-mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
-var mongoDB = process.env.MONGODB_URI;
-// var mongoDB = CUSTOMCONNSTR_DATABASE_URL;
-mongoose.connect(mongoDB,{ useNewUrlParser: true });
+// var mongoCensusDB = process.env.CENSUS_DATABASE_URL;
+// mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
+// var mongoDB = process.env.MONGODB_URI;
+// // var mongoDB = CUSTOMCONNSTR_DATABASE_URL;
+// mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 

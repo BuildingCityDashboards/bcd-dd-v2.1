@@ -100,17 +100,17 @@ function renderMap(root) {
 }
 
 function renderTabs(root) {
-  // Draw local aut and register event listeners
-  let tabs = d3.select("#lp-tabs")
-                .selectAll("buttons")
-                .data(root.features)
-                .enter();
 
-        tabs.append("button")
-            .attr("class",  "btn btn-bcd mx-1")
-            .attr("id", d => "region" + d.properties.OBJECTID)
-            .text(d => d.properties.ENGLISH)
-            .on("click", clickHandler);
+  // Remove old and Draw local aut and register event listeners
+  let tabs = d3.select("#lp-tabs").selectAll("buttons");
+      
+      // tabs.remove();
+      tabs.data(root.features).enter();
+      tabs.append("button")
+          .attr("class",  "btn btn-bcd mx-1")
+          .attr("id", d => "region" + d.properties.OBJECTID)
+          .text(d => d.properties.ENGLISH)
+          .on("click", clickHandler);
 
 
   // // Place name in the middle
@@ -145,3 +145,7 @@ if(screenSize > 991){
 else{
   renderTabs(dublincoco);
 }
+
+d3.select(window).on("resize", function(){
+
+});
