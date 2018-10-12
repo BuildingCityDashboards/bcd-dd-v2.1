@@ -26,6 +26,8 @@ Promise.all([
                 d.date = d1;
           });
 
+          console.log(tDataProcessed);
+
         const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
 

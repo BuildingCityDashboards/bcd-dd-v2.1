@@ -3,6 +3,7 @@
     
     var parseTime = d3.timeParse("%d/%m/%Y");
     var formatTime = d3.timeFormat("%d/%m/%Y");
+    var formatYear = d3.timeFormat("%Y");
     var parseYear = d3.timeParse("%Y");
 
     var nut3regions = [
@@ -96,15 +97,17 @@
     /*** This unemployment Chart ***/
     d3.csv("../data/Economy/QNQ22_2.csv").then(data => {
 
-        let keys = data.columns.slice(2),
+        let keys = data.columns.slice(3),
             selector = "Unemployed Persons aged 15 years and over (Thousand)";
         
         const dataSet = dataSets(data, keys);
 
         dataSet.forEach(d => {
             d.label = d.quarter;
-            d.date = parseTime(d.quarter);
+            d.date = parseTime(d.date);
         });
+
+        console.log(dataSet);
 
         let quarterNest = d3.nest()
             .key(function(d){ return d.quarter; })
@@ -113,12 +116,15 @@
         
         //need to change method for stack area!!
         let newData = nestData(dataSet, "label", "region" , selector);
+            console.log(newData);
         const grouping = ["Dublin", "Ireland"];
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-            employmentCharts.getData(newData);
-            employmentCharts.addTooltip("Thousands - Quarter:", "000");
+        employmentCharts.pagination(newData, "#chartNew", 12, 7, "label", "Units by Month:");
+
+            // employmentCharts.getData(newData);
+            // employmentCharts.addTooltip("Thousands - Quarter:", "000");
         
         })// catch any error and log to console
         .catch(function(error){
@@ -525,6 +531,7 @@ function  nestData(data, date, name, value){
             d.values.forEach(function(v){
             obj[v[name]] = v[value];
             obj.date = v.date;
+            obj.year = v.year;
         })
     return obj;
   })
