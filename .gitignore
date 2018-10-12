@@ -60,7 +60,7 @@ typings/
 # next.js build output
 .next
 /nbproject/private/
-public/data/Transport/cpdata.xml
+/public/data/Transport/cpdata.xml
 /public/data/Environment/waterlevel.json
 /public/data/.DS_Store
 /public/data/Environment/met_eireann_forecast.xml

@@ -16,10 +16,9 @@
         d3.csv("../data/Economy/QNQ22_employment.csv"),
         d3.csv("../data/Economy/annualemploymentchanges.csv"),
     ]).then(datafiles => {
-        const QNQ22 = datafiles[0];
-        const annual = datafiles[1];
-        console.log("NEW DATA", QNQ22);
-        const columnNames = QNQ22.columns.slice(2),
+        const QNQ22 = datafiles[0],
+            annual = datafiles[1],
+            columnNames = QNQ22.columns.slice(2),
             groupBy = QNQ22.columns[1],
             yLabels = ["Thousands", "% Change", "% Change"];
 
@@ -36,7 +35,7 @@
             d.quarter = qToQuarter(d.quarter);
             return d;
         });
-        console.log("With Quarters still the same: ",valueData)
+
         const valueDataB = annual.map( d => {
             d.label = d.date;
             d.date = parseYear(d.date);
@@ -49,8 +48,6 @@
         const types = d3.nest()
             .key( regions => { return regions[groupBy];})
             .entries(valueData);
-        
-        console.log("this is the mutliline data format", types);
         
         const typesB = d3.nest()
             .key( regions => { return regions[groupByB];})
@@ -84,10 +81,11 @@
             mlineChart.addTooltip("Year:", "percentage", "year");
         });
 
-        // d3.select(window).on('resize', function(){
-        //     console.log("screen is beeing adjusted");
-        //     mlineChart.getData(); 
-        // });
+        d3.select(window).on("resize", function(){
+            mlineChart.init(); 
+            mlineChart.getData(columnNames[0], types);
+            mlineChart.addTooltip("", "thousands", "quarter");
+        });
     
     })
     .catch(function(error){
@@ -107,24 +105,21 @@
             d.date = parseTime(d.date);
         });
 
-        console.log(dataSet);
+        const testData = filterbyDate(dataSet, "date", "Jun 01 2008");
 
-        let quarterNest = d3.nest()
-            .key(function(d){ return d.quarter; })
-            .entries(dataSet);
-
-        
-        //need to change method for stack area!!
-        let newData = nestData(dataSet, "label", "region" , selector);
-            console.log(newData);
-        const grouping = ["Dublin", "Ireland"];
+        //nestData(data, date, name, valueName)
+        let newData = nestData(testData, "label", "region" , selector);
+            console.log("STACKED AREA DATA NESTED",newData);
+        const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-        employmentCharts.pagination(newData, "#chartNew", 12, 7, "label", "Units by Month:");
+        employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
 
-            // employmentCharts.getData(newData);
-            // employmentCharts.addTooltip("Thousands - Quarter:", "000");
+        d3.select(window).on("resize", function(){
+            employmentCharts.init(); 
+            employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
+        });
         
         })// catch any error and log to console
         .catch(function(error){
@@ -134,8 +129,6 @@
 
     /*** This the Gross Value Added per Capita at Basic Prices Chart ***/
     d3.csv("../data/Economy/RAA01.csv").then( data => {
-
-        // console.log("Income New Data", data);
 
         let columnNames = data.columns.slice(1);
         let incomeData = data;
@@ -193,11 +186,8 @@
                 d => d.key === "Median Real Household Disposable Income (Euro)"
             ).values;
 
-        console.log("the data to use", dataFiltered);
-
         const disosableIncomeChart = new BarChart( dataFiltered, "#chart-disposable-income", "year", "value", "Years", "€");
         
-        // console.log("this should be the bar chart area", disosableIncomeChart);
     })
     // catch any error and log to console
     .catch(function(error){
@@ -206,10 +196,8 @@
 
     // load csv data and turn value into a number
     d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
-        let columnNames = data.columns.slice(2);
-        // console.log(columnNames);
-        let employeesSizeData = data;
-        // console.log(employeesSizeData);
+        let columnNames = data.columns.slice(2),
+            employeesSizeData = data;
 
     })
     // catch any error and log to console
@@ -225,41 +213,12 @@
 
         data.forEach(d => {
             for(var i = 0, n = columnNames.length; i < n; ++i){
-
                 d[columnNames[i]] = +d[columnNames[i]] || 0;
-                // convert quarter to js time
-                // var splitted = d.quarter.split('Q');
-                // var year = splitted[0];
-                // var quarterEndMonth = splitted[1] * 3 - 2;
-                // d.date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
                 d.date = d.quarter;
             }
             return d;
         });
 
-        // // blank array
-        // const transposedData = [];
-        //     data.forEach(d => {
-        //         for (var key in d) {
-        //             // console.log(key);
-        //             var obj = {};
-        //             if (!(key === "date" || key === "region" || key === "quarter")){
-        //             obj.date = d.date;
-        //             obj.region = d.region;
-        //             obj.quarter = d.quarter;
-        //             obj.type = key;
-        //             obj.value = +d[key];
-        //             transposedData.push(obj);
-        //         }}
-        //     });
-
-        // let nestData = d3.nest()
-        //     .key(function(d){ return d.type;})
-        //     .entries(transposedData);
-        // console.log("employees By Sector Data", nestData);
-
-        // let grouping = nestData.map(d => d.key);
-        
         // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
         const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
         
@@ -291,7 +250,6 @@
         let nestData = d3.nest()
             .key( d =>{ return d.type;})
             .entries(employeesBySizeData);
-        console.log("employeesBySizeData Data", nestData);
 
         let grouping = nestData.map(d => d.key);
         
@@ -311,26 +269,17 @@
 
             let columnNames = data.columns.slice(1),
                 xValue = data.columns[0];
-                console.log(xValue);
 
                 data.forEach(d => {
                     for(var i = 0, n = columnNames.length; i < n; ++i){
-
                         d[columnNames[i]] = +d[columnNames[i]];
                     }
                     return d;
                 });
 
             let overseasVisitorsData = data;
-            // console.log("Overseas Data", overseasVisitorsData);
         
             const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
-        //  let newDatatest = columnNames.map( key => { 
-        //     return {
-        //         key: key, 
-        //         value: data.map[key]
-        //      }; 
-        // });
         
         // console.log("this is a random test of the grouped bar chart", newDatatest);
         
@@ -374,8 +323,7 @@ function dataSets (data, columns){
 
 
 d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
-    
-    console.log("this is the employment figs", data);
+
     const columnNames = data.columns.slice(2);
     const xValue = data.columns[0];
     const empValue = columnNames[1];
@@ -402,7 +350,6 @@ d3.csv("../data/Economy/QNQ22_employment.csv").then( data => {
     // const smallSetDublinOnly = DublinOnly.filter( d => {
     //     return d.quarter >= new Date("Tue Jan 01 2013 00:00:00");
     // });
-    console.log("dataSet:", smallSetDublinOnly);
     const lv = smallSetDublinOnly.length;
 
     let lastValue = smallSetDublinOnly[lv-1]
@@ -522,8 +469,6 @@ function  nestData(data, date, name, value){
         .key(function(d) { return d[date]; })
         .entries(data); // its the string not the date obj
 
-        console.log("data before split into objects HAHAHA",nested_data);
-
     let mqpdata = nested_data.map(function(d){
         let obj = {
             label: d.key
@@ -535,6 +480,18 @@ function  nestData(data, date, name, value){
         })
     return obj;
   })
-  console.log("this is the data sent", mqpdata);
+
   return mqpdata;
+}
+
+function filterByDateRange(data, dateField, dateOne, dateTwo){
+    return data.filter( d => {
+        return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
+    });
+}
+
+function filterbyDate(data, dateField, date){
+    return data.filter( d => {
+        return d[dateField] >= new Date(date);
+    });
 }

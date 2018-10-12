@@ -2,7 +2,7 @@ const parseTime = d3.timeParse("%d/%m/%Y");
 const parseYear = d3.timeParse("%Y");
 const breakPoint = 768;
 
-const locale = {
+let locale = d3.formatLocale({
     "decimal": ".",
     "thousands": ",",
     "grouping": [3],
@@ -15,7 +15,9 @@ const locale = {
     "shortDays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
     "shortMonths": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  }
+  });
+
+//   d3.formatLocale(locale);
 
 function dataSets (data, columns){
     coercedData = data.map( d => {
@@ -183,7 +185,7 @@ Promise.all([
     //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
 
     updateInfoText("#emp-chart a", "Total Employment in Dublin for ", " on previous Quarter", dublinData, columnNames1[0], "label", d3.format(".3s"));
-    updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", d3.format("$,"));
+    updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", locale.format("$,"));
     updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format("s") );
     updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
 
