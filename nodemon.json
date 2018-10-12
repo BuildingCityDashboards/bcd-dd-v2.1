@@ -1,4 +1,19 @@
 {   
-    "ignore": ["/public/data/Environment/*",
-    "/public/data/Transport/*"] 
+    "ignore": [
+        "/node_modules/*",
+        "/docs/*", 
+        "/npm Libraries/*",
+        "/bin/*",
+        "/public/data/*",
+        "/public/data/Demographics/*",
+        "/public/data/Economy/*",
+        "/public/data/Education/*",
+        "/public/data/Environment/*",
+        "/public/data/Environment/sound_levels/*",
+        "/public/data/Health/*",
+        "/public/data/Housing/*",
+        "/public/data/Transport/*",
+        "/public/data/tools/*",
+        "/public/data/tools/census2016/*",
+        "/public/data/tools/planning/*"] 
 }

@@ -20,10 +20,12 @@ var app = express();
 // cosmodb connection
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = process.env.DATABASE_URL;
-// mongoose.connect(mongoDB,{ useNewUrlParser: true });
+var mongoCensusDB = process.env.CENSUS_DATABASE_URL;
+mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
+
+db.on('connected', function(){console.log("Connected to Census Mongoose DB");});
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup

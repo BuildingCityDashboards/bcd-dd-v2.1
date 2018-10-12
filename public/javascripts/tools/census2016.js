@@ -26,8 +26,6 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_
 mapCensus.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 mapCensus.addLayer(osm);
 
-//console.log("drawing map");
-//let mapHeight = 600;
 let chartHeight = 400;
 
 //crossfilter variables
@@ -35,7 +33,7 @@ let chartHeight = 400;
 d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
 //    processVariables(data);
 });
-let idDim;
+let idDim; //data dimension accessible by GEOGID
 function processVariables(data_) {
 //    data_.forEach(function (d) {
 //        d.id = +d.GEOGID.split('_')[1]; //extract the numerical part 
@@ -122,14 +120,17 @@ function updateMap(data__) {
         //bind click
         layer.on({
             click: function () {
-                idDim.filter(feature.properties.SMALL_AREA);
-                let res = idDim.top(Infinity)[0].T1_1AGE1M;
-//                console.log(idDim.top(Infinity));
-                d3.select("#data-census2016")
-                        .html(res);
+//                idDim.filter(feature.properties.SMALL_AREA);
+//                let res = idDim.top(Infinity)[0].T1_1AGE1M;
+////                console.log(idDim.top(Infinity));
+//                d3.select("#data-census2016")
+//                        .html(res);
             }
         });
     }
+    
+    
+    
     function style(f) {
         //console.log("style feature "+f.properties.COUNTYNAME)
         return {
