@@ -29,6 +29,8 @@ class MultiLineChart{
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
+
+        d3.select(dv.element).select("svg").remove();
         
         // add the svg to the target element
         const svg = d3.select(dv.element)

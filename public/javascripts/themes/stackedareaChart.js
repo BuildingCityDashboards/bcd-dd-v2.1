@@ -21,6 +21,8 @@ class StackedAreaChart {
             elementWidth = elementNode.getBoundingClientRect().width,
             aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
 
+            d3.select(dv.element).select("svg").remove();
+            
         const breakPoint = 678;
         
         // margin
@@ -677,8 +679,8 @@ slicer( arr, sliceBy ){
 
         let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
             
-            if (slicedArray.length < sliceBy) return slicedArray = arr.slice(size - sliceBy);
-
+            if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+            
             return slicedArray;
     };
 }
@@ -686,7 +688,6 @@ slicer( arr, sliceBy ){
 pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
 
     const chartObj = this;
-    console.log(_data);
     
     const slices = chartObj.slicer( _data, _sliceBy ), 
           times =  _pageNumber,
@@ -705,11 +706,10 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
         chartObj.addTooltip(_text);
 
     for(let i=0; i<times; i++){
-        let wg = slices(i)
-            wg.length < _sliceBy ? wg = _data.slice(50 - _sliceBy) : wg;
+        // let wg = slices(i)
+            // wg.length < _sliceBy ? wg = _data.slice(50 - _sliceBy) : wg;
         
-
-        let wg3 = slices(i),
+        let wg = slices(i),
             sliceNumber = _sliceBy - 1,
             secondText;
 
@@ -717,11 +717,12 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
                 secondText = wg[sliceNumber]
             }
             else{
-                secondText = wg[1];
+                let lastEl = wg.length - 1;
+                    secondText = wg[lastEl];
             }
 
         console.log(secondText);
-        let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + "-" + secondText[_label];
+        let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + " - " + secondText[_label];
 
         moreButtons.append("button")
         .attr("type", "button")

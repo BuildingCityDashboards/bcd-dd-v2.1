@@ -13,6 +13,7 @@ Promise.all([
     d3.csv("../data/Health/healthlevelscount2011.csv")
 ]).then(datafiles => {
     // t is for trolleys
+
     const tData = datafiles[0],
           tKeys = tData.columns.slice(3),
           tdateField = tData.columns[2],
@@ -25,8 +26,6 @@ Promise.all([
                 d.label = "W" + d.week;  
                 d.date = d1;
           });
-
-          console.log(tDataProcessed);
 
         const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
@@ -173,15 +172,21 @@ function filterByDateRange(data, dateField, dateOne, dateTwo){
     });
 }
 
-function slicer( arr, sliceBy ){
-    if ( sliceBy < 1 || !arr ) return () => [];
-    
-    return (p) => {
-        const base = p * sliceBy;
-
-        return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
-    };
+function filterbyDate(data, dateField, date){
+    return data.filter( d => {
+        return d[dateField] >= new Date(date);
+    });
 }
+
+// function slicer( arr, sliceBy ){
+//     if ( sliceBy < 1 || !arr ) return () => [];
+    
+//     return (p) => {
+//         const base = p * sliceBy;
+
+//         return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+//     };
+// }
 
 // function pagination(_data, _selector, _sliceBy, _pageNumber){
     
