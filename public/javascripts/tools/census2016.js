@@ -28,32 +28,19 @@ mapCensus.addLayer(osm);
 
 //console.log("drawing map");
 //let mapHeight = 600;
-let chartHeight = 200;
-/* Parse GeoJSON */
-let jsonFeaturesArr = []; //all the things!
-let allDim;
-//data loading
-let dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
-let dublinSAURI = '/data/tools/small_areas/';
-let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
-let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
-
-//loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
-//createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
+let chartHeight = 400;
 
 //crossfilter variables
-
-let idDim;
-
+//let idDim;
 d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
-    processVariables(data);
+//    processVariables(data);
 });
-
+let idDim;
 function processVariables(data_) {
-    data_.forEach(function (d) {
-        d.id = +d.GEOGID.split('_')[1]; //extract the numerical part 
-        //corresponding to the boundary geojson
-    });
+//    data_.forEach(function (d) {
+//        d.id = +d.GEOGID.split('_')[1]; //extract the numerical part 
+//        //corresponding to the boundary geojson
+//    });
     console.log('Variables length = ' + data_.length);
     let censusDataXF = crossfilter(data_);
     idDim = censusDataXF.dimension(function (d) {
@@ -61,28 +48,67 @@ function processVariables(data_) {
     });
 }
 
-d3.json('/data/tools/census2016/Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson')
-        .then(function (data) {
-            processBoundaries(data.features);
+//Incrementally load boundaries for each LA
+let dataBase = '/data/tools/census2016/';
+let dcc0 = 'DCC_SA_0.geojson';
+let dcc1 = 'DCC_SA_1.geojson';
+let dcc2 = 'DCC_SA_2.geojson';
+//promises
+let pDCC0 = d3.json(dataBase + dcc0);
+let pDCC1 = d3.json(dataBase + dcc1);
+let pDCC2 = d3.json(dataBase + dcc2);
+Promise.all([pDCC0, pDCC1, pDCC2])
+        .then(function (dArr) {
+            updateMap(join(dArr));
         });
 
-function processBoundaries(data_) {
-    //console.log('Boundaries length = '+data_.length);
-    createMap(data_);
+//Fingal   
+let fcc0 = 'FCC_SA_0.geojson';
+let pFCC0 = d3.json(dataBase + fcc0);
+Promise.all([pFCC0])
+        .then(function (dArr) {
+            updateMap(join(dArr));
+        });
+//Fingal   
+let dlr0 = 'DLR_SA_0.geojson';
+let pDLR0 = d3.json(dataBase + dlr0);
+Promise.all([pDLR0])
+        .then(function (dArr) {
+            updateMap(join(dArr));
+        });
+//SDCC   
+let sdcc0 = 'SDCC_SA_0.geojson';
+let pSDCC0 = d3.json(dataBase + sdcc0);
+Promise.all([pSDCC0])
+        .then(function (dArr) {
+            updateMap(join(dArr));
+        });
 
+
+function join(dArr_) {
+//    console.log('Boundaries length = ' + dArr_.length);
+    let features = [];
+    //for 3 feature array element
+    dArr_.forEach(function (d, i) {
+        //for each element in features array
+        d.features.forEach(function (f, j) {
+            features.push(f);
+        });
+    });
+//    console.log("features length = " + features.length);
+    return features;
 }
 
-let boundariesDublin;
-
-function createMap(data__) {
-    boundariesDublin = L.geoJSON(data__,
+//let boundaries, boundariesFCC;
+function updateMap(data__) {
+    let boundaries = L.geoJSON(data__,
             {
-                filter: function (f, l) {
-                    return f.properties.COUNTYNAME.includes("Dublin")
-                            || f.properties.COUNTYNAME.includes("Fingal")
-                            || f.properties.COUNTYNAME.includes("Rathdown")
-                            ;
-                },
+//                filter: function (f, l) {
+//                    return f.properties.COUNTYNAME.includes("Dublin")
+//                            || f.properties.COUNTYNAME.includes("Fingal")
+//                            || f.properties.COUNTYNAME.includes("Rathdown")
+//                            ;
+//                },
                 style: style,
                 onEachFeature: onEachFeature
             });
@@ -105,30 +131,38 @@ function createMap(data__) {
         });
     }
     function style(f) {
+        //console.log("style feature "+f.properties.COUNTYNAME)
         return {
-            fillColor: '#16c1f3',
+            fillColor: getCountyColor(f.properties.COUNTYNAME),
             weight: 1,
-            opacity: 1,
-            //color: 'white',
-            dashArray: '3',
+            opacity: 2,
+            color: getCountyColor(f.properties.COUNTYNAME),
+            dashArray: '1',
             fillOpacity: 0.5
         };
     }
-    ;   
-
-    function getColor(d) {
-        return d > 1000 ? '#800026' :
-                d > 500 ? '#BD0026' :
-                d > 200 ? '#E31A1C' :
-                d > 100 ? '#FC4E2A' :
-                d > 50 ? '#FD8D3C' :
-                d > 20 ? '#FEB24C' :
-                d > 10 ? '#FED976' :
-                '#FFEDA0';
-    }
     ;
-    boundariesDublin.addTo(mapCensus);
+    boundaries.addTo(mapCensus);
+}
+;
+['#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c']
+function getCountyColor(d) {
+    return d === 'Dublin City' ? '#08519c' :
+            d === 'Fingal' ? '#bdd7e7' :
+            d === 'South Dublin' ? '#6baed6' :
+//            d ==='Dun Council' ? '#BD0026' :
+            '#3182bd';
+}
 
+function getDataColor(d) {
+    return d > 1000 ? '#800026' :
+            d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+            d > 100 ? '#FC4E2A' :
+            d > 50 ? '#FD8D3C' :
+            d > 20 ? '#FEB24C' :
+            d > 10 ? '#FED976' :
+            '#FFEDA0';
 }
 ;
 
