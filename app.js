@@ -20,7 +20,7 @@ var app = express();
 // cosmodb connection
 //Set up mongoose connection
 var mongoose = require('mongoose');
-var mongoDB = process.env.DATABASE_URL;
+var mongoDB = CUSTOMCONNSTR_DATABASE_URL;
 mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
