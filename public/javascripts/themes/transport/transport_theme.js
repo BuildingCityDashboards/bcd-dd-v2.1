@@ -26,7 +26,7 @@ bikeMap.on('popupopen', function (e) {
 let bikeCluster = L.markerClusterGroup();
 
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-d3.json("/data/Transport/bikesData.xml").then(function (data) {
+d3.json("/data/Transport/bikesData.json").then(function (data) {
     //console.log(data[0]);
     processBikes(data);
 });

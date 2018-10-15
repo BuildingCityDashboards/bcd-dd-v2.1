@@ -33,7 +33,7 @@ let dublinBikeMapIcon = L.icon({
 });
 
 
-d3.json("/data/Transport/bikesData.xml").then(function (data) {
+d3.json("/data/Transport/bikesData.json").then(function (data) {
     //console.log(data[0]);
     processBikes(data);
 });

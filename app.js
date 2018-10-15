@@ -92,7 +92,7 @@ cron.schedule("*/2 * * * *", function () {
     http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function (response) {
         response.pipe(carparkFile);
     });
-    let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.xml");
+    let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
     http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey="+process.env.BIKES_API_KEY, function (response) {
         response.pipe(bikeFile);
     });
