@@ -150,8 +150,9 @@ class GroupedBarChart{
         // join new data with old elements.
         dv.rects = dv.g.append("g")
             .selectAll("g")
-            .data(dv.data)
-            .enter()
+            .data(dv.data);
+
+        dv.rectGroup = dv.rects.enter()
             .append("g")
             .attr("class","rect-group")
             .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ",0)"; })
@@ -163,14 +164,32 @@ class GroupedBarChart{
                         date: d[dv.xValue]
                      }; 
                 }); 
-            })
-            .enter().append("rect")
+            });
+
+        dv.rect = dv.rectGroup.enter().append("rect")
             .attr("x", d => { return dv.x1(d.key); })
             .attr("y", d => { return dv.y(d.value); })
             .attr("width", dv.x1.bandwidth())
             .attr("height", d => { return (dv.height - dv.y(d.value)); })
             .attr("fill", d => { return dv.colour(d.key); })
             .attr("fill-opacity", ".75");
+
+        
+        dv.rectsOverlay = dv.g.append("g")
+            .selectAll("rect")
+            .data(dv.data)
+            .enter();
+
+        // // append a rectangle overlay to capture the mouse
+        dv.rectsOverlay.append("rect")
+            .attr("class", "focus_overlay")
+            .attr("x", d => dv.x0(d[dv.xValue]))
+            .attr("y", "0")
+            .attr("width", dv.x0.bandwidth()) // give a little extra for last value
+            .attr("height", dv.height)
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .style("visibility", "hidden");
 
         dv.addLegend();
     }
@@ -261,7 +280,7 @@ class GroupedBarChart{
                 dv.updateTooltip(d,i);
             });
 
-            dv.g.selectAll("rect")
+            dv.svg.selectAll(".focus_overlay")
             .on("mouseover", function(){ 
                 dv.tooltip.style("display", "inline-block"); 
             })
