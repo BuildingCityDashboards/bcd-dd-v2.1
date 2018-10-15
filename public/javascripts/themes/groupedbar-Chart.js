@@ -265,18 +265,19 @@ class GroupedBarChart{
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
 
-        let bcdTooltip = dv.tooltip.append("g")
+        let bcdTooltip = dv.tooltip
+            .append("g")
                 .attr("class", "bcd-tooltip")
                 .attr("width", dv.ttWidth)
                 .attr("height", dv.ttHeight);
             
-        let toolGroup =  bcdTooltip.append("g")
+            dv.toolGroup =  bcdTooltip
+            .append("g")
                 .attr("class", "tooltip-group")
                 .style("visibility", "hidden");
 
             dv.drawTooltip();
             dv.keys.forEach( (d,i) => {
-                console.log(d);
                 dv.updateTooltip(d,i);
             });
 
@@ -284,80 +285,83 @@ class GroupedBarChart{
             .on("mouseover", function(){ 
                 dv.tooltip.style("display", "inline-block"); 
             })
+            .on("touchstart", ()=>{
+                dv.tooltip.style("display", "inline-block"); 
+            })
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            .on("mousemove", function(d){
-                toolGroup.style("visibility","visible");
+            .on("touchmove", (d)=> dv.mousemove(d))
+            .on("mousemove", (d)=> dv.mousemove(d));
+    }
 
-                let x = dv.x0(d[dv.xValue]), 
-                    y = 100,
-                    fill = d3.select(this).style("fill"),
-                    ttTextHeights = 0,
-                    bisect = d3.bisector(function(d) { return d[dv.xValue]; }).left,
-                    i = bisect(dv.data, d[dv.xValue]);
+    mousemove(d){
+        let chart=this;
 
-                let tooltipX = dv.getTooltipPosition(x);
+        chart.toolGroup.style("visibility","visible");
 
-                dv.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+        let x = chart.x0(d[chart.xValue]), 
+            y = 100,
+            ttTextHeights = 0,
+            bisect = d3.bisector(function(d) { return d[chart.xValue]; }).left,
+            i = bisect(chart.data, d[chart.xValue]),
+            tooltipX = chart.getTooltipPosition(x);
 
-                dv.keys.forEach( (reg,idx) => {
-                    let tpId = ".tooltipbody_" + idx,
-                        ttTitle = dv.svg.select(".tooltip-title");
-                        
-                    let tooltipBody = dv.svg.select(tpId),
-                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+        chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
-                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+        chart.keys.forEach( (reg,idx) => {
+            let tpId = ".tooltipbody_" + idx,
+                ttTitle = chart.svg.select(".tooltip-title"),
+                tooltipBody = chart.svg.select(tpId),
+                textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
 
-                        tooltipBody.select(".tp-text-right").text(dv.data[i][dv.keys[idx]]);
-                        ttTitle.text(dv.ttTitle + " " + (d[dv.xValue])); //label needs to be passed to this function 
-                        ttTextHeights += textHeight + 6;
-                });
-            });
+                tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.keys[idx]]);
+                ttTitle.text(chart.ttTitle + " " + (d[chart.xValue])); //label needs to be passed to this function 
+                ttTextHeights += textHeight + 6;
+        });
     }
 
     drawTooltip(){
-        let dv = this;
-        console.log("this functon is called");
-        let tooltipTextContainer = dv.svg.select(".tooltip-group")
-          .append("g")
-            .attr("class","tooltip-text")
-            .attr("fill","#f8f8f8");
+        let dv = this,
+            tooltipTextContainer = dv.svg.select(".tooltip-group")
+            .append("g")
+                .attr("class","tooltip-text")
+                .attr("fill","#f8f8f8"),
 
-        let tooltip = tooltipTextContainer
+            tooltip = tooltipTextContainer
             .append("rect")
-            .attr("class", "tooltip-container")
-            .attr("width", dv.ttWidth)
-            .attr("height", dv.ttHeight)
-            .attr("rx", dv.ttBorderRadius)
-            .attr("ry", dv.ttBorderRadius)
-            .attr("fill","#001f35e6")
-            .attr("stroke", "#001f35")
-            .attr("stroke-width", 3);
+                .attr("class", "tooltip-container")
+                .attr("width", dv.ttWidth)
+                .attr("height", dv.ttHeight)
+                .attr("rx", dv.ttBorderRadius)
+                .attr("ry", dv.ttBorderRadius)
+                .attr("fill","#001f35e6")
+                .attr("stroke", "#001f35")
+                .attr("stroke-width", 3),
+            
+            tooltipTitle = tooltipTextContainer
+            .append("text")
+                .text("test tooltip")
+                .attr("class", "tooltip-title")
+                .attr("x", 5)
+                .attr("y", 16)
+                .attr("dy", ".35em")
+                .style("fill", "#a5a5a5"),
 
-        let tooltipTitle = tooltipTextContainer
-          .append("text")
-            .text("test tooltip")
-            .attr("class", "tooltip-title")
-            .attr("x", 5)
-            .attr("y", 16)
-            .attr("dy", ".35em")
-            .style("fill", "#a5a5a5");
+            tooltipDivider = tooltipTextContainer
+                .append("line")
+                    .attr("class", "tooltip-divider")
+                    .attr("x1", 0)
+                    .attr("x2", dv.ttWidth)
+                    .attr("y1", 31)
+                    .attr("y2", 31)
+                    .style("stroke", "#6c757d"),
 
-        let tooltipDivider = tooltipTextContainer
-            .append("line")
-                .attr("class", "tooltip-divider")
-                .attr("x1", 0)
-                .attr("x2", dv.ttWidth)
-                .attr("y1", 31)
-                .attr("y2", 31)
-                .style("stroke", "#6c757d");
-
-        let tooltipBody = tooltipTextContainer
+            tooltipBody = tooltipTextContainer
                 .append("g")
-                .attr("class","tooltip-body")
-                .attr("transform", "translate(5,50)");
+                    .attr("class","tooltip-body")
+                    .attr("transform", "translate(5,50)");
     }
 
     updateTooltip(d,i){
@@ -415,7 +419,6 @@ class GroupedBarChart{
             
             // show right
             if ( mouseX < chartSize + dv.x0.bandwidth()) {
-                console.log(chartSize, mouseX);
                 ttX = mouseX;
             } else {
                 // show left minus the size of tooltip + 10 padding

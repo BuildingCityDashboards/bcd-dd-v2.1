@@ -291,12 +291,16 @@ class MultiLineChart{
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
                 })
+                .on("touchstart", ()=>{
+                    focus.style("display", null); 
+                    bcdTooltip.style("display", "inline");
+                })
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
                 })
-                .on("mousemove", mousemove)
-                .on("touchmove", mousemove);
+                .on("touchmove", mousemove)
+                .on("mousemove", mousemove);
             
             function mousemove(){
                 focus.style("visibility","visible");

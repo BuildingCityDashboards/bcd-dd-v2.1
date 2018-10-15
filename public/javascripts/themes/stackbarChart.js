@@ -215,8 +215,8 @@ class StackBarChart {
 
     addTooltip(title, format, date){
 
-        let dv = this,
-            datelabel = date;
+        let dv = this;
+            dv.datelabel = date;
 
             dv.tooltip = dv.svg.append("g")
                 .classed("tool-tip", true);
@@ -233,7 +233,7 @@ class StackBarChart {
                 .attr("width", dv.ttWidth)
                 .attr("height", dv.ttHeight);
             
-        let toolGroup =  bcdTooltip.append("g")
+            dv.toolGroup =  bcdTooltip.append("g")
                 .attr("class", "tooltip-group")
                 .style("visibility", "hidden");
 
@@ -246,40 +246,48 @@ class StackBarChart {
             .on("mouseover", function(){ 
                 dv.tooltip.style("display", "inline-block"); 
             })
+            .on("touchstart", ()=>{
+                dv.tooltip.style("display", "inline-block");
+            })
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            .on("mousemove", function(d){
-                toolGroup.style("visibility","visible");
-                let x = dv.x(d.data.date), 
-                    y = 100,
-                    ttTextHeights = 0,
-                    bisect = d3.bisector(function(d) { return d.date; }).left,
-                    i = bisect(dv.data, d.data.date);
+            .on("touchmove", d => dv.mousemove(d))
+            .on("mousemove", d => dv.mousemove(d));
+    }
 
-                    console.log(i)
+    mousemove(d){
+        let chart=this;
 
-                let tooltipX = dv.getTooltipPosition(x);
+        chart.toolGroup.style("visibility","visible");
+        let x = chart.x(d.data.date), 
+            y = 100,
+            ttTextHeights = 0,
+            bisect = d3.bisector(function(d) { return d.date; }).left,
+            i = bisect(chart.data, d.data.date);
 
-                dv.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+            console.log(i)
 
-                dv.columns.forEach( (reg,idx) => {
-                    let tpId = ".tooltipbody_" + idx,
-                        ttTitle = dv.svg.select(".tooltip-title"),
-                        difference = dv.data[i-1] ? dv.data[i][dv.columns[idx]] -  dv.data[i-1][dv.columns[idx]]: 0, 
-                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
-                         
-                        
-                    let tooltipBody = dv.svg.select(tpId),
-                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+        let tooltipX = chart.getTooltipPosition(x);
 
-                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+        chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
-                        tooltipBody.select(".tp-text-right").text(dv.data[i][dv.columns[idx]] + indicatorSymbol);
-                        ttTitle.text(dv.ttTitle + " " + (d.data[datelabel]));
-                        ttTextHeights += textHeight + 6;
-                });
-            });
+        chart.columns.forEach( (reg,idx) => {
+            let tpId = ".tooltipbody_" + idx,
+                ttTitle = chart.svg.select(".tooltip-title"),
+                difference = chart.data[i-1] ? chart.data[i][chart.columns[idx]] -  chart.data[i-1][chart.columns[idx]]: 0, 
+                indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
+                 
+                
+            let tooltipBody = chart.svg.select(tpId),
+                textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+
+                tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+
+                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.columns[idx]] + indicatorSymbol);
+                ttTitle.text(chart.ttTitle + " " + (d.data[chart.datelabel]));
+                ttTextHeights += textHeight + 6;
+        });
     }
 
     drawTooltip(){

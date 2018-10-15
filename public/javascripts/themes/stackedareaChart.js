@@ -390,6 +390,10 @@ class StackedAreaChart {
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
                 })
+                .on("touchstart", ()=>{
+                    focus.style("display", null); 
+                    bcdTooltip.style("display", "inline");
+                })
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
