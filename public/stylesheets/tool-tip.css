@@ -13,7 +13,7 @@
   pointer-events: all;
 }
 
-.focus circle {
+.focus-circles {
   stroke-width: 2px;
 }
   

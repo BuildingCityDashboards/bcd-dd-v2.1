@@ -39,13 +39,41 @@
 
 .partner{
     float: left;
-    margin: 0 45px 15px 0;
-    height: 29px;
+    margin: 10px 35px 25px 0;
+    width: 125px;
 }
 
-.p-maynooth{
-    
+.partner img{
+    width: 100%;
+    transition:all;
+    opacity: .55;
 }
+
+.partner:hover img{
+    opacity: 1;
+}
+
+.partner.dcc{
+    width: 160px;
+}
+
+.partner.fcc{
+    width: 170px;
+}
+
+.partner.mu {
+    width: 140px;
+}
+
+.partner.sfi{
+    width: 130px;
+}
+
+.partner.sdcc{
+    width: 145px;
+}
+
+
 
 @media (min-width: 992px){
     .footer-nav{
