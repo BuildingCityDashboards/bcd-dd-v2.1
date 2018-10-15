@@ -70,6 +70,10 @@ Promise.all([
     const fccChart = new GroupedBarChart(fcc, types, date, "#chart-planningFCC", "Years", "Number");
     const sdccChart = new GroupedBarChart(sdcc, types, date, "#chart-planningSDCC", "Years", "Number");
 
+        dccChart.addTooltip("Planning Applications - Year", "thousands", date);
+        drccChart.addTooltip("Planning Applications - Year", "thousands", date);
+        fccChart.addTooltip("Planning Applications - Year", "thousands", date);
+        sdccChart.addTooltip("Planning Applications - Year", "thousands", date);
     // setup chart and data for supply of land chart
     // process the data
     
@@ -231,7 +235,7 @@ Promise.all([
     console.log("rentByBeds data processed", rentByBedsDataProcessed);
     // drawing charts for planning data.
     const rentByBedsChart = new GroupedBarChart(rentByBedsDataProcessed, rentByBedsTypes, rentByBedsDate, "#chart-rentByBeds", "Quarters", "Price");
-          rentByBedsChart.addTooltip("Land - Year", "thousands", "label");
+          rentByBedsChart.addTooltip("Rent Prices - Year", "thousands", rentByBedsDate);
 
 
     //  Setup data and chart for rent prices by quarter by bed numbers
@@ -242,8 +246,8 @@ Promise.all([
 
     // console.log("rentInspect data processed", rentInspectDataProcessed);
     // drawing charts for planning data.
-    const rentInspectChart = new GroupedBarChart(rentInspectDataProcessed, rentInspectTypes, rentInspectDate, "#chart-rentInspect", "Quarters", "Number");
-
+    const rentInspectChart = new GroupedBarChart(rentInspectDataProcessed, rentInspectTypes, rentInspectDate, "#chart-rentInspect", "Years", "Number");
+          rentInspectChart.addTooltip("Rent Inspections - Year", "thousands", rentInspectDate);
     // setup chart and data for supply of land chart
     // process the data
     const houseCompByTypeData = datafiles[8],

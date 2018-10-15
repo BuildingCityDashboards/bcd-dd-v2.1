@@ -2,58 +2,30 @@
 
 <carparkData>
   <Northwest>
-<<<<<<< HEAD
-    <carpark name="PARNELL" spaces="79"> </carpark>
-    <carpark name="ILAC" spaces="709"> </carpark>
-    <carpark name="JERVIS" spaces="572"> </carpark>
-    <carpark name="ARNOTTS" spaces="356"> </carpark>
-  </Northwest>
-
-  <Northeast>
-    <carpark name="MARLBORO" spaces="209"> </carpark>
-=======
-    <carpark name="PARNELL" spaces="75"> </carpark>
-    <carpark name="ILAC" spaces="711"> </carpark>
-    <carpark name="JERVIS" spaces="571"> </carpark>
+    <carpark name="PARNELL" spaces="83"> </carpark>
+    <carpark name="ILAC" spaces="727"> </carpark>
+    <carpark name="JERVIS" spaces="589"> </carpark>
     <carpark name="ARNOTTS" spaces="353"> </carpark>
   </Northwest>
 
   <Northeast>
-    <carpark name="MARLBORO" spaces="206"> </carpark>
->>>>>>> 376ea3b8dd54afcaa0527f92d9f898113bd4dd82
+    <carpark name="MARLBORO" spaces="210"> </carpark>
     <carpark name="ABBEY" spaces=" "> </carpark>
   </Northeast>
 
   <Southwest>
-<<<<<<< HEAD
-    <carpark name="THOMASST" spaces="198"> </carpark>
-    <carpark name="C/CHURCH" spaces="68"> </carpark>
-  </Southwest>
-
-  <Southeast>
-    <carpark name="SETANTA" spaces="22"> </carpark>
-    <carpark name="DAWSON" spaces="58"> </carpark>
-    <carpark name="TRINITY" spaces=" "> </carpark>
-    <carpark name="GREENRCS" spaces="552"> </carpark>
-    <carpark name="DRURY" spaces="198"> </carpark>
-    <carpark name="B/THOMAS" spaces="181"> </carpark>
-  </Southeast>
-
-  <Timestamp>14:05:53 on Monday 15/10/2018</Timestamp>
-=======
     <carpark name="THOMASST" spaces="201"> </carpark>
-    <carpark name="C/CHURCH" spaces="65"> </carpark>
+    <carpark name="C/CHURCH" spaces="52"> </carpark>
   </Southwest>
 
   <Southeast>
-    <carpark name="SETANTA" spaces="24"> </carpark>
-    <carpark name="DAWSON" spaces="64"> </carpark>
+    <carpark name="SETANTA" spaces="25"> </carpark>
+    <carpark name="DAWSON" spaces="68"> </carpark>
     <carpark name="TRINITY" spaces=" "> </carpark>
-    <carpark name="GREENRCS" spaces="542"> </carpark>
-    <carpark name="DRURY" spaces="190"> </carpark>
-    <carpark name="B/THOMAS" spaces="182"> </carpark>
+    <carpark name="GREENRCS" spaces="582"> </carpark>
+    <carpark name="DRURY" spaces="199"> </carpark>
+    <carpark name="B/THOMAS" spaces="192"> </carpark>
   </Southeast>
 
-  <Timestamp>13:55:53 on Monday 15/10/2018</Timestamp>
->>>>>>> 376ea3b8dd54afcaa0527f92d9f898113bd4dd82
+  <Timestamp>14:45:53 on Monday 15/10/2018</Timestamp>
 </carparkData>

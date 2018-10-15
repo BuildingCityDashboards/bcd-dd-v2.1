@@ -241,7 +241,7 @@ class GroupedBarChart{
 
             dv.ttTitle = title;
             dv.valueFormat = format;
-            dv.ttWidth = 280,
+            dv.ttWidth = 240,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -273,15 +273,12 @@ class GroupedBarChart{
                 // let x = d3.event.pageX, 
                 //     y = d3.event.pageY,
                 // console.log(dv.x0(d[dv.xValue]) +  dv.x1(d.key));
-                let x = dv.x0(d[dv.xValue]) +  dv.x1(d.key), 
-                    y = 10,
+                let x = dv.x0(d[dv.xValue]), 
+                    y = 100,
                     fill = d3.select(this).style("fill"),
                     ttTextHeights = 0,
-                    mouse = d3.mouse(this);
-                    // x0 = dv.x1.invert(mouse[0]);
-                    // i = dv.bisectLeft(dv.data, x0, 1);
-
-                    console.log(mouse);
+                    bisect = d3.bisector(function(d) { return d[dv.xValue]; }).left,
+                    i = bisect(dv.data, d[dv.xValue]);
 
                 let tooltipX = dv.getTooltipPosition(x);
 
@@ -299,10 +296,8 @@ class GroupedBarChart{
 
                         tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
 
-                        tooltipBody.select(".tp-text-right").text();
-                        ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
-
-                        console.log(dv.keys[idx], d, dv.data);
+                        tooltipBody.select(".tp-text-right").text(dv.data[i][dv.keys[idx]]);
+                        ttTitle.text(dv.ttTitle + " " + (d[dv.xValue])); //label needs to be passed to this function 
                         ttTextHeights += textHeight + 6;
                 });
 
@@ -352,7 +347,7 @@ class GroupedBarChart{
             .append("line")
                 .attr("class", "tooltip-divider")
                 .attr("x1", 0)
-                .attr("x2", 280)
+                .attr("x2", dv.ttWidth)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -387,6 +382,7 @@ class GroupedBarChart{
         tooltipBodyItem.append("circle")
             .attr("class", "tp-circle")
             .attr("r", "6")
+            .attr("stroke","#ffffff")
             .attr("fill", dv.colour(d));
 
         dv.updateSize();
@@ -416,12 +412,12 @@ class GroupedBarChart{
             chartSize = dv.width - dv.margin.right - dv.margin.left;
             
             // show right
-            if ( mouseX < chartSize ) {
+            if ( mouseX < chartSize + dv.x0.bandwidth()) {
                 console.log(chartSize, mouseX);
                 ttX = mouseX;
             } else {
                 // show left minus the size of tooltip + 10 padding
-                ttX = mouseX - 200;
+                ttX = mouseX - 50;
             }
             return ttX;
     }
