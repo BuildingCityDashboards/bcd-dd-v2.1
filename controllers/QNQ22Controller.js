@@ -27,3 +27,13 @@ exports.QNQ22_employment = function(req, res, next) {
     res.json(list_employment);
   });
 };
+
+exports.economy = function(req, res, next) {
+  QNQ22.find({},{"date":1, "quarter":1, "year": 1, "region":1,"Persons aged 15 years and over in Employment (Thousand)": 1, "Employment Quarter-On-Quarter % Change": 1, "Employment Year-On-Year % Change": 1 })
+  .exec(function (err, results) {
+    if (err) { return next(err); }
+    //Successful, so render
+    res.render('themes_economy', { title: 'Economy', data: results });
+  });
+  
+};

@@ -35,10 +35,6 @@ class GroupedBarChart{
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
-        dv.tooltip = d3.select(".page__root")
-            .append('div')  
-            .attr('class', 'tool-tip');  
-
         // add the svg to the target element
         const svg = d3.select(dv.element)
             .append("svg")
@@ -49,14 +45,18 @@ class GroupedBarChart{
         dv.g = svg.append("g")
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
+
+        dv.tooltip = svg.append("g")
+            .classed("tool-tip", true);
     
         // transition 
         // dv.t = () => { return d3.transition().duration(1000); }
     
-        dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        // dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        dv.colourScheme =d3.schemeBlues[9].slice(3);
 
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+        dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         dv.x0 = d3.scaleBand()
             .range([0, dv.width])
@@ -103,12 +103,17 @@ class GroupedBarChart{
         dv.update();
     
     }
+
+    getData(){
+        let dv = this;
+    
+    }
     
     update(){
         let dv = this;
 
         // Update scales
-        dv.x0.domain(dv.data.map(d => { return d[dv.xValue]; }));
+        dv.x0.domain(dv.data.map(d => {return d[dv.xValue]; }));
         dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
         dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
 
@@ -156,7 +161,8 @@ class GroupedBarChart{
             .data(d => { return dv.keys.map( key => { 
                     return {
                         key: key, 
-                        value: d[key]
+                        value: d[key],
+                        date: d[dv.xValue]
                      }; 
                 }); 
             })
@@ -176,20 +182,24 @@ class GroupedBarChart{
                 dv.tooltip.style("display", "none"); 
             })
             .on("mousemove", function(d){
-
-                let x = d3.event.pageX, 
-                    y = d3.event.pageY,
+                // let x = d3.event.pageX, 
+                //     y = d3.event.pageY,
+                console.log(dv.x0(d[dv.xValue]) +  dv.x1(d.key));
+                let x = dv.x0(d[dv.xValue]) +  dv.x1(d.key), 
+                    y = dv.y(d.value),
                     fill = d3.select(this).style("fill");
 
                 let tooltipX = dv.getTooltipPosition(x);
 
                 dv.tooltip
-                    .style( 'left', (tooltipX + 10) + "px" )
-                    .style( 'top', y + "px" )
-                    .style( 'display', "inline-block" )
+                    // .style( 'left', (tooltipX + 10) + "px" )
+                    // .style( 'top', y + "px" )
+                    .attr("transform", "translate("+ tooltipX +"," + y + ")");
+
+                dv.tooltip.append("text")
                     .text("The value is: " + (d.value)); 
                 
-                dv.tooltip.append("div")
+                dv.tooltip.append("rect")
                     .attr("class", "tip-box")
                     .style("background", fill)
                     .style("opacity", 0.75)
@@ -262,7 +272,8 @@ class GroupedBarChart{
     getTooltipPosition(mouseX) {
         let dv = this,
             ttX,
-            chartSize;
+            chartSize,
+            key = dv.keys;
 
             chartSize = dv.width + dv.margin.right + dv.margin.left;
             

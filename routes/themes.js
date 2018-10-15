@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var qnq22_controller = require('../controllers/QNQ22Controller');
+
 /* GET themes page. */
 //router.get('/', function(req, res, next) {
 //  res.redirect('/themes/health');
@@ -15,9 +17,11 @@ router.get('/demographics', function(req, res, next) {
 });
 
 
-router.get('/economy', function(req, res, next) {
-  res.render('themes_economy', { title: 'Economy Page' });
-});
+// router.get('/economy', function(req, res, next) {
+//   res.render('themes_economy', { title: 'Economy Page' });
+// });
+
+router.get('/economy', qnq22_controller.economy);
 
 router.get('/health', function(req, res, next) {
   res.render('themes_health', { title: 'Themes: Health' });

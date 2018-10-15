@@ -50,10 +50,10 @@ class StackedAreaChart {
         // transition 
         dv.t = () => { return d3.transition().duration(1000); };
         
-        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
-
+        // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
+        dv.colourScheme =d3.schemeBlues[9].slice(4);
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+        dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         // for the tooltip from the d3 book
         dv.bisectDate = d3.bisector(d => { return (d[dv.date]); }).left;
@@ -204,23 +204,29 @@ class StackedAreaChart {
         dv.regions
             .append("path")
             .attr("class", "area")
+            .style("fill", (d) => {return dv.colour(d.key);})
+            .style("fill-opacity", 0.0)
+            .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.4)
-            .style("fill", (d) => {return dv.colour(d.key);});
+            .style("fill-opacity", 0.75);
+            
     
         dv.regions
             .append("path")
             .attr("class", "area-line")
-            .attr("d", dv.arealine)
-            .style("stroke", (d) => {return dv.colour(d.key);});
+            .style("stroke", (d) => {return dv.colour(d.key);})
+            .transition(dv.t())
+            .attr("d", dv.arealine);
+            
 
         // Update
         dv.g.selectAll(".area")
             .data(dv.data)
+            .style("fill", (d) => {return dv.colour(d.key);})
             .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.4)
-            .style("fill", (d) => {return dv.colour(d.key);});
+            .style("fill-opacity", 0.75);
+            
     
         dv.g.selectAll(".area-line")
             .data(dv.data)

@@ -17,17 +17,18 @@ var queries = require('./routes/queries');
 
 var app = express();
 
-// cosmodb connection
 //Set up mongoose connection
 var mongoose = require('mongoose');
-// var mongoCensusDB = process.env.CENSUS_DATABASE_URL;
-// mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
-// var mongoDB = process.env.MONGODB_URI;
-// mongoose.connect(mongoDB,{ useNewUrlParser: true });
+var mongoCensusDB = process.env.CUSTOMCONNSTR_CENSUS_DATABASE_URL;
+var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
+
+mongoose.connect(mongoDB,{ useNewUrlParser: true });
+mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
+
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 
-// db.on('connected', function(){console.log("Connected to Census Mongoose DB");});
+db.on('connected', function(){console.log("Connected to Census Mongoose DB");});
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup

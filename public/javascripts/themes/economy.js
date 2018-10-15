@@ -1,26 +1,43 @@
     // let section = d3.select("#economy");
     // let article = d3.select("#income_poverty");
     
-    var parseTime = d3.timeParse("%d/%m/%Y");
-    var formatTime = d3.timeFormat("%d/%m/%Y");
-    var formatYear = d3.timeFormat("%Y");
-    var parseYear = d3.timeParse("%Y");
-
-    var nut3regions = [
+    let parseTime = d3.timeParse("%d/%m/%Y"),
+        formatTime = d3.timeFormat("%d/%m/%Y"),
+        formatYear = d3.timeFormat("%Y"),
+        parseYear = d3.timeParse("%Y"),
+        nut3regions = [
         "Dublin",
         "Ireland",
-    ];
+        ],
+        qnq22CSV = "../data/Economy/QNQ22_employment.csv",
+        annual ="../data/Economy/annualemploymentchanges.csv";
+        // qnqJSON = trooms;
+        // qnq22_keys = Object.keys(qnqJSON[0]);
+        // qnqJSON.push()
+        
 
     /*** This employment Chart ***/
     Promise.all([
-        d3.csv("../data/Economy/QNQ22_employment.csv"),
-        d3.csv("../data/Economy/annualemploymentchanges.csv"),
+        d3.csv(qnq22CSV),
+        d3.csv(annual),
     ]).then(datafiles => {
         const QNQ22 = datafiles[0],
             annual = datafiles[1],
             columnNames = QNQ22.columns.slice(2),
             groupBy = QNQ22.columns[1],
             yLabels = ["Thousands", "% Change", "% Change"];
+            // qnq22_keys = Object.keys(qnqJSON[0]);
+            // console.log("the cosmos db", qnqJSON, qnq22_keys.slice(5));
+
+        // const qnq22_file = qnqJSON.map( d => {
+        //     d.label = d.date;
+        //     d.date = parseYear(d.date);
+        //     for(var i = 0, n = qnq22_keys.length; i < n; ++i){
+        //         d[qnq22_keys[i]] = +d[qnq22_keys[i]]; 
+        //     }
+        //     return d;
+        // });
+        // console.log(qnq22_file);
 
         const columnNamesB = annual.columns.slice(2),
         groupByB = annual.columns[0],
@@ -44,6 +61,8 @@
             }
             return d;
         });
+
+
 
         const types = d3.nest()
             .key( regions => { return regions[groupBy];})

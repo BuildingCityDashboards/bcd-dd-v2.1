@@ -86,7 +86,8 @@ a:hover {
 .horizontal-line{
   fill: none;
   shape-rendering: crispEdges;
-  stroke: #c4cdd5;
+  stroke: #6c757d;
+  /* stroke: #c4cdd5; */
   stroke-width: 1;
 }
 
@@ -99,7 +100,8 @@ a:hover {
 }
 
 .x-axis text, .y-axis text{
-  fill: #6c757d;
+  /* fill: #6c757d; */
+  fill: #c4cdd5;
 }
 
 .area-line {
@@ -155,11 +157,14 @@ select:hover:not([disabled]) {
 
 .titleX, .titleY{
   font-size: 1rem;
-  fill: #6c757d;
+  /* fill: #6c757d; */
+  fill: #c4cdd5;
 }
 
 .legendText{
   font-size: .75rem;
+  color: #c4cdd5;
+  fill: #c4cdd5;
 }
 
 .legendRect{
@@ -180,8 +185,8 @@ select:hover:not([disabled]) {
 }
 
 .chart-holder{
-  background: #f8f8f8;
-  margin-top: 1rem;
+  /* background: #f8f8f8;
+  margin-top: 1rem; */
   margin-right: -1rem;
   border-radius: .325rem;
 }
@@ -201,7 +206,8 @@ select:hover:not([disabled]) {
 }
 
 .btn-page:hover, .btn-page:focus, .btn-page.active{
-  color: #313131;
+  /* color: #313131; */
+  color: #c4cdd5;
 }
 
 .btn-page.active{
