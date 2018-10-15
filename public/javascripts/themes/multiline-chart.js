@@ -10,6 +10,7 @@ class MultiLineChart{
     }
 
     // initialise method to draw chart area
+    // remove the 
     init(){
         let dv = this,
             elementNode = d3.select(dv.element).node(),
@@ -46,11 +47,11 @@ class MultiLineChart{
         // set transition variable
         dv.t = function() { return d3.transition().duration(1000); };
 
-        // dv.colour = d3.scaleOrdinal(d3.schemeBlues[9]);
-        dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
-
+        // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
+        dv.colourScheme =d3.schemeBlues[5].slice(1);
+        
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+        dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         // for the tooltip from the d3 book
         dv.bisectDate = d3.bisector( d => { return d.date; } ).left; // this needs to be dynamic dv.date!!

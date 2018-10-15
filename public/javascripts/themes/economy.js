@@ -11,8 +11,8 @@
         ],
         qnq22CSV = "../data/Economy/QNQ22_employment.csv",
         annual ="../data/Economy/annualemploymentchanges.csv";
-        // qnqJSON = trooms;
-        // qnq22_keys = Object.keys(qnqJSON[0]);
+        qnqJSON = trooms;
+        qnq22_keys = Object.keys(qnqJSON[0]);
         // qnqJSON.push()
         
 

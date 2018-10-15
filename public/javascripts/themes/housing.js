@@ -228,9 +228,10 @@ Promise.all([
           rentByBedsDate = rentByBedsData.columns[0],
           rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes);
 
-    // console.log("rentByBeds data processed", rentByBedsDataProcessed);
+    console.log("rentByBeds data processed", rentByBedsDataProcessed);
     // drawing charts for planning data.
     const rentByBedsChart = new GroupedBarChart(rentByBedsDataProcessed, rentByBedsTypes, rentByBedsDate, "#chart-rentByBeds", "Quarters", "Price");
+          rentByBedsChart.addTooltip("Land - Year", "thousands", "label");
 
 
     //  Setup data and chart for rent prices by quarter by bed numbers
