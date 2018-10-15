@@ -15,7 +15,7 @@ class MultiLineChart{
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
@@ -295,7 +295,8 @@ class MultiLineChart{
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
                 })
-                .on("mousemove", mousemove);
+                .on("mousemove", mousemove)
+                .on("touchmove", mousemove);
             
             function mousemove(){
                 focus.style("visibility","visible");

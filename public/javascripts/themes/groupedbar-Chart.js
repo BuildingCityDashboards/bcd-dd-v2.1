@@ -19,7 +19,7 @@ class GroupedBarChart{
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
@@ -289,9 +289,7 @@ class GroupedBarChart{
             })
             .on("mousemove", function(d){
                 toolGroup.style("visibility","visible");
-                // let x = d3.event.pageX, 
-                //     y = d3.event.pageY,
-                // console.log(dv.x0(d[dv.xValue]) +  dv.x1(d.key));
+
                 let x = dv.x0(d[dv.xValue]), 
                     y = 100,
                     fill = d3.select(this).style("fill"),
@@ -301,10 +299,7 @@ class GroupedBarChart{
 
                 let tooltipX = dv.getTooltipPosition(x);
 
-                dv.tooltip
-                    // .style( 'left', (tooltipX + 10) + "px" )
-                    // .style( 'top', y + "px" )
-                    .attr("transform", "translate("+ tooltipX +"," + y + ")");
+                dv.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
                 dv.keys.forEach( (reg,idx) => {
                     let tpId = ".tooltipbody_" + idx,
@@ -319,18 +314,6 @@ class GroupedBarChart{
                         ttTitle.text(dv.ttTitle + " " + (d[dv.xValue])); //label needs to be passed to this function 
                         ttTextHeights += textHeight + 6;
                 });
-
-                // dv.tooltip.append("text")
-                //     .text("The value is: " + (d.value)); 
-                
-                // dv.tooltip.append("rect")
-                //     .attr("class", "tip-box")
-                //     .style("background", fill)
-                //     .style("opacity", 0.75)
-                //     .style("width", "18px")
-                //     .style("height", "18px")
-                //     .style("margin-right", "5px")
-                //     .style("float", "left");
             });
     }
 

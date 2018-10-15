@@ -19,7 +19,7 @@ class StackedAreaChart {
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(dv.element).select("svg").remove();
             
@@ -28,10 +28,10 @@ class StackedAreaChart {
         // margin
         dv.margin = { };
 
-        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
+        dv.margin.top = elementWidth < breakPoint ? 30 : 50;
         dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
-        dv.margin.right = elementWidth < breakPoint ? 20 : 150;
+        dv.margin.right = elementWidth < breakPoint ? 12.5 : 150;
         dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
@@ -394,7 +394,8 @@ class StackedAreaChart {
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
                 })
-                .on("mousemove", mousemove);
+                .on("mousemove", mousemove)
+                .on("touchmove", mousemove);
             
             function mousemove(){
                 focus.style("visibility","visible");

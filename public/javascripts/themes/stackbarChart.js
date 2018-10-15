@@ -12,41 +12,35 @@ class StackBarChart {
     }
 
     init(){
+        let dv = this,
+            elementNode = d3.select(dv.element).node(),
+            elementWidth = elementNode.getBoundingClientRect().width,
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
-        let dv = this;
-
-        let elementNode = d3.select(dv.element).node();
-        let elementWidth = elementNode.getBoundingClientRect().width; 
-        let aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
-
+            d3.select(dv.element).select("svg").remove();
+            
         const breakPoint = 678;
         
         // margin
-        dv.margin = { 
-            top: 50,
-            bottom: 80
-        };
+        dv.margin = { };
 
-        dv.margin.right = elementWidth < breakPoint ? 0 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 0 : 80;
+        dv.margin.top = elementWidth < breakPoint ? 10 : 50;
+        dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
-        console.log(dv.margin);
+        dv.margin.right = elementWidth < breakPoint ? 12.5 : 150;
+        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
-
-        dv.tooltip = d3.select(".page__root")
-            .append('div')  
-            .attr('class', 'tool-tip');  
         
         // add the svg to the target element
-        const svg = d3.select(dv.element)
+        dv.svg = d3.select(dv.element)
             .append("svg")
             .attr("width", dv.width + dv.margin.left + dv.margin.right)
             .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
        
         // add the g to the svg and transform by top and left margin
-        dv.g = svg.append("g")
+        dv.g = dv.svg.append("g")
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
 
@@ -68,6 +62,9 @@ class StackBarChart {
         dv.yAxisCall = d3.axisLeft();
 
         dv.xAxisCall = d3.axisBottom();
+
+        dv.gridLines = dv.g.append("g")
+            .attr("class", "grid-lines");
 
         dv.xAxis = dv.g.append("g")
             .attr("class", "x-axis")
@@ -135,6 +132,7 @@ class StackBarChart {
         })]).nice();
 
         // dv.y.domain([0, 100]);
+        dv.drawGridLines();
 
         xAxisCall.scale(dv.x);
         dv.xAxis.transition(t()).call(xAxisCall);
@@ -142,62 +140,27 @@ class StackBarChart {
         yAxisCall.scale(dv.y);
         dv.yAxis.transition(t()).call(yAxisCall);
 
-        const layers = dv.g.selectAll(".stack")
+        dv.layers = dv.g.selectAll(".stack")
                 .data(dv.series)
                 .enter().append("g")
                 .attr("class", "stack")
                 .attr("fill", d => {
-                    // console.log("colour should be: ", d.key);
                     return dv.colour(d.key); 
                     })
                 .style("fill-opacity", 0.75);
             
-        layers.selectAll("rect")
+        dv.layers.selectAll("rect")
             .data( d => { return d; })
             .enter().append("rect")
                 .attr("x", d => { 
                     return dv.x(d.data.date); 
                 })
                 .attr("y", d => { 
-                    // console.log("this is the y value: ", d);
                     return dv.y(d[1]); 
                 })
                 .attr("height", d => { return dv.y(d[0]) - dv.y(d[1]);})
                 .attr("width", dv.x.bandwidth())
-                .style("stroke-width", "1")
-                .on("mouseover", function(d){ 
-                    let value = Math.round((d[1] - d[0]) * 10) / 10,
-                        fill = d3.select(this).style("fill"),
-                        text = Object.keys(d.data).find(key => d.data[key] == value);
-
-                    dv.tooltip.style("display", "inline-block");
-
-                    dv.tooltip.append("div")
-                        .attr("class", "tip-box")
-                        .style("background", fill);
-
-                    dv.tooltip.append("div")
-                        .attr("class", "tip-text")
-                        .text(
-                            dv.yTitle !== "€" ? (text + " : "  + value + " " + dv.yTitle) : (text + " : " + dv.yTitle + value)
-                        );
-                })
-                .on("mouseout", function(){ 
-                    dv.tooltip.selectAll("div")
-                    .remove();
-                    dv.tooltip.style("display", "none"); 
-                })
-                .on( 'mousemove', function( d ){
-                    let x = d3.event.pageX, 
-                        y = d3.event.pageY,
-                        tooltipX = dv.getTooltipPosition(x);
-
-                    dv.tooltip
-                        .style( 'left', tooltipX + "px" )
-                        .style( 'top', y + "px" )
-                        .style( 'display', 'inline-block' );
-
-                });
+                .style("stroke-width", "1");
     }
 
     addLegend(){
@@ -206,8 +169,6 @@ class StackBarChart {
         // create legend group
         let legend = dv.g.append("g")
         .attr("transform", "translate(0,0)");
-        // .attr("transform", "translate(" + (-75) + 
-        //             ", " + (0) + ")"); // if the legend needs to be moved
         
         let legends = legend.selectAll(".legend")
         .data(dv.columns.reverse())
@@ -218,6 +179,7 @@ class StackBarChart {
             .style("font", "12px sans-serif");
         
         legends.append("rect")
+            .attr("class", "legendRect")
             .attr("x", dv.width + 18)
             .attr("width", 18)
             .attr("height", 18)
@@ -225,6 +187,7 @@ class StackBarChart {
             .attr("fill-opacity", 0.75);
         
         legends.append("text")
+            .attr("class", "legendText")
             .attr("x", dv.width + 44)
             .attr("y", 9)
             .attr("dy", ".1rem")
@@ -233,21 +196,195 @@ class StackBarChart {
             .call(dv.textWrap, 100, dv.width + 44);
     }
 
+    drawGridLines(){
+        let dv = this;
+
+        dv.gridLines.selectAll('line')
+            .remove();
+
+        dv.gridLines.selectAll('line.horizontal-line')
+            .data(dv.y.ticks)
+            .enter()
+                .append('line')
+                .attr('class', 'horizontal-line')
+                .attr('x1', (0))
+                .attr('x2', dv.width)
+                .attr('y1', (d) => { return dv.y(d) })
+                .attr('y2', (d) => dv.y(d));
+    }
+
+    addTooltip(title, format, date){
+
+        let dv = this,
+            datelabel = date;
+
+            dv.tooltip = dv.svg.append("g")
+                .classed("tool-tip", true);
+
+            dv.ttTitle = title;
+            dv.valueFormat = format;
+            dv.ttWidth = 240,
+            dv.ttHeight = 50,
+            dv.ttBorderRadius = 3;
+            dv.formatYear = d3.timeFormat("%Y");
+
+        let bcdTooltip = dv.tooltip.append("g")
+                .attr("class", "bcd-tooltip")
+                .attr("width", dv.ttWidth)
+                .attr("height", dv.ttHeight);
+            
+        let toolGroup =  bcdTooltip.append("g")
+                .attr("class", "tooltip-group")
+                .style("visibility", "hidden");
+
+            dv.drawTooltip();
+            dv.columns.forEach( (d,i) => {
+                dv.updateTooltip(d,i);
+            });
+
+            dv.layers.selectAll("rect")
+            .on("mouseover", function(){ 
+                dv.tooltip.style("display", "inline-block"); 
+            })
+            .on("mouseout", function(){ 
+                dv.tooltip.style("display", "none"); 
+            })
+            .on("mousemove", function(d){
+                toolGroup.style("visibility","visible");
+                let x = dv.x(d.data.date), 
+                    y = 100,
+                    ttTextHeights = 0,
+                    bisect = d3.bisector(function(d) { return d.date; }).left,
+                    i = bisect(dv.data, d.data.date);
+
+                    console.log(i)
+
+                let tooltipX = dv.getTooltipPosition(x);
+
+                dv.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+
+                dv.columns.forEach( (reg,idx) => {
+                    let tpId = ".tooltipbody_" + idx,
+                        ttTitle = dv.svg.select(".tooltip-title"),
+                        difference = dv.data[i-1] ? dv.data[i][dv.columns[idx]] -  dv.data[i-1][dv.columns[idx]]: 0, 
+                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
+                         
+                        
+                    let tooltipBody = dv.svg.select(tpId),
+                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+
+                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+
+                        tooltipBody.select(".tp-text-right").text(dv.data[i][dv.columns[idx]] + indicatorSymbol);
+                        ttTitle.text(dv.ttTitle + " " + (d.data[datelabel]));
+                        ttTextHeights += textHeight + 6;
+                });
+            });
+    }
+
+    drawTooltip(){
+        let dv = this;
+        console.log("this functon is called");
+        let tooltipTextContainer = dv.svg.select(".tooltip-group")
+          .append("g")
+            .attr("class","tooltip-text")
+            .attr("fill","#f8f8f8");
+
+        let tooltip = tooltipTextContainer
+            .append("rect")
+            .attr("class", "tooltip-container")
+            .attr("width", dv.ttWidth)
+            .attr("height", dv.ttHeight)
+            .attr("rx", dv.ttBorderRadius)
+            .attr("ry", dv.ttBorderRadius)
+            .attr("fill","#001f35e6")
+            .attr("stroke", "#001f35")
+            .attr("stroke-width", 3);
+
+        let tooltipTitle = tooltipTextContainer
+          .append("text")
+            .text("test tooltip")
+            .attr("class", "tooltip-title")
+            .attr("x", 5)
+            .attr("y", 16)
+            .attr("dy", ".35em")
+            .style("fill", "#a5a5a5");
+
+        let tooltipDivider = tooltipTextContainer
+            .append("line")
+                .attr("class", "tooltip-divider")
+                .attr("x1", 0)
+                .attr("x2", dv.ttWidth)
+                .attr("y1", 31)
+                .attr("y2", 31)
+                .style("stroke", "#6c757d");
+
+        let tooltipBody = tooltipTextContainer
+                .append("g")
+                .attr("class","tooltip-body")
+                .attr("transform", "translate(5,50)");
+    }
+
+    updateTooltip(d,i){
+        let dv = this;
+
+        let tooltipBodyItem = dv.svg.select(".tooltip-body")
+            .append("g")
+            .attr("class", "tooltipbody_" + i);
+
+        tooltipBodyItem.append("text")
+            .text(d)
+            .attr("class", "tp-text-left")
+            .attr("x", "12")
+            .attr("dy", ".35em")
+            .call(dv.textWrap, 140, 12);
+
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-right")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 40)
+            .attr("text-anchor","end");
+
+        tooltipBodyItem.append("circle")
+            .attr("class", "tp-circle")
+            .attr("r", "6")
+            .attr("stroke","#ffffff")
+            .attr("fill", dv.colour(d));
+
+        dv.updateSize();
+    }
+
+    updateSize(){
+        let dv = this;
+        let height = dv.svg.select(".tooltip-body").node().getBBox().height;
+        dv.ttHeight += height + 5;
+        dv.svg.select(".tooltip-container").attr("height", dv.ttHeight);
+    }
+
     getTooltipPosition(mouseX) {
         let dv = this,
             ttX,
             chartSize;
 
-            chartSize = dv.width + dv.margin.right + dv.margin.left;
-
-            console.log("width of the chart", chartSize / 2);
+            chartSize = dv.width  - (dv.margin.right + 88);
+            console.log(chartSize);
+            console.log(mouseX);
             // show right
-            if ( mouseX < chartSize ) {
-                ttX = mouseX;
-            } else {
-                // show left minus the size of tooltip + 10 padding
-                ttX = mouseX - 250;
+
+            console.log(mouseX);
+            if ( mouseX < chartSize) {
+                ttX = mouseX + dv.margin.left + dv.x.bandwidth() ;
+                console.log(mouseX);
             }
+            else{
+                ttX = mouseX - (dv.margin.right + 8);
+            } 
+            // else {
+            //     // show left minus the size of tooltip + 10 padding
+            //     ttX = (dv.width + dv.margin.left) - dv.ttWidth;
+            //     console.log(mouseX);
+            // }
             return ttX;
     }
 

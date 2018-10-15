@@ -153,6 +153,7 @@
         let incomeData = data;
 
         const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
+            IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "date");
     
     })
     .catch(function(error){
@@ -168,6 +169,7 @@
         let incomeData = data;
 
         const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, columnNames, "%", "Survey on Income and Living Conditions for Dublin");
+              IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");
         
     
     })
@@ -240,6 +242,7 @@
 
         // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
         const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
+        newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
         
     })
     // catch any error and log to console
