@@ -431,6 +431,53 @@ $("div").on('click', '.luasRTbutton', function () {
     displayLuasRTBounced($(this).attr("data"));
 });
 
+/************************************
+ * Motorway Junctions
+ ************************************/
+
+d3.json("/data/Transport/traveltimes.json").then(function (data) {
+    //processTravelTimes(data);
+});
+
+d3.json("/data/Transport/traveltimesroad.json").then(function (data) {
+    processRoads(data);
+});
+
+function processTravelTimes(data_) {
+    //console.log("travel times data : " + JSON.stringify(data_));
+    //console.log("\n " + JSON.stringify(d3.keys(data_)));
+    d3.keys(data_).forEach(
+            //for each key
+                    function (d) {
+                        console.debug(JSON.stringify(d));
+                        //for each data array
+                        data_[d].data.forEach(function (d_) {
+                            console.debug("From " + d_["from_name"] + " to " + d_["to_name"]
+                                    + " (" + d_["distance"] / 1000 + " km)"
+                                    + "\nFree flow " + d_["free_flow_travel_time"] + " seconds"
+                                    + "\nCurrent time " + d_["current_travel_time"] + " seconds"
+                                    );
+                        });
+                    }
+            );
+
+        }
+;
+
+function processRoads(data_) {
+    console.debug("roads : " + JSON.stringify(data_.features));
+
+    data_.features.forEach(function (d_) {
+//        console.debug("f : " + JSON.stringify(f.properties));
+//        console.debug("" + JSON.stringify(f.geometry.coordinates));
+        console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
+                + " (" + d_.properties["distance"] / 1000 + " km)"
+                + "\nFree flow " + d_.properties["free_flow_travel_time"] + " seconds"
+                + "\nCurrent time " + d_.properties["current_travel_time"] + " seconds"
+                );
+    });
+}
+
 
 /************************************
  * Button Listeners
@@ -492,7 +539,7 @@ d3.select(".public_transport_all").on("click", function () {
     }
     if (!publicMap.hasLayer(carparkCluster)) {
         publicMap.addLayer(carparkCluster);
-    }    
+    }
     publicMap.fitBounds(busCluster.getBounds());
 
 });

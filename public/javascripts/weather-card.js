@@ -81,14 +81,14 @@ let weatherDisplayHTML =
 ;
 
 
-    let weatherNode = d3.select("#rt-chart1").node();
+    let weatherNode = d3.select("#rt-weather").node();
     let weatherWidth = weatherNode.getBoundingClientRect().width;
     // dimensions margins, width and height
     const m = [20, 10, 25, 10],
             w = weatherWidth - m[1] - m[3],
             h = 120 - m[0] - m[2];
 
-   let weatherSVG = d3.select("#rt-chart1")
+   let weatherSVG = d3.select("#rt-weather")
             .attr("width", w + m[1] + m[3])
             .attr("height", h + m[0] + m[2])
             .attr("transform", "translate(" + m[3] + "," + "10" + ")")

@@ -375,7 +375,7 @@ $("div").on('click', '.luasRTbutton', function () {
 });
 
 /************************************
- * Carparks
+ * Parking Map
  ************************************/
 
 let osmCarpark = new L.TileLayer(stamenTonerUrl_Lite, {

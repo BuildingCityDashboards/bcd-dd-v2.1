@@ -84,7 +84,7 @@ app.use(function (err, req, res, next) {
 });
 
 /***TODO: Archive to db***/
-//Car parks and bikes
+//Car parks, traveltimes and bikes 
 cron.schedule("*/2 * * * *", function () {
     let http = require('https');
     let fs = require('fs');
@@ -96,8 +96,17 @@ cron.schedule("*/2 * * * *", function () {
     http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey="+process.env.BIKES_API_KEY, function (response) {
         response.pipe(bikeFile);
     });
+    let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
+    http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function (response) {
+        response.pipe(travelTimesFile);
+    });
+    let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
+    http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function (response) {
+        response.pipe(travelTimesRoadsFile);
+    });
 });
 
+//Water Levels
 cron.schedule("*/15 * * * *", function () {
     var http = require('http');
     var fs = require('fs');
