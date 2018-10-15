@@ -33,7 +33,7 @@ let dublinBikeMapIcon = L.icon({
 });
 
 
-d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb899283cf1b42a97fc627eb7682ae8ff7d").then(function (data) {
+d3.json("/data/Transport/bikesData.json").then(function (data) {
     //console.log(data[0]);
     processBikes(data);
 });

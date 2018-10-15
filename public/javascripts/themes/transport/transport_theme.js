@@ -26,7 +26,7 @@ bikeMap.on('popupopen', function (e) {
 let bikeCluster = L.markerClusterGroup();
 
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-d3.json("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=7189fcb899283cf1b42a97fc627eb7682ae8ff7d").then(function (data) {
+d3.json("/data/Transport/bikesData.json").then(function (data) {
     //console.log(data[0]);
     processBikes(data);
 });
@@ -271,7 +271,7 @@ function updateMapLuas(data__) {
     luasCluster.clearLayers();
     luasMap.removeLayer(luasCluster);
     _.each(data__, function (d, k) {
-        console.log("k: " + k + "\n");
+//        console.log("k: " + k + "\n");
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: luasMapIcon});
         marker.bindPopup(getLuasContent(d));
         luasCluster.addLayer(marker);
