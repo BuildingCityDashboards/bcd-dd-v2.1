@@ -357,7 +357,7 @@ class StackedAreaChart {
                 .attr("class", "focus-circles");
 
         let bcdTooltip = focus.append("g")
-                .attr("class", "bcd-tooltip")
+                .attr("class", "bcd-tooltip tool-tip")
                 .attr("width", dv.ttWidth)
                 .attr("height", dv.ttHeight);
             
@@ -386,8 +386,14 @@ class StackedAreaChart {
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden")
-                .on("mouseover", () => { focus.style("display", null); })
-                .on("mouseout", () => { focus.style("display", "none"); })
+                .on("mouseover", () => { 
+                    focus.style("display", null); 
+                    bcdTooltip.style("display", "inline");
+                })
+                .on("mouseout", () => { 
+                    focus.style("display", "none"); 
+                    bcdTooltip.style("display", "none");
+                })
                 .on("mousemove", mousemove);
             
             function mousemove(){
@@ -522,7 +528,8 @@ class StackedAreaChart {
         tooltipBodyItem.append("circle")
             .attr("class", "tp-circle")
             .attr("r", "6")
-            .attr("fill", dv.colour(d));
+            .attr("fill", dv.colour(d))
+            .attr("stroke","#ffffff");
 
         // tooltipBodyItem.append("line")
         //     .attr("class", "tt-divider")
@@ -546,7 +553,7 @@ class StackedAreaChart {
     updateSize(){
         let dv = this;
         let height = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 1;
+        dv.ttHeight += height + 4;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
     }
 

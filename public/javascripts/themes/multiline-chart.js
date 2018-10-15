@@ -252,7 +252,7 @@ class MultiLineChart{
                 .attr("class", "focus_circles");
 
         let bcdTooltip = focus.append("g")
-                .attr("class", "bcd-tooltip")
+                .attr("class", "bcd-tooltip tool-tip")
                 .attr("width", dv.ttWidth)
                 .attr("height", dv.ttHeight);
             
@@ -287,8 +287,14 @@ class MultiLineChart{
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden")
-                .on("mouseover", () => { focus.style("display", null); })
-                .on("mouseout", () => { focus.style("display", "none"); })
+                .on("mouseover", () => { 
+                    focus.style("display", null); 
+                    bcdTooltip.style("display", "inline");
+                })
+                .on("mouseout", () => { 
+                    focus.style("display", "none"); 
+                    bcdTooltip.style("display", "none");
+                })
                 .on("mousemove", mousemove);
             
             function mousemove(){
@@ -362,14 +368,13 @@ class MultiLineChart{
             .attr("stroke-width", 3);
 
         let tooltipTitle = tooltipTextContainer
-          .append("text")
-            .text("test tooltip")
-            .attr("class", "tooltip-title")
-            .attr("x", 5)
-            .attr("y", 16)
-            .attr("dy", ".35em")
-            .style("fill", "#f8f8f8")
-            .style("font-size", ".875rem");
+            .append("text")
+              .text("test tooltip")
+              .attr("class", "tooltip-title")
+              .attr("x", 5)
+              .attr("y", 16)
+              .attr("dy", ".35em")
+              .style("fill", "#a5a5a5");
 
         let tooltipDivider = tooltipTextContainer
             .append("line")
@@ -411,7 +416,8 @@ class MultiLineChart{
         tooltipBodyItem.append("circle")
             .attr("class", "tp-circle")
             .attr("r", "6")
-            .attr("fill", dv.colour(d));
+            .attr("fill", dv.colour(d))
+            .attr("stroke","#ffffff");
         
         dv.updateSize();
     }
