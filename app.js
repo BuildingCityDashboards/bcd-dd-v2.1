@@ -20,9 +20,9 @@ var app = express();
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoCensusDB = process.env.CUSTOMCONNSTR_CENSUS_DATABASE_URL;
-var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
+//var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
 
-mongoose.connect(mongoDB,{ useNewUrlParser: true });
+//mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;
@@ -84,12 +84,17 @@ app.use(function (err, req, res, next) {
 });
 
 /***TODO: Archive to db***/
-cron.schedule("*/5 * * * *", function () {
-    var http = require('https');
-    var fs = require('fs');
-    var file = fs.createWriteStream("./public/data/Transport/cpdata.xml");
-    var request = http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function (response) {
-        response.pipe(file);
+//Car parks and bikes
+cron.schedule("*/2 * * * *", function () {
+    let http = require('https');
+    let fs = require('fs');
+    let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");
+    http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function (response) {
+        response.pipe(carparkFile);
+    });
+    let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.xml");
+    http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey="+process.env.BIKES_API_KEY, function (response) {
+        response.pipe(bikeFile);
     });
 });
 
@@ -114,7 +119,7 @@ cron.schedule("*/5 * * * *", function () {
 
 
 //Sound level readings
-cron.schedule("*/2 * * * *", function () {
+cron.schedule("*/15 * * * *", function () {
     let http = require('http');
     ;
     let fs = require('fs');
