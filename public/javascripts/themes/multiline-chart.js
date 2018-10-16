@@ -165,6 +165,7 @@ class MultiLineChart{
 
          // d3 line function
         dv.line = d3.line()
+            .defined(function(d) { return !isNaN(d[dv.value]); })
             .x( d => {
                 return dv.x(d.date); // this needs to be dynamic dv.date!!
             })
@@ -282,7 +283,7 @@ class MultiLineChart{
             // append a rectangle overlay to capture the mouse
             dv.g.append("rect")
                 .attr("class", "focus_overlay")
-                .attr("width", dv.width + 10) // give a little extra for last value
+                .attr("width", dv.width) // give a little extra for last value
                 .attr("height", dv.height)
                 .style("fill", "none")
                 .style("pointer-events", "all")
@@ -316,7 +317,10 @@ class MultiLineChart{
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d,
-                    dOld;  
+                    dOld,
+                    unText = "unavailable",
+                    v = dv.value,
+                    valueString;  
                     
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
@@ -328,10 +332,10 @@ class MultiLineChart{
                     let tooltip = d3.select(dv.element).select(id),
                         tooltipBody = d3.select(dv.element).select(tpId), 
                         textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
-                        difference = dOld ? (d[dv.value] -  dOld[dv.value])/dOld[dv.value]: 0,
+                        difference = !isNaN(d[v]) ? dOld ? (d[v] -  dOld[v])/dOld[v]: "null" : null,
                         indicatorColour,
                         indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
-                        diffPercentage = d3.format(".1%")(difference);
+                        diffPercentage = !difference ? unText :d3.format(".1%")(!isNaN(difference) ? difference : null);
 
                     if(dv.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
@@ -343,23 +347,16 @@ class MultiLineChart{
                     tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
+                        valueString =  isNaN(d[v]) ? "" :  dv.valueFormat !=="undefined"? dv.prefix + dv.valueFormat(d[v]) : d[v];
 
                         dv.updatePosition(dv.x(d.date), 10);
 
-                        tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");// this needs to be dynamic dv.date!!
-                        // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
-                        // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
-
-                        // tooltipBody.select(".tp-text-right").text(
-                        //     d[dv.value] > 100 ? d3.format(",.2r")(d[dv.value]) : d[dv.value]
-                        // );
-                        tooltipBody.select(".tp-text-right").text(
-                            dv.valueFormat !=="undefined" ? dv.prefix + dv.valueFormat(d[dv.value]) : dv.prefix + d[dv.value]
-                        );
+                        tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(!isNaN(d[v]) ? d[v]: 0) + ")");
+                        tooltipBody.select(".tp-text-right").text(valueString);
                         tooltipBody.select(".tp-text-indicator").text(diffPercentage +" "+indicatorSymbol).attr("fill",indicatorColour);
                         ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
 
-                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");// this needs to be dynamic dv.date!!
+                        focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
                     ttTextHeights += textHeight + 5;
                 });
@@ -382,8 +379,8 @@ class MultiLineChart{
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
             .attr("fill","#001f35e6")
-            .attr("stroke", "#001f35")
-            .attr("stroke-width", 3);
+            .attr("stroke", "#6c757d")
+            .attr("stroke-width", 2);
 
         let tooltipTitle = tooltipTextContainer
             .append("text")
@@ -406,7 +403,7 @@ class MultiLineChart{
         let tooltipBody = tooltipTextContainer
                 .append("g")
                 .attr("class","tooltip-body")
-                .attr("transform", "translate(5,50)");
+                .attr("transform", "translate(5,45)");
     }
 
     updateTooltip(d,i){

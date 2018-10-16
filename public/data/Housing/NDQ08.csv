@@ -17,6 +17,8 @@ date,type,value
 2017Q4,Unfinished,2
 2018Q1,Unfinished,9
 2018Q2,Unfinished,0
+2018Q3,Unfinished,null
+2018Q4,Unfinished,null
 2014Q1,Reconnection,59
 2014Q2,Reconnection,114
 2014Q3,Reconnection,191
@@ -35,6 +37,8 @@ date,type,value
 2017Q4,Reconnection,95
 2018Q1,Reconnection,76
 2018Q2,Reconnection,59
+2018Q3,Reconnection,null
+2018Q4,Reconnection,null
 2014Q1,Non-Domestic,7
 2014Q2,Non-Domestic,7
 2014Q3,Non-Domestic,13
@@ -53,3 +57,5 @@ date,type,value
 2017Q4,Non-Domestic,17
 2018Q1,Non-Domestic,11
 2018Q2,Non-Domestic,8
+2018Q3,Non-Domestic,null
+2018Q4,Non-Domestic,null

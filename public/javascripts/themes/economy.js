@@ -10,9 +10,10 @@
         "Ireland",
         ],
         qnq22CSV = "../data/Economy/QNQ22_employment.csv",
-        annual ="../data/Economy/annualemploymentchanges.csv";
-        qnqJSON = trooms;
-        qnq22_keys = Object.keys(qnqJSON[0]);
+        annual ="../data/Economy/annualemploymentchanges.csv",
+        pageSize = 12;
+        // qnqJSON = trooms;
+        // qnq22_keys = Object.keys(qnqJSON[0]);
         // qnqJSON.push()
         
 
@@ -124,16 +125,19 @@
             d.date = parseTime(d.date);
         });
 
-        const testData = filterbyDate(dataSet, "date", "Jun 01 2008");
+
+        const testData = filterbyDate(dataSet, "date", "Jan 01  2006");
 
         //nestData(data, date, name, valueName)
-        let newData = nestData(testData, "label", "region" , selector);
+        let newData = nestData(testData, "label", "region" , selector),
+            size = newData.length/pageSize;
+        console.log(newData);
 
         const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-        employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
+        employmentCharts.pagination(newData, "#chartNew", pageSize, size, "label", "Thousands - Quarter:");
 
         // d3.select(window).on("resize", function(){
         //     employmentCharts.init(); 
@@ -336,7 +340,7 @@ function join(lookupTable, mainTable, lookupKey, mainKey, select) {
 function dataSets (data, columns){
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
-            d[columns[i]] = +d[columns[i]];
+            d[columns[i]] = d[columns[i]] !== "null" ? +d[columns[i]] : "unavailable";
         }
     return d;
     });
@@ -476,15 +480,15 @@ function qToQuarter(q){
     return quarterString;
 }
 
-function dataSets (data, columns){
-    coercedData = data.map( d => {
-        for( var i = 0, n = columns.length; i < n; i++ ){
-            d[columns[i]] = +d[columns[i]];
-        }
-    return d;
-    });
-    return coercedData;
-}
+// function dataSets (data, columns){
+//     coercedData = data.map( d => {
+//         for( var i = 0, n = columns.length; i < n; i++ ){
+//             d[columns[i]] = +d[columns[i]];
+//         }
+//     return d;
+//     });
+//     return coercedData;
+// }
 
 function  nestData(data, date, name, value){
     let nested_data = d3.nest()

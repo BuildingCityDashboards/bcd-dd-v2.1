@@ -266,8 +266,6 @@ class StackBarChart {
             bisect = d3.bisector(function(d) { return d.date; }).left,
             i = bisect(chart.data, d.data.date);
 
-            console.log(i)
-
         let tooltipX = chart.getTooltipPosition(x);
 
         chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");

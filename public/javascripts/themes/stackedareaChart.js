@@ -124,7 +124,6 @@ class StackedAreaChart {
             _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
             
             dv.nestedData =_data;
-
             dv.createScales();
     }
 
@@ -159,17 +158,20 @@ class StackedAreaChart {
 
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
-
-        // d3 area function
-        dv.area = d3.area()
-            .x(function(d) { return dv.x((d.data[dv.date]))})
-            .y0(function(d) { return dv.y(d[0]); })
-            .y1(function(d) { return dv.y(d[1]); });
         
         dv.arealine = d3.line()
-            .curve(dv.area.curve())
-            .x(d => {return dv.x((d.data[dv.date]))})
-            .y(d => {return dv.y(d[1])});
+            .defined(function(d) { return !isNaN(d[1]); })
+            // .curve(dv.area.curve())
+            .x(d => { return dv.x(d.data[dv.date]); })
+            .y(d => { return dv.y( d[1]); });
+
+
+        // d3 area function
+         dv.area = d3.area()
+            .defined(function(d) { return !isNaN(d[1]); })
+            .x(function(d) { return dv.x(d.data[dv.date]); })
+            .y0(function(d) { return dv.y(d[0]); })
+            .y1(function(d) { return dv.y( d[1]); });
 
          // d3 stack function
         dv.stack = d3.stack().keys(dv.keys);
@@ -189,7 +191,7 @@ class StackedAreaChart {
 
         // select all regions and join data with old
         dv.regions = dv.g.selectAll(".area")
-            .data(dv.data, d => {return d})
+            .data(dv.data, d => { return d})
             .enter()
                 .append("g")
                     .classed("region", true);
@@ -413,35 +415,33 @@ class StackedAreaChart {
                     d0 = dv.nestedData[i - 1],
                     d1 = dv.nestedData[i],
                     d,
-                    dOld;  
+                    dPrev;  
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
-                d1 !== undefined ? dOld = x0 - d0[dv.date] > d1[dv.date] - x0 ? dv.nestedData[i-1] : dv.nestedData[i-2] : false;
-                console.log("new and old",d,dOld);
+                d1 !== undefined ? dPrev = x0 - d0[dv.date] > d1[dv.date] - x0 ? dv.nestedData[i-1] : dv.nestedData[i-2] : false;
+            
                 let length = dv.keys.length - 1;
+                
                 dv.keys.forEach( (reg,idx) => {
                     
-                    let reverseIndex = (length-idx);
-                    let dvalue = dv.data[reverseIndex];
-
-                    let dd0 = dvalue[i - 1],
-                        dd1 = dvalue[i],
-                        dd;  
-                        
-                        dd1 !== undefined ? dd = x0 - dd0.data[dv.date] > dd1.data[dv.date] - x0 ? dd1 : dd0 : false;
-
-                    let id = ".tooltip_" + reverseIndex,
+                    let reverseIndex = (length-idx),
+                        dvalue = dv.data[reverseIndex],
+                        key = dv.keys[reverseIndex],
+                        id = ".tooltip_" + reverseIndex,
                         tpId = ".tooltipbody_" + reverseIndex,
-                        ttTitle = dv.g.select(".tooltip-title");
-                        
-                    let tooltip = d3.select(dv.element).select(id),
-                        tooltipBody = d3.select(dv.element).select(tpId),
-                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
-                        difference = dOld ? (d[dv.keys[reverseIndex]] -  dOld[dv.keys[reverseIndex]])/dOld[dv.keys[reverseIndex]]: 0,
+                        ttTitle = dv.g.select(".tooltip-title"),
+                        dd0 = dvalue[i - 1],
+                        dd1 = dvalue[i],
+                        dd,
+                        unText = "unavailable",
+                        difference = dPrev ? (d[key] -  dPrev[key])/dPrev[key]: 0,
                         indicatorColour,
                         indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
-                        diffPercentage = d3.format(".1%")(difference);
-                        console.log(diffPercentage);
+                        diffPercentage = isNaN(difference) ? unText :d3.format(".1%")(difference),
+                        rateString = (diffPercentage + " " +indicatorSymbol),
+                        tooltip,
+                        tooltipBody,
+                        textHeight;
 
                     if(dv.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
@@ -450,22 +450,27 @@ class StackedAreaChart {
                         indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
                     }
 
-                    
-
-                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+                    tooltip = d3.select(dv.element).select(id);
+                    tooltipBody = d3.select(dv.element).select(tpId);
+                    textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+                    tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+                        
  
                     if(d !== undefined){
                         
                         dv.updatePosition(dv.x(d[dv.date]), 0);
 
-                        tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1]) + ")");
-                        // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
-                        // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
-                        tooltipBody.select(".tp-text-right").text(d[dv.keys[reverseIndex]]);
-                        tooltipBody.select(".tp-text-indicator").text(diffPercentage +" "+indicatorSymbol).attr("fill",indicatorColour);
+                        dd1 !== undefined ? dd = x0 - dd0.data[dv.date] > dd1.data[dv.date] - x0 ? dd1 : dd0 : false;
+
+                        tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1] ? dd[1]: 0 ) + ")");
+                        tooltipBody.select(".tp-text-right").text(isNaN(d[key]) ? "" : d[key]);
+                        tooltipBody.select(".tp-text-indicator")
+                            .text(rateString)
+                            .attr("fill",indicatorColour);
                         ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
                     }
+
                     ttTextHeights += textHeight + 6;
                 });
             }
@@ -487,8 +492,8 @@ class StackedAreaChart {
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
             .attr("fill","#001f35e6")
-            .attr("stroke", "#001f35")
-            .attr("stroke-width", 3);
+            .attr("stroke", "#6c757d")
+            .attr("stroke-width", 2);
 
         let tooltipTitle = tooltipTextContainer
           .append("text")
@@ -512,7 +517,7 @@ class StackedAreaChart {
                 .append("g")
                 .attr("class","tooltip-body")
                 // .style("transform", "translateY(8px)")
-                .attr("transform", "translate(5,50)");
+                .attr("transform", "translate(5,45)");
     }
 
     updateTooltip(d,i){
@@ -559,14 +564,6 @@ class StackedAreaChart {
             .attr("r", "6")
             .attr("fill", dv.colour(d))
             .attr("stroke","#ffffff");
-
-        // tooltipBodyItem.append("line")
-        //     .attr("class", "tt-divider")
-        //     .attr("x1", -10)
-        //     .attr("x2", 270)
-        //     .attr("y1", -16.5 )
-        //     .attr("y2", -16.5 )
-        //     .style("stroke", "#6c757d");
         
         dv.updateSize();
     }
@@ -763,7 +760,6 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
                     secondText = wg[lastEl];
             }
 
-        console.log(secondText);
         let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + " - " + secondText[_label];
 
         moreButtons.append("button")
