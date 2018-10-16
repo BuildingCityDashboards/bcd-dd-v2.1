@@ -1,4 +1,5 @@
-include card-chart
+include card-chart 
+include card-rt
 
 div(class="tab-content" id="nav-tabContent")
   //- button.arrow-left
@@ -7,16 +8,16 @@ div(class="tab-content" id="nav-tabContent")
   //-   +svg("","icon__arrow")(class="icon icon-arrow")
   div(class="tab-pane tab-charts fade show active" id="nav-all")
     .row.tab-charts__row
-      .col-xl-3.col-sm-6.col-11
+      #weather-chart.col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-blue", "Weather", "test", "rt-weather")
-      .col-xl-3.col-sm-6.col-11
+      #bikes-chart.col-xl-3.col-sm-6.col-11
         +card-chart("/", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
-      .col-xl-3.col-sm-6.col-11
-        +card-chart("/", "card text-white o-hidden border-blue", "M50 Traffic times", "test","rt-chart5")
-      .col-xl-3.col-sm-6.col-11
-        +card-chart("/", "card text-white o-hidden border-teal", "Air Quality", "test","rt-chart7")
+      #traveltimes-chart.col-xl-3.col-sm-6.col-11
+        +card-rt("/", "card text-white o-hidden border-blue", "Motorway Delays", "test","rt-travelTimes")
+      #air-chart.col-xl-3.col-sm-6.col-11
+        +card-chart("/", "card text-white o-hidden border-teal", "Air Quality", "test","rt-air")
     #data-text 
-      p click on a data set for more information...    
+      p Hover over these charts for more information, click to go to the data page    
     .row.tab-charts__row
       #emp-chart.col-xl-3.col-sm-6.col-11
         +card-chart("themes/economy#employment", "card text-white o-hidden border-red", "Employment Quarterly % Change", "test", "test-glance")  
