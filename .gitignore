@@ -64,3 +64,4 @@ typings/
 /public/data/Environment/waterlevel.json
 /public/data/.DS_Store
 /public/data/Environment/met_eireann_forecast.xml
+/public/data/

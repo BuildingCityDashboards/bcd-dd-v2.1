@@ -44,7 +44,7 @@ function updateDisplay(d__) {
 
         let travelTimesNode = d3.select("#rt-travelTimes").node();
         let travelTimesWidth = travelTimesNode.getBoundingClientRect().width;
-        console.log("travelTimesHeight: " + travelTimesWidth);
+        //console.log("travelTimesHeight: " + travelTimesWidth);
 // dimensions margins, width and height
         const m = [20, 10, 25, 10],
                 w = travelTimesWidth,
@@ -98,7 +98,7 @@ function updateDisplay(d__) {
 //        
 ////        
         svg.append('text')
-                .attr('x', w/2+h/2+4*m[3])
+                .attr('x', w/2+h/2+2*m[3])
                 .attr('y', 36)
                 .attr("font-size", 48)
                 //.attr("class", "label employment")
