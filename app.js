@@ -20,16 +20,15 @@ var app = express();
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoCensusDB = process.env.CUSTOMCONNSTR_CENSUS_DATABASE_URL;
-var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
+//var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
 
-mongoose.connect(mongoDB,{ useNewUrlParser: true });
+//mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
-
-db.on('connected', function(){console.log("Connected to Census Mongoose DB");});
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.on('connected', function(){console.log("Connected to Census MongoDB");});
+db.on('error', console.error.bind(console, 'Census MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -111,7 +110,7 @@ cron.schedule("*/15 * * * *", function () {
     var http = require('http');
     var fs = require('fs');
     var file = fs.createWriteStream("./public/data/Environment/waterlevel.json");
-    var request = http.get("http://waterlevel.ie/geojson/latest/", function (response) {
+    http.get("http://waterlevel.ie/geojson/latest/", function (response) {
         response.pipe(file);
     });
 });
