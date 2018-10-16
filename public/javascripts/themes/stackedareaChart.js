@@ -19,7 +19,7 @@ class StackedAreaChart {
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.85 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(dv.element).select("svg").remove();
             
@@ -28,10 +28,10 @@ class StackedAreaChart {
         // margin
         dv.margin = { };
 
-        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
+        dv.margin.top = elementWidth < breakPoint ? 30 : 50;
         dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
-        dv.margin.right = elementWidth < breakPoint ? 20 : 150;
+        dv.margin.right = elementWidth < breakPoint ? 12.5 : 150;
         dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
@@ -321,11 +321,11 @@ class StackedAreaChart {
                 .attr('y2', (d) => dv.y(d));
     }
 
-    addTooltip(title, format){
+    addTooltip(title, format, arrowChange){
 
         let dv = this;
             // ttData = data;
-
+            dv.arrowChange = arrowChange;
             dv.ttTitle = title;
             dv.valueFormat = format;
             dv.ttWidth = 280,
@@ -358,7 +358,7 @@ class StackedAreaChart {
 
         let bcdTooltip = focus.append("g")
                 .attr("class", "bcd-tooltip tool-tip")
-                .attr("width", dv.ttWidth)
+                // .attr("width", dv.ttWidth)
                 .attr("height", dv.ttHeight);
             
         let toolGroup =  bcdTooltip.append("g")
@@ -390,10 +390,15 @@ class StackedAreaChart {
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
                 })
+                .on("touchstart", ()=>{
+                    focus.style("display", null); 
+                    bcdTooltip.style("display", "inline");
+                })
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
                 })
+                .on("touchmove", mousemove)
                 .on("mousemove", mousemove);
             
             function mousemove(){
@@ -407,10 +412,12 @@ class StackedAreaChart {
                     i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
                     d0 = dv.nestedData[i - 1],
                     d1 = dv.nestedData[i],
-                    d;  
+                    d,
+                    dOld;  
 
                 d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
-                
+                d1 !== undefined ? dOld = x0 - d0[dv.date] > d1[dv.date] - x0 ? dv.nestedData[i-1] : dv.nestedData[i-2] : false;
+                console.log("new and old",d,dOld);
                 let length = dv.keys.length - 1;
                 dv.keys.forEach( (reg,idx) => {
                     
@@ -429,7 +436,21 @@ class StackedAreaChart {
                         
                     let tooltip = d3.select(dv.element).select(id),
                         tooltipBody = d3.select(dv.element).select(tpId),
-                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
+                        difference = dOld ? (d[dv.keys[reverseIndex]] -  dOld[dv.keys[reverseIndex]])/dOld[dv.keys[reverseIndex]]: 0,
+                        indicatorColour,
+                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
+                        diffPercentage = d3.format(".1%")(difference);
+                        console.log(diffPercentage);
+
+                    if(dv.arrowChange === true){
+                        indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+                    else{
+                        indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+
+                    
 
                         tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
  
@@ -441,6 +462,7 @@ class StackedAreaChart {
                         // tooltipBody.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(d[dv.value]) + ")");
                         // tooltipBody.select(".tp-text-left").text(dv.keys[idx]);
                         tooltipBody.select(".tp-text-right").text(d[dv.keys[reverseIndex]]);
+                        tooltipBody.select(".tp-text-indicator").text(diffPercentage +" "+indicatorSymbol).attr("fill",indicatorColour);
                         ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
                     }
@@ -481,7 +503,7 @@ class StackedAreaChart {
             .append("line")
                 .attr("class", "tooltip-divider")
                 .attr("x1", 0)
-                .attr("x2", 280)
+                .attr("x2", dv.ttWidth)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -522,7 +544,14 @@ class StackedAreaChart {
             .attr("class", "tp-text-right")
             .attr("x", "10")
             .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 40)
+            .attr("dx", dv.ttWidth - 90)
+            .attr("text-anchor","end");
+
+            tooltipBodyItem.append("text")
+            .attr("class", "tp-text-indicator")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 25)
             .attr("text-anchor","end");
 
         tooltipBodyItem.append("circle")
@@ -698,7 +727,7 @@ slicer( arr, sliceBy ){
     };
 }
 
-pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
+pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arrow){
 
     const chartObj = this;
     
@@ -716,7 +745,7 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
         .attr("class", "pagination-holder text-center pb-2");
 
         chartObj.getData(startSet);
-        chartObj.addTooltip(_text);
+        chartObj.addTooltip(_text,_format ,_arrow);
 
     for(let i=0; i<times; i++){
         // let wg = slices(i)
@@ -748,7 +777,7 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text){
                 $(this).siblings().removeClass("active");
                 $(this).addClass("active");
                 chartObj.getData(wg);
-                chartObj.addTooltip("No. of Patients:", "000");
+                chartObj.addTooltip(_text, _format, _arrow);
             }
         });
     }

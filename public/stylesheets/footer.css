@@ -39,8 +39,8 @@
 
 .partner{
     float: left;
-    margin: 10px 35px 25px 0;
-    width: 125px;
+    margin: 10px 24px 25px 0;
+    width: 90px;
 }
 
 .partner img{
@@ -54,23 +54,34 @@
 }
 
 .partner.dcc{
-    width: 160px;
-}
-
-.partner.fcc{
-    width: 170px;
-}
-
-.partner.mu {
     width: 140px;
 }
 
-.partner.sfi{
+.partner.fcc{
     width: 130px;
 }
 
+.partner.mu {
+    width: 115px;
+}
+
+.partner.sfi{
+    /* width: 120px; */
+}
+
 .partner.sdcc{
-    width: 145px;
+    width: 110px;
+    padding-top: 8px;
+}
+
+.partner.osi {
+    width: 110px;
+    padding-top: 10px;
+}
+
+.partner.cso {
+    width: 150px;
+    padding-top: 10px;
 }
 
 
