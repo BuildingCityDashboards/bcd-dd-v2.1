@@ -260,7 +260,7 @@ class GroupedBarChart{
 
             dv.ttTitle = title;
             dv.valueFormat = format;
-            dv.ttWidth = 240,
+            dv.ttWidth = 220,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -312,11 +312,14 @@ class GroupedBarChart{
         chart.keys.forEach( (reg,idx) => {
             let tpId = ".tooltipbody_" + idx,
                 ttTitle = chart.svg.select(".tooltip-title"),
-                tooltipBody = chart.svg.select(tpId),
+                difference = chart.data[i-1] ? chart.data[i][chart.keys[idx]] -  chart.data[i-1][chart.keys[idx]]: 0, 
+                indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
+
+            let tooltipBody = chart.svg.select(tpId),
                 textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
 
                 tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.keys[idx]]);
+                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.keys[idx]] + indicatorSymbol);
                 ttTitle.text(chart.ttTitle + " " + (d[chart.xValue])); //label needs to be passed to this function 
                 ttTextHeights += textHeight + 6;
         });

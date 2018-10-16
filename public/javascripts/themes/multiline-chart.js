@@ -221,7 +221,7 @@ class MultiLineChart{
             dv.ttTitle = title;
             dv.valueFormat = format;
             dv.dateField = dateField;
-            dv.ttWidth = 250;
+            dv.ttWidth = 280;
             dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -310,25 +310,37 @@ class MultiLineChart{
                     ttTextHeights = 0;
                 
                 dv.data.forEach((reg, idx) => {
-                    console.log("HELLO", reg);
                     // this is from the d3 book
                     let x0 = dv.x.invert(mouse[0]),
                     i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
                     d0 = reg.values[i - 1],
                     d1 = reg.values[i],
-                    d;  
+                    d,
+                    dOld;  
                     
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
+                    d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
                     
                     let id = ".tooltip_" + idx,
                         tpId = ".tooltipbody_" + idx,
                         ttTitle = dv.g.select(".tooltip-title");
 
-                    let tooltip = d3.select(dv.element).select(id);
-                    let tooltipBody = d3.select(dv.element).select(tpId); 
-                    let textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+                    let tooltip = d3.select(dv.element).select(id),
+                        tooltipBody = d3.select(dv.element).select(tpId), 
+                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
+                        difference = dOld ? (d[dv.value] -  dOld[dv.value])/dOld[dv.value]: 0,
+                        indicatorColour,
+                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
+                        diffPercentage = d3.format(".1%")(difference);
 
-                        tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+                    if(dv.arrowChange === true){
+                        indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+                    else{
+                        indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+                    
+                    tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
 
@@ -344,6 +356,7 @@ class MultiLineChart{
                         tooltipBody.select(".tp-text-right").text(
                             dv.valueFormat !=="undefined" ? dv.prefix + dv.valueFormat(d[dv.value]) : dv.prefix + d[dv.value]
                         );
+                        tooltipBody.select(".tp-text-indicator").text(diffPercentage +" "+indicatorSymbol).attr("fill",indicatorColour);
                         ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
 
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");// this needs to be dynamic dv.date!!
@@ -385,7 +398,7 @@ class MultiLineChart{
             .append("line")
                 .attr("class", "tooltip-divider")
                 .attr("x1", 0)
-                .attr("x2", 250)
+                .attr("x2", dv.ttWidth)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -393,7 +406,6 @@ class MultiLineChart{
         let tooltipBody = tooltipTextContainer
                 .append("g")
                 .attr("class","tooltip-body")
-                // .style("transform", "translateY(8px)")
                 .attr("transform", "translate(5,50)");
     }
 
@@ -415,7 +427,14 @@ class MultiLineChart{
             .attr("class", "tp-text-right")
             .attr("x", "10")
             .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 40)
+            .attr("dx", dv.ttWidth - 90)
+            .attr("text-anchor","end");
+
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-indicator")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 25)
             .attr("text-anchor","end");
 
         tooltipBodyItem.append("circle")
@@ -431,8 +450,8 @@ class MultiLineChart{
         let dv = this;
         // get the x and y values - y is static
         let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
-        // move the tooltip
-        dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+            // move the tooltip
+            dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
     }
 
     updateSize(){
@@ -471,7 +490,6 @@ class MultiLineChart{
                         ", " + (0) + ")"); // if the legend needs to be moved
 
         // create legend array, this needs to come from the data.
-        
         dv.legendArray = [];
         
         dv.keys.forEach( (d) => {

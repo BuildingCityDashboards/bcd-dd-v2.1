@@ -223,7 +223,7 @@ class StackBarChart {
 
             dv.ttTitle = title;
             dv.valueFormat = format;
-            dv.ttWidth = 240,
+            dv.ttWidth = 220,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");

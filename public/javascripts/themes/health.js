@@ -36,7 +36,7 @@ Promise.all([
         //       trolleys2014 = filterByDateRange(tDataProcessed, "date", "Dec 28 2013", "Dec 31 2014"),
         //       trolleys2013 = filterByDateRange(tDataProcessed, "date", "Dec 28 2012", "Dec 31 2013");
 
-              tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:");
+              tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:", "000", true);
 
             // d3.select("#t2016").on("click", function(){
             //     $(this).siblings().removeClass("active");
