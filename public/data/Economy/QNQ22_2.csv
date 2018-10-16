@@ -77,6 +77,8 @@ date,quarter,region,Persons aged 15 years and over in Employment (Thousand),Unem
 01/10/2016,2016Q4,Dublin,629.9,40.3,670.2,6,63.5
 01/01/2017,2017Q1,Dublin,627.2,41.7,668.9,6.3,63.1
 01/04/2017,2017Q2,Dublin,627,42,669.1,6.3,62.9
+01/07/2017,2017Q3,Dublin,null,null,null,null,null
+01/10/2017,2017Q4,Dublin,null,null,null,null,null
 01/01/1998,1998Q1,Ireland,1485.9,137.2,1623.1,8.5,56.8
 01/04/1998,1998Q2,Ireland,1506.5,127.9,1634.4,7.9,56.9
 01/07/1998,1998Q3,Ireland,1561.5,120.7,1682.2,7.2,58.2
@@ -155,3 +157,5 @@ date,quarter,region,Persons aged 15 years and over in Employment (Thousand),Unem
 01/10/2016,2016Q4,Ireland,2048.1,147.4,2195.6,6.7,60.1
 01/01/2017,2017Q1,Ireland,2045.1,146.2,2191.4,6.7,59.8
 01/04/2017,2017Q2,Ireland,2063,141.5,2204.5,6.4,59.9
+01/07/2017,2017Q3,Ireland,null,null,null,null,null
+01/10/2017,2017Q4,Ireland,null,null,null,null,null

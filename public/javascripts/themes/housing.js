@@ -26,6 +26,8 @@ Promise.all([
           keys = completionData.columns.slice(1),
           dateField = completionData.columns[0],
           compDataProcessed = dataSets(completionData, keys);
+          console.log(compDataProcessed);
+          console.log(datafiles[0]);
 
           compDataProcessed.forEach(function(d) {  
             d.label = d[dateField];
@@ -380,7 +382,8 @@ function qToQuarter(q){
 function dataSets(data, columns){
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
-            d[columns[i]] = +d[columns[i]];
+            // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
+            d[columns[i]] =  +d[columns[i]];
         }
     return d;
     });

@@ -146,7 +146,7 @@ function dataSets(data, columns){
     
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
-            d[columns[i]] !== "NULL" ? d[columns[i]]= +d[columns[i]] : d[columns[i]] = 0;
+            d[columns[i]] = d[columns[i]] !== "NULL" ? +d[columns[i]] : "unavailable";
             // d[hosiptal] !== "NULL" ? +d[hosiptal] : 0;
         }
         return d;

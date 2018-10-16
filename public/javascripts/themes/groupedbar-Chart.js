@@ -188,6 +188,7 @@ class GroupedBarChart{
             .attr("width", dv.x0.bandwidth()) // give a little extra for last value
             .attr("height", dv.height)
             .style("fill", "none")
+            .style("stroke","#00bff7")
             .style("pointer-events", "all")
             .style("visibility", "hidden");
 
@@ -258,9 +259,9 @@ class GroupedBarChart{
             dv.tooltip = dv.svg.append("g")
                 .classed("tool-tip", true);
 
-            dv.ttTitle = title;
+            dv.title = title;
             dv.valueFormat = format;
-            dv.ttWidth = 220,
+            dv.ttWidth = 280,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -282,45 +283,57 @@ class GroupedBarChart{
             });
 
             dv.svg.selectAll(".focus_overlay")
-            .on("mouseover", function(){ 
+            .on("mouseover", function(){
+                d3.select(this).style("visibility", "visible");
                 dv.tooltip.style("display", "inline-block"); 
             })
-            .on("touchstart", ()=>{
+            .on("touchstart", function(){
+                d3.select(this).style("visibility", "visible");
                 dv.tooltip.style("display", "inline-block"); 
             })
             .on("mouseout", function(){ 
+                d3.select(this).style("visibility", "hidden");
                 dv.tooltip.style("display", "none"); 
             })
-            .on("touchmove", (d)=> dv.mousemove(d))
-            .on("mousemove", (d)=> dv.mousemove(d));
+            .on("touchmove", (d, e, a)=> dv.mousemove(d, e, a))
+            .on("mousemove", (d, e, a)=> dv.mousemove(d, e, a));
     }
 
-    mousemove(d){
+    mousemove(d, e, a){
         let chart=this;
+        let rects = a[e];
+            // console.log(rects);
+            // rects.attr("stroke","#ffffff");
 
         chart.toolGroup.style("visibility","visible");
 
         let x = chart.x0(d[chart.xValue]), 
-            y = 100,
+            y = 50,
             ttTextHeights = 0,
-            bisect = d3.bisector(function(d) { return d[chart.xValue]; }).left,
-            i = bisect(chart.data, d[chart.xValue]),
-            tooltipX = chart.getTooltipPosition(x);
+            tooltipX = chart.getTooltipPosition(x),
+            data = a[e].__data__,
+            prevData = a[e-1] ? a[e-1].__data__ : null,
+            key = chart.keys;
 
         chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
-        chart.keys.forEach( (reg,idx) => {
+        key.forEach( (v,idx) => {
             let tpId = ".tooltipbody_" + idx,
-                ttTitle = chart.svg.select(".tooltip-title"),
-                difference = chart.data[i-1] ? chart.data[i][chart.keys[idx]] -  chart.data[i-1][chart.keys[idx]]: 0, 
-                indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
+                title = chart.svg.select(".tooltip-title"),
+                newD = data[key[idx]],
+                oldD = prevData ? prevData[key[idx]] : null,
+                diff = prevData ? (newD -  oldD)/oldD: 0, 
+                iSymbol = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
+                iColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
+                diffPer = iSymbol !== "" ? d3.format(".1%")(diff) : "";
 
             let tooltipBody = chart.svg.select(tpId),
                 textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
 
                 tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.keys[idx]] + indicatorSymbol);
-                ttTitle.text(chart.ttTitle + " " + (d[chart.xValue])); //label needs to be passed to this function 
+                tooltipBody.select(".tp-text-right").text(data[key[idx]]);
+                tooltipBody.select(".tp-text-indicator").text(diffPer +" "+iSymbol).attr("fill",iColour);
+                title.text(chart.title + " " + (d[chart.xValue])); //label needs to be passed to this function 
                 ttTextHeights += textHeight + 6;
         });
     }
@@ -385,7 +398,14 @@ class GroupedBarChart{
             .attr("class", "tp-text-right")
             .attr("x", "10")
             .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 40)
+            .attr("dx", dv.ttWidth - 90)
+            .attr("text-anchor","end");
+
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-indicator")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 25)
             .attr("text-anchor","end");
 
         tooltipBodyItem.append("circle")
