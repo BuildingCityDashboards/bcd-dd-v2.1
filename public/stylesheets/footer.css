@@ -39,8 +39,9 @@
 
 .partner{
     float: left;
-    margin: 10px 24px 25px 0;
-    width: 90px;
+    margin: 20px 10px 20px 0;
+    max-width: 130px;
+    cursor: pointer;
 }
 
 .partner img{
@@ -54,37 +55,35 @@
 }
 
 .partner.dcc{
-    width: 140px;
+    max-width: 140px;
 }
 
 .partner.fcc{
-    width: 130px;
+    max-width: 155px;
 }
 
 .partner.mu {
-    width: 115px;
+    max-width: 140px;
 }
 
 .partner.sfi{
-    /* width: 120px; */
+    max-width: 120px;
 }
 
 .partner.sdcc{
-    width: 110px;
+    max-width: 130px;
     padding-top: 8px;
 }
 
 .partner.osi {
-    width: 110px;
-    padding-top: 10px;
+    max-width: 110px;
+    padding-top: 15px;
 }
 
 .partner.cso {
-    width: 150px;
-    padding-top: 10px;
+    max-width: 180px;
+    padding-top: 15px;
 }
-
-
 
 @media (min-width: 992px){
     .footer-nav{

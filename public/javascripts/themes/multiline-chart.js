@@ -171,7 +171,8 @@ class MultiLineChart{
             })
             .y( d => { //this works
                 return dv.y(d[dv.value]); 
-            }).curve(d3.curveCatmullRom);
+            })
+            .curve(d3.curveCatmullRom);
             // .curve(d3.curveBasis);
 
         // Adapted from the tooltip based on the example in the d3 Book
@@ -202,7 +203,7 @@ class MultiLineChart{
             // .style("stroke", d => ( dv.data.map(function(v,i) {
             //     return dv.colour || dv.color[i % 10];
             //   }).filter(function(d,i) { return !dv.data[i].disabled })))
-            .style("stroke-width", "4px")
+            .style("stroke-width", "3px")
             .style("fill", "none");  
         
         // dv.regions.transition(dv.t)
@@ -332,11 +333,11 @@ class MultiLineChart{
                     let tooltip = d3.select(dv.element).select(id),
                         tooltipBody = d3.select(dv.element).select(tpId), 
                         textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
-                        difference = !isNaN(d[v]) ? dOld ? (d[v] -  dOld[v])/dOld[v]: "null" : null,
+                        difference = dv.getPerChange(d, dOld, v),
                         indicatorColour,
                         indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
                         diffPercentage = !difference ? unText :d3.format(".1%")(!isNaN(difference) ? difference : null);
-
+                        
                     if(dv.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
                     }
@@ -361,6 +362,18 @@ class MultiLineChart{
                     ttTextHeights += textHeight + 5;
                 });
             }
+    }
+
+    getPerChange(d1, d0, v){
+      let value = !isNaN(d1[v]) ? d0 ? (d1[v] -  d0[v])/d0[v]: "null" : null;
+          if( value === Infinity){
+           return d1[v];   
+          }
+          else if(isNaN(value)){
+            return 0;
+          }
+      return value;
+
     }
 
     drawTooltip(){

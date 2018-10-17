@@ -30,7 +30,7 @@ function dataSets (data, columns){
 }
 
 Promise.all([
-    d3.csv("/data/Economy/QNQ22_employment.csv"),
+    d3.csv("/data/Economy/QNQ22_2.csv"),
     d3.csv("/data/Demographics/population.csv"),
     d3.csv("data/Housing/houseComp.csv"),
     d3.csv("data/Housing/propertyprices.csv"),
@@ -41,14 +41,12 @@ Promise.all([
     const houseCompData = dataFiles[2];
     const priceList = dataFiles[3];
 
-    const columnNames1 = economyData.columns.slice(2);
+    const columnNames1 = economyData.columns.slice(3);
     const columnNames2 = demographicsData.columns.slice(2);
     const columnNames3 = houseCompData.columns.slice(1);
     const columnNames4 = priceList.columns.slice(1);
 
     const empValue = columnNames1[1];
-    const unempValue = columnNames1[1];
-
     const annualPopRate = columnNames2[0];
 
     const xValue = houseCompData.columns[0];
@@ -62,26 +60,25 @@ Promise.all([
     dataSet.forEach( d => {
         d.quarter = convertQuarter(d.quarter);
         d.label = formatQuarter(d.quarter);
-        d["Persons aged 15 years and over in Employment (Thousand)"] = d["Persons aged 15 years and over in Employment (Thousand)"] * 1000;
+        d[empValue] = +d[empValue];
     });
 
-    console.log(dataSet);
     dataSet4.forEach( d => {
         d.quarter = convertQuarter(d.date);
         d.label = formatQuarter(d.quarter);
     });
     
     const dateFiltered = dataSet.filter( d => {
-        return d.quarter >= new Date("Tue Jan 01 2016 00:00:00");
+        return d.quarter >= new Date("Tue Jan 01 2013 00:00:00") && d.quarter  <= new Date("Tue Feb 01 2017 00:00:00");
     });
 
     const dublinData =  dateFiltered.filter( d => {
         return d.region === "Dublin";
     });
 
-    const irelandData = dateFiltered.filter( d => {
-        return d.region === "Ireland";
-    });
+    // const irelandData = dateFiltered.filter( d => {
+    //     return d.region === "Ireland";
+    // });
 
     const dublinAnnualRate = dataSet2.filter( d => {
         return d.region === "Dublin";
@@ -104,10 +101,10 @@ Promise.all([
     let eWidth = elementNode.getBoundingClientRect().width; 
 
     const lastValue = dublinData[lv-1];
-    const lastValue2 = irelandData[lv-1];
+    // const lastValue2 = irelandData[lv-1];
     
     // dimensions margins, width and height
-    const m = [20, 10, 25, 10],
+    const m = [10, 10, 15, 10],
         w = eWidth - m[1] - m[3],
         h = 120 - m[0] - m[2];
     
@@ -117,14 +114,18 @@ Promise.all([
     
     // setup the line chart
     let valueline = d3.line()
+        .defined(function(d) { return !isNaN(d[empValue]); })
         .x(function(d,i) { return x(d.quarter); })
         .y(function(d) { return y(d[empValue]); })
         .curve(d3.curveBasis);
 
-    let valueline2 = d3.line()
-        .x(function(d,i) { return x(d.quarter); })
-        .y(function(d) { return y(d[unempValue]); })
-        .curve(d3.curveBasis);
+    let arealine = d3.area()
+    .defined(function(d) { return !isNaN(d[empValue]); })
+        .x(valueline.x())
+        .y1(valueline.y())
+        .y0(y(0));
+
+
 
     // Adds the svg canvas
     let svg = d3.select("#test-glance")
@@ -132,59 +133,44 @@ Promise.all([
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
         .append("g")
-        .attr("transform", "translate(" + m[3] + "," + "10" + ")");
+        .attr("transform", "translate(" + m[3] + "," + "12" + ")");
         // Scale the range of the data
         let maxToday = dublinData.length > 0 ? d3.max(dublinData, function(d) { return d[empValue]; }) : 0;
-        let maxReference = irelandData.length > 0 ? d3.max(irelandData, function(d) { return d[unempValue]; }) : 0;
+        // let maxReference = irelandData.length > 0 ? d3.max(irelandData, function(d) { return d[empValue]; }) : 0;
         x.domain(d3.extent(dublinData, d => {
             return (d.quarter); }));
-        y.domain([0, Math.max(maxToday, maxReference)]);
+        y.domain([0, Math.max(maxToday)]);
     
 
-    svg.append("path")
-        .attr("d", valueline2(irelandData))
-        .attr("stroke","#f8f9fa8c")
-        .attr("stroke-width", 4)
-        .attr("fill", "none")
-        .attr("stroke-linecap", "round");
+    // svg.append("path")
+    //     .attr("d", valueline2(irelandData))
+    //     .attr("stroke","#f8f9fa8c")
+    //     .attr("stroke-width", 4)
+    //     .attr("fill", "none")
+    //     .attr("stroke-linecap", "round");
  
     svg.append("path")
         .attr("class", "activity")
         .attr("d", valueline(dublinData))
         .attr("stroke","#16c1f3")
         .attr("stroke-width", 4)
-        .attr("fill", "none")
-        .attr("stroke-linecap", "round");
+        .attr("fill", "none");
+        // .attr("stroke-linecap", "round");
     
-    svg.append("text")
-        .attr("dx", 0)
-        .attr("dy", 105)
-        .attr("class", "label yesterday")
-        .attr("fill", "#f8f9fabd")
-        .text("Ireland");
-
-    // svg.append("text")
-    //     .attr("dx", 150)
-    //     .attr("dy", 105)
-    //     .attr("class", "label employment")
-    //     .attr("fill", "#f8f9fabd")
-    //     .text("Q2 2017 : " + lastValue2[empValue] + "%");
+    svg.append("path")
+        .attr("class", "area")
+        .attr("d", arealine(dublinData))
+        .attr("fill", "rgb(66, 146, 198)")
+        .attr("opacity", "0.5");
 
     svg.append("text")
         .attr("dx", 0)
-        .attr("dy", 2)
+        .attr("dy", -3)
         .attr("class", "label employment")
         .attr("fill", "#16c1f3")
         .text("Dublin");
 
-    // svg.append("text")
-    //     .attr("dx", 150)
-    //     .attr("dy", 2)
-    //     .attr("class", "label employment")
-    //     .attr("fill", "#16c1f3")
-    //     .text("Q2 2017 : " + lastValue[unempValue] + "%");
-
-    updateInfoText("#emp-chart a", "Total Employment in Dublin for ", " on previous Quarter", dublinData, columnNames1[0], "label", d3.format(".3s"));
+    updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".3s"), true);
     updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", locale.format("$,"));
     updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format("s") );
     updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
@@ -194,15 +180,16 @@ Promise.all([
     const lValue = dublinAnnualRate[size-1];
     const lValue2 = irelandAnnualRate[size-1];
         
-    // setting the line values range
-    let x2 = d3.scaleLinear().range([0, w-5]);
-    let y2 = d3.scaleLinear().range([h, 0]);
-        
     // setup the line chart
     let valuelineRate = d3.line()
-        .x(function(d,i) { return x2(d.date); })
-        .y(function(d) { return y2(d[annualPopRate]); })
+        .x(function(d,i) { return x(d.date); })
+        .y(function(d) { return y(d[annualPopRate]); })
         .curve(d3.curveBasis);
+
+    let arealineRate = d3.area()
+        .x(valuelineRate.x())
+        .y1(valuelineRate.y())
+        .y0(y(0));
     
     // Adds the svg canvas
     let svg2 = d3.select("#pr-glance")
@@ -213,25 +200,30 @@ Promise.all([
         .attr("transform", "translate(" + m[3] + "," + "10" + ")");
         // Scale the range of the data
         let maxDublin = dublinAnnualRate.length > 0 ? d3.max(dublinAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
-        let maxIreland = irelandAnnualRate.length > 0 ? d3.max(irelandAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
-        x2.domain(d3.extent(dublinAnnualRate, d => {
+        // let maxIreland = irelandAnnualRate.length > 0 ? d3.max(irelandAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
+        x.domain(d3.extent(dublinAnnualRate, d => {
             return (d.date); }));
-        y2.domain([0, Math.max(maxDublin, maxIreland)]);
+        y.domain([0, Math.max(maxDublin)]);
         
-        svg2.append("path")
-            .attr("d", valuelineRate(irelandAnnualRate))
-            .attr("stroke","#f8f9fa8c")
-            .attr("stroke-width", 4)
-            .attr("fill", "none")
-            .attr("stroke-linecap", "round");
-     
+        // svg2.append("path")
+        //     .attr("d", valuelineRate(irelandAnnualRate))
+        //     .attr("stroke","#f8f9fa8c")
+        //     .attr("stroke-width", 4)
+        //     .attr("fill", "none")
+        //     .attr("stroke-linecap", "round");
+
         svg2.append("path")
             .attr("class", "activity")
             .attr("d", valuelineRate(dublinAnnualRate))
             .attr("stroke","#16c1f3")
             .attr("stroke-width", 4)
-            .attr("fill", "none")
-            .attr("stroke-linecap", "round");
+            .attr("fill", "none");
+
+        svg2.append("path")
+            .attr("class", "area")
+            .attr("d", arealineRate(dublinAnnualRate))
+            .attr("fill", "rgb(66, 146, 198)")
+            .attr("opacity", "0.5");
         
         // svg2.append("text")
         //     .attr("dx", 0)
@@ -313,7 +305,7 @@ class DataGlanceLine{
     
         let valueline2 = d3.line()
             .x(function(d,i) { return x(d.quarter); })
-            .y(function(d) { return y(d[unempValue]); })
+            .y(function(d) { return y(d[empValue]); })
             .curve(d3.curveBasis);
     }
 
@@ -454,7 +446,7 @@ class GroupedBarChart{
             .data(dv.data)
             .enter()
             .append("g")
-            .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ", 10)"; })
+            .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ", 0)"; })
             .selectAll("rect")
             .data(d => { return dv.keys.map( key => { 
                     return {
@@ -467,7 +459,7 @@ class GroupedBarChart{
             .attr("x", d => { return dv.x1(d.key); })
             .attr("y", d => { return dv.y(d.value); })
             .attr("width", dv.x1.bandwidth())
-            .attr("height", d => { return (dv.height - dv.y(d.value)) ; })
+            .attr("height", d => { return (25 + dv.height - dv.y(d.value) ) ; })
             .attr("rx","2")
             .attr("ry","2")
             .attr("fill", "rgba(29, 158, 201, 0.42)")
@@ -517,8 +509,10 @@ function formatQuarter(date){
     return "Quarter "+ q + ' in ' + year;
 }
 
-function updateInfoText(selector, startText, endText, data, valueName, labelName, format ){
-    let lastData = data[data.length - 1],
+function updateInfoText(selector, startText, endText, data, valueName, labelName, format, changeArrrow ){
+    let green = "#20c997",
+        red = "#da1e4d",
+        lastData = data[data.length - 1],
         previousData = data[data.length - 2],
         text = d3.select("#data-text p"),
         textString = text.text(),
@@ -526,9 +520,10 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         prevValue = previousData[valueName],
         difference = ((currentValue - prevValue) / currentValue),
         lastElementDate = lastData[labelName],
+        cArrow = changeArrrow,
         indicatorSymbol = difference > 0 ? "▲ " : "▼ ",
         indicator = difference > 0 ? "Up" : "Down",
-        indicatorColour = difference > 0 ? "#20c997" : "#da1e4d",
+        indicatorColour = cArrow ? difference > 0 ?  red : green : difference > 0 ?  green : red,
         startString = startText,
         endString = endText;
         // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;

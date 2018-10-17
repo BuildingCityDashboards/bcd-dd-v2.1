@@ -4,7 +4,7 @@ const HOVER_COLOR = "#16c1f3",
       parentElement = elementNode.parentNode;
 
 let elementWidth = parentElement.getBoundingClientRect().width,
-    aspectRatio = elementWidth < 500 ? elementWidth * 1.5 : elementWidth * 1.5,
+    aspectRatio = elementWidth < 500 ? elementWidth * 0 : elementWidth * 1.25,
     scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
 
 
@@ -49,7 +49,7 @@ const projection = d3
   .geoMercator()
   // .center([-6.280387, 53.346174]) //53.346174, -6.280387
   // .center([-6.251264, 53.360643])
-  .center([-6.458681, 53.360675])
+  .center([-6.458681, 53.400675])
   .scale(scaleValue)
   .translate([WIDTH / 4, HEIGHT / 2]);
 
