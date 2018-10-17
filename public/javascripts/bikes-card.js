@@ -1,10 +1,10 @@
 d3.json("/data/Transport/bikesData.json").then(function (data) {
-    //console.log(data[0]);
+//    console.lodata[0]);
     processBikes(data);
 });
 
 function processBikes(data_) {
-  let availableBikes = 0, availableStands = 0;
+    let availableBikes = 0, availableStands = 0;
     //console.log("Bike data \n");
     data_.forEach(function (d) {
         d.lat = +d.position.lat;
@@ -17,62 +17,65 @@ function processBikes(data_) {
             availableStands += d.available_bike_stands;
         }
     });
-//    d3.select('#bike-card-bikes-count').html(availableBikes);
-//    d3.select('#bike-card-stands-count').html(availableStands);
-//let bikeDisplayHTML = 
-//           "<b>" + bikeTime(forecasts[0].date) + "</b><br>"
-//            + "<h2>" + forecasts[0].temperature + " C</h2>"
-//            + "<strong>Precipitation</strong> : " + precip + " mm <br>"
-//            + "<strong>Wind: Speed</strong> : " + windSpeed + " mps" + "\t Beaufort Scale: " + windB + "<br>"
-//            + "<strong>Wind Direction</strong> : " + windD + "<br>"
-//            + "<strong>Pressure</strong> : " + press + " hPa"
-;
+//    console.log("Bike data : "+availableBikes+" "+availableStands);
+    updateBikesDisplay(availableBikes, availableStands);
+}
+    
+function updateBikesDisplay(ab, as){
+        d3.select("#rt-bikes").select("#card-left")
+                .html('<h3>' +ab +'</h3>'
+                        + '<p>bikes</p>');
+
+        d3.select("#rt-bikes").select("#card-center")
+                .html('<img src = "/images/transport/bicycle-w-15.svg" width="60">');
 
 
-    let bikeNode = d3.select("#rt-bikes").node();
-    let bikeWidth = bikeNode.getBoundingClientRect().width;
-    // dimensions margins, width and height
-    const m = [20, 10, 25, 10],
-            w = bikeWidth - m[1] - m[3],
-            h = 120 - m[0] - m[2];
+        d3.select("#rt-bikes").select("#card-right")
+                .html('<h3>' +as +'</h3>'
+                        + '<p> stands </p>');
 
-   let bikeSVG = d3.select("#rt-bikes")
-            .attr("width", w + m[1] + m[3])
-            .attr("height", h + m[0] + m[2])
-            .attr("transform", "translate(" + m[3] + "," + "10" + ")")
-;
-    bikeSVG.append("text")
-        .attr("dx", 0)
-        .attr("dy", 55)
-//        .attr("class", "label")
-        .attr("fill", "#ffffffff")//#f8f9fabd")
-        .html("<b>"+availableBikes+"</b> bikes are available"
-        +"<br>"
-        +"<b>"+availableStands+"</b> stands are available");
+       updateInfo("#bikes-chart a", "<b>Dublin Bikes</b> currently have <b>"+ab+" bikes </b> and <b>"+as+" stands </b> available across the city");
+
+}
+
+function updateInfo(selector, infoText) {
+
+    let text = d3.select("#data-text p"),
+            textString = text.text();
+    ;
+
+    d3.select(selector)
+            .on("mouseover", (d) => {
+                text.html(infoText);
+            })
+            .on("mouseout", (d) => {
+                text.text(textString);
+            });
+}
 //
-}
-;
-let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-function getBikeContent(d_) {
-    let str = '';
-    if (d_.name) {
-        str += d_.name + '<br>';
-    }
-    if (d_.type) {
-        str += d_.type + '<br>';
-    }
-//    if (d_.address && d_.address !== d_.name) {
-//        str += d_.address + '<br>';
+//
+//;
+//let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
+//function getBikeContent(d_) {
+//    let str = '';
+//    if (d_.name) {
+//        str += d_.name + '<br>';
 //    }
-    if (d_.available_bikes) {
-        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
-    }
-    if (d_.available_bike_stands) {
-        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
-    }
-
-    if (d_.last_update) {
-        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
-    }
-    return str;
-}
+//    if (d_.type) {
+//        str += d_.type + '<br>';
+//    }
+////    if (d_.address && d_.address !== d_.name) {
+////        str += d_.address + '<br>';
+////    }
+//    if (d_.available_bikes) {
+//        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
+//    }
+//    if (d_.available_bike_stands) {
+//        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
+//    }
+//
+//    if (d_.last_update) {
+//        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
+//    }
+//    return str;
+//}
