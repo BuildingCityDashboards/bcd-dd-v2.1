@@ -2,12 +2,12 @@
   // Dynamic Content goes here
   .col-12
     h2.about__header About Dublin
-  .col-md-7.my-3.py-3
-    p Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
+  #dublin-text.col-md-7.my-3.py-3
+    p#region__open Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
       |It covers a total area of 
       span#region__area xxx.xx km2. 
       |Dublin has a total population of 
-      span#region__total-poualtion x,xxx,xxx 
+      span#region__population x,xxx,xxx 
       |people with a median age of 
       span#region__age xx.x 
       |and a median household income of 
@@ -17,17 +17,17 @@
       |from 
       span#region__prePopulation xxxxxx 
       |to 
-      span#region__curPopulation xxxxxx 
+      span#region__population xxxxxx 
       |, a 
       span#region__populationChange x.xx% decrease/increase 
-      |and its median household income 
+      |  and its median household income 
       span#region__incomeIndicator grew/shrunk 
       |from 
-      span €xx.xx 
+      span#region__income__prev €xx.xx 
       |to 
-      span €xx.xx
+      span#region__income €xx.xx
       |, a 
-      span x.xx% decrease/increase
+      span#region__income__change x.xx% decrease/increase
       |.
     p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. 
     p#help_text Click on the map to see info about each of the local authorities. 
@@ -40,18 +40,48 @@
       //-     span#region__total-house 530,753
       //-     |   of which vacant households (excluding holiday homes) numbered 
       //-     span#region__total-vacant 31,459.
+
     #lp-tabs.py-3.d-lg-none.d-md-block  
     .lp-map__compare
       h3 
-        span#region__title   Dublin
+        span#local__title   Dublin
 
-      p According to the Census of 2016, The population of 
-        span#region__title__small Dublin was 
-        span#region__population 1,345,402
-        | , and the total housing stock was 
-        span#region__house 530,753
-        |   of which vacant households (excluding holiday homes) numbered 
-        span#region__vacant 31,459.
+      //- p According to the Census of 2016, The population of 
+      //-   span#region__title__small Dublin was 
+      //-   span#region__population 1,345,402
+      //-   | , and the total housing stock was 
+      //-   span#region__house 530,753
+      //-   |   of which vacant households (excluding holiday homes) numbered 
+      //-   span#region__vacant 31,459.
+      p
+        span#local__open Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
+        |It covers a total area of 
+        span#local__area xxx.xx km2.
+        span#local__title__small Dublin 
+        | has a total population of 
+        span#local__total-poualtion x,xxx,xxx 
+        |people with a median age of 
+        span#local__age xx.x 
+        |and a median household income of 
+        span#local__income €xx.xx.
+      p In 2016 the population of 
+        span#local__title__small Dublin
+        span#local__populationIndicator declined/increased 
+        |from 
+        span#local__prePopulation xxxxxx 
+        |to 
+        span#local__curPopulation xxxxxx 
+        |, a 
+        span#local__populationChange x.xx% decrease/increase 
+        |  and its median household income 
+        span#local__incomeIndicator grew/shrunk 
+        |from 
+        span#local__income__prev €xx.xx 
+        |to 
+        span#local__income €xx.xx
+        |, a 
+        span#local__income__change x.xx% decrease/increase
+        |.
 
   // map holder
   .py-3.col-md-5.d-md-none.d-lg-block

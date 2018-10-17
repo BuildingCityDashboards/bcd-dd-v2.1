@@ -76,10 +76,6 @@ Promise.all([
         return d.region === "Dublin";
     });
 
-    // const irelandData = dateFiltered.filter( d => {
-    //     return d.region === "Ireland";
-    // });
-
     const dublinAnnualRate = dataSet2.filter( d => {
         return d.region === "Dublin";
     });
@@ -105,7 +101,7 @@ Promise.all([
     
     // dimensions margins, width and height
     const m = [10, 10, 15, 10],
-        w = eWidth - m[1] - m[3],
+        w = eWidth - 100 - m[1] - m[3],
         h = 120 - m[0] - m[2];
     
     // setting the line values range

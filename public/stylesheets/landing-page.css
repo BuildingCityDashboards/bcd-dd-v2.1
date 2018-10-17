@@ -70,15 +70,20 @@
     color: var(--vivid-cyan);
 }
 
-#region__title{
+#local__title{
     color:#f8f8f8;
+}
+
+#local__title__small, #local__open{
+    color: #f8f8f8;
+    font-weight: 400;
 }
 
 .about__dublin{
     column-count: 2;
 }
 
-.region-on{
+.local-on{
     fill: #16c1f3;
 }
 
