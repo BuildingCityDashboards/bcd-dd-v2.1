@@ -13,34 +13,34 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/demographics', function(req, res, next) {
-  res.render('themes_demographics', { title: 'Demographics Page' });
+  res.render('themes_demographics', { title: 'Demographics' });
 });
 
 
-// router.get('/economy', function(req, res, next) {
-//   res.render('themes_economy', { title: 'Economy Page' });
-// });
+router.get('/economy', function(req, res, next) {
+  res.render('themes_economy', { title: 'Economy' });
+});
 
-router.get('/economy', qnq22_controller.economy);
+// router.get('/economy', qnq22_controller.economy);
 
 router.get('/health', function(req, res, next) {
-  res.render('themes_health', { title: 'Themes: Health' });
+  res.render('themes_health', { title: 'Health' });
 });
 
 router.get('/transport', function(req, res, next) {
-  res.render('themes_transport', { title: 'Themes: Transport' });
+  res.render('themes_transport', { title: 'Transport' });
 });
 
 router.get('/education', function(req, res, next) {
-  res.render('themes_education', { title: 'Education Page' });
+  res.render('themes_education', { title: 'Education' });
 });
 
 router.get('/environment', function(req, res, next) {
-  res.render('themes_environment', { title: 'Environment Page' });
+  res.render('themes_environment', { title: 'Environment' });
 });
 
 router.get('/housing', function(req, res, next) {
-  res.render('themes_housing', { title: 'Housing Page' });
+  res.render('themes_housing', { title: 'Housing' });
 });
 
 /* API csv routes for themes */
