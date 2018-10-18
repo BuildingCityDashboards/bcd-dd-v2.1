@@ -2,59 +2,30 @@
 
 <carparkData>
   <Northwest>
-<<<<<<< HEAD
-    <carpark name="PARNELL" spaces="95"> </carpark>
-    <carpark name="ILAC" spaces="803"> </carpark>
-    <carpark name="JERVIS" spaces="668"> </carpark>
-    <carpark name="ARNOTTS" spaces="310"> </carpark>
-=======
-    <carpark name="PARNELL" spaces="156"> </carpark>
-    <carpark name="ILAC" spaces="905"> </carpark>
-    <carpark name="JERVIS" spaces="769"> </carpark>
-    <carpark name="ARNOTTS" spaces="316"> </carpark>
->>>>>>> origin/master
+    <carpark name="PARNELL" spaces="55"> </carpark>
+    <carpark name="ILAC" spaces="715"> </carpark>
+    <carpark name="JERVIS" spaces="601"> </carpark>
+    <carpark name="ARNOTTS" spaces="292"> </carpark>
   </Northwest>
 
   <Northeast>
-<<<<<<< HEAD
-    <carpark name="MARLBORO" spaces="258"> </carpark>
-=======
-    <carpark name="MARLBORO" spaces="304"> </carpark>
->>>>>>> origin/master
+    <carpark name="MARLBORO" spaces="218"> </carpark>
     <carpark name="ABBEY" spaces=" "> </carpark>
   </Northeast>
 
   <Southwest>
-<<<<<<< HEAD
-    <carpark name="THOMASST" spaces="186"> </carpark>
-    <carpark name="C/CHURCH" spaces="61"> </carpark>
-=======
-    <carpark name="THOMASST" spaces="194"> </carpark>
-    <carpark name="C/CHURCH" spaces="84"> </carpark>
->>>>>>> origin/master
+    <carpark name="THOMASST" spaces="166"> </carpark>
+    <carpark name="C/CHURCH" spaces="32"> </carpark>
   </Southwest>
 
   <Southeast>
-<<<<<<< HEAD
-    <carpark name="SETANTA" spaces="71"> </carpark>
-    <carpark name="DAWSON" spaces="134"> </carpark>
-    <carpark name="TRINITY" spaces="128"> </carpark>
-    <carpark name="GREENRCS" spaces="663"> </carpark>
-    <carpark name="DRURY" spaces="214"> </carpark>
-    <carpark name="B/THOMAS" spaces="174"> </carpark>
-=======
-    <carpark name="SETANTA" spaces="105"> </carpark>
-    <carpark name="DAWSON" spaces="196"> </carpark>
-    <carpark name="TRINITY" spaces="171"> </carpark>
-    <carpark name="GREENRCS" spaces="767"> </carpark>
-    <carpark name="DRURY" spaces="290"> </carpark>
-    <carpark name="B/THOMAS" spaces="218"> </carpark>
->>>>>>> origin/master
+    <carpark name="SETANTA" spaces="49"> </carpark>
+    <carpark name="DAWSON" spaces="90"> </carpark>
+    <carpark name="TRINITY" spaces="123"> </carpark>
+    <carpark name="GREENRCS" spaces="570"> </carpark>
+    <carpark name="DRURY" spaces="171"> </carpark>
+    <carpark name="B/THOMAS" spaces="129"> </carpark>
   </Southeast>
 
-<<<<<<< HEAD
-  <Timestamp>10:21:53 on Thursday 18/10/2018</Timestamp>
-=======
-  <Timestamp>09:31:53 on Thursday 18/10/2018</Timestamp>
->>>>>>> origin/master
+  <Timestamp>11:09:53 on Thursday 18/10/2018</Timestamp>
 </carparkData>
