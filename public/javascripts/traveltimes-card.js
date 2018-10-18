@@ -65,8 +65,8 @@ function updateDisplay(d__) {
 
         d3.select("#rt-travelTimes").select("#card-center")
                 .html("<div align='center'>"
-                        + '<img src = "/images/transport/car-w-15.svg" width="60">'
-                        + '</div>');
+        +'<img src = "/images/transport/car-w-15.svg" width="60">'
+        + '</div>');
 
 
         d3.select("#rt-travelTimes").select("#card-right")
