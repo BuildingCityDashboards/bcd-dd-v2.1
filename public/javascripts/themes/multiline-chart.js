@@ -102,7 +102,8 @@ class MultiLineChart{
             _tX ? dv.titleX = _tX: dv.titleX = "";
             _tY ? dv.titleY = _tY: dv.titleY = "";
         
-        _data !== null ? dv.data =_data : dv.data = dv.data;
+        // _data !== null ? dv.data =_data : dv.data = dv.data;
+        dv.data = _data !== null ? _data : dv.data;
         dv.value = _valueString;
 
         dv.createScales();
@@ -139,7 +140,7 @@ class MultiLineChart{
 
         // Update axes - what about ticks for smaller devices??
         dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-            return i < dv.tickNumber ? dv.data[0].values[i].label : d;
+            return i < dv.tickNumber ? dv.data[0].values[i].label : "";
         });
         
         // .tickFormat(dv.formatQuarter);
@@ -163,72 +164,54 @@ class MultiLineChart{
     update(){
         let dv = this;
 
-         // d3 line function
-        dv.line = d3.line()
-            .defined(function(d) { return !isNaN(d[dv.value]); })
-            .x( d => {
-                return dv.x(d.date); // this needs to be dynamic dv.date!!
-            })
-            .y( d => { //this works
-                return dv.y(d[dv.value]); 
-            })
-            .curve(d3.curveCatmullRom);
-            // .curve(d3.curveBasis);
+        // d3 line function
+       dv.line = d3.line()
+           .defined(function(d) { return !isNaN(d[dv.value]); })
+           .x( d => {
+               return dv.x(d.date); // this needs to be dynamic dv.date!!
+           })
+           .y( d => { //this works
+               return dv.y(d[dv.value]); 
+           })
+           .curve(d3.curveCatmullRom);
+           // .curve(d3.curveBasis);
 
-        // Adapted from the tooltip based on the example in the d3 Book
-        
-        // 2. add the on mouseover and on mouseout to the joined data
+       // Adapted from the tooltip based on the example in the d3 Book
+       
+       // 2. add the on mouseover and on mouseout to the joined data
 
-        // select all regions and join data
-        dv.regions = dv.g.selectAll(".regions")
-            .data(dv.data);
-        
-        // update the paths
-        dv.regions.selectAll(".line")
-            .transition(dv.t)
-            // .attr("d", d => {return dv.line(d.values); });
-            .attr("d", d => { 
-                return d.disabled ? null : dv.line(d.values); 
-            });
-
-            dv.regions.selectAll(".line").exit()
-            .remove();
-        
-        // Enter elements
-        dv.regions.enter().append("g")
-            .attr("class", "regions")
-            .append("path")
-            .style("stroke", d => {return dv.colour(d.key); })
-            .attr("class", "line")
-            .attr("id", d => d.key)
-            // .attr("d", d => {return dv.line(d.values); })
-            .attr("d", d => {
-                return d.disabled ? null : dv.line(d.values); })
-            // .style("stroke", d => ( dv.data.map(function(v,i) {
-            //     return dv.colour || dv.color[i % 10];
-            //   }).filter(function(d,i) { return !dv.data[i].disabled })))
-            .style("stroke-width", "3px")
-            .style("fill", "none");  
-
-        // dv.regions.enter().append("text")
-        //     .attr("transform", (d) => { 
-        //         let datasource = d.values,
-        //             size = datasource.length,
-        //             val = dv.y(d.values[size-1][dv.value]) + 10;
-        //         console.log(size);
-        //         return "translate(" + (dv.width) + "," +  val + ")";
-        //     })
-        //     .attr("dy", ".35em")
-        //     .attr("text-anchor", "start")
-        //     .style("fill", "red")
-        //     .text(d => (d.key));
-
-        
-        // dv.regions.transition(dv.t)
-        //     .attr("d", function (d) { return dv.line(d.values); });
-            
-        dv.regions.exit()
-            .transition(dv.t).remove();
+       // select all regions and join data
+       dv.regions = dv.g.selectAll(".regions")
+           .data(dv.data);
+       
+       // update the paths
+       dv.regions.select(".line")
+           .transition(dv.t)
+           // .attr("d", d => {return dv.line(d.values); });
+           .attr("d", d => { 
+               return d.disabled ? null : dv.line(d.values); });
+       
+       // Enter elements
+       dv.regions.enter().append("g")
+           .attr("class", "regions")
+           .append("path")
+           .style("stroke", d => {return dv.colour(d.key); })
+           .attr("class", "line")
+           .attr("id", d => d.key)
+           // .attr("d", d => {return dv.line(d.values); })
+           .attr("d", d => { 
+               return d.disabled ? null : dv.line(d.values); })
+           // .style("stroke", d => ( dv.data.map(function(v,i) {
+           //     return dv.colour || dv.color[i % 10];
+           //   }).filter(function(d,i) { return !dv.data[i].disabled })))
+           .style("stroke-width", "3px")
+           .style("fill", "none");  
+       
+       // dv.regions.transition(dv.t)
+       //     .attr("d", function (d) { return dv.line(d.values); });
+           
+       dv.regions.exit()
+           .transition(dv.t).remove();
 
         dv.drawLegend();
     
@@ -343,7 +326,6 @@ class MultiLineChart{
                 });
 
                 dTest = x0 - tooldata[0].v0.date > tooldata[0].v1.date - x0 ? "v1" : "v0" ;
-                console.log(tooldata.sort((a, b) => b[dTest][dv.value] - a[dTest][dv.value]));
                 
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book

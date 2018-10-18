@@ -125,7 +125,7 @@ function renderMap(root) {
     .enter()
     .append("text")
     .attr("id", d => "localLabel" + d.properties.OBJECTID)
-    .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(0,0)`;})
+    .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(-10,-10)`;})
     .attr("text-anchor", "middle")
     .attr("fill", "#FFF")
     .attr("font-size", 14)

@@ -10,10 +10,6 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
 
         .col-md-6.pt-5
-          div(class="card o-hidden border-blue" style="width: 350px; margin: auto;")
-            div(class="card-header" style="font-weigth: 600; background: none;") Employment Quartley % Change
-            div(class="card__body card-graph")
-              div(id="test-glance")
 
     article.article.pt-5
       .row
@@ -23,7 +19,9 @@ section#economy
       #employment.row.wrapper.py-4
         .col-lg-4.py-5
           h3 Numbers in Employment
-          p Source: CSO
+          p 
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ22" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Persons aged 15 years and over in Employment (Thousand)
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -34,14 +32,16 @@ section#economy
         .col-lg-8.py-5
           .pt-2
             <button type="button" class="btn btn-bcd active employment-btn employment_count" value="countData">Count</button>
-            <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
+            //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
             <button type="button" class="btn btn-bcd employment-btn employment_arate" value="ILO Participation Rate (15 years and over) (%)">Annual % Change</button>
           #chart-employment.chart-holder
 
       #unemployed.row.wrapper.py-4
         .col-lg-4.py-5
           h3 Numbers Unemployed
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ22" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Unemployed Persons aged 15 years and over (Thousand)
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -51,7 +51,7 @@ section#economy
         .col-lg-8.py-5
           .pt-2
             <button type="button" class="btn btn-bcd active">Count</button>
-            <button type="button" class="btn btn-bcd">Quartley % Change</button>
+            //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
             <button type="button" class="btn btn-bcd">Annual % Change</button>
             <button type="button" class="btn btn-bcd">Rate</button>
           #chartNew.chart-2.chart-holder
@@ -59,7 +59,9 @@ section#economy
       #grossValue.row.wrapper.py-4
         .col-lg-4.py-5
           h3 Gross Value Added
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Gross Value Added per Capita at Basic Prices
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -67,7 +69,6 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Count</button>
           #chart-gva.chart-holder
     
     article#income_poverty.article
@@ -78,7 +79,9 @@ section#economy
       .row.wrapper.py-4
         .col-lg-4.py-5
           h3 Median Real Household Disposable Income
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Survey on Income and Living Conditions for Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -86,13 +89,14 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Count</button>
           #chart-disposable-income.chart-holder
 
       .row.wrapper.py-4
         .col-lg-4.py-5
           h3 Poverty Rating
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Survey on Income and Living Conditions for Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -100,7 +104,7 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Rate</button>
+            //- <button type="button" class="btn btn-bcd active">Rate</button>
           #chart-poverty-rate.chart-holder
 
     article.article
@@ -111,7 +115,9 @@ section#economy
       .row.wrapper.py-4
         .col-lg-4.py-5
           h3 Numbers by Employment Sector in Dublin
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ40&PLanguage=0" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -119,26 +125,28 @@ section#economy
 
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Count</button>
           #chart-employment-sector.chart-holder
 
       .row.wrapper.py-4
         .col-lg-4.py-5
           h3 Number of Employees by Size of Company
-          p Source: CSO
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0" target="_blank") Source: CSO 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Count</button>
           #chart-employees-by-size.chart-holder
 
       .row.wrapper.py-4
         .col-lg-4.py-5
           h3 Overseas Visitors
-          p Source: Failte Ireland/CSO/DCC
+          p
+            a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0" target="_blank") Source: Failte Ireland/CSO/DCC  
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Total Overseas Visitors to Dublin
           p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
             | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -146,5 +154,4 @@ section#economy
             |nisi ut aliquip ex ea commodo consequat.
         .col-lg-8.py-5
           .pt-2
-            <button type="button" class="btn btn-bcd active">Count</button>
           #chart-overseas-vistors.chart-holder

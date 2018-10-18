@@ -138,6 +138,11 @@ Promise.all([
         y.domain([0, Math.max(maxToday)]);
     
 
+    // let divInfo = d3.select("#test-glance")
+    //     .append("div")
+    //     .style("max-width", "33.333333%")
+    //     .style("float","right");
+
     // svg.append("path")
     //     .attr("d", valueline2(irelandData))
     //     .attr("stroke","#f8f9fa8c")
@@ -338,7 +343,7 @@ class GroupedBarChart{
         // margin
         dv.m = [20, 10, 25, 10]
         
-        dv.width = eWidth - dv.m[1] - dv.m[3];
+        dv.width = eWidth - 100 - dv.m[1] - dv.m[3];
         dv.height = 120 - dv.m[0] - dv.m[2];
 
         dv.tooltip = d3.select(".page__root")
@@ -524,6 +529,13 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         endString = endText;
         // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         // console.log(screenSize);
+
+        // let divInfo = d3.select(selector).select(".line-chart")
+        //     .append("div")
+        //     .style("max-width", "33.333333%")
+        //     .style("float","right")
+        //     .append("h3").html(indicatorSymbol).style("text-align", "center")
+        //     .append("h3").html(format(currentValue)).style("text-align", "center");
 
         d3.select(selector)
         .on("mouseover", (d) => { 
