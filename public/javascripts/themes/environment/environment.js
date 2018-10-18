@@ -8,7 +8,7 @@ const parseTime = d3.timeParse("%d/%m/%Y"),
 Promise.all([
     d3.csv("../data/Environment/wastes.csv"),
     // d3.csv("../data/Environment/recyclings.csv"),
-    d3.csv("../data/Environment/organicrecyclings.csv"),
+    // d3.csv("../data/Environment/organicrecyclings.csv"),
     d3.csv("../data/Environment/watercons.csv"),
     d3.csv("../data/Environment/riverqualities.csv"),
     d3.csv("../data/Environment/greenflags.csv"),
@@ -63,16 +63,16 @@ Promise.all([
     //       recyclingsChart.addTooltip("Recycling Rate Dry - Year", "percentage", recyclingsDate);
 
 
-    //  Setup data and chart for organic recyclings
-    const organicrecyclingsData = datafiles[2],
-          organicrecyclingsTypes = organicrecyclingsData.columns.slice(1),
-          organicrecyclingsDate = organicrecyclingsData.columns[0],
-          organicrecyclingsDataProcessed = dataSets(organicrecyclingsData, organicrecyclingsTypes);
+    // //  Setup data and chart for organic recyclings
+    // const organicrecyclingsData = datafiles[2],
+    //       organicrecyclingsTypes = organicrecyclingsData.columns.slice(1),
+    //       organicrecyclingsDate = organicrecyclingsData.columns[0],
+    //       organicrecyclingsDataProcessed = dataSets(organicrecyclingsData, organicrecyclingsTypes);
 
-    // console.log("organicrecyclings data processed", organicrecyclingsDataProcessed);
-    // drawing charts for planning data.
-    const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%");
-          organicrecyclingsChart.addTooltip("Recycling Rate Organics - Year", "percentage", recyclingsDate);
+    // // console.log("organicrecyclings data processed", organicrecyclingsDataProcessed);
+    // // drawing charts for planning data.
+    // const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%");
+    //       organicrecyclingsChart.addTooltip("Recycling Rate Organics - Year", "percentage", recyclingsDate);
 
 
     // data and chart for watercons
