@@ -7,7 +7,7 @@ const parseTime = d3.timeParse("%d/%m/%Y"),
 
 Promise.all([
     d3.csv("../data/Environment/wastes.csv"),
-    d3.csv("../data/Environment/recyclings.csv"),
+    // d3.csv("../data/Environment/recyclings.csv"),
     d3.csv("../data/Environment/organicrecyclings.csv"),
     d3.csv("../data/Environment/watercons.csv"),
     d3.csv("../data/Environment/riverqualities.csv"),
@@ -52,15 +52,15 @@ Promise.all([
     wasteChart.addTooltip("Waste - Year ", "thousands", "label","","Kg");
     
 
-    //  Setup data and chart for recyclings
-    const recyclingsData = datafiles[1],
-          recyclingsTypes = recyclingsData.columns.slice(1),
-          recyclingsDate = recyclingsData.columns[0],
-          recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes);
+    // //  Setup data and chart for recyclings
+    // const recyclingsData = datafiles[1],
+    //       recyclingsTypes = recyclingsData.columns.slice(1),
+    //       recyclingsDate = recyclingsData.columns[0],
+    //       recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes);
 
-    // drawing charts for planning data.
-    const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%");
-          recyclingsChart.addTooltip("Recycling Rate Dry - Year", "percentage", recyclingsDate);
+    // // drawing charts for planning data.
+    // const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%");
+    //       recyclingsChart.addTooltip("Recycling Rate Dry - Year", "percentage", recyclingsDate);
 
 
     //  Setup data and chart for organic recyclings

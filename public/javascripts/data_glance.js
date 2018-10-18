@@ -534,8 +534,8 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         //     .append("div")
         //     .style("max-width", "33.333333%")
         //     .style("float","right")
-        //     .append("h3").html(indicatorSymbol).style("text-align", "center")
-        //     .append("h3").html(format(currentValue)).style("text-align", "center");
+        //     .append("h5").html(indicatorSymbol).style("text-align", "center")
+        //     .append("h5").html(format(currentValue)).style("text-align", "center");
 
         d3.select(selector)
         .on("mouseover", (d) => { 
