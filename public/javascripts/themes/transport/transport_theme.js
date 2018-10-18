@@ -32,22 +32,19 @@ d3.json("/data/Transport/bikesData.json").then(function (data) {
 });
 /* TODO: performance- move to _each in updateMap */
 function processBikes(data_) {
-    let availableBikes = 0, availableStands = 0;
+    let bikeStands = 0;
     //console.log("Bike data \n");
     data_.forEach(function (d) {
         d.lat = +d.position.lat;
         d.lng = +d.position.lng;
         //add a property to act as key for filtering
         d.type = "Dublin Bike Station";
-        if (d.available_bikes) {
-            availableBikes += d.available_bikes;
-        }
-        if (d.available_bike_stands) {
-            availableStands += d.available_bike_stands;
+        if (d.bike_stands) {
+            bikeStands += d.bike_stands;
         }
     });
-    d3.select('#bike-available-count').html(availableBikes);
-    d3.select('#stands-available-count').html(availableStands);
+    d3.select('#stations-count').html(data_.length);
+    d3.select('#stands-count').html(bikeStands);
     //console.log("# of available bike is " + available + "\n");
 //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
 //    console.log("# of bike stations is " + data_.length + "\n"); // +
@@ -77,16 +74,10 @@ function getBikeContent(d_) {
 //    if (d_.address && d_.address !== d_.name) {
 //        str += d_.address + '<br>';
 //    }
-    if (d_.available_bikes) {
-        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
-    }
-    if (d_.available_bike_stands) {
-        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
+    if (d_.bike_stands) {
+        str += '<br><b>' + d_.bike_stands + '</b>' + ' stands<br>';
     }
 
-    if (d_.last_update) {
-        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
-    }
     return str;
 }
 
@@ -155,7 +146,7 @@ function updateMapBuses(data__) {
 function getBusContent(d_) {
     let str = '';
     if (d_.fullname) {
-        str += d_.fullname + '<br>';
+        str += '<b>'+d_.fullname + '</b><br>';
     }
     if (d_.stopid) {
         str += 'Stop ' + d_.stopid + '<br>';
@@ -171,56 +162,56 @@ function getBusContent(d_) {
     if (d_.address && d_.address !== d_.name) {
         str += d_.address + '<br>';
     }
-    if (d_.stopid) {
-        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
-        str += '<br/><button type="button" class="btn btn-primary busRTPIbutton" data="'
-                + d_.stopid + '">Real Time Information</button>';
-    }
+//    if (d_.stopid) {
+//        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
+//        str += '<br/><button type="button" class="btn btn-primary busRTPIbutton" data="'
+//                + d_.stopid + '">Real Time Information</button>';
+//    }
     ;
 
     return str;
 }
 
-//Handle button in publicMap popup and get RTPI data
-let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
-
-function displayRTPI(sid_) {
-    d3.json(busAPIBase + sid_)
-            .then(function (data) {
-//                console.log("Button press " + sid_ + "\n");
-                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
-                let rtpi = rtpiBase;
-                if (data.results.length > 0) {
-//                    console.log("RTPI " + JSON.stringify(data.results[0]));
-                    _.each(data.results, function (d, i) {
-                        //console.log(d.route + " Due: " + d.duetime + "");
-                        //only return n results
-                        if (i <= 7) {
-                            rtpi += "<br><b>" + d.route + "</b> " + d.direction + " to " + d.destination;
-                            if (d.duetime === "Due") {
-                                rtpi += "  <b>" + d.duetime + "</b>";
-                            } else {
-                                rtpi += "  <b>" + d.duetime + " mins</b>";
-                            }
-                        }
-
-                    });
-                } else {
-                    //console.log("No RTPI data available");
-                    rtpi += "No Real Time Information Available<br>";
-                }
-//                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
-                markerRefBus.getPopup().setContent(markerRefBus.getPopup().getContent().split(rtpiBase)[0] + rtpi);
-            });
-
-}
-let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using underscore
-
-//TODO: replace jQ w/ d3 version
-$("div").on('click', '.busRTPIbutton', function () {
-    displayRTPIBounced($(this).attr("data"));
-});
-
+////Handle button in publicMap popup and get RTPI data
+//let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
+//
+//function displayRTPI(sid_) {
+//    d3.json(busAPIBase + sid_)
+//            .then(function (data) {
+////                console.log("Button press " + sid_ + "\n");
+//                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
+//                let rtpi = rtpiBase;
+//                if (data.results.length > 0) {
+////                    console.log("RTPI " + JSON.stringify(data.results[0]));
+//                    _.each(data.results, function (d, i) {
+//                        //console.log(d.route + " Due: " + d.duetime + "");
+//                        //only return n results
+//                        if (i <= 7) {
+//                            rtpi += "<br><b>" + d.route + "</b> " + d.direction + " to " + d.destination;
+//                            if (d.duetime === "Due") {
+//                                rtpi += "  <b>" + d.duetime + "</b>";
+//                            } else {
+//                                rtpi += "  <b>" + d.duetime + " mins</b>";
+//                            }
+//                        }
+//
+//                    });
+//                } else {
+//                    //console.log("No RTPI data available");
+//                    rtpi += "No Real Time Information Available<br>";
+//                }
+////                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
+//                markerRefBus.getPopup().setContent(markerRefBus.getPopup().getContent().split(rtpiBase)[0] + rtpi);
+//            });
+//
+//}
+//let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using underscore
+//
+////TODO: replace jQ w/ d3 version
+//$("div").on('click', '.busRTPIbutton', function () {
+//    displayRTPIBounced($(this).attr("data"));
+//});
+//
 
 /************************************
  * Luas
@@ -291,10 +282,10 @@ function getLuasContent(d_) {
     if (d_.LineID) {
         str += getLuasLine(d_.LineID) + ' Line <br>';
     }
-    if (d_.Name) {
-        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
-                + d_.StopID + '">Real Time Information</button>';
-    }
+//    if (d_.Name) {
+//        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
+//                + d_.StopID + '">Real Time Information</button>';
+//    }
     ;
 
     return str;
@@ -304,75 +295,75 @@ function getLuasLine(id_) {
     return (id_ === "1" ? "Red" : "Green");
 }
 
-let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
-
-
-function displayLuasRT(sid_) {
-    console.log("Button press " + luasAPIBase + sid_ + "\n");
-    //Luas API returns html, so we need to parse this into a suitable JSON structure
-    d3.html(luasAPIBase + sid_)
-            .then(function (htmlDoc) {
-//                console.log(htmlDoc.body);
-                let infoString = htmlDoc.getElementById("cplBody_lblMessage")
-                        .childNodes[0].nodeValue;
-                //console.log("info: " + infoString + "\n");
-                let headings = htmlDoc.getElementsByTagName("th");
-                //console.log("#cols = " + headings.length + "\n");
-                let rows = htmlDoc.getElementsByTagName("tr");
-                //console.log("#rows = " + rows.length + "\n");
-                let tableData = [];
-                for (let i = 1; i < rows.length; i += 1) {
-                    let obj = {};
-                    for (let j = 0; j < headings.length; j += 1) {
-                        let heading = headings[j]
-                                .childNodes[0]
-                                .nodeValue;
-                        let value = rows[i].getElementsByTagName("td")[j].innerHTML;
-                        //console.log("\nvalue: "+ value);
-                        obj[heading] = value;
-                    }
-                    //console.log("\n");
-                    tableData.push(obj);
-                }
-                //console.log("tabledata: " + JSON.stringify(tableData));
-                let luasRTBase = "<br><br> Next trams after ";
-                let luasRT = luasRTBase + infoString.split("at ")[1] + "<br>";
-                if (tableData.length > 0) {
-//                    console.log("RTPI " + JSON.stringify(data.results[0]));
-                    _.each(tableData, function (d, i) {
-                        //console.log(d.route + " Due: " + d.duetime + "");
-                        //only return n results
-                        if (i <= 7) {
-                            luasRT += "<br><b>" + d["Direction"]
-                                    + "</b> to <b>" + d["Destination"] + "</b>";
-                            if (d["Time"]) {
-                                let min = d["Time"].split(":")[1];
-                                if (min === "00") {
-                                    luasRT += " is <b>Due now</b>";
-
-                                } else {
-                                    luasRT += " is due in <b>" + min + "</b> mins";
-                                }
-                            } else {
-                                "n/a";
-                            }
-                        }
-
-                    });
-                } else {
-                    //console.log("No RTPI data available");
-                    luasRT += "No Real Time Information Available<br>";
-                }
-//                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
-                markerRefLuas.getPopup().setContent(markerRefLuas.getPopup().getContent().split(luasRTBase)[0] + luasRT);
-            });
-}
-let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
-
-//TODO: replace jQ w/ d3 version
-$("div").on('click', '.luasRTbutton', function () {
-    displayLuasRTBounced($(this).attr("data"));
-});
+//let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+//
+//
+//function displayLuasRT(sid_) {
+//    console.log("Button press " + luasAPIBase + sid_ + "\n");
+//    //Luas API returns html, so we need to parse this into a suitable JSON structure
+//    d3.html(luasAPIBase + sid_)
+//            .then(function (htmlDoc) {
+////                console.log(htmlDoc.body);
+//                let infoString = htmlDoc.getElementById("cplBody_lblMessage")
+//                        .childNodes[0].nodeValue;
+//                //console.log("info: " + infoString + "\n");
+//                let headings = htmlDoc.getElementsByTagName("th");
+//                //console.log("#cols = " + headings.length + "\n");
+//                let rows = htmlDoc.getElementsByTagName("tr");
+//                //console.log("#rows = " + rows.length + "\n");
+//                let tableData = [];
+//                for (let i = 1; i < rows.length; i += 1) {
+//                    let obj = {};
+//                    for (let j = 0; j < headings.length; j += 1) {
+//                        let heading = headings[j]
+//                                .childNodes[0]
+//                                .nodeValue;
+//                        let value = rows[i].getElementsByTagName("td")[j].innerHTML;
+//                        //console.log("\nvalue: "+ value);
+//                        obj[heading] = value;
+//                    }
+//                    //console.log("\n");
+//                    tableData.push(obj);
+//                }
+//                //console.log("tabledata: " + JSON.stringify(tableData));
+//                let luasRTBase = "<br><br> Next trams after ";
+//                let luasRT = luasRTBase + infoString.split("at ")[1] + "<br>";
+//                if (tableData.length > 0) {
+////                    console.log("RTPI " + JSON.stringify(data.results[0]));
+//                    _.each(tableData, function (d, i) {
+//                        //console.log(d.route + " Due: " + d.duetime + "");
+//                        //only return n results
+//                        if (i <= 7) {
+//                            luasRT += "<br><b>" + d["Direction"]
+//                                    + "</b> to <b>" + d["Destination"] + "</b>";
+//                            if (d["Time"]) {
+//                                let min = d["Time"].split(":")[1];
+//                                if (min === "00") {
+//                                    luasRT += " is <b>Due now</b>";
+//
+//                                } else {
+//                                    luasRT += " is due in <b>" + min + "</b> mins";
+//                                }
+//                            } else {
+//                                "n/a";
+//                            }
+//                        }
+//
+//                    });
+//                } else {
+//                    //console.log("No RTPI data available");
+//                    luasRT += "No Real Time Information Available<br>";
+//                }
+////                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
+//                markerRefLuas.getPopup().setContent(markerRefLuas.getPopup().getContent().split(luasRTBase)[0] + luasRT);
+//            });
+//}
+//let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
+//
+////TODO: replace jQ w/ d3 version
+//$("div").on('click', '.luasRTbutton', function () {
+//    displayLuasRTBounced($(this).attr("data"));
+//});
 
 /************************************
  * Parking Map

@@ -30,11 +30,11 @@ function processTravelTimes(data_) {
         }
 ;
 let indicatorUpSymbol = "▲",
-            indicatorUpColor = "#da1e4d"; /*TODO: color symbol with style*/
+        indicatorUpColor = "#da1e4d"; /*TODO: color symbol with style*/
 
 function updateDisplay(d__) {
-    
- 
+    let traveltimesTimeShort = d3.timeFormat("%a, %H:%M");
+
     if (d__) {
         let name = d__.name.split('_')[0];
         let direction = d__.name.split('_')[1].split('B')[0];
@@ -44,18 +44,37 @@ function updateDisplay(d__) {
                 + " is taking <b>" + d__.delay + " seconds</b> longer than with free-flowing traffic";
         updateInfo("#traveltimes-chart a", info);
 
+        d3.select("#traveltimes-chart").select('.card__header')
+                .html(
+                        "<div class = 'row'>"
+                        + "<div class = 'col-7' align='left'>"
+                        + "<b>Motorway Travel Times</b>"
+                        + "</div>"
+                        + "<div class = 'col-5' align='right'>"
+                        + traveltimesTimeShort(Date.now()) + " &nbsp;&nbsp;"
+                        + "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>"
+                        + "</div>"
+                        + "</div>"
+                        );
+
         d3.select("#rt-travelTimes").select("#card-left")
-                .html('<h3>' + name + '</h3>'
-                        + '<p>' + direction + '</p>');
+                .html("<div align='center'>"
+                        + '<h3>' + name + '</h3>'
+                        + '<p>' + direction + '</p>'
+                        + '</div>');
 
         d3.select("#rt-travelTimes").select("#card-center")
-                .html('<img src = "/images/transport/car-w-15.svg" width="60">');
+                .html("<div align='center'>"
+        +'<img src = "/images/transport/car-w-15.svg" width="60">'
+        + '</div>');
 
 
         d3.select("#rt-travelTimes").select("#card-right")
-                .html('<h3> ' + indicatorUpSymbol +' '
+                .html("<div align='center'>"
+                        + '<h3> ' + indicatorUpSymbol + ' '
                         + d__.delay + '</h3>'
-                        + '<p>seconds</p>');
+                        + '<p>seconds</p>'
+                        + '</div>');
 
 
     } else {

@@ -74,21 +74,37 @@ function updateWeatherDisplay(f) {
     let weatherTime = d3.timeFormat("%a, %H:%M");
 
     d3.select("#weather-chart").select('.card__header')
-            .html("Next Weather for "+weatherTime(f[0].date));
+            .html(
+                    "<div class = 'row'>"
+                    + "<div class = 'col-6' align='left'>"
+                    + "<b>Weather Forecast</b>"
+                    + "</div>"
+                    + "<div class = 'col-6' align='right'>"
+                    + weatherTime(f[0].date) + " &nbsp;&nbsp;"
+                    + "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>"
+                    + "</div>"
+                    + "</div>"
+                    );
     
     d3.select("#rt-weather").select("#card-left")
-            .html('<h3>' + parseInt(f[0].temperature) + ' C</h3>'
-                    + '<p>' + parseInt(f[0].humidity) + '% h</p>');
+            .html("<div align='center'>"
+    +'<h3>' + parseInt(f[0].temperature) + ' C</h3>'
+                    + '<p>' + parseInt(f[0].humidity) + '% h</p>'
+                     + '</div>');
 
     d3.select("#rt-weather").select("#card-center")
-            .html('<img src = "/images/Met50v2/' + f[0].symbolNo + f[0].tod + '.png" width="60">');
+            .html("<div align='center'>"
+    +'<img src = "/images/Met50v2/' + f[0].symbolNo + f[0].tod + '.png" width="60">'
+     + '</div>');
 
 
     d3.select("#rt-weather").select("#card-right")
-            .html('<h3>'
+            .html("<div align='center'>"
+    +'<h3>'
                     + '<img src = "/images/Met50v2/15d.png" width="20">'
                     + ' ' + f[0].windDir + '</h3>'
-                    + '<p>' + parseInt(f[0].windSpeed) + ' mps</p>');
+                    + '<p>' + parseInt(f[0].windSpeed) + ' mps</p>'
+                     + '</div>');
     
     updateInfo("#weather-chart a", "<b>Met Eireann</b> weather forecast for <b>"
             +weatherTime(f[0].date)
