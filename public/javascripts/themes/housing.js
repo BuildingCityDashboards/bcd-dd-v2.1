@@ -268,11 +268,14 @@ Promise.all([
     // nest the processed data by regions
         const houseCompByTypeDataNested =  d3.nest().key( d => { return d[houseCompByTypeRegions];})
             .entries(houseCompByTypeDataProcessed);
+
     // get array of keys from nest
         const houseCompByTypeRegionNames = [];
         houseCompByTypeDataNested.forEach(d => {
                 houseCompByTypeRegionNames.push(d.key);
         });
+
+        console.log("total house dataset", houseCompByTypeDataNested);
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
