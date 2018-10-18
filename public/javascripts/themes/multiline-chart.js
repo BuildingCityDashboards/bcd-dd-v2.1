@@ -92,7 +92,7 @@ class MultiLineChart{
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)");
 
-        dv.addLegend();
+        // dv.addLegend();
     }
 
     getData( _valueString, _data, _tX, _tY, yScaleFormat){
@@ -184,11 +184,15 @@ class MultiLineChart{
             .data(dv.data);
         
         // update the paths
-        dv.regions.select(".line")
+        dv.regions.selectAll(".line")
             .transition(dv.t)
             // .attr("d", d => {return dv.line(d.values); });
             .attr("d", d => { 
-                return d.disabled ? null : dv.line(d.values); });
+                return d.disabled ? null : dv.line(d.values); 
+            });
+
+            dv.regions.selectAll(".line").exit()
+            .remove();
         
         // Enter elements
         dv.regions.enter().append("g")
@@ -198,19 +202,35 @@ class MultiLineChart{
             .attr("class", "line")
             .attr("id", d => d.key)
             // .attr("d", d => {return dv.line(d.values); })
-            .attr("d", d => { 
+            .attr("d", d => {
                 return d.disabled ? null : dv.line(d.values); })
             // .style("stroke", d => ( dv.data.map(function(v,i) {
             //     return dv.colour || dv.color[i % 10];
             //   }).filter(function(d,i) { return !dv.data[i].disabled })))
             .style("stroke-width", "3px")
             .style("fill", "none");  
+
+        // dv.regions.enter().append("text")
+        //     .attr("transform", (d) => { 
+        //         let datasource = d.values,
+        //             size = datasource.length,
+        //             val = dv.y(d.values[size-1][dv.value]) + 10;
+        //         console.log(size);
+        //         return "translate(" + (dv.width) + "," +  val + ")";
+        //     })
+        //     .attr("dy", ".35em")
+        //     .attr("text-anchor", "start")
+        //     .style("fill", "red")
+        //     .text(d => (d.key));
+
         
         // dv.regions.transition(dv.t)
         //     .attr("d", function (d) { return dv.line(d.values); });
             
         dv.regions.exit()
             .transition(dv.t).remove();
+
+        dv.drawLegend();
     
     }
 
@@ -309,22 +329,38 @@ class MultiLineChart{
                 toolGroup.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
-                    ttTextHeights = 0;
+                    ttTextHeights = 0,
+                    x0 = dv.x.invert(mouse[0]),
+                    i = dv.bisectDate(dv.data[0].values, x0, 1),
+                    dTest;
+
+                const tooldata = dv.data.map(d => {
+                    let obj = {};
+                        obj.key = d.key;
+                        obj.v0 = d.values[i-1];//[dv.value];
+                        obj.v1 = d.values[i];//[dv.value];
+                    return obj;
+                });
+
+                dTest = x0 - tooldata[0].v0.date > tooldata[0].v1.date - x0 ? "v1" : "v0" ;
+                console.log(tooldata.sort((a, b) => b[dTest][dv.value] - a[dTest][dv.value]));
                 
                 dv.data.forEach((reg, idx) => {
                     // this is from the d3 book
-                    let x0 = dv.x.invert(mouse[0]),
-                    i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
-                    d0 = reg.values[i - 1],
+                    // let x0 = dv.x.invert(mouse[0]),
+                    // i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
+                let d0 = reg.values[i - 1],
                     d1 = reg.values[i],
                     d,
                     dOld,
                     unText = "unavailable",
                     v = dv.value,
-                    valueString;  
-                    
+                    valueString;
+
                     d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                     d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
+                       
+                    // d.sort((a, b) => b.v1[dv.value] - a.v1[dv.value])
                     
                     let id = ".tooltip_" + idx,
                         tpId = ".tooltipbody_" + idx,
@@ -486,7 +522,7 @@ class MultiLineChart{
             ttX = mouseX + 10;
         } else {
             // show left
-            ttX = mouseX -260
+            ttX = mouseX -290
         }
         return [ttX, ttY];
     }
@@ -519,27 +555,27 @@ class MultiLineChart{
             .attr("id", (d,i) => "legend-item" + i )
             .style("font", "12px sans-serif")
             .attr("cursor", "pointer")
-            .on("click", (d,i) => { 
+            // .on("click", (d,i) => { 
 
-                let label = d3.select(dv.element).select("#legend-item" + i);
-                    label.classed("active", label.classed("active") ? false : true);
+            //     let label = d3.select(dv.element).select("#legend-item" + i);
+            //         label.classed("active", label.classed("active") ? false : true);
  
-                // get index of legend item
-                let filterValues = dv.data.findIndex(idx => idx.key === d.label);
+            //     // get index of legend item
+            //     let filterValues = dv.data.findIndex(idx => idx.key === d.label);
 
-                // set its disabled field to true or false
-                dv.data[filterValues].disabled = !dv.data[filterValues].disabled; 
+            //     // set its disabled field to true or false
+            //     dv.data[filterValues].disabled = !dv.data[filterValues].disabled; 
 
-                if (!dv.data.filter(function(d) { return !d.disabled }).length) {
-                  dv.data.forEach(function(d) {
-                    d.disabled = false;
-                  });
-                  d3.select(dv.element).selectAll(".legend").classed("active", false);
-                }
+            //     if (!dv.data.filter(function(d) { return !d.disabled }).length) {
+            //       dv.data.forEach(function(d) {
+            //         d.disabled = false;
+            //       });
+            //       d3.select(dv.element).selectAll(".legend").classed("active", false);
+            //     }
 
-                // dv.getData(dv.value,dv.data);
-                dv.update();
-            });
+            //     // dv.getData(dv.value,dv.data);
+            //     dv.update();
+            // });
 
         // add legend boxes    
         legends.append("rect")
@@ -576,8 +612,8 @@ class MultiLineChart{
 
         //     // Update whether or not the elements are active
         //     d.active = active;
-        //     });
-
+        //     }); 
+    
     textWrap(text, width, xpos = 0, limit=2) {
         text.each(function() {
             let words,
@@ -679,5 +715,56 @@ class MultiLineChart{
         let q = Math.ceil(( newDate.getMonth()) / 3 );
         return year+" Q" + q;
     }
+
+    //replacing old legend method with new inline labels
+    drawLegend() {
+        // chart object
+        let chart = this,
+            v = chart.value,
+            c = chart.colour;
+        
+        // data values for last readable value
+        const lines = chart.data.map(d => {
+            let obj = {},
+                vs = d.values.filter(idFilter),
+                s = vs.length -1;
+                obj.key = d.key;
+                obj.last = vs[s][v];
+                obj.x = chart.x(vs[s].date);
+                obj.y = chart.y(vs[s][v])
+            return obj;
+        });
+
+        // Add labels
+        const legendNames = chart.g.selectAll(".label-legend").data(lines, d => d.y);
+              legendNames.exit().remove();
+
+        const legendGroup = legendNames.enter().append("g")
+                .attr("class", "label-legend")
+                .attr("transform", d => "translate(" + d.x + ", " + d.y + ")");
+            
+            legendGroup.append("text")
+                .attr("class", "legendText")
+                .text(d => d.key)
+                .attr("fill", d => c(d.key))
+                .attr("alignment-baseline", "middle")
+                .attr("dx", ".5em")
+                .attr("x", 5);
+            
+            legendGroup.append("circle")
+                .attr("class", "l-circle")
+                .attr("r", "6")
+                .attr("fill", d => c(d.key))
+                .attr("stroke","#ffffff");
+
+        // check if number
+        function isNum(d) {
+            return !isNaN(d);
+          }
+        //filter out the NaN
+        function idFilter(d) {
+           return isNum(d[v]) && d[v] !== 0 ? true : false; 
+        }
+    }  
 
 }
