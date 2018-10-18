@@ -266,6 +266,8 @@ class GroupedBarChart{
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
 
+            dv.valueFormat = dv.formatValue(dv.valueFormat);
+
         let bcdTooltip = dv.tooltip
             .append("g")
                 .attr("class", "bcd-tooltip")
@@ -313,9 +315,10 @@ class GroupedBarChart{
             tooltipX = chart.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
-            key = chart.keys;
+            key = chart.keys
 
         chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+
 
         key.forEach( (v,idx) => {
             let tpId = ".tooltipbody_" + idx,
@@ -325,13 +328,14 @@ class GroupedBarChart{
                 diff = prevData ? (newD -  oldD)/oldD: 0, 
                 iSymbol = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
                 iColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
-                diffPer = iSymbol !== "" ? d3.format(".1%")(diff) : "";
+                diffPer = iSymbol !== "" ? d3.format(".1%")(diff) : "",
+                vString = chart.valueFormat !=="undefined"? chart.valueFormat(data[key[idx]]) : data[key[idx]];
 
             let tooltipBody = chart.svg.select(tpId),
                 textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
 
                 tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                tooltipBody.select(".tp-text-right").text(data[key[idx]]);
+                tooltipBody.select(".tp-text-right").text(vString);
                 tooltipBody.select(".tp-text-indicator").text(diffPer +" "+iSymbol).attr("fill",iColour);
                 title.text(chart.title + " " + (d[chart.xValue])); //label needs to be passed to this function 
                 ttTextHeights += textHeight + 6;
@@ -448,6 +452,30 @@ class GroupedBarChart{
                 ttX = mouseX - 50;
             }
             return ttX;
+    }
+
+    formatValue(format){
+        // formats thousands, Millions, Euros and Percentage
+        switch (format){
+            case "millions":
+                return d3.format(".2s");
+                break;
+        
+            case "euros":
+                return "undefined";
+                break;
+        
+            case "thousands":
+                return d3.format(",");
+                break;
+        
+            case "percentage":
+                return d3.format(".2%");
+                break;
+        
+            default:
+                return "undefined";
+        }
     }
 
     textWrap(text, width, xpos = 0, limit=3) {
