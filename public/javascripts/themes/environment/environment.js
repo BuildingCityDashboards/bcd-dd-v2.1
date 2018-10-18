@@ -1,9 +1,9 @@
-let parseTime = d3.timeParse("%d/%m/%Y"),
-    formatTime = d3.timeFormat("%d/%m/%Y"),
-    formatYear = d3.timeFormat("%Y"),
-    formatMonthYear = d3.timeFormat("%b-%Y"),
-    parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
-    parseYear = d3.timeParse("%Y");
+const parseTime = d3.timeParse("%d/%m/%Y"),
+      formatTime = d3.timeFormat("%d/%m/%Y"),
+      formatYear = d3.timeFormat("%Y"),
+      formatMonthYear = d3.timeFormat("%b-%Y"),
+      parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
+      parseYear = d3.timeParse("%Y");
 
 Promise.all([
     d3.csv("../data/Environment/wastes.csv"),
@@ -58,9 +58,9 @@ Promise.all([
           recyclingsDate = recyclingsData.columns[0],
           recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes);
 
-    // console.log("recyclings data processed", recyclingsDataProcessed);
     // drawing charts for planning data.
     const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%");
+          recyclingsChart.addTooltip("Recycling Rate Dry - Year", "percentage", recyclingsDate);
 
 
     //  Setup data and chart for organic recyclings
@@ -72,6 +72,7 @@ Promise.all([
     // console.log("organicrecyclings data processed", organicrecyclingsDataProcessed);
     // drawing charts for planning data.
     const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%");
+          organicrecyclingsChart.addTooltip("Recycling Rate Organics - Year", "percentage", recyclingsDate);
 
 
     // data and chart for watercons
@@ -83,6 +84,7 @@ Promise.all([
     // console.log("watercons data processed", waterconsDataProcessed);
     // drawing charts for planning data.
     const waterconsChart = new GroupedBarChart(waterconsDataProcessed, waterconsTypes, waterconsDate, "#chart-watercons", "Years", "Litres");
+          waterconsChart.addTooltip("Water Consumption - Year", "thousands", waterconsDate);
 
 
     // data and chart for riverqualities
@@ -94,6 +96,7 @@ Promise.all([
     // console.log("riverqualities data processed", riverqualitiesDataProcessed);
     // drawing charts for planning data.
     const riverqualitiesChart = new GroupedBarChart(riverqualitiesDataProcessed, riverqualitiesTypes, riverqualitiesDate, "#chart-riverqualities", "Years", "% of Surveryed Channel Length (1156.5km)");
+          riverqualitiesChart.addTooltip("Water Quality  - Years", "thousands", riverqualitiesDate);
 
 
     // data and chart for green flags
@@ -105,7 +108,7 @@ Promise.all([
     console.log("greenflags data processed", greenflagsDataProcessed);
     // drawing charts for planning data.
     const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools");
-   
+          greenflagsChart.addTooltip("Green Flag Schools  - Year", "thousands", greenflagsDate);
 
 
     // data and chart for localagendas.csv
