@@ -147,8 +147,10 @@ class MultiLineChart{
         dv.drawGridLines();
         dv.tickNumber =  dv.data[0].values.length;
 
-        // Update axes - what about ticks for smaller devices??
-        // dv.xAxisCall.scale(dv.x);
+        // // Update axes - what about ticks for smaller devices??
+        // dv.xAxisCall.scale(dv.x).ticks(d3.timeYear.filter((d) => {
+        //     return d = parseYear("2016");
+        // }));
         dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
             return i < dv.tickNumber ? dv.data[0].values[i].label : "";
         });

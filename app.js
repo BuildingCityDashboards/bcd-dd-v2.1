@@ -20,9 +20,9 @@ var app = express();
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoCensusDB = process.env.CUSTOMCONNSTR_CENSUS_DATABASE_URL;
-//var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
+// var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
 
-//mongoose.connect(mongoDB,{ useNewUrlParser: true });
+// mongoose.connect(mongoDB,{ useNewUrlParser: true });
 mongoose.connect(mongoCensusDB,{ useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;

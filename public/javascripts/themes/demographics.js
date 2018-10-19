@@ -45,7 +45,7 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
         populationChart.addTooltip("Year: ","","label");
         
         //hide year labels for now.
-        d3.select("#chart-population").selectAll(".x-axis text").style("display","none");
+        // d3.select("#chart-population").selectAll(".x-axis text").style("display","none");
     //WIP
     // let start,
     //     end,

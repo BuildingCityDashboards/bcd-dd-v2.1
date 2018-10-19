@@ -100,7 +100,7 @@ Promise.all([
     // const lastValue2 = irelandData[lv-1];
     
     // dimensions margins, width and height
-    const m = [10, 10, 15, 10],
+    const m = [20, 10, 25, 10],
         w = eWidth - 100 - m[1] - m[3],
         h = 120 - m[0] - m[2];
     
@@ -171,9 +171,27 @@ Promise.all([
         .attr("fill", "#16c1f3")
         .text("Dublin");
 
+    svg.append("text")
+        .attr("x", w)
+        .attr("y", h + 30)
+        .attr("text-anchor", "end")
+        .attr("class", "label employment")
+        .attr("fill", "#f8f9fabd")
+        // .text("2016: " + lastValue + " (No. per 1000 Pop.)");
+        .text("2017Q1");
+
+    svg.append("text")
+        .attr("x", 0)
+        .attr("y", h + 30)
+        .attr("text-anchor", "start")
+        .attr("class", "label employment")
+        .attr("fill", "#f8f9fabd")
+        // .text("2016: " + lastValue + " (No. per 1000 Pop.)");
+        .text("2013Q1");
+
     updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".3s"), true);
     updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", locale.format("$,"));
-    updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format("s") );
+    updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s") );
     updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
 
 
@@ -233,13 +251,23 @@ Promise.all([
         //     .attr("fill", "#f8f9fabd")
         //     .text("Ireland");
     
-        // svg2.append("text")
-        //     .attr("x", w)
-        //     .attr("y", h + 30)
-        //     .attr("text-anchor", "end")
-        //     .attr("class", "label employment")
-        //     .attr("fill", "#f8f9fabd")
-        //     .text("2016: " + lValue2[annualPopRate] + " (No. per 1000 Pop.)");
+        svg2.append("text")
+            .attr("x", w)
+            .attr("y", h + 30)
+            .attr("text-anchor", "end")
+            .attr("class", "label employment")
+            .attr("fill", "#f8f9fabd")
+            // .text("2016: " + lastValue + " (No. per 1000 Pop.)");
+            .text("2016");
+
+        svg2.append("text")
+            .attr("x", 0)
+            .attr("y", h + 30)
+            .attr("text-anchor", "start")
+            .attr("class", "label employment")
+            .attr("fill", "#f8f9fabd")
+            // .text("2016: " + lastValue + " (No. per 1000 Pop.)");
+            .text("1911");
     
         svg2.append("text")
             .attr("dx", 0)
@@ -385,23 +413,23 @@ class GroupedBarChart{
         //     .attr("class", "no-axis x-axis")
         //     .attr("transform", "translate(0," + (dv.height + 10) +")");
     
-        // // Start Month
-        // dv.g.append("text")
-        //     .attr("class", "label")
-        //     .attr("x", 0)
-        //     .attr("y", dv.height + 30)
-        //     .attr("text-anchor", "start")
-        //     .attr("fill", "#f8f9fabd")
-        //     .text(dv.data[0].date);
+        // Start Month
+        dv.g.append("text")
+            .attr("class", "label")
+            .attr("x", 0)
+            .attr("y", dv.height + 30)
+            .attr("text-anchor", "start")
+            .attr("fill", "#f8f9fabd")
+            .text(dv.data[0].date);
     
-        // // Last Month
-        // dv.g.append("text")
-        //     .attr("class", "label")
-        //     .attr("x", dv.width)
-        //     .attr("y", dv.height + 30)
-        //     .attr("text-anchor", "end")
-        //     .attr("fill", "#f8f9fabd")
-        //     .text(dv.data[last].date);
+        // Last Month
+        dv.g.append("text")
+            .attr("class", "label")
+            .attr("x", dv.width)
+            .attr("y", dv.height + 30)
+            .attr("text-anchor", "end")
+            .attr("fill", "#f8f9fabd")
+            .text(dv.data[last].date);
         
         // Title 
         dv.g.append("text")
@@ -460,7 +488,7 @@ class GroupedBarChart{
             .attr("x", d => { return dv.x1(d.key); })
             .attr("y", d => { return dv.y(d.value); })
             .attr("width", dv.x1.bandwidth())
-            .attr("height", d => { return (25 + dv.height - dv.y(d.value) ) ; })
+            .attr("height", d => { return (dv.height - dv.y(d.value) ) ; })
             .attr("rx","2")
             .attr("ry","2")
             .attr("fill", "rgba(29, 158, 201, 0.42)")
@@ -530,12 +558,13 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         // console.log(screenSize);
 
-        // let divInfo = d3.select(selector).select(".line-chart")
-        //     .append("div")
-        //     .style("max-width", "33.333333%")
-        //     .style("float","right")
-        //     .append("h5").html(indicatorSymbol).style("text-align", "center")
-        //     .append("h5").html(format(currentValue)).style("text-align", "center");
+        let divInfo = d3.select(selector).select(".line-chart")
+            .append("div")
+            .style("max-width", "33.333333%")
+            .style("width", "33.333333%")
+            .style("float","right")
+            .append("h5").html(indicatorSymbol).style("text-align", "center")
+            .append("h5").html(format(currentValue)).style("text-align", "center");
 
         d3.select(selector)
         .on("mouseover", (d) => { 

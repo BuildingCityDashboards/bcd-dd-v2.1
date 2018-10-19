@@ -20,14 +20,14 @@ div(class="tab-content" id="nav-tabContent")
       p Hover over these charts for more information, click to go to the data page    
     .row.tab-charts__row
       #emp-chart.col-xl-3.col-sm-6.col-11
-        +card-chart("themes/economy#unemployed", "card text-white o-hidden border-red", "Unemployment Quarterly Count", "test", "test-glance")  
+        +card-chart("themes/economy#unemployed", "card text-white o-hidden border-red", "Unemployment Quarterly Count", "test", "test-glance", "../images/calendar-w.svg")  
       #app-chart.col-xl-3.col-sm-6.col-11
-        +card-chart("themes/housing#propertyprices", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance")
+        +card-chart("themes/housing#propertyprices", "card text-white o-hidden border-teal", "Average New Property Prices", "test", "ap-glance", "../images/calendar-w.svg")
       #apd-chart.col-xl-3.col-sm-6.col-11
-        +card-chart("themes/demographics#population", "card text-white o-hidden border-yellow", "Annual Population", "test","pr-glance")
+        +card-chart("themes/demographics#population", "card text-white o-hidden border-yellow", "Annual Population", "test","pr-glance", "../images/calendar-w.svg")
         //- stack area chart with just population. 
       #huc-chart.col-xl-3.col-sm-6.col-11
-        +card-chart("themes/housing#unitscompmonth", "card text-white o-hidden border-red", "Monthly House Unit Completions", "test","hc-glance")
+        +card-chart("themes/housing#unitscompmonth", "card text-white o-hidden border-red", "Monthly House Unit Completions", "test","hc-glance", "../images/calendar-w.svg")
       //- .col-xl-3.col-sm-6
       //-   +card-chart("/", "card text-white o-hidden border-blue", "Dublin Median House Prices", "test","rt-chart1")
       //-   +card-chart("card text-white o-hidden border-yellow", "Weather Dublin", "test","rt-chart2")
