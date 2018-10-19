@@ -63,8 +63,6 @@
             return d;
         });
 
-
-
         const types = d3.nest()
             .key( regions => { return regions[groupBy];})
             .entries(valueData);
@@ -76,9 +74,16 @@
 
         const grouping = types.map(region => region.key);
 
-        const mlineChart = new MultiLineChart("#chart-employment", yLabels, grouping);
-        mlineChart.getData(columnNames[0], types);
-        mlineChart.addTooltip("", "thousands", "quarter");
+
+        const employmentContent = {
+            element: "#chart-employment",
+            keys: grouping,
+            data: types
+        };
+
+        const mlineChart = new MultiLineChart(employmentContent);
+              mlineChart.getData(columnNames[0]);
+              mlineChart.addTooltip("Employment Quarterly Count - ", "thousands", "quarter");
 
         d3.select(".employment_count").on("click", function(){
             $(this).siblings().removeClass('active');
@@ -121,23 +126,23 @@
         const dataSet = dataSets(data, keys);
 
         dataSet.forEach(d => {
+            let date = parseTime(d.date);
             d.label = d.quarter;
             d.date = parseTime(d.date);
+            d.years = formatYear(date);
         });
-
 
         const testData = filterbyDate(dataSet, "date", "Jan 01  2006");
 
         //nestData(data, date, name, valueName)
         let newData = nestData(testData, "label", "region" , selector),
             size = newData.length/pageSize;
-        console.log(newData);
 
         const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
 
-        employmentCharts.pagination(newData, "#chartNew", pageSize, size, "label", "Thousands - Quarter:");
+        employmentCharts.pagination(newData, "#chartNew", pageSize, size, "years", "Thousands - Quarter:");
 
         // d3.select(window).on("resize", function(){
         //     employmentCharts.init(); 
@@ -278,9 +283,15 @@
             .entries(employeesBySizeData);
 
         let grouping = nestData.map(d => d.key);
+
+        const employeesBySize = {
+            element: "#chart-employees-by-size",
+            keys: grouping,
+            data: nestData
+        };
         
-        const employeesBySizeChart = new MultiLineChart("#chart-employees-by-size", xValue, grouping);
-              employeesBySizeChart.getData("value", nestData);
+        const employeesBySizeChart = new MultiLineChart(employeesBySize);
+              employeesBySizeChart.getData("value");
               employeesBySizeChart.addTooltip("Year:", "thousands", "year");
     })
     // catch any error and log to console
@@ -386,7 +397,7 @@ function  nestData(data, date, name, value){
             d.values.forEach(function(v){
             obj[v[name]] = v[value];
             obj.date = v.date;
-            obj.year = v.year;
+            obj.years = v.years;
         })
     return obj;
   })

@@ -33,23 +33,22 @@ Promise.all([
     const wasteDataNested =  d3.nest().key( d => { return d[wasteRegions];})
         .entries(wasteDataProcessed);
 
-    console.log(wasteDataNested);
-
     // get array of keys from nest
     const wasteRegionNames = [];
         wasteDataNested.forEach(d => {
             wasteRegionNames.push(d.key);
         });
 
+    const wasteContent = {
+        element: "#chart-waste",
+        keys: wasteRegionNames,
+        data: wasteDataNested
+    };
+
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const wasteChart = new MultiLineChart("#chart-waste", [], wasteRegionNames);
-    
-    // 1. Value Key, 2. Data set, 3. x axis title, 4. y axis title
-    wasteChart.getData(wasteType[0], wasteDataNested, "Years", "Kg");
-    
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    wasteChart.addTooltip("Waste - Year ", "thousands", "label","","Kg");
+    const wasteChart = new MultiLineChart(wasteContent);
+          wasteChart.getData(wasteType[0], "Years", "Kg");
+          wasteChart.addTooltip("Waste - Year ", "thousands", "label","","Kg");
     
 
     //  Setup data and chart for recyclings
@@ -105,7 +104,6 @@ Promise.all([
     greenflagsDate = greenflagsData.columns[0],
     greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes);
 
-    console.log("greenflags data processed", greenflagsDataProcessed);
     // drawing charts for planning data.
     const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools");
           greenflagsChart.addTooltip("Green Flag Schools  - Year", "thousands", greenflagsDate);
@@ -129,23 +127,23 @@ Promise.all([
     const localagendasDataNested =  d3.nest().key( d => { return d[localagendasRegions];})
         .entries(localagendasDataProcessed);
 
-    console.log(localagendasDataNested);
-
     // get array of keys from nest
     const localagendasRegionNames = [];
         localagendasDataNested.forEach(d => {
             localagendasRegionNames.push(d.key);
         });
 
+    const localagendasContent = {
+        element: "#chart-localagendas",
+        keys: localagendasRegionNames,
+        data: localagendasDataNested
+    };
+
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const localagendasChart = new MultiLineChart("#chart-localagendas", [], localagendasRegionNames);
-    
-    // 1. Value Key, 2. Data set, 3. x axis title, 4. y axis title
-    localagendasChart.getData(localagendasType[0], localagendasDataNested, "Years", "Number of Projects");
-    
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    localagendasChart.addTooltip("Projects - Year ", "thousands", "label","","");
+    const localagendasChart = new MultiLineChart(localagendasContent);
+          localagendasChart.getData(localagendasType[0], "Years", "Number of Projects");
+          localagendasChart.addTooltip("Projects - Year ", "thousands", "label","","");
 
 
 }).catch(function(error){

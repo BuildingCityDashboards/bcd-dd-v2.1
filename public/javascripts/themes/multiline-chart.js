@@ -1,16 +1,17 @@
 class MultiLineChart{
 
-    constructor (_Element, _yLabels, _keys){
-        // this.data = _data;
-        this.element = _Element;
-        this.yLabels = _yLabels;
-        this.keys = _keys;
+    // constructor (_Element, _keys, _data){
+    constructor (obj){
+
+        this.element = obj.element;
+        this.keys = obj.keys;
+        this.data = obj.data;
+        this.value = obj.value;
 
         this.init();
     }
 
     // initialise method to draw chart area
-    // remove the 
     init(){
         let dv = this,
             elementNode = d3.select(dv.element).node(),
@@ -54,7 +55,13 @@ class MultiLineChart{
         dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         // for the tooltip from the d3 book
-        dv.bisectDate = d3.bisector( d => { return d.date; } ).left; // this needs to be dynamic dv.date!!
+        dv.bisectDate = d3.bisector( d => { return d.date; } ).left;
+
+        // tick numbers
+        dv.tickNumber = "undefined";
+
+        // tick formats
+        dv.tickFormat = "undefined";
         
         dv.addAxis();
     
@@ -91,11 +98,12 @@ class MultiLineChart{
             .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)");
-
-        // dv.addLegend();
+            
     }
 
-    getData( _valueString, _data, _tX, _tY, yScaleFormat){
+    // replace all this with a data validator
+    // getData( _valueString, _data, _tX, _tY, yScaleFormat){
+    getData( _valueString, _tX, _tY, yScaleFormat){
         let dv = this;
             dv.yScaleFormat = dv.formatValue(yScaleFormat);
 
@@ -103,12 +111,13 @@ class MultiLineChart{
             _tY ? dv.titleY = _tY: dv.titleY = "";
         
         // _data !== null ? dv.data =_data : dv.data = dv.data;
-        dv.data = _data !== null ? _data : dv.data;
+        // dv.data = _data !== null ? _data : dv.data;
         dv.value = _valueString;
 
         dv.createScales();
     }
 
+    // needs to be called everytime the data changes
     createScales(){
         let dv = this;
 
@@ -139,6 +148,7 @@ class MultiLineChart{
         dv.tickNumber =  dv.data[0].values.length;
 
         // Update axes - what about ticks for smaller devices??
+        // dv.xAxisCall.scale(dv.x);
         dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
             return i < dv.tickNumber ? dv.data[0].values[i].label : "";
         });
@@ -155,7 +165,7 @@ class MultiLineChart{
 
         // Update y-axis label based on selector
         // var selectorKey = dv.keys.findIndex( d => {  return d === dv.variable; });
-        // var newYLabel = dv.yLabels[selectorKey];
+        // var newYLabel =[selectorKey];
         // dv.yLabel.text(newYLabel);
 
         dv.update();
@@ -173,8 +183,7 @@ class MultiLineChart{
            .y( d => { //this works
                return dv.y(d[dv.value]); 
            })
-           .curve(d3.curveCatmullRom);
-           // .curve(d3.curveBasis);
+            .curve(d3.curveCatmullRom);
 
        // Adapted from the tooltip based on the example in the d3 Book
        
@@ -508,93 +517,6 @@ class MultiLineChart{
         }
         return [ttX, ttY];
     }
-
-    addLegend(){
-        let dv = this;
-
-        // create legend group
-        var legend = dv.g.append("g")
-            .attr("transform", "translate(" + (0) + 
-                        ", " + (0) + ")"); // if the legend needs to be moved
-
-        // create legend array, this needs to come from the data.
-        dv.legendArray = [];
-        
-        dv.keys.forEach( (d) => {
-
-            let obj = {};
-                obj.label = d;
-                obj.colour = dv.colour(d);
-                dv.legendArray.push(obj);
-        });
-
-        // get data and enter onto the legend group
-        var legends = legend.selectAll(".legend")
-            .data(dv.legendArray)
-            .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
-            .attr("id", (d,i) => "legend-item" + i )
-            .style("font", "12px sans-serif")
-            .attr("cursor", "pointer")
-            // .on("click", (d,i) => { 
-
-            //     let label = d3.select(dv.element).select("#legend-item" + i);
-            //         label.classed("active", label.classed("active") ? false : true);
- 
-            //     // get index of legend item
-            //     let filterValues = dv.data.findIndex(idx => idx.key === d.label);
-
-            //     // set its disabled field to true or false
-            //     dv.data[filterValues].disabled = !dv.data[filterValues].disabled; 
-
-            //     if (!dv.data.filter(function(d) { return !d.disabled }).length) {
-            //       dv.data.forEach(function(d) {
-            //         d.disabled = false;
-            //       });
-            //       d3.select(dv.element).selectAll(".legend").classed("active", false);
-            //     }
-
-            //     // dv.getData(dv.value,dv.data);
-            //     dv.update();
-            // });
-
-        // add legend boxes    
-        legends.append("rect")
-            .attr("class", "legendRect")
-            .attr("x", dv.width + 10)
-            .attr("width", 25)
-            .attr("height", 25)
-            .attr("fill", d => { return d.colour; })
-            .attr("fill-opacity", 0.75);
-
-        legends.append("text")
-            .attr("class", "legendText")
-            // .attr("x", dv.width + 40)
-            .attr("y", 12)
-            .attr("dy", ".025em")
-            .attr("text-anchor", "start")
-            .text(d => { return d.label; })
-            .call(dv.textWrap, 110, dv.width + 34); 
-    }
-
-        // // taking from the d3 book
-        // .on("click", d => {
-        //     var active   = d.active ? false : true,
-        //     newOpacity = active ? 1 : 0; 
-        //     console.log("active", active);
-        //     console.log("opactiy", newOpacity);
-        //     // Hide or show the elements based on the ID
-        //     d3.select("#"+d.label)
-        //         .transition().duration(100) 
-        //         .style("opacity", newOpacity); 
-        //     d3.select(dv.element).select(".tooltip_"+d.label)
-        //         .transition().duration(100) 
-        //         .style("opacity", newOpacity);
-
-        //     // Update whether or not the elements are active
-        //     d.active = active;
-        //     }); 
     
     textWrap(text, width, xpos = 0, limit=2) {
         text.each(function() {

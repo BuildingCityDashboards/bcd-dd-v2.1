@@ -47,16 +47,25 @@ class StackedAreaChart {
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
 
-        // transition 
+        // default transition 
         dv.t = () => { return d3.transition().duration(1000); };
         
         // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
+        
+        // default colourScheme
         dv.colourScheme =d3.schemeBlues[9].slice(4);
-        // set colour function
+        
+        // colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
-        // for the tooltip from the d3 book
+        // bisector for tooltip
         dv.bisectDate = d3.bisector(d => { return (d[dv.date]); }).left;
+
+        // tick numbers
+        dv.tickNumber = "undefined";
+
+        // tick formats
+        dv.tickFormat = "undefined";
 
         dv.addAxis();
     }
@@ -98,32 +107,16 @@ class StackedAreaChart {
         dv.addLegend();
     }
 
-    // // pass the data and the nest value
-    // getData(_data, _tX, _tY, yScaleFormat, _name, _value){
-    //     let dv = this;
-    //         // dv.yScaleFormat = dv.formatValue(yScaleFormat);
-
-    //         _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
-    //         _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
- 
-    //     // TODO filter data set before calling nestData function
-
-    //     let dataProcessed = dv.nestData(_data, "label", _name, _value);
-    //         dv.nestedData = dataProcessed;
-            
-    //         // call function to create/update scales
-    //         dv.createScales();
-    // }
-
     // pass the data and the nest value
     getData(_data, _tX, _tY, yScaleFormat){
         let dv = this;
             dv.yScaleFormat = dv.formatValue(yScaleFormat);
-
+            
             _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
             _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
             
             dv.nestedData =_data;
+            // dv.tickNumber =  dv.nestedData.length;
             dv.createScales();
     }
 
@@ -148,12 +141,14 @@ class StackedAreaChart {
         dv.y.domain([0, maxDateVal]);
 
         dv.drawGridLines();
-        dv.tickNumber =  dv.nestedData.length;
 
         // Update axes
-        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-            return i < dv.tickNumber ? dv.nestedData[i].label : ""; 
-        });
+        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber) : dv.xAxisCall.scale(dv.x);
+        
+        // dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+        //     return i < dv.tickNumber ? dv.nestedData[i].label : ""; 
+        // });
+
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
 
         dv.yAxisCall.scale(dv.y);
@@ -217,7 +212,7 @@ class StackedAreaChart {
             .append("path")
             .attr("class", "area-line")
             .style("stroke", (d) => {return dv.colour(d.key);})
-            .transition(dv.t())
+            // .transition(dv.t())
             .attr("d", dv.arealine);
             
 
@@ -225,7 +220,7 @@ class StackedAreaChart {
         dv.g.selectAll(".area")
             .data(dv.data)
             .style("fill", (d) => {return dv.colour(d.key);})
-            .transition(dv.t())
+            // .transition(dv.t())
             .attr("d", dv.area)
             .style("fill-opacity", 0.75);
             

@@ -2,7 +2,8 @@ let parseTime = d3.timeParse("%d/%m/%Y"),
     formatTime = d3.timeFormat("%d/%m/%Y"),
     formatYear = d3.timeFormat("%Y"),
     formatMonthYear = d3.timeFormat("%b-%Y"),
-    parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
+    parseMonth = d3.timeParse("%b-%y"),
+    parseYearMonth = d3.timeParse("%Y-%b"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
     parseYear = d3.timeParse("%Y");
 
 const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
@@ -19,6 +20,8 @@ Promise.all([
     d3.csv("../data/Housing/houseunitcompbytype.csv"),
     d3.csv("../data/Housing/NDQ08.csv"),
     d3.csv("../data/Housing/NDQ06.csv"),
+    d3.csv("../data/Housing/HPM06.csv"),
+    d3.csv("../data/Housing/HPM06Rate.csv"),
 ]).then(datafiles => {
 
     //1.  data processing for house completion chart
@@ -26,8 +29,6 @@ Promise.all([
           keys = completionData.columns.slice(1),
           dateField = completionData.columns[0],
           compDataProcessed = dataSets(completionData, keys);
-          console.log(compDataProcessed);
-          console.log(datafiles[0]);
 
           compDataProcessed.forEach(function(d) {  
             d.label = d[dateField];
@@ -101,25 +102,35 @@ Promise.all([
                 supplyRegionNames.push(d.key);
         });
 
+    const supplyContent = {
+        element: "#chart-houseSupply",
+        keys: supplyRegionNames,
+        data: supplyDataNested,
+        value: "Hectares"
+    }
+
+
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const supplyChart = new MultiLineChart("#chart-houseSupply", yLabels2, supplyRegionNames);
-    // 1. Value Key, 2. Data set
-    supplyChart.getData("Hectares", supplyDataNested, "Years", "Hectares");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    supplyChart.addTooltip("Land - Year", "thousands", "label");
+    const supplyChart = new MultiLineChart(supplyContent);
+          supplyChart.titleX = "Years";
+          supplyChart.titleY = "Hectares";
+          supplyChart.createScales();
+          supplyChart.addTooltip("Land - Year", "thousands", "label");
 
     d3.select("#supply_land").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        supplyChart.getData("Hectares", supplyDataNested, "Years", "Hectares");
+        supplyChart.value = "Hectares";
+        supplyChart.titleY = "Hectares";
+        supplyChart.createScales();
         supplyChart.addTooltip("Land - Year", "thousands", "label");
     });
     
     d3.select("#supply_units").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        supplyChart.getData("Units", supplyDataNested, "Years", "Units");
+        supplyChart.getData("Units", "Years", "Units");
         supplyChart.addTooltip("Units - Year", "thousands", "label");
     });
 
@@ -148,13 +159,16 @@ Promise.all([
                 contributionRegionNames.push(d.key);
         });
 
+        const contriContent = {
+            element: "#chart-houseContributions",
+            keys: contributionRegionNames,
+            data: contributionDataNested
+        };
+
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const contributionChart = new MultiLineChart("#chart-houseContributions", yLabels2, contributionRegionNames);
-    // 1. Value Key, 2. Data set
-    contributionChart.getData("value", contributionDataNested, "Years", "€", "millions");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
+    const contributionChart = new MultiLineChart(contriContent);
+          contributionChart.getData("value","Years", "€", "millions");
+          contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
 
     // setup chart and data for quarterly house prices chart
     // process the data
@@ -179,16 +193,21 @@ Promise.all([
             .entries(hPricesFiltered);
     // get array of keys from nest
         const housePricesRegionNames = [];
-        housePricesDataNested.forEach(d => {
+              
+              housePricesDataNested.forEach(d => {
                 housePricesRegionNames.push(d.key);
-        });
+              });
+
+        const housePricesContent = {
+            element: "#chart-housePrices",
+            keys: housePricesRegionNames,
+            data: housePricesDataNested
+        };
 
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const housePricesChart = new MultiLineChart("#chart-housePrices", yLabels4, housePricesRegionNames);
+    const housePricesChart = new MultiLineChart(housePricesContent);
     // 1. Value Key, 2. Data set
-    housePricesChart.getData("value", housePricesDataNested, "Quarters", "€", "thousands");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
+    housePricesChart.getData("value", "Quarters", "€", "thousands");
     housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
 
 
@@ -219,13 +238,16 @@ Promise.all([
                 rentPricesRegionNames.push(d.key);
         });
 
+        const rentPricesContent = {
+            element: "#chart-rentPrices",
+            keys: rentPricesRegionNames,
+            data: rentPricesDataNested
+        }
+
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const rentPricesChart = new MultiLineChart("#chart-rentPrices", yLabels4, rentPricesRegionNames);
-    // 1. Value Key, 2. Data set
-    rentPricesChart.getData("value", rentPricesDataNested, "Quarters", "€", "thousands");
-    // // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+    const rentPricesChart = new MultiLineChart(rentPricesContent);
+          rentPricesChart.getData("value", "Quarters", "€", "thousands");
+          rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
     
 
     //  Setup data and chart for rent prices by quarter by bed numbers
@@ -275,15 +297,16 @@ Promise.all([
                 houseCompByTypeRegionNames.push(d.key);
         });
 
-        console.log("total house dataset", houseCompByTypeDataNested);
+        const houseCompByTypeContent = {
+            element: "#chart-houseCompByType",
+            keys: houseCompByTypeRegionNames,
+            data: houseCompByTypeDataNested
+        }
 
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const houseCompByTypeChart = new MultiLineChart("#chart-houseCompByType", yLabels2, houseCompByTypeRegionNames);
-    // 1. Value Key, 2. Data set
-    houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Quarters", "Numbers");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+    const houseCompByTypeChart = new MultiLineChart(houseCompByTypeContent);
+          houseCompByTypeChart.getData(houseCompByTypeType[0], "Quarters", "Numbers");
+          houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
     d3.select("#houseCompByType_total").on("click", function(){
         $(this).siblings().removeClass('active');
@@ -354,13 +377,68 @@ Promise.all([
                 newCompByTypeRegionNames.push(d.key);
         });
 
+        const newCompByTypeContent = {
+            element: "#chart-newCompByType",
+            keys: newCompByTypeRegionNames,
+            data: newCompByTypeDataNested
+        };
+        
+
     // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const newCompByTypeChart = new MultiLineChart("#chart-newCompByType", yLabels2, newCompByTypeRegionNames);
-    // 1. Value Key, 2. Data set
-    newCompByTypeChart.getData(newCompByTypeType[0], newCompByTypeDataNested, "Quarters", "Numbers");
-    // 1. Tooltip title, 2. format, 3. dateField, 4. prefix, 5. postfix
-    newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+    const newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
+          newCompByTypeChart.getData(newCompByTypeType[0], "Quarters", "Numbers");
+          newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+
+
+    // new chart What!
+    const HPM06 = datafiles[11],
+        HPM06T = HPM06.columns.slice(1),
+        HPM06D = HPM06.columns[0],
+        HPM06DP = dataSets(HPM06, HPM06T);
+        
+        HPM06DP.forEach(function(d) {  
+            d.label = d[HPM06D];
+            d[HPM06D] = parseYearMonth(d[HPM06D]);
+            d.year = formatYear(d[HPM06D]);
+        });
+
+    const HPM06rate = datafiles[12],
+        HPM06rateT = HPM06rate.columns.slice(1),
+        HPM06rateD = HPM06rate.columns[0],
+        HPM06rateDP = dataSets(HPM06rate, HPM06rateT);
+        
+        HPM06rateDP.forEach(function(d) {  
+            d.label = d[HPM06rateD];
+            d[HPM06rateD] = parseYearMonth(d[HPM06rateD]);
+            d.year = formatYear(d[HPM06rateD]);
+        });
+
+// const HPM06f = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
+
+    const HPM06Charts = new StackedAreaChart("#chart-HPM06", "Months", "Thousands", HPM06D, HPM06T);
+          HPM06Charts.tickNumber = 12;
+          HPM06Charts.getData(HPM06DP);
+          HPM06Charts.addTooltip("Price Index by Month", "%");
+
+        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+        // houseCompCharts.getData(dateFilter);
+        // houseCompCharts.addTooltip("Units by Month:", "000");
+
+        // HPM06Charts.pagination(HPM06DP, "#chart-HPM06", 12, 14, "year", "Index by Month:");
+
+        // d3.select("#supply_land").on("click", function(){
+        //     $(this).siblings().removeClass('active');
+        //     $(this).addClass('active');
+        //     supplyChart.getData("Hectares", supplyDataNested, "Years", "Hectares");
+        //     supplyChart.addTooltip("Land - Year", "thousands", "label");
+        // });
+        
+        // d3.select("#supply_units").on("click", function(){
+        //     $(this).siblings().removeClass('active');
+        //     $(this).addClass('active');
+        //     supplyChart.getData("Units", supplyDataNested, "Years", "Units");
+        //     supplyChart.addTooltip("Units - Year", "thousands", "label");
+        // });
 
 }).catch(function(error){
         console.log(error);

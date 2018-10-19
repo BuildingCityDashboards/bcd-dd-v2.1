@@ -18,31 +18,55 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
             }
         return d;
     });
-    console.log("value data should be here", valueData);
 
     const types = d3.nest()
         .key( d => {
             return d[groupBy];
         }).entries(valueData);
 
-        console.log("Population data should be here", types);
-
     const grouping = types.map( d => d.key);
 
-    const populationChart = new MultiLineChart("#chart-population",yLabels, grouping);
-        populationChart.getData(columnNames[0], types, "years", yLabels[0]);
-        populationChart.addTooltip("Year: ","","label");  
+    const population = {
+        element: "#chart-population",
+        keys: grouping,
+        data: types
+    };
 
-    d3.select(".demographics_count").on("click", function(){
-        populationChart.getData(columnNames[0], types);
-    });
+    const populationChart = new MultiLineChart(population);
+          populationChart.yLabels=yLabels;
+          populationChart.value=columnNames[0];
+        //   populationChart.data=types;
+          populationChart.titleX="years";
+          populationChart.titleY=yLabels[0];
+          populationChart.yScaleFormat = d3.format(".2s");
+          populationChart.createScales();
+
+        // add the tooltip
+        populationChart.addTooltip("Year: ","","label");
+        
+        //hide year labels for now.
+        d3.select("#chart-population").selectAll(".x-axis text").style("display","none");
+    //WIP
+    // let start,
+    //     end,
+    //     size = types[0].values.length - 1;
+        
+    //     start = types[0].values[0].label;
+    //     end = types[0].values[size].label;
     
-    d3.select(".demographics_arate").on("click", function(){
-        populationChart.getData(columnNames[1], types);
+    //buttons
+    d3.select(".demographics_count").on("click", function(){
+        populationChart.value=columnNames[0];
+        populationChart.yScaleFormat = d3.format(".2s");
+        populationChart.createScales();
     });
 
-//      need to work on the forumale to calculate this
-//    let femaleRate = types;
+    //buttons
+    d3.select(".demographics_arate").on("click", function(){
+        populationChart.value=columnNames[1];
+        populationChart.yScaleFormat = d3.format(".0%");
+        populationChart.createScales();
+    });
 
 }).catch(function(error){
     console.log(error);
@@ -53,10 +77,7 @@ d3.csv("../data/Demographics/CNA14.csv").then( data => {
     data.forEach( d => {
         d.Dublin = +d.Dublin;
     });
-
-    console.log("this is the female data :", data);
-
-    const femaleRateBar = new BarChart( data,"#chart-femalespermales", "date", "Dublin", "Year", "Rate");
+    // const femaleRateBar = new BarChart( data,"#chart-femalespermales", "date", "Dublin", "Year", "Rate");
 
 }).catch(function(error){
     console.log(error);
@@ -68,34 +89,6 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
           xValue = data.columns[1];
           yLabels =["Population (000s)"];
 
-    // const valueData = columnNames.map(cat => {
-
-    //     return {
-    //       name: cat,
-    //       values: data.map( d => {
-    //         return {
-    //           date: d.date,
-    //           country: d.country, 
-    //           value: +(d[cat]),
-    //           };
-    //       }),
-    //     };
-    //   });
-
-    // const combinedData = valueData.map( d => {
-
-    //     return{
-
-    //         key: d.name,
-    //         values: d3.nest()
-    //                 .key(function(g){ return g.date;})
-    //                 .rollup(function(v) { return d3.sum(v, function(g) { return g.value; });})
-    //                 .entries(d.values)
-    //     }
-
-    // });
-
-
     const combinedData = d3.nest()
                     .key(function(g){ return g.date;})
                     .rollup(function(v) { return{
@@ -103,7 +96,6 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
                         dublin: d3.sum(v, function(g) { return g.Dublin; })
                     }; })
                     .entries(data);
-
     let array = []
 
     combinedData.forEach( d => {
@@ -113,16 +105,13 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
         obj.State = d.value.state;
         array.push(obj);
     });
-    
 
     //  for each d in combineData get the key and assign to each d in d.values
 
-
-
-    console.log("this is the test data values :", array);
-
     const outsideStateChart = new GroupedBarChart(array, columnNames, xValue, "#chart-bornOutsideState", "grouped bar chart", "Millions");
-   
+    // console.log(outsideStateChart);    
+    outsideStateChart.scaleFormatY = (d3.format(".2s"));//update yaxis scale
+    outsideStateChart.update();//update object
 
 }).catch(function(error){
     console.log(error);
@@ -130,13 +119,8 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
 
 
 d3.csv("../data/Demographics/CNA33.csv").then( data => {
-    
-    console.log("the data for the household numbers:", data);
-
     const columnNames = data.columns.slice(1);
     const xValue = data.columns[0];
-    
-    console.log("the regions' names", columnNames);
 
     const valueData = data.map( d => {
         for( var i = 0, n = columnNames.length; i < n; i++ ){
@@ -144,11 +128,8 @@ d3.csv("../data/Demographics/CNA33.csv").then( data => {
         }
         return d;
     });
-    
-    console.log("Household number coerced", valueData);
 
-
-const houseHoldsChart = new GroupedBarChart(valueData, columnNames, xValue, "#chart-households", "Years", "Number of Households");
+    const houseHoldsChart = new GroupedBarChart(valueData, columnNames, xValue, "#chart-households", "Years", "Number of Households");
    
 
 
@@ -158,13 +139,9 @@ const houseHoldsChart = new GroupedBarChart(valueData, columnNames, xValue, "#ch
 
 
 d3.csv("../data/Demographics/CNA29.csv").then( data => {
-    
-    console.log("the data for the household numbers:", data);
 
     const columnNames = data.columns.slice(2);
     const xValue = data.columns[0];
-    
-    console.log("the regions' names", columnNames);
 
     const valueData = data.map( d => {
         for( var i = 0, n = columnNames.length; i < n; i++ ){
@@ -172,14 +149,9 @@ d3.csv("../data/Demographics/CNA29.csv").then( data => {
         }
         return d;
     });
-    
-    console.log("Household number coerced", valueData);
-
 
 const houseHoldCompositionChart = new GroupedBarChart(valueData, columnNames, xValue, "#chart-householdComposition", "Person per Household ", "Number of Households");
    
-
-
 }).catch(function(error){
     console.log(error);
 });

@@ -96,6 +96,8 @@ class GroupedBarChart{
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
+
+        dv.scaleFormatY;
     
         dv.update();
     
@@ -119,6 +121,7 @@ class GroupedBarChart{
         dv.xAxis.call(dv.xAxisCall)
         .selectAll(".tick text").call(dv.textWrap, 60, 0);
         
+        dv.scaleFormatY ? dv.yAxisCall.scale(dv.y).tickFormat(dv.scaleFormatY) : dv.yAxisCall.scale(dv.y);
         dv.yAxisCall.scale(dv.y);
         dv.yAxis.call(dv.yAxisCall);
 
