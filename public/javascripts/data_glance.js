@@ -1,5 +1,6 @@
 const parseTime = d3.timeParse("%d/%m/%Y");
 const parseYear = d3.timeParse("%Y");
+const formatYear = d3.timeFormat("%Y");
 const breakPoint = 768;
 
 let locale = d3.formatLocale({
@@ -91,22 +92,25 @@ Promise.all([
     const priceListQuartley = new GroupedBarChart(dataSet4, columnNames4, xValue2, "#ap-glance", "€", "title2");
     
     // for now will just copy but need to create a class for this chart objects
-    const lv = dublinData.length;
+    const lv = dublinData.length,
+          lv2 = dataSet2.length;
+
 
     let elementNode = d3.select("#test-glance").node();
     let eWidth = elementNode.getBoundingClientRect().width; 
 
     const lastValue = dublinData[lv-1];
-    // const lastValue2 = irelandData[lv-1];
+    const lastValue2 = dataSet2[lv2-1];
+    console.log(lastValue2);
     
     // dimensions margins, width and height
-    const m = [20, 10, 25, 10],
-        w = eWidth - 100 - m[1] - m[3],
+    const m = [30, 10, 25, 10],
+        w = eWidth - m[1] - m[3],
         h = 120 - m[0] - m[2];
-    
+    console.log(h);
     // setting the line values range
     let x = d3.scaleTime().range([0, w-5]);
-    let y = d3.scaleLinear().range([h, 0]);
+    let y = d3.scaleLinear().range([h + m[1], 0]);
     
     // setup the line chart
     let valueline = d3.line()
@@ -129,7 +133,7 @@ Promise.all([
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
         .append("g")
-        .attr("transform", "translate(" + m[3] + "," + "12" + ")");
+        .attr("transform", "translate(" + m[3] + "," + "20" + ")");
         // Scale the range of the data
         let maxToday = dublinData.length > 0 ? d3.max(dublinData, function(d) { return d[empValue]; }) : 0;
         // let maxReference = irelandData.length > 0 ? d3.max(irelandData, function(d) { return d[empValue]; }) : 0;
@@ -161,15 +165,22 @@ Promise.all([
     svg.append("path")
         .attr("class", "area")
         .attr("d", arealine(dublinData))
-        .attr("fill", "rgb(66, 146, 198)")
-        .attr("opacity", "0.5");
+        .attr("fill", "rgba(29, 158, 201, 0.6)");
 
     svg.append("text")
         .attr("dx", 0)
-        .attr("dy", -3)
+        .attr("dy", -10)
         .attr("class", "label employment")
         .attr("fill", "#16c1f3")
         .text("Dublin");
+
+    svg.append("text")
+        .attr("x", w)
+        .attr("y", -10)
+        .attr("text-anchor", "end")
+        .attr("class", "label value")
+        .attr("fill", "#f8f9fabd")
+        .text(lastValue[empValue] + "k");
 
     svg.append("text")
         .attr("x", w)
@@ -189,15 +200,24 @@ Promise.all([
         // .text("2016: " + lastValue + " (No. per 1000 Pop.)");
         .text("2013Q1");
 
+    svg.append("circle")
+        .attr("cx", x(lastValue.quarter))
+        .attr("cy", y(lastValue[empValue]))
+        .attr("r", 3)
+        .attr("transform", "translate(0,0)")
+        .attr("class", "cursor")
+        .style("stroke", "#16c1f3")
+        .style("stroke-width", "2px");
+
     updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".3s"), true);
     updateInfoText("#app-chart a", "Average New Property Prices in Dublin for ", " on previous Quarter", dataSet4, columnNames4[0], "label", locale.format("$,"));
     updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s") );
     updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
 
 
-    const size = dublinAnnualRate.length;   
-    const lValue = dublinAnnualRate[size-1];
-    const lValue2 = irelandAnnualRate[size-1];
+    const size = dublinAnnualRate.length,
+          lValue = dublinAnnualRate[size-1],
+          lValue2 = irelandAnnualRate[size-1];
         
     // setup the line chart
     let valuelineRate = d3.line()
@@ -216,7 +236,7 @@ Promise.all([
         .attr("width", w + m[1] + m[3])
         .attr("height", h + m[0] + m[2])
         .append("g")
-        .attr("transform", "translate(" + m[3] + "," + "10" + ")");
+        .attr("transform", "translate(" + m[3] + "," + "20" + ")");
         // Scale the range of the data
         let maxDublin = dublinAnnualRate.length > 0 ? d3.max(dublinAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
         // let maxIreland = irelandAnnualRate.length > 0 ? d3.max(irelandAnnualRate, function(d) { return d[annualPopRate]; }) : 0;
@@ -241,8 +261,7 @@ Promise.all([
         svg2.append("path")
             .attr("class", "area")
             .attr("d", arealineRate(dublinAnnualRate))
-            .attr("fill", "rgb(66, 146, 198)")
-            .attr("opacity", "0.5");
+            .attr("fill", "rgba(29, 158, 201, 0.6)");
         
         // svg2.append("text")
         //     .attr("dx", 0)
@@ -271,10 +290,18 @@ Promise.all([
     
         svg2.append("text")
             .attr("dx", 0)
-            .attr("dy", 2)
+            .attr("dy", -10)
             .attr("class", "label employment")
             .attr("fill", "#16c1f3")
             .text("Dublin")
+
+        svg2.append("text")
+            .attr("x", w)
+            .attr("y", y((lastValue2["Population (Number)"])) - 8)
+            .attr("text-anchor", "end")
+            .attr("class", "label value")
+            .attr("fill", "#f8f9fabd")
+            .text(d3.format(".2s")(lastValue2["Population (Number)"]));
     
         // svg2.append("text")
         //     .attr("x", w)
@@ -283,6 +310,15 @@ Promise.all([
         //     .attr("class", "label employment")
         //     .attr("fill", "#16c1f3")
         //     .text("2016 : " + lValue[annualPopRate] + " (No. per 1000 Pop.)");
+
+        svg2.append("circle")
+            .attr("cx", w -5)
+            .attr("cy", y(lastValue2["Population (Number)"]))
+            .attr("r", 3)
+            .attr("transform", "translate(0,0)")
+            .attr("class", "cursor")
+            .style("stroke", "#16c1f3")
+            .style("stroke-width", "2px");
 
 }).catch(function(error){
     console.log(error);
@@ -318,13 +354,13 @@ class DataGlanceLine{
         dv.eWidth = elementNode.getBoundingClientRect().width; 
         
         // dimensions margins, width and height
-        const m = [20, 10, 25, 10],
+        const m = [30, 10, 25, 10],
             w = eWidth - m[1] - m[3],
             h = 120 - m[0] - m[2];
         
         // setting the line values range
         let x = d3.scaleTime().range([0, w-5]);
-        let y = d3.scaleLinear().range([h, 0]);
+        let y = d3.scaleLinear().range([h + m[1], 0]);
         
         // setup the line chart
         let valueline = d3.line()
@@ -362,16 +398,18 @@ class GroupedBarChart{
 
     // initialise method to draw chart area
     init(){
-        let dv = this; 
-        let last = dv.data.length -1;
+        let dv = this,
+            last = dv.data.length -1,
+            lastValue = dv.data[last][dv.xValue];
+
 
         let eNode = d3.select(dv.element).node();
         let eWidth = eNode.getBoundingClientRect().width; 
         
         // margin
-        dv.m = [20, 10, 25, 10]
+        dv.m = [30, 10, 25, 10]
         
-        dv.width = eWidth - 100 - dv.m[1] - dv.m[3];
+        dv.width = eWidth - dv.m[1] - dv.m[3];
         dv.height = 120 - dv.m[0] - dv.m[2];
 
         dv.tooltip = d3.select(".page__root")
@@ -386,7 +424,7 @@ class GroupedBarChart{
        
         // add the g to the svg and transform by top and left margin
         dv.g = svg.append("g")
-            .attr("transform", "translate(" + dv.m[3] + "," + "10" + ")");
+            .attr("transform", "translate(" + dv.m[3] + "," + "20" + ")");
     
         // transition 
         dv.t = () => { return d3.transition().duration(1000); }
@@ -404,7 +442,7 @@ class GroupedBarChart{
             .paddingInner(0.1);
     
         dv.y = d3.scaleLinear()
-            .range([dv.height, 0]);
+            .range([dv.height + dv.m[1], 0]);
 
         // dv.xAxisCall = d3.axisBottom()
         // .tickSize(0);
@@ -434,10 +472,20 @@ class GroupedBarChart{
         // Title 
         dv.g.append("text")
             .attr("dx", 0)
-            .attr("dy", 2)
+            .attr("dy", -10)
             .attr("class", "label")
             .attr("fill", "#16c1f3")
             .text(dv.keys[0]);
+
+            dv.g.append("text")
+            .attr("dx", dv.width)
+            .attr("dy", -10)
+            .attr("text-anchor", "end")
+            .attr("class", "label value")
+            .attr("fill", "#f8f9fabd")
+            .text(dv.data[last].Dublin);
+
+            console.log(dv.data[last]);
 
         // // Last Month Value in Units
         // dv.g.append("text")
@@ -488,15 +536,13 @@ class GroupedBarChart{
             .attr("x", d => { return dv.x1(d.key); })
             .attr("y", d => { return dv.y(d.value); })
             .attr("width", dv.x1.bandwidth())
-            .attr("height", d => { return (dv.height - dv.y(d.value) ) ; })
+            .attr("height", d => { return (dv.height - dv.y(d.value) + dv.m[1] ) ; })
             .attr("rx","2")
             .attr("ry","2")
-            .attr("fill", "rgba(29, 158, 201, 0.42)")
-            .attr("fill-opacity", ".75");
+            .attr("fill", "rgba(29, 158, 201, 0.6)");
 
             d3.select(".parent g:nth-last-child(1) rect")
-                .attr("fill", "#16c1f3")
-                .attr("fill-opacity", "1");
+                .attr("fill", "#16c1f3");
         
         // dv.g.selectAll("rect")
         //     .on("mouseover", function(){ 
@@ -558,13 +604,13 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         // console.log(screenSize);
 
-        let divInfo = d3.select(selector).select(".line-chart")
-            .append("div")
-            .style("max-width", "33.333333%")
-            .style("width", "33.333333%")
-            .style("float","right")
-            .append("h5").html(indicatorSymbol).style("text-align", "center")
-            .append("h5").html(format(currentValue)).style("text-align", "center");
+        // let divInfo = d3.select(selector).select(".line-chart")
+        //     .append("div")
+        //     .style("max-width", "33.333333%")
+        //     .style("width", "33.333333%")
+        //     .style("float","right")
+        //     .append("h5").html(indicatorSymbol).style("text-align", "center")
+        //     .append("h5").html(format(currentValue)).style("text-align", "center");
 
         d3.select(selector)
         .on("mouseover", (d) => { 

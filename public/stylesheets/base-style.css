@@ -50,7 +50,7 @@ a:hover {
   stroke-width:2
 }
 .line-chart .label, .no-axis{
-  font-size:12px;
+  font-size: 14px;
   font-weight:500;
 }
 .line-chart .label.today{
