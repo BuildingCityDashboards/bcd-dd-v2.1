@@ -176,7 +176,7 @@ Promise.all([
 
     svg.append("text")
         .attr("x", w)
-        .attr("y", -10)
+        .attr("y", y(lastValue[empValue])-10)
         .attr("text-anchor", "end")
         .attr("class", "label value")
         .attr("fill", "#f8f9fabd")
@@ -399,8 +399,9 @@ class GroupedBarChart{
     // initialise method to draw chart area
     init(){
         let dv = this,
-            last = dv.data.length -1,
-            lastValue = dv.data[last][dv.xValue];
+            last = dv.data.length -1;
+
+            dv.lastValue = dv.data[last].Dublin;
 
 
         let eNode = d3.select(dv.element).node();
@@ -477,16 +478,6 @@ class GroupedBarChart{
             .attr("fill", "#16c1f3")
             .text(dv.keys[0]);
 
-            dv.g.append("text")
-            .attr("dx", dv.width)
-            .attr("dy", -10)
-            .attr("text-anchor", "end")
-            .attr("class", "label value")
-            .attr("fill", "#f8f9fabd")
-            .text(dv.data[last].Dublin);
-
-            console.log(dv.data[last]);
-
         // // Last Month Value in Units
         // dv.g.append("text")
         //     .attr("x", dv.width)
@@ -543,6 +534,14 @@ class GroupedBarChart{
 
             d3.select(".parent g:nth-last-child(1) rect")
                 .attr("fill", "#16c1f3");
+
+            dv.g.append("text")
+                .attr("dx", dv.width)
+                .attr("dy", dv.y(dv.lastValue) - 10)
+                .attr("text-anchor", "end")
+                .attr("class", "label value")
+                .attr("fill", "#f8f9fabd")
+                .text(dv.lastValue);
         
         // dv.g.selectAll("rect")
         //     .on("mouseover", function(){ 

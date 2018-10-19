@@ -350,6 +350,7 @@ Promise.all([
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
     
     // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+    nonNewConnectionsChart.tickNumber = 12;
     nonNewConnectionsChart.getData(nonNewConFiltered);
     nonNewConnectionsChart.addTooltip("House Type -", "Units");
 

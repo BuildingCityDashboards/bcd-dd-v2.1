@@ -143,11 +143,8 @@ class StackedAreaChart {
         dv.drawGridLines();
 
         // Update axes
-        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber) : dv.xAxisCall.scale(dv.x);
-        
-        // dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-        //     return i < dv.tickNumber ? dv.nestedData[i].label : ""; 
-        // });
+        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+            return i < dv.tickNumber ? dv.nestedData[i].label : ""; }) : dv.xAxisCall.scale(dv.x);
 
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
 
@@ -386,17 +383,17 @@ class StackedAreaChart {
                 .on("mouseover", () => { 
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
-                })
+                }, {passive:true})
                 .on("touchstart", ()=>{
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
-                })
+                },{passive:true})
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
-                })
-                .on("touchmove", mousemove)
-                .on("mousemove", mousemove);
+                }, {passive:true})
+                .on("touchmove", mousemove, {passive:true})
+                .on("mousemove", mousemove, {passive:true});
             
             function mousemove(){
                 focus.style("visibility","visible");

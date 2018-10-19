@@ -246,13 +246,13 @@ class StackBarChart {
             .on("mouseover", function(){ 
                 dv.tooltip.style("display", "inline-block"); 
             })
-            .on("touchstart", ()=>{
-                dv.tooltip.style("display", "inline-block");
-            })
+            // .on("touchstart", ()=>{
+            //     dv.tooltip.style("display", "inline-block");
+            // })
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            .on("touchmove", d => dv.mousemove(d))
+            // .on("touchmove", d => dv.mousemove(d))
             .on("mousemove", d => dv.mousemove(d));
     }
 

@@ -5,9 +5,9 @@ const HOVER_COLOR = "#16c1f3",
       dublin = d3.select("#dublin-text"),
       dData = dublincoco.features[0].properties,
       percentage = d3.format(".2%"),
-      thousands = d3.format(","),
+      thousands = d3.format(".2s"),
       maplocale = d3.formatLocale({"currency": ["€", ""]}),
-      euro = maplocale.format("$"),
+      euro = maplocale.format("$,"),
       diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
       diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
 

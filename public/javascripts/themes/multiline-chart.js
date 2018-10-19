@@ -184,8 +184,8 @@ class MultiLineChart{
            })
            .y( d => { //this works
                return dv.y(d[dv.value]); 
-           })
-            .curve(d3.curveCatmullRom);
+           });
+            // .curve(d3.curveCatmullRom);
 
        // Adapted from the tooltip based on the example in the d3 Book
        
@@ -303,22 +303,24 @@ class MultiLineChart{
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden")
-                .on("mouseover", () => { 
+                .on("mouseover", (d) => { 
+                    // console.log(d);
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
-                })
+                }, {passive:true})
                 .on("touchstart", ()=>{
                     focus.style("display", null); 
                     bcdTooltip.style("display", "inline");
-                })
+                }, {passive: true})
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
                     bcdTooltip.style("display", "none");
                 })
-                .on("touchmove", mousemove)
-                .on("mousemove", mousemove);
+                .on("touchmove", mousemove, {passive:true})
+                .on("mousemove", mousemove, {passive:true});
             
             function mousemove(){
+
                 focus.style("visibility","visible");
                 toolGroup.style("visibility","visible");
 

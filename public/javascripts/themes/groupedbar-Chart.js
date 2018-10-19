@@ -292,15 +292,14 @@ class GroupedBarChart{
                 d3.select(this).style("visibility", "visible");
                 dv.tooltip.style("display", "inline-block"); 
             })
-            .on("touchstart", function(){
-                d3.select(this).style("visibility", "visible");
-                dv.tooltip.style("display", "inline-block"); 
-            })
+            // .on("touchstart", function(){
+            //     d3.select(this).style("visibility", "visible");
+            //     dv.tooltip.style("display", "inline-block"); 
+            // })
             .on("mouseout", function(){ 
                 d3.select(this).style("visibility", "hidden");
                 dv.tooltip.style("display", "none"); 
             })
-            .on("touchmove", (d, e, a)=> dv.mousemove(d, e, a))
             .on("mousemove", (d, e, a)=> dv.mousemove(d, e, a));
     }
 

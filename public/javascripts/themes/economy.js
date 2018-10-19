@@ -141,7 +141,7 @@
         const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
-
+        employmentCharts.tickNumber = 12;
         employmentCharts.pagination(newData, "#chartNew", pageSize, size, "years", "Thousands - Quarter:");
 
         // d3.select(window).on("resize", function(){
@@ -235,29 +235,29 @@
     console.log(error);
     });
 
-    /*** Industry Sectors Charts here ***/
-    //#chart-employment-sector
-    d3.csv("../data/Economy/QNQ40.csv").then( data => { 
+    // /*** Industry Sectors Charts here ***/
+    // //#chart-employment-sector
+    // d3.csv("../data/Economy/QNQ40.csv").then( data => { 
 
-        let columnNames = data.columns.slice(2);
+    //     let columnNames = data.columns.slice(2);
 
-        data.forEach(d => {
-            for(var i = 0, n = columnNames.length; i < n; ++i){
-                d[columnNames[i]] = +d[columnNames[i]] || 0;
-                d.date = d.quarter;
-            }
-            return d;
-        });
+    //     data.forEach(d => {
+    //         for(var i = 0, n = columnNames.length; i < n; ++i){
+    //             d[columnNames[i]] = +d[columnNames[i]] || 0;
+    //             d.date = d.quarter;
+    //         }
+    //         return d;
+    //     });
 
-        // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
-        const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
-        newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
+    //     // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
+    //     const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
+    //     newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
         
-    })
-    // catch any error and log to console
-    .catch(function(error){
-    console.log(error);
-    });
+    // })
+    // // catch any error and log to console
+    // .catch(function(error){
+    // console.log(error);
+    // });
     
     //#chart-employees-by-size
     // load csv data and turn value into a number
