@@ -88,21 +88,16 @@
         d3.select(".employment_count").on("click", function(){
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            mlineChart.getData(columnNames[0], types, "Quarters", "Thousands", "thousands");
+            mlineChart.data = types;
+            mlineChart.getData(columnNames[0],"Quarters", "Thousands", "thousands");
             mlineChart.addTooltip("", "thousands", "quarter");
         });
-        
-        // d3.select(".employment_qrate").on("click", function(){
-        //     $(this).siblings().removeClass('active');
-        //     $(this).addClass('active');
-        //     mlineChart.getData(columnNames[1], types, "Quarters", "%", "percentage");
-        //     mlineChart.addTooltip("", "percentage", "quarter");
-        // });
 
         d3.select(".employment_arate").on("click", function(){
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
-            mlineChart.getData(columnNamesB[0], typesB, "Years", "%","percentage");
+            mlineChart.data = typesB;
+            mlineChart.getData(columnNamesB[0], "Years", "%","percentage");
             mlineChart.addTooltip("Year:", "percentage", "year");
         });
 

@@ -36,6 +36,7 @@ h3, .h3 {
 
 p, .p{
     font-size: 1rem;
+    font-weight: 100;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
     -o-font-smoothing: antialiased;

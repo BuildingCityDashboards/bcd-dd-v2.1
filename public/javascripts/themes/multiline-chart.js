@@ -294,7 +294,6 @@ class MultiLineChart{
                 dv.updateTooltip(d,i);
 
             });
-    
             // append a rectangle overlay to capture the mouse
             dv.g.append("rect")
                 .attr("class", "focus_overlay")
@@ -396,15 +395,20 @@ class MultiLineChart{
     }
 
     getPerChange(d1, d0, v){
-      let value = !isNaN(d1[v]) ? d0 ? (d1[v] -  d0[v])/d0[v]: "null" : null;
-          if( value === Infinity){
-           return d1[v];   
-          }
-          else if(isNaN(value)){
-            return 0;
-          }
-      return value;
-
+        let value,
+            o = d0 ? d0[v] : .01,
+            n = d1[v],
+            isNegative = n - o < 0,
+            oneg =  o *= -1;
+            
+            value = !isNaN(n) ? d0 ? (n -  o)/o: "null" : null;
+                if( value === Infinity){
+                    return n;   
+                }
+                else if(isNaN(value)){
+                    return 0;
+                }
+        return value;
     }
 
     drawTooltip(){
