@@ -18,9 +18,9 @@
 }
   
 .focus_line {
-  stroke: #777;
+  stroke: #c4cdd5;
   stroke-width: 1px;
-  stroke-dasharray: 5,5;
+  /* stroke-dasharray: 5,5; */
 }
 
 .tool-tip {

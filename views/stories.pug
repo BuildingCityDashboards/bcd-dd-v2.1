@@ -19,31 +19,42 @@ block content
                 |nisi ut aliquip ex ea commodo consequat.
       section
         .container
+          h2 Latest Stories
           .row
-              .col-sm-8
-                h2 Health Stories
-                +accordion("one")
-                  +accordion-item("New Story One")
-                    |Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat.
-                  +accordion-item("New Story Two")
-                    |  Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat. 
-              .col-sm-8
-                h2 Education Stories
-                +accordion("two")
-                  +accordion-item("New Story Three")
-                    |  Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat. 
+            .col-3
+              .card
+            .col-3
+              .card
+            .col-3
+              .card
+            .col-3
+              .card
+
+          .row.py-5
+            .col-3
+              .card
+            .col-3
+              .card
+            .col-3
+              .card
+            .col-3
+              .card
+
+
+                //- +accordion("one")
+                //-   +accordion-item("New Story One")
+                //-     |Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat.
+                //-   +accordion-item("New Story Two")
+                //-     |  Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat. 
+
 
 block append scripts
   script(src='/javascripts/accordion.js')
