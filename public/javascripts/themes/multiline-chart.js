@@ -367,7 +367,6 @@ class MultiLineChart{
                         indicatorColour,
                         indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
                         diffPercentage = !difference ? unText :d3.format(".1%")(!isNaN(difference) ? difference : null);
-                        console.log(difference);
                     if(dv.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
                     }
@@ -626,6 +625,11 @@ class MultiLineChart{
         let year = (date.getFullYear());
         let q = Math.ceil(( newDate.getMonth()) / 3 );
         return year+" Q" + q;
+    }
+
+    hideRate(value){
+        let dv = this;
+        value ? dv.g.selectAll(".tp-text-indicator").style("display", "none") : dv.g.selectAll(".tp-text-indicator").style("display", "block")
     }
 
     //replacing old legend method with new inline labels

@@ -79,7 +79,8 @@
             $(this).addClass('active');
             mlineChart.data = types;
             mlineChart.getData(columnNames[0],"Quarters", "Thousands", "thousands");
-            mlineChart.addTooltip("", "thousands", "quarter");
+            mlineChart.addTooltip("", "thousands", "quarter")
+            mlineChart.hideRate(false);
         });
 
         d3.select(".employment_arate").on("click", function(){
@@ -87,7 +88,8 @@
             $(this).addClass('active');
             mlineChart.data = typesB;
             mlineChart.getData(columnNamesB[0], "Years", "%","percentage");
-            mlineChart.addTooltip("Year:", "percentage", "year");
+            mlineChart.addTooltip("Year:", "percentage", "year")
+            mlineChart.hideRate(true);
         });
 
         // d3.select(window).on("resize", function(){
