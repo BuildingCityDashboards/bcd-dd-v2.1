@@ -145,15 +145,18 @@ class MultiLineChart{
         dv.yLabel.text(dv.titleY);
 
         dv.drawGridLines();
-        dv.tickNumber =  dv.data[0].values.length;
+        // dv.tickNumber = 0 ; //=  dv.data[0].values.length;
+
+        // Update axes
+        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber) : dv.xAxisCall.scale(dv.x);
 
         // // Update axes - what about ticks for smaller devices??
         // dv.xAxisCall.scale(dv.x).ticks(d3.timeYear.filter((d) => {
         //     return d = parseYear("2016");
         // }));
-        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-            return i < dv.tickNumber ? dv.data[0].values[i].label : "";
-        });
+        // dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+        //     return i < dv.tickNumber ? dv.data[0].values[i].label : "";
+        // });
         
         // .tickFormat(dv.formatQuarter);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
@@ -178,7 +181,7 @@ class MultiLineChart{
 
         // d3 line function
        dv.line = d3.line()
-           .defined(function(d) { return !isNaN(d[dv.value]); })
+           .defined(function(d){return !isNaN(d[dv.value]);})
            .x( d => {
                return dv.x(d.date); // this needs to be dynamic dv.date!!
            })
@@ -630,6 +633,18 @@ class MultiLineChart{
     hideRate(value){
         let dv = this;
         value ? dv.g.selectAll(".tp-text-indicator").style("display", "none") : dv.g.selectAll(".tp-text-indicator").style("display", "block")
+    }
+
+    addBaseLine(value){
+        let chart = this;
+        
+        chart.gridLines.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart.width)
+            .attr("y1", chart.y(value))
+            .attr("y2", chart.y(value))
+            .attr("stroke", "#dc3545");
+
     }
 
     //replacing old legend method with new inline labels

@@ -36,7 +36,7 @@ Promise.all([
             d.year = formatYear(d[dateField]);
           });
 
-    const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
+    //const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
     // const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
@@ -84,8 +84,7 @@ Promise.all([
           supplyType = supplyData.columns.slice(2),
           supplyDate = supplyData.columns[0],
           supplyRegions = supplyData.columns[1],
-          supplyDataProcessed = dataSets(supplyData, supplyType),
-          yLabels2 = [];
+          supplyDataProcessed = dataSets(supplyData, supplyType);
     
     supplyDataProcessed.forEach( d => {d[supplyDate] = parseYear(d[supplyDate]);
             d.label = formatYear(d[supplyDate]);
@@ -96,6 +95,7 @@ Promise.all([
     // nest the processed data by regions
         const supplyDataNested =  d3.nest().key( d => { return d[supplyRegions];})
             .entries(supplyDataProcessed);
+    
     // get array of keys from nest
         const supplyRegionNames = [];
         supplyDataNested.forEach(d => {
@@ -109,6 +109,8 @@ Promise.all([
         value: "Hectares"
     }
 
+    // const sContent = chartContent(supplyData, supplyRegions, "Hectares", supplyDate, "#chart-houseSupply"); //replace above
+    // console.log(sContent);
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
@@ -140,8 +142,7 @@ Promise.all([
           contributionType = contributionData.columns.slice(2),
           contributionDate = contributionData.columns[0],
           contributionRegions = contributionData.columns[1],
-          contributionDataProcessed = dataSets(contributionData, contributionType),
-          yLabels3 = [];
+          contributionDataProcessed = dataSets(contributionData, contributionType);
     
     contributionDataProcessed.forEach( d => {
         d.label = d[contributionDate];
@@ -311,21 +312,21 @@ Promise.all([
     d3.select("#houseCompByType_total").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[0], houseCompByTypeDataNested, "Years", "Units");
+        houseCompByTypeChart.getData(houseCompByTypeType[0],"Years", "Units");
         houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
     });
     
     d3.select("#houseCompByType_private").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[1], houseCompByTypeDataNested, "Years", "Units");
+        houseCompByTypeChart.getData(houseCompByTypeType[1], "Years", "Units");
         houseCompByTypeChart.addTooltip("Private Houses - ", "thousands", "label");
     });
 
     d3.select("#houseCompByType_social").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[2], houseCompByTypeDataNested, "Years", "Units");
+        houseCompByTypeChart.getData(houseCompByTypeType[2],"Years", "Units");
         houseCompByTypeChart.addTooltip("Social Houses - ", "thousands", "label");
     });
 
@@ -345,13 +346,13 @@ Promise.all([
 
     let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
 
-    const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
+    // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
     
     // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-    nonNewConnectionsChart.tickNumber = 12;
-    nonNewConnectionsChart.getData(nonNewConFiltered);
+    nonNewConnectionsChart.tickNumber = 20;
+    nonNewConnectionsChart.getData(nonNewCon);
     nonNewConnectionsChart.addTooltip("House Type -", "Units");
 
     // setup chart and data for New Dwelling Completion by type chart
@@ -367,12 +368,13 @@ Promise.all([
               d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate]);
           });
 
-    // need to convert date field to readable js date format
+         // need to convert date field to readable js date format
 
-    // nest the processed data by regions
+        // nest the processed data by regions
         const newCompByTypeDataNested =  d3.nest().key( d => { return d[newCompByTypeRegions];})
             .entries(newCompByTypeDataProcessed);
-    // get array of keys from nest
+    
+        // get array of keys from nest
         const newCompByTypeRegionNames = [];
         newCompByTypeDataNested.forEach(d => {
                 newCompByTypeRegionNames.push(d.key);
@@ -391,55 +393,23 @@ Promise.all([
           newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
 
-    // new chart What!
+    // new chart Price Index
     const HPM06 = datafiles[11],
-        HPM06T = HPM06.columns.slice(1),
-        HPM06D = HPM06.columns[0],
-        HPM06DP = dataSets(HPM06, HPM06T);
-        
-        HPM06DP.forEach(function(d) {  
-            d.label = d[HPM06D];
-            d[HPM06D] = parseYearMonth(d[HPM06D]);
-            d.year = formatYear(d[HPM06D]);
-        });
+          HPM06R = HPM06.columns[1],
+          HPM06V = HPM06.columns[2],
+          HPM06D = HPM06.columns[0];
 
-    const HPM06rate = datafiles[12],
-        HPM06rateT = HPM06rate.columns.slice(1),
-        HPM06rateD = HPM06rate.columns[0],
-        HPM06rateDP = dataSets(HPM06rate, HPM06rateT);
-        
-        HPM06rateDP.forEach(function(d) {  
-            d.label = d[HPM06rateD];
-            d[HPM06rateD] = parseYearMonth(d[HPM06rateD]);
-            d.year = formatYear(d[HPM06rateD]);
-        });
+    // create content object
+    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06")
 
-// const HPM06f = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
-
-    const HPM06Charts = new StackedAreaChart("#chart-HPM06", "Months", "Thousands", HPM06D, HPM06T);
-          HPM06Charts.tickNumber = 12;
-          HPM06Charts.getData(HPM06DP);
-          HPM06Charts.addTooltip("Price Index by Month", "%");
-
-        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-        // houseCompCharts.getData(dateFilter);
-        // houseCompCharts.addTooltip("Units by Month:", "000");
-
-        // HPM06Charts.pagination(HPM06DP, "#chart-HPM06", 12, 14, "year", "Index by Month:");
-
-        // d3.select("#supply_land").on("click", function(){
-        //     $(this).siblings().removeClass('active');
-        //     $(this).addClass('active');
-        //     supplyChart.getData("Hectares", supplyDataNested, "Years", "Hectares");
-        //     supplyChart.addTooltip("Land - Year", "thousands", "label");
-        // });
-        
-        // d3.select("#supply_units").on("click", function(){
-        //     $(this).siblings().removeClass('active');
-        //     $(this).addClass('active');
-        //     supplyChart.getData("Units", supplyDataNested, "Years", "Units");
-        //     supplyChart.addTooltip("Units - Year", "thousands", "label");
-        // });
+    // draw the chart
+    const HPM06Charts = new MultiLineChart(HPM06Content);
+            HPM06Charts.titleX = "Years"; // add X-axis title
+            HPM06Charts.titleY = "Base"; // add Y-axis title
+            HPM06Charts.tickNumber = 14; // number of X-axis ticks
+            HPM06Charts.createScales(); // draw axis
+            HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
+            HPM06Charts.addBaseLine(100); // add horizontal baseline
 
 }).catch(function(error){
         console.log(error);
@@ -508,4 +478,28 @@ function nestData(data, label, name, value){
         return obj;
       })
     return mqpdata;
+}
+
+function chartContent(data, key, value, date, selector){
+
+    data.forEach(function(d) {  //could pass types array and coerce each matching key using dataSets()
+        d.label = d[date];
+        d.date = parseYearMonth(d[date]);
+        d[value] = +d[value];
+    });
+
+    // nest the processed data by regions
+    const nest =  d3.nest().key( d => { return d[key] ;}).entries(data);
+    
+    // get array of keys from nest
+    const keys = [];
+          nest.forEach(d => {keys.push(d.key);});
+
+    return {
+            element: selector,
+            keys: keys,
+            data: nest,
+            value: value
+        }
+
 }
