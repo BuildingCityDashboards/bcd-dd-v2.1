@@ -1,9 +1,39 @@
-    const pFormat = d3.format(".2%")
+    const pFormat = d3.format(".2%"),
+          parseYear = d3.timeParse("%Y");
 
     Promise.all([
+        d3.csv("../data/Stories/Housing/pop_house.csv"),
         d3.json("../data/Housing/DublinCityDestPOWCAR11_0.js"),
-
     ]).then(datafiles => {
+
+        const chart1D = datafiles[0];
+              chart1D.forEach(d=>{
+                  d.households = +d.households;
+              })
+        
+        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1"),
+              Chart1 = new MultiLineChart(chart1C);
+              Chart1.titleX = "Years";
+              Chart1.titleY = "Population";
+              Chart1.tickNumber = 27;
+              Chart1.createScales();
+              Chart1.addTooltip("Population - Year", "thousands", "label");
+
+                d3.select("#chart1 .chart_pop").on("click", function(){
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    Chart1.getData("population", "Years", "population");
+                    Chart1.addTooltip("Population - Year", "thousands", "label");
+                });
+
+                d3.select("#chart1 .chart_hos").on("click", function(){
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    Chart1.getData("households", "Years", "households");
+                    Chart1.addTooltip("Households - Year", "thousands", "label");
+                 });
+
+        console.log(chart1C);
         
         let map = new L.Map("map", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
@@ -38,7 +68,7 @@
                 layer.bindPopup(popupContent);
             }
         
-            L.geoJSON(datafiles[0], {
+            L.geoJSON(datafiles[1], {
                 style: colour,
                 onEachFeature: onEachFeature
             }).addTo(map);
@@ -83,3 +113,27 @@
     }).catch(function(error){
         console.log(error);
     });
+
+    function chartContent(data, key, value, date, selector){
+
+        data.forEach(function(d) {  //could pass types array and coerce each matching key using dataSets()
+            d.label = d[date];
+            d.date = parseYear(d[date]);
+            d[value] = +d[value];
+        });
+    
+        // nest the processed data by regions
+        const nest =  d3.nest().key( d => { return d[key] ;}).entries(data);
+        
+        // get array of keys from nest
+        const keys = [];
+              nest.forEach(d => {keys.push(d.key);});
+    
+        return {
+                element: selector,
+                keys: keys,
+                data: nest,
+                value: value
+            }
+    
+    }
