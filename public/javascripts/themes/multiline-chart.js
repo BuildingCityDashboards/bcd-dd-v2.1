@@ -35,13 +35,13 @@ class MultiLineChart{
         d3.select(dv.element).select("svg").remove();
         
         // add the svg to the target element
-        const svg = d3.select(dv.element)
+        dv.svg = d3.select(dv.element)
             .append("svg")
             .attr("width", dv.width + dv.margin.left + dv.margin.right)
             .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
        
         // add the g to the svg and transform by top and left margin
-        dv.g = svg.append("g")
+        dv.g = dv.svg.append("g")
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
         

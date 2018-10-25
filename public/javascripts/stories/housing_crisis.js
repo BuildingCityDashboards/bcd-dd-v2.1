@@ -2,14 +2,30 @@
           parseYear = d3.timeParse("%Y");
 
     Promise.all([
-        d3.csv("../data/Stories/Housing/pop_house.csv"),
         d3.json("../data/Housing/DublinCityDestPOWCAR11_0.js"),
+        d3.csv("../data/Stories/Housing/pop_house.csv"),
+        d3.csv("../data/Stories/Housing/pop_house_rate.csv"),
     ]).then(datafiles => {
 
-        const chart1D = datafiles[0];
+        const chart1D = datafiles[1];
               chart1D.forEach(d=>{
                   d.households = +d.households;
               })
+
+        const chart1D2 = datafiles[2];
+              chart1D2Types = chart1D2.columns.slice(2)
+              chart1D2.forEach(d=>{
+                d["1991-2006"] = +d["1991-2006"];
+                d["1991-2016"] = +d["1991-2016"];
+              });
+
+        const popRate = chart1D2.filter( d => {
+                return d.type === "population";
+            });
+
+        const houseRate = chart1D2.filter( d => {
+                return d.type === "households";
+            });
         
         const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1"),
               Chart1 = new MultiLineChart(chart1C);
@@ -19,9 +35,16 @@
               Chart1.createScales();
               Chart1.addTooltip("Population - Year", "thousands", "label");
 
+
+        const Chart1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population");
+              Chart1b.addTooltip("Population - Year", "Percentage", "region");
+              Chart1b.svg.attr("display","none");
+
                 d3.select("#chart1 .chart_pop").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+                    Chart1b.svg.attr("display","none");
+                    Chart1.svg.attr("display","block");
                     Chart1.getData("population", "Years", "population");
                     Chart1.addTooltip("Population - Year", "thousands", "label");
                 });
@@ -29,11 +52,25 @@
                 d3.select("#chart1 .chart_hos").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+                    Chart1b.svg.attr("display","none");
+                    Chart1.svg.attr("display","block");
                     Chart1.getData("households", "Years", "households");
                     Chart1.addTooltip("Households - Year", "thousands", "label");
                  });
 
-        console.log(chart1C);
+                 d3.select("#chart1 .chart_prate").on("click", function(){
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    Chart1.svg.attr("display","none");
+                    Chart1b.svg.attr("display","block");
+                 });
+
+                //  d3.select("#chart1 .chart_hos").on("click", function(){
+                //     $(this).siblings().removeClass('active');
+                //     $(this).addClass('active');
+                //     Chart1b.getData("households", "Years", "households");
+                //     Chart1b.addTooltip("Households - Year", "thousands", "label");
+                //  });
         
         let map = new L.Map("map", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
@@ -68,7 +105,7 @@
                 layer.bindPopup(popupContent);
             }
         
-            L.geoJSON(datafiles[1], {
+            L.geoJSON(datafiles[0], {
                 style: colour,
                 onEachFeature: onEachFeature
             }).addTo(map);
