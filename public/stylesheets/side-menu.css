@@ -104,7 +104,7 @@
     flex-direction: column;
     background-color: var(--black-blue);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-    transition: 250ms ease;;
+    transition: 250ms ease;
 }
 
 .side-menu--open {
@@ -258,11 +258,19 @@
     padding: .25rem 1rem;
 }
   
-.search-box {
+.search-box{
     position: fixed;
+    visibility: hidden;
     top: .875rem;
     right: 60px;
     z-index: 9999;
+    opacity: 0;
+    transition: 250ms ease;
+}
+
+.search-box--open{
+    visibility: visible;
+    opacity: 1;
 }
 
 .search-box__input {
