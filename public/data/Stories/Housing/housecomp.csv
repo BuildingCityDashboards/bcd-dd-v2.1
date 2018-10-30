@@ -1,0 +1,185 @@
+﻿date,region,value
+1994,Dun Laoghaire Rathdown,1240
+1995,Dun Laoghaire Rathdown,903
+1996,Dun Laoghaire Rathdown,1053
+1997,Dun Laoghaire Rathdown,712
+1998,Dun Laoghaire Rathdown,549
+1999,Dun Laoghaire Rathdown,886
+2000,Dun Laoghaire Rathdown,860
+2001,Dun Laoghaire Rathdown,1166
+2002,Dun Laoghaire Rathdown,785
+2003,Dun Laoghaire Rathdown,1871
+2004,Dun Laoghaire Rathdown,1777
+2005,Dun Laoghaire Rathdown,1867
+2006,Dun Laoghaire Rathdown,2472
+2007,Dun Laoghaire Rathdown,3052
+2008,Dun Laoghaire Rathdown,2087
+2009,Dun Laoghaire Rathdown,952
+2010,Dun Laoghaire Rathdown,384
+2011,Dun Laoghaire Rathdown,192
+2012,Dun Laoghaire Rathdown,175
+2013,Dun Laoghaire Rathdown,260
+2014,Dun Laoghaire Rathdown,713
+2015,Dun Laoghaire Rathdown,651
+2016,Dun Laoghaire Rathdown,1179
+1994,Fingal,1510
+1995,Fingal,1936
+1996,Fingal,2024
+1997,Fingal,2707
+1998,Fingal,2618
+1999,Fingal,4296
+2000,Fingal,4044
+2001,Fingal,3602
+2002,Fingal,4308
+2003,Fingal,7019
+2004,Fingal,7734
+2005,Fingal,5672
+2006,Fingal,5863
+2007,Fingal,4725
+2008,Fingal,2149
+2009,Fingal,1309
+2010,Fingal,540
+2011,Fingal,662
+2012,Fingal,364
+2013,Fingal,395
+2014,Fingal,809
+2015,Fingal,1260
+2016,Fingal,1561
+1994,South Dublin,1428
+1995,South Dublin,1699
+1996,South Dublin,2244
+1997,South Dublin,2479
+1998,South Dublin,2013
+1999,South Dublin,2049
+2000,South Dublin,2139
+2001,South Dublin,1746
+2002,South Dublin,3406
+2003,South Dublin,2134
+2004,South Dublin,2769
+2005,South Dublin,3456
+2006,South Dublin,3389
+2007,South Dublin,3270
+2008,South Dublin,1758
+2009,South Dublin,630
+2010,South Dublin,405
+2011,South Dublin,160
+2012,South Dublin,220
+2013,South Dublin,203
+2014,South Dublin,832
+2015,South Dublin,313
+2016,South Dublin,454
+1994,Dublin City,3713
+1995,Dublin City,4285
+1996,Dublin City,4125
+1997,Dublin City,3427
+1998,Dublin City,3777
+1999,Dublin City,2804
+2000,Dublin City,2362
+2001,Dublin City,3091
+2002,Dublin City,4124
+2003,Dublin City,3370
+2004,Dublin City,4530
+2005,Dublin City,7024
+2006,Dublin City,7746
+2007,Dublin City,6678
+2008,Dublin City,5348
+2009,Dublin City,2397
+2010,Dublin City,911
+2011,Dublin City,557
+2012,Dublin City,507
+2013,Dublin City,502
+2014,Dublin City,914
+2015,Dublin City,667
+2016,Dublin City,1040
+1994,Kildare,1419
+1995,Kildare,1635
+1996,Kildare,1900
+1997,Kildare,2095
+1998,Kildare,2509
+1999,Kildare,2419
+2000,Kildare,2366
+2001,Kildare,2426
+2002,Kildare,3126
+2003,Kildare,2971
+2004,Kildare,3479
+2005,Kildare,3584
+2006,Kildare,4804
+2007,Kildare,3118
+2008,Kildare,1811
+2009,Kildare,1006
+2010,Kildare,615
+2011,Kildare,407
+2012,Kildare,372
+2013,Kildare,447
+2014,Kildare,548
+2015,Kildare,767
+2016,Kildare,815
+1994,Meath,670
+1995,Meath,923
+1996,Meath,1154
+1997,Meath,1318
+1998,Meath,1422
+1999,Meath,1480
+2000,Meath,2303
+2001,Meath,2553
+2002,Meath,2924
+2003,Meath,3687
+2004,Meath,3550
+2005,Meath,3886
+2006,Meath,3746
+2007,Meath,2427
+2008,Meath,1946
+2009,Meath,1062
+2010,Meath,619
+2011,Meath,369
+2012,Meath,353
+2013,Meath,286
+2014,Meath,403
+2015,Meath,488
+2016,Meath,793
+1994,Wicklow,781
+1995,Wicklow,1030
+1996,Wicklow,1168
+1997,Wicklow,1147
+1998,Wicklow,1335
+1999,Wicklow,1294
+2000,Wicklow,1484
+2001,Wicklow,1914
+2002,Wicklow,2002
+2003,Wicklow,1800
+2004,Wicklow,2076
+2005,Wicklow,2341
+2006,Wicklow,1967
+2007,Wicklow,1704
+2008,Wicklow,1219
+2009,Wicklow,700
+2010,Wicklow,394
+2011,Wicklow,284
+2012,Wicklow,217
+2013,Wicklow,257
+2014,Wicklow,245
+2015,Wicklow,439
+2016,Wicklow,447
+1994,Rest of Ireland,16102
+1995,Rest of Ireland,18164
+1996,Rest of Ireland,20057
+1997,Rest of Ireland,24957
+1998,Rest of Ireland,28126
+1999,Rest of Ireland,31284
+2000,Rest of Ireland,34254
+2001,Rest of Ireland,36104
+2002,Rest of Ireland,37020
+2003,Rest of Ireland,45967
+2004,Rest of Ireland,51039
+2005,Rest of Ireland,53127
+2006,Rest of Ireland,63432
+2007,Rest of Ireland,53053
+2008,Rest of Ireland,35406
+2009,Rest of Ireland,18364
+2010,Rest of Ireland,10734
+2011,Rest of Ireland,7849
+2012,Rest of Ireland,6280
+2013,Rest of Ireland,5951
+2014,Rest of Ireland,6552
+2015,Rest of Ireland,8081
+2016,Rest of Ireland,8643

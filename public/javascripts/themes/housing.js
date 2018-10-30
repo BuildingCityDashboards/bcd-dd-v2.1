@@ -36,6 +36,8 @@ Promise.all([
             d.year = formatYear(d[dateField]);
           });
 
+          console.log(compDataProcessed);
+
     //const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
     // const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
@@ -338,6 +340,8 @@ Promise.all([
           nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
           nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
           nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
+
+          
     
           nonNewConnectionsDataProcessed.forEach( d => {
               d.label = (d[nonNewConnectionsDate]);
@@ -345,7 +349,7 @@ Promise.all([
           });
 
     let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
-
+    console.log(nonNewCon);
     // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);

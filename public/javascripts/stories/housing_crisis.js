@@ -1,18 +1,23 @@
     const pFormat = d3.format(".2%"),
-          parseYear = d3.timeParse("%Y");
+          pYear = d3.timeParse("%Y"),
+          src = "../data/Stories/Housing/",
+          getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
 
     Promise.all([
-        d3.json("../data/Housing/DublinCityDestPOWCAR11_0.js"),
-        d3.csv("../data/Stories/Housing/pop_house.csv"),
-        d3.csv("../data/Stories/Housing/pop_house_rate.csv"),
-        d3.csv("../data/Stories/Housing/housetype.csv")
+        d3.json(src + "DublinCityDestPOWCAR11_0.js"),
+        d3.csv(src + "pop_house.csv"),
+        d3.csv(src + "pop_house_rate.csv"),
+        d3.csv(src + "housetype.csv"),
+        d3.csv(src + "housecomp.csv"),
+        d3.csv(src + "propertyprices.csv")
     ]).then(datafiles => {
 
         const chart1D = datafiles[1];
               chart1D.forEach(d=>{
                   d.households = +d.households;
-              })
-
+              });
+              console.log("check", chart1D);
+              
         const chart1D2 = datafiles[2];
               chart1D2Types = chart1D2.columns.slice(2)
               chart1D2.forEach(d=>{
@@ -27,8 +32,18 @@
                       d[key] = +d[key];
                   })
               });
+            
+        const chart3D = datafiles[4],
+            //   chart3K = chart3D.columns.slice(1),
+              chart3R = chart3D.columns[1];
+              chart3K = getKeys(chart3D.map(o => o[chart3R]));
+              chart3D.forEach( d => {
+                  d.label = d.date;
+                  d.value = +d.value;
+                  d.date = pYear(d.date);
+              });
 
-        console.log("chart 1 b keys", chart2D);
+        const chart4D =datafiles[5];
 
         const popRate = chart1D2.filter( d => {
                 return d.type === "population";
@@ -92,8 +107,29 @@
                     Chart1b.svg.attr("display","block");
                  });
 
+
         const Chart2 = new GroupedBarChart(chart2D,  chart2Keys, "region", "#chart2", "Years", "Population");
               Chart2.addTooltip("Population - Year", "Percentage", "region");
+
+
+        const chart3DN = nestData(chart3D, "label", chart3R, "value"),
+              Chart3 = new StackedAreaChart("#chart3", "Years", "No. of Housing Completions", "date", chart3K);
+              Chart3.tickNumber = 23;
+              Chart3.getData(chart3DN);
+              Chart3.addTooltip("Housing Completions - Year:", "Units");
+
+
+        const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4"),
+              Chart4 = new MultiLineChart(chart4C);
+            
+              Chart4.titleX = "Years";
+              Chart4.titleY = "Property Prices (Euro)";
+
+            //   Chart4.tickNumber = 27;
+              Chart4.createScales();
+              
+              Chart4.addTooltip("Population - Region: ", "thousands", "label");
+        
         
         let map = new L.Map("map", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
@@ -178,7 +214,7 @@
 
         data.forEach(function(d) {  //could pass types array and coerce each matching key using dataSets()
             d.label = d[date];
-            d.date = parseYear(d[date]);
+            d.date = pYear(d[date]);
             d[value] = +d[value];
         });
     
@@ -197,3 +233,21 @@
             }
     
     }
+
+    function nestData(data, label, name, value){
+        let nested_data = d3.nest()
+            .key(function(d) { return d[label]; })
+            .entries(data); // its the string not the date obj
+
+        let mqpdata = nested_data.map(function(d){
+            let obj = {
+                label: d.key
+            }
+                d.values.forEach(function(v){
+                obj[v[name]] = v[value];
+                obj.date = v.date;
+            })
+        return obj;
+      })
+    return mqpdata;
+}

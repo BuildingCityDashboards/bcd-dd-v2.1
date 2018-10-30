@@ -178,7 +178,7 @@ class GroupedBarChart{
             .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ",0)"; })
             
         dv.rects = dv.rectGroup.selectAll("rect")
-                .data(d => { console.log(d); return dv.keys.map( key => { 
+                .data(d => { return dv.keys.map( key => { 
                     return {
                         key: key, 
                         value: d[key],
