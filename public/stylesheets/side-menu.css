@@ -24,7 +24,6 @@
 .side-menu__toggler{
     position: fixed;
     top: 0;
-    left: 0;
     width: 4rem;
     height: 4rem;
     background-color: var(--vivid-cyan);
@@ -34,6 +33,14 @@
     z-index: 8000;
     border-radius: 0;
     transition: 250ms ease;
+}
+
+.side-menu__left{
+    left: 0;
+}
+
+.side-menu__right{
+    right:0;
 }
 
 .side-menu__toggler:focus{
@@ -251,6 +258,27 @@
     padding: .25rem 1rem;
 }
   
+.search-box {
+    position: fixed;
+    top: .875rem;
+    right: 60px;
+    z-index: 9999;
+}
+
+.search-box__input {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    background-color: #001e36;
+    color:#ffffff;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    background-clip: padding-box;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
 
 
 @media (min-width: 576px){

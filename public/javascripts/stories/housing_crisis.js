@@ -5,6 +5,7 @@
         d3.json("../data/Housing/DublinCityDestPOWCAR11_0.js"),
         d3.csv("../data/Stories/Housing/pop_house.csv"),
         d3.csv("../data/Stories/Housing/pop_house_rate.csv"),
+        d3.csv("../data/Stories/Housing/housetype.csv")
     ]).then(datafiles => {
 
         const chart1D = datafiles[1];
@@ -19,6 +20,16 @@
                 d["1991-2016"] = +d["1991-2016"];
               });
 
+        const chart2D = datafiles[3]
+              chart2Keys = chart2D.columns.slice(2);
+              chart2D.forEach(d => {
+                  chart2Keys.forEach( key => {
+                      d[key] = +d[key];
+                  })
+              });
+
+        console.log("chart 1 b keys", chart2D);
+
         const popRate = chart1D2.filter( d => {
                 return d.type === "population";
             });
@@ -29,11 +40,14 @@
         
         const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1"),
               Chart1 = new MultiLineChart(chart1C);
+            
               Chart1.titleX = "Years";
               Chart1.titleY = "Population";
+
               Chart1.tickNumber = 27;
               Chart1.createScales();
-              Chart1.addTooltip("Population - Year", "thousands", "label");
+              
+              Chart1.addTooltip("Population - Region: ", "thousands", "label");
 
 
         const Chart1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population");
@@ -61,16 +75,25 @@
                  d3.select("#chart1 .chart_prate").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+                    Chart1b.data = popRate;
+                    Chart1b.title = "Population - Region: ";
+                    Chart1b.update();
                     Chart1.svg.attr("display","none");
                     Chart1b.svg.attr("display","block");
                  });
 
-                //  d3.select("#chart1 .chart_hos").on("click", function(){
-                //     $(this).siblings().removeClass('active');
-                //     $(this).addClass('active');
-                //     Chart1b.getData("households", "Years", "households");
-                //     Chart1b.addTooltip("Households - Year", "thousands", "label");
-                //  });
+                 d3.select("#chart1 .chart_hrate").on("click", function(){
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+                    Chart1b.data = houseRate;
+                    Chart1b.title = "Households - Region: "
+                    Chart1b.update();
+                    Chart1.svg.attr("display","none");
+                    Chart1b.svg.attr("display","block");
+                 });
+
+        const Chart2 = new GroupedBarChart(chart2D,  chart2Keys, "region", "#chart2", "Years", "Population");
+              Chart2.addTooltip("Population - Year", "Percentage", "region");
         
         let map = new L.Map("map", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));

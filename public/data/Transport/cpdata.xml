@@ -2,30 +2,30 @@
 
 <carparkData>
   <Northwest>
-    <carpark name="PARNELL" spaces="149"> </carpark>
-    <carpark name="ILAC" spaces="915"> </carpark>
-    <carpark name="JERVIS" spaces="776"> </carpark>
-    <carpark name="ARNOTTS" spaces="320"> </carpark>
+    <carpark name="PARNELL" spaces="175"> </carpark>
+    <carpark name="ILAC" spaces="935"> </carpark>
+    <carpark name="JERVIS" spaces="791"> </carpark>
+    <carpark name="ARNOTTS" spaces="324"> </carpark>
   </Northwest>
 
   <Northeast>
-    <carpark name="MARLBORO" spaces="266"> </carpark>
+    <carpark name="MARLBORO" spaces="273"> </carpark>
     <carpark name="ABBEY" spaces=" "> </carpark>
   </Northeast>
 
   <Southwest>
-    <carpark name="THOMASST" spaces="208"> </carpark>
-    <carpark name="C/CHURCH" spaces="107"> </carpark>
+    <carpark name="THOMASST" spaces="216"> </carpark>
+    <carpark name="C/CHURCH" spaces="78"> </carpark>
   </Southwest>
 
   <Southeast>
-    <carpark name="SETANTA" spaces="45"> </carpark>
-    <carpark name="DAWSON" spaces="203"> </carpark>
-    <carpark name="TRINITY" spaces="245"> </carpark>
-    <carpark name="GREENRCS" spaces="705"> </carpark>
-    <carpark name="DRURY" spaces="331"> </carpark>
-    <carpark name="B/THOMAS" spaces="349"> </carpark>
+    <carpark name="SETANTA" spaces="93"> </carpark>
+    <carpark name="DAWSON" spaces="213"> </carpark>
+    <carpark name="TRINITY" spaces="243"> </carpark>
+    <carpark name="GREENRCS" spaces="778"> </carpark>
+    <carpark name="DRURY" spaces="333"> </carpark>
+    <carpark name="B/THOMAS" spaces="382"> </carpark>
   </Southeast>
 
-  <Timestamp>09:15:53 on Thursday 25/10/2018</Timestamp>
+  <Timestamp>09:01:53 on Tuesday 30/10/2018</Timestamp>
 </carparkData>
