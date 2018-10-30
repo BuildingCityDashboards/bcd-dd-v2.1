@@ -46,10 +46,13 @@ class StackBarChart {
 
         // stack function
         dv.stack = d3.stack().keys(dv.columns);
-        dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        // dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        
+        // default colourScheme
+        dv.colourScheme =d3.schemeBlues[9].slice(4);
 
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+        dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         // set scales functions
         dv.x = d3.scaleBand()
@@ -92,6 +95,9 @@ class StackBarChart {
             .attr("transform", "rotate(-90)")
             .text(dv.yTitle);
 
+        // Scale for Y
+        dv.scaleY;
+
         dv.addLegend();
         
         dv.getData();
@@ -107,8 +113,6 @@ class StackBarChart {
     }
 
     update(){
-
-    
         let dv = this;
 
         dv.series = dv.stack(dv.data);
@@ -137,6 +141,8 @@ class StackBarChart {
         xAxisCall.scale(dv.x);
         dv.xAxis.transition(t()).call(xAxisCall);
 
+        dv.yScaleFormat = dv.formatValue(dv.scaleY); //move to getData
+        dv.yScaleFormat !== "undefined" ? yAxisCall.scale(dv.y).tickFormat(dv.yScaleFormat ) : yAxisCall.scale(dv.y);
         yAxisCall.scale(dv.y);
         dv.yAxis.transition(t()).call(yAxisCall);
 
@@ -222,11 +228,12 @@ class StackBarChart {
                 .classed("tool-tip", true);
 
             dv.ttTitle = title;
-            dv.valueFormat = format;
+            dv.valueFormat = dv.formatValue(format);
             dv.ttWidth = 220,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
+            dv.testHv = 0;
 
         let bcdTooltip = dv.tooltip.append("g")
                 .attr("class", "bcd-tooltip")
@@ -241,6 +248,7 @@ class StackBarChart {
             dv.columns.forEach( (d,i) => {
                 dv.updateTooltip(d,i);
             });
+            dv.totalText();
 
             dv.layers.selectAll("rect")
             .on("mouseover", function(){ 
@@ -262,35 +270,48 @@ class StackBarChart {
         chart.toolGroup.style("visibility","visible");
         let x = chart.x(d.data.date), 
             y = 100,
-            ttTextHeights = 0,
+            // ttTextHeights = 0,
             bisect = d3.bisector(function(d) { return d.date; }).left,
-            i = bisect(chart.data, d.data.date);
+            i = bisect(chart.data, d.data.date),
+            total = 0;
 
         let tooltipX = chart.getTooltipPosition(x);
 
         chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
         chart.columns.forEach( (reg,idx) => {
+                total += chart.data[i][reg];// for the last text total;
+
             let tpId = ".tooltipbody_" + idx,
                 ttTitle = chart.svg.select(".tooltip-title"),
-                difference = chart.data[i-1] ? chart.data[i][chart.columns[idx]] -  chart.data[i-1][chart.columns[idx]]: 0, 
-                indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "";
-                 
+                cur = chart.data[i],
+                prev = chart.data[i-1] ? chart.data[i-1] : 0,
+                item = chart.columns[idx],
+                difference = prev !== 0 ? cur[item] -  prev[item]: 0, 
+                indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
+                valueString =  chart.valueFormat !=="undefined"? chart.valueFormat(cur[item]) : cur[item];
                 
-            let tooltipBody = chart.svg.select(tpId),
-                textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
-
-                tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-
-                tooltipBody.select(".tp-text-right").text(chart.data[i][chart.columns[idx]] + indicatorSymbol);
+            let tooltipBody = chart.svg.select(tpId);
+                tooltipBody.select(".tp-text-right").text(valueString + indicatorSymbol);
                 ttTitle.text(chart.ttTitle + " " + (d.data[chart.datelabel]));
-                ttTextHeights += textHeight + 6;
         });
+    }
+
+    totalText(){
+        let chart = this;
+        let tooltipBodyItem = chart.svg.select(".tooltip-body")
+            .append("g")
+            .attr("class", "tooltipbody_last")
+            .append("text").text("Total =")
+            .attr("transform", "translate("+ 5 +"," + chart.testHv + ")")
+            .attr("class", "tp-text-left")
+            .attr("x", "12")
+            .attr("dy", ".35em");
     }
 
     drawTooltip(){
         let dv = this;
-        console.log("this functon is called");
+
         let tooltipTextContainer = dv.svg.select(".tooltip-group")
           .append("g")
             .attr("class","tooltip-text")
@@ -336,7 +357,8 @@ class StackBarChart {
 
         let tooltipBodyItem = dv.svg.select(".tooltip-body")
             .append("g")
-            .attr("class", "tooltipbody_" + i);
+            .attr("class", "tooltipbody_" + i)
+            .attr("transform", "translate(5," + dv.testHv +")");
 
         tooltipBodyItem.append("text")
             .text(d)
@@ -358,14 +380,20 @@ class StackBarChart {
             .attr("stroke","#ffffff")
             .attr("fill", dv.colour(d));
 
+        let testH = tooltipBodyItem.node().getBBox().height ? tooltipBodyItem.node().getBBox().height : 0;
+        
+            dv.testHv += testH + 6;
+
+        // i === dv.columns.length -1 ? dv.totalText() : console.log("not yet");
+
         dv.updateSize();
     }
 
     updateSize(){
-        let dv = this;
-        let height = dv.svg.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 5;
-        dv.svg.select(".tooltip-container").attr("height", dv.ttHeight);
+        let dv = this,
+            height = dv.svg.select(".bcd-tooltip").node().getBBox().height;
+        
+            dv.svg.select(".tooltip-container").attr("height", height + 20);
     }
 
     getTooltipPosition(mouseX) {
@@ -374,14 +402,9 @@ class StackBarChart {
             chartSize;
 
             chartSize = dv.width  - (dv.margin.right + 88);
-            console.log(chartSize);
-            console.log(mouseX);
             // show right
-
-            console.log(mouseX);
             if ( mouseX < chartSize) {
                 ttX = mouseX + dv.margin.left + dv.x.bandwidth() ;
-                console.log(mouseX);
             }
             else{
                 ttX = mouseX - (dv.margin.right + 8);
@@ -392,6 +415,30 @@ class StackBarChart {
             //     console.log(mouseX);
             // }
             return ttX;
+    }
+
+    formatValue(format){
+        // formats thousands, Millions, Euros and Percentage
+        switch (format){
+            case "millions":
+                return function(d){ return d3.format(",")(d) + "M"; }
+                break;
+        
+            case "euros":
+                return "undefined";
+                break;
+        
+            case "thousands":
+                return d3.format(",");
+                break;
+        
+            case "percentage":
+                return d3.format(".2%");
+                break;
+        
+            default:
+                return "undefined";
+        }
     }
 
     textWrap(text, width, xpos = 0, limit=2) {

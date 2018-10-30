@@ -9,7 +9,11 @@
         d3.csv(src + "pop_house_rate.csv"),
         d3.csv(src + "housetype.csv"),
         d3.csv(src + "housecomp.csv"),
-        d3.csv(src + "propertyprices.csv")
+        d3.csv(src + "propertyprices.csv"),
+        d3.csv(src + "mortgage_debt.csv"),
+        d3.csv(src + "Social_housing_stock.csv"),
+        d3.csv(src + "Social_housing_units.csv"),
+        d3.csv(src + "Property_tax.csv"),
     ]).then(datafiles => {
 
         const chart1D = datafiles[1];
@@ -44,6 +48,14 @@
               });
 
         const chart4D =datafiles[5];
+
+        const chart8D = datafiles[9],
+              chart8K = chart8D.columns.slice(1);
+              chart8D.forEach(d => {
+                chart8K.forEach( key => {
+                    d[key] = +d[key];
+                });
+            });
 
         const popRate = chart1D2.filter( d => {
                 return d.type === "population";
@@ -129,9 +141,16 @@
               Chart4.createScales();
               
               Chart4.addTooltip("Population - Region: ", "thousands", "label");
+
+
+        const Chart8 = new StackBarChart("#chart8", chart8D, chart8K, "€ ( Millions )", "Years");
+              Chart8.scaleY = "millions";
+            //   Chart8.update();
+              
+              Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
         
         
-        let map = new L.Map("map", {center: [53.35, -6.8], zoom: 9})
+        let map = new L.Map("map1", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
             function onEachFeature(f, layer) {
