@@ -4,7 +4,6 @@
           getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
 
     Promise.all([
-        d3.json(src + "DublinCityDestPOWCAR11_0.js"),
         d3.csv(src + "pop_house.csv"),
         d3.csv(src + "pop_house_rate.csv"),
         d3.csv(src + "housetype.csv"),
@@ -16,20 +15,20 @@
         d3.csv(src + "Property_tax.csv"),
     ]).then(datafiles => {
 
-        const chart1D = datafiles[1];
+        const chart1D = datafiles[0];
               chart1D.forEach(d=>{
                   d.households = +d.households;
               });
               console.log("check", chart1D);
               
-        const chart1D2 = datafiles[2];
+        const chart1D2 = datafiles[1];
               chart1D2Types = chart1D2.columns.slice(2)
               chart1D2.forEach(d=>{
                 d["1991-2006"] = +d["1991-2006"];
                 d["1991-2016"] = +d["1991-2016"];
               });
 
-        const chart2D = datafiles[3]
+        const chart2D = datafiles[2]
               chart2Keys = chart2D.columns.slice(2);
               chart2D.forEach(d => {
                   chart2Keys.forEach( key => {
@@ -37,7 +36,7 @@
                   })
               });
             
-        const chart3D = datafiles[4],
+        const chart3D = datafiles[3],
             //   chart3K = chart3D.columns.slice(1),
               chart3R = chart3D.columns[1];
               chart3K = getKeys(chart3D.map(o => o[chart3R]));
@@ -47,9 +46,9 @@
                   d.date = pYear(d.date);
               });
 
-        const chart4D =datafiles[5];
+        const chart4D =datafiles[4];
 
-        const chart8D = datafiles[9],
+        const chart8D = datafiles[8],
               chart8K = chart8D.columns.slice(1);
               chart8D.forEach(d => {
                 chart8K.forEach( key => {
@@ -148,8 +147,15 @@
             //   Chart8.update();
               
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
-        
-        
+
+    }).catch(function(error){
+        console.log(error);
+    });
+
+    Promise.all([
+        d3.json(src + "DublinCityDestPOWCAR11_0.js")
+    ]).then(datafiles => {
+
         let map = new L.Map("map1", {center: [53.35, -6.8], zoom: 9})
             .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
@@ -224,7 +230,7 @@
                         return "#8f8f8f";
                 }
             }
-
+            
     }).catch(function(error){
         console.log(error);
     });

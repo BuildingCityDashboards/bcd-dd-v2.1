@@ -229,11 +229,11 @@ class StackBarChart {
 
             dv.ttTitle = title;
             dv.valueFormat = dv.formatValue(format);
-            dv.ttWidth = 220,
+            dv.ttWidth = 280,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
-            dv.testHv = 0;
+            dv.hV = 0;
 
         let bcdTooltip = dv.tooltip.append("g")
                 .attr("class", "bcd-tooltip")
@@ -292,21 +292,43 @@ class StackBarChart {
                 valueString =  chart.valueFormat !=="undefined"? chart.valueFormat(cur[item]) : cur[item];
                 
             let tooltipBody = chart.svg.select(tpId);
-                tooltipBody.select(".tp-text-right").text(valueString + indicatorSymbol);
+                tooltipBody.select(".tp-text-right").text(valueString);
+                tooltipBody.select(".tp-text-symbol").text(indicatorSymbol);
                 ttTitle.text(chart.ttTitle + " " + (d.data[chart.datelabel]));
         });
+
+        chart.svg.select("#tooltipbody_last .tp-text-right").text(chart.valueFormat !=="undefined"? "Total = " + chart.valueFormat(total) : "Total = " + total);
     }
 
     totalText(){
-        let chart = this;
-        let tooltipBodyItem = chart.svg.select(".tooltip-body")
-            .append("g")
-            .attr("class", "tooltipbody_last")
-            .append("text").text("Total =")
-            .attr("transform", "translate("+ 5 +"," + chart.testHv + ")")
-            .attr("class", "tp-text-left")
-            .attr("x", "12")
-            .attr("dy", ".35em");
+        let chart = this,
+            h = chart.hV + 10;
+
+        let tooltipLastItem = chart.svg.select(".tooltip-body")
+                .append("g")
+                .attr("id", "tooltipbody_last")
+                .attr("transform", "translate("+ 0 +"," + h + ")");
+
+            tooltipLastItem.append("line")
+                .attr("class", "tooltip-divider")
+                .attr("x1", 160)
+                .attr("x2", 250)
+                .attr("y1", -12 )
+                .attr("y2", -12 )
+                .style("stroke", "#6c757d");
+            
+            // tooltipLastItem.append("text").text("Total =")
+            //     .attr("class", "tp-text-left")
+            //     .attr("x", "18")
+            //     .attr("dy", ".35em");
+
+            tooltipLastItem.append("text").text("Total =")
+                .attr("class", "tp-text-right")
+                .attr("x", "18")
+                .attr("dy", ".35em")
+                .attr("dx", chart.ttWidth - 54)
+                .attr("text-anchor","end");
+
     }
 
     drawTooltip(){
@@ -325,8 +347,8 @@ class StackBarChart {
             .attr("rx", dv.ttBorderRadius)
             .attr("ry", dv.ttBorderRadius)
             .attr("fill","#001f35e6")
-            .attr("stroke", "#001f35")
-            .attr("stroke-width", 3);
+            .attr("stroke", "#6c757d")
+            .attr("stroke-width", 2);
 
         let tooltipTitle = tooltipTextContainer
           .append("text")
@@ -358,7 +380,7 @@ class StackBarChart {
         let tooltipBodyItem = dv.svg.select(".tooltip-body")
             .append("g")
             .attr("class", "tooltipbody_" + i)
-            .attr("transform", "translate(5," + dv.testHv +")");
+            .attr("transform", "translate(5," + dv.hV +")");
 
         tooltipBodyItem.append("text")
             .text(d)
@@ -371,18 +393,28 @@ class StackBarChart {
             .attr("class", "tp-text-right")
             .attr("x", "10")
             .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 40)
+            .attr("dx", dv.ttWidth - 50)
             .attr("text-anchor","end");
 
-        tooltipBodyItem.append("circle")
-            .attr("class", "tp-circle")
-            .attr("r", "6")
-            .attr("stroke","#ffffff")
-            .attr("fill", dv.colour(d));
+        tooltipBodyItem.append("text")
+            .attr("class", "tp-text-symbol")
+            .attr("x", "10")
+            .attr("dy", ".35em")
+            .attr("dx", dv.ttWidth - 30)
+            .attr("text-anchor","end");
 
-        let testH = tooltipBodyItem.node().getBBox().height ? tooltipBodyItem.node().getBBox().height : 0;
+        tooltipBodyItem.append("rect")
+            .attr("class", "tp-rect")
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("y", -5)
+            .attr("x", -3)
+            .attr("fill", dv.colour(d))
+            .attr("fill-opacity", 0.75);
+
+        let h = tooltipBodyItem.node().getBBox().height ? tooltipBodyItem.node().getBBox().height : 0;
         
-            dv.testHv += testH + 6;
+            dv.hV += h + 6;
 
         // i === dv.columns.length -1 ? dv.totalText() : console.log("not yet");
 
@@ -392,8 +424,7 @@ class StackBarChart {
     updateSize(){
         let dv = this,
             height = dv.svg.select(".bcd-tooltip").node().getBBox().height;
-        
-            dv.svg.select(".tooltip-container").attr("height", height + 20);
+            dv.svg.select(".tooltip-container").attr("height", height + 26);
     }
 
     getTooltipPosition(mouseX) {

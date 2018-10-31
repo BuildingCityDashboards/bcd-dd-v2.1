@@ -148,9 +148,30 @@
 
         let columnNames = data.columns.slice(1);
         let incomeData = data;
+            incomeData.forEach( d => {
+                d.label = d.date;
+                d.date = parseYear(d.date);
+                d.value = +d.value;
+            })
 
-        const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
-            IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "date");
+        let idN = d3.nest().key( d => { return d.region;}).entries(incomeData);
+
+        console.log("GVA data", idN);
+
+        let keys = idN.map(d => d.key);
+
+        const idContent = {
+            element: "#chart-gva",
+            keys: keys,
+            data: idN
+        };
+        
+        const IncomeGroupedBar = new MultiLineChart(idContent);
+              IncomeGroupedBar.getData("value");
+              IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "label");
+
+        // const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
+        //     IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "date");
     
     })
     .catch(function(error){
@@ -162,8 +183,15 @@
     d3.csv("../data/Economy/SIA20.csv").then( data => {
 
         let columnNames = data.columns.slice(2);
-        // console.log(columnNames);
+        
         let incomeData = data;
+            console.log("values percent",incomeData);
+
+            incomeData.forEach( d => {
+                columnNames.forEach( k => {
+                    d[k] = (+d[k])/100;
+                })
+            })
 
         const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, columnNames, "%", "Survey on Income and Living Conditions for Dublin");
               IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");

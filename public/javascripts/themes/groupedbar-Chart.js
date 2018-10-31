@@ -436,7 +436,6 @@ class GroupedBarChart{
             .attr("y", -5)
             .attr("x", -3)
             .attr("fill", dv.colour(d))
-            .attr("stroke","#ffffff")
             .attr("fill-opacity", 0.75);
 
         dv.updateSize();
