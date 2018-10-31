@@ -14,6 +14,7 @@ var themes = require('./routes/themes');
 var stories = require('./routes/stories');
 var tools = require('./routes/tools');
 var queries = require('./routes/queries');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -58,7 +59,7 @@ app.use('/themes', themes);
 app.use('/stories', stories);
 app.use('/tools', tools);
 app.use('/queries', queries);
-app.use('/api/themes', themes);
+app.use('/api', api);
 
 ////additional fnctionality from node modules
 //var noUiSlider = require('nouislider');
