@@ -35,13 +35,13 @@ class MultiLineChart{
         d3.select(dv.element).select("svg").remove();
         
         // add the svg to the target element
-        const svg = d3.select(dv.element)
+        dv.svg = d3.select(dv.element)
             .append("svg")
             .attr("width", dv.width + dv.margin.left + dv.margin.right)
             .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
        
         // add the g to the svg and transform by top and left margin
-        dv.g = svg.append("g")
+        dv.g = dv.svg.append("g")
             .attr("transform", "translate(" + dv.margin.left + 
                 ", " + dv.margin.top + ")");
         
@@ -145,15 +145,18 @@ class MultiLineChart{
         dv.yLabel.text(dv.titleY);
 
         dv.drawGridLines();
-        dv.tickNumber =  dv.data[0].values.length;
+        // dv.tickNumber = 0 ; //=  dv.data[0].values.length;
+
+        // Update axes
+        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber) : dv.xAxisCall.scale(dv.x);
 
         // // Update axes - what about ticks for smaller devices??
         // dv.xAxisCall.scale(dv.x).ticks(d3.timeYear.filter((d) => {
         //     return d = parseYear("2016");
         // }));
-        dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-            return i < dv.tickNumber ? dv.data[0].values[i].label : "";
-        });
+        // dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
+        //     return i < dv.tickNumber ? dv.data[0].values[i].label : "";
+        // });
         
         // .tickFormat(dv.formatQuarter);
         dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
@@ -178,7 +181,7 @@ class MultiLineChart{
 
         // d3 line function
        dv.line = d3.line()
-           .defined(function(d) { return !isNaN(d[dv.value]); })
+           .defined(function(d){return !isNaN(d[dv.value]);})
            .x( d => {
                return dv.x(d.date); // this needs to be dynamic dv.date!!
            })
@@ -367,7 +370,6 @@ class MultiLineChart{
                         indicatorColour,
                         indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
                         diffPercentage = !difference ? unText :d3.format(".1%")(!isNaN(difference) ? difference : null);
-                        
                     if(dv.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
                     }
@@ -395,15 +397,15 @@ class MultiLineChart{
     }
 
     getPerChange(d1, d0, v){
-        let value,
-            o = d0 ? d0[v] : .01,
-            n = d1[v],
-            isNegative = n - o < 0,
-            oneg =  o *= -1;
-            
-            value = !isNaN(n) ? d0 ? (n -  o)/o: "null" : null;
+        let value;
+            // o = d0 ? d0[v] : 1,
+            // n = d1[v],
+            // isNegative = n - o < 0,
+            // oneg =  o *= -1;
+            // console.log((d1[v] -  d0[v])/d0[v]);
+            value = !isNaN(d1[v]) ? d0 ? (d1[v] -  d0[v])/d0[v]: "null" : null;
                 if( value === Infinity){
-                    return n;   
+                    return d1[v];   
                 }
                 else if(isNaN(value)){
                     return 0;
@@ -626,6 +628,23 @@ class MultiLineChart{
         let year = (date.getFullYear());
         let q = Math.ceil(( newDate.getMonth()) / 3 );
         return year+" Q" + q;
+    }
+
+    hideRate(value){
+        let dv = this;
+        value ? dv.g.selectAll(".tp-text-indicator").style("display", "none") : dv.g.selectAll(".tp-text-indicator").style("display", "block")
+    }
+
+    addBaseLine(value){
+        let chart = this;
+        
+        chart.gridLines.append("line")
+            .attr("x1", 0)
+            .attr("x2", chart.width)
+            .attr("y1", chart.y(value))
+            .attr("y2", chart.y(value))
+            .attr("stroke", "#dc3545");
+
     }
 
     //replacing old legend method with new inline labels

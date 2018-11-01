@@ -24,27 +24,27 @@ class GroupedBarChart{
         const breakPoint = 678;
         
         // margin
-        dv.margin = { };
+        dv.m = { };
 
-        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
-        dv.margin.bottom = elementWidth < breakPoint ? 30 : 80;
+        dv.m.t = elementWidth < breakPoint ? 40 : 50;
+        dv.m.b = elementWidth < breakPoint ? 30 : 80;
 
-        dv.margin.right = elementWidth < breakPoint ? 20 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
+        dv.m.right = elementWidth < breakPoint ? 20 : 150;
+        dv.m.left = elementWidth < breakPoint ? 20 : 80;
         
-        dv.width = elementWidth - dv.margin.left - dv.margin.right;
-        dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
+        dv.w = elementWidth - dv.m.left - dv.m.right;
+        dv.height = aspectRatio - dv.m.t - dv.m.b;
 
         // add the svg to the target element
         dv.svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", dv.width + dv.margin.left + dv.margin.right)
-            .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
+            .attr("width", dv.w + dv.m.left + dv.m.right)
+            .attr("height", dv.height + dv.m.t + dv.m.b);
        
         // add the g to the svg and transform by top and left margin
         dv.g = dv.svg.append("g")
-            .attr("transform", "translate(" + dv.margin.left + 
-                ", " + dv.margin.top + ")");
+            .attr("transform", "translate(" + dv.m.left + 
+                ", " + dv.m.t + ")");
     
         // transition 
         // dv.t = () => { return d3.transition().duration(1000); }
@@ -56,7 +56,7 @@ class GroupedBarChart{
         dv.colour = d3.scaleOrdinal(dv.colourScheme);
 
         dv.x0 = d3.scaleBand()
-            .range([0, dv.width])
+            .range([0, dv.w])
             .padding(0.2);
 
         dv.x1 = d3.scaleBand()
@@ -83,7 +83,7 @@ class GroupedBarChart{
         // X title
         dv.g.append("text")
             .attr("class", "titleX")
-            .attr("x", dv.width/2)
+            .attr("x", dv.w/2)
             .attr("y", dv.height + 60)
             .attr("text-anchor", "middle")
             .text(dv.titleX);
@@ -127,6 +127,7 @@ class GroupedBarChart{
 
         dv.drawGridLines();
 
+    
         // // join new data with old elements.
         // dv.rects = dv.g.selectAll("g")
         //     .data(dv.data);
@@ -150,26 +151,42 @@ class GroupedBarChart{
 
         // enter new elements present in new data.
 
+        // dv.svg.selectAll("g").remove();
+
         // join new data with old elements.
-        dv.rects = dv.g.append("g")
-            .selectAll("g")
+        // dv.rects = dv.g.append("g")
+        //     .selectAll("g")
+        //     .data(dv.data);
+
+        dv.g.selectAll('.layers').remove();
+        dv.g.selectAll('.focus_overlay').remove();
+
+        dv.group = dv.g.selectAll(".layers")
             .data(dv.data);
 
-        dv.rectGroup = dv.rects.enter()
+        //exit old elements not present in new data.
+        // dv.rects.exit()
+        //     // // .transition(dv.t())
+        //     // .attr("height", 0)
+        //     // .attr("y", dv.height)
+        //     // .style("fill-opacity", "0.1")
+        //     .remove();
+
+        dv.rectGroup = dv.group.enter()
             .append("g")
-            .attr("class","rect-group")
+            .attr("class","layers")
             .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ",0)"; })
-            .selectAll("rect")
-            .data(d => { return dv.keys.map( key => { 
+            
+        dv.rects = dv.rectGroup.selectAll("rect")
+                .data(d => { return dv.keys.map( key => { 
                     return {
                         key: key, 
                         value: d[key],
                         date: d[dv.xValue]
-                     }; 
-                }); 
-            });
+                    }; 
+                }); });//hmmm this needs to change?
 
-        dv.rect = dv.rectGroup.enter().append("rect")
+        dv.rect = dv.rects.enter().append("rect")
             .attr("x", d => { return dv.x1(d.key); })
             .attr("y", d => { return dv.y(d.value); })
             .attr("width", dv.x1.bandwidth())
@@ -178,14 +195,14 @@ class GroupedBarChart{
             .attr("fill-opacity", ".75");
 
         
-        dv.rectsOverlay = dv.g.append("g")
-            .selectAll("rect")
+        dv.rectsOverlay = dv.g.selectAll(".focus_overlay")
             .data(dv.data)
             .enter();
 
         // // append a rectangle overlay to capture the mouse
-        dv.rectsOverlay.append("rect")
+        dv.rectsOverlay.append("g")
             .attr("class", "focus_overlay")
+            .append("rect")
             .attr("x", d => dv.x0(d[dv.xValue]))
             .attr("y", "0")
             .attr("width", dv.x0.bandwidth()) // give a little extra for last value
@@ -193,7 +210,20 @@ class GroupedBarChart{
             .style("fill", "none")
             .style("stroke","#00bff7")
             .style("pointer-events", "all")
-            .style("visibility", "hidden");
+            .style("visibility", "hidden")
+            .on("mouseover", function(){
+                d3.select(this).style("visibility", "visible");
+                dv.tooltip.style("display", "inline-block"); 
+            })
+            // .on("touchstart", function(){
+            //     d3.select(this).style("visibility", "visible");
+            //     dv.tooltip.style("display", "inline-block"); 
+            // })
+            .on("mouseout", function(){ 
+                d3.select(this).style("visibility", "hidden");
+                dv.tooltip.style("display", "none"); 
+            })
+            .on("mousemove", (d, e, a)=> dv.mousemove(d, e, a));
 
         dv.addLegend();
     }
@@ -210,7 +240,7 @@ class GroupedBarChart{
                 .append('line')
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
-                .attr('x2', dv.width)
+                .attr('x2', dv.w)
                 .attr('y1', (d) => {return dv.y(d)})
                 .attr('y2', (d) => dv.y(d));
     }
@@ -241,24 +271,24 @@ class GroupedBarChart{
 
             legends.append("rect")
                 .attr("class", "legendRect")
-                .attr("x", dv.width + 5)
+                .attr("x", dv.w + 5)
                 .attr("fill", d => { return d.colour; })
                 .attr("fill-opacity", 0.75);
 
             legends.append("text")
                 .attr("class", "legendText")
-                // .attr("x", dv.width + 30)
+                // .attr("x", dv.w + 30)
                 .attr("y", 12)
                 .attr("dy", ".0em")
                 .attr("text-anchor", "start")
                 .text(d => { return d.label; })
-                .call(dv.textWrap, 100, dv.width + 30); 
+                .call(dv.textWrap, 100, dv.w + 30); 
     }
 
     addTooltip(title, format){
 
         let dv = this;
-
+            dv.g.selectAll('.tool-tip').remove();
             dv.tooltip = dv.svg.append("g")
                 .classed("tool-tip", true);
 
@@ -283,31 +313,15 @@ class GroupedBarChart{
                 .style("visibility", "hidden");
 
             dv.drawTooltip();
+
             dv.keys.forEach( (d,i) => {
                 dv.updateTooltip(d,i);
             });
-
-            dv.svg.selectAll(".focus_overlay")
-            .on("mouseover", function(){
-                d3.select(this).style("visibility", "visible");
-                dv.tooltip.style("display", "inline-block"); 
-            })
-            // .on("touchstart", function(){
-            //     d3.select(this).style("visibility", "visible");
-            //     dv.tooltip.style("display", "inline-block"); 
-            // })
-            .on("mouseout", function(){ 
-                d3.select(this).style("visibility", "hidden");
-                dv.tooltip.style("display", "none"); 
-            })
-            .on("mousemove", (d, e, a)=> dv.mousemove(d, e, a));
     }
 
     mousemove(d, e, a){
         let chart=this;
         let rects = a[e];
-            // console.log(rects);
-            // rects.attr("stroke","#ffffff");
 
         chart.toolGroup.style("visibility","visible");
 
@@ -414,11 +428,15 @@ class GroupedBarChart{
             .attr("dx", dv.ttWidth - 25)
             .attr("text-anchor","end");
 
-        tooltipBodyItem.append("circle")
-            .attr("class", "tp-circle")
-            .attr("r", "6")
-            .attr("stroke","#ffffff")
-            .attr("fill", dv.colour(d));
+
+        tooltipBodyItem.append("rect")
+            .attr("class", "label-rect")
+            .attr("width", 10)
+            .attr("height", 10)
+            .attr("y", -5)
+            .attr("x", -3)
+            .attr("fill", dv.colour(d))
+            .attr("fill-opacity", 0.75);
 
         dv.updateSize();
     }
@@ -444,7 +462,7 @@ class GroupedBarChart{
             chartSize,
             key = dv.keys;
 
-            chartSize = dv.width - dv.margin.right - dv.margin.left;
+            chartSize = dv.w - dv.m.right - dv.m.left;
             
             // show right
             if ( mouseX < chartSize + dv.x0.bandwidth()) {

@@ -11,6 +11,7 @@
         ],
         qnq22CSV = "../data/Economy/QNQ22_employment.csv",
         annual ="../data/Economy/annualemploymentchanges.csv",
+        qnq22JSON = "../data/Economy/QNQ22.json",
         pageSize = 12;
         // qnqJSON = trooms;
         // qnq22_keys = Object.keys(qnqJSON[0]);
@@ -21,28 +22,16 @@
     Promise.all([
         d3.csv(qnq22CSV),
         d3.csv(annual),
+
     ]).then(datafiles => {
         const QNQ22 = datafiles[0],
             annual = datafiles[1],
+            // QNQ22JSON = datafiles[2],
             columnNames = QNQ22.columns.slice(2),
-            groupBy = QNQ22.columns[1],
-            yLabels = ["Thousands", "% Change", "% Change"];
-            // qnq22_keys = Object.keys(qnqJSON[0]);
-            // console.log("the cosmos db", qnqJSON, qnq22_keys.slice(5));
-
-        // const qnq22_file = qnqJSON.map( d => {
-        //     d.label = d.date;
-        //     d.date = parseYear(d.date);
-        //     for(var i = 0, n = qnq22_keys.length; i < n; ++i){
-        //         d[qnq22_keys[i]] = +d[qnq22_keys[i]]; 
-        //     }
-        //     return d;
-        // });
-        // console.log(qnq22_file);
+            groupBy = QNQ22.columns[1];
 
         const columnNamesB = annual.columns.slice(2),
-        groupByB = annual.columns[0],
-        yLabelsB = ["% Change"];
+        groupByB = annual.columns[0];
     
         const valueData = QNQ22.map( d => {
             d.label = d.quarter;
@@ -90,7 +79,8 @@
             $(this).addClass('active');
             mlineChart.data = types;
             mlineChart.getData(columnNames[0],"Quarters", "Thousands", "thousands");
-            mlineChart.addTooltip("", "thousands", "quarter");
+            mlineChart.addTooltip("", "thousands", "quarter")
+            mlineChart.hideRate(false);
         });
 
         d3.select(".employment_arate").on("click", function(){
@@ -98,7 +88,8 @@
             $(this).addClass('active');
             mlineChart.data = typesB;
             mlineChart.getData(columnNamesB[0], "Years", "%","percentage");
-            mlineChart.addTooltip("Year:", "percentage", "year");
+            mlineChart.addTooltip("Year:", "percentage", "year")
+            mlineChart.hideRate(true);
         });
 
         // d3.select(window).on("resize", function(){
@@ -133,16 +124,18 @@
         let newData = nestData(testData, "label", "region" , selector),
             size = newData.length/pageSize;
 
+            console.log((testData));
+
         const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
-        employmentCharts.tickNumber = 12;
-        employmentCharts.pagination(newData, "#chartNew", pageSize, size, "years", "Thousands - Quarter:");
+        employmentCharts.tickNumber = 24;
+        employmentCharts.pagination(newData, "#chartNew", 24, 2, "years", "Thousands - Quarter:");
 
-        // d3.select(window).on("resize", function(){
-        //     employmentCharts.init(); 
-        //     employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
-        // });
+        d3.select(window).on("resize", function(){
+            employmentCharts.init(); 
+            employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
+        });
         
         })// catch any error and log to console
         .catch(function(error){
@@ -155,9 +148,30 @@
 
         let columnNames = data.columns.slice(1);
         let incomeData = data;
+            incomeData.forEach( d => {
+                d.label = d.date;
+                d.date = parseYear(d.date);
+                d.value = +d.value;
+            })
 
-        const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
-            IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "date");
+        let idN = d3.nest().key( d => { return d.region;}).entries(incomeData);
+
+        console.log("GVA data", idN);
+
+        let keys = idN.map(d => d.key);
+
+        const idContent = {
+            element: "#chart-gva",
+            keys: keys,
+            data: idN
+        };
+        
+        const IncomeGroupedBar = new MultiLineChart(idContent);
+              IncomeGroupedBar.getData("value");
+              IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "label");
+
+        // const IncomeGroupedBar = new StackBarChart("#chart-gva", incomeData, columnNames, "€", "Years");
+        //     IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "date");
     
     })
     .catch(function(error){
@@ -169,8 +183,15 @@
     d3.csv("../data/Economy/SIA20.csv").then( data => {
 
         let columnNames = data.columns.slice(2);
-        // console.log(columnNames);
+        
         let incomeData = data;
+            console.log("values percent",incomeData);
+
+            incomeData.forEach( d => {
+                columnNames.forEach( k => {
+                    d[k] = (+d[k])/100;
+                })
+            })
 
         const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, columnNames, "%", "Survey on Income and Living Conditions for Dublin");
               IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");
@@ -394,8 +415,8 @@ function  nestData(data, date, name, value){
             obj.date = v.date;
             obj.years = v.years;
         })
-    return obj;
-  })
+        return obj;
+    })
 
   return mqpdata;
 }

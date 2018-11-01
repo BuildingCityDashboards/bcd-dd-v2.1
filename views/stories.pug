@@ -19,31 +19,52 @@ block content
                 |nisi ut aliquip ex ea commodo consequat.
       section
         .container
+          h2 Latest Stories
           .row
-              .col-sm-8
-                h2 Health Stories
-                +accordion("one")
-                  +accordion-item("New Story One")
-                    |Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat.
-                  +accordion-item("New Story Two")
-                    |  Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat. 
-              .col-sm-8
-                h2 Education Stories
-                +accordion("two")
-                  +accordion-item("New Story Three")
-                    |  Some content here
-                    |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    |nisi ut aliquip ex ea commodo consequat. 
+            .col-4
+              .card
+                .card__header=Header
+                  a(href="stories/housing-dublin#phase1") Housing crisis phase 1: 1993-2006 (the Celtic Tiger years)
+                .card__body
+            .col-4
+              .card
+                .card__header=Header
+                  a(href="stories/housing-dublin#phase2") Housing crisis phase 2: 2007-2012 (the crash)
+                .card__body
+            .col-4
+              .card
+                .card__header=Header
+                  a(href="stories/housing-dublin#phase3") Crisis phase 3: 2013- (post-crash)
+                .card__body
+
+
+          .row.py-5
+          //-   .col-4
+          //-     .card
+          //-       .card__header=Header
+          //-         a(href="stories/housing-dublin#phase3") Crisis phase 3: 2013- (post-crash)
+          //-       .card__body
+            //- .col-4
+            //-   .card
+            //- .col-4
+            //-   .card
+  
+
+
+                //- +accordion("one")
+                //-   +accordion-item("New Story One")
+                //-     |Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat.
+                //-   +accordion-item("New Story Two")
+                //-     |  Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat. 
+
 
 block append scripts
   script(src='/javascripts/accordion.js')
