@@ -48,6 +48,15 @@
 
         const chart4D =datafiles[4];
 
+        const chart5D = datafiles[5];
+              chart5D.forEach( d=>{
+                  d.value = +d.value;
+                  d.label = d.date;
+                  d.date = pYear(d.date);
+              });
+
+        console.log("what's this", chart5D);
+
         const chart8D = datafiles[8],
               chart8K = chart8D.columns.slice(1);
               chart8D.forEach(d => {
@@ -118,9 +127,9 @@
                     Chart1b.svg.attr("display","block");
                  });
 
-
-        const Chart2 = new GroupedBarChart(chart2D,  chart2Keys, "region", "#chart2", "Years", "Population");
-              Chart2.addTooltip("Population - Year", "Percentage", "region");
+        // replacing with stacked grouped chart!!
+        // const Chart2 = new GroupedBarChart(chart2D,  chart2Keys, "region", "#chart2", "Years", "Population");
+        //       Chart2.addTooltip("Population - Year", "Percentage", "region");
 
 
         const chart3DN = nestData(chart3D, "label", chart3R, "value"),
@@ -142,10 +151,16 @@
               Chart4.addTooltip("Population - Region: ", "thousands", "label");
 
 
+        const chart5DN = nestData(chart5D, "label", "type", "value");
+
+        const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
+              Chart5.tickNumber = 6;
+              Chart5.getData(chart5DN);
+              Chart5.addTooltip("Year:", "millions");
+
+
         const Chart8 = new StackBarChart("#chart8", chart8D, chart8K, "€ ( Millions )", "Years");
               Chart8.scaleY = "millions";
-            //   Chart8.update();
-              
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 
     }).catch(function(error){
@@ -230,7 +245,7 @@
                         return "#8f8f8f";
                 }
             }
-            
+
     }).catch(function(error){
         console.log(error);
     });

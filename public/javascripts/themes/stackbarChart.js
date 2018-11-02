@@ -27,7 +27,7 @@ class StackBarChart {
         dv.margin.top = elementWidth < breakPoint ? 10 : 50;
         dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
-        dv.margin.right = elementWidth < breakPoint ? 12.5 : 150;
+        dv.margin.right = elementWidth < breakPoint ? 12.5 : 100;
         dv.margin.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
@@ -97,8 +97,6 @@ class StackBarChart {
 
         // Scale for Y
         dv.scaleY;
-
-        dv.addLegend();
         
         dv.getData();
     
@@ -167,39 +165,65 @@ class StackBarChart {
                 .attr("height", d => { return dv.y(d[0]) - dv.y(d[1]);})
                 .attr("width", dv.x.bandwidth())
                 .style("stroke-width", "1");
+        
+        dv.addLegend();
     }
 
     addLegend(){
         let dv =this;
 
         // create legend group
-        let legend = dv.g.append("g")
-        .attr("transform", "translate(0,0)");
+        let legend = dv.layers.append("g")
+        // .attr("transform", "translate(0,0)");
+
+            .attr("transform", d => { 
+                    let size = d.length -1;
+                    console.log("do something", dv.x.bandwidth());
+                    return "translate("
+                        + (dv.x(d[size].data.date) + dv.x.bandwidth() + 6)
+                        + "," 
+                        + ((dv.y(d[size][0]) + dv.y(d[size][1])) / 2) 
+                        + ")"; 
+                    }
+                );
+
+                legend.append("line")
+                    .attr("x1", -6)
+                    .attr("x2", 6)
+                    .attr("stroke", "#fff");
+
+                legend.append("text")
+                    .attr("x", 9)
+                    .attr("dy", "0.35em")
+                    .attr("fill", "#fff")
+                    .style("font", "10px sans-serif")
+                    .text(function(d) { return d.key; })
+                    .call(dv.textWrap, 100, 10);
         
-        let legends = legend.selectAll(".legend")
-        .data(dv.columns.reverse())
-        .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", (d, i) => {
-                return "translate(-1," + i * 30 + ")"; })
-            .style("font", "12px sans-serif");
+        // let legends = legend.selectAll(".legend")
+        // .data(dv.columns.reverse())
+        // .enter().append("g")
+        //     .attr("class", "legend")
+        //     .attr("transform", (d, i) => {
+        //         return "translate(-1," + i * 30 + ")"; })
+        //     .style("font", "12px sans-serif");
         
-        legends.append("rect")
-            .attr("class", "legendRect")
-            .attr("x", dv.width + 18)
-            .attr("width", 18)
-            .attr("height", 18)
-            .attr("fill", dv.colour)
-            .attr("fill-opacity", 0.75);
+        // legends.append("rect")
+        //     .attr("class", "legendRect")
+        //     .attr("x", dv.width + 18)
+        //     .attr("width", 18)
+        //     .attr("height", 18)
+        //     .attr("fill", dv.colour)
+        //     .attr("fill-opacity", 0.75);
         
-        legends.append("text")
-            .attr("class", "legendText")
-            .attr("x", dv.width + 44)
-            .attr("y", 9)
-            .attr("dy", ".1rem")
-            .attr("text-anchor", "start")
-            .text(d => { return d; })
-            .call(dv.textWrap, 100, dv.width + 44);
+        // legends.append("text")
+        //     .attr("class", "legendText")
+        //     .attr("x", dv.width + 44)
+        //     .attr("y", 9)
+        //     .attr("dy", ".1rem")
+        //     .attr("text-anchor", "start")
+        //     .text(d => { return d; })
+        //     .call(dv.textWrap, 100, dv.width + 44);
     }
 
     drawGridLines(){

@@ -29,7 +29,7 @@ class GroupedBarChart{
         dv.m.t = elementWidth < breakPoint ? 40 : 50;
         dv.m.b = elementWidth < breakPoint ? 30 : 80;
 
-        dv.m.right = elementWidth < breakPoint ? 20 : 150;
+        dv.m.right = elementWidth < breakPoint ? 20 : 100;
         dv.m.left = elementWidth < breakPoint ? 20 : 80;
         
         dv.w = elementWidth - dv.m.left - dv.m.right;
@@ -331,8 +331,9 @@ class GroupedBarChart{
             tooltipX = chart.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
-            key = chart.keys
+            key = chart.keys;
 
+            console.log("tooltip x", tooltipX);
         chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
 
 
@@ -373,8 +374,8 @@ class GroupedBarChart{
                 .attr("rx", dv.ttBorderRadius)
                 .attr("ry", dv.ttBorderRadius)
                 .attr("fill","#001f35e6")
-                .attr("stroke", "#001f35")
-                .attr("stroke-width", 3),
+                .attr("stroke", "#6c757d")
+                .attr("stroke-width", 2),
             
             tooltipTitle = tooltipTextContainer
             .append("text")
@@ -441,35 +442,36 @@ class GroupedBarChart{
         dv.updateSize();
     }
 
-    updatePosition(xPosition, yPosition){
-        let dv = this;
-        // get the x and y values - y is static
-        let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
-        // move the tooltip
-        dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
-    }
+    // updatePosition(xPosition, yPosition){
+    //     let dv = this;
+    //     // get the x and y values - y is static
+    //     let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
+    //     console.log("x pos", tooltipX)
+    //     dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+    // }
 
     updateSize(){
         let dv = this;
         let height = dv.svg.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 5;
-        dv.svg.select(".tooltip-container").attr("height", dv.ttHeight);
+            dv.ttHeight += height + 5;
+            dv.svg.select(".tooltip-container").attr("height", dv.ttHeight);
     }
 
     getTooltipPosition(mouseX) {
-        let dv = this,
+        let c = this,
             ttX,
-            chartSize,
-            key = dv.keys;
+            cSize,
+            key = c.keys;
 
-            chartSize = dv.w - dv.m.right - dv.m.left;
+            cSize = c.w - c.m.right - c.m.left;
             
             // show right
-            if ( mouseX < chartSize + dv.x0.bandwidth()) {
-                ttX = mouseX;
+            if ( mouseX < cSize - c.x0.bandwidth()) {
+                ttX = mouseX + c.x0.bandwidth() + c.m.left;
+                
             } else {
                 // show left minus the size of tooltip + 10 padding
-                ttX = mouseX - 50;
+                ttX = mouseX + c.m.left - c.ttWidth;
             }
             return ttX;
     }
