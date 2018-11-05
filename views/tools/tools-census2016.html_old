@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <!--//TODO: fix top padding hack-->
+    <div class="row">
+        <br>
+        <br>
+        <br>
+    </div>    
+    <div class="row">
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class ="tool-map" id="map-census2016">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="row">
+                    <div id="data-census2016">
+                        Interact with the map to generate content here
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

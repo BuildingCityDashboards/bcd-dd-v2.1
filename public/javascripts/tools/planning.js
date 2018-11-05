@@ -4,6 +4,9 @@
  * 
  */
 
+let chartMargins = [20, 20, 40, 40];
+
+
 var authorityNames = []; //names of authoirites as strings
 var decisionCategories = []; //types of decisions as strings
 //var regex = /GRANT/;
@@ -57,9 +60,8 @@ let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries
 let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
 
 loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
-createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
+//createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
-
 ////////////////////////////////////////////////////////////////////////////
 //[]; //this will hold an array of promises
 //             ***TODO: serach dir for # of files and for-each
@@ -117,10 +119,10 @@ function createSAMap(url_) {
         saLayer_DublinAll = L.geoJSON(saAll,
                 {
                     filter: function (f, l) {
-                        return f.properties.COUNTYNAME.includes("Dublin") 
+                        return f.properties.COUNTYNAME.includes("Dublin")
                                 || f.properties.COUNTYNAME.includes("Fingal")
                                 || f.properties.COUNTYNAME.includes("Rathdown")
-                        ;
+                                ;
                     },
                     style: style,
                     onEachFeature: onEachFeature
@@ -129,8 +131,8 @@ function createSAMap(url_) {
         function onEachFeature(feature, layer) {
             layer.bindPopup(
                     '<p><b>' + feature.properties.EDNAME + '</b></p>'
-                    + '<p>'+ feature.properties.COUNTYNAME +'</p>'
-                    +'<p>SA #' + feature.properties.SMALL_AREA + '</p>'                                        
+                    + '<p>' + feature.properties.COUNTYNAME + '</p>'
+                    + '<p>SA #' + feature.properties.SMALL_AREA + '</p>'
                     );
             //bind click
             layer.on({
@@ -337,8 +339,8 @@ function makeGraphs(error, records) {
     //Charts
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
-    var sizeChart = dc.barChart("#size-chart");
-    var decisionChart = dc.rowChart("#decision-row-chart");
+    
+    
 //    var processingTimeChart = dc.rowChart("#processing-row-chart");
 //    var locationChart = dc.rowChart("#location-row-chart");
 //    numberRecordsND
@@ -347,11 +349,14 @@ function makeGraphs(error, records) {
 //                return d;
 //            })
 //            .group(all);
+
     timeChart
             .width(400)
-            .height(chartHeight / 2)
+            .height(chartHeight)
             .brushOn(true)
-            .margins({top: 10, right: 50, bottom: 20, left: 40})
+            .yAxisLabel("# Applications")
+            .margins({top: chartMargins[0], right: chartMargins[1],
+                bottom: chartMargins[2], left: chartMargins[3]})
             .dimension(rDateDim)
             .group(rDateGroup)
             .transitionDuration(500)
@@ -360,23 +365,31 @@ function makeGraphs(error, records) {
             .elasticY(true)
             .yAxis().ticks(4);
     timeChart.render();
-    
-    sizeChart
-            .width(400)
-            .height(chartHeight / 2)
-            .brushOn(true)
-            .margins({top: 10, right: 50, bottom: 20, left: 40})
-            .dimension(areaDim)
-            .group(areaGroup)
-            .transitionDuration(500)
-            .x(d3.scaleLog().domain([0.1, 100]))
-//            .elasticX(true)
-            .elasticY(true)
-            .yAxis().ticks(4);
-    sizeChart.render();
+
+//    var sizeChart = dc.barChart("#size-chart");
+//    sizeChart
+//            .width(400)
+//            .height(chartHeight)
+//            .brushOn(true)
+//            .yAxisLabel("Size of site (msqr)")
+//            .margins({top: chartMargins[0], right: chartMargins[1],
+//                bottom: chartMargins[2], left: chartMargins[3]})
+//            .dimension(areaDim)
+//            .group(areaGroup)
+//            .transitionDuration(500)
+//            .x(d3.scaleLog().domain([0.1, 100]))
+//            //.elasticX(true)
+//            .elasticY(true)
+//            .yAxis().ticks(4);
+//    sizeChart.render();
+       
+
+    var decisionChart = dc.rowChart("#decision-row-chart");
     decisionChart
             .width(400)
             .height(chartHeight)
+            .margins({top: chartMargins[0], right: chartMargins[1],
+                bottom: chartMargins[2], left: chartMargins[3]})
             .dimension(decisionCategoryDim)
             .group(decisionCategoryGroup)
 //                        .ordering(function (d) {
@@ -387,9 +400,9 @@ function makeGraphs(error, records) {
             .xAxis().ticks(4)
             ;
     decisionChart.render();
-    dcCharts = [timeChart, sizeChart, decisionChart];
-    
-    
+    dcCharts = [timeChart, decisionChart];
+
+
 ////Update the map if any dc chart gets filtered
     _.each(dcCharts, function (dcChart) {
         dcChart.on("filtered", function (chart, filter) {
@@ -434,7 +447,7 @@ function makeGraphs(error, records) {
         connect: true,
         //tooltips: [ true, true ],
         range: {
-            'min' : minChartDate, 
+            'min': minChartDate,
             'max': maxChartDate
         }
     });
@@ -534,27 +547,27 @@ function makeGraphs(error, records) {
     d3.select("#start_date").on('input', function () {
         var sd = Date.parse(this.value);
         var ed = Date.parse(d3.select("#end_date").node().value);
-        console.log('start date: ' + sd +'\t exisitng end: '+ed);
+        console.log('start date: ' + sd + '\t exisitng end: ' + ed);
         rDateDim.filterRange([sd, ed]);
         updateCharts();
         updateMap();
-    });    
+    });
 
     d3.select("#end_date").on('input', function () {
         var ed = Date.parse(this.value);
         var sd = Date.parse(d3.select("#start_date").node().value);
-        console.log('end date: ' + ed +'\t exisitng start: '+sd);
+        console.log('end date: ' + ed + '\t exisitng start: ' + sd);
         rDateDim.filterRange([sd, ed]);
         updateCharts();
         updateMap();
-    });     
-    
-    var early= new Date(minChartDate);
+    });
+
+    var early = new Date(minChartDate);
     var day = ("0" + early.getDate()).slice(-2);
     var month = ("0" + (early.getMonth() + 1)).slice(-2);
     var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
     $('#start_date').val(earlyDay);
-   
+
     var late = new Date(maxChartDate);
     day = ("0" + late.getDate()).slice(-2);
     month = ("0" + (late.getMonth() + 1)).slice(-2);

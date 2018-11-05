@@ -3,7 +3,7 @@
 */
 
 .tool-map{
-    height: 400px;
+    height: 600px;
 }
 
 /*#planning_map {
@@ -14,6 +14,20 @@
 input:checked {
     background-color: #086fb8;
 }
+
+.dc-chart g.row text {
+  fill: white;  
+}
+
+
+.dc-chart g.axis label {
+  font-size: 100px;
+  color: white;
+  fill: white;
+  stroke: white;
+}
+
+
 
 /**{
     margin: 20;

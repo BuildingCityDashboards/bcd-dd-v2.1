@@ -6,8 +6,10 @@
 ////Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
 //proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
 //proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
+//let mapHeight = 600; /*TODO: inherit from container*/
+
 let dub_lng = -6.2603;
-let dub_lat = 53.36;
+let dub_lat = 53.42;
 let dublinX, dublinY;
 let min_zoom = 10, max_zoom = 16;
 let zoom = min_zoom;
@@ -26,7 +28,7 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_
 mapCensus.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 mapCensus.addLayer(osm);
 
-let chartHeight = 400;
+
 
 //crossfilter variables
 //let idDim;
@@ -67,7 +69,7 @@ Promise.all([pFCC0])
         .then(function (dArr) {
             updateMap(join(dArr));
         });
-//Fingal   
+//DL/R   
 let dlr0 = 'DLR_SA_0.geojson';
 let pDLR0 = d3.json(dataBase + dlr0);
 Promise.all([pDLR0])
@@ -146,7 +148,7 @@ function updateMap(data__) {
     boundaries.addTo(mapCensus);
 }
 ;
-['#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c']
+//['#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c']
 function getCountyColor(d) {
     return d === 'Dublin City' ? '#08519c' :
             d === 'Fingal' ? '#bdd7e7' :
@@ -439,7 +441,7 @@ function getDataColor(d) {
 ////            .group(all);
 //    timeChart
 //            .width(400)
-//            .height(chartHeight / 2)
+//            .height(mapHeight / 2)
 //            .brushOn(true)
 //            .margins({top: 10, right: 50, bottom: 20, left: 40})
 //            .dimension(rDateDim)
@@ -453,7 +455,7 @@ function getDataColor(d) {
 //    
 //    sizeChart
 //            .width(400)
-//            .height(chartHeight / 2)
+//            .height(mapHeight / 2)
 //            .brushOn(true)
 //            .margins({top: 10, right: 50, bottom: 20, left: 40})
 //            .dimension(areaDim)
@@ -466,7 +468,7 @@ function getDataColor(d) {
 //    sizeChart.render();
 //    decisionChart
 //            .width(400)
-//            .height(chartHeight)
+//            .height(mapHeight)
 //            .dimension(decisionCategoryDim)
 //            .group(decisionCategoryGroup)
 ////                        .ordering(function (d) {

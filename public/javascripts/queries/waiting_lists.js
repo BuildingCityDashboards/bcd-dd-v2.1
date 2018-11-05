@@ -15,6 +15,8 @@ d3.csv("/data/OP_Waiting_Lists_Dublin_Hospitals_2014-2018_2.csv").then(function 
 
 });
 
+
+
 function processData(opWData) {
     opWData.forEach(function (d) {
 //                    set up useful properties for the data
