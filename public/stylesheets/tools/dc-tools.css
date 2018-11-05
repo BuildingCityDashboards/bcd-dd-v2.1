@@ -15,21 +15,6 @@ div.dc-chart {
   stroke: none;
   fill: #ccc; }
 
-.dc-chart .pie-slice {
-  fill: #000;
-  font-size: 16px;
-  cursor: pointer; }
-  .dc-chart .pie-slice.external {
-    fill: #000; }
-  .dc-chart .pie-slice :hover, .dc-chart .pie-slice.highlight {
-    fill-opacity: .8; }
-
-.dc-chart .pie-path {
-  fill: none;
-  stroke-width: 2px;
-  stroke: #000;
-  opacity: 0.4; }
-
 .dc-chart .selected path, .dc-chart .selected circle {
   stroke-width: 3;
   stroke: #ccc;
@@ -42,12 +27,20 @@ div.dc-chart {
 
 .dc-chart .axis path, .dc-chart .axis line {
   fill: none;
-  stroke: none;
+  stroke: #fff;
   shape-rendering: crispEdges; }
 
 .dc-chart .axis text {
   font: 10px sans-serif;
-  color:white;
+    stroke: none;
+}
+
+/*TODO: set yaxis label colour*/
+.dc-chart .label text {
+  font-size: 100px;
+  color: white;
+  fill: white;
+  stroke: white;
 }
 
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
@@ -183,12 +176,6 @@ div.dc-chart {
   pointer-events: all;
   cursor: pointer; }
 
-.dc-chart .empty-chart .pie-slice {
-  cursor: default; }
-  .dc-chart .empty-chart .pie-slice path {
-    fill: #fee;
-    cursor: default; }
-
 .dc-chart circle.dot {
   stroke: none; }
 
@@ -209,17 +196,5 @@ div.dc-chart {
 
 .dc-hard .number-display {
   float: none; }
-
-/*.dc-chart g.row text {
-  fill: white;  
-}
-
-
-.dc-chart axis label {
-  font-size: 100px;
-  color: white;
-  fill: white;
-  stroke: white;
-}*/
 
 

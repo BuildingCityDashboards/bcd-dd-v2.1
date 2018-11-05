@@ -15,7 +15,7 @@ input:checked {
     background-color: #086fb8;
 }
 
-.dc-chart g.row text {
+/*.dc-chart g.row text {
   fill: white;  
 }
 
@@ -25,7 +25,7 @@ input:checked {
   color: white;
   fill: white;
   stroke: white;
-}
+}*/
 
 
 

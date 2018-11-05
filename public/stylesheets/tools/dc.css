@@ -42,12 +42,12 @@ div.dc-chart {
 
 .dc-chart .axis path, .dc-chart .axis line {
   fill: none;
-  stroke: none;
+  stroke: #000;
   shape-rendering: crispEdges; }
 
 .dc-chart .axis text {
   font: 10px sans-serif;
-  color:white;
+    stroke: #fff;
 }
 
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
@@ -209,17 +209,5 @@ div.dc-chart {
 
 .dc-hard .number-display {
   float: none; }
-
-/*.dc-chart g.row text {
-  fill: white;  
-}
-
-
-.dc-chart axis label {
-  font-size: 100px;
-  color: white;
-  fill: white;
-  stroke: white;
-}*/
 
 
