@@ -4,19 +4,14 @@ section#transport
       .row
         .col-6
           h1.header__h1 Transport
-          p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-            br
-            br
-            |The information presented below may be sourced from dynamic and/or real-time data
+          p.lead Transport data for Dublin is available for the Airport <i>(coming soon)</i>, 
+            |Bike Hire, Busses, Luas, Port <i>(coming soon)</i>, Trams, and Private Car Parking. 
+            
+          p The information presented below may be sourced from dynamic and/or real-time data
             |<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
             |or from more static, historical figures
             |<img height='15px' width='15px' src='/images/calendar-w.svg'>
-            br
-            br
-            |For comprehensive and up-to-date travel information, see our 
+          p For comprehensive and up-to-date travel information, see our 
             |<a href="../queries"> "Getting Around"</a> query.
     
     article.article
@@ -27,7 +22,9 @@ section#transport
       .row.wrapper.py-5
         .col-lg-4
           h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-          p Source (opens new): <a href="http://www.dublinbikes.ie/" target='blank'>Dublin Bikes Website</a>
+          p Source: 
+            a(href="http://www.dublinbikes.ie/" target="_blank") Dublin Bikes Website 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Just Eat dublinbikes is a self-service bike rental system open to 
             |everyone from 14 years of age. It enables you to travel through the 
             |city centre, commute between home and work and get out and about 
@@ -56,8 +53,9 @@ section#transport
       .row.wrapper.py-5
         .col-lg-4
           h3 Dublin Buses <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-          p Source (opens new): <a href="https://data.smartdublin.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail" target="_blank">
-            | Dublin Bus API</a>
+          p Source: 
+            a(href="https://data.smartdublin.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail" target="_blank") Dublin Bus API 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Dublin Bus is the biggest public transport provider in the Greater Dublin Area, 
             |operating over <b>136 routes</b>. 
             |Normal services run from 5.00am until midnight. 
@@ -84,7 +82,9 @@ section#transport
       .row.wrapper.py-5
         .col-lg-4
           h3 Luas <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
-          p Source (opens new): <a href="https://luas.ie/" target="_blank">Luas Website</a>
+          p Source: 
+            a(href="https://data.smartdublin.ie/dataset/real-time-passenger-information-rtpi-for-dublin-bus-bus-eireann-luas-and-irish-rail" target="_blank") Luas 
+              img(src='../images/external-link.svg' height='11px' width='11px')
           p Luas is Dublin's Light Rail Transit System, operated by Transdev Ireland. 
             |<a href="http://www.tii.ie/" target="_blank"> Transport Infrastructure Ireland (TII)</a> 
             |is the state body responsible for Luas.
@@ -111,8 +111,10 @@ section#transport
       .row.wrapper.py-5
         .col-lg-4
           h3 Fingal Disabled Parking Bays <img height='15px' width='15px' src='/images/calendar-w.svg'>
-          p Source (opens new): <a href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank">data.gov.ie</a>
-          p The map shows the locations of disabled car parking bays within the 
+          p Source: 
+            a(href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank") Data.gov 
+              img(src='../images/external-link.svg' height='11px' width='11px')          
+            p The map shows the locations of disabled car parking bays within the 
             |Fingal County Council local authority area. In total there are
             |<b id='fingal-disabled_parking-count'></b> bays located in this data  
             |from 2011.
@@ -135,7 +137,7 @@ section#transport
 //      .row.wrapper.py-5
 //        .col-lg-4
 //          h3 Public Transport
-//          //p Source (opens new): XXX
+//          //p Source (opens new): <i>(coming soon)</i>
 //          p Bikes, Buses and Trams
 //          p The map shows the locations of Dublin's  various public transit 
 //            |options. These include:
@@ -160,7 +162,7 @@ section#transport
 //      .row.wrapper.py-5
 //        .col-lg-4
 //          h3 Private Travel
-//          //p Source (opens new): XXX
+//          //p Source (opens new): <i>(coming soon)</i>
 //          p Driving and Parking
 //          p The map shows the locations of various public car parking 
 //            |options and realtime travel information on main routes in and 
