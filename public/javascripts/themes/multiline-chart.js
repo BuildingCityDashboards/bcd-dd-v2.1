@@ -33,7 +33,29 @@ class MultiLineChart{
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
         d3.select(dv.element).select("svg").remove();
-        
+
+        dv.newToolTip = d3.select(dv.element)
+            .append("div").attr("class","tool-tip").style("visibility","hidden");
+
+        dv.newToolTipTitle = dv.newToolTip.append("div").attr("id", "bcd-tt-title");
+
+        dv.keys.forEach( (d, i) => {
+            let div = dv.newToolTip.append("div")
+                .attr("id", "bcd-tt" + i);
+                
+                div.append("span")
+                .attr("class", "bcd-dot");
+
+            let p = div.append("p")
+                    .attr("class","bcd-text");
+
+                p.append("span").attr("class","bcd-text-title");
+                p.append("span").attr("class","bcd-text-value");
+                p.append("span").attr("class","bcd-text-rate");
+                p.append("span").attr("class","bcd-text-indicator");
+        });
+    
+
         // add the svg to the target element
         dv.svg = d3.select(dv.element)
             .append("svg")
@@ -140,6 +162,10 @@ class MultiLineChart{
             return d3.max(d.values, d => { return d[dv.value]; });
             })
         ]);
+
+        dv.colour.domain(dv.data.map(d => { return d.key; }));
+        let sample = dv.colour.domain();
+        console.log(sample);
 
         dv.xLabel.text(dv.titleX);
         dv.yLabel.text(dv.titleY);
@@ -300,23 +326,21 @@ class MultiLineChart{
             // append a rectangle overlay to capture the mouse
             dv.g.append("rect")
                 .attr("class", "focus_overlay")
-                .attr("width", dv.width) // give a little extra for last value
+                .attr("width", dv.width)
                 .attr("height", dv.height)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden")
                 .on("mouseover", (d) => { 
-                    // console.log(d);
                     focus.style("display", null); 
-                    bcdTooltip.style("display", "inline");
+                    dv.newToolTip.style("visibility","visible");
                 }, {passive:true})
                 .on("touchstart", ()=>{
-                    focus.style("display", null); 
-                    bcdTooltip.style("display", "inline");
+                    focus.style("display", null);
                 }, {passive: true})
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
-                    bcdTooltip.style("display", "none");
+                    dv.newToolTip.style("visibility","hidden");
                 })
                 .on("touchmove", mousemove, {passive:true})
                 .on("mousemove", mousemove, {passive:true});
@@ -324,88 +348,89 @@ class MultiLineChart{
             function mousemove(){
 
                 focus.style("visibility","visible");
-                toolGroup.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
                     ttTextHeights = 0,
                     x0 = dv.x.invert(mouse[0]),
-                    i = dv.bisectDate(dv.data[0].values, x0, 1),
-                    dTest;
+                    i = dv.bisectDate(dv.data[0].values, x0, 1);
 
                 const tooldata = dv.data.map(d => {
+                    let s,
+                        sPrev,
+                        s0 = d.values[i - 1],
+                        s1 = d.values[i],
+                        v = dv.value;
+
+                        s1 !== undefined ? s = x0 - s0.date > s1.date - x0 ? s1 : s0 : false;
+                        s1 !== undefined ? sPrev = x0 - s0.date > s1.date - x0 ? d.values[i-1] : d.values[i-2] : false;
+                        dv.newToolTipTitle.text(dv.ttTitle + " " + (s[dv.dateField]));
+
                     let obj = {};
                         obj.key = d.key;
-                        obj.v0 = d.values[i-1];//[dv.value];
-                        obj.v1 = d.values[i];//[dv.value];
+                        obj.label = s.label;
+                        obj.value = s[v];
+                        obj.change = dv.getPerChange(s, sPrev, v);
                     return obj;
                 });
 
-                dTest = x0 - tooldata[0].v0.date > tooldata[0].v1.date - x0 ? "v1" : "v0" ;
+                tooldata.sort((a, b) => b.value - a.value);
+
+                tooldata.forEach(( d, i) => {
+
+                    let id = "#bcd-tt" + i,
+                        div = dv.newToolTip.select(id),
+                        unText = "N/A",
+                        indicatorColour,
+                        indicator = d.change > 0 ? " ▲" : d.change < 0 ? " ▼" : "",
+                        rate = !d.change ? unText :d3.format(".1%")(!isNaN(d.change) ? d.change : null),
+                        value =  isNaN(d.value) ? "" :  dv.valueFormat !=="undefined"? dv.prefix + dv.valueFormat(d.value) : d.value,
+                        p = div.select(".bcd-text");
+
+                        if(dv.arrowChange === true){
+                            indicatorColour = d.change < 0 ? "#20c997" : d.change > 0 ? "#da1e4d" : "#f8f8f8";
+                        }
+                        else{
+                            indicatorColour = d.change > 0 ? "#20c997" : d.change < 0 ? "#da1e4d" : "#f8f8f8";
+                        }
+
+                        div.style("opacity", 1);
+                        div.select(".bcd-dot").style("background-color", dv.colour(d.key));
+                        p.select(".bcd-text-title").text(d.key);
+                        p.select(".bcd-text-value").text(value);
+                        p.select(".bcd-text-rate").text(rate);
+                        p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+                });
                 
                 dv.data.forEach((reg, idx) => {
-                    // this is from the d3 book
-                    // let x0 = dv.x.invert(mouse[0]),
-                    // i = dv.bisectDate(reg.values, x0, 1), // use the biset for linear scale.
-                let d0 = reg.values[i - 1],
-                    d1 = reg.values[i],
-                    d,
-                    dOld,
-                    unText = "unavailable",
-                    v = dv.value,
-                    valueString;
+                    let d0 = reg.values[i - 1],
+                        d1 = reg.values[i],
+                        d,
+                        dOld,
+                        unText = "unavailable",
+                        v = dv.value,
+                        valueString;
 
-                    d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
-                    d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
-                       
-                    // d.sort((a, b) => b.v1[dv.value] - a.v1[dv.value])
+                        d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
+                        d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
                     
                     let id = ".tooltip_" + idx,
-                        tpId = ".tooltipbody_" + idx,
-                        ttTitle = dv.g.select(".tooltip-title");
+                        tooltip = d3.select(dv.element).select(id);
 
-                    let tooltip = d3.select(dv.element).select(id),
-                        tooltipBody = d3.select(dv.element).select(tpId), 
-                        textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0,
-                        difference = dv.getPerChange(d, dOld, v),
-                        indicatorColour,
-                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
-                        diffPercentage = !difference ? unText :d3.format(".1%")(!isNaN(difference) ? difference : null);
-                    if(dv.arrowChange === true){
-                        indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
-                    }
-                    else{
-                        indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
-                    }
-                    
-                    tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                     
                     if(d !== undefined){
-                        valueString =  isNaN(d[v]) ? "" :  dv.valueFormat !=="undefined"? dv.prefix + dv.valueFormat(d[v]) : d[v];
-
-                        dv.updatePosition(dv.x(d.date), 10);
-
+                        dv.updatePosition(dv.x(d.date), 80);
                         tooltip.attr("transform", "translate(" + dv.x(d.date) + "," + dv.y(!isNaN(d[v]) ? d[v]: 0) + ")");
-                        tooltipBody.select(".tp-text-right").text(valueString);
-                        tooltipBody.select(".tp-text-indicator").text(diffPercentage +" "+indicatorSymbol).attr("fill",indicatorColour);
-                        ttTitle.text(dv.ttTitle + " " + (d[dv.dateField]));
-
                         focus.select(".focus_line").attr("transform", "translate(" + dv.x(d.date) + ", 0)");
                     }
-                    ttTextHeights += textHeight + 5;
                 });
             }
     }
 
     getPerChange(d1, d0, v){
         let value;
-            // o = d0 ? d0[v] : 1,
-            // n = d1[v],
-            // isNegative = n - o < 0,
-            // oneg =  o *= -1;
-            // console.log((d1[v] -  d0[v])/d0[v]);
             value = !isNaN(d1[v]) ? d0 ? (d1[v] -  d0[v])/d0[v]: "null" : null;
                 if( value === Infinity){
-                    return d1[v];   
+                    return 0;   
                 }
                 else if(isNaN(value)){
                     return 0;
@@ -487,8 +512,7 @@ class MultiLineChart{
         tooltipBodyItem.append("circle")
             .attr("class", "tp-circle")
             .attr("r", "6")
-            .attr("fill", dv.colour(d))
-            .attr("stroke","#ffffff");
+            .attr("fill", dv.colour(d));
         
         dv.updateSize();
     }
@@ -499,6 +523,7 @@ class MultiLineChart{
         let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
             // move the tooltip
             dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+            dv.newToolTip.style('left', tooltipX + "px").style("top", tooltipY + "px");
     }
 
     updateSize(){
@@ -516,14 +541,15 @@ class MultiLineChart{
     getTooltipPosition([mouseX, mouseY]) {
         let dv = this;
         let ttX,
-            ttY = mouseY;
+            ttY = mouseY,
+            cSize = dv.width - dv.ttWidth;
 
         // show right
-        if (mouseX < dv.width / 2) {
-            ttX = mouseX + 10;
+        if (mouseX < cSize) {
+            ttX = mouseX + dv.margin.left + 30;
         } else {
             // show left
-            ttX = mouseX -290
+            ttX = (mouseX + dv.margin.left ) - dv.ttWidth;
         }
         return [ttX, ttY];
     }
@@ -652,7 +678,8 @@ class MultiLineChart{
         // chart object
         let chart = this,
             v = chart.value,
-            c = chart.colour;
+            c = chart.colour,
+            lH = 14;
         
         // data values for last readable value
         const lines = chart.data.map(d => {
@@ -662,9 +689,35 @@ class MultiLineChart{
                 obj.key = d.key;
                 obj.last = vs[s][v];
                 obj.x = chart.x(vs[s].date);
-                obj.y = chart.y(vs[s][v])
+                obj.y = chart.y(vs[s][v]);
             return obj;
         });
+
+        // Define a custom force
+        const forceClamp = (min, max) => {
+                let nodes;
+                const force = () => {
+                nodes.forEach(n => {
+                    if (n.y > max) n.y = max;
+                    if (n.y < min) n.y = min;
+                });
+                };
+                force.initialize = (_) => nodes = _;
+                return force;
+        }
+
+        // Set up the force simulation
+        const force = d3.forceSimulation()
+            .nodes(lines)
+            .force('collide', d3.forceCollide(lH / 2))
+            .force('y', d3.forceY(d => d.y).strength(1))  
+            .force('x', d3.forceX(d => d.x).strength(1))   
+            .force('clamp', forceClamp(0, chart.height))
+            .stop();
+
+            console.log("what the f",force);
+            // Execute the simulation
+            for (let i = 0; i < 300; i++) force.tick();
 
         // Add labels
         const legendNames = chart.g.selectAll(".label-legend").data(lines, d => d.y);
@@ -681,17 +734,23 @@ class MultiLineChart{
                 .attr("alignment-baseline", "middle")
                 .attr("dx", ".5em")
                 .attr("x", 5);
+        
+            legendGroup.append("line")
+                .attr("class", "legend-line")
+                .attr("x1", 0)
+                .attr("x2", 6)
+                .attr("stroke", "#fff");
             
             legendGroup.append("circle")
                 .attr("class", "l-circle")
                 .attr("r", "6")
-                .attr("fill", d => c(d.key))
-                .attr("stroke","#ffffff");
+                .attr("fill", d => c(d.key));
 
         // check if number
         function isNum(d) {
             return !isNaN(d);
           }
+
         //filter out the NaN
         function idFilter(d) {
            return isNum(d[v]) && d[v] !== 0 ? true : false; 

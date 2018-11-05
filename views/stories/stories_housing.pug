@@ -10,29 +10,29 @@ block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
 
 block content    
-      .story_image
-        img(src="", alt="")
       header.header.mt-5.py-5
         .container
           .row.justify-content-md-center
             .col-sm-9
               a(href="/stories").backlink Back to All Stories
               h1 Housing in the Dublin Region, 1991 to present
-              p.header__lead 
-                a(href="#phase1") Housing crisis phase 1: 1993-2006 (the Celtic Tiger years)
-              p.header__lead  
-                a(href="#phase2") Housing crisis phase 2: 2007-2012 (the crash)
-              p.header__lead  
-                a(href="#phase3") Crisis phase 3: 2013- (post-crash) 
+              img(class="story-image" src="/images/stories/house_crisis.jpg" alt="")
+ 
       section
         .container
           .row.justify-content-md-center
               article.col-sm-8
-                p.lead Housing in Dublin, and Ireland more generally, is a significant issue and live political debate. This data story examines housing in the capital through the housing and planning data available for the city. There are two things to keep in mind in terms of understanding housing. 
-                p.lead First, it is a complex issue that involves a number of factors and outcomes including housing supply and demand (including homelessness), existing stock and type (social/private/rental, vacancy), house and rental prices, mortgage arrears and negative equity, access to land,  access to credit, planning permissions, homelessness, unfinished estates, land supply and price.
-                p.lead Second, making sense of the present situation requires placing it in historical context. It is possible to make the case that housing in Ireland has been in crisis since the early 1990s and the start of the Celtic Tiger. Consequently, we have structured this data story into three parts: 1993-2006 (the Celtic Tiger years); 2007-2012 (the crash); 2013-present (post-crash). 
-              
-              article#phase1.col-sm-8.py-5
+                .something
+                  p.lead Housing in Dublin, and Ireland more generally, is a significant issue and live political debate. This data story examines housing in the capital through the housing and planning data available for the city. There are two things to keep in mind in terms of understanding housing. 
+                  p.lead First, it is a complex issue that involves a number of factors and outcomes including housing supply and demand (including homelessness), existing stock and type (social/private/rental, vacancy), house and rental prices, mortgage arrears and negative equity, access to land,  access to credit, planning permissions, homelessness, unfinished estates, land supply and price.
+                  p.lead Second, making sense of the present situation requires placing it in historical context. It is possible to make the case that housing in Ireland has been in crisis since the early 1990s and the start of the Celtic Tiger. Consequently, we have structured this data story into three parts: 1993-2006 (the Celtic Tiger years); 2007-2012 (the crash); 2013-present (post-crash). 
+                  p.header__lead 
+                    a(href="#phase1") Housing crisis phase 1: 1993-2006 (the Celtic Tiger years)
+                  p.header__lead  
+                    a(href="#phase2") Housing crisis phase 2: 2007-2012 (the crash)
+                  p.header__lead  
+                    a(href="#phase3") Housing Crisis phase 3: 2013- (post-crash)
+              article#phase1.col-sm-8
                 h2.mt-5.mb-4 Housing crisis phase 1: 1993-2006 (the Celtic Tiger years)
                 .something
                   p.lead The exact start date of the Celtic Tiger era is still debated, but most analysts accept it was between 1991 and 1995. From the early 1990s the Irish economy began to transform with a growth in economic activity and numbers in employment. As the economy grew, the population increased through immigration and natural increase and average household size shrank through alterations in family structure.  Between April 1991 and April 2006 the population of Ireland increased by 704,129 (20%), the number of households by 440,437 (43%). 

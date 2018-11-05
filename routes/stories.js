@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/housing-dublin', function(req, res, next) {
-  res.render('stories/stories_housing', { title: 'Housing in the Dublin Region, 1991 to present' });
+  res.render('stories/stories_housing', { title: 'Housing in the Dublin Region, 1991 to present', page:'page light'  });
 });
 
 module.exports = router;

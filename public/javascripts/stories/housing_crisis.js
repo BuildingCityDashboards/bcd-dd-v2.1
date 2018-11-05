@@ -19,7 +19,6 @@
               chart1D.forEach(d=>{
                   d.households = +d.households;
               });
-              console.log("check", chart1D);
               
         const chart1D2 = datafiles[1];
               chart1D2Types = chart1D2.columns.slice(2)
@@ -28,12 +27,10 @@
                 d["1991-2016"] = +d["1991-2016"];
               });
 
-        const chart2D = datafiles[2]
+        const chart2D = datafiles[2],
               chart2Keys = chart2D.columns.slice(2);
               chart2D.forEach(d => {
-                  chart2Keys.forEach( key => {
-                      d[key] = +d[key];
-                  })
+                d.value = +d.value;
               });
             
         const chart3D = datafiles[3],
@@ -127,9 +124,15 @@
                     Chart1b.svg.attr("display","block");
                  });
 
-        // replacing with stacked grouped chart!!
-        // const Chart2 = new GroupedBarChart(chart2D,  chart2Keys, "region", "#chart2", "Years", "Population");
-        //       Chart2.addTooltip("Population - Year", "Percentage", "region");
+                 const Chart2C = {
+                    e: "#chart2",
+                    k: "type",
+                    d: chart2D,
+                    v: "value"
+                 };
+
+        const Chart2 = new GroupStackBar(Chart2C);
+              Chart2.addTooltip("Property Types - Year", "thousands", "label");
 
 
         const chart3DN = nestData(chart3D, "label", chart3R, "value"),
@@ -260,6 +263,7 @@
     
         // nest the processed data by regions
         const nest =  d3.nest().key( d => { return d[key] ;}).entries(data);
+        console.log("nest value", nest);
         
         // get array of keys from nest
         const keys = [];
@@ -269,7 +273,7 @@
                 element: selector,
                 keys: keys,
                 data: nest,
-                value: value
+                value: value,
             }
     
     }

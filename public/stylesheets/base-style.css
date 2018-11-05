@@ -8,9 +8,15 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+body{
   color: #f8f8f8;
   background:var(--very-dark-blue); 
+  position: relative;
+}
+
+body.light {
+  background:#f8f8f8; 
+  color:#212529;
   position: relative;
 }
 
@@ -32,6 +38,15 @@ a:hover {
 }
 
 /* charts */
+
+.chart{
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
 .line-chart{
   margin-right:40px;
   width:100%
@@ -156,13 +171,19 @@ select:hover:not([disabled]) {
 
 .titleX, .titleY{
   font-size: 1rem;
-  /* fill: #6c757d; */
   fill: #c4cdd5;
+}
+
+.light .titleX, .light .titleY, .light .legendText, .light .x-axis text, .light .y-axis text{
+    fill: #6c757d;
+}
+
+.light .legend-line{
+  stroke: #6c757d;
 }
 
 .legendText{
   font-size: .75rem;
-  color: #c4cdd5;
   fill: #c4cdd5;
 }
 
@@ -239,6 +260,24 @@ select:hover:not([disabled]) {
 
 .bold-text{
   font-weight: 600;
+}
+
+.something .lead{
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  letter-spacing: .01rem;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  margin-bottom: 1.875rem;
+}
+
+.story-image{
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */

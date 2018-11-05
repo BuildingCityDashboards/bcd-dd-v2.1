@@ -188,11 +188,13 @@ class StackBarChart {
                 );
 
                 legend.append("line")
+                    .attr("class", "legend-line")
                     .attr("x1", -6)
                     .attr("x2", 6)
                     .attr("stroke", "#fff");
 
                 legend.append("text")
+                    .attr("class", "legendText")
                     .attr("x", 9)
                     .attr("dy", "0.35em")
                     .attr("fill", "#fff")
@@ -269,22 +271,20 @@ class StackBarChart {
                 .style("visibility", "hidden");
 
             dv.drawTooltip();
+
             dv.columns.forEach( (d,i) => {
                 dv.updateTooltip(d,i);
             });
+
             dv.totalText();
 
             dv.layers.selectAll("rect")
             .on("mouseover", function(){ 
                 dv.tooltip.style("display", "inline-block"); 
             })
-            // .on("touchstart", ()=>{
-            //     dv.tooltip.style("display", "inline-block");
-            // })
             .on("mouseout", function(){ 
                 dv.tooltip.style("display", "none"); 
             })
-            // .on("touchmove", d => dv.mousemove(d))
             .on("mousemove", d => dv.mousemove(d));
     }
 
@@ -294,7 +294,6 @@ class StackBarChart {
         chart.toolGroup.style("visibility","visible");
         let x = chart.x(d.data.date), 
             y = 100,
-            // ttTextHeights = 0,
             bisect = d3.bisector(function(d) { return d.date; }).left,
             i = bisect(chart.data, d.data.date),
             total = 0;
@@ -340,11 +339,6 @@ class StackBarChart {
                 .attr("y1", -12 )
                 .attr("y2", -12 )
                 .style("stroke", "#6c757d");
-            
-            // tooltipLastItem.append("text").text("Total =")
-            //     .attr("class", "tp-text-left")
-            //     .attr("x", "18")
-            //     .attr("dy", ".35em");
 
             tooltipLastItem.append("text").text("Total =")
                 .attr("class", "tp-text-right")
@@ -352,7 +346,6 @@ class StackBarChart {
                 .attr("dy", ".35em")
                 .attr("dx", chart.ttWidth - 54)
                 .attr("text-anchor","end");
-
     }
 
     drawTooltip(){
