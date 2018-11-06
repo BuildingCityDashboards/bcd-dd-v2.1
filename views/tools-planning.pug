@@ -4,14 +4,43 @@ block append head
         link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
         link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
         link(rel='stylesheet', href='/stylesheets/tools/tools-planning.css')
+        link(rel='stylesheet', href='/stylesheets/tools/dc-tools.css')        
         link(rel='stylesheet', href='/stylesheets/tools/slider-switch.css')
         link(rel='stylesheet', href='/stylesheets/nouislider.css')
 
 block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Tools")
 
-block content
-    include tools//tools-planning.html
+    section#planning
+      .container-fluid
+      
+        header.header.mt-5.pt-5.pt-2
+        .row
+            .col-lg-12
+                h1.header__h1 Planning Applications
+                p.lead Explore planning applications for the four local authorities with 
+                    |this tool. 
+        .row
+            .col-md-2
+                p Search application number:
+            .col-md-2
+                p <input type="text" id="app-number-search" style="width:inherit; height:auto; padding: 0px; margin: 0px"/>
+            #search-result.col-md-2
+            .col-md-5
+        .row
+            #planning-map.tool-map.col-md-8
+            .col-md-4 
+                .row
+                    p 
+                    strong Number of Applications over Time
+                    #time-chart
+                .row
+                    p 
+                    strong Breakdown of Applications by Decision
+                    #decision-row-chart
+            
+                
+     
 
 block append scripts
     script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js")

@@ -1,23 +1,27 @@
-section#economy
+section#environment
     
     header.header.mt-5.pt-5.pt-2
       .row
         .col-lg-6
           h1.header__h1 Environment
-          p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p.lead Explore the sensors placed through Dublin City to monitor 
+            |environmental conditions, and graphs presenting historical statistics 
+            |collected on various environmental factors. The information presented 
+            |here may be sourced from dynamic and/or real-time data 
+            |<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
+            |or from more static, historical sources 
+            |<img height='15px' width='15px' src='/images/calendar-w.svg'>. 
+
     article.article
-       
       .row.wrapper.py-3
         .col-lg-4
           h3 Water Monitoring Sites
-          p Sources: 
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p Sources: <a href="http://waterlevel.ie/" target ="blank">OPW Water Level</a>
+            |, <a href="http://www.epa.ie/hydronet/#Water%20Levels" target ="blank"> EPA Hydronet</a>.  
+          p Two sources, the Office of Public Works, and the Environmental Protection 
+            |Agency, monitor water levels and flows along Dublin’s rivers, canals, 
+            |and coastline (and those throughout the country). Use the buttons to switch 
+            |between the two sources, or view them all together on the map.
         .col-lg-8
           div.pt-2
             <button type="button" class="btn btn-bcd water-opw-btn" value="">OPW Water </button>
@@ -30,11 +34,14 @@ section#economy
         .col-lg-4
           h3 Noise Level Monitoring
           p Source: <a href="https://data.gov.ie/dataset/noise_monitoring1" target="_blank">Data.gov (opens new)</a>
-          p Real-time readings from Dublin City Council's 14 noise monitoring locations.
-            | 
-          p From the latest data, the highest level of noise was at XXX, 
-            | where the recorded reading was XXX dB.
-            | Meanwhile XX was the quietest, at XXXdB 
+          p Dublin City Council monitors ambient sound levels at 15 locations 
+            |throughout the city. Use the link (or the “environmental query” tool) 
+            |to access the most recent sound readings for each station, as well 
+            |as historical sound levels.
+             
+          p From the latest data, the highest level of noise was at <i>(coming soon)</i>, 
+            | where the recorded reading was <i>(coming soon)</i> dB.
+            | Meanwhile <i>(coming soon)</i> was the quietest, at <i>(coming soon)</i>dB 
         .col-lg-8
           //div.pt-2
             <button type="button" class="btn btn-bcd opw-water-btn" value="">OPW Water </button>
@@ -48,11 +55,14 @@ section#economy
       .row.wrapper.py-3
         .col-lg-4
           h3 Air Quality
-          p Source: EPA
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p Source: <a href="http://www.epa.ie/air/quality/index/#.U_tMLPldXh4" target ="blank">EPA Air Quality Index</a>
+            |, <a href="http://www.epa.ie/air/quality/data/#.U_tPn_ldXh7" target ="blank"> EPA Air Quality Data</a>.
+          p The Environmental Protection Agency monitors air quality at multiple 
+            |spatial scales in Ireland. Explore the links above for how the air quality index is calculated 
+            |and how it helps to determine the effect of the air quality on human health.
+          p The current air quality in Dublin City is <i>(coming soon)</i>
+          p The air quality sites are local measurements which measure various 
+            |atmospheric particulate matter in real-time. Graphs of past air quality are available at the above site.
         .col-lg-8
           div.pt-2
             //<button type="button" class="btn btn-bcd opw-water-btn" value="">OPW Water </button>
@@ -67,17 +77,28 @@ section#economy
       .row
         .col-lg-12
           h2.header__h2.mb-2 Waste Management Statistics
+          p The Environmental Protection Agency keeps records on the waste and 
+            |recycling produced by the four Local Authorities of Dublin and generates 
+            |yearly reports for public dissemination. Dublin uses a “3 bin” system, 
+            |which consists of non-recyclable waste (“black bin”), dry recyclables 
+            |(“green bin”), and organic recyclables (“brown bin”). The following 
+            |three historical plots – Waste Production Per Capita, Household Dry 
+            |Recycling Rate, and Household Organic Recycling Rate – are derived 
+            |from those reports available at the above link. 
 
       .row.wrapper.py-3
         .col-lg-4
           h3 Waste produced per Capita
-          p 
-            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") Source: EPA 
+          p Source: 
+            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") EPA 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p The EPA tracks the amount of waste collected from “black bins” locally 
+            |throughout Ireland. It is reported as waste production per capita, 
+            |taking into account the number of people who live in each local authority. 
+          p Each of the four local authorities’ waste production per capita are plotted 
+            |over time, with per-person waste across Dublin decreasing since a 
+            |relative high in 2008-2009.
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active" value="">Count</button>
@@ -87,14 +108,18 @@ section#economy
       .row.wrapper.py-3
         .col-lg-4
           h3 Household Recycling Rate-Dry Recyclables
-          p 
-            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") Source: EPA 
+          p Source: 
+            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") EPA 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
-
+          p The EPA records the amount of dry recyclables produced in green bins 
+            |in localities throughout Ireland. Recycling statistics are reported 
+            |as recycling rate, which is the percentage of all waste produced 
+            |(see the Waste Production Per Capita graph for total waste production) 
+            |which is recycled. Recycled waste is either used in energy recovery 
+            |or mechanical treatment for repurposing. 
+          p Dun-Laoghaire Rathdown is 
+            |consistently the highest-recycling of the four local authorities.
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Rate</button>
@@ -103,13 +128,19 @@ section#economy
       .row.wrapper.py-3
         .col-lg-4
           h3 Household Recycling Rate-Organics
-          p 
-            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") Source: EPA 
+          p Source: 
+            a(href="http://www.epa.ie/pubs/reports/waste/stats/#.VrNcerKLTIW" target="_blank") EPA 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p The third type of waste measured by the EPA is organic waste, recorded 
+            |as a percentage of the total waste produced at the household level. 
+            |Organic waste is defined as degradable food, garden, and landscaping 
+            |wastes, collected in brown bins. The reports are given as percentages 
+            |of the total waste, which is measured per person in the Waste Production 
+            |graph. 
+          p Although the local authorities have different capacities to collect 
+            |organic waste, Fingal has consistently produced more degradable waste 
+            |than the other four local authorities.
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Rate</button>
@@ -119,15 +150,20 @@ section#economy
       .row
         .col-lg-12
           h2.header__h2.mb-2 Water Management Statistics
+          p Water management has been a major environmental concern in Ireland 
+            |and worldwide for many years. Several sources are monitoring the 
+            |consumption and quality of water locally in Dublin over several years.  
+            |The following graphs show water use and quality over time.
       
       .row.wrapper.py-3
         .col-lg-4
           h3 Annual Water Consumption per Capita
-          p Source: Internal DCC Report *link not working
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p Source: Internal DCC Report
+          p Water consumption depends on the total population in Dublin, so it is 
+            |reported per capita. Over the past several years, Dublin’s water 
+            |consumption per capita has remained very constant at around <i>(coming soon)</i> 
+            |litres per person per year.
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Count</button>
@@ -136,13 +172,19 @@ section#economy
       .row.wrapper.py-3
         .col-lg-4
           h3 Eastern River Basin District Water Quality Trends
-          p 
-            a(href="http://www.epa.ie/" target="_blank") Source: EPA 
+          p Source: 
+            a(href="http://www.epa.ie/" target="_blank")  EPA 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p Ireland’s natural water quality is measured regionally. The Eastern 
+            |River Basin District encompasses the Dublin watershed and surrounding 
+            |areas. Surveys of the water quality along riverways are measured in 
+            |periods of three years and with five classifications of quality – 
+            |high, good, moderate, poor, and bad – based on concentrations or 
+            |potentially harmful chemicals and macroinvertebrate communities. 
+          p In the most recent survey, <i>(coming soon)</i> percent of surveyed river channels 
+            |were classified as High or Good quality, a decrease of <i>(coming soon)</i> 
+            |percent since the previous survey. 
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Count</button>
@@ -152,17 +194,27 @@ section#economy
       .row
         .col-lg-12
           h2.header__h2.mb-2 Environmental Awareness Statistics
+          p The following two graphs display initiatives tracking the engagement 
+            |of public entities – Dublin schools and Local Agenda 21 which promotes 
+            |and funds various local projects – with healthy environmental practices. 
       
       .row.wrapper.py-3
         .col-lg-4
           h3 Schools Awarded the Green Flag in the Dublin Region
-          p 
-            a(href="http://www.dublincity.ie/main-menu-services-water-waste-and-environment-waste-and-recycling/waste-management-plan" target="_blank") Source: Dublin City Council 
+          p Source: 
+            a(href="http://www.dublincity.ie/main-menu-services-water-waste-and-environment-waste-and-recycling/waste-management-plan" target="_blank") Dublin City Council 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p Green Flag Schools are schools which are given awards for their “green,” 
+            |or environmentally conscious policies. 
+            |The Green Schools initiative produces several themes – litter and waste, 
+            |energy, water, travel, biodiversity, and global citizenship – around 
+            |which new projects and existing policies by students are rewarded 
+            |with Green Flag Status. 
+          p The number of Green Flag schools in Dublin 
+            |has steadily increased since 2004, with the most recent data in <i>(coming soon)</i> 
+            |showing <i>(coming soon)</i> number of schools – or <i>(coming soon)</i> percent of all total schools 
+            |in Dublin – as having received a Green Flag award. 
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Count</button>
@@ -171,13 +223,18 @@ section#economy
       .row.wrapper.py-3
         .col-lg-4
           h3 Number of Local Agenda 21 Funded Projects
-          p 
-            a(href="https://www.housing.gov.ie/search/sub-type/funding-allocation?query=local+agenda+21" target="_blank") Source: Department of Housing, Planning, Community and Local Government 
+          p Source: 
+            a(href="https://www.housing.gov.ie/search/sub-type/funding-allocation?query=local+agenda+21" target="_blank") Dept. of Housing, Planning, Community and Local Government 
               img(src='../images/external-link.svg' height='11px' width='11px')
-          p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            |nisi ut aliquip ex ea commodo consequat.
+          p The Local Agenda 21 Environmental Partnership Fund is an environmental 
+            |awareness initiative meant to provide finding for local and other 
+            |small scale projects which aim to improve environmental quality and 
+            |sustainability from the ground up. 
+          p Tallied at the local authority 
+            |level, the number of Agenda 21 projects have generally increased 
+            |over the years, with Dublin City hosting more funded projects than 
+            |the other local authorities in the most recent data in <i>(coming soon)</i>.
+            
         .col-lg-8
           div.pt-2
             //- <button type="button" class="btn btn-bcd active">Count</button>
