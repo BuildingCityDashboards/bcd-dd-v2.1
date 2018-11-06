@@ -4,6 +4,10 @@ html{
   font-family: sans-serif;
   font-size: 16px;
   line-height: 1.618;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .page{
@@ -70,4 +74,21 @@ p, .p{
   border: 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+/* custom typography */
+.something .lead{
+  font-family: Georgia,Cambria,"Times New Roman",Times,serif;
+  letter-spacing: .01rem;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  margin-bottom: 1.875rem;
+}
+
+.bold-text{
+  font-weight: 600;
+}
+
 /* end typography */

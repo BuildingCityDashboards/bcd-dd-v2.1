@@ -7,6 +7,7 @@ class MultiLineChart{
         this.keys = obj.keys;
         this.data = obj.data;
         this.value = obj.value;
+        this.colourScheme = obj.colour;
 
         this.init();
     }
@@ -16,7 +17,7 @@ class MultiLineChart{
         let dv = this,
             elementNode = d3.select(dv.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
@@ -35,7 +36,7 @@ class MultiLineChart{
         d3.select(dv.element).select("svg").remove();
 
         dv.newToolTip = d3.select(dv.element)
-            .append("div").attr("class","tool-tip").style("visibility","hidden");
+            .append("div").attr("class","tool-tip bcd").style("visibility","hidden");
 
         dv.newToolTipTitle = dv.newToolTip.append("div").attr("id", "bcd-tt-title");
 
@@ -59,7 +60,7 @@ class MultiLineChart{
         // add the svg to the target element
         dv.svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", dv.width + dv.margin.left + dv.margin.right)
+            .attr("width", dv.width + dv.margin.left + dv.margin.right*2 + 5)
             .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
        
         // add the g to the svg and transform by top and left margin
@@ -71,7 +72,7 @@ class MultiLineChart{
         dv.t = function() { return d3.transition().duration(1000); };
 
         // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
-        dv.colourScheme =d3.schemeBlues[5].slice(1);
+        dv.colourScheme = dv.colourScheme ? dv.colourScheme : d3.schemeBlues[5].slice(1);
         
         // set colour function
         dv.colour = d3.scaleOrdinal(dv.colourScheme);
@@ -117,7 +118,7 @@ class MultiLineChart{
         dv.yLabel = dv.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (dv.height/2))
-            .attr("y", -50)
+            .attr("y", -60)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)");
             
@@ -266,7 +267,7 @@ class MultiLineChart{
             dv.ttTitle = title;
             dv.valueFormat = format;
             dv.dateField = dateField;
-            dv.ttWidth = 280;
+            dv.ttWidth = 290;
             dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -514,7 +515,7 @@ class MultiLineChart{
             .attr("r", "6")
             .attr("fill", dv.colour(d));
         
-        dv.updateSize();
+        // dv.updateTTSize();
     }
 
     updatePosition(xPosition, yPosition){
@@ -526,12 +527,12 @@ class MultiLineChart{
             dv.newToolTip.style('left', tooltipX + "px").style("top", tooltipY + "px");
     }
 
-    updateSize(){
-        let dv = this;
-        let height = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 2;
-        dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
-    }
+    // updateTTSize(){
+    //     let dv = this;
+    //     let height = dv.g.select(".tooltip-body").node().getBBox().height;
+    //     dv.ttHeight += height + 2;
+    //     dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
+    // }
 
     resetSize() {
         let dv = this;
@@ -549,7 +550,7 @@ class MultiLineChart{
             ttX = mouseX + dv.margin.left + 30;
         } else {
             // show left
-            ttX = (mouseX + dv.margin.left ) - dv.ttWidth;
+            ttX = (mouseX + dv.margin.left) - dv.ttWidth;
         }
         return [ttX, ttY];
     }
@@ -693,6 +694,17 @@ class MultiLineChart{
             return obj;
         });
 
+        const circles = chart.data.map(d => {
+            let obj = {},
+                vs = d.values.filter(idFilter),
+                s = vs.length -1;
+                obj.key = d.key;
+                obj.last = vs[s][v];
+                obj.x = chart.x(vs[s].date);
+                obj.y = chart.y(vs[s][v]);
+            return obj;
+        });
+
         // Define a custom force
         const forceClamp = (min, max) => {
                 let nodes;
@@ -723,25 +735,33 @@ class MultiLineChart{
         const legendNames = chart.g.selectAll(".label-legend").data(lines, d => d.y);
               legendNames.exit().remove();
 
+        const legendCircles = chart.g.selectAll(".legend-circles").data(circles, d => d.y);
+              legendCircles.exit().remove();
+
         const legendGroup = legendNames.enter().append("g")
                 .attr("class", "label-legend")
+                .attr("transform", d => "translate(" + d.x + ", " + d.y + ")");
+
+        const legendGC = legendCircles.enter().append("g")
+                .attr("class", "legend-circles")
                 .attr("transform", d => "translate(" + d.x + ", " + d.y + ")");
             
             legendGroup.append("text")
                 .attr("class", "legendText")
+                .attr("dy", ".01em")
                 .text(d => d.key)
                 .attr("fill", d => c(d.key))
                 .attr("alignment-baseline", "middle")
                 .attr("dx", ".5em")
                 .attr("x", 5);
         
-            legendGroup.append("line")
-                .attr("class", "legend-line")
-                .attr("x1", 0)
-                .attr("x2", 6)
-                .attr("stroke", "#fff");
+            // legendGroup.append("line")
+            //     .attr("class", "legend-line")
+            //     .attr("x1", 0)
+            //     .attr("x2", 6)
+            //     .attr("stroke", "#fff");
             
-            legendGroup.append("circle")
+            legendGC.append("circle")
                 .attr("class", "l-circle")
                 .attr("r", "6")
                 .attr("fill", d => c(d.key));

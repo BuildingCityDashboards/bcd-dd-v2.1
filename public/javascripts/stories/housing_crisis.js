@@ -69,8 +69,12 @@
         const houseRate = chart1D2.filter( d => {
                 return d.type === "households";
             });
+
+        const colourArray = ["#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8", "#aae0fa", "#012e5f"],
+              cArray2 = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84'].reverse(),
+              cA3 = ['#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','#7bccc4','#4eb3d3','#2b8cbe','#0868ac','#084081'];
         
-        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1"),
+        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", colourArray),
               Chart1 = new MultiLineChart(chart1C);
             
               Chart1.titleX = "Years";
@@ -79,11 +83,22 @@
               Chart1.tickNumber = 27;
               Chart1.createScales();
               
-              Chart1.addTooltip("Population - Region: ", "thousands", "label");
+            Chart1.addTooltip("Population - Year: ", "thousands", "label");
+
+              // hacked the xaxis to show only ticks matching the data. 
+              //- get list of dates and filter array of g tags for elements that match the dates
+              Chart1.xAxis.selectAll(".x-axis .tick").style("display", "none");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[1]).style("display", "block");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[6]).style("display", "block");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[12]).style("display", "block");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[16]).style("display", "block");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[21]).style("display", "block");
+              d3.select(Chart1.xAxis._groups[0][0].childNodes[26]).style("display", "block");
+              console.log("x axis content", Chart1.xAxis._groups[0][0]);
 
 
         const Chart1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population");
-              Chart1b.addTooltip("Population - Year", "Percentage", "region");
+            //   Chart1b.addTooltip("Population - Year", "Percentage", "region");
               Chart1b.svg.attr("display","none");
 
                 d3.select("#chart1 .chart_pop").on("click", function(){
@@ -108,17 +123,25 @@
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
                     Chart1b.data = popRate;
-                    Chart1b.title = "Population - Region: ";
+                    // Chart1b.title = "Population - Region: ";
+                    
+                    Chart1b.addTooltip("Population - Region: ", "percentage");
+                    Chart1b.hideRate(true);
+                    Chart1b.scaleFormatY = d3.format(".0%");
                     Chart1b.update();
                     Chart1.svg.attr("display","none");
                     Chart1b.svg.attr("display","block");
+
+                    console.log(Chart1b);
                  });
 
                  d3.select("#chart1 .chart_hrate").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
                     Chart1b.data = houseRate;
-                    Chart1b.title = "Households - Region: "
+                    Chart1b.title = "Households - Region: ";
+                    Chart1b.hideRate(true);
+                    Chart1b.scaleFormatY = d3.format(".0%");
                     Chart1b.update();
                     Chart1.svg.attr("display","none");
                     Chart1b.svg.attr("display","block");
@@ -128,7 +151,8 @@
                     e: "#chart2",
                     k: "type",
                     d: chart2D,
-                    v: "value"
+                    v: "value",
+                    c: cArray2
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -136,13 +160,13 @@
 
 
         const chart3DN = nestData(chart3D, "label", chart3R, "value"),
-              Chart3 = new StackedAreaChart("#chart3", "Years", "No. of Housing Completions", "date", chart3K);
+              Chart3 = new StackedAreaChart("#chart3", "Years", "No. of Housing Completions", "date", chart3K, cA3);
               Chart3.tickNumber = 23;
               Chart3.getData(chart3DN);
               Chart3.addTooltip("Housing Completions - Year:", "Units");
 
 
-        const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4"),
+        const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", colourArray),
               Chart4 = new MultiLineChart(chart4C);
             
               Chart4.titleX = "Years";
@@ -253,7 +277,7 @@
         console.log(error);
     });
 
-    function chartContent(data, key, value, date, selector){
+    function chartContent(data, key, value, date, selector, colour){
 
         data.forEach(function(d) {  //could pass types array and coerce each matching key using dataSets()
             d.label = d[date];
@@ -274,6 +298,7 @@
                 keys: keys,
                 data: nest,
                 value: value,
+                colour: colour,
             }
     
     }

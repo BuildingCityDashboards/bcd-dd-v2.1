@@ -1,7 +1,7 @@
 class StackedAreaChart {
 
     // constructor function
-    constructor (_element, _titleX, _titleY, _dateVariable, _keys){
+    constructor (_element, _titleX, _titleY, _dateVariable, _keys, _cScheme){
 
         // load in arguments from config object
         this.element = _element;
@@ -9,6 +9,7 @@ class StackedAreaChart {
         this.titleY = _titleY;
         this.date = _dateVariable;
         this.keys = _keys;
+        this.cScheme = _cScheme;
         
         // create the chart
         this.init();
@@ -50,13 +51,13 @@ class StackedAreaChart {
         // default transition 
         dv.t = () => { return d3.transition().duration(1000); };
         
-        // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
+        // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
         
         // default colourScheme
-        dv.colourScheme =d3.schemeBlues[9].slice(4);
+        dv.cScheme = dv.cScheme ? dv.cScheme : d3.schemeBlues[9].slice(4);
         
         // colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme);
+        dv.colour = d3.scaleOrdinal(dv.cScheme);
 
         // bisector for tooltip
         dv.bisectDate = d3.bisector(d => { return (d[dv.date]); }).left;
@@ -202,7 +203,7 @@ class StackedAreaChart {
             .style("fill-opacity", 0.0)
             .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.75);
+            .style("fill-opacity", 0.65);
             
     
         dv.regions
@@ -210,7 +211,8 @@ class StackedAreaChart {
             .attr("class", "area-line")
             .style("stroke", (d) => {return dv.colour(d.key);})
             // .transition(dv.t())
-            .attr("d", dv.arealine);
+            .attr("d", dv.arealine)
+            .style("stroke-width", "2px");
             
 
         // Update
@@ -332,7 +334,6 @@ class StackedAreaChart {
         // add group to contain all the focus elements
         let focus = dv.g.append("g")
                 .attr("class", "focus")
-                .style("display", "none")
                 .style("visibility", "hidden");
             
             // Year label
@@ -557,7 +558,7 @@ class StackedAreaChart {
             .attr("fill", dv.colour(d))
             .attr("stroke","#ffffff");
         
-        dv.updateSize();
+        dv.updateTTSize();
     }
 
     updatePosition(xPosition, yPosition){
@@ -568,10 +569,10 @@ class StackedAreaChart {
         dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
     }
 
-    updateSize(){
+    updateTTSize(){
         let dv = this;
-        let height = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += height + 4;
+        let h = dv.g.select(".tooltip-body").node().getBBox().height;
+        dv.ttHeight += h + 4;
         dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
     }
 

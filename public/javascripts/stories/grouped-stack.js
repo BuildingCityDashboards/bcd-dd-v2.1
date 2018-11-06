@@ -7,6 +7,7 @@ class GroupStackBar {
         this.k = obj.k;
         this.d = obj.d;
         this.v = obj.v;//not sure
+        this.cScheme = obj.c;
 
         this.init();
     }
@@ -33,23 +34,14 @@ class GroupStackBar {
         chart.w = w;
         chart.h = h;
 
-        chart.svg = e.append("svg")
-                .attr("width", w + m.l + m.r)
-                .attr("height", h + m.t + m.b);
-
-        chart.g = chart.svg.append("g")
-            .attr("transform", "translate(" + m.l + "," + m.t + ")");
-
-        chart.grid = chart.g.append("g").attr("class", "grid-lines");
-
         // set transition variable
         chart.t = function() { return d3.transition().duration(1000); };
 
         // chart.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
-        chart.colourScheme = d3.schemeBlues[9].slice(3);
+        chart.cScheme = chart.cScheme ? chart.cScheme : d3.schemeBlues[9].slice(3);
 
         // set colour function
-        chart.colour = d3.scaleOrdinal(chart.colourScheme);
+        chart.colour = d3.scaleOrdinal(chart.cScheme);
 
         // tick numbers
         chart.tickNumber = "undefined";
@@ -61,12 +53,66 @@ class GroupStackBar {
 
         chart.xAxisCall = d3.axisBottom();
 
+        chart.drawTooltip();
+
+        chart.svg = e.append("svg")
+                .attr("width", w + m.l + m.r)
+                .attr("height", h + m.t + m.b);
+
+        chart.g = chart.svg.append("g")
+            .attr("transform", "translate(" + m.l + "," + m.t + ")");
+
+        chart.grid = chart.g.append("g").attr("class", "grid-lines");
+
         chart.stackData();
         chart.createScales();
         chart.addAxis();
         chart.drawGrid();
         chart.drawChart();
         chart.addLegend();
+    }
+
+    drawTooltip(){
+        let chart = this;
+        
+            chart.colour.domain(chart.d.map(d => { return d[chart.k]; }));
+        const keys = chart.colour.domain();
+
+        chart.newToolTip = d3.select(chart.e)
+            .append("div").attr("class","tool-tip bcd").style("visibility","hidden");
+
+        chart.newToolTipTitle = chart.newToolTip.append("div").attr("id", "bcd-tt-title");
+
+        keys.forEach( (d, i) => {
+            let div = chart.newToolTip.append("div")
+                .attr("id", "bcd-tt" + i);
+                
+                div.append("span")
+                .attr("class", "bcd-rect");
+
+            let p = div.append("p")
+                    .attr("class","bcd-text");
+
+                p.append("span").attr("class","bcd-text-title");
+                p.append("span").attr("class","bcd-text-value");
+                p.append("span").attr("class","bcd-text-rate");
+                p.append("span").attr("class","bcd-text-indicator");
+        });
+
+        let lastDiv = chart.newToolTip.append("div")
+                    .attr("id", "bcd-tt-total"),
+            
+            lastDot = lastDiv.append("span")
+                    .attr("class", "bcd-rect"),
+
+            lastP = lastDiv.append("p")
+                    .attr("class","bcd-text");
+
+                lastP.append("span").attr("class","bcd-text-title");
+                lastP.append("span").attr("class","bcd-text-value");
+                lastP.append("span").attr("class","bcd-text-rate");
+                lastP.append("span").attr("class","bcd-text-indicator");
+
     }
 
     stackData(){
@@ -96,6 +142,7 @@ class GroupStackBar {
 
             chart.stackD = stack.keys(keys)(groupData);
             chart.keys = keys.reverse();
+            chart.gData = groupData;
     }
 
     createScales(){
@@ -255,208 +302,82 @@ class GroupStackBar {
             .style("font", "10px sans-serif")
             .text( d =>  { 
                 return d.key; 
-            });
+            })
+            .call(textWrap, 100, 12);
     }
 
     addTooltip(title, format, date){
 
         let dv = this;
             dv.datelabel = date;
-
-            dv.tooltip = dv.svg.append("g")
-                .classed("tool-tip", true);
-
             dv.ttTitle = title;
             dv.valueFormat = formatValue(format);
-            dv.ttWidth = 280,
-            dv.ttHeight = 50,
+            dv.ttWidth = 280;
+            dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
             dv.hV = 0;
 
-        let bcdTooltip = dv.tooltip.append("g")
-                .attr("class", "bcd-tooltip")
-                .attr("width", dv.ttWidth)
-                .attr("height", dv.ttHeight);
-            
-            dv.toolGroup =  bcdTooltip.append("g")
-                .attr("class", "tooltip-group")
-                .style("visibility", "hidden");
-
-            dv.drawTooltip();
-
-            dv.keys.forEach( (d,i) => {
-                dv.updateTooltip(d,i);
-            });
-
-            dv.totalText();
-
             dv.series.selectAll("rect")
             .on("mouseover", function(){ 
-                dv.tooltip.style("display", "inline-block"); 
+                dv.newToolTip.style("visibility","visible");
             })
-            .on("mouseout", function(){ 
-                dv.tooltip.style("display", "none"); 
+            .on("mouseout", function(){
+                dv.newToolTip.style("visibility","hidden");
             })
             .on("mousemove", d => dv.mousemove(d));
     }
 
     mousemove(d){
-        let chart = this;
-        
-
-        chart.toolGroup.style("visibility","visible");
-        let x = chart.x0(d.data.region) + chart.x1(d.data.date), 
+        let chart = this,
+            x = chart.x0(d.data.region) + chart.x1(d.data.date), 
             y = 100,
-            // bisect = d3.bisector(function(d) {
-            //     return d.region; 
-            // }).left,
-            // i = bisect(chart.groupD, d.data.region),
-            total = 0;
-        let tooltipX = chart.getTooltipPosition(x);
+            total = 0,
+            tooltipX = chart.getTooltipPosition(x),
+            bisect = d3.bisector(function(d) { return d.date; }).left,
+            cArray = chart.gData.filter( (v) =>{
+                return ((v.region === d.data.region));
+            }),
+            iNum = bisect(cArray, d.data.date),
+            prev = cArray[iNum-1] ? cArray[iNum-1] : null;
 
-        chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+            // chart.keys.forEach( (reg,idx) => {
+            //     console.log( prev ? ((cArray[iNum-1][reg] - cArray[iNum][reg]) / cArray[iNum-1][reg]) : "N/A")
+            // });
 
-        chart.keys.forEach( (reg,idx) => {
-                total += d.data[reg];// for the last text total;
+            chart.newToolTip.style('left', tooltipX + "px").style("top", "20px");
 
-            let tpId = ".tooltipbody_" + idx,
+            chart.keys.forEach( (reg,idx) => {
+                    total += d.data[reg];// for the last text total;
+
+            let id = "#bcd-tt" + idx,
+                div = chart.newToolTip.select(id),
+                unText = "N/A",
+                indicatorColour,
                 ttTitle = chart.svg.select(".tooltip-title"),
-                // cur = chart.d[i],
-                // prev = chart.d[i-1] ? chart.d[i-1] : 0,
-                item = chart.keys[idx];
-                // difference = prev !== 0 ? cur[item] -  prev[item]: 0, 
-                // indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
-                // valueString =  chart.valueFormat !=="undefined"? chart.valueFormat(cur[item]) : cur[item];
-            
-            let tooltipBody = chart.svg.select(tpId);
-                tooltipBody.select(".tp-text-right").text(d.data[reg]);
-                // tooltipBody.select(".tp-text-symbol").text(indicatorSymbol);
-                ttTitle.text(chart.ttTitle + " " + (d.data.date));
+                item = chart.keys[idx],
+                p = div.select(".bcd-text"),
+                rV = prev ? ((cArray[iNum][reg] - cArray[iNum-1][reg]) / cArray[iNum][reg]) : 0,
+                rate = rV !== 0 ? d3.format(".2%")(rV) : "N/A",
+                indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : ""
+                indicatorColour = chart.arrowChange === true ? rV < 0 ?"#20c997" 
+                                                : rV > 0 ? "#da1e4d" : "#f8f8f8" 
+                                                : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d" 
+                                                : "#f8f8f8";
+
+                chart.newToolTipTitle.text(chart.ttTitle + " " + (d.data.date));
+
+                div.style("opacity", 1);
+                div.select(".bcd-rect").style("background-color", chart.colour(reg));
+                p.select(".bcd-text-title").text(reg);
+                p.select(".bcd-text-value").text(d.data[reg]);
+                p.select(".bcd-text-rate").text((rate));
+                p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
         });
 
         chart.svg.select("#tooltipbody_last .tp-text-right").text(chart.valueFormat !=="undefined"? "Total = " + chart.valueFormat(total) : "Total = " + total);
-    }
-
-    totalText(){
-        let chart = this,
-            h = chart.hV + 10;
-
-        let tooltipLastItem = chart.svg.select(".tooltip-body")
-                .append("g")
-                .attr("id", "tooltipbody_last")
-                .attr("transform", "translate("+ 0 +"," + h + ")");
-
-            tooltipLastItem.append("line")
-                .attr("class", "tooltip-divider")
-                .attr("x1", 160)
-                .attr("x2", 250)
-                .attr("y1", -12 )
-                .attr("y2", -12 )
-                .style("stroke", "#6c757d");
-
-            tooltipLastItem.append("text").text("Total =")
-                .attr("class", "tp-text-right")
-                .attr("x", "18")
-                .attr("dy", ".35em")
-                .attr("dx", chart.ttWidth - 54)
-                .attr("text-anchor","end");
-    }
-
-    drawTooltip(){
-        let dv = this;
-
-        let tooltipTextContainer = dv.svg.select(".tooltip-group")
-          .append("g")
-            .attr("class","tooltip-text")
-            .attr("fill","#f8f8f8");
-
-        let tooltip = tooltipTextContainer
-            .append("rect")
-            .attr("class", "tooltip-container")
-            .attr("width", dv.ttWidth)
-            .attr("height", dv.ttHeight)
-            .attr("rx", dv.ttBorderRadius)
-            .attr("ry", dv.ttBorderRadius)
-            .attr("fill","#001f35e6")
-            .attr("stroke", "#6c757d")
-            .attr("stroke-width", 2);
-
-        let tooltipTitle = tooltipTextContainer
-          .append("text")
-            .text("test tooltip")
-            .attr("class", "tooltip-title")
-            .attr("x", 5)
-            .attr("y", 16)
-            .attr("dy", ".35em")
-            .style("fill", "#a5a5a5");
-
-        let tooltipDivider = tooltipTextContainer
-            .append("line")
-                .attr("class", "tooltip-divider")
-                .attr("x1", 0)
-                .attr("x2", dv.ttWidth)
-                .attr("y1", 31)
-                .attr("y2", 31)
-                .style("stroke", "#6c757d");
-
-        let tooltipBody = tooltipTextContainer
-                .append("g")
-                .attr("class","tooltip-body")
-                .attr("transform", "translate(5,50)");
-    }
-
-    updateTooltip(d,i){
-        let dv = this;
-
-        let tooltipBodyItem = dv.svg.select(".tooltip-body")
-            .append("g")
-            .attr("class", "tooltipbody_" + i)
-            .attr("transform", "translate(5," + dv.hV +")");
-
-        tooltipBodyItem.append("text")
-            .text(d)
-            .attr("class", "tp-text-left")
-            .attr("x", "12")
-            .attr("dy", ".35em")
-            .call(textWrap, 140, 12, 4);
-
-        tooltipBodyItem.append("text")
-            .attr("class", "tp-text-right")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 50)
-            .attr("text-anchor","end");
-
-        tooltipBodyItem.append("text")
-            .attr("class", "tp-text-symbol")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 30)
-            .attr("text-anchor","end");
-
-        tooltipBodyItem.append("rect")
-            .attr("class", "tp-rect")
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("y", -5)
-            .attr("x", -3)
-            .attr("fill", dv.colour(d))
-            .attr("fill-opacity", 0.75);
-
-        let h = tooltipBodyItem.node().getBBox().height ? tooltipBodyItem.node().getBBox().height : 0;
-        
-            dv.hV += h + 6;
-
-        // i === dv.columns.length -1 ? dv.totalText() : console.log("not yet");
-
-        dv.updateSize();
-    }
-
-    updateSize(){
-        let dv = this,
-            height = dv.svg.select(".bcd-tooltip").node().getBBox().height;
-            dv.svg.select(".tooltip-container").attr("height", height + 26);
+        chart.newToolTip.select("#bcd-tt-total .bcd-text-title").text("Total = ").style("text-align","end");
+        chart.newToolTip.select("#bcd-tt-total .bcd-text-value").text(chart.valueFormat !=="undefined"? chart.valueFormat(total) : total);
     }
 
     getTooltipPosition(mouseX) {
@@ -467,11 +388,11 @@ class GroupStackBar {
             chartSize = dv.w  - dv.ttWidth;
             // show right
             if ( mouseX < chartSize) {
-                ttX = mouseX + dv.m.l + dv.x1.bandwidth() + 2;
+                ttX = mouseX + dv.m.l + dv.x1.bandwidth()*2 + 2;
                 console.log("tt pos", chartSize, ttX, mouseX);
             }
             else{
-                ttX = (mouseX + dv.m.l -2) - dv.ttWidth;
+                ttX = (mouseX + dv.m.l + dv.x1.bandwidth() -2) - dv.ttWidth;
                 console.log("tt pos", mouseX);
             } 
             // else {

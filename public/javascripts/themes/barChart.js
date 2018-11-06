@@ -39,9 +39,9 @@ class BarChart{
         dv.width = elementWidth - dv.margin.left - dv.margin.right;
         dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
 
-        dv.tooltip = d3.select(".page__root")
-            .append('div')  
-            .attr('class', 'tool-tip'); 
+        // dv.tooltip = d3.select(".page__root")
+        //     .append('div')  
+        //     .attr('class', 'tool-tip'); 
 
         // add the svg to the target element
         const svg = d3.select(dv.element)

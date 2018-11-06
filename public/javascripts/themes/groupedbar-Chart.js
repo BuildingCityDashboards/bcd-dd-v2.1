@@ -96,8 +96,6 @@ class GroupedBarChart{
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(dv.titleY);
-
-        dv.scaleFormatY;
     
         dv.update();
     
@@ -288,7 +286,7 @@ class GroupedBarChart{
     addTooltip(title, format){
 
         let dv = this;
-            dv.g.selectAll('.tool-tip').remove();
+            dv.svg.selectAll('.tool-tip').remove();
             dv.tooltip = dv.svg.append("g")
                 .classed("tool-tip", true);
 
@@ -498,6 +496,11 @@ class GroupedBarChart{
             default:
                 return "undefined";
         }
+    }
+
+    hideRate(value){
+        let dv = this;
+        value ? dv.svg.selectAll(".tp-text-indicator").style("display", "none") : dv.svg.selectAll(".tp-text-indicator").style("display", "block")
     }
 
     textWrap(text, width, xpos = 0, limit=3) {
