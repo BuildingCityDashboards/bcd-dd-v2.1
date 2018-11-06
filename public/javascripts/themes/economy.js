@@ -1,23 +1,9 @@
-    // let section = d3.select("#economy");
-    // let article = d3.select("#income_poverty");
-    
-    let parseTime = d3.timeParse("%d/%m/%Y"),
-        formatTime = d3.timeFormat("%d/%m/%Y"),
-        formatYear = d3.timeFormat("%Y"),
-        parseYear = d3.timeParse("%Y"),
-        nut3regions = [
-        "Dublin",
-        "Ireland",
-        ],
-        qnq22CSV = "../data/Economy/QNQ22_employment.csv",
-        annual ="../data/Economy/annualemploymentchanges.csv",
-        qnq22JSON = "../data/Economy/QNQ22.json",
-        pageSize = 12;
-        // qnqJSON = trooms;
-        // qnq22_keys = Object.keys(qnqJSON[0]);
-        // qnqJSON.push()
-        
 
+let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
+    annual ="../data/Economy/annualemploymentchanges.csv",
+    qnq22JSON = "../data/Economy/QNQ22.json",
+    pageSize = 12;
+    
     /*** This employment Chart ***/
     Promise.all([
         d3.csv(qnq22CSV),
@@ -185,15 +171,12 @@
         let columnNames = data.columns.slice(2);
         
         let incomeData = data;
-            console.log("values percent",incomeData);
 
             incomeData.forEach( d => {
-                columnNames.forEach( k => {
-                    d[k] = (+d[k])/100;
-                })
-            })
+                d.value = +d.value;
+            });
 
-        const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, columnNames, "%", "Survey on Income and Living Conditions for Dublin");
+        const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, "type", "value", "%", "Survey on Income and Living Conditions for Dublin");
               IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");
         
     

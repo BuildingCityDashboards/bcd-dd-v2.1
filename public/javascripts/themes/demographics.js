@@ -1,7 +1,3 @@
-var parseTime = d3.timeParse("%d/%m/%Y");
-var formatTime = d3.timeFormat("%d/%m/%Y");
-var parseYear = d3.timeParse("%Y");
-
 
 d3.csv("../data/Demographics/CNA13.csv").then( data => {
 

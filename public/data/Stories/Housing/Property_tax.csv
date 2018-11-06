@@ -1,14 +1,27 @@
-date,Other Tax Revenue,Property Related Tax Revenue
-1997,17265,859
-1998,19370,1110
-1999,21969,1596
-2000,24940,2132
-2001,25522,2403
-2002,26898,2396
-2003,28352,3751
-2004,30939,4642
-2005,33305,5949
-2006,37455,8084
-2007,41186,6063
-2008,38180,2596
-2009,32131,912
+date,type,value
+1997,Other Tax Revenue,17265
+1998,Other Tax Revenue,19370
+1999,Other Tax Revenue,21969
+2000,Other Tax Revenue,24940
+2001,Other Tax Revenue,25522
+2002,Other Tax Revenue,26898
+2003,Other Tax Revenue,28352
+2004,Other Tax Revenue,30939
+2005,Other Tax Revenue,33305
+2006,Other Tax Revenue,37455
+2007,Other Tax Revenue,41186
+2008,Other Tax Revenue,38180
+2009,Other Tax Revenue,32131
+1997,Property Related Tax Revenue,859
+1998,Property Related Tax Revenue,1110
+1999,Property Related Tax Revenue,1596
+2000,Property Related Tax Revenue,2132
+2001,Property Related Tax Revenue,2403
+2002,Property Related Tax Revenue,2396
+2003,Property Related Tax Revenue,3751
+2004,Property Related Tax Revenue,4642
+2005,Property Related Tax Revenue,5949
+2006,Property Related Tax Revenue,8084
+2007,Property Related Tax Revenue,6063
+2008,Property Related Tax Revenue,2596
+2009,Property Related Tax Revenue,912

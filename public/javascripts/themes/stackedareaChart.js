@@ -50,6 +50,7 @@ class StackedAreaChart {
 
         // default transition 
         dv.t = () => { return d3.transition().duration(1000); };
+        dv.ease = d3.easeQuadInOut;
         
         // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
         
@@ -187,7 +188,7 @@ class StackedAreaChart {
             .data(dv.data, d => { return d})
             .enter()
                 .append("g")
-                    .classed("region", true);
+                    .attr("class","region");
         
         // remove old data not working
         // dv.regions
@@ -199,29 +200,25 @@ class StackedAreaChart {
         dv.regions
             .append("path")
             .attr("class", "area")
-            .style("fill", (d) => {return dv.colour(d.key);})
-            .style("fill-opacity", 0.0)
-            .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.65);
+            .style("fill-opacity", 0.55)
+            .style("fill", (d) => {return dv.colour(d.key);}) ;
             
     
         dv.regions
             .append("path")
             .attr("class", "area-line")
-            .style("stroke", (d) => {return dv.colour(d.key);})
-            // .transition(dv.t())
             .attr("d", dv.arealine)
-            .style("stroke-width", "2px");
+            .style("stroke", (d) => {return dv.colour(d.key);});
             
 
         // Update
         dv.g.selectAll(".area")
             .data(dv.data)
-            .style("fill", (d) => {return dv.colour(d.key);})
-            // .transition(dv.t())
+            .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.75);
+            .style("fill-opacity", 0.55)
+            .style("fill", (d) => {return dv.colour(d.key);});
             
     
         dv.g.selectAll(".area-line")

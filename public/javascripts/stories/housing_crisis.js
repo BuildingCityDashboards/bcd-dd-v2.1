@@ -57,9 +57,7 @@
         const chart8D = datafiles[8],
               chart8K = chart8D.columns.slice(1);
               chart8D.forEach(d => {
-                chart8K.forEach( key => {
-                    d[key] = +d[key];
-                });
+                    d.value = +d.value;
             });
 
         const popRate = chart1D2.filter( d => {
@@ -70,11 +68,52 @@
                 return d.type === "households";
             });
 
-        const colourArray = ["#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8", "#aae0fa", "#012e5f"],
-              cArray2 = ['#ffffcc','#c7e9b4','#7fcdbb','#41b6c4','#1d91c0','#225ea8','#0c2c84'].reverse(),
-              cA3 = ['#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026','#7bccc4','#4eb3d3','#2b8cbe','#0868ac','#084081'];
+        const cA1 = [
+                "#00929e", //BCD-teal
+                "#ffc20e", //BCD-yellow
+                "#16c1f3", //BCD-blue
+                "#da1e4d", //BCD-red
+                "#086fb8", //BCD-strong-blue
+                "#aae0fa", //BCD-pale-blue
+                "#012e5f" //BCD-navy
+                ], // orignal
+
+              cA2 = [
+                "#012e5f", //BCD-navy
+                "#086fb8", //BCD-strong-blue
+                "#16c1f3", //BCD-blue
+                "#aae0fa", //BCD-pale-blue
+                // "#00929e", //BCD-teal
+                // "#6aedc7", //green
+                "#ffc20e", //BCD-yellow
+                // "#ffa71a", //orange
+                "#da1e4d", //BCD-red
+                "#f5b4c4", //pink
+                "#998ce3", //purple
+                ], // new version
+
+              cA3 = [
+                  "#d73027",
+                  "#f46d43",
+                  "#fdae61",
+                  "#fee090",
+                  "#ffffbf",
+                  "#e0f3f8",
+                  "#abd9e9",
+                  "#74add1",
+                  "#4575b4"
+                ],
+                
+              cA4 = [
+                "#00929e", //BCD-teal
+                "#ffc20e", //BCD-yellow
+                "#16c1f3", //BCD-blue
+                "#da1e4d", //BCD-red
+                "#998ce3", //purple
+                "#6aedc7", //green
+              ];
         
-        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", colourArray),
+        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
               Chart1 = new MultiLineChart(chart1C);
             
               Chart1.titleX = "Years";
@@ -152,7 +191,7 @@
                     k: "type",
                     d: chart2D,
                     v: "value",
-                    c: cArray2
+                    c: cA4
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -166,7 +205,7 @@
               Chart3.addTooltip("Housing Completions - Year:", "Units");
 
 
-        const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", colourArray),
+        const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", cA1),
               Chart4 = new MultiLineChart(chart4C);
             
               Chart4.titleX = "Years";
@@ -186,7 +225,7 @@
               Chart5.addTooltip("Year:", "millions");
 
 
-        const Chart8 = new StackBarChart("#chart8", chart8D, chart8K, "€ ( Millions )", "Years");
+        const Chart8 = new StackBarChart("#chart8", chart8D, "type", "value", "€ ( Millions )", "Years");
               Chart8.scaleY = "millions";
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 

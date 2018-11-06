@@ -687,9 +687,11 @@ class MultiLineChart{
             let obj = {},
                 vs = d.values.filter(idFilter),
                 s = vs.length -1;
+                // sF = d.values.length -1;
                 obj.key = d.key;
                 obj.last = vs[s][v];
                 obj.x = chart.x(vs[s].date);
+                // obj.y = sF === s ? chart.y(vs[s][v]) : chart.y(vs[s][v]) - 15;
                 obj.y = chart.y(vs[s][v]);
             return obj;
         });
@@ -727,7 +729,6 @@ class MultiLineChart{
             .force('clamp', forceClamp(0, chart.height))
             .stop();
 
-            console.log("what the f",force);
             // Execute the simulation
             for (let i = 0; i < 300; i++) force.tick();
 

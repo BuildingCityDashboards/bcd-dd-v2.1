@@ -1,14 +1,40 @@
-region,date,At Risk of Poverty Rate,Deprivation Rate,Consistent Poverty Rate
-Dublin,2004,12.1,13.5,5.9
-Dublin,2005,10.2,14.2,5.1
-Dublin,2006,9.9,12.8,5.6
-Dublin,2007,11.7,12.1,5
-Dublin,2008,9.8,10.5,3.5
-Dublin,2009,8.3,16.2,4.4
-Dublin,2010,11.4,22.3,5.5
-Dublin,2011,9.5,22.4,4
-Dublin,2012,10.8,25.6,6.4
-Dublin,2013,9.9,28.1,5.6
-Dublin,2014,11.1,25.2,5.9
-Dublin,2015,12.7,22.7,7.4
-Dublin,2016,12.1,20.7,7.8
+region,date,type,value
+Dublin,2004,At Risk of Poverty Rate,0.121
+Dublin,2005,At Risk of Poverty Rate,0.102
+Dublin,2006,At Risk of Poverty Rate,0.099
+Dublin,2007,At Risk of Poverty Rate,0.117
+Dublin,2008,At Risk of Poverty Rate,0.098
+Dublin,2009,At Risk of Poverty Rate,0.083
+Dublin,2010,At Risk of Poverty Rate,0.114
+Dublin,2011,At Risk of Poverty Rate,0.095
+Dublin,2012,At Risk of Poverty Rate,0.108
+Dublin,2013,At Risk of Poverty Rate,0.099
+Dublin,2014,At Risk of Poverty Rate,0.111
+Dublin,2015,At Risk of Poverty Rate,0.127
+Dublin,2016,At Risk of Poverty Rate,0.121
+Dublin,2004,Deprivation Rate,0.135
+Dublin,2005,Deprivation Rate,0.142
+Dublin,2006,Deprivation Rate,0.128
+Dublin,2007,Deprivation Rate,0.121
+Dublin,2008,Deprivation Rate,0.105
+Dublin,2009,Deprivation Rate,0.162
+Dublin,2010,Deprivation Rate,0.223
+Dublin,2011,Deprivation Rate,0.224
+Dublin,2012,Deprivation Rate,0.256
+Dublin,2013,Deprivation Rate,0.281
+Dublin,2014,Deprivation Rate,0.252
+Dublin,2015,Deprivation Rate,0.227
+Dublin,2016,Deprivation Rate,0.207
+Dublin,2004,Consistent Poverty Rate,0.059
+Dublin,2005,Consistent Poverty Rate,0.051
+Dublin,2006,Consistent Poverty Rate,0.056
+Dublin,2007,Consistent Poverty Rate,0.05
+Dublin,2008,Consistent Poverty Rate,0.035
+Dublin,2009,Consistent Poverty Rate,0.044
+Dublin,2010,Consistent Poverty Rate,0.055
+Dublin,2011,Consistent Poverty Rate,0.04
+Dublin,2012,Consistent Poverty Rate,0.064
+Dublin,2013,Consistent Poverty Rate,0.056
+Dublin,2014,Consistent Poverty Rate,0.059
+Dublin,2015,Consistent Poverty Rate,0.074
+Dublin,2016,Consistent Poverty Rate,0.078

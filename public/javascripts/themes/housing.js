@@ -1,13 +1,3 @@
-let parseTime = d3.timeParse("%d/%m/%Y"),
-    formatTime = d3.timeFormat("%d/%m/%Y"),
-    formatYear = d3.timeFormat("%Y"),
-    formatMonthYear = d3.timeFormat("%b-%Y"),
-    parseMonth = d3.timeParse("%b-%y"),
-    parseYearMonth = d3.timeParse("%Y-%b"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
-    parseYear = d3.timeParse("%Y");
-
-const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
-
 Promise.all([
     d3.csv("../data/Housing/constructionsmonthlies.csv"),
     d3.csv("../data/Housing/planningapplications.csv"),
@@ -24,6 +14,8 @@ Promise.all([
     d3.csv("../data/Housing/HPM06Rate.csv"),
 ]).then(datafiles => {
 
+    const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
+    
     //1.  data processing for house completion chart
     const completionData = datafiles[0],
           keys = completionData.columns.slice(1),

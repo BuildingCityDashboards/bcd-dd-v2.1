@@ -73,31 +73,37 @@ class GroupStackBar {
     }
 
     drawTooltip(){
-        let chart = this;
+        let chart = this,
+            keys,
+            div,
+            p;
         
             chart.colour.domain(chart.d.map(d => { return d[chart.k]; }));
-        const keys = chart.colour.domain();
+            keys = chart.colour.domain();
 
-        chart.newToolTip = d3.select(chart.e)
-            .append("div").attr("class","tool-tip bcd").style("visibility","hidden");
+            chart.newToolTip = d3.select(chart.e)
+                .append("div")
+                .attr("class","tool-tip bcd")
+                .style("visibility","hidden");
 
-        chart.newToolTipTitle = chart.newToolTip.append("div").attr("id", "bcd-tt-title");
+            chart.newToolTipTitle = chart.newToolTip
+                .append("div")
+                .attr("id", "bcd-tt-title");
 
-        keys.forEach( (d, i) => {
-            let div = chart.newToolTip.append("div")
-                .attr("id", "bcd-tt" + i);
-                
-                div.append("span")
-                .attr("class", "bcd-rect");
+            keys.forEach( (d, i) => {
+                div = chart.newToolTip
+                        .append("div")
+                        .attr("id", "bcd-tt" + i);
+                    
+                div.append("span").attr("class", "bcd-rect");
 
-            let p = div.append("p")
-                    .attr("class","bcd-text");
+                p = div.append("p").attr("class","bcd-text");
 
                 p.append("span").attr("class","bcd-text-title");
                 p.append("span").attr("class","bcd-text-value");
                 p.append("span").attr("class","bcd-text-rate");
                 p.append("span").attr("class","bcd-text-indicator");
-        });
+            });
 
         let lastDiv = chart.newToolTip.append("div")
                     .attr("id", "bcd-tt-total"),
@@ -143,6 +149,8 @@ class GroupStackBar {
             chart.stackD = stack.keys(keys)(groupData);
             chart.keys = keys.reverse();
             chart.gData = groupData;
+
+            // console.log("grouped the shit", chart.stackD);
     }
 
     createScales(){
@@ -354,12 +362,12 @@ class GroupStackBar {
                 div = chart.newToolTip.select(id),
                 unText = "N/A",
                 indicatorColour,
-                ttTitle = chart.svg.select(".tooltip-title"),
                 item = chart.keys[idx],
                 p = div.select(".bcd-text"),
+                perc = d3.format(".2%"),
                 rV = prev ? ((cArray[iNum][reg] - cArray[iNum-1][reg]) / cArray[iNum][reg]) : 0,
-                rate = rV !== 0 ? d3.format(".2%")(rV) : "N/A",
-                indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : ""
+                rate = rV !== 0 ? perc(rV) : "N/A",
+                indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : "";
                 indicatorColour = chart.arrowChange === true ? rV < 0 ?"#20c997" 
                                                 : rV > 0 ? "#da1e4d" : "#f8f8f8" 
                                                 : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d" 

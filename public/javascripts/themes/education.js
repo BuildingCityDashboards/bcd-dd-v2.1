@@ -1,7 +1,3 @@
-var parseTime = d3.timeParse("%d/%m/%Y");
-var formatTime = d3.timeFormat("%d/%m/%Y");
-var parseYear = d3.timeParse("%Y");
-
 
 Promise.all([
     d3.csv("../data/Education/educationlevels.csv"),
@@ -30,11 +26,16 @@ Promise.all([
     const dataSet3 = dataSets(dataFile3, columnNames3);
     const dataSet4 = dataSets(dataFile4, columnNames4);
 
-    const highestEducationChart = new GroupedBarChart(dataSet1, columnNames1, xValue1, "#chart-educationLevel", "Levels of Education", "Population");
-    const pupilsFirstLevelChart = new GroupedBarChart(dataSet2, columnNames2, xValue2, "#chart-pupilsFirstLevel", "Years", "No. of Pupils");
-    const pupilsSecondLevelChart = new GroupedBarChart(dataSet3, columnNames3, xValue3, "#chart-pupilsSecondLevel", "Years", "No of Pupils");
-    const specialSchoolsLevelChart = new GroupedBarChart(dataSet4, columnNames4, xValue3, "#chart-specialSchoolsLevel", "Years", "No of Schools");
+    const hEduChart = new GroupedBarChart(dataSet1, columnNames1, xValue1, "#chart-educationLevel", "Levels of Education", "Population");
+    const pFLevelChart = new GroupedBarChart(dataSet2, columnNames2, xValue2, "#chart-pupilsFirstLevel", "Years", "No. of Pupils");
+    const pSLevelChart = new GroupedBarChart(dataSet3, columnNames3, xValue3, "#chart-pupilsSecondLevel", "Years", "No of Pupils");
+    const sSLevelChart = new GroupedBarChart(dataSet4, columnNames4, xValue3, "#chart-specialSchoolsLevel", "Years", "No of Schools");
    
+    hEduChart.addTooltip("","","");
+    pFLevelChart.addTooltip("","","");
+    pSLevelChart.addTooltip("","","");
+    sSLevelChart.addTooltip("","","");
+
 
     // highestEducationChart.selectAll(".tick text").call(texTrap, 100, 50);
 
