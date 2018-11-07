@@ -1,7 +1,7 @@
-let chartMargins = [30, 0, 40, 40];
+let chartMargins = [10, 0, 30, 20];
 //(map size - margins)/2 map size is specified in the css for leaflet charts
-let chartHeight = (500 - chartMargins[0] - chartMargins[2])/2; 
-let chartWidth =400;
+let chartHeight = (400 - chartMargins[0] - chartMargins[2])/2; 
+let chartWidth = 400;
 var authorityNames = []; //names of authoirites as strings
 var decisionCategories = []; //types of decisions as strings
 //var regex = /GRANT/;
@@ -70,6 +70,9 @@ loadJsonFiles(dublinDataURI, 0, 38); //0-38 inclusive
 //        return $.getJSON(url); // this returns a "promise"
 //    }
 //    var countByDateArr; //will store number of planning apps per date
+
+//TODO: calculate width of charts after page DOM loads
+console.log("Width: "+d3.select("#time-chart").node().getBoundingClientRect().width);
 
 function createSAMap(url_) {
     var promise = [];
@@ -346,7 +349,7 @@ function makeGraphs(error, records) {
                 bottom: chartMargins[2], left: chartMargins[3]})
             .dimension(rDateDim)
             .group(rDateGroup)
-            .transitionDuration(500)
+            .transitionDuration(200)
             .x(d3.scaleTime().domain([minChartDate, maxChartDate]))
 //            .elasticX(true)
             .elasticY(true)
