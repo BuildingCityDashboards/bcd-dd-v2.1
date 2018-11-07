@@ -28,8 +28,6 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_
 mapCensus.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 mapCensus.addLayer(osm);
 
-
-
 //crossfilter variables
 //let idDim;
 d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {

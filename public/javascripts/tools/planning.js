@@ -1,13 +1,7 @@
-/*
- * 
- * TODO: import SA_DublinCity_i geojsons instead of lagre generalised file
- * 
- */
-
-let chartMargins = [20, 20, 40, 40];
+let chartMargins = [30, 0, 40, 40];
 //(map size - margins)/2 map size is specified in the css for leaflet charts
-let chartHeight = (600 - chartMargins[0] - chartMargins[2])/2; 
-
+let chartHeight = (500 - chartMargins[0] - chartMargins[2])/2; 
+let chartWidth =400;
 var authorityNames = []; //names of authoirites as strings
 var decisionCategories = []; //types of decisions as strings
 //var regex = /GRANT/;
@@ -59,7 +53,7 @@ var dublinSAURI = '/data/tools/census2016/';
 let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
 let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
 
-loadJsonFiles(dublinDataURI, 9, 15); //0-38 inclusive
+loadJsonFiles(dublinDataURI, 0, 38); //0-38 inclusive
 //createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
 //
 ////////////////////////////////////////////////////////////////////////////
@@ -142,10 +136,6 @@ function createSAMap(url_) {
         saLayer_DublinAll.addTo(map);
     }); //end of done function
 }
-
-
-
-
 ; //end of createSAMap
 
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
@@ -348,10 +338,10 @@ function makeGraphs(error, records) {
 //            .group(all);
 
     timeChart
-            .width(400)
+            .width(chartWidth)
             .height(chartHeight)
             .brushOn(true)
-            .yAxisLabel("# Applications")
+//            .yAxisLabel("# Applications")
             .margins({top: chartMargins[0], right: chartMargins[1],
                 bottom: chartMargins[2], left: chartMargins[3]})
             .dimension(rDateDim)
@@ -520,7 +510,7 @@ function makeGraphs(error, records) {
 //        updateMap();
 //        updateCharts();
 //    });
-    d3.select("#search-result").html("");
+    d3.select("#search-result-count").html("");
     d3.select("#app-number-search").on('change', function () {
         let searchQuery = this.value;
         console.log("Search for App Number: " + searchQuery + "\n");
@@ -578,6 +568,8 @@ function makeGraphs(error, records) {
 //        sizeChart.redraw();
         decisionChart.redraw();
     }
+    
+    updateMap();
 }
 ; //end of makeGraphs
 
