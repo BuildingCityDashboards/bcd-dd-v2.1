@@ -201,7 +201,7 @@ class StackedAreaChart {
             .append("path")
             .attr("class", "area")
             .attr("d", dv.area)
-            .style("fill-opacity", 0.55)
+            .style("fill-opacity", 0.85)
             .style("fill", (d) => {return dv.colour(d.key);}) ;
             
     
@@ -217,7 +217,7 @@ class StackedAreaChart {
             .data(dv.data)
             .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.55)
+            .style("fill-opacity", 0.85)
             .style("fill", (d) => {return dv.colour(d.key);});
             
     
@@ -255,28 +255,6 @@ class StackedAreaChart {
             .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
             .attr("id", (d,i) => "legend-item" + i )
             .style("font", "12px sans-serif");
-            // .attr("cursor", "pointer")
-            // .on("click", (d,i) => { 
-
-            //     let label = d3.select(dv.element).select("#legend-item" + i);
-            //         label.classed("active", label.classed("active") ? false : true);
- 
-            //     // get index of legend item
-            //     let filterValues = dv.keys.findIndex(idx => idx.key === d.label);
-
-            //     // // set its disabled field to true or false
-            //     // dv.nestedData[filterValues].disabled = !dv.nestedData[filterValues].disabled; 
-
-            //     // if (!dv.nestedData.filter(function(d) { return !d.disabled }).length) {
-            //     //   dv.nestedData.forEach(function(d) {
-            //     //     d.disabled = false;
-            //     //   });
-            //     //   d3.select(dv.element).selectAll(".legend").classed("active", false);
-            //     // }
-
-            //     // // dv.getData(dv.value,dv.data);
-            //     // dv.update();
-            // });
         
         // add legend boxes    
         legends.append("rect")
@@ -753,21 +731,21 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
         let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + " - " + secondText[_label];
 
         moreButtons.append("button")
-        .attr("type", "button")
-        .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
-        .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+            .attr("type", "button")
+            .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+            .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
         // .text(_label + " " + (1+(i*_sliceBy)) +" - "+ ((i+1)*_sliceBy)) // pass this to the function
-        .text(textString)
-        .on("click", function(){
+            .text(textString)
+            .on("click", function(){
             if(!$(this).hasClass("active")){
-                $(this).siblings().removeClass("active");
-                $(this).addClass("active");
-                chartObj.getData(wg);
-                chartObj.addTooltip(_text, _format, _arrow);
-            }
-        });
+                    $(this).siblings().removeClass("active");
+                    $(this).addClass("active");
+                    chartObj.getData(wg);
+                    chartObj.addTooltip(_text, _format, _arrow);
+                }
+            });
+        }
     }
-}
 
 }
 

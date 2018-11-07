@@ -15,23 +15,23 @@ class MultiLineChart{
     // initialise method to draw chart area
     init(){
         let dv = this,
-            elementNode = d3.select(dv.element).node(),
-            elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
+            eN = d3.select(dv.element).node(),
+            eW = eN.getBoundingClientRect().width,
+            aR = eW < 800 ? eW * 0.55 : eW * 0.5;
 
-        const breakPoint = 678;
+        const bP = 678;
         
         // margin
-        dv.margin = { };
+        dv.m = { };
 
-        dv.margin.top = elementWidth < breakPoint ? 40 : 50;
-        dv.margin.bottom = elementWidth < breakPoint ? 30 : 80;
+        dv.m.t = eW < bP ? 40 : 50;
+        dv.m.b = eW < bP ? 30 : 80;
 
-        dv.margin.right = elementWidth < breakPoint ? 20 : 100;
-        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
+        dv.m.r = eW < bP ? 20 : 100;
+        dv.m.l = eW < bP ? 20 : 80;
         
-        dv.width = elementWidth - dv.margin.left - dv.margin.right;
-        dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
+        dv.width = eW - dv.m.l - dv.m.r;
+        dv.height = aR - dv.m.t - dv.m.b;
 
         d3.select(dv.element).select("svg").remove();
 
@@ -60,13 +60,13 @@ class MultiLineChart{
         // add the svg to the target element
         dv.svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", dv.width + dv.margin.left + dv.margin.right*2 + 5)
-            .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
+            .attr("width", dv.width + dv.m.l + dv.m.r*2 + 5)
+            .attr("height", dv.height + dv.m.t + dv.m.b);
        
         // add the g to the svg and transform by top and left margin
         dv.g = dv.svg.append("g")
-            .attr("transform", "translate(" + dv.margin.left + 
-                ", " + dv.margin.top + ")");
+            .attr("transform", "translate(" + dv.m.l + 
+                ", " + dv.m.t + ")");
         
         // set transition variable
         dv.t = function() { return d3.transition().duration(1000); };
@@ -547,10 +547,10 @@ class MultiLineChart{
 
         // show right
         if (mouseX < cSize) {
-            ttX = mouseX + dv.margin.left + 30;
+            ttX = mouseX + dv.m.l + 30;
         } else {
             // show left
-            ttX = (mouseX + dv.margin.left) - dv.ttWidth;
+            ttX = (mouseX + dv.m.l) - dv.ttWidth;
         }
         return [ttX, ttY];
     }

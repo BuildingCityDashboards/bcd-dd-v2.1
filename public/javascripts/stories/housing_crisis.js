@@ -84,9 +84,8 @@
                 "#16c1f3", //BCD-blue
                 "#aae0fa", //BCD-pale-blue
                 // "#00929e", //BCD-teal
-                // "#6aedc7", //green
+                // "#6aedc7", //pale-green
                 "#ffc20e", //BCD-yellow
-                // "#ffa71a", //orange
                 "#da1e4d", //BCD-red
                 "#f5b4c4", //pink
                 "#998ce3", //purple
@@ -102,7 +101,7 @@
                   "#abd9e9",
                   "#74add1",
                   "#4575b4"
-                ],
+                ],//diverging
                 
               cA4 = [
                 "#00929e", //BCD-teal
@@ -112,6 +111,18 @@
                 "#998ce3", //purple
                 "#6aedc7", //green
               ];
+
+              cA5 = [
+                  "#8dd3c7",
+                  "#ffffb3",
+                  "#bebada",
+                  "#fb8072",
+                  "#80b1d3",
+                  "#fdb462",
+                  "#b3de69",
+                  "#fccde5",
+                  "#d9d9d9"
+                ]; // qualitative
         
         const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
               Chart1 = new MultiLineChart(chart1C);
