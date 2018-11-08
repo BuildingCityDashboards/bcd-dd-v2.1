@@ -35,6 +35,9 @@ let map = new L.Map('planning-map');
 let osm = new L.TileLayer(stamenTonerUrl_Lite, {minZoom: min_zoom, maxZoom: max_zoom, attribution: stamenTonerAttrib});
 map.setView(new L.LatLng(dub_lat, dub_lng), zoom);
 map.addLayer(osm);
+
+//let dummyLayer = L.geoJson().addTo(map);
+//map.spin(true);
 let planningClusters = L.markerClusterGroup();
 
 let jsonFeaturesArr = []; //all the things!
@@ -44,9 +47,8 @@ const dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
 //let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
 //let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
 
-
 let allDim;
-loadFiles(dublinDataURI, 0, 38); //0, 38 for all
+loadFiles(dublinDataURI, 0, 12); //0, 38 for all
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
 //Adds to Leaflet layers to referenced map and clusters
 function loadFiles(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) {
@@ -61,7 +63,7 @@ function loadFiles(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) 
                 crossfilterPlanning.add(processFeatures(data.features));
                 remaining-=1;
                 console.log("Files remaining to load "+remaining);
-                if(remaining == 0){
+                if(remaining === 0){
                     console.log("Re-cluster");
                     updateMapData();
                 }
@@ -106,9 +108,6 @@ function processFeatures(data_) {
     return(data_);
 }
 
-
-//var saLayer_DublinAll;
-
 function initMapData(data_) {
    
     data_.forEach(function (d) {
@@ -136,7 +135,6 @@ function updateMapData() {
             
         });
         planningClusters.addLayer(marker);
-
     });
     map.addLayer(planningClusters);
 }
