@@ -1,13 +1,3 @@
-//let minChartDate, maxChartDate;
-//let now = Date.now();
-/* Map variables and instantiation */
-////Proj4js.defs["EPSG:29902"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
-//proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
-////Proj4js.defs["EPSG:29903"] = "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs";
-//proj4.defs("EPSG:29903", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 +x_0=200000 +y_0=250000 +ellps=mod_airy +towgs84=482.5,-130.6,564.6,-1.042,-0.214,-0.631,8.15 +units=m +no_defs");
-//proj4.defs("EPSG:3857", "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs");
-//let mapHeight = 600; /*TODO: inherit from container*/
-
 let dub_lng = -6.2603;
 let dub_lat = 53.42;
 let dublinX, dublinY;
@@ -30,9 +20,9 @@ mapCensus.addLayer(osm);
 
 //crossfilter variables
 //let idDim;
-d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
-//    processVariables(data);
-});
+//d3.csv("/data/tools/census2016/SAPS2016_SA2017.csv").then(function (data) {
+////    processVariables(data);
+//});
 let idDim; //data dimension accessible by GEOGID
 function processVariables(data_) {
 //    data_.forEach(function (d) {
@@ -128,8 +118,7 @@ function updateMap(data__) {
             }
         });
     }
-    
-    
+       
     
     function style(f) {
         //console.log("style feature "+f.properties.COUNTYNAME)
