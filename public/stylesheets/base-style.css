@@ -5,12 +5,6 @@ body{
   position: relative;
 }
 
-body.light {
-  background:#f8f8f8; 
-  color:#212529;
-  position: relative;
-}
-
 /* Links*/
 a {
   color: var(--vivid-cyan); 
@@ -114,18 +108,54 @@ a:hover {
   stroke-width: 1.25;
 }
 
-/* do we need this? */
-.collapse:not(.show) {
-  display: none;
+.titleX, .titleY{
+  font-size: 1rem;
+  fill: #c4cdd5;
 }
 
-/* this is used for the stories page it's a modifier for page title sections! */
+.light .titleX, .light .titleY, .light .legendText, .light .x-axis text, .light .y-axis text{
+    fill: #6c757d;
+}
+
+.light .legend-line{
+  stroke: #6c757d;
+}
+
+.legendText{
+  font-size: .75rem;
+  fill: #c4cdd5;
+}
+
+.legendRect{
+  width: 20px;
+  height: 20px;
+}
+
+.chart-holder{
+  margin-right: -1rem;
+  border-radius: .325rem;
+}
+
+/* Colour Utilities Classes */
 .bg-dark {
   background-color: var(--very-dark-blue)!important;
-  color: white;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
+}
+
+.bg-dark-blue{
+  background-color: var(--dark-blue)!important;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+
+.light {
+  background:#f8f8f8; 
+  color:#212529;
 }
 
 /* select formating */
@@ -157,31 +187,6 @@ select:hover:not([disabled]) {
   box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
 }
 
-/* charts styles */
-
-.titleX, .titleY{
-  font-size: 1rem;
-  fill: #c4cdd5;
-}
-
-.light .titleX, .light .titleY, .light .legendText, .light .x-axis text, .light .y-axis text{
-    fill: #6c757d;
-}
-
-.light .legend-line{
-  stroke: #6c757d;
-}
-
-.legendText{
-  font-size: .75rem;
-  fill: #c4cdd5;
-}
-
-.legendRect{
-  width: 20px;
-  height: 20px;
-}
-
 .nav-link{
   padding-right: 0;
   float: left;
@@ -194,11 +199,19 @@ select:hover:not([disabled]) {
   color: var(--vivid-cyan);
 }
 
-.chart-holder{
-  /* background: #f8f8f8;
-  margin-top: 1rem; */
-  margin-right: -1rem;
-  border-radius: .325rem;
+.subnav-link{
+  padding-right: 0;
+  float: left;
+  font-weight: 500;
+  color: #f8f8f8;
+  font-size: 14px;
+  display: block;
+  padding: .5rem 1rem;
+}
+
+.section-header{
+  margin-top: -80px;
+  padding-top: 110px;
 }
 
 .btn-bcd{

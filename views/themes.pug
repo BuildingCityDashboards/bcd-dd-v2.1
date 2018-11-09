@@ -8,131 +8,58 @@ block append head
 
 block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Themes")
+    +subnavbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top mt-5")
 
 block content
-  .container
-    header.header.mt-5.pt-5
-      .row
-        .col-md-7
-          h1= title
-          p.header__lead <b>Themes</b> contain singular pieces of information for learning about 
-            |Dublin, explained simply. 
-          p For deeper data exploration, see our 
-            |<a href="../queries"> Queries</a> and <a href="../tools"> Tools</a>.            
-          p This page contains all Dublin Dashboard data arranged 
-            |thematically as: 
-            |Transport, Environment, Economy, 
-            |Housing, Education, Health, and Demographics.
+  .content
+    .container
+      header.header.mt-5.pt-5
+        .row
+          .col-md-7
+            h1= title
+            p.header__lead <b>Themes</b> contain singular pieces of information for learning about 
+              |Dublin, explained simply. 
+            p For deeper data exploration, see our 
+              |<a href="../queries"> Queries</a> and <a href="../tools"> Tools</a>.            
+            p This page contains all Dublin Dashboard data arranged 
+              |thematically as: 
+              |Transport, Environment, Economy, 
+              |Housing, Education, Health, and Demographics.
             
-    section#transport
-      include themes_transport_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Transport
-      //-       p.lead The Transport theme conatins data for Dublin's various transit options. 
-      //-       p Information is available for public and private travel, including, for example,  
-      //-           |Dublin Bus stop locations and Disabled Car Parking.
-      //-       p For comprehensive and up-to-date real-time travel information, see our 
-      //-           |<a href="../queries"> "Getting Around"</a> query.
-            
-            a(class="btn btn-bcd" href="themes/transport" role="button") View all Transport charts
-    section#environment
-      include themes_environment_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Environment
-      //-       p.lead Dublin environmental data in numerous categories, from 
-      //-           |environmental sensors to waste collection. 
-      //-       p Included in this section 
-      //-           |is information about water monitoring sites, noise level monitoring, 
-      //-           |air quality, waste management, household dry recycling, household 
-      //-           |organic recycling, water consumption, water quality in the eastern 
-      //-           |River Basin, Green Flag school awardees, and funding given for 
-      //-           |Local Agenda 21 Environmental Partnership.
-      //-       a(class="btn btn-bcd" href="themes/environment" role="button") View all Environment charts
-    section#economy
-      include themes_economy_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Economy
-      //-       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      //-         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      //-         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      //-         |nisi ut aliquip ex ea commodo consequat.
-      //-       a(class="btn btn-bcd" href="themes/economy" role="button") View all Economy charts
-      //-     .col-md-7
-      //-       .col-md-6.pt-5
-      //-         div(class="card o-hidden border-blue")
-      //-           div(class="card-header" style="font-weigth: 600; background: none;") Employment Quartley % Change
-      //-           div(class="card__body card-graph")
-      //-             div(id="test-glance")
+    section
+      .wrap.light
+        .container
+          include themes_transport_charts
+          
+    section
+      .wrap
+        .container
+          include themes_environment_charts
+    
+    section
+      .wrap.light
+        .container
+          include themes_economy_charts
                   
-    section#housing
-      include themes_housing_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Housing
-      //-       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      //-         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      //-         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      //-         |nisi ut aliquip ex ea commodo consequat.
-      //-       a(class="btn btn-bcd" href="themes/housing" role="button") View all Housing charts
-      //-     .col-md-7
-      //-       .row
-      //-         .col-md-6.pt-5
-      //-           div(class="card o-hidden border-blue")
-      //-             div(class="card-header" style="font-weigth: 600; background: none;") Average New Property Prices
-      //-             div(class="card__body card-graph")
-      //-               div(id="ap-glance")
-      //-         .col-md-6.pt-5
-      //-           div(class="card o-hidden border-blue")
-      //-             div(class="card-header" style="font-weigth: 600; background: none;") Monthly House Unit Completions
-      //-             div(class="card__body card-graph")
-      //-               div(id="hc-glance")
-    section#education
-      include themes_education_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Education
-      //-       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      //-         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      //-         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      //-         |nisi ut aliquip ex ea commodo consequat.
-      //-       a(class="btn btn-bcd" href="themes/education" role="button") View all education charts
-    section#health
-      include themes_health_charts
-      //- article.header.mt-2.pt-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Health
-      //-       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      //-         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      //-         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      //-         |nisi ut aliquip ex ea commodo consequat.
-      //-       a(class="btn btn-bcd" href="themes/health" role="button") View all Health charts
-    section#demographics
-      include themes_demographics_charts
-      //- article.header.mt-2.pt-5.pb-5.mb-5
-      //-   .row
-      //-     .col-md-5
-      //-       h1.header__h1 Demographics
-      //-       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-      //-         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      //-         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-      //-         |nisi ut aliquip ex ea commodo consequat.
-      //-       a(class="btn btn-bcd" href="themes/demographics" role="button") View all Demographics charts
-      //-     .col-md-7
-      //-       .row
-      //-         .col-md-6.pt-5
-      //-           div(class="card o-hidden border-blue")
-      //-             div(class="card-header" style="font-weigth: 600; background: none;") Monthly House Unit Completions
-      //-             div(class="card__body card-graph")
-      //-               div(id="pr-glance")
+    section
+      .wrap
+        .container
+          include themes_housing_charts
+
+    section
+      .wrap.light
+        .container
+          include themes_education_charts
+
+    section
+      .wrap
+        .container
+          include themes_health_charts
+
+    section
+      .wrap.light
+        .container
+          include themes_demographics_charts
 
 append scripts
     script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js")

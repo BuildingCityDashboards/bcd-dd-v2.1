@@ -1,6 +1,12 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .container.py-5
+    .row
+      .col-12.py-5
+        h1 Sorry the cracks have began to escalate.
+        h2= message
+        h2= error.status
+        //- pre #{error.stack}
+        h2 
+          a(href="/") return to Home page

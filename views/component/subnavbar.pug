@@ -1,0 +1,13 @@
+mixin subnavbar(classes)
+  //- - var style = (typeof style === 'undefined') ? "default" : style
+  //- - var href = (typeof style === 'undefined') ? "#" : href
+  nav( role="navigation", class=classes )
+    .container-fluid
+      .navbar-brand.mx-auto 
+        a.subnav-link(href = "#transport") Transport
+        a.subnav-link(href = "#environment") Environment
+        a.subnav-link(href = "#economy") Economy
+        a.subnav-link(href = "#housing") Housing
+        a.subnav-link(href = "#health") Health
+        a.subnav-link(href = "#education") Education
+        a.subnav-link(href = "#demographics") Demographics
