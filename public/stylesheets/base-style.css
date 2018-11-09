@@ -206,6 +206,11 @@ select:hover:not([disabled]) {
   background-color: transparent;
   border-color: #00c0f5;
 }
+.btn-bcd:hover, .btn-bcd:focus, .btn-bcd.active{
+  color: #fff;
+  background-color: #00c0f5;
+  border-color: #00c0f5;
+}
 
 .btn-page{
   background-color: transparent;
@@ -224,11 +229,7 @@ select:hover:not([disabled]) {
   font-weight:600;
 }
 
-.btn-bcd:hover, .btn-bcd:focus, .btn-bcd.active{
-  color: #fff;
-  background-color: #00c0f5;
-  border-color: #00c0f5;
-}
+
 
 #chart-employment .x-axis g.tick text{
   display: none;
