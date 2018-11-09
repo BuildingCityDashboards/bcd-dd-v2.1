@@ -1,13 +1,22 @@
 /* Base Styles */
 body{
   color: #f8f8f8;
-  background:var(--very-dark-blue); 
+  background:var(--very-dark-blue);
   position: relative;
 }
 
+<<<<<<< HEAD
+=======
+body.light {
+  background:#f8f8f8;
+  color:#212529;
+  position: relative;
+}
+
+>>>>>>> 59c47ed2592ad802eebd19bcc9557364d56d7a3e
 /* Links*/
 a {
-  color: var(--vivid-cyan); 
+  color: var(--vivid-cyan);
   /* text-decoration: none; */
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -18,7 +27,7 @@ a {
   transition: all 0.15s;
 }
 a:hover {
-  color: var(--vivid-cyan); 
+  color: var(--vivid-cyan);
   text-decoration: underline;
 }
 
@@ -225,6 +234,22 @@ select:hover:not([disabled]) {
   border-color: #00c0f5;
 }
 
+.btn-bcd-toggle{
+  color: #00c0f5;
+  background-color: transparent;
+  border-color: #00c0f5;
+}
+.btn-bcd-toggle:hover{
+  color: #fff;
+  border-color: #fff;
+}
+
+.btn-bcd-toggle.active{
+  color: #fff;
+  background-color: #00c0f5;
+  border-color: #00c0f5;
+}
+
 .btn-page{
   background-color: transparent;
   color: #838586;
@@ -256,7 +281,7 @@ select:hover:not([disabled]) {
   display: none;
 }
 
-#chart-trolleys .x-axis g.tick:nth-child(5n+1) text, 
+#chart-trolleys .x-axis g.tick:nth-child(5n+1) text,
 #chart-trolleys .x-axis g.tick:first-of-type text,
 #chart-trolleys .x-axis g.tick:last-of-type text {
   display: inline;
