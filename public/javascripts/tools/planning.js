@@ -46,36 +46,35 @@ const dublinDataURI = '/data/tools/planning/json/Dublin_all_Planning_Test_';
 //var dublinSAURI = '/data/tools/census2016/';
 //let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson';
 //let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
+let allDim, appNumberDim, authorityDim;
 
-let allDim;
-loadFiles(dublinDataURI, 0, 12); //0, 38 for all
+loadFiles(dublinDataURI, 9, 10); //0, 38 for all
 //Uses Promises to get all json data based on url and file count (i.e only 2000 records per file),
 //Adds to Leaflet layers to referenced map and clusters
 function loadFiles(JSONsrc_, fileOffset_, fileCount_) { //, clusterName_, map_) {
     //var promises = []; //this will hold an array of promises
-        let crossfilterPlanning = crossfilter();
-        updateDimensions(crossfilterPlanning);
-        let remaining = fileCount_-fileOffset_;
-        for (let i = fileOffset_; i < (fileOffset_ + fileCount_); i++) {
-            var url = JSONsrc_ + i + '.geojson';
-            d3.json(url).then(function (data) {
-                initMapData(processFeatures(data.features));
-                crossfilterPlanning.add(processFeatures(data.features));
-                remaining-=1;
-                console.log("Files remaining to load "+remaining);
-                if(remaining === 0){
-                    console.log("Re-cluster");
-                    updateMapData();
-                }
-            });
-        }
- }
-
+    let crossfilterPlanning = crossfilter();
+    let remaining = fileCount_ - fileOffset_;
+    for (let i = fileOffset_; i < (fileOffset_ + fileCount_); i++) {
+        var url = JSONsrc_ + i + '.geojson';
+        d3.json(url).then(function (data) {
+            initMapData(processFeatures(data.features));
+            crossfilterPlanning.add(processFeatures(data.features));
+            remaining -= 1;
+            //console.log("Files remaining to load "+remaining);
+            if (remaining === 0) {
+                //console.log("Re-cluster");
+                updateDimensions(crossfilterPlanning);
+                updateMapData();
+            }
+        });
+    }
+}
 
 function processFeatures(data_) {
     //Clean features data
     data_.forEach(function (d) {
-        /***TODO: query the data with outSR as 4326 and compare load times 
+        /***TODO: query the data with outSR as 4326 and compare load times
          * without these projections***/
         var result = proj4(firstProjection, secondProjection,
                 [+d.geometry.coordinates[0], +d.geometry.coordinates[1]]);
@@ -108,15 +107,15 @@ function processFeatures(data_) {
     return(data_);
 }
 
+
 function initMapData(data_) {
-   
     data_.forEach(function (d) {
         //console.log("x: "+d.x);
         let marker = new L.Marker(
                 new L.LatLng(d.y, d.x)
                 );
         planningClusters.addLayer(marker);
-        
+
     });
     map.addLayer(planningClusters);
 }
@@ -130,9 +129,8 @@ function updateMapData() {
                 );
         marker.bindPopup(getContent(d));
         marker.on('click', function (e, d) {
-            console.log('click: '+JSON.stringify(e));
-            console.log('object:'+d);
-            
+            console.log('object:' + d);
+
         });
         planningClusters.addLayer(marker);
     });
@@ -144,17 +142,17 @@ function updateDimensions(planningXF) {
 //       console.log("json: "+JSON.stringify(recordsJson.features));
     //console.log("crossfilter count: " + planningXF.size());
     //
-    allDim =planningXF.dimension(function(d){
+    allDim = planningXF.dimension(function (d) {
         return d;
     });
 //Define dimensions
-    var authorityDim = planningXF.dimension(function (d) {
+    authorityDim = planningXF.dimension(function (d) {
         return d.properties.PlanningAuthority;
     });
     var rDateDim = planningXF.dimension(function (d) {
         return d.properties.ReceivedDate;
     });
-    var appNumberDim = planningXF.dimension(function (d) {
+    appNumberDim = planningXF.dimension(function (d) {
         return d.properties.ApplicationNumber;
     });
 //    var decisionDim = planningXF.dimension(function (d) {
@@ -176,10 +174,10 @@ function updateDimensions(planningXF) {
     for (i = 0; i < authorityGroup.all().length; i += 1) {
         authorityNames.push(authorityGroup.all()[i].key);
     }
-    //    console.log("LAs:" + authorityNames);
-    //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
+    console.log("LAs:" + authorityNames);
+    console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
 
-    var rDateGroup = rDateDim.group();
+    //var rDateGroup = rDateDim.group();
 //    var recordsByDDate = dDateDim.group();
     //var decisionGroup = decisionDim.group();
     var decisionCategoryGroup = decisionCategoryDim.group();
@@ -187,7 +185,7 @@ function updateDimensions(planningXF) {
         decisionCategories.push(decisionCategoryGroup.all()[i].key);
     }
 //    var areaGroup = areaDim.group();
-//    console.log("decisionCategories:" + decisionCategories);    
+//    console.log("decisionCategories:" + decisionCategories);
 
 //    var recordsByLocation = locationDim.group();
 //    var all = planningXF.groupAll();
@@ -203,207 +201,72 @@ function updateDimensions(planningXF) {
 //    });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    //Create a Crossfilter instance
-//    var planningXF = crossfilter(records);
-//    //console.log("crossfilter count: " + planningXF.size());
-//    //Define dimensions
-//    var authorityDim = planningXF.dimension(function (d) {
-//        return d.properties.PlanningAuthority;
-//    });
-//    var rDateDim = planningXF.dimension(function (d) {
-//        return d.properties.ReceivedDate;
-//    });
-//    var appNumberDim = planningXF.dimension(function (d) {
-//        return d.properties.ApplicationNumber;
-//    });
-////    var decisionDim = planningXF.dimension(function (d) {
-////        return d.properties.Decision;
-////    });
-//    var decisionCategoryDim = planningXF.dimension(function (d) {
-//        return d.properties.DecisionCategory;
-//    });
-//    var areaDim = planningXF.dimension(function (d) {
-//        return d.properties.AreaofSite;
-//    });
-////    var locationDim = planningXF.dimension(function (d) {
-////        return d.loc;
-////    });
-//    allDim = planningXF.dimension(function (d) {
-//        return d;
-//    });
-//    //Group Data
-//    var authorityGroup = authorityDim.group();
-//    //Store names of LAs in array as strings
-//    for (i = 0; i < authorityGroup.all().length; i += 1) {
-//        authorityNames.push(authorityGroup.all()[i].key);
-//    }
-//    //    console.log("LAs:" + authorityNames);
-//    //console.log("LAs:" + JSON.stringify(authorityGroup.all()[0].key));
+// function createSAMap(url_) {
+//     var promise = [];
+//     promise.push($.getJSON(url_));
+//     $.when.apply($, promise).done(function () {
 //
-//    var rDateGroup = rDateDim.group();
-////    var recordsByDDate = dDateDim.group();
-//    //var decisionGroup = decisionDim.group();
-//    var decisionCategoryGroup = decisionCategoryDim.group();
-//    for (i = 0; i < decisionCategoryGroup.all().length; i += 1) {
-//        decisionCategories.push(decisionCategoryGroup.all()[i].key);
-//    }
-//    var areaGroup = areaDim.group();
-////    console.log("decisionCategories:" + decisionCategories);    
+// // This callback will be called with multiple arguments,
+// // one for each promise call
+// // Each argument is an array with the following structure: [data, statusText, jqXHR]
+//         var saAll = arguments[0].features;
+//         console.log("SA features length: " + saAll.length);
+//         console.log("First point: " + JSON.stringify(saAll[0].geometry.coordinates[0][0]));
 //
-////    var recordsByLocation = locationDim.group();
-////    var all = planningXF.groupAll();
-//    //Values to be used in charts
+// //        var smallArea = arguments[0].features[0].geometry.coordinates; //2-d array of points
+// //console.log("args: " + JSON.stringify(smallArea[0]));
+// //smallArea[0].forEach(function (p){
+// //    console.log("pt: " + JSON.stringify(p));
+// //});
+//         var saStyle_DublinCity = {
+//             color: "#6baed6",
+//             fillColor: getColor,
+//             weight: 1,
+//             opacity: 1
+//         };
 //
-//    //null sizes have been coerced to zero so we'll use that on the size slider
-//    var minAreaSize = areaDim.bottom(1)[0].properties.AreaofSite; //probably zero
-//    //console.log("min area: " + minAreaSize);
-//    var maxAreaSize = areaDim.top(1)[0].properties.AreaofSite;
-//    //console.log("max area: " + maxAreaSize);
-//    var medianAreaSize = d3.mean(records, function (d) {
-//        return d.properties.AreaofSite;
-//    });
-
-
-
-//}
-
-//    function getData(id) {
-//        var url = JSONsrc_ + id + '.geojson';
-//        return $.getJSON(url); // this returns a Promise
-//    }
-//    var countByDateArr; //will store number of planning apps per date
-
-//    $.when.apply($, promises).done(function () {
-//        // This callback will be called with multiple arguments,
-//        // one for each promises call
-//        // Each argument is an array with the following structure: [data, statusText, jqXHR]
+//         function style(f) {
+//             return {
+//                 fillColor: getColor(Math.floor(Math.random() * 1000)),
+//                 weight: 0,
+//                 opacity: 1,
+//                 //color: 'white',
+//                 //dashArray: '3',
+//                 fillOpacity: 0.5
+//             };
+//         }
+//         ;
 //
-//        for (var i = 0, len = arguments.length; i < len; i++) {
-//            //  arguments[i][0] is a single object with all the file JSON data
-//            var arg = arguments[i][0].features;
-//            //  make a 1-D array of all the features
-//            jsonFeaturesArr = jsonFeaturesArr.concat(arg);
-////            console.log("***Argument " + JSON.stringify(arguments[i][0]) + "\n****************");
-//        }
-////                    console.log(".done() - jsonData has length " + jsonFeaturesArr.length);
-////                    console.log("JSON Data Array " + JSON.stringify(jsonFeaturesArr));
+//         saLayer_DublinAll = L.geoJSON(saAll,
+//                 {
+//                     filter: function (f, l) {
+//                         return f.properties.COUNTYNAME.includes("Dublin")
+//                                 || f.properties.COUNTYNAME.includes("Fingal")
+//                                 || f.properties.COUNTYNAME.includes("Rathdown")
+//                                 ;
+//                     },
+//                     style: style,
+//                     onEachFeature: onEachFeature
+//                 });
 //
-////        console.log("Features length: " + jsonFeaturesArr.length); //features from one loadJSONFile call, multiple files
-////        console.log("jsonFeatures[1000] clean:  " + JSON.stringify(jsonFeaturesArr[1000]));
-//        //makeGraphs(null, jsonFeaturesArr);
-//        processData();
-//    }); //end of when()
-//} //end of loadJSONFile
-//
-
-//
-
-//
-//
-
-//
-//
-//createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson');
-//
-////////////////////////////////////////////////////////////////////////////
-//[]; //this will hold an array of promises
-//             ***TODO: serach dir for # of files and for-each
-
-//    for (i = fileOffset_; i < fileCount_; i++) {
-//        promise.push(getData(i));
-//    }
-
-//    function getData(id) {
-//        var url = JSONsrc_ + id + '.geojson';
-////        var url ="../data/PlanningApplications_CorkCity_0.geojson";
-//        return $.getJSON(url); // this returns a "promise"
-//    }
-//    var countByDateArr; //will store number of planning apps per date
-
-
-
-function createSAMap(url_) {
-    var promise = [];
-    promise.push($.getJSON(url_));
-    $.when.apply($, promise).done(function () {
-
-// This callback will be called with multiple arguments,
-// one for each promise call
-// Each argument is an array with the following structure: [data, statusText, jqXHR]
-        var saAll = arguments[0].features;
-        console.log("SA features length: " + saAll.length);
-        console.log("First point: " + JSON.stringify(saAll[0].geometry.coordinates[0][0]));
-
-//        var smallArea = arguments[0].features[0].geometry.coordinates; //2-d array of points
-//console.log("args: " + JSON.stringify(smallArea[0]));
-//smallArea[0].forEach(function (p){
-//    console.log("pt: " + JSON.stringify(p));
-//});
-        var saStyle_DublinCity = {
-            color: "#6baed6",
-            fillColor: getColor,
-            weight: 1,
-            opacity: 1
-        };
-
-        function style(f) {
-            return {
-                fillColor: getColor(Math.floor(Math.random() * 1000)),
-                weight: 0,
-                opacity: 1,
-                //color: 'white',
-                //dashArray: '3',
-                fillOpacity: 0.5
-            };
-        }
-        ;
-
-        saLayer_DublinAll = L.geoJSON(saAll,
-                {
-                    filter: function (f, l) {
-                        return f.properties.COUNTYNAME.includes("Dublin")
-                                || f.properties.COUNTYNAME.includes("Fingal")
-                                || f.properties.COUNTYNAME.includes("Rathdown")
-                                ;
-                    },
-                    style: style,
-                    onEachFeature: onEachFeature
-                });
-
-        function onEachFeature(feature, layer) {
-            layer.bindPopup(
-                    '<p><b>' + feature.properties.EDNAME + '</b></p>'
-                    + '<p>' + feature.properties.COUNTYNAME + '</p>'
-                    + '<p>SA #' + feature.properties.SMALL_AREA + '</p>'
-                    );
-            //bind click
-            layer.on({
-                click: function () {
-                    console.log(JSON.stringify(feature));
-                }
-            });
-        }
-//       map.addLayer(saLayer_DublinAll);
-        saLayer_DublinAll.addTo(map);
-    }); //end of done function
-}
-; //end of createSAMap
-
-
-
+//         function onEachFeature(feature, layer) {
+//             layer.bindPopup(
+//                     '<p><b>' + feature.properties.EDNAME + '</b></p>'
+//                     + '<p>' + feature.properties.COUNTYNAME + '</p>'
+//                     + '<p>SA #' + feature.properties.SMALL_AREA + '</p>'
+//                     );
+//             //bind click
+//             layer.on({
+//                 click: function () {
+//                     console.log(JSON.stringify(feature));
+//                 }
+//             });
+//         }
+// //       map.addLayer(saLayer_DublinAll);
+//         saLayer_DublinAll.addTo(map);
+//     }); //end of done function
+// }
+// ; //end of createSAMap
 
 //////////////////////////////////////////////////////////////////////////////
 function createGraphs(error, records) {
@@ -417,7 +280,7 @@ function createGraphs(error, records) {
 //    });
     //Alternative: null dates have been coerced to 0, so scan through to find earliest valid date
     //
-//***TODO: compare for performance    
+//***TODO: compare for performance
     minChartDate = 0, index = 1;
     while (minChartDate === 0) {
         minChartDate = rDateDim.bottom(index)[index - 1].properties.ReceivedDate;
@@ -437,16 +300,6 @@ function createGraphs(error, records) {
 //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
     var timeChart = dc.barChart("#time-chart");
 
-
-//    var processingTimeChart = dc.rowChart("#processing-row-chart");
-//    var locationChart = dc.rowChart("#location-row-chart");
-//    numberRecordsND
-//            .formatNumber(d3.format("d"))
-//            .valueAccessor(function (d) {
-//                return d;
-//            })
-//            .group(all);
-
     timeChart
             .width(chartWidth)
             .height(chartHeight)
@@ -462,24 +315,6 @@ function createGraphs(error, records) {
             .elasticY(true)
             .yAxis().ticks(4);
     timeChart.render();
-
-//    var sizeChart = dc.barChart("#size-chart");
-//    sizeChart
-//            .width(400)
-//            .height(chartHeight)
-//            .brushOn(true)
-//            .yAxisLabel("Size of site (msqr)")
-//            .margins({top: chartMargins[0], right: chartMargins[1],
-//                bottom: chartMargins[2], left: chartMargins[3]})
-//            .dimension(areaDim)
-//            .group(areaGroup)
-//            .transitionDuration(500)
-//            .x(d3.scaleLog().domain([0.1, 100]))
-//            //.elasticX(true)
-//            .elasticY(true)
-//            .yAxis().ticks(4);
-//    sizeChart.render();
-
 
     var decisionChart = dc.rowChart("#decision-row-chart");
     decisionChart
@@ -508,51 +343,6 @@ function createGraphs(error, records) {
         });
     });
     ;
-    //UI elements
-//
-//
-//
-//    var areaSlider = document.getElementById('area-slider');
-//    noUiSlider.create(areaSlider, {
-//        start: [minAreaSize, maxAreaSize],
-//        connect: true,
-//        //tooltips: [ true, true ],
-//        range: {
-//            'min': [minAreaSize, minAreaSize],
-////            '25%': [100.0, 100.0], //TODO: formularise
-//            '50%': [medianAreaSize, medianAreaSize],
-////            '75%': [(maxAreaSize-medianAreaSize)*0.5, (maxAreaSize-medianAreaSize)*0.5],
-//            'max': [maxAreaSize, maxAreaSize]
-//        }
-//    });
-//    areaSlider.noUiSlider.on('update', function (values, handle) {
-////handle = 0 if min-slider is moved and handle = 1 if max slider is moved
-////        if (handle === 0) {
-////            document.getElementById('min-area-nb').value = values[0];
-////        } else {
-////            document.getElementById('max-area-nb').value = values[1];
-////        }
-//        areaDim.filterRange([values[0], values[1]]);
-//        updateMap();
-//        updateCharts();
-////    rangeMin = document.getElementById('input-number-min').value;
-////    rangeMax = document.getElementById('input-number-max').value; 
-//    });
-
-
-//    var dateSlider = document.getElementById('date-slider');
-//    noUiSlider.create(dateSlider, {
-//        start: [minChartDate, maxChartDate],
-//        connect: true,
-//        //tooltips: [ true, true ],
-//        range: {
-//            'min': minChartDate,
-//            'max': maxChartDate
-//        }
-//    });
-
-
-
 
 ////handle the Local Authoirty checkboxes
 //
@@ -570,25 +360,7 @@ function createGraphs(error, records) {
 //        }
 //        ;
 //    });
-////push the LA name into the authorityNamesChecked array if box is ticked and it is in authorityNames
-//    d3.selectAll(".la-checkbox").on('change', function () {
-//        var authorityNamesChecked = []; //list of LAs with checked boxes
-//        d3.selectAll(".la-checkbox").each(function (d) {
-//            var cb = d3.select(this);
-//            if (cb.property("checked")) {
-//                if (authorityNames.includes(cb.property("value"))) {
-//                    authorityNamesChecked.push(cb.property("value"));
-//                }
-//            }
-//        });
-////        console.log("LA Names: " + authorityNames);
-////        console.log("LA Names Checked: " + authorityNamesChecked);
-//        authorityDim.filterFunction(function (d) {
-//            return authorityNamesChecked.includes(d);
-//        });
-//        updateMap();
-//        updateCharts();
-//    });
+
 //    //handle the decision checkboxes...
 //    //initalise
 //    d3.selectAll('.decision-checkbox').each(function (d) {
@@ -601,47 +373,11 @@ function createGraphs(error, records) {
 //        }
 //        ;
 //    });
-////push the decision into the decisionsChecked array if box is ticked and it is in decisionCategories
-//    d3.selectAll(".decision-checkbox").on('change', function () {
-//        var decisionCategoriesChecked = []; //list of LAs with checked boxes
-//        d3.selectAll(".decision-checkbox").each(function (d) {
-//            var cb = d3.select(this);
-//            if (cb.property("checked")) {
-//                if (decisionCategories.includes(cb.property("value"))) {
-//                    decisionCategoriesChecked.push(cb.property("value"));
-//                }
-//            }
-//        });
-//        console.log("Decision categories: " + decisionCategories);
-//        console.log("Decision categories checked: " + decisionCategoriesChecked);
-//        decisionCategoryDim.filterFunction(function (d) {
-//            return decisionCategoriesChecked.includes(d);
-//        });
-//        updateMap();
-//        updateCharts();
-//    });
-    d3.select("#search-result-count").html("");
-    d3.select("#app-number-search").on('change', function () {
-        let searchQuery = this.value;
-        console.log("Search for App Number: " + searchQuery + "\n");
-        appNumberDim.filter(searchQuery);
-        let len = appNumberDim.top(Infinity).length;
-//        console.log("Size: " + appNumberDim.top(Infinity).length);
-        if (len === 0) {
-            appNumberDim.filterAll();
-            d3.select("#search-result").html("No records found");
-        } else if (len === 1) {
-            d3.select("#search-result").html("Found " + len + " record");
-        } else {
-            d3.select("#search-result").html("Found " + len + " records");
-        }
-        /*TODO: add reset button, clear 'no records'*/
-        updateCharts();
-        updateMap();
-    });
-//    
+
+
+//
 //    console.log("d3: "+d3.select("#end_date").node().value);
-//    
+//
 //
 //    d3.select("#start_date").on('input', function () {
 //        var sd = Date.parse(this.value);
@@ -660,6 +396,8 @@ function createGraphs(error, records) {
 //        updateCharts();
 //        updateMap();
 //    });
+
+
 
     var early = new Date(minChartDate);
     var day = ("0" + early.getDate()).slice(-2);
@@ -684,7 +422,188 @@ function createGraphs(error, records) {
 ; //end of makeGraphs
 
 
+d3.select("#search-result-count").html("");
+d3.select("#app-number-search").on('change', function () {
+    let searchQuery = this.value;
+    console.log("Search for App Number: " + searchQuery + "\n");
+    appNumberDim.filter(searchQuery);
+    let len = appNumberDim.top(Infinity).length;
+//        console.log("Size: " + appNumberDim.top(Infinity).length);
+    if (len === 0) {
+        appNumberDim.filterAll();
+        d3.select("#search-result").html("No records found");
+    } else if (len === 1) {
+        d3.select("#search-result").html("Found " + len + " record");
+    } else {
+        d3.select("#search-result").html("Found " + len + " records");
+    }
+    /*TODO: add reset button, clear 'no records'*/
+    //updateCharts();
+    updateMapData();
+});
 
+function getColor(d) {
+    return d > 1000 ? '#800026' :
+            d > 500 ? '#BD0026' :
+            d > 200 ? '#E31A1C' :
+            d > 100 ? '#FC4E2A' :
+            d > 50 ? '#FD8D3C' :
+            d > 20 ? '#FEB24C' :
+            d > 10 ? '#FED976' :
+            '#FFEDA0';
+}
+
+/********************
+ * Handle Checkboxes
+ ********************/
+
+ d3.selectAll("button[type=checkbox]").on("click", function(){
+   console.log("checkbox");
+   d3.selectAll("button[type=checkbox]").each(function (d) {
+     let cb = d3.select(this);
+     console.log("Value: "+cb.property("value"));
+   });
+   //             let cb = d3.select(this);
+
+   // let cb = d3.select(this);
+   // if($(this).hasClass('active')){
+   //   $(this).removeClass('active');
+   //   //     authorityDim.filterFunction(function (d) {
+   //   //         return authorityNamesChecked.includes(d);
+   //   //     });
+   //   // console.log("ACTIVE");
+   // }
+   // else{
+   //   $(this).addClass('active');
+   //   if (authorityNames.includes(cb.property("value"))) {
+   //        authorityNamesChecked.push(cb.property("value"));
+   //      };
+   // }
+   // console.log("active; "+$(this).hasClass('active'));
+   // updateMapData();
+
+ });
+
+ // d3.selectAll('input[type=checkbox]').on('click', function () {
+ //      console.log("change");
+ //      d3.selectAll("input[type=checkbox]").each(function (d) {
+ //             let cb = d3.select(this);
+ //             if (cb.property("checked")) {
+ //                  console.log("cbox checked: " + cb.property("checked"));
+ //                  d3.select('#dublin-city-label').property("active")=true;
+ //                  // if (authorityNames.includes(cb.property("value"))) {
+ //                  //     authorityNamesChecked.push(cb.property("value"));
+ //                  // };
+ //             }
+ //          });
+ // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // d3.select("#dlr-checkbox").on("click", function(){
+ //   console.log("dlr");
+ //   if($(this).hasClass('active')){
+ //     $(this).removeClass('active');
+ //     // console.log("ACTIVE");
+ //   }
+ //   else{
+ //     $(this).addClass('active');
+ //     //console.log("INACTIVE");
+ //   }
+ //   console.log("active; "+$(this).hasClass('active'));
+ //
+ // });
+ //
+ // d3.select("#f-checkbox").on("click", function(){
+ //   console.log("f");
+ //   if($(this).hasClass('active')){
+ //     $(this).removeClass('active');
+ //     // console.log("ACTIVE");
+ //   }
+ //   else{
+ //     $(this).addClass('active');
+ //     //console.log("INACTIVE");
+ //   }
+ //   console.log("active; "+$(this).hasClass('active'));
+ //
+ // });
+ // d3.select("#sdcc-checkbox").on("click", function(){
+ //   console.log("sdcc");
+ //   if($(this).hasClass('active')){
+ //     $(this).removeClass('active');
+ //     // console.log("ACTIVE");
+ //   }
+ //   else{
+ //     $(this).addClass('active');
+ //     //console.log("INACTIVE");
+ //   }
+ //   console.log("active; "+$(this).hasClass('active'));
+ //
+ // });
+
+// d3.selectAll("input[type=checkbox]").each(function (d) {
+// //    authorityNames = ['Dublin City'];
+//    console.log("Found checkbox");
+//    let cb = d3.select(this);
+//    let lbl = d3.select(this.parentNode);
+//    console.log("Active is " + lbl.property("active"));
+// //    if (authorityNames.includes(cb.property("value"))) {
+// //        cb.property("checked", true);
+// //        lbl.property("active", true);
+// //    } else {
+// //        cb.property("checked", false);
+// //        lbl.property("disabled", true);
+// //    }
+//
+//
+//    ;
+// });
+
+// d3.selectAll('input[type=checkbox]').each(function (d) {
+// console.log("selected");
+// });
+
+////push the decision into the decisionsChecked array if box is ticked and it is in decisionCategories
+////push the LA name into the authorityNamesChecked array if box is ticked and it is in authorityNames
+
+
+//     var authorityNamesChecked = []; //list of LAs with checked boxes
+//     d3.selectAll("input[type = checkbox]").each(function (d) {
+//         var cb = d3.select(this);
+//         if (cb.property("active")) {
+//             console.log("cbox checked: " + cb.property("active"));
+//             if (authorityNames.includes(cb.property("value"))) {
+//                 authorityNamesChecked.push(cb.property("value"));
+//             };
+//         }
+//     });
+//     console.log("LA Names: " + authorityNames);
+//     console.log("LA Names Checked: " + authorityNamesChecked);
+//     authorityDim.filterFunction(function (d) {
+//         return authorityNamesChecked.includes(d);
+//     });
+//     updateMap();
+//     updateCharts();
+// });
+
+/**************
+ *
+ * @param {type} d_
+ * @returns {String}
+ *
+ *
+ */
 function getContent(d_) {
     var str = '';
     if (d_.properties.ApplicationNumber) {
@@ -719,21 +638,9 @@ function getContent(d_) {
     ;
     return str;
 }
-;
-function getColor(d) {
-    return d > 1000 ? '#800026' :
-            d > 500 ? '#BD0026' :
-            d > 200 ? '#E31A1C' :
-            d > 100 ? '#FC4E2A' :
-            d > 50 ? '#FD8D3C' :
-            d > 20 ? '#FEB24C' :
-            d > 10 ? '#FED976' :
-            '#FFEDA0';
-}
 
 $(document).ready(function () {
-    console.log("ready");
+//    console.log("ready");
     //TODO: calculate width of charts after page DOM loads
-    console.log("Width: " + d3.select('#time-chart').node().get);
+//    console.log("Width: " + d3.select('#time-chart').node().get);
 });
-
