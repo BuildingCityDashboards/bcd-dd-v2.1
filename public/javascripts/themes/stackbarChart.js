@@ -1,6 +1,6 @@
 class StackBarChart {
 
-    constructor(_element, _data, _key, _value, _yTitle, _xTitle){
+    constructor(_element, _data, _key, _value, _yTitle, _xTitle, _cScheme){
 
         this.e = _element;
         this.data = _data;
@@ -8,6 +8,7 @@ class StackBarChart {
         this.v = _value;
         this.yTitle = _yTitle;
         this.xTitle = _xTitle;
+        this.cScheme = _cScheme;
 
         this.init();
     }
@@ -33,13 +34,13 @@ class StackBarChart {
         c.width = eW - c.m.l - c.m.r;
         c.height = aR - c.m.t - c.m.b;
 
-        // c.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        // c.cScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
         
-        // default colourScheme
-        c.colourScheme =d3.schemeBlues[9].slice(4);
+        // default colour Scheme
+        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[9].slice(4);
 
         // set colour function
-        c.colour = d3.scaleOrdinal(c.colourScheme);
+        c.colour = d3.scaleOrdinal(c.cScheme);
 
         c.initTooltip();
 
@@ -296,7 +297,7 @@ class StackBarChart {
 
             dv.ttTitle = title;
             dv.valueFormat = dv.formatValue(format);
-            dv.ttWidth = 280,
+            dv.ttWidth = 290,
             dv.ttHeight = 50,
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -375,11 +376,11 @@ class StackBarChart {
                 ttX = mouseX + dv.m.l + dv.x.bandwidth() + 10;
             }
             else{
-                ttX = (mouseX + dv.m.l) - dv.ttWidth;
+                ttX = (mouseX + dv.m.l + dv.x.bandwidth() - 25) - dv.ttWidth;
             } 
 
             if ( mouseY < cH ) {
-                ttY = mouseY;
+                ttY = mouseY - 25;
             }
             else{   
                 ttY = cH;

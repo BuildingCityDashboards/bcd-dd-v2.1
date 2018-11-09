@@ -201,7 +201,7 @@ class StackedAreaChart {
             .append("path")
             .attr("class", "area")
             .attr("d", dv.area)
-            .style("fill-opacity", 0.85)
+            .style("fill-opacity", 0.75)
             .style("fill", (d) => {return dv.colour(d.key);}) ;
             
     
@@ -217,7 +217,7 @@ class StackedAreaChart {
             .data(dv.data)
             .transition(dv.t())
             .attr("d", dv.area)
-            .style("fill-opacity", 0.85)
+            .style("fill-opacity", 0.75)
             .style("fill", (d) => {return dv.colour(d.key);});
             
     

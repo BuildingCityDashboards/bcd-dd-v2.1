@@ -76,7 +76,9 @@ class GroupStackBar {
         let chart = this,
             keys,
             div,
-            p;
+            p,
+            divHeaders,
+            pHeader;
         
             chart.colour.domain(chart.d.map(d => { return d[chart.k]; }));
             keys = chart.colour.domain();
@@ -90,6 +92,43 @@ class GroupStackBar {
                 .append("div")
                 .attr("id", "bcd-tt-title");
 
+            divHeaders = chart.newToolTip
+                .append("div")
+                .attr("class", "headers");
+
+            divHeaders
+                .append("span")
+                .attr("class", "bcd-rect");
+
+            pHeader = divHeaders
+                .append("p")
+                .attr("class","bcd-text");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-title")
+                .text("Type");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-value")
+                .text("Value");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-slice")
+                .text("% Slice");
+
+            // pHeader
+            //     .append("span")
+            //     .attr("class","bcd-text-rate")
+            //     .text("% Rate");
+
+            // pHeader
+            //     .append("span")
+            //     .attr("class","bcd-text-indicator");
+
+
             keys.forEach( (d, i) => {
                 div = chart.newToolTip
                         .append("div")
@@ -101,8 +140,9 @@ class GroupStackBar {
 
                 p.append("span").attr("class","bcd-text-title");
                 p.append("span").attr("class","bcd-text-value");
-                p.append("span").attr("class","bcd-text-rate");
-                p.append("span").attr("class","bcd-text-indicator");
+                p.append("span").attr("class","bcd-text-slice");
+                // p.append("span").attr("class","bcd-text-rate");
+                // p.append("span").attr("class","bcd-text-indicator");
             });
 
         let lastDiv = chart.newToolTip.append("div")
@@ -114,10 +154,17 @@ class GroupStackBar {
             lastP = lastDiv.append("p")
                     .attr("class","bcd-text");
 
-                lastP.append("span").attr("class","bcd-text-title");
-                lastP.append("span").attr("class","bcd-text-value");
-                lastP.append("span").attr("class","bcd-text-rate");
-                lastP.append("span").attr("class","bcd-text-indicator");
+            lastP.append("span")
+                .attr("class","bcd-text-title");
+            lastP.append("span")
+                .attr("class","bcd-text-value")
+                .style("border-top","1px solid");
+            lastP.append("span")
+                .attr("class","bcd-text-slice");
+            // lastP.append("span")
+            //     .attr("class","bcd-text-rate");
+            // lastP.append("span")
+            //     .attr("class","bcd-text-indicator");
 
     }
 
@@ -158,7 +205,7 @@ class GroupStackBar {
 
             x0 = d3.scaleBand()
                     .range([0, chart.w])
-                    .padding(0.2),
+                    .padding(0.05),
 
             x1 = d3.scaleBand()
                     .padding(0.05),
@@ -298,13 +345,13 @@ class GroupStackBar {
 
         legend.append("line")
             .attr("class", "legend-line")
-            .attr("x1", 0)
-            .attr("x2", 6)
+            .attr("x1", 1)
+            .attr("x2", 10)
             .attr("stroke", "#fff");
 
         legend.append("text")
             .attr("class","legendText")
-            .attr("x", 10)
+            .attr("x", 25)
             .attr("dy", "0.35em")
             .attr("fill", "#fff")
             .style("font", "10px sans-serif")
@@ -320,7 +367,7 @@ class GroupStackBar {
             dv.datelabel = date;
             dv.ttTitle = title;
             dv.valueFormat = formatValue(format);
-            dv.ttWidth = 280;
+            dv.ttWidth = 290;
             dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
@@ -356,7 +403,12 @@ class GroupStackBar {
             chart.newToolTip.style('left', tooltipX + "px").style("top", "20px");
 
             chart.keys.forEach( (reg,idx) => {
-                    total += d.data[reg];// for the last text total;
+                total += d.data[reg];
+            });
+
+            chart.keys.forEach( (reg,idx) => {
+                    // total += d.data[reg];// for the last text total;
+                console.log("total value is", total);
 
             let id = "#bcd-tt" + idx,
                 div = chart.newToolTip.select(id),
@@ -365,8 +417,10 @@ class GroupStackBar {
                 item = chart.keys[idx],
                 p = div.select(".bcd-text"),
                 perc = d3.format(".2%"),
+                v = d.data[reg],
                 rV = prev ? ((cArray[iNum][reg] - cArray[iNum-1][reg]) / cArray[iNum][reg]) : 0,
                 rate = rV !== 0 ? perc(rV) : "N/A",
+                slice = perc(v/total),
                 indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : "";
                 indicatorColour = chart.arrowChange === true ? rV < 0 ?"#20c997" 
                                                 : rV > 0 ? "#da1e4d" : "#f8f8f8" 
@@ -378,9 +432,11 @@ class GroupStackBar {
                 div.style("opacity", 1);
                 div.select(".bcd-rect").style("background-color", chart.colour(reg));
                 p.select(".bcd-text-title").text(reg);
-                p.select(".bcd-text-value").text(d.data[reg]);
-                p.select(".bcd-text-rate").text((rate));
-                p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+                p.select(".bcd-text-value").text(v);
+                // p.select(".bcd-text-rate").text((rate));
+                // p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+                p.select(".bcd-text-slice").text(slice);
+
         });
 
         chart.svg.select("#tooltipbody_last .tp-text-right").text(chart.valueFormat !=="undefined"? "Total = " + chart.valueFormat(total) : "Total = " + total);
@@ -391,23 +447,19 @@ class GroupStackBar {
     getTooltipPosition(mouseX) {
         let dv = this,
             ttX,
-            chartSize;
+            cW;
 
-            chartSize = dv.w  - dv.ttWidth;
+            cW = dv.w  - dv.ttWidth;
             // show right
-            if ( mouseX < chartSize) {
-                ttX = mouseX + dv.m.l + dv.x1.bandwidth()*2 + 2;
-                console.log("tt pos", chartSize, ttX, mouseX);
+            if ( mouseX < cW) {
+                ttX = mouseX + dv.m.l + dv.x1.bandwidth()*2;
+                console.log("tt pos", cW, ttX, mouseX);
             }
             else{
-                ttX = (mouseX + dv.m.l + dv.x1.bandwidth() -2) - dv.ttWidth;
+                ttX = (mouseX + dv.m.l + dv.x1.bandwidth()) - dv.ttWidth;
                 console.log("tt pos", mouseX);
             } 
-            // else {
-            //     // show left minus the size of tooltip + 10 padding
-            //     ttX = (dv.width + dv.margin.left) - dv.ttWidth;
-            //     console.log(mouseX);
-            // }
+
             return ttX;
     }
 }

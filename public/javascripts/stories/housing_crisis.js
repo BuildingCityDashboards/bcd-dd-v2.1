@@ -10,7 +10,7 @@
         d3.csv(src + "housecomp.csv"),
         d3.csv(src + "propertyprices.csv"),
         d3.csv(src + "mortgage_debt.csv"),
-        d3.csv(src + "Social_housing_stock.csv"),
+        d3.csv(src + "social_housing_stock.csv"),
         d3.csv(src + "Social_housing_units.csv"),
         d3.csv(src + "Property_tax.csv"),
     ]).then(datafiles => {
@@ -49,10 +49,12 @@
               chart5D.forEach( d=>{
                   d.value = +d.value;
                   d.label = d.date;
-                  d.date = pYear(d.date);
               });
 
-        console.log("what's this", chart5D);
+        const chart6D = datafiles[6];
+            chart6D.forEach(d => {
+                d.value = +d.value;
+            });
 
         const chart8D = datafiles[8],
               chart8K = chart8D.columns.slice(1);
@@ -69,60 +71,65 @@
             });
 
         const cA1 = [
-                "#00929e", //BCD-teal
-                "#ffc20e", //BCD-yellow
-                "#16c1f3", //BCD-blue
-                "#da1e4d", //BCD-red
-                "#086fb8", //BCD-strong-blue
-                "#aae0fa", //BCD-pale-blue
-                "#012e5f" //BCD-navy
-                ], // orignal
+                    "#00929e", //BCD-teal
+                    "#ffc20e", //BCD-yellow
+                    "#16c1f3", //BCD-blue
+                    "#da1e4d", //BCD-red
+                    "#086fb8", //BCD-strong-blue
+                    "#aae0fa", //BCD-pale-blue
+                    "#012e5f" //BCD-navy
+                    ], // orignal
 
-              cA2 = [
-                "#012e5f", //BCD-navy
-                "#086fb8", //BCD-strong-blue
-                "#16c1f3", //BCD-blue
-                "#aae0fa", //BCD-pale-blue
-                // "#00929e", //BCD-teal
-                // "#6aedc7", //pale-green
-                "#ffc20e", //BCD-yellow
-                "#da1e4d", //BCD-red
-                "#f5b4c4", //pink
-                "#998ce3", //purple
-                ], // new version
+            cA2 = [
+                    // "#012e5f", //BCD-navy
+                    "#086fb8", //BCD-strong-blue
+                    "#da1e4d", //BCD-red
+                    "#16c1f3", //BCD-blue
+                    "#ffc20e", //BCD-yellow
+                    "#00929e", //BCD-teal
+                    "#aae0fa", //BCD-pale-blue
+                    // "#6aedc7", //pale-green
+                    "#f5b4c4", //pink
+                    "#998ce3", //purple
+                    ], // new version
 
-              cA3 = [
-                  "#d73027",
-                  "#f46d43",
-                  "#fdae61",
-                  "#fee090",
-                  "#ffffbf",
-                  "#e0f3f8",
-                  "#abd9e9",
-                  "#74add1",
-                  "#4575b4"
-                ],//diverging
+            cA3 = [
+                    "#d73027",
+                    "#f46d43",
+                    "#fdae61",
+                    "#fee090",
+                    "#ffffbf",
+                    "#e0f3f8",
+                    "#abd9e9",
+                    "#74add1",
+                    "#4575b4"
+                    ].reverse(),//diverging blue to red
+
+            cA3_2 = [
+                    "#d73027",
+                    "#4575b4"
+                    ].reverse(),//diverging blue to red 
                 
-              cA4 = [
-                "#00929e", //BCD-teal
-                "#ffc20e", //BCD-yellow
-                "#16c1f3", //BCD-blue
-                "#da1e4d", //BCD-red
-                "#998ce3", //purple
-                "#6aedc7", //green
-              ];
+            cA4 = [
+                    "#00929e", //BCD-teal
+                    "#ffc20e", //BCD-yellow
+                    "#16c1f3", //BCD-blue
+                    "#da1e4d", //BCD-red
+                    "#998ce3", //purple
+                    "#6aedc7", //green
+                    ];
 
-              cA5 = [
-                  "#8dd3c7",
-                  "#ffffb3",
-                  "#bebada",
-                  "#fb8072",
-                  "#80b1d3",
-                  "#fdb462",
-                  "#b3de69",
-                  "#fccde5",
-                  "#d9d9d9"
-                ]; // qualitative
+            cA5 = [
+                    "#8dd3c7",
+                    "#ffffb3",
+                    "#bebada",
+                    "#fb8072",
+                    "#80b1d3",
+                    "#fdb462",
+                    "#b3de69",
+                    "#fccde5",
+                    "#d9d9d9"
+                    ]; // qualitative pastel
         
         const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
               Chart1 = new MultiLineChart(chart1C);
@@ -135,7 +142,7 @@
               
             Chart1.addTooltip("Population - Year: ", "thousands", "label");
 
-              // hacked the xaxis to show only ticks matching the data. 
+              // hacked the x-axis to show only ticks matching the data. 
               //- get list of dates and filter array of g tags for elements that match the dates
               Chart1.xAxis.selectAll(".x-axis .tick").style("display", "none");
               d3.select(Chart1.xAxis._groups[0][0].childNodes[1]).style("display", "block");
@@ -228,15 +235,32 @@
               Chart4.addTooltip("Population - Region: ", "thousands", "label");
 
 
-        const chart5DN = nestData(chart5D, "label", "type", "value");
+         //chart5DN = nestData(chart5D, "label", "type", "value"),
+        const chart5C = chartContent(chart5D, "type", "value", "date", "#chart5", cA1);
 
-        const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
-              Chart5.tickNumber = 6;
-              Chart5.getData(chart5DN);
-              Chart5.addTooltip("Year:", "millions");
+       // const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
+        const Chart5 = new MultiLineChart(chart5C);
+            Chart5.titleX = "Years";
+            Chart5.titleY = "€ ( Millions )";
+            Chart5.tickNumber = 6;
+            Chart5.createScales();
+            // Chart5.getData(chart5DN);
+            Chart5.addTooltip("Year:", "millions");
 
 
-        const Chart8 = new StackBarChart("#chart8", chart8D, "type", "value", "€ ( Millions )", "Years");
+        const Chart6C = {
+                e: "#chart6",
+                k: "type",
+                d: chart6D,
+                v: "value",
+                c: cA4
+                };
+
+        const Chart6 = new GroupStackBar(Chart6C);
+            Chart6.addTooltip("Property Types - Year", "thousands", "label");
+
+
+        const Chart8 = new StackBarChart("#chart8", chart8D, "type", "value", "€ ( Millions )", "Years", cA3_2);
               Chart8.scaleY = "millions";
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 
@@ -258,21 +282,15 @@
                     p = pFormat(c/t);
 
                 let popupContent = 
-                        "<p style=font-weight:400; font-size:14px;>Of the total workforce (" +
+                        "<p style=font-weight:400; font-size:14px;>Of the " +
                         f.properties.WORKFORCE + 
-                        ") enumerated in this Electoral Division(ED)" + 
-                        "* (" +
-                        f.properties.CSO_ED +
-                        "," +
+                        " workers in this ED (" + 
+                        
                         f.properties.EDNAME +
-                        "), " +
+                        ")*, " +
                         f.properties.DESTDUBLIN +
-                        " work in Dublin City**" +
-                        "<br> This equates to <b>" +
-                        p + " of all workers</b> enumerated in this ED. </p>" +
-
-                        "<p class=small>*Excludes workforce where destination was classed as 'Blank' or 'Mobile'."+ 
-                        "<br>**Destination is based on CSO Settlement boundaries.</p>";
+                        " (" + p +")" +
+                        " work in Dublin City**";
         
                 if (f.properties && f.properties.popupContent) {
                     popupContent += f.properties.popupContent;
@@ -303,23 +321,23 @@
                     
                 switch (true){
                     case percentage > 0.5:
-                        return "#d26975";
+                        return "#b30000";
                         break;
                 
                     case percentage > 0.3:
-                        return "#f7b69a";
+                        return "#e34a33";
                         break;
                 
                     case percentage > 0.1:
-                        return "#fdeadb";
+                        return "#fc8d59";
                         break;
                 
                     case percentage > 0.05:
-                        return "#c0c0c0";
+                        return "#fdcc8a";
                         break;
                 
                     default:
-                        return "#8f8f8f";
+                        return "#fef0d9";
                 }
             }
 

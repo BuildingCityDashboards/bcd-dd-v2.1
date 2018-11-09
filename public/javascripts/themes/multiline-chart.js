@@ -27,7 +27,7 @@ class MultiLineChart{
         dv.m.t = eW < bP ? 40 : 50;
         dv.m.b = eW < bP ? 30 : 80;
 
-        dv.m.r = eW < bP ? 20 : 100;
+        dv.m.r = eW < bP ? 20 : 105;
         dv.m.l = eW < bP ? 20 : 80;
         
         dv.width = eW - dv.m.l - dv.m.r;

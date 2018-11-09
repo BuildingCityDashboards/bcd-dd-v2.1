@@ -36,6 +36,7 @@
   line-height: 1.25rem;
   color: #313131;
   opacity: 1;
+  padding-right: 0;
 }
 
 .tip-box{
@@ -76,10 +77,12 @@
   width: 92%;
 }
 
-.bcd-text-rate, .bcd-text-value{
+.bcd-text-rate, .bcd-text-value, .bcd-text-slice{
   flex: 0 0 22.5%;
   max-width: 22.5%;
   text-align: right;
+  /* border-left: 1px solid #c4cdd5; */
+  /* padding: 0 1px; */
 }
 
 .bcd-text-indicator{
@@ -95,8 +98,8 @@
 } */
 
 .bcd-text-title{
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 45%;
+  max-width: 45%;
 }
 
 .legend.active{
