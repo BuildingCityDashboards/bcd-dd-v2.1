@@ -233,9 +233,9 @@ function createGraphs(error, records) {
   if (maxChartDate > now) {
     maxChartDate = now;
   };
-  console.log("minChartDate: " + JSON.stringify(minChartDate) +
-    " | maxChartDate: " + JSON.stringify(maxChartDate) +
-    "| now: " + now);
+//  console.log("minChartDate: " + JSON.stringify(minChartDate) +
+//    " | maxChartDate: " + JSON.stringify(maxChartDate) +
+//    "| now: " + now);
   //Charts
   //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
   timeChart = dc.barChart("#time-chart");
@@ -288,17 +288,17 @@ function createGraphs(error, records) {
     });
   });;
 
-  var early = new Date(minChartDate);
-  var day = ("0" + early.getDate()).slice(-2);
-  var month = ("0" + (early.getMonth() + 1)).slice(-2);
-  var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
-  $('#start_date').val(earlyDay);
-
-  var late = new Date(maxChartDate);
-  day = ("0" + late.getDate()).slice(-2);
-  month = ("0" + (late.getMonth() + 1)).slice(-2);
-  var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
-  $('#end_date').val(lateDay);
+//  var early = new Date(minChartDate);
+//  var day = ("0" + early.getDate()).slice(-2);
+//  var month = ("0" + (early.getMonth() + 1)).slice(-2);
+//  var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
+//  $('#start_date').val(earlyDay);
+//
+//  var late = new Date(maxChartDate);
+//  day = ("0" + late.getDate()).slice(-2);
+//  month = ("0" + (late.getMonth() + 1)).slice(-2);
+//  var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
+//  $('#end_date').val(lateDay);
   updateMapData();
 }; //end of makeGraphs
 
@@ -332,15 +332,15 @@ d3.select("#app-number-search").on('change', function() {
 });
 
 d3.select("#clear-search").on('click', function() {
-  d3.select("#app-number-search").attr("color","red");
-  appNumberDim.filterAll();
+  //d3.select("#app-number-search").attr("color","red");
   d3.select("#search-result-count").html("Showing all records");
+  appNumberDim.filterAll();
   updateMapData();
   updateCharts();
 });
 
 d3.selectAll("button[type=checkbox]").on("click", function() {
-  console.log("checkbox");
+  //console.log("checkbox");
   let cb = d3.select(this);
   if (cb.classed('active')) {
     cb.classed('active', false);
@@ -355,49 +355,13 @@ d3.selectAll("button[type=checkbox]").on("click", function() {
     } //console.log("INACTIVE");
   }
   // console.log("active; " + cb.classed('active'));
-  console.log("LAs checked array:" + authorityNamesChecked);
+//  console.log("LAs checked array:" + authorityNamesChecked);
   authorityDim.filterFunction(function(d) {
     return authorityNamesChecked.includes(d);
   });
   updateMapData();
   updateCharts();
 });
-// });
-//             let cb = d3.select(this);
-
-// let cb = d3.select(this);
-// if($(this).hasClass('active')){
-//   $(this).removeClass('active');
-//   //     authorityDim.filterFunction(function (d) {
-//   //         return authorityNamesChecked.includes(d);
-//   //     });
-//   // console.log("ACTIVE");
-// }
-// else{
-//   $(this).addClass('active');
-//   if (authorityNames.includes(cb.property("value"))) {
-//        authorityNamesChecked.push(cb.property("value"));
-//      };
-// }
-// console.log("active; "+$(this).hasClass('active'));
-// updateMapData();
-
-
-
-// d3.selectAll('input[type=checkbox]').on('click', function () {
-//      console.log("change");
-//      d3.selectAll("input[type=checkbox]").each(function (d) {
-//             let cb = d3.select(this);
-//             if (cb.property("checked")) {
-//                  console.log("cbox checked: " + cb.property("checked"));
-//                  d3.select('#dublin-city-label').property("active")=true;
-//                  // if (authorityNames.includes(cb.property("value"))) {
-//                  //     authorityNamesChecked.push(cb.property("value"));
-//                  // };
-//             }
-//          });
-// });
-
 
 /**************** * * Helper Functions * ***************/
 function getColor(d) {
@@ -451,70 +415,3 @@ $(document).ready(function() {
   //TODO: calculate width of charts after page DOM loads
   //    console.log("Width: " + d3.select('#time-chart').node().get);
 });
-
-// function createSAMap(url_) {
-//     var promise = [];
-//     promise.push($.getJSON(url_));
-//     $.when.apply($, promise).done(function () {
-//
-// // This callback will be called with multiple arguments,
-// // one for each promise call
-// // Each argument is an array with the following structure: [data, statusText, jqXHR]
-//         var saAll = arguments[0].features;
-//         console.log("SA features length: " + saAll.length);
-//         console.log("First point: " + JSON.stringify(saAll[0].geometry.coordinates[0][0]));
-//
-// //        var smallArea = arguments[0].features[0].geometry.coordinates; //2-d array of points
-// //console.log("args: " + JSON.stringify(smallArea[0]));
-// //smallArea[0].forEach(function (p){
-// //    console.log("pt: " + JSON.stringify(p));
-// //});
-//         var saStyle_DublinCity = {
-//             color: "#6baed6",
-//             fillColor: getColor,
-//             weight: 1,
-//             opacity: 1
-//         };
-//
-//         function style(f) {
-//             return {
-//                 fillColor: getColor(Math.floor(Math.random() * 1000)),
-//                 weight: 0,
-//                 opacity: 1,
-//                 //color: 'white',
-//                 //dashArray: '3',
-//                 fillOpacity: 0.5
-//             };
-//         }
-//         ;
-//
-//         saLayer_DublinAll = L.geoJSON(saAll,
-//                 {
-//                     filter: function (f, l) {
-//                         return f.properties.COUNTYNAME.includes("Dublin")
-//                                 || f.properties.COUNTYNAME.includes("Fingal")
-//                                 || f.properties.COUNTYNAME.includes("Rathdown")
-//                                 ;
-//                     },
-//                     style: style,
-//                     onEachFeature: onEachFeature
-//                 });
-//
-//         function onEachFeature(feature, layer) {
-//             layer.bindPopup(
-//                     '<p><b>' + feature.properties.EDNAME + '</b></p>'
-//                     + '<p>' + feature.properties.COUNTYNAME + '</p>'
-//                     + '<p>SA #' + feature.properties.SMALL_AREA + '</p>'
-//                     );
-//             //bind click
-//             layer.on({
-//                 click: function () {
-//                     console.log(JSON.stringify(feature));
-//                 }
-//             });
-//         }
-// //       map.addLayer(saLayer_DublinAll);
-//         saLayer_DublinAll.addTo(map);
-//     }); //end of done function
-// }
-// ; //end of createSAMap
