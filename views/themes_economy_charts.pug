@@ -1,7 +1,7 @@
-header.header.mt-5.pt-5.pt-2
+header.header
   .row
     .col-lg-6
-      h1#economy.section-header Economy
+      h1 Economy
       p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -14,8 +14,8 @@ article.article.pt-5
     .col-lg-12
       h2.header__h2.mb-2 Employment Statistics
 
-  #employment.row.wrapper.py-4
-    .col-lg-4.py-5
+  #employment.row.wrapper.py-3
+    .col-lg-4
       h3 Numbers in Employment
       p 
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ22" target="_blank") Source: CSO 
@@ -27,15 +27,15 @@ article.article.pt-5
         |nisi ut aliquip ex ea commodo consequat.
       
       div#chart-select1
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
         <button type="button" class="btn btn-bcd active employment-btn employment_count" value="countData">Count</button>
         //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
         <button type="button" class="btn btn-bcd employment-btn employment_arate" value="ILO Participation Rate (15 years and over) (%)">Annual % Change</button>
       #chart-employment.chart-holder
 
-  #unemployed.row.wrapper.py-4
-    .col-lg-4.py-5
+  #unemployed.row.wrapper.py-3
+    .col-lg-4
       h3 Numbers Unemployed
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ22" target="_blank") Source: CSO 
@@ -46,16 +46,16 @@ article.article.pt-5
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
       div#chart-select2.chart-holder
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
         <button type="button" class="btn btn-bcd active">Count</button>
         //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
         <button type="button" class="btn btn-bcd">Annual % Change</button>
-        <button type="button" class="btn btn-bcd">Rate</button>
+        //- <button type="button" class="btn btn-bcd">Rate</button>
       #chartNew.chart-2.chart-holder
 
-  #grossValue.row.wrapper.py-4
-    .col-lg-4.py-5
+  #grossValue.row.wrapper.py-3
+    .col-lg-4
       h3 Gross Value Added
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01" target="_blank") Source: CSO 
@@ -65,7 +65,7 @@ article.article.pt-5
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
       #chart-gva.chart-holder
 
@@ -74,8 +74,8 @@ article#income_poverty.article
     .col-lg-12
       h2.header__h2 Income & Poverty
   
-  .row.wrapper.py-4
-    .col-lg-4.py-5
+  .row.wrapper.py-3
+    .col-lg-4
       h3 Median Real Household Disposable Income
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") Source: CSO 
@@ -85,12 +85,12 @@ article#income_poverty.article
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
       #chart-disposable-income.chart-holder
 
-  .row.wrapper.py-4
-    .col-lg-4.py-5
+  .row.wrapper.py-3
+    .col-lg-4
       h3 Poverty Rating
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") Source: CSO 
@@ -100,7 +100,7 @@ article#income_poverty.article
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
         //- <button type="button" class="btn btn-bcd active">Rate</button>
       #chart-poverty-rate.chart-holder
@@ -110,8 +110,8 @@ article.article
     .col-lg-12
       h2.header__h2 Industry Sectors
 
-  .row.wrapper.py-4
-    .col-lg-4.py-5
+  .row.wrapper.py-3
+    .col-lg-4
       h3 Numbers by Employment Sector in Dublin
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ40&PLanguage=0" target="_blank") Source: CSO 
@@ -121,12 +121,12 @@ article.article
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
 
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
       #chart-employment-sector.chart-holder
 
-  .row.wrapper.py-4
-    .col-lg-4.py-5
+  .row.wrapper.py-3
+    .col-lg-4
       h3 Number of Employees by Size of Company
       p
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0" target="_blank") Source: CSO 
@@ -135,12 +135,12 @@ article.article
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
       #chart-employees-by-size.chart-holder
 
-  .row.wrapper.py-4
-    .col-lg-4.py-5
+  .row.wrapper.py-3
+    .col-lg-4
       h3 Overseas Visitors
       p
         a(href="http://www.failteireland.ie/Research-Insights/Tourism-Facts-and-Figures.aspx" target="_blank") Source: Failte Ireland/CSO/DCC  
@@ -150,6 +150,6 @@ article.article
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8.py-5
+    .col-lg-8
       .pt-2
       #chart-overseas-vistors.chart-holder

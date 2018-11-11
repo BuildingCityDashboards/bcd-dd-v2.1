@@ -167,7 +167,6 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
 
     /*** This Survey on Income and Living Conditions for Dublin Charts ***/
     d3.csv("../data/Economy/SIA20.csv").then( data => {
-
         let columnNames = data.columns.slice(2);
         
         let incomeData = data;
@@ -189,7 +188,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
     d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
         var keys = data.columns;
         
-        // console.log(keys);
+        console.log("this is the SIA20 data", data);
 
         // blank array
         var transposedData = [];

@@ -5,15 +5,6 @@ body{
   position: relative;
 }
 
-<<<<<<< HEAD
-=======
-body.light {
-  background:#f8f8f8;
-  color:#212529;
-  position: relative;
-}
-
->>>>>>> 59c47ed2592ad802eebd19bcc9557364d56d7a3e
 /* Links*/
 a {
   color: var(--vivid-cyan);
@@ -196,28 +187,6 @@ select:hover:not([disabled]) {
   box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
 }
 
-.nav-link{
-  padding-right: 0;
-  float: left;
-  font-weight: 600;
-  color: #f8f8f8;
-}
-
-.nav-link-ptitle{
-  padding-left: 5px;
-  color: var(--vivid-cyan);
-}
-
-.subnav-link{
-  padding-right: 0;
-  float: left;
-  font-weight: 500;
-  color: #f8f8f8;
-  font-size: 14px;
-  display: block;
-  padding: .5rem 1rem;
-}
-
 .section-header{
   margin-top: -80px;
   padding-top: 110px;
@@ -292,6 +261,10 @@ select:hover:not([disabled]) {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.content{
+  position: relative;
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */

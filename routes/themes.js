@@ -9,7 +9,7 @@ var qnq22_controller = require('../controllers/QNQ22Controller');
 //});
 
 router.get('/', function(req, res, next) {
-  res.render('themes', { title: 'Themes Page' });
+  res.render('themes', { title: 'Themes Page'});
 });
 
 router.get('/demographics', function(req, res, next) {
