@@ -14,7 +14,6 @@ block navigation
 
 block content
     .container
-      
         header.header.mt-5.pt-2
         .row
             .col-md-12
@@ -25,13 +24,13 @@ block content
             .col-md-2
                 .label.m-1 Search for an application:
             .col-md-3
-                //- <div class="input-group">
-                //- <input type="text" class="form-control-sm m-1" id="app-number-search" placeholder="Enter application #" aria-label="Enter application Number" aria-describedby="basic-addon2">
-                //- <div class="input-group-append  d-flex">
-                //-     <button class="btn btn-bcd btn-sm w-100 m-1 " type="button" >Search</button>
-                //-     <button class="btn btn-bcd btn-sm w-100 m-1 " type="button">Clear</button>                    
-                //- </div>
-                //- </div>
+                <div class="input-group">
+                <input type="text" class="form-control-sm ml-1 mr-1" id="app-number-search" placeholder="Enter application #" aria-describedby="basic-addon2">
+                <div class="input-group-append  d-flex">
+                    //- <button class="btn btn-bcd btn-sm w-100 m-1 " type="button" >Search</button>
+                    <button class="btn btn-bcd btn-sm w-100 ml-1 mr-1" type="button" id="clear-search">Clear</button>                    
+                </div>
+                </div>
             #search-result-count.col-md-2  
                 
             .col-md-5      
@@ -43,9 +42,9 @@ block content
             .col-md-5
               <div class="btn-group d-flex">  
                 <button id="dcc-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="Dublin City Council">Dublin City</button>
-                <button id="dlr-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" >Dun-Laoighre/Rathdown</button>
-                <button id="f-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" >Fingal</button>
-                <button id="sdcc-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" >South Dublin</button>
+                <button id="dlr-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="Dun Laoghaire Rathdown County Council">Dun Laoghaire/Rathdown</button>
+                <button id="f-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="Fingal County Council">Fingal</button>
+                <button id="sdcc-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="South Dublin County Council">South Dublin</button>
               </div>
                 
             .col-md-5
@@ -53,7 +52,7 @@ block content
         .row.mt-1
             .col-md-7
                 #planning-map.m-1
-            .col-md-5 
+            .col-md-4 
                 .row
                     p 
                     strong Number of Applications Over Time
@@ -65,7 +64,7 @@ block content
                     div#decision-row-chart
                     p Click on/off a decision bar here to filter the data
 
-            //.col-md-3
+            .col-md-1
 
 block append scripts
     script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js")
