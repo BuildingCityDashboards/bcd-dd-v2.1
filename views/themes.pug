@@ -7,8 +7,8 @@ block append head
     link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
 
 block navigation
-    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Themes")
-    +subnavbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top mt-5")
+    +navbar("navbar navbar-expand-lg bg-dark fixed-top","/","Dublin Dashboard", "Themes")
+    +subnavbar("bcd-nav bg-dark fixed-top mt-5 container-fluid")
 
 block content
   .content
@@ -26,37 +26,37 @@ block content
               |Transport, Environment, Economy, 
               |Housing, Education, Health, and Demographics.
             
-    section
+    section#transport.section-header
       .wrap.light
         .container
           include themes_transport_charts
           
-    section
+    section#environment.section-header
       .wrap
         .container
           include themes_environment_charts
     
-    section
+    section#economy.section-header 
       .wrap.light
         .container
           include themes_economy_charts
                   
-    section
+    section#housing.section-header 
       .wrap
         .container
           include themes_housing_charts
 
-    section
+    section#education.section-header 
       .wrap.light
         .container
           include themes_education_charts
 
-    section
+    section#health.section-header 
       .wrap
         .container
           include themes_health_charts
 
-    section
+    section#demographics.section-header 
       .wrap.light
         .container
           include themes_demographics_charts
@@ -86,4 +86,5 @@ append scripts
     script(src="/javascripts/themes/education.js" type="text/javascript")
     script(src="/javascripts/themes/health.js" type="text/javascript")
     script(src="/javascripts/themes/demographics.js" type="text/javascript")
+    script(src="/javascripts/scroll_observer.js" type="text/javascript")
     

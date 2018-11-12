@@ -60,7 +60,7 @@ class MultiLineChart{
         // add the svg to the target element
         dv.svg = d3.select(dv.element)
             .append("svg")
-            .attr("width", dv.width + dv.m.l + dv.m.r*2 + 5)
+            .attr("width", dv.width + dv.m.l + dv.m.r + 5)
             .attr("height", dv.height + dv.m.t + dv.m.b);
        
         // add the g to the svg and transform by top and left margin
