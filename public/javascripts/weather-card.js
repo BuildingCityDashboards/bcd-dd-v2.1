@@ -26,11 +26,11 @@ d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) 
         windDir = locationEven.getElementsByTagName("windDirection")[0].getAttribute("name");
         //console.log("windDir : " + windDir);
         windSpeed = locationEven.getElementsByTagName("windSpeed")[0].getAttribute("beaufort");
-        console.log("i : " + i);
-        console.log("windspeed : " + windSpeed);
+        //console.log("i : " + i);
+        //console.log("windspeed : " + windSpeed);
         //Odd entries
         locationOdd = timesXML[i + 1].getElementsByTagName("location")[0];
-        console.log("location odd: " + JSON.stringify(locationOdd.getElementsByTagName("symbol")[0]));
+        //console.log("location odd: " + JSON.stringify(locationOdd.getElementsByTagName("symbol")[0]));
         symbolId = locationOdd.getElementsByTagName("symbol")[0].getAttribute("id");
         //console.log("symbol ID: " + symbolId);
         symbolNo = locationOdd.getElementsByTagName("symbol")[0].getAttribute("number");
