@@ -127,8 +127,8 @@ a:hover {
 }
 
 .legendRect{
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
 }
 
 .chart-holder{
@@ -185,11 +185,6 @@ select {
 select:hover:not([disabled]) {
   border-color: transparent;
   box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2);
-}
-
-.section-header{
-  margin-top: -80px;
-  padding-top: 110px;
 }
 
 .btn-bcd{

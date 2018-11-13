@@ -3,258 +3,220 @@ class GroupedBarChart{
     // constructor function
     constructor (_data, _keys, _xValue, _element, _titleX, _titleY){
 
-        this.data = _data;
+        this.d = _data;
         this.keys = _keys;
-        this.xValue = _xValue;
-        this.element = _element;
-        this.titleX = _titleX; // grouped bar chart
+        this.xV = _xValue;
+        this.e = _element;
+        this.titleX = _titleX; // grouped bar c
         this.titleY = _titleY; // millions
 
-        // create the chart area
+        // create the c area
         this.init();
     }
 
-    // initialise method to draw chart area
+    // initialise method to draw c area
     init(){
-        let dv = this,
-            elementNode = d3.select(dv.element).node(),
+        let c = this,
+            elementNode = d3.select(c.e).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
             aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
 
         const breakPoint = 678;
         
         // margin
-        dv.m = { };
+        c.m = { };
 
-        dv.m.t = elementWidth < breakPoint ? 40 : 50;
-        dv.m.b = elementWidth < breakPoint ? 30 : 80;
+        c.m.t = elementWidth < breakPoint ? 40 : 50;
+        c.m.b = elementWidth < breakPoint ? 30 : 80;
 
-        dv.m.right = elementWidth < breakPoint ? 20 : 100;
-        dv.m.left = elementWidth < breakPoint ? 20 : 80;
+        c.m.right = elementWidth < breakPoint ? 20 : 120;
+        c.m.left = elementWidth < breakPoint ? 20 : 80;
         
-        dv.w = elementWidth - dv.m.left - dv.m.right;
-        dv.height = aspectRatio - dv.m.t - dv.m.b;
+        c.w = elementWidth - c.m.left - c.m.right;
+        c.height = aspectRatio - c.m.t - c.m.b;
+
+        c.initTooltip();
 
         // add the svg to the target element
-        dv.svg = d3.select(dv.element)
+        c.svg = d3.select(c.e)
             .append("svg")
-            .attr("width", dv.w + dv.m.left + dv.m.right)
-            .attr("height", dv.height + dv.m.t + dv.m.b);
+            .attr("width", c.w + c.m.left + c.m.right)
+            .attr("height", c.height + c.m.t + c.m.b);
        
         // add the g to the svg and transform by top and left margin
-        dv.g = dv.svg.append("g")
-            .attr("transform", "translate(" + dv.m.left + 
-                ", " + dv.m.t + ")");
+        c.g = c.svg.append("g")
+            .attr("transform", "translate(" + c.m.left + 
+                ", " + c.m.t + ")");
     
         // transition 
-        // dv.t = () => { return d3.transition().duration(1000); }
+        // c.t = () => { return d3.transition().duration(1000); }
     
-        // dv.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
-        dv.colourScheme =d3.schemeBlues[9].slice(3);
+        // c.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
+        c.colourScheme =d3.schemeBlues[9].slice(3);
 
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme);
+        c.colour = d3.scaleOrdinal(c.colourScheme);
 
-        dv.x0 = d3.scaleBand()
-            .range([0, dv.w])
+        c.x0 = d3.scaleBand()
+            .range([0, c.w])
             .padding(0.2);
 
-        dv.x1 = d3.scaleBand()
+        c.x1 = d3.scaleBand()
             .paddingInner(0.1);
     
-        dv.y = d3.scaleLinear()
-            .range([dv.height, 0]);
+        c.y = d3.scaleLinear()
+            .range([c.height, 0]);
 
-        dv.yAxisCall = d3.axisLeft();
+        c.yAxisCall = d3.axisLeft();
 
-        dv.xAxisCall = d3.axisBottom()
+        c.xAxisCall = d3.axisBottom()
             .tickFormat(d => {return d});
 
-        dv.gridLines = dv.g.append("g")
+        c.gridLines = c.g.append("g")
             .attr("class", "grid-lines");
 
-        dv.xAxis = dv.g.append("g")
+        c.xAxis = c.g.append("g")
             .attr("class", "x-axis")
-            .attr("transform", "translate(0," + dv.height +")");
+            .attr("transform", "translate(0," + c.height +")");
         
-        dv.yAxis = dv.g.append("g")
+        c.yAxis = c.g.append("g")
             .attr("class", "y-axis");
     
         // X title
-        dv.g.append("text")
+        c.g.append("text")
             .attr("class", "titleX")
-            .attr("x", dv.w/2)
-            .attr("y", dv.height + 60)
+            .attr("x", c.w/2)
+            .attr("y", c.height + 60)
             .attr("text-anchor", "middle")
-            .text(dv.titleX);
+            .text(c.titleX);
     
         // Y title
-        dv.g.append("text")
+        c.g.append("text")
             .attr("class", "titleY")
-            .attr("x", - (dv.height/2))
+            .attr("x", - (c.height/2))
             .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text(dv.titleY);
-    
-        dv.update();
+            .text(c.titleY);
+
+        c.update();
     
     }
 
     getData(){
-        let dv = this;
+        let c = this;
     
     }
     
     update(){
-        let dv = this;
+        let c = this;
 
         // Update scales
-        dv.x0.domain(dv.data.map(d => {return d[dv.xValue]; }));
-        dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
-        dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
+        c.x0.domain(c.d.map(d => {return d[c.xV]; }));
+        c.x1.domain(c.keys).range([0, c.x0.bandwidth()]);
+        c.y.domain([0, d3.max(c.d, d => { return d3.max(c.keys, key => { return d[key]; }); })]).nice();
 
         // Update axes
-        dv.xAxisCall.scale(dv.x0);
-        dv.xAxis.call(dv.xAxisCall)
-        .selectAll(".tick text").call(dv.textWrap, 60, 0);
+        c.xAxisCall.scale(c.x0);
+        c.xAxis.call(c.xAxisCall)
+        .selectAll(".tick text").call(c.textWrap, 60, 0);
         
-        dv.scaleFormatY ? dv.yAxisCall.scale(dv.y).tickFormat(dv.scaleFormatY) : dv.yAxisCall.scale(dv.y);
-        dv.yAxisCall.scale(dv.y);
-        dv.yAxis.call(dv.yAxisCall);
+        c.scaleFormatY ? c.yAxisCall.scale(c.y).tickFormat(c.scaleFormatY) : c.yAxisCall.scale(c.y);
+        c.yAxisCall.scale(c.y);
+        c.yAxis.call(c.yAxisCall);
 
-        dv.drawGridLines();
+        c.drawGridLines();
 
-    
-        // // join new data with old elements.
-        // dv.rects = dv.g.selectAll("g")
-        //     .data(dv.data);
+        c.g.selectAll(".layers").remove();
+        c.g.selectAll(".focus_overlay").remove();
 
-        // exit old elements not present in new data.
-        // dv.rects.exit()
-        //     .attr("class", "exit")
-        //     // .transition(dv.t())
-        //     .attr("height", 0)
-        //     .attr("y", dv.height)
-        //     .style("fill-opacity", "0.1")
-        //     .remove();
+        c.group = c.g.selectAll(".layers")
+            .data(c.d);
 
-        // update old elements present in new data.
-        // dv.rects.attr("class", "update")
-        //     // .transition(dv.t())
-        //         .attr("y", function(d){ return dv.y(d.value); }) // what value here
-        //         .attr("height", function(d){ return (dv.height - dv.y(d.value)); }) //what value here
-        //         .attr("x", function(d){ return dv.x1(d[dv.xValue]); }) // should this be passed as an opition?
-        //         .attr("width", dv.x1.bandwidth);
-
-        // enter new elements present in new data.
-
-        // dv.svg.selectAll("g").remove();
-
-        // join new data with old elements.
-        // dv.rects = dv.g.append("g")
-        //     .selectAll("g")
-        //     .data(dv.data);
-
-        dv.g.selectAll('.layers').remove();
-        dv.g.selectAll('.focus_overlay').remove();
-
-        dv.group = dv.g.selectAll(".layers")
-            .data(dv.data);
-
-        //exit old elements not present in new data.
-        // dv.rects.exit()
-        //     // // .transition(dv.t())
-        //     // .attr("height", 0)
-        //     // .attr("y", dv.height)
-        //     // .style("fill-opacity", "0.1")
-        //     .remove();
-
-        dv.rectGroup = dv.group.enter()
+        c.rectGroup = c.group.enter()
             .append("g")
             .attr("class","layers")
-            .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ",0)"; })
+            .attr("transform", (d) => { return "translate(" + c.x0(d[c.xV]) + ",0)"; })
             
-        dv.rects = dv.rectGroup.selectAll("rect")
-                .data(d => { return dv.keys.map( key => { 
+        c.rects = c.rectGroup.selectAll("rect")
+                .data(d => { 
+                    return c.keys.map( key => { 
                     return {
                         key: key, 
                         value: d[key],
-                        date: d[dv.xValue]
+                        date: d[c.xV]
                     }; 
-                }); });//hmmm this needs to change?
+                }); 
+            });//hmmm this needs to change?
+            // could this be done differently.
 
-        dv.rect = dv.rects.enter().append("rect")
-            .attr("x", d => { return dv.x1(d.key); })
-            .attr("y", d => { return dv.y(d.value); })
-            .attr("width", dv.x1.bandwidth())
-            .attr("height", d => { return (dv.height - dv.y(d.value)); })
-            .attr("fill", d => { return dv.colour(d.key); })
+        c.rect = c.rects.enter().append("rect")
+            .attr("x", d => {return c.x1(d.key);})
+            .attr("y", d => {return c.y(d.value);})
+            .attr("width", c.x1.bandwidth())
+            .attr("height", d => { return (c.height - c.y(d.value)); })
+            .attr("fill", d => { return c.colour(d.key); })
             .attr("fill-opacity", ".75");
 
         
-        dv.rectsOverlay = dv.g.selectAll(".focus_overlay")
-            .data(dv.data)
+        c.rectsOverlay = c.g.selectAll(".focus_overlay")
+            .data(c.d)
             .enter();
 
         // // append a rectangle overlay to capture the mouse
-        dv.rectsOverlay.append("g")
+        c.rectsOverlay.append("g")
             .attr("class", "focus_overlay")
             .append("rect")
-            .attr("x", d => dv.x0(d[dv.xValue]))
+            .attr("x", d => c.x0(d[c.xV]))
             .attr("y", "0")
-            .attr("width", dv.x0.bandwidth()) // give a little extra for last value
-            .attr("height", dv.height)
+            .attr("width", c.x0.bandwidth()) // give a little extra for last value
+            .attr("height", c.height)
             .style("fill", "none")
             .style("stroke","#00bff7")
             .style("pointer-events", "all")
             .style("visibility", "hidden")
             .on("mouseover", function(){
                 d3.select(this).style("visibility", "visible");
-                dv.tooltip.style("display", "inline-block"); 
+                c.newToolTip.style("visibility","visible");
             })
-            // .on("touchstart", function(){
-            //     d3.select(this).style("visibility", "visible");
-            //     dv.tooltip.style("display", "inline-block"); 
-            // })
             .on("mouseout", function(){ 
                 d3.select(this).style("visibility", "hidden");
-                dv.tooltip.style("display", "none"); 
+                c.newToolTip.style("visibility","hidden");
             })
-            .on("mousemove", (d, e, a)=> dv.mousemove(d, e, a));
+            .on("mousemove", (d, e, a)=> c.mousemove(d, e, a));
 
-        dv.addLegend();
+        c.addLegend();
     }
 
     drawGridLines(){
-        let dv = this;
+        let c = this;
 
-        dv.gridLines.selectAll('line')
+        c.gridLines.selectAll("line")
             .remove();
 
-        dv.gridLines.selectAll('line.horizontal-line')
-            .data(dv.y.ticks)
+        c.gridLines.selectAll("line.horizontal-line")
+            .data(c.y.ticks)
             .enter()
-                .append('line')
-                .attr('class', 'horizontal-line')
-                .attr('x1', (0))
-                .attr('x2', dv.w)
-                .attr('y1', (d) => {return dv.y(d)})
-                .attr('y2', (d) => dv.y(d));
+                .append("line")
+                .attr("class", "horizontal-line")
+                .attr("x1", (0))
+                .attr("x2", c.w)
+                .attr("y1", (d) => {return c.y(d)})
+                .attr("y2", (d) => c.y(d));
     }
 
     addLegend(){
-        let dv = this;
+        let c = this;
 
-        let legend = dv.g.append("g")
+        let legend = c.g.append("g")
             .attr("transform", "translate(0,0)");
 
         let legendArray = [];
 
-        dv.keys.forEach((d,i) =>{
+        c.keys.forEach((d,i) =>{
             let obj = {};
                 obj.label = d;
-                obj.colour = dv.colour(d);
+                obj.colour = c.colour(d);
                 legendArray.push(obj);
         });
         
@@ -269,207 +231,258 @@ class GroupedBarChart{
 
             legends.append("rect")
                 .attr("class", "legendRect")
-                .attr("x", dv.w + 5)
+                .attr("x", c.w + 2)
                 .attr("fill", d => { return d.colour; })
                 .attr("fill-opacity", 0.75);
 
             legends.append("text")
                 .attr("class", "legendText")
-                // .attr("x", dv.w + 30)
                 .attr("y", 12)
-                .attr("dy", ".0em")
+                .attr("dy", "0em")
                 .attr("text-anchor", "start")
                 .text(d => { return d.label; })
-                .call(dv.textWrap, 100, dv.w + 30); 
+                .call(c.textWrap, 100, c.w + 22); 
     }
 
-    addTooltip(title, format){
+    initTooltip(){
+        let c = this,
+            keys = c.keys,
+            div,
+            p,
+            divHeaders,
+            pHeader;
 
-        let dv = this;
-            dv.svg.selectAll('.tool-tip').remove();
-            dv.tooltip = dv.svg.append("g")
-                .classed("tool-tip", true);
+            c.newToolTip = d3.select(c.e)
+                .append("div")
+                .attr("class","tool-tip bcd")
+                .style("visibility","hidden");
 
-            dv.title = title;
-            dv.valueFormat = format;
-            dv.ttWidth = 280,
-            dv.ttHeight = 50,
-            dv.ttBorderRadius = 3;
-            dv.formatYear = d3.timeFormat("%Y");
+            c.newToolTipTitle = c.newToolTip
+                .append("div")
+                .attr("id", "bcd-tt-title");
 
-            dv.valueFormat = dv.formatValue(dv.valueFormat);
+            divHeaders = c.newToolTip
+                .append("div")
+                .attr("class", "headers");
 
-        let bcdTooltip = dv.tooltip
-            .append("g")
-                .attr("class", "bcd-tooltip")
-                .attr("width", dv.ttWidth)
-                .attr("height", dv.ttHeight);
-            
-            dv.toolGroup =  bcdTooltip
-            .append("g")
-                .attr("class", "tooltip-group")
-                .style("visibility", "hidden");
+            divHeaders
+                .append("span")
+                .attr("class", "bcd-rect");
 
-            dv.drawTooltip();
+            pHeader = divHeaders
+                .append("p")
+                .attr("class","bcd-text");
 
-            dv.keys.forEach( (d,i) => {
-                dv.updateTooltip(d,i);
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-title")
+                .text("Type");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-value")
+                .text("Value");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-rate")
+                .text("% Rate");
+
+            pHeader
+                .append("span")
+                .attr("class","bcd-text-indicator");
+
+            keys.forEach( (d, i) => {
+                div = c.newToolTip
+                        .append("div")
+                        .attr("id", "bcd-tt" + i);
+                    
+                div.append("span").attr("class", "bcd-rect");
+
+                p = div.append("p").attr("class","bcd-text");
+
+                p.append("span").attr("class","bcd-text-title");
+                p.append("span").attr("class","bcd-text-value");
+                p.append("span").attr("class","bcd-text-rate");
+                p.append("span").attr("class","bcd-text-indicator");
             });
     }
 
+    addTooltip(title, format, date, prefix, postfix){
+
+        let c = this;
+            c.datelabel = date;
+
+            c.title = title;
+            c.valueFormat = format;
+            c.ttWidth = 305,
+            c.ttHeight = 50,
+            c.ttBorderRadius = 3;
+            c.formatYear = d3.timeFormat("%Y");
+            c.prefix = prefix ? prefix : " ";
+            c.postfix = postfix ? postfix: " ";
+            c.valueFormat = c.formatValue(c.valueFormat);
+            c.hV = 0;
+
+    }
+
     mousemove(d, e, a){
-        let chart=this;
-        let rects = a[e];
-
-        chart.toolGroup.style("visibility","visible");
-
-        let x = chart.x0(d[chart.xValue]), 
+        let c = this,
+            rects = a[e],
+            x = c.x0(d[c.xV]), 
             y = 50,
             ttTextHeights = 0,
-            tooltipX = chart.getTooltipPosition(x),
+            tooltipX = c.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
-            key = chart.keys;
+            key = c.keys;
 
-            console.log("tooltip x", tooltipX);
-        chart.tooltip.attr("transform", "translate("+ tooltipX +"," + y + ")");
+            c.newToolTip.style("left", tooltipX + "px").style("top", "20px");
 
+            key.forEach( (v,idx) => {
+                let id = "#bcd-tt" + idx,
+                    div = c.newToolTip.select(id),
+                    p = div.select(".bcd-text"),
+                    newD = data[key[idx]],
+                    oldD = prevData ? prevData[key[idx]] : null,
+                    diff = prevData ? (newD -  oldD)/oldD: 0, 
+                    indicator = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
+                    indicatorColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
+                    rate = indicator !== "" ? d3.format(".1%")(diff) : "",
+                    vString = c.valueFormat !=="undefined"? c.valueFormat(data[key[idx]]) : data[key[idx]];
 
-        key.forEach( (v,idx) => {
-            let tpId = ".tooltipbody_" + idx,
-                title = chart.svg.select(".tooltip-title"),
-                newD = data[key[idx]],
-                oldD = prevData ? prevData[key[idx]] : null,
-                diff = prevData ? (newD -  oldD)/oldD: 0, 
-                iSymbol = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
-                iColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
-                diffPer = iSymbol !== "" ? d3.format(".1%")(diff) : "",
-                vString = chart.valueFormat !=="undefined"? chart.valueFormat(data[key[idx]]) : data[key[idx]];
+                    c.newToolTipTitle.text(c.title + " " + (d[c.xV])); //label needs to be passed to this function 
 
-            let tooltipBody = chart.svg.select(tpId),
-                textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+                    div.select(".bcd-rect").style("background-color", c.colour(v));
+                    p.select(".bcd-text-title").text(v);
+                    p.select(".bcd-text-value").text(vString);
+                    p.select(".bcd-text-rate").text((rate));
+                    p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
 
-                tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                tooltipBody.select(".tp-text-right").text(vString);
-                tooltipBody.select(".tp-text-indicator").text(diffPer +" "+iSymbol).attr("fill",iColour);
-                title.text(chart.title + " " + (d[chart.xValue])); //label needs to be passed to this function 
-                ttTextHeights += textHeight + 6;
-        });
+                // let tooltipBody = c.svg.select(tpId),
+                //     textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
+
+                //     tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
+                //     tooltipBody.select(".tp-text-right").text(vString);
+                //     tooltipBody.select(".tp-text-indicator").text(diffPer +" "+iSymbol).attr("fill",iColour);
+                //     ttTextHeights += textHeight + 6;
+            });
     }
 
-    drawTooltip(){
-        let dv = this,
-            tooltipTextContainer = dv.svg.select(".tooltip-group")
-            .append("g")
-                .attr("class","tooltip-text")
-                .attr("fill","#f8f8f8"),
+    // drawTooltip(){
+    //     let c = this,
+    //         tooltipTextContainer = c.svg.select(".tooltip-group")
+    //         .append("g")
+    //             .attr("class","tooltip-text")
+    //             .attr("fill","#f8f8f8"),
 
-            tooltip = tooltipTextContainer
-            .append("rect")
-                .attr("class", "tooltip-container")
-                .attr("width", dv.ttWidth)
-                .attr("height", dv.ttHeight)
-                .attr("rx", dv.ttBorderRadius)
-                .attr("ry", dv.ttBorderRadius)
-                .attr("fill","#001f35e6")
-                .attr("stroke", "#6c757d")
-                .attr("stroke-width", 2),
+    //         tooltip = tooltipTextContainer
+    //         .append("rect")
+    //             .attr("class", "tooltip-container")
+    //             .attr("width", c.ttWidth)
+    //             .attr("height", c.ttHeight)
+    //             .attr("rx", c.ttBorderRadius)
+    //             .attr("ry", c.ttBorderRadius)
+    //             .attr("fill","#001f35e6")
+    //             .attr("stroke", "#6c757d")
+    //             .attr("stroke-width", 2),
             
-            tooltipTitle = tooltipTextContainer
-            .append("text")
-                .text("test tooltip")
-                .attr("class", "tooltip-title")
-                .attr("x", 5)
-                .attr("y", 16)
-                .attr("dy", ".35em")
-                .style("fill", "#a5a5a5"),
+    //         tooltipTitle = tooltipTextContainer
+    //         .append("text")
+    //             .text("test tooltip")
+    //             .attr("class", "tooltip-title")
+    //             .attr("x", 5)
+    //             .attr("y", 16)
+    //             .attr("dy", ".35em")
+    //             .style("fill", "#a5a5a5"),
 
-            tooltipDivider = tooltipTextContainer
-                .append("line")
-                    .attr("class", "tooltip-divider")
-                    .attr("x1", 0)
-                    .attr("x2", dv.ttWidth)
-                    .attr("y1", 31)
-                    .attr("y2", 31)
-                    .style("stroke", "#6c757d"),
+    //         tooltipDivider = tooltipTextContainer
+    //             .append("line")
+    //                 .attr("class", "tooltip-divider")
+    //                 .attr("x1", 0)
+    //                 .attr("x2", c.ttWidth)
+    //                 .attr("y1", 31)
+    //                 .attr("y2", 31)
+    //                 .style("stroke", "#6c757d"),
 
-            tooltipBody = tooltipTextContainer
-                .append("g")
-                    .attr("class","tooltip-body")
-                    .attr("transform", "translate(5,50)");
-    }
-
-    updateTooltip(d,i){
-        let dv = this;
-
-        let tooltipBodyItem = dv.svg.select(".tooltip-body")
-            .append("g")
-            .attr("class", "tooltipbody_" + i);
-
-        tooltipBodyItem.append("text")
-            .text(d)
-            .attr("class", "tp-text-left")
-            .attr("x", "12")
-            .attr("dy", ".35em")
-            .call(dv.textWrap, 140, 12);
-
-        tooltipBodyItem.append("text")
-            .attr("class", "tp-text-right")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 90)
-            .attr("text-anchor","end");
-
-        tooltipBodyItem.append("text")
-            .attr("class", "tp-text-indicator")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 25)
-            .attr("text-anchor","end");
-
-
-        tooltipBodyItem.append("rect")
-            .attr("class", "label-rect")
-            .attr("width", 10)
-            .attr("height", 10)
-            .attr("y", -5)
-            .attr("x", -3)
-            .attr("fill", dv.colour(d))
-            .attr("fill-opacity", 0.75);
-
-        dv.updateSize();
-    }
-
-    // updatePosition(xPosition, yPosition){
-    //     let dv = this;
-    //     // get the x and y values - y is static
-    //     let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
-    //     console.log("x pos", tooltipX)
-    //     dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+    //         tooltipBody = tooltipTextContainer
+    //             .append("g")
+    //                 .attr("class","tooltip-body")
+    //                 .attr("transform", "translate(5,50)");
     // }
 
-    updateSize(){
-        let dv = this;
-        let height = dv.svg.select(".tooltip-body").node().getBBox().height;
-            dv.ttHeight += height + 5;
-            dv.svg.select(".tooltip-container").attr("height", dv.ttHeight);
-    }
+    // updateTooltip(d,i){
+    //     let c = this;
+
+    //     let tooltipBodyItem = c.svg.select(".tooltip-body")
+    //         .append("g")
+    //         .attr("class", "tooltipbody_" + i);
+
+    //     tooltipBodyItem.append("text")
+    //         .text(d)
+    //         .attr("class", "tp-text-left")
+    //         .attr("x", "12")
+    //         .attr("dy", ".35em")
+    //         .call(c.textWrap, 140, 12);
+
+    //     tooltipBodyItem.append("text")
+    //         .attr("class", "tp-text-right")
+    //         .attr("x", "10")
+    //         .attr("dy", ".35em")
+    //         .attr("dx", c.ttWidth - 90)
+    //         .attr("text-anchor","end");
+
+    //     tooltipBodyItem.append("text")
+    //         .attr("class", "tp-text-indicator")
+    //         .attr("x", "10")
+    //         .attr("dy", ".35em")
+    //         .attr("dx", c.ttWidth - 25)
+    //         .attr("text-anchor","end");
+
+
+    //     tooltipBodyItem.append("rect")
+    //         .attr("class", "label-rect")
+    //         .attr("width", 10)
+    //         .attr("height", 10)
+    //         .attr("y", -5)
+    //         .attr("x", -3)
+    //         .attr("fill", c.colour(d))
+    //         .attr("fill-opacity", 0.75);
+
+    //     c.updateSize();
+    // }
+
+    // updatePosition(xPosition, yPosition){
+    //     let c = this;
+    //     // get the x and y values - y is static
+    //     let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
+    //     console.log("x pos", tooltipX)
+    //     c.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+    // }
+
+    // updateSize(){
+    //     let c = this;
+    //     let height = c.svg.select(".tooltip-body").node().getBBox().height;
+    //         c.ttHeight += height + 5;
+    //         c.svg.select(".tooltip-container").attr("height", c.ttHeight);
+    // }
 
     getTooltipPosition(mouseX) {
         let c = this,
             ttX,
-            cSize,
-            key = c.keys;
+            cW,
+            offset;
 
-            cSize = c.w - c.m.right - c.m.left;
-            
+            cW = c.w  - c.ttWidth;
+            offset = c.x1.bandwidth() < 20 ? c.x1.bandwidth() : 15;
+
             // show right
-            if ( mouseX < cSize - c.x0.bandwidth()) {
-                ttX = mouseX + c.x0.bandwidth() + c.m.left;
+            if (mouseX < cW) {
+                ttX = mouseX + c.x0.bandwidth() + offset + c.m.left;
                 
             } else {
                 // show left minus the size of tooltip + 10 padding
-                ttX = mouseX + c.m.left - c.ttWidth;
+                ttX = mouseX + c.m.left + offset - c.ttWidth;
             }
             return ttX;
     }
@@ -499,8 +512,8 @@ class GroupedBarChart{
     }
 
     hideRate(value){
-        let dv = this;
-        value ? dv.svg.selectAll(".tp-text-indicator").style("display", "none") : dv.svg.selectAll(".tp-text-indicator").style("display", "block")
+        let c = this;
+        value ? c.svg.selectAll(".tp-text-indicator").style("display", "none") : c.svg.selectAll(".tp-text-indicator").style("display", "block")
     }
 
     textWrap(text, width, xpos = 0, limit=3) {
@@ -520,35 +533,35 @@ class GroupedBarChart{
             line = [];
             lineNumber = 0;
             lineHeight = 1;
-            y = text.attr('y');
-            dy = parseFloat(text.attr('dy'));
+            y = text.attr("y");
+            dy = parseFloat(text.attr("dy"));
             tspan = text
                 .text(null)
-                .append('tspan')
-                .attr('x', xpos)
-                .attr('y', y)
-                .attr('dy', dy + 'em');
+                .append("tspan")
+                .attr("x", xpos)
+                .attr("y", y)
+                .attr("dy", dy + "em");
 
             while ((word = words.pop())) {
                 line.push(word);
-                tspan.text(line.join(' '));
+                tspan.text(line.join(" "));
 
                 if (tspan.node() && tspan.node().getComputedTextLength() > width) {
                     line.pop();
-                    tspan.text(line.join(' '));
+                    tspan.text(line.join(" "));
 
                     if (lineNumber < limit - 1) {
                         line = [word];
-                        tspan = text.append('tspan')
-                            .attr('x', xpos)
-                            .attr('y', y)
-                            .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+                        tspan = text.append("tspan")
+                            .attr("x", xpos)
+                            .attr("y", y)
+                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
                             .text(word);
                         // if we need two lines for the text, move them both up to center them
-                        text.classed('adjust-upwards', true);
+                        text.classed("adjust-upwards", true);
                     } else {
-                        line.push('...');
-                        tspan.text(line.join(' '));
+                        line.push("...");
+                        tspan.text(line.join(" "));
                         break;
                     }
                 }

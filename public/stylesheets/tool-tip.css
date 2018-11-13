@@ -25,8 +25,8 @@
 
 .tool-tip {
   position: absolute;
-  width: 290px;
-  padding: 10px;
+  width: 305px;
+  padding: .5rem;
   background-color: #ffffff;
   border: 1px solid rgb(210, 214, 223);
   border-radius: 5px;

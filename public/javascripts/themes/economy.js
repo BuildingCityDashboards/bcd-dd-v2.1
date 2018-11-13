@@ -187,8 +187,6 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
     // load csv data and turn value into a number
     d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
         var keys = data.columns;
-        
-        console.log("this is the SIA20 data", data);
 
         // blank array
         var transposedData = [];
@@ -199,6 +197,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
                 if (!(key === "type" || key === "region")){
                 obj.type = d.type;
                 obj.region = d.region;
+                obj[d.type] = +d[key];
                 obj.year = key;
                 obj.value = +d[key];
                 transposedData.push(obj);
@@ -207,14 +206,15 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
 
         newList = d3.nest()
             .key(d => { return d.region })
-            .key(d => { return d.type })
+            // .key(d => { return d.type })
             .entries(transposedData);
 
-        let dataFiltered = newList.find( d => d.key === "Dublin").values.find(
-                d => d.key === "Median Real Household Disposable Income (Euro)"
-            ).values;
+        let dataFiltered = newList.find( d => d.key === "Dublin").values.filter(
+                d => d.type === "Median Real Household Disposable Income (Euro)"
+            );
 
-        const disosableIncomeChart = new BarChart( dataFiltered, "#chart-disposable-income", "year", "value", "Years", "€");
+        const disosableIncomeChart = new GroupedBarChart(dataFiltered, ["Median Real Household Disposable Income (Euro)"], "year", "#chart-disposable-income", "Years", "€");
+              disosableIncomeChart.addTooltip("Dublin - Year", "thousands", "year");
         
     })
     // catch any error and log to console
@@ -235,27 +235,61 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
 
     // /*** Industry Sectors Charts here ***/
     // //#chart-employment-sector
-    // d3.csv("../data/Economy/QNQ40.csv").then( data => { 
+    d3.csv("../data/Economy/QNQ4017Q2.csv").then( data => { 
+    console.log("the sector data", data);
 
-    //     let columnNames = data.columns.slice(2);
+        data.forEach(d => {
+            d.value = +d.value;
+        })
 
-    //     data.forEach(d => {
-    //         for(var i = 0, n = columnNames.length; i < n; ++i){
-    //             d[columnNames[i]] = +d[columnNames[i]] || 0;
-    //             d.date = d.quarter;
-    //         }
-    //         return d;
-    //     });
+       const treemap =  d3.treemap()
+                        .size([800, 500])
+                        .padding(1)
+                        .round(true),
 
-    //     // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
-    //     const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
-    //     newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
+            stratify = d3.stratify(),
+            //             .parentId(function(d) { return d.type.substring(0, d.type.lastIndexOf(" ")); }),
+            root = d3.hierarchy(data).sum(function(d) {
+                return d.value;
+              });
+              
+                    // .sum(function(d) { return d.value; })
+                    // .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
+             
+            treeData = treemap(root);
+
+            const svg = d3.select("#chart-employment-sector").append("svg")
+            
+                  svg.append("g")
+                    .selectAll("rect")
+                    .data(treeData)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function(d) { return d.x0; })
+                    .attr("y", function(d) { return d.y0; })
+                    .attr("width", function(d) { return d.x1 - d.x0; })
+                    .attr("height", function(d) { return d.y1 - d.y0; })
         
-    // })
-    // // catch any error and log to console
-    // .catch(function(error){
-    // console.log(error);
-    // });
+
+        // let columnNames = data.columns.slice(2);
+
+        // data.forEach(d => {
+        //     for(var i = 0, n = columnNames.length; i < n; ++i){
+        //         d[columnNames[i]] = +d[columnNames[i]] || 0;
+        //         d.date = d.quarter;
+        //     }
+        //     return d;
+        // });
+
+        // // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
+        // const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
+        // newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
+        
+    })
+    // catch any error and log to console
+    .catch(function(error){
+    console.log(error);
+    });
     
     //#chart-employees-by-size
     // load csv data and turn value into a number
@@ -313,6 +347,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
                 });
 
             let overseasVisitorsData = data;
+            console.log("overseasVisitors", overseasVisitorsData);
         
             const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
                   overseasvisitorsChart.addTooltip("Oversea Vistors (Millions) - Year", "thousands", xValue);
