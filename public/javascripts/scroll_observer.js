@@ -1,3 +1,4 @@
+  //obsverer object
   const subNavList = {
     container: document.querySelector("#subnav"),
     anchors: null,
@@ -17,11 +18,15 @@
       this.sections();
     },
 
+    // handler for entries (e), (o) observer
     handler(e, o) {
       e.forEach(entry => {
+        //get anchor href
         let href = "#" + entry.target.getAttribute("id"),
+            //find the anchor
             link = this.anchors.find(a => a.getAttribute("href") === href);
         
+        // check if we have an intersection add class
         if (entry.isIntersecting) {
           link.classList.add("is-active");
           this.prev = entry.target.getAttribute("id");
@@ -32,12 +37,6 @@
       });
     },
 
-    sections() {
-      this.headers.forEach(heading => {
-        this.observer.observe(heading);
-      });
-    },
-
     setUp() {
       this.observer = new IntersectionObserver(
         this.handler,
@@ -45,14 +44,24 @@
       );
     },
 
+    // create array of anchors for active and elements that will be observed.
     findElements() {
       this.anchors = [...this.container.querySelectorAll("a")];
-      this.headers = this.anchors.map(link => {
-        let id = link.getAttribute("href");
+      this.headers = this.anchors.map(anchor => {
+        let id = anchor.getAttribute("href");
         return document.querySelector(id);
       });
+    },
+
+    // tell the observer what to elements to observe the headers (h)
+    sections() {
+      this.headers.forEach(h => {
+        this.observer.observe(h);
+      });
     }
+
   };
 
 
   subNavList.init();
+  console.log("test", subNavList);

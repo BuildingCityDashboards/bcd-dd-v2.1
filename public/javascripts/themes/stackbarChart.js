@@ -33,8 +33,6 @@ class StackBarChart {
         
         c.width = eW - c.m.l - c.m.r;
         c.height = aR - c.m.t - c.m.b;
-
-        // c.cScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
         
         // default colour Scheme
         c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[9].slice(4);

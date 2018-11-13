@@ -52,7 +52,7 @@ Promise.all([
         return d.region === "Dublin";
     });
     const drcc = planningDataProcessed.filter( d => {
-        return d.region === "Dun Laoghaire Rathdown";
+        return d.region === "Dun Laoghaire- Rathdown";
     });
     const fcc = planningDataProcessed.filter( d => {
         return d.region === "Fingal";

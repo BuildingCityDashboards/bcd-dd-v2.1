@@ -232,7 +232,7 @@
             //   Chart4.tickNumber = 27;
               Chart4.createScales();
               
-              Chart4.addTooltip("Population - Region: ", "thousands", "label");
+              Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
 
          //chart5DN = nestData(chart5D, "label", "type", "value"),

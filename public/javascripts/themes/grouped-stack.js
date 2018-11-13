@@ -117,7 +117,7 @@ class GroupStackBar {
             pHeader
                 .append("span")
                 .attr("class","bcd-text-slice")
-                .text("% Slice");
+                .text("Portion");
 
             // pHeader
             //     .append("span")
@@ -367,7 +367,7 @@ class GroupStackBar {
             dv.datelabel = date;
             dv.ttTitle = title;
             dv.valueFormat = formatValue(format);
-            dv.ttWidth = 290;
+            dv.ttWidth = 305;
             dv.ttHeight = 50;
             dv.ttBorderRadius = 3;
             dv.formatYear = d3.timeFormat("%Y");
