@@ -2,11 +2,12 @@
 d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) {
     //console.log("Weather: " + xmlWeather);
     let timesXML = xmlWeather.getElementsByTagName("time");
-    //console.log("#timesXML: " + timesXML.length);
+    console.log("#timesXML: " + timesXML.length);
     //use index in loop to track odd/even entry
     let forecasts = []; //array of objects
     let id = 0;
-    for (let i = 0; i < timesXML.length - 1; i += 2) {
+    /*TODO: fix hack*/
+    for (let i = 0; i < 22; i += 2) {
         let from, startDate, locationEven, lat, lng, temp, humidity, windDir, windSpeed,
                 locationOdd, symbolId, symbolNo, precip;
         //console.log("TIME #" + i);
@@ -25,9 +26,11 @@ d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) 
         windDir = locationEven.getElementsByTagName("windDirection")[0].getAttribute("name");
         //console.log("windDir : " + windDir);
         windSpeed = locationEven.getElementsByTagName("windSpeed")[0].getAttribute("beaufort");
-        //console.log("windspeed : " + windSpeed);
+        console.log("i : " + i);
+        console.log("windspeed : " + windSpeed);
         //Odd entries
         locationOdd = timesXML[i + 1].getElementsByTagName("location")[0];
+        console.log("location odd: " + JSON.stringify(locationOdd.getElementsByTagName("symbol")[0]));
         symbolId = locationOdd.getElementsByTagName("symbol")[0].getAttribute("id");
         //console.log("symbol ID: " + symbolId);
         symbolNo = locationOdd.getElementsByTagName("symbol")[0].getAttribute("number");
@@ -37,7 +40,7 @@ d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) 
             symbolNo = "0" + symbolNo; //pad with a zero
         }
         //console.log("date: "+startDate+" start hour: "+startDate.getHours());
-        //decide if night or day based on hour 
+        //decide if night or day based on hour
         ///*TODO: Crude! Improve!*/
         if (startDate.getHours() > 18 || startDate.getHours() < 6) {
             tod = 'n';
@@ -47,7 +50,7 @@ d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) 
         precip = locationOdd.getElementsByTagName("precipitation")[0].getAttribute("value");
         //console.log("precip #" + precip);
         //
-        //Only use the next 48 hourly readings 
+        //Only use the next 48 hourly readings
         /*TODO: Better algo to decide if readings are to be used/ are valid*/
         if (id < 48) {
             forecasts.push(
@@ -85,7 +88,7 @@ function updateWeatherDisplay(f) {
                     + "</div>"
                     + "</div>"
                     );
-    
+
     d3.select("#rt-weather").select("#card-left")
             .html("<div align='center'>"
     +'<h3>' + parseInt(f[0].temperature) + ' C</h3>'
@@ -105,7 +108,7 @@ function updateWeatherDisplay(f) {
                     + ' ' + f[0].windDir + '</h3>'
                     + '<p>' + parseInt(f[0].windSpeed) + ' mps</p>'
                      + '</div>');
-    
+
     updateInfo("#weather-chart a", "<b>Met Eireann</b> weather forecast for <b>"
             +weatherTime(f[0].date)
             +" </b> is for a temperature of "+parseInt(f[0].temperature)+ "C with "
@@ -130,6 +133,3 @@ function updateInfo(selector, infoText) {
                 text.text(textString);
             });
 }
-
-
-
