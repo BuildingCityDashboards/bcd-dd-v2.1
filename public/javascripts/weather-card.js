@@ -7,7 +7,7 @@ d3.xml("/data/Environment/met_eireann_forecast.xml").then(function (xmlWeather) 
     let forecasts = []; //array of objects
     let id = 0;
     /*TODO: fix hack*/
-    for (let i = 0; i < 22; i += 2) {
+    for (let i = 0; i < 4; i += 2) {
         let from, startDate, locationEven, lat, lng, temp, humidity, windDir, windSpeed,
                 locationOdd, symbolId, symbolNo, precip;
         //console.log("TIME #" + i);
