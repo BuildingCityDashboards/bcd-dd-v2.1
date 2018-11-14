@@ -351,6 +351,39 @@
 }
 
 
+/* side navigaton dots */
+
+#sidenav {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.5s;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    /* opacity: 0; */
+}
+
+.sidenav-group {
+    border-bottom: 1px solid #f8f8f8;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+}
+
+.sidenav-item {
+    transition: opacity 0.35s, width 0.35s, height 0.35s, margin 0.35s;
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: block;
+    height: 8px;
+    margin: 12px 4px;
+    width: 8px;
+    border: 1px solid #f8f8f8;
+    opacity: 0.7;
+}
 
 @media (min-width: 576px){
     .side-menu__toggler{
