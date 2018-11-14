@@ -53,7 +53,7 @@
 
   /* Anchor offset for fixed navbar*/
   .section-header{
-    margin-top: -75px;
+    /* margin-top: -75px; */
     padding-top: 75px;
   }
 
