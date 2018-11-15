@@ -177,7 +177,6 @@ class GroupedBarChart{
             .style("visibility", "hidden")
             .on("mouseover", function(){
                 d3.select(this).style("visibility", "visible");
-                c.newToolTip.style("visibility","visible");
             })
             .on("mouseout", function(){ 
                 d3.select(this).style("visibility", "hidden");
@@ -328,16 +327,15 @@ class GroupedBarChart{
 
     mousemove(d, e, a){
         let c = this,
-            rects = a[e],
             x = c.x0(d[c.xV]), 
-            y = 50,
-            ttTextHeights = 0,
+            y = 20,
             tooltipX = c.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
             key = c.keys;
 
-            c.newToolTip.style("left", tooltipX + "px").style("top", "20px");
+            c.newToolTip.style("visibility","visible");
+            c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
 
             key.forEach( (v,idx) => {
                 let id = "#bcd-tt" + idx,
@@ -359,113 +357,8 @@ class GroupedBarChart{
                     p.select(".bcd-text-rate").text((rate));
                     p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
 
-                // let tooltipBody = c.svg.select(tpId),
-                //     textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
-
-                //     tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                //     tooltipBody.select(".tp-text-right").text(vString);
-                //     tooltipBody.select(".tp-text-indicator").text(diffPer +" "+iSymbol).attr("fill",iColour);
-                //     ttTextHeights += textHeight + 6;
             });
     }
-
-    // drawTooltip(){
-    //     let c = this,
-    //         tooltipTextContainer = c.svg.select(".tooltip-group")
-    //         .append("g")
-    //             .attr("class","tooltip-text")
-    //             .attr("fill","#f8f8f8"),
-
-    //         tooltip = tooltipTextContainer
-    //         .append("rect")
-    //             .attr("class", "tooltip-container")
-    //             .attr("width", c.ttWidth)
-    //             .attr("height", c.ttHeight)
-    //             .attr("rx", c.ttBorderRadius)
-    //             .attr("ry", c.ttBorderRadius)
-    //             .attr("fill","#001f35e6")
-    //             .attr("stroke", "#6c757d")
-    //             .attr("stroke-width", 2),
-            
-    //         tooltipTitle = tooltipTextContainer
-    //         .append("text")
-    //             .text("test tooltip")
-    //             .attr("class", "tooltip-title")
-    //             .attr("x", 5)
-    //             .attr("y", 16)
-    //             .attr("dy", ".35em")
-    //             .style("fill", "#a5a5a5"),
-
-    //         tooltipDivider = tooltipTextContainer
-    //             .append("line")
-    //                 .attr("class", "tooltip-divider")
-    //                 .attr("x1", 0)
-    //                 .attr("x2", c.ttWidth)
-    //                 .attr("y1", 31)
-    //                 .attr("y2", 31)
-    //                 .style("stroke", "#6c757d"),
-
-    //         tooltipBody = tooltipTextContainer
-    //             .append("g")
-    //                 .attr("class","tooltip-body")
-    //                 .attr("transform", "translate(5,50)");
-    // }
-
-    // updateTooltip(d,i){
-    //     let c = this;
-
-    //     let tooltipBodyItem = c.svg.select(".tooltip-body")
-    //         .append("g")
-    //         .attr("class", "tooltipbody_" + i);
-
-    //     tooltipBodyItem.append("text")
-    //         .text(d)
-    //         .attr("class", "tp-text-left")
-    //         .attr("x", "12")
-    //         .attr("dy", ".35em")
-    //         .call(c.textWrap, 140, 12);
-
-    //     tooltipBodyItem.append("text")
-    //         .attr("class", "tp-text-right")
-    //         .attr("x", "10")
-    //         .attr("dy", ".35em")
-    //         .attr("dx", c.ttWidth - 90)
-    //         .attr("text-anchor","end");
-
-    //     tooltipBodyItem.append("text")
-    //         .attr("class", "tp-text-indicator")
-    //         .attr("x", "10")
-    //         .attr("dy", ".35em")
-    //         .attr("dx", c.ttWidth - 25)
-    //         .attr("text-anchor","end");
-
-
-    //     tooltipBodyItem.append("rect")
-    //         .attr("class", "label-rect")
-    //         .attr("width", 10)
-    //         .attr("height", 10)
-    //         .attr("y", -5)
-    //         .attr("x", -3)
-    //         .attr("fill", c.colour(d))
-    //         .attr("fill-opacity", 0.75);
-
-    //     c.updateSize();
-    // }
-
-    // updatePosition(xPosition, yPosition){
-    //     let c = this;
-    //     // get the x and y values - y is static
-    //     let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
-    //     console.log("x pos", tooltipX)
-    //     c.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
-    // }
-
-    // updateSize(){
-    //     let c = this;
-    //     let height = c.svg.select(".tooltip-body").node().getBBox().height;
-    //         c.ttHeight += height + 5;
-    //         c.svg.select(".tooltip-container").attr("height", c.ttHeight);
-    // }
 
     getTooltipPosition(mouseX) {
         let c = this,
@@ -513,7 +406,17 @@ class GroupedBarChart{
 
     hideRate(value){
         let c = this;
-        value ? c.svg.selectAll(".tp-text-indicator").style("display", "none") : c.svg.selectAll(".tp-text-indicator").style("display", "block")
+
+        if(value){
+            console.log("value of hide", value);
+            d3.selectAll(c.e + " .bcd-text-indicator").style("display", "none");
+            d3.selectAll(c.e + " .bcd-text-rate").style("display", "none");
+        }
+        else{
+            d3.selectAll(c.e + " .bcd-text-indicator").style("display", "block");
+            d3.selectAll(c.e + " .bcd-text-rate").style("display", "block");
+        }
+        // value ? c.svg.selectAll(".bcd-text-indicator").style("display", "none") : c.svg.selectAll(".bcd-text-indicator").style("display", "block");
     }
 
     textWrap(text, width, xpos = 0, limit=3) {

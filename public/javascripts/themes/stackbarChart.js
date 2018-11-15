@@ -302,9 +302,9 @@ class StackBarChart {
             dv.hV = 0;
 
             dv.layers.selectAll("rect")
-            .on("mouseover", function(){ 
-                dv.newToolTip.style("visibility","visible");
-            })
+            // .on("mouseover", function(){ 
+
+            // })
             .on("mouseout", function(){
                 dv.newToolTip.style("visibility","hidden");
             })
@@ -321,7 +321,7 @@ class StackBarChart {
             bisect = d3.bisector(function(d) { return d.date; }).left,
             i = bisect(chart.gData, d.data.date);
 
-        console.log("this is the d", d);
+        chart.newToolTip.style("visibility","visible");
  
         chart.newToolTip.style('left', tooltipX[0] + "px").style("top", tooltipX[1] +"px");
 

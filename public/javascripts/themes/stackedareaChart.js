@@ -703,7 +703,7 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
         //  let newStart = [];
         //  startSet.length < _sliceBy ? newStart = _data.slice(50 - _sliceBy) : newStart = startSet;
 
-          d3.selectAll(".pagination-holder").remove();
+        d3.selectAll(_selector + " .pagination-holder").remove();
 
     let moreButtons = d3.select(_selector)
         .append("div")

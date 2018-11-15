@@ -63,7 +63,7 @@ Promise.all([
     dataSet.forEach( d => {
         d.quarter = convertQuarter(d.quarter);
         d.label = formatQuarter(d.quarter);
-        d[empValue] = +d[empValue];
+        d[empValue] = +d[empValue] * 1000;
     });
 
     dataSet4.forEach( d => {
@@ -83,14 +83,12 @@ Promise.all([
     const dublinData =  dataSet.filter( d => {
         return d.region === "Dublin" && !isNaN(d[empValue]);
     });
-    console.log("unemp data", dublinData);
+
     const dublinAnnualRate = dataSet2.filter( d => {
         return d.region === "Dublin";
     });
 
-    const irelandAnnualRate = dataSet2.filter( d => {
-        return d.region === "Ireland";
-    });
+    console.log("unemp data", dublinAnnualRate);
 
     // charts setup here
     const unemploy =  {
@@ -98,7 +96,10 @@ Promise.all([
             e : "#test-glance",
             yV: empValue,
             xV: "quarter",
-            sN: "region"
+            sN: "region",
+            fV: d3.format(".2s"),
+            dL: "label"
+
         },
 
         unemployChart = new DataGlanceLine(unemploy);
@@ -108,7 +109,9 @@ Promise.all([
             e : "#pr-glance",
             yV: annualPopRate,
             xV: "date",
-            sN: "region"
+            sN: "region",
+            fV: d3.format(".2s"),
+            dL: "date"
         },
         
         popChart = new DataGlanceLine(pop);
@@ -123,11 +126,12 @@ Promise.all([
         e : "#ap-glance",
         yV:  "value",
         xV:  "month",
-        sN:  "region"
+        sN:  "region",
+        dL: "label"
     },
         priceIndexChart = new DataGlanceLine(priceIndex);       
 
-    updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".3s"), true);
+    updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".2s"), true);
     updateInfoText("#app-chart a", "The Property Price Index for Dublin on ", " on previous Month", date4Filtered, columnNames4[0], "label", locale.format(""));
     updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s") );
     updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format("") );
@@ -147,6 +151,8 @@ class DataGlanceLine{
         this.yV = obj.yV;
         this.xV = obj.xV;
         this.sN = obj.sN; 
+        this.fV = obj.fV;
+        this.dL = obj.dL;
 
         // create the chart area
         this.init();
@@ -216,6 +222,7 @@ class DataGlanceLine{
             lD = c.d[l-1],
             fD = c.d[0];
 
+            // Region/type name
             c.svg.append("text")
                 .attr("dx", 0)
                 .attr("dy", -10)
@@ -223,29 +230,32 @@ class DataGlanceLine{
                 .attr("fill", "#16c1f3")// move to css
                 .text(lD[c.sN]);// needs to be a d.name
 
+            // value label
             c.svg.append("text")
-                .attr("x", c.w)
+                .attr("x", c.w + 10)
                 .attr("y", c.y(lD[c.yV])-10)
                 .attr("text-anchor", "end")// move to css
                 .attr("class", "label")
                 .attr("fill", "#f8f9fabd")// move to css
-                .text(lD[c.yV]); 
+                .text(c.fV? c.fV(lD[c.yV]): lD[c.yV]); 
 
+            // latest date label
             c.svg.append("text")
                 .attr("x", c.w)
                 .attr("y", c.h + 30)
                 .attr("text-anchor", "end")// move to css
                 .attr("class", "label employment")
                 .attr("fill", "#f8f9fabd")// move to css
-                .text(lD.label);
+                .text(lD[c.dL]);
 
+            // first date label
             c.svg.append("text")
                 .attr("x", 0)
                 .attr("y", c.h + 30)
                 .attr("text-anchor", "start")// move to css
                 .attr("class", "label employment")
                 .attr("fill", "#f8f9fabd")// move to css
-                .text(fD.label);
+                .text(fD[c.dL]);
 
             c.svg.append("circle")
                 .attr("cx", c.x(lD[c.xV]))
@@ -390,26 +400,6 @@ class GroupedBarChart{
                 .attr("class", "label value")
                 .attr("fill", "#f8f9fabd")
                 .text(dv.lastValue);
-        
-        // dv.g.selectAll("rect")
-        //     .on("mouseover", function(){ 
-        //         dv.tooltip.style("display", "inline-block"); 
-        //     })
-        //     .on("mouseout", function(){ 
-        //         dv.tooltip.style("display", "none"); 
-        //     })
-        //     .on("mousemove", function(d){
-        //         let dx  = parseFloat(d3.select(this).attr('x')) + dv.x0.bandwidth() + 100, 
-        //             dy  = parseFloat(d3.select(this).attr('y')) + 10;
-        //         var x = d3.event.pageX, 
-        //             y = d3.event.clientY;
-
-        //         dv.tooltip
-        //             .style( 'left', (d3.event.pageX+10) + "px" )
-        //             .style( 'top', (d3.event.pageY) + "px" )
-        //             .style( 'display', "inline-block" )
-        //             .text("The value is: " + (d.value)); // what should the value be ?
-        //     });
     }
     
 }
@@ -428,7 +418,7 @@ function formatQuarter(date){
     newDate.setMonth(date.getMonth() + 1);
     let year = (date.getFullYear());
     let q = Math.ceil(( newDate.getMonth()) / 3 );
-    return year + " Quarter "+ q;
+    return year + " Q"+ q;
 }
 
 function updateInfoText(selector, startText, endText, data, valueName, labelName, format, changeArrrow ){
@@ -448,16 +438,6 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
         indicatorColour = cArrow ? difference > 0 ?  red : green : difference > 0 ?  green : red,
         startString = startText,
         endString = endText;
-        // screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        // console.log(screenSize);
-
-        // let divInfo = d3.select(selector).select(".line-chart")
-        //     .append("div")
-        //     .style("max-width", "33.333333%")
-        //     .style("width", "33.333333%")
-        //     .style("float","right")
-        //     .append("h5").html(indicatorSymbol).style("text-align", "center")
-        //     .append("h5").html(format(currentValue)).style("text-align", "center");
 
         d3.select(selector)
         .on("mouseover", (d) => { 
@@ -500,9 +480,6 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 
             text.append("text").text(" " + endString);
         });
-        // d3.select(selector).on("touchstart", (d) => {
-        //     text.text(textString);
-        // })
 }
 
 function infoText(){

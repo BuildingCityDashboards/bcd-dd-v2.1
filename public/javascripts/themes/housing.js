@@ -28,17 +28,11 @@ Promise.all([
             d.year = formatYear(d[dateField]);
           });
 
-          console.log(compDataProcessed);
-
     //const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
     // const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
 
     const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
-        // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-        // houseCompCharts.getData(dateFilter);
-        // houseCompCharts.addTooltip("Units by Month:", "000");
-
-        houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
+          houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
 
 
 

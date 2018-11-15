@@ -151,11 +151,11 @@
               d3.select(Chart1.xAxis._groups[0][0].childNodes[16]).style("display", "block");
               d3.select(Chart1.xAxis._groups[0][0].childNodes[21]).style("display", "block");
               d3.select(Chart1.xAxis._groups[0][0].childNodes[26]).style("display", "block");
-              console.log("x axis content", Chart1.xAxis._groups[0][0]);
 
 
         const Chart1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population");
-            //   Chart1b.addTooltip("Population - Year", "Percentage", "region");
+              Chart1b.addTooltip("Population - Year", "percentage", "region");
+              Chart1b.scaleFormatY = d3.format(".0%");
               Chart1b.svg.attr("display","none");
 
                 d3.select("#chart1 .chart_pop").on("click", function(){
@@ -179,26 +179,30 @@
                  d3.select("#chart1 .chart_prate").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
-                    Chart1b.data = popRate;
-                    // Chart1b.title = "Population - Region: ";
                     
-                    Chart1b.addTooltip("Population - Region: ", "percentage");
+                    Chart1b.d = popRate;
+                    Chart1b.title = "Population - Region: ";
+                    
+                // Chart1b.addTooltip("Population - Region: ", "percentage");
                     Chart1b.hideRate(true);
-                    Chart1b.scaleFormatY = d3.format(".0%");
+                    
+                    
                     Chart1b.update();
                     Chart1.svg.attr("display","none");
                     Chart1b.svg.attr("display","block");
-
-                    console.log(Chart1b);
                  });
+                 
 
                  d3.select("#chart1 .chart_hrate").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
-                    Chart1b.data = houseRate;
+
+                    Chart1b.d = houseRate;
                     Chart1b.title = "Households - Region: ";
+
                     Chart1b.hideRate(true);
-                    Chart1b.scaleFormatY = d3.format(".0%");
+
+
                     Chart1b.update();
                     Chart1.svg.attr("display","none");
                     Chart1b.svg.attr("display","block");
@@ -241,11 +245,12 @@
        // const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
         const Chart5 = new MultiLineChart(chart5C);
             Chart5.titleX = "Years";
-            Chart5.titleY = "€ ( Millions )";
+            Chart5.titleY = "€ ( Billions )";
             Chart5.tickNumber = 6;
+            Chart5.yScaleFormat = "millions";
+            
             Chart5.createScales();
-            // Chart5.getData(chart5DN);
-            Chart5.addTooltip("Year:", "millions");
+            Chart5.addTooltip("Mortgage Debt € - Year:", "millions", "label");
 
 
         const Chart6C = {
@@ -355,7 +360,6 @@
     
         // nest the processed data by regions
         const nest =  d3.nest().key( d => { return d[key] ;}).entries(data);
-        console.log("nest value", nest);
         
         // get array of keys from nest
         const keys = [];
