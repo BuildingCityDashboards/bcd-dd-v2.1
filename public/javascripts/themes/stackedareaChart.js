@@ -17,239 +17,241 @@ class StackedAreaChart {
 
     // initialise method to draw chart area
     init(){
-        let dv = this,
-            elementNode = d3.select(dv.element).node(),
+        let c = this,
+            elementNode = d3.select(c.element).node(),
             elementWidth = elementNode.getBoundingClientRect().width,
             aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
-            d3.select(dv.element).select("svg").remove();
+            d3.select(c.element).select("svg").remove();
             
         const breakPoint = 678;
         
         // margin
-        dv.margin = { };
+        c.margin = { };
 
-        dv.margin.top = elementWidth < breakPoint ? 30 : 50;
-        dv.margin.bottom = elementWidth < breakPoint ? 30 : 60;
+        c.margin.top = elementWidth < breakPoint ? 30 : 50;
+        c.margin.bottom = elementWidth < breakPoint ? 30 : 60;
 
-        dv.margin.right = elementWidth < breakPoint ? 12.5 : 150;
-        dv.margin.left = elementWidth < breakPoint ? 20 : 80;
+        c.margin.right = elementWidth < breakPoint ? 12.5 : 150;
+        c.margin.left = elementWidth < breakPoint ? 20 : 80;
         
-        dv.width = elementWidth - dv.margin.left - dv.margin.right;
-        dv.height = aspectRatio - dv.margin.top - dv.margin.bottom;
+        c.width = elementWidth - c.margin.left - c.margin.right;
+        c.height = aspectRatio - c.margin.top - c.margin.bottom;
 
         // select parent element and append SVG + g
-        const svg = d3.select(dv.element)
+        const svg = d3.select(c.element)
             .append("svg")
-            .attr("width", dv.width + dv.margin.left + dv.margin.right)
-            .attr("height", dv.height + dv.margin.top + dv.margin.bottom);
+            .attr("width", c.width + c.margin.left + c.margin.right)
+            .attr("height", c.height + c.margin.top + c.margin.bottom);
 
-        dv.g = svg.append("g")
-            .attr("transform", "translate(" + dv.margin.left + 
-                ", " + dv.margin.top + ")");
+        c.g = svg.append("g")
+            .attr("transform", "translate(" + c.margin.left + 
+                ", " + c.margin.top + ")");
 
         // default transition 
-        dv.t = () => { return d3.transition().duration(1000); };
-        dv.ease = d3.easeQuadInOut;
+        c.t = () => { return d3.transition().duration(1000); };
+        c.ease = d3.easeQuadInOut;
         
-        // dv.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
+        // c.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
         
         // default colourScheme
-        dv.cScheme = dv.cScheme ? dv.cScheme : d3.schemeBlues[9].slice(4);
+        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[9].slice(4);
         
         // colour function
-        dv.colour = d3.scaleOrdinal(dv.cScheme);
+        c.colour = d3.scaleOrdinal(c.cScheme);
 
         // bisector for tooltip
-        dv.bisectDate = d3.bisector(d => { return (d[dv.date]); }).left;
+        c.bisectDate = d3.bisector(d => { return (d[c.date]); }).left;
 
         // tick numbers
-        dv.tickNumber = "undefined";
+        c.tickNumber = "undefined";
 
         // tick formats
-        dv.tickFormat = "undefined";
+        c.tickFormat = "undefined";
 
-        dv.addAxis();
+        c.addAxis();
     }
 
     addAxis(){
-        let dv = this;
+        let c = this;
 
-        dv.yAxisCall = d3.axisLeft();
-        dv.xAxisCall = d3.axisBottom();
+        c.yAxisCall = d3.axisLeft();
+        c.xAxisCall = d3.axisBottom();
 
-        dv.gridLines = dv.g.append("g")
+        c.gridLines = c.g.append("g")
             .attr("class", "grid-lines");
 
-        dv.xAxis = dv.g.append("g")
+        c.xAxis = c.g.append("g")
             .attr("class", "x-axis")
-            .attr("transform", "translate(0," + dv.height +")");
+            .attr("transform", "translate(0," + c.height +")");
 
-        dv.yAxis = dv.g.append("g")
+        c.yAxis = c.g.append("g")
             .attr("class", "y-axis");
 
         // X title
-        dv.xLabel = dv.g.append("text")
+        c.xLabel = c.g.append("text")
             .attr("class", "titleX")
-            .attr("x", dv.width/2)
-            .attr("y", dv.height + 50)
+            .attr("x", c.width/2)
+            .attr("y", c.height + 50)
             .attr("text-anchor", "start")
-            .text(dv.titleX);
+            .text(c.titleX);
 
         // Y title
-        dv.yLabel = dv.g.append("text")
+        c.yLabel = c.g.append("text")
             .attr("class", "titleY")
-            .attr("x", - (dv.height/2))
+            .attr("x", - (c.height/2))
             .attr("y", -50)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text(dv.titleY);
+            .text(c.titleY);
 
         // call the legend method
-        dv.addLegend();
+        c.addLegend();
     }
 
     // pass the data and the nest value
     getData(_data, _tX, _tY, yScaleFormat){
-        let dv = this;
-            dv.yScaleFormat = dv.formatValue(yScaleFormat);
+        let c = this;
+            c.yScaleFormat = c.formatValue(yScaleFormat);
             
-            _tX ? dv.titleX = _tX: dv.titleX = dv.titleX;
-            _tY ? dv.titleY = _tY: dv.titleY = dv.titleY;
+            _tX ? c.titleX = _tX: c.titleX = c.titleX;
+            _tY ? c.titleY = _tY: c.titleY = c.titleY;
             
-            dv.nestedData =_data;
-            // dv.tickNumber =  dv.nestedData.length;
-            dv.createScales();
+            c.nestedData =_data;
+            // c.tickNumber =  c.nestedData.length;
+            c.createScales();
     }
 
     createScales(){
-        let dv = this;
+        let c = this;
 
         // set scales
-        dv.x = d3.scaleTime().range([0, dv.width]);
-        dv.y = d3.scaleLinear().range([dv.height, 0]);
+        c.x = d3.scaleTime().range([0, c.width]);
+        c.y = d3.scaleLinear().range([c.height, 0]);
 
         // get the the combined max value for the y scale
-        let maxDateVal = d3.max(dv.nestedData, d => {
+        let maxDateVal = d3.max(c.nestedData, d => {
             let vals = d3.keys(d).map(key => { 
-                return key === dv.date || typeof d[key] === 'string' ? 0:d[key];
-                // return key !== dv.date ? d[key] : 0;
+                return key === c.date || typeof d[key] === 'string' ? 0:d[key];
+                // return key !== c.date ? d[key] : 0;
             });
             return d3.sum(vals);
         });
 
         // Update scales
-        dv.x.domain(d3.extent(dv.nestedData, (d) => { return (d[dv.date]); }));
-        dv.y.domain([0, maxDateVal]);
+        c.x.domain(d3.extent(c.nestedData, (d) => { return (d[c.date]); }));
+        c.y.domain([0, maxDateVal]);
 
-        dv.drawGridLines();
+        c.drawGridLines();
 
         // Update axes
-        dv.tickNumber !== "undefined" ? dv.xAxisCall.scale(dv.x).ticks(dv.tickNumber).tickFormat( (d,i) => {
-            return i < dv.tickNumber ? dv.nestedData[i].label : ""; }) : dv.xAxisCall.scale(dv.x);
+        c.tickNumber !== "undefined" ? 
+                    c.xAxisCall.scale(c.x).ticks(c.tickNumber)
+                    : c.xAxisCall.scale(c.x);
 
-        dv.xAxis.transition(dv.t()).call(dv.xAxisCall);
+        c.xAxis.transition(c.t()).call(c.xAxisCall);
 
-        dv.yAxisCall.scale(dv.y);
-        dv.yAxis.transition(dv.t()).call(dv.yAxisCall);
+        c.yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(c.yAxisCall);
         
-        dv.arealine = d3.line()
+        c.arealine = d3.line()
             .defined(function(d) { return !isNaN(d[1]); })
-            // .curve(dv.area.curve())
-            .x(d => { return dv.x(d.data[dv.date]); })
-            .y(d => { return dv.y( d[1]); });
+            // .curve(c.area.curve())
+            .x(d => { return c.x(d.data[c.date]); })
+            .y(d => { return c.y( d[1]); });
 
 
         // d3 area function
-         dv.area = d3.area()
+         c.area = d3.area()
             .defined(function(d) { return !isNaN(d[1]); })
-            .x(function(d) { return dv.x(d.data[dv.date]); })
-            .y0(function(d) { return dv.y(d[0]); })
-            .y1(function(d) { return dv.y( d[1]); });
+            .x(function(d) { return c.x(d.data[c.date]); })
+            .y0(function(d) { return c.y(d[0]); })
+            .y1(function(d) { return c.y( d[1]); });
 
          // d3 stack function
-        dv.stack = d3.stack().keys(dv.keys);
-        dv.data = (dv.stack(dv.nestedData));
+        c.stack = d3.stack().keys(c.keys);
+        c.data = (c.stack(c.nestedData));
 
-        dv.update();
+        c.drawTooltip();
+        c.update();
     }
 
     update(){
-        let dv = this;
-            d3.select(dv.element).select(".focus").remove();
-            d3.select(dv.element).select(".focus_overlay").remove();
-            dv.g.selectAll(".region")
-                .transition(dv.t())
+        let c = this;
+            d3.select(c.element).select(".focus").remove();
+            d3.select(c.element).select(".focus_overlay").remove();
+            c.g.selectAll(".region")
+                .transition(c.t())
                 .style("opacity", 0)
                 .remove(); // cheap fix for now
 
         // select all regions and join data with old
-        dv.regions = dv.g.selectAll(".area")
-            .data(dv.data, d => { return d})
+        c.regions = c.g.selectAll(".area")
+            .data(c.data, d => { return d})
             .enter()
                 .append("g")
                     .attr("class","region");
         
         // remove old data not working
-        // dv.regions
+        // c.regions
         //     .exit()
-        //     .transition(dv.t())
+        //     .transition(c.t())
         //     .style("opacity", 0)
         //     .remove();
 
-        dv.regions
+        c.regions
             .append("path")
             .attr("class", "area")
-            .attr("d", dv.area)
+            .attr("d", c.area)
             .style("fill-opacity", 0.75)
-            .style("fill", (d) => {return dv.colour(d.key);}) ;
+            .style("fill", (d) => {return c.colour(d.key);}) ;
             
     
-        dv.regions
+        c.regions
             .append("path")
             .attr("class", "area-line")
-            .attr("d", dv.arealine)
-            .style("stroke", (d) => {return dv.colour(d.key);});
+            .attr("d", c.arealine)
+            .style("stroke", (d) => {return c.colour(d.key);});
             
 
         // Update
-        dv.g.selectAll(".area")
-            .data(dv.data)
-            .transition(dv.t())
-            .attr("d", dv.area)
+        c.g.selectAll(".area")
+            .data(c.data)
+            .transition(c.t())
+            .attr("d", c.area)
             .style("fill-opacity", 0.75)
-            .style("fill", (d) => {return dv.colour(d.key);});
+            .style("fill", (d) => {return c.colour(d.key);});
             
     
-        dv.g.selectAll(".area-line")
-            .data(dv.data)
-            .transition(dv.t())
-            .attr("d", dv.arealine);
+        c.g.selectAll(".area-line")
+            .data(c.data)
+            .transition(c.t())
+            .attr("d", c.arealine);
     
     }
 
     addLegend(){
-        let dv = this;
+        let c = this;
 
         // create legend group
-        var legend = dv.g.append("g")
+        var legend = c.g.append("g")
             .attr("transform", "translate(0,0)");
 
         // create legend array, this needs to come from the data.
-        dv.legendArray = [];
+        c.legendArray = [];
         
-        dv.keys.forEach( (d) => {
+        c.keys.forEach( (d) => {
 
             let obj = {};
                 obj.label = d;
-                obj.colour = dv.colour(d);
-                dv.legendArray.push(obj);
+                obj.colour = c.colour(d);
+                c.legendArray.push(obj);
         });
-        dv.legendArray.reverse();
+        c.legendArray.reverse();
 
         // get data and enter onto the legend group
         let legends = legend.selectAll(".legend")
-            .data(dv.legendArray)
+            .data(c.legendArray)
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
@@ -259,7 +261,7 @@ class StackedAreaChart {
         // add legend boxes    
         legends.append("rect")
             .attr("class", "legendRect")
-            .attr("x", dv.width + 10)
+            .attr("x", c.width + 10)
             .attr("width", 25)
             .attr("height", 25)
             .attr("fill", d => { return d.colour; })
@@ -267,47 +269,116 @@ class StackedAreaChart {
 
         legends.append("text")
             .attr("class", "legendText")
-            // .attr("x", dv.width + 40)
+            // .attr("x", c.width + 40)
             .attr("y", 12)
             .attr("dy", ".025em")
             .attr("text-anchor", "start")
             .text(d => { return d.label; })
-            .call(dv.textWrap, 110, dv.width + 34); 
+            .call(c.textWrap, 110, c.width + 34); 
     }
 
     drawGridLines(){
-        let dv = this;
+        let c = this;
 
-        dv.gridLines.selectAll('line')
+        c.gridLines.selectAll('line')
             .remove();
 
-        dv.gridLines.selectAll('line.horizontal-line')
-            .data(dv.y.ticks)
+        c.gridLines.selectAll('line.horizontal-line')
+            .data(c.y.ticks)
             .enter()
                 .append('line')
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
-                .attr('x2', dv.width)
-                .attr('y1', (d) => { return dv.y(d) })
-                .attr('y2', (d) => dv.y(d));
+                .attr('x2', c.width)
+                .attr('y1', (d) => { return c.y(d) })
+                .attr('y2', (d) => c.y(d));
+    }
+
+    drawTooltip(){
+        let c = this;
+
+            c.newToolTip = d3.select(c.element)
+                .append("div")
+                    .attr("class","tool-tip bcd")
+                    .style("visibility","hidden");
+
+            c.newToolTipTitle = c.newToolTip
+                .append("div")
+                    .attr("id", "bcd-tt-title");
+
+            c.tooltipHeaders();
+            c.tooltipBody();
+    }
+
+    tooltipHeaders(){
+        let c = this,
+            div,
+            p;
+            
+        div = c.newToolTip
+            .append("div")
+                .attr("class", "headers");
+
+        div.append("span")
+            .attr("class", "bcd-rect");
+
+        p = div
+            .append("p")
+                .attr("class","bcd-text");
+
+        p.append("span")
+            .attr("class","bcd-text-title")
+            .text("Type");
+
+        p.append("span")
+            .attr("class","bcd-text-value")
+            .text("Value");
+
+        p.append("span")
+            .attr("class","bcd-text-rate")
+            .text("% Rate");
+
+        p.append("span")
+            .attr("class","bcd-text-indicator");
+    }
+
+    tooltipBody(){
+        let c = this,
+            keys = c.keys,
+            div,
+            p;
+
+        keys.forEach( (d, i) => {
+            div = c.newToolTip
+                    .append("div")
+                    .attr("id", "bcd-tt" + i);
+                
+            div.append("span").attr("class", "bcd-rect");
+
+            p = div.append("p").attr("class","bcd-text");
+
+            p.append("span").attr("class","bcd-text-title");
+            p.append("span").attr("class","bcd-text-value");
+            p.append("span").attr("class","bcd-text-rate");
+            p.append("span").attr("class","bcd-text-indicator");
+        });
     }
 
     addTooltip(title, format, arrowChange){
 
-        let dv = this;
+        let c = this;
             // ttData = data;
-            dv.arrowChange = arrowChange;
-            dv.ttTitle = title;
-            dv.valueFormat = format;
-            dv.ttWidth = 280,
-            dv.ttHeight = 50,
-            dv.ttBorderRadius = 3;
-            dv.formatYear = d3.timeFormat("%Y");
+            c.arrowChange = arrowChange;
+            c.ttTitle = title;
+            c.valueFormat = format;
+            c.ttWidth = 280,
+            c.ttHeight = 50,//remove
+            c.ttBorderRadius = 3; //remove
 
             // formats thousands, Millions, Euros and Percentage
 
         // add group to contain all the focus elements
-        let focus = dv.g.append("g")
+        let focus = c.g.append("g")
                 .attr("class", "focus")
                 .style("visibility", "hidden");
             
@@ -321,38 +392,22 @@ class StackedAreaChart {
             focus.append("line")
                 .attr("class", "focus_line")
                 .attr("y1", 0)
-                .attr("y2", dv.height);
+                .attr("y2", c.height);
         
             focus.append("g")
                 .attr("class", "focus-circles");
 
-        let bcdTooltip = focus.append("g")
-                .attr("class", "bcd-tooltip tool-tip")
-                // .attr("width", dv.ttWidth)
-                .attr("height", dv.ttHeight);
-            
-        let toolGroup =  bcdTooltip.append("g")
-                .attr("class", "tooltip-group")
-                .style("visibility", "hidden");
-
-            dv.drawTooltip();
-            
-            // attach group append circle and text for each region
-
-            // let reverseData = dv.keys;
-            // reverseData.reverse();
-
-            dv.keys.forEach( (d,i) => {
+            c.keys.forEach( (d,i) => {
                 
-                dv.updateTooltip(d,i);
+                c.drawFocusCircles(d,i);
 
             });
     
             // append a rectangle overlay to capture the mouse
-            dv.g.append("rect")
+            c.g.append("rect")
                 .attr("class", "focus_overlay")
-                .attr("width", dv.width + 10) // give a little extra for last value
-                .attr("height", dv.height)
+                .attr("width", c.width + 10) // give a little extra for last value
+                .attr("height", c.height)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden")
@@ -378,26 +433,26 @@ class StackedAreaChart {
                 let mouse = d3.mouse(this),
             
                     ttTextHeights = 0,
-                    x0 = dv.x.invert(mouse[0]),
-                    i = dv.bisectDate(dv.nestedData, x0, 1), // use the bisect for linear scale.
-                    d0 = dv.nestedData[i - 1],
-                    d1 = dv.nestedData[i],
+                    x0 = c.x.invert(mouse[0]),
+                    i = c.bisectDate(c.nestedData, x0, 1), // use the bisect for linear scale.
+                    d0 = c.nestedData[i - 1],
+                    d1 = c.nestedData[i],
                     d,
                     dPrev;  
 
-                d1 !== undefined ? d = x0 - d0[dv.date] > d1[dv.date] - x0 ? d1 : d0 : false;
-                d1 !== undefined ? dPrev = x0 - d0[dv.date] > d1[dv.date] - x0 ? dv.nestedData[i-1] : dv.nestedData[i-2] : false;
+                d1 !== undefined ? d = x0 - d0[c.date] > d1[c.date] - x0 ? d1 : d0 : false;
+                d1 !== undefined ? dPrev = x0 - d0[c.date] > d1[c.date] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
             
-                let length = dv.keys.length - 1;
+                let length = c.keys.length - 1;
                 
-                dv.keys.forEach( (reg,idx) => {
+                c.keys.forEach( (reg,idx) => {
                     
                     let reverseIndex = (length-idx),
-                        dvalue = dv.data[reverseIndex],
-                        key = dv.keys[reverseIndex],
+                        dvalue = c.data[reverseIndex],
+                        key = c.keys[reverseIndex],
                         id = ".tooltip_" + reverseIndex,
                         tpId = ".tooltipbody_" + reverseIndex,
-                        ttTitle = dv.g.select(".tooltip-title"),
+                        ttTitle = c.g.select(".tooltip-title"),
                         dd0 = dvalue[i - 1],
                         dd1 = dvalue[i],
                         dd,
@@ -411,32 +466,32 @@ class StackedAreaChart {
                         tooltipBody,
                         textHeight;
 
-                    if(dv.arrowChange === true){
+                    if(c.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
                     }
                     else{
                         indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
                     }
 
-                    tooltip = d3.select(dv.element).select(id);
-                    tooltipBody = d3.select(dv.element).select(tpId);
+                    tooltip = d3.select(c.element).select(id);
+                    tooltipBody = d3.select(c.element).select(tpId);
                     textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
                     tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
                         
  
                     if(d !== undefined){
                         
-                        dv.updatePosition(dv.x(d[dv.date]), 0);
+                        c.updatePosition(c.x(d[c.date]), 0);
 
-                        dd1 !== undefined ? dd = x0 - dd0.data[dv.date] > dd1.data[dv.date] - x0 ? dd1 : dd0 : false;
+                        dd1 !== undefined ? dd = x0 - dd0.data[c.date] > dd1.data[c.date] - x0 ? dd1 : dd0 : false;
 
-                        tooltip.attr("transform", "translate(" + dv.x(d[dv.date]) + "," + dv.y(dd[1] ? dd[1]: 0 ) + ")");
+                        tooltip.attr("transform", "translate(" + c.x(d[c.date]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
                         tooltipBody.select(".tp-text-right").text(isNaN(d[key]) ? "" : d[key]);
                         tooltipBody.select(".tp-text-indicator")
                             .text(rateString)
                             .attr("fill",indicatorColour);
-                        ttTitle.text(dv.ttTitle + " " + (d.label)); //label needs to be passed to this function 
-                        focus.select(".focus_line").attr("transform", "translate(" + dv.x((d[dv.date])) + ", 0)");
+                        ttTitle.text(c.ttTitle + " " + (d.label)); //label needs to be passed to this function 
+                        focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.date])) + ", 0)");
                     }
 
                     ttTextHeights += textHeight + 6;
@@ -444,10 +499,10 @@ class StackedAreaChart {
             }
     }
 
-    drawTooltip(){
-        let dv = this;
+    OlddrawTooltip(){
+        let c = this;
 
-        let tooltipTextContainer = dv.g.select(".tooltip-group")
+        let tooltipTextContainer = c.g.select(".tooltip-group")
           .append("g")
             .attr("class","tooltip-text")
             .attr("fill","#f8f8f8");
@@ -455,10 +510,10 @@ class StackedAreaChart {
         let tooltip = tooltipTextContainer
             .append("rect")
             .attr("class", "tooltip-container")
-            .attr("width", dv.ttWidth)
-            .attr("height", dv.ttHeight)
-            .attr("rx", dv.ttBorderRadius)
-            .attr("ry", dv.ttBorderRadius)
+            .attr("width", c.ttWidth)
+            .attr("height", c.ttHeight)
+            .attr("rx", c.ttBorderRadius)
+            .attr("ry", c.ttBorderRadius)
             .attr("fill","#001f35e6")
             .attr("stroke", "#6c757d")
             .attr("stroke-width", 2);
@@ -476,7 +531,7 @@ class StackedAreaChart {
             .append("line")
                 .attr("class", "tooltip-divider")
                 .attr("x1", 0)
-                .attr("x2", dv.ttWidth)
+                .attr("x2", c.ttWidth)
                 .attr("y1", 31)
                 .attr("y2", 31)
                 .style("stroke", "#6c757d");
@@ -484,85 +539,51 @@ class StackedAreaChart {
         let tooltipBody = tooltipTextContainer
                 .append("g")
                 .attr("class","tooltip-body")
-                // .style("transform", "translateY(8px)")
                 .attr("transform", "translate(5,45)");
     }
 
-    updateTooltip(d,i){
-        let dv = this;
+    drawFocusCircles(d,i){
+        let c = this;
 
-        let tooltip = dv.g.select(".focus-circles")
+        let tooltip = c.g.select(".focus-circles")
             .append("g")
             .attr("class", "tooltip_" + i);
 
             tooltip.append("circle")
                 .attr("r", 0)
-                .transition(dv.t)
+                .transition(c.t)
                 .attr("r", 5)
-                .attr("fill", dv.colour(d))
-                .attr("stroke", dv.colour(d));
-
-        let tooltipBodyItem = dv.g.select(".tooltip-body")
-            .append("g")
-            .attr("class", "tooltipbody_" + i);
-
-        tooltipBodyItem.append("text")
-            .text(d)
-            .attr("class", "tp-text-left")
-            .attr("x", "12")
-            .attr("dy", ".35em")
-            .call(dv.textWrap, 140, 12);
-
-        tooltipBodyItem.append("text")
-            .attr("class", "tp-text-right")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 90)
-            .attr("text-anchor","end");
-
-            tooltipBodyItem.append("text")
-            .attr("class", "tp-text-indicator")
-            .attr("x", "10")
-            .attr("dy", ".35em")
-            .attr("dx", dv.ttWidth - 25)
-            .attr("text-anchor","end");
-
-        tooltipBodyItem.append("circle")
-            .attr("class", "tp-circle")
-            .attr("r", "6")
-            .attr("fill", dv.colour(d))
-            .attr("stroke","#ffffff");
-        
-        dv.updateTTSize();
+                .attr("fill", c.colour(d))
+                .attr("stroke", c.colour(d));
     }
 
     updatePosition(xPosition, yPosition){
-        let dv = this;
+        let c = this;
         // get the x and y values - y is static
-        let [tooltipX, tooltipY] = dv.getTooltipPosition([xPosition, yPosition]);
+        let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
         // move the tooltip
-        dv.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+        c.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
     }
 
     updateTTSize(){
-        let dv = this;
-        let h = dv.g.select(".tooltip-body").node().getBBox().height;
-        dv.ttHeight += h + 4;
-        dv.g.select(".tooltip-container").attr("height", dv.ttHeight);
+        let c = this;
+        let h = c.g.select(".tooltip-body").node().getBBox().height;
+        c.ttHeight += h + 4;
+        c.g.select(".tooltip-container").attr("height", c.ttHeight);
     }
 
     resetSize() {
-        let dv = this;
-        dv.ttHeight = 50;
+        let c = this;
+        c.ttHeight = 50;
     }
 
     getTooltipPosition([mouseX, mouseY]) {
-        let dv = this;
+        let c = this;
         let ttX,
             ttY = mouseY;
 
         // show right
-        if (mouseX < dv.width - dv.ttWidth) {
+        if (mouseX < c.width - c.ttWidth) {
             ttX = mouseX + 10;
         } else {
             // show left
@@ -655,27 +676,6 @@ class StackedAreaChart {
         let q = Math.ceil(( newDate.getMonth()) / 3 );
         return year+" Q" + q;
     }
-
-    // nestData(data, date, name, value){
-    //     let nested_data = d3.nest()
-    //         .key(function(d) { return d[date]; })
-    //         .entries(data); // its the string not the date obj
-
-    //         console.log("data before split into objects HAHAHA",nested_data);
-
-    //     let mqpdata = nested_data.map(function(d){
-    //         let obj = {
-    //             label: d.key
-    //         }
-    //             d.values.forEach(function(v){
-    //             obj[v[name]] = v[value];
-    //             obj.date = v.date;
-    //         })
-    //     return obj;
-    //   })
-    //   console.log("this is the data sent", mqpdata);
-    //   return mqpdata;
-    // }
 
 slicer( arr, sliceBy ){
     if ( sliceBy < 1 || !arr ) return () => [];

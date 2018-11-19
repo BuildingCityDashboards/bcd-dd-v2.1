@@ -132,64 +132,72 @@
                     ]; // qualitative pastel
         
         const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
-              Chart1 = new MultiLineChart(chart1C);
+              Chart_fig1 = new MultiLineChart(chart1C),
+              visibleLabels = [1,6,12,16,21,26];
             
-              Chart1.titleX = "Years";
-              Chart1.titleY = "Population";
+              Chart_fig1.titleX = "Years";
+              Chart_fig1.titleY = "Population";
 
-              Chart1.tickNumber = 27;
-              Chart1.createScales();
+              Chart_fig1.tickNumber = 27;
+              Chart_fig1.createScales();
               
-            Chart1.addTooltip("Population - Year: ", "thousands", "label");
+            Chart_fig1.addTooltip("Population - Year: ", "thousands", "label");
 
               // hacked the x-axis to show only ticks matching the data. 
               //- get list of dates and filter array of g tags for elements that match the dates
-              Chart1.xAxis.selectAll(".x-axis .tick").style("display", "none");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[1]).style("display", "block");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[6]).style("display", "block");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[12]).style("display", "block");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[16]).style("display", "block");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[21]).style("display", "block");
-              d3.select(Chart1.xAxis._groups[0][0].childNodes[26]).style("display", "block");
+              Chart_fig1.xAxis.selectAll(".x-axis .tick").style("display", "none");
 
+              // only
+              hideXAxisLabels(Chart_fig1, visibleLabels);
 
-        const Chart1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population");
-              Chart1b.addTooltip("Population - Year", "percentage", "region");
-              Chart1b.scaleFormatY = d3.format(".0%");
-              Chart1b.svg.attr("display","none");
+        const Chart_fig1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population"),
+              tooltip_fig1b = {};
+
+              //don't show yet and set yaxis scale.
+              Chart_fig1b.scaleFormatY = d3.format(".0%");
+              Chart_fig1b.svg.attr("display","none");
+
+              //title, format, date
+              tooltip_fig1b.title = "Population - Year";
+              tooltip_fig1b.format = "percentage";
+              tooltip_fig1b.date = "region";
+              
+              // add tooltip
+              Chart_fig1b.addTooltip(tooltip_fig1b);
+             
 
                 d3.select("#chart1 .chart_pop").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
-                    Chart1b.svg.attr("display","none");
-                    Chart1.svg.attr("display","block");
-                    Chart1.getData("population", "Years", "population");
-                    Chart1.addTooltip("Population - Year", "thousands", "label");
+                    Chart_fig1b.svg.attr("display","none");
+                    Chart_fig1.svg.attr("display","block");
+                    Chart_fig1.getData("population", "Years", "population");
+                    Chart_fig1.addTooltip("Population - Year", "thousands", "label");
                 });
 
                 d3.select("#chart1 .chart_hos").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
-                    Chart1b.svg.attr("display","none");
-                    Chart1.svg.attr("display","block");
-                    Chart1.getData("households", "Years", "households");
-                    Chart1.addTooltip("Households - Year", "thousands", "label");
+                    Chart_fig1b.svg.attr("display","none");
+                    Chart_fig1.svg.attr("display","block");
+                    Chart_fig1.getData("households", "Years", "households");
+                    Chart_fig1.addTooltip("Households - Year", "thousands", "label");
                  });
 
                  d3.select("#chart1 .chart_prate").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
                     
-                    Chart1b.d = popRate;
-                    Chart1b.title = "Population - Region: ";
+                    Chart_fig1b.d = popRate;
+                    Chart_fig1b.title = "Population - Region: ";
                     
-                // Chart1b.addTooltip("Population - Region: ", "percentage");
-                    Chart1b.hideRate(true);
+                // Chart_fig1b.addTooltip("Population - Region: ", "percentage");
+                    Chart_fig1b.hideRate(true);
                     
                     
-                    Chart1b.update();
-                    Chart1.svg.attr("display","none");
-                    Chart1b.svg.attr("display","block");
+                    Chart_fig1b.update();
+                    Chart_fig1.svg.attr("display","none");
+                    Chart_fig1b.svg.attr("display","block");
                  });
                  
 
@@ -197,15 +205,15 @@
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
 
-                    Chart1b.d = houseRate;
-                    Chart1b.title = "Households - Region: ";
+                    Chart_fig1b.d = houseRate;
+                    Chart_fig1b.title = "Households - Region: ";
 
-                    Chart1b.hideRate(true);
+                    Chart_fig1b.hideRate(true);
 
 
-                    Chart1b.update();
-                    Chart1.svg.attr("display","none");
-                    Chart1b.svg.attr("display","block");
+                    Chart_fig1b.update();
+                    Chart_fig1.svg.attr("display","none");
+                    Chart_fig1b.svg.attr("display","block");
                  });
 
                  const Chart2C = {
@@ -391,4 +399,17 @@
         return obj;
       })
     return mqpdata;
+}
+
+    function hideXAxisLabels(chart, array){
+        let element = chart.xAxis;
+
+        element.selectAll(".x-axis .tick")
+            .style("display", "none");
+
+        array.forEach( n => {
+            d3.select(element._groups[0][0].childNodes[n])
+            .style("display", "block");
+        })
+
 }

@@ -35,8 +35,6 @@ class GroupedBarChart{
         c.w = elementWidth - c.m.left - c.m.right;
         c.height = aspectRatio - c.m.t - c.m.b;
 
-        c.initTooltip();
-
         // add the svg to the target element
         c.svg = d3.select(c.e)
             .append("svg")
@@ -243,13 +241,8 @@ class GroupedBarChart{
                 .call(c.textWrap, 100, c.w + 22); 
     }
 
-    initTooltip(){
-        let c = this,
-            keys = c.keys,
-            div,
-            p,
-            divHeaders,
-            pHeader;
+    drawTooltip(){
+        let c = this;
 
             c.newToolTip = d3.select(c.e)
                 .append("div")
@@ -260,68 +253,76 @@ class GroupedBarChart{
                 .append("div")
                 .attr("id", "bcd-tt-title");
 
-            divHeaders = c.newToolTip
-                .append("div")
-                .attr("class", "headers");
-
-            divHeaders
-                .append("span")
-                .attr("class", "bcd-rect");
-
-            pHeader = divHeaders
-                .append("p")
-                .attr("class","bcd-text");
-
-            pHeader
-                .append("span")
-                .attr("class","bcd-text-title")
-                .text("Type");
-
-            pHeader
-                .append("span")
-                .attr("class","bcd-text-value")
-                .text("Value");
-
-            pHeader
-                .append("span")
-                .attr("class","bcd-text-rate")
-                .text("% Rate");
-
-            pHeader
-                .append("span")
-                .attr("class","bcd-text-indicator");
-
-            keys.forEach( (d, i) => {
-                div = c.newToolTip
-                        .append("div")
-                        .attr("id", "bcd-tt" + i);
-                    
-                div.append("span").attr("class", "bcd-rect");
-
-                p = div.append("p").attr("class","bcd-text");
-
-                p.append("span").attr("class","bcd-text-title");
-                p.append("span").attr("class","bcd-text-value");
-                p.append("span").attr("class","bcd-text-rate");
-                p.append("span").attr("class","bcd-text-indicator");
-            });
+            c.tooltipHeaders();
+            c.tooltipBody();
     }
 
-    addTooltip(title, format, date, prefix, postfix){
+    tooltipHeaders(){
+        let c = this,
+            div,
+            p;
+            
+        div = c.newToolTip
+            .append("div")
+            .attr("class", "headers");
 
+        div
+            .append("span")
+            .attr("class", "bcd-rect");
+
+        p = div
+            .append("p")
+            .attr("class","bcd-text");
+
+        p.append("span")
+            .attr("class","bcd-text-title")
+            .text("Type");
+
+        p.append("span")
+            .attr("class","bcd-text-value")
+            .text("Value");
+
+        p.append("span")
+            .attr("class","bcd-text-rate")
+            .text("% Rate");
+
+        p.append("span")
+            .attr("class","bcd-text-indicator");
+    }
+
+    tooltipBody(){
+        let c = this,
+            keys = c.keys,
+            div,
+            p;
+
+        keys.forEach( (d, i) => {
+            div = c.newToolTip
+                    .append("div")
+                    .attr("id", "bcd-tt" + i);
+                
+            div.append("span").attr("class", "bcd-rect");
+
+            p = div.append("p").attr("class","bcd-text");
+
+            p.append("span").attr("class","bcd-text-title");
+            p.append("span").attr("class","bcd-text-value");
+            p.append("span").attr("class","bcd-text-rate");
+            p.append("span").attr("class","bcd-text-indicator");
+        });
+    }
+
+    addTooltip(obj){
         let c = this;
-            c.datelabel = date;
 
-            c.title = title;
-            c.valueFormat = format;
-            c.ttWidth = 305,
-            c.ttHeight = 50,
-            c.ttBorderRadius = 3;
-            c.formatYear = d3.timeFormat("%Y");
-            c.prefix = prefix ? prefix : " ";
-            c.postfix = postfix ? postfix: " ";
-            c.valueFormat = c.formatValue(c.valueFormat);
-            c.hV = 0;
+            c.title = obj.title;
+            c.datelabel = obj.data || "date";
+            c.ttWidth = obj.width || 305;
+            c.prefix = obj.prefix ? prefix : " ";
+            c.postfix = obj.postfix ? postfix: " ";
+            c.valueFormat = c.formatValue(obj.format);
+
+            c.drawTooltip();
 
     }
 
@@ -346,7 +347,7 @@ class GroupedBarChart{
                     diff = prevData ? (newD -  oldD)/oldD: 0, 
                     indicator = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
                     indicatorColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
-                    rate = indicator !== "" ? d3.format(".1%")(diff) : "",
+                    rate = indicator !== "" ? d3.format(".1%")(diff) : "N/A",
                     vString = c.valueFormat !=="undefined"? c.valueFormat(data[key[idx]]) : data[key[idx]];
 
                     c.newToolTipTitle.text(c.title + " " + (d[c.xV])); //label needs to be passed to this function 

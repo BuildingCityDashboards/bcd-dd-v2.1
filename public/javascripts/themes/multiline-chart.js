@@ -1,4 +1,5 @@
 class MultiLineChart{
+    
 
     constructor (obj){
 
@@ -6,6 +7,8 @@ class MultiLineChart{
         this.data = obj.data;
         this.value = obj.value;
         this.colourScheme = obj.colour;
+        this.xTitle = obj.xTitle;
+        this.yTitle = obj.yTitle;
 
         this.init();
     }
@@ -15,88 +18,94 @@ class MultiLineChart{
         let c = this,
             eN = d3.select(c.element).node(),
             eW = eN.getBoundingClientRect().width,
-            aR = eW < 800 ? eW * 0.55 : eW * 0.5;
-
-        const bP = 678;
+            aR = eW < 800 ? eW * 0.55 : eW * 0.5,
+            svg,
+            g,
+            cScheme = c.colourScheme || d3.schemeBlues[5].slice(1),
+            m = {},
+            bP = 678;
         
-        // margin
-        c.m = { };
-
-        c.m.t = eW < bP ? 40 : 50;
-        c.m.b = eW < bP ? 30 : 80;
-
-        c.m.r = eW < bP ? 20 : 140;
-        c.m.l = eW < bP ? 20 : 80;
+            // margins
+            m.t = eW < bP ? 40 : 50;
+            m.b = eW < bP ? 30 : 80;
+            m.r = eW < bP ? 20 : 140;
+            m.l = eW < bP ? 20 : 60;
         
-        c.width = eW - c.m.l - c.m.r;
-        c.height = aR - c.m.t - c.m.b;
+            c.width = c.width || eW - m.l - m.r;
+            c.height = c.height || aR - m.t - m.b;
 
-        d3.select(c.element).select("svg").remove();
+            d3.select(c.element).select("svg").remove();
     
-        // add the svg to the target element
-        c.svg = d3.select(c.element)
-            .append("svg")
-            .attr("width", c.width + c.m.l + c.m.r + 5)
-            .attr("height", c.height + c.m.t + c.m.b);
+            // add the svg to the target element
+            svg = d3.select(c.element)
+                .append("svg")
+                .attr("width", c.width + m.l + m.r + 5)
+                .attr("height", c.height + m.t + m.b);
        
-        // add the g to the svg and transform by top and left margin
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + c.m.l + 
-                ", " + c.m.t + ")");
+            // add the g to the svg and transform by top and left margin
+            g = svg.append("g")
+                .attr("transform", "translate(" + m.l + 
+                    ", " + m.t + ")")
+                .attr("class","chart-group");
         
-        // set transition variable
-        c.t = function() { return d3.transition().duration(1000); };
-
-        // c.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8"];
-        c.colourScheme = c.colourScheme ? c.colourScheme : d3.schemeBlues[5].slice(1);
-        
-        // set colour function
-        c.colour = d3.scaleOrdinal(c.colourScheme);
-
-        // for the tooltip from the d3 book
-        c.bisectDate = d3.bisector( d => { return d.date; } ).left;
-
-        // tick numbers
-        c.tickNumber = "undefined";
-
-        // tick formats
-        c.tickFormat = "undefined";
-        
-        c.addAxis();
+            // set chart transition method
+            c.t = () => { return d3.transition().duration(1000); };
+            // set chart colour method
+            c.colour = d3.scaleOrdinal(cScheme);
+            // set chart bisecector method
+            c.bisectDate = d3.bisector( (d) => { return d.date; } ).left;
     
     }
 
-    addAxis(){       
+    drawChart(){
         let c = this;
+            c.addAxis();
+            c.getKeys();
+            c.drawTooltip();
+            c.createScales();
+            c.drawLines();
+            c.drawLegend();            
+    }
 
-        c.yAxisCall = d3.axisLeft();
+    updateChart(){
+        let c = this;
+        c.createScales();
+        c.drawLines();
+        c.drawLegend();
+    }
 
-        c.xAxisCall = d3.axisBottom();
+    addAxis(){       
+        let c = this,
+            g = c.getElement(".chart-group"),
+            gLines,
+            xLabel,
+            yLabel;
 
-        c.gLines = c.g.append("g")
-            .attr("class", "grid-lines");
 
-        c.xAxis = c.g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.height +")");
-        
-        c.yAxis = c.g.append("g")
-            .attr("class", "y-axis");
+            gLines = g.append("g")
+                .attr("class", "grid-lines");
 
-        // X title
-        c.xLabel = c.g.append("text")
-            .attr("class", "titleX")
-            .attr("x", c.width/2)
-            .attr("y", c.height + 60)
-            .attr("text-anchor", "middle");
+            c.xAxis = g.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", "translate(0," + c.height +")");
+            
+            c.yAxis = g.append("g")
+                .attr("class", "y-axis");
 
-        // Y title
-        c.yLabel = c.g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (c.height/2))
-            .attr("y", -60)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)");
+            // X title
+            xLabel = g.append("text")
+                .attr("class", "titleX")
+                .attr("x", c.width/2)
+                .attr("y", c.height + 60)
+                .attr("text-anchor", "middle");
+
+            // Y title
+            yLabel = g.append("text")
+                .attr("class", "titleY")
+                .attr("x", - (c.height/2))
+                .attr("y", -45)
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)");
             
     }
 
@@ -117,13 +126,19 @@ class MultiLineChart{
         // c.data = _data !== null ? _data : c.data;
         c.value = _valueString;
 
-        c.createScales();
-
     }
 
     // needs to be called everytime the data changes
     createScales(){
-        let c = this;
+        let c = this,
+            yAxisCall = d3.axisLeft(),
+            xAxisCall = d3.axisBottom(),
+            x = c.getElement(".titleX"),
+            y = c.getElement(".titleY");
+
+        //update axis titles
+        x.text(c.xTitle);
+        y.text(c.yTitle);
 
         // set scales
         c.x = d3.scaleTime().range([0, c.width]);
@@ -145,29 +160,20 @@ class MultiLineChart{
             })
         ]);
 
-        c.xLabel.text(c.titleX);
-        c.yLabel.text(c.titleY);
-
         c.drawGridLines();
-        // c.tickNumber = 0 ; //=  c.data[0].values.length;
 
-        // Update axes
-        c.tickNumber !== "undefined" ? c.xAxisCall.scale(c.x).ticks(c.tickNumber) : c.xAxisCall.scale(c.x);
-
-        c.xAxis.transition(c.t()).call(c.xAxisCall);
+        // Update X axis
+        c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
+        c.xAxis.transition(c.t()).call(xAxisCall);
         
-         //ticks(c.tickNumberY)
-        c.yScaleFormat ? c.yAxisCall.scale(c.y).tickFormat(c.formatValue(c.yScaleFormat) ) : c.yAxisCall.scale(c.y);
-
-        c.yAxis.transition(c.t()).call(c.yAxisCall);
-
-        c.getKeys();
-        c.tooltipInit();
-        c.update();
+        // Update Y axis
+        c.yScaleFormat ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.yScaleFormat) ) : yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(yAxisCall);
     }
 
-    update(){
-        let c = this;
+    drawLines(){
+        let c = this,
+            g = c.getElement(".chart-group"); 
 
         // d3 line function
        c.line = d3.line()
@@ -180,12 +186,8 @@ class MultiLineChart{
            });
             // .curve(d3.curveCatmullRom);
 
-       // Adapted from the tooltip based on the example in the d3 Book
-       
-       // 2. add the on mouseover and on mouseout to the joined data
-
        // select all regions and join data
-       c.regions = c.g.selectAll(".regions")
+       c.regions = g.selectAll(".regions")
            .data(c.data);
        
        // update the paths
@@ -216,33 +218,118 @@ class MultiLineChart{
            
        c.regions.exit()
            .transition(c.t).remove();
-
-        c.drawLegend();
     
     }
 
-    tooltipInit(){
+    drawTooltip(){
         let c = this;
-        c.newToolTip = d3.select(c.element)
-        .append("div").attr("class","tool-tip bcd").style("visibility","hidden");
 
-    c.newToolTipTitle = c.newToolTip.append("div").attr("id", "bcd-tt-title");
+            c.newToolTip = d3.select(c.element)
+                .append("div")
+                    .attr("class","tool-tip bcd")
+                    .style("visibility","hidden");
 
-    c.keys.forEach( (d, i) => {
-        let div = c.newToolTip.append("div")
-            .attr("id", "bcd-tt" + i);
+            c.newToolTipTitle = c.newToolTip
+                .append("div")
+                    .attr("id", "bcd-tt-title");
+
+            c.tooltipHeaders();
+            c.tooltipBody();
+    }
+
+    tooltipHeaders(){
+        let c = this,
+            div,
+            p;
             
-            div.append("span")
+        div = c.newToolTip
+            .append("div")
+                .attr("class", "headers");
+
+        div.append("span")
             .attr("class", "bcd-dot");
 
-        let p = div.append("p")
+        p = div
+            .append("p")
                 .attr("class","bcd-text");
+
+        p.append("span")
+            .attr("class","bcd-text-title")
+            .text("Type");
+
+        p.append("span")
+            .attr("class","bcd-text-value")
+            .text("Value");
+
+        p.append("span")
+            .attr("class","bcd-text-rate")
+            .text("% Rate");
+
+        p.append("span")
+            .attr("class","bcd-text-indicator");
+    }
+
+    tooltipBody(){
+        let c = this,
+            keys = c.keys,
+            div,
+            p;
+
+        keys.forEach( (d, i) => {
+            div = c.newToolTip
+                    .append("div")
+                    .attr("id", "bcd-tt" + i);
+                
+            div.append("span").attr("class", "bcd-dot");
+
+            p = div.append("p").attr("class","bcd-text");
 
             p.append("span").attr("class","bcd-text-title");
             p.append("span").attr("class","bcd-text-value");
             p.append("span").attr("class","bcd-text-rate");
             p.append("span").attr("class","bcd-text-indicator");
-    });
+        });
+    }
+
+    drawFocusLine(){
+        // add group to contain all the focus elements
+        let c = this,
+            g = c.getElement(".chart-group"); 
+            
+            focus = g.append("g")
+                .attr("class", "focus")
+                .style("display", "none")
+                .style("visibility", "hidden");
+            
+            // Focus line
+            focus.append("line")
+                .attr("class", "focus_line")
+                .attr("y1", 0)
+                .attr("y2", c.height);
+        
+            focus.append("g")
+                .attr("class", "focus_circles");
+            
+            // attach group append circle and text for each region
+            c.keys.forEach( (d,i) => {
+                c.drawFocusCircles(d,i);
+            });
+    }
+
+    drawFocusCircles(d,i){
+        let c = this,
+            g = c.getElement(".chart-group"); 
+
+        let tooltip = g.select(".focus_circles")
+            .append("g")
+            .attr("class", "tooltip_" + i);
+
+            tooltip.append("circle")
+                .attr("r", 0)
+                .transition(c.t)
+                .attr("r", 5)
+                .attr("fill", c.colour(d))
+                .attr("stroke", c.colour(d));
     }
 
     addTooltip(title, format, dateField, prefix, postfix){
@@ -255,82 +342,40 @@ class MultiLineChart{
             c.valueFormat = format;
             c.dateField = dateField;
             c.ttWidth = 305;
-            c.ttHeight = 50;
-            c.ttBorderRadius = 3;
-            c.formatYear = d3.timeFormat("%Y");
             c.prefix = prefix ? prefix : " ";
             c.postfix = postfix ? postfix: " ";
             c.valueFormat = c.formatValue(c.valueFormat);
 
-        // add group to contain all the focus elements
-        let focus = c.g.append("g")
-                .attr("class", "focus")
-                .style("display", "none")
-                .style("visibility", "hidden");
-            
-            // Year label
-            focus.append("text")
-                .attr("class", "focus_quarter")
-                .attr("x", 9)
-                .attr("y", 7);
-            
-            // Focus line
-            focus.append("line")
-                .attr("class", "focus_line")
-                .attr("y1", 0)
-                .attr("y2", c.height);
-        
-            focus.append("g")
-                .attr("class", "focus_circles");
+            c.drawFocusLine();
+            c.drawFocusOverlay();
+    }
 
-        // let bcdTooltip = focus.append("g")
-        //         .attr("class", "bcd-tooltip tool-tip")
-        //         .attr("width", c.ttWidth)
-        //         .attr("height", c.ttHeight);
+    drawFocusOverlay(){
+        let c = this,
+            g = c.getElement(".chart-group"),
+            focus = d3.select(c.element).select(".focus"),
+            overlay = g.append("rect");
             
-        // let toolGroup =  bcdTooltip.append("g")
-        //         .attr("class", "tooltip-group")
-        //         .style("visibility", "hidden");
-
-            // c.drawTooltip();
-            
-            // attach group append circle and text for each region
-            c.keys.forEach( (d,i) => {
-                let tooltip = c.g.select(".focus_circles")
-                    .append("g")
-                    .attr("class", "tooltip_" + i);
-    
-                tooltip.append("circle")
-                    .attr("r", 0)
-                    .transition(c.t)
-                    .attr("r", 5)
-                    .attr("fill", c.colour(d))
-                    .attr("stroke", c.colour(d));
-                
-                // c.updateTooltip(d,i);
-
-            });
-            // append a rectangle overlay to capture the mouse
-            c.g.append("rect")
-                .attr("class", "focus_overlay")
+            overlay.attr("class", "focus_overlay")
                 .attr("width", c.width)
                 .attr("height", c.height)
                 .style("fill", "none")
                 .style("pointer-events", "all")
-                .style("visibility", "hidden")
-                .on("mouseover", (d) => { 
-                    focus.style("display", null);
-                }, {passive:true})
-                .on("touchstart", ()=>{
-                    focus.style("display", null);
-                }, {passive: true})
-                .on("mouseout", () => { 
-                    focus.style("display", "none"); 
-                    c.newToolTip.style("visibility","hidden");
-                })
-                .on("touchmove", mousemove, {passive:true})
-                .on("mousemove", mousemove, {passive:true});
-            
+                .style("visibility", "hidden");
+
+                overlay.on("mouseover", (d) => { 
+                        focus.style("display", null);
+                    }, {passive:true})
+                    .on("touchstart", ()=>{
+                        focus.style("display", null);
+                    }, {passive: true})
+                    .on("mouseout", () => { 
+                        focus.style("display", "none"); 
+                        c.newToolTip.style("visibility","hidden");
+                    })
+                    .on("touchmove", mousemove, {passive:true})
+                    .on("mousemove", mousemove, {passive:true});
+
             function mousemove(){
 
                 focus.style("visibility","visible");
@@ -425,104 +470,14 @@ class MultiLineChart{
         return value;
     }
 
-    // drawTooltip(){
-    //     let c = this;
-
-    //     let tooltipTextContainer = c.g.select(".tooltip-group")
-    //       .append("g")
-    //         .attr("class","tooltip-text")
-    //         .attr("fill","#f8f8f8");
-
-    //     let tooltip = tooltipTextContainer
-    //         .append("rect")
-    //         .attr("class", "tooltip-container")
-    //         .attr("width", c.ttWidth)
-    //         .attr("height", c.ttHeight)
-    //         .attr("rx", c.ttBorderRadius)
-    //         .attr("ry", c.ttBorderRadius)
-    //         .attr("fill","#001f35e6")
-    //         .attr("stroke", "#6c757d")
-    //         .attr("stroke-width", 2);
-
-    //     let tooltipTitle = tooltipTextContainer
-    //         .append("text")
-    //           .text("test tooltip")
-    //           .attr("class", "tooltip-title")
-    //           .attr("x", 5)
-    //           .attr("y", 16)
-    //           .attr("dy", ".35em")
-    //           .style("fill", "#a5a5a5");
-
-    //     let tooltipDivider = tooltipTextContainer
-    //         .append("line")
-    //             .attr("class", "tooltip-divider")
-    //             .attr("x1", 0)
-    //             .attr("x2", c.ttWidth)
-    //             .attr("y1", 31)
-    //             .attr("y2", 31)
-    //             .style("stroke", "#6c757d");
-
-    //     let tooltipBody = tooltipTextContainer
-    //             .append("g")
-    //             .attr("class","tooltip-body")
-    //             .attr("transform", "translate(5,45)");
-    // }
-
-    // updateTooltip(d,i){
-    //     let c = this;
-
-    //     let tooltipBodyItem = c.g.select(".tooltip-body")
-    //         .append("g")
-    //         .attr("class", "tooltipbody_" + i);
-
-    //     tooltipBodyItem.append("text")
-    //         .text(d)
-    //         .attr("class", "tp-text-left")
-    //         .attr("x", "12")
-    //         .attr("dy", ".35em")
-    //         .call(c.textWrap, 140, 12);
-
-    //     tooltipBodyItem.append("text")
-    //         .attr("class", "tp-text-right")
-    //         .attr("x", "10")
-    //         .attr("dy", ".35em")
-    //         .attr("dx", c.ttWidth - 90)
-    //         .attr("text-anchor","end");
-
-    //     tooltipBodyItem.append("text")
-    //         .attr("class", "tp-text-indicator")
-    //         .attr("x", "10")
-    //         .attr("dy", ".35em")
-    //         .attr("dx", c.ttWidth - 25)
-    //         .attr("text-anchor","end");
-
-    //     tooltipBodyItem.append("circle")
-    //         .attr("class", "tp-circle")
-    //         .attr("r", "6")
-    //         .attr("fill", c.colour(d));
-        
-    //     // c.updateTTSize();
-    // }
-
     updatePosition(xPosition, yPosition){
-        let c = this;
+        let c = this,
+            g = c.getElement(".chart-group"); 
         // get the x and y values - y is static
         let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
             // move the tooltip
-            c.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+            g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
             c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
-    }
-
-    // updateTTSize(){
-    //     let c = this;
-    //     let height = c.g.select(".tooltip-body").node().getBBox().height;
-    //     c.ttHeight += height + 2;
-    //     c.g.select(".tooltip-container").attr("height", c.ttHeight);
-    // }
-
-    resetSize() {
-        let c = this;
-        c.ttHeight = 50;
     }
 
     getTooltipPosition([mouseX, mouseY]) {
@@ -531,14 +486,21 @@ class MultiLineChart{
             ttY = mouseY,
             cSize = c.width - c.ttWidth;
 
-        // show right
+        // show right - 60 is the margin large screens
         if (mouseX < cSize) {
-            ttX = mouseX + c.m.l + 30;
+            ttX = mouseX + 60 + 30;
         } else {
-            // show left
-            ttX = (mouseX + c.m.l) - c.ttWidth;
+            // show left - 60 is the margin large screens
+            ttX = (mouseX + 60) - c.ttWidth;
         }
         return [ttX, ttY];
+    }
+
+    getElement(name){
+        let c = this,
+            s = d3.select(c.element),
+            e = s.selectAll(name);
+        return e;
     }
     
     textWrap(text, width, xpos = 0, limit=2) {
@@ -595,20 +557,21 @@ class MultiLineChart{
     }
 
     drawGridLines(){
-        let c = this;
+        let c = this,
+            gLines = c.getElement(".grid-lines");
 
-        c.gLines.selectAll("line")
-            .remove();
+            gLines.selectAll("line")
+                .remove();
 
-        c.gLines.selectAll("line.horizontal-line")
-            .data(c.y.ticks)
-            .enter()
+            gLines.selectAll("line.horizontal-line")
+                .data(c.y.ticks)
+                .enter()
                 .append("line")
-                .attr("class", "horizontal-line")
-                .attr("x1", (0))
-                .attr("x2", c.width)
-                .attr("y1", (d) => c.y(d))
-                .attr("y2", (d) => c.y(d));
+                    .attr("class", "horizontal-line")
+                    .attr("x1", (0))
+                    .attr("x2", c.width)
+                    .attr("y1", (d) => c.y(d))
+                    .attr("y2", (d) => c.y(d));
     }
 
     formatValue(format){
@@ -644,19 +607,32 @@ class MultiLineChart{
     }
 
     hideRate(value){
-        let c = this;
-        value ? c.g.selectAll(".tp-text-indicator").style("display", "none") : c.g.selectAll(".tp-text-indicator").style("display", "block")
+        let c = this,
+            i = c.getElement(".bcd-text-indicator"),
+            r = c.getElement(".bcd-text-rate");     
+
+            if(value){
+                console.log("value of hide", value);
+                i.style("display", "none");
+                r.style("display", "none");
+            }
+            else{
+                i.style("display", "block");
+                r.style("display", "block");
+            }
+            // value ? g.selectAll(".tp-text-indicator").style("display", "none") : g.selectAll(".tp-text-indicator").style("display", "block")
     }
 
     addBaseLine(value){
-        let c = this;
+        let c = this,
+            gLines = c.getElement(".grid-lines");;
         
-        c.gLines.append("line")
-            .attr("x1", 0)
-            .attr("x2", c.width)
-            .attr("y1", c.y(value))
-            .attr("y2", c.y(value))
-            .attr("stroke", "#dc3545");
+            gLines.append("line")
+                .attr("x1", 0)
+                .attr("x2", c.width)
+                .attr("y1", c.y(value))
+                .attr("y2", c.y(value))
+                .attr("stroke", "#dc3545");
 
     }
 
@@ -664,6 +640,7 @@ class MultiLineChart{
     drawLegend() {
         // chart (c) object, vlaue (v), colour (z), line height(lH)
         let c = this,
+            g = c.getElement(".chart-group"),
             v = c.value,
             z = c.colour,
             lH = 18;
@@ -719,10 +696,10 @@ class MultiLineChart{
             for (let i = 0; i < 30; i++) force.tick();
 
         // Add labels
-        const legendNames = c.g.selectAll(".label-legend").data(lines, d => d.y);
+        const legendNames = g.selectAll(".label-legend").data(lines, d => d.y);
               legendNames.exit().remove();
 
-        const legendCircles = c.g.selectAll(".legend-circles").data(circles, d => d.y);
+        const legendCircles = g.selectAll(".legend-circles").data(circles, d => d.y);
               legendCircles.exit().remove();
 
         const legendGroup = legendNames.enter().append("g")

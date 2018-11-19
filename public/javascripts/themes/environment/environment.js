@@ -26,21 +26,17 @@ Promise.all([
     const wasteDataNested =  d3.nest().key( d => { return d[wasteRegions];})
         .entries(wasteDataProcessed);
 
-    // get array of keys from nest
-    const wasteRegionNames = [];
-        wasteDataNested.forEach(d => {
-            wasteRegionNames.push(d.key);
-        });
-
     const wasteContent = {
         element: "#chart-waste",
-        keys: wasteRegionNames,
-        data: wasteDataNested
+        value: wasteType[0],
+        data: wasteDataNested,
+        xTitle: "years",
+        yTitle: "Kg"
     };
 
     // draw the chart
     const wasteChart = new MultiLineChart(wasteContent);
-          wasteChart.getData(wasteType[0], "Years", "Kg");
+          wasteChart.drawChart();
           wasteChart.addTooltip("Waste - Year ", "thousands", "label","","Kg");
     
 
@@ -51,8 +47,16 @@ Promise.all([
           recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes);
 
     // drawing charts for planning data.
-    const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%");
-          recyclingsChart.addTooltip("Recycling Rate Dry - Year", "percentage", recyclingsDate);
+    const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%"),
+          recyclings_tooltip = {};
+
+          //title, format, date
+          recyclings_tooltip.title = "Recycling Rate Dry - Year";
+          recyclings_tooltip.format = "percentage";
+          recyclings_tooltip.date = recyclingsDate;
+
+          recyclingsChart.addTooltip(recyclings_tooltip)
+          recyclingsChart.hideRate(true);
 
 
     //  Setup data and chart for organic recyclings
@@ -63,8 +67,16 @@ Promise.all([
 
     // console.log("organicrecyclings data processed", organicrecyclingsDataProcessed);
     // drawing charts for planning data.
-    const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%");
-          organicrecyclingsChart.addTooltip("Recycling Rate Organics - Year", "percentage", recyclingsDate);
+    const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%"),
+          orChart_tooltip = {};
+
+          //title, format, date
+          orChart_tooltip.title = "Recycling Rate Organics - Year";
+          orChart_tooltip.format = "percentage";
+          orChart_tooltip.date = recyclingsDate;
+
+          organicrecyclingsChart.addTooltip(orChart_tooltip);
+          organicrecyclingsChart.hideRate(true);
 
 
     // data and chart for watercons
@@ -75,8 +87,15 @@ Promise.all([
 
     // console.log("watercons data processed", waterconsDataProcessed);
     // drawing charts for planning data.
-    const waterconsChart = new GroupedBarChart(waterconsDataProcessed, waterconsTypes, waterconsDate, "#chart-watercons", "Years", "Litres");
-          waterconsChart.addTooltip("Water Consumption - Year", "thousands", waterconsDate);
+    const waterconsChart = new GroupedBarChart(waterconsDataProcessed, waterconsTypes, waterconsDate, "#chart-watercons", "Years", "Litres")
+          wcChart_tooltip = {};
+
+          //title, format, date
+          wcChart_tooltip.title = "Water Consumption - Year";
+          wcChart_tooltip.format = "thousands";
+          wcChart_tooltip.date = waterconsDate;
+          
+          waterconsChart.addTooltip(wcChart_tooltip);
 
 
     // data and chart for riverqualities
@@ -87,8 +106,15 @@ Promise.all([
 
     // console.log("riverqualities data processed", riverqualitiesDataProcessed);
     // drawing charts for planning data.
-    const riverqualitiesChart = new GroupedBarChart(riverqualitiesDataProcessed, riverqualitiesTypes, riverqualitiesDate, "#chart-riverqualities", "Years", "% of Surveryed Channel Length (1156.5km)");
-          riverqualitiesChart.addTooltip("Water Quality  - Years", "thousands", riverqualitiesDate);
+    const riverqualitiesChart = new GroupedBarChart(riverqualitiesDataProcessed, riverqualitiesTypes, riverqualitiesDate, "#chart-riverqualities", "Years", "% of Surveryed Channel Length (1156.5km)"),
+          rqChart_tooltip = {};
+          
+          //title, format, date
+          rqChart_tooltip.title = "Water Quality - Year";
+          rqChart_tooltip.format = "thousands";
+          rqChart_tooltip.date = riverqualitiesDate;
+    
+          riverqualitiesChart.addTooltip(rqChart_tooltip);
 
 
     // data and chart for green flags
@@ -98,8 +124,15 @@ Promise.all([
     greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes);
 
     // drawing charts for planning data.
-    const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools");
-          greenflagsChart.addTooltip("Green Flag Schools  - Year", "thousands", greenflagsDate);
+    const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools")
+          greenflags_tooltip = {};
+            
+          //title, format, date
+          greenflags_tooltip.title = "Green Flag Schools - Year";
+          greenflags_tooltip.format = "thousands";
+          greenflags_tooltip.date = greenflagsDate;
+
+          greenflagsChart.addTooltip(greenflags_tooltip);
 
 
     // data and chart for localagendas.csv
@@ -128,14 +161,16 @@ Promise.all([
 
     const localagendasContent = {
         element: "#chart-localagendas",
-        keys: localagendasRegionNames,
-        data: localagendasDataNested
+        data: localagendasDataNested,
+        value: localagendasType[0],
+        xTitle: "Years",
+        yTitle: "Number of Projects"
     };
 
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const localagendasChart = new MultiLineChart(localagendasContent);
-          localagendasChart.getData(localagendasType[0], "Years", "Number of Projects");
+          localagendasChart.drawChart();
           localagendasChart.addTooltip("Projects - Year ", "thousands", "label","","");
 
 

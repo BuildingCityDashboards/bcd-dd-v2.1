@@ -65,8 +65,7 @@ Promise.all([
         drccChart.addTooltip("Planning Applications - Year", "thousands", date);
         fccChart.addTooltip("Planning Applications - Year", "thousands", date);
         sdccChart.addTooltip("Planning Applications - Year", "thousands", date);
-    // setup chart and data for supply of land chart
-    // process the data
+
     
     const supplyData = datafiles[2],
           supplyType = supplyData.columns.slice(2),
@@ -74,53 +73,49 @@ Promise.all([
           supplyRegions = supplyData.columns[1],
           supplyDataProcessed = dataSets(supplyData, supplyType);
     
-    supplyDataProcessed.forEach( d => {d[supplyDate] = parseYear(d[supplyDate]);
+    supplyDataProcessed.forEach( d => {
+            d[supplyDate] = parseYear(d[supplyDate]);
             d.label = formatYear(d[supplyDate]);
         });
 
     // need to convert date field to readable js date format
 
     // nest the processed data by regions
-        const supplyDataNested =  d3.nest().key( d => { return d[supplyRegions];})
-            .entries(supplyDataProcessed);
-    
-    // get array of keys from nest
-        const supplyRegionNames = [];
-        supplyDataNested.forEach(d => {
-                supplyRegionNames.push(d.key);
-        });
+    const supplyDataNested =  d3.nest().key( d => {
+         return d[supplyRegions];
+        })
+        .entries(supplyDataProcessed);
 
     const supplyContent = {
         element: "#chart-houseSupply",
-        keys: supplyRegionNames,
         data: supplyDataNested,
-        value: "Hectares"
+        value: "Hectares",
+        xTitle: "Years",
+        yTitle: "Hectares"
     }
-
-    // const sContent = chartContent(supplyData, supplyRegions, "Hectares", supplyDate, "#chart-houseSupply"); //replace above
-    // console.log(sContent);
-
-    // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
     const supplyChart = new MultiLineChart(supplyContent);
-          supplyChart.titleX = "Years";
-          supplyChart.titleY = "Hectares";
-          supplyChart.createScales();
+          supplyChart.drawChart();
           supplyChart.addTooltip("Land - Year", "thousands", "label");
 
     d3.select("#supply_land").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
+        
         supplyChart.value = "Hectares";
-        supplyChart.titleY = "Hectares";
-        supplyChart.createScales();
+        supplyChart.yTitle = "Hectares";
+        
+        supplyChart.updateChart();
         supplyChart.addTooltip("Land - Year", "thousands", "label");
     });
     
     d3.select("#supply_units").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        supplyChart.getData("Units", "Years", "Units");
+
+        supplyChart.value = "Units";
+        supplyChart.yTitle = "Units";
+        
+        supplyChart.updateChart();
         supplyChart.addTooltip("Units - Year", "thousands", "label");
     });
 
@@ -142,21 +137,19 @@ Promise.all([
     // nest the processed data by regions
         const contributionDataNested =  d3.nest().key( d => { return d[contributionRegions];})
             .entries(contributionDataProcessed);
-    // get array of keys from nest
-        const contributionRegionNames = [];
-        contributionDataNested.forEach(d => {
-                contributionRegionNames.push(d.key);
-        });
 
         const contriContent = {
             element: "#chart-houseContributions",
-            keys: contributionRegionNames,
-            data: contributionDataNested
+            data: contributionDataNested,
+            value: "value",
+            xTitle: "Years",
+            yTitle: "€"
         };
 
     // draw the chart
     const contributionChart = new MultiLineChart(contriContent);
-          contributionChart.getData("value","Years", "€", "millions");
+          contributionChart.yScaleFormat = "millions";
+          contributionChart.drawChart();
           contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
 
     // setup chart and data for quarterly house prices chart
@@ -168,36 +161,32 @@ Promise.all([
           housePricesDataProcessed = dataSets(housePricesData, housePricesType),
           yLabels4 = [];
     
-    housePricesDataProcessed.forEach( d => {
-        d.label = (d[housePricesDate]);
-        d[housePricesDate] = convertQuarter(d[housePricesDate]);
-    });
+        housePricesDataProcessed.forEach( d => {
+            d.label = (d[housePricesDate]);
+            d[housePricesDate] = convertQuarter(d[housePricesDate]);
+        });
 
-    const hPricesFiltered  = filterbyDate(housePricesDataProcessed, housePricesDate, "Jan 01 2015");
+    const hPricesFiltered  = filterbyDate(housePricesDataProcessed, housePricesDate, "Jan 01 2008");
 
     // need to convert date field to readable js date format
 
     // nest the processed data by regions
         const housePricesDataNested =  d3.nest().key( d => { return d[housePricesRegions];})
             .entries(hPricesFiltered);
-    // get array of keys from nest
-        const housePricesRegionNames = [];
-              
-              housePricesDataNested.forEach(d => {
-                housePricesRegionNames.push(d.key);
-              });
 
         const housePricesContent = {
             element: "#chart-housePrices",
-            keys: housePricesRegionNames,
-            data: housePricesDataNested
+            data: housePricesDataNested,
+            value: "value",
+            xTitle: "Quarters",
+            yTitle: "€"
         };
 
     // draw the chart
     const housePricesChart = new MultiLineChart(housePricesContent);
-    // 1. Value Key, 2. Data set
-    housePricesChart.getData("value", "Quarters", "€", "thousands");
-    housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+          housePricesChart.yScaleFormat = "millions";
+          housePricesChart.drawChart();
+          housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
 
 
         // setup chart and data for quarterly house prices chart
@@ -213,29 +202,21 @@ Promise.all([
         d[rentPricesDate] = convertQuarter(d[rentPricesDate]);
     });
 
-    // need to convert date field to readable js date format
-
-    const rentPricesFiltered  = filterbyDate(rentPricesDataProcessed, rentPricesDate, "Jan 01 2015");
-
     // nest the processed data by regions
         const rentPricesDataNested =  d3.nest().key( d => { return d[rentPricesRegions];})
-            .entries(rentPricesFiltered);
-            
-    // get array of keys from nest
-        const rentPricesRegionNames = [];
-        rentPricesDataNested.forEach(d => {
-                rentPricesRegionNames.push(d.key);
-        });
+            .entries(rentPricesDataProcessed);
 
         const rentPricesContent = {
             element: "#chart-rentPrices",
-            keys: rentPricesRegionNames,
-            data: rentPricesDataNested
+            data: rentPricesDataNested,
+            value: "value",
+            xTitle: "Quarters",
+            yTitle: "€"
         }
 
     // draw the chart
     const rentPricesChart = new MultiLineChart(rentPricesContent);
-          rentPricesChart.getData("value", "Quarters", "€", "thousands");
+          rentPricesChart.drawChart();
           rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
     
 
@@ -280,42 +261,47 @@ Promise.all([
         const houseCompByTypeDataNested =  d3.nest().key( d => { return d[houseCompByTypeRegions];})
             .entries(houseCompByTypeDataProcessed);
 
-    // get array of keys from nest
-        const houseCompByTypeRegionNames = [];
-        houseCompByTypeDataNested.forEach(d => {
-                houseCompByTypeRegionNames.push(d.key);
-        });
-
         const houseCompByTypeContent = {
             element: "#chart-houseCompByType",
-            keys: houseCompByTypeRegionNames,
-            data: houseCompByTypeDataNested
+            data: houseCompByTypeDataNested,
+            value: houseCompByTypeType[0], 
+            xTitle: "Quarters", 
+            yTitle: "Numbers"
         }
 
     // draw the chart
     const houseCompByTypeChart = new MultiLineChart(houseCompByTypeContent);
-          houseCompByTypeChart.getData(houseCompByTypeType[0], "Quarters", "Numbers");
+          houseCompByTypeChart.drawChart();
           houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
     d3.select("#houseCompByType_total").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[0],"Years", "Units");
+
+        houseCompByTypeChart.value = houseCompByTypeType[0];
+        houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+        houseCompByTypeChart.hideRate(false);
     });
     
     d3.select("#houseCompByType_private").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[1], "Years", "Units");
+
+        houseCompByTypeChart.value = houseCompByTypeType[1];
+        houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Private Houses - ", "thousands", "label");
+        houseCompByTypeChart.hideRate(false);
     });
 
     d3.select("#houseCompByType_social").on("click", function(){
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
-        houseCompByTypeChart.getData(houseCompByTypeType[2],"Years", "Units");
+
+        houseCompByTypeChart.value = houseCompByTypeType[2];
+        houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Social Houses - ", "thousands", "label");
+        houseCompByTypeChart.hideRate(true);
     });
 
     // setup chart and data for esb non new connections of land chart
@@ -327,7 +313,6 @@ Promise.all([
           nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
           nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
 
-          
     
           nonNewConnectionsDataProcessed.forEach( d => {
               d.label = (d[nonNewConnectionsDate]);
@@ -363,23 +348,19 @@ Promise.all([
         // nest the processed data by regions
         const newCompByTypeDataNested =  d3.nest().key( d => { return d[newCompByTypeRegions];})
             .entries(newCompByTypeDataProcessed);
-    
-        // get array of keys from nest
-        const newCompByTypeRegionNames = [];
-        newCompByTypeDataNested.forEach(d => {
-                newCompByTypeRegionNames.push(d.key);
-        });
 
         const newCompByTypeContent = {
             element: "#chart-newCompByType",
-            keys: newCompByTypeRegionNames,
-            data: newCompByTypeDataNested
+            data: newCompByTypeDataNested,
+            value: newCompByTypeType[0],
+            xTitle: "Quarters",
+            yTitle: "Numbers"
         };
         
 
     // draw the chart
     const newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
-          newCompByTypeChart.getData(newCompByTypeType[0], "Quarters", "Numbers");
+          newCompByTypeChart.drawChart();
           newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
 
@@ -390,14 +371,13 @@ Promise.all([
           HPM06D = HPM06.columns[0];
 
     // create content object
-    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06")
+    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
+          HPM06Content.xTitle = "Years";
+          HPM06Content.yTitle = "Price Index (Base 100)"
 
     // draw the chart
     const HPM06Charts = new MultiLineChart(HPM06Content);
-            HPM06Charts.titleX = "Years"; // add X-axis title
-            HPM06Charts.titleY = "Base"; // add Y-axis title
-            HPM06Charts.tickNumber = 14; // number of X-axis ticks
-            HPM06Charts.createScales(); // draw axis
+            HPM06Charts.drawChart(); // draw axis
             HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
             HPM06Charts.addBaseLine(100); // add horizontal baseline
 
@@ -487,7 +467,6 @@ function chartContent(data, key, value, date, selector){
 
     return {
             element: selector,
-            keys: keys,
             data: nest,
             value: value
         }
