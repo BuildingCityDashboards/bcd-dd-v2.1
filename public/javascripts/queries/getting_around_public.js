@@ -162,14 +162,25 @@ function getBusContent(d_) {
 }
 
 //Handle button in publicMap popup and get RTPI data
-let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
+//let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
+let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
 
 function displayRTPI(sid_) {
+    let rtpiBase, rtpi;
     d3.json(busAPIBase + sid_)
+            .catch(function (err) {
+                console.log("Error: "+err);
+                rtpiBase = "<br><br><strong>We're sorry... </strong> <br>"
+                +"The real-time provider did not answer our request for data at this time.";
+                rtpi = rtpiBase;
+                markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent().split(rtpiBase)[0] + rtpi);
+
+            })
             .then(function (data) {
+
 //                console.log("Button press " + sid_ + "\n");
-                let rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
-                let rtpi = rtpiBase;
+                rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
+                rtpi = rtpiBase;
                 if (data.results.length > 0) {
 //                    console.log("RTPI " + JSON.stringify(data.results[0]));
                     _.each(data.results, function (d, i) {
