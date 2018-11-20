@@ -139,9 +139,9 @@
               Chart_fig1.titleY = "Population";
 
               Chart_fig1.tickNumber = 27;
-              Chart_fig1.createScales();
+              Chart_fig1.drawChart();
               
-            Chart_fig1.addTooltip("Population - Year: ", "thousands", "label");
+              Chart_fig1.addTooltip("Population - Year: ", "thousands", "label");
 
               // hacked the x-axis to show only ticks matching the data. 
               //- get list of dates and filter array of g tags for elements that match the dates
@@ -171,7 +171,13 @@
                     $(this).addClass('active');
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
-                    Chart_fig1.getData("population", "Years", "population");
+
+                    Chart_fig1.xTitle = "Years";
+                    Chart_fig1.yTitle = "Population";
+                    Chart_fig1.value = "population";
+
+                    Chart_fig1b.hideRate(false);
+                    Chart_fig1.updateChart();
                     Chart_fig1.addTooltip("Population - Year", "thousands", "label");
                 });
 
@@ -180,7 +186,13 @@
                     $(this).addClass('active');
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
-                    Chart_fig1.getData("households", "Years", "households");
+
+                    Chart_fig1.xTitle = "Years";
+                    Chart_fig1.yTitle = "Households";
+                    Chart_fig1.value = "households";
+                    
+                    Chart_fig1b.hideRate(false);
+                    Chart_fig1.updateChart();
                     Chart_fig1.addTooltip("Households - Year", "thousands", "label");
                  });
 
@@ -242,7 +254,7 @@
               Chart4.titleY = "Property Prices (Euro)";
 
             //   Chart4.tickNumber = 27;
-              Chart4.createScales();
+              Chart4.drawChart();
               
               Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
@@ -257,7 +269,7 @@
             Chart5.tickNumber = 6;
             Chart5.yScaleFormat = "millions";
             
-            Chart5.createScales();
+            Chart5.drawChart();
             Chart5.addTooltip("Mortgage Debt € - Year:", "millions", "label");
 
 

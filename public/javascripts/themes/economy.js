@@ -124,12 +124,17 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
 
         const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
               employmentCharts.tickNumber = 12;
-              employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
+              employmentCharts.pagination(newData, "#chartNew", 24, 2, "label", "Thousands - Quarter:");
+              employmentCharts.addTooltip("Thousands - Quarter:", "thousands", "label");
+              employmentCharts.showSelectedLabels([1,5,9,13,17,21]);
 
-        d3.select(window).on("resize", function(){
-            employmentCharts.init(); 
-            employmentCharts.pagination(newData, "#chartNew", 12, 3, "label", "Thousands - Quarter:");
-        });
+
+
+
+        // d3.select(window).on("resize", function(){
+        //     employmentCharts.init(); 
+        //     employmentCharts.pagination(newData, "#chartNew", 24, 2, "label", "Thousands - Quarter:");
+        // });
         
         })// catch any error and log to console
         .catch(function(error){

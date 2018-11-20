@@ -23,6 +23,8 @@ class StackedAreaChart {
             aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(c.element).select("svg").remove();
+
+            console.log("the keys are ", c.keys);
             
         const breakPoint = 678;
         
@@ -55,7 +57,7 @@ class StackedAreaChart {
         // c.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
         
         // default colourScheme
-        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[9].slice(4);
+        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[5].slice(1);
         
         // colour function
         c.colour = d3.scaleOrdinal(c.cScheme);
@@ -107,6 +109,7 @@ class StackedAreaChart {
 
         // call the legend method
         c.addLegend();
+        c.drawTooltip();
     }
 
     // pass the data and the nest value
@@ -120,6 +123,15 @@ class StackedAreaChart {
             c.nestedData =_data;
             // c.tickNumber =  c.nestedData.length;
             c.createScales();
+    }
+
+    getKeys(){
+        let c = this,
+            keys;
+            c.colour.domain(c.data.map(d => { return d.key; }));
+            keys = c.colour.domain();
+        
+        return keys.reverse();
     }
 
     createScales(){
@@ -172,7 +184,6 @@ class StackedAreaChart {
         c.stack = d3.stack().keys(c.keys);
         c.data = (c.stack(c.nestedData));
 
-        c.drawTooltip();
         c.update();
     }
 
@@ -364,29 +375,22 @@ class StackedAreaChart {
         });
     }
 
-    addTooltip(title, format, arrowChange){
-
-        let c = this;
-            // ttData = data;
-            c.arrowChange = arrowChange;
-            c.ttTitle = title;
-            c.valueFormat = format;
-            c.ttWidth = 280,
-            c.ttHeight = 50,//remove
-            c.ttBorderRadius = 3; //remove
-
-            // formats thousands, Millions, Euros and Percentage
-
-        // add group to contain all the focus elements
-        let focus = c.g.append("g")
+    drawFocus(){
+        let c = this,
+            g = c.g; 
+        
+            c.focus = g.append("g")
                 .attr("class", "focus")
+                .style("display", "none")
                 .style("visibility", "hidden");
-            
-            // Year label
-            focus.append("text")
-                .attr("class", "focus_quarter")
-                .attr("x", 9)
-                .attr("y", 7);
+        
+            c.drawFocusLine();
+            c.drawFocusOverlay();
+    }
+
+    drawFocusLine(){
+        let c = this,
+            focus = c.focus;
             
             // Focus line
             focus.append("line")
@@ -394,77 +398,108 @@ class StackedAreaChart {
                 .attr("y1", 0)
                 .attr("y2", c.height);
         
-            focus.append("g")
-                .attr("class", "focus-circles");
+            c.drawFocusCircles();
+    }
 
+    drawFocusCircles(){
+        let c = this,
+            focus = c.focus,
+            // keys = c.getKeys(),
+
+            focusCircles = focus.append("g")
+                .attr("class", "focus_circles");
+
+            // attach group append circle and text for each region
             c.keys.forEach( (d,i) => {
-                
-                c.drawFocusCircles(d,i);
+
+                focusCircles.append("g")
+                    .attr("class", "tooltip_" + i)
+                        .append("circle")
+                            .attr("r", 0)
+                            .transition(c.t)
+                            .attr("r", 5)
+                            .attr("fill", c.colour(d))
+                            .attr("stroke", c.colour(d));
 
             });
+    }
+
+    addTooltip(title, format, dateField, prefix, postfix){
+        let c = this;
+
+            d3.select(c.element).select(".focus").remove();
+            d3.select(c.element).select(".focus_overlay").remove();
+
+            c.ttTitle = title || c.ttTitle;
+            c.valueFormat = format || c.valueFormat;
+            c.dateField = dateField || c.dateField;
+            // c.arrowChange = arrowChange;
+            c.ttWidth = 305;
+            c.prefix = prefix ? prefix : " ";
+            c.postfix = postfix ? postfix: " ";
+            c.valueFormat = c.formatValue(c.valueFormat);
+
+            c.drawFocus();
+    }   
     
-            // append a rectangle overlay to capture the mouse
-            c.g.append("rect")
-                .attr("class", "focus_overlay")
-                .attr("width", c.width + 10) // give a little extra for last value
+    drawFocusOverlay(){
+        let c = this,
+            g = c.g,
+            focus = c.focus,
+            overlay = g.append("rect");
+            
+            overlay.attr("class", "focus_overlay")
+                .attr("width", c.width)
                 .attr("height", c.height)
                 .style("fill", "none")
                 .style("pointer-events", "all")
-                .style("visibility", "hidden")
-                .on("mouseover", () => { 
-                    focus.style("display", null); 
-                    bcdTooltip.style("display", "inline");
+                .style("visibility", "hidden");
+
+            overlay.on("mouseover", (d) => { 
+                    focus.style("display", null);
                 }, {passive:true})
                 .on("touchstart", ()=>{
-                    focus.style("display", null); 
-                    bcdTooltip.style("display", "inline");
-                },{passive:true})
+                    focus.style("display", null);
+                }, {passive: true})
                 .on("mouseout", () => { 
                     focus.style("display", "none"); 
-                    bcdTooltip.style("display", "none");
-                }, {passive:true})
+                    c.newToolTip.style("visibility","hidden");
+                })
                 .on("touchmove", mousemove, {passive:true})
                 .on("mousemove", mousemove, {passive:true});
-            
+
             function mousemove(){
+
                 focus.style("visibility","visible");
-                toolGroup.style("visibility","visible");
+                c.newToolTip.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
-            
                     ttTextHeights = 0,
                     x0 = c.x.invert(mouse[0]),
-                    i = c.bisectDate(c.nestedData, x0, 1), // use the bisect for linear scale.
+                    i = c.bisectDate(c.nestedData, x0, 1),
                     d0 = c.nestedData[i - 1],
                     d1 = c.nestedData[i],
                     d,
-                    dPrev;  
+                    dPrev,
+                    keys = c.getKeys(); 
 
-                d1 !== undefined ? d = x0 - d0[c.date] > d1[c.date] - x0 ? d1 : d0 : false;
-                d1 !== undefined ? dPrev = x0 - d0[c.date] > d1[c.date] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
-            
-                let length = c.keys.length - 1;
+                    d1 !== undefined ? d = x0 - d0[c.date] > d1[c.date] - x0 ? d1 : d0 : false;
+                    d1 !== undefined ? dPrev = x0 - d0[c.date] > d1[c.date] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
                 
-                c.keys.forEach( (reg,idx) => {
-                    
-                    let reverseIndex = (length-idx),
-                        dvalue = c.data[reverseIndex],
-                        key = c.keys[reverseIndex],
-                        id = ".tooltip_" + reverseIndex,
-                        tpId = ".tooltipbody_" + reverseIndex,
-                        ttTitle = c.g.select(".tooltip-title"),
+                keys.forEach((reg,idx) => {
+                    let dvalue = c.data[idx],
+                        key = reg,
+                        id = "#bcd-tt" + idx,
+                        div = c.newToolTip.select(id),
+                        p = div.select(".bcd-text"),
                         dd0 = dvalue[i - 1],
                         dd1 = dvalue[i],
                         dd,
-                        unText = "unavailable",
+                        unText = "N/A",
                         difference = dPrev ? (d[key] -  dPrev[key])/dPrev[key]: 0,
                         indicatorColour,
-                        indicatorSymbol = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
-                        diffPercentage = isNaN(difference) ? unText :d3.format(".1%")(difference),
-                        rateString = (diffPercentage + " " +indicatorSymbol),
-                        tooltip,
-                        tooltipBody,
-                        textHeight;
+                        indicator = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
+                        rate = isNaN(difference) ? unText :d3.format(".1%")(difference);
 
                     if(c.arrowChange === true){
                         indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
@@ -473,31 +508,30 @@ class StackedAreaChart {
                         indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
                     }
 
-                    tooltip = d3.select(c.element).select(id);
-                    tooltipBody = d3.select(c.element).select(tpId);
-                    textHeight = tooltipBody.node().getBBox().height ? tooltipBody.node().getBBox().height : 0;
-                    tooltipBody.attr("transform", "translate(5," + ttTextHeights +")");
-                        
- 
                     if(d !== undefined){
+                        let dot = ".tooltip_" + idx,
+                        tooltip = focus.select(dot);
                         
-                        c.updatePosition(c.x(d[c.date]), 0);
+                        c.updatePosition(c.x(d[c.date]), 80);
 
                         dd1 !== undefined ? dd = x0 - dd0.data[c.date] > dd1.data[c.date] - x0 ? dd1 : dd0 : false;
 
+                        div.style("opacity", 1);
+                        div.select(".bcd-dot").style("background-color", c.colour(d.key));
+                        p.select(".bcd-text-title").text(key);
+                        p.select(".bcd-text-value").text(isNaN(d[key]) ? "N/A" : d[key]);
+                        p.select(".bcd-text-rate").text(rate);
+                        p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+
+                        c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
+
                         tooltip.attr("transform", "translate(" + c.x(d[c.date]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
-                        tooltipBody.select(".tp-text-right").text(isNaN(d[key]) ? "" : d[key]);
-                        tooltipBody.select(".tp-text-indicator")
-                            .text(rateString)
-                            .attr("fill",indicatorColour);
-                        ttTitle.text(c.ttTitle + " " + (d.label)); //label needs to be passed to this function 
                         focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.date])) + ", 0)");
                     }
-
-                    ttTextHeights += textHeight + 6;
                 });
             }
-    }
+
+        }
 
     OlddrawTooltip(){
         let c = this;
@@ -542,52 +576,40 @@ class StackedAreaChart {
                 .attr("transform", "translate(5,45)");
     }
 
-    drawFocusCircles(d,i){
-        let c = this;
-
-        let tooltip = c.g.select(".focus-circles")
-            .append("g")
-            .attr("class", "tooltip_" + i);
-
-            tooltip.append("circle")
-                .attr("r", 0)
-                .transition(c.t)
-                .attr("r", 5)
-                .attr("fill", c.colour(d))
-                .attr("stroke", c.colour(d));
-    }
-
     updatePosition(xPosition, yPosition){
-        let c = this;
+        let c = this,
+            g = c.g; 
         // get the x and y values - y is static
         let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
-        // move the tooltip
-        c.g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+            // move the tooltip
+            g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
+            c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
     }
 
     updateTTSize(){
         let c = this;
         let h = c.g.select(".tooltip-body").node().getBBox().height;
-        c.ttHeight += h + 4;
-        c.g.select(".tooltip-container").attr("height", c.ttHeight);
+            c.ttHeight += h + 4;
+            c.g.select(".tooltip-container").attr("height", c.ttHeight);
     }
 
     resetSize() {
         let c = this;
-        c.ttHeight = 50;
+            c.ttHeight = 50;
     }
 
     getTooltipPosition([mouseX, mouseY]) {
         let c = this;
         let ttX,
-            ttY = mouseY;
+            ttY = mouseY,
+            cSize = c.width - c.ttWidth;
 
-        // show right
-        if (mouseX < c.width - c.ttWidth) {
-            ttX = mouseX + 10;
+        // show right - 60 is the margin large screens
+        if (mouseX < cSize) {
+            ttX = mouseX + 105;
         } else {
-            // show left
-            ttX = mouseX - 290
+            // show left - 60 is the margin large screens
+            ttX = (mouseX + 90) - c.ttWidth;
         }
         return [ttX, ttY];
     }
@@ -694,9 +716,9 @@ slicer( arr, sliceBy ){
 
 pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arrow){
 
-    const chartObj = this;
+    const c = this;
     
-    const slices = chartObj.slicer( _data, _sliceBy ), 
+    const slices = c.slicer( _data, _sliceBy ), 
           times =  _pageNumber,
           startSet = slices(times - 1);
           
@@ -709,8 +731,8 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
         .append("div")
         .attr("class", "pagination-holder text-center pb-2");
 
-        chartObj.getData(startSet);
-        chartObj.addTooltip(_text,_format ,_arrow);
+        c.getData(startSet);
+        c.addTooltip();
 
     for(let i=0; i<times; i++){
         // let wg = slices(i)
@@ -740,12 +762,30 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
             if(!$(this).hasClass("active")){
                     $(this).siblings().removeClass("active");
                     $(this).addClass("active");
-                    chartObj.getData(wg);
-                    chartObj.addTooltip(_text, _format, _arrow);
+                    c.getData(wg);
+                    c.addTooltip();
+                    c.axisArray ? c.showSelectedLabels() : null;
                 }
             });
         }
+
+
     }
+
+    showSelectedLabels(array){
+        let c = this, 
+            e = c.xAxis;
+            c.axisArray = array || c.axisArray;
+
+            e.selectAll(".x-axis .tick")
+            .style("display", "none");
+
+        c.axisArray.forEach( n => {
+            d3.select(  e._groups[0][0].childNodes[n])
+            .style("display", "block");
+        })
+
+}
 
 }
 
