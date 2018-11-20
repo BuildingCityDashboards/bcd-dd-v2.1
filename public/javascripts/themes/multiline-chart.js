@@ -19,8 +19,6 @@ class MultiLineChart{
             eN = d3.select(c.element).node(),
             eW = eN.getBoundingClientRect().width,
             aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-            svg,
-            g,
             cScheme = c.colourScheme || d3.schemeBlues[5].slice(1),
             m = {},
             bP = 678;
@@ -37,13 +35,13 @@ class MultiLineChart{
             d3.select(c.element).select("svg").remove();
     
             // add the svg to the target element
-            svg = d3.select(c.element)
+            c.svg = d3.select(c.element)
                 .append("svg")
                 .attr("width", c.width + m.l + m.r + 5)
                 .attr("height", c.height + m.t + m.b);
        
             // add the g to the svg and transform by top and left margin
-            g = svg.append("g")
+            c.g = c.svg.append("g")
                 .attr("transform", "translate(" + m.l + 
                     ", " + m.t + ")")
                 .attr("class","chart-group");
@@ -76,7 +74,7 @@ class MultiLineChart{
 
     addAxis(){       
         let c = this,
-            g = c.getElement(".chart-group"),
+            g = c.g,
             gLines,
             xLabel,
             yLabel;
@@ -115,18 +113,18 @@ class MultiLineChart{
             c.keys = c.colour.domain();
     }
 
-    // replace all this with a data validator
-    // getData( _valueString, _data, _tX, _tY, yScaleFormat){
-    getData( _valueString, _tX, _tY, yScaleFormat){
-        let c = this;
-            _tX ? c.titleX = _tX: c.titleX = "";
-            _tY ? c.titleY = _tY: c.titleY = "";
+    // // replace all this with a data validator
+    // // getData( _valueString, _data, _tX, _tY, yScaleFormat){
+    // getData( _valueString, _tX, _tY, yScaleFormat){
+    //     let c = this;
+    //         _tX ? c.titleX = _tX: c.titleX = "";
+    //         _tY ? c.titleY = _tY: c.titleY = "";
         
-        // _data !== null ? c.data =_data : c.data = c.data;
-        // c.data = _data !== null ? _data : c.data;
-        c.value = _valueString;
+    //     // _data !== null ? c.data =_data : c.data = c.data;
+    //     // c.data = _data !== null ? _data : c.data;
+    //     c.value = _valueString;
 
-    }
+    // }
 
     // needs to be called everytime the data changes
     createScales(){
@@ -173,7 +171,7 @@ class MultiLineChart{
 
     drawLines(){
         let c = this,
-            g = c.getElement(".chart-group"); 
+            g = c.g; 
 
         // d3 line function
        c.line = d3.line()
@@ -294,7 +292,7 @@ class MultiLineChart{
     drawFocusLine(){
         // add group to contain all the focus elements
         let c = this,
-            g = c.getElement(".chart-group"); 
+            g = c.g; 
             
             focus = g.append("g")
                 .attr("class", "focus")
@@ -318,7 +316,7 @@ class MultiLineChart{
 
     drawFocusCircles(d,i){
         let c = this,
-            g = c.getElement(".chart-group"); 
+            g = c.g; 
 
         let tooltip = g.select(".focus_circles")
             .append("g")
@@ -352,7 +350,7 @@ class MultiLineChart{
 
     drawFocusOverlay(){
         let c = this,
-            g = c.getElement(".chart-group"),
+            g = c.g,
             focus = d3.select(c.element).select(".focus"),
             overlay = g.append("rect");
             
@@ -438,9 +436,7 @@ class MultiLineChart{
                         d1 = reg.values[i],
                         d,
                         dOld,
-                        unText = "unavailable",
-                        v = c.value,
-                        valueString;
+                        v = c.value;
 
                         d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
                         d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
@@ -472,7 +468,7 @@ class MultiLineChart{
 
     updatePosition(xPosition, yPosition){
         let c = this,
-            g = c.getElement(".chart-group"); 
+            g = c.g; 
         // get the x and y values - y is static
         let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
             // move the tooltip
@@ -640,7 +636,7 @@ class MultiLineChart{
     drawLegend() {
         // chart (c) object, vlaue (v), colour (z), line height(lH)
         let c = this,
-            g = c.getElement(".chart-group"),
+            g = c.g,
             v = c.value,
             z = c.colour,
             lH = 18;
