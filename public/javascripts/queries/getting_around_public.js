@@ -177,7 +177,6 @@ function displayRTPI(sid_) {
 
             })
             .then(function (data) {
-
 //                console.log("Button press " + sid_ + "\n");
                 rtpiBase = "<br><br><strong> Next Buses: </strong> <br>";
                 rtpi = rtpiBase;
