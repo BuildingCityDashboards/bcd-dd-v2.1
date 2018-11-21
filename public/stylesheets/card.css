@@ -15,6 +15,7 @@
 
 .card__link{
     color:#f8f8f8;
+    padding: 0 .5rem;
 }
 
 .card__link:hover{
