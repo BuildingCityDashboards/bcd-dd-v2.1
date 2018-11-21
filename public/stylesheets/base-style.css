@@ -178,8 +178,9 @@ select {
 
 #data-text p{
   text-align: center;
-  font-size: 1.125rem;
-  margin-top: 1rem;
+  font-size: 1rem;
+  margin: 0;
+  height: 50px;
 }
 
 select:hover:not([disabled]) {

@@ -121,6 +121,21 @@ Promise.all([
    
     // const priceListQuartley = new GroupedBarChart(date4Filtered, columnNames4, xValue2, "#ap-glance", "€", "title2");
 
+    d3.select(window).on("resize", function(){
+        houseCompMonthly.init(); 
+        unemployChart.init();
+        popChart.init();
+        priceIndexChart.init();
+        
+        let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+            if(screenSize >= 768){
+            renderMap(dublincoco);
+            }
+            else{
+            renderTabs(dublincoco);
+            }
+    });
+
     const priceIndex =  {
         d : date4Filtered,
         e : "#ap-glance",
@@ -160,6 +175,8 @@ class DataGlanceLine{
 
     init(){
         let c = this;
+
+        d3.select(c.e).select("svg").remove();
 
         c.eN = d3.select(c.e).node();
         c.eW = c.eN.getBoundingClientRect().width; 
@@ -285,96 +302,97 @@ class GroupedBarChart{
 
     // initialise method to draw chart area
     init(){
-        let dv = this,
-            last = dv.data.length -1;
-            dv.lastValue = dv.data[last].Dublin;
+        let c = this,
+            last = c.data.length -1;
+            c.lastValue = c.data[last].Dublin;
 
+         d3.select(c.element).select("svg").remove();
 
-        let eNode = d3.select(dv.element).node();
+        let eNode = d3.select(c.element).node();
         let eWidth = eNode.getBoundingClientRect().width; 
         
         // margin
-        dv.m = [30, 10, 25, 10]
+        c.m = [30, 10, 25, 10]
         
-        dv.width = eWidth - dv.m[1] - dv.m[3];
-        dv.height = 120 - dv.m[0] - dv.m[2];
+        c.width = eWidth - c.m[1] - c.m[3];
+        c.height = 120 - c.m[0] - c.m[2];
 
         // add the svg to the target element
-        const svg = d3.select(dv.element)
+        const svg = d3.select(c.element)
             .append("svg")
-            .attr("width", dv.width + dv.m[1] + dv.m[3])
-            .attr("height", dv.height + dv.m[0] + dv.m[2]);
+            .attr("width", c.width + c.m[1] + c.m[3])
+            .attr("height", c.height + c.m[0] + c.m[2]);
        
         // add the g to the svg and transform by top and left margin
-        dv.g = svg.append("g")
-            .attr("transform", "translate(" + dv.m[3] + "," + "20" + ")");
+        c.g = svg.append("g")
+            .attr("transform", "translate(" + c.m[3] + "," + "20" + ")");
     
         // transition 
-        dv.t = () => { return d3.transition().duration(1000); }
+        c.t = () => { return d3.transition().duration(1000); }
     
-        dv.colourScheme = ["#aae0fa","#00929e","#16c1f3","#16c1f3","#da1e4d","#086fb8","#16c1f3"];
+        c.colourScheme = ["#aae0fa","#00929e","#16c1f3","#16c1f3","#da1e4d","#086fb8","#16c1f3"];
 
         // set colour function
-        dv.colour = d3.scaleOrdinal(dv.colourScheme.reverse());
+        c.colour = d3.scaleOrdinal(c.colourScheme.reverse());
 
-        dv.x0 = d3.scaleBand()
-            .range([0, dv.width])
+        c.x0 = d3.scaleBand()
+            .range([0, c.width])
             .padding(0.05);
 
-        dv.x1 = d3.scaleBand()
+        c.x1 = d3.scaleBand()
             .paddingInner(0.1);
     
-        dv.y = d3.scaleLinear()
-            .range([dv.height + dv.m[1], 0]);
+        c.y = d3.scaleLinear()
+            .range([c.height + c.m[1], 0]);
     
         // Start Month
-        dv.g.append("text")
+        c.g.append("text")
             .attr("class", "label")
             .attr("x", 0)
-            .attr("y", dv.height + 30)
+            .attr("y", c.height + 30)
             .attr("text-anchor", "start")
             .attr("fill", "#f8f9fabd")
-            .text(dv.data[0].date);
+            .text(c.data[0].date);
     
         // Last Month
-        dv.g.append("text")
+        c.g.append("text")
             .attr("class", "label")
-            .attr("x", dv.width)
-            .attr("y", dv.height + 30)
+            .attr("x", c.width)
+            .attr("y", c.height + 30)
             .attr("text-anchor", "end")
             .attr("fill", "#f8f9fabd")
-            .text(dv.data[last].date);
+            .text(c.data[last].date);
         
         // Title 
-        dv.g.append("text")
+        c.g.append("text")
             .attr("dx", 0)
             .attr("dy", -10)
             .attr("class", "label")
             .attr("fill", "#16c1f3")
-            .text(dv.keys[0]);
+            .text(c.keys[0]);
     
-        dv.update();
+        c.update();
     
     }
     
     update(){
-        let dv = this;
+        let c = this;
 
         // Update scales
-        dv.x0.domain(dv.data.map(d => { return d[dv.xValue]; }));
-        dv.x1.domain(dv.keys).range([0, dv.x0.bandwidth()]);
-        dv.y.domain([0, d3.max(dv.data, d => { return d3.max(dv.keys, key => { return d[key]; }); })]).nice();
+        c.x0.domain(c.data.map(d => { return d[c.xValue]; }));
+        c.x1.domain(c.keys).range([0, c.x0.bandwidth()]);
+        c.y.domain([0, d3.max(c.data, d => { return d3.max(c.keys, key => { return d[key]; }); })]).nice();
 
         // join new data with old elements.
-        dv.rects = dv.g.append("g")
+        c.rects = c.g.append("g")
             .attr("class","parent")
             .selectAll("g")
-            .data(dv.data, (d) => { return !isNaN(d.Value); })
+            .data(c.data, (d) => { return !isNaN(d.Value); })
             .enter()
             .append("g")
-            .attr("transform", (d) => { return "translate(" + dv.x0(d[dv.xValue]) + ", 0)"; })
+            .attr("transform", (d) => { return "translate(" + c.x0(d[c.xValue]) + ", 0)"; })
             .selectAll("rect")
-            .data(d => { return dv.keys.map( key => { 
+            .data(d => { return c.keys.map( key => { 
                     return {
                         key: key, 
                         value: d[key]
@@ -382,10 +400,10 @@ class GroupedBarChart{
                 }); 
             })
             .enter().append("rect")
-            .attr("x", d => { return dv.x1(d.key); })
-            .attr("y", d => { return dv.y(d.value); })
-            .attr("width", dv.x1.bandwidth())
-            .attr("height", d => { return (dv.height - dv.y(d.value) + dv.m[1] ) ; })
+            .attr("x", d => { return c.x1(d.key); })
+            .attr("y", d => { return c.y(d.value); })
+            .attr("width", c.x1.bandwidth())
+            .attr("height", d => { return (c.height - c.y(d.value) + c.m[1] ) ; })
             .attr("rx","2")
             .attr("ry","2")
             .attr("fill", "rgba(29, 158, 201, 0.6)");
@@ -393,13 +411,13 @@ class GroupedBarChart{
             d3.select(".parent g:nth-last-child(1) rect")
                 .attr("fill", "#16c1f3");
 
-            dv.g.append("text")
-                .attr("dx", dv.width)
-                .attr("dy", dv.y(dv.lastValue) - 10)
+            c.g.append("text")
+                .attr("dx", c.width)
+                .attr("dy", c.y(c.lastValue) - 10)
                 .attr("text-anchor", "end")
                 .attr("class", "label value")
                 .attr("fill", "#f8f9fabd")
-                .text(dv.lastValue);
+                .text(c.lastValue);
     }
     
 }
@@ -485,3 +503,4 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 function infoText(){
 
 }
+

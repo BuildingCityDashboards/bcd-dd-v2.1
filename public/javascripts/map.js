@@ -1,7 +1,5 @@
 const HOVER_COLOR = "#16c1f3",
-      svg = d3.select("#map__container"),
-      elementNode = svg.node(),
-      parentElement = elementNode.parentNode,
+      element = "#map__container",
       dublin = d3.select("#dublin-text"),
       dData = dublincoco.features[0].properties,
       percentage = d3.format(".2%"),
@@ -10,7 +8,6 @@ const HOVER_COLOR = "#16c1f3",
       euro = maplocale.format("$,"),
       diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
       diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
-
       dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + " ");
       dublin.select("#region__area").text(dData.AREA + ", ");
       dublin.select("#region__age").text(dData.AGE + " ");
@@ -21,23 +18,6 @@ const HOVER_COLOR = "#16c1f3",
       dublin.select("#region__incomeIndicator").text(indicatorText(diff, "#region__incomeIndicator", "grew", false));
       dublin.select("#region__income__prev").text(euro(dData.PREVINCOME) + " ");
       dublin.select("#region__income__change").text(percentage(diffIncome) + indicator(diffIncome, "#region__income__change", false));
-
-      
-          
-      console.log(diff > 0);
-
-      
-
-let elementWidth = parentElement.getBoundingClientRect().width,
-    aspectRatio = elementWidth < 500 ? elementWidth * 0 : elementWidth * 1.25,
-    scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
-
-
-const WIDTH = elementWidth,
-      HEIGHT = aspectRatio;
-
-    svg.attr("width", WIDTH)
-      .attr("height", HEIGHT);
 
 // Event Handlers
 function mouseOverHandler(d, i) {
@@ -78,63 +58,72 @@ function clickHandler(d, i) {
   d3.select(".lp-map__compare").style("visibility", "visible");
 }
 
-// SVG container for placing the map,
-// and overlay a transparent rectangle for pan and zoom
-const g = svg.append("g");
-
-// Project geojson
-// projection config.
-const projection = d3
-  .geoMercator()
-  // .center([-6.280387, 53.346174]) //53.346174, -6.280387
-  // .center([-6.251264, 53.360643])
-  .center([-6.458681, 53.400675])
-  .scale(scaleValue)
-  .translate([WIDTH / 4, HEIGHT / 2]);
-
-// SVG path
-// use above projection.
-const path = d3.geoPath().projection(projection);
-
-// 1. Plot the map from data source `dublincoco`
-// 2. Place the local aut name in the map
-
 function renderMap(root) {
-  // Draw local aut and register event listeners
-  g
-    .append("g")
-    .selectAll("path")
-    .data(root.features)
-    .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("fill", "#001F35")
-    .attr("stroke", "#d1d1d182")
-    .attr("stroke-width", 1)
-    .attr("class", "local")
-    .attr("id", d => "local" + d.properties.OBJECTID)
-    .on("mouseover", mouseOverHandler)
-    .on("mouseout", mouseOutHandler)
-    .on("click", clickHandler);
 
-  // Place name in the middle
-  g
-    .append("g")
-    .selectAll("text")
-    .data(root.features)
-    .enter()
-    .append("text")
-    .attr("id", d => "localLabel" + d.properties.OBJECTID)
-    .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(-10,-10)`;})
-    .attr("text-anchor", "middle")
-    .attr("fill", "#FFF")
-    .attr("font-size", 14)
-    .attr("cursor", "pointer")
-    // .on("mouseover", mouseOverHandler)
-    // .on("mouseout", mouseOutHandler)
-    .on("click", clickHandler)
-    .text(d => d.properties.ENGLISH)
-    .style('pointer-events', 'none');
+d3.select(element).select("svg").remove();
+
+  // SVG container for placing the map,
+// and overlay a transparent rectangle for pan and zoom
+const svg = d3.select(element).append("svg"),
+      elementNode = svg.node(),
+      parentElement = elementNode.parentNode,
+      g = svg.append("g");
+
+let elementWidth = parentElement.getBoundingClientRect().width,
+    aspectRatio = elementWidth < 300 ? elementWidth * 1.15 : elementWidth * 1.25,
+    scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
+
+
+const WIDTH = elementWidth,
+      HEIGHT = aspectRatio,
+      projection = d3
+        .geoMercator()
+        .center([-6.458681, 53.400675])
+        .scale(scaleValue)
+        .translate([WIDTH / 4, HEIGHT / 2]),
+
+      // SVG path
+      // use above projection.
+      path = d3.geoPath().projection(projection);
+
+      svg.attr("width", WIDTH)
+        .attr("height", HEIGHT);
+
+      // Draw local aut and register event listeners
+      g
+        .append("g")
+        .selectAll("path")
+        .data(root.features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("fill", "#001F35")
+        .attr("stroke", "#d1d1d182")
+        .attr("stroke-width", 1)
+        .attr("class", "local")
+        .attr("id", d => "local" + d.properties.OBJECTID)
+        .on("mouseover", mouseOverHandler)
+        .on("mouseout", mouseOutHandler)
+        .on("click", clickHandler);
+
+      // Place name in the middle
+      g
+        .append("g")
+        .selectAll("text")
+        .data(root.features)
+        .enter()
+        .append("text")
+        .attr("id", d => "localLabel" + d.properties.OBJECTID)
+        .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(-10,-10)`;})
+        .attr("text-anchor", "middle")
+        .attr("fill", "#FFF")
+        .attr("font-size", 14)
+        .attr("cursor", "pointer")
+        // .on("mouseover", mouseOverHandler)
+        // .on("mouseout", mouseOutHandler)
+        .on("click", clickHandler)
+        .text(d => d.properties.ENGLISH)
+        .style('pointer-events', 'none');
 
 }
 
@@ -210,15 +199,10 @@ function indicatorText(value, selector, text, negative){
 }
 
 let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    console.log(screenSize);
 
-if(screenSize > 991){
+if(screenSize >= 768){
   renderMap(dublincoco);
 }
 else{
   renderTabs(dublincoco);
 }
-
-d3.select(window).on("resize", function(){
-
-});
