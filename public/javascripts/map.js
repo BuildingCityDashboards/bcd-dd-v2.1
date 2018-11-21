@@ -1,5 +1,6 @@
 const HOVER_COLOR = "#16c1f3",
       element = "#map__container",
+      center = [-6.398681, 53.410675],
       dublin = d3.select("#dublin-text"),
       dData = dublincoco.features[0].properties,
       percentage = d3.format(".2%"),
@@ -60,83 +61,75 @@ function clickHandler(d, i) {
 
 function renderMap(root) {
 
-d3.select(element).select("svg").remove();
+  d3.select(element).select("svg").remove();
 
-  // SVG container for placing the map,
-// and overlay a transparent rectangle for pan and zoom
-const svg = d3.select(element).append("svg"),
-      elementNode = svg.node(),
-      parentElement = elementNode.parentNode,
-      g = svg.append("g");
+  const svg = d3.select(element).append("svg"),
+        parentElement = d3.select(element).node(),
+        g = svg.append("g"),
+        elementWidth = parentElement.getBoundingClientRect().width,
+        aspect = elementWidth / (2 * Math.PI),
+        WIDTH = elementWidth,
+        HEIGHT = WIDTH * ((aspect + 75)/100),
+        scaleValue = aspect * 568,
+        
+        projection = d3
+          .geoMercator()
+          .center(center)
+          .scale(scaleValue)
+          .translate([WIDTH / 4, HEIGHT / 2]),
+        
+        path = d3.geoPath().projection(projection);
 
-let elementWidth = parentElement.getBoundingClientRect().width,
-    aspectRatio = elementWidth < 300 ? elementWidth * 1.15 : elementWidth * 1.25,
-    scaleValue = elementWidth > 500 ? 50000 : elementWidth < 300 ? 20000 : 30000;
 
+        svg.attr("width", WIDTH)
+          .attr("height", HEIGHT);
 
-const WIDTH = elementWidth,
-      HEIGHT = aspectRatio,
-      projection = d3
-        .geoMercator()
-        .center([-6.458681, 53.400675])
-        .scale(scaleValue)
-        .translate([WIDTH / 4, HEIGHT / 2]),
+        // Draw local aut and register event listeners
+        g
+          .append("g")
+          .selectAll("path")
+          .data(root.features)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .attr("fill", "#001F35")
+          .attr("stroke", "#d1d1d182")
+          .attr("stroke-width", 1)
+          .attr("class", "local")
+          .attr("id", d => "local" + d.properties.OBJECTID)
+          .on("mouseover", mouseOverHandler)
+          .on("mouseout", mouseOutHandler)
+          .on("click", clickHandler);
 
-      // SVG path
-      // use above projection.
-      path = d3.geoPath().projection(projection);
-
-      svg.attr("width", WIDTH)
-        .attr("height", HEIGHT);
-
-      // Draw local aut and register event listeners
-      g
-        .append("g")
-        .selectAll("path")
-        .data(root.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .attr("fill", "#001F35")
-        .attr("stroke", "#d1d1d182")
-        .attr("stroke-width", 1)
-        .attr("class", "local")
-        .attr("id", d => "local" + d.properties.OBJECTID)
-        .on("mouseover", mouseOverHandler)
-        .on("mouseout", mouseOutHandler)
-        .on("click", clickHandler);
-
-      // Place name in the middle
-      g
-        .append("g")
-        .selectAll("text")
-        .data(root.features)
-        .enter()
-        .append("text")
-        .attr("id", d => "localLabel" + d.properties.OBJECTID)
-        .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(-10,-10)`;})
-        .attr("text-anchor", "middle")
-        .attr("fill", "#FFF")
-        .attr("font-size", 14)
-        .attr("cursor", "pointer")
-        // .on("mouseover", mouseOverHandler)
-        // .on("mouseout", mouseOutHandler)
-        .on("click", clickHandler)
-        .text(d => d.properties.ENGLISH)
-        .style('pointer-events', 'none');
+        // Place name in the middle
+        g
+          .append("g")
+          .selectAll("text")
+          .data(root.features)
+          .enter()
+          .append("text")
+          .attr("id", d => "localLabel" + d.properties.OBJECTID)
+          .attr("transform", d => { return (d.geometry) !== undefined ?  `translate(${ path.centroid(d) })` : `translate(-10,-10)`;})
+          .attr("text-anchor", "middle")
+          .attr("fill", "#FFF")
+          .attr("font-size", 14)
+          .attr("cursor", "pointer")
+          // .on("mouseover", mouseOverHandler)
+          // .on("mouseout", mouseOutHandler)
+          .on("click", clickHandler)
+          .text(d => d.properties.ENGLISH)
+          .style('pointer-events', 'none');
 
 }
 
 function renderTabs(root) {
-  console.log("this is firing");
   // Remove old and Draw local aut and register event listeners
-  let tabs = d3.select("#lp-tabs").selectAll("buttons");
+  let tabs = d3.select("#lp-tabs").selectAll(".btn-bcd");
+  console.log("this is the tabs", tabs);
       
       // tabs.remove();
       tabs.data(root.features).enter();
-      tabs.append("button")
-          .attr("class",  "btn btn-bcd mx-1")
-          .attr("id", d => "local" + d.properties.OBJECTID)
+      tabs.attr("id", d => "local" + d.properties.OBJECTID)
           .text(d => d.properties.ENGLISH)
           .on("click", clickHandler);
 }

@@ -77,12 +77,9 @@
     font-weight: 100;
 }
 
+/* default adjusted in media query min 992 */
 .columns-2{
-    column-count: 2;
-}
-
-.about__dublin{
-    column-count: 2;
+    column-count: 1;
 }
 
 .local-on{
@@ -100,5 +97,11 @@
 
     .hero{
         padding-top: 2rem;
+    }
+}
+
+@media (min-width: 992px){
+    .columns-2{
+        column-count: 2;
     }
 }
