@@ -215,7 +215,7 @@ function initMapSoundsites(data__) {
         m.bindPopup(getSoundsiteContent(d));
         m.on('click', function (e) {
             var p = e.target.getPopup();
-            getSoundReading(p, d);
+            //getSoundReading(p, d);
 //            console.log("p: " + );
         });
         noiseCluster.addLayer(m);
@@ -228,7 +228,7 @@ function initMapSoundsites(data__) {
 function getSoundsiteContent(d_) {
     let str = '';
     if (d_["name"]) {
-        str += '<h3>' + d_["name"] + '</h3>';
+        str += '<b>' + d_["name"] + '</b><br>';
     }
     if (d_.type) {
         str += d_.type + '<br>';
