@@ -416,7 +416,7 @@ function displayLuasRT(sid_) {
                                 if (min === "00") {
                                     luasRT += " is <b>Due now</b>";
 
-                                } else {
+                                        } else {
                                     luasRT += " is due in <b>" + min + "</b> mins";
                                 }
                             } else {

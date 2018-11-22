@@ -24,7 +24,7 @@ class StackedAreaChart {
 
             d3.select(c.element).select("svg").remove();
 
-            console.log("the keys are ", c.keys);
+            //console.log("the keys are ", c.keys);
             
         const breakPoint = 678;
         

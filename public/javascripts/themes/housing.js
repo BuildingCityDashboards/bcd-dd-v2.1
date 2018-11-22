@@ -226,7 +226,7 @@ Promise.all([
           rentByBedsDate = rentByBedsData.columns[0],
           rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes);
 
-    console.log("rentByBeds data processed", rentByBedsDataProcessed);
+    //console.log("rentByBeds data processed", rentByBedsDataProcessed);
     // drawing charts for planning data.
     const rentByBedsChart = new GroupedBarChart(rentByBedsDataProcessed, rentByBedsTypes, rentByBedsDate, "#chart-rentByBeds", "Quarters", "Price");
           rentByBedsChart.addTooltip("Rent Prices - Year", "thousands", rentByBedsDate);
@@ -320,7 +320,7 @@ Promise.all([
           });
 
     let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
-    console.log(nonNewCon);
+    //console.log(nonNewCon);
     // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
     const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);

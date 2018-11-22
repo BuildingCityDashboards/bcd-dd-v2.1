@@ -1,9 +1,9 @@
 header.header
   .row
-    .col-lg-6
+    .col-lg-12
       h1 Environment
       p.lead Explore the sensors placed through Dublin City to monitor 
-        |environmental conditions, and graphs presenting historical statistics 
+        |environmental conditions, and charts presenting historical statistics 
         |collected on various environmental factors. The information presented 
         |here may be sourced from dynamic and/or real-time data 
         |<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
@@ -11,6 +11,12 @@ header.header
         |<img height='15px' width='15px' src='/images/calendar-w.svg'>
 
 article.article
+  .row
+    .col-lg-12
+      h2.header__h2.mb-2 Environment Monitioring Sites
+      p The monitoring sites described below provide data on various asepcts of 
+        | the enviroment including water levels, noise pollution and air quality.
+
   .row.wrapper.py-3
     .col-lg-4
       h3 Water Monitoring Sites <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
@@ -22,21 +28,26 @@ article.article
         a(href="http://www.epa.ie/hydronet/#Water%20Levels" target ="blank") EPA Hydronet 
           img(src='../images/external-link.svg' height='11px' width='11px') 
           
-      p Two sources, the Office of Public Works, and the Environmental Protection 
-        |Agency, monitor water levels and flows along Dublin’s rivers, canals, 
-        |and coastline (and those throughout the country). Use the buttons to switch 
-        |between the two sources, or view them all together on the map. The map shows
-        | locations in and around the Greater Dublin area only.
+      p Two sources, the Office of Public Works (OPW) and the Environmental Protection
+        | Agency (EPA), monitor water levels and flows along Dublin’s rivers, canals,
+        | and coastline. Use the buttons to switch between the OPW water level monitoring sites
+        | and the EPA Hydronet system sites. Click a map icon to get information for that 
+        | location. 
+        
+      div#water-site-count
+      br
+      
       p Use the <a href="../queries">"Environment Live!"</a> 
         | Query to access the most recent readings for each montioring station, as well
         | as historical levels via the <a href="../tools">Environment Tool</a>
         | <i>(coming soon)</i>. 
+      
     .col-lg-8
-      div.pt-2
-        <button type="button" class="btn btn-bcd water-opw-btn" value="">OPW Water </button>
-        <button type="button" class="btn btn-bcd water-hydronet-btn" value="">EPA Hydronet Water</button>
-        <button type="button" class="btn btn-bcd water-all-btn" value="">All Monitor Sites</button>
-        
+      div.pt-2.ml-4
+            <button type="button" class="btn btn-bcd btn-sm" id="water-opw-btn" value="">OPW Water </button>
+            <button type="button" class="btn btn-bcd btn-sm" id="water-hydronet-btn" value="">EPA Hydronet Water</button>
+            <button type="button" class="btn btn-bcd btn-sm active" data-toggle="button" id="water-all-btn" value="">All Monitor Sites</button>
+      
       div#chart-water-map
       
   .row.wrapper.py-3
@@ -55,9 +66,9 @@ article.article
         |as historical sound levels via the <a href="../tools">Environment Tool</a>
         | <i>(coming soon)</i>.
           
-      p From the latest data, the highest level of noise was at <i>(coming soon)</i>, 
-        | where the recorded reading was <i>(coming soon)</i> dB.
-        | Meanwhile <i>(coming soon)</i> was the quietest, at <i>(coming soon)</i>dB 
+        //      p From the latest data, the highest level of noise was at <i>(coming soon)</i>, 
+        //        | where the recorded reading was <i>(coming soon)</i> dB.
+        //        | Meanwhile <i>(coming soon)</i> was the quietest, at <i>(coming soon)</i>dB 
     .col-lg-8
       //div.pt-2
         <button type="button" class="btn btn-bcd opw-water-btn" value="">OPW Water </button>
