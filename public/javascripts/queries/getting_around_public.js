@@ -162,8 +162,8 @@ function getBusContent(d_) {
 }
 
 //Handle button in publicMap popup and get RTPI data
-//let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
-let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
+let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
+//let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
 
 function displayRTPI(sid_) {
     let rtpiBase, rtpi;

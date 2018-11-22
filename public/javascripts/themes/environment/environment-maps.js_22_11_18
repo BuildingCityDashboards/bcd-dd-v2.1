@@ -41,24 +41,16 @@ d3.json('/data/Environment/waterlevel.json')
 
 function processWaterLevels(data_) {
 //    console.log("WL data \n");
-    //will filter out all data bar Greater Dublin 
-    let regionData = data_.filter(function (d) {
-        return d.properties["station.region_id"] === null //Dublin OPW stations have null id
-        || d.properties["station.region_id"] === 10;
-    });
-    regionData.forEach(function (d) {
+    data_.forEach(function (d) {
         d.lat = +d.geometry.coordinates[1];
         d.lng = +d.geometry.coordinates[0];
         d.type = "OPW GPRS Station Water Level Monitor";
-        console.log("d:" + JSON.stringify(d));
     });
-    console.log("data_ length : "+regionData.length);
-    updateMapWaterLevels(regionData);
-
+//   console.log("Monitor:" + JSON.stringify(data_[0]));
+    updateMapWaterLevels(data_);
 }
 ;
 function updateMapWaterLevels(data__) {
-    
     waterOPWCluster.clearLayers();
     waterMap.removeLayer(waterOPWCluster);
     _.each(data__, function (d, i) {
@@ -186,7 +178,7 @@ let iconAttrib = "Microophone icon by <a href=\"https://www.flaticon.com/authors
 let osmSound = new L.TileLayer(stamenTerrainUrl, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
-    attribution: iconAttrib + "  " + stamenTonerAttrib
+    attribution: iconAttrib + "  "+stamenTonerAttrib
 });
 
 let soundMap = new L.Map('chart-sound-map');
@@ -322,7 +314,7 @@ d3.select(".water-all-btn").on("click", function () {
     if (!waterMap.hasLayer(hydronetCluster)) {
         waterMap.addLayer(hydronetCluster);
     }
-    waterMap.fitBounds(hydronetCluster.getBounds());
+    waterMap.fitBounds(waterOPWCluster.getBounds());
 });
 
 
