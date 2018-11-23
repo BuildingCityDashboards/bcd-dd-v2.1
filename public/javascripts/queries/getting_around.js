@@ -6,20 +6,28 @@
  * Test support for DOM node methods on Firefox
  */
 
-let osmPublic = new L.TileLayer(stamenTonerUrl_Lite, {
+let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
 
-let publicMap = new L.Map('chart-public-transport');
-publicMap.setView(new L.LatLng(dubLat, dubLng), zoom);
-publicMap.addLayer(osmPublic);
+let gettingAroundMap = new L.Map('getting-around-map');
+gettingAroundMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+gettingAroundMap.addLayer(gettingAroundOSM);
 let markerRefPublic; //TODO: fix horrible hack!!!
-publicMap.on('popupopen', function (e) {
+gettingAroundMap.on('popupopen', function (e) {
     markerRefPublic = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
 });
+
+// add location control to global name space for testing only
+// on a production site, omit the "lc = "!
+L.control.locate({
+    strings: {
+        title: "Zoom map to near your location"
+    }
+}).addTo(gettingAroundMap);
 
 /************************************
  * Bikes
@@ -55,12 +63,12 @@ function processBikes(data_) {
 ;
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
-    publicMap.removeLayer(bikeCluster);
+    gettingAroundMap.removeLayer(bikeCluster);
     _.each(data__, function (d, i) {
         bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
                 .bindPopup(getBikeContent(d)));
     });
-    publicMap.addLayer(bikeCluster);
+    gettingAroundMap.addLayer(bikeCluster);
 }
 
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
@@ -121,14 +129,14 @@ function processBusStops(res_) {
 ;
 function updateMapBuses(data__) {
     busCluster.clearLayers();
-    publicMap.removeLayer(busCluster);
+    gettingAroundMap.removeLayer(busCluster);
     _.each(data__, function (d, i) {
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBusMapIcon});
         marker.bindPopup(getBusContent(d));
         busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    publicMap.addLayer(busCluster);
+    gettingAroundMap.addLayer(busCluster);
 }
 
 
@@ -161,7 +169,7 @@ function getBusContent(d_) {
     return str;
 }
 
-//Handle button in publicMap popup and get RTPI data
+//Handle button in gettingAroundMap popup and get RTPI data
 let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
 //let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
 
@@ -230,7 +238,7 @@ d3.json("/data/Transport/cpCaps.json").then(function (data) {
 
 function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
-    publicMap.removeLayer(carparkCluster);
+    gettingAroundMap.removeLayer(carparkCluster);
     let keys = d3.keys(data__);
 //    console.log("keys: " + keys);
     _.each(data__, function (d, k) {
@@ -240,7 +248,7 @@ function updateMapCarparks(data__) {
         carparkCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    publicMap.addLayer(carparkCluster);
+    gettingAroundMap.addLayer(carparkCluster);
 //    privateMap.fitBounds(carparkCluster.getBounds());
 }
 
@@ -316,7 +324,7 @@ let luasMapIcon = L.icon({
             //popupAnchor: [-3, -76]
 });
 
-//create points on publicMap for Luas stops even if RTI not available
+//create points on gettingAroundMap for Luas stops even if RTI not available
 d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
     processLuas(data);
 });
@@ -336,14 +344,14 @@ function processLuas(data_) {
 
 function updateMapLuas(data__) {
     luasCluster.clearLayers();
-    publicMap.removeLayer(luasCluster);
+    gettingAroundMap.removeLayer(luasCluster);
     _.each(data__, function (d, k) {
 //        console.log("d: " + d.type + "\n");
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: luasMapIcon});
         marker.bindPopup(getLuasContent(d));
         luasCluster.addLayer(marker);
     });
-    publicMap.addLayer(luasCluster);
+    gettingAroundMap.addLayer(luasCluster);
 }
 
 function getLuasContent(d_) {
@@ -495,62 +503,62 @@ function processRoads(data_) {
 
 d3.select(".public_transport_bikes").on("click", function () {
 //    console.log("bikes");
-    publicMap.removeLayer(busCluster);
-    publicMap.removeLayer(carparkCluster);
-    publicMap.removeLayer(luasCluster);
-    if (!publicMap.hasLayer(bikeCluster)) {
-        publicMap.addLayer(bikeCluster);
+    gettingAroundMap.removeLayer(busCluster);
+    gettingAroundMap.removeLayer(carparkCluster);
+    gettingAroundMap.removeLayer(luasCluster);
+    if (!gettingAroundMap.hasLayer(bikeCluster)) {
+        gettingAroundMap.addLayer(bikeCluster);
     }
-    publicMap.fitBounds(bikeCluster.getBounds());
+    //gettingAroundMap.fitBounds(bikeCluster.getBounds());
 });
 
 d3.select(".public_transport_buses").on("click", function () {
 //    console.log("buses");
-    publicMap.removeLayer(bikeCluster);
-    publicMap.removeLayer(carparkCluster);
-    publicMap.removeLayer(luasCluster);
-    if (!publicMap.hasLayer(busCluster)) {
-        publicMap.addLayer(busCluster);
+    gettingAroundMap.removeLayer(bikeCluster);
+    gettingAroundMap.removeLayer(carparkCluster);
+    gettingAroundMap.removeLayer(luasCluster);
+    if (!gettingAroundMap.hasLayer(busCluster)) {
+        gettingAroundMap.addLayer(busCluster);
     }
-    publicMap.fitBounds(busCluster.getBounds());
+    //gettingAroundMap.fitBounds(busCluster.getBounds());
 });
 
 d3.select(".public_transport_carparks").on("click", function () {
 
-    publicMap.removeLayer(bikeCluster);
-    publicMap.removeLayer(busCluster);
-    publicMap.removeLayer(luasCluster);
-    if (!publicMap.hasLayer(carparkCluster)) {
-        publicMap.addLayer(carparkCluster);
+    gettingAroundMap.removeLayer(bikeCluster);
+    gettingAroundMap.removeLayer(busCluster);
+    gettingAroundMap.removeLayer(luasCluster);
+    if (!gettingAroundMap.hasLayer(carparkCluster)) {
+        gettingAroundMap.addLayer(carparkCluster);
     }
-    publicMap.fitBounds(carparkCluster.getBounds());
+    //gettingAroundMap.fitBounds(carparkCluster.getBounds());
 });
 
 d3.select(".public_transport_luas").on("click", function () {
 //    console.log("luas");
-    publicMap.removeLayer(bikeCluster);
-    publicMap.removeLayer(busCluster);
-    publicMap.removeLayer(carparkCluster);
-    if (!publicMap.hasLayer(luasCluster)) {
-        publicMap.addLayer(luasCluster);
+    gettingAroundMap.removeLayer(bikeCluster);
+    gettingAroundMap.removeLayer(busCluster);
+    gettingAroundMap.removeLayer(carparkCluster);
+    if (!gettingAroundMap.hasLayer(luasCluster)) {
+        gettingAroundMap.addLayer(luasCluster);
     }
-    publicMap.fitBounds(luasCluster.getBounds());
+    //gettingAroundMap.fitBounds(luasCluster.getBounds());
 });
 d3.select(".public_transport_all").on("click", function () {
 //    console.log("all");
-    if (!publicMap.hasLayer(busCluster)) {
-        publicMap.addLayer(busCluster);
+    if (!gettingAroundMap.hasLayer(busCluster)) {
+        gettingAroundMap.addLayer(busCluster);
     }
-    if (!publicMap.hasLayer(luasCluster)) {
-        publicMap.addLayer(luasCluster);
+    if (!gettingAroundMap.hasLayer(luasCluster)) {
+        gettingAroundMap.addLayer(luasCluster);
     }
-    if (!publicMap.hasLayer(bikeCluster)) {
-        publicMap.addLayer(bikeCluster);
+    if (!gettingAroundMap.hasLayer(bikeCluster)) {
+        gettingAroundMap.addLayer(bikeCluster);
     }
-    if (!publicMap.hasLayer(carparkCluster)) {
-        publicMap.addLayer(carparkCluster);
+    if (!gettingAroundMap.hasLayer(carparkCluster)) {
+        gettingAroundMap.addLayer(carparkCluster);
     }
-    publicMap.fitBounds(busCluster.getBounds());
+    //gettingAroundMap.fitBounds(busCluster.getBounds());
 
 });
 
