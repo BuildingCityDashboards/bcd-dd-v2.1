@@ -1,3 +1,6 @@
+/*TODO: Remove jQuery, use d3 selectors or similar*/
+
+
 const triggerNodes = Array.from(document.querySelectorAll('[data-toggle="collapse"]'));
 
 window.addEventListener('click', (ev) => {

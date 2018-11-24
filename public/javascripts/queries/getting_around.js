@@ -25,9 +25,20 @@ gettingAroundMap.on('popupopen', function (e) {
 // on a production site, omit the "lc = "!
 L.control.locate({
     strings: {
-        title: "Zoom map to near your location"
+        title: "Zoom to near your location"
     }
 }).addTo(gettingAroundMap);
+
+let southWest = L.latLng(52.9754658325, -6.8639598864),
+        northEast = L.latLng(53.7009607624, -5.9835178395),
+        dublinBounds = L.latLngBounds(southWest, northEast); //greater Dublin & surrounds
+
+var osmGeocoder = new L.Control.OSMGeocoder(
+        {
+            placeholder: 'Find a location near Dublin',
+            bounds: dublinBounds
+        });
+gettingAroundMap.addControl(osmGeocoder);
 
 /************************************
  * Bikes
@@ -54,7 +65,6 @@ function processBikes(data_) {
         d.lng = +d.position.lng;
         //add a property to act as key for filtering
         d.type = "Dublin Bike Station";
-
     });
 //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
 //    console.log("# of bike stations is " + data_.length + "\n"); // +
@@ -177,9 +187,9 @@ function displayRTPI(sid_) {
     let rtpiBase, rtpi;
     d3.json(busAPIBase + sid_)
             .catch(function (err) {
-                console.log("Error: "+err);
+                console.log("Error: " + err);
                 rtpiBase = "<br><br><strong>We're sorry... </strong> <br>"
-                +"The real-time provider did not answer our request for data at this time.";
+                        + "The real-time provider did not answer our request for data at this time.";
                 rtpi = rtpiBase;
                 markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent().split(rtpiBase)[0] + rtpi);
 
@@ -424,7 +434,7 @@ function displayLuasRT(sid_) {
                                 if (min === "00") {
                                     luasRT += " is <b>Due now</b>";
 
-                                        } else {
+                                } else {
                                     luasRT += " is due in <b>" + min + "</b> mins";
                                 }
                             } else {
