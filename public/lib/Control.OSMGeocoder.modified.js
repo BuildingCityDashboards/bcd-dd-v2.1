@@ -11,7 +11,7 @@ L.Control.OSMGeocoder = L.Control.extend({
 	options: {
 		collapsed: false,
 		position: 'topright',
-		text: 'Locate',
+		text: 'Find',
 		placeholder: '',
 		bounds: null, // L.LatLngBounds
 		email: null, // String
@@ -46,6 +46,7 @@ L.Control.OSMGeocoder = L.Control.extend({
 
 		var input = this._input = document.createElement('input');
 		input.type = "text";
+		input.size = 30;
 		input.placeholder = this.options.placeholder || '';
 
 		var submit = document.createElement('input');
@@ -145,7 +146,7 @@ L.Control.OSMGeocoder = L.Control.extend({
 
 		//and now Nominatim
 		//http://wiki.openstreetmap.org/wiki/Nominatim
-		console.log(this._callbackId);
+		//console.log(this._callbackId);
 		window[("_l_osmgeocoder_"+this._callbackId)] = L.Util.bind(this.options.callback, this);
 
 

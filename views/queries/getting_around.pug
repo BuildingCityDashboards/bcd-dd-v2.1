@@ -2,26 +2,31 @@
   .col-lg-4
     h3 Public Transport and Parking in the City <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
     p The map shows various locations for Dublin's public transit 
-      |options
-      br
-      |Dublin Bike scheme  <img align="right" height='15px' width='15px' src='/images/transport/bicycle-w-15.svg'>
-      br
-      |Dublin Bus bus stops <img align="right" height='15px' width='15px' src='/images/transport/bus-w-15.svg'>
-      br
-      |Luas tram stops  <img align="right" height='15px' width='15px' src='/images/transport/rail-light-w-15.svg'>
-      br
-      |Train stations <i>(coming soon)</i>  <img align="right" height='15px' width='15px' src='/images/transport/rail-w-15.svg'>
-      br
-    p The locations of city centre car parks are also shown <img align="right" height='15px' width='15px' src='/images/transport/parking-garage-w-15.svg'>
-    p Motorway travel times <i>(coming soon)</i>
-      |<img align="right" height='15px' width='15px' src='/images/transport/car-w-15.svg'>
+      |options. Current status of associated real-time travel data is indicated with an 
+      <img height='15px' width='15px' src='/images/icons/activity.svg'> when live
+      |  or 
+      <img height='15px' width='15px' src='/images/icons/alert-triangle.svg'> when unavailable
+    
+    p <img align="center" height='15px' width='15px' src='/images/transport/bicycle-w-15.svg'>  Dublin Bikes 
+      <img id ='bike-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>
+    p <img align="center" height='15px' width='15px' src='/images/transport/bus-w-15.svg'>  Dublin Bus 
+      <img id ='bus-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>
+    p <img align="center" height='15px' width='15px' src='/images/transport/rail-light-w-15.svg'>  Luas (tram) 
+      <img id ='luas-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>
+    p <img align="center" height='15px' width='15px' src='/images/transport/rail-w-15.svg'>  Train 
+      <img id ='train-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>
+    p <img align="center" height='15px' width='15px' src='/images/transport/car-w-15.svg'>  Motorway 
+      <img id ='motorway-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>
+    p <img align="center" height='15px' width='15px' src='/images/transport/parking-garage-w-15.svg'>  Car park 
+      <img id ='parking-activity' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'>    
     
     p Explore and interact with the map to find out more. Click on an icon to 
-      |get up-to-date realtime information for that location
+      |get up-to-date, real-time information for that location
     p For additional information on particular modes of travel see our 
-      |<a href="../themes/transport">Transport Theme</a>
-      
+      |<a href="../themes#transport">Transport Themes</a>
+    
     div#chart-public-transport-select1
+  
   .col-lg-8
     div.ml-5.pt-2
       <button type="button" class="btn btn-dark employment-btn public_transport_bikes" value="dublinBikes">Bikes</button>
@@ -30,3 +35,5 @@
       <button type="button" class="btn btn-dark employment-btn public_transport_luas" value="dublinLuas">Luas</button>
       <button type="button" class="btn btn-dark employment-btn public_transport_all" value="all" >All</button>
     div#getting-around-map
+      
+      
