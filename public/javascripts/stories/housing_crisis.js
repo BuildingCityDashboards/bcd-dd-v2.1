@@ -425,3 +425,10 @@
         })
 
 }
+
+function activeBtn(e){
+    let btn = e;
+
+    $(btn).siblings().removeClass('active');
+    $(btn).addClass('active');
+}
