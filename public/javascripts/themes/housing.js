@@ -28,11 +28,9 @@ Promise.all([
             d.year = formatYear(d[dateField]);
           });
 
-    //const dateFilter = filterByDateRange(compDataProcessed, dateField, "Mar 01 2017", "Dec 01 2017");
-    // const dateFilter = filterbyDate(compDataProcessed, dateField, "Mar 01 2017");
-
-    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Thousands", dateField, keys);
+    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Units", dateField, keys);
           houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
+          houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
 
 
@@ -98,8 +96,7 @@ Promise.all([
           supplyChart.addTooltip("Land - Year", "thousands", "label");
 
     d3.select("#supply_land").on("click", function(){
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        activeBtn(this);
         
         supplyChart.value = "Hectares";
         supplyChart.yTitle = "Hectares";
@@ -109,8 +106,7 @@ Promise.all([
     });
     
     d3.select("#supply_units").on("click", function(){
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        activeBtn(this);
 
         supplyChart.value = "Units";
         supplyChart.yTitle = "Units";
@@ -242,7 +238,8 @@ Promise.all([
     // drawing charts for planning data.
     const rentInspectChart = new GroupedBarChart(rentInspectDataProcessed, rentInspectTypes, rentInspectDate, "#chart-rentInspect", "Years", "Number");
           rentInspectChart.addTooltip("Rent Inspections - Year", "thousands", rentInspectDate);
-    // setup chart and data for supply of land chart
+    
+    
     // process the data
     const houseCompByTypeData = datafiles[8],
           houseCompByTypeType = houseCompByTypeData.columns.slice(2),
@@ -254,8 +251,6 @@ Promise.all([
         d.label = (d[houseCompByTypeDate]);
         d[houseCompByTypeDate] = convertQuarter(d[houseCompByTypeDate]);
     });
-
-    // need to convert date field to readable js date format
 
     // nest the processed data by regions
         const houseCompByTypeDataNested =  d3.nest().key( d => { return d[houseCompByTypeRegions];})
@@ -275,8 +270,7 @@ Promise.all([
           houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
     d3.select("#houseCompByType_total").on("click", function(){
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        activeBtn(this);
 
         houseCompByTypeChart.value = houseCompByTypeType[0];
         houseCompByTypeChart.updateChart();
@@ -285,8 +279,7 @@ Promise.all([
     });
     
     d3.select("#houseCompByType_private").on("click", function(){
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        activeBtn(this);
 
         houseCompByTypeChart.value = houseCompByTypeType[1];
         houseCompByTypeChart.updateChart();
@@ -295,8 +288,7 @@ Promise.all([
     });
 
     d3.select("#houseCompByType_social").on("click", function(){
-        $(this).siblings().removeClass('active');
-        $(this).addClass('active');
+        activeBtn(this);
 
         houseCompByTypeChart.value = houseCompByTypeType[2];
         houseCompByTypeChart.updateChart();
@@ -328,7 +320,7 @@ Promise.all([
     // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
     nonNewConnectionsChart.tickNumber = 20;
     nonNewConnectionsChart.getData(nonNewCon);
-    nonNewConnectionsChart.addTooltip("House Type -", "Units");
+    nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 
     // setup chart and data for New Dwelling Completion by type chart
     // process the data
@@ -471,4 +463,10 @@ function chartContent(data, key, value, date, selector){
             value: value
         }
 
+}
+
+function activeBtn(e){
+    let btn = e;
+    $(btn).siblings().removeClass('active');
+    $(btn).addClass('active');
 }

@@ -23,33 +23,28 @@ class StackedAreaChart {
             aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(c.element).select("svg").remove();
-<<<<<<< HEAD
-=======
-
-            //console.log("the keys are ", c.keys);
->>>>>>> 0dd6449c612085e84c0cab4dd68c117e490b3139
             
         const breakPoint = 678;
         
         // margin
         c.margin = { };
 
-        c.margin.top = elementWidth < breakPoint ? 30 : 50;
-        c.margin.bottom = elementWidth < breakPoint ? 30 : 60;
+        c.margin.top = elementWidth < breakPoint ? 40 : 50;
+        c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
 
-        c.margin.right = elementWidth < breakPoint ? 12.5 : 150;
-        c.margin.left = elementWidth < breakPoint ? 20 : 80;
+        c.margin.right = elementWidth < breakPoint ? 20 : 140;
+        c.margin.left = elementWidth < breakPoint ? 20 : 60;
         
         c.width = elementWidth - c.margin.left - c.margin.right;
         c.height = aspectRatio - c.margin.top - c.margin.bottom;
 
         // select parent element and append SVG + g
-        const svg = d3.select(c.element)
+        c.svg = d3.select(c.element)
             .append("svg")
             .attr("width", c.width + c.margin.left + c.margin.right)
             .attr("height", c.height + c.margin.top + c.margin.bottom);
 
-        c.g = svg.append("g")
+        c.g = c.svg.append("g")
             .attr("transform", "translate(" + c.margin.left + 
                 ", " + c.margin.top + ")");
 
@@ -105,7 +100,7 @@ class StackedAreaChart {
         c.yLabel = c.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (c.height/2))
-            .attr("y", -50)
+            .attr("y", -45)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(c.titleY);
@@ -743,7 +738,8 @@ pagination(data, selector, sliceBy, pageNumber, label){
         
         let wg = slices(i),
             sliceNumber = sliceBy - 1,
-            secondText;
+            secondText,
+            textString;
 
             if (typeof wg[sliceNumber] != 'undefined'){
                 secondText = wg[sliceNumber]
@@ -753,7 +749,12 @@ pagination(data, selector, sliceBy, pageNumber, label){
                     secondText = wg[lastEl];
             }
 
-        let textString = label === "year" ? wg[sliceNumber][label] : wg[0][label] + " - " + secondText[label];
+            if (wg[0][label] === secondText[label]){
+                textString = wg[0][label];
+            }
+            else{
+                textString = wg[0][label] + " - " + secondText[label];
+            }
 
         moreButtons.append("button")
             .attr("type", "button")

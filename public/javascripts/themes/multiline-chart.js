@@ -9,6 +9,7 @@ class MultiLineChart{
         this.colourScheme = obj.colour;
         this.xTitle = obj.xTitle;
         this.yTitle = obj.yTitle;
+        this.yScaleFormat = obj.yScaleFormat || "thousands";
 
         this.init();
     }
@@ -32,7 +33,7 @@ class MultiLineChart{
             c.width = c.width || eW - m.l - m.r;
             c.height = c.height || aR - m.t - m.b;
 
-            d3.select(c.element).select("svg").remove();
+            // d3.select(c.element).select("svg").remove(); // I might need this yet
     
             // add the svg to the target element
             c.svg = d3.select(c.element)
@@ -65,8 +66,17 @@ class MultiLineChart{
             c.drawLegend();            
     }
 
-    updateChart(){
+    updateChart(obj){
         let c = this;
+
+            if(obj){
+                c.data = obj.data || c.data;
+                c.xTitle = obj.xTitle || c.xTitle;
+                c.yTitle = obj.yTitle || c.yTitle;
+                c.value = obj.value || c.value;
+                c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
+            }
+            
             c.createScales();
             c.drawLines();
             c.drawLegend();
@@ -782,6 +792,7 @@ class MultiLineChart{
             
             legendGroup.append("text")
                 .attr("class", "legendText")
+                .attr("id", d => d.key)
                 .attr("dy", ".01em")
                 .text(d => d.key)
                 // .call(c.textWrap, 110, 6)

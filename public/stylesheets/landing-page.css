@@ -94,10 +94,6 @@
     .hero__title{
         font-size: 2.5rem;
     }
-
-    .hero{
-        padding-top: 2rem;
-    }
 }
 
 @media (min-width: 992px){
