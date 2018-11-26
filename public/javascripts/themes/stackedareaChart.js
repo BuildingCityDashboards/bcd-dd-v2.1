@@ -23,6 +23,11 @@ class StackedAreaChart {
             aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(c.element).select("svg").remove();
+<<<<<<< HEAD
+=======
+
+            //console.log("the keys are ", c.keys);
+>>>>>>> 0dd6449c612085e84c0cab4dd68c117e490b3139
             
         const breakPoint = 678;
         

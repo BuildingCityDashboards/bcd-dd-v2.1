@@ -269,7 +269,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
     // /*** Industry Sectors Charts here ***/
     // //#chart-employment-sector
     d3.csv("../data/Economy/QNQ4017Q2.csv").then( data => { 
-    console.log("the sector data", data);
+    //console.log("the sector data", data);
 
         data.forEach(d => {
             d.value = +d.value;
@@ -381,7 +381,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
                 });
 
             let overseasVisitorsData = data;
-            console.log("overseasVisitors", overseasVisitorsData);
+            //console.log("overseasVisitors", overseasVisitorsData);
         
             const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
                   overseasvisitorsChart.addTooltip("Oversea Vistors (Millions) - Year", "thousands", xValue);

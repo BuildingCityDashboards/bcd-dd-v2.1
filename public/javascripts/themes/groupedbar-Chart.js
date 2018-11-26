@@ -409,7 +409,7 @@ class GroupedBarChart{
         let c = this;
 
         if(value){
-            console.log("value of hide", value);
+            //console.log("value of hide", value);
             d3.selectAll(c.e + " .bcd-text-indicator").style("display", "none");
             d3.selectAll(c.e + " .bcd-text-rate").style("display", "none");
         }

@@ -139,7 +139,7 @@ function updateMapBuses(data__) {
 //        console.log("getMarkerID: "+marker.optiid);
     });
     busMap.addLayer(busCluster);
-    bikeMap.fitBounds(busCluster.getBounds());
+    busMap.fitBounds(busCluster.getBounds());
 }
 
 
