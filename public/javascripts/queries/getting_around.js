@@ -74,10 +74,21 @@ function processBikes(data_) {
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
     gettingAroundMap.removeLayer(bikeCluster);
+    let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
     _.each(data__, function (d, i) {
+        if (ageMax < Date.now() - d.last_update) {
+            ageMax = Date.now() - d.last_update;
+        }
         bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
                 .bindPopup(getBikeContent(d)));
     });
+    //console.log("Age Max: " + ageMax);
+    if (ageMax < (1000 * 60 * 15)) {
+        console.log("Change image");
+        d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#bike-age')
+                .text(Math.floor(ageMax/60000)+" mins ago");
+    }
     gettingAroundMap.addLayer(bikeCluster);
 }
 
@@ -99,16 +110,10 @@ function getBikeContent(d_) {
     }
     if (d_.available_bike_stands) {
         str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
-
     }
     if (d_.last_update) {
-      let updateTime =bikeTime(new Date(d_.last_update));
-      str += '<br>Last updated ' + updateTime + '<br>';
-      let ageMillis = Date.now()-d_.last_update;
-      console.log("Age: "+ageMillis);
-      if( ageMillis < (1000*60*60)){
-        //d3.select('bike-activity').attr('src', ''/images/icons/activity.svg');
-      }
+        let updateTime = bikeTime(new Date(d_.last_update));
+        str += '<br>Last updated ' + updateTime + '<br>';
 
     }
     return str;
@@ -154,6 +159,7 @@ function updateMapBuses(data__) {
         busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
+    
     gettingAroundMap.addLayer(busCluster);
 }
 
@@ -190,6 +196,7 @@ function getBusContent(d_) {
 //Handle button in gettingAroundMap popup and get RTPI data
 let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
 //let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
+
 
 function displayRTPI(sid_) {
     let rtpiBase, rtpi;
@@ -362,11 +369,11 @@ function processLuas(data_) {
 //Luas lines as xml data from https://www.openstreetmap.org/relation/6975501#map=12/53.3071/-6.2206
 //and https://www.openstreetmap.org/relation/3616737#map=12/53.3192/-6.3175
 d3.xml("/data/Transport/luas-red-line.xml").then(function (xmlDoc) {
-console.log("got luas line data \n"
-  +xmlDoc.getElementsByTagName("member")[3].getAttribute("type")
-);
-let luasLines = new L.OSM.DataLayer(xmlDoc);
-gettingAroundMap.addLayer(luasLines);
+    console.log("got luas line data \n"
+            + xmlDoc.getElementsByTagName("member")[3].getAttribute("type")
+            );
+    let luasLines = new L.OSM.DataLayer(xmlDoc);
+    gettingAroundMap.addLayer(luasLines);
 
 
 
@@ -548,7 +555,7 @@ function processRoads(data_) {
     //data_.features.forEach(function (d_) {
 //        console.debug("f : " + JSON.stringify(f.properties));
 //        console.debug("" + JSON.stringify(f.geometry.coordinates));
-        // console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
+    // console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
     //             + " (" + d_.properties["distance"] / 1000 + " km)"
     //             + "\nFree flow " + d_.properties["free_flow_travel_time"] + " seconds"
     //             + "\nCurrent time " + d_.properties["current_travel_time"] + " seconds"
