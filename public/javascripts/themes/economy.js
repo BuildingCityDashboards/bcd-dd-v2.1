@@ -55,8 +55,11 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
         };
 
         const mlineChart = new MultiLineChart(employmentContent);
+              mlineChart.tickNumber = 24;
               mlineChart.drawChart();
+            //   mlineChart.pagination(types, "#chart-employment", 24, 2, "date");
               mlineChart.addTooltip("Employment Quarterly Count - ", "thousands", "quarter");
+
 
         d3.select(".employment_count").on("click", function(){
             $(this).siblings().removeClass('active');
@@ -68,7 +71,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
             mlineChart.value = columnNames[0];
             mlineChart.yScaleFormat = "thousands";
             
-            mlineChart.updateChart();
+            // mlineChart.updateChart();
             mlineChart.addTooltip("", "thousands", "quarter");
             mlineChart.hideRate(false);
         });
@@ -83,7 +86,7 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
             mlineChart.value = columnNamesB[0];
             mlineChart.yScaleFormat = "percentage";
 
-            mlineChart.updateChart();
+            // mlineChart.updateChart();
             mlineChart.addTooltip("Year:", "percentage", "year");
             mlineChart.hideRate(true);
         });
@@ -103,8 +106,9 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
     d3.csv("../data/Economy/QNQ22_2.csv").then(data => {
 
         let keys = data.columns.slice(3),
-            selector = "Unemployed Persons aged 15 years and over (Thousand)";
-        
+            selector = "Unemployed Persons aged 15 years and over (Thousand)",
+            selector2 = data.columns[6];
+        console.log("the source", data);
         const dataSet = dataSets(data, keys);
 
         dataSet.forEach(d => {
@@ -118,16 +122,37 @@ let qnq22CSV = "../data/Economy/QNQ22_employment.csv",
 
         //nestData(data, date, name, valueName)
         let newData = nestData(testData, "label", "region" , selector),
-            size = newData.length/pageSize;
+            SecondData = nestData(dataSet, "label", "region" , selector2);
 
         const grouping = ["Dublin", "Ireland"]; // use the key function to generate this array
 
-        const employmentCharts = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
-              employmentCharts.tickNumber = 12;
-              employmentCharts.pagination(newData, "#chartNew", 24, 2, "label", "Thousands - Quarter:");
-              employmentCharts.addTooltip("Thousands - Quarter:", "thousands", "label");
-              employmentCharts.showSelectedLabels([1,5,9,13,17,21]);
+        const unemploymentContent = {
+            element: "#chartNew",
+            data: testData,
+            value: selector2,
+            xTitle: "Quarters",
+            yTitle: "Thousands"
+        }
 
+        const unemploymentStack = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
+              unemploymentStack.tickNumber = 5;
+              unemploymentStack.pagination(newData, "#chartNew", 24, 2, "label", "Thousands - Quarter:");
+              unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
+
+        // const unemploymentLine = new MultiLineChart(unemploymentContent);
+        //       unemploymentLine.tickNumber = 24;
+        //       unemploymentLine.drawChart();
+        //       unemploymentLine.addTooltip("Employment Quarterly Count - ", "thousands", "quarter");
+
+            d3.select(".unemployment_count").on("click", function(){
+                    $(this).siblings().removeClass('active');
+                    $(this).addClass('active');
+            });
+
+            d3.select(".unemployment_arate").on("click", function(){
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            });
 
 
 

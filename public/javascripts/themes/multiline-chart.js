@@ -67,9 +67,9 @@ class MultiLineChart{
 
     updateChart(){
         let c = this;
-        c.createScales();
-        c.drawLines();
-        c.drawLegend();
+            c.createScales();
+            c.drawLines();
+            c.drawLegend();
     }
 
     addAxis(){       
@@ -631,6 +631,80 @@ class MultiLineChart{
                 .attr("stroke", "#dc3545");
 
     }
+
+    pagination(data, selector, sliceBy, pageNumber, label){
+
+        const c = this;
+        
+        const slices = c.slicer( data, sliceBy ), 
+              times =  pageNumber,
+              startSet = slices(times - 1);
+              
+            //  let newStart = [];
+            //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
+    
+            d3.selectAll(selector + " .pagination-holder").remove();
+    
+        let moreButtons = d3.select(selector)
+            .append("div")
+            .attr("class", "pagination-holder text-center pb-2");
+    
+            c.d = startSet;
+            c.drawChart();
+            c.addTooltip();
+    
+        for(let i=0; i<times; i++){
+            // let wg = slices(i)
+                // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
+            
+            let wg = slices(i),
+                sliceNumber = sliceBy - 1,
+                secondText;
+    
+                if (typeof wg[sliceNumber] != 'undefined'){
+                    secondText = wg[sliceNumber]
+                }
+                else{
+                    let lastEl = wg.length - 1;
+                        secondText = wg[lastEl];
+                }
+    
+            let textString = label === "year" ? wg[sliceNumber][label] : wg[0][label] + " - " + secondText[label];
+    
+            moreButtons.append("button")
+                .attr("type", "button")
+                .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+                .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+            // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
+                .text(textString)
+                .on("click", function(){
+                if(!$(this).hasClass("active")){
+                        $(this).siblings().removeClass("active");
+                        $(this).addClass("active");
+                        c.d = wg;
+                        c.drawChart();
+                        c.addTooltip();
+                    }
+                });
+            }
+    
+    
+        }
+
+        slicer( arr, sliceBy ){
+            if ( sliceBy < 1 || !arr ) return () => [];
+            
+            return (p) => {
+                const base = p * sliceBy,
+                      size = arr.length;
+        
+                let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+                    
+                    if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+                    
+                    return slicedArray;
+            };
+        }
 
     //replacing old legend method with new inline labels
     drawLegend() {

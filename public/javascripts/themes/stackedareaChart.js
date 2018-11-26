@@ -23,8 +23,6 @@ class StackedAreaChart {
             aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
             d3.select(c.element).select("svg").remove();
-
-            console.log("the keys are ", c.keys);
             
         const breakPoint = 678;
         
@@ -714,20 +712,20 @@ slicer( arr, sliceBy ){
     };
 }
 
-pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arrow){
+pagination(data, selector, sliceBy, pageNumber, label){
 
     const c = this;
     
-    const slices = c.slicer( _data, _sliceBy ), 
-          times =  _pageNumber,
+    const slices = c.slicer( data, sliceBy ), 
+          times =  pageNumber,
           startSet = slices(times - 1);
           
         //  let newStart = [];
-        //  startSet.length < _sliceBy ? newStart = _data.slice(50 - _sliceBy) : newStart = startSet;
+        //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
 
-        d3.selectAll(_selector + " .pagination-holder").remove();
+        d3.selectAll(selector + " .pagination-holder").remove();
 
-    let moreButtons = d3.select(_selector)
+    let moreButtons = d3.select(selector)
         .append("div")
         .attr("class", "pagination-holder text-center pb-2");
 
@@ -736,10 +734,10 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
 
     for(let i=0; i<times; i++){
         // let wg = slices(i)
-            // wg.length < _sliceBy ? wg = _data.slice(50 - _sliceBy) : wg;
+            // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
         
         let wg = slices(i),
-            sliceNumber = _sliceBy - 1,
+            sliceNumber = sliceBy - 1,
             secondText;
 
             if (typeof wg[sliceNumber] != 'undefined'){
@@ -750,13 +748,13 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
                     secondText = wg[lastEl];
             }
 
-        let textString = _label === "year" ? wg[sliceNumber][_label] : wg[0][_label] + " - " + secondText[_label];
+        let textString = label === "year" ? wg[sliceNumber][label] : wg[0][label] + " - " + secondText[label];
 
         moreButtons.append("button")
             .attr("type", "button")
             .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
             .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
-        // .text(_label + " " + (1+(i*_sliceBy)) +" - "+ ((i+1)*_sliceBy)) // pass this to the function
+        // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
             .text(textString)
             .on("click", function(){
             if(!$(this).hasClass("active")){
@@ -764,7 +762,6 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
                     $(this).addClass("active");
                     c.getData(wg);
                     c.addTooltip();
-                    c.axisArray ? c.showSelectedLabels() : null;
                 }
             });
         }
@@ -785,7 +782,7 @@ pagination(_data, _selector, _sliceBy, _pageNumber, _label, _text, _format, _arr
             .style("display", "block");
         })
 
-}
+    }
 
 }
 

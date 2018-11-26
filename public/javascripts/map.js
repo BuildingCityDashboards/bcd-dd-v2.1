@@ -69,8 +69,8 @@ function renderMap(root) {
         elementWidth = parentElement.getBoundingClientRect().width,
         aspect = elementWidth / (2 * Math.PI),
         WIDTH = elementWidth,
-        HEIGHT = WIDTH * ((aspect + 75)/100),
-        scaleValue = aspect * 568,
+        HEIGHT = WIDTH * ((aspect + 55)/100),
+        scaleValue = aspect * 528,
         
         projection = d3
           .geoMercator()
