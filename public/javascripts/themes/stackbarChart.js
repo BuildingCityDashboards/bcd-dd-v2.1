@@ -1,14 +1,15 @@
 class StackBarChart {
 
-    constructor(_element, _data, _key, _value, _yTitle, _xTitle, _cScheme){
+    constructor(obj){
 
-        this.e = _element;
-        this.data = _data;
-        this.key = _key;
-        this.v = _value;
-        this.yTitle = _yTitle;
-        this.xTitle = _xTitle;
-        this.cScheme = _cScheme;
+        this.e = obj.element;
+        this.data = obj.data;
+        this.key = obj.key;
+        this.v = obj.value;
+        this.yTitle = obj.titles[0];
+        this.xTitle = obj.titles[1];
+        this.cScheme = obj.cScheme;
+        this.scaleY = obj.scaleY;
 
         this.init();
     }
@@ -93,9 +94,6 @@ class StackBarChart {
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(c.yTitle);
-
-        // Scale for Y
-        c.scaleY;
         
         c.stackData();
     

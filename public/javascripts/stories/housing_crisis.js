@@ -279,14 +279,22 @@
                 d: chart6D,
                 v: "value",
                 c: cA4
-                };
+                },
+              
+              Chart6 = new GroupStackBar(Chart6C);
+              Chart6.addTooltip("Property Types - Year", "thousands", "label");
 
-        const Chart6 = new GroupStackBar(Chart6C);
-            Chart6.addTooltip("Property Types - Year", "thousands", "label");
 
-
-        const Chart8 = new StackBarChart("#chart8", chart8D, "type", "value", "€ ( Millions )", "Years", cA3_2);
-              Chart8.scaleY = "millions";
+        const chart8C = {
+                element: "#chart8",
+                data: chart8D,
+                key: "type",
+                value: "value",
+                titles: ["€ ( Millions )", "Years"],
+                cScheme: cA3_2,
+                scaleY: "millions",
+              },    
+              Chart8 = new StackBarChart(chart8C);
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 
     }).catch(function(error){

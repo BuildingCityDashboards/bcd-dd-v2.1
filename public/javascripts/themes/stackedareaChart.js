@@ -738,7 +738,8 @@ pagination(data, selector, sliceBy, pageNumber, label){
         
         let wg = slices(i),
             sliceNumber = sliceBy - 1,
-            secondText;
+            secondText,
+            textString;
 
             if (typeof wg[sliceNumber] != 'undefined'){
                 secondText = wg[sliceNumber]
@@ -748,7 +749,12 @@ pagination(data, selector, sliceBy, pageNumber, label){
                     secondText = wg[lastEl];
             }
 
-        let textString = wg[0][label] + " - " + secondText[label];
+            if (wg[0][label] === secondText[label]){
+                textString = wg[0][label];
+            }
+            else{
+                textString = wg[0][label] + " - " + secondText[label];
+            }
 
         moreButtons.append("button")
             .attr("type", "button")

@@ -137,15 +137,25 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
 
     /*** This Survey on Income and Living Conditions for Dublin Charts ***/
     d3.csv("../data/Economy/SIA20.csv").then( data => {
-        let columnNames = data.columns.slice(2);
-        
-        let incomeData = data;
+        let incomeData = data,
+            incomeContent;
 
             incomeData.forEach( d => {
                 d.value = +d.value;
             });
 
-        const IncomeGroupedBar = new StackBarChart("#chart-poverty-rate", incomeData, "type", "value", "%", "Survey on Income and Living Conditions for Dublin");
+            incomeContent = {
+                element: "#chart-poverty-rate",
+                data: incomeData,
+                key: "type",
+                value: "value",
+                titles: ["%", "Years"],
+                scaleY: "percentage",
+            }
+
+            
+
+        const IncomeGroupedBar = new StackBarChart(incomeContent);
               IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");
         
     
@@ -303,7 +313,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
         const employeesBySizeChart = new MultiLineChart(employeesBySize);
               employeesBySizeChart.yScaleFormat = "millions"; // update the y axis scale
               employeesBySizeChart.drawChart();
-              employeesBySizeChart.addTooltip("Year:", "thousands", "year");
+              employeesBySizeChart.addTooltip("Persons Engaged by Size of Company - Year:", "thousands", "label");
     })
     // catch any error and log to console
     .catch(function(error){
@@ -326,9 +336,15 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 });
 
             let overseasVisitorsData = data;
+
+            const tooltipContent = {
+                title: "Oversea Vistors (Millions) - Year",
+                datelabel: xValue,
+                valueFormat: "thousands",
+            };
         
             const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
-                  overseasvisitorsChart.addTooltip("Oversea Vistors (Millions) - Year", "thousands", xValue);
+                  overseasvisitorsChart.addTooltip(tooltipContent);
         
         })
         // catch any error and log to console

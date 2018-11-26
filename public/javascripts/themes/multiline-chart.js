@@ -69,12 +69,14 @@ class MultiLineChart{
     updateChart(obj){
         let c = this;
 
-            c.data = obj.data || c.data;
-            c.xTitle = obj.xTitle || c.xTitle;
-            c.yTitle = obj.yTitle || c.yTitle;
-            c.value = obj.value || c.value;
-            c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
-
+            if(obj){
+                c.data = obj.data || c.data;
+                c.xTitle = obj.xTitle || c.xTitle;
+                c.yTitle = obj.yTitle || c.yTitle;
+                c.value = obj.value || c.value;
+                c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
+            }
+            
             c.createScales();
             c.drawLines();
             c.drawLegend();
