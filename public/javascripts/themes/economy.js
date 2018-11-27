@@ -226,39 +226,6 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
     d3.csv("../data/Economy/QNQ4017Q2.csv").then( data => { 
     //console.log("the sector data", data);
 
-        data.forEach(d => {
-            d.value = +d.value;
-        })
-
-       const treemap =  d3.treemap()
-                        .size([800, 500])
-                        .padding(1)
-                        .round(true),
-
-            stratify = d3.stratify(),
-            //             .parentId(function(d) { return d.type.substring(0, d.type.lastIndexOf(" ")); }),
-            root = d3.hierarchy(data).sum(function(d) {
-                return d.value;
-              });
-              
-                    // .sum(function(d) { return d.value; })
-                    // .sort(function(a, b) { return b.height - a.height || b.value - a.value; });
-             
-            treeData = treemap(root);
-
-            const svg = d3.select("#chart-employment-sector").append("svg")
-            
-                  svg.append("g")
-                    .selectAll("rect")
-                    .data(treeData)
-                    .enter()
-                    .append("rect")
-                    .attr("x", function(d) { return d.x0; })
-                    .attr("y", function(d) { return d.y0; })
-                    .attr("width", function(d) { return d.x1 - d.x0; })
-                    .attr("height", function(d) { return d.y1 - d.y0; })
-        
-
         // let columnNames = data.columns.slice(2);
 
         // data.forEach(d => {

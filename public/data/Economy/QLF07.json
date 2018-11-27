@@ -1,0 +1,36 @@
+{
+    "name": "Dublin",
+    "quarter": "2018Q3",
+    "children": [
+
+    {"name": "Agriculture, forestry and fishing (A)", "children": 
+        [
+        {"name": "Agriculture, forestry and fishing", 
+         "size":0,
+         "rate": 0
+        }
+        ]
+    },    
+    {"name": "Industry and Construction (B to F)", "children": 
+        [
+        {"name": "Industry", "size":46.9, "rate": -0.027},
+        {"name": "Construction", "size":34, "rate": 0.206}
+        ]
+    },
+    {"name": "Services (G to U)", "children": 
+        [
+        {"name": "Wholesale and retail trade, repair of motor vehicles and motorcycles", "size": 91.1, "rate": 0.051},
+        {"name": "Transportation and storage", "size": 37.4, "rate": 0.01},
+        {"name": "Accommodation and food service activities", "size": 52.3, "rate": 0.01},
+        {"name": "Information and communication", "size": 69.4, "rate": 0.01},
+        {"name": "Financial, insurance and real estate activities", "size": 54.5, "rate": 0.01},
+        {"name": "Professional, scientific and technical activities", "size": 58.2, "rate": 0.01},
+        {"name": "Administrative and support service activities", "size": 38.3, "rate": 0.01},
+        {"name": "Public administration and defence, compulsory social security", "size": 34.8, "rate": 0.01},
+        {"name": "Education", "size": 48.2, "rate": 0.01},
+        {"name": "Human health and social work activities", "size": 82.2, "rate": 0.01},
+        {"name": "Other NACE activities", "size": 42.1, "rate": 0.01}
+        ]
+    }
+]
+}

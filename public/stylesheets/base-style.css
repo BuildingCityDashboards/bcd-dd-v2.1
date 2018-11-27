@@ -111,6 +111,8 @@ a:hover {
 .titleX, .titleY{
   font-size: 1rem;
   fill: #c4cdd5;
+  color: #c4cdd5;
+  text-align: center;
 }
 
 .light .titleX, .light .titleY, .light .legendText, .light .x-axis text, .light .y-axis text{
@@ -261,6 +263,24 @@ select:hover:not([disabled]) {
 
 .content{
   position: relative;
+}
+
+.node {
+  border: solid 1px #012544;
+  line-height: 0.95;
+  overflow: hidden;
+  position: absolute;
+  font-size: .75rem;
+}
+
+.node div {
+ padding: 6px 4%;
+}
+
+.node-perc {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
