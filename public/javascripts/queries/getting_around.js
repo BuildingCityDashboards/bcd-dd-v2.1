@@ -1,8 +1,8 @@
 /*TODO:
- * 
+ *
  * Check if passing a subset of data increases memory usage e.g. data.properties sent to updateMap
  * Only use a processing fucntion with a text data file (not json)
- * 
+ *
  * Test support for DOM node methods on Firefox
  */
 
@@ -35,7 +35,7 @@ let southWest = L.latLng(52.9754658325, -6.8639598864),
 
 var osmGeocoder = new L.Control.OSMGeocoder(
         {
-            placeholder: 'Find a location near Dublin',
+            placeholder: 'Enter street/area name etc.',
             bounds: dublinBounds
         });
 gettingAroundMap.addControl(osmGeocoder);
@@ -74,14 +74,26 @@ function processBikes(data_) {
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
     gettingAroundMap.removeLayer(bikeCluster);
+    let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
     _.each(data__, function (d, i) {
+        if (ageMax < Date.now() - d.last_update) {
+            ageMax = Date.now() - d.last_update;
+        }
         bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {icon: dublinBikeMapIcon})
                 .bindPopup(getBikeContent(d)));
     });
+    //console.log("Age Max: " + ageMax);
+    if (ageMax < (1000 * 60 * 15)) {
+        console.log("Change image");
+        d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#bike-age')
+                .text(Math.floor(ageMax/60000)+" mins ago");
+    }
     gettingAroundMap.addLayer(bikeCluster);
 }
 
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
+
 function getBikeContent(d_) {
     let str = '';
     if (d_.name) {
@@ -99,9 +111,10 @@ function getBikeContent(d_) {
     if (d_.available_bike_stands) {
         str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
     }
-
     if (d_.last_update) {
-        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
+        let updateTime = bikeTime(new Date(d_.last_update));
+        str += '<br>Last updated ' + updateTime + '<br>';
+
     }
     return str;
 }
@@ -146,6 +159,7 @@ function updateMapBuses(data__) {
         busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
+    
     gettingAroundMap.addLayer(busCluster);
 }
 
@@ -182,6 +196,7 @@ function getBusContent(d_) {
 //Handle button in gettingAroundMap popup and get RTPI data
 let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
 //let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
+
 
 function displayRTPI(sid_) {
     let rtpiBase, rtpi;
@@ -351,6 +366,48 @@ function processLuas(data_) {
     });
     updateMapLuas(data_);
 }
+//Luas lines as xml data from https://www.openstreetmap.org/relation/6975501#map=12/53.3071/-6.2206
+//and https://www.openstreetmap.org/relation/3616737#map=12/53.3192/-6.3175
+d3.xml("/data/Transport/luas-red-line.xml").then(function (xmlDoc) {
+    console.log("got luas line data \n"
+            + xmlDoc.getElementsByTagName("member")[3].getAttribute("type")
+            );
+    let luasLines = new L.OSM.DataLayer(xmlDoc);
+    gettingAroundMap.addLayer(luasLines);
+
+
+
+//        if (error) {
+//            console.log("error retrieving data");
+//            return;
+//        }
+    //TODO: convert to arrow function + d3
+    // let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
+    //console.log("timestamp :" + timestamp);
+//     for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+//         let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+//         if (name === k_) {
+//             let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+// //                console.log("found:"+name+" spaces: "+spaces+"marker"
+// //                        +markerRefPrivate.getPopup().getContent());
+//             if (spaces !== ' ') {
+//                 return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent()
+//                         + '<br><br> Free spaces: '
+//                         + spaces
+//                         + '<br> Last updated: '
+//                         + timestamp
+//                         );
+//             } else {
+//                 return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent()
+//                         + '<br><br> No information on free spaces available'
+//                         + '<br> Last updated: '
+//                         + timestamp
+//                         );
+//             }
+//         }
+//     }
+});
+
 
 function updateMapLuas(data__) {
     luasCluster.clearLayers();
@@ -493,17 +550,17 @@ function processTravelTimes(data_) {
 ;
 
 function processRoads(data_) {
-    console.debug("roads : " + JSON.stringify(data_.features));
+    // console.debug("roads : " + JSON.stringify(data_.features));
 
-    data_.features.forEach(function (d_) {
+    //data_.features.forEach(function (d_) {
 //        console.debug("f : " + JSON.stringify(f.properties));
 //        console.debug("" + JSON.stringify(f.geometry.coordinates));
-        console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
-                + " (" + d_.properties["distance"] / 1000 + " km)"
-                + "\nFree flow " + d_.properties["free_flow_travel_time"] + " seconds"
-                + "\nCurrent time " + d_.properties["current_travel_time"] + " seconds"
-                );
-    });
+    // console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
+    //             + " (" + d_.properties["distance"] / 1000 + " km)"
+    //             + "\nFree flow " + d_.properties["free_flow_travel_time"] + " seconds"
+    //             + "\nCurrent time " + d_.properties["current_travel_time"] + " seconds"
+    //             );
+    // });
 }
 
 
@@ -571,5 +628,3 @@ d3.select(".public_transport_all").on("click", function () {
     //gettingAroundMap.fitBounds(busCluster.getBounds());
 
 });
-
-

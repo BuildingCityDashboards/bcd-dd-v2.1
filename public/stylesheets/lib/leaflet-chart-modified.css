@@ -1,4 +1,4 @@
-/* 
+/*
     Author     : Liam
 */
 /*TODO use proper rules here instead of individual repetition*/
@@ -25,7 +25,7 @@
 
 #getting-around-map {
         /*height: inherit;*/
-        height: 400px;
+        height: 500px;
         width: 100%;
         margin: 20px;
 }
@@ -70,6 +70,3 @@
         width: 100%;
         margin: 20px;
 }
-
-
-

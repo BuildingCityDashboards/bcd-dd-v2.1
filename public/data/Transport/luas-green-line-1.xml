@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.1 (13015 thorn-02.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <relation id="6975500" visible="true" version="18" changeset="63330078" timestamp="2018-10-09T03:07:31Z" user="brianh" uid="19612">
+  <member type="node" ref="2368752999" role="stop"/>
+  <member type="node" ref="3451853453" role="stop"/>
+  <member type="node" ref="3451853433" role="stop"/>
+  <member type="node" ref="4683697860" role="stop"/>
+  <member type="node" ref="4683697861" role="stop"/>
+  <member type="node" ref="4683697862" role="stop"/>
+  <member type="node" ref="4683697863" role="stop"/>
+  <member type="node" ref="4683697864" role="stop"/>
+  <member type="node" ref="4683697865" role="stop"/>
+  <member type="node" ref="4683697866" role="stop"/>
+  <member type="node" ref="4683697867" role="stop"/>
+  <member type="node" ref="4683697869" role="stop"/>
+  <member type="node" ref="3451767974" role="stop"/>
+  <member type="node" ref="4683697870" role="stop"/>
+  <member type="node" ref="4683697871" role="stop"/>
+  <member type="node" ref="4683697872" role="stop"/>
+  <member type="node" ref="4683697874" role="stop"/>
+  <member type="node" ref="3451722881" role="stop"/>
+  <member type="node" ref="3451213775" role="stop"/>
+  <member type="node" ref="4683697875" role="stop"/>
+  <member type="node" ref="4683697873" role="stop"/>
+  <member type="node" ref="3452493714" role="stop"/>
+  <member type="node" ref="3452011330" role="stop"/>
+  <member type="node" ref="3459902187" role="stop"/>
+  <member type="node" ref="3459902189" role="stop"/>
+  <member type="node" ref="3452492565" role="stop"/>
+  <member type="node" ref="3452492564" role="stop"/>
+  <member type="node" ref="4392909450" role="stop"/>
+  <member type="node" ref="2363501445" role="stop"/>
+  <member type="node" ref="4669407702" role="stop"/>
+  <member type="node" ref="5300294494" role="stop"/>
+  <member type="way" ref="81946730" role="platform"/>
+  <member type="way" ref="81946733" role="platform"/>
+  <member type="way" ref="81946728" role="platform"/>
+  <member type="way" ref="257343853" role="platform"/>
+  <member type="way" ref="81957655" role="platform"/>
+  <member type="way" ref="81957650" role="platform"/>
+  <member type="way" ref="81957654" role="platform"/>
+  <member type="way" ref="81957648" role="platform"/>
+  <member type="way" ref="81957641" role="platform"/>
+  <member type="way" ref="228243914" role="platform"/>
+  <member type="way" ref="279443677" role="platform"/>
+  <member type="way" ref="279443295" role="platform"/>
+  <member type="way" ref="227935555" role="platform"/>
+  <member type="way" ref="65083058" role="platform"/>
+  <member type="way" ref="278404015" role="platform"/>
+  <member type="way" ref="278404016" role="platform"/>
+  <member type="way" ref="112688722" role="platform"/>
+  <member type="way" ref="278404018" role="platform"/>
+  <member type="way" ref="278157886" role="platform"/>
+  <member type="way" ref="105584732" role="platform"/>
+  <member type="way" ref="272696234" role="platform"/>
+  <member type="way" ref="272696081" role="platform"/>
+  <member type="node" ref="4683697868" role="stop"/>
+  <member type="way" ref="338118771" role=""/>
+  <member type="way" ref="427125943" role=""/>
+  <member type="way" ref="338118772" role=""/>
+  <member type="way" ref="338118770" role=""/>
+  <member type="way" ref="338118769" role=""/>
+  <member type="way" ref="399064005" role=""/>
+  <member type="way" ref="399064004" role=""/>
+  <member type="way" ref="338118768" role=""/>
+  <member type="way" ref="338118767" role=""/>
+  <member type="way" ref="338118766" role=""/>
+  <member type="way" ref="338118765" role=""/>
+  <member type="way" ref="338112637" role=""/>
+  <member type="way" ref="584116882" role=""/>
+  <member type="way" ref="410436408" role=""/>
+  <member type="way" ref="228243904" role=""/>
+  <member type="way" ref="338111927" role=""/>
+  <member type="way" ref="398251066" role=""/>
+  <member type="way" ref="338111926" role=""/>
+  <member type="way" ref="338111925" role=""/>
+  <member type="way" ref="338111924" role=""/>
+  <member type="way" ref="338111923" role=""/>
+  <member type="way" ref="398248253" role=""/>
+  <member type="way" ref="338110001" role=""/>
+  <member type="way" ref="398242185" role=""/>
+  <member type="way" ref="338110000" role=""/>
+  <member type="way" ref="338109999" role=""/>
+  <member type="way" ref="338108678" role=""/>
+  <member type="way" ref="468910921" role=""/>
+  <member type="way" ref="632039352" role=""/>
+  <member type="way" ref="338335875" role=""/>
+  <member type="way" ref="632039354" role=""/>
+  <member type="way" ref="338108677" role=""/>
+  <member type="way" ref="338108676" role=""/>
+  <member type="way" ref="338108672" role=""/>
+  <member type="way" ref="340553001" role=""/>
+  <member type="way" ref="340553006" role=""/>
+  <member type="way" ref="340553005" role=""/>
+  <member type="way" ref="340553008" role=""/>
+  <member type="way" ref="340553009" role=""/>
+  <member type="way" ref="338108671" role=""/>
+  <member type="way" ref="338075321" role=""/>
+  <member type="way" ref="338061801" role=""/>
+  <member type="way" ref="338040885" role=""/>
+  <member type="way" ref="585278826" role=""/>
+  <member type="way" ref="585042211" role=""/>
+  <member type="way" ref="585042210" role=""/>
+  <member type="way" ref="585255346" role=""/>
+  <member type="way" ref="585255347" role=""/>
+  <member type="way" ref="585246539" role=""/>
+  <member type="way" ref="560223961" role=""/>
+  <member type="way" ref="560223962" role=""/>
+  <member type="way" ref="548477025" role=""/>
+  <member type="way" ref="548483303" role=""/>
+  <member type="way" ref="549411865" role=""/>
+  <member type="way" ref="548654534" role=""/>
+  <member type="way" ref="472736914" role=""/>
+  <member type="way" ref="319273145" role=""/>
+  <member type="way" ref="370960885" role=""/>
+  <member type="way" ref="344362999" role=""/>
+  <member type="way" ref="367695254" role=""/>
+  <tag k="from" v="Brides Glen"/>
+  <tag k="interval" v="6"/>
+  <tag k="interval:peak" v="5"/>
+  <tag k="interval:sunday" v="120"/>
+  <tag k="name" v="Luas Green Line - Brides Glen - Broombridge"/>
+  <tag k="network" v="Luas"/>
+  <tag k="operator" v="Luas - Transdev Dublin Light Rail Limited"/>
+  <tag k="public_transport:version" v="2"/>
+  <tag k="route" v="tram"/>
+  <tag k="to" v="Broombridge"/>
+  <tag k="type" v="route"/>
+  <tag k="wikidata" v="Q2086105"/>
+ </relation>
+</osm>

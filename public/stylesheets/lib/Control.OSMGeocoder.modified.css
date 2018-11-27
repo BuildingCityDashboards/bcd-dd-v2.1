@@ -26,6 +26,7 @@
 .leaflet-control-geocoder .leaflet-control-geocoder-form,
 .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
 	display: none;
+
 }
 
 .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
