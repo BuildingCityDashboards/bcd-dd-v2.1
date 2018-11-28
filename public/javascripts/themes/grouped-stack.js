@@ -8,6 +8,8 @@ class GroupStackBar {
         this.d = obj.d;
         this.v = obj.v;//not sure
         this.cScheme = obj.c;
+        this.ySF = obj.ySF || "thousands";
+
 
         this.init();
     }
@@ -224,7 +226,8 @@ class GroupStackBar {
                 })]).nice();
 
             chart.xAxisCall.scale(x0);
-            chart.yAxisCall.scale(y);
+            chart.ySF ? chart.yAxisCall.scale(y).tickFormat(formatValue(chart.ySF) ) : chart.yAxisCall.scale(y);
+            // chart.yAxisCall.scale(y);
 
             chart.x0 = x0,
             chart.x1 = x1,
@@ -469,6 +472,10 @@ function formatValue(format){
     switch (format){
         case "millions":
             return function(d){ return d3.format(",")(d) + "M"; }
+            break;
+
+        case "m":
+            return d3.format(".2s");
             break;
     
         case "euros":

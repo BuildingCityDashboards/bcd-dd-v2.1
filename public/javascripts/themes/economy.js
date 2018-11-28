@@ -33,16 +33,16 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 element: "#chart-unemp-rate",
                 data: aNest,
                 value: keysA[1],
-                xTitle: "Years",
-                yTitle: "%",
+                titleX: "Years",
+                titleY: "%",
                 yScaleFormat: "percentage",
               },
               empContent = {
                 element: "#chart-emp-rate",
                 data: aNest,
                 value: keysA[0],
-                xTitle: "Years",
-                yTitle: "%",
+                titleX: "Years",
+                titleY: "%",
                 yScaleFormat: "percentage",
               };
 
@@ -119,8 +119,8 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             element: "#chart-gva",
             value: "value",
             data: idN,
-            xTitle: "Years",
-            yTitle: "€"
+            titleX: "Years",
+            titleY: "€"
         };
         
         const GVA = new MultiLineChart(idContent);
@@ -285,8 +285,8 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             element: "#chart-employees-by-size",
             value: "value",
             data: nestData,
-            xTitle: "Years",
-            yTitle: "Persons Engaged"
+            titleX: "Years",
+            titleY: "Persons Engaged"
         };
         
         const employeesBySizeChart = new MultiLineChart(employeesBySize);

@@ -26,8 +26,8 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
         element: "#chart-population",
         keys: grouping,
         data: types,
-        xTitle: "Years",
-        yTitle: "Population",
+        titleX: "Years",
+        titleY: "Population",
         yScaleFormat : "millions"
     };
 

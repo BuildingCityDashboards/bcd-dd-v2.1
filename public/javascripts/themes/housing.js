@@ -134,8 +134,8 @@ Promise.all([
         element: "#chart-houseSupply",
         data: supplyDataNested,
         value: "Hectares",
-        xTitle: "Years",
-        yTitle: "Hectares"
+        titleX: "Years",
+        titleY: "Hectares"
     }
     const supplyChart = new MultiLineChart(supplyContent);
           supplyChart.drawChart();
@@ -145,7 +145,7 @@ Promise.all([
         activeBtn(this);
         
         supplyChart.value = "Hectares";
-        supplyChart.yTitle = "Hectares";
+        supplyChart.titleY = "Hectares";
         
         supplyChart.updateChart();
         supplyChart.addTooltip("Land - Year", "thousands", "label");
@@ -155,7 +155,7 @@ Promise.all([
         activeBtn(this);
 
         supplyChart.value = "Units";
-        supplyChart.yTitle = "Units";
+        supplyChart.titleY = "Units";
         
         supplyChart.updateChart();
         supplyChart.addTooltip("Units - Year", "thousands", "label");
@@ -184,8 +184,8 @@ Promise.all([
             element: "#chart-houseContributions",
             data: contributionDataNested,
             value: "value",
-            xTitle: "Years",
-            yTitle: "€"
+            titleX: "Years",
+            titleY: "€"
         };
 
     // draw the chart
@@ -220,8 +220,8 @@ Promise.all([
             element: "#chart-housePrices",
             data: housePricesDataNested,
             value: "value",
-            xTitle: "Quarters",
-            yTitle: "€"
+            titleX: "Quarters",
+            titleY: "€"
         };
 
     // draw the chart
@@ -252,8 +252,8 @@ Promise.all([
             element: "#chart-rentPrices",
             data: rentPricesDataNested,
             value: "value",
-            xTitle: "Quarters",
-            yTitle: "€"
+            titleX: "Quarters",
+            titleY: "€"
         }
 
     // draw the chart
@@ -336,8 +336,8 @@ Promise.all([
             element: "#chart-houseCompByType",
             data: houseCompByTypeDataNested,
             value: houseCompByTypeType[0], 
-            xTitle: "Quarters", 
-            yTitle: "Numbers"
+            titleX: "Quarters", 
+            titleY: "Numbers"
         }
 
     // draw the chart
@@ -421,8 +421,8 @@ Promise.all([
             element: "#chart-newCompByType",
             data: newCompByTypeDataNested,
             value: newCompByTypeType[0],
-            xTitle: "Quarters",
-            yTitle: "Numbers"
+            titleX: "Quarters",
+            titleY: "Numbers"
         };
         
 
@@ -440,8 +440,8 @@ Promise.all([
 
     // create content object
     const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
-          HPM06Content.xTitle = "Months";
-          HPM06Content.yTitle = "Price Index (Base 100)"
+          HPM06Content.titleX = "Months";
+          HPM06Content.titleY = "Price Index (Base 100)"
 
     // draw the chart
     const HPM06Charts = new MultiLineChart(HPM06Content);

@@ -211,13 +211,12 @@ Promise.all([
         element: "#chart-localagendas",
         data: localagendasDataNested,
         value: localagendasType[0],
-        xTitle: "Years",
-        yTitle: "Number of Projects"
-    };
-
+        titleX: "Years",
+        titleY: "Number of Projects"
+    },
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    const localagendasChart = new MultiLineChart(localagendasContent);
+          localagendasChart = new MultiLineChart(localagendasContent);
           localagendasChart.drawChart();
           localagendasChart.addTooltip("Projects - Year ", "thousands", "label","","");
 

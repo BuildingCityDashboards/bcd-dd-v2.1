@@ -137,6 +137,7 @@
             
               Chart_fig1.titleX = "Years";
               Chart_fig1.titleY = "Population";
+              Chart_fig1.yScaleFormat = "millions";
 
               Chart_fig1.tickNumber = 27;
               Chart_fig1.drawChart();
@@ -150,30 +151,36 @@
               // only
               hideXAxisLabels(Chart_fig1, visibleLabels);
 
-        const Chart_fig1b = new GroupedBarChart(popRate, chart1D2Types , "region", "#chart1", "Years", "Population"),
-              tooltip_fig1b = {};
+        const Chart_fig1bContent = {
+                element: "#chart1",
+                data: popRate,
+                keys: chart1D2Types,
+                value: "region",
+                titleX: "Years",
+                titleY: "Population",
+                yScaleFormat: "percentage"
+            },
+        
+            tooltip_fig1b = {
+                title: "Born Outside the State - Year:",
+                datelabel: "region",
+                format: "percentage",
+            },
 
-              //don't show yet and set yaxis scale.
-              Chart_fig1b.scaleFormatY = d3.format(".0%");
+              Chart_fig1b = new GroupedBarChart(Chart_fig1bContent);
               Chart_fig1b.svg.attr("display","none");
-
-              //title, format, date
-              tooltip_fig1b.title = "Population - Year";
-              tooltip_fig1b.format = "percentage";
-              tooltip_fig1b.date = "region";
-              
-              // add tooltip
               Chart_fig1b.addTooltip(tooltip_fig1b);
              
 
                 d3.select("#chart1 .chart_pop").on("click", function(){
                     $(this).siblings().removeClass('active');
                     $(this).addClass('active');
+
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.xTitle = "Years";
-                    Chart_fig1.yTitle = "Population";
+                    Chart_fig1.titleX = "Years";
+                    Chart_fig1.titleY = "Population";
                     Chart_fig1.value = "population";
 
                     Chart_fig1b.hideRate(false);
@@ -187,8 +194,8 @@
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.xTitle = "Years";
-                    Chart_fig1.yTitle = "Households";
+                    Chart_fig1.titleX = "Years";
+                    Chart_fig1.titleY = "Households";
                     Chart_fig1.value = "households";
                     
                     Chart_fig1b.hideRate(false);
@@ -201,6 +208,10 @@
                     $(this).addClass('active');
                     
                     Chart_fig1b.d = popRate;
+
+                    Chart_fig1b.titleX = "Regions";
+                    Chart_fig1b.titleY = "Population %";
+
                     Chart_fig1b.title = "Population - Region: ";
                     
                 // Chart_fig1b.addTooltip("Population - Region: ", "percentage");
@@ -218,6 +229,10 @@
                     $(this).addClass('active');
 
                     Chart_fig1b.d = houseRate;
+
+                    Chart_fig1b.titleX = "Regions";
+                    Chart_fig1b.titleY = "Households %";
+
                     Chart_fig1b.title = "Households - Region: ";
 
                     Chart_fig1b.hideRate(true);
@@ -233,7 +248,8 @@
                     k: "type",
                     d: chart2D,
                     v: "value",
-                    c: cA4
+                    c: cA4,
+                    ySF: "m"
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -252,6 +268,7 @@
             
               Chart4.titleX = "Years";
               Chart4.titleY = "Property Prices (Euro)";
+              Chart4.yScaleFormat = "millions";
 
             //   Chart4.tickNumber = 27;
               Chart4.drawChart();
@@ -278,7 +295,8 @@
                 k: "type",
                 d: chart6D,
                 v: "value",
-                c: cA4
+                c: cA4,
+                ySF:"m"
                 },
               
               Chart6 = new GroupStackBar(Chart6C);
