@@ -62,7 +62,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               employmentLine.drawChart();
 
               d3.select("#chart-emp-rate").style("display","none");
-              employmentLine.addTooltip("Employment Annual % Change - ", "percentage", "label");
+              employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
               employmentLine.hideRate(true);
 
             d3.select(".employment_count").on("click", function(){
@@ -83,7 +83,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               unemploymentLine.hideRate(true);
               
               d3.select("#chart-unemp-rate").style("display","none");
-              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage", "year");
+              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "year");
 
             d3.select(".unemployment_count").on("click", function(){
                 activeBtn(this);
@@ -156,7 +156,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             
 
         const IncomeGroupedBar = new StackBarChart(incomeContent);
-              IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage", "date");
+              IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage2", "date");
         
     
     })

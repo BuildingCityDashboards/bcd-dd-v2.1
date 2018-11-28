@@ -244,16 +244,6 @@ select:hover:not([disabled]) {
   display: inline;
 }
 
-#chart-trolleys .x-axis g.tick text{
-  display: none;
-}
-
-#chart-trolleys .x-axis g.tick:nth-child(5n+1) text,
-#chart-trolleys .x-axis g.tick:first-of-type text,
-#chart-trolleys .x-axis g.tick:last-of-type text {
-  display: inline;
-}
-
 .story-image{
   width: 100%;
   margin-left: auto;

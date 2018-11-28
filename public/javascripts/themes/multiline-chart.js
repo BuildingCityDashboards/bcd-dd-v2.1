@@ -76,7 +76,7 @@ class MultiLineChart{
                 c.value = obj.value || c.value;
                 c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
             }
-            
+
             c.createScales();
             c.drawLines();
             c.drawLegend();
@@ -122,19 +122,6 @@ class MultiLineChart{
             c.colour.domain(c.data.map(d => { return d.key; }));
             c.keys = c.colour.domain();
     }
-
-    // // replace all this with a data validator
-    // // getData( _valueString, _data, _tX, _tY, yScaleFormat){
-    // getData( _valueString, _tX, _tY, yScaleFormat){
-    //     let c = this;
-    //         _tX ? c.titleX = _tX: c.titleX = "";
-    //         _tY ? c.titleY = _tY: c.titleY = "";
-        
-    //     // _data !== null ? c.data =_data : c.data = c.data;
-    //     // c.data = _data !== null ? _data : c.data;
-    //     c.value = _valueString;
-
-    // }
 
     // needs to be called everytime the data changes
     createScales(){
@@ -300,25 +287,22 @@ class MultiLineChart{
     }
 
     drawFocusLine(){
-        // add group to contain all the focus elements
         let c = this,
             g = c.g; 
             
-            focus = g.append("g")
+            c.focus = g.append("g")
                 .attr("class", "focus")
                 .style("display", "none")
                 .style("visibility", "hidden");
             
-            // Focus line
-            focus.append("line")
+            c.focus.append("line")
                 .attr("class", "focus_line")
                 .attr("y1", 0)
                 .attr("y2", c.height);
         
-            focus.append("g")
+            c.focus.append("g")
                 .attr("class", "focus_circles");
             
-            // attach group append circle and text for each region
             c.keys.forEach( (d,i) => {
                 c.drawFocusCircles(d,i);
             });
@@ -385,82 +369,15 @@ class MultiLineChart{
                     .on("mousemove", mousemove, {passive:true});
 
             function mousemove(){
-
                 focus.style("visibility","visible");
                 c.newToolTip.style("visibility","visible");
 
                 let mouse = d3.mouse(this),
-                    ttTextHeights = 0,
                     x0 = c.x.invert(mouse[0]),
-                    i = c.bisectDate(c.data[0].values, x0, 1);
-
-                const tooldata = c.data.map(d => {
-                    let s,
-                        sPrev,
-                        s0 = d.values[i - 1],
-                        s1 = d.values[i],
-                        v = c.value;
-
-                        s1 !== undefined ? s = x0 - s0.date > s1.date - x0 ? s1 : s0 : s = s0;
-                        s1 !== undefined ? sPrev = x0 - s0.date > s1.date - x0 ? d.values[i-1] : d.values[i-2] : false;
-                        c.newToolTipTitle.text(c.ttTitle + " " + (s[c.dateField]));
-
-                    let obj = {};
-                        obj.key = d.key;
-                        obj.label = s.label;
-                        obj.value = s[v];
-                        obj.change = c.getPerChange(s, sPrev, v);
-                    return obj;
-                });
-
-                tooldata.sort((a, b) => b.value - a.value);
-
-                tooldata.forEach(( d, i) => {
-
-                    let id = "#bcd-tt" + i,
-                        div = c.newToolTip.select(id),
-                        unText = "N/A",
-                        indicatorColour,
-                        indicator = d.change > 0 ? " ▲" : d.change < 0 ? " ▼" : "",
-                        rate = !d.change ? unText :d3.format(".1%")(!isNaN(d.change) ? d.change : null),
-                        value =  isNaN(d.value) ? "" :  c.valueFormat !=="undefined"? c.prefix + c.valueFormat(d.value) : d.value,
-                        p = div.select(".bcd-text");
-
-                        if(c.arrowChange === true){
-                            indicatorColour = d.change < 0 ? "#20c997" : d.change > 0 ? "#da1e4d" : "#f8f8f8";
-                        }
-                        else{
-                            indicatorColour = d.change > 0 ? "#20c997" : d.change < 0 ? "#da1e4d" : "#f8f8f8";
-                        }
-
-                        div.style("opacity", 1);
-                        div.select(".bcd-dot").style("background-color", c.colour(d.key));
-                        p.select(".bcd-text-title").text(d.key);
-                        p.select(".bcd-text-value").text(value);
-                        p.select(".bcd-text-rate").text(rate);
-                        p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
-                });
-                
-                c.data.forEach((reg, idx) => {
-                    let d0 = reg.values[i - 1],
-                        d1 = reg.values[i],
-                        d,
-                        dOld,
-                        v = c.value;
-
-                        d1 !== undefined ? d = x0 - d0.date > d1.date - x0 ? d1 : d0 : false;
-                        d1 !== undefined ? dOld = x0 - d0.date > d1.date - x0 ? reg.values[i-1] : reg.values[i-2] : false;
-                    
-                    let id = ".tooltip_" + idx,
-                        tooltip = d3.select(c.element).select(id);
-
-                    
-                    if(d !== undefined){
-                        c.updatePosition(c.x(d.date), 80);
-                        tooltip.attr("transform", "translate(" + c.x(d.date) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
-                        focus.select(".focus_line").attr("transform", "translate(" + c.x(d.date) + ", 0)");
-                    }
-                });
+                    i = c.bisectDate(c.data[0].values, x0, 1),
+                    tooldata = c.sortData(i, x0);
+    
+                    c.ttContent(tooldata);// add values to tooltip
             }
     }
 
@@ -584,7 +501,7 @@ class MultiLineChart{
         // formats thousands, Millions, Euros and Percentage
         switch (format){
             case "millions":
-                return d3.format(".4s");
+                return d3.format(".2s");
                 break;
         
             case "euros":
@@ -595,8 +512,12 @@ class MultiLineChart{
                 return d3.format(",");
                 break;
         
-            case "percentage":
+            case "percentage2":
                 return d3.format(".2%");
+                break;
+
+            case "percentage":
+                return d3.format(".0%");
                 break;
         
             default:
@@ -701,19 +622,89 @@ class MultiLineChart{
     
         }
 
-        slicer( arr, sliceBy ){
-            if ( sliceBy < 1 || !arr ) return () => [];
-            
-            return (p) => {
-                const base = p * sliceBy,
-                      size = arr.length;
+    slicer( arr, sliceBy ){
+        if ( sliceBy < 1 || !arr ) return () => [];
         
-                let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+        return (p) => {
+            const base = p * sliceBy,
+                    size = arr.length;
+    
+            let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+                
+                if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+                
+                return slicedArray;
+        };
+    }
+
+    sortData(i, x0) {
+        let c =this,
+            tD = c.data.map(d => {
+                let s,
+                    sPrev,
+                    s0 = d.values[i - 1],
+                    s1 = d.values[i],
+                    v = c.value;
+
+                    s1 !== undefined ? s = x0 - s0.date > s1.date - x0 ? s1 : s0 : s = s0;
+                    s1 !== undefined ? sPrev = x0 - s0.date > s1.date - x0 ? d.values[i-1] : d.values[i-2] : false;
+                    // c.newToolTipTitle.text(c.ttTitle + " " + (s[c.dateField]));
+
+                let obj = {};
+                    obj.key = d.key;
+                    obj.label = s.label;
+                    obj.value = s[v];
+                    obj.change = c.getPerChange(s, sPrev, v);
+                    obj.date = s.date;
+                return obj;
+        });
+        c.moveTooltip(tD);
+        tD.sort((a, b) => b.value - a.value);
+
+        return tD;
+    }
+
+    ttContent(data){
+        let c = this;
+            data.forEach(( d, i) => {
+                let id = "#bcd-tt" + i,
+                    div = c.newToolTip.select(id),
+                    unText = "N/A",
+                    indicatorColour,
+                    indicator = d.change > 0 ? " ▲" : d.change < 0 ? " ▼" : "",
+                    rate = !d.change ? unText :d3.format(".1%")(!isNaN(d.change) ? d.change : null),
+                    value =  isNaN(d.value) ? "" :  c.valueFormat !=="undefined"? c.prefix + c.valueFormat(d.value) : d.value,
+                    p = div.select(".bcd-text");
+                    if(c.arrowChange === true){
+                        indicatorColour = d.change < 0 ? "#20c997" : d.change > 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+                    else{
+                        indicatorColour = d.change > 0 ? "#20c997" : d.change < 0 ? "#da1e4d" : "#f8f8f8";
+                    }
+                    div.style("opacity", 1);
+                    div.select(".bcd-dot").style("background-color", c.colour(d.key));
+                    p.select(".bcd-text-title").text(d.key);
+                    p.select(".bcd-text-value").text(value);
+                    p.select(".bcd-text-rate").text(rate);
+                    p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+            });
+    }
+
+    moveTooltip(d){
+        let c = this;
+            d.forEach( (d,i)=> {
+                let id = ".tooltip_" + i, 
+                    tooltip = d3.select(c.element).select(id),
+                    v = "value";
                     
-                    if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+                if(d !== undefined){
                     
-                    return slicedArray;
-            };
+                    c.updatePosition(c.x(d.date), 80);
+                    c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
+                    tooltip.attr("transform", "translate(" + c.x(d.date) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
+                    c.focus.select(".focus_line").attr("transform", "translate(" + c.x(d.date) + ", 0)");
+                }
+            })
         }
 
     //replacing old legend method with new inline labels
@@ -821,6 +812,21 @@ class MultiLineChart{
         function idFilter(d) {
            return isNum(d[v]) && d[v] !== 0 ? true : false; 
         }
-    }  
+    }
+    
+    showSelectedLabels(array){
+        let c = this, 
+            e = c.xAxis;
+            c.axisArray = array || c.axisArray;
+
+            e.selectAll(".x-axis .tick")
+            .style("display", "none");
+
+        c.axisArray.forEach( n => {
+            d3.select(  e._groups[0][0].childNodes[n])
+            .style("display", "block");
+        })
+
+    }
 
 }

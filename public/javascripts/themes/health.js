@@ -9,7 +9,15 @@ Promise.all([
           tKeys = tData.columns.slice(3),
           tdateField = tData.columns[2],
           tDataProcessed = dataSets(tData, tKeys),
-          selector = "#chart-trolleys";
+          selector = "#chart-trolleys",
+          cS = [
+            "#00929e", //BCD-teal
+            "#ffc20e", //BCD-yellow
+            "#16c1f3", //BCD-blue
+            "#da1e4d", //BCD-red
+            "#998ce3", //purple
+            "#6aedc7", //green
+            ];
 
           tDataProcessed.forEach( d => {
             let d1 = parseTime(d[tdateField]);
@@ -18,7 +26,7 @@ Promise.all([
                 d.date = d1;
           });
 
-        const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys);
+        const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys, cS);
         // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
 
         
@@ -26,8 +34,9 @@ Promise.all([
         //       trolleys2015 = filterByDateRange(tDataProcessed, "date", "Dec 28 2014", "Dec 31 2015"),
         //       trolleys2014 = filterByDateRange(tDataProcessed, "date", "Dec 28 2013", "Dec 31 2014"),
         //       trolleys2013 = filterByDateRange(tDataProcessed, "date", "Dec 28 2012", "Dec 31 2013");
-
+              tCharts.tickNumber = 12;
               tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:", "000", true);
+              tCharts.addTooltip("No. of Patients:", "thousands", "label");
 
             // d3.select("#t2016").on("click", function(){
             //     $(this).siblings().removeClass("active");
@@ -168,48 +177,3 @@ function filterbyDate(data, dateField, date){
         return d[dateField] >= new Date(date);
     });
 }
-
-// function slicer( arr, sliceBy ){
-//     if ( sliceBy < 1 || !arr ) return () => [];
-    
-//     return (p) => {
-//         const base = p * sliceBy;
-
-//         return p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
-//     };
-// }
-
-// function pagination(_data, _selector, _sliceBy, _pageNumber){
-    
-//     const chartObj = this;
-//     console.log(chartObj);
-    
-//     const slices = slicer( _data, _sliceBy ), 
-//           times =  _pageNumber,
-//           startSet = slices(times - 1);
-
-//     let moreButtons = d3.select(_selector)
-//         .append("div")
-//         .attr("class", "text-center pb-2");
-
-//     // tCharts.getData(startSet);
-//     // tCharts.addTooltip("No. of Patients:", "000");
-
-//     for(i=0; i<times; i++){
-//         let wg = slices(i);
-
-//         moreButtons.append("button")
-//         .attr("type", "button")
-//         .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
-//         .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
-//         .text("Weeks "+ (1+(i*13)) +" - "+ ((i+1)*13))
-//         // .on("click", function(){
-//         //     if(!$(this).hasClass("active")){
-//         //         $(this).siblings().removeClass("active");
-//         //         $(this).addClass("active");
-//         //         tCharts.getData(wg);
-//         //         tCharts.addTooltip("No. of Patients:", "000");
-//         //     }
-//         // });
-//     }
-// }

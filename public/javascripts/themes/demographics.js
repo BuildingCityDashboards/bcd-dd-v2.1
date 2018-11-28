@@ -25,20 +25,21 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
     const population = {
         element: "#chart-population",
         keys: grouping,
-        data: types
+        data: types,
+        xTitle: "Years",
+        yTitle: "Population",
+        yScaleFormat : "millions"
     };
 
     const populationChart = new MultiLineChart(population);
           populationChart.yLabels=yLabels;
           populationChart.value=columnNames[0];
-        //   populationChart.data=types;
-          populationChart.titleX="years";
-          populationChart.titleY=yLabels[0];
-          populationChart.yScaleFormat = d3.format(".2s");
-          populationChart.createScales();
+          populationChart.tickNumber = 106; 
+          populationChart.drawChart();
 
         // add the tooltip
-        populationChart.addTooltip("Year: ","","label");
+        populationChart.addTooltip("Year: ","thousands","label");
+        populationChart.showSelectedLabels([0,16,26,36,41,46,51,56,61,69,71,76,81,86,92,96,101,106]);
         
         //hide year labels for now.
         // d3.select("#chart-population").selectAll(".x-axis text").style("display","none");
@@ -49,20 +50,6 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
         
     //     start = types[0].values[0].label;
     //     end = types[0].values[size].label;
-    
-    //buttons
-    d3.select(".demographics_count").on("click", function(){
-        populationChart.value=columnNames[0];
-        populationChart.yScaleFormat = d3.format(".2s");
-        populationChart.createScales();
-    });
-
-    //buttons
-    d3.select(".demographics_arate").on("click", function(){
-        populationChart.value=columnNames[1];
-        populationChart.yScaleFormat = d3.format(".0%");
-        populationChart.createScales();
-    });
 
 }).catch(function(error){
     console.log(error);

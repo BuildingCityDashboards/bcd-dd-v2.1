@@ -364,7 +364,7 @@ Promise.all([
 
     // create content object
     const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
-          HPM06Content.xTitle = "Years";
+          HPM06Content.xTitle = "Months";
           HPM06Content.yTitle = "Price Index (Base 100)"
 
     // draw the chart

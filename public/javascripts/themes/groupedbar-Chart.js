@@ -119,7 +119,7 @@ class GroupedBarChart{
         c.xAxis.call(c.xAxisCall)
         .selectAll(".tick text").call(c.textWrap, 60, 0);
         
-        c.scaleFormatY ? c.yAxisCall.scale(c.y).tickFormat(c.scaleFormatY) : c.yAxisCall.scale(c.y);
+        c.yScaleFormat ? c.yAxisCall.scale(c.y).tickFormat(c.formatValue(c.yScaleFormat)) : c.yAxisCall.scale(c.y);
         c.yAxisCall.scale(c.y);
         c.yAxis.call(c.yAxisCall);
 
@@ -396,10 +396,14 @@ class GroupedBarChart{
                 return d3.format(",");
                 break;
         
-            case "percentage":
+            case "percentage2":
                 return d3.format(".2%");
                 break;
-        
+            
+            case "percentage":
+                return d3.format(".0%");
+                break;
+
             default:
                 return "undefined";
         }
