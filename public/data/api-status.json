@@ -1,0 +1,26 @@
+{
+  "carparks": {
+    "status": 200,
+    "timestamp": null
+  },
+  "dublinbikes": {
+    "status": 200,
+    "timestamp": null
+  },
+  "dublinbus": {
+    "status": 302,
+    "timestamp": null
+  },
+  "luas": {
+    "status": 200,
+    "timestamp": null
+  },
+  "traveltimes": {
+    "status": 200,
+    "timestamp": null
+  },
+  "traveltimesroads": {
+    "status": 200,
+    "timestamp": null
+  }
+}

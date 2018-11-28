@@ -6,6 +6,7 @@
  * Test support for DOM node methods on Firefox
  */
 
+
 let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
     minZoom: min_zoom,
     maxZoom: max_zoom,
@@ -39,6 +40,7 @@ var osmGeocoder = new L.Control.OSMGeocoder(
             bounds: dublinBounds
         });
 gettingAroundMap.addControl(osmGeocoder);
+
 
 /************************************
  * Bikes
@@ -75,6 +77,7 @@ function updateMapBikes(data__) {
     bikeCluster.clearLayers();
     gettingAroundMap.removeLayer(bikeCluster);
     let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
+    /*TODO: note impact on page load performance*/
     _.each(data__, function (d, i) {
         if (ageMax < Date.now() - d.last_update) {
             ageMax = Date.now() - d.last_update;
@@ -84,10 +87,8 @@ function updateMapBikes(data__) {
     });
     //console.log("Age Max: " + ageMax);
     if (ageMax < (1000 * 60 * 15)) {
-        console.log("Change image");
-        d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
         d3.select('#bike-age')
-                .text(Math.floor(ageMax/60000)+" mins ago");
+                .text(Math.floor(ageMax / 60000) + " mins ago");
     }
     gettingAroundMap.addLayer(bikeCluster);
 }
@@ -159,10 +160,9 @@ function updateMapBuses(data__) {
         busCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
-    
+
     gettingAroundMap.addLayer(busCluster);
 }
-
 
 function getBusContent(d_) {
     let str = '';
@@ -196,7 +196,6 @@ function getBusContent(d_) {
 //Handle button in gettingAroundMap popup and get RTPI data
 let busAPIBase = "https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?format=json&stopid=";
 //let busAPIBase = "https://www.dublinbus.ie/RTPI/?searchtype=stop&searchquery=";
-
 
 function displayRTPI(sid_) {
     let rtpiBase, rtpi;
@@ -264,19 +263,16 @@ d3.json("/data/Transport/cpCaps.json").then(function (data) {
 function updateMapCarparks(data__) {
     carparkCluster.clearLayers();
     gettingAroundMap.removeLayer(carparkCluster);
-    let keys = d3.keys(data__);
-//    console.log("keys: " + keys);
     _.each(data__, function (d, k) {
-//        console.log("d: " + JSON.stringify(d) + "key: " + k);
         let marker = L.marker(new L.LatLng(d[0].lat, d[0].lon), {icon: carparkMapIcon});
         marker.bindPopup(getCarparkContent(d[0], k));
         carparkCluster.addLayer(marker);
 //        console.log("getMarkerID: "+marker.optiid);
     });
     gettingAroundMap.addLayer(carparkCluster);
-//    privateMap.fitBounds(carparkCluster.getBounds());
 }
 
+//static car park data (location etc)
 function getCarparkContent(d_, k_) {
     let str = '';
     if (d_.name) {
@@ -285,27 +281,22 @@ function getCarparkContent(d_, k_) {
 //    if (d_.Totalspaces) {
 //        str += 'Capacity is ' + d_.Totalspaces + '<br>';
 //    }
-    if (d_.name) {
-        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
-        str += '<br/><button type="button" class="btn btn-primary carparkbutton" data="'
-                + k_ + '">Check Available Spaces</button>';
-    }
+//    
+//    
     ;
     return str;
 }
 
-//Handle button in privateMap popup and get carpark data
 function displayCarpark(k_) {
-//    d3.xml("https://cors-anywhere.herokuapp.com/https://www.dublincity.ie/dublintraffic/cpdata.xml").then(function (xmlDoc) {
+    //dynamic data (available spaces)
     d3.xml("/data/Transport/cpdata.xml").then(function (xmlDoc) {
-
 //        if (error) {
 //            console.log("error retrieving data");
 //            return;
 //        }
         //TODO: convert to arrow function + d3
         let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-        console.log("timestamp :" + timestamp);
+        //console.log("timestamp :" + timestamp);
         for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
             let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
             if (name === k_) {
@@ -626,5 +617,75 @@ d3.select(".public_transport_all").on("click", function () {
         gettingAroundMap.addLayer(carparkCluster);
     }
     //gettingAroundMap.fitBounds(busCluster.getBounds());
+
+});
+
+//D3 DOM manipulation
+
+//set API activity icons
+d3.json('/data/api-status.json').then(function (data) {
+    //console.log("api status "+JSON.stringify(data));
+
+    if (data["dublinbikes"].status === 200) {
+        d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#bike-age')
+                .text(''); //TODO: call to getAge function from here
+
+    } else {
+        d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#bike-age')
+                .text('Unavailable');
+    }
+
+    if (data["dublinbus"] .status === 200) {
+        d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#bus-age')
+                .text(''); //TODO: call to getAge function from here
+    } else {
+        d3.select('#bus-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#bus-age')
+                .text('Unavailable');
+    }
+
+    if (data["carparks"] .status === 200) {
+        d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#parking-age')
+                .text(''); //TODO: call to getAge function from here
+
+    } else {
+        d3.select('#parking-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#parking-age')
+                .text('Unavailable');
+    }
+
+    if (data["luas"] .status === 200) {
+        d3.select('#luas-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#luas-age')
+                .text('');
+    } else {
+        d3.select('#luas-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#luas-age')
+                .text('Unavailable');
+    }
+
+    if (data["train"] .status === 200) {
+        d3.select('#train-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#train-age')
+                .text('');
+    } else {
+        d3.select('#train-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#train-age')
+                .text('Unavailable');
+    }
+
+    if (data["traveltimes"] .status === 200) {
+        d3.select('#motorway-activity-icon').attr('src', '/images/icons/activity.svg');
+        d3.select('#motorway-age')
+                .text('');
+    } else {
+        d3.select('#motorway-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+        d3.select('#motorway-age')
+                .text('Unavailable');
+    }
 
 });
