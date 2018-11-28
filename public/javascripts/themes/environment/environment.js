@@ -30,8 +30,8 @@ Promise.all([
         element: "#chart-waste",
         value: wasteType[0],
         data: wasteDataNested,
-        xTitle: "years",
-        yTitle: "Kg"
+        titleX: "years",
+        titleY: "Kg"
     };
 
     // draw the chart
@@ -44,10 +44,20 @@ Promise.all([
     const recyclingsData = datafiles[1],
           recyclingsTypes = recyclingsData.columns.slice(1),
           recyclingsDate = recyclingsData.columns[0],
-          recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes);
+          recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes),
 
-    // drawing charts for planning data.
-    const recyclingsChart = new GroupedBarChart(recyclingsDataProcessed, recyclingsTypes, recyclingsDate, "#chart-recyclings", "Years", "%"),
+          recyclingsContent = {
+            element: "#chart-recyclings",
+            data: recyclingsDataProcessed,
+            keys: recyclingsTypes,
+            value: recyclingsDate,
+            titleX: "Years",
+            titleY: "%",
+            yScaleFormat: "percentage"
+          },
+
+          // drawing charts for planning data.
+          recyclingsChart = new GroupedBarChart(recyclingsContent),
           recyclings_tooltip = {};
 
           //title, format, date
@@ -55,7 +65,7 @@ Promise.all([
           recyclings_tooltip.format = "percentage";
           recyclings_tooltip.date = recyclingsDate;
 
-          recyclingsChart.addTooltip(recyclings_tooltip)
+          recyclingsChart.addTooltip(recyclings_tooltip);
           recyclingsChart.hideRate(true);
 
 
@@ -63,11 +73,20 @@ Promise.all([
     const organicrecyclingsData = datafiles[2],
           organicrecyclingsTypes = organicrecyclingsData.columns.slice(1),
           organicrecyclingsDate = organicrecyclingsData.columns[0],
-          organicrecyclingsDataProcessed = dataSets(organicrecyclingsData, organicrecyclingsTypes);
+          organicrecyclingsDataProcessed = dataSets(organicrecyclingsData, organicrecyclingsTypes),
 
-    // console.log("organicrecyclings data processed", organicrecyclingsDataProcessed);
-    // drawing charts for planning data.
-    const organicrecyclingsChart = new GroupedBarChart(organicrecyclingsDataProcessed, organicrecyclingsTypes, organicrecyclingsDate, "#chart-organicrecyclings", "Years", "%"),
+          organicrecyclingsContent = {
+            element: "#chart-organicrecyclings",
+            data: organicrecyclingsDataProcessed,
+            keys: organicrecyclingsTypes,
+            value: organicrecyclingsDate,
+            titleX: "Years",
+            titleY: "%",
+            yScaleFormat: "percentage"
+          },
+
+          // drawing charts for planning data.
+          organicrecyclingsChart = new GroupedBarChart(organicrecyclingsContent),
           orChart_tooltip = {};
 
           //title, format, date
@@ -81,57 +100,86 @@ Promise.all([
 
     // data and chart for watercons
     const waterconsData = datafiles[3],
-    waterconsTypes = waterconsData.columns.slice(1),
-    waterconsDate = waterconsData.columns[0],
-    waterconsDataProcessed = dataSets(waterconsData, waterconsTypes);
+          waterconsTypes = waterconsData.columns.slice(1),
+          waterconsDate = waterconsData.columns[0],
+          waterconsDataProcessed = dataSets(waterconsData, waterconsTypes),
 
-    // console.log("watercons data processed", waterconsDataProcessed);
-    // drawing charts for planning data.
-    const waterconsChart = new GroupedBarChart(waterconsDataProcessed, waterconsTypes, waterconsDate, "#chart-watercons", "Years", "Litres")
-          wcChart_tooltip = {};
+          waterconsContent = {
+            element: "#chart-watercons",
+            data: waterconsDataProcessed,
+            keys: waterconsTypes,
+            value: waterconsDate,
+            titleX: "Years",
+            titleY: "Litres",
+            // yScaleFormat: "percentage"
+          },
 
-          //title, format, date
-          wcChart_tooltip.title = "Water Consumption - Year";
-          wcChart_tooltip.format = "thousands";
-          wcChart_tooltip.date = waterconsDate;
+          wcChart_tooltip = {
+            //title, format, date
+            title: "Water Consumption - Year",
+            format: "thousands",
+            date: waterconsDate
+          },
+
+          // drawing charts for planning data.
+          waterconsChart = new GroupedBarChart(waterconsContent);
           
           waterconsChart.addTooltip(wcChart_tooltip);
 
 
     // data and chart for riverqualities
     const riverqualitiesData = datafiles[4],
-    riverqualitiesTypes = riverqualitiesData.columns.slice(1),
-    riverqualitiesDate = riverqualitiesData.columns[0],
-    riverqualitiesDataProcessed = dataSets(riverqualitiesData, riverqualitiesTypes);
+          riverqualitiesTypes = riverqualitiesData.columns.slice(1),
+          riverqualitiesDate = riverqualitiesData.columns[0],
+          riverqualitiesDataProcessed = dataSets(riverqualitiesData, riverqualitiesTypes),
 
-    // console.log("riverqualities data processed", riverqualitiesDataProcessed);
-    // drawing charts for planning data.
-    const riverqualitiesChart = new GroupedBarChart(riverqualitiesDataProcessed, riverqualitiesTypes, riverqualitiesDate, "#chart-riverqualities", "Years", "% of Surveryed Channel Length (1156.5km)"),
-          rqChart_tooltip = {};
-          
-          //title, format, date
-          rqChart_tooltip.title = "Water Quality - Year";
-          rqChart_tooltip.format = "thousands";
-          rqChart_tooltip.date = riverqualitiesDate;
-    
+          riverqualitiesContent = {
+            element: "#chart-riverqualities",
+            data: riverqualitiesDataProcessed,
+            keys: riverqualitiesTypes,
+            value: riverqualitiesDate,
+            titleX: "Years",
+            titleY: "% of Surveryed Channel Length (1156.5km)",
+            // yScaleFormat: "percentage"
+          },
+
+          rqChart_tooltip = {
+              //title, format, date
+              title: "Water Quality - Year",
+              format: "thousands",
+              date: riverqualitiesDate
+          },
+
+          // drawing charts for planning data.
+          riverqualitiesChart = new GroupedBarChart(riverqualitiesContent);
           riverqualitiesChart.addTooltip(rqChart_tooltip);
 
 
     // data and chart for green flags
     const greenflagsData = datafiles[5],
-    greenflagsTypes = greenflagsData.columns.slice(1),
-    greenflagsDate = greenflagsData.columns[0],
-    greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes);
+          greenflagsTypes = greenflagsData.columns.slice(1),
+          greenflagsDate = greenflagsData.columns[0],
+          greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes),
+
+          greenflagsContent = {
+            element: "#chart-greenflags",
+            data: greenflagsDataProcessed,
+            keys: greenflagsTypes,
+            value: greenflagsDate,
+            titleX: "Years",
+            titleY: "Number of Schools",
+            // yScaleFormat: "percentage"
+          },
+
+          greenflags_tooltip = {
+            //title, format, date
+            title: "Green Flag Schools - Year",
+            format: "thousands",
+            date: greenflagsDate,
+          },
 
     // drawing charts for planning data.
-    const greenflagsChart = new GroupedBarChart(greenflagsDataProcessed, greenflagsTypes, greenflagsDate, "#chart-greenflags", "Years", "Number of Schools")
-          greenflags_tooltip = {};
-            
-          //title, format, date
-          greenflags_tooltip.title = "Green Flag Schools - Year";
-          greenflags_tooltip.format = "thousands";
-          greenflags_tooltip.date = greenflagsDate;
-
+          greenflagsChart = new GroupedBarChart(greenflagsContent);
           greenflagsChart.addTooltip(greenflags_tooltip);
 
 

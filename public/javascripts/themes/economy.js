@@ -123,9 +123,9 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             yTitle: "€"
         };
         
-        const IncomeGroupedBar = new MultiLineChart(idContent);
-              IncomeGroupedBar.drawChart();
-              IncomeGroupedBar.addTooltip("Gross Value Added - Year:", "thousands", "label");
+        const GVA = new MultiLineChart(idContent);
+              GVA.drawChart();
+              GVA.addTooltip("Gross Value Added - Year:", "thousands", "label");
 
         $("[id='Dublin plus Mid East']").attr("dy", -15);// hack as the force simulation won't work on partial data sets
     
@@ -166,42 +166,54 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
 
     // load csv data and turn value into a number
     d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {   
-        var keys = data.columns;
+        let keys = data.columns,
+              transposedData = [],
+              newList,
+              dataFiltered,
+              tooltipContent,
+              disosableIncomeContent,
+              key = ["Median Real Household Disposable Income (Euro)"];
 
-        // blank array
-        var transposedData = [];
-        data.forEach(d => {
-            for (var key in d) {
-                // console.log(key);
-                var obj = {};
-                if (!(key === "type" || key === "region")){
-                obj.type = d.type;
-                obj.region = d.region;
-                obj[d.type] = +d[key];
-                obj.year = key;
-                obj.value = +d[key];
-                transposedData.push(obj);
-            }}
-        });
+              data.forEach(d => {
+                for (var key in d) {
+                    // console.log(key);
+                    var obj = {};
+                    if (!(key === "type" || key === "region")){
+                    obj.type = d.type;
+                    obj.region = d.region;
+                    obj[d.type] = +d[key];
+                    obj.year = key;
+                    obj.value = +d[key];
+                    transposedData.push(obj);
+                }}
+              });
 
-        console.log(transposedData);
-
-        const tooltipContent = {
-            title: "Dublin County - Year",
-            datelabel: "year",
-            valueFormat: "thousands",
-        };
-
-        newList = d3.nest()
-            .key(d => { return d.region })
-            // .key(d => { return d.type })
-            .entries(transposedData);
-
-        let dataFiltered = newList.find( d => d.key === "Dublin").values.filter(
+            newList = d3.nest()
+                .key(d => { return d.region })
+                // .key(d => { return d.type })
+                .entries(transposedData);
+        
+            dataFiltered = newList.find( d => d.key === "Dublin").values.filter(
                 d => d.type === "Median Real Household Disposable Income (Euro)"
             );
 
-        const disosableIncomeChart = new GroupedBarChart(dataFiltered, ["Median Real Household Disposable Income (Euro)"], "year", "#chart-disposable-income", "Years", "€");
+            tooltipContent = {
+                title: "Dublin County - Year",
+                datelabel: "year",
+                valueFormat: "euros",
+            };
+            
+            disosableIncomeContent = {
+                element: "#chart-disposable-income",
+                data: dataFiltered,
+                keys: key,
+                value: "year",
+                titleX: "Years",
+                titleY: "€",
+                // yScaleFormat: "percentage"
+            };
+
+        const disosableIncomeChart = new GroupedBarChart(disosableIncomeContent);
               disosableIncomeChart.addTooltip(tooltipContent);
         
     })
@@ -308,10 +320,20 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 title: "Oversea Vistors (Millions) - Year",
                 datelabel: xValue,
                 valueFormat: "thousands",
-            };
+            },
+
+            overseasVisitorContent = {
+                element: "#chart-overseas-vistors",
+                data: overseasVisitorsData,
+                keys: columnNames,
+                value: xValue,
+                titleX: "Years",
+                titleY: "Visitors (Millions)",
+                // yScaleFormat: "percentage"
+            },
         
-            const overseasvisitorsChart = new GroupedBarChart(overseasVisitorsData, columnNames, xValue, "#chart-overseas-vistors", "grouped bar chart", "Millions");
-                  overseasvisitorsChart.addTooltip(tooltipContent);
+            overseasvisitorsChart = new GroupedBarChart(overseasVisitorContent);
+            overseasvisitorsChart.addTooltip(tooltipContent);
         
         })
         // catch any error and log to console
@@ -350,7 +372,7 @@ function coerceNum(d,k){
     });
 }
 
-function  stackNest(data, date, name, value){
+function stackNest(data, date, name, value){
     let nested_data = d3Nest(data, date),
         mqpdata = nested_data.map(function(d){   
             let obj = {

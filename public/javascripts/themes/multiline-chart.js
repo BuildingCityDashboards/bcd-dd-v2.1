@@ -7,8 +7,8 @@ class MultiLineChart{
         this.data = obj.data;
         this.value = obj.value;
         this.colourScheme = obj.colour;
-        this.xTitle = obj.xTitle;
-        this.yTitle = obj.yTitle;
+        this.titleX = obj.titleX;
+        this.titleY = obj.titleY;
         this.yScaleFormat = obj.yScaleFormat || "thousands";
 
         this.init();
@@ -71,8 +71,8 @@ class MultiLineChart{
 
             if(obj){
                 c.data = obj.data || c.data;
-                c.xTitle = obj.xTitle || c.xTitle;
-                c.yTitle = obj.yTitle || c.yTitle;
+                c.titleX = obj.titleX || c.titleX;
+                c.titleY = obj.titleY || c.titleY;
                 c.value = obj.value || c.value;
                 c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
             }
@@ -121,6 +121,7 @@ class MultiLineChart{
         let c = this;
             c.colour.domain(c.data.map(d => { return d.key; }));
             c.keys = c.colour.domain();
+            console.log("this is the keys", c.data);
     }
 
     // needs to be called everytime the data changes
@@ -132,8 +133,8 @@ class MultiLineChart{
             y = c.getElement(".titleY");
 
         //update axis titles
-        x.text(c.xTitle);
-        y.text(c.yTitle);
+        x.text(c.titleX);
+        y.text(c.titleY);
 
         // set scales
         c.x = d3.scaleTime().range([0, c.width]);
