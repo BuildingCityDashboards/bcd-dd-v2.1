@@ -26,8 +26,8 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
         element: "#chart-population",
         keys: grouping,
         data: types,
-        xTitle: "Years",
-        yTitle: "Population",
+        titleX: "Years",
+        titleY: "Population",
         yScaleFormat : "millions"
     };
 
@@ -79,7 +79,7 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
                         dublin: d3.sum(v, function(g) { return g.Dublin; })
                     }; })
                     .entries(data);
-    let array = []
+    let array = [];
 
     combinedData.forEach( d => {
         let obj = {}
@@ -89,12 +89,27 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
         array.push(obj);
     });
 
+    const outsideStateContent = {
+        element: "#chart-bornOutsideState",
+        data: array,
+        keys: columnNames,
+        value: xValue,
+        titleX: "Years",
+        titleY: "Population",
+        yScaleFormat: "millions"
+    },
+
+    outsideStateTT = {
+        title: "Born Outside the State - Year:",
+        datelabel: xValue,
+        format: "thousands",
+    },
+
     //  for each d in combineData get the key and assign to each d in d.values
 
-    const outsideStateChart = new GroupedBarChart(array, columnNames, xValue, "#chart-bornOutsideState", "grouped bar chart", "Millions");
-    // console.log(outsideStateChart);    
-    outsideStateChart.scaleFormatY = (d3.format(".2s"));//update yaxis scale
-    outsideStateChart.update();//update object
+    outsideStateChart = new GroupedBarChart(outsideStateContent);
+
+    outsideStateChart.addTooltip(outsideStateTT);
 
 }).catch(function(error){
     console.log(error);
@@ -110,9 +125,25 @@ d3.csv("../data/Demographics/CNA33.csv").then( data => {
             d[columnNames[i]] = +d[columnNames[i]];
         }
         return d;
-    });
+    }), 
+        houseHoldsContent = {
+            element: "#chart-households",
+            data: valueData,
+            keys: columnNames,
+            value: xValue,
+            titleX: "Years",
+            titleY: "Number of Households",
+            yScaleFormat: "millions"
+        },
 
-    const houseHoldsChart = new GroupedBarChart(valueData, columnNames, xValue, "#chart-households", "Years", "Number of Households");
+        houseHoldsTT = {
+            title: "Number of Households - Year:",
+            datelabel: xValue,
+            format: "thousands",
+        },
+
+        houseHoldsChart = new GroupedBarChart(houseHoldsContent);
+        houseHoldsChart.addTooltip(houseHoldsTT);
    
 
 
@@ -131,9 +162,26 @@ d3.csv("../data/Demographics/CNA29.csv").then( data => {
             d[columnNames[i]] = +d[columnNames[i]];
         }
         return d;
-    });
+    }),
+    houseHoldCompositionContent = {
+        element: "#chart-householdComposition",
+        data: valueData,
+        keys: columnNames,
+        value: xValue,
+        titleX: "Person per Household",
+        titleY: "Number of Households",
+        yScaleFormat: "millions"
+    },
 
-const houseHoldCompositionChart = new GroupedBarChart(valueData, columnNames, xValue, "#chart-householdComposition", "Person per Household ", "Number of Households");
+    houseHoldCompositionTT = {
+        title: "Person per Household:",
+        datelabel: xValue,
+        format: "thousands",
+    },
+
+    houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent);
+    houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
+    houseHoldCompositionChart.hideRate(true);
    
 }).catch(function(error){
     console.log(error);

@@ -1,14 +1,23 @@
 class GroupedBarChart{
 
     // constructor function
-    constructor (_data, _keys, _xValue, _element, _titleX, _titleY){
+    constructor (obj){
 
-        this.d = _data;
-        this.keys = _keys;
-        this.xV = _xValue;
-        this.e = _element;
-        this.titleX = _titleX; // grouped bar c
-        this.titleY = _titleY; // millions
+        // this.d = _data;//
+        // this.keys = _keys;
+        // this.xV = _xValue;//
+        // this.e = _element;//
+        // this.titleX = _xTitle;//
+        // this.titleY = _titleY;//
+
+        this.e = obj.element;
+        this.d = obj.data;
+        this.keys = obj.keys;
+        this.xV = obj.value;
+        this.colourScheme = obj.colour;
+        this.titleX = obj.titleX;
+        this.titleY = obj.titleY;
+        this.yScaleFormat = obj.yScaleFormat || "thousands";
 
         // create the c area
         this.init();
@@ -105,6 +114,13 @@ class GroupedBarChart{
         let c = this;
     
     }
+
+    // getKeys(){
+    //     let c = this;
+    //         c.colour.domain(c.d.map(d => { return d.key; }));
+    //         c.keysTest = c.colour.domain();
+    //         console.log("test", c.d);
+    // }
     
     update(){
         let c = this;
@@ -329,7 +345,7 @@ class GroupedBarChart{
     mousemove(d, e, a){
         let c = this,
             x = c.x0(d[c.xV]), 
-            y = 20,
+            y = -20,
             tooltipX = c.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
@@ -337,28 +353,7 @@ class GroupedBarChart{
 
             c.newToolTip.style("visibility","visible");
             c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
-
-            key.forEach( (v,idx) => {
-                let id = "#bcd-tt" + idx,
-                    div = c.newToolTip.select(id),
-                    p = div.select(".bcd-text"),
-                    newD = data[key[idx]],
-                    oldD = prevData ? prevData[key[idx]] : null,
-                    diff = prevData ? (newD -  oldD)/oldD: 0, 
-                    indicator = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
-                    indicatorColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
-                    rate = indicator !== "" ? d3.format(".1%")(diff) : "N/A",
-                    vString = c.valueFormat !=="undefined"? c.valueFormat(data[key[idx]]) : data[key[idx]];
-
-                    c.newToolTipTitle.text(c.title + " " + (d[c.xV])); //label needs to be passed to this function 
-
-                    div.select(".bcd-rect").style("background-color", c.colour(v));
-                    p.select(".bcd-text-title").text(v);
-                    p.select(".bcd-text-value").text(vString);
-                    p.select(".bcd-text-rate").text((rate));
-                    p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
-
-            });
+            c.ttContent(data,prevData, key);
     }
 
     getTooltipPosition(mouseX) {
@@ -389,7 +384,11 @@ class GroupedBarChart{
                 break;
         
             case "euros":
-                return "undefined";
+                return locale.format("$,.0f");
+                break;
+
+            case "euros2":
+                return locale.format("$,.2f");
                 break;
         
             case "thousands":
@@ -422,6 +421,29 @@ class GroupedBarChart{
             d3.selectAll(c.e + " .bcd-text-rate").style("display", "block");
         }
         // value ? c.svg.selectAll(".bcd-text-indicator").style("display", "none") : c.svg.selectAll(".bcd-text-indicator").style("display", "block");
+    }
+
+    ttContent(d,pD,k){
+        let c = this;
+        k.forEach( (v,i) => {
+            let id = "#bcd-tt" + i,
+                div = c.newToolTip.select(id),
+                p = div.select(".bcd-text"),
+                newD = d[k[i]],
+                oldD = pD ? pD[k[i]] : null,
+                diff = pD ? (newD -  oldD)/oldD: 0, 
+                indicator = diff > 0 ? " ▲" : diff < 0 ? " ▼" : "",
+                indicatorColour = diff > 0 ? "#20c997" : diff < 0 ? "#da1e4d" : "#f8f8f8",
+                rate = indicator !== "" ? d3.format(".1%")(diff) : "N/A",
+                vString = c.valueFormat ? c.valueFormat(newD) : newD;
+                c.newToolTipTitle.text(c.title + " " + (d[c.xV])); //label needs to be passed to this function 
+                div.select(".bcd-rect").style("background-color", c.colour(v));
+                p.select(".bcd-text-title").text(v);
+                p.select(".bcd-text-value").text(vString);
+                p.select(".bcd-text-rate").text((rate));
+                p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+
+        });
     }
 
     textWrap(text, width, xpos = 0, limit=3) {
