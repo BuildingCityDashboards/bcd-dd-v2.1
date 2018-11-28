@@ -114,13 +114,6 @@ class GroupedBarChart{
         let c = this;
     
     }
-
-    // getKeys(){
-    //     let c = this;
-    //         c.colour.domain(c.d.map(d => { return d.key; }));
-    //         c.keysTest = c.colour.domain();
-    //         console.log("test", c.d);
-    // }
     
     update(){
         let c = this;

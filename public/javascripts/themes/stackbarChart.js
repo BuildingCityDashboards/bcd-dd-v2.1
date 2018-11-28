@@ -401,9 +401,13 @@ class StackBarChart {
                 break;
         
             case "percentage":
-                return d3.format(".2%");
+                return d3.format(".0%");
                 break;
         
+            case "percentage2":
+                return d3.format(".2%");
+                break;
+
             default:
                 return "undefined";
         }

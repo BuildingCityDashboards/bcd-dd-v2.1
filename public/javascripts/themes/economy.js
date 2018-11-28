@@ -200,7 +200,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             tooltipContent = {
                 title: "Dublin County - Year",
                 datelabel: "year",
-                valueFormat: "euros",
+                format: "euros",
             };
             
             disosableIncomeContent = {
@@ -209,8 +209,8 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 keys: key,
                 value: "year",
                 titleX: "Years",
-                titleY: "€",
-                // yScaleFormat: "percentage"
+                titleY: "",
+                yScaleFormat: "euros"
             };
 
         const disosableIncomeChart = new GroupedBarChart(disosableIncomeContent);
@@ -319,7 +319,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             const tooltipContent = {
                 title: "Oversea Vistors (Millions) - Year",
                 datelabel: xValue,
-                valueFormat: "thousands",
+                format: "thousands",
             },
 
             overseasVisitorContent = {
