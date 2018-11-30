@@ -8,25 +8,15 @@
     width: calc((100% - 6%));
 }
 
-/* override for row */
-.row {
-    margin-right: -.375rem;
-    margin-left: -.375rem;
-}
 
 @media (min-width: 576px){
     .container {
         margin-left:2.5%;
         margin-right:2.5%;
-        padding-left:12px;
-        padding-right:12px;
+        /* padding-left:12px;
+        padding-right:12px; */
         /* override bootstrap */
         width: calc((100% - 5%));
-    }
-
-    .row {
-        margin-right: -.75rem;
-        margin-left: -.75rem;
     }
 }
 

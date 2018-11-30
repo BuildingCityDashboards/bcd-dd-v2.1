@@ -29,7 +29,7 @@
 }
 
 .nav-link{
-    padding-right: 0;
+    padding: 0;
     float: left;
     font-weight: 600;
     color: #f8f8f8;
@@ -87,11 +87,11 @@
 .side-menu__toggler{
     position: fixed;
     top: 0;
-    width: 4rem;
-    height: 4rem;
-    background-color: var(--vivid-cyan);
+    width: 3rem;
+    height: 3rem;
+    background-color: #001e36;
     border: none;
-    padding: 1.25rem;
+    padding: .75rem;
     /* cursor: pointer; */
     z-index: 8000;
     border-radius: 0;

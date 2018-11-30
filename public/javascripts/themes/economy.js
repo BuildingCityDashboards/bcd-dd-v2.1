@@ -24,11 +24,11 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             
         const emp = keys[0],
               unemp = QNQ22.columns[4],
-              fData = filterbyDate(QNQ22, "date", "Jan 01  2006"),
+              fData = filterbyDate(QNQ22, "date", "Jan 01  2001"),
               aNest = d3Nest(annual, groupBy),
               unempData = stackNest(fData, "label", "region" , unemp),
               empData = stackNest(fData, "label", "region" , emp),
-              grouping = ["Dublin", "Ireland"],
+              grouping = ["Dublin", "Rest of Ireland"],
               unempContent = {
                 element: "#chart-unemp-rate",
                 data: aNest,
@@ -50,11 +50,11 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               unemploymentStack = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
                 
               employmentStack.tickNumber = 5;
-              employmentStack.pagination(empData, "#chart-employment", 24, 2, "year", "Thousands - Quarter:");
+              employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
               employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
               unemploymentStack.tickNumber = 5;
-              unemploymentStack.pagination(unempData, "#chartNew", 24, 2, "year", "Thousands - Quarter:");
+              unemploymentStack.pagination(unempData, "#chartNew", 24, 3, "year", "Thousands - Quarter:");
               unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
         const employmentLine = new MultiLineChart(empContent);

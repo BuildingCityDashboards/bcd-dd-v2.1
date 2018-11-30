@@ -23,11 +23,12 @@ let eN = d3.select("#chart-employment-sector").node(),
     // margins
     m.t = eW < bP ? 20 : 30;
     m.b = eW < bP ? 10 : 30;
-    m.r = 0;
-    m.l = 0;
+    m.r = 15;
+    m.l = 15;
 
-let width = eW - m.l - m.r,
+let width = eW - m.r -m.l,
     height = aR - m.t - m.b,
+    
     svg = d3.select("#chart-employment-sector")
             .append("svg")
             .attr("width", width)
@@ -60,8 +61,8 @@ d3.json("../data/Economy/QLF07.json").then( data => {
       .enter().append("div")
         .attr("class", "node")
         .attr("title", function(d) { return d.data.name + "\n" + format(d.value); })
-        .style("left", function(d) { return d.x0 + "px"; })
-        .style("top", function(d) { return d.y0 + "px"; })
+        .style("left", function(d) { return d.x0 + 30 + "px"; })
+        .style("top", function(d) { return d.y0 + 42 + "px"; })
         .style("width", function(d) { return d.x1 - d.x0 + "px"; })
         .style("height", function(d) { return d.y1 - d.y0 + "px"; })
         .style("background", function(d) { 

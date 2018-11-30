@@ -43,6 +43,10 @@ router.get('/housing', function(req, res, next) {
   res.render('themes_housing', { title: 'Housing' });
 });
 
+router.get('/new-layout', function(req, res, next) {
+  res.render('themes/themesNew', { title: 'Themes New Layout' });
+});
+
 /* API csv routes for themes */
 router.get('/api/opw', function(req, res, next) {
   res.download('public/data/opw.csv');

@@ -182,7 +182,7 @@ class DataGlanceLine{
         c.eW = c.eN.getBoundingClientRect().width; 
         
         // dimensions margins, width and height
-        c.m = [30, 10, 25, 10];
+        c.m = [20, 10, 25, 10];
         c.w = c.eW - c.m[1] - c.m[3];
         c.h = 120 - c.m[0] - c.m[2];
 
@@ -197,7 +197,7 @@ class DataGlanceLine{
 
             // setting the line values ranges
             c.x = d3.scaleTime().range([0, c.w-5]);
-            c.y = d3.scaleLinear().range([c.h + c.m[1], 0]);
+            c.y = d3.scaleLinear().range([c.h -10, 0]);
                 
             // setup the line chart function
             c.line = d3.line()
@@ -220,7 +220,7 @@ class DataGlanceLine{
             c.svg = d3.select(c.e)
                 .append("svg")
                 .attr("width", c.w + c.m[1] + c.m[3])
-                .attr("height", c.h + c.m[0] + c.m[2])
+                .attr("height", c.h + c.m[0])
                     .append("g")
                     .attr("transform", "translate(" + c.m[3] + "," + "20" + ")");
         
@@ -259,7 +259,7 @@ class DataGlanceLine{
             // latest date label
             c.svg.append("text")
                 .attr("x", c.w)
-                .attr("y", c.h + 30)
+                .attr("y", c.h - 5)
                 .attr("text-anchor", "end")// move to css
                 .attr("class", "label employment")
                 .attr("fill", "#f8f9fabd")// move to css
@@ -268,7 +268,7 @@ class DataGlanceLine{
             // first date label
             c.svg.append("text")
                 .attr("x", 0)
-                .attr("y", c.h + 30)
+                .attr("y", c.h - 5)
                 .attr("text-anchor", "start")// move to css
                 .attr("class", "label employment")
                 .attr("fill", "#f8f9fabd")// move to css
@@ -312,7 +312,7 @@ class GroupedBarChart{
         let eWidth = eNode.getBoundingClientRect().width; 
         
         // margin
-        c.m = [30, 10, 25, 10]
+        c.m = [20, 10, 25, 10];
         
         c.width = eWidth - c.m[1] - c.m[3];
         c.height = 120 - c.m[0] - c.m[2];
@@ -321,7 +321,7 @@ class GroupedBarChart{
         const svg = d3.select(c.element)
             .append("svg")
             .attr("width", c.width + c.m[1] + c.m[3])
-            .attr("height", c.height + c.m[0] + c.m[2]);
+            .attr("height", c.height + c.m[0]);
        
         // add the g to the svg and transform by top and left margin
         c.g = svg.append("g")
@@ -343,13 +343,13 @@ class GroupedBarChart{
             .paddingInner(0.1);
     
         c.y = d3.scaleLinear()
-            .range([c.height + c.m[1], 0]);
+            .range([c.height, 0]);
     
         // Start Month
         c.g.append("text")
             .attr("class", "label")
             .attr("x", 0)
-            .attr("y", c.height + 30)
+            .attr("y", c.height -5)
             .attr("text-anchor", "start")
             .attr("fill", "#f8f9fabd")
             .text(c.data[0].date);
@@ -358,7 +358,7 @@ class GroupedBarChart{
         c.g.append("text")
             .attr("class", "label")
             .attr("x", c.width)
-            .attr("y", c.height + 30)
+            .attr("y", c.height -5)
             .attr("text-anchor", "end")
             .attr("fill", "#f8f9fabd")
             .text(c.data[last].date);
@@ -403,7 +403,7 @@ class GroupedBarChart{
             .attr("x", d => { return c.x1(d.key); })
             .attr("y", d => { return c.y(d.value); })
             .attr("width", c.x1.bandwidth())
-            .attr("height", d => { return (c.height - c.y(d.value) + c.m[1] ) ; })
+            .attr("height", d => { return (c.height - c.y(d.value) - c.m[0] ) ; })
             .attr("rx","2")
             .attr("ry","2")
             .attr("fill", "rgba(29, 158, 201, 0.6)");

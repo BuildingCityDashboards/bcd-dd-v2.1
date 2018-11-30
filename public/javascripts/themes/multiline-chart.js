@@ -32,13 +32,14 @@ class MultiLineChart{
         
             c.width = c.width || eW - m.l - m.r;
             c.height = c.height || aR - m.t - m.b;
+            c.maxHeight = aR - m.t;
 
             // d3.select(c.element).select("svg").remove(); // I might need this yet
     
             // add the svg to the target element
             c.svg = d3.select(c.element)
                 .append("svg")
-                .attr("width", c.width + m.l + m.r + 5)
+                .attr("width", c.width + m.l + m.r)
                 .attr("height", c.height + m.t + m.b);
        
             // add the g to the svg and transform by top and left margin
@@ -401,7 +402,7 @@ class MultiLineChart{
         let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
             // move the tooltip
             g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
-            c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
+            c.newToolTip.style("left", tooltipX + "px").style("bottom", tooltipY + "px");
     }
 
     getTooltipPosition([mouseX, mouseY]) {
@@ -700,7 +701,7 @@ class MultiLineChart{
                     
                 if(d !== undefined){
                     
-                    c.updatePosition(c.x(d.date), 80);
+                    c.updatePosition(c.x(d.date), c.maxHeight);
                     c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
                     tooltip.attr("transform", "translate(" + c.x(d.date) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
                     c.focus.select(".focus_line").attr("transform", "translate(" + c.x(d.date) + ", 0)");

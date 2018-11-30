@@ -119,8 +119,13 @@ a:hover {
     fill: #6c757d;
 }
 
-.light .legend-line{
+.light .legend-line, .light .btn-page:hover, .light .btn-page:focus, .light .btn-page.active{
   stroke: #6c757d;
+  color: #6c757d;
+}
+
+.light .horizontal-line{
+  stroke: #c4cdd5;
 }
 
 .legendText{
@@ -136,6 +141,13 @@ a:hover {
 .chart-holder{
   margin-right: -1rem;
   border-radius: .325rem;
+}
+
+.chart-holder-border{
+  border: 1px solid #8080802e;
+  border-radius: 12px;
+  box-shadow: 0 0 16px #ccc;
+  padding: 1rem;
 }
 
 /* Colour Utilities Classes */
