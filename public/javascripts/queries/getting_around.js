@@ -8,8 +8,8 @@
 
 
 let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
-    minZoom: min_zoom,
-    maxZoom: max_zoom,
+    minZoom: min_zoom+1,
+    maxZoom: max_zoom-1, //seems to fix 503 tileserver errors
     attribution: stamenTonerAttrib
 });
 
