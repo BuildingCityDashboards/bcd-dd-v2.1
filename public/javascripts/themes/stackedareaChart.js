@@ -32,7 +32,7 @@ class StackedAreaChart {
         c.margin.top = elementWidth < breakPoint ? 40 : 50;
         c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
 
-        c.margin.right = elementWidth < breakPoint ? 20 : 140;
+        c.margin.right = elementWidth < breakPoint ? 20 : 145;
         c.margin.left = elementWidth < breakPoint ? 20 : 60;
         
         c.width = elementWidth - c.margin.left - c.margin.right;
@@ -106,7 +106,7 @@ class StackedAreaChart {
             .text(c.titleY);
 
         // call the legend method
-        c.addLegend();
+        // c.addLegend();
         c.drawTooltip();
     }
 
@@ -182,6 +182,7 @@ class StackedAreaChart {
         c.stack = d3.stack().keys(c.keys);
         c.data = (c.stack(c.nestedData));
 
+        c.drawLegend();
         c.update();
     }
 
@@ -228,7 +229,7 @@ class StackedAreaChart {
             .data(c.data)
             .transition(c.t())
             .attr("d", c.area)
-            .style("fill-opacity", 0.75)
+            .style("fill-opacity", 0.55)
             .style("fill", (d) => {return c.colour(d.key);});
             
     
@@ -239,52 +240,169 @@ class StackedAreaChart {
     
     }
 
-    addLegend(){
-        let c = this;
+        //replacing old legend method with new inline labels
+        drawLegend() {
+            // chart (c) object, vlaue (v), colour (z), line height(lH)
+            let c = this,
+                g = c.g,
+                v = c.value,
+                z = c.colour,
+                lH = 10;
+            
+            // data values for last readable value
+            const lines = c.data.map(d => {
+                    let obj = {},
+                        vs = d.filter(idFilter),
+                        s = vs.length -1;
+                        // sF = d.data.length -1;
+                        obj.key = d.key;
+                        // obj.last = vs[s][v];
+                        obj.x = c.x(vs[s].data.date);
+                        // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
+                        obj.y = c.y(vs[s][1]);
+                    return obj;
 
-        // create legend group
-        var legend = c.g.append("g")
-            .attr("transform", "translate(0,0)");
+            });
+    
+        //     const circles = c.data.map(d => {
+        //         let obj = {},
+        //             vs = d.filter(idFilter),
+        //             s = vs.length -1;
+        //             // sF = d.data.length -1;
+        //             obj.key = d.key;
+        //             // obj.last = vs[s][v];
+        //             obj.x = c.x(vs[s].data.date);
+        //             // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
+        //             obj.y = c.y(vs[s][1]);
+        //         return obj;
 
-        // create legend array, this needs to come from the data.
-        c.legendArray = [];
+        // });
+            // Define a custom force to stop labels going outside the svg
+            const forceClamp = (min, max) => {
+                    let nodes;
+                    const force = () => {
+                    nodes.forEach(n => {
+                        if (n.y > max) n.y = max;
+                        if (n.y < min) n.y = min;
+                    });
+                    };
+                    force.initialize = (_) => nodes = _;
+                    return force;
+            }
+    
+            // Set up the force simulation
+            const force = d3.forceSimulation()
+                .nodes(lines)
+                .force("collide", d3.forceCollide(lH/2))
+                // .force("y", d3.forceY(d => d.y).strength(4))  
+                .force("x", d3.forceX(d => d.x).strength(4))   
+                .force("clamp", forceClamp(0, c.height-4))
+                .stop();
+    
+                // Execute the simulation
+                for (let i = 0; i < 300; i++) force.tick();
+    
+            // Add labels
+            const legendNames = g.selectAll(".label-legend").data(lines, d => d.y);
+                  legendNames.exit().remove();
+    
+            // const legendCircles = g.selectAll(".legend-circles").data(circles, d => d.y);
+            //       legendCircles.exit().remove();
+    
+            const legendGroup = legendNames.enter().append("g")
+                    .attr("class", "label-legend")
+                    .attr("transform", d => "translate(" + d.x + ", " + d.y + ")");
+    
+            // const legendGC = legendCircles.enter().append("g")
+            //         .attr("class", "legend-circles")
+            //         .attr("transform", d => "translate(" + d.x + ", " + d.y + ")");
+                
+                legendGroup.append("text")
+                    .attr("class", "legendText")
+                    .attr("id", d => d.key)
+                    .attr("dy", ".01em")
+                    .text(d => d.key)
+                    // .call(c.textWrap, 110, 6)
+                    .attr("fill", d => z(d.key))
+                    .attr("alignment-baseline", "middle")
+                    .attr("dx", ".5em")
+                    .attr("x", 6);
+            
+                // legendGroup.append("line")
+                //     .attr("class", "clegend-line")
+                //     .attr("x1", 2)
+                //     .attr("x2", 12)
+                //     .attr("stroke", d => z(d.key))
+                //     .attr("stroke-width","10px");
+                
+                legendGroup.append("circle")
+                    .attr("class", "l-circle")
+                    .attr("cx", "6")
+                    .attr("r", "4")
+                    .attr("fill", d => z(d.key));
+    
+            // check if number
+            function isNum(d) {
+                return !isNaN(d);
+              }
+    
+            //filter out the NaN
+            function idFilter(d) {
+               return isNum(d[1]) ? true : false; 
+            }
+
+            function bouncer(arr) {
+                return arr.filter(x =>{
+                });
+            }
+        }
+
+    // addLegend(){
+    //     let c = this;
+
+    //     // create legend group
+    //     var legend = c.g.append("g")
+    //         .attr("transform", "translate(0,0)");
+
+    //     // create legend array, this needs to come from the data.
+    //     c.legendArray = [];
         
-        c.keys.forEach( (d) => {
+    //     c.keys.forEach( (d) => {
 
-            let obj = {};
-                obj.label = d;
-                obj.colour = c.colour(d);
-                c.legendArray.push(obj);
-        });
-        c.legendArray.reverse();
+    //         let obj = {};
+    //             obj.label = d;
+    //             obj.colour = c.colour(d);
+    //             c.legendArray.push(obj);
+    //     });
+    //     c.legendArray.reverse();
 
-        // get data and enter onto the legend group
-        let legends = legend.selectAll(".legend")
-            .data(c.legendArray)
-            .enter().append("g")
-            .attr("class", "legend")
-            .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
-            .attr("id", (d,i) => "legend-item" + i )
-            .style("font", "12px sans-serif");
+    //     // get data and enter onto the legend group
+    //     let legends = legend.selectAll(".legend")
+    //         .data(c.legendArray)
+    //         .enter().append("g")
+    //         .attr("class", "legend")
+    //         .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
+    //         .attr("id", (d,i) => "legend-item" + i )
+    //         .style("font", "12px sans-serif");
         
-        // add legend boxes    
-        legends.append("rect")
-            .attr("class", "legendRect")
-            .attr("x", c.width + 10)
-            .attr("width", 25)
-            .attr("height", 25)
-            .attr("fill", d => { return d.colour; })
-            .attr("fill-opacity", 0.75);
+    //     // add legend boxes    
+    //     legends.append("rect")
+    //         .attr("class", "legendRect")
+    //         .attr("x", c.width + 10)
+    //         .attr("width", 25)
+    //         .attr("height", 25)
+    //         .attr("fill", d => { return d.colour; })
+    //         .attr("fill-opacity", 0.75);
 
-        legends.append("text")
-            .attr("class", "legendText")
-            // .attr("x", c.width + 40)
-            .attr("y", 12)
-            .attr("dy", ".025em")
-            .attr("text-anchor", "start")
-            .text(d => { return d.label; })
-            .call(c.textWrap, 110, c.width + 34); 
-    }
+    //     legends.append("text")
+    //         .attr("class", "legendText")
+    //         // .attr("x", c.width + 40)
+    //         .attr("y", 12)
+    //         .attr("dy", ".025em")
+    //         .attr("text-anchor", "start")
+    //         .text(d => { return d.label; })
+    //         .call(c.textWrap, 110, c.width + 34); 
+    // }
 
     drawGridLines(){
         let c = this;
@@ -530,49 +648,6 @@ class StackedAreaChart {
             }
 
         }
-
-    OlddrawTooltip(){
-        let c = this;
-
-        let tooltipTextContainer = c.g.select(".tooltip-group")
-          .append("g")
-            .attr("class","tooltip-text")
-            .attr("fill","#f8f8f8");
-
-        let tooltip = tooltipTextContainer
-            .append("rect")
-            .attr("class", "tooltip-container")
-            .attr("width", c.ttWidth)
-            .attr("height", c.ttHeight)
-            .attr("rx", c.ttBorderRadius)
-            .attr("ry", c.ttBorderRadius)
-            .attr("fill","#001f35e6")
-            .attr("stroke", "#6c757d")
-            .attr("stroke-width", 2);
-
-        let tooltipTitle = tooltipTextContainer
-          .append("text")
-            .text("test tooltip")
-            .attr("class", "tooltip-title")
-            .attr("x", 5)
-            .attr("y", 16)
-            .attr("dy", ".35em")
-            .style("fill", "#a5a5a5");
-
-        let tooltipDivider = tooltipTextContainer
-            .append("line")
-                .attr("class", "tooltip-divider")
-                .attr("x1", 0)
-                .attr("x2", c.ttWidth)
-                .attr("y1", 31)
-                .attr("y2", 31)
-                .style("stroke", "#6c757d");
-
-        let tooltipBody = tooltipTextContainer
-                .append("g")
-                .attr("class","tooltip-body")
-                .attr("transform", "translate(5,45)");
-    }
 
     updatePosition(xPosition, yPosition){
         let c = this,

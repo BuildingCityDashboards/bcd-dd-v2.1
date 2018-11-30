@@ -38,8 +38,8 @@ class GroupedBarChart{
         c.m.t = elementWidth < breakPoint ? 40 : 50;
         c.m.b = elementWidth < breakPoint ? 30 : 80;
 
-        c.m.right = elementWidth < breakPoint ? 20 : 120;
-        c.m.left = elementWidth < breakPoint ? 20 : 80;
+        c.m.right = elementWidth < breakPoint ? 20 : 140;
+        c.m.left = elementWidth < breakPoint ? 20 : 60;
         
         c.w = elementWidth - c.m.left - c.m.right;
         c.height = aspectRatio - c.m.t - c.m.b;
@@ -101,7 +101,7 @@ class GroupedBarChart{
         c.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (c.height/2))
-            .attr("y", -50)
+            .attr("y", -45)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(c.titleY);

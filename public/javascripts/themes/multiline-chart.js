@@ -32,7 +32,6 @@ class MultiLineChart{
         
             c.width = c.width || eW - m.l - m.r;
             c.height = c.height || aR - m.t - m.b;
-            c.maxHeight = aR - m.t;
 
             // d3.select(c.element).select("svg").remove(); // I might need this yet
     
@@ -122,7 +121,6 @@ class MultiLineChart{
         let c = this;
             c.colour.domain(c.data.map(d => { return d.key; }));
             c.keys = c.colour.domain();
-            console.log("this is the keys", c.data);
     }
 
     // needs to be called everytime the data changes
@@ -402,7 +400,7 @@ class MultiLineChart{
         let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition]);
             // move the tooltip
             g.select(".bcd-tooltip").attr("transform", "translate(" + tooltipX + ", " + tooltipY +")");
-            c.newToolTip.style("left", tooltipX + "px").style("bottom", tooltipY + "px");
+            c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
     }
 
     getTooltipPosition([mouseX, mouseY]) {
@@ -541,7 +539,6 @@ class MultiLineChart{
             r = c.getElement(".bcd-text-rate");     
 
             if(value){
-                console.log("value of hide", value);
                 i.style("display", "none");
                 r.style("display", "none");
             }
@@ -701,7 +698,7 @@ class MultiLineChart{
                     
                 if(d !== undefined){
                     
-                    c.updatePosition(c.x(d.date), c.maxHeight);
+                    c.updatePosition(c.x(d.date), 80);
                     c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
                     tooltip.attr("transform", "translate(" + c.x(d.date) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
                     c.focus.select(".focus_line").attr("transform", "translate(" + c.x(d.date) + ", 0)");
@@ -716,7 +713,7 @@ class MultiLineChart{
             g = c.g,
             v = c.value,
             z = c.colour,
-            lH = 18;
+            lH = 12;
         
         // data values for last readable value
         const lines = c.data.map(d => {
@@ -759,14 +756,14 @@ class MultiLineChart{
         // Set up the force simulation
         const force = d3.forceSimulation()
             .nodes(lines)
-            .force("collide", d3.forceCollide(lH / 2))
-            .force("y", d3.forceY(d => d.y).strength(1))  
-            .force("x", d3.forceX(d => d.x).strength(1))   
+            .force("collide", d3.forceCollide(lH/2))
+            // .force("y", d3.forceY(d => d.y).strength(4))  
+            .force("x", d3.forceX(d => d.x).strength(2))   
             .force("clamp", forceClamp(0, c.height))
             .stop();
 
             // Execute the simulation
-            for (let i = 0; i < 30; i++) force.tick();
+            for (let i = 0; i < 300; i++) force.tick();
 
         // Add labels
         const legendNames = g.selectAll(".label-legend").data(lines, d => d.y);

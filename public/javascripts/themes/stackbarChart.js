@@ -27,10 +27,10 @@ class StackBarChart {
         c.m = { };
 
         c.m.t = eW < bP ? 10 : 50;
-        c.m.b = eW < bP ? 30 : 60;
+        c.m.b = eW < bP ? 30 : 80;
 
-        c.m.r = eW < bP ? 12.5 : 100;
-        c.m.l = eW < bP ? 20 : 80;
+        c.m.r = eW < bP ? 12.5 : 140;
+        c.m.l = eW < bP ? 20 : 60;
         
         c.width = eW - c.m.l - c.m.r;
         c.height = aR - c.m.t - c.m.b;
@@ -89,7 +89,7 @@ class StackBarChart {
         c.yLabel = c.g.append("text")
             .attr("class", "titleY")
             .attr("x", - (c.height/2))
-            .attr("y", -50)
+            .attr("y", -45)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
