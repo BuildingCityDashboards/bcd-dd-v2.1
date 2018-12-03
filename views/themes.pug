@@ -10,13 +10,12 @@ block append head
 
 block navigation
     +navbar("navbar navbar-expand-lg bg-dark fixed-top","/","Dublin Dashboard", "Themes")
-    +subnavbar("bcd-nav bg-dark fixed-top mt-5 container-fluid")
-    include component/side_nav
+    //- include component/side_nav
 
 block content
   .content.bg-dark-blue
     .container
-      header.header.mt-5.pt-5
+      header.header.mt-5.py-5
         .row
           .col-md-12
             h1= title
@@ -33,6 +32,9 @@ block content
               |<img height='15px' width='15px' src='/images/calendar-w.svg'> .
               |For deeper data exploration, see our 
               |<a href="../queries"> Queries</a> and <a href="../tools"> Tools</a>.
+
+      .subnav
+        +subnavbar("bcd-nav")
             
     section#transport.section-header.bg-dark-blue
       .wrap

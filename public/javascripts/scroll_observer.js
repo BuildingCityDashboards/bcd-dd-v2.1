@@ -4,9 +4,9 @@
     anchors: null,
     headers: null,
     intersectionOptions: {
-      root: null,
-      rootMargin: "10px",
-      threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+      root: this.headers,
+      rootMargin: "-300px -300px -300px -300px",
+      threshold: [0,0.1,0.25,0.75,1],
     },
     prev: null,
     observer: null,
@@ -62,6 +62,24 @@
 
   };
 
-
   subNavList.init();
-  console.log("test", subNavList);
+
+  function checkSubNav(){
+    
+    let subnav = $(".subnav"),
+        osH = $("nav.navbar").outerHeight();
+
+    if ($(window).scrollTop() > subnav.offset().top - osH) {
+      subnav.css("height", subnav.children().css("top", osH).outerHeight());
+      subnav.children().addClass("fixed-top bg-dark");
+
+    } 
+    else {
+      subnav.css("height", "").children().css("top", "");
+      subnav.children().removeClass("fixed-top bg-dark");
+    }
+
+  }
+
+  checkSubNav();
+  $(window).on("scroll", checkSubNav);
