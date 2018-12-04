@@ -6,10 +6,9 @@
  * Test support for DOM node methods on Firefox
  */
 
-
 let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
     minZoom: min_zoom+1,
-    maxZoom: max_zoom-1, //seems to fix 503 tileserver errors
+    maxZoom: max_zoom-2, //seems to fix 503 tileserver errors
     attribution: stamenTonerAttrib
 });
 
@@ -281,8 +280,8 @@ function getCarparkContent(d_, k_) {
 //    if (d_.Totalspaces) {
 //        str += 'Capacity is ' + d_.Totalspaces + '<br>';
 //    }
-//    
-//    
+//
+//
     ;
     return str;
 }
@@ -345,6 +344,14 @@ d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
     processLuas(data);
 });
 
+d3.json("/data/Transport/LUAS_Green_Line.geojson").then(function (data) {
+    updateMapLuasLines(data);
+});
+
+d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function (data) {
+    updateMapLuasLines(data);
+});
+
 function processLuas(data_) {
 //    console.log("Luas- \n");
     data_.forEach(function (d) {
@@ -352,64 +359,47 @@ function processLuas(data_) {
         d.lng = +d.Longitude;
         d.StopID = +d.StopID;
         //add a property to act as key for filtering
-        d.type = "Luas stop";
-//        console.log("luas stop : " + d.Name);
+        d.type = "Luas tram stop";
+        //console.log("luas stop RT : " + d.Name);
     });
     updateMapLuas(data_);
 }
-//Luas lines as xml data from https://www.openstreetmap.org/relation/6975501#map=12/53.3071/-6.2206
-//and https://www.openstreetmap.org/relation/3616737#map=12/53.3192/-6.3175
-d3.xml("/data/Transport/luas-red-line.xml").then(function (xmlDoc) {
-    console.log("got luas line data \n"
-            + xmlDoc.getElementsByTagName("member")[3].getAttribute("type")
-            );
-    let luasLines = new L.OSM.DataLayer(xmlDoc);
-    gettingAroundMap.addLayer(luasLines);
-
-
-
-//        if (error) {
-//            console.log("error retrieving data");
-//            return;
-//        }
-    //TODO: convert to arrow function + d3
-    // let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-    //console.log("timestamp :" + timestamp);
-//     for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-//         let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-//         if (name === k_) {
-//             let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-// //                console.log("found:"+name+" spaces: "+spaces+"marker"
-// //                        +markerRefPrivate.getPopup().getContent());
-//             if (spaces !== ' ') {
-//                 return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent()
-//                         + '<br><br> Free spaces: '
-//                         + spaces
-//                         + '<br> Last updated: '
-//                         + timestamp
-//                         );
-//             } else {
-//                 return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent()
-//                         + '<br><br> No information on free spaces available'
-//                         + '<br> Last updated: '
-//                         + timestamp
-//                         );
-//             }
-//         }
-//     }
+//extend the marker class to hold data used when calling RT data
+let customMarker = L.Marker.extend({
+  options: {
+      id: 0
+   }
 });
-
 
 function updateMapLuas(data__) {
     luasCluster.clearLayers();
     gettingAroundMap.removeLayer(luasCluster);
     _.each(data__, function (d, k) {
 //        console.log("d: " + d.type + "\n");
-        let marker = L.marker(new L.LatLng(d.lat, d.lng), {icon: luasMapIcon});
+        let marker = new customMarker(
+          new L.LatLng(d.lat, d.lng),
+          {
+            icon: luasMapIcon,
+            id: d.StopID
+          }
+        );
         marker.bindPopup(getLuasContent(d));
+        marker.on('click', markerOnClickLuas);
         luasCluster.addLayer(marker);
+        //console.log("marker ID: "+marker.options.id);
     });
     gettingAroundMap.addLayer(luasCluster);
+
+}
+
+function updateMapLuasLines(data__) {
+    // luasCluster.clearLayers();
+    // gettingAroundMap.removeLayer(luasCluster);
+    var luasLines = new L.geoJSON(data__,{
+    });
+
+    gettingAroundMap.addLayer(luasLines);
+
 }
 
 function getLuasContent(d_) {
@@ -423,11 +413,16 @@ function getLuasContent(d_) {
     if (d_.LineID) {
         str += getLuasLine(d_.LineID) + ' Line <br>';
     }
-    if (d_.Name) {
-        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
-                + d_.StopID + '">Real Time Information</button>';
-    }
-    ;
+    // if (d_.StopID) {
+    //     // str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
+    //     //         + d_.StopID + '">Real Time Information</button>';
+    //
+    //     str+= displayLuasRT(d_.StopID);
+    //     console.log("Get luas rt for "+d_.StopID);
+    //
+    //     //console.log(displayLuasRT(d_.StopID));
+    // }
+    // ;
 
     return str;
 }
@@ -439,8 +434,9 @@ function getLuasLine(id_) {
 let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 
 
-function displayLuasRT(sid_) {
-    console.log("Button press " + luasAPIBase + sid_ + "\n");
+function markerOnClickLuas(e) {
+    let sid_ = this.options.id;
+    console.log("marker " + sid_ + "\n");
     //Luas API returns html, so we need to parse this into a suitable JSON structure
     d3.html(luasAPIBase + sid_)
             .then(function (htmlDoc) {
@@ -495,12 +491,13 @@ function displayLuasRT(sid_) {
                     //console.log("No RTPI data available");
                     luasRT += "No Real Time Information Available<br>";
                 }
-//                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
-                markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent().split(luasRTBase)[0] + luasRT);
-            });
+                console.log("luas rt marker ref" + luasRT);
 
+                //console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
+              markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent().split(luasRTBase)[0] + luasRT);
+            });
 }
-let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
+// let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
 
 //TODO: replace jQ w/ d3 version
 $("div").on('click', '.luasRTbutton', function () {
