@@ -5,12 +5,11 @@
     headers: null,
     intersectionOptions: {
       root: this.headers,
-      rootMargin: "-300px -300px -300px -300px",
-      threshold: [0,0.1,0.25,0.75,1],
+      rootMargin: "-200px",
     },
-    prev: null,
     observer: null,
 
+    //initialise method
     init() {
       this.handler = this.handler.bind(this);
       this.setUp();
@@ -23,18 +22,25 @@
       e.forEach(entry => {
         //get anchor href
         let href = "#" + entry.target.getAttribute("id"),
-            //find the anchor
-            link = this.anchors.find(a => a.getAttribute("href") === href);
-        
+
+            //find the current anchor
+            link = this.anchors.find(a => a.getAttribute("href") === href),
+            
+            //find element that has current active.
+            cActive = document.querySelector(".subnav-link.is-active");
+
         // check if we have an intersection add class
         if (entry.isIntersecting) {
           link.classList.add("is-active");
-          this.prev = entry.target.getAttribute("id");
+          // if current active exists remove else leave null
+          cActive ? cActive.classList.remove("is-active") : null;
         } 
         else {
           link.classList.remove("is-active");
         }
+
       });
+  
     },
 
     setUp() {
@@ -53,33 +59,34 @@
       });
     },
 
-    // tell the observer what to elements to observe the headers (h)
+    // tell the observer what elements to observe the headers (h)
     sections() {
       this.headers.forEach(h => {
         this.observer.observe(h);
       });
+
     }
 
   };
 
-  subNavList.init();
-
   function checkSubNav(){
     
-    let subnav = $(".subnav"),
-        osH = $("nav.navbar").outerHeight();
+    let subnav = $(".subnav"), //the themes navbar
+        osH = $("nav.navbar").outerHeight(), // get the height of the main navbar
+        child = subnav.children().hasClass("fixed-top"); // to check child element has already got class fixed-top.
 
-    if ($(window).scrollTop() > subnav.offset().top - osH) {
+    // if themes navbar already has fixed-top no need to check
+    if ($(window).scrollTop() > subnav.offset().top - osH && !child) {
       subnav.css("height", subnav.children().css("top", osH).outerHeight());
       subnav.children().addClass("fixed-top bg-dark");
-
     } 
-    else {
+    else if($(window).scrollTop() < subnav.offset().top - osH && child) {
       subnav.css("height", "").children().css("top", "");
-      subnav.children().removeClass("fixed-top bg-dark");
+      subnav.children().removeClass("fixed-top bg-dark sticky");
     }
 
   }
 
+  subNavList.init();
   checkSubNav();
-  $(window).on("scroll", checkSubNav);
+  $(window).on("scroll", checkSubNav);// might need to compare performance using a throttle/debounce
