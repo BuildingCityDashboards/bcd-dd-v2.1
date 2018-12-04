@@ -18,4 +18,4 @@ const locale = d3.formatLocale({
       formatMonthYear = d3.timeFormat("%b-%Y"),
       parseMonth = d3.timeParse("%b-%y"), // ie Jan-14 = Wed Jan 01 2014 00:00:00 GMT+0000 (Greenwich Mean Time)
       parseYear = d3.timeParse("%Y"),
-      parseYearMonth = d3.timeParse("%Y-%b"); // ie Jan-14 = Wed Jan 01 2014 00:00:00 
+      parseYearMonth = d3.timeParse("%Y-%b"); // ie 2014-Jan = Wed Jan 01 2014 00:00:00 

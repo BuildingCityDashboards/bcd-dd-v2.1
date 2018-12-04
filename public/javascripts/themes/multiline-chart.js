@@ -722,10 +722,10 @@ class MultiLineChart{
                 s = vs.length -1;
                 // sF = d.values.length -1;
                 obj.key = d.key;
-                obj.last = vs[s][v];
-                obj.x = c.x(vs[s].date);
+                obj.last = vs[s] ? vs[s][v] : null;
+                obj.x = vs[s] ? c.x(vs[s].date) : null;
                 // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
-                obj.y = c.y(vs[s][v]);
+                obj.y = vs[s] ? c.y(vs[s][v]) : null;
             return obj;
         });
 
@@ -734,9 +734,9 @@ class MultiLineChart{
                 vs = d.values.filter(idFilter),
                 s = vs.length -1;
                 obj.key = d.key;
-                obj.last = vs[s][v];
-                obj.x = c.x(vs[s].date);
-                obj.y = c.y(vs[s][v]);
+                obj.last = vs[s] ? vs[s][v]: null;
+                obj.x = vs[s] ? c.x(vs[s].date): null;
+                obj.y = vs[s] ? c.y(vs[s][v]): null;
             return obj;
         });
 

@@ -150,3 +150,6 @@ public/data/Transport/cpdata.xml
 public/data/Transport/traveltimes.json
 public/data/Transport/traveltimesroad.json
 public/data/api-status.json
+public/images/.DS_Store
+public/.DS_Store
+.DS_Store
