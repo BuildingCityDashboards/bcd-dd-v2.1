@@ -1,505 +1,505 @@
-date,region,value
-2005-Jan,Dublin,100
-2005-Feb,Dublin,102.1
-2005-Mar,Dublin,102.9
-2005-Apr,Dublin,103.6
-2005-May,Dublin,104.4
-2005-Jun,Dublin,104.5
-2005-Jul,Dublin,105.7
-2005-Aug,Dublin,107.8
-2005-Sep,Dublin,109.7
-2005-Oct,Dublin,112.8
-2005-Nov,Dublin,114.3
-2005-Dec,Dublin,114.9
-2006-Jan,Dublin,115.4
-2006-Feb,Dublin,116.4
-2006-Mar,Dublin,117.1
-2006-Apr,Dublin,119.2
-2006-May,Dublin,122.3
-2006-Jun,Dublin,125.5
-2006-Jul,Dublin,129.5
-2006-Aug,Dublin,133.3
-2006-Sep,Dublin,133.5
-2006-Oct,Dublin,134.4
-2006-Nov,Dublin,133.9
-2006-Dec,Dublin,134.1
-2007-Jan,Dublin,134.3
-2007-Feb,Dublin,135
-2007-Mar,Dublin,133.7
-2007-Apr,Dublin,134
-2007-May,Dublin,132.7
-2007-Jun,Dublin,133
-2007-Jul,Dublin,133.7
-2007-Aug,Dublin,133
-2007-Sep,Dublin,133.3
-2007-Oct,Dublin,133.3
-2007-Nov,Dublin,132.2
-2007-Dec,Dublin,130.5
-2008-Jan,Dublin,127.5
-2008-Feb,Dublin,126.8
-2008-Mar,Dublin,126.1
-2008-Apr,Dublin,126.1
-2008-May,Dublin,126.2
-2008-Jun,Dublin,124.9
-2008-Jul,Dublin,123.4
-2008-Aug,Dublin,121.7
-2008-Sep,Dublin,117.5
-2008-Oct,Dublin,113.4
-2008-Nov,Dublin,110.2
-2008-Dec,Dublin,108
-2009-Jan,Dublin,105
-2009-Feb,Dublin,100.3
-2009-Mar,Dublin,96.6
-2009-Apr,Dublin,92.9
-2009-May,Dublin,90.9
-2009-Jun,Dublin,89.8
-2009-Jul,Dublin,88.9
-2009-Aug,Dublin,89
-2009-Sep,Dublin,88.6
-2009-Oct,Dublin,86.6
-2009-Nov,Dublin,85
-2009-Dec,Dublin,83.2
-2010-Jan,Dublin,81.1
-2010-Feb,Dublin,79.2
-2010-Mar,Dublin,77.5
-2010-Apr,Dublin,77.3
-2010-May,Dublin,76.5
-2010-Jun,Dublin,75.5
-2010-Jul,Dublin,75
-2010-Aug,Dublin,75.4
-2010-Sep,Dublin,75.2
-2010-Oct,Dublin,74
-2010-Nov,Dublin,72.5
-2010-Dec,Dublin,71.2
-2011-Jan,Dublin,70.5
-2011-Feb,Dublin,69
-2011-Mar,Dublin,67.1
-2011-Apr,Dublin,66.6
-2011-May,Dublin,65.5
-2011-Jun,Dublin,64.6
-2011-Jul,Dublin,63.6
-2011-Aug,Dublin,62.3
-2011-Sep,Dublin,60.6
-2011-Oct,Dublin,59.4
-2011-Nov,Dublin,58.1
-2011-Dec,Dublin,57
-2012-Jan,Dublin,56
-2012-Feb,Dublin,54.5
-2012-Mar,Dublin,54.9
-2012-Apr,Dublin,54.7
-2012-May,Dublin,54.7
-2012-Jun,Dublin,55
-2012-Jul,Dublin,56.1
-2012-Aug,Dublin,56.8
-2012-Sep,Dublin,57.5
-2012-Oct,Dublin,58
-2012-Nov,Dublin,58.4
-2012-Dec,Dublin,59.1
-2013-Jan,Dublin,58.6
-2013-Feb,Dublin,57.6
-2013-Mar,Dublin,57.2
-2013-Apr,Dublin,57.9
-2013-May,Dublin,58.3
-2013-Jun,Dublin,60.4
-2013-Jul,Dublin,62.6
-2013-Aug,Dublin,64.2
-2013-Sep,Dublin,65.3
-2013-Oct,Dublin,65.7
-2013-Nov,Dublin,66.5
-2013-Dec,Dublin,67.3
-2014-Jan,Dublin,67.6
-2014-Feb,Dublin,68
-2014-Mar,Dublin,69
-2014-Apr,Dublin,71
-2014-May,Dublin,73.6
-2014-Jun,Dublin,76.6
-2014-Jul,Dublin,79.7
-2014-Aug,Dublin,81.5
-2014-Sep,Dublin,83.5
-2014-Oct,Dublin,84
-2014-Nov,Dublin,83.8
-2014-Dec,Dublin,82.6
-2015-Jan,Dublin,83
-2015-Feb,Dublin,82.6
-2015-Mar,Dublin,82.5
-2015-Apr,Dublin,82.6
-2015-May,Dublin,83.2
-2015-Jun,Dublin,84.3
-2015-Jul,Dublin,84.7
-2015-Aug,Dublin,85.6
-2015-Sep,Dublin,85.5
-2015-Oct,Dublin,86.6
-2015-Nov,Dublin,86.2
-2015-Dec,Dublin,85.8
-2016-Jan,Dublin,87
-2016-Feb,Dublin,86.4
-2016-Mar,Dublin,86.6
-2016-Apr,Dublin,87.1
-2016-May,Dublin,86.8
-2016-Jun,Dublin,87
-2016-Jul,Dublin,88.1
-2016-Aug,Dublin,89.4
-2016-Sep,Dublin,90.8
-2016-Oct,Dublin,91
-2016-Nov,Dublin,92.1
-2016-Dec,Dublin,91.5
-2017-Jan,Dublin,92
-2017-Feb,Dublin,92.2
-2017-Mar,Dublin,92.8
-2017-Apr,Dublin,92.1
-2017-May,Dublin,94.5
-2017-Jun,Dublin,96.3
-2017-Jul,Dublin,98.5
-2017-Aug,Dublin,99.9
-2017-Sep,Dublin,101
-2017-Oct,Dublin,101.5
-2017-Nov,Dublin,101.8
-2017-Dec,Dublin,102.2
-2018-Jan,Dublin,102.8
-2018-Feb,Dublin,103.7
-2018-Mar,Dublin,103.7
-2018-Apr,Dublin,104.1
-2018-May,Dublin,104.8
-2018-Jun,Dublin,104.9
-2018-Jul,Dublin,105.8
-2018-Aug,Dublin,106
-2018-Sep,Dublin,null
-2018-Oct,Dublin,null
-2018-Nov,Dublin,null
-2018-Dec,Dublin,null
-2005-Jan,Rest of Ireland,100
-2005-Feb,Rest of Ireland,100.1
-2005-Mar,Rest of Ireland,100.5
-2005-Apr,Rest of Ireland,101.2
-2005-May,Rest of Ireland,101.9
-2005-Jun,Rest of Ireland,103.3
-2005-Jul,Rest of Ireland,105.1
-2005-Aug,Rest of Ireland,106.7
-2005-Sep,Rest of Ireland,107.4
-2005-Oct,Rest of Ireland,109.3
-2005-Nov,Rest of Ireland,110
-2005-Dec,Rest of Ireland,111.4
-2006-Jan,Rest of Ireland,111.9
-2006-Feb,Rest of Ireland,111.8
-2006-Mar,Rest of Ireland,112.4
-2006-Apr,Rest of Ireland,113.9
-2006-May,Rest of Ireland,115.8
-2006-Jun,Rest of Ireland,117.4
-2006-Jul,Rest of Ireland,119.5
-2006-Aug,Rest of Ireland,121.6
-2006-Sep,Rest of Ireland,123.1
-2006-Oct,Rest of Ireland,123.8
-2006-Nov,Rest of Ireland,124.1
-2006-Dec,Rest of Ireland,125.5
-2007-Jan,Rest of Ireland,127.1
-2007-Feb,Rest of Ireland,127.7
-2007-Mar,Rest of Ireland,128.6
-2007-Apr,Rest of Ireland,129.2
-2007-May,Rest of Ireland,129.3
-2007-Jun,Rest of Ireland,128.7
-2007-Jul,Rest of Ireland,128.8
-2007-Aug,Rest of Ireland,128.8
-2007-Sep,Rest of Ireland,128.7
-2007-Oct,Rest of Ireland,128.1
-2007-Nov,Rest of Ireland,128.7
-2007-Dec,Rest of Ireland,128.4
-2008-Jan,Rest of Ireland,128.2
-2008-Feb,Rest of Ireland,126.9
-2008-Mar,Rest of Ireland,125.6
-2008-Apr,Rest of Ireland,124.1
-2008-May,Rest of Ireland,122.1
-2008-Jun,Rest of Ireland,120.9
-2008-Jul,Rest of Ireland,120.5
-2008-Aug,Rest of Ireland,119.5
-2008-Sep,Rest of Ireland,119.1
-2008-Oct,Rest of Ireland,117.2
-2008-Nov,Rest of Ireland,115.7
-2008-Dec,Rest of Ireland,113.5
-2009-Jan,Rest of Ireland,110.8
-2009-Feb,Rest of Ireland,108.5
-2009-Mar,Rest of Ireland,106.3
-2009-Apr,Rest of Ireland,104.6
-2009-May,Rest of Ireland,102.1
-2009-Jun,Rest of Ireland,100.2
-2009-Jul,Rest of Ireland,98.5
-2009-Aug,Rest of Ireland,96.6
-2009-Sep,Rest of Ireland,96.8
-2009-Oct,Rest of Ireland,96.2
-2009-Nov,Rest of Ireland,96.4
-2009-Dec,Rest of Ireland,95.5
-2010-Jan,Rest of Ireland,95.2
-2010-Feb,Rest of Ireland,94.1
-2010-Mar,Rest of Ireland,93.6
-2010-Apr,Rest of Ireland,92.8
-2010-May,Rest of Ireland,90.7
-2010-Jun,Rest of Ireland,89.9
-2010-Jul,Rest of Ireland,88.8
-2010-Aug,Rest of Ireland,87.9
-2010-Sep,Rest of Ireland,86.2
-2010-Oct,Rest of Ireland,84.6
-2010-Nov,Rest of Ireland,82.9
-2010-Dec,Rest of Ireland,81.8
-2011-Jan,Rest of Ireland,81.3
-2011-Feb,Rest of Ireland,79.8
-2011-Mar,Rest of Ireland,78.1
-2011-Apr,Rest of Ireland,76.6
-2011-May,Rest of Ireland,75.2
-2011-Jun,Rest of Ireland,74.1
-2011-Jul,Rest of Ireland,72.2
-2011-Aug,Rest of Ireland,70
-2011-Sep,Rest of Ireland,68.9
-2011-Oct,Rest of Ireland,67.7
-2011-Nov,Rest of Ireland,66.9
-2011-Dec,Rest of Ireland,66.1
-2012-Jan,Rest of Ireland,65.1
-2012-Feb,Rest of Ireland,63.9
-2012-Mar,Rest of Ireland,64.1
-2012-Apr,Rest of Ireland,62.4
-2012-May,Rest of Ireland,62
-2012-Jun,Rest of Ireland,61.5
-2012-Jul,Rest of Ireland,61.5
-2012-Aug,Rest of Ireland,61
-2012-Sep,Rest of Ireland,61.2
-2012-Oct,Rest of Ireland,61.1
-2012-Nov,Rest of Ireland,60.3
-2012-Dec,Rest of Ireland,60
-2013-Jan,Rest of Ireland,58.3
-2013-Feb,Rest of Ireland,58.1
-2013-Mar,Rest of Ireland,56.8
-2013-Apr,Rest of Ireland,56.7
-2013-May,Rest of Ireland,56.2
-2013-Jun,Rest of Ireland,56.9
-2013-Jul,Rest of Ireland,57.4
-2013-Aug,Rest of Ireland,57.5
-2013-Sep,Rest of Ireland,58.3
-2013-Oct,Rest of Ireland,58.7
-2013-Nov,Rest of Ireland,58.4
-2013-Dec,Rest of Ireland,59.1
-2014-Jan,Rest of Ireland,58.9
-2014-Feb,Rest of Ireland,59.1
-2014-Mar,Rest of Ireland,58.9
-2014-Apr,Rest of Ireland,59.5
-2014-May,Rest of Ireland,60.5
-2014-Jun,Rest of Ireland,61.2
-2014-Jul,Rest of Ireland,62.3
-2014-Aug,Rest of Ireland,63.3
-2014-Sep,Rest of Ireland,64.4
-2014-Oct,Rest of Ireland,65.5
-2014-Nov,Rest of Ireland,66.3
-2014-Dec,Rest of Ireland,66.4
-2015-Jan,Rest of Ireland,66.6
-2015-Feb,Rest of Ireland,66.5
-2015-Mar,Rest of Ireland,67
-2015-Apr,Rest of Ireland,68.1
-2015-May,Rest of Ireland,69.2
-2015-Jun,Rest of Ireland,70.5
-2015-Jul,Rest of Ireland,71.2
-2015-Aug,Rest of Ireland,72.2
-2015-Sep,Rest of Ireland,72.8
-2015-Oct,Rest of Ireland,73.5
-2015-Nov,Rest of Ireland,73.4
-2015-Dec,Rest of Ireland,73.5
-2016-Jan,Rest of Ireland,73.8
-2016-Feb,Rest of Ireland,73.5
-2016-Mar,Rest of Ireland,73.8
-2016-Apr,Rest of Ireland,74.2
-2016-May,Rest of Ireland,74.7
-2016-Jun,Rest of Ireland,76.1
-2016-Jul,Rest of Ireland,78.5
-2016-Aug,Rest of Ireland,79.5
-2016-Sep,Rest of Ireland,80.1
-2016-Oct,Rest of Ireland,80.7
-2016-Nov,Rest of Ireland,81.9
-2016-Dec,Rest of Ireland,81.7
-2017-Jan,Rest of Ireland,82.4
-2017-Feb,Rest of Ireland,82.7
-2017-Mar,Rest of Ireland,82.8
-2017-Apr,Rest of Ireland,84.1
-2017-May,Rest of Ireland,84.4
-2017-Jun,Rest of Ireland,85.1
-2017-Jul,Rest of Ireland,87.4
-2017-Aug,Rest of Ireland,88.8
-2017-Sep,Rest of Ireland,90.2
-2017-Oct,Rest of Ireland,90.4
-2017-Nov,Rest of Ireland,91.6
-2017-Dec,Rest of Ireland,92.1
-2018-Jan,Rest of Ireland,92.4
-2018-Feb,Rest of Ireland,92.9
-2018-Mar,Rest of Ireland,94.1
-2018-Apr,Rest of Ireland,95.7
-2018-May,Rest of Ireland,96.2
-2018-Jun,Rest of Ireland,98
-2018-Jul,Rest of Ireland,98.5
-2018-Aug,Rest of Ireland,98.9
-2018-Sep,Rest of Ireland,null
-2018-Oct,Rest of Ireland,null
-2018-Nov,Rest of Ireland,null
-2018-Dec,Rest of Ireland,null
-2005-Jan,National,100
-2005-Feb,National,100.8
-2005-Mar,National,101.4
-2005-Apr,National,102.1
-2005-May,National,102.8
-2005-Jun,National,103.7
-2005-Jul,National,105.3
-2005-Aug,National,107.1
-2005-Sep,National,108.2
-2005-Oct,National,110.6
-2005-Nov,National,111.5
-2005-Dec,National,112.6
-2006-Jan,National,113.2
-2006-Feb,National,113.5
-2006-Mar,National,114.1
-2006-Apr,National,115.8
-2006-May,National,118.2
-2006-Jun,National,120.3
-2006-Jul,National,123
-2006-Aug,National,125.8
-2006-Sep,National,126.8
-2006-Oct,National,127.6
-2006-Nov,National,127.6
-2006-Dec,National,128.6
-2007-Jan,National,129.7
-2007-Feb,National,130.3
-2007-Mar,National,130.5
-2007-Apr,National,131
-2007-May,National,130.6
-2007-Jun,National,130.3
-2007-Jul,National,130.6
-2007-Aug,National,130.4
-2007-Sep,National,130.4
-2007-Oct,National,130
-2007-Nov,National,130
-2007-Dec,National,129.2
-2008-Jan,National,128.1
-2008-Feb,National,127
-2008-Mar,National,125.9
-2008-Apr,National,124.8
-2008-May,National,123.5
-2008-Jun,National,122.3
-2008-Jul,National,121.6
-2008-Aug,National,120.3
-2008-Sep,National,118.8
-2008-Oct,National,116.2
-2008-Nov,National,114.1
-2008-Dec,National,111.9
-2009-Jan,National,109
-2009-Feb,National,106
-2009-Mar,National,103.2
-2009-Apr,National,100.9
-2009-May,National,98.5
-2009-Jun,National,96.9
-2009-Jul,National,95.5
-2009-Aug,National,94.3
-2009-Sep,National,94.2
-2009-Oct,National,93.1
-2009-Nov,National,92.8
-2009-Dec,National,91.5
-2010-Jan,National,90.6
-2010-Feb,National,89.2
-2010-Mar,National,88.1
-2010-Apr,National,87.6
-2010-May,National,86.1
-2010-Jun,National,85.1
-2010-Jul,National,84.2
-2010-Aug,National,84
-2010-Sep,National,83
-2010-Oct,National,81.6
-2010-Nov,National,79.9
-2010-Dec,National,78.7
-2011-Jan,National,78
-2011-Feb,National,76.5
-2011-Mar,National,74.7
-2011-Apr,National,73.7
-2011-May,National,72.4
-2011-Jun,National,71.3
-2011-Jul,National,69.8
-2011-Aug,National,68
-2011-Sep,National,66.6
-2011-Oct,National,65.4
-2011-Nov,National,64.3
-2011-Dec,National,63.3
-2012-Jan,National,62.3
-2012-Feb,National,60.9
-2012-Mar,National,61.2
-2012-Apr,National,60.2
-2012-May,National,60
-2012-Jun,National,59.9
-2012-Jul,National,60.5
-2012-Aug,National,60.6
-2012-Sep,National,61.1
-2012-Oct,National,61.3
-2012-Nov,National,61.1
-2012-Dec,National,61.3
-2013-Jan,National,60.2
-2013-Feb,National,59.5
-2013-Mar,National,58.7
-2013-Apr,National,59
-2013-May,National,59
-2013-Jun,National,60.5
-2013-Jul,National,62
-2013-Aug,National,62.8
-2013-Sep,National,63.8
-2013-Oct,National,64.2
-2013-Nov,National,64.5
-2013-Dec,National,65.3
-2014-Jan,National,65.4
-2014-Feb,National,65.6
-2014-Mar,National,66.1
-2014-Apr,National,67.5
-2014-May,National,69.3
-2014-Jun,National,71.3
-2014-Jul,National,73.5
-2014-Aug,National,74.9
-2014-Sep,National,76.5
-2014-Oct,National,77.3
-2014-Nov,National,77.6
-2014-Dec,National,77
-2015-Jan,National,77.3
-2015-Feb,National,77
-2015-Mar,National,77.3
-2015-Apr,National,77.9
-2015-May,National,78.8
-2015-Jun,National,80.1
-2015-Jul,National,80.7
-2015-Aug,National,81.7
-2015-Sep,National,82
-2015-Oct,National,82.9
-2015-Nov,National,82.6
-2015-Dec,National,82.5
-2016-Jan,National,83.2
-2016-Feb,National,82.7
-2016-Mar,National,83
-2016-Apr,National,83.5
-2016-May,National,83.7
-2016-Jun,National,84.5
-2016-Jul,National,86.4
-2016-Aug,National,87.6
-2016-Sep,National,88.6
-2016-Oct,National,89.1
-2016-Nov,National,90.2
-2016-Dec,National,89.9
-2017-Jan,National,90.5
-2017-Feb,National,90.7
-2017-Mar,National,91.1
-2017-Apr,National,91.4
-2017-May,National,92.8
-2017-Jun,National,94.1
-2017-Jul,National,96.4
-2017-Aug,National,97.9
-2017-Sep,National,99.2
-2017-Oct,National,99.5
-2017-Nov,National,100.3
-2017-Dec,National,100.8
-2018-Jan,National,101.2
-2018-Feb,National,102
-2018-Mar,National,102.6
-2018-Apr,National,103.6
-2018-May,National,104.3
-2018-Jun,National,105.3
-2018-Jul,National,106
-2018-Aug,National,106.3
-2018-Sep,National,null
-2018-Oct,National,null
-2018-Nov,National,null
-2018-Dec,National,null
+date,region,all,houses,apartments
+2005-Jan,Dublin,100,100,100
+2005-Feb,Dublin,102.1,101.7,103.3
+2005-Mar,Dublin,102.9,102.6,104.2
+2005-Apr,Dublin,103.6,103.7,104.2
+2005-May,Dublin,104.4,104.8,104.2
+2005-Jun,Dublin,104.5,105.1,103.7
+2005-Jul,Dublin,105.7,106.9,103.3
+2005-Aug,Dublin,107.8,108.9,104.6
+2005-Sep,Dublin,109.7,110.5,106.8
+2005-Oct,Dublin,112.8,114,108.4
+2005-Nov,Dublin,114.3,115.6,109.6
+2005-Dec,Dublin,114.9,116,111.2
+2006-Jan,Dublin,115.4,116.9,111
+2006-Feb,Dublin,116.4,118.1,111.6
+2006-Mar,Dublin,117.1,118.8,112.1
+2006-Apr,Dublin,119.2,120.7,114.4
+2006-May,Dublin,122.3,124.2,116.3
+2006-Jun,Dublin,125.5,127.8,118
+2006-Jul,Dublin,129.5,132.7,119.5
+2006-Aug,Dublin,133.3,136.6,122.7
+2006-Sep,Dublin,133.5,136.3,124.8
+2006-Oct,Dublin,134.4,137.7,124.7
+2006-Nov,Dublin,133.9,137,125.3
+2006-Dec,Dublin,134.1,137,125.9
+2007-Jan,Dublin,134.3,136.6,127.3
+2007-Feb,Dublin,135,137,128.5
+2007-Mar,Dublin,133.7,136.5,126.2
+2007-Apr,Dublin,134,138.2,123.6
+2007-May,Dublin,132.7,135.5,124.7
+2007-Jun,Dublin,133,136,124.1
+2007-Jul,Dublin,133.7,137,124
+2007-Aug,Dublin,133,136,124
+2007-Sep,Dublin,133.3,136.9,122.8
+2007-Oct,Dublin,133.3,137.2,122.3
+2007-Nov,Dublin,132.2,136.1,121.1
+2007-Dec,Dublin,130.5,133.1,122.3
+2008-Jan,Dublin,127.5,129,121.9
+2008-Feb,Dublin,126.8,127.8,122.5
+2008-Mar,Dublin,126.1,127.1,122.2
+2008-Apr,Dublin,126.1,128.3,120.5
+2008-May,Dublin,126.2,130.3,117.4
+2008-Jun,Dublin,124.9,130,114.4
+2008-Jul,Dublin,123.4,128.6,112.4
+2008-Aug,Dublin,121.7,126.8,110.2
+2008-Sep,Dublin,117.5,122.4,106.7
+2008-Oct,Dublin,113.4,119.6,100.9
+2008-Nov,Dublin,110.2,116.5,97.2
+2008-Dec,Dublin,108,114,94.8
+2009-Jan,Dublin,105,110.1,92.9
+2009-Feb,Dublin,100.3,105.1,89.1
+2009-Mar,Dublin,96.6,100.9,86.5
+2009-Apr,Dublin,92.9,96.6,84
+2009-May,Dublin,90.9,93.8,83
+2009-Jun,Dublin,89.8,92.7,81.9
+2009-Jul,Dublin,88.9,92.2,80.4
+2009-Aug,Dublin,89,93.5,78.8
+2009-Sep,Dublin,88.6,94.4,76.3
+2009-Oct,Dublin,86.6,92.1,74.8
+2009-Nov,Dublin,85,89.6,74.5
+2009-Dec,Dublin,83.2,87.5,73.3
+2010-Jan,Dublin,81.1,85,72.2
+2010-Feb,Dublin,79.2,82.8,71.6
+2010-Mar,Dublin,77.5,80.9,70.2
+2010-Apr,Dublin,77.3,80.4,70.8
+2010-May,Dublin,76.5,79.9,69.4
+2010-Jun,Dublin,75.5,79.2,67.4
+2010-Jul,Dublin,75,78.9,66
+2010-Aug,Dublin,75.4,79.3,66
+2010-Sep,Dublin,75.2,79.6,64.1
+2010-Oct,Dublin,74,78.4,63.1
+2010-Nov,Dublin,72.5,76.7,61.7
+2010-Dec,Dublin,71.2,75.2,61.4
+2011-Jan,Dublin,70.5,74,61.9
+2011-Feb,Dublin,69,72.4,61.1
+2011-Mar,Dublin,67.1,70.4,59.8
+2011-Apr,Dublin,66.6,69.8,59.7
+2011-May,Dublin,65.5,68.7,58.7
+2011-Jun,Dublin,64.6,67.8,57.4
+2011-Jul,Dublin,63.6,66.8,56.4
+2011-Aug,Dublin,62.3,65.3,56.1
+2011-Sep,Dublin,60.6,63.5,54.4
+2011-Oct,Dublin,59.4,62.3,53.5
+2011-Nov,Dublin,58.1,60.8,52.4
+2011-Dec,Dublin,57,59.6,51.7
+2012-Jan,Dublin,56,58.6,50.3
+2012-Feb,Dublin,54.5,57.2,48.4
+2012-Mar,Dublin,54.9,58,46.7
+2012-Apr,Dublin,54.7,57.7,46.3
+2012-May,Dublin,54.7,57.8,45.8
+2012-Jun,Dublin,55,58.2,45.4
+2012-Jul,Dublin,56.1,59.5,45.9
+2012-Aug,Dublin,56.8,60.2,46.3
+2012-Sep,Dublin,57.5,60.9,46.9
+2012-Oct,Dublin,58,61.4,47.7
+2012-Nov,Dublin,58.4,61.9,47.7
+2012-Dec,Dublin,59.1,62.8,47.9
+2013-Jan,Dublin,58.6,62,48.4
+2013-Feb,Dublin,57.6,60.9,48.2
+2013-Mar,Dublin,57.2,60.5,48
+2013-Apr,Dublin,57.9,61.3,47.9
+2013-May,Dublin,58.3,61.8,48
+2013-Jun,Dublin,60.4,64.2,48.6
+2013-Jul,Dublin,62.6,66.8,49.1
+2013-Aug,Dublin,64.2,68.7,49.4
+2013-Sep,Dublin,65.3,70,49.8
+2013-Oct,Dublin,65.7,70.3,50.4
+2013-Nov,Dublin,66.5,70.9,51.9
+2013-Dec,Dublin,67.3,71.9,52.7
+2014-Jan,Dublin,67.6,71.8,54.4
+2014-Feb,Dublin,68,72.2,54.5
+2014-Mar,Dublin,69,73.4,55.4
+2014-Apr,Dublin,71,75.6,56.5
+2014-May,Dublin,73.6,78.2,58.7
+2014-Jun,Dublin,76.6,81.6,60.5
+2014-Jul,Dublin,79.7,85.1,62.1
+2014-Aug,Dublin,81.5,86.6,65.1
+2014-Sep,Dublin,83.5,88.1,68.7
+2014-Oct,Dublin,84,88.5,70.1
+2014-Nov,Dublin,83.8,88.4,70.4
+2014-Dec,Dublin,82.6,87.2,69.8
+2015-Jan,Dublin,83,87.5,70.1
+2015-Feb,Dublin,82.6,87.4,68.9
+2015-Mar,Dublin,82.5,88.1,66.4
+2015-Apr,Dublin,82.6,88.1,66.2
+2015-May,Dublin,83.2,88.3,67
+2015-Jun,Dublin,84.3,89.1,68.7
+2015-Jul,Dublin,84.7,89.3,69.9
+2015-Aug,Dublin,85.6,90.2,70.7
+2015-Sep,Dublin,85.5,90.1,71.3
+2015-Oct,Dublin,86.6,90.9,73.1
+2015-Nov,Dublin,86.2,91.4,70.9
+2015-Dec,Dublin,85.8,91,70.2
+2016-Jan,Dublin,87,92.3,71
+2016-Feb,Dublin,86.4,91.4,70.9
+2016-Mar,Dublin,86.6,91.7,70.8
+2016-Apr,Dublin,87.1,91.9,72.1
+2016-May,Dublin,86.8,91.3,72.8
+2016-Jun,Dublin,87,91.3,73.6
+2016-Jul,Dublin,88.1,92.9,73.3
+2016-Aug,Dublin,89.4,94.3,74.4
+2016-Sep,Dublin,90.8,95.7,75.7
+2016-Oct,Dublin,91,95.9,76
+2016-Nov,Dublin,92.1,96.8,77.4
+2016-Dec,Dublin,91.5,96.6,76.3
+2017-Jan,Dublin,92,97,76.9
+2017-Feb,Dublin,92.2,97.4,76.6
+2017-Mar,Dublin,92.8,98.3,76.4
+2017-Apr,Dublin,92.1,97.6,75.6
+2017-May,Dublin,94.5,99.7,78
+2017-Jun,Dublin,96.3,101.6,79.2
+2017-Jul,Dublin,98.5,103.9,81.2
+2017-Aug,Dublin,99.9,105.2,83.2
+2017-Sep,Dublin,101,106.3,84.6
+2017-Oct,Dublin,101.5,106.8,85.4
+2017-Nov,Dublin,101.8,107.1,86
+2017-Dec,Dublin,102.2,107,87.6
+2018-Jan,Dublin,102.8,107.9,87.8
+2018-Feb,Dublin,103.7,109.4,87.3
+2018-Mar,Dublin,103.7,109.4,86.9
+2018-Apr,Dublin,104.1,109.5,87.8
+2018-May,Dublin,104.8,110.1,88.9
+2018-Jun,Dublin,104.9,109.9,89.7
+2018-Jul,Dublin,105.8,110.9,90.1
+2018-Aug,Dublin,106,111,90.9
+2018-Sep,Dublin,null,null,null
+2018-Oct,Dublin,null,null,null
+2018-Nov,Dublin,null,null,null
+2018-Dec,Dublin,null,null,null
+2005-Jan,Rest of Ireland,100,null,null
+2005-Feb,Rest of Ireland,100.1,null,null
+2005-Mar,Rest of Ireland,100.5,null,null
+2005-Apr,Rest of Ireland,101.2,null,null
+2005-May,Rest of Ireland,101.9,null,null
+2005-Jun,Rest of Ireland,103.3,null,null
+2005-Jul,Rest of Ireland,105.1,null,null
+2005-Aug,Rest of Ireland,106.7,null,null
+2005-Sep,Rest of Ireland,107.4,null,null
+2005-Oct,Rest of Ireland,109.3,null,null
+2005-Nov,Rest of Ireland,110,null,null
+2005-Dec,Rest of Ireland,111.4,null,null
+2006-Jan,Rest of Ireland,111.9,null,null
+2006-Feb,Rest of Ireland,111.8,null,null
+2006-Mar,Rest of Ireland,112.4,null,null
+2006-Apr,Rest of Ireland,113.9,null,null
+2006-May,Rest of Ireland,115.8,null,null
+2006-Jun,Rest of Ireland,117.4,null,null
+2006-Jul,Rest of Ireland,119.5,null,null
+2006-Aug,Rest of Ireland,121.6,null,null
+2006-Sep,Rest of Ireland,123.1,null,null
+2006-Oct,Rest of Ireland,123.8,null,null
+2006-Nov,Rest of Ireland,124.1,null,null
+2006-Dec,Rest of Ireland,125.5,null,null
+2007-Jan,Rest of Ireland,127.1,null,null
+2007-Feb,Rest of Ireland,127.7,null,null
+2007-Mar,Rest of Ireland,128.6,null,null
+2007-Apr,Rest of Ireland,129.2,null,null
+2007-May,Rest of Ireland,129.3,null,null
+2007-Jun,Rest of Ireland,128.7,null,null
+2007-Jul,Rest of Ireland,128.8,null,null
+2007-Aug,Rest of Ireland,128.8,null,null
+2007-Sep,Rest of Ireland,128.7,null,null
+2007-Oct,Rest of Ireland,128.1,null,null
+2007-Nov,Rest of Ireland,128.7,null,null
+2007-Dec,Rest of Ireland,128.4,null,null
+2008-Jan,Rest of Ireland,128.2,null,null
+2008-Feb,Rest of Ireland,126.9,null,null
+2008-Mar,Rest of Ireland,125.6,null,null
+2008-Apr,Rest of Ireland,124.1,null,null
+2008-May,Rest of Ireland,122.1,null,null
+2008-Jun,Rest of Ireland,120.9,null,null
+2008-Jul,Rest of Ireland,120.5,null,null
+2008-Aug,Rest of Ireland,119.5,null,null
+2008-Sep,Rest of Ireland,119.1,null,null
+2008-Oct,Rest of Ireland,117.2,null,null
+2008-Nov,Rest of Ireland,115.7,null,null
+2008-Dec,Rest of Ireland,113.5,null,null
+2009-Jan,Rest of Ireland,110.8,null,null
+2009-Feb,Rest of Ireland,108.5,null,null
+2009-Mar,Rest of Ireland,106.3,null,null
+2009-Apr,Rest of Ireland,104.6,null,null
+2009-May,Rest of Ireland,102.1,null,null
+2009-Jun,Rest of Ireland,100.2,null,null
+2009-Jul,Rest of Ireland,98.5,null,null
+2009-Aug,Rest of Ireland,96.6,null,null
+2009-Sep,Rest of Ireland,96.8,null,null
+2009-Oct,Rest of Ireland,96.2,null,null
+2009-Nov,Rest of Ireland,96.4,null,null
+2009-Dec,Rest of Ireland,95.5,null,null
+2010-Jan,Rest of Ireland,95.2,null,null
+2010-Feb,Rest of Ireland,94.1,null,null
+2010-Mar,Rest of Ireland,93.6,null,null
+2010-Apr,Rest of Ireland,92.8,null,null
+2010-May,Rest of Ireland,90.7,null,null
+2010-Jun,Rest of Ireland,89.9,null,null
+2010-Jul,Rest of Ireland,88.8,null,null
+2010-Aug,Rest of Ireland,87.9,null,null
+2010-Sep,Rest of Ireland,86.2,null,null
+2010-Oct,Rest of Ireland,84.6,null,null
+2010-Nov,Rest of Ireland,82.9,null,null
+2010-Dec,Rest of Ireland,81.8,null,null
+2011-Jan,Rest of Ireland,81.3,null,null
+2011-Feb,Rest of Ireland,79.8,null,null
+2011-Mar,Rest of Ireland,78.1,null,null
+2011-Apr,Rest of Ireland,76.6,null,null
+2011-May,Rest of Ireland,75.2,null,null
+2011-Jun,Rest of Ireland,74.1,null,null
+2011-Jul,Rest of Ireland,72.2,null,null
+2011-Aug,Rest of Ireland,70,null,null
+2011-Sep,Rest of Ireland,68.9,null,null
+2011-Oct,Rest of Ireland,67.7,null,null
+2011-Nov,Rest of Ireland,66.9,null,null
+2011-Dec,Rest of Ireland,66.1,null,null
+2012-Jan,Rest of Ireland,65.1,null,null
+2012-Feb,Rest of Ireland,63.9,null,null
+2012-Mar,Rest of Ireland,64.1,null,null
+2012-Apr,Rest of Ireland,62.4,null,null
+2012-May,Rest of Ireland,62,null,null
+2012-Jun,Rest of Ireland,61.5,null,null
+2012-Jul,Rest of Ireland,61.5,null,null
+2012-Aug,Rest of Ireland,61,null,null
+2012-Sep,Rest of Ireland,61.2,null,null
+2012-Oct,Rest of Ireland,61.1,null,null
+2012-Nov,Rest of Ireland,60.3,null,null
+2012-Dec,Rest of Ireland,60,null,null
+2013-Jan,Rest of Ireland,58.3,null,null
+2013-Feb,Rest of Ireland,58.1,null,null
+2013-Mar,Rest of Ireland,56.8,null,null
+2013-Apr,Rest of Ireland,56.7,null,null
+2013-May,Rest of Ireland,56.2,null,null
+2013-Jun,Rest of Ireland,56.9,null,null
+2013-Jul,Rest of Ireland,57.4,null,null
+2013-Aug,Rest of Ireland,57.5,null,null
+2013-Sep,Rest of Ireland,58.3,null,null
+2013-Oct,Rest of Ireland,58.7,null,null
+2013-Nov,Rest of Ireland,58.4,null,null
+2013-Dec,Rest of Ireland,59.1,null,null
+2014-Jan,Rest of Ireland,58.9,null,null
+2014-Feb,Rest of Ireland,59.1,null,null
+2014-Mar,Rest of Ireland,58.9,null,null
+2014-Apr,Rest of Ireland,59.5,null,null
+2014-May,Rest of Ireland,60.5,null,null
+2014-Jun,Rest of Ireland,61.2,null,null
+2014-Jul,Rest of Ireland,62.3,null,null
+2014-Aug,Rest of Ireland,63.3,null,null
+2014-Sep,Rest of Ireland,64.4,null,null
+2014-Oct,Rest of Ireland,65.5,null,null
+2014-Nov,Rest of Ireland,66.3,null,null
+2014-Dec,Rest of Ireland,66.4,null,null
+2015-Jan,Rest of Ireland,66.6,null,null
+2015-Feb,Rest of Ireland,66.5,null,null
+2015-Mar,Rest of Ireland,67,null,null
+2015-Apr,Rest of Ireland,68.1,null,null
+2015-May,Rest of Ireland,69.2,null,null
+2015-Jun,Rest of Ireland,70.5,null,null
+2015-Jul,Rest of Ireland,71.2,null,null
+2015-Aug,Rest of Ireland,72.2,null,null
+2015-Sep,Rest of Ireland,72.8,null,null
+2015-Oct,Rest of Ireland,73.5,null,null
+2015-Nov,Rest of Ireland,73.4,null,null
+2015-Dec,Rest of Ireland,73.5,null,null
+2016-Jan,Rest of Ireland,73.8,null,null
+2016-Feb,Rest of Ireland,73.5,null,null
+2016-Mar,Rest of Ireland,73.8,null,null
+2016-Apr,Rest of Ireland,74.2,null,null
+2016-May,Rest of Ireland,74.7,null,null
+2016-Jun,Rest of Ireland,76.1,null,null
+2016-Jul,Rest of Ireland,78.5,null,null
+2016-Aug,Rest of Ireland,79.5,null,null
+2016-Sep,Rest of Ireland,80.1,null,null
+2016-Oct,Rest of Ireland,80.7,null,null
+2016-Nov,Rest of Ireland,81.9,null,null
+2016-Dec,Rest of Ireland,81.7,null,null
+2017-Jan,Rest of Ireland,82.4,null,null
+2017-Feb,Rest of Ireland,82.7,null,null
+2017-Mar,Rest of Ireland,82.8,null,null
+2017-Apr,Rest of Ireland,84.1,null,null
+2017-May,Rest of Ireland,84.4,null,null
+2017-Jun,Rest of Ireland,85.1,null,null
+2017-Jul,Rest of Ireland,87.4,null,null
+2017-Aug,Rest of Ireland,88.8,null,null
+2017-Sep,Rest of Ireland,90.2,null,null
+2017-Oct,Rest of Ireland,90.4,null,null
+2017-Nov,Rest of Ireland,91.6,null,null
+2017-Dec,Rest of Ireland,92.1,null,null
+2018-Jan,Rest of Ireland,92.4,null,null
+2018-Feb,Rest of Ireland,92.9,null,null
+2018-Mar,Rest of Ireland,94.1,null,null
+2018-Apr,Rest of Ireland,95.7,null,null
+2018-May,Rest of Ireland,96.2,null,null
+2018-Jun,Rest of Ireland,98,null,null
+2018-Jul,Rest of Ireland,98.5,null,null
+2018-Aug,Rest of Ireland,98.9,null,null
+2018-Sep,Rest of Ireland,null,null,null
+2018-Oct,Rest of Ireland,null,null,null
+2018-Nov,Rest of Ireland,null,null,null
+2018-Dec,Rest of Ireland,null,null,null
+2005-Jan,National,100,100,100
+2005-Feb,National,100.8,100.9,100.2
+2005-Mar,National,101.4,101.6,100.2
+2005-Apr,National,102.1,102.4,100
+2005-May,National,102.8,103.2,100.2
+2005-Jun,National,103.7,104.3,99.9
+2005-Jul,National,105.3,106.2,100.1
+2005-Aug,National,107.1,107.8,101.5
+2005-Sep,National,108.2,108.8,103.1
+2005-Oct,National,110.6,111.1,105.2
+2005-Nov,National,111.5,112,106.5
+2005-Dec,National,112.6,113,108.4
+2006-Jan,National,113.2,113.7,109.3
+2006-Feb,National,113.5,114,110.2
+2006-Mar,National,114.1,114.7,110.9
+2006-Apr,National,115.8,116.3,112.5
+2006-May,National,118.2,118.8,114
+2006-Jun,National,120.3,121.1,115.3
+2006-Jul,National,123,124,116.7
+2006-Aug,National,125.8,126.7,119
+2006-Sep,National,126.8,127.6,120.9
+2006-Oct,National,127.6,128.5,121.8
+2006-Nov,National,127.6,128.5,122.4
+2006-Dec,National,128.6,129.6,123.1
+2007-Jan,National,129.7,130.6,124.4
+2007-Feb,National,130.3,131.1,125.3
+2007-Mar,National,130.5,131.6,124.4
+2007-Apr,National,131,132.5,123.4
+2007-May,National,130.6,131.8,124
+2007-Jun,National,130.3,131.5,123.6
+2007-Jul,National,130.6,132,123
+2007-Aug,National,130.4,131.7,122.7
+2007-Sep,National,130.4,131.9,121.9
+2007-Oct,National,130,131.4,121.5
+2007-Nov,National,130,131.5,120.9
+2007-Dec,National,129.2,130.5,120.9
+2008-Jan,National,128.1,129.5,120
+2008-Feb,National,127,128.2,119.5
+2008-Mar,National,125.9,126.9,119.5
+2008-Apr,National,124.8,126,118
+2008-May,National,123.5,125.1,115.7
+2008-Jun,National,122.3,124,114.1
+2008-Jul,National,121.6,123.3,112.7
+2008-Aug,National,120.3,122.2,110.8
+2008-Sep,National,118.8,120.7,108.8
+2008-Oct,National,116.2,118.7,104.6
+2008-Nov,National,114.1,116.8,101.5
+2008-Dec,National,111.9,114.5,99
+2009-Jan,National,109,111.7,95.8
+2009-Feb,National,106,108.7,92.3
+2009-Mar,National,103.2,105.8,89.8
+2009-Apr,National,100.9,103.6,86.5
+2009-May,National,98.5,101.1,84.3
+2009-Jun,National,96.9,99.5,82.1
+2009-Jul,National,95.5,98.1,80.3
+2009-Aug,National,94.3,97.1,78.2
+2009-Sep,National,94.2,97.6,76
+2009-Oct,National,93.1,96.5,74.6
+2009-Nov,National,92.8,96.1,73.9
+2009-Dec,National,91.5,94.8,73
+2010-Jan,National,90.6,93.8,72.2
+2010-Feb,National,89.2,92.3,71.5
+2010-Mar,National,88.1,91.3,70.3
+2010-Apr,National,87.6,90.5,70.8
+2010-May,National,86.1,89.1,69.4
+2010-Jun,National,85.1,88.3,68.2
+2010-Jul,National,84.2,87.5,67
+2010-Aug,National,84,87.2,66.7
+2010-Sep,National,83,86.2,65.4
+2010-Oct,National,81.6,84.8,64.4
+2010-Nov,National,79.9,83,63.1
+2010-Dec,National,78.7,81.7,62.5
+2011-Jan,National,78,80.8,62.5
+2011-Feb,National,76.5,79.3,61.5
+2011-Mar,National,74.7,77.4,60.3
+2011-Apr,National,73.7,76.2,59.9
+2011-May,National,72.4,75,58.7
+2011-Jun,National,71.3,74,57.5
+2011-Jul,National,69.8,72.5,56
+2011-Aug,National,68,70.7,54.4
+2011-Sep,National,66.6,69.4,52.4
+2011-Oct,National,65.4,68.1,51
+2011-Nov,National,64.3,66.9,50
+2011-Dec,National,63.3,65.8,49.5
+2012-Jan,National,62.3,64.6,48.6
+2012-Feb,National,60.9,63.2,47.5
+2012-Mar,National,61.2,63.7,46.4
+2012-Apr,National,60.2,62.7,45.7
+2012-May,National,60,62.6,45
+2012-Jun,National,59.9,62.5,44.5
+2012-Jul,National,60.5,63.1,44.7
+2012-Aug,National,60.6,63.3,44.5
+2012-Sep,National,61.1,63.7,45.1
+2012-Oct,National,61.3,63.8,45.7
+2012-Nov,National,61.1,63.6,45.9
+2012-Dec,National,61.3,63.9,46.2
+2013-Jan,National,60.2,62.5,46.9
+2013-Feb,National,59.5,61.8,47.1
+2013-Mar,National,58.7,60.9,46.9
+2013-Apr,National,59,61.3,46.8
+2013-May,National,59,61.3,46.9
+2013-Jun,National,60.5,62.9,47.1
+2013-Jul,National,62,64.5,47.4
+2013-Aug,National,62.8,65.5,47.6
+2013-Sep,National,63.8,66.6,47.6
+2013-Oct,National,64.2,67,48
+2013-Nov,National,64.5,67.2,48.6
+2013-Dec,National,65.3,68,49.4
+2014-Jan,National,65.4,67.9,50.4
+2014-Feb,National,65.6,68.1,51
+2014-Mar,National,66.1,68.5,51.8
+2014-Apr,National,67.5,70,52.7
+2014-May,National,69.3,71.8,54.3
+2014-Jun,National,71.3,73.9,55.7
+2014-Jul,National,73.5,76.2,57.3
+2014-Aug,National,74.9,77.5,59.5
+2014-Sep,National,76.5,78.8,62
+2014-Oct,National,77.3,79.7,63.4
+2014-Nov,National,77.6,80,64.3
+2014-Dec,National,77,79.5,64.6
+2015-Jan,National,77.3,79.8,65.1
+2015-Feb,National,77,79.7,64.6
+2015-Mar,National,77.3,80.1,63.9
+2015-Apr,National,77.9,80.8,63.5
+2015-May,National,78.8,81.7,63.7
+2015-Jun,National,80.1,82.8,64.4
+2015-Jul,National,80.7,83.4,65
+2015-Aug,National,81.7,84.3,65.7
+2015-Sep,National,82,84.6,66.2
+2015-Oct,National,82.9,85.5,67.3
+2015-Nov,National,82.6,85.6,66.5
+2015-Dec,National,82.5,85.5,66.3
+2016-Jan,National,83.2,86.3,66.8
+2016-Feb,National,82.7,85.6,66.9
+2016-Mar,National,83,85.8,67.2
+2016-Apr,National,83.5,86.2,68
+2016-May,National,83.7,86.2,68.6
+2016-Jun,National,84.5,87,69.7
+2016-Jul,National,86.4,89.2,70
+2016-Aug,National,87.6,90.5,70.8
+2016-Sep,National,88.6,91.6,71.5
+2016-Oct,National,89.1,92.1,71.9
+2016-Nov,National,90.2,93.2,73.1
+2016-Dec,National,89.9,93,72.8
+2017-Jan,National,90.5,93.5,73.7
+2017-Feb,National,90.7,93.8,73.8
+2017-Mar,National,91.1,94.2,74
+2017-Apr,National,91.4,94.6,74.1
+2017-May,National,92.8,95.8,75.4
+2017-Jun,National,94.1,97.2,75.9
+2017-Jul,National,96.4,99.6,77.4
+2017-Aug,National,97.9,101,79
+2017-Sep,National,99.2,102.4,80
+2017-Oct,National,99.5,102.7,81.1
+2017-Nov,National,100.3,103.6,81.9
+2017-Dec,National,100.8,103.9,83.1
+2018-Jan,National,101.2,104.6,83.2
+2018-Feb,National,102,105.3,84
+2018-Mar,National,102.6,105.9,84.6
+2018-Apr,National,103.6,106.7,86.1
+2018-May,National,104.3,107.3,86.9
+2018-Jun,National,105.3,108.4,87.7
+2018-Jul,National,106,109.2,88.3
+2018-Aug,National,106.3,109.4,89.1
+2018-Sep,National,null,null,null
+2018-Oct,National,null,null,null
+2018-Nov,National,null,null,null
+2018-Dec,National,null,null,null

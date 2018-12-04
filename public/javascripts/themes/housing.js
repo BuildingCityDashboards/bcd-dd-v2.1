@@ -436,6 +436,8 @@ Promise.all([
     const HPM06 = datafiles[11],
           HPM06R = HPM06.columns[1],
           HPM06V = HPM06.columns[2],
+          HPM06V2 = HPM06.columns[3],
+          HPM06V3 = HPM06.columns[3],
           HPM06D = HPM06.columns[0];
 
     // create content object
@@ -448,6 +450,8 @@ Promise.all([
             HPM06Charts.drawChart(); // draw axis
             HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
             HPM06Charts.addBaseLine(100); // add horizontal baseline
+
+    // add buttons to switch between total, housing and apartments
 
 }).catch(function(error){
         console.log(error);
