@@ -37,15 +37,25 @@
     p For additional information on particular modes of travel see our 
       |<a href="../themes#transport">Transport Themes</a>
     
-    div#chart-public-transport-select1
+    //div#chart-public-transport-select1
   
-  .col-lg-8
+  //.col-lg-8
     div.ml-5.pt-2
       <button type="button" class="btn btn-dark employment-btn public_transport_bikes" value="dublinBikes">Bikes</button>
       <button type="button" class="btn btn-dark employment-btn public_transport_buses" value="dublinBuses">Buses</button>
       <button type="button" class="btn btn-dark employment-btn public_transport_carparks" value="dublinCarparks">Car Parks</button>
       <button type="button" class="btn btn-dark employment-btn public_transport_luas" value="dublinLuas">Luas</button>
       <button type="button" class="btn btn-dark employment-btn public_transport_all" value="all" >All</button>
-    div#getting-around-map
+      
+  .col-md-8
+    <div class="btn-group d-flex">  
+      <button id="bikes-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinBikes">Bikes</button>
+      <button id="bus-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinBuses">Bus</button>
+      <button id="carparks-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinCarparks">Car Park</button>
+      <button id="luas-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="luasLayer">Luas</button>
+      <button id="motorways-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 disabled" value="motorways">Motorway</button>
+      <button id="trains-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 disabled" value="dublinLuas">Train</button>
+    </div>
+    #getting-around-map.mt-2
       
       
