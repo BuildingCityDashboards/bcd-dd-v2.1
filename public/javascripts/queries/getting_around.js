@@ -350,12 +350,12 @@ let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using un
 let luasCluster = L.markerClusterGroup();
 let luasLayer = L.layerGroup();
 let luasLines = new L.geoJSON(null, {
-    "style":{
-            "color":"#086fb8",
-            "weight":5,
-            "opacity": 0.65
-            
-        }
+    "style": {
+        "color": "#086fb8",
+        "weight": 5,
+        "opacity": 0.65
+
+    }
 }
 );
 let luasIcons; //layer holds markers positioned at ends of luas lines 
@@ -364,7 +364,7 @@ let luasIcons; //layer holds markers positioned at ends of luas lines
 let luasMapIconLine = L.icon({
     iconUrl: '/images/transport/rail-light-15-b.svg',
     iconSize: [30, 30], //orig size
-    iconAnchor: [20, -5] //,
+    iconAnchor: [25, -5] //,
             //popupAnchor: [-3, -76]
 });
 
@@ -430,7 +430,7 @@ function updateMapLuas(data__) {
     let m2 = L.marker(bridesGlen, {
         icon: luasMapIconLine
     });
-    
+
     luasIcons = L.layerGroup([m1, m2]);
     _.each(data__, function (d, k) {
         //        console.log("d: " + d.type + "\n");
@@ -565,17 +565,22 @@ function markerOnClickLuas(e) {
 //Adapt map features for various zoom levels
 gettingAroundMap.on('zoomend', function (ev) {
     chooseLookByZoom();
-    
+
 });
 
-function chooseLookByZoom(){
+function chooseLookByZoom() {
     console.log("Zoom: " + gettingAroundMap.getZoom());
 
     if (gettingAroundMap.getZoom() < 12) {
+        if (!gettingAroundMap.addLayer(luasIcons)) {
+            gettingAroundMap.addLayer(luasIcons);
+        }
         gettingAroundMap.removeLayer(luasLayer);
-        gettingAroundMap.addLayer(luasIcons);
+
     } else if (gettingAroundMap.getZoom() < 13) {
-        gettingAroundMap.removeLayer(luasIcons);
+        if (!gettingAroundMap.addLayer(luasIcons)) {
+            gettingAroundMap.addLayer(luasIcons);
+        }
         if (!gettingAroundMap.addLayer(luasLayer)) {
             gettingAroundMap.addLayer(luasLayer);
         }
@@ -583,6 +588,7 @@ function chooseLookByZoom(){
             layer.setIcon(luasMapIconSmall);
         });
     } else {
+        gettingAroundMap.removeLayer(luasIcons);
         if (!gettingAroundMap.addLayer(luasLayer)) {
             gettingAroundMap.addLayer(luasLayer);
         }
@@ -590,7 +596,7 @@ function chooseLookByZoom(){
             layer.setIcon(luasMapIconLarge);
         });
     }
-   
+
 }
 
 // let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
@@ -748,15 +754,15 @@ d3.select("#luas-checkbox").on("click", function () {
                 gettingAroundMap.removeLayer(luasLines);
                 gettingAroundMap.removeLayer(luasIcons);
                 gettingAroundMap.removeLayer(luasLayer);
-                
-                    
+
+
             }
 
         } else {
             cb.classed('active', true);
             if (!gettingAroundMap.hasLayer(luasLines)) {
-               gettingAroundMap.addLayer(luasLines);
-               chooseLookByZoom(); 
+                gettingAroundMap.addLayer(luasLines);
+                chooseLookByZoom();
             }
         }
     }
