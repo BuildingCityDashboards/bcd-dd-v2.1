@@ -24,8 +24,8 @@
 #getting-around-map {
         /*height: inherit;*/
         height: 500px;
-        width: 75%;
-        margin: 0;
+        width: 100%;
+        margin: 0px;
 }
 #chart-private-transport {
         /*height: inherit;*/
