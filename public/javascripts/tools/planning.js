@@ -233,9 +233,9 @@ function createGraphs(error, records) {
   if (maxChartDate > now) {
     maxChartDate = now;
   };
-//  console.log("minChartDate: " + JSON.stringify(minChartDate) +
-//    " | maxChartDate: " + JSON.stringify(maxChartDate) +
-//    "| now: " + now);
+  //  console.log("minChartDate: " + JSON.stringify(minChartDate) +
+  //    " | maxChartDate: " + JSON.stringify(maxChartDate) +
+  //    "| now: " + now);
   //Charts
   //    var numberRecordsND = dc.numberDisplay("#number-records-nd");
   timeChart = dc.barChart("#time-chart");
@@ -288,17 +288,17 @@ function createGraphs(error, records) {
     });
   });;
 
-//  var early = new Date(minChartDate);
-//  var day = ("0" + early.getDate()).slice(-2);
-//  var month = ("0" + (early.getMonth() + 1)).slice(-2);
-//  var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
-//  $('#start_date').val(earlyDay);
-//
-//  var late = new Date(maxChartDate);
-//  day = ("0" + late.getDate()).slice(-2);
-//  month = ("0" + (late.getMonth() + 1)).slice(-2);
-//  var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
-//  $('#end_date').val(lateDay);
+  //  var early = new Date(minChartDate);
+  //  var day = ("0" + early.getDate()).slice(-2);
+  //  var month = ("0" + (early.getMonth() + 1)).slice(-2);
+  //  var earlyDay = early.getFullYear() + "-" + (month) + "-" + (day);
+  //  $('#start_date').val(earlyDay);
+  //
+  //  var late = new Date(maxChartDate);
+  //  day = ("0" + late.getDate()).slice(-2);
+  //  month = ("0" + (late.getMonth() + 1)).slice(-2);
+  //  var lateDay = late.getFullYear() + "-" + (month) + "-" + (day);
+  //  $('#end_date').val(lateDay);
   updateMapData();
 }; //end of makeGraphs
 
@@ -355,7 +355,7 @@ d3.selectAll("button[type=checkbox]").on("click", function() {
     } //console.log("INACTIVE");
   }
   // console.log("active; " + cb.classed('active'));
-//  console.log("LAs checked array:" + authorityNamesChecked);
+  //  console.log("LAs checked array:" + authorityNamesChecked);
   authorityDim.filterFunction(function(d) {
     return authorityNamesChecked.includes(d);
   });
@@ -407,6 +407,7 @@ function getContent(d_) {
   //        str += '<strong>Decision date</strong>: ' + new Date(d_.properties.DecisionDate);
   //    }
   ;
+
   return str;
 }
 

@@ -16,10 +16,10 @@ let bikeClusterToggle = true,
   carparkClusterToggle = true;
 
 zoom = 11; //zoom on page load
-
+maxZoom = 15;
 let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
   minZoom: 10,
-  maxZoom: 15, //seems to fix 503 tileserver errors
+  maxZoom: maxZoom, //seems to fix 503 tileserver errors
   attribution: stamenTonerAttrib
 });
 
@@ -53,15 +53,17 @@ gettingAroundMap.addControl(osmGeocoder);
 /************************************
  * Bikes
  ************************************/
-let bikeCluster = L.markerClusterGroup(
-  //{
+let bikeCluster = new L.MarkerClusterGroup(null, {
+  disableClusteringAtZoom: 10,
+  spiderfyOnMaxZoom: false,
+  singleMarkerMode: true
+  // maxClusterRadius: 100,
   // iconCreateFunction: function(cluster) {
   //   return L.divIcon({
   //     html: '<b>' + cluster.getChildCount() + '</b>'
   //   });
   // }
-  //}
-);
+});
 
 let dublinBikeMapIcon = L.icon({
   iconUrl: '/images/transport/bicycle-15.svg',
@@ -90,7 +92,7 @@ function processBikes(data_) {
 };
 
 function updateMapBikes(data__) {
-  bikeCluster.clearLayers();
+  //bikeCluster.clearLayers();
   gettingAroundMap.removeLayer(bikeCluster);
   let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
   /*TODO: note impact on page load performance*/
