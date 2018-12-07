@@ -374,16 +374,18 @@ let luasMapIconLine = L.icon({
 });
 
 let luasMapIconLarge = L.icon({
-  iconUrl: '/images/transport/rail-light-15.svg',
+  // iconUrl: '/images/transport/rail-light-15-b.svg',
+  iconUrl: '/images/transport/rail-light-w-c-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
   //popupAnchor: [-3, -76]
 });
 
 let luasMapIconSmall = L.icon({
-  iconUrl: '/images/transport/rail-light-15.svg',
-  iconSize: [20, 20], //orig size
-  iconAnchor: [5, 5] //,
+  //iconUrl: '/images/transport/rail-light-15.svg',
+  iconUrl: '/images/transport/circle-stroked-15-b.svg',
+  iconSize: [15, 15], //orig size
+  iconAnchor: [iconAX / 2, iconAY / 2] //,
   //popupAnchor: [-3, -76]
 });
 
