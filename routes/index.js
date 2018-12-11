@@ -6,7 +6,7 @@ var qnq22_controller = require('../controllers/QNQ22Controller');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Dublin Dashboard', page:'page dark' });
+  res.render('index', { title: 'Dublin Dashboard', page:'page dark', active:'home' });
 });
 
 // GET request for list of all Local Authorities Documents.

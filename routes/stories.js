@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET themes page. */
 router.get('/', function(req, res, next) {
-  res.render('stories', { title: 'Stories Page' });
+  res.render('stories', { title: 'Stories Page', active:'stories'  });
 });
 
 router.get('/housing-dublin', function(req, res, next) {

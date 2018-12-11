@@ -36,7 +36,7 @@ Promise.all([
     },
 
     hEduTT = {
-        title: "Rent Inspections - Year:",
+        title: "",
         datelabel: xValue1,
         format: "thousands",
     },
@@ -51,7 +51,7 @@ Promise.all([
     },
 
     pFLevelTT = {
-        title: "Rent Inspections - Year:",
+        title: "",
         datelabel: xValue2,
         format: "thousands",
     },
@@ -66,7 +66,7 @@ Promise.all([
     },
 
     pSLevelTT = {
-        title: "Rent Inspections - Year:",
+        title: "Number of Pupils in Year ",
         datelabel: xValue3,
         format: "thousands",
     },
@@ -81,7 +81,7 @@ Promise.all([
     },
 
     sSLevelTT = {
-        title: "Rent Inspections - Year:",
+        title: "Number of Pupils in Year ",
         datelabel: xValue1,
         format: "thousands",
     },

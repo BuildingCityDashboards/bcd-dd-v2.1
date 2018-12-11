@@ -17,6 +17,7 @@ class MultiLineChart{
     // initialise method to draw c area
     init(){
         let c = this,
+
             eN = d3.select(c.element).node(),
             eW = eN.getBoundingClientRect().width,
             aR = eW < 800 ? eW * 0.55 : eW * 0.5,
@@ -30,11 +31,11 @@ class MultiLineChart{
             m.r = eW < bP ? 20 : 140;
             m.l = eW < bP ? 20 : 60;
         
-            c.width = c.width || eW - m.l - m.r;
-            c.height = c.height || aR - m.t - m.b;
+            c.width =  eW - m.l - m.r;
+            c.height = aR - m.t - m.b;
 
-            // d3.select(c.element).select("svg").remove(); // I might need this yet
-    
+            d3.select(c.element).select("svg").remove(); // I might need this yet
+            
             // add the svg to the target element
             c.svg = d3.select(c.element)
                 .append("svg")
@@ -53,11 +54,13 @@ class MultiLineChart{
             c.colour = d3.scaleOrdinal(cScheme);
             // set chart bisecector method
             c.bisectDate = d3.bisector( (d) => { return d.date; } ).left;
-    
+
+
     }
 
     drawChart(){
         let c = this;
+            c.init();
             c.addAxis();
             c.getKeys();
             c.drawTooltip();

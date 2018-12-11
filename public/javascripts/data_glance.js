@@ -67,8 +67,8 @@ Promise.all([
     });
 
     dataSet4.forEach( d => {
-        d.month = parseMonth(d.date);
-        d.label = formatMonth(d.month);
+        d.date = parseMonth(d.date);
+        d.label = formatMonth(d.date);
     });
     
     const dateFiltered = dataSet.filter( d => {
@@ -77,7 +77,7 @@ Promise.all([
 
     const date4Filtered = dataSet4.filter( d => {
         // return d.region === "Dublin";
-        return d.region === "Dublin" && !isNaN(d.value);
+        return d.region === "Dublin" && !isNaN(d.all);
     });
 
     const dublinData =  dataSet.filter( d => {
@@ -87,8 +87,6 @@ Promise.all([
     const dublinAnnualRate = dataSet2.filter( d => {
         return d.region === "Dublin";
     });
-
-    console.log("unemp data", dublinAnnualRate);
 
     // charts setup here
     const unemploy =  {
@@ -139,9 +137,9 @@ Promise.all([
     const priceIndex =  {
         d : date4Filtered,
         e : "#ap-glance",
-        yV:  "value",
-        xV:  "month",
-        sN:  "region",
+        yV: "all",
+        xV: "date",
+        sN: "region",
         dL: "label"
     },
         priceIndexChart = new DataGlanceLine(priceIndex);       

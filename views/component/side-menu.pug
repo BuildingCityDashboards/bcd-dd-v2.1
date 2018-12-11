@@ -2,13 +2,13 @@ include page-links.pug
 
 mixin nav-item(name, link)
     li.side-menu__nav-item
-        a.side-menu__nav-link(href="/"+link)
+        a.side-menu__nav-link(href="/"+link)(class=(active === name ? "active" : undefined))
             +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
             span= name
 
 mixin nav-dropdown(name, link)
-    li.side-menu__nav-item.dropdown
-        a.side-menu__nav-link.dropdown__link(href="/"+link)
+    li.side-menu__nav-item.dropdown(class=(active === name? "dropdown--show" : undefined))
+        a.side-menu__nav-link.dropdown__link(href="/"+link)(class=(active === name ? "active" : undefined))
             +svg("","icon__"+link)(class="icon icon--small side-menu__icon")
             span= name
         a.dropdown__toggle

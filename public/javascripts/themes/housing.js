@@ -453,6 +453,13 @@ Promise.all([
 
     // add buttons to switch between total, housing and apartments
 
+    d3.select(window).on("resize", function(){
+        supplyChart.drawChart();
+        contributionChart.drawChart();
+        housePricesChart.drawChart();
+        rentPricesChart.drawChart();
+    });
+
 }).catch(function(error){
         console.log(error);
 });
