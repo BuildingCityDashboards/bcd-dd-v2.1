@@ -23,33 +23,24 @@ d3.csv("../data/Demographics/CNA13.csv").then( data => {
     const grouping = types.map( d => d.key);
 
     const population = {
-        element: "#chart-population",
-        keys: grouping,
-        data: types,
-        titleX: "Years",
-        titleY: "Population",
-        yScaleFormat : "millions"
+        e: "#chart-population",
+        ks: grouping,
+        xV: "date",
+        yV: columnNames[0],
+        d: types,
+        tX: "Years",
+        tY: "Population",
+        ySF : "millions"
     };
 
     const populationChart = new MultiLineChart(population);
           populationChart.yLabels=yLabels;
-          populationChart.value=columnNames[0];
           populationChart.tickNumber = 106; 
           populationChart.drawChart();
 
         // add the tooltip
         populationChart.addTooltip("Year: ","thousands","label");
         populationChart.showSelectedLabels([0,16,26,36,41,46,51,56,61,69,71,76,81,86,92,96,101,106]);
-        
-        //hide year labels for now.
-        // d3.select("#chart-population").selectAll(".x-axis text").style("display","none");
-    //WIP
-    // let start,
-    //     end,
-    //     size = types[0].values.length - 1;
-        
-    //     start = types[0].values[0].label;
-    //     end = types[0].values[size].label;
 
 }).catch(function(error){
     console.log(error);
@@ -90,13 +81,13 @@ d3.csv("../data/Demographics/CNA31.csv").then( data => {
     });
 
     const outsideStateContent = {
-        element: "#chart-bornOutsideState",
-        data: array,
-        keys: columnNames,
-        value: xValue,
-        titleX: "Years",
-        titleY: "Population",
-        yScaleFormat: "millions"
+        e: "#chart-bornOutsideState",
+        d: array,
+        ks: columnNames,
+        xV: xValue,
+        tX: "Years",
+        tY: "Population",
+        ySF: "millions"
     },
 
     outsideStateTT = {
@@ -127,13 +118,13 @@ d3.csv("../data/Demographics/CNA33.csv").then( data => {
         return d;
     }), 
         houseHoldsContent = {
-            element: "#chart-households",
-            data: valueData,
-            keys: columnNames,
-            value: xValue,
-            titleX: "Years",
-            titleY: "Number of Households",
-            yScaleFormat: "millions"
+            e: "#chart-households",
+            d: valueData,
+            ks: columnNames,
+            xV: xValue,
+            tX: "Years",
+            tY: "Number of Households",
+            ySF: "millions"
         },
 
         houseHoldsTT = {
@@ -164,13 +155,13 @@ d3.csv("../data/Demographics/CNA29.csv").then( data => {
         return d;
     }),
     houseHoldCompositionContent = {
-        element: "#chart-householdComposition",
-        data: valueData,
-        keys: columnNames,
-        value: xValue,
-        titleX: "Person per Household",
-        titleY: "Number of Households",
-        yScaleFormat: "millions"
+        e: "#chart-householdComposition",
+        d: valueData,
+        ks: columnNames,
+        xV: xValue,
+        tX: "Person per Household",
+        tY: "Number of Households",
+        ySF: "millions"
     },
 
     houseHoldCompositionTT = {

@@ -135,9 +135,9 @@
               Chart_fig1 = new MultiLineChart(chart1C),
               visibleLabels = [1,6,12,16,21,26];
             
-              Chart_fig1.titleX = "Years";
-              Chart_fig1.titleY = "Population";
-              Chart_fig1.yScaleFormat = "millions";
+              Chart_fig1.tX = "Years";
+              Chart_fig1.tY = "Population";
+              Chart_fig1.ySF = "millions";
 
               Chart_fig1.tickNumber = 27;
               Chart_fig1.drawChart();
@@ -152,13 +152,13 @@
               hideXAxisLabels(Chart_fig1, visibleLabels);
 
         const Chart_fig1bContent = {
-                element: "#chart1",
-                data: popRate,
-                keys: chart1D2Types,
-                value: "region",
-                titleX: "Years",
-                titleY: "Population",
-                yScaleFormat: "percentage"
+                e: "#chart1",
+                d: popRate,
+                ks: chart1D2Types,
+                xV: "region",
+                tX: "Years",
+                tY: "Population",
+                ySF: "percentage"
             },
         
             tooltip_fig1b = {
@@ -179,9 +179,9 @@
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.titleX = "Years";
-                    Chart_fig1.titleY = "Population";
-                    Chart_fig1.value = "population";
+                    Chart_fig1.tX = "Years";
+                    Chart_fig1.tY = "Population";
+                    Chart_fig1.yV = "population";
 
                     Chart_fig1b.hideRate(false);
                     Chart_fig1.updateChart();
@@ -194,9 +194,9 @@
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.titleX = "Years";
-                    Chart_fig1.titleY = "Households";
-                    Chart_fig1.value = "households";
+                    Chart_fig1.tX = "Years";
+                    Chart_fig1.tY = "Households";
+                    Chart_fig1.yV = "households";
                     
                     Chart_fig1b.hideRate(false);
                     Chart_fig1.updateChart();
@@ -209,8 +209,8 @@
                     
                     Chart_fig1b.d = popRate;
 
-                    Chart_fig1b.titleX = "Regions";
-                    Chart_fig1b.titleY = "Population %";
+                    Chart_fig1b.tX = "Regions";
+                    Chart_fig1b.tY = "Population %";
 
                     Chart_fig1b.title = "Population - Region: ";
                     
@@ -249,7 +249,9 @@
                     d: chart2D,
                     v: "value",
                     c: cA4,
-                    ySF: "m"
+                    ySF: "m",
+                    tX: "Regions",
+                    tY: "Number of Properties"
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -266,8 +268,8 @@
         const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", cA1),
               Chart4 = new MultiLineChart(chart4C);
             
-              Chart4.titleX = "Years";
-              Chart4.titleY = "Property Prices (Euro)";
+              Chart4.tX = "Years";
+              Chart4.tY = "Property Prices (Euro)";
               Chart4.yScaleFormat = "millions";
 
             //   Chart4.tickNumber = 27;
@@ -281,8 +283,8 @@
 
        // const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
         const Chart5 = new MultiLineChart(chart5C);
-            Chart5.titleX = "Years";
-            Chart5.titleY = "€ ( Billions )";
+            Chart5.tX = "Years";
+            Chart5.tY = "€ ( Billions )";
             Chart5.tickNumber = 6;
             Chart5.yScaleFormat = "millions";
             
@@ -412,12 +414,13 @@
               nest.forEach(d => {keys.push(d.key);});
     
         return {
-                element: selector,
-                keys: keys,
-                data: nest,
-                value: value,
-                colour: colour,
-            }
+                e: selector,
+                k: keys,
+                d: nest,
+                xV: date,
+                yV: value,
+                c: colour,
+            };
     
     }
 

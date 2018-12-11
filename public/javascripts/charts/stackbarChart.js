@@ -2,14 +2,16 @@ class StackBarChart {
 
     constructor(obj){
 
-        this.e = obj.element;
-        this.data = obj.data;
-        this.key = obj.key;
-        this.v = obj.value;
-        this.yTitle = obj.titles[0];
-        this.xTitle = obj.titles[1];
-        this.cScheme = obj.cScheme;
-        this.scaleY = obj.scaleY;
+        this.d = obj.d;
+        this.e = obj.e;
+        this.k = obj.k;
+        this.ks = obj.ks;
+        this.xV = obj.xV;
+        this.yV = obj.yV;
+        this.tY = obj.tY;
+        this.tX = obj.tX;
+        this.cS = obj.c;
+        this.sFY = obj.sFY;
 
         this.init();
     }
@@ -36,10 +38,10 @@ class StackBarChart {
         c.height = aR - c.m.t - c.m.b;
         
         // default colour Scheme
-        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[9].slice(4);
+        c.cS = c.cS || d3.schemeBlues[9].slice(4);
 
         // set colour function
-        c.colour = d3.scaleOrdinal(c.cScheme);
+        c.colour = d3.scaleOrdinal(c.cS);
 
         c.initTooltip();
 
@@ -83,7 +85,7 @@ class StackBarChart {
             .attr("y", c.height + 60)
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
-            .text(c.xTitle);
+            .text(c.tX);
 
         // Y title
         c.yLabel = c.g.append("text")
@@ -93,7 +95,7 @@ class StackBarChart {
             .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text(c.yTitle);
+            .text(c.tY);
         
         c.stackData();
     
@@ -101,27 +103,27 @@ class StackBarChart {
 
     stackData(){
         let chart = this,
-            data = chart.data,
+            data = chart.d,
             keys,
             groupData,
             stack = d3.stack();
 
-            chart.colour.domain(data.map(d => { return d[chart.key]; }));
+            chart.colour.domain(data.map(d => { return d[chart.k]; }));
             keys = chart.colour.domain();
 
             groupData = d3.nest()
-                .key(d => { return d.date })
+                .key(d => { return d[chart.xV] })
                 .rollup((d, i) => {
                     const d2 = {
-                        date: d[0].date
+                        [chart.xV]: d[0][chart.xV]
                     };
                     d.forEach(d => {
-                        d2[d.type] = d[chart.v];
+                        d2[d.type] = d[chart.yV];
                     });
                 return d2;
                 })
                 .entries(data)
-                .map(d => { return d[chart.v]; });
+                .map(d => { return d[chart.yV]; });
 
         chart.stackD = stack.keys(keys)(groupData);
         chart.keys = keys.reverse();
@@ -131,7 +133,7 @@ class StackBarChart {
     }
 
     update(){
-        let dv = this;
+        let c = this;
 
         // transition 
         const t = () => { return d3.transition().duration(1000); };
@@ -139,49 +141,49 @@ class StackBarChart {
         const yAxisCall = d3.axisLeft();
         const xAxisCall = d3.axisBottom();
 
-        dv.x.domain(dv.data.map( d => {
-            return d.date;
+        c.x.domain(c.d.map( d => {
+            return d[c.xV];
         }));
 
         // have a check to see what domain values to use
-        dv.y.domain([0, d3.max(
-            dv.stackD, d => { return d3.max(d, d => { return d[1]; }); 
+        c.y.domain([0, d3.max(
+            c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
         })]).nice();
 
-        // dv.y.domain([0, 100]);
-        dv.drawGridLines();
+        // c.y.domain([0, 100]);
+        c.drawGridLines();
 
-        xAxisCall.scale(dv.x);
-        dv.xAxis.transition(t()).call(xAxisCall);
+        xAxisCall.scale(c.x);
+        c.xAxis.transition(t()).call(xAxisCall);
 
-        dv.yScaleFormat = dv.formatValue(dv.scaleY); //move to getData
-        dv.yScaleFormat !== "undefined" ? yAxisCall.scale(dv.y).tickFormat(dv.yScaleFormat ) : yAxisCall.scale(dv.y);
-        yAxisCall.scale(dv.y);
-        dv.yAxis.transition(t()).call(yAxisCall);
+        c.yScaleFormat = c.formatValue(c.sFY); //move to getData
+        c.yScaleFormat !== "undefined" ? yAxisCall.scale(c.y).tickFormat(c.yScaleFormat ) : yAxisCall.scale(c.y);
+        yAxisCall.scale(c.y);
+        c.yAxis.transition(t()).call(yAxisCall);
 
-        dv.layers = dv.g.selectAll(".stack")
-                .data(dv.stackD)
+        c.layers = c.g.selectAll(".stack")
+                .data(c.stackD)
                 .enter().append("g")
                 .attr("class", "stack")
                 .attr("fill", d => {
-                    return dv.colour(d.key); 
+                    return c.colour(d.key); 
                     })
                 .style("fill-opacity", 0.75);
             
-        dv.layers.selectAll("rect")
+        c.layers.selectAll("rect")
             .data( d => { return d; })
             .enter().append("rect")
                 .attr("x", d => { 
-                    return dv.x(d.data.date); 
+                    return c.x(d.data[c.xV]); 
                 })
                 .attr("y", d => { 
-                    return dv.y(d[1]); 
+                    return c.y(d[1]); 
                 })
-                .attr("height", d => { return dv.y(d[0]) - dv.y(d[1]);})
-                .attr("width", dv.x.bandwidth())
+                .attr("height", d => { return c.y(d[0]) - c.y(d[1]);})
+                .attr("width", c.x.bandwidth())
                 .style("stroke-width", "1");
         
-        dv.addLegend();
+        c.addLegend();
     }
 
     initTooltip(){
@@ -190,7 +192,7 @@ class StackBarChart {
             div,
             p;
 
-            chart.colour.domain(chart.data.map(d => { return d[chart.key]; }));
+            chart.colour.domain(chart.d.map(d => { return d[chart.k]; }));
             keys = chart.colour.domain();
 
             chart.newToolTip = d3.select(chart.e)
@@ -234,18 +236,18 @@ class StackBarChart {
     }
 
     addLegend(){
-        let dv =this;
+        let c =this;
 
         // create legend group
-        let legend = dv.layers.append("g")
+        let legend = c.layers.append("g")
 
             .attr("transform", d => { 
                     let size = d.length -1;
 
                     return "translate("
-                        + (dv.x(d[size].data.date) + dv.x.bandwidth() + 6)
+                        + (c.x(d[size].data[c.xV]) + c.x.bandwidth() + 6)
                         + "," 
-                        + ((dv.y(d[size][0]) + dv.y(d[size][1])) / 2) 
+                        + ((c.y(d[size][0]) + c.y(d[size][1])) / 2) 
                         + ")"; 
                     }
                 );
@@ -263,61 +265,61 @@ class StackBarChart {
                     .attr("fill", "#fff")
                     .style("font", "10px sans-serif")
                     .text(function(d) { return d.key; })
-                    .call(dv.textWrap, 100, 10);
+                    .call(c.textWrap, 100, 10);
     }
 
     drawGridLines(){
-        let dv = this;
+        let c = this;
 
-        dv.gridLines.selectAll('line')
+        c.gridLines.selectAll('line')
             .remove();
 
-        dv.gridLines.selectAll('line.horizontal-line')
-            .data(dv.y.ticks)
+        c.gridLines.selectAll('line.horizontal-line')
+            .data(c.y.ticks)
             .enter()
                 .append('line')
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
-                .attr('x2', dv.width)
-                .attr('y1', (d) => { return dv.y(d) })
-                .attr('y2', (d) => dv.y(d));
+                .attr('x2', c.width)
+                .attr('y1', (d) => { return c.y(d) })
+                .attr('y2', (d) => c.y(d));
     }
 
     addTooltip(title, format, date){
 
-        let dv = this;
-            dv.datelabel = date;
+        let c = this;
+            c.datelabel = date;
 
-            dv.tooltip = dv.svg.append("g")
+            c.tooltip = c.svg.append("g")
                 .classed("tool-tip", true);
 
-            dv.ttTitle = title;
-            dv.valueFormat = dv.formatValue(format);
-            dv.ttWidth = 290,
-            dv.ttHeight = 50,
-            dv.ttBorderRadius = 3;
-            dv.formatYear = d3.timeFormat("%Y");
-            dv.hV = 0;
+            c.ttTitle = title;
+            c.valueFormat = c.formatValue(format);
+            c.ttWidth = 290,
+            c.ttHeight = 50,
+            c.ttBorderRadius = 3;
+            c.formatYear = d3.timeFormat("%Y");
+            c.hV = 0;
 
-            dv.layers.selectAll("rect")
+            c.layers.selectAll("rect")
             // .on("mouseover", function(){ 
 
             // })
             .on("mouseout", function(){
-                dv.newToolTip.style("visibility","hidden");
+                c.newToolTip.style("visibility","hidden");
             })
-            .on("mousemove", d => dv.mousemove(d));
+            .on("mousemove", d => c.mousemove(d));
     }
 
     mousemove(d){
         let chart=this,
             pos = d3.mouse(chart.eN),
-            x = chart.x(d.data.date), 
+            x = chart.x(d.data[chart.xV]), 
             y = pos[1],
             total = 0,
             tooltipX = chart.getTooltipPosition(x,y),
-            bisect = d3.bisector(function(d) { return d.date; }).left,
-            i = bisect(chart.gData, d.data.date);
+            bisect = d3.bisector(function(d) { return d[chart.xV]; }).left,
+            i = bisect(chart.gData, d.data[chart.xV]);
 
         chart.newToolTip.style("visibility","visible");
  
@@ -359,20 +361,20 @@ class StackBarChart {
     }
 
     getTooltipPosition(mouseX, mouseY) {
-        let dv = this,
+        let c = this,
             ttX,
             ttY,
             cW,
             cH;
 
-            cW = dv.width  - dv.ttWidth;
-            cH = dv.height;
+            cW = c.width  - c.ttWidth;
+            cH = c.height;
 
             if ( mouseX < cW) {
-                ttX = mouseX + dv.m.l + dv.x.bandwidth() + 10;
+                ttX = mouseX + c.m.l + c.x.bandwidth() + 10;
             }
             else{
-                ttX = (mouseX + dv.m.l + dv.x.bandwidth() - 25) - dv.ttWidth;
+                ttX = (mouseX + c.m.l + c.x.bandwidth() - 25) - c.ttWidth;
             } 
 
             if ( mouseY < cH ) {

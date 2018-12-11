@@ -1,45 +1,65 @@
 class StackedAreaChart {
 
-    // constructor function
-    constructor (_element, _titleX, _titleY, _dateVariable, _keys, _cScheme){
+    constructor (obj){
 
-        // load in arguments from config object
-        this.element = _element;
-        this.titleX = _titleX;
-        this.titleY = _titleY;
-        this.date = _dateVariable;
-        this.keys = _keys;
-        this.cScheme = _cScheme;
-        
-        // create the chart
+        this.d = obj.d;
+        this.e = obj.e;
+        this.k = obj.k;
+        this.ks = obj.ks;
+        this.xV = obj.xV;
+        this.yV = obj.yV;
+        this.cS = obj.c;
+        this.tX = obj.tX;
+        this.tY = obj.tY;
+        this.ySF = obj.ySF || "thousands";
+
         this.init();
     }
 
     // initialise method to draw chart area
     init(){
         let c = this,
-            elementNode = d3.select(c.element).node(),
-            elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
+        //     elementNode = d3.select(c.e).node(),
+        //     elementWidth = elementNode.getBoundingClientRect().width,
+        //     aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
 
-            d3.select(c.element).select("svg").remove();
+        //     d3.select(c.e).select("svg").remove();
             
-        const breakPoint = 678;
+        // const breakPoint = 678;
         
-        // margin
-        c.margin = { };
+        // // margin
+        // c.margin = { };
 
-        c.margin.top = elementWidth < breakPoint ? 40 : 50;
-        c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
+        // c.margin.top = elementWidth < breakPoint ? 40 : 50;
+        // c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
 
-        c.margin.right = elementWidth < breakPoint ? 20 : 145;
-        c.margin.left = elementWidth < breakPoint ? 20 : 60;
+        // c.margin.right = elementWidth < breakPoint ? 20 : 145;
+        // c.margin.left = elementWidth < breakPoint ? 20 : 60;
         
-        c.width = elementWidth - c.margin.left - c.margin.right;
-        c.height = aspectRatio - c.margin.top - c.margin.bottom;
+        // c.width = elementWidth - c.margin.left - c.margin.right;
+        // c.height = aspectRatio - c.margin.top - c.margin.bottom;
+            e = d3.select(c.e),
+            eN = e.node(),
+            eW = eN.getBoundingClientRect().width,
+            aR = eW < 800 ? eW * 0.65 : eW * 0.5,
+            bP = 678,
+            w,
+            h,
+            m = c.m = {};
+
+            m.t = eW < bP ? 40 : 50;
+            m.b = eW < bP ? 30 : 80;
+            m.r = eW < bP ? 20 : 100;
+            m.l = eW < bP ? 20 : 80;
+
+            w = eW - m.l - m.r;
+            h = aR - m.t - m.b;
+
+            c.w = w;
+            c.h = h;
 
         // select parent element and append SVG + g
-        c.svg = d3.select(c.element)
+        c.svg = d3.select(c.e)
             .append("svg")
             .attr("width", c.width + c.margin.left + c.margin.right)
             .attr("height", c.height + c.margin.top + c.margin.bottom);
@@ -55,13 +75,13 @@ class StackedAreaChart {
         // c.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
         
         // default colourScheme
-        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[5].slice(1);
+        c.cS = c.cS || d3.schemeBlues[5].slice(1);
         
         // colour function
-        c.colour = d3.scaleOrdinal(c.cScheme);
+        c.colour = d3.scaleOrdinal(c.cS);
 
         // bisector for tooltip
-        c.bisectDate = d3.bisector(d => { return (d[c.date]); }).left;
+        c.bisectDate = d3.bisector(d => { return (d[c.xV]); }).left;
 
         // tick numbers
         c.tickNumber = "undefined";
@@ -94,7 +114,7 @@ class StackedAreaChart {
             .attr("x", c.width/2)
             .attr("y", c.height + 50)
             .attr("text-anchor", "start")
-            .text(c.titleX);
+            .text(c.tX);
 
         // Y title
         c.yLabel = c.g.append("text")
@@ -103,7 +123,7 @@ class StackedAreaChart {
             .attr("y", -45)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
-            .text(c.titleY);
+            .text(c.tY);
 
         // call the legend method
         // c.addLegend();
@@ -115,8 +135,8 @@ class StackedAreaChart {
         let c = this;
             c.yScaleFormat = c.formatValue(yScaleFormat);
             
-            _tX ? c.titleX = _tX: c.titleX = c.titleX;
-            _tY ? c.titleY = _tY: c.titleY = c.titleY;
+            _tX ? c.tX = _tX: c.tX = c.tX;
+            _tY ? c.tY = _tY: c.tY = c.tY;
             
             c.nestedData =_data;
             // c.tickNumber =  c.nestedData.length;
@@ -142,14 +162,14 @@ class StackedAreaChart {
         // get the the combined max value for the y scale
         let maxDateVal = d3.max(c.nestedData, d => {
             let vals = d3.keys(d).map(key => { 
-                return key === c.date || typeof d[key] === 'string' ? 0:d[key];
-                // return key !== c.date ? d[key] : 0;
+                return key === c.xV || typeof d[key] === 'string' ? 0:d[key];
+                // return key !== c.xV ? d[key] : 0;
             });
             return d3.sum(vals);
         });
 
         // Update scales
-        c.x.domain(d3.extent(c.nestedData, (d) => { return (d[c.date]); }));
+        c.x.domain(d3.extent(c.nestedData, (d) => { return (d[c.xV]); }));
         c.y.domain([0, maxDateVal]);
 
         c.drawGridLines();
@@ -167,19 +187,19 @@ class StackedAreaChart {
         c.arealine = d3.line()
             .defined(function(d) { return !isNaN(d[1]); })
             // .curve(c.area.curve())
-            .x(d => { return c.x(d.data[c.date]); })
+            .x(d => { return c.x(d.data[c.xV]); })
             .y(d => { return c.y( d[1]); });
 
 
         // d3 area function
          c.area = d3.area()
             .defined(function(d) { return !isNaN(d[1]); })
-            .x(function(d) { return c.x(d.data[c.date]); })
+            .x(function(d) { return c.x(d.data[c.xV]); })
             .y0(function(d) { return c.y(d[0]); })
             .y1(function(d) { return c.y( d[1]); });
 
          // d3 stack function
-        c.stack = d3.stack().keys(c.keys);
+        c.stack = d3.stack().keys(c.ks);
         c.data = (c.stack(c.nestedData));
 
         c.drawLegend();
@@ -188,8 +208,8 @@ class StackedAreaChart {
 
     update(){
         let c = this;
-            d3.select(c.element).select(".focus").remove();
-            d3.select(c.element).select(".focus_overlay").remove();
+            d3.select(c.e).select(".focus").remove();
+            d3.select(c.e).select(".focus_overlay").remove();
             c.g.selectAll(".region")
                 .transition(c.t())
                 .style("opacity", 0)
@@ -257,7 +277,7 @@ class StackedAreaChart {
                         // sF = d.data.length -1;
                         obj.key = d.key;
                         // obj.last = vs[s][v];
-                        obj.x = c.x(vs[s].data.date);
+                        obj.x = c.x(vs[s].data[c.xV]);
                         // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
                         obj.y = c.y(vs[s][1]);
                     return obj;
@@ -271,7 +291,7 @@ class StackedAreaChart {
         //             // sF = d.data.length -1;
         //             obj.key = d.key;
         //             // obj.last = vs[s][v];
-        //             obj.x = c.x(vs[s].data.date);
+        //             obj.x = c.x(vs[s].data[c.xV]);
         //             // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
         //             obj.y = c.y(vs[s][1]);
         //         return obj;
@@ -367,7 +387,7 @@ class StackedAreaChart {
     //     // create legend array, this needs to come from the data.
     //     c.legendArray = [];
         
-    //     c.keys.forEach( (d) => {
+    //     c.ks.forEach( (d) => {
 
     //         let obj = {};
     //             obj.label = d;
@@ -424,7 +444,7 @@ class StackedAreaChart {
     drawTooltip(){
         let c = this;
 
-            c.newToolTip = d3.select(c.element)
+            c.newToolTip = d3.select(c.e)
                 .append("div")
                     .attr("class","tool-tip bcd")
                     .style("visibility","hidden");
@@ -471,7 +491,7 @@ class StackedAreaChart {
 
     tooltipBody(){
         let c = this,
-            keys = c.keys,
+            keys = c.ks,
             div,
             p;
 
@@ -526,7 +546,7 @@ class StackedAreaChart {
                 .attr("class", "focus_circles");
 
             // attach group append circle and text for each region
-            c.keys.forEach( (d,i) => {
+            c.ks.forEach( (d,i) => {
 
                 focusCircles.append("g")
                     .attr("class", "tooltip_" + i)
@@ -543,12 +563,12 @@ class StackedAreaChart {
     addTooltip(title, format, dateField, prefix, postfix){
         let c = this;
 
-            d3.select(c.element).select(".focus").remove();
-            d3.select(c.element).select(".focus_overlay").remove();
+            d3.select(c.e).select(".focus").remove();
+            d3.select(c.e).select(".focus_overlay").remove();
 
             c.ttTitle = title || c.ttTitle;
             c.valueFormat = format || c.valueFormat;
-            c.dateField = dateField || c.dateField;
+            c.xVField = dateField || c.xVField;
             // c.arrowChange = arrowChange;
             c.ttWidth = 305;
             c.prefix = prefix ? prefix : " ";
@@ -599,8 +619,8 @@ class StackedAreaChart {
                     dPrev,
                     keys = c.getKeys(); 
 
-                    d1 !== undefined ? d = x0 - d0[c.date] > d1[c.date] - x0 ? d1 : d0 : false;
-                    d1 !== undefined ? dPrev = x0 - d0[c.date] > d1[c.date] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
+                    d1 !== undefined ? d = x0 - d0[c.xV] > d1[c.xV] - x0 ? d1 : d0 : false;
+                    d1 !== undefined ? dPrev = x0 - d0[c.xV] > d1[c.xV] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
                 
                 keys.forEach((reg,idx) => {
                     let dvalue = c.data[idx],
@@ -628,9 +648,9 @@ class StackedAreaChart {
                         let dot = ".tooltip_" + idx,
                         tooltip = focus.select(dot);
                         
-                        c.updatePosition(c.x(d[c.date]), 80);
+                        c.updatePosition(c.x(d[c.xV]), 80);
 
-                        dd1 !== undefined ? dd = x0 - dd0.data[c.date] > dd1.data[c.date] - x0 ? dd1 : dd0 : false;
+                        dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false;
 
                         div.style("opacity", 1);
                         div.select(".bcd-dot").style("background-color", c.colour(d.key));
@@ -639,10 +659,10 @@ class StackedAreaChart {
                         p.select(".bcd-text-rate").text(rate);
                         p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
 
-                        c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
+                        c.newToolTipTitle.text(c.ttTitle + " " + (d[c.xVField]));
 
-                        tooltip.attr("transform", "translate(" + c.x(d[c.date]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
-                        focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.date])) + ", 0)");
+                        tooltip.attr("transform", "translate(" + c.x(d[c.xV]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
+                        focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.xV])) + ", 0)");
                     }
                 });
             }

@@ -218,6 +218,7 @@
     font-weight: 500;
     font-size: .875rem;
     color: #d1d1d1a3;
+    text-transform: capitalize;
 }
 
 .side-menu__nav-link:hover, .side-menu__nav-link:focus, .side-menu__nav-link.active{

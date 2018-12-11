@@ -20,7 +20,15 @@ Promise.all([
     const completionData = datafiles[0],
           keys = completionData.columns.slice(1),
           dateField = completionData.columns[0],
-          compDataProcessed = dataSets(completionData, keys);
+          compDataProcessed = dataSets(completionData, keys),
+          houseCompContent = {
+            e: "#chart-houseComp",
+            ks: keys,
+            xV: dateField,
+            tX: "Months",
+            tY: "Units",
+            ySF: "millions",
+          };
 
           compDataProcessed.forEach(function(d) {  
             d.label = d[dateField];
@@ -28,7 +36,8 @@ Promise.all([
             d.year = formatYear(d[dateField]);
           });
 
-    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Units", dateField, keys);
+
+    const houseCompCharts = new StackedAreaChart(houseCompContent);
           houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
           houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
@@ -54,43 +63,43 @@ Promise.all([
         }),
 
         dccContent = {
-            element: "#chart-planningDCC",
-            data: dcc,
-            keys: types,
-            value: date,
-            titleX: "Years",
-            titleY: "Applications",
-            // yScaleFormat: "percentage"
+            e: "#chart-planningDCC",
+            d: dcc,
+            ks: types,
+            xV: date,
+            tX: "Years",
+            tY: "Applications",
+            // ySF: "percentage"
         },
 
         drccContent = {
-            element: "#chart-planningDRCC",
-            data: drcc,
-            keys: types,
-            value: date,
-            titleX: "Years",
-            titleY: "Applications",
-            // yScaleFormat: "percentage"
+            e: "#chart-planningDRCC",
+            d: drcc,
+            ks: types,
+            xV: date,
+            tX: "Years",
+            tY: "Applications",
+            // ySF: "percentage"
         },
 
         fccContent = {
-            element: "#chart-planningFCC",
-            data: fcc,
-            keys: types,
-            value: date,
-            titleX: "Years",
-            titleY: "Applications",
-            // yScaleFormat: "percentage"
+            e: "#chart-planningFCC",
+            d: fcc,
+            ks: types,
+            xV: date,
+            tX: "Years",
+            tY: "Applications",
+            // ySF: "percentage"
         },
 
         sdccContent = {
-            element: "#chart-planningSDCC",
-            data: sdcc,
-            keys: types,
-            value: date,
-            titleX: "Years",
-            titleY: "Applications",
-            // yScaleFormat: "percentage"
+            e: "#chart-planningSDCC",
+            d: sdcc,
+            ks: types,
+            xV: date,
+            tX: "Years",
+            tY: "Applications",
+            // ySF: "percentage"
         },
 
         planningTT = {
@@ -131,11 +140,12 @@ Promise.all([
         .entries(supplyDataProcessed);
 
     const supplyContent = {
-        element: "#chart-houseSupply",
-        data: supplyDataNested,
-        value: "Hectares",
-        titleX: "Years",
-        titleY: "Hectares"
+        e: "#chart-houseSupply",
+        d: supplyDataNested,
+        xV: supplyDate,
+        yV: "Hectares",
+        tX: "Years",
+        tY: "Hectares"
     }
     const supplyChart = new MultiLineChart(supplyContent);
           supplyChart.drawChart();
@@ -144,8 +154,8 @@ Promise.all([
     d3.select("#supply_land").on("click", function(){
         activeBtn(this);
         
-        supplyChart.value = "Hectares";
-        supplyChart.titleY = "Hectares";
+        supplyChart.yV = "Hectares";
+        supplyChart.tY = "Hectares";
         
         supplyChart.updateChart();
         supplyChart.addTooltip("Land - Year", "thousands", "label");
@@ -154,8 +164,8 @@ Promise.all([
     d3.select("#supply_units").on("click", function(){
         activeBtn(this);
 
-        supplyChart.value = "Units";
-        supplyChart.titleY = "Units";
+        supplyChart.yV = "Units";
+        supplyChart.tY = "Units";
         
         supplyChart.updateChart();
         supplyChart.addTooltip("Units - Year", "thousands", "label");
@@ -181,11 +191,12 @@ Promise.all([
             .entries(contributionDataProcessed);
 
         const contriContent = {
-            element: "#chart-houseContributions",
-            data: contributionDataNested,
-            value: "value",
-            titleX: "Years",
-            titleY: "€"
+            e: "#chart-houseContributions",
+            d: contributionDataNested,
+            xV: contributionDate,
+            yV: "value",
+            tX: "Years",
+            tY: "€"
         };
 
     // draw the chart
@@ -217,11 +228,12 @@ Promise.all([
             .entries(hPricesFiltered);
 
         const housePricesContent = {
-            element: "#chart-housePrices",
-            data: housePricesDataNested,
-            value: "value",
-            titleX: "Quarters",
-            titleY: "€"
+            e: "#chart-housePrices",
+            d: housePricesDataNested,
+            xV: housePricesDate,
+            yV: "value",
+            tX: "Quarters",
+            tY: "€"
         };
 
     // draw the chart
@@ -249,11 +261,12 @@ Promise.all([
             .entries(rentPricesDataProcessed);
 
         const rentPricesContent = {
-            element: "#chart-rentPrices",
-            data: rentPricesDataNested,
-            value: "value",
-            titleX: "Quarters",
-            titleY: "€"
+            e: "#chart-rentPrices",
+            d: rentPricesDataNested,
+            xV: rentPricesDate,
+            yV: "value",
+            tX: "Quarters",
+            tY: "€"
         }
 
     // draw the chart
@@ -269,13 +282,13 @@ Promise.all([
           rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
 
           rentByBedContent = {
-            element: "#chart-rentByBeds",
-            data: rentByBedsDataProcessed,
-            keys: rentByBedsTypes,
-            value: rentByBedsDate,
-            titleX: "Quarters",
-            titleY: "Price",
-            yScaleFormat: "euros"
+            e: "#chart-rentByBeds",
+            d: rentByBedsDataProcessed,
+            ks: rentByBedsTypes,
+            xV: rentByBedsDate,
+            tX: "Quarters",
+            tY: "Price",
+            ySF: "euros"
         },
 
         rentByBedTT = {
@@ -296,12 +309,12 @@ Promise.all([
     rentInspectDataProcessed = dataSets(rentInspectData, rentInspectTypes),
 
     rentInspectContent = {
-        element: "#chart-rentInspect",
-        data: rentInspectDataProcessed,
-        keys: rentInspectTypes,
-        value: rentInspectDate,
-        titleX: "Years",
-        titleY: "Inspections",
+        e: "#chart-rentInspect",
+        d: rentInspectDataProcessed,
+        ks: rentInspectTypes,
+        xV: rentInspectDate,
+        tX: "Years",
+        tY: "Inspections",
     },
 
     rentInspectTT = {
@@ -333,11 +346,12 @@ Promise.all([
             .entries(houseCompByTypeDataProcessed);
 
         const houseCompByTypeContent = {
-            element: "#chart-houseCompByType",
-            data: houseCompByTypeDataNested,
-            value: houseCompByTypeType[0], 
-            titleX: "Quarters", 
-            titleY: "Numbers"
+            e: "#chart-houseCompByType",
+            d: houseCompByTypeDataNested,
+            xV: houseCompByTypeDate,
+            yV: houseCompByTypeType[0], 
+            tX: "Quarters", 
+            tY: "Numbers"
         }
 
     // draw the chart
@@ -348,7 +362,7 @@ Promise.all([
     d3.select("#houseCompByType_total").on("click", function(){
         activeBtn(this);
 
-        houseCompByTypeChart.value = houseCompByTypeType[0];
+        houseCompByTypeChart.yV = houseCompByTypeType[0];
         houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
         houseCompByTypeChart.hideRate(false);
@@ -357,7 +371,7 @@ Promise.all([
     d3.select("#houseCompByType_private").on("click", function(){
         activeBtn(this);
 
-        houseCompByTypeChart.value = houseCompByTypeType[1];
+        houseCompByTypeChart.yV = houseCompByTypeType[1];
         houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Private Houses - ", "thousands", "label");
         houseCompByTypeChart.hideRate(false);
@@ -366,7 +380,7 @@ Promise.all([
     d3.select("#houseCompByType_social").on("click", function(){
         activeBtn(this);
 
-        houseCompByTypeChart.value = houseCompByTypeType[2];
+        houseCompByTypeChart.yV = houseCompByTypeType[2];
         houseCompByTypeChart.updateChart();
         houseCompByTypeChart.addTooltip("Social Houses - ", "thousands", "label");
         houseCompByTypeChart.hideRate(true);
@@ -379,7 +393,15 @@ Promise.all([
           nonNewConnectionsDate = nonNewConnectionsData.columns[0],
           nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
           nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
-          nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
+          nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type)),
+          nonNewGroupContent = {
+            e: "#chart-nonNewConnections",
+            ks: nonNewGroup,
+            xV: nonNewConnectionsDate,
+            tX: "Quarters",
+            tY: "Numbers",
+            ySF: "millions",
+          };
 
     
           nonNewConnectionsDataProcessed.forEach( d => {
@@ -391,7 +413,7 @@ Promise.all([
     //console.log(nonNewCon);
     // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
-    const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
+    const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
     
     // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
     nonNewConnectionsChart.tickNumber = 20;
@@ -418,11 +440,12 @@ Promise.all([
             .entries(newCompByTypeDataProcessed);
 
         const newCompByTypeContent = {
-            element: "#chart-newCompByType",
-            data: newCompByTypeDataNested,
-            value: newCompByTypeType[0],
-            titleX: "Quarters",
-            titleY: "Numbers"
+            e: "#chart-newCompByType",
+            d: newCompByTypeDataNested,
+            xV: newCompByTypeDate,
+            yV: newCompByTypeType[0],
+            tX: "Quarters",
+            tY: "Numbers"
         };
         
 
@@ -442,8 +465,8 @@ Promise.all([
 
     // create content object
     const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
-          HPM06Content.titleX = "Months";
-          HPM06Content.titleY = "Price Index (Base 100)"
+          HPM06Content.tX = "Months";
+          HPM06Content.tY = "Price Index (Base 100)"
 
     // draw the chart
     const HPM06Charts = new MultiLineChart(HPM06Content);
@@ -545,9 +568,10 @@ function chartContent(data, key, value, date, selector){
           nest.forEach(d => {keys.push(d.key);});
 
     return {
-            element: selector,
-            data: nest,
-            value: value
+            e: selector,
+            d: nest,
+            xV: date,
+            yV: value
         }
 
 }

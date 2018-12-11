@@ -17,7 +17,16 @@ Promise.all([
             "#da1e4d", //BCD-red
             "#998ce3", //purple
             "#6aedc7", //green
-            ];
+            ],
+          tChartsContent = {
+                e: selector,
+                ks: tKeys,
+                xV: "date",
+                tX: "Weeks",
+                tY: "No. of Patients",
+                ySF: "millions",
+                cS: cS
+          };
 
           tDataProcessed.forEach( d => {
             let d1 = parseTime(d[tdateField]);
@@ -26,7 +35,7 @@ Promise.all([
                 d.date = d1;
           });
 
-        const tCharts = new StackedAreaChart(selector, "Weeks", "No. of Patients", "date", tKeys, cS);
+        const tCharts = new StackedAreaChart(tChartsContent);
 
               tCharts.tickNumber = 12;
               tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:", "000", true);
@@ -43,13 +52,13 @@ Promise.all([
 
 
     hlContent = {
-        element: "#chart-healthlevels",
-        data: hlDataProcessed,
-        keys: hlTypes,
-        value: hlDate,
-        titleX: "Health Level",
-        titleY: "Population",
-        yScaleFormat: "millions"
+        e: "#chart-healthlevels",
+        d: hlDataProcessed,
+        ks: hlTypes,
+        xV: hlDate,
+        tX: "Health Level",
+        tY: "Population",
+        ySF: "millions"
     },
 
     hlTT = {
