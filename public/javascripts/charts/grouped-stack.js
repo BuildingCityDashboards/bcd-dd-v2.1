@@ -8,7 +8,7 @@ class GroupStackBar {
         this.ks = obj.ks;
         this.xV = obj.xV; // x value
         this.yV = obj.yV; // y value
-        this.cS = obj.c; // colour scheme
+        this.cS = obj.cS; // colour scheme
         this.tX = obj.tX;
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands"; // format for y axis
@@ -292,7 +292,7 @@ class GroupStackBar {
         let c = this,
             data = c.stackD,
             g = c.g,
-            c = c.colour,
+            z = c.colour,
             x0 = c.x0,
             x1 = c.x1,
             y = c.y;
@@ -301,7 +301,7 @@ class GroupStackBar {
                     .data(data)
                     .enter().append("g")
                     .attr("class", "series")
-                    .attr("fill", d =>  { return c(d.key); });
+                    .attr("fill", d =>  { return z(d.key); });
   
             c.series.selectAll("rect")
                     .data(d => { 

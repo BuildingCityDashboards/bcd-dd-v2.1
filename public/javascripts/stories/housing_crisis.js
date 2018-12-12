@@ -248,7 +248,7 @@
                     k: "type",
                     d: chart2D,
                     v: "value",
-                    c: cA4,
+                    cS: cA4,
                     ySF: "m",
                     tX: "Regions",
                     tY: "Number of Properties"
@@ -297,7 +297,7 @@
                 k: "type",
                 d: chart6D,
                 v: "value",
-                c: cA4,
+                cS: cA4,
                 ySF:"m"
                 },
               

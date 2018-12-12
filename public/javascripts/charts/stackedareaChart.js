@@ -19,25 +19,6 @@ class StackedAreaChart {
     // initialise method to draw chart area
     init(){
         let c = this,
-        //     elementNode = d3.select(c.e).node(),
-        //     elementWidth = elementNode.getBoundingClientRect().width,
-        //     aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
-
-        //     d3.select(c.e).select("svg").remove();
-            
-        // const breakPoint = 678;
-        
-        // // margin
-        // c.margin = { };
-
-        // c.margin.top = elementWidth < breakPoint ? 40 : 50;
-        // c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
-
-        // c.margin.right = elementWidth < breakPoint ? 20 : 145;
-        // c.margin.left = elementWidth < breakPoint ? 20 : 60;
-        
-        // c.width = elementWidth - c.margin.left - c.margin.right;
-        // c.height = aspectRatio - c.margin.top - c.margin.bottom;
             e = d3.select(c.e),
             eN = e.node(),
             eW = eN.getBoundingClientRect().width,
@@ -61,12 +42,12 @@ class StackedAreaChart {
         // select parent element and append SVG + g
         c.svg = d3.select(c.e)
             .append("svg")
-            .attr("width", c.width + c.margin.left + c.margin.right)
-            .attr("height", c.height + c.margin.top + c.margin.bottom);
+            .attr("width", w + m.l + m.r)
+            .attr("height", h + m.t + m.b);
 
         c.g = c.svg.append("g")
-            .attr("transform", "translate(" + c.margin.left + 
-                ", " + c.margin.top + ")");
+            .attr("transform", "translate(" + m.l + 
+                ", " + m.t + ")");
 
         // default transition 
         c.t = () => { return d3.transition().duration(1000); };
@@ -103,7 +84,7 @@ class StackedAreaChart {
 
         c.xAxis = c.g.append("g")
             .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.height +")");
+            .attr("transform", "translate(0," + c.h +")");
 
         c.yAxis = c.g.append("g")
             .attr("class", "y-axis");
@@ -111,15 +92,15 @@ class StackedAreaChart {
         // X title
         c.xLabel = c.g.append("text")
             .attr("class", "titleX")
-            .attr("x", c.width/2)
-            .attr("y", c.height + 50)
+            .attr("x", c.w/2)
+            .attr("y", c.h + 50)
             .attr("text-anchor", "start")
             .text(c.tX);
 
         // Y title
         c.yLabel = c.g.append("text")
             .attr("class", "titleY")
-            .attr("x", - (c.height/2))
+            .attr("x", - (c.h/2))
             .attr("y", -45)
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
@@ -146,7 +127,7 @@ class StackedAreaChart {
     getKeys(){
         let c = this,
             keys;
-            c.colour.domain(c.data.map(d => { return d.key; }));
+            c.colour.domain(c.d.map(d => { return d.key; }));
             keys = c.colour.domain();
         
         return keys.reverse();
@@ -156,8 +137,8 @@ class StackedAreaChart {
         let c = this;
 
         // set scales
-        c.x = d3.scaleTime().range([0, c.width]);
-        c.y = d3.scaleLinear().range([c.height, 0]);
+        c.x = d3.scaleTime().range([0, c.w]);
+        c.y = d3.scaleLinear().range([c.h, 0]);
 
         // get the the combined max value for the y scale
         let maxDateVal = d3.max(c.nestedData, d => {
@@ -200,7 +181,7 @@ class StackedAreaChart {
 
          // d3 stack function
         c.stack = d3.stack().keys(c.ks);
-        c.data = (c.stack(c.nestedData));
+        c.d = (c.stack(c.nestedData));
 
         c.drawLegend();
         c.update();
@@ -217,7 +198,7 @@ class StackedAreaChart {
 
         // select all regions and join data with old
         c.regions = c.g.selectAll(".area")
-            .data(c.data, d => { return d})
+            .data(c.d, d => { return d})
             .enter()
                 .append("g")
                     .attr("class","region");
@@ -246,7 +227,7 @@ class StackedAreaChart {
 
         // Update
         c.g.selectAll(".area")
-            .data(c.data)
+            .data(c.d)
             .transition(c.t())
             .attr("d", c.area)
             .style("fill-opacity", 0.55)
@@ -254,7 +235,7 @@ class StackedAreaChart {
             
     
         c.g.selectAll(".area-line")
-            .data(c.data)
+            .data(c.d)
             .transition(c.t())
             .attr("d", c.arealine);
     
@@ -270,7 +251,7 @@ class StackedAreaChart {
                 lH = 10;
             
             // data values for last readable value
-            const lines = c.data.map(d => {
+            const lines = c.d.map(d => {
                     let obj = {},
                         vs = d.filter(idFilter),
                         s = vs.length -1;
@@ -284,7 +265,7 @@ class StackedAreaChart {
 
             });
     
-        //     const circles = c.data.map(d => {
+        //     const circles = c.d.map(d => {
         //         let obj = {},
         //             vs = d.filter(idFilter),
         //             s = vs.length -1;
@@ -316,7 +297,7 @@ class StackedAreaChart {
                 .force("collide", d3.forceCollide(lH/2))
                 // .force("y", d3.forceY(d => d.y).strength(4))  
                 .force("x", d3.forceX(d => d.x).strength(4))   
-                .force("clamp", forceClamp(0, c.height-4))
+                .force("clamp", forceClamp(0, c.h-4))
                 .stop();
     
                 // Execute the simulation
@@ -357,7 +338,7 @@ class StackedAreaChart {
                 
                 legendGroup.append("circle")
                     .attr("class", "l-circle")
-                    .attr("cx", "6")
+                    .attr("cx", "0")//was 6
                     .attr("r", "4")
                     .attr("fill", d => z(d.key));
     
@@ -408,7 +389,7 @@ class StackedAreaChart {
     //     // add legend boxes    
     //     legends.append("rect")
     //         .attr("class", "legendRect")
-    //         .attr("x", c.width + 10)
+    //         .attr("x", c.w + 10)
     //         .attr("width", 25)
     //         .attr("height", 25)
     //         .attr("fill", d => { return d.colour; })
@@ -416,12 +397,12 @@ class StackedAreaChart {
 
     //     legends.append("text")
     //         .attr("class", "legendText")
-    //         // .attr("x", c.width + 40)
+    //         // .attr("x", c.w + 40)
     //         .attr("y", 12)
     //         .attr("dy", ".025em")
     //         .attr("text-anchor", "start")
     //         .text(d => { return d.label; })
-    //         .call(c.textWrap, 110, c.width + 34); 
+    //         .call(c.textWrap, 110, c.w + 34); 
     // }
 
     drawGridLines(){
@@ -436,7 +417,7 @@ class StackedAreaChart {
                 .append('line')
                 .attr('class', 'horizontal-line')
                 .attr('x1', (0))
-                .attr('x2', c.width)
+                .attr('x2', c.w)
                 .attr('y1', (d) => { return c.y(d) })
                 .attr('y2', (d) => c.y(d));
     }
@@ -532,7 +513,7 @@ class StackedAreaChart {
             focus.append("line")
                 .attr("class", "focus_line")
                 .attr("y1", 0)
-                .attr("y2", c.height);
+                .attr("y2", c.h);
         
             c.drawFocusCircles();
     }
@@ -585,8 +566,8 @@ class StackedAreaChart {
             overlay = g.append("rect");
             
             overlay.attr("class", "focus_overlay")
-                .attr("width", c.width)
-                .attr("height", c.height)
+                .attr("width", c.w)
+                .attr("height", c.h)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden");
@@ -623,7 +604,7 @@ class StackedAreaChart {
                     d1 !== undefined ? dPrev = x0 - d0[c.xV] > d1[c.xV] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
                 
                 keys.forEach((reg,idx) => {
-                    let dvalue = c.data[idx],
+                    let dvalue = c.d[idx],
                         key = reg,
                         id = "#bcd-tt" + idx,
                         div = c.newToolTip.select(id),
@@ -679,23 +660,11 @@ class StackedAreaChart {
             c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
     }
 
-    updateTTSize(){
-        let c = this;
-        let h = c.g.select(".tooltip-body").node().getBBox().height;
-            c.ttHeight += h + 4;
-            c.g.select(".tooltip-container").attr("height", c.ttHeight);
-    }
-
-    resetSize() {
-        let c = this;
-            c.ttHeight = 50;
-    }
-
     getTooltipPosition([mouseX, mouseY]) {
         let c = this;
         let ttX,
             ttY = mouseY,
-            cSize = c.width - c.ttWidth;
+            cSize = c.w - c.ttWidth;
 
         // show right - 60 is the margin large screens
         if (mouseX < cSize) {
@@ -792,83 +761,83 @@ class StackedAreaChart {
         return year+" Q" + q;
     }
 
-slicer( arr, sliceBy ){
-    if ( sliceBy < 1 || !arr ) return () => [];
-    
-    return (p) => {
-        const base = p * sliceBy,
-              size = arr.length;
-
-        let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
-            
-            if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
-            
-            return slicedArray;
-    };
-}
-
-pagination(data, selector, sliceBy, pageNumber, label){
-
-    const c = this;
-    
-    const slices = c.slicer( data, sliceBy ), 
-          times =  pageNumber,
-          startSet = slices(times - 1);
-          
-        //  let newStart = [];
-        //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
-
-        d3.selectAll(selector + " .pagination-holder").remove();
-
-    let moreButtons = d3.select(selector)
-        .append("div")
-        .attr("class", "pagination-holder text-center pb-2");
-
-        c.getData(startSet);
-        c.addTooltip();
-
-    for(let i=0; i<times; i++){
-        // let wg = slices(i)
-            // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
+    slicer( arr, sliceBy ){
+        if ( sliceBy < 1 || !arr ) return () => [];
         
-        let wg = slices(i),
-            sliceNumber = sliceBy - 1,
-            secondText,
-            textString;
+        return (p) => {
+            const base = p * sliceBy,
+                size = arr.length;
 
-            if (typeof wg[sliceNumber] != 'undefined'){
-                secondText = wg[sliceNumber]
-            }
-            else{
-                let lastEl = wg.length - 1;
-                    secondText = wg[lastEl];
-            }
-
-            if (wg[0][label] === secondText[label]){
-                textString = wg[0][label];
-            }
-            else{
-                textString = wg[0][label] + " - " + secondText[label];
-            }
-
-        moreButtons.append("button")
-            .attr("type", "button")
-            .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
-            .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
-        // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
-            .text(textString)
-            .on("click", function(){
-            if(!$(this).hasClass("active")){
-                    $(this).siblings().removeClass("active");
-                    $(this).addClass("active");
-                    c.getData(wg);
-                    c.addTooltip();
-                }
-            });
-        }
-
-
+            let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+                
+                if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+                
+                return slicedArray;
+        };
     }
+
+    pagination(data, selector, sliceBy, pageNumber, label){
+
+        const c = this;
+        
+        const slices = c.slicer( data, sliceBy ), 
+            times =  pageNumber,
+            startSet = slices(times - 1);
+            
+            //  let newStart = [];
+            //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
+
+            d3.selectAll(selector + " .pagination-holder").remove();
+
+        let moreButtons = d3.select(selector)
+            .append("div")
+            .attr("class", "pagination-holder text-center pb-2");
+
+            c.getData(startSet);
+            c.addTooltip();
+
+        for(let i=0; i<times; i++){
+            // let wg = slices(i)
+                // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
+            
+            let wg = slices(i),
+                sliceNumber = sliceBy - 1,
+                secondText,
+                textString;
+
+                if (typeof wg[sliceNumber] != 'undefined'){
+                    secondText = wg[sliceNumber]
+                }
+                else{
+                    let lastEl = wg.length - 1;
+                        secondText = wg[lastEl];
+                }
+
+                if (wg[0][label] === secondText[label]){
+                    textString = wg[0][label];
+                }
+                else{
+                    textString = wg[0][label] + " - " + secondText[label];
+                }
+
+            moreButtons.append("button")
+                .attr("type", "button")
+                .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+                .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+            // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
+                .text(textString)
+                .on("click", function(){
+                if(!$(this).hasClass("active")){
+                        $(this).siblings().removeClass("active");
+                        $(this).addClass("active");
+                        c.getData(wg);
+                        c.addTooltip();
+                    }
+                });
+            }
+
+
+        }
 
     showSelectedLabels(array){
         let c = this, 

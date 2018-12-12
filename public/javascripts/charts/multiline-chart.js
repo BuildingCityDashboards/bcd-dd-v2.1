@@ -72,6 +72,7 @@ class MultiLineChart{
             c.init();
             c.addAxis();
             c.getKeys();
+            c.processData();
             c.drawTooltip();
             c.createScales();
             c.drawLines();
@@ -101,7 +102,6 @@ class MultiLineChart{
             xLabel,
             yLabel;
 
-
             gLines = g.append("g")
                 .attr("class", "grid-lines");
 
@@ -130,9 +130,25 @@ class MultiLineChart{
     }
 
     getKeys(){
-        let c = this;
+        let c = this,
+            findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
             c.colour.domain(c.d.map(d => { return d.key; }));
-            c.keys = c.colour.domain();
+
+            c.keys = c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
+    }
+
+    // check if the data needs to be nested or not!!
+    processData(){
+        let c = this;
+        c.d = c.d[0].key ? c.d : c.nest(c.d,c.k); 
+    }
+    
+    // this could be parent method
+    nest(data,key){
+        return d3.nest().key(d => { 
+            return d[key];
+        })
+        .entries(data);
     }
 
     // needs to be called everytime the data changes
@@ -230,7 +246,6 @@ class MultiLineChart{
 
     drawTooltip(){
         let c = this;
-
             c.newToolTip = d3.select(c.e)
                 .append("div")
                     .attr("class","tool-tip bcd")
@@ -298,6 +313,23 @@ class MultiLineChart{
         });
     }
 
+    addTooltip(title, format, dateField, prefix, postfix){
+        let c = this;
+
+            d3.select(c.e).select(".focus").remove();
+            d3.select(c.e).select(".focus_overlay").remove();
+
+            c.ttTitle = title;
+            c.valueFormat = c.formatValue(format);
+            c.dateField = dateField;
+            c.ttWidth = 305;
+            c.prefix = prefix ? prefix : " ";
+            c.postfix = postfix ? postfix: " ";
+
+            c.drawFocusLine();
+            c.drawFocusOverlay();
+    }
+
     drawFocusLine(){
         let c = this,
             g = c.g; 
@@ -334,23 +366,6 @@ class MultiLineChart{
                 .attr("r", 5)
                 .attr("fill", c.colour(d))
                 .attr("stroke", c.colour(d));
-    }
-
-    addTooltip(title, format, dateField, prefix, postfix){
-        let c = this;
-
-            d3.select(c.e).select(".focus").remove();
-            d3.select(c.e).select(".focus_overlay").remove();
-
-            c.ttTitle = title;
-            c.valueFormat = c.formatValue(format);
-            c.dateField = dateField;
-            c.ttWidth = 305;
-            c.prefix = prefix ? prefix : " ";
-            c.postfix = postfix ? postfix: " ";
-
-            c.drawFocusLine();
-            c.drawFocusOverlay();
     }
 
     drawFocusOverlay(){
@@ -708,7 +723,6 @@ class MultiLineChart{
                     v = "value";
                     
                 if(d !== undefined){
-                    
                     c.updatePosition(c.x(d[c.xV]), 80);
                     c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
                     tooltip.attr("transform", "translate(" + c.x(d[c.xV]) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");

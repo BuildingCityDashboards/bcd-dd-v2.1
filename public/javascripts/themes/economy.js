@@ -41,6 +41,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               empContent = {
                 e: "#chart-emp-rate",
                 d: aNest,
+                k: "region",
                 xV: "date",
                 yV: keysA[0],
                 tX: "Years",
@@ -62,11 +63,13 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 tX: "Quarters",
                 tY: "Thousands",
                 ySF: "millions",
-              };
-
-        const employmentStack = new StackedAreaChart(empCStack),
+              }, 
+              employmentStack = new StackedAreaChart(empCStack),
               unemploymentStack = new StackedAreaChart(unempCStack);
-                
+            console.log("the multiline data after processing", aNest);
+            console.log("the original data", datafiles[0]);
+            console.log("the stackArea data after processing", empData);
+            console.log("the stackArea original data", datafiles[1]);
               employmentStack.tickNumber = 5;
               employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
               employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
@@ -123,21 +126,21 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
     /*** This the Gross Value Added per Capita at Basic Prices Chart ***/
     d3.csv("../data/Economy/RAA01.csv").then( data => {
 
-        let columnNames = data.columns.slice(1);
-        let incomeData = data;
+        let columnNames = data.columns.slice(1),
+            incomeData = data;
+            
             incomeData.forEach( d => {
                 d.label = d.date;
                 d.date = parseYear(d.date);
                 d.value = +d.value;
-            })
-
-        let idN = d3.nest().key( d => { return d.region;}).entries(incomeData);
+            });
 
         const idContent = {
             e: "#chart-gva",
             xV: "date",
             yV: "value",
-            d: idN,
+            d: incomeData,
+            k: "region",
             tX: "Years",
             tY: "€"
         };
@@ -269,23 +272,19 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             return d;
         });
 
-        const employeesBySizeData = data;
-        
-        let nestData = d3.nest()
-            .key( d =>{ return d.type;})
-            .entries(employeesBySizeData);
-
-        const employeesBySize = {
-            e: "#chart-employees-by-size",
-            xV: "date",
-            yV: "value",
-            d: nestData,
-            tX: "Years",
-            tY: "Persons Engaged"
-        };
+        const employeesBySizeData = data,
+              employeesBySize = {
+                e: "#chart-employees-by-size",
+                xV: "date",
+                yV: "value",
+                d:employeesBySizeData,
+                k:"type",
+                tX: "Years",
+                tY: "Persons Engaged",
+                ySF: "millions"
+              };
         
         const employeesBySizeChart = new MultiLineChart(employeesBySize);
-              employeesBySizeChart.yScaleFormat = "millions"; // update the y axis scale
               employeesBySizeChart.drawChart();
               employeesBySizeChart.addTooltip("Persons Engaged by Size of Company - Year:", "thousands", "label");
     })

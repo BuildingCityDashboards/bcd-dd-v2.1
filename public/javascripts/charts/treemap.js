@@ -85,7 +85,6 @@ d3.json("../data/Economy/QLF07.json").then( data => {
             .style("font-size", (d) => {
                 return Math.max(12, 0.5*(d.value))+'px'; })
             .text(function(d) { 
-                console.log(d.data.rate);
                 let diff = (d.value)/root.value;
                 return d3.format(".2%")(diff); 
             });
