@@ -50,6 +50,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               },
               unempCStack = {
                 e: "#chartNew",
+                d: unempData,
                 ks: grouping,
                 xV: "date",
                 tX: "Quarters",
@@ -58,6 +59,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               },
               empCStack = {
                 e: "#chart-employment",
+                d: empData,
                 ks: grouping,
                 xV: "date",
                 tX: "Quarters",
@@ -66,21 +68,18 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               }, 
               employmentStack = new StackedAreaChart(empCStack),
               unemploymentStack = new StackedAreaChart(unempCStack);
-            console.log("the multiline data after processing", aNest);
-            console.log("the original data", datafiles[0]);
-            console.log("the stackArea data after processing", empData);
-            console.log("the stackArea original data", datafiles[1]);
-              employmentStack.tickNumber = 5;
-              employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
+              employmentStack.tickNumber = 24;
+            //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
+            //   employmentStack.getData(empData);
               employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
-              unemploymentStack.tickNumber = 5;
-              unemploymentStack.pagination(unempData, "#chartNew", 24, 3, "year", "Thousands - Quarter:");
+              unemploymentStack.tickNumber = 24;
+            //   unemploymentStack.getData(unempData);
               unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
         const employmentLine = new MultiLineChart(empContent);
               employmentLine.tickNumber = 24;
-              employmentLine.drawChart();
+            //   employmentLine.createScales();
 
               d3.select("#chart-emp-rate").style("display","none");
               employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
@@ -104,7 +103,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               unemploymentLine.hideRate(true);
               
               d3.select("#chart-unemp-rate").style("display","none");
-              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "year");
+              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "label");
 
             d3.select(".unemployment_count").on("click", function(){
                 activeBtn(this);
@@ -141,6 +140,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             yV: "value",
             d: incomeData,
             k: "region",
+            ks: ["Dublin","Dublin plus Mid East","State"],
             tX: "Years",
             tY: "€"
         };
@@ -174,7 +174,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
                 yV: "value",
                 tY: "%", 
                 tX: "Years",
-                sFY: "percentage",
+                ySF: "percentage",
             };
 
         const IncomeGroupedBar = new StackBarChart(incomeContent);

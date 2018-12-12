@@ -20,6 +20,7 @@ Promise.all([
             ],
           tChartsContent = {
                 e: selector,
+                d: tDataProcessed,
                 ks: tKeys,
                 xV: "date",
                 tX: "Weeks",

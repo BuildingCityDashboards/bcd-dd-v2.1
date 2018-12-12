@@ -11,155 +11,177 @@ class StackBarChart {
         this.tY = obj.tY;
         this.tX = obj.tX;
         this.cS = obj.c;
-        this.sFY = obj.sFY;
+        this.ySF = obj.ySF || "thousands";
 
-        this.init();
+        this.drawChart();
+    }
+
+    drawChart(){
+        let c = this;
+
+        c.init();
+        c.addAxis();
+        c.getKeys();
+        // c.processData();
+        c.stackData();
+        c.drawTooltip();
+        c.createScales();
+        c.drawGridLines();
+        c.drawStacks();
+        c.drawLegend();            
     }
 
     init(){
         let c = this,
-            eN = d3.select(c.e).node(),
-            eW = eN.getBoundingClientRect().width,
-            aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-            bP = 678;
-            c.eN = eN;
-            d3.select(c.e).select("svg").remove();
+            eN,
+            eW,
+            aR,
+            cScheme,
+            m = c.m = {},
+            w,
+            h,
+            bP;
+
+        eN = d3.select(c.e).node(),
+        eW = eN.getBoundingClientRect().width,
+        aR = eW < 800 ? eW * 0.55 : eW * 0.5,
+        cScheme = c.cS || d3.schemeBlues[5].slice(1),
+        bP = 576;
+    
+        // margins
+        m.t = eW < bP ? 40 : 50;
+        m.b = eW < bP ? 30 : 80;
+        m.r = eW < bP ? 15 : 140;
+        m.l = eW < bP ? 9 : 60;
+
+        // dimensions
+        w =  eW - m.l - m.r;
+        h = aR - m.t - m.b;
+
+        c.w = w;
+        c.h = h;
+        c.eN = eN;
+        c.sscreens = eW < bP ? true : false;
+
+        // to remove existing svg on resize
+        d3.select(c.e).select("svg").remove(); 
         
-        // margin
-        c.m = { };
-
-        c.m.t = eW < bP ? 10 : 50;
-        c.m.b = eW < bP ? 30 : 80;
-
-        c.m.r = eW < bP ? 12.5 : 140;
-        c.m.l = eW < bP ? 20 : 60;
-        
-        c.width = eW - c.m.l - c.m.r;
-        c.height = aR - c.m.t - c.m.b;
-        
-        // default colour Scheme
-        c.cS = c.cS || d3.schemeBlues[9].slice(4);
-
-        // set colour function
-        c.colour = d3.scaleOrdinal(c.cS);
-
-        c.initTooltip();
-
         // add the svg to the target element
         c.svg = d3.select(c.e)
             .append("svg")
-            .attr("width", c.width + c.m.l + c.m.r)
-            .attr("height", c.height + c.m.t + c.m.b);
-       
-        // add the g to the svg and transform by top and left m
+            .attr("width", w + m.l + m.r)
+            .attr("height", h + m.t + m.b);
+    
+        // add the g to the svg and transform by top and left margin
         c.g = c.svg.append("g")
-            .attr("transform", "translate(" + c.m.l + 
-                ", " + c.m.t + ")");
+            .attr("transform", "translate(" + m.l + 
+                ", " + m.t + ")")
+            .attr("class","c-group");
 
-        // set scales functions
-        c.x = d3.scaleBand()
-            .range([0, c.width])
-            .padding(0.2);
+        // set c transition method
+        c.t = () => { return d3.transition().duration(1000); };
+        c.ease = d3.easeQuadInOut;
+        
+        // set c colour method
+        c.colour = d3.scaleOrdinal(cScheme);
+        // set c bisecector method
+        c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;// not need fot this type of c.
 
-        c.y = d3.scaleLinear()
-            .range([c.height, 0]);
+    }
 
-        c.yAxisCall = d3.axisLeft();
+    updateChart(obj){
+        let c = this;
 
-        c.xAxisCall = d3.axisBottom();
+        if(obj){
+            c.d = obj.d || c.d;
+            c.k = obj.k || c.k;
+            c.ks = obj.ks || c.ks;
+            c.tX = obj.tX || c.tX;
+            c.tY = obj.tY || c.tY;
+            c.xV = obj.xV || c.xV;
+            c.yV = obj.yV || c.yV;
+            c.cS = obj.c || c.cS;
+            c.ySF = obj.ySF || c.ySF;
+        }
 
-        c.gridLines = c.g.append("g")
+        c.stackData();
+        c.createScales();
+        c.drawLegend();
+    }
+
+    addAxis(){       
+        let c = this,
+            g = c.g,
+            gLines,
+            xLabel,
+            yLabel;
+
+        gLines = g.append("g")
             .attr("class", "grid-lines");
 
-        c.xAxis = c.g.append("g")
+        c.xAxis = g.append("g")
             .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.height +")");
+            .attr("transform", "translate(0," + c.h +")");
         
-        c.yAxis = c.g.append("g")
+        c.yAxis = g.append("g")
             .attr("class", "y-axis");
 
         // X title
-        c.xLabel = c.g.append("text")
+        xLabel = g.append("text")
             .attr("class", "titleX")
-            .attr("x", c.width/2)
-            .attr("y", c.height + 60)
-            .attr("font-size", "20px")
+            .attr("x", c.w/2)
+            .attr("y", c.h + 60)
             .attr("text-anchor", "middle")
             .text(c.tX);
 
         // Y title
-        c.yLabel = c.g.append("text")
+        yLabel = g.append("text")
             .attr("class", "titleY")
-            .attr("x", - (c.height/2))
+            .attr("x", - (c.h/2))
             .attr("y", -45)
-            .attr("font-size", "20px")
             .attr("text-anchor", "middle")
             .attr("transform", "rotate(-90)")
             .text(c.tY);
-        
-        c.stackData();
-    
+    }
+
+    getKeys(){
+        let c = this,
+            findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
+            c.colour.domain(c.d.map(d => { return d.key; }));
+            c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
     }
 
     stackData(){
-        let chart = this,
-            data = chart.d,
+        let c = this,
+            data = c.d,
             keys,
             groupData,
             stack = d3.stack();
 
-            chart.colour.domain(data.map(d => { return d[chart.k]; }));
-            keys = chart.colour.domain();
+        keys = c.ks;
 
-            groupData = d3.nest()
-                .key(d => { return d[chart.xV] })
-                .rollup((d, i) => {
-                    const d2 = {
-                        [chart.xV]: d[0][chart.xV]
-                    };
-                    d.forEach(d => {
-                        d2[d.type] = d[chart.yV];
-                    });
-                return d2;
-                })
-                .entries(data)
-                .map(d => { return d[chart.yV]; });
+        groupData = d3.nest()
+            .key(d => { return d[c.xV] })
+            .rollup((d, i) => {
+                const d2 = {
+                    [c.xV]: d[0][c.xV]
+                };
+                d.forEach(d => {
+                    d2[d.type] = d[c.yV];
+                });
+            return d2;
+            })
+            .entries(data)
+            .map(d => { return d[c.yV]; });
 
-        chart.stackD = stack.keys(keys)(groupData);
-        chart.keys = keys.reverse();
-        chart.gData = groupData;
-        
-        chart.update();
+        c.stackD = stack.keys(keys)(groupData);
+        c.keys = keys.reverse();
+        c.gData = groupData;
+
     }
 
-    update(){
+    drawStacks(){
         let c = this;
-
-        // transition 
-        const t = () => { return d3.transition().duration(1000); };
-
-        const yAxisCall = d3.axisLeft();
-        const xAxisCall = d3.axisBottom();
-
-        c.x.domain(c.d.map( d => {
-            return d[c.xV];
-        }));
-
-        // have a check to see what domain values to use
-        c.y.domain([0, d3.max(
-            c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
-        })]).nice();
-
-        // c.y.domain([0, 100]);
-        c.drawGridLines();
-
-        xAxisCall.scale(c.x);
-        c.xAxis.transition(t()).call(xAxisCall);
-
-        c.yScaleFormat = c.formatValue(c.sFY); //move to getData
-        c.yScaleFormat !== "undefined" ? yAxisCall.scale(c.y).tickFormat(c.yScaleFormat ) : yAxisCall.scale(c.y);
-        yAxisCall.scale(c.y);
-        c.yAxis.transition(t()).call(yAxisCall);
 
         c.layers = c.g.selectAll(".stack")
                 .data(c.stackD)
@@ -182,30 +204,28 @@ class StackBarChart {
                 .attr("height", d => { return c.y(d[0]) - c.y(d[1]);})
                 .attr("width", c.x.bandwidth())
                 .style("stroke-width", "1");
-        
-        c.addLegend();
     }
 
-    initTooltip(){
-        let chart = this,
+    drawTooltip(){
+        let c = this,
             keys,
             div,
             p;
 
-            chart.colour.domain(chart.d.map(d => { return d[chart.k]; }));
-            keys = chart.colour.domain();
+            c.colour.domain(c.d.map(d => { return d[c.k]; }));
+            keys = c.colour.domain();
 
-            chart.newToolTip = d3.select(chart.e)
+            c.newToolTip = d3.select(c.e)
                 .append("div")
                 .attr("class","tool-tip bcd")
                 .style("visibility","hidden");
 
-            chart.newToolTipTitle = chart.newToolTip
+            c.newToolTipTitle = c.newToolTip
                 .append("div")
                 .attr("id", "bcd-tt-title");
 
             keys.forEach( (d, i) => {
-                div = chart.newToolTip
+                div = c.newToolTip
                         .append("div")
                         .attr("id", "bcd-tt" + i);
                     
@@ -219,7 +239,7 @@ class StackBarChart {
                 p.append("span").attr("class","bcd-text-indicator");
             });
 
-        let lastDiv = chart.newToolTip.append("div")
+        let lastDiv = c.newToolTip.append("div")
                     .attr("id", "bcd-tt-total"),
             
             lastDot = lastDiv.append("span")
@@ -235,7 +255,47 @@ class StackBarChart {
 
     }
 
-    addLegend(){
+    // needs to be called everytime the data changes
+    createScales(){
+        let c = this,
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
+
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY);
+
+
+        // set scales
+        c.x = d3.scaleBand()
+            .range([0, c.w])
+            .padding(0.2);
+
+        c.y = d3.scaleLinear().range([c.h, 0]);
+
+        // Update scales
+        c.x.domain(c.d.map( d => {
+            return d[c.xV];
+        }));
+
+        // Set Y axis scales 0 if positive number else use minValue
+        c.y.domain([0, d3.max(
+            c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
+        })]).nice();
+
+        // Update X axis
+        c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
+        c.xAxis.transition(c.t()).call(xAxisCall);
+        
+        // Update Y axis
+        c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF) ) : yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(yAxisCall);
+    }
+
+    drawLegend(){
         let c =this;
 
         // create legend group
@@ -269,20 +329,23 @@ class StackBarChart {
     }
 
     drawGridLines(){
-        let c = this;
+        let c = this,
+            gLines;
+            
+        gLines = c.getElement(".grid-lines");
 
-        c.gridLines.selectAll('line')
+        gLines.selectAll("line")
             .remove();
 
-        c.gridLines.selectAll('line.horizontal-line')
+        gLines.selectAll("line.horizontal-line")
             .data(c.y.ticks)
             .enter()
-                .append('line')
-                .attr('class', 'horizontal-line')
-                .attr('x1', (0))
-                .attr('x2', c.width)
-                .attr('y1', (d) => { return c.y(d) })
-                .attr('y2', (d) => c.y(d));
+            .append("line")
+                .attr("class", "horizontal-line")
+                .attr("x1", (0))
+                .attr("x2", c.w)
+                .attr("y1", (d) => c.y(d))
+                .attr("y2", (d) => c.y(d));
     }
 
     addTooltip(title, format, date){
@@ -312,52 +375,52 @@ class StackBarChart {
     }
 
     mousemove(d){
-        let chart=this,
-            pos = d3.mouse(chart.eN),
-            x = chart.x(d.data[chart.xV]), 
+        let c=this,
+            pos = d3.mouse(c.eN),
+            x = c.x(d.data[c.xV]), 
             y = pos[1],
             total = 0,
-            tooltipX = chart.getTooltipPosition(x,y),
-            bisect = d3.bisector(function(d) { return d[chart.xV]; }).left,
-            i = bisect(chart.gData, d.data[chart.xV]);
+            tooltipX = c.getTooltipPosition(x,y),
+            bisect = d3.bisector(function(d) { return d[c.xV]; }).left,
+            i = bisect(c.gData, d.data[c.xV]);
 
-        chart.newToolTip.style("visibility","visible");
+        c.newToolTip.style("visibility","visible");
  
-        chart.newToolTip.style('left', tooltipX[0] + "px").style("top", tooltipX[1] +"px");
+        c.newToolTip.style('left', tooltipX[0] + "px").style("top", tooltipX[1] +"px");
 
-        chart.keys.forEach( (reg,idx) => {
-                total += chart.gData[i][reg];// for the last text total;
+        c.keys.forEach( (reg,idx) => {
+                total += c.gData[i][reg];// for the last text total;
         
             let id = "#bcd-tt" + idx,
-                div = chart.newToolTip.select(id),
+                div = c.newToolTip.select(id),
                 p = div.select(".bcd-text"),
                 unText = "N/A",
-                title = chart.newToolTipTitle,
+                title = c.newToolTipTitle,
                 perc = d3.format(".2%"),
-                cur = chart.gData[i],
-                prev = chart.gData[i-1] ? chart.gData[i-1] : 0,
-                item = chart.keys[idx],
+                cur = c.gData[i],
+                prev = c.gData[i-1] ? c.gData[i-1] : 0,
+                item = c.keys[idx],
                 rV = prev !== 0 ? (cur[item] -  prev[item])/cur[item]: 0,
                 r = rV !== 0 ? perc(rV) : "N/A", 
                 indicator = rV > 0 ? " ▲" : rV < 0 ? " ▼" : "",
-                valueString =  chart.valueFormat !=="undefined"? chart.valueFormat(cur[item]) : cur[item],
-                indicatorColour = chart.arrowChange === true ? rV < 0 ?"#20c997" 
+                valueString =  c.valueFormat !=="undefined"? c.valueFormat(cur[item]) : cur[item],
+                indicatorColour = c.arrowChange === true ? rV < 0 ?"#20c997" 
                                     : rV > 0 ? "#da1e4d" : "#f8f8f8" 
                                     : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d" 
                                     : "#f8f8f8";
 
-                title.text(chart.ttTitle + " " + (d.data[chart.datelabel]));
+                title.text(c.ttTitle + " " + (d.data[c.datelabel]));
                 div.style("opacity", 1);
-                div.select(".bcd-rect").style("background-color", chart.colour(reg));
+                div.select(".bcd-rect").style("background-color", c.colour(reg));
                 p.select(".bcd-text-title").text(reg);
                 p.select(".bcd-text-value").text(valueString);
                 p.select(".bcd-text-rate").text(r);
                 p.select(".bcd-text-indicator").text(" " + indicator)
                     .style("color", indicatorColour);
         });
-        chart.svg.select("#tooltipbody_last .tp-text-right").text(chart.valueFormat !=="undefined"? "Total = " + chart.valueFormat(total) : "Total = " + total);
-        chart.newToolTip.select("#bcd-tt-total .bcd-text-title").text("Total = ").style("text-align","end");
-        chart.newToolTip.select("#bcd-tt-total .bcd-text-value").text(chart.valueFormat !=="undefined"? chart.valueFormat(total) : total);
+        c.svg.select("#tooltipbody_last .tp-text-right").text(c.valueFormat !=="undefined"? "Total = " + c.valueFormat(total) : "Total = " + total);
+        c.newToolTip.select("#bcd-tt-total .bcd-text-title").text("Total = ").style("text-align","end");
+        c.newToolTip.select("#bcd-tt-total .bcd-text-value").text(c.valueFormat !=="undefined"? c.valueFormat(total) : total);
     }
 
     getTooltipPosition(mouseX, mouseY) {
@@ -366,9 +429,8 @@ class StackBarChart {
             ttY,
             cW,
             cH;
-
-            cW = c.width  - c.ttWidth;
-            cH = c.height;
+            cW = c.w  - c.ttWidth;
+            cH = c.h;
 
             if ( mouseX < cW) {
                 ttX = mouseX + c.m.l + c.x.bandwidth() + 10;
@@ -413,6 +475,13 @@ class StackBarChart {
             default:
                 return "undefined";
         }
+    }
+
+    getElement(name){
+        let c = this,
+            s = d3.select(c.e),
+            e = s.selectAll(name);
+        return e;
     }
 
     textWrap(text, width, xpos = 0, limit=2) {

@@ -23,6 +23,7 @@ Promise.all([
           compDataProcessed = dataSets(completionData, keys),
           houseCompContent = {
             e: "#chart-houseComp",
+            d: compDataProcessed,
             ks: keys,
             xV: dateField,
             tX: "Months",
@@ -38,7 +39,6 @@ Promise.all([
 
 
     const houseCompCharts = new StackedAreaChart(houseCompContent);
-          houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
           houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
 
@@ -367,15 +367,7 @@ Promise.all([
           nonNewConnectionsDate = nonNewConnectionsData.columns[0],
           nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
           nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
-          nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type)),
-          nonNewGroupContent = {
-            e: "#chart-nonNewConnections",
-            ks: nonNewGroup,
-            xV: nonNewConnectionsDate,
-            tX: "Quarters",
-            tY: "Numbers",
-            ySF: "millions",
-          };
+          nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
 
     
           nonNewConnectionsDataProcessed.forEach( d => {
@@ -383,16 +375,20 @@ Promise.all([
               d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
           });
 
-    let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value")
-    //console.log(nonNewCon);
-    // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
+    let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value"),
+        nonNewGroupContent = {
+            e: "#chart-nonNewConnections",
+            d: nonNewCon,
+            ks: nonNewGroup,
+            xV: nonNewConnectionsDate,
+            tX: "Quarters",
+            tY: "Numbers",
+            ySF: "millions",
+        };
 
     const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
-    console.log("the real stack original data", datafiles[9]);    
-    console.log("the real stack processed data", nonNewCon);
-    // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
+    
     nonNewConnectionsChart.tickNumber = 20;
-    nonNewConnectionsChart.getData(nonNewCon);
     nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 
     // setup chart and data for New Dwelling Completion by type chart

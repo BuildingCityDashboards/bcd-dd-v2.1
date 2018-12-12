@@ -13,27 +13,46 @@ class MultiLineChart{
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands";
 
-        this.init();
+        this.drawChart();
+    }
+
+    drawChart(){
+        let c = this;
+
+        c.init();
+        c.addAxis();
+        c.getKeys();
+        c.processData();
+        c.drawTooltip();
+        c.createScales();
+        c.drawGridLines();
+        c.drawLines();
+        c.drawLegend();            
     }
 
     // initialise method to draw c area
     init(){
         let c = this,
+            eN,
+            eW,
+            aR,
+            cScheme,
+            m = c.m = {},
+            w,
+            h,
+            bP;
 
             eN = d3.select(c.e).node(),
             eW = eN.getBoundingClientRect().width,
             aR = eW < 800 ? eW * 0.55 : eW * 0.5,
             cScheme = c.cS || d3.schemeBlues[5].slice(1),
-            m = {},
-            w,
-            h,
-            bP = 678;
+            bP = 576;
         
             // margins
             m.t = eW < bP ? 40 : 50;
             m.b = eW < bP ? 30 : 80;
-            m.r = eW < bP ? 20 : 140;
-            m.l = eW < bP ? 20 : 60;
+            m.r = eW < bP ? 15 : 140;
+            m.l = eW < bP ? 9 : 60;
 
             // dimensions
             w =  eW - m.l - m.r;
@@ -41,6 +60,8 @@ class MultiLineChart{
 
             c.w = w;
             c.h = h;
+            c.eN = eN;
+            c.sscreens = eW < bP ? true : false;
 
             // to remove existing svg on resize
             d3.select(c.e).select("svg").remove(); 
@@ -48,8 +69,8 @@ class MultiLineChart{
             // add the svg to the target element
             c.svg = d3.select(c.e)
                 .append("svg")
-                .attr("width", c.w + m.l + m.r)
-                .attr("height", c.h + m.t + m.b);
+                .attr("width", w + m.l + m.r)
+                .attr("height", h + m.t + m.b);
        
             // add the g to the svg and transform by top and left margin
             c.g = c.svg.append("g")
@@ -59,40 +80,32 @@ class MultiLineChart{
         
             // set chart transition method
             c.t = () => { return d3.transition().duration(1000); };
+            c.ease = d3.easeQuadInOut;
+
             // set chart colour method
             c.colour = d3.scaleOrdinal(cScheme);
             // set chart bisecector method
             c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;
-
-
-    }
-
-    drawChart(){
-        let c = this;
-            c.init();
-            c.addAxis();
-            c.getKeys();
-            c.processData();
-            c.drawTooltip();
-            c.createScales();
-            c.drawLines();
-            c.drawLegend();            
     }
 
     updateChart(obj){
         let c = this;
 
-            if(obj){
-                c.d = obj.d || c.d;
-                c.tX = obj.tX || c.tX;
-                c.tY = obj.tY || c.tY;
-                c.yV = obj.yV || c.yV;
-                c.ySF = obj.ySF || c.ySF;
-            }
+        if(obj){
+            c.d = obj.d || c.d;
+            c.k = obj.k || c.k;
+            c.ks = obj.ks || c.ks;
+            c.tX = obj.tX || c.tX;
+            c.tY = obj.tY || c.tY;
+            c.xV = obj.xV || c.xV;
+            c.yV = obj.yV || c.yV;
+            c.cS = obj.c || c.cS;
+            c.ySF = obj.ySF || c.ySF;
+        }
 
-            c.createScales();
-            c.drawLines();
-            c.drawLegend();
+        c.createScales();
+        c.drawLines();
+        c.drawLegend();
     }
 
     addAxis(){       
@@ -117,7 +130,8 @@ class MultiLineChart{
                 .attr("class", "titleX")
                 .attr("x", c.w/2)
                 .attr("y", c.h + 60)
-                .attr("text-anchor", "middle");
+                .attr("text-anchor", "middle")
+                .text(c.tX);
 
             // Y title
             yLabel = g.append("text")
@@ -125,8 +139,8 @@ class MultiLineChart{
                 .attr("x", - (c.h/2))
                 .attr("y", -45)
                 .attr("text-anchor", "middle")
-                .attr("transform", "rotate(-90)");
-            
+                .attr("transform", "rotate(-90)")
+                .text(c.tY);
     }
 
     getKeys(){
@@ -134,7 +148,7 @@ class MultiLineChart{
             findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
             c.colour.domain(c.d.map(d => { return d.key; }));
 
-            c.keys = c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
+            c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
     }
 
     // check if the data needs to be nested or not!!
@@ -142,7 +156,7 @@ class MultiLineChart{
         let c = this;
         c.d = c.d[0].key ? c.d : c.nest(c.d,c.k); 
     }
-    
+
     // this could be parent method
     nest(data,key){
         return d3.nest().key(d => { 
@@ -154,14 +168,15 @@ class MultiLineChart{
     // needs to be called everytime the data changes
     createScales(){
         let c = this,
-            yAxisCall = d3.axisLeft(),
-            xAxisCall = d3.axisBottom(),
-            x = c.getElement(".titleX"),
-            y = c.getElement(".titleY");
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
 
-        //update axis titles
-        x.text(c.tX);
-        y.text(c.tY);
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY)
 
         // set scales
         c.x = d3.scaleTime().range([0, c.w]);
@@ -182,8 +197,6 @@ class MultiLineChart{
             return d3.max(d.values, d => { return d[c.yV]; });
             })
         ]);
-
-        c.drawGridLines();
 
         // Update X axis
         c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
@@ -246,10 +259,17 @@ class MultiLineChart{
 
     drawTooltip(){
         let c = this;
+
+            d3.select(c.e).select(".tool-tip.bcd").remove();
+
             c.newToolTip = d3.select(c.e)
                 .append("div")
-                    .attr("class","tool-tip bcd")
-                    .style("visibility","hidden");
+                    .attr("class","tool-tip bcd");
+                    
+            // check screen size
+            c.sscreens ? 
+            c.newToolTip.style("visibility","visible") : 
+            c.newToolTip.style("visibility","hidden");
 
             c.newToolTipTitle = c.newToolTip
                 .append("div")
@@ -293,7 +313,7 @@ class MultiLineChart{
 
     tooltipBody(){
         let c = this,
-            keys = c.keys,
+            keys = c.ks,
             div,
             p;
 
@@ -335,9 +355,7 @@ class MultiLineChart{
             g = c.g; 
             
             c.focus = g.append("g")
-                .attr("class", "focus")
-                .style("display", "none")
-                .style("visibility", "hidden");
+                .attr("class", "focus");
             
             c.focus.append("line")
                 .attr("class", "focus_line")
@@ -347,7 +365,7 @@ class MultiLineChart{
             c.focus.append("g")
                 .attr("class", "focus_circles");
             
-            c.keys.forEach( (d,i) => {
+            c.ks.forEach( (d,i) => {
                 c.drawFocusCircles(d,i);
             });
     }
@@ -381,31 +399,51 @@ class MultiLineChart{
                 .style("pointer-events", "all")
                 .style("visibility", "hidden");
 
-                overlay.on("mouseover", (d) => { 
+                if (c.sscreens){
+                    mousemove();
+                    overlay
+                    .on("touchmove", mousemove, {passive:true})
+                    .on("mousemove", mousemove, {passive:true});
+                }
+                else {
+                    overlay
+                    .on("mouseover", (d) => { 
                         focus.style("display", null);
                     }, {passive:true})
-                    .on("touchstart", ()=>{
-                        focus.style("display", null);
-                    }, {passive: true})
                     .on("mouseout", () => { 
                         focus.style("display", "none"); 
                         c.newToolTip.style("visibility","hidden");
                     })
-                    .on("touchmove", mousemove, {passive:true})
                     .on("mousemove", mousemove, {passive:true});
-
+                }
+            
             function mousemove(){
                 focus.style("visibility","visible");
                 c.newToolTip.style("visibility","visible");
 
-                let mouse = d3.mouse(this),
-                    x0 = c.x.invert(mouse[0]),
+                let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+                    x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
                     i = c.bisectDate(c.d[0].values, x0, 1),
                     tooldata = c.sortData(i, x0);
-    
                     c.ttContent(tooldata);// add values to tooltip
             }
     }
+
+    // mousemove(d){
+    //     let c = this,
+    //         focus = d3.select(c.e).select(".focus"),
+    //         mouse = d3.mouse(d.node()) || c.w,
+
+    //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+    //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+    //         i = c.bisectDate(c.d[0].values, x0, 1),
+    //         tooldata = c.sortData(i, x0);
+            
+    //         c.ttContent(tooldata);// add values to tooltip
+
+    //         focus.style("visibility","visible");
+    //         c.newToolTip.style("visibility","visible");
+    // }
 
     getPerChange(d1, d0, v){
         let value;
@@ -507,20 +545,22 @@ class MultiLineChart{
 
     drawGridLines(){
         let c = this,
-            gLines = c.getElement(".grid-lines");
+            gLines;
+            
+        gLines = c.getElement(".grid-lines");
 
-            gLines.selectAll("line")
-                .remove();
+        gLines.selectAll("line")
+            .remove();
 
-            gLines.selectAll("line.horizontal-line")
-                .data(c.y.ticks)
-                .enter()
-                .append("line")
-                    .attr("class", "horizontal-line")
-                    .attr("x1", (0))
-                    .attr("x2", c.w)
-                    .attr("y1", (d) => c.y(d))
-                    .attr("y2", (d) => c.y(d));
+        gLines.selectAll("line.horizontal-line")
+            .data(c.y.ticks)
+            .enter()
+            .append("line")
+                .attr("class", "horizontal-line")
+                .attr("x1", (0))
+                .attr("x2", c.w)
+                .attr("y1", (d) => c.y(d))
+                .attr("y2", (d) => c.y(d));
     }
 
     formatValue(format){

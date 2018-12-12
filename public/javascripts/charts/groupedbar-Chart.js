@@ -19,26 +19,35 @@ class GroupedBarChart{
     // initialise method to draw c area
     init(){
         let c = this,
-            e = d3.select(c.e),
-            eN = e.node(),
-            eW = eN.getBoundingClientRect().width,
-            aR = eW < 800 ? eW * 0.65 : eW * 0.5,
-            bP = 678,
+            eN,
+            eW,
+            aR,
+            cScheme,
+            m = c.m = {},
             w,
             h,
-            m = c.m = {};
+            bP;
 
-            m.t = eW < bP ? 40 : 50;
-            m.b = eW < bP ? 30 : 80;
-            m.r = eW < bP ? 20 : 100;
-            m.l = eW < bP ? 20 : 80;
+        eN = d3.select(c.e).node(),
+        eW = eN.getBoundingClientRect().width,
+        aR = eW < 800 ? eW * 0.55 : eW * 0.5,
+        cScheme = c.cS || d3.schemeBlues[5].slice(1),
+        bP = 576;
 
-            w = eW - m.l - m.r;
-            h = aR - m.t - m.b;
+        // margins
+        m.t = eW < bP ? 40 : 50;
+        m.b = eW < bP ? 30 : 80;
+        m.r = eW < bP ? 15 : 140;
+        m.l = eW < bP ? 9 : 60;
+
+        // dimensions
+        w =  eW - m.l - m.r;
+        h = aR - m.t - m.b;
 
         c.w = w;
         c.h = h;
-
+        c.eN = eN;
+        c.sscreens = eW < bP ? true : false;
         // add the svg to the target element
         c.svg = d3.select(c.e)
             .append("svg")

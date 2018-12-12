@@ -24,8 +24,8 @@
 }
 
 .tool-tip {
-  position: absolute;
-  width: 305px;
+  position: static;
+  width: 100%;
   padding: .5rem;
   background-color: #ffffff;
   border: 1px solid rgb(210, 214, 223);
@@ -37,6 +37,7 @@
   color: #313131;
   opacity: 1;
   padding-right: 0;
+  visibility: visible;
 }
 
 .tip-box{
@@ -106,6 +107,24 @@
   opacity: .25;
 }
 
+.legendText{
+  display:none;
+}
+
 /* .tip-text{
   line-height: 1.25rem;
 } */
+
+
+@media (min-width: 576px){
+  .tool-tip{
+    position: absolute;
+    width: 305px;
+  }
+  .focus{
+    visibility: hidden;
+  }
+  .legendText{
+    display:block;
+  }
+}
