@@ -53,16 +53,27 @@ gettingAroundMap.addControl(osmGeocoder);
 /************************************
  * Bikes
  ************************************/
-let bikeCluster = new L.MarkerClusterGroup(null, {
-  disableClusteringAtZoom: 10,
+let bikeCluster = L.markerClusterGroup({
+  //   spiderfyOnMaxZoom: false,
+  //   showCoverageOnHover: false,
+  //   zoomToBoundsOnClick: false
+  //   // maxZoom: 14,
+  //   // zoomOnClick: false
+  disableClusteringAtZoom: 14,
+  spiderfyOnMaxZoom: false
+  //   // singleMarkerMode: true
+  //   // maxClusterRadius: 100,
+  //   // iconCreateFunction: function(cluster) {
+  //   //   return L.divIcon({
+  //   //     html: '<b>' + cluster.getChildCount() + '</b>'
+  //   //   });
+  //   // }
+});
+
+var testMarkers = L.markerClusterGroup({
   spiderfyOnMaxZoom: false,
-  singleMarkerMode: true
-  // maxClusterRadius: 100,
-  // iconCreateFunction: function(cluster) {
-  //   return L.divIcon({
-  //     html: '<b>' + cluster.getChildCount() + '</b>'
-  //   });
-  // }
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: false
 });
 
 let dublinBikeMapIcon = L.icon({
