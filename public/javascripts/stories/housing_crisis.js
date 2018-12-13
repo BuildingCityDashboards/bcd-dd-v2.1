@@ -131,7 +131,7 @@
                     "#d9d9d9"
                     ]; // qualitative pastel
         
-        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
+        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1a", cA2),
               Chart_fig1 = new MultiLineChart(chart1C),
               visibleLabels = [1,6,12,16,21,26];
             
@@ -144,15 +144,11 @@
               
               Chart_fig1.addTooltip("Population - Year: ", "thousands", "label");
 
-              // hacked the x-axis to show only ticks matching the data. 
-              //- get list of dates and filter array of g tags for elements that match the dates
-              Chart_fig1.xAxis.selectAll(".x-axis .tick").style("display", "none");
-
               // only
               hideXAxisLabels(Chart_fig1, visibleLabels);
 
         const Chart_fig1bContent = {
-                e: "#chart1",
+                e: "#chart1b",
                 d: popRate,
                 ks: chart1D2Types,
                 xV: "region",
@@ -218,7 +214,7 @@
                     Chart_fig1b.hideRate(true);
                     
                     
-                    Chart_fig1b.update();
+                    Chart_fig1b.drawBars();
                     Chart_fig1.svg.attr("display","none");
                     Chart_fig1b.svg.attr("display","block");
                  });
@@ -238,7 +234,7 @@
                     Chart_fig1b.hideRate(true);
 
 
-                    Chart_fig1b.update();
+                    Chart_fig1b.drawBars();
                     Chart_fig1.svg.attr("display","none");
                     Chart_fig1b.svg.attr("display","block");
                  });
@@ -247,7 +243,7 @@
                     e: "#chart2",
                     k: "type",
                     d: chart2D,
-                    v: "value",
+                    yV: "value",
                     cS: cA4,
                     ySF: "m",
                     tX: "Regions",
@@ -259,10 +255,20 @@
 
 
         const chart3DN = nestData(chart3D, "label", chart3R, "value"),
-              Chart3 = new StackedAreaChart("#chart3", "Years", "No. of Housing Completions", "date", chart3K, cA3);
+              chart3Content = {
+                    e: "#chart3",
+                    d: chart3DN,
+                    ks: chart3K,
+                    xV: "date",
+                    cS: cA3,
+                    ySF: "millions",
+                    tX: "Years",
+                    tY: "No. of Housing Completions"
+
+              },
+              Chart3 = new StackedAreaChart(chart3Content);
               Chart3.tickNumber = 23;
-              Chart3.getData(chart3DN);
-              Chart3.addTooltip("Housing Completions - Year:", "Units");
+              Chart3.addTooltip("Housing Completions - Year:", "millions","label");
 
 
         const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", cA1),
@@ -415,11 +421,11 @@
     
         return {
                 e: selector,
-                k: keys,
+                ks: keys,
                 d: nest,
                 xV: date,
                 yV: value,
-                c: colour,
+                cS: colour,
             };
     
     }

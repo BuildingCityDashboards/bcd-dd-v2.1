@@ -13,7 +13,21 @@ class GroupStackBar {
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands"; // format for y axis
 
-        this.init();
+        this.drawChart();
+    }
+
+    drawChart(){
+        let c = this;
+
+        c.init();
+        c.stackData();
+        // c.getKeys();
+        // c.drawTooltip();
+        c.createScales();//parent once I setup setScales:done and setDomain with switch.
+        c.addAxis();
+        c.drawGridLines();
+        c.drawStack();
+        c.addLegend();         
     }
 
     init(){
@@ -22,7 +36,7 @@ class GroupStackBar {
             eW,
             aR,
             cScheme,
-            m = {},
+            m = c.m = {},
             w,
             h,
             bP;
@@ -48,41 +62,75 @@ class GroupStackBar {
         c.eN = eN;
         c.sscreens = eW < bP ? true : false;
 
-        // set transition variable
-        c.t = function() { return d3.transition().duration(1000); };
+        // to remove existing svg on resize
+        d3.select(c.e).select("svg").remove();
 
-        c.cS = c.cS || d3.schemeBlues[9].slice(3);
-
-        // set colour function
-        c.colour = d3.scaleOrdinal(c.cS);
-
-        // tick numbers
-        c.tickNumber = "undefined";
-
-        // tick formats
-        c.tickFormat = "undefined";
-
-        c.yAxisCall = d3.axisLeft();
-
-        c.xAxisCall = d3.axisBottom();
-
-        c.drawTooltip();
-
-        c.svg = e.append("svg")
-                .attr("width", w + m.l + m.r)
-                .attr("height", h + m.t + m.b);
+        // add the svg to the target element
+        c.svg = d3.select(c.e)
+            .append("svg")
+            .attr("width", w + m.l + m.r)
+            .attr("height", h + m.t + m.b);
 
         c.g = c.svg.append("g")
             .attr("transform", "translate(" + m.l + "," + m.t + ")");
 
-        c.grid = c.g.append("g").attr("class", "grid-lines");
 
-        c.stackData();
-        c.createScales();
-        c.addAxis();
-        c.drawGrid();
-        c.drawChart();
-        c.addLegend();
+        // set transition variable
+        c.t = function() { return d3.transition().duration(1000); };
+        c.ease = d3.easeQuadInOut;
+
+        // set colour function
+        c.colour = d3.scaleOrdinal(c.cScheme);
+
+        // // tick numbers
+        // c.tickNumber = "undefined";
+
+        // // tick formats
+        // c.tickFormat = "undefined";
+        
+        c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;
+
+        // c.yAxisCall = d3.axisLeft();
+
+        // c.xAxisCall = d3.axisBottom();
+
+        c.drawTooltip();
+
+ } 
+
+    addAxis(){       
+        let c = this,
+            g = c.g,
+            gLines,
+            xLabel,
+            yLabel;
+
+            gLines = g.append("g")
+                .attr("class", "grid-lines");
+
+            c.xAxis = g.append("g")
+                .attr("class", "x-axis")
+                .attr("transform", "translate(0," + c.h +")");
+            
+            c.yAxis = g.append("g")
+                .attr("class", "y-axis");
+
+            // X title
+            xLabel = g.append("text")
+                .attr("class", "titleX")
+                .attr("x", c.w/2)
+                .attr("y", c.h + 60)
+                .attr("text-anchor", "middle")
+                .text(c.tX);
+
+            // Y title
+            yLabel = g.append("text")
+                .attr("class", "titleY")
+                .attr("x", - (c.h/2))
+                .attr("y", -45)
+                .attr("text-anchor", "middle")
+                .attr("transform", "rotate(-90)")
+                .text(c.tY);
     }
 
     drawTooltip(){
@@ -215,90 +263,76 @@ class GroupStackBar {
 
     createScales(){
         let c = this,
+            yAxisCall,
+            xAxisCall,
+            x0,
+            x1,
+            y,
+            xt,
+            yt;
 
-            x0 = d3.scaleBand()
-                    .range([0, c.w])
-                    .padding(0.05),
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        xt = c.getElement(".titleX").text(c.tX);
+        yt = c.getElement(".titleY").text(c.tY);
 
-            x1 = d3.scaleBand()
-                    .padding(0.05),
+        x0 = d3.scaleBand()
+                .range([0, c.w])
+                .padding(0.05),
 
-            y = d3.scaleLinear()
-                    .range([c.h, 0]);
+        x1 = d3.scaleBand()
+                .padding(0.05),
 
-            x0.domain(c.d.map(d => { return d.region; }));
+        y = d3.scaleLinear()
+                .range([c.h, 0]);
 
-            x1.domain(c.d.map(d => { return d.date; }))
-                .rangeRound([0, x0.bandwidth()])
-                .padding(0.2);
+        x0.domain(c.d.map(d => { return d.region; }));
 
-            y.domain([0, d3.max(
-                c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
-                })]).nice();
+        x1.domain(c.d.map(d => { return d.date; }))
+            .rangeRound([0, x0.bandwidth()])
+            .padding(0.2);
 
-            c.xAxisCall.scale(x0);
-            c.ySF ? c.yAxisCall.scale(y).tickFormat(formatValue(c.ySF) ) : c.yAxisCall.scale(y);
-            // c.yAxisCall.scale(y);
+        y.domain([0, d3.max(
+            c.stackD, d => { return d3.max(d, d => { return d[1]; }); 
+            })]).nice();
 
-            c.x0 = x0,
-            c.x1 = x1,
-            c.y = y;
+        xAxisCall.scale(x0);
+        c.ySF ? yAxisCall.scale(y).tickFormat(formatValue(c.ySF) ) : yAxisCall.scale(y);
+        // c.yAxisCall.scale(y);
+
+        c.x0 = x0,
+        c.x1 = x1,
+        c.y = y;
     }
 
-    addAxis(){       
+    drawGridLines(){
         let c = this,
-            g = c.g,
-
-            xAxis = g.append("g")
-                .attr("class", "x-axis")
-                .attr("transform", "translate(0," + c.h +")")
-                .call(c.xAxisCall)
-                .selectAll(".tick text")
-                .call(textWrap, 60, 0),
+            gLines;
             
-            yAxis = g.append("g")
-                .attr("class", "y-axis")
-                .call(c.yAxisCall),
-    
-            // X title
-            xLabel = g.append("text")
-                .attr("class", "titleX")
-                .attr("x", c.w/2)
-                .attr("y", c.h + 60)
-                .attr("text-anchor", "middle")
-                .text(c.tX),
-    
-            // Y title
-            yLabel = g.append("text")
-                .attr("class", "titleY")
-                .attr("x", - (c.h/2))
-                .attr("y", -50)
-                .attr("text-anchor", "middle")
-                .attr("transform", "rotate(-90)")
-                .text(c.tY);
+        gLines = c.getElement(".grid-lines");
+
+        gLines.selectAll("line")
+            .remove();
+
+        gLines.selectAll("line.horizontal-line")
+            .data(c.y.ticks)
+            .enter()
+            .append("line")
+                .attr("class", "horizontal-line")
+                .attr("x1", (0))
+                .attr("x2", c.w)
+                .attr("y1", (d) => c.y(d))
+                .attr("y2", (d) => c.y(d));
     }
 
-    drawGrid(){
+    getElement(name){
         let c = this,
-            y = c.y,
-            w = c.w,
-            gd = c.grid;
-
-            gd.selectAll('line')
-                .remove();
-
-            gd.selectAll('line.horizontal-line')
-                .data(y.ticks)
-                .enter()
-                    .append('line')
-                    .attr('class', 'horizontal-line')
-                    .attr('x1', (0))
-                    .attr('x2', w)
-                    .attr('y1', (d) => { return y(d); })
-                    .attr('y2', (d) => y(d));
+            s = d3.select(c.e),
+            e = s.selectAll(name);
+        return e;
     }
 
-    drawChart(){
+    drawStack(){
         let c = this,
             data = c.stackD,
             g = c.g,

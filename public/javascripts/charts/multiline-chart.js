@@ -299,66 +299,6 @@ class MultiLineChart extends Chart{
         return [ttX, ttY];
     }
 
-    getElement(name){
-        let c = this,
-            s = d3.select(c.e),
-            e = s.selectAll(name);
-        return e;
-    }
-    
-    textWrap(text, width, xpos = 0, limit=2) {
-        text.each(function() {
-            let words,
-                word,
-                line,
-                lineNumber,
-                lineHeight,
-                y,
-                dy,
-                tspan;
-
-            text = d3.select(this);
-    
-            words = text.text().split(/\s+/).reverse();
-            line = [];
-            lineNumber = 0;
-            lineHeight = 1;
-            y = text.attr("y");
-            dy = parseFloat(text.attr("dy"));
-            tspan = text
-                .text(null)
-                .append("tspan")
-                .attr("x", xpos)
-                .attr("y", y)
-                .attr("dy", dy + "em");
-    
-            while ((word = words.pop())) {
-                line.push(word);
-                tspan.text(line.join(" "));
-
-                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-
-                    if (lineNumber < limit - 1) {
-                        line = [word];
-                        tspan = text.append("tspan")
-                            .attr("x", xpos*2)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                        // if we need two lines for the text, move them both up to center them
-                        text.classed("move-up", true);
-                    } else {
-                        line.push("...");
-                        tspan.text(line.join(" "));
-                        break;
-                    }
-                }
-            }
-        });
-    }
-
     formatQuarter(date, i){
         let newDate = new Date();
         newDate.setMonth(date.getMonth() + 1);
