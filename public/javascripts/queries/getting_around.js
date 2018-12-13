@@ -59,7 +59,7 @@ let bikeCluster = L.markerClusterGroup({
   //   zoomToBoundsOnClick: false
   //   // maxZoom: 14,
   //   // zoomOnClick: false
-  disableClusteringAtZoom: 14,
+  disableClusteringAtZoom: 15,
   spiderfyOnMaxZoom: false
   //   // singleMarkerMode: true
   //   // maxClusterRadius: 100,
@@ -366,37 +366,67 @@ let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using un
 /************************************
  * Luas
  ************************************/
-let luasCluster = L.markerClusterGroup();
+// let luasCluster = L.markerClusterGroup();
 let luasLayer = L.layerGroup();
-let luasLines = new L.geoJSON(null, {
+let luasLineGreen = new L.geoJSON(null, {
   "style": {
-    "color": "#086fb8",
+    "color": "#4baf56",
     "weight": 5,
     "opacity": 0.65
+  }
+});
 
+let luasLineRed = new L.geoJSON(null, {
+  "style": {
+    "color": "#ff4a54",
+    "weight": 5,
+    "opacity": 0.65
   }
 });
 let luasIcons; //layer holds markers positioned at ends of luas lines
-//let luasLineColor =
 
-let luasMapIconLine = L.icon({
-  iconUrl: '/images/transport/rail-light-15-b.svg',
+let luasMapIconLineGreenEnd = L.icon({
+  iconUrl: '/images/transport/rail-light-15-g.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [25, -5] //,
   //popupAnchor: [-3, -76]
 });
 
-let luasMapIconLarge = L.icon({
+
+let luasMapIconLineRedEnd = L.icon({
+  iconUrl: '/images/transport/rail-light-15-r.svg',
+  iconSize: [30, 30], //orig size
+  iconAnchor: [25, -5] //,
+  //popupAnchor: [-3, -76]
+});
+
+let luasMapIconLargeGreen = L.icon({
   // iconUrl: '/images/transport/rail-light-15-b.svg',
-  iconUrl: '/images/transport/rail-light-w-c-15.svg',
+  iconUrl: '/images/transport/rail-light-g-c-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
   //popupAnchor: [-3, -76]
 });
 
-let luasMapIconSmall = L.icon({
+let luasMapIconLargeRed = L.icon({
+  // iconUrl: '/images/transport/rail-light-15-b.svg',
+  iconUrl: '/images/transport/rail-light-r-c-15.svg',
+  iconSize: [30, 30], //orig size
+  iconAnchor: [iconAX, iconAY] //,
+  //popupAnchor: [-3, -76]
+});
+
+let luasMapIconSmallGreen = L.icon({
   //iconUrl: '/images/transport/rail-light-15.svg',
-  iconUrl: '/images/transport/circle-stroked-15-b.svg',
+  iconUrl: '/images/transport/circle-stroked-15-g.svg',
+  iconSize: [15, 15], //orig size
+  iconAnchor: [iconAX / 2, iconAY / 2] //,
+  //popupAnchor: [-3, -76]
+});
+
+let luasMapIconSmallRed = L.icon({
+  //iconUrl: '/images/transport/rail-light-15.svg',
+  iconUrl: '/images/transport/circle-stroked-15-r.svg',
   iconSize: [15, 15], //orig size
   iconAnchor: [iconAX / 2, iconAY / 2] //,
   //popupAnchor: [-3, -76]
@@ -408,11 +438,11 @@ d3.tsv("/data/Transport/luas-stops.txt").then(function(data) {
 });
 
 d3.json("/data/Transport/LUAS_Green_Line.geojson").then(function(data) {
-  updateMapLuasLines(data);
+  updateMapLuasLineGreen(data);
 });
 
 d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function(data) {
-  updateMapLuasLines(data);
+  updateMapLuasLineRed(data);
 });
 
 function processLuas(data_) {
@@ -435,55 +465,63 @@ let customMarker = L.Marker.extend({
 });
 
 function updateMapLuas(data__) {
-  if (luasClusterToggle) {
-    luasCluster.clearLayers();
-    gettingAroundMap.removeLayer(luasCluster);
-  }
-
   //hard-coded icons for ends of lines
   let saggart = L.latLng(53.28467885, -6.43776255);
   //let point = L.latLng( 53.34835, -6.22925833333333 );
   let bridesGlen = L.latLng(53.242075, -6.14288611111111);
   let m1 = L.marker(saggart, {
-    icon: luasMapIconLine
+    icon: luasMapIconLineRedEnd
   });
   let m2 = L.marker(bridesGlen, {
-    icon: luasMapIconLine
+    icon: luasMapIconLineGreenEnd
   });
 
   luasIcons = L.layerGroup([m1, m2]);
   _.each(data__, function(d, k) {
-    //        console.log("d: " + d.type + "\n");
+    //console.log("luas id: " + d.LineID + "\n");
     let marker = new customMarker(
       new L.LatLng(d.lat, d.lng), {
-        icon: luasMapIconSmall,
-        id: d.StopID
+        icon: getLuasMapIconSmall(d.LineID),
+        id: d.StopID,
+        lineId: d.LineID
       }
     );
     marker.bindPopup(getLuasContent(d));
     marker.on('click', markerOnClickLuas);
-    if (luasClusterToggle) {
-      luasCluster.addLayer(marker);
-    } else {
-      luasLayer.addLayer(marker);
-    }
+    luasLayer.addLayer(marker);
     //console.log("marker ID: "+marker.options.id);
   });
-  if (luasClusterToggle) {
-    gettingAroundMap.addLayer(luasCluster);
-  } else {
-    gettingAroundMap.addLayer(luasLayer);
-
-  }
+  gettingAroundMap.addLayer(luasLayer);
   chooseLookByZoom();
 
 }
 
-function updateMapLuasLines(data__) {
-  luasLines.addData(data__);
-  gettingAroundMap.addLayer(luasLines);
+function updateMapLuasLineGreen(data__) {
+  luasLineGreen.addData(data__);
+  gettingAroundMap.addLayer(luasLineGreen);
   chooseLookByZoom();
 
+}
+
+function updateMapLuasLineRed(data__) {
+  luasLineRed.addData(data__);
+  gettingAroundMap.addLayer(luasLineRed);
+  chooseLookByZoom();
+
+}
+
+function getLuasLine(id_) {
+  return (id_ === "1" ? "Red" : "Green");
+}
+
+function getLuasMapIconSmall(id_) {
+  // console.log("icon: " + d.LineID + "\n");
+  return (id_ === "1" ? luasMapIconSmallRed : luasMapIconSmallGreen);
+}
+
+function getLuasMapIconLarge(id_) {
+  // console.log("icon: " + d.LineID + "\n");
+  return (id_ === "1" ? luasMapIconLargeRed : luasMapIconLargeGreen);
 }
 
 function getLuasContent(d_) {
@@ -511,9 +549,7 @@ function getLuasContent(d_) {
   return str;
 }
 
-function getLuasLine(id_) {
-  return (id_ === "1" ? "Red" : "Green");
-}
+
 
 let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 
@@ -606,16 +642,21 @@ function chooseLookByZoom() {
         if (!gettingAroundMap.addLayer(luasLayer)) {
           gettingAroundMap.addLayer(luasLayer);
         }
-        luasLayer.eachLayer(function(layer) {
-          layer.setIcon(luasMapIconSmall);
+        //each layer is actually a marker
+        luasLayer.eachLayer(function(marker) {
+          //get the line id set in the custom marker to choose red or grreen icon
+          let lId = luasLayer.getLayer(luasLayer.getLayerId(marker)).options.lineId;
+          marker.setIcon(getLuasMapIconSmall(lId));
         });
       } else {
         gettingAroundMap.removeLayer(luasIcons);
         if (!gettingAroundMap.addLayer(luasLayer)) {
           gettingAroundMap.addLayer(luasLayer);
         }
-        luasLayer.eachLayer(function(layer) {
-          layer.setIcon(luasMapIconLarge);
+        luasLayer.eachLayer(function(marker) {
+          //get the line id set in the custom marker to choose red or grreen icon
+          let lId = luasLayer.getLayer(luasLayer.getLayerId(marker)).options.lineId;
+          marker.setIcon(getLuasMapIconLarge(lId));
         });
       }
     }
