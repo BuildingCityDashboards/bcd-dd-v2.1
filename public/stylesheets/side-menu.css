@@ -157,9 +157,8 @@
     height: 100%;
     padding: 0 0 1rem;
     position: fixed;
-    overflow-y: auto;
+    overflow-y: scroll;
     transform: translateX(-100%);
-    overflow: inherit;
     z-index: 7000;
     display: -ms-flexbox;
     display: flex;

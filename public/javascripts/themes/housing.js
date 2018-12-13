@@ -105,7 +105,7 @@ Promise.all([
         planningTT = {
             title: "Planning Applications - Year",
             datelabel: date,
-            valueFormat: "thousands",
+            format: "thousands",
         },
 
         // drawing charts for planning data.
@@ -387,7 +387,7 @@ Promise.all([
         };
 
     const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
-    
+
     nonNewConnectionsChart.tickNumber = 20;
     nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 

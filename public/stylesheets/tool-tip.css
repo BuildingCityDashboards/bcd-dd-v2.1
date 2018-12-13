@@ -38,6 +38,7 @@
   opacity: 1;
   padding-right: 0;
   visibility: visible;
+  transition: 250ms ease;
 }
 
 .tip-box{

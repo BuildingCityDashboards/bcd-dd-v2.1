@@ -212,6 +212,13 @@ class Chart {
                 .attr("y2", (d) => c.y(d));
     }
 
+    getElement(name){
+        let c = this,
+            s = d3.select(c.e),
+            e = s.selectAll(name);
+        return e;
+    }
+
     drawFocusLine(){
         let c = this,
             g = c.g; 
@@ -269,7 +276,11 @@ class Chart {
                 break;
         
             case "euros":
-                return "undefined";
+                return locale.format("$,.0f");
+                break;
+
+            case "euros2":
+                return locale.format("$,.2f");
                 break;
         
             case "thousands":
@@ -288,5 +299,5 @@ class Chart {
                 return "undefined";
         }
     }
-    
+
 }

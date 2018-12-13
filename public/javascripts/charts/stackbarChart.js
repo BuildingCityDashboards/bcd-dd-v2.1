@@ -1,17 +1,7 @@
-class StackBarChart {
+class StackBarChart extends Chart{
 
-    constructor(obj){
-
-        this.d = obj.d;
-        this.e = obj.e;
-        this.k = obj.k;
-        this.ks = obj.ks;
-        this.xV = obj.xV;
-        this.yV = obj.yV;
-        this.tY = obj.tY;
-        this.tX = obj.tX;
-        this.cS = obj.c;
-        this.ySF = obj.ySF || "thousands";
+    constructor (obj){
+        super(obj);
 
         this.drawChart();
     }
@@ -19,74 +9,16 @@ class StackBarChart {
     drawChart(){
         let c = this;
 
-        c.init();
-        c.addAxis();
-        c.getKeys();
+        super.init();
+        super.addAxis();
+        super.getKeys();
         // c.processData();
         c.stackData();
-        c.drawTooltip();
+        super.drawTooltip();
         c.createScales();
-        c.drawGridLines();
+        super.drawGridLines();
         c.drawStacks();
         c.drawLegend();            
-    }
-
-    init(){
-        let c = this,
-            eN,
-            eW,
-            aR,
-            cScheme,
-            m = c.m = {},
-            w,
-            h,
-            bP;
-
-        eN = d3.select(c.e).node(),
-        eW = eN.getBoundingClientRect().width,
-        aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-        cScheme = c.cS || d3.schemeBlues[5].slice(1),
-        bP = 576;
-    
-        // margins
-        m.t = eW < bP ? 40 : 50;
-        m.b = eW < bP ? 30 : 80;
-        m.r = eW < bP ? 15 : 140;
-        m.l = eW < bP ? 9 : 60;
-
-        // dimensions
-        w =  eW - m.l - m.r;
-        h = aR - m.t - m.b;
-
-        c.w = w;
-        c.h = h;
-        c.eN = eN;
-        c.sscreens = eW < bP ? true : false;
-
-        // to remove existing svg on resize
-        d3.select(c.e).select("svg").remove(); 
-        
-        // add the svg to the target element
-        c.svg = d3.select(c.e)
-            .append("svg")
-            .attr("width", w + m.l + m.r)
-            .attr("height", h + m.t + m.b);
-    
-        // add the g to the svg and transform by top and left margin
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + m.l + 
-                ", " + m.t + ")")
-            .attr("class","c-group");
-
-        // set c transition method
-        c.t = () => { return d3.transition().duration(1000); };
-        c.ease = d3.easeQuadInOut;
-        
-        // set c colour method
-        c.colour = d3.scaleOrdinal(cScheme);
-        // set c bisecector method
-        c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;// not need fot this type of c.
-
     }
 
     updateChart(obj){
@@ -107,48 +39,6 @@ class StackBarChart {
         c.stackData();
         c.createScales();
         c.drawLegend();
-    }
-
-    addAxis(){       
-        let c = this,
-            g = c.g,
-            gLines,
-            xLabel,
-            yLabel;
-
-        gLines = g.append("g")
-            .attr("class", "grid-lines");
-
-        c.xAxis = g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.h +")");
-        
-        c.yAxis = g.append("g")
-            .attr("class", "y-axis");
-
-        // X title
-        xLabel = g.append("text")
-            .attr("class", "titleX")
-            .attr("x", c.w/2)
-            .attr("y", c.h + 60)
-            .attr("text-anchor", "middle")
-            .text(c.tX);
-
-        // Y title
-        yLabel = g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (c.h/2))
-            .attr("y", -45)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(c.tY);
-    }
-
-    getKeys(){
-        let c = this,
-            findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
-            c.colour.domain(c.d.map(d => { return d.key; }));
-            c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
     }
 
     stackData(){
@@ -206,54 +96,54 @@ class StackBarChart {
                 .style("stroke-width", "1");
     }
 
-    drawTooltip(){
-        let c = this,
-            keys,
-            div,
-            p;
+    // drawTooltip(){
+    //     let c = this,
+    //         keys,
+    //         div,
+    //         p;
 
-            c.colour.domain(c.d.map(d => { return d[c.k]; }));
-            keys = c.colour.domain();
+    //         c.colour.domain(c.d.map(d => { return d[c.k]; }));
+    //         keys = c.colour.domain();
 
-            c.newToolTip = d3.select(c.e)
-                .append("div")
-                .attr("class","tool-tip bcd")
-                .style("visibility","hidden");
+    //         c.newToolTip = d3.select(c.e)
+    //             .append("div")
+    //             .attr("class","tool-tip bcd")
+    //             .style("visibility","hidden");
 
-            c.newToolTipTitle = c.newToolTip
-                .append("div")
-                .attr("id", "bcd-tt-title");
+    //         c.newToolTipTitle = c.newToolTip
+    //             .append("div")
+    //             .attr("id", "bcd-tt-title");
 
-            keys.forEach( (d, i) => {
-                div = c.newToolTip
-                        .append("div")
-                        .attr("id", "bcd-tt" + i);
+    //         keys.forEach( (d, i) => {
+    //             div = c.newToolTip
+    //                     .append("div")
+    //                     .attr("id", "bcd-tt" + i);
                     
-                div.append("span").attr("class", "bcd-rect");
+    //             div.append("span").attr("class", "bcd-rect");
 
-                p = div.append("p").attr("class","bcd-text");
+    //             p = div.append("p").attr("class","bcd-text");
 
-                p.append("span").attr("class","bcd-text-title");
-                p.append("span").attr("class","bcd-text-value");
-                p.append("span").attr("class","bcd-text-rate");
-                p.append("span").attr("class","bcd-text-indicator");
-            });
+    //             p.append("span").attr("class","bcd-text-title");
+    //             p.append("span").attr("class","bcd-text-value");
+    //             p.append("span").attr("class","bcd-text-rate");
+    //             p.append("span").attr("class","bcd-text-indicator");
+    //         });
 
-        let lastDiv = c.newToolTip.append("div")
-                    .attr("id", "bcd-tt-total"),
+    //     let lastDiv = c.newToolTip.append("div")
+    //                 .attr("id", "bcd-tt-total"),
             
-            lastDot = lastDiv.append("span")
-                    .attr("class", "bcd-rect"),
+    //         lastDot = lastDiv.append("span")
+    //                 .attr("class", "bcd-rect"),
 
-            lastP = lastDiv.append("p")
-                    .attr("class","bcd-text");
+    //         lastP = lastDiv.append("p")
+    //                 .attr("class","bcd-text");
 
-                lastP.append("span").attr("class","bcd-text-title");
-                lastP.append("span").attr("class","bcd-text-value");
-                lastP.append("span").attr("class","bcd-text-rate");
-                lastP.append("span").attr("class","bcd-text-indicator");
+    //             lastP.append("span").attr("class","bcd-text-title");
+    //             lastP.append("span").attr("class","bcd-text-value");
+    //             lastP.append("span").attr("class","bcd-text-rate");
+    //             lastP.append("span").attr("class","bcd-text-indicator");
 
-    }
+    // }
 
     // needs to be called everytime the data changes
     createScales(){
@@ -325,27 +215,7 @@ class StackBarChart {
                     .attr("fill", "#fff")
                     .style("font", "10px sans-serif")
                     .text(function(d) { return d.key; })
-                    .call(c.textWrap, 100, 10);
-    }
-
-    drawGridLines(){
-        let c = this,
-            gLines;
-            
-        gLines = c.getElement(".grid-lines");
-
-        gLines.selectAll("line")
-            .remove();
-
-        gLines.selectAll("line.horizontal-line")
-            .data(c.y.ticks)
-            .enter()
-            .append("line")
-                .attr("class", "horizontal-line")
-                .attr("x1", (0))
-                .attr("x2", c.w)
-                .attr("y1", (d) => c.y(d))
-                .attr("y2", (d) => c.y(d));
+                    .call(textWrap, 100, 10);
     }
 
     addTooltip(title, format, date){
@@ -449,91 +319,31 @@ class StackBarChart {
             return [ttX,ttY];
     }
 
-    formatValue(format){
-        // formats thousands, Millions, Euros and Percentage
-        switch (format){
-            case "millions":
-                return function(d){ return d3.format(",")(d) + "M"; }
-                break;
+    // formatValue(format){
+    //     // formats thousands, Millions, Euros and Percentage
+    //     switch (format){
+    //         case "millions":
+    //             return function(d){ return d3.format(",")(d) + "M"; }
+    //             break;
         
-            case "euros":
-                return "undefined";
-                break;
+    //         case "euros":
+    //             return "undefined";
+    //             break;
         
-            case "thousands":
-                return d3.format(",");
-                break;
+    //         case "thousands":
+    //             return d3.format(",");
+    //             break;
         
-            case "percentage":
-                return d3.format(".0%");
-                break;
+    //         case "percentage":
+    //             return d3.format(".0%");
+    //             break;
         
-            case "percentage2":
-                return d3.format(".2%");
-                break;
+    //         case "percentage2":
+    //             return d3.format(".2%");
+    //             break;
 
-            default:
-                return "undefined";
-        }
-    }
-
-    getElement(name){
-        let c = this,
-            s = d3.select(c.e),
-            e = s.selectAll(name);
-        return e;
-    }
-
-    textWrap(text, width, xpos = 0, limit=2) {
-        text.each(function() {
-            var words,
-                word,
-                line,
-                lineNumber,
-                lineHeight,
-                y,
-                dy,
-                tspan;
-
-            text = d3.select(this);
-
-            words = text.text().split(/\s+/).reverse();
-            line = [];
-            lineNumber = 0;
-            lineHeight = 1;
-            y = text.attr("y");
-            dy = parseFloat(text.attr("dy"));
-            tspan = text
-                .text(null)
-                .append("tspan")
-                .attr("x", xpos)
-                .attr("y", y)
-                .attr("dy", dy + "em");
-
-            while ((word = words.pop())) {
-                line.push(word);
-                tspan.text(line.join(" "));
-
-                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-
-                    if (lineNumber < limit - 1) {
-                        line = [word];
-                        tspan = text.append("tspan")
-                            .attr("x", xpos)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                        // if we need two lines for the text, move them both up to center them
-                        text.classed("adjust-upwards", true);
-                    } else {
-                        line.push("...");
-                        tspan.text(line.join(" "));
-                        break;
-                    }
-                }
-            }
-        });
-    }
+    //         default:
+    //             return "undefined";
+    //     }
+    // }
 }

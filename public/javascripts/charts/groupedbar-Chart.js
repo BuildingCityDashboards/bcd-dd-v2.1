@@ -1,125 +1,45 @@
-class GroupedBarChart{
+class GroupedBarChart extends Chart{
 
     constructor (obj){
+        super(obj);
 
-        this.d = obj.d;
-        this.e = obj.e;
-        this.k = obj.k;
-        this.ks = obj.ks;
-        this.xV = obj.xV;
-        this.yV = obj.yV;
-        this.cS = obj.c;
-        this.tX = obj.tX;
-        this.tY = obj.tY;
-        this.ySF = obj.ySF || "thousands";
-
-        this.init();
+        this.drawChart();
     }
 
-    // initialise method to draw c area
-    init(){
+    drawChart(){
+        let c = this;
+
+        super.init();
+        super.addAxis();
+        super.getKeys();
+        c.drawTooltip();
+        c.createScales();//parent once I setup setScales:done and setDomain with switch.
+        super.drawGridLines();
+        c.drawBars();//child - like createScales could be added to parent with switch.
+        // c.drawLegend();//child - like createScales could be added to parent with switch.            
+    }
+
+    createScales(){
         let c = this,
-            eN,
-            eW,
-            aR,
-            cScheme,
-            m = c.m = {},
-            w,
-            h,
-            bP;
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
 
-        eN = d3.select(c.e).node(),
-        eW = eN.getBoundingClientRect().width,
-        aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-        cScheme = c.cS || d3.schemeBlues[5].slice(1),
-        bP = 576;
-
-        // margins
-        m.t = eW < bP ? 40 : 50;
-        m.b = eW < bP ? 30 : 80;
-        m.r = eW < bP ? 15 : 140;
-        m.l = eW < bP ? 9 : 60;
-
-        // dimensions
-        w =  eW - m.l - m.r;
-        h = aR - m.t - m.b;
-
-        c.w = w;
-        c.h = h;
-        c.eN = eN;
-        c.sscreens = eW < bP ? true : false;
-        // add the svg to the target element
-        c.svg = d3.select(c.e)
-            .append("svg")
-            .attr("width", w + m.l + m.r)
-            .attr("height", h + m.t + m.b);
-       
-        // add the g to the svg and transform by top and left margin
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + m.l + 
-                ", " + m.t + ")");
-    
-        // transition 
-        // c.t = () => { return d3.transition().duration(1000); }
-    
-        c.cS = c.cS || d3.schemeBlues[9].slice(3);
-
-        // set colour function
-        c.colour = d3.scaleOrdinal(c.cS);
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY);
 
         c.x0 = d3.scaleBand()
-            .range([0, w])
+            .range([0, c.w])
             .padding(0.2);
 
         c.x1 = d3.scaleBand()
             .paddingInner(0.1);
-    
+
         c.y = d3.scaleLinear()
-            .range([h, 0]);
-
-        c.yAxisCall = d3.axisLeft();
-
-        c.xAxisCall = d3.axisBottom()
-            .tickFormat(d => {return d});
-
-        c.gridLines = c.g.append("g")
-            .attr("class", "grid-lines");
-
-        c.xAxis = c.g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + h +")");
-        
-        c.yAxis = c.g.append("g")
-            .attr("class", "y-axis");
-    
-        // X title
-        c.g.append("text")
-            .attr("class", "titleX")
-            .attr("x", w/2)
-            .attr("y", h + 60)
-            .attr("text-anchor", "middle")
-            .text(c.tX);
-    
-        // Y title
-        c.g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (h/2))
-            .attr("y", -45)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(c.tY);
-
-        c.update();
-    
-    }
-
-    getData(){
-        let c = this;
-    
-    }
-    
-    update(){
-        let c = this;
+            .range([c.h, 0]);
 
         // Update scales
         c.x0.domain(c.d.map(d => {return d[c.xV]; }));
@@ -127,13 +47,27 @@ class GroupedBarChart{
         c.y.domain([0, d3.max(c.d, d => { return d3.max(c.ks, key => { return d[key]; }); })]).nice();
 
         // Update axes
-        c.xAxisCall.scale(c.x0);
-        c.xAxis.call(c.xAxisCall)
-        .selectAll(".tick text").call(c.textWrap, 60, 0);
+        xAxisCall.scale(c.x0);
+        c.xAxis.call(xAxisCall).selectAll(".tick text").call(textWrap, 60, 0);
         
-        c.ySF ? c.yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF)) : c.yAxisCall.scale(c.y);
-        c.yAxisCall.scale(c.y);
-        c.yAxis.call(c.yAxisCall);
+        // c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF)) : yAxisCall.scale(c.y);
+        
+        // yAxisCall.scale(c.y);
+        
+        // c.yAxis.call(yAxisCall);
+
+        // // Update X axis
+        // c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
+        // c.xAxis.transition(c.t()).call(xAxisCall);
+        
+        // Update Y axis
+        c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF) ) : yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(yAxisCall);
+
+    }
+    
+    drawBars(){
+        let c = this;
 
         c.drawGridLines();
 
@@ -197,23 +131,6 @@ class GroupedBarChart{
         c.addLegend();
     }
 
-    drawGridLines(){
-        let c = this;
-
-        c.gridLines.selectAll("line")
-            .remove();
-
-        c.gridLines.selectAll("line.horizontal-line")
-            .data(c.y.ticks)
-            .enter()
-                .append("line")
-                .attr("class", "horizontal-line")
-                .attr("x1", (0))
-                .attr("x2", c.w)
-                .attr("y1", (d) => {return c.y(d)})
-                .attr("y2", (d) => c.y(d));
-    }
-
     addLegend(){
         let c = this;
 
@@ -250,7 +167,7 @@ class GroupedBarChart{
                 .attr("dy", "0em")
                 .attr("text-anchor", "start")
                 .text(d => { return d.label; })
-                .call(c.textWrap, 100, c.w + 22); 
+                .call(textWrap, 100, c.w + 22); 
     }
 
     drawTooltip(){
@@ -372,38 +289,6 @@ class GroupedBarChart{
             return ttX;
     }
 
-    formatValue(format){
-        // formats thousands, Millions, Euros and Percentage
-        switch (format){
-            case "millions":
-                return d3.format(".2s");
-                break;
-        
-            case "euros":
-                return locale.format("$,.0f");
-                break;
-
-            case "euros2":
-                return locale.format("$,.2f");
-                break;
-        
-            case "thousands":
-                return d3.format(",");
-                break;
-        
-            case "percentage2":
-                return d3.format(".2%");
-                break;
-            
-            case "percentage":
-                return d3.format(".0%");
-                break;
-
-            default:
-                return "undefined";
-        }
-    }
-
     hideRate(value){
         let c = this;
 
@@ -439,59 +324,6 @@ class GroupedBarChart{
                 p.select(".bcd-text-rate").text((rate));
                 p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
 
-        });
-    }
-
-    textWrap(text, width, xpos = 0, limit=3) {
-        text.each(function() {
-            let words,
-                word,
-                line,
-                lineNumber,
-                lineHeight,
-                y,
-                dy,
-                tspan;
-
-            text = d3.select(this);
-
-            words = text.text().split(/\s+/).reverse();
-            line = [];
-            lineNumber = 0;
-            lineHeight = 1;
-            y = text.attr("y");
-            dy = parseFloat(text.attr("dy"));
-            tspan = text
-                .text(null)
-                .append("tspan")
-                .attr("x", xpos)
-                .attr("y", y)
-                .attr("dy", dy + "em");
-
-            while ((word = words.pop())) {
-                line.push(word);
-                tspan.text(line.join(" "));
-
-                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-
-                    if (lineNumber < limit - 1) {
-                        line = [word];
-                        tspan = text.append("tspan")
-                            .attr("x", xpos)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                        // if we need two lines for the text, move them both up to center them
-                        text.classed("adjust-upwards", true);
-                    } else {
-                        line.push("...");
-                        tspan.text(line.join(" "));
-                        break;
-                    }
-                }
-            }
         });
     }
     
