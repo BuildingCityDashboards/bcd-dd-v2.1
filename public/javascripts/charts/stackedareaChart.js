@@ -1,17 +1,7 @@
-class StackedAreaChart {
+class StackedAreaChart extends Chart {
 
     constructor (obj){
-
-        this.d = obj.d;
-        this.e = obj.e;
-        this.k = obj.k;
-        this.ks = obj.ks;
-        this.xV = obj.xV;
-        this.yV = obj.yV;
-        this.cS = obj.c;
-        this.tX = obj.tX;
-        this.tY = obj.tY;
-        this.ySF = obj.ySF || "thousands";
+        super(obj);
 
         this.drawChart();
     }
@@ -19,74 +9,16 @@ class StackedAreaChart {
     drawChart(){
         let c = this;
 
-        c.init();
-        c.addAxis();
-        c.getKeys();
+        super.init();
+        super.addAxis();
+        super.getKeys();
         // // c.processData();
         c.stackData();
-        c.drawTooltip();
+        super.drawTooltip();
         c.createScales();
-        c.drawGridLines();
+        super.drawGridLines();
         c.drawArea();
         c.drawLegend();            
-    }
-
-
-    // initialise method to draw chart area
-    init(){
-        let c = this,
-            eN,
-            eW,
-            aR,
-            cScheme,
-            m = c.m = {},
-            w,
-            h,
-            bP;
-
-        eN = d3.select(c.e).node(),
-        eW = eN.getBoundingClientRect().width,
-        aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-        cScheme = c.cS || d3.schemeBlues[5].slice(1),
-        bP = 576;
-    
-        // margins
-        m.t = eW < bP ? 40 : 50;
-        m.b = eW < bP ? 30 : 80;
-        m.r = eW < bP ? 15 : 140;
-        m.l = eW < bP ? 9 : 60;
-
-        // dimensions
-        w =  eW - m.l - m.r;
-        h = aR - m.t - m.b;
-
-        c.w = w;
-        c.h = h;
-        c.eN = eN;
-        c.sscreens = eW < bP ? true : false;
-
-        // to remove existing svg on resize
-        d3.select(c.e).select("svg").remove(); 
-
-        // select parent element and append SVG + g
-        c.svg = d3.select(c.e)
-            .append("svg")
-            .attr("width", w + m.l + m.r)
-            .attr("height", h + m.t + m.b);
-
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + m.l + 
-                ", " + m.t + ")");
-
-        // default transition 
-        c.t = () => { return d3.transition().duration(1000); };
-        c.ease = d3.easeQuadInOut;
-                
-        // colour function
-        c.colour = d3.scaleOrdinal(cScheme);
-        // bisector for tooltip
-        c.bisectDate = d3.bisector(d => { return (d[c.xV]); }).left;
-
     }
 
     updateChart(obj){
@@ -108,44 +40,6 @@ class StackedAreaChart {
         c.createScales();
         c.drawArea(); 
         c.drawLegend(); 
-    }
-
-    addAxis(){
-        let c = this;
-
-        c.gridLines = c.g.append("g")
-            .attr("class", "grid-lines");
-
-        c.xAxis = c.g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.h +")");
-
-        c.yAxis = c.g.append("g")
-            .attr("class", "y-axis");
-
-        // X title
-        c.xLabel = c.g.append("text")
-            .attr("class", "titleX")
-            .attr("x", c.w/2)
-            .attr("y", c.h + 50)
-            .attr("text-anchor", "start")
-            .text(c.tX);
-
-        // Y title
-        c.yLabel = c.g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (c.h/2))
-            .attr("y", -45)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(c.tY);
-    }
-
-    getKeys(){
-        let c = this,
-            findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
-            c.colour.domain(c.d.map(d => { return d.key; }));
-            c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]));
     }
 
     stackData(){
@@ -451,93 +345,6 @@ class StackedAreaChart {
     //         .text(d => { return d.label; })
     //         .call(c.textWrap, 110, c.w + 34); 
     // }
-
-    drawGridLines(){
-        let c = this;
-
-        c.gridLines.selectAll('line')
-            .remove();
-
-        c.gridLines.selectAll('line.horizontal-line')
-            .data(c.y.ticks)
-            .enter()
-                .append('line')
-                .attr('class', 'horizontal-line')
-                .attr('x1', (0))
-                .attr('x2', c.w)
-                .attr('y1', (d) => { return c.y(d) })
-                .attr('y2', (d) => c.y(d));
-    }
-
-    drawTooltip(){
-        let c = this;
-
-            c.newToolTip = d3.select(c.e)
-                .append("div")
-                    .attr("class","tool-tip bcd")
-                    .style("visibility","hidden");
-
-            c.newToolTipTitle = c.newToolTip
-                .append("div")
-                    .attr("id", "bcd-tt-title");
-
-            c.tooltipHeaders();
-            c.tooltipBody();
-    }
-
-    tooltipHeaders(){
-        let c = this,
-            div,
-            p;
-            
-        div = c.newToolTip
-            .append("div")
-                .attr("class", "headers");
-
-        div.append("span")
-            .attr("class", "bcd-rect");
-
-        p = div
-            .append("p")
-                .attr("class","bcd-text");
-
-        p.append("span")
-            .attr("class","bcd-text-title")
-            .text("Type");
-
-        p.append("span")
-            .attr("class","bcd-text-value")
-            .text("Value");
-
-        p.append("span")
-            .attr("class","bcd-text-rate")
-            .text("% Rate");
-
-        p.append("span")
-            .attr("class","bcd-text-indicator");
-    }
-
-    tooltipBody(){
-        let c = this,
-            keys = c.ks,
-            div,
-            p;
-
-        keys.forEach( (d, i) => {
-            div = c.newToolTip
-                    .append("div")
-                    .attr("id", "bcd-tt" + i);
-                
-            div.append("span").attr("class", "bcd-rect");
-
-            p = div.append("p").attr("class","bcd-text");
-
-            p.append("span").attr("class","bcd-text-title");
-            p.append("span").attr("class","bcd-text-value");
-            p.append("span").attr("class","bcd-text-rate");
-            p.append("span").attr("class","bcd-text-indicator");
-        });
-    }
 
     drawFocus(){
         let c = this,
