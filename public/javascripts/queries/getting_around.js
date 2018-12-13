@@ -154,7 +154,19 @@ function getBikeContent(d_) {
 /************************************
  * Bus Stops
  ************************************/
-let busCluster = L.markerClusterGroup();
+let busCluster = L.markerClusterGroup({
+  //   showCoverageOnHover: false,
+  //   zoomToBoundsOnClick: false
+  disableClusteringAtZoom: 15,
+  spiderfyOnMaxZoom: false
+  //   // singleMarkerMode: true
+  //   // maxClusterRadius: 100,
+  //   // iconCreateFunction: function(cluster) {
+  //   //   return L.divIcon({
+  //   //     html: '<b>' + cluster.getChildCount() + '</b>'
+  //   //   });
+  //   // }
+});
 let dublinBusMapIcon = L.icon({
   iconUrl: '/images/transport/bus-15.svg',
   iconSize: [30, 30], //orig size
@@ -278,7 +290,20 @@ $("div").on('click', '.busRTPIbutton', function() {
 /************************************
  * Carparks
  ************************************/
-let carparkCluster = L.markerClusterGroup();
+let carparkCluster = L.markerClusterGroup({
+  //   showCoverageOnHover: false,
+  //   zoomToBoundsOnClick: false
+  disableClusteringAtZoom: 15,
+  spiderfyOnMaxZoom: false
+  //   // singleMarkerMode: true
+  //   // maxClusterRadius: 100,
+  //   // iconCreateFunction: function(cluster) {
+  //   //   return L.divIcon({
+  //   //     html: '<b>' + cluster.getChildCount() + '</b>'
+  //   //   });
+  //   // }
+});
+
 let carparkMapIcon = L.icon({
   iconUrl: '/images/transport/parking-garage-15.svg',
   iconSize: [30, 30], //orig size
@@ -715,33 +740,6 @@ function processRoads(data_) {
 /************************************
  * Button Listeners
  ************************************/
-// d3.selectAll("button[type=checkbox]").on("click", function() {
-//   //console.log("checkbox");
-//   let cb = d3.select(this);
-//   if (cb.classed('active')) {
-//     cb.classed('active', false);
-//     gettingAroundMap.removeLayer(cb.property("value"));
-//     // authorityNamesChecked = authorityNamesChecked.filter(function(val) {
-//     //   return val !== cb.property("value");
-//     // });
-//     // console.log("ACTIVE");
-//   } else {
-//     cb.classed('active', true);
-//     gettingAroundMap.addLayer(cb.property("value"));
-//     // if (authorityNames.includes(cb.property("value"))) {
-//     //   authorityNamesChecked.push(cb.property("value"));
-//     // } //console.log("INACTIVE");
-//   }
-//   //console.log("value: " + cb.property("value"));
-//   // console.log("active; " + cb.classed('active'));
-//   //  console.log("LAs checked array:" + authorityNamesChecked);
-//   // authorityDim.filterFunction(function(d) {
-//   //   return authorityNamesChecked.includes(d);
-//   // });
-//   // updateMapData();
-//   // updateCharts();
-// });
-
 // TODO: generalise
 //
 
