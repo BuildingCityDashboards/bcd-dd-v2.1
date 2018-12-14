@@ -16,7 +16,7 @@ let bikeClusterToggle = true,
   carparkClusterToggle = true;
 
 zoom = 11; //zoom on page load
-maxZoom = 15;
+maxZoom = 16;
 let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
   minZoom: 10,
   maxZoom: maxZoom, //seems to fix 503 tileserver errors
@@ -59,7 +59,7 @@ let bikeCluster = L.markerClusterGroup({
   //   zoomToBoundsOnClick: false
   //   // maxZoom: 14,
   //   // zoomOnClick: false
-  disableClusteringAtZoom: 15,
+  disableClusteringAtZoom: maxZoom,
   spiderfyOnMaxZoom: false
   //   // singleMarkerMode: true
   //   // maxClusterRadius: 100,
@@ -157,7 +157,7 @@ function getBikeContent(d_) {
 let busCluster = L.markerClusterGroup({
   //   showCoverageOnHover: false,
   //   zoomToBoundsOnClick: false
-  disableClusteringAtZoom: 15,
+  disableClusteringAtZoom: maxZoom,
   spiderfyOnMaxZoom: false
   //   // singleMarkerMode: true
   //   // maxClusterRadius: 100,
@@ -293,7 +293,7 @@ $("div").on('click', '.busRTPIbutton', function() {
 let carparkCluster = L.markerClusterGroup({
   //   showCoverageOnHover: false,
   //   zoomToBoundsOnClick: false
-  disableClusteringAtZoom: 15,
+  disableClusteringAtZoom: maxZoom,
   spiderfyOnMaxZoom: false
   //   // singleMarkerMode: true
   //   // maxClusterRadius: 100,
@@ -811,18 +811,18 @@ d3.select("#luas-checkbox").on("click", function() {
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
       cb.classed('active', false);
-      if (gettingAroundMap.hasLayer(luasLines)) {
-        gettingAroundMap.removeLayer(luasLines);
+      if (gettingAroundMap.hasLayer(luasLineRed)) {
+        gettingAroundMap.removeLayer(luasLineRed);
+        gettingAroundMap.removeLayer(luasLineGreen);
         gettingAroundMap.removeLayer(luasIcons);
         gettingAroundMap.removeLayer(luasLayer);
-
-
       }
 
     } else {
       cb.classed('active', true);
-      if (!gettingAroundMap.hasLayer(luasLines)) {
-        gettingAroundMap.addLayer(luasLines);
+      if (!gettingAroundMap.hasLayer(luasLineRed)) {
+        gettingAroundMap.addLayer(luasLineRed);
+        gettingAroundMap.addLayer(luasLineGreen);
         chooseLookByZoom();
       }
     }
