@@ -105,7 +105,7 @@ Promise.all([
             title: "Planning Applications - Year",
             datelabel: date,
             format: "thousands",
-        },
+        };
 
         // drawing charts for planning data.
 //        dccChart = new GroupedBarChart(dccContent),
@@ -118,6 +118,7 @@ Promise.all([
 //        drccChart.addTooltip(planningTT);
 //        fccChart.addTooltip(planningTT);
 //        sdccChart.addTooltip(planningTT);
+;
 
     
     const supplyData = datafiles[2],
