@@ -1,7 +1,7 @@
 /*
     Author     : Liam
 */
-/*TODO use proper rules here instead of individual repetition*/
+/*TODO use proper rules here with classes instead of individual repetition*/
 
 #chart-water-map {
         /*height: inherit;*/
@@ -27,6 +27,13 @@
         width: 100%;
         margin: 0px;
 }
+#homes-housing-map {
+        /*height: inherit;*/
+        height: 500px;
+        width: 100%;
+        margin: 0;
+}
+
 #chart-private-transport {
         /*height: inherit;*/
         height: 400px;

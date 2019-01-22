@@ -13,9 +13,8 @@ Promise.all([
     d3.csv("../data/Housing/HPM06.csv"),
     d3.csv("../data/Housing/HPM06Rate.csv"),
 ]).then(datafiles => {
-
-    const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
-    
+    const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
+        
     //1.  data processing for house completion chart
     const completionData = datafiles[0],
           keys = completionData.columns.slice(1),
@@ -27,11 +26,10 @@ Promise.all([
             d[dateField] = parseMonth(d[dateField]);
             d.year = formatYear(d[dateField]);
           });
-
-    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Units", dateField, keys);
-          houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
-          houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
-
+                
+//    const houseCompCharts = new StackedAreaChart("#chart-houseComp", "Months", "Units", dateField, keys);
+//          houseCompCharts.pagination(compDataProcessed, "#chart-houseComp", 12, 5, "year", "Units by Month:");
+//          houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
 
     //2.  data processing for planning charts.
@@ -97,18 +95,19 @@ Promise.all([
             title: "Planning Applications - Year",
             datelabel: date,
             valueFormat: "thousands",
-        },
+        };
 
         // drawing charts for planning data.
-        dccChart = new GroupedBarChart(dccContent),
-        drccChart = new GroupedBarChart(drccContent),
-        fccChart = new GroupedBarChart(fccContent),
-        sdccChart = new GroupedBarChart(sdccContent);
-
-        dccChart.addTooltip(planningTT);
-        drccChart.addTooltip(planningTT);
-        fccChart.addTooltip(planningTT);
-        sdccChart.addTooltip(planningTT);
+//        dccChart = new GroupedBarChart(dccContent),
+//        drccChart = new GroupedBarChart(drccContent),
+//        fccChart = new GroupedBarChart(fccContent),
+//        sdccChart = new GroupedBarChart(sdccContent);
+//        ;
+//
+//        dccChart.addTooltip(planningTT);
+//        drccChart.addTooltip(planningTT);
+//        fccChart.addTooltip(planningTT);
+//        sdccChart.addTooltip(planningTT);
 
     
     const supplyData = datafiles[2],
@@ -137,9 +136,9 @@ Promise.all([
         titleX: "Years",
         titleY: "Hectares"
     }
-    const supplyChart = new MultiLineChart(supplyContent);
-          supplyChart.drawChart();
-          supplyChart.addTooltip("Land - Year", "thousands", "label");
+//    const supplyChart = new MultiLineChart(supplyContent);
+////          supplyChart.drawChart();
+//          supplyChart.addTooltip("Land - Year", "thousands", "label");
 
     d3.select("#supply_land").on("click", function(){
         activeBtn(this);
@@ -189,10 +188,10 @@ Promise.all([
         };
 
     // draw the chart
-    const contributionChart = new MultiLineChart(contriContent);
-          contributionChart.yScaleFormat = "millions";
-          contributionChart.drawChart();
-          contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
+//    const contributionChart = new MultiLineChart(contriContent);
+//          contributionChart.yScaleFormat = "millions";
+////          contributionChart.drawChart();
+//          contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
 
     // setup chart and data for quarterly house prices chart
     // process the data
@@ -225,10 +224,10 @@ Promise.all([
         };
 
     // draw the chart
-    const housePricesChart = new MultiLineChart(housePricesContent);
-          housePricesChart.yScaleFormat = "millions";
-          housePricesChart.drawChart();
-          housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+//    const housePricesChart = new MultiLineChart(housePricesContent);
+//          housePricesChart.yScaleFormat = "millions";
+////          housePricesChart.drawChart();
+//          housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
 
 
         // setup chart and data for quarterly house prices chart
@@ -282,11 +281,11 @@ Promise.all([
             title: "Rent Prices - Year:",
             datelabel: rentByBedsDate,
             format: "euros2",
-        },
+        };
 
         // drawing charts for planning data.
-        rentByBedsChart = new GroupedBarChart(rentByBedContent);
-        rentByBedsChart.addTooltip(rentByBedTT);
+//        rentByBedsChart = new GroupedBarChart(rentByBedContent);
+//        rentByBedsChart.addTooltip(rentByBedTT);
 
 
     //  Setup data and chart for rent prices by quarter by bed numbers
@@ -308,13 +307,13 @@ Promise.all([
         title: "Rent Inspections - Year:",
         datelabel: rentInspectDate,
         format: "thousands",
-    },
+    };
 
     // console.log("rentInspect data processed", rentInspectDataProcessed);
     // drawing charts for planning data.
-          rentInspectChart = new GroupedBarChart(rentInspectContent);
-          rentInspectChart.addTooltip(rentInspectTT);
-    
+//          rentInspectChart = new GroupedBarChart(rentInspectContent);
+//          rentInspectChart.addTooltip(rentInspectTT);
+//    
     
     // process the data
     const houseCompByTypeData = datafiles[8],
@@ -341,9 +340,9 @@ Promise.all([
         }
 
     // draw the chart
-    const houseCompByTypeChart = new MultiLineChart(houseCompByTypeContent);
-          houseCompByTypeChart.drawChart();
-          houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+//    const houseCompByTypeChart = new MultiLineChart(houseCompByTypeContent);
+////          houseCompByTypeChart.drawChart();
+//          houseCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
     d3.select("#houseCompByType_total").on("click", function(){
         activeBtn(this);
@@ -391,12 +390,12 @@ Promise.all([
     //console.log(nonNewCon);
     // const nonNewConFiltered  = filterbyDate(nonNewCon, nonNewConnectionsDate, "Jan 01 2016");
 
-    const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
-    
+//    const nonNewConnectionsChart = new StackedAreaChart("#chart-nonNewConnections", "Quarters", "Numbers", nonNewConnectionsDate, nonNewGroup);
+//    
     // (data, title of X axis, title of Y Axis, y Scale format, name of type, name of value field )  
-    nonNewConnectionsChart.tickNumber = 20;
-    nonNewConnectionsChart.getData(nonNewCon);
-    nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
+//    nonNewConnectionsChart.tickNumber = 20;
+//    nonNewConnectionsChart.getData(nonNewCon);
+//    nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 
     // setup chart and data for New Dwelling Completion by type chart
     // process the data
@@ -427,9 +426,9 @@ Promise.all([
         
 
     // draw the chart
-    const newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
-          newCompByTypeChart.drawChart();
-          newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
+//    const newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
+////          newCompByTypeChart.drawChart();
+//          newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
 
     // new chart Price Index
@@ -446,10 +445,10 @@ Promise.all([
           HPM06Content.titleY = "Price Index (Base 100)"
 
     // draw the chart
-    const HPM06Charts = new MultiLineChart(HPM06Content);
-            HPM06Charts.drawChart(); // draw axis
-            HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
-            HPM06Charts.addBaseLine(100); // add horizontal baseline
+//    const HPM06Charts = new MultiLineChart(HPM06Content);
+////            HPM06Charts.drawChart(); // draw axis
+//            HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
+//            HPM06Charts.addBaseLine(100); // add horizontal baseline
 
     // add buttons to switch between total, housing and apartments
 

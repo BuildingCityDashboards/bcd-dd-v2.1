@@ -40,10 +40,6 @@ L.control.locate({
   }
 }).addTo(gettingAroundMap);
 
-let southWest = L.latLng(52.9754658325, -6.8639598864),
-  northEast = L.latLng(53.7009607624, -5.9835178395),
-  dublinBounds = L.latLngBounds(southWest, northEast); //greater Dublin & surrounds
-
 var osmGeocoder = new L.Control.OSMGeocoder({
   placeholder: 'Enter street/area name etc.',
   bounds: dublinBounds

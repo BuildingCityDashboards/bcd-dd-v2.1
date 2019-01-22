@@ -14,4 +14,7 @@ let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design<
 let iconAX = 15;  //icon Anchor X
 let iconAY = 15; //icon Anchor Y
 
+let southWest = L.latLng(52.9754658325, -6.8639598864),
+  northEast = L.latLng(53.7009607624, -5.9835178395),
+  dublinBounds = L.latLngBounds(southWest, northEast); //greater Dublin & surrounds
 

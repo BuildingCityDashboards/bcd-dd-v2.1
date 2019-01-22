@@ -1,0 +1,31 @@
+.row.wrapper.py-1
+  .col-4
+    div.pt-20 Housing
+        .row
+        
+           //            p.col-6 <img align="center" height='15px' width='15px' src='/images/transport/bicycle-w-15.svg'>  Dublin Bikes 
+            p.col-3 <img id = 'bike-activity-icon' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'> 
+            #bike-age.p.col-3 Unavailable
+
+    
+        p Explore and interact with the map to find out more. 
+        p For additional information on particular hosuing statistics themes, see our 
+            |<a href="../themes#housing">Housing Themes</a>
+    
+  .col-md-8
+    <div class="btn-group d-flex">  
+      <button id="rent-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="rent">Average Rent</button>
+      <button id="price-average-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="priceAve">Average House Price</button>      
+      <button id="price-index-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="priceIndex">Property Price Index</button>
+      <button id="supply-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="supply">Supply</button>
+      <button id="completions-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="completions">Completions</button>
+      <button id="connections-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="connections">Connections</button>
+      <button id="planning-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="planning">Planning Applications</button>
+    </div>
+    #homes-housing-map.mt-2
+    
+.row.wrapper.py-1    
+    section 
+      .wrap
+        .container
+          include queries_housing_charts

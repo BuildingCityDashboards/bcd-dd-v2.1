@@ -1,0 +1,253 @@
+//Modified from theme_housing_carts as precursor to turning each chart & 
+//text elemnt into a component
+
+//article.article
+//  .section-body.row.wrapper
+//    .col-lg-12
+//      h2.header__h2.mb-2 Residential Costs
+
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Average Monthly Rent Prices for Private Dwellings
+    p Source:
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+      //- <button type="button" class="btn btn-bcd active">Count</button>
+    #chart-rentPrices.chart-holder
+
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Average Monthly Rent Prices for Private Dwellings in Dublin by Number of Bedrooms
+//    p Source:
+//      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Count</button>
+//    #chart-rentByBeds.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Average House Prices
+//    p Souce: 
+//      a(href="https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Average house prices are derived from data supplied by the mortgage 
+//      |lending agencies on all loans approved by them. In comparing house prices 
+//      | figures from one period to another, account should be taken of the fact 
+//      |that changes in the mix of dwellings will affect the average figures.
+//
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Count</button>
+//    #chart-housePrices.chart-holder
+//
+//#HPM06.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Monthly Residential Property Price Index
+//    p Souce:  
+//      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0" target="blank") CSO 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p In Dublin, residential property prices rose by 6.3% in the year 2018 to 
+//      |October, with house prices rising by 6.6% and apartments by 5.7%. 
+//      |The highest house price growth in Dublin was in Dún Laoghaire-Rathdown 
+//      |at 8.2%, while the lowest growth was in South Dublin at 5.0%.
+//    p National residential property prices in Ireland excluding Dublin were 
+//      |10.6% higher in the year to October, with house prices up by 10.3% 
+//      |and apartments by 14.5%. The region outside of Dublin that saw the 
+//      |largest rise in property prices was the Mid-West at 21.5%, while the 
+//      |smallest was recorded in the Mid-East at 8.3%.
+//    p Source: 
+//      a(href="https://www.cso.ie/en/releasesandpublications/ep/p-rppi/residentialpropertypriceindexoctober2018/" target="blank") 
+//          |CSO - Residential Property Price Index October 2018 
+//          img(src='../images/external-link.svg' height='11px' width='11px')
+//
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active" value="">Count</button>
+//      //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
+//    div#chart-HPM06.chart-holder
+//
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Number of Inspections of Rented Accommodation
+//    p Souce:  
+//      a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/private-housing-market-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Count</button>
+//    #chart-rentInspect.chart-holder
+//
+//#unitscompmonth.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Monthly House Unit Completions
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/construction-activity-esb-connections" target="blank") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//    div#chart-houseComp.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Quarterly ESB Connections UFHDs, reconnections and non-dwellings
+//    p Source:  
+//      a(href="https://www.cso.ie/en/releasesandpublications/er/ndc/newdwellingcompletionsq32018/" target="blank") CSO 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active" value="">Count</button>
+//      //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
+//    div#chart-nonNewConnections.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Quarterly House Unit Completions (By Type)
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/construction-activity-esb-connections" target="blank") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//
+//  .col-lg-8
+//    .pt-2
+//      <button id="houseCompByType_total" type="button" class="btn btn-bcd active">Total Houses</button>
+//      <button id="houseCompByType_private" type="button" class="btn btn-bcd">Private Houses</button>
+//      <button id="houseCompByType_social" type="button" class="btn btn-bcd">Social Houses</button>
+//    #chart-houseCompByType.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Quarterly New Dwelling Completions in Dublin County by Type
+//    p Source: 
+//      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=NDQ06&PLanguage=0" target="blank") CSO  
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active" value="">Count</button>
+//      //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
+//    div#chart-newCompByType.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Planning applications Dublin County Council
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1" target="blank") Department of Housing, Planning, Community and Local Government  
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Rate</button>
+//    #chart-planningDCC.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Planning applications Dun Laoghaire Rathdown County Council
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1" target="blank") Department of Housing, Planning, Community and Local Government  
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Rate</button>
+//    #chart-planningDRCC.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Planning applications Fingal County Council
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1" target="blank") Department of Housing, Planning, Community and Local Government  
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Rate</button>
+//    #chart-planningFCC.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Planning applications South Dublin County Council
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1" target="blank") Department of Housing, Planning, Community and Local Government  
+//        img(src='../images/external-link.svg' height='11px' width='11px')
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Rate</button>
+//    #chart-planningSDCC.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Available Supply of Housing Land
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/search/archived/current?query=residential%20land%20survey") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px')       
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      <button id="supply_land" type="button" class="btn btn-bcd active">Lands</button>
+//      <button id="supply_units" type="button" class="btn btn-bcd">Units</button>
+//    #chart-houseSupply.chart-holder
+//
+//.section-body.row.wrapper
+//  .col-lg-4
+//    h3 Annual Contributions to Councils from Developers
+//    p Source: 
+//      a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1") Department of Housing, Planning, Community and Local Government 
+//        img(src='../images/external-link.svg' height='11px' width='11px') 
+//    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+//      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+//      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+//      |nisi ut aliquip ex ea commodo consequat.
+//  .col-lg-8
+//    .pt-2
+//      //- <button type="button" class="btn btn-bcd active">Count</button>
+//    #chart-houseContributions.chart-holder
+//
+//
+//
