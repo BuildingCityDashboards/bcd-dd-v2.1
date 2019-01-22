@@ -27,12 +27,12 @@ Promise.all([
     const dataSet4 = dataSets(dataFile4, columnNames4),
 
     hEduContent = {
-        element: "#chart-educationLevel",
-        data: dataSet1,
-        keys: columnNames1,
-        value: xValue1,
-        titleX: "Levels of Education",
-        titleY: "Population",
+        e: "#chart-educationLevel",
+        d: dataSet1,
+        ks: columnNames1,
+        xV: xValue1,
+        tX: "Levels of Education",
+        tY: "Population",
     },
 
     hEduTT = {
@@ -42,12 +42,12 @@ Promise.all([
     },
 
     pFLevelContent = {
-        element: "#chart-pupilsFirstLevel",
-        data: dataSet2,
-        keys: columnNames2,
-        value: xValue2,
-        titleX: "Years",
-        titleY: "No. of Pupils",
+        e: "#chart-pupilsFirstLevel",
+        d: dataSet2,
+        ks: columnNames2,
+        xV: xValue2,
+        tX: "Years",
+        tY: "No. of Pupils",
     },
 
     pFLevelTT = {
@@ -57,12 +57,12 @@ Promise.all([
     },
 
     pSLevelContent = {
-        element: "#chart-pupilsSecondLevel",
-        data: dataSet3,
-        keys: columnNames3,
-        value: xValue3,
-        titleX: "Years",
-        titleY: "No. of Pupils",
+        e: "#chart-pupilsSecondLevel",
+        d: dataSet3,
+        ks: columnNames3,
+        xV: xValue3,
+        tX: "Years",
+        tY: "No. of Pupils",
     },
 
     pSLevelTT = {
@@ -72,12 +72,12 @@ Promise.all([
     },
 
     sSLevelContent = {
-        element: "#chart-specialSchoolsLevel",
-        data: dataSet4,
-        keys: columnNames4,
-        value: xValue4,
-        titleX: "Years",
-        titleY: "No of Schools",
+        e: "#chart-specialSchoolsLevel",
+        d: dataSet4,
+        ks: columnNames4,
+        xV: xValue4,
+        tX: "Years",
+        tY: "No of Schools",
     },
 
     sSLevelTT = {

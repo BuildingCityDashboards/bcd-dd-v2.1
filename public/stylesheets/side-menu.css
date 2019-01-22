@@ -157,9 +157,8 @@
     height: 100%;
     padding: 0 0 1rem;
     position: fixed;
-    overflow-y: auto;
+    overflow-y: scroll;
     transform: translateX(-100%);
-    overflow: inherit;
     z-index: 7000;
     display: -ms-flexbox;
     display: flex;
@@ -218,6 +217,7 @@
     font-weight: 500;
     font-size: .875rem;
     color: #d1d1d1a3;
+    text-transform: capitalize;
 }
 
 .side-menu__nav-link:hover, .side-menu__nav-link:focus, .side-menu__nav-link.active{

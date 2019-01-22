@@ -1,203 +1,145 @@
-class StackedAreaChart {
+class StackedAreaChart extends Chart {
 
-    // constructor function
-    constructor (_element, _titleX, _titleY, _dateVariable, _keys, _cScheme){
+    constructor (obj){
+        super(obj);
 
-        // load in arguments from config object
-        this.element = _element;
-        this.titleX = _titleX;
-        this.titleY = _titleY;
-        this.date = _dateVariable;
-        this.keys = _keys;
-        this.cScheme = _cScheme;
-        
-        // create the chart
-        this.init();
+        this.drawChart();
     }
 
-    // initialise method to draw chart area
-    init(){
-        let c = this,
-            elementNode = d3.select(c.element).node(),
-            elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.55 : elementWidth * 0.5;
-
-            d3.select(c.element).select("svg").remove();
-            
-        const breakPoint = 678;
-        
-        // margin
-        c.margin = { };
-
-        c.margin.top = elementWidth < breakPoint ? 40 : 50;
-        c.margin.bottom = elementWidth < breakPoint ? 30 : 80;
-
-        c.margin.right = elementWidth < breakPoint ? 20 : 145;
-        c.margin.left = elementWidth < breakPoint ? 20 : 60;
-        
-        c.width = elementWidth - c.margin.left - c.margin.right;
-        c.height = aspectRatio - c.margin.top - c.margin.bottom;
-
-        // select parent element and append SVG + g
-        c.svg = d3.select(c.element)
-            .append("svg")
-            .attr("width", c.width + c.margin.left + c.margin.right)
-            .attr("height", c.height + c.margin.top + c.margin.bottom);
-
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + c.margin.left + 
-                ", " + c.margin.top + ")");
-
-        // default transition 
-        c.t = () => { return d3.transition().duration(1000); };
-        c.ease = d3.easeQuadInOut;
-        
-        // c.colourScheme = ["#aae0fa","#00929e","#ffc20e","#16c1f3","#da1e4d","#086fb8",'#1d91c0','#225ea8','#0c2c84'];
-        
-        // default colourScheme
-        c.cScheme = c.cScheme ? c.cScheme : d3.schemeBlues[5].slice(1);
-        
-        // colour function
-        c.colour = d3.scaleOrdinal(c.cScheme);
-
-        // bisector for tooltip
-        c.bisectDate = d3.bisector(d => { return (d[c.date]); }).left;
-
-        // tick numbers
-        c.tickNumber = "undefined";
-
-        // tick formats
-        c.tickFormat = "undefined";
-
-        c.addAxis();
-    }
-
-    addAxis(){
+    drawChart(){
         let c = this;
 
-        c.yAxisCall = d3.axisLeft();
-        c.xAxisCall = d3.axisBottom();
-
-        c.gridLines = c.g.append("g")
-            .attr("class", "grid-lines");
-
-        c.xAxis = c.g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.height +")");
-
-        c.yAxis = c.g.append("g")
-            .attr("class", "y-axis");
-
-        // X title
-        c.xLabel = c.g.append("text")
-            .attr("class", "titleX")
-            .attr("x", c.width/2)
-            .attr("y", c.height + 50)
-            .attr("text-anchor", "start")
-            .text(c.titleX);
-
-        // Y title
-        c.yLabel = c.g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (c.height/2))
-            .attr("y", -45)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(c.titleY);
-
-        // call the legend method
-        // c.addLegend();
-        c.drawTooltip();
+        super.init();
+        super.addAxis();
+        super.getKeys();
+        // // c.processData();
+        c.stackData();
+        super.drawTooltip();
+        c.createScales();
+        super.drawGridLines();
+        c.drawArea();
+        c.drawLegend();            
     }
 
-    // pass the data and the nest value
-    getData(_data, _tX, _tY, yScaleFormat){
+    updateChart(obj){
         let c = this;
-            c.yScaleFormat = c.formatValue(yScaleFormat);
-            
-            _tX ? c.titleX = _tX: c.titleX = c.titleX;
-            _tY ? c.titleY = _tY: c.titleY = c.titleY;
-            
-            c.nestedData =_data;
-            // c.tickNumber =  c.nestedData.length;
-            c.createScales();
+
+        if(obj){
+            c.d = obj.d || c.d;
+            c.k = obj.k || c.k;
+            c.ks = obj.ks || c.ks;
+            c.tX = obj.tX || c.tX;
+            c.tY = obj.tY || c.tY;
+            c.xV = obj.xV || c.xV;
+            c.yV = obj.yV || c.yV;
+            c.cS = obj.c || c.cS;
+            c.ySF = obj.ySF || c.ySF;
+        }
+
+        c.stackData();
+        c.createScales();
+        c.drawArea(); 
+        c.drawLegend(); 
     }
 
-    getKeys(){
+    stackData(){
         let c = this,
-            keys;
-            c.colour.domain(c.data.map(d => { return d.key; }));
-            keys = c.colour.domain();
-        
-        return keys.reverse();
+            data = c.d,
+            // keys,
+            // groupData,
+            stack = d3.stack();
+
+        // keys = c.ks;
+
+        // d3 stack function
+        c.stack = stack.keys(c.ks);
+        c.dStacked = (c.stack(c.d));
+
+        // groupData = d3.nest()
+        //     .key(d => { return d[c.xV] })
+        //     .rollup((d, i) => {
+        //         const d2 = {
+        //             [c.xV]: d[0][c.xV]
+        //         };
+        //         d.forEach(d => {
+        //             d2[d.type] = d[c.yV];
+        //         });
+        //     return d2;
+        //     })
+        //     .entries(data)
+        //     .map(d => { return d[c.yV]; });
+
+        // c.stackD = stack.keys(keys)(groupData);
+        // c.keys = keys.reverse();
+        // c.gData = groupData;
+
     }
 
     createScales(){
-        let c = this;
+        let c = this,
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
+
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY);
 
         // set scales
-        c.x = d3.scaleTime().range([0, c.width]);
-        c.y = d3.scaleLinear().range([c.height, 0]);
+        c.x = d3.scaleTime().range([0, c.w]);
+        c.y = d3.scaleLinear().range([c.h, 0]);
 
         // get the the combined max value for the y scale
-        let maxDateVal = d3.max(c.nestedData, d => {
+        let maxDateVal = d3.max(c.d, d => {
             let vals = d3.keys(d).map(key => { 
-                return key === c.date || typeof d[key] === 'string' ? 0:d[key];
-                // return key !== c.date ? d[key] : 0;
+                return key === c.xV || typeof d[key] === 'string' ? 0:d[key];
+                // return key !== c.xV ? d[key] : 0;
             });
             return d3.sum(vals);
         });
 
         // Update scales
-        c.x.domain(d3.extent(c.nestedData, (d) => { return (d[c.date]); }));
+        c.x.domain(d3.extent(c.d, (d) => { return (d[c.xV]); }));
         c.y.domain([0, maxDateVal]);
 
-        c.drawGridLines();
-
-        // Update axes
-        c.tickNumber !== "undefined" ? 
-                    c.xAxisCall.scale(c.x).ticks(c.tickNumber)
-                    : c.xAxisCall.scale(c.x);
-
-        c.xAxis.transition(c.t()).call(c.xAxisCall);
-
-        c.yAxisCall.scale(c.y);
-        c.yAxis.transition(c.t()).call(c.yAxisCall);
+        // Update X axis
+        c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
+        c.xAxis.transition(c.t()).call(xAxisCall);
         
+        // Update Y axis
+        c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF) ) : yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(yAxisCall);
+
+    }
+
+    drawArea(){
+        let c = this;
+
         c.arealine = d3.line()
             .defined(function(d) { return !isNaN(d[1]); })
             // .curve(c.area.curve())
-            .x(d => { return c.x(d.data[c.date]); })
+            .x(d => { return c.x(d.data[c.xV]); })
             .y(d => { return c.y( d[1]); });
 
-
         // d3 area function
-         c.area = d3.area()
+        c.area = d3.area()
             .defined(function(d) { return !isNaN(d[1]); })
-            .x(function(d) { return c.x(d.data[c.date]); })
+            .x(function(d) { return c.x(d.data[c.xV]); })
             .y0(function(d) { return c.y(d[0]); })
             .y1(function(d) { return c.y( d[1]); });
 
-         // d3 stack function
-        c.stack = d3.stack().keys(c.keys);
-        c.data = (c.stack(c.nestedData));
-
-        c.drawLegend();
-        c.update();
-    }
-
-    update(){
-        let c = this;
-            d3.select(c.element).select(".focus").remove();
-            d3.select(c.element).select(".focus_overlay").remove();
-            c.g.selectAll(".region")
-                .transition(c.t())
-                .style("opacity", 0)
-                .remove(); // cheap fix for now
+        d3.select(c.e).select(".focus").remove();
+        d3.select(c.e).select(".focus_overlay").remove();
+        c.g.selectAll(".region")
+            .transition(c.t())
+            .style("opacity", 0)
+            .remove(); // cheap fix for now
 
         // select all regions and join data with old
         c.regions = c.g.selectAll(".area")
-            .data(c.data, d => { return d})
+            .data(c.dStacked, d => { return d})
             .enter()
                 .append("g")
                     .attr("class","region");
@@ -226,7 +168,7 @@ class StackedAreaChart {
 
         // Update
         c.g.selectAll(".area")
-            .data(c.data)
+            .data(c.dStacked)
             .transition(c.t())
             .attr("d", c.area)
             .style("fill-opacity", 0.55)
@@ -234,7 +176,7 @@ class StackedAreaChart {
             
     
         c.g.selectAll(".area-line")
-            .data(c.data)
+            .data(c.dStacked)
             .transition(c.t())
             .attr("d", c.arealine);
     
@@ -250,28 +192,28 @@ class StackedAreaChart {
                 lH = 10;
             
             // data values for last readable value
-            const lines = c.data.map(d => {
+            const lines = c.dStacked.map(d => {
                     let obj = {},
                         vs = d.filter(idFilter),
                         s = vs.length -1;
                         // sF = d.data.length -1;
                         obj.key = d.key;
                         // obj.last = vs[s][v];
-                        obj.x = c.x(vs[s].data.date);
+                        obj.x = c.x(vs[s].data[c.xV]);
                         // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
                         obj.y = c.y(vs[s][1]);
                     return obj;
 
             });
     
-        //     const circles = c.data.map(d => {
+        //     const circles = c.d.map(d => {
         //         let obj = {},
         //             vs = d.filter(idFilter),
         //             s = vs.length -1;
         //             // sF = d.data.length -1;
         //             obj.key = d.key;
         //             // obj.last = vs[s][v];
-        //             obj.x = c.x(vs[s].data.date);
+        //             obj.x = c.x(vs[s].data[c.xV]);
         //             // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
         //             obj.y = c.y(vs[s][1]);
         //         return obj;
@@ -296,7 +238,7 @@ class StackedAreaChart {
                 .force("collide", d3.forceCollide(lH/2))
                 // .force("y", d3.forceY(d => d.y).strength(4))  
                 .force("x", d3.forceX(d => d.x).strength(4))   
-                .force("clamp", forceClamp(0, c.height-4))
+                .force("clamp", forceClamp(0, c.h-4))
                 .stop();
     
                 // Execute the simulation
@@ -337,7 +279,7 @@ class StackedAreaChart {
                 
                 legendGroup.append("circle")
                     .attr("class", "l-circle")
-                    .attr("cx", "6")
+                    .attr("cx", "0")//was 6
                     .attr("r", "4")
                     .attr("fill", d => z(d.key));
     
@@ -367,7 +309,7 @@ class StackedAreaChart {
     //     // create legend array, this needs to come from the data.
     //     c.legendArray = [];
         
-    //     c.keys.forEach( (d) => {
+    //     c.ks.forEach( (d) => {
 
     //         let obj = {};
     //             obj.label = d;
@@ -388,7 +330,7 @@ class StackedAreaChart {
     //     // add legend boxes    
     //     legends.append("rect")
     //         .attr("class", "legendRect")
-    //         .attr("x", c.width + 10)
+    //         .attr("x", c.w + 10)
     //         .attr("width", 25)
     //         .attr("height", 25)
     //         .attr("fill", d => { return d.colour; })
@@ -396,100 +338,13 @@ class StackedAreaChart {
 
     //     legends.append("text")
     //         .attr("class", "legendText")
-    //         // .attr("x", c.width + 40)
+    //         // .attr("x", c.w + 40)
     //         .attr("y", 12)
     //         .attr("dy", ".025em")
     //         .attr("text-anchor", "start")
     //         .text(d => { return d.label; })
-    //         .call(c.textWrap, 110, c.width + 34); 
+    //         .call(c.textWrap, 110, c.w + 34); 
     // }
-
-    drawGridLines(){
-        let c = this;
-
-        c.gridLines.selectAll('line')
-            .remove();
-
-        c.gridLines.selectAll('line.horizontal-line')
-            .data(c.y.ticks)
-            .enter()
-                .append('line')
-                .attr('class', 'horizontal-line')
-                .attr('x1', (0))
-                .attr('x2', c.width)
-                .attr('y1', (d) => { return c.y(d) })
-                .attr('y2', (d) => c.y(d));
-    }
-
-    drawTooltip(){
-        let c = this;
-
-            c.newToolTip = d3.select(c.element)
-                .append("div")
-                    .attr("class","tool-tip bcd")
-                    .style("visibility","hidden");
-
-            c.newToolTipTitle = c.newToolTip
-                .append("div")
-                    .attr("id", "bcd-tt-title");
-
-            c.tooltipHeaders();
-            c.tooltipBody();
-    }
-
-    tooltipHeaders(){
-        let c = this,
-            div,
-            p;
-            
-        div = c.newToolTip
-            .append("div")
-                .attr("class", "headers");
-
-        div.append("span")
-            .attr("class", "bcd-rect");
-
-        p = div
-            .append("p")
-                .attr("class","bcd-text");
-
-        p.append("span")
-            .attr("class","bcd-text-title")
-            .text("Type");
-
-        p.append("span")
-            .attr("class","bcd-text-value")
-            .text("Value");
-
-        p.append("span")
-            .attr("class","bcd-text-rate")
-            .text("% Rate");
-
-        p.append("span")
-            .attr("class","bcd-text-indicator");
-    }
-
-    tooltipBody(){
-        let c = this,
-            keys = c.keys,
-            div,
-            p;
-
-        keys.forEach( (d, i) => {
-            div = c.newToolTip
-                    .append("div")
-                    .attr("id", "bcd-tt" + i);
-                
-            div.append("span").attr("class", "bcd-rect");
-
-            p = div.append("p").attr("class","bcd-text");
-
-            p.append("span").attr("class","bcd-text-title");
-            p.append("span").attr("class","bcd-text-value");
-            p.append("span").attr("class","bcd-text-rate");
-            p.append("span").attr("class","bcd-text-indicator");
-        });
-    }
 
     drawFocus(){
         let c = this,
@@ -512,7 +367,7 @@ class StackedAreaChart {
             focus.append("line")
                 .attr("class", "focus_line")
                 .attr("y1", 0)
-                .attr("y2", c.height);
+                .attr("y2", c.h);
         
             c.drawFocusCircles();
     }
@@ -526,7 +381,7 @@ class StackedAreaChart {
                 .attr("class", "focus_circles");
 
             // attach group append circle and text for each region
-            c.keys.forEach( (d,i) => {
+            c.ks.forEach( (d,i) => {
 
                 focusCircles.append("g")
                     .attr("class", "tooltip_" + i)
@@ -543,12 +398,12 @@ class StackedAreaChart {
     addTooltip(title, format, dateField, prefix, postfix){
         let c = this;
 
-            d3.select(c.element).select(".focus").remove();
-            d3.select(c.element).select(".focus_overlay").remove();
+            d3.select(c.e).select(".focus").remove();
+            d3.select(c.e).select(".focus_overlay").remove();
 
             c.ttTitle = title || c.ttTitle;
             c.valueFormat = format || c.valueFormat;
-            c.dateField = dateField || c.dateField;
+            c.xVField = dateField || c.xVField;
             // c.arrowChange = arrowChange;
             c.ttWidth = 305;
             c.prefix = prefix ? prefix : " ";
@@ -565,8 +420,8 @@ class StackedAreaChart {
             overlay = g.append("rect");
             
             overlay.attr("class", "focus_overlay")
-                .attr("width", c.width)
-                .attr("height", c.height)
+                .attr("width", c.w)
+                .attr("height", c.h)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden");
@@ -592,18 +447,18 @@ class StackedAreaChart {
                 let mouse = d3.mouse(this),
                     ttTextHeights = 0,
                     x0 = c.x.invert(mouse[0]),
-                    i = c.bisectDate(c.nestedData, x0, 1),
-                    d0 = c.nestedData[i - 1],
-                    d1 = c.nestedData[i],
+                    i = c.bisectDate(c.d, x0, 1),
+                    d0 = c.d[i - 1],
+                    d1 = c.d[i],
                     d,
                     dPrev,
-                    keys = c.getKeys(); 
+                    keys = c.ks.map(d => { return d }).reverse(); 
 
-                    d1 !== undefined ? d = x0 - d0[c.date] > d1[c.date] - x0 ? d1 : d0 : false;
-                    d1 !== undefined ? dPrev = x0 - d0[c.date] > d1[c.date] - x0 ? c.nestedData[i-1] : c.nestedData[i-2] : false;
+                    d1 !== undefined ? d = x0 - d0[c.xV] > d1[c.xV] - x0 ? d1 : d0 : false;
+                    d1 !== undefined ? dPrev = x0 - d0[c.xV] > d1[c.xV] - x0 ? c.d[i-1] : c.d[i-2] : false;
                 
                 keys.forEach((reg,idx) => {
-                    let dvalue = c.data[idx],
+                    let dvalue = c.dStacked[idx],
                         key = reg,
                         id = "#bcd-tt" + idx,
                         div = c.newToolTip.select(id),
@@ -617,32 +472,32 @@ class StackedAreaChart {
                         indicator = difference > 0 ? " ▲" : difference < 0 ? " ▼" : "",
                         rate = isNaN(difference) ? unText :d3.format(".1%")(difference);
 
-                    if(c.arrowChange === true){
-                        indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
-                    }
-                    else{
-                        indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
-                    }
-
-                    if(d !== undefined){
-                        let dot = ".tooltip_" + idx,
-                        tooltip = focus.select(dot);
-                        
-                        c.updatePosition(c.x(d[c.date]), 80);
-
-                        dd1 !== undefined ? dd = x0 - dd0.data[c.date] > dd1.data[c.date] - x0 ? dd1 : dd0 : false;
-
-                        div.style("opacity", 1);
-                        div.select(".bcd-dot").style("background-color", c.colour(d.key));
-                        p.select(".bcd-text-title").text(key);
-                        p.select(".bcd-text-value").text(isNaN(d[key]) ? "N/A" : d[key]);
-                        p.select(".bcd-text-rate").text(rate);
-                        p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
-
-                        c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
-
-                        tooltip.attr("transform", "translate(" + c.x(d[c.date]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
-                        focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.date])) + ", 0)");
+                        if(c.arrowChange === true){
+                            indicatorColour = difference < 0 ? "#20c997" : difference > 0 ? "#da1e4d" : "#f8f8f8";
+                        }
+                        else{
+                            indicatorColour = difference > 0 ? "#20c997" : difference < 0 ? "#da1e4d" : "#f8f8f8";
+                        }
+    
+                        if(d !== undefined){
+                            let dot = ".tooltip_" + idx,
+                            tooltip = focus.select(dot);
+                            
+                            c.updatePosition(c.x(d[c.xV]), 80);
+    
+                            dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false;
+    
+                            div.style("opacity", 1);
+                            div.select(".bcd-dot").style("background-color", c.colour(d.key));
+                            p.select(".bcd-text-title").text(key);
+                            p.select(".bcd-text-value").text(isNaN(d[key]) ? "N/A" : d[key]);
+                            p.select(".bcd-text-rate").text(rate);
+                            p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
+    
+                            c.newToolTipTitle.text(c.ttTitle + " " + (d[c.xVField]));
+    
+                            tooltip.attr("transform", "translate(" + c.x(d[c.xV]) + "," + c.y(dd[1] ? dd[1]: 0 ) + ")");
+                            focus.select(".focus_line").attr("transform", "translate(" + c.x((d[c.xV])) + ", 0)");
                     }
                 });
             }
@@ -659,23 +514,11 @@ class StackedAreaChart {
             c.newToolTip.style("left", tooltipX + "px").style("top", tooltipY + "px");
     }
 
-    updateTTSize(){
-        let c = this;
-        let h = c.g.select(".tooltip-body").node().getBBox().height;
-            c.ttHeight += h + 4;
-            c.g.select(".tooltip-container").attr("height", c.ttHeight);
-    }
-
-    resetSize() {
-        let c = this;
-            c.ttHeight = 50;
-    }
-
     getTooltipPosition([mouseX, mouseY]) {
         let c = this;
         let ttX,
             ttY = mouseY,
-            cSize = c.width - c.ttWidth;
+            cSize = c.w - c.ttWidth;
 
         // show right - 60 is the margin large screens
         if (mouseX < cSize) {
@@ -685,6 +528,13 @@ class StackedAreaChart {
             ttX = (mouseX + 90) - c.ttWidth;
         }
         return [ttX, ttY];
+    }
+
+    getElement(name){
+        let c = this,
+            s = d3.select(c.e),
+            e = s.selectAll(name);
+        return e;
     }
 
     textWrap(text, width, xpos = 0, limit=2) {
@@ -772,83 +622,86 @@ class StackedAreaChart {
         return year+" Q" + q;
     }
 
-slicer( arr, sliceBy ){
-    if ( sliceBy < 1 || !arr ) return () => [];
-    
-    return (p) => {
-        const base = p * sliceBy,
-              size = arr.length;
-
-        let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
-            
-            if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
-            
-            return slicedArray;
-    };
-}
-
-pagination(data, selector, sliceBy, pageNumber, label){
-
-    const c = this;
-    
-    const slices = c.slicer( data, sliceBy ), 
-          times =  pageNumber,
-          startSet = slices(times - 1);
-          
-        //  let newStart = [];
-        //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
-
-        d3.selectAll(selector + " .pagination-holder").remove();
-
-    let moreButtons = d3.select(selector)
-        .append("div")
-        .attr("class", "pagination-holder text-center pb-2");
-
-        c.getData(startSet);
-        c.addTooltip();
-
-    for(let i=0; i<times; i++){
-        // let wg = slices(i)
-            // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
+    slicer( arr, sliceBy ){
+        if ( sliceBy < 1 || !arr ) return () => [];
         
-        let wg = slices(i),
-            sliceNumber = sliceBy - 1,
-            secondText,
-            textString;
+        return (p) => {
+            const base = p * sliceBy,
+                size = arr.length;
 
-            if (typeof wg[sliceNumber] != 'undefined'){
-                secondText = wg[sliceNumber]
-            }
-            else{
-                let lastEl = wg.length - 1;
-                    secondText = wg[lastEl];
-            }
-
-            if (wg[0][label] === secondText[label]){
-                textString = wg[0][label];
-            }
-            else{
-                textString = wg[0][label] + " - " + secondText[label];
-            }
-
-        moreButtons.append("button")
-            .attr("type", "button")
-            .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
-            .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
-        // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
-            .text(textString)
-            .on("click", function(){
-            if(!$(this).hasClass("active")){
-                    $(this).siblings().removeClass("active");
-                    $(this).addClass("active");
-                    c.getData(wg);
-                    c.addTooltip();
-                }
-            });
-        }
-
-
+            let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice( base,  base + sliceBy );
+                
+                if (slicedArray.length < (sliceBy/2)) return slicedArray = arr.slice(size - sliceBy);
+                
+                return slicedArray;
+        };
     }
+
+    pagination(data, selector, sliceBy, pageNumber, label){
+
+        const c = this;
+        
+        const slices = c.slicer( data, sliceBy ), 
+            times =  pageNumber,
+            startSet = slices(times - 1),
+            updateObj = {
+                d: startSet
+            };
+            
+            //  let newStart = [];
+            //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
+
+            d3.selectAll(selector + " .pagination-holder").remove();
+
+        let moreButtons = d3.select(selector)
+            .append("div")
+            .attr("class", "pagination-holder text-center pb-2");
+
+            c.updateChart(updateObj);
+            c.addTooltip();
+
+        for(let i=0; i<times; i++){
+            // let wg = slices(i)
+                // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
+            
+            let wg = slices(i),
+                sliceNumber = sliceBy - 1,
+                secondText,
+                textString;
+
+                if (typeof wg[sliceNumber] != 'undefined'){
+                    secondText = wg[sliceNumber]
+                }
+                else{
+                    let lastEl = wg.length - 1;
+                        secondText = wg[lastEl];
+                }
+
+                if (wg[0][label] === secondText[label]){
+                    textString = wg[0][label];
+                }
+                else{
+                    textString = wg[0][label] + " - " + secondText[label];
+                }
+
+            moreButtons.append("button")
+                .attr("type", "button")
+                .attr("class", i === times -1 ? "btn btn-page mx-1 active" : "btn btn-page")
+                .style("border-right", i === times -1 ? "none" : "1px Solid #838586")
+            // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
+                .text(textString)
+                .on("click", function(){
+                if(!$(this).hasClass("active")){
+                        $(this).siblings().removeClass("active");
+                        $(this).addClass("active");
+                        c.updateChart({d:wg});
+                        c.addTooltip();
+                    }
+                });
+            }
+
+
+        }
 
     showSelectedLabels(array){
         let c = this, 
@@ -866,5 +719,3 @@ pagination(data, selector, sliceBy, pageNumber, label){
     }
 
 }
-
-

@@ -131,34 +131,30 @@
                     "#d9d9d9"
                     ]; // qualitative pastel
         
-        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1", cA2),
+        const chart1C = chartContent(chart1D, "region", "population", "date", "#chart1a", cA2),
               Chart_fig1 = new MultiLineChart(chart1C),
               visibleLabels = [1,6,12,16,21,26];
             
-              Chart_fig1.titleX = "Years";
-              Chart_fig1.titleY = "Population";
-              Chart_fig1.yScaleFormat = "millions";
+              Chart_fig1.tX = "Years";
+              Chart_fig1.tY = "Population";
+              Chart_fig1.ySF = "millions";
 
               Chart_fig1.tickNumber = 27;
               Chart_fig1.drawChart();
               
               Chart_fig1.addTooltip("Population - Year: ", "thousands", "label");
 
-              // hacked the x-axis to show only ticks matching the data. 
-              //- get list of dates and filter array of g tags for elements that match the dates
-              Chart_fig1.xAxis.selectAll(".x-axis .tick").style("display", "none");
-
               // only
               hideXAxisLabels(Chart_fig1, visibleLabels);
 
         const Chart_fig1bContent = {
-                element: "#chart1",
-                data: popRate,
-                keys: chart1D2Types,
-                value: "region",
-                titleX: "Years",
-                titleY: "Population",
-                yScaleFormat: "percentage"
+                e: "#chart1b",
+                d: popRate,
+                ks: chart1D2Types,
+                xV: "region",
+                tX: "Years",
+                tY: "Population",
+                ySF: "percentage"
             },
         
             tooltip_fig1b = {
@@ -179,9 +175,9 @@
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.titleX = "Years";
-                    Chart_fig1.titleY = "Population";
-                    Chart_fig1.value = "population";
+                    Chart_fig1.tX = "Years";
+                    Chart_fig1.tY = "Population";
+                    Chart_fig1.yV = "population";
 
                     Chart_fig1b.hideRate(false);
                     Chart_fig1.updateChart();
@@ -194,9 +190,9 @@
                     Chart_fig1b.svg.attr("display","none");
                     Chart_fig1.svg.attr("display","block");
 
-                    Chart_fig1.titleX = "Years";
-                    Chart_fig1.titleY = "Households";
-                    Chart_fig1.value = "households";
+                    Chart_fig1.tX = "Years";
+                    Chart_fig1.tY = "Households";
+                    Chart_fig1.yV = "households";
                     
                     Chart_fig1b.hideRate(false);
                     Chart_fig1.updateChart();
@@ -209,8 +205,8 @@
                     
                     Chart_fig1b.d = popRate;
 
-                    Chart_fig1b.titleX = "Regions";
-                    Chart_fig1b.titleY = "Population %";
+                    Chart_fig1b.tX = "Regions";
+                    Chart_fig1b.tY = "Population %";
 
                     Chart_fig1b.title = "Population - Region: ";
                     
@@ -218,7 +214,7 @@
                     Chart_fig1b.hideRate(true);
                     
                     
-                    Chart_fig1b.update();
+                    Chart_fig1b.drawBars();
                     Chart_fig1.svg.attr("display","none");
                     Chart_fig1b.svg.attr("display","block");
                  });
@@ -238,7 +234,7 @@
                     Chart_fig1b.hideRate(true);
 
 
-                    Chart_fig1b.update();
+                    Chart_fig1b.drawBars();
                     Chart_fig1.svg.attr("display","none");
                     Chart_fig1b.svg.attr("display","block");
                  });
@@ -247,9 +243,11 @@
                     e: "#chart2",
                     k: "type",
                     d: chart2D,
-                    v: "value",
-                    c: cA4,
-                    ySF: "m"
+                    yV: "value",
+                    cS: cA4,
+                    ySF: "m",
+                    tX: "Regions",
+                    tY: "Number of Properties"
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -257,17 +255,27 @@
 
 
         const chart3DN = nestData(chart3D, "label", chart3R, "value"),
-              Chart3 = new StackedAreaChart("#chart3", "Years", "No. of Housing Completions", "date", chart3K, cA3);
+              chart3Content = {
+                    e: "#chart3",
+                    d: chart3DN,
+                    ks: chart3K,
+                    xV: "date",
+                    cS: cA3,
+                    ySF: "millions",
+                    tX: "Years",
+                    tY: "No. of Housing Completions"
+
+              },
+              Chart3 = new StackedAreaChart(chart3Content);
               Chart3.tickNumber = 23;
-              Chart3.getData(chart3DN);
-              Chart3.addTooltip("Housing Completions - Year:", "Units");
+              Chart3.addTooltip("Housing Completions - Year:", "millions","label");
 
 
         const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", cA1),
               Chart4 = new MultiLineChart(chart4C);
             
-              Chart4.titleX = "Years";
-              Chart4.titleY = "Property Prices (Euro)";
+              Chart4.tX = "Years";
+              Chart4.tY = "Property Prices (Euro)";
               Chart4.yScaleFormat = "millions";
 
             //   Chart4.tickNumber = 27;
@@ -281,8 +289,8 @@
 
        // const Chart5 = new StackedAreaChart("#chart5", "Years", "€ ( Millions )", "date", ["Value of Mortgage Debt"]);
         const Chart5 = new MultiLineChart(chart5C);
-            Chart5.titleX = "Years";
-            Chart5.titleY = "€ ( Billions )";
+            Chart5.tX = "Years";
+            Chart5.tY = "€ ( Billions )";
             Chart5.tickNumber = 6;
             Chart5.yScaleFormat = "millions";
             
@@ -295,7 +303,7 @@
                 k: "type",
                 d: chart6D,
                 v: "value",
-                c: cA4,
+                cS: cA4,
                 ySF:"m"
                 },
               
@@ -412,12 +420,13 @@
               nest.forEach(d => {keys.push(d.key);});
     
         return {
-                element: selector,
-                keys: keys,
-                data: nest,
-                value: value,
-                colour: colour,
-            }
+                e: selector,
+                ks: keys,
+                d: nest,
+                xV: date,
+                yV: value,
+                cS: colour,
+            };
     
     }
 

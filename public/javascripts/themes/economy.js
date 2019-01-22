@@ -30,36 +30,56 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               empData = stackNest(fData, "label", "region" , emp),
               grouping = ["Dublin", "Rest of Ireland"],
               unempContent = {
-                element: "#chart-unemp-rate",
-                data: aNest,
-                value: keysA[1],
-                titleX: "Years",
-                titleY: "%",
-                yScaleFormat: "percentage",
+                e: "#chart-unemp-rate",
+                d: aNest,
+                xV: "date",
+                yV: keysA[1],
+                tX: "Years",
+                tY: "%",
+                ySF: "percentage",
               },
               empContent = {
-                element: "#chart-emp-rate",
-                data: aNest,
-                value: keysA[0],
-                titleX: "Years",
-                titleY: "%",
-                yScaleFormat: "percentage",
-              };
-
-        const employmentStack = new StackedAreaChart("#chart-employment", "Quarters", "Thousands", "date", grouping),
-              unemploymentStack = new StackedAreaChart("#chartNew", "Quarters", "Thousands", "date", grouping);
-                
-              employmentStack.tickNumber = 5;
-              employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
+                e: "#chart-emp-rate",
+                d: aNest,
+                k: "region",
+                xV: "date",
+                yV: keysA[0],
+                tX: "Years",
+                tY: "%",
+                ySF: "percentage",
+              },
+              unempCStack = {
+                e: "#chartNew",
+                d: unempData,
+                ks: grouping,
+                xV: "date",
+                tX: "Quarters",
+                tY: "Thousands",
+                ySF: "millions",
+              },
+              empCStack = {
+                e: "#chart-employment",
+                d: empData,
+                ks: grouping,
+                xV: "date",
+                tX: "Quarters",
+                tY: "Thousands",
+                ySF: "millions",
+              }, 
+              employmentStack = new StackedAreaChart(empCStack),
+              unemploymentStack = new StackedAreaChart(unempCStack);
+              employmentStack.tickNumber = 24;
+            //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
+            //   employmentStack.getData(empData);
               employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
-              unemploymentStack.tickNumber = 5;
-              unemploymentStack.pagination(unempData, "#chartNew", 24, 3, "year", "Thousands - Quarter:");
+              unemploymentStack.tickNumber = 24;
+            //   unemploymentStack.getData(unempData);
               unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
         const employmentLine = new MultiLineChart(empContent);
               employmentLine.tickNumber = 24;
-              employmentLine.drawChart();
+            //   employmentLine.createScales();
 
               d3.select("#chart-emp-rate").style("display","none");
               employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
@@ -83,7 +103,7 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
               unemploymentLine.hideRate(true);
               
               d3.select("#chart-unemp-rate").style("display","none");
-              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "year");
+              unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "label");
 
             d3.select(".unemployment_count").on("click", function(){
                 activeBtn(this);
@@ -105,22 +125,24 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
     /*** This the Gross Value Added per Capita at Basic Prices Chart ***/
     d3.csv("../data/Economy/RAA01.csv").then( data => {
 
-        let columnNames = data.columns.slice(1);
-        let incomeData = data;
+        let columnNames = data.columns.slice(1),
+            incomeData = data;
+            
             incomeData.forEach( d => {
                 d.label = d.date;
                 d.date = parseYear(d.date);
                 d.value = +d.value;
-            })
-
-        let idN = d3.nest().key( d => { return d.region;}).entries(incomeData);
+            });
 
         const idContent = {
-            element: "#chart-gva",
-            value: "value",
-            data: idN,
-            titleX: "Years",
-            titleY: "€"
+            e: "#chart-gva",
+            xV: "date",
+            yV: "value",
+            d: incomeData,
+            k: "region",
+            ks: ["Dublin","Dublin plus Mid East","State"],
+            tX: "Years",
+            tY: "€"
         };
         
         const GVA = new MultiLineChart(idContent);
@@ -145,15 +167,15 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             });
 
             incomeContent = {
-                element: "#chart-poverty-rate",
-                data: incomeData,
-                key: "type",
-                value: "value",
-                titles: ["%", "Years"],
-                scaleY: "percentage",
-            }
-
-            
+                e: "#chart-poverty-rate",
+                d: incomeData,
+                k: "type",
+                xV: "date",
+                yV: "value",
+                tY: "%", 
+                tX: "Years",
+                ySF: "percentage",
+            };
 
         const IncomeGroupedBar = new StackBarChart(incomeContent);
               IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage2", "date");
@@ -204,13 +226,13 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             };
             
             disosableIncomeContent = {
-                element: "#chart-disposable-income",
-                data: dataFiltered,
-                keys: key,
-                value: "year",
-                titleX: "Years",
-                titleY: "",
-                yScaleFormat: "euros"
+                e: "#chart-disposable-income",
+                d: dataFiltered,
+                ks: key,
+                xV: "year",
+                tX: "Years",
+                tY: "",
+                ySF: "euros"
             };
 
         const disosableIncomeChart = new GroupedBarChart(disosableIncomeContent);
@@ -227,31 +249,6 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
         let columnNames = data.columns.slice(2),
             employeesSizeData = data;
 
-    })
-    // catch any error and log to console
-    .catch(function(error){
-    console.log(error);
-    });
-
-    // /*** Industry Sectors Charts here ***/
-    // //#chart-employment-sector
-    d3.csv("../data/Economy/QNQ4017Q2.csv").then( data => { 
-    //console.log("the sector data", data);
-
-        // let columnNames = data.columns.slice(2);
-
-        // data.forEach(d => {
-        //     for(var i = 0, n = columnNames.length; i < n; ++i){
-        //         d[columnNames[i]] = +d[columnNames[i]] || 0;
-        //         d.date = d.quarter;
-        //     }
-        //     return d;
-        // });
-
-        // // const employeesBySectorChart = new MultiLineChart(nestData, "#chart-employment-sector", "Quarters", "Persons (000s)", "xValue", grouping);
-        // const newTest = new StackBarChart("#chart-employment-sector", data, columnNames, "Persons (000s)", "Quarters");
-        // newTest.addTooltip("Poverty Rating Year:", "percentage", "date");
-        
     })
     // catch any error and log to console
     .catch(function(error){
@@ -275,22 +272,19 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             return d;
         });
 
-        const employeesBySizeData = data;
-        
-        let nestData = d3.nest()
-            .key( d =>{ return d.type;})
-            .entries(employeesBySizeData);
-
-        const employeesBySize = {
-            element: "#chart-employees-by-size",
-            value: "value",
-            data: nestData,
-            titleX: "Years",
-            titleY: "Persons Engaged"
-        };
+        const employeesBySizeData = data,
+              employeesBySize = {
+                e: "#chart-employees-by-size",
+                xV: "date",
+                yV: "value",
+                d:employeesBySizeData,
+                k:"type",
+                tX: "Years",
+                tY: "Persons Engaged",
+                ySF: "millions"
+              };
         
         const employeesBySizeChart = new MultiLineChart(employeesBySize);
-              employeesBySizeChart.yScaleFormat = "millions"; // update the y axis scale
               employeesBySizeChart.drawChart();
               employeesBySizeChart.addTooltip("Persons Engaged by Size of Company - Year:", "thousands", "label");
     })
@@ -323,13 +317,13 @@ let annual ="../data/Economy/annualemploymentchanges.csv",
             },
 
             overseasVisitorContent = {
-                element: "#chart-overseas-vistors",
-                data: overseasVisitorsData,
-                keys: columnNames,
-                value: xValue,
-                titleX: "Years",
-                titleY: "Visitors (Millions)",
-                // yScaleFormat: "percentage"
+                e: "#chart-overseas-vistors",
+                d: overseasVisitorsData,
+                ks: columnNames,
+                xV: xValue,
+                tX: "Years",
+                tY: "Visitors (Millions)",
+                // ySF: "percentage"
             },
         
             overseasvisitorsChart = new GroupedBarChart(overseasVisitorContent);

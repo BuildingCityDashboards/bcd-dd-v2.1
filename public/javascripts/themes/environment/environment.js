@@ -27,11 +27,12 @@ Promise.all([
         .entries(wasteDataProcessed);
 
     const wasteContent = {
-        element: "#chart-waste",
-        value: wasteType[0],
-        data: wasteDataNested,
-        titleX: "years",
-        titleY: "Kg"
+        e: "#chart-waste",
+        yV: wasteType[0],
+        xV: wasteDate,
+        d: wasteDataNested,
+        tX: "years",
+        tY: "Kg"
     };
 
     // draw the chart
@@ -47,13 +48,14 @@ Promise.all([
           recyclingsDataProcessed = dataSets(recyclingsData, recyclingsTypes),
 
           recyclingsContent = {
-            element: "#chart-recyclings",
-            data: recyclingsDataProcessed,
-            keys: recyclingsTypes,
-            value: recyclingsDate,
-            titleX: "Years",
-            titleY: "%",
-            yScaleFormat: "percentage"
+            e: "#chart-recyclings",
+            d: recyclingsDataProcessed,
+            ks: recyclingsTypes,
+            xV: recyclingsDate,
+            yV: "value",
+            tX: "Years",
+            tY: "%",
+            ySF: "percentage"
           },
 
           // drawing charts for planning data.
@@ -76,13 +78,13 @@ Promise.all([
           organicrecyclingsDataProcessed = dataSets(organicrecyclingsData, organicrecyclingsTypes),
 
           organicrecyclingsContent = {
-            element: "#chart-organicrecyclings",
-            data: organicrecyclingsDataProcessed,
-            keys: organicrecyclingsTypes,
-            value: organicrecyclingsDate,
-            titleX: "Years",
-            titleY: "%",
-            yScaleFormat: "percentage"
+            e: "#chart-organicrecyclings",
+            d: organicrecyclingsDataProcessed,
+            ks: organicrecyclingsTypes,
+            xV: organicrecyclingsDate,
+            tX: "Years",
+            tY: "%",
+            ySF: "percentage"
           },
 
           // drawing charts for planning data.
@@ -105,12 +107,12 @@ Promise.all([
           waterconsDataProcessed = dataSets(waterconsData, waterconsTypes),
 
           waterconsContent = {
-            element: "#chart-watercons",
-            data: waterconsDataProcessed,
-            keys: waterconsTypes,
-            value: waterconsDate,
-            titleX: "Years",
-            titleY: "Litres",
+            e: "#chart-watercons",
+            d: waterconsDataProcessed,
+            ks: waterconsTypes,
+            xV: waterconsDate,
+            tX: "Years",
+            tY: "Litres",
             // yScaleFormat: "percentage"
           },
 
@@ -134,12 +136,12 @@ Promise.all([
           riverqualitiesDataProcessed = dataSets(riverqualitiesData, riverqualitiesTypes),
 
           riverqualitiesContent = {
-            element: "#chart-riverqualities",
-            data: riverqualitiesDataProcessed,
-            keys: riverqualitiesTypes,
-            value: riverqualitiesDate,
-            titleX: "Years",
-            titleY: "% of Surveryed Channel Length (1156.5km)",
+            e: "#chart-riverqualities",
+            d: riverqualitiesDataProcessed,
+            ks: riverqualitiesTypes,
+            xV: riverqualitiesDate,
+            tX: "Years",
+            tY: "% of Surveryed Channel Length (1156.5km)",
             // yScaleFormat: "percentage"
           },
 
@@ -162,12 +164,12 @@ Promise.all([
           greenflagsDataProcessed = dataSets(greenflagsData, greenflagsTypes),
 
           greenflagsContent = {
-            element: "#chart-greenflags",
-            data: greenflagsDataProcessed,
-            keys: greenflagsTypes,
-            value: greenflagsDate,
-            titleX: "Years",
-            titleY: "Number of Schools",
+            e: "#chart-greenflags",
+            d: greenflagsDataProcessed,
+            ks: greenflagsTypes,
+            xV: greenflagsDate,
+            tX: "Years",
+            tY: "Number of Schools",
             // yScaleFormat: "percentage"
           },
 
@@ -208,11 +210,12 @@ Promise.all([
         });
 
     const localagendasContent = {
-        element: "#chart-localagendas",
-        data: localagendasDataNested,
-        value: localagendasType[0],
-        titleX: "Years",
-        titleY: "Number of Projects"
+        e: "#chart-localagendas",
+        d: localagendasDataNested,
+        xV: localagendasDate,
+        yV: localagendasType[0],
+        tX: "Years",
+        tY: "Number of Projects"
     },
     // draw the chart
     // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5

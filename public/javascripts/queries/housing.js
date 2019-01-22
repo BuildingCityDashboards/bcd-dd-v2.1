@@ -37,9 +37,10 @@ Promise.all([
           });
 
 
-
     const houseCompCharts = new StackedAreaChart(houseCompContent);
           houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
+
+
 
     //2.  data processing for planning charts.
     const planningData = datafiles[1],
@@ -107,16 +108,16 @@ Promise.all([
         },
 
         // drawing charts for planning data.
-        dccChart = new GroupedBarChart(dccContent),
-        drccChart = new GroupedBarChart(drccContent),
-        fccChart = new GroupedBarChart(fccContent),
-        sdccChart = new GroupedBarChart(sdccContent);
-        ;
-
-        dccChart.addTooltip(planningTT);
-        drccChart.addTooltip(planningTT);
-        fccChart.addTooltip(planningTT);
-        sdccChart.addTooltip(planningTT);
+//        dccChart = new GroupedBarChart(dccContent),
+//        drccChart = new GroupedBarChart(drccContent),
+//        fccChart = new GroupedBarChart(fccContent),
+//        sdccChart = new GroupedBarChart(sdccContent);
+//        ;
+//
+//        dccChart.addTooltip(planningTT);
+//        drccChart.addTooltip(planningTT);
+//        fccChart.addTooltip(planningTT);
+//        sdccChart.addTooltip(planningTT);
 
     
     const supplyData = datafiles[2],

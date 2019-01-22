@@ -1,68 +1,35 @@
-class GroupedBarChart{
+class GroupedBarChart extends Chart{
 
-    // constructor function
     constructor (obj){
+        super(obj);
 
-        // this.d = _data;//
-        // this.keys = _keys;
-        // this.xV = _xValue;//
-        // this.e = _element;//
-        // this.titleX = _xTitle;//
-        // this.titleY = _titleY;//
-
-        this.e = obj.element;
-        this.d = obj.data;
-        this.keys = obj.keys;
-        this.xV = obj.value;
-        this.colourScheme = obj.colour;
-        this.titleX = obj.titleX;
-        this.titleY = obj.titleY;
-        this.yScaleFormat = obj.yScaleFormat || "thousands";
-
-        // create the c area
-        this.init();
+        this.drawChart();
     }
 
-    // initialise method to draw c area
-    init(){
+    drawChart(){
+        let c = this;
+
+        super.init();
+        super.addAxis();
+        super.getKeys();
+        c.drawTooltip();
+        c.createScales();//parent once I setup setScales:done and setDomain with switch.
+        super.drawGridLines();
+        c.drawBars();//child - like createScales could be added to parent with switch.
+        // c.drawLegend();//child - like createScales could be added to parent with switch.            
+    }
+
+    createScales(){
         let c = this,
-            elementNode = d3.select(c.e).node(),
-            elementWidth = elementNode.getBoundingClientRect().width,
-            aspectRatio = elementWidth < 800 ? elementWidth * 0.65 : elementWidth * 0.5;
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
 
-        const breakPoint = 678;
-        
-        // margin
-        c.m = { };
-
-        c.m.t = elementWidth < breakPoint ? 40 : 50;
-        c.m.b = elementWidth < breakPoint ? 30 : 80;
-
-        c.m.right = elementWidth < breakPoint ? 20 : 140;
-        c.m.left = elementWidth < breakPoint ? 20 : 60;
-        
-        c.w = elementWidth - c.m.left - c.m.right;
-        c.height = aspectRatio - c.m.t - c.m.b;
-
-        // add the svg to the target element
-        c.svg = d3.select(c.e)
-            .append("svg")
-            .attr("width", c.w + c.m.left + c.m.right)
-            .attr("height", c.height + c.m.t + c.m.b);
-       
-        // add the g to the svg and transform by top and left margin
-        c.g = c.svg.append("g")
-            .attr("transform", "translate(" + c.m.left + 
-                ", " + c.m.t + ")");
-    
-        // transition 
-        // c.t = () => { return d3.transition().duration(1000); }
-    
-        // c.colourScheme = ["#aae0fa","#00929e","#da1e4d","#ffc20e","#16c1f3","#086fb8","#003d68"];
-        c.colourScheme =d3.schemeBlues[9].slice(3);
-
-        // set colour function
-        c.colour = d3.scaleOrdinal(c.colourScheme);
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY);
 
         c.x0 = d3.scaleBand()
             .range([0, c.w])
@@ -70,67 +37,37 @@ class GroupedBarChart{
 
         c.x1 = d3.scaleBand()
             .paddingInner(0.1);
-    
+
         c.y = d3.scaleLinear()
-            .range([c.height, 0]);
-
-        c.yAxisCall = d3.axisLeft();
-
-        c.xAxisCall = d3.axisBottom()
-            .tickFormat(d => {return d});
-
-        c.gridLines = c.g.append("g")
-            .attr("class", "grid-lines");
-
-        c.xAxis = c.g.append("g")
-            .attr("class", "x-axis")
-            .attr("transform", "translate(0," + c.height +")");
-        
-        c.yAxis = c.g.append("g")
-            .attr("class", "y-axis");
-    
-        // X title
-        c.g.append("text")
-            .attr("class", "titleX")
-            .attr("x", c.w/2)
-            .attr("y", c.height + 60)
-            .attr("text-anchor", "middle")
-            .text(c.titleX);
-    
-        // Y title
-        c.g.append("text")
-            .attr("class", "titleY")
-            .attr("x", - (c.height/2))
-            .attr("y", -45)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text(c.titleY);
-
-        c.update();
-    
-    }
-
-    getData(){
-        let c = this;
-    
-    }
-    
-    update(){
-        let c = this;
+            .range([c.h, 0]);
 
         // Update scales
         c.x0.domain(c.d.map(d => {return d[c.xV]; }));
-        c.x1.domain(c.keys).range([0, c.x0.bandwidth()]);
-        c.y.domain([0, d3.max(c.d, d => { return d3.max(c.keys, key => { return d[key]; }); })]).nice();
+        c.x1.domain(c.ks).range([0, c.x0.bandwidth()]);
+        c.y.domain([0, d3.max(c.d, d => { return d3.max(c.ks, key => { return d[key]; }); })]).nice();
 
         // Update axes
-        c.xAxisCall.scale(c.x0);
-        c.xAxis.call(c.xAxisCall)
-        .selectAll(".tick text").call(c.textWrap, 60, 0);
+        xAxisCall.scale(c.x0);
+        c.xAxis.call(xAxisCall).selectAll(".tick text").call(textWrap, 60, 0);
         
-        c.yScaleFormat ? c.yAxisCall.scale(c.y).tickFormat(c.formatValue(c.yScaleFormat)) : c.yAxisCall.scale(c.y);
-        c.yAxisCall.scale(c.y);
-        c.yAxis.call(c.yAxisCall);
+        // c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF)) : yAxisCall.scale(c.y);
+        
+        // yAxisCall.scale(c.y);
+        
+        // c.yAxis.call(yAxisCall);
+
+        // // Update X axis
+        // c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
+        // c.xAxis.transition(c.t()).call(xAxisCall);
+        
+        // Update Y axis
+        c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF) ) : yAxisCall.scale(c.y);
+        c.yAxis.transition(c.t()).call(yAxisCall);
+
+    }
+    
+    drawBars(){
+        let c = this;
 
         c.drawGridLines();
 
@@ -147,10 +84,10 @@ class GroupedBarChart{
             
         c.rects = c.rectGroup.selectAll("rect")
                 .data(d => { 
-                    return c.keys.map( key => { 
+                    return c.ks.map( key => { 
                     return {
                         key: key, 
-                        value: d[key],
+                        [c.yV]: d[key],
                         date: d[c.xV]
                     }; 
                 }); 
@@ -159,9 +96,9 @@ class GroupedBarChart{
 
         c.rect = c.rects.enter().append("rect")
             .attr("x", d => {return c.x1(d.key);})
-            .attr("y", d => {return c.y(d.value);})
+            .attr("y", d => {return c.y(d[c.yV]);})
             .attr("width", c.x1.bandwidth())
-            .attr("height", d => { return (c.height - c.y(d.value)); })
+            .attr("height", d => { return (c.h - c.y(d[c.yV])); })
             .attr("fill", d => { return c.colour(d.key); })
             .attr("fill-opacity", ".75");
 
@@ -177,7 +114,7 @@ class GroupedBarChart{
             .attr("x", d => c.x0(d[c.xV]))
             .attr("y", "0")
             .attr("width", c.x0.bandwidth()) // give a little extra for last value
-            .attr("height", c.height)
+            .attr("height", c.h)
             .style("fill", "none")
             .style("stroke","#00bff7")
             .style("pointer-events", "all")
@@ -194,23 +131,6 @@ class GroupedBarChart{
         c.addLegend();
     }
 
-    drawGridLines(){
-        let c = this;
-
-        c.gridLines.selectAll("line")
-            .remove();
-
-        c.gridLines.selectAll("line.horizontal-line")
-            .data(c.y.ticks)
-            .enter()
-                .append("line")
-                .attr("class", "horizontal-line")
-                .attr("x1", (0))
-                .attr("x2", c.w)
-                .attr("y1", (d) => {return c.y(d)})
-                .attr("y2", (d) => c.y(d));
-    }
-
     addLegend(){
         let c = this;
 
@@ -219,7 +139,7 @@ class GroupedBarChart{
 
         let legendArray = [];
 
-        c.keys.forEach((d,i) =>{
+        c.ks.forEach((d,i) =>{
             let obj = {};
                 obj.label = d;
                 obj.colour = c.colour(d);
@@ -247,7 +167,7 @@ class GroupedBarChart{
                 .attr("dy", "0em")
                 .attr("text-anchor", "start")
                 .text(d => { return d.label; })
-                .call(c.textWrap, 100, c.w + 22); 
+                .call(textWrap, 100, c.w + 22); 
     }
 
     drawTooltip(){
@@ -301,7 +221,7 @@ class GroupedBarChart{
 
     tooltipBody(){
         let c = this,
-            keys = c.keys,
+            keys = c.ks,
             div,
             p;
 
@@ -342,7 +262,7 @@ class GroupedBarChart{
             tooltipX = c.getTooltipPosition(x),
             data = a[e].__data__,
             prevData = a[e-1] ? a[e-1].__data__ : null,
-            key = c.keys;
+            key = c.ks;
 
             c.newToolTip.style("visibility","visible");
             c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
@@ -360,45 +280,13 @@ class GroupedBarChart{
 
             // show right
             if (mouseX < cW) {
-                ttX = mouseX + c.x0.bandwidth() + offset + c.m.left;
+                ttX = mouseX + c.x0.bandwidth() + offset + c.m.l;
                 
             } else {
                 // show left minus the size of tooltip + 10 padding
-                ttX = mouseX + c.m.left + offset - c.ttWidth;
+                ttX = mouseX + c.m.l + offset - c.ttWidth;
             }
             return ttX;
-    }
-
-    formatValue(format){
-        // formats thousands, Millions, Euros and Percentage
-        switch (format){
-            case "millions":
-                return d3.format(".2s");
-                break;
-        
-            case "euros":
-                return locale.format("$,.0f");
-                break;
-
-            case "euros2":
-                return locale.format("$,.2f");
-                break;
-        
-            case "thousands":
-                return d3.format(",");
-                break;
-        
-            case "percentage2":
-                return d3.format(".2%");
-                break;
-            
-            case "percentage":
-                return d3.format(".0%");
-                break;
-
-            default:
-                return "undefined";
-        }
     }
 
     hideRate(value){
@@ -436,59 +324,6 @@ class GroupedBarChart{
                 p.select(".bcd-text-rate").text((rate));
                 p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
 
-        });
-    }
-
-    textWrap(text, width, xpos = 0, limit=3) {
-        text.each(function() {
-            let words,
-                word,
-                line,
-                lineNumber,
-                lineHeight,
-                y,
-                dy,
-                tspan;
-
-            text = d3.select(this);
-
-            words = text.text().split(/\s+/).reverse();
-            line = [];
-            lineNumber = 0;
-            lineHeight = 1;
-            y = text.attr("y");
-            dy = parseFloat(text.attr("dy"));
-            tspan = text
-                .text(null)
-                .append("tspan")
-                .attr("x", xpos)
-                .attr("y", y)
-                .attr("dy", dy + "em");
-
-            while ((word = words.pop())) {
-                line.push(word);
-                tspan.text(line.join(" "));
-
-                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-
-                    if (lineNumber < limit - 1) {
-                        line = [word];
-                        tspan = text.append("tspan")
-                            .attr("x", xpos)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                        // if we need two lines for the text, move them both up to center them
-                        text.classed("adjust-upwards", true);
-                    } else {
-                        line.push("...");
-                        tspan.text(line.join(" "));
-                        break;
-                    }
-                }
-            }
         });
     }
     

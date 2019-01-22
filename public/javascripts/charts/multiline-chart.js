@@ -1,172 +1,137 @@
-class MultiLineChart{
-    
+class MultiLineChart extends Chart{
 
     constructor (obj){
+        super(obj);
 
-        this.element = obj.element;
-        this.data = obj.data;
-        this.value = obj.value;
-        this.colourScheme = obj.colour;
-        this.titleX = obj.titleX;
-        this.titleY = obj.titleY;
-        this.yScaleFormat = obj.yScaleFormat || "thousands";
-
-        this.init();
-    }
-
-    // initialise method to draw c area
-    init(){
-        let c = this,
-
-            eN = d3.select(c.element).node(),
-            eW = eN.getBoundingClientRect().width,
-            aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-            cScheme = c.colourScheme || d3.schemeBlues[5].slice(1),
-            m = {},
-            bP = 678;
-        
-            // margins
-            m.t = eW < bP ? 40 : 50;
-            m.b = eW < bP ? 30 : 80;
-            m.r = eW < bP ? 20 : 140;
-            m.l = eW < bP ? 20 : 60;
-        
-            c.width =  eW - m.l - m.r;
-            c.height = aR - m.t - m.b;
-
-            d3.select(c.element).select("svg").remove(); // I might need this yet
-            
-            // add the svg to the target element
-            c.svg = d3.select(c.element)
-                .append("svg")
-                .attr("width", c.width + m.l + m.r)
-                .attr("height", c.height + m.t + m.b);
-       
-            // add the g to the svg and transform by top and left margin
-            c.g = c.svg.append("g")
-                .attr("transform", "translate(" + m.l + 
-                    ", " + m.t + ")")
-                .attr("class","chart-group");
-        
-            // set chart transition method
-            c.t = () => { return d3.transition().duration(1000); };
-            // set chart colour method
-            c.colour = d3.scaleOrdinal(cScheme);
-            // set chart bisecector method
-            c.bisectDate = d3.bisector( (d) => { return d.date; } ).left;
-
-
+        this.drawChart();
     }
 
     drawChart(){
         let c = this;
-            c.init();
-            c.addAxis();
-            c.getKeys();
-            c.drawTooltip();
-            c.createScales();
-            c.drawLines();
-            c.drawLegend();            
+
+        super.nestData();
+        super.init();
+        super.addAxis();
+        super.getKeys();
+        super.drawTooltip();
+        c.createScales();//parent once I setup setScales:done and setDomain with switch.
+        super.drawGridLines();
+        c.drawLines();//child - like createScales could be added to parent with switch.
+        c.drawLegend();//child - like createScales could be added to parent with switch.            
     }
 
     updateChart(obj){
         let c = this;
 
-            if(obj){
-                c.data = obj.data || c.data;
-                c.titleX = obj.titleX || c.titleX;
-                c.titleY = obj.titleY || c.titleY;
-                c.value = obj.value || c.value;
-                c.yScaleFormat = obj.yScaleFormat || c.yScaleFormat;
-            }
+        if(obj){
+            c.d = obj.d || c.d;
+            c.k = obj.k || c.k;
+            c.ks = obj.ks || c.ks;
+            c.tX = obj.tX || c.tX;
+            c.tY = obj.tY || c.tY;
+            c.xV = obj.xV || c.xV;
+            c.yV = obj.yV || c.yV;
+            c.cS = obj.c || c.cS;
+            c.ySF = obj.ySF || c.ySF;
+        }
 
-            c.createScales();
-            c.drawLines();
-            c.drawLegend();
-    }
-
-    addAxis(){       
-        let c = this,
-            g = c.g,
-            gLines,
-            xLabel,
-            yLabel;
-
-
-            gLines = g.append("g")
-                .attr("class", "grid-lines");
-
-            c.xAxis = g.append("g")
-                .attr("class", "x-axis")
-                .attr("transform", "translate(0," + c.height +")");
-            
-            c.yAxis = g.append("g")
-                .attr("class", "y-axis");
-
-            // X title
-            xLabel = g.append("text")
-                .attr("class", "titleX")
-                .attr("x", c.width/2)
-                .attr("y", c.height + 60)
-                .attr("text-anchor", "middle");
-
-            // Y title
-            yLabel = g.append("text")
-                .attr("class", "titleY")
-                .attr("x", - (c.height/2))
-                .attr("y", -45)
-                .attr("text-anchor", "middle")
-                .attr("transform", "rotate(-90)");
-            
-    }
-
-    getKeys(){
-        let c = this;
-            c.colour.domain(c.data.map(d => { return d.key; }));
-            c.keys = c.colour.domain();
+        c.createScales();
+        c.drawLines();
+        c.drawLegend();
     }
 
     // needs to be called everytime the data changes
     createScales(){
         let c = this,
-            yAxisCall = d3.axisLeft(),
-            xAxisCall = d3.axisBottom(),
-            x = c.getElement(".titleX"),
-            y = c.getElement(".titleY");
+            yAxisCall,
+            xAxisCall,
+            x,
+            y;
 
-        //update axis titles
-        x.text(c.titleX);
-        y.text(c.titleY);
+        yAxisCall = d3.axisLeft();
+        xAxisCall = d3.axisBottom();
+        x = c.getElement(".titleX").text(c.tX);
+        y = c.getElement(".titleY").text(c.tY);
 
-        // set scales
-        c.x = d3.scaleTime().range([0, c.width]);
-        c.y = d3.scaleLinear().range([c.height, 0]);
-
-        // Update scales
-        c.x.domain(d3.extent(c.data[0].values, d => {
-            return (d.date); }));// this needs to be dynamic c.date!!
-        
-        // for the y domain to track negative numbers 
-        const minValue = d3.min(c.data, d => {
-            return d3.min(d.values, d => { return d[c.value]; });
-        });
-
-        // Set Y axis scales 0 if positive number else use minValue
-        c.y.domain([ minValue >=0 ? 0 : minValue,
-            d3.max(c.data, d => { 
-            return d3.max(d.values, d => { return d[c.value]; });
-            })
-        ]);
-
-        c.drawGridLines();
+        c.setScales("time");
+        c.setDomains();
 
         // Update X axis
         c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
         c.xAxis.transition(c.t()).call(xAxisCall);
         
         // Update Y axis
-        c.yScaleFormat ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.yScaleFormat) ) : yAxisCall.scale(c.y);
+        c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF) ) : yAxisCall.scale(c.y);
         c.yAxis.transition(c.t()).call(yAxisCall);
+    }
+
+    setScales(chartType){
+        let c = this,
+            x,
+            x0,
+            x1,
+            y;
+
+            y = d3.scaleLinear().range([c.h, 0]);
+
+        switch (chartType){
+            case "time":
+                x = d3.scaleTime().range([0, c.w]);
+
+                return c.x = x, c.y = y;
+                break;
+    
+            case "bar":
+                // set scales
+                x = d3.scaleBand()
+                    .range([0, c.w])
+                    .padding(0.2);
+
+                return c.x = x, c.y = y;
+                break;
+
+            case "stackbar":
+                x0 = d3.scaleBand()
+                    .range([0, c.w])
+                    .padding(0.05);
+
+                x1 = d3.scaleBand()
+                    .padding(0.05);
+
+                return c.x0 = x0, c.x1 = x1, c.y = y;
+                break;
+        
+            default:
+                x = d3.scaleTime().range([0, c.w]);
+
+                return c.x = x, c.y = y;
+        }
+
+
+    }
+
+    setDomains(){
+        let c = this,
+                minValue;
+
+                // switch (d){
+                // }
+
+        // set domain range
+        c.x.domain(d3.extent(c.d[0].values, d => {
+            return (d[c.xV]); }));
+        
+        // for the y domain to track negative numbers 
+        minValue = d3.min(c.d, d => {
+            return d3.min(d.values, d => { return d[c.yV]; });
+        });
+
+        // Set Y axis scales 0 if positive number else use minValue
+        c.y.domain([ minValue >=0 ? 0 : minValue,
+            d3.max(c.d, d => { 
+            return d3.max(d.values, d => { return d[c.yV]; });
+            })
+        ]);
     }
 
     drawLines(){
@@ -175,18 +140,18 @@ class MultiLineChart{
 
         // d3 line function
        c.line = d3.line()
-           .defined(function(d){return !isNaN(d[c.value]);})
+           .defined(function(d){return !isNaN(d[c.yV]);})
            .x( d => {
-               return c.x(d.date); // this needs to be dynamic c.date!!
+               return c.x(d[c.xV]); 
            })
            .y( d => { //this works
-               return c.y(d[c.value]); 
+               return c.y(d[c.yV]); 
            });
             // .curve(d3.curveCatmullRom);
 
        // select all regions and join data
        c.regions = g.selectAll(".regions")
-           .data(c.data);
+           .data(c.d);
        
        // update the paths
        c.regions.select(".line")
@@ -205,9 +170,9 @@ class MultiLineChart{
            // .attr("d", d => {return c.line(d.values); })
            .attr("d", d => { 
                return d.disabled ? null : c.line(d.values); })
-           // .style("stroke", d => ( c.data.map(function(v,i) {
+           // .style("stroke", d => ( c.d.map(function(v,i) {
            //     return c.colour || c.color[i % 10];
-           //   }).filter(function(d,i) { return !c.data[i].disabled })))
+           //   }).filter(function(d,i) { return !c.d[i].disabled })))
            .style("stroke-width", "3px")
            .style("fill", "none");  
        
@@ -219,170 +184,82 @@ class MultiLineChart{
     
     }
 
-    drawTooltip(){
-        let c = this;
-
-            c.newToolTip = d3.select(c.element)
-                .append("div")
-                    .attr("class","tool-tip bcd")
-                    .style("visibility","hidden");
-
-            c.newToolTipTitle = c.newToolTip
-                .append("div")
-                    .attr("id", "bcd-tt-title");
-
-            c.tooltipHeaders();
-            c.tooltipBody();
-    }
-
-    tooltipHeaders(){
-        let c = this,
-            div,
-            p;
-            
-        div = c.newToolTip
-            .append("div")
-                .attr("class", "headers");
-
-        div.append("span")
-            .attr("class", "bcd-dot");
-
-        p = div
-            .append("p")
-                .attr("class","bcd-text");
-
-        p.append("span")
-            .attr("class","bcd-text-title")
-            .text("Type");
-
-        p.append("span")
-            .attr("class","bcd-text-value")
-            .text("Value");
-
-        p.append("span")
-            .attr("class","bcd-text-rate")
-            .text("% Rate");
-
-        p.append("span")
-            .attr("class","bcd-text-indicator");
-    }
-
-    tooltipBody(){
-        let c = this,
-            keys = c.keys,
-            div,
-            p;
-
-        keys.forEach( (d, i) => {
-            div = c.newToolTip
-                    .append("div")
-                    .attr("id", "bcd-tt" + i);
-                
-            div.append("span").attr("class", "bcd-dot");
-
-            p = div.append("p").attr("class","bcd-text");
-
-            p.append("span").attr("class","bcd-text-title");
-            p.append("span").attr("class","bcd-text-value");
-            p.append("span").attr("class","bcd-text-rate");
-            p.append("span").attr("class","bcd-text-indicator");
-        });
-    }
-
-    drawFocusLine(){
-        let c = this,
-            g = c.g; 
-            
-            c.focus = g.append("g")
-                .attr("class", "focus")
-                .style("display", "none")
-                .style("visibility", "hidden");
-            
-            c.focus.append("line")
-                .attr("class", "focus_line")
-                .attr("y1", 0)
-                .attr("y2", c.height);
-        
-            c.focus.append("g")
-                .attr("class", "focus_circles");
-            
-            c.keys.forEach( (d,i) => {
-                c.drawFocusCircles(d,i);
-            });
-    }
-
-    drawFocusCircles(d,i){
-        let c = this,
-            g = c.g; 
-
-        let tooltip = g.select(".focus_circles")
-            .append("g")
-            .attr("class", "tooltip_" + i);
-
-            tooltip.append("circle")
-                .attr("r", 0)
-                .transition(c.t)
-                .attr("r", 5)
-                .attr("fill", c.colour(d))
-                .attr("stroke", c.colour(d));
-    }
-
     addTooltip(title, format, dateField, prefix, postfix){
         let c = this;
 
-            d3.select(c.element).select(".focus").remove();
-            d3.select(c.element).select(".focus_overlay").remove();
+            d3.select(c.e).select(".focus").remove();
+            d3.select(c.e).select(".focus_overlay").remove();
 
             c.ttTitle = title;
-            c.valueFormat = format;
+            c.valueFormat = c.formatValue(format);
             c.dateField = dateField;
             c.ttWidth = 305;
             c.prefix = prefix ? prefix : " ";
             c.postfix = postfix ? postfix: " ";
-            c.valueFormat = c.formatValue(c.valueFormat);
 
-            c.drawFocusLine();
-            c.drawFocusOverlay();
+            super.drawFocusLine();
+            c.drawFocusOverlay();// need to refactor this function
     }
 
     drawFocusOverlay(){
         let c = this,
             g = c.g,
-            focus = d3.select(c.element).select(".focus"),
+            focus = d3.select(c.e).select(".focus"),
             overlay = g.append("rect");
             
             overlay.attr("class", "focus_overlay")
-                .attr("width", c.width)
-                .attr("height", c.height)
+                .attr("width", c.w)
+                .attr("height", c.h)
                 .style("fill", "none")
                 .style("pointer-events", "all")
                 .style("visibility", "hidden");
 
-                overlay.on("mouseover", (d) => { 
+                if (c.sscreens){
+                    mousemove();
+                    overlay
+                    .on("touchmove", mousemove, {passive:true})
+                    .on("mousemove", mousemove, {passive:true});
+                }
+                else {
+                    overlay
+                    .on("mouseover", (d) => { 
                         focus.style("display", null);
                     }, {passive:true})
-                    .on("touchstart", ()=>{
-                        focus.style("display", null);
-                    }, {passive: true})
                     .on("mouseout", () => { 
                         focus.style("display", "none"); 
                         c.newToolTip.style("visibility","hidden");
                     })
-                    .on("touchmove", mousemove, {passive:true})
                     .on("mousemove", mousemove, {passive:true});
-
+                }
+            
             function mousemove(){
                 focus.style("visibility","visible");
                 c.newToolTip.style("visibility","visible");
 
-                let mouse = d3.mouse(this),
-                    x0 = c.x.invert(mouse[0]),
-                    i = c.bisectDate(c.data[0].values, x0, 1),
+                let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+                    x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+                    i = c.bisectDate(c.d[0].values, x0, 1),
                     tooldata = c.sortData(i, x0);
-    
+                    // c.moveTooltip(tooldata);
                     c.ttContent(tooldata);// add values to tooltip
             }
     }
+    // might need this method
+    // mousemove(d){
+    //     let c = this,
+    //         focus = d3.select(c.e).select(".focus"),
+    //         mouse = d3.mouse(d.node()) || c.w,
+
+    //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+    //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+    //         i = c.bisectDate(c.d[0].values, x0, 1),
+    //         tooldata = c.sortData(i, x0);
+            
+    //         c.ttContent(tooldata);// add values to tooltip
+
+    //         focus.style("visibility","visible");
+    //         c.newToolTip.style("visibility","visible");
+    // }
 
     getPerChange(d1, d0, v){
         let value;
@@ -410,7 +287,7 @@ class MultiLineChart{
         let c = this;
         let ttX,
             ttY = mouseY,
-            cSize = c.width - c.ttWidth;
+            cSize = c.w - c.ttWidth;
 
         // show right - 60 is the margin large screens
         if (mouseX < cSize) {
@@ -420,112 +297,6 @@ class MultiLineChart{
             ttX = (mouseX + 60) - c.ttWidth;
         }
         return [ttX, ttY];
-    }
-
-    getElement(name){
-        let c = this,
-            s = d3.select(c.element),
-            e = s.selectAll(name);
-        return e;
-    }
-    
-    textWrap(text, width, xpos = 0, limit=2) {
-        text.each(function() {
-            let words,
-                word,
-                line,
-                lineNumber,
-                lineHeight,
-                y,
-                dy,
-                tspan;
-
-            text = d3.select(this);
-    
-            words = text.text().split(/\s+/).reverse();
-            line = [];
-            lineNumber = 0;
-            lineHeight = 1;
-            y = text.attr("y");
-            dy = parseFloat(text.attr("dy"));
-            tspan = text
-                .text(null)
-                .append("tspan")
-                .attr("x", xpos)
-                .attr("y", y)
-                .attr("dy", dy + "em");
-    
-            while ((word = words.pop())) {
-                line.push(word);
-                tspan.text(line.join(" "));
-
-                if (tspan.node() && tspan.node().getComputedTextLength() > width) {
-                    line.pop();
-                    tspan.text(line.join(" "));
-
-                    if (lineNumber < limit - 1) {
-                        line = [word];
-                        tspan = text.append("tspan")
-                            .attr("x", xpos*2)
-                            .attr("y", y)
-                            .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                            .text(word);
-                        // if we need two lines for the text, move them both up to center them
-                        text.classed("move-up", true);
-                    } else {
-                        line.push("...");
-                        tspan.text(line.join(" "));
-                        break;
-                    }
-                }
-            }
-        });
-    }
-
-    drawGridLines(){
-        let c = this,
-            gLines = c.getElement(".grid-lines");
-
-            gLines.selectAll("line")
-                .remove();
-
-            gLines.selectAll("line.horizontal-line")
-                .data(c.y.ticks)
-                .enter()
-                .append("line")
-                    .attr("class", "horizontal-line")
-                    .attr("x1", (0))
-                    .attr("x2", c.width)
-                    .attr("y1", (d) => c.y(d))
-                    .attr("y2", (d) => c.y(d));
-    }
-
-    formatValue(format){
-        // formats thousands, Millions, Euros and Percentage
-        switch (format){
-            case "millions":
-                return d3.format(".2s");
-                break;
-        
-            case "euros":
-                return "undefined";
-                break;
-        
-            case "thousands":
-                return d3.format(",");
-                break;
-        
-            case "percentage2":
-                return d3.format(".2%");
-                break;
-
-            case "percentage":
-                return d3.format(".0%");
-                break;
-        
-            default:
-                return "undefined";
-        }
     }
 
     formatQuarter(date, i){
@@ -554,11 +325,11 @@ class MultiLineChart{
 
     addBaseLine(value){
         let c = this,
-            gLines = c.getElement(".grid-lines");;
+            gLines = c.getElement(".grid-lines");
         
             gLines.append("line")
                 .attr("x1", 0)
-                .attr("x2", c.width)
+                .attr("x2", c.w)
                 .attr("y1", c.y(value))
                 .attr("y2", c.y(value))
                 .attr("stroke", "#dc3545");
@@ -641,23 +412,23 @@ class MultiLineChart{
 
     sortData(i, x0) {
         let c =this,
-            tD = c.data.map(d => {
+            tD = c.d.map(d => {
                 let s,
                     sPrev,
                     s0 = d.values[i - 1],
                     s1 = d.values[i],
-                    v = c.value;
+                    v = c.yV;
 
-                    s1 !== undefined ? s = x0 - s0.date > s1.date - x0 ? s1 : s0 : s = s0;
-                    s1 !== undefined ? sPrev = x0 - s0.date > s1.date - x0 ? d.values[i-1] : d.values[i-2] : false;
-                    // c.newToolTipTitle.text(c.ttTitle + " " + (s[c.dateField]));
+                    s1 !== undefined ? s = x0 - s0[c.xV] > s1[c.xV] - x0 ? s1 : s0 : s = s0;
+                    s1 !== undefined ? sPrev = x0 - s0[c.xV] > s1[c.xV] - x0 ? d.values[i-1] : d.values[i-2] : false;
+                    // c.newToolTipTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
 
                 let obj = {};
                     obj.key = d.key;
                     obj.label = s.label;
                     obj.value = s[v];
                     obj.change = c.getPerChange(s, sPrev, v);
-                    obj.date = s.date;
+                    obj[c.xV] = s[c.xV];
                 return obj;
         });
         c.moveTooltip(tD);
@@ -696,15 +467,14 @@ class MultiLineChart{
         let c = this;
             d.forEach( (d,i)=> {
                 let id = ".tooltip_" + i, 
-                    tooltip = d3.select(c.element).select(id),
+                    tooltip = d3.select(c.e).select(id),
                     v = "value";
                     
                 if(d !== undefined){
-                    
-                    c.updatePosition(c.x(d.date), 80);
+                    c.updatePosition(c.x(d[c.xV]), 80);
                     c.newToolTipTitle.text(c.ttTitle + " " + (d[c.dateField]));
-                    tooltip.attr("transform", "translate(" + c.x(d.date) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
-                    c.focus.select(".focus_line").attr("transform", "translate(" + c.x(d.date) + ", 0)");
+                    tooltip.attr("transform", "translate(" + c.x(d[c.xV]) + "," + c.y(!isNaN(d[v]) ? d[v]: 0) + ")");
+                    c.focus.select(".focus_line").attr("transform", "translate(" + c.x(d[c.xV]) + ", 0)");
                 }
             })
         }
@@ -714,31 +484,31 @@ class MultiLineChart{
         // chart (c) object, vlaue (v), colour (z), line height(lH)
         let c = this,
             g = c.g,
-            v = c.value,
+            v = c.yV,
             z = c.colour,
             lH = 12;
         
         // data values for last readable value
-        const lines = c.data.map(d => {
+        const lines = c.d.map(d => {
             let obj = {},
                 vs = d.values.filter(idFilter),
                 s = vs.length -1;
                 // sF = d.values.length -1;
                 obj.key = d.key;
                 obj.last = vs[s] ? vs[s][v] : null;
-                obj.x = vs[s] ? c.x(vs[s].date) : null;
+                obj.x = vs[s] ? c.x(vs[s][c.xV]) : null;
                 // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
                 obj.y = vs[s] ? c.y(vs[s][v]) : null;
             return obj;
         });
 
-        const circles = c.data.map(d => {
+        const circles = c.d.map(d => {
             let obj = {},
                 vs = d.values.filter(idFilter),
                 s = vs.length -1;
                 obj.key = d.key;
                 obj.last = vs[s] ? vs[s][v]: null;
-                obj.x = vs[s] ? c.x(vs[s].date): null;
+                obj.x = vs[s] ? c.x(vs[s][c.xV]): null;
                 obj.y = vs[s] ? c.y(vs[s][v]): null;
             return obj;
         });
@@ -762,7 +532,7 @@ class MultiLineChart{
             .force("collide", d3.forceCollide(lH/2))
             // .force("y", d3.forceY(d => d.y).strength(4))  
             .force("x", d3.forceX(d => d.x).strength(2))   
-            .force("clamp", forceClamp(0, c.height))
+            .force("clamp", forceClamp(0, c.h))
             .stop();
 
             // Execute the simulation
