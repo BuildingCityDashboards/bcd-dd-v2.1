@@ -1,0 +1,36 @@
+.row.wrapper.py-1
+  .col-4
+    //    h3 Public Transport and Parking in the City <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
+    div.pt-20 
+      p The map shows various locations for Dublin's travel 
+        |options. Current status of associated real-time transit data is indicated with an 
+        <img height='15px' width='15px' src='/images/icons/activity.svg'> when live
+        |  or 
+        <img height='15px' width='15px' src='/images/icons/alert-triangle.svg'> when unavailable.
+      
+        .row
+           //            p.col-6 <img align="center" height='15px' width='15px' src='/images/transport/bicycle-w-15.svg'>  Dublin Bikes 
+            p.col-3 <img id = 'bike-activity-icon' align="right" height='15px' width='15px' src='/images/icons/alert-triangle.svg'> 
+            #bike-age.p.col-3 Unavailable
+
+    
+        p Explore and interact with the map to find out more. 
+        p For additional information on particular hosuing statistics themes, see our 
+            |<a href="../themes#housing">Housing Themes</a>
+    
+    //div#chart-public-transport-select1
+  .col-md-8
+    <div class="btn-group d-flex">  
+      <button id="rent-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 disabled" value="dublinLuas">Rent</button>
+      <button id="price-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 disabled" value="dublinLuas">Price</button>      
+      <button id="price-index-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 disabled" value="motorways">Price Index</button>
+      <button id="supply-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinBuses">Supply</button>
+      <button id="completions-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="luasLayer">Completions</button>
+      <button id="connections-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinCarparks">Connections</button>
+      <button id="planning-checkbox" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="dublinBikes">Planning Applications</button>
+    </div>
+    #homes-housing-map.mt-2
+      
+.row.wrapper.py-1
+    #chart-housePrices.chart-holder
+      

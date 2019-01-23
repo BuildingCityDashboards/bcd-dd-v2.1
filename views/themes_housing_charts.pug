@@ -5,6 +5,99 @@ header.header
       p.lead The housing data highlights the distribution of residential properties throughout Dublin and seeks to highlight the current housing supply and affordability.
 
 article.article
+  .section-body.row.wrapper
+    .col-lg-12
+      h2.header__h2.mb-2 Residential Costs
+
+  #propertyprices.section-body.row.wrapper
+    .col-lg-4
+      h3 Average Monthly Rent Prices for Private Dwellings
+      p Source:
+        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        |nisi ut aliquip ex ea commodo consequat.
+    .col-lg-8
+      .pt-2
+        //- <button type="button" class="btn btn-bcd active">Count</button>
+      #chart-rentPrices.chart-holder
+
+  .section-body.row.wrapper
+    .col-lg-4
+      h3 Average Monthly Rent Prices for Private Dwellings in Dublin by Number of Bedrooms
+      p Source:
+        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        |nisi ut aliquip ex ea commodo consequat.
+    .col-lg-8
+      .pt-2
+        //- <button type="button" class="btn btn-bcd active">Count</button>
+      #chart-rentByBeds.chart-holder
+  
+  .section-body.row.wrapper
+    .col-lg-4
+      h3 Average House Prices
+      p Souce: 
+        a(href="https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+      p Average house prices are derived from data supplied by the mortgage 
+        |lending agencies on all loans approved by them. In comparing house prices 
+        | figures from one period to another, account should be taken of the fact 
+        |that changes in the mix of dwellings will affect the average figures.
+        
+    .col-lg-8
+      .pt-2
+        //- <button type="button" class="btn btn-bcd active">Count</button>
+      #chart-housePrices.chart-holder
+  
+  #HPM06.section-body.row.wrapper
+    .col-lg-4
+      h3 Monthly Residential Property Price Index
+      p Souce:  
+        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0" target="blank") CSO 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+      p In Dublin, residential property prices rose by 6.3% in the year 2018 to 
+        |October, with house prices rising by 6.6% and apartments by 5.7%. 
+        |The highest house price growth in Dublin was in Dún Laoghaire-Rathdown 
+        |at 8.2%, while the lowest growth was in South Dublin at 5.0%.
+      p National residential property prices in Ireland excluding Dublin were 
+        |10.6% higher in the year to October, with house prices up by 10.3% 
+        |and apartments by 14.5%. The region outside of Dublin that saw the 
+        |largest rise in property prices was the Mid-West at 21.5%, while the 
+        |smallest was recorded in the Mid-East at 8.3%.
+      p Source: 
+        a(href="https://www.cso.ie/en/releasesandpublications/ep/p-rppi/residentialpropertypriceindexoctober2018/" target="blank") 
+            |CSO - Residential Property Price Index October 2018 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+
+    .col-lg-8
+      .pt-2
+        //- <button type="button" class="btn btn-bcd active" value="">Count</button>
+        //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
+      div#chart-HPM06.chart-holder
+  
+
+  .section-body.row.wrapper
+    .col-lg-4
+      h3 Number of Inspections of Rented Accommodation
+      p Souce:  
+        a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/private-housing-market-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+        |nisi ut aliquip ex ea commodo consequat.
+    .col-lg-8
+      .pt-2
+        //- <button type="button" class="btn btn-bcd active">Count</button>
+      #chart-rentInspect.chart-holder
+
+article.article
   .row
     .col-lg-12
       h2.header__h2.mb-2 Planning and Completions Statistics
@@ -166,94 +259,3 @@ article.article
 
 
 
-article.article
-  .section-body.row.wrapper
-    .col-lg-12
-      h2.header__h2.mb-2 Property Costs Statistics
-
-  #HPM06.section-body.row.wrapper
-    .col-lg-4
-      h3 Monthly Residential Property Price Index
-      p Souce:  
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0" target="blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p In Dublin, residential property prices rose by 6.3% in the year 2018 to 
-        |October, with house prices rising by 6.6% and apartments by 5.7%. 
-        |The highest house price growth in Dublin was in Dún Laoghaire-Rathdown 
-        |at 8.2%, while the lowest growth was in South Dublin at 5.0%.
-      p National residential property prices in Ireland excluding Dublin were 
-        |10.6% higher in the year to October, with house prices up by 10.3% 
-        |and apartments by 14.5%. The region outside of Dublin that saw the 
-        |largest rise in property prices was the Mid-West at 21.5%, while the 
-        |smallest was recorded in the Mid-East at 8.3%.
-      p Source: 
-        a(href="https://www.cso.ie/en/releasesandpublications/ep/p-rppi/residentialpropertypriceindexoctober2018/" target="blank") 
-            |CSO - Residential Property Price Index October 2018 
-            img(src='../images/external-link.svg' height='11px' width='11px')
-
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active" value="">Count</button>
-        //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
-      div#chart-HPM06.chart-holder
-  
-  #propertyprices.section-body.row.wrapper
-    .col-lg-4
-      h3 Average House Prices
-      p Souce: 
-        a(href="https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Average house prices are derived from data supplied by the mortgage 
-        |lending agencies on all loans approved by them. In comparing house prices 
-        | figures from one period to another, account should be taken of the fact 
-        |that changes in the mix of dwellings will affect the average figures.
-        
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-housePrices.chart-holder
-  
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Average Monthly Rent Prices for Private Dwellings
-      p Source:
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-rentPrices.chart-holder
-
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Average Monthly Rent Prices for Private Dwellings in Dublin by Number of Bedrooms
-      p Source:
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-rentByBeds.chart-holder
-
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Number of Inspections of Rented Accommodation
-      p Souce:  
-        a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/private-housing-market-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-rentInspect.chart-holder

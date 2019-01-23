@@ -1,4 +1,4 @@
-extends layout
+extends layout  
 //- Including Accordion mixins
 include component/accordion
 
@@ -17,12 +17,14 @@ block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
 
 block content
-    div(class="container-fluid mt-2 py-5")
+    div(class="container mt-2 py-5")
         div.row
             div.col-sm-12
               h1 Queries
               h3 Interact with maps and charts to find answers to common questions
               +accordion("one")
+                +accordion-item("Homes and Housing",  "lorem?")
+                  include queries/homes_housing.pug
                 +accordion-item("Getting Around",  "How can I travel from A to B? When is the next service from *here*?")
                   include queries/getting_around.pug
                 +accordion-item("Environment Live!", "What's happening in my surroundings?")
@@ -43,6 +45,12 @@ block append scripts
   script(src="/lib/d3v5/d3.js" type="text/javascript")
   script(src="/lib/dc.js" type="text/javascript")
   script(src="/lib/underscore-min.js" type="text/javascript")
+  script(src="/javascripts/themes/formats_common.js" type="text/javascript")
+  script(src="/javascripts/themes/barChart.js" type="text/javascript")
+  script(src="/javascripts/themes/stackbarChart.js" type="text/javascript")
+  script(src="/javascripts/themes/stackedareaChart.js" type="text/javascript")
+  script(src="/javascripts/themes/multiline-chart.js" type="text/javascript")
+  script(src="/javascripts/themes/groupedbar-Chart.js" type="text/javascript")
   //  script(src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js" type="text/javascript")
   //script(src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js" charset="utf-8" type="text/javascript")
   //some modifications made to this lib
@@ -51,3 +59,5 @@ block append scripts
   script(src="/lib/Control.OSMGeocoder.modified.js" type="text/javascript")    
   script(src="/javascripts/queries/maps_common.js" type="text/javascript")
   script(src="/javascripts/queries/getting_around.js" type="text/javascript")
+  script(src="/javascripts/queries/homes_housing.js" type="text/javascript")
+  script(src="/javascripts/themes/housing.js" type="text/javascript")
