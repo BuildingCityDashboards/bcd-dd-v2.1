@@ -3,15 +3,27 @@ var router = express.Router();
 var small_area_controller = require('../controllers/small_area_controller');
 
 router.get('/', function(req, res, next) {
-  res.render('api', { title: 'API Test Page' });
+  res.render('api', {
+    title: 'API Test Page'
+  });
 });
 
 router.get('/v1', function(req, res, next) {
-  res.render('api', { title: 'API Version 1 Test Page' });
+  res.render('api', {
+    title: 'API Version 1 Test Page'
+  });
 });
 
 router.get('/v1/census2016', function(req, res) {
-res.render('census2016', { title: 'Census 2016 API Test Page' });
+  res.render('census2016', {
+    title: 'Census 2016 API Test Page'
+  });
+});
+
+router.get('/v1/housingAPi', function(req, res) {
+  res.render('housingApi', {
+    title: 'Housing API Test Page'
+  });
 });
 
 //Return GEOGIDs for all SAs
