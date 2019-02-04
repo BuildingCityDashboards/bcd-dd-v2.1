@@ -153,10 +153,10 @@ article.article
       p Source: 
         a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/construction-activity-esb-connections" target="blank") Department of Housing, Planning, Community and Local Government 
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
+      p The chart shows the house unit completion data for each of the Dublin local authorities, 
+        |categorised by type of dwelling as 
+        |either private or social. The data spans from the first quarter of 2014 to
+        |the beginning of 2017.
 
     .col-lg-8
       .pt-2
@@ -171,10 +171,14 @@ article.article
       p Source: 
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=NDQ06&PLanguage=0" target="blank") CSO  
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
+      p The chart shows the house unit completion data for each of the Dublin local authorities, 
+        |categorised by type of dwelling as
+      ul
+        li apartment
+        li scheme home
+        li single house
+      p The data spans from the beginning of 2014 to
+        |the second quarter of 2018.
     .col-lg-8
       .pt-2
         //- <button type="button" class="btn btn-bcd active" value="">Count</button>
@@ -182,21 +186,43 @@ article.article
       div#chart-newCompByType.chart-holder
 
   .section-body.row.wrapper
-    .col-lg-4
-      h3 Planning applications Dublin County Council
+    .col-lg-12
+      h3 Planning Applications Dublin Local Authorities
       p Source: 
         a(href="https://www.housing.gov.ie/planning/statistics/planning-statistics-1" target="blank") Department of Housing, Planning, Community and Local Government  
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
+      p Each planning authority processes planning applications 
+        |for permission to build and/or renovate houses and other buildings.
+        |The outcome of the planning application process is provided as data on the numbers of:
+      ul
+        li Invalid applications received
+        li Applications for outline permission and full permission
+        li Decisions to grant/refuse permission
+        li Decisions issued within the statutory eight week period
+        li Decisions deferred
+        li Percentages for grants/refusals, decisions made within eight weeks and decisions deferred
+      p The charts show the total applications received, decisions to grant and to refuse permission, 
+        |and the appeals received for each year from 2009 to 2017, for each local authoirty. 
+        
+    .col-lg-6
       .pt-2
-        //- <button type="button" class="btn btn-bcd active">Rate</button>
+      h3 Dublin City Council
       #chart-planningDCC.chart-holder
+    .col-lg-6
+      .pt-2
+      h3 Dun Laoghaire-Rathdown County Council
+      #chart-planningDRCC.chart-holder
 
-  .section-body.row.wrapper
+    .col-lg-6
+      .pt-2
+      h3 Fingal County Council
+      #chart-planningFCC.chart-holder
+    .col-lg-6
+      .pt-2
+      h3 South Dublin City Council
+      #chart-planningSDCC.chart-holder
+    
+  //.section-body.row.wrapper
     .col-lg-4
       h3 Planning applications Dun Laoghaire Rathdown County Council
       p Source: 
@@ -211,7 +237,7 @@ article.article
         //- <button type="button" class="btn btn-bcd active">Rate</button>
       #chart-planningDRCC.chart-holder
 
-  .section-body.row.wrapper
+  //.section-body.row.wrapper
     .col-lg-4
       h3 Planning applications Fingal County Council
       p Source: 
@@ -226,7 +252,7 @@ article.article
         //- <button type="button" class="btn btn-bcd active">Rate</button>
       #chart-planningFCC.chart-holder
 
-  .section-body.row.wrapper
+  //.section-body.row.wrapper
     .col-lg-4
       h3 Planning applications South Dublin County Council
       p Source: 
