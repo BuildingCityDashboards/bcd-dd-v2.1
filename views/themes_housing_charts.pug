@@ -10,45 +10,52 @@ article.article
       h2.mb-2 Residential Costs
 
   #propertyprices.section-body.row.wrapper
-    .col-lg-4
-      h3 Average Monthly Rent Prices for Private Dwellings
-      p Source:
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
+    .col-lg-12
+      h3 Monthly Rent Prices for Private Dwellings
+      p Source: 
+        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") CSO/Private Rental Tenancies Board 
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
+      p The <strong>Average Rents Dataset</strong> contains average rents being paid for particular 
+        |time periods for five different categories of dwelling types in 446 locations 
+        |throughout the country. The dataset is useful for checking the actual rent 
+        |being paid for, say, a semi-detached house or a two-bed apartment in an area.
+      p However, average rent changes if the mix of properties rented changes, therefore there 
+        |is a need to mix–adjust to get a standardised rent. 
+        |The <strong>Standardised Rent</strong> (see the 
+        <a href="https://onestopshop.rtb.ie/research/ar" target="blank">Rent Index</a> 
+        | for more details) is a mix-adjusted rent 
+        |i.e. a measure of rents that takes account of the changing mix of properties rented 
+        |in different time periods. 
+        |The key point of the standardised index is that it takes into account the 
+        |changing mix of properties rented in different time periods, whereas the average rents on their own do not.
+     
+    //.col-lg-4
+      h3 Monthly Rent Prices for Private Dwellings in Dublin by Number of Bedrooms
+      p Source: 
+        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") CSO/Private Rental Tenancies Board 
+          img(src='../images/external-link.svg' height='11px' width='11px')
+    .col-lg-6
+      p This chart shows the monthly rent for a property in Dublin since 
+        |late 2007. Figures given for each quarter show an upward trend since 
+        |Q1 of 2011.
       #chart-rentPrices.chart-holder
-
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Average Monthly Rent Prices for Private Dwellings in Dublin by Number of Bedrooms
-      p Source:
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") Private Rental Tenancies Board 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Count</button>
+    .col-lg-6
+      p This chart shows the rent figure for each type of dwelling based on the number 
+        |of rooms in the property. Figures are given for each quarter since Q1 of 2017.
       #chart-rentByBeds.chart-holder
   
   .section-body.row.wrapper
     .col-lg-4
       h3 Average House Prices
-      p Souce: 
+      p Souce:  
         a(href="https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics" target="blank") Department of Housing, Planning, Community and Local Government 
           img(src='../images/external-link.svg' height='11px' width='11px')
       p Average house prices are derived from data supplied by the mortgage 
         |lending agencies on all loans approved by them. In comparing house prices 
         | figures from one period to another, account should be taken of the fact 
         |that changes in the mix of dwellings will affect the average figures.
+      p This chart shows the trend for the average house price across the four 
+        |Dublin local authorities for each quarter since the beginning of 2008.
         
     .col-lg-8
       .pt-2
@@ -79,7 +86,7 @@ article.article
       .pt-2
         //- <button type="button" class="btn btn-bcd active" value="">Count</button>
         //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
-      div#chart-HPM06.chart-holder
+      #chart-HPM06.chart-holder
   
 
   //.section-body.row.wrapper
@@ -108,16 +115,24 @@ article.article
       p Source: 
         a(href="https://www.housing.gov.ie/housing/statistics/house-building-and-private-rented/construction-activity-esb-connections" target="blank") Department of Housing, Planning, Community and Local Government 
           img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
+      p The principal data source for the New Dwellings Completions (NDC) is connections 
+        |data provided to the CSO by ESB Network (ESBN). This information is collected on the ESBN 
+        |form NC2 Single Domestic Dwelling or Farm Dwelling application for single 
+        |dwellings and form NC1 Multi-Unit Development for scheme dwellings and apartments.
+      p The chart shows the unit completions for houses across the four Dublin 
+        |local authorities since January 2014.
+      //p To produce detailed analysis of the existing connections series and to 
+        |allow for a new series to be developed, ESBN provided the CSO with an 
+        |extended historical data series. This data series included additional 
+        |variables not previously made available to the DHPLG to produce their 
+        |ESB connections time series.
+
     .col-lg-8
       .pt-2
       div#chart-houseComp.chart-holder
 
-  .section-body.row.wrapper
-    .col-lg-4
+    //.section-body.row.wrapper
+    //.col-lg-4
       h3 Quarterly ESB Connections UFHDs, reconnections and non-dwellings
       p Source:  
         a(href="https://www.cso.ie/en/releasesandpublications/er/ndc/newdwellingcompletionsq32018/" target="blank") CSO 
@@ -126,7 +141,7 @@ article.article
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
+    //.col-lg-8
       .pt-2
         //- <button type="button" class="btn btn-bcd active" value="">Count</button>
         //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>

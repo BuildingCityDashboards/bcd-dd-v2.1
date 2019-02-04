@@ -384,10 +384,10 @@ Promise.all([
       ySF: "millions",
     };
 
-  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
-
-  nonNewConnectionsChart.tickNumber = 20;
-  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
+//  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
+//
+//  nonNewConnectionsChart.tickNumber = 20;
+//  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 
   // setup chart and data for New Dwelling Completion by type chart
   // process the data
@@ -430,7 +430,7 @@ Promise.all([
   // create content object
   const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
   HPM06Content.tX = "Months";
-  HPM06Content.tY = "Price Index (Base 100)"
+  HPM06Content.tY = "Price Index (Base 100)";
 
   // draw the chart
   const HPM06Charts = new MultiLineChart(HPM06Content);
