@@ -20,11 +20,11 @@
     "timestamp": null
   },
   "traveltimes": {
-    "status": 200,
+    "status": null,
     "timestamp": null
   },
   "traveltimesroads": {
-    "status": 200,
+    "status": null,
     "timestamp": null
   }
 }
