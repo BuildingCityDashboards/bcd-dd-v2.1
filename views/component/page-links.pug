@@ -1,5 +1,7 @@
 - var sideLinks = { "home": "", "themes": "themes", "stories": "stories", "queries": "queries", "tools": "tools"  }
-- var subLinks = { "Transport": "#transport", "Environment": "#environment", "Economy": "#economy", "Housing": "#housing", "Education": "#education", "Health": "#health", "Demographics": "#demographics" }
+//- var subLinks = { "Transport": "#transport", "Environment": "#environment", "Economy": "#economy", "Housing": "#housing", "Education": "#education", "Health": "#health", "Demographics": "#demographics" }
+- var subLinks = { "Transport": "#transport", "Environment": "#environment", "Housing": "#housing" }
+
 
 mixin dropdown-item(name, link, parent)
     a.dropdown-item(href="/"+parent+link)= name

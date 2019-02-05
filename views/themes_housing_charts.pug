@@ -2,12 +2,14 @@ header.header
   .row
     .col-lg-12
       h1 Housing
-      p.lead The housing data highlights the distribution of residential properties throughout Dublin and seeks to highlight the current housing supply and affordability.
+      p.lead The housing data highlights the distribution of residential properties 
+            |throughout Dublin and seeks to highlight the current housing supply and affordability.
 
 article.article
-  .section-body.row.wrapper
+  .row.wrapper
     .col-lg-12
-      h2.mb-2 Residential Costs
+      h2 Residential Costs
+      //p The cost of accomodation in Dublin.
 
   #propertyprices.section-body.row.wrapper
     .col-lg-12
@@ -35,12 +37,12 @@ article.article
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0" target="blank") CSO/Private Rental Tenancies Board 
           img(src='../images/external-link.svg' height='11px' width='11px')
     .col-lg-6
-      p This chart shows the monthly rent for a property in Dublin since 
+      p Monthly rent for a property in Dublin since 
         |late 2007. Figures given for each quarter show an upward trend since 
         |Q1 of 2011.
       #chart-rentPrices.chart-holder
     .col-lg-6
-      p This chart shows the rent figure for each type of dwelling based on the number 
+      p The rent figure for each type of dwelling based on the number 
         |of rooms in the property. Figures are given for each quarter since Q1 of 2017.
       #chart-rentByBeds.chart-holder
   
@@ -105,7 +107,7 @@ article.article
       #chart-rentInspect.chart-holder
 
 article.article
-  .row
+  .section-body.row.wrapper
     .col-lg-12
       h2.mb-2 Planning and Completions Statistics
 
@@ -297,6 +299,3 @@ article.article
       .pt-2
         //- <button type="button" class="btn btn-bcd active">Count</button>
       #chart-houseContributions.chart-holder
-
-
-

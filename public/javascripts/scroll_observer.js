@@ -23,24 +23,23 @@
         //get anchor href
         let href = "#" + entry.target.getAttribute("id"),
 
-            //find the current anchor
-            link = this.anchors.find(a => a.getAttribute("href") === href),
-            
-            //find element that has current active.
-            cActive = document.querySelector(".subnav-link.is-active");
+          //find the current anchor
+          link = this.anchors.find(a => a.getAttribute("href") === href),
+
+          //find element that has current active.
+          cActive = document.querySelector(".subnav-link.is-active");
 
         // check if we have an intersection add class
         if (entry.isIntersecting) {
           link.classList.add("is-active");
           // if current active exists remove else leave null
           cActive ? cActive.classList.remove("is-active") : null;
-        } 
-        else {
+        } else {
           link.classList.remove("is-active");
         }
 
       });
-  
+
     },
 
     setUp() {
@@ -69,18 +68,17 @@
 
   };
 
-  function checkSubNav(){
-    
+  function checkSubNav() {
+
     let subnav = $(".subnav"), //the themes navbar
-        osH = $("nav.navbar").outerHeight(), // get the height of the main navbar
-        child = subnav.children().hasClass("fixed-top"); // to check child element has already got class fixed-top.
+      osH = $("nav.navbar").outerHeight(), // get the height of the main navbar
+      child = subnav.children().hasClass("fixed-top"); // to check child element has already got class fixed-top.
 
     // if themes navbar already has fixed-top no need to check
     if ($(window).scrollTop() > subnav.offset().top - osH && !child) {
       subnav.css("height", subnav.children().css("top", osH).outerHeight());
       subnav.children().addClass("fixed-top bg-dark");
-    } 
-    else if($(window).scrollTop() < subnav.offset().top - osH && child) {
+    } else if ($(window).scrollTop() < subnav.offset().top - osH && child) {
       subnav.css("height", "").children().css("top", "");
       subnav.children().removeClass("fixed-top bg-dark sticky");
     }
@@ -89,4 +87,4 @@
 
   subNavList.init();
   checkSubNav();
-  $(window).on("scroll", checkSubNav);// might need to compare performance using a throttle/debounce
+  $(window).on("scroll", checkSubNav); // might need to compare performance using a throttle/debounce
