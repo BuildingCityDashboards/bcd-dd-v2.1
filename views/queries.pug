@@ -21,17 +21,17 @@ block content
         div.row
             div.col-sm-12
               h1 Queries
-              h3 Interact with maps and charts to find answers to common questions
+              p.lead Interact with maps and charts to find answers to common questions
               +accordion("one")
-                +accordion-item("Homes and Housing",  "lorem?")
+                +accordion-item("Homes and Housing",  "What does it cost to live in Dublin?")
                   include queries/homes_housing.pug
-                +accordion-item("Getting Around",  "How can I travel from A to B? When is the next service from *here*?")
+                +accordion-item("Getting Around",  "How can I get from A to B?")
                   include queries/getting_around.pug
-                +accordion-item("Environment Live!", "What's happening in my surroundings?")
+                //+accordion-item("Environment Live!", "What's happening in my surroundings?")
                   p Coming Soon
-                +accordion-item("Planning Applications", "What have people been trying to build, and where?")
+                //+accordion-item("Planning Applications", "What have people been trying to build, and where?")
                   p Coming Soon                
-                +accordion-item("Hospital Waiting Lists", "Which hospital has the shortest wait for my procedure?")
+                //+accordion-item("Hospital Waiting Lists", "Which hospital has the shortest wait for my procedure?")
                   //include queries_health.pug
                   p Coming Soon
                 
