@@ -51,10 +51,26 @@
     padding: .5rem 1rem;
   }
 
-  /* Anchor offset for fixed navbar*/
+  .chart-heading{
+    font-weight: 500;
+    color: #f8f8f8;
+    font-size: 1.25rem;
+    text-align: center;
+    text-indent:-100px;
+
+  }
+
+
   .section-header{
     /* margin-top: -75px; */
-    padding-top: 15px;
+    padding-top: 20px;
+  }
+
+  /* Anchor offset for fixed navbar*/
+  .head-anchor{
+    /*position: relative;*/
+    padding-top: 75px;
+    margin-top: 0px;
   }
 
   /* .section-header > div:nth-child(even){
@@ -66,7 +82,7 @@
 
   .section-body{
     /* margin-top: -70px; */
-    padding-top: 15px;
+    padding-top: 25px;
   }
 
   .is-active::before{
