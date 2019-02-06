@@ -10,6 +10,7 @@ let osmUrl_BW = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
 let osmUrl_Hot = 'https://{s}.tile.openstreetmapCensus.fr/hot/{z}/{x}/{y}.png'
 let stamenTonerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png';
+let wiki ='https://maps.wikimedia.org/osm-intl/${z}/${x}/${y}.png';
 let osmAttrib = 'Map data © <a href="http://openstreetmapCensus.org">OpenStreetMap</a> contributors';
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapCensus.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>';
@@ -99,6 +100,7 @@ function updateMap(data__) {
         style: style,
         onEachFeature: onEachFeature
     });
+    
     function onEachFeature(feature, layer) {
         layer.bindPopup(
                 '<p><b>' + feature.properties.EDNAME + '</b></p>' +

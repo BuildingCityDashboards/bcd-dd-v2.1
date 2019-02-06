@@ -3,12 +3,6 @@
 */
 /*TODO use proper rules here with classes instead of individual repetition*/
 
-#homes-housing-map{
-    height: 600px;
-    width: 100%;
-    margin: 20px;
-}
-
 #chart-water-map {
         /*height: inherit;*/
         height: 400px;
@@ -35,7 +29,7 @@
 }
 #homes-housing-map {
         /*height: inherit;*/
-        height: 500px;
+        height: 600px;
         width: 100%;
         margin: 0;
 }
