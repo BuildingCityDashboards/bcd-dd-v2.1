@@ -1,29 +1,17 @@
-/*TODO:
- *
- * Check if passing a subset of data increases memory usage e.g. data.properties sent to updateMap
- * Only use a processing fucntion with a text data file (not json)
- *
- * Test support for DOM node methods on Firefox
- */
-
-
-/************************************
- * Settings/ Options
- ************************************/
 let planningClusterToggle = true,
-  supplyClusterToggle = true,
-  completionsClusterToggle = true,
-  priceAverageClusterToggle = true,
-  rentAverageClusterToggle = true,
-  priceIndexClusterToggle = true,
-  connectionsClusterToggle = true;
+        supplyClusterToggle = true,
+        completionsClusterToggle = true,
+        priceAverageClusterToggle = true,
+        rentAverageClusterToggle = true,
+        priceIndexClusterToggle = true,
+        connectionsClusterToggle = true;
 
 zoom = 11; //zoom on page load
 maxZoom = 15;
 let housingOSM = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: 10,
-  maxZoom: maxZoom, //seems to fix 503 tileserver errors
-  attribution: stamenTonerAttrib
+    minZoom: 10,
+    maxZoom: maxZoom, //seems to fix 503 tileserver errors
+    attribution: stamenTonerAttrib
 });
 
 let housingMap = new L.Map('homes-housing-map');
@@ -33,105 +21,161 @@ housingMap.addLayer(housingOSM);
 // add location control to global name space for testing only
 // on a production site, omit the "lc = "!
 L.control.locate({
-  strings: {
-    title: "Zoom to near your location"
-  }
+    strings: {
+        title: "Zoom to near your location"
+    }
 }).addTo(housingMap);
 
 var osmGeocoder = new L.Control.OSMGeocoder({
-  placeholder: 'Enter street/area name etc.',
-  bounds: dublinBounds
+    placeholder: 'Enter street/area name etc.',
+    bounds: dublinBounds
 });
 housingMap.addControl(osmGeocoder);
+
+//Load boundaries
+let dataBase = '/data/tools/census2016/';
+let counties = '/data/tools/census2016/Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson';
+//promises
+d3.json(counties)
+.then(function (data) {
+    //console.log(data.features[0].properties.COUNTY);
+    updateMap(data.features);
+});
+
+function updateMap(data_) {
+    let boundaries = L.geoJSON(data_, {
+        filter: function (f, l) {
+                    return f.properties.COUNTY=="DUBLIN"
+                            ;
+                },
+        //style: style,
+        //onEachFeature: onEachFeature
+    });
+    boundaries.addTo(housingMap);
+//    function onEachFeature(feature, layer) {
+//        layer.bindPopup(
+//                '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+//                '<p>' + feature.properties.COUNTYNAME + '</p>' +
+//                '<p>SA ' + feature.properties.SMALL_AREA + '</p>'
+//                );
+//        //bind click
+//        layer.on({
+//            click: function () {
+//                //idDim.filter(feature.properties.EDNAME);
+//                //let res = idDim.top(Infinity)[0].T1_1AGE1;
+//                //                console.log(idDim.top(Infinity));
+//
+//                d3.select("#data-title")
+//                        .html(feature.properties.EDNAME);
+//                d3.select("#data-subtitle")
+//                        .html(feature.properties.COUNTYNAME + ", Small Area " + feature.properties.SMALL_AREA);
+//                // d3.select("#data-display")
+//                //   .html(JSON.stringify(feature.properties));
+//
+//                // TODO: check for names of modified boundaries e.g. SA2017_017012002/017012003 or SA2017_017012004/01
+//
+//                d3.json('/api/v1/census2016/smallarea/SA2017_' + feature.properties.SMALL_AREA).then(function (data) {
+//                    d3.select("#data-textgen")
+//                            .html('<p>' + formatData(data) + '</p>');
+//                    updateChart(data);
+//                    d3.select("#data-chart-title")
+//                            .html('Age distribution of males');
+//                });
+//            }
+//        });
+}
+
+
 
 /************************************
  * Rent Average
  ************************************/
 let rentCluster = new L.MarkerClusterGroup(null, {
-  disableClusteringAtZoom: 10,
-  spiderfyOnMaxZoom: false,
-  singleMarkerMode: true
-  // maxClusterRadius: 100,
-  // iconCreateFunction: function(cluster) {
-  //   return L.divIcon({
-  //     html: '<b>' + cluster.getChildCount() + '</b>'
-  //   });
-  // }
+    disableClusteringAtZoom: 10,
+    spiderfyOnMaxZoom: false,
+    singleMarkerMode: true
+            // maxClusterRadius: 100,
+            // iconCreateFunction: function(cluster) {
+            //   return L.divIcon({
+            //     html: '<b>' + cluster.getChildCount() + '</b>'
+            //   });
+            // }
 });
 
 let rentMapIcon = L.icon({
-  iconUrl: '/images/transport/bicycle-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/bicycle-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
-d3.json("/data/Transport/bikesData.json").then(function(data) {
-  //console.log(data[0]);
-  //processRent(data);
+d3.json("/data/Transport/bikesData.json").then(function (data) {
+    //console.log(data[0]);
+    //processRent(data);
 });
 /* TODO: performance- move to _each in updateMap */
 function processRent(data_) {
 
-  //console.log("Bike data \n");
-  data_.forEach(function(d) {
-    d.lat = +d.position.lat;
-    d.lng = +d.position.lng;
-    //add a property to act as key for filtering
-    d.type = "Dublin Bike Station";
-  });
-  //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-  //    console.log("# of bike stations is " + data_.length + "\n"); // +
-  updateMapRent(data_);
-};
+    //console.log("Bike data \n");
+    data_.forEach(function (d) {
+        d.lat = +d.position.lat;
+        d.lng = +d.position.lng;
+        //add a property to act as key for filtering
+        d.type = "Dublin Bike Station";
+    });
+    //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
+    //    console.log("# of bike stations is " + data_.length + "\n"); // +
+    updateMapRent(data_);
+}
+;
 
 function updateMapRent(data__) {
-  //rentCluster.clearLayers();
-  housingMap.removeLayer(rentCluster);
-  let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
-  /*TODO: note impact on page load performance*/
-  _.each(data__, function(d, i) {
-    if (ageMax < Date.now() - d.last_update) {
-      ageMax = Date.now() - d.last_update;
+    //rentCluster.clearLayers();
+    housingMap.removeLayer(rentCluster);
+    let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
+    /*TODO: note impact on page load performance*/
+    _.each(data__, function (d, i) {
+        if (ageMax < Date.now() - d.last_update) {
+            ageMax = Date.now() - d.last_update;
+        }
+        rentCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {
+            icon: rentMapIcon
+        })
+                .bindPopup(getRentContent(d)));
+    });
+    //console.log("Age Max: " + ageMax);
+    if (ageMax < (1000 * 60 * 15)) {
+        d3.select('#bike-age')
+                .text(Math.floor(ageMax / 60000) + " mins ago");
     }
-    rentCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {
-        icon: rentMapIcon
-      })
-      .bindPopup(getRentContent(d)));
-  });
-  //console.log("Age Max: " + ageMax);
-  if (ageMax < (1000 * 60 * 15)) {
-    d3.select('#bike-age')
-      .text(Math.floor(ageMax / 60000) + " mins ago");
-  }
-  housingMap.addLayer(rentCluster);
+    housingMap.addLayer(rentCluster);
 }
 
 //let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 
 function getRentContent(d_) {
-  let str = '';
-  if (d_.name) {
-    str += d_.name + '<br>';
-  }
-  if (d_.type) {
-    str += d_.type + '<br>';
-  }
-  //    if (d_.address && d_.address !== d_.name) {
-  //        str += d_.address + '<br>';
-  //    }
-  if (d_.available_bikes) {
-    str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
-  }
-  if (d_.available_bike_stands) {
-    str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
-  }
-  if (d_.last_update) {
-    let updateTime = bikeTime(new Date(d_.last_update));
-    str += '<br>Last updated ' + updateTime + '<br>';
+    let str = '';
+    if (d_.name) {
+        str += d_.name + '<br>';
+    }
+    if (d_.type) {
+        str += d_.type + '<br>';
+    }
+    //    if (d_.address && d_.address !== d_.name) {
+    //        str += d_.address + '<br>';
+    //    }
+    if (d_.available_bikes) {
+        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
+    }
+    if (d_.available_bike_stands) {
+        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
+    }
+    if (d_.last_update) {
+        let updateTime = bikeTime(new Date(d_.last_update));
+        str += '<br>Last updated ' + updateTime + '<br>';
 
-  }
-  return str;
+    }
+    return str;
 }
 
 /************************************
@@ -139,10 +183,10 @@ function getRentContent(d_) {
  ************************************/
 let priceAverageCluster = L.markerClusterGroup();
 let priceAverageIcon = L.icon({
-  iconUrl: '/images/transport/bus-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/bus-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
 //d3.json("/data/Transport/busstopinformation_bac.json").then(function(data) {
@@ -254,9 +298,9 @@ let priceAverageIcon = L.icon({
 //let displayRTPIBounced = _.debounce(displayRTPI, 100); //debounce using underscore
 
 //TODO: replace jQ w/ d3 version
-$("div").on('click', '.busRTPIbutton', function() {
-  displayRTPIBounced($(this).attr("data"));
-});
+//$("div").on('click', '.busRTPIbutton', function() {
+//  displayRTPIBounced($(this).attr("data"));
+//});
 
 /************************************
  * Completions
@@ -696,137 +740,137 @@ let supplyCluster = L.markerClusterGroup();
 // TODO: generalise
 //
 
-d3.select("#rent-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#rent-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(rentCluster)) {
 //        housingMap.removeLayer(rentCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(busCluster)) {
 //        housingMap.addLayer(busCluster);
 //
 //      }
+        }
     }
-  }
 });
 
-d3.select("#price-average-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#price-average-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(busCluster)) {
 //        housingMap.removeLayer(busCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(busCluster)) {
 //        housingMap.addLayer(busCluster);
 //
 //      }
+        }
     }
-  }
 });
 
-d3.select("#price-index-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#price-index-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(busCluster)) {
 //        housingMap.removeLayer(busCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(busCluster)) {
 //        housingMap.addLayer(busCluster);
 //
 //      }
+        }
     }
-  }
 });
 
-d3.select("#supply-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#supply-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(busCluster)) {
 //        housingMap.removeLayer(busCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(busCluster)) {
 //        housingMap.addLayer(busCluster);
 //
 //      }
+        }
     }
-  }
 });
 
-d3.select("#planning-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#planning-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(rentCluster)) {
 //        housingMap.removeLayer(rentCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(rentCluster)) {
 //        housingMap.addLayer(rentCluster);
 //
 //      }
+        }
     }
-  }
 });
 
-d3.select("#connections-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#connections-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(carparkCluster)) {
 //        housingMap.removeLayer(carparkCluster);
 //
 //        //housingMap.fitBounds(supplyCluster.getBounds());
 //      }
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(carparkCluster)) {
 //        housingMap.addLayer(carparkCluster);
 //
 //      }
+        }
     }
-  }
 });
 
 //TODO: catch cluster or layer
-d3.select("#completions-checkbox").on("click", function() {
-  let cb = d3.select(this);
-  if (!cb.classed('disabled')) {
-    if (cb.classed('active')) {
-      cb.classed('active', false);
+d3.select("#completions-checkbox").on("click", function () {
+    let cb = d3.select(this);
+    if (!cb.classed('disabled')) {
+        if (cb.classed('active')) {
+            cb.classed('active', false);
 //      if (housingMap.hasLayer(luasLines)) {
 //        housingMap.removeLayer(luasLines);
 //        housingMap.removeLayer(luasIcons);
@@ -834,14 +878,14 @@ d3.select("#completions-checkbox").on("click", function() {
 //
 //      }
 
-    } else {
-      cb.classed('active', true);
+        } else {
+            cb.classed('active', true);
 //      if (!housingMap.hasLayer(luasLines)) {
 //        housingMap.addLayer(luasLines);
 //        chooseLookByZoom();
 //      }
+        }
     }
-  }
 });
 
 //D3 DOM manipulation
