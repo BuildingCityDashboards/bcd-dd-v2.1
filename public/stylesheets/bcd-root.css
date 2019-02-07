@@ -1,5 +1,17 @@
 /* Root Variables */
 :root {
+    
+  /*
+    Colourblind safe colours
+  blues/ greens: ['#f6eff7','#d0d1e6','#a6bddb','#67a9cf','#1c9099','#016c59']
+  */
+  
+  --cbs-blue-1: #f6eff7; 
+  --cbs-blue-2: #d0d1e6;
+  --cbs-blue-3: #a6bddb;
+  --cbs-blue-4: #67a9cf;
+  --cbs-blue-5: #1c9099;
+  --cbs-blue-6: #016c59;
   --dark-grey: #313131;
   --white: #ffffff;
   --light-blue: #aae0fa;

@@ -17,7 +17,7 @@ let bikeClusterToggle = true,
 
 zoom = 11; //zoom on page load
 maxZoom = 16;
-let gettingAroundOSM = new L.TileLayer(stamenTonerUrl_Lite, {
+let gettingAroundOSM = new L.TileLayer(cartoDb, {
   minZoom: 10,
   maxZoom: maxZoom, //seems to fix 503 tileserver errors
   attribution: stamenTonerAttrib
@@ -73,7 +73,7 @@ var testMarkers = L.markerClusterGroup({
 });
 
 let dublinBikeMapIcon = L.icon({
-  iconUrl: '/images/transport/bicycle-15.svg',
+  iconUrl: '/images/transport/bicycle-w-blue-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
   //popupAnchor: [-3, -76]
@@ -164,7 +164,7 @@ let busCluster = L.markerClusterGroup({
   //   // }
 });
 let dublinBusMapIcon = L.icon({
-  iconUrl: '/images/transport/bus-15.svg',
+  iconUrl: '/images/transport/bus-w-cbs-blue-4-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
   //popupAnchor: [-3, -76]
@@ -301,7 +301,7 @@ let carparkCluster = L.markerClusterGroup({
 });
 
 let carparkMapIcon = L.icon({
-  iconUrl: '/images/transport/parking-garage-15.svg',
+  iconUrl: '/images/transport/parking-garage-w-cbs-blue-6-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
   //popupAnchor: [-3, -76]
@@ -344,6 +344,7 @@ function getCarparkContent(d_, k_) {
 
 function displayCarpark(k_) {
   //dynamic data (available spaces)
+  console.log("retrieving live carpark data");
   d3.xml("/data/Transport/cpdata.xml").then(function(xmlDoc) {
     //        if (error) {
     //            console.log("error retrieving data");
@@ -351,13 +352,13 @@ function displayCarpark(k_) {
     //        }
     //TODO: convert to arrow function + d3
     let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-    //console.log("timestamp :" + timestamp);
+    console.log("timestamp :" + timestamp);
     for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
       let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
       if (name === k_) {
         let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-        //                console.log("found:"+name+" spaces: "+spaces+"marker"
-        //                        +markerRefPrivate.getPopup().getContent());
+                        console.log("found:"+name+" spaces: "+spaces+"marker"
+                                +markerRefPrivate.getPopup().getContent());
         if (spaces !== ' ') {
           return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
             '<br><br> Free spaces: ' +
