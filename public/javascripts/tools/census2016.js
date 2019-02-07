@@ -10,6 +10,7 @@ let osmUrl_BW = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
 let osmUrl_Hot = 'https://{s}.tile.openstreetmapCensus.fr/hot/{z}/{x}/{y}.png'
 let stamenTonerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
 let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png';
+let wiki ='https://maps.wikimedia.org/osm-intl/${z}/${x}/${y}.png';
 let osmAttrib = 'Map data © <a href="http://openstreetmapCensus.org">OpenStreetMap</a> contributors';
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapCensus.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmapCensus.org/copyright">OpenStreetMap</a>';
@@ -90,6 +91,7 @@ function join(dArr_) {
 
 //let boundaries, boundariesFCC;
 function updateMap(data__) {
+<<<<<<< HEAD
   let boundaries = L.geoJSON(data__, {
     //                filter: function (f, l) {
     //                    return f.properties.COUNTYNAME.includes("Dublin")
@@ -113,6 +115,31 @@ function updateMap(data__) {
         //idDim.filter(feature.properties.EDNAME);
         //let res = idDim.top(Infinity)[0].T1_1AGE1;
         //                console.log(idDim.top(Infinity));
+=======
+    let boundaries = L.geoJSON(data__, {
+//                filter: function (f, l) {
+//                    return f.properties.COUNTYNAME.includes("Dublin")
+//                            || f.properties.COUNTYNAME.includes("Fingal")
+//                            || f.properties.COUNTYNAME.includes("Rathdown")
+//                            ;
+//                },
+        style: style,
+        onEachFeature: onEachFeature
+    });
+    
+    function onEachFeature(feature, layer) {
+        layer.bindPopup(
+                '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+                '<p>' + feature.properties.COUNTYNAME + '</p>' +
+                '<p>SA ' + feature.properties.SMALL_AREA + '</p>'
+                );
+        //bind click
+        layer.on({
+            click: function () {
+                //idDim.filter(feature.properties.EDNAME);
+                //let res = idDim.top(Infinity)[0].T1_1AGE1;
+                //                console.log(idDim.top(Infinity));
+>>>>>>> 3185d1c2742d69fab96a92d8d322a5c931ba23d9
 
         d3.select("#data-title")
           .html(feature.properties.EDNAME);
