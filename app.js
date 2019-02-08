@@ -98,10 +98,10 @@ app.use(function(err, req, res, next) {
 //Hourly trend data- rewritten every day
 
 let bikesByHour;
-cron.schedule("10 */1 * * *", function() {
+cron.schedule("12 */1 * * *", function() {
   let http = require('https');
   let fs = require('fs');
-  let fileName = "bikesData-" + new Date().getMinutes() + ".json";
+  let fileName = "bikesData-" + new Date().getHours() + ".json";
   bikesByHour = fs.createWriteStream("./public/data/Transport/" + fileName);
   http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
     if (error) {
