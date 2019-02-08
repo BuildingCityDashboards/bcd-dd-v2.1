@@ -95,6 +95,23 @@ app.use(function(err, req, res, next) {
 
 //Car parks, traveltimes and bikes
 
+//Hourly trend data- rewritten every day
+
+let bikesByHour;
+cron.schedule("10 */1 * * *", function() {
+  let http = require('https');
+  let fs = require('fs');
+  let fileName = "bikesData-" + new Date().getMinutes() + ".json";
+  bikesByHour = fs.createWriteStream("./public/data/Transport/" + fileName);
+  http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
+    if (error) {
+      return console.log(">>>Error on bikes trend GET\n");
+    }
+    response.pipe(bikesByHour);
+  });
+});
+
+
 /*TODO: refactor to await/async to remove dupliation*/
 cron.schedule("*/1 * * * *", function() {
   let http = require('https');
@@ -148,7 +165,7 @@ cron.schedule("*/1 * * * *", function() {
     } = response;
     response.on('end', function() {
       apiStatus.dublinbikes.status = statusCode;
-      console.log(JSON.stringify(apiStatus));
+      //console.log(JSON.stringify(apiStatus));
 
       fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
