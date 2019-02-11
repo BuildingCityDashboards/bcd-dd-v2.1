@@ -7,8 +7,7 @@ var data = fs.readdirSync('./data/');
 
 router.get('/', function(req, res) {
   res.render('index', {
-    data: data, // I want to pass this list of images to jade file
-    //videos: videos
+    data: data,
   });
 });
 

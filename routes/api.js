@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bikes_stations_controller = require('../controllers/bikes_station_controller');
 var small_area_controller = require('../controllers/small_area_controller');
 var housing_files_controller = require('../controllers/housing_files_controller');
 
@@ -14,6 +15,22 @@ router.get('/v1', function(req, res, next) {
     title: 'API Version 1'
   });
 });
+
+/****
+Bikes
+****/
+router.get('/v1/dublinbikes', function(req, res) {
+  res.render('api_bikes', {
+    title: 'Dublin Bikes API Test Page'
+  });
+});
+
+//Return GEOGIDs for all SAs
+router.get('/v1/dublinbikes/stations', bikes_stations_controller.list_all);
+//Return data for an SA
+router.get('/v1/dublinbikes/stations/:id', bikes_stations_controller.bikes_station_data);
+
+
 
 /****
 Census
