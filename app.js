@@ -18,22 +18,32 @@ var api = require('./routes/api');
 
 var app = express();
 
-//Set up mongoose connection
-var mongoose = require('mongoose');
+//set up mongoose connections
+//Census DB
+var mongooseCensus = require('mongoose');
 var mongoCensusDB = process.env.CENSUS_DB_URL;
-// var mongoDB = process.env.CUSTOMCONNSTR_MONGODB_URI;
+mongooseCensus.connect(mongoCensusDB, {
+  useNewUrlParser: true
+});
+mongooseCensus.Promise = global.Promise;
+var dbCensus = mongooseCensus.connection;
+dbCensus.on('connected', function() {
+  console.log("Connected to Census MongoDB Database");
+});
+dbCensus.on('error', console.error.bind(console, 'Census MongoDB connection error:'));
 
-// mongoose.connect(mongoDB,{ useNewUrlParser: true });
-mongoose.connect(mongoCensusDB, {
+//Dublin Bikes DB
+var mongooseDublinBikes = require('mongoose');
+var mongoDublinBikesDB = process.env.BIKES_DB_URL;
+mongooseDublinBikes.connect(mongoDublinBikesDB, {
   useNewUrlParser: true
 });
 
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-db.on('connected', function() {
-  console.log("Connected to Census MongoDB");
+var dbDublinBikes = mongooseDublinBikes.connection;
+dbCensus.on('connected', function() {
+  console.log("Connected to Dublin Bikes MongoDB Database");
 });
-db.on('error', console.error.bind(console, 'Census MongoDB connection error:'));
+dbCensus.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -61,6 +71,7 @@ app.use('/javascripts/vendor/jquery', express.static(
   path.join(__dirname, 'node_modules', 'jquery', 'dist')));
 app.use('/javascripts/vendor/popper.js', express.static(
   path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
+
 
 app.use('/', index);
 app.use('/themes', themes);

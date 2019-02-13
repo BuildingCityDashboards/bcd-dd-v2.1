@@ -1,8 +1,10 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var BikeStationSchema = new Schema(
+let mongooseB = require('mongoose');
+let Schema = mongooseB.Schema;
+let BikeStationSchema = new Schema(
 {
-  "NUMBER": {type: String, required: true, max: 32},
+  "number": {type: String, required: true, max: 32},
+  "name": {type: String, required: true, max: 32},
+  
 });
 
-module.exports = mongoose.model('bikes_station', BikeStationSchema );
+module.exports = mongooseB.model('bikes_station', BikeStationSchema );

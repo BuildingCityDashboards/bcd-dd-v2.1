@@ -1,10 +1,17 @@
 extends layout
 
 block content
+ div(class="container mt-2 py-5 px-5")
   h1=title
   h2 Requests
-  h3 <a href='/api/v1/bikes/' target='_blank'>/bikes</a>
-  p Return data for all bikes stations
-  h3 bikes/'NUMBER'
+  h3 <a href='/api/v1/dublinbikes/stations/' target='_blank'>/stations</a>
+  p Return information for all Dublin Bikes stations (location, number of stands 
+    |etc.)
+  h3 <a href='/api/v1/dublinbikes/stations/latest' target='_blank'>/stations/latest</a>
+  p Return latest information for all bikes stations including real-time 
+    |availablity of bikes and stands
+  h3 <a href='/api/v1/dublinbikes/stations/latest' target='_blank'>/stations/'NUMBER'</a>
+  p Return the bikes data for a given station number
+  h3 stations/'NUMBER'
   p Return the bikes data for a given station number
   
