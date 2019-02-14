@@ -6,7 +6,7 @@ var small_area_controller = require('../controllers/small_area_controller');
 
 router.get('/', function(req, res, next) {
   res.render('api', {
-    title: 'API Test Page'
+    title: 'Dublin Dashboard Beta - API Test Page'
   });
 });
 
@@ -26,9 +26,9 @@ router.get('/v1/dublinbikes', function(req, res) {
 });
 
 //Return static info for all stations   
-router.get('/v1/dublinbikes/stations', bikes_station_controller.list_all);
+//router.get('/v1/dublinbikes/stations', bikes_station_controller.list_all);
 //Return data for an SA
-//router.get('/v1/dublinbikes/station/:id', bikes_station_controller.bikes_station_data);
+//router.get('/v1/dublinbikes/station/:name', bikes_station_controller.bikes_station_data);
 
 /****
 Census

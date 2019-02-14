@@ -4,7 +4,7 @@ let SmallArea = require('../models/small_area');
 exports.list_all = function(req, res, next) {
   
   console.log("\n\nGenerating query for CENSUS database\n\n");
-  const query = SmallArea.find({}, 'GEOGID -_id').limit();
+  const query = SmallArea.find({}, 'GEOGID -_id').limit(20);
   query.setOptions({
     lean: true
   });
