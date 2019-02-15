@@ -267,10 +267,10 @@ cron.schedule("*/15 * * * *", function() {
 
 //Weather (from old Dublin Dashboard)
 cron.schedule("*/5 * * * *", function() {
-  let http = require('http');
+  let http = require('https');
   let fs = require('fs');
   let file = fs.createWriteStream("./public/data/Environment/met_eireann_forecast.xml");
-  http.get("http://dublindashboard.ie/met_eireann_forecast.xml", function(response) {
+  http.get("https://dublindashboard.ie/met_eireann_forecast.xml", function(response) {
     response.pipe(file);
   });
 });
@@ -278,13 +278,13 @@ cron.schedule("*/5 * * * *", function() {
 
 //Sound level readings
 cron.schedule("*/15 * * * *", function() {
-  let http = require('http');;
+  let http = require('https');;
   let fs = require('fs');;
   let files = [];
   for (let i = 0; i < 15; i += 1) {
     let n = i + 1;
     files[i] = fs.createWriteStream("./public/data/Environment/sound_levels/sound_reading_" + n + ".json");
-    http.get("http://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location=" + n,
+    http.get("https://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location=" + n,
       function(response) {
         response.pipe(files[i]);
       });
