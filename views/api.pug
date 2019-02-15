@@ -1,7 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  h2 Available APIs
-  p <a href= 'api/v1'>API Version 1</a>
-  
+    div(class="container mt-2 py-5 px-5")
+        h1= title
+        //        h2 Available APIs
+        //        p <a href= 'api/v1'>API Version 1</a>
+        h2 Datasets
+        p <a href= 'v1/census2016'>Census 2016</a>
+        p <a href= 'v1/dublinbikes'>Dublin Bikes</a>
+        p <a href= 'v1/housing'>Housing</a>
+ 

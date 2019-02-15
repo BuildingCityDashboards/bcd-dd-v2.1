@@ -2,14 +2,16 @@ let async = require('async');
 let SmallArea = require('../models/small_area');
 // const recordLimit = 10000;
 exports.list_all = function(req, res, next) {
-  //console.log("Returning "+recordLimit+" records");
-  const query = SmallArea.find({}, 'GEOGID -_id').limit();
+  
+  console.log("\n\nGenerating query for CENSUS database\n\n");
+  const query = SmallArea.find({}, 'GEOGID -_id').limit(20);
   query.setOptions({
     lean: true
   });
   //query.collection(SmallArea.collection);
   query.exec(function(err, doc) {
     if (err) {
+        console.debug("API error executing mongoose query");
       res.render('api_error', {
         title: 'API Error'
       });

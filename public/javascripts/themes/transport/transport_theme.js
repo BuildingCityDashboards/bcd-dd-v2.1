@@ -53,19 +53,20 @@ d3.json("/data/Transport/bikesData.json").then(function(data) {
   processBikes(data);
 });
 
-/*Gather historical bike data for the day*/
+/*Gather historical bike data for the day 4am to 1am*/
 //TODO: check files exist
 for (let i = 0; i < 22; i += 1) {
+
   let hour = (i + 4) % 24;
 
-  d3.json("/data/Transport/bikesData-" + hour + ".json").then(function(data) {
+  d3.json("/data/Transport/bikesData/bikesData-" + hour + ".json").then(function(data) {
     console.log("i: " + i + " hour: " + hour);
 
     //data.forEach(function(d) {
     if (data[0].last_update) {
       console.log("stamp: " + data[0].last_update);
       let updateTime = bikeHour(new Date(data[0].last_update));
-      console.log("update: " + updateTime);
+      console.log("update hour: " + updateTime);
     }
     //});
   });
@@ -191,8 +192,8 @@ function popupChart(d_) {
 
   }
 
-
-  // var format = d3.timeFormat("%b");
+ var parse = d3.timeParse("%m");
+   var format = d3.timeFormat("%b");
 
   var div = d3.create("div").html(str);
   var svg = div.append("svg")
@@ -201,60 +202,65 @@ function popupChart(d_) {
   var g = svg.append("g")
     .attr("transform", "translate(" + [margin.left, margin.top] + ")");
 
-  // var y = d3.scaleLinear()
-  //   .domain([0, d3.max(data, function(d) {
-  //     return d;
-  //   })])
-  //   .range([height, 0]);
+   let y = d3.scaleLinear()
+     .domain([0, d3.max(d_, function(d) {
+       return d;
+     })])
+     .range([height, 0]);
   //
-  // var yAxis = d3.axisLeft()
-  //   .ticks(4)
-  //   .scale(y);
-  // g.append("g").call(yAxis);
+   var yAxis = d3.axisLeft()
+     .ticks(4)
+     .scale(y);
+   g.append("g").call(yAxis);
   //
-  // var x = d3.scaleBand()
-  //   .domain(d3.range(12))
-  //   .range([0, width]);
+   var x = d3.scaleBand()
+     .domain(d3.range(12))
+     .range([0, width]);
   //
-  // var xAxis = d3.axisBottom()
-  //   .scale(x)
-  //   .tickFormat(function(d) {
-  //     return format(parse(d + 1));
-  //   });
+   var xAxis = d3.axisBottom()
+     .scale(x)
+     .tickFormat(function(d) {
+       return format(parse(d + 1));
+     });
   //
-  // g.append("g")
-  //   .attr("transform", "translate(0," + height + ")")
-  //   .call(xAxis)
-  //   .selectAll("text")
-  //   .attr("text-anchor", "end")
-  //   .attr("transform", "rotate(-90)translate(-12,-15)")
+   g.append("g")
+     .attr("transform", "translate(0," + height + ")")
+     .call(xAxis)
+     .selectAll("text")
+     .attr("text-anchor", "end")
+     .attr("transform", "rotate(-90)translate(-12,-15)");
   //
-  // var rects = g.selectAll("rect")
-  //   .data(data)
-  //   .enter()
-  //   .append("rect")
-  //   .attr("y", height)
-  //   .attr("height", 0)
-  //   .attr("width", x.bandwidth() - 2)
-  //   .attr("x", function(d, i) {
-  //     return x(i);
-  //   })
-  //   .attr("fill", "steelblue")
-  //   .transition()
-  //   .attr("height", function(d) {
-  //     return height - y(d);
-  //   })
-  //   .attr("y", function(d) {
-  //     return y(d);
-  //   })
-  //   .duration(1000);
+   var rects = g.selectAll("rect")
+     .data(d_)
+     .enter()
+     .append("rect")
+     .attr("y", height)
+     .attr("height", 50)
+     .attr("width", 50)
+     .attr("x", function(d_, i) {
+       return 100;
+     })
+     //.attr("width", x.bandwidth() - 2)
+//     .attr("x", function(d, i) {
+//       return x(i);
+//     })
+     .attr("fill", "steelblue")
+     //.transition()
+//     .attr("height", function(d) {
+//       return height - y(d);
+//     })
+//     .attr("y", function(d) {
+//       return y(d);
+//     })
+     //.duration(1000)
+     ;
   //
-  // var title = svg.append("text")
-  //   .style("font-size", "20px")
-  //   .text(feature.properties.title)
-  //   .attr("x", width / 2 + margin.left)
-  //   .attr("y", 30)
-  //   .attr("text-anchor", "middle");
+   var title = svg.append("text")
+     .style("font-size", "20px")
+     .text("test")
+     .attr("x", width / 2 + margin.left)
+     .attr("y", 30)
+     .attr("text-anchor", "middle");
 
   return div.node();
 
