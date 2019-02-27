@@ -1,12 +1,29 @@
 extends layout
 
 block content
-    div(class="container mt-2 py-5 px-5")
-        h1= title
-        //        h2 Available APIs
-        //        p <a href= 'api/v1'>API Version 1</a>
-        h2 Datasets
-        p <a href= 'v1/census2016'>Census 2016</a>
-        p <a href= 'v1/dublinbikes'>Dublin Bikes</a>
-        p <a href= 'v1/housing'>Housing</a>
+  div(class="container mt-2 py-5 px-5")
+    div.mb-5
+        h1 API Example Queries
+    div.mb-5
+        h2 Census 2016 Dataset
+        b List GEOGIDs for all small areas in the Dublin region:
+        p <a href= '/api/census2016/smallareas/list' target='_blank'>/census2016/smallareas/list</a>
+        b Get all data associated with an example small area:
+        p <a href= '/api/census2016/smallareas/example' target='_blank'>/dublinbikes/stations/example</a>
+        b Get the data for a particular small area from its GEOGID:
+        p
+          text.api-query /census2016/smallareas/*GEOGID*
+    row
+        h2 Dublin Bikes Dataset
+        b List static data associated with all Dublin Bikes stations (e.g. location, number, name):
+        p <a href= '/api/dublinbikes/stations/list' target='_blank'>/dublinbikes/stations/list</a>
+        b Get all data associated with an example Dublin Bikes station:
+        p <a href= '/api/dublinbikes/stations/example' target='_blank'>/dublinbikes/stations/example</a>
+        b Get static and dynamic data for a particular station by its number:
+        p 
+          text.api-query /dublinbikes/stations/*number*
+
+        b List today's dynamic data for a particular station by its number:
+        p 
+          text.api-query  /dublinbikes/stations/*number*/today
  

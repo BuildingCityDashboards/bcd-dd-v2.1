@@ -18,34 +18,6 @@ var api = require('./routes/api');
 
 var app = express();
 
-//set up mongoose connections
-//Census DB
-var mongooseCensus = require('mongoose');
-var censusDBURL = process.env.CENSUS_DB_URL;
-mongooseCensus.connect(censusDBURL, {
-  useNewUrlParser: true
-});
-mongooseCensus.Promise = global.Promise;
-var dbCensus = mongooseCensus.connection;
-dbCensus.on('connected', function() {
-  console.log("Connected to Census MongoDB Database");
-});
-dbCensus.on('error', console.error.bind(console, 'Census MongoDB connection error:'));
-
-//Dublin Bikes DB
-var mongooseDublinBikes = require('mongoose');
-var dublinBikesDBURL = process.env.BIKES_DB_URL;
-mongooseDublinBikes.connect(dublinBikesDBURL, {
-  useNewUrlParser: true
-});
-mongooseDublinBikes.Promise = global.Promise;
-
-var dbDublinBikes = mongooseDublinBikes.connection;
-dbDublinBikes.on('connected', function() {
-  console.log("Connected to Dublin Bikes MongoDB Database");
-});
-dbDublinBikes.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -103,24 +75,44 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/***TODO: Archive to db***/
+let connections = require('./database/connections');
 
-//Car parks, traveltimes and bikes
+let census2016Connection = connections.census2016Connection;
+census2016Connection.on('connected', function() {
+  console.log("Connected to Census2016 MongoDB Database");
+});
+census2016Connection.on('error', console.error.bind(console, 'Census 2016 MongoDB connection error:'));
 
-//Hourly trend data- rewritten every day
+//dublinbikes database connection and data model setup
+let dublinBikesConnection = connections.dublinBikesConnection;
+dublinBikesConnection.on('connected', function() {
+  console.log("Connected to Dublin Bikes MongoDB Database");
+});
+dublinBikesConnection.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
+let BikesStationSchema = require('./models/dublinbikes');
+let StationModel= dublinBikesConnection.model('Station', BikesStationSchema); //the data model to call 
 
-let bikesByHour;
-cron.schedule("12 */1 * * *", function() {
-  let http = require('https');
-  let fs = require('fs');
-  let fileName = "bikesData-" + new Date().getHours() + ".json";
-  bikesByHour = fs.createWriteStream("./public/data/Transport/" + fileName);
-  http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
-    if (error) {
-      return console.log(">>>Error on bikes trend GET\n");
-    }
-    response.pipe(bikesByHour);
-  });
+/*Hourly trend data- rewritten every day*/
+
+const bikesURI = 'https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=' + process.env.BIKES_API_KEY;
+const getDublinBikesData = async url => {
+
+  const fetch = require("node-fetch");
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+//    console.log("Example Dublin Bikes data: "+JSON.stringify(json[0]));
+    StationModel.insertMany(json); //saved to MongoDb using mongoose connection
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getDublinBikesData(bikesURI); //call on app start for debug
+
+cron.schedule("15 * * * *", function() {
+  getDublinBikesData(bikesURI);
 });
 
 
@@ -302,5 +294,10 @@ cron.schedule("*/15 * * * *", function() {
       });
   }
 });
+
+let hour = new Date().getHours();
+let min = new Date().getMinutes().toString().padStart(2, '0');
+console.log("CRUD App started at " + hour + ":" + min);
+
 
 module.exports = app;

@@ -1,25 +1,35 @@
 let async = require('async');
-let BikesStation = require('../models/bikes_station');
+let BikesStationModel = require('../models/bikes_station');
+exports.test = function(req, res, next) {
+
+  console.log("\n\nTest Dublin Bikes database: ");
+  // + JSON.stringify(req.node) + "\n\n");
+  db.stats();
+
+  res.send("Results");
+
+}
 // const recordLimit = 10000;
-//exports.list_all = function(req, res, next) {
-//  console.log("\n\nGenerating query for Dublin Bikes database\n\n");
-//  const query = BikesStation.find({}, 'name -_id').limit(5);
-//  query.setOptions({
-//    lean: true
-//  });
-//  //query.collection(SmallArea.collection);
-//  query.exec(function(err, doc) {
-//    if (err) {
-//      res.render('api_error', {
-//        title: 'API Error'
-//      });
-//      return next(err);
-//    }
-//    res.send(doc);
-//    console.log("\nStations returned "+doc.length+"\n");
-//    
-//  });
-//}
+exports.list_all_stations = function(req, res, next) {
+  console.log("\n\nGenerating query for Dublin Bikes database\n\n");
+  const bikesQuery = BikesStationModel.find().limit(20);
+  // bikesQuery.setOptions({
+  //   lean: true
+  // });
+  bikesQuery.collection('stations');
+  bikesQuery.exec(function(err, doc) {
+    if (err) {
+      console.log("Error on query to Dublin Bikes DB");
+      res.render('api_error', {
+        title: 'API Error'
+      });
+      return next(err);
+    }
+    res.send(doc);
+    console.log("\nStations returned " + doc.length + "\n");
+
+  });
+}
 //
 //exports.bikes_station_data = function(req, res, next) {
 //  const query = BikesStation.find();
