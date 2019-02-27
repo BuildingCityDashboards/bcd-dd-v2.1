@@ -1,10 +1,9 @@
-let async = require('async');
-let SmallArea = require('../models/small_area');
+//let async = require('async');
+let Smallarea = require('../models/small_area'); //this is the model- singular (mongoose looks for plural)
 // const recordLimit = 10000;
 exports.list_all = function(req, res, next) {
-  
   console.log("\n\nGenerating query for CENSUS database\n\n");
-  const query = SmallArea.find({}, 'GEOGID -_id').limit(20);
+  const query = Smallarea.find({}, 'GEOGID -_id').limit(20);
   query.setOptions({
     lean: true
   });
