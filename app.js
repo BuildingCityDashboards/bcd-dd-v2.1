@@ -115,7 +115,10 @@ const getDublinBikesData = async url => {
 
 
 //getDublinBikesData(bikesURI); //call on app start for debug
+if (process.env.PRODUCTION == 1) {
+    console.log("\n\n***Dashboard is in production***\n\n");
 
+}
 cron.schedule("15 * * * *", function () {
     if (process.env.PRODUCTION == 1) {
         getDublinBikesData(bikesURI);
@@ -154,7 +157,7 @@ cron.schedule("*/1 * * * *", function () {
         } = response;
         response.on('end', function () {
             apiStatus.carparks.status = statusCode;
-            console.log(JSON.stringify(apiStatus));
+//            console.log(JSON.stringify(apiStatus));
 
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
@@ -234,7 +237,7 @@ cron.schedule("*/1 * * * *", function () {
         } = response;
         response.on('end', function () {
             apiStatus.traveltimes.status = statusCode;
-            console.log(JSON.stringify(apiStatus));
+//            console.log(JSON.stringify(apiStatus));
 
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
@@ -256,7 +259,7 @@ cron.schedule("*/1 * * * *", function () {
         } = response;
         response.on('end', function () {
             apiStatus.traveltimesroads.status = statusCode;
-            console.log(JSON.stringify(apiStatus));
+//            console.log(JSON.stringify(apiStatus));
 
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
@@ -306,7 +309,7 @@ cron.schedule("*/15 * * * *", function () {
 
 let hour = new Date().getHours();
 let min = new Date().getMinutes().toString().padStart(2, '0');
-console.log("CRUD App started at " + hour + ":" + min);
+console.log("Dublin Dashboard Beta App started at " + hour + ":" + min);
 
 
 module.exports = app;
