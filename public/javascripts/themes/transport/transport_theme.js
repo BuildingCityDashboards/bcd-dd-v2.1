@@ -108,37 +108,11 @@ function updateMapBikes(data__) {
             icon: dublinBikeMapIcon
         });
         m.bindPopup(bikesStationPopupInit(d));
-        m.on('click', makeSpark);
+        m.on('click', getBikesStationPopup);
         bikeCluster.addLayer(m);
     });
-
     bikeMap.addLayer(bikeCluster);
     bikeMap.fitBounds(bikeCluster.getBounds());
-}
-
-function getBikesStationChart() {
-    let sid_ = this.options.id;
-    console.log("marker click for station " + sid_ + "\n");
-    d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(
-            makeSpark()
-//            function (stationData) {
-//                getBikesStationPopupChart();
-//                console.log("stationData length" + stationData.length + "\n" + JSON.stringify(stationData[0]));
-//            }
-
-//        let clean = d3.nest()
-//                .key(function (d) {
-//                    return d["last_update"];
-//                })
-//                .rollup(function (d) {
-//                    return d;
-//                })
-//                .entries(stationData);
-////        console.log("clean "+clean.length +"\n" + JSON.stringify(clean) + "\n");
-
-
-            // }
-            );
 }
 
 function bikesStationPopupInit(d_) {
@@ -155,74 +129,47 @@ function bikesStationPopupInit(d_) {
     }
     return str;
 }
-
-
-//Sparkline for poppup
-function makeSpark() {
-    //d3.select("#bike-spark-67").text('Selected from D3');
+//Sparkline for popup
+function getBikesStationPopup() {    //d3.select("#bike-spark-67").text('Selected from D3');
     let sid_ = this.options.id;
-    let bikeSpark = dc.barChart("#bike-spark-" + sid_);
+    let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
+//    let timeParse = d3.timeParse("%d/%m/%Y");
     d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function (stationData) {
-
+        stationData.forEach(function (d) {
+            d.hour = new Date(d["last_update"]).getHours();
+        });
         let ndx = crossfilter(stationData);
-        let dateDim = ndx.dimension(function (d) {
+        let timeDim = ndx.dimension(function (d) {
             return d["last_update"];
         });
-        let dateGroup = dateDim.group();
-
-        bikeSpark.width(300).height(100);
-        bikeSpark.dimension(dateDim);
-        bikeSpark.group(dateGroup);
+        let availableBikesGroup = timeDim.group().reduceSum(function (d) {
+            return d["available_bikes"];
+        });
+//        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));        
+        bikeSpark.width(400).height(100);
+        bikeSpark.dimension(timeDim);
+        bikeSpark.group(availableBikesGroup);
         bikeSpark.margins({
             left: 50,
             top: 0,
             right: 10,
             bottom: 20
         });
+        //moment().format('MMMM Do YYYY, h:mm:ss a');
         let start = moment.utc().startOf('day');
         let end = moment.utc().endOf('day');
+//        console.log("day range: " + start + " - " + end);
 
-        bikeSpark.x(d3.scaleLinear().domain([start, end]));
+        bikeSpark.x(d3.scaleTime().domain([start, end]));
         bikeSpark.brushOn(false);
-
         bikeSpark.render();
     });
-//    d3.csv("data/morley.csv").then(function (experiments) {
-//        experiments.forEach(function (x) {
-//            x.Speed = +x.Speed;
-//        });
-//        let ndx = crossfilter(experiments);
-//        let runDimension = ndx.dimension(function (d) {
-//            return +d.Run;
-//        });
-//        let speedSumGroup = runDimension.group().reduceSum(function (d) {
-//            return d.Speed * d.Run / 1000;
-//        });
-//
-//        bikeSpark.width(300).height(50);
-//        bikeSpark.dimension(runDimension);
-//        bikeSpark.group(speedSumGroup);
-//        bikeSpark.margins({
-//            left: 0,
-//            top: 0,
-//            right: 0,
-//            bottom: 0
-//        })
-//        bikeSpark.x(d3.scaleLinear().domain([6, 20]));
-//        // .brushOn(true)
-//
-//        bikeSpark.render();
-//    });
 }
 
 
 
 function getBikesStationPopupChart(d_) {
-    // var feature = d_.feature;
-    //var data = feature.properties.data;
-    //console.log("popup #"+d_.number);
-
-    d3.select("#bike-spark-67").text('Selected from D3');
+//    d3.select("#bike-spark-67").text('Selected from D3');
 
     var width = 300;
     var height = 80;
