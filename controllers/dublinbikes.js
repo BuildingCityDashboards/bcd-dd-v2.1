@@ -63,7 +63,7 @@ exports.getStationDataToday = function(req, res, next) {
       $gte: start,
       $lt: end
     }
-  }, '-_id name number available_bike_stands available_bikes last_update');
+  }, '-_id name number available_bike_stands available_bikes last_update bike_stands');
   query.setOptions({
     lean: true
   });
