@@ -10,9 +10,9 @@
 
 let bikesIcon = L.Icon.extend({
     options: {
-        iconSize: [35, 45],
-        iconAnchor: [iconAX, iconAY],
-        popupAnchor: [0, 0]
+        iconSize:     [36, 45], 
+        iconAnchor:   [18, 45],
+        popupAnchor:  [-3, -46]
     }
 });
 
@@ -22,16 +22,16 @@ let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
     attribution: stamenTonerAttrib
 });
 
-let bikeMap = new L.Map('chart-transport-bikes', {
+let bikesMap = new L.Map('chart-transport-bikes', {
     closePopupOnClick: true,
     zoomControl: true
-    //zoomsliderControl: true
+            //zoomsliderControl: true
 });
 
 //let zoomSlider = new Zoomslider();
-//bikeMap.addControl(new L.Control.Zoomslider());
-bikeMap.setView(new L.LatLng(dubLat, dubLng), zoom);
-bikeMap.addLayer(osmBike);
+//bikesMap.addControl(new L.Control.Zoomslider());
+bikesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+bikesMap.addLayer(osmBike);
 let bikeCluster = L.markerClusterGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
@@ -73,7 +73,7 @@ let bikesStationPopupOptons = {
 };
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
-    bikeMap.removeLayer(bikeCluster); //required
+    bikesMap.removeLayer(bikeCluster); //required
     _.each(data__, function (d, i) {
         let m = new customBikesStationMarker(
                 new L.LatLng(d.lat, d.lng), {
@@ -82,16 +82,16 @@ function updateMapBikes(data__) {
             opacity: 0.95,
             title: d.type + ' - ' + d.name,
             alt: d.type + ' icon',
-            riseOnHover: true,
-            riseOffset: 250
+//            riseOnHover: true,
+//            riseOffset: 250
 
         });
         m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
         m.on('popupopen', getBikesStationPopup);
         bikeCluster.addLayer(m);
     });
-    bikeMap.addLayer(bikeCluster);
-    bikeMap.fitBounds(bikeCluster.getBounds());
+    bikesMap.addLayer(bikeCluster);
+    bikesMap.fitBounds(bikeCluster.getBounds());
 }
 
 
@@ -227,7 +227,40 @@ function getBikesIcon(d_) {
 
 }
 
+function setBikeStationColour(bikes, totalStands) {
+    let percentageFree = (bikes / totalStands) * 100;
+    return percentageFree < 20 ? '#eff3ff' :
+            percentageFree < 40 ? '#c6dbef' :
+            percentageFree < 60 ? '#9ecae1' :
+            percentageFree < 80 ? '#6baed6' :
+            percentageFree < 101 ? '#3182bd' :
+            percentageFree < 120 ? '#08519c' :
+            '#000000';
 
+}
+
+
+let legend = L.control({position: 'bottomright'});
+legend.onAdd = function (map) {
+    let div = L.DomUtil.create('div', 'info legend'),
+            //ttGrades = [1, 1, 2, 3, 4, 5, 6, 6],
+            grades = [0, 20, 40, 60, 80],
+            bikeGrades = [0, 20, 40, 60, 80],
+            labels = [],
+            from, to;
+//    labels.push('Bike Stations');
+    labels.push('Dublin Bikes Availability');
+    for (let i = 0; i < bikeGrades.length; i++) {
+        from = bikeGrades[i];
+        to = bikeGrades[i + 1];
+        labels.push('<i style="background: ' + setBikeStationColour(from, 100) + '"></i>' +
+                +from + (to ? '%&ndash;' + to + '%' : '%' + '+'));
+    }
+    div.innerHTML = labels.join('<br>');
+    return div;
+};
+
+legend.addTo(bikesMap);
 
 /************************************
  * Bus Stops
@@ -592,12 +625,12 @@ function getDisbaledParkingContent(d_) {
  ************************************/
 d3.select(".public_transport_bikes").on("click", function () {
     //    console.log("bikes");
-    bikeMap.removeLayer(busCluster);
-    bikeMap.removeLayer(luasCluster);
-    if (!bikeMap.hasLayer(bikeCluster)) {
-        bikeMap.addLayer(bikeCluster);
+    bikesMap.removeLayer(busCluster);
+    bikesMap.removeLayer(luasCluster);
+    if (!bikesMap.hasLayer(bikeCluster)) {
+        bikesMap.addLayer(bikeCluster);
     }
-    bikeMap.fitBounds(bikeCluster.getBounds());
+    bikesMap.fitBounds(bikeCluster.getBounds());
 });
 d3.select(".public_transport_buses").on("click", function () {
     //    console.log("buses");

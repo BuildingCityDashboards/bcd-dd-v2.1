@@ -42,7 +42,7 @@
     /* font-size:16px;
     line-height:24px;
     border-radius: 0px;
-     */
+    */
 
     /* color:#fff; text colour */
 }
@@ -57,80 +57,109 @@
   fill: #ffffff;
 }*/
 .dc-chart svg g g.axis.y {
-  display: none;
+    display: none;
 }
 .dc-chart text {
-  fill: #ffffff;
+    fill: #ffffff;
+}
+
+/*//used for legend on the themes> transport map (bikes))*/
+.legend {
+    text-align: left;
+    line-height: 24px;
+    color: #555;
+    background-color:white;
+    padding:5px;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    width: 18px;
+    height: 18px;
+    clear:both;
+    float:right;
+
+}
+/*themes>transport>bikes>legend*/
+.info {
+    padding: 2px 8px;
+    /*//background: rgba(255,255,255,0.8);*/
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
 }
 
 
 
 #chart-water-map {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-sound-map {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-air-map {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-public-transport {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-private-transport {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-transport-bikes {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-transport-bus {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-transport-luas {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-transport-parking {
-  /*height: inherit;*/
-  height: 400px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 400px;
+    width: 100%;
+    margin: 20px;
 }
 
 #chart-environment-map {
-  /*height: inherit;*/
-  height: 500px;
-  width: 100%;
-  margin: 20px;
+    /*height: inherit;*/
+    height: 500px;
+    width: 100%;
+    margin: 20px;
 }
