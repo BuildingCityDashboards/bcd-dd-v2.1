@@ -1,11 +1,19 @@
 /************************************
  * Bikes
  ************************************/
-let dublinBikeMapIcon = L.icon({
-    iconUrl: '/images/transport/bicycle-w-blue-15.svg',
-    iconSize: [30, 30], //orig size
-    iconAnchor: [iconAX, iconAY] //,
-            //popupAnchor: [-3, -76]
+//let dublinBikesMapIcon = L.icon({
+//    iconUrl: '/images/transport/bicycle-w-blue-15.svg',
+//    iconSize: [30, 30], //orig size
+//    iconAnchor: [iconAX, iconAY] //,
+//            //popupAnchor: [-3, -76]
+//});
+
+let bikesIcon = L.Icon.extend({
+    options: {
+        iconSize: [35, 45],
+        iconAnchor: [iconAX, iconAY],
+        popupAnchor: [0, 0]
+    }
 });
 
 let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
@@ -14,29 +22,11 @@ let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
     attribution: stamenTonerAttrib
 });
 
-let bikeMap = new L.Map('chart-transport-bikes');
+let bikeMap = new L.Map('chart-transport-bikes', {
+    closePopupOnClick: true
+});
 bikeMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 bikeMap.addLayer(osmBike);
-
-
-// var features = {
-//   "type": "featureCollection",
-//   features: [{
-//     "type": "Feature",
-//     "properties": {
-//       data: [10, 12, 16, 20, 25, 30, 30, 29, 13, 10, 7, 6],
-//       title: "Injuries Due to Swan Bite by Month"
-//     },
-//     "geometry": {
-//       "type": "Point",
-//       "coordinates": [-6.2603, 53.3498]
-//     }
-//   }]
-// };
-//
-// d3.json('/data/Transport/bikesData.json ')
-//   .addTo(bikeMap);
-// // .bindPopup(popupChart);
 
 
 let bikeCluster = L.markerClusterGroup();
@@ -49,25 +39,6 @@ d3.json("/data/Transport/bikesData.json").then(function (data) {
     processLatestBikes(data);
 });
 
-/*Gather historical bike data for the day 4am to 1am*/
-//TODO: check files exist
-//for (let i = 0; i < 22; i += 1) {
-//
-//  let hour = (i + 4) % 24;
-//
-//  d3.json("/data/Transport/bikesData/bikesData-" + hour + ".json").then(function(data) {
-//    //console.log("i: " + i + " hour: " + hour);
-//
-//    //data.forEach(function(d) {
-//    if (data[0].last_update) {
-//      //console.log("stamp: " + data[0].last_update);
-//      let updateTime = bikeHour(new Date(data[0].last_update));
-//      //console.log("update hour: " + updateTime);
-//    }
-//    //});
-//  });
-//}
-
 
 /* TODO: performance- move to _each in updateMap */
 function processLatestBikes(data_) {
@@ -77,7 +48,7 @@ function processLatestBikes(data_) {
         d.lat = +d.position.lat;
         d.lng = +d.position.lng;
         //add a property to act as key for filtering
-        d.type = "Dublin Bike Station";
+        d.type = "Dublin Bikes Station";
         if (d.bike_stands) {
             bikeStands += d.bike_stands;
         }
@@ -97,12 +68,11 @@ let customBikesStationMarker = L.Marker.extend({
         id: 0
     }
 });
+
 let bikesStationPopupOptons = {
     // 'maxWidth': '500',
     'className': 'bikesStationPopup'
-
-}
-
+};
 
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
@@ -111,7 +81,13 @@ function updateMapBikes(data__) {
         let m = new customBikesStationMarker(
                 new L.LatLng(d.lat, d.lng), {
             id: d["number"],
-            icon: dublinBikeMapIcon
+            icon: getBikesIcon(d),
+            opacity: 0.95,
+            title: d.type + ' - ' + d.name,
+            alt: d.type + ' icon',
+            riseOnHover: true,
+            riseOffset: 250
+
         });
         m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
         m.on('popupopen', getBikesStationPopup);
@@ -132,7 +108,7 @@ function bikesStationPopupInit(d_) {
     str += "</div>" +
             "<div class=\"col-sm-3 \">";
     if (d_.banking) {
-        str += "<img alt=\"Banking icon \" src=\"images/bank-card-w.svg\" height= \"25px\" />";
+        str += "<img alt=\"Banking icon \" src=\"images/bank-card-w.svg\" height= \"25px\" title=\"Banking available\" />";
     }
     str += '</div></div>'; //closes col then row
 
@@ -153,7 +129,8 @@ function bikesStationPopupInit(d_) {
     return str;
 }
 //Sparkline for popup
-function getBikesStationPopup() { //d3.select("#bike-spark-67").text('Selected from D3');
+function getBikesStationPopup() {
+    ////d3.select("#bike-spark-67").text('Selected from D3');
     let sid_ = this.options.id;
     let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
     //    let timeParse = d3.timeParse("%d/%m/%Y");
@@ -225,89 +202,34 @@ function getBikesStationPopup() { //d3.select("#bike-spark-67").text('Selected f
     });
 }
 
-function getBikesStationPopupChart(d_) {
-    //    d3.select("#bike-spark-67").text('Selected from D3');
+function getBikesIcon(d_) {
+    var percentageFree = (d_.available_bikes / d_.bike_stands) * 100;
+    console.log("% " + percentageFree);
 
-    var width = 300;
-    var height = 100;
-    var margin = {
-        left: 0,
-        right: 15,
-        top: 40,
-        bottom: 40
-    };
+    var one = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_1.png'}),
+            two = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_2.png'}),
+            three = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_3.png'}),
+            four = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_4.png'}),
+            five = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_5.png'});
+//            six = new bikeIcon({iconUrl: 'images/transport/bike120.png'});
 
-    var parse = d3.timeParse("%m");
-    var format = d3.timeFormat("%b");
 
-    var div = d3.create("div").html("test string");
-    var svg = div.append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom);
-    var g = svg.append("g")
-            .attr("transform", "translate(" + [margin.left, margin.top] + ")");
+    /*return percentageFree < 20 ? '#eff3ff' :
+     percentageFree < 40  ? '#c6dbef' :
+     percentageFree < 60  ? '#9ecae1' :
+     percentageFree < 80  ? '#6baed6' :
+     percentageFree < 100   ? '#3182bd' :
+     percentageFree < 120   ? '#08519c' :
+     '#000000';*/
 
-    //    let y = d3.scaleLinear()
-    //            .domain([0, d3.max(d_, function (d) {
-    //                    return d;
-    //                })])
-    //            .range([height, 0]);
-    //    //
-    //    var yAxis = d3.axisLeft()
-    //            .ticks(4)
-    //            .scale(y);
-    //    g.append("g").call(yAxis);
-    //    //
-    //    var x = d3.scaleBand()
-    //            .domain(d3.range(12))
-    //            .range([0, width]);
-    //    //
-    //    var xAxis = d3.axisBottom()
-    //            .scale(x)
-    //            .tickFormat(function (d) {
-    //                return format(parse(d + 1));
-    //            });
-    //    //
-    //    g.append("g")
-    //            .attr("transform", "translate(0," + height + ")")
-    //            .call(xAxis)
-    //            .selectAll("text")
-    //            .attr("text-anchor", "end")
-    //            .attr("transform", "rotate(-90)translate(-12,-15)");
-    //    //
-    //    var rects = g.selectAll("rect")
-    //            .data(d_)
-    //            .enter()
-    //            .append("rect")
-    //            .attr("y", height)
-    //            .attr("height", 50)
-    //            .attr("width", 50)
-    //            .attr("x", function (d_, i) {
-    //                return 100;
-    //            })
-    //            //.attr("width", x.bandwidth() - 2)
-    ////     .attr("x", function(d, i) {
-    ////       return x(i);
-    ////     })
-    //            .attr("fill", "steelblue")
-    //            //.transition()
-    ////     .attr("height", function(d) {
-    ////       return height - y(d);
-    ////     })
-    ////     .attr("y", function(d) {
-    ////       return y(d);
-    ////     })
-    //            //.duration(1000)
-    //            ;
-    //    //
-    //    var title = svg.append("text")
-    //            .style("font-size", "20px")
-    //            .text("test")
-    //            .attr("x", width / 2 + margin.left)
-    //            .attr("y", 30)
-    //            .attr("text-anchor", "middle");
+    return percentageFree < 20 ? one :
+            percentageFree < 40 ? two :
+            percentageFree < 60 ? three :
+            percentageFree < 80 ? four : five;
+//            percentageFree < 101 ? five 
+//            // percentageFree < 120   ? six :
+//            'six';
 
-    return div.node();
 
 }
 
