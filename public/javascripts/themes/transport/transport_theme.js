@@ -10,9 +10,9 @@
 
 let bikesIcon = L.Icon.extend({
     options: {
-        iconSize:     [36, 45], 
-        iconAnchor:   [18, 45],
-        popupAnchor:  [-3, -46]
+        iconSize: [36, 45],
+        iconAnchor: [18, 45],
+        popupAnchor: [-3, -46]
     }
 });
 
@@ -396,25 +396,89 @@ let osmLuas = new L.TileLayer(stamenTonerUrl_Lite, {
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
+let luasZoom = 11;
 let luasMap = new L.Map('chart-transport-luas');
-luasMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+luasMap.setView(new L.LatLng(dubLat-0.0485, dubLng), luasZoom);
 luasMap.addLayer(osmLuas);
-let markerRefLuas;
-luasMap.on('popupopen', function (e) {
-    markerRefLuas = e.popup._source;
-    //console.log("ref: "+JSON.stringify(e));
+
+let luasLayer = L.layerGroup();
+let luasLineGreen = new L.geoJSON(null, {
+    "style": {
+        "color": "#4baf56",
+        "weight": 5,
+        "opacity": 0.65
+    }
 });
-let luasCluster = L.markerClusterGroup();
-let luasMapIcon = L.icon({
-    iconUrl: '/images/transport/rail-light-15.svg',
+
+let luasLineRed = new L.geoJSON(null, {
+    "style": {
+        "color": "#ff4a54",
+        "weight": 5,
+        "opacity": 0.65
+    }
+});
+let luasIcons; //layer holds markers positioned at ends of luas lines
+
+let luasMapIconLineGreenEnd = L.icon({
+    iconUrl: '/images/transport/rail-light-15-g.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [25, -5] //,
+            //popupAnchor: [-3, -76]
+});
+
+
+let luasMapIconLineRedEnd = L.icon({
+    iconUrl: '/images/transport/rail-light-15-r.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [25, -5] //,
+            //popupAnchor: [-3, -76]
+});
+
+let luasMapIconLargeGreen = L.icon({
+    // iconUrl: '/images/transport/rail-light-15-b.svg',
+    iconUrl: '/images/transport/rail-light-g-c-15.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY] //,
             //popupAnchor: [-3, -76]
 });
-//create points on publicMap for Luas stops even if RTI not available
+
+let luasMapIconLargeRed = L.icon({
+    // iconUrl: '/images/transport/rail-light-15-b.svg',
+    iconUrl: '/images/transport/rail-light-r-c-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
+});
+
+let luasMapIconSmallGreen = L.icon({
+    //iconUrl: '/images/transport/rail-light-15.svg',
+    iconUrl: '/images/transport/circle-stroked-15-g.svg',
+    iconSize: [15, 15], //orig size
+    iconAnchor: [iconAX / 2, iconAY / 2] //,
+            //popupAnchor: [-3, -76]
+});
+
+let luasMapIconSmallRed = L.icon({
+    //iconUrl: '/images/transport/rail-light-15.svg',
+    iconUrl: '/images/transport/circle-stroked-15-r.svg',
+    iconSize: [15, 15], //orig size
+    iconAnchor: [iconAX / 2, iconAY / 2] //,
+            //popupAnchor: [-3, -76]
+});
+
+//create points on luasMap for Luas stops even if RTI not available
 d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
     processLuas(data);
 });
+
+d3.json("/data/Transport/LUAS_Green_Line.geojson").then(function (data) {
+    updateMapLuasLineGreen(data);
+});
+
+d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function (data) {
+    updateMapLuasLineRed(data);
+});
+
 function processLuas(data_) {
     //    console.log("Luas- \n");
     data_.forEach(function (d) {
@@ -422,25 +486,76 @@ function processLuas(data_) {
         d.lng = +d.Longitude;
         d.StopID = +d.StopID;
         //add a property to act as key for filtering
-        d.type = "Luas stop";
-        //        console.log("luas stop : " + d.Name);
+        d.type = "Luas tram stop";
+        //console.log("luas stop RT : " + d.Name);
     });
     updateMapLuas(data_);
 }
+//extend the marker class to hold data used when calling RT data
+let customMarkerLuas = L.Marker.extend({
+    options: {
+        id: 0
+    }
+});
 
 function updateMapLuas(data__) {
-    luasCluster.clearLayers();
-    luasMap.removeLayer(luasCluster);
-    _.each(data__, function (d, k) {
-        //        console.log("k: " + k + "\n");
-        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-            icon: luasMapIcon
-        });
-        marker.bindPopup(getLuasContent(d));
-        luasCluster.addLayer(marker);
+    //hard-coded icons for ends of lines
+    let saggart = L.latLng(53.28467885, -6.43776255);
+    //let point = L.latLng( 53.34835, -6.22925833333333 );
+    let bridesGlen = L.latLng(53.242075, -6.14288611111111);
+    let m1 = L.marker(saggart, {
+        icon: luasMapIconLineRedEnd
     });
-    luasMap.addLayer(luasCluster);
-    luasMap.fitBounds(luasCluster.getBounds());
+    let m2 = L.marker(bridesGlen, {
+        icon: luasMapIconLineGreenEnd
+    });
+
+    luasIcons = L.layerGroup([m1, m2]);
+    _.each(data__, function (d, k) {
+        //console.log("luas id: " + d.LineID + "\n");
+        let marker = new customMarkerLuas(
+                new L.LatLng(d.lat, d.lng), {
+            icon: getLuasMapIconSmall(d.LineID),
+            id: d.StopID,
+            lineId: d.LineID
+        }
+        );
+        marker.bindPopup(getLuasContent(d));
+        marker.on('click', markerOnClickLuas);
+        luasLayer.addLayer(marker);
+        //console.log("marker ID: "+marker.options.id);
+    });
+    luasMap.addLayer(luasLayer);
+    chooseLookByZoom();
+
+}
+
+function updateMapLuasLineGreen(data__) {
+    luasLineGreen.addData(data__);
+    luasMap.addLayer(luasLineGreen);
+    chooseLookByZoom();
+
+}
+
+function updateMapLuasLineRed(data__) {
+    luasLineRed.addData(data__);
+    luasMap.addLayer(luasLineRed);
+    chooseLookByZoom();
+
+}
+
+function getLuasLine(id_) {
+    return (id_ === "1" ? "Red" : "Green");
+}
+
+function getLuasMapIconSmall(id_) {
+    // console.log("icon: " + d.LineID + "\n");
+    return (id_ === "1" ? luasMapIconSmallRed : luasMapIconSmallGreen);
+}
+
+function getLuasMapIconLarge(id_) {
+    // console.log("icon: " + d.LineID + "\n");
+    return (id_ === "1" ? luasMapIconLargeRed : luasMapIconLargeGreen);
 }
 
 function getLuasContent(d_) {
@@ -454,87 +569,125 @@ function getLuasContent(d_) {
     if (d_.LineID) {
         str += getLuasLine(d_.LineID) + ' Line <br>';
     }
-    //    if (d_.Name) {
-    //        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
-    //                + d_.StopID + '">Real Time Information</button>';
-    //    }
-    ;
+    // if (d_.StopID) {
+    //     // str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
+    //     //         + d_.StopID + '">Real Time Information</button>';
+    //
+    //     str+= displayLuasRT(d_.StopID);
+    //     console.log("Get luas rt for "+d_.StopID);
+    //
+    //     //console.log(displayLuasRT(d_.StopID));
+    // }
+    // ;
+
     return str;
 }
 
-function getLuasLine(id_) {
-    return (id_ === "1" ? "Red" : "Green");
+
+
+let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+
+
+function markerOnClickLuas(e) {
+    let sid_ = this.options.id;
+    console.log("marker " + sid_ + "\n");
+    //Luas API returns html, so we need to parse this into a suitable JSON structure
+    d3.html(luasAPIBase + sid_)
+            .then(function (htmlDoc) {
+                //                console.log(htmlDoc.body);
+                let infoString = htmlDoc.getElementById("cplBody_lblMessage")
+                        .childNodes[0].nodeValue;
+                //console.log("info: " + infoString + "\n");
+                let headings = htmlDoc.getElementsByTagName("th");
+                //console.log("#cols = " + headings.length + "\n");
+                let rows = htmlDoc.getElementsByTagName("tr");
+                //console.log("#rows = " + rows.length + "\n");
+                let tableData = [];
+                for (let i = 1; i < rows.length; i += 1) {
+                    let obj = {};
+                    for (let j = 0; j < headings.length; j += 1) {
+                        let heading = headings[j]
+                                .childNodes[0]
+                                .nodeValue;
+                        let value = rows[i].getElementsByTagName("td")[j].innerHTML;
+                        //console.log("\nvalue: "+ value);
+                        obj[heading] = value;
+                    }
+                    //console.log("\n");
+                    tableData.push(obj);
+                }
+                //console.log("tabledata: " + JSON.stringify(tableData));
+                let luasRTBase = "<br><br> Next trams after ";
+                let luasRT = luasRTBase + infoString.split("at ")[1] + "<br>";
+                if (tableData.length > 0) {
+                    //                    console.log("RTPI " + JSON.stringify(data.results[0]));
+                    _.each(tableData, function (d, i) {
+                        //console.log(d.route + " Due: " + d.duetime + "");
+                        //only return n results
+                        if (i <= 7) {
+                            luasRT += "<br><b>" + d["Direction"] +
+                                    "</b> to <b>" + d["Destination"] + "</b>";
+                            if (d["Time"]) {
+                                let min = d["Time"].split(":")[1];
+                                if (min === "00") {
+                                    luasRT += " is <b>Due now</b>";
+
+                                } else {
+                                    luasRT += " is due in <b>" + min + "</b> mins";
+                                }
+                            } else {
+                                "n/a";
+                            }
+                        }
+
+                    });
+                } else {
+                    //console.log("No RTPI data available");
+                    luasRT += "No Real Time Information Available<br>";
+                }
+            });
 }
 
-//let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
-//
-//
-//function displayLuasRT(sid_) {
-//    console.log("Button press " + luasAPIBase + sid_ + "\n");
-//    //Luas API returns html, so we need to parse this into a suitable JSON structure
-//    d3.html(luasAPIBase + sid_)
-//            .then(function (htmlDoc) {
-////                console.log(htmlDoc.body);
-//                let infoString = htmlDoc.getElementById("cplBody_lblMessage")
-//                        .childNodes[0].nodeValue;
-//                //console.log("info: " + infoString + "\n");
-//                let headings = htmlDoc.getElementsByTagName("th");
-//                //console.log("#cols = " + headings.length + "\n");
-//                let rows = htmlDoc.getElementsByTagName("tr");
-//                //console.log("#rows = " + rows.length + "\n");
-//                let tableData = [];
-//                for (let i = 1; i < rows.length; i += 1) {
-//                    let obj = {};
-//                    for (let j = 0; j < headings.length; j += 1) {
-//                        let heading = headings[j]
-//                                .childNodes[0]
-//                                .nodeValue;
-//                        let value = rows[i].getElementsByTagName("td")[j].innerHTML;
-//                        //console.log("\nvalue: "+ value);
-//                        obj[heading] = value;
-//                    }
-//                    //console.log("\n");
-//                    tableData.push(obj);
-//                }
-//                //console.log("tabledata: " + JSON.stringify(tableData));
-//                let luasRTBase = "<br><br> Next trams after ";
-//                let luasRT = luasRTBase + infoString.split("at ")[1] + "<br>";
-//                if (tableData.length > 0) {
-////                    console.log("RTPI " + JSON.stringify(data.results[0]));
-//                    _.each(tableData, function (d, i) {
-//                        //console.log(d.route + " Due: " + d.duetime + "");
-//                        //only return n results
-//                        if (i <= 7) {
-//                            luasRT += "<br><b>" + d["Direction"]
-//                                    + "</b> to <b>" + d["Destination"] + "</b>";
-//                            if (d["Time"]) {
-//                                let min = d["Time"].split(":")[1];
-//                                if (min === "00") {
-//                                    luasRT += " is <b>Due now</b>";
-//
-//                                } else {
-//                                    luasRT += " is due in <b>" + min + "</b> mins";
-//                                }
-//                            } else {
-//                                "n/a";
-//                            }
-//                        }
-//
-//                    });
-//                } else {
-//                    //console.log("No RTPI data available");
-//                    luasRT += "No Real Time Information Available<br>";
-//                }
-////                console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
-//                markerRefLuas.getPopup().setContent(markerRefLuas.getPopup().getContent().split(luasRTBase)[0] + luasRT);
-//            });
-//}
-//let displayLuasRTBounced = _.debounce(displayLuasRT, 100); //debounce using underscore
-//
-////TODO: replace jQ w/ d3 version
-//$("div").on('click', '.luasRTbutton', function () {
-//    displayLuasRTBounced($(this).attr("data"));
-//});
+//Adapt map features for various zoom levels
+luasMap.on('zoomend', function (ev) {
+    chooseLookByZoom();
+
+});
+
+function chooseLookByZoom() {
+    console.log("Zoom: " + luasMap.getZoom());
+
+    if (luasMap.getZoom() < 12) {
+        if (!luasMap.addLayer(luasIcons)) {
+            luasMap.addLayer(luasIcons);
+        }
+        luasMap.removeLayer(luasLayer);
+
+    } else if (luasMap.getZoom() < 13) {
+        if (!luasMap.addLayer(luasIcons)) {
+            luasMap.addLayer(luasIcons);
+        }
+        if (!luasMap.addLayer(luasLayer)) {
+            luasMap.addLayer(luasLayer);
+        }
+        //each layer is actually a marker
+        luasLayer.eachLayer(function (marker) {
+            //get the line id set in the custom marker to choose red or grreen icon
+            let lId = luasLayer.getLayer(luasLayer.getLayerId(marker)).options.lineId;
+            marker.setIcon(getLuasMapIconSmall(lId));
+        });
+    } else {
+        luasMap.removeLayer(luasIcons);
+        if (!luasMap.addLayer(luasLayer)) {
+            luasMap.addLayer(luasLayer);
+        }
+        luasLayer.eachLayer(function (marker) {
+            //get the line id set in the custom marker to choose red or grreen icon
+            let lId = luasLayer.getLayer(luasLayer.getLayerId(marker)).options.lineId;
+            marker.setIcon(getLuasMapIconLarge(lId));
+        });
+    }
+}
 
 /************************************
  * Parking Map
