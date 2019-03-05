@@ -2,16 +2,16 @@
  * Bikes
  ************************************/
 let dublinBikeMapIcon = L.icon({
-  iconUrl: '/images/transport/bicycle-w-blue-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/bicycle-w-blue-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
 let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: min_zoom,
-  maxZoom: max_zoom,
-  attribution: stamenTonerAttrib
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
 });
 
 let bikeMap = new L.Map('chart-transport-bikes');
@@ -44,9 +44,9 @@ let bikeCluster = L.markerClusterGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
 //Get latest bikes data from file, display in map iconography
-d3.json("/data/Transport/bikesData.json").then(function(data) {
-  //console.log(data[0]);
-  processLatestBikes(data);
+d3.json("/data/Transport/bikesData.json").then(function (data) {
+    //console.log(data[0]);
+    processLatestBikes(data);
 });
 
 /*Gather historical bike data for the day 4am to 1am*/
@@ -71,218 +71,243 @@ d3.json("/data/Transport/bikesData.json").then(function(data) {
 
 /* TODO: performance- move to _each in updateMap */
 function processLatestBikes(data_) {
-  let bikeStands = 0;
-  //console.log("Bike data \n");
-  data_.forEach(function(d) {
-    d.lat = +d.position.lat;
-    d.lng = +d.position.lng;
-    //add a property to act as key for filtering
-    d.type = "Dublin Bike Station";
-    if (d.bike_stands) {
-      bikeStands += d.bike_stands;
-    }
-  });
-  d3.select('#stations-count').html(data_.length);
-  d3.select('#stands-count').html(bikeStands);
-  //console.log("# of available bike is " + available + "\n");
-  //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-  //    console.log("# of bike stations is " + data_.length + "\n"); // +
-  updateMapBikes(data_);
-};
+    let bikeStands = 0;
+    //console.log("Bike data \n");
+    data_.forEach(function (d) {
+        d.lat = +d.position.lat;
+        d.lng = +d.position.lng;
+        //add a property to act as key for filtering
+        d.type = "Dublin Bike Station";
+        if (d.bike_stands) {
+            bikeStands += d.bike_stands;
+        }
+    });
+    d3.select('#stations-count').html(data_.length);
+    d3.select('#stands-count').html(bikeStands);
+    //console.log("# of available bike is " + available + "\n");
+    //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
+    //    console.log("# of bike stations is " + data_.length + "\n"); // +
+    updateMapBikes(data_);
+}
+;
 
 //let markerRefBike; //TODO: fix horrible hack!!!
 let customBikesStationMarker = L.Marker.extend({
-  options: {
-    id: 0
-  }
+    options: {
+        id: 0
+    }
 });
 let bikesStationPopupOptons = {
-  // 'maxWidth': '500',
-  'className': 'bikesStationPopup'
+    // 'maxWidth': '500',
+    'className': 'bikesStationPopup'
 
 }
 
 
 function updateMapBikes(data__) {
-  bikeCluster.clearLayers();
-  bikeMap.removeLayer(bikeCluster); //required
-  _.each(data__, function(d, i) {
-    let m = new customBikesStationMarker(
-      new L.LatLng(d.lat, d.lng), {
-        id: d["number"],
-        icon: dublinBikeMapIcon
-      });
-    m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
-    m.on('popupopen', getBikesStationPopup);
-    bikeCluster.addLayer(m);
-  });
-  bikeMap.addLayer(bikeCluster);
-  bikeMap.fitBounds(bikeCluster.getBounds());
+    bikeCluster.clearLayers();
+    bikeMap.removeLayer(bikeCluster); //required
+    _.each(data__, function (d, i) {
+        let m = new customBikesStationMarker(
+                new L.LatLng(d.lat, d.lng), {
+            id: d["number"],
+            icon: dublinBikeMapIcon
+        });
+        m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
+        m.on('popupopen', getBikesStationPopup);
+        bikeCluster.addLayer(m);
+    });
+    bikeMap.addLayer(bikeCluster);
+    bikeMap.fitBounds(bikeCluster.getBounds());
 }
 
 
 function bikesStationPopupInit(d_) {
-  let str = "<div class=\"container \">" +
-    "<div class=\"row \">" +
-    "<div class=\"col-sm-9 \">";
-  if (d_.name) {
-    str += "<h6>" + d_.name + '</h6>';
-  }
-  str += "</div>" +
-    "<div class=\"col-sm-3 \">";
-  if (d_.banking) {
-    str += "<img alt=\"Banking icon \" src=\"images/bank-card-w.svg\" height= \"25px\" />";
-  }
-  str += '</div></div>'; //closes col then row
+    let str = "<div class=\"container \">" +
+            "<div class=\"row \">" +
+            "<div class=\"col-sm-9 \">";
+    if (d_.name) {
+        str += "<h6>" + d_.name + '</h6>';
+    }
+    str += "</div>" +
+            "<div class=\"col-sm-3 \">";
+    if (d_.banking) {
+        str += "<img alt=\"Banking icon \" src=\"images/bank-card-w.svg\" height= \"25px\" />";
+    }
+    str += '</div></div>'; //closes col then row
 
-  // if (d_.type) {
-  //   str += d_.type;
-  // }
-  if (d_.bike_stands) {
-    str += '<div class=\"row \">';
-    str += '<div class=\"col-sm-12 \">';
-    str += '<b>' + d_.bike_stands + '</b> stands';
-    str += '</div></div>';
+    // if (d_.type) {
+    //   str += d_.type;
+    // }
+    if (d_.bike_stands) {
+        str += '<div class=\"row \">';
+        str += '<div class=\"col-sm-12 \">';
+        str += '<b>' + d_.bike_stands + '</b> stands';
+        str += '</div></div>';
 
-    str += '<div class=\"row \">'
-    str += '<span id="bike-spark-' + d_.number + '"> </span>';
-    str += '</div>';
-  }
-  str += '</div>' //closes container
-  return str;
+        str += '<div class=\"row \">'
+        str += '<span id="bike-spark-' + d_.number + '"> </span>';
+        str += '</div>';
+    }
+    str += '</div>' //closes container
+    return str;
 }
 //Sparkline for popup
 function getBikesStationPopup() { //d3.select("#bike-spark-67").text('Selected from D3');
-  let sid_ = this.options.id;
-  let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
-  //    let timeParse = d3.timeParse("%d/%m/%Y");
-  d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData) {
-    // stationData.forEach(function (d) {
-    //     d.hour = new Date(d["last_update"]).getHours();
-    // });
-    let standsCount = stationData[0].bike_stands;
-    let ndx = crossfilter(stationData);
-    let timeDim = ndx.dimension(function(d) {
-      return d["last_update"];
-    });
-    let availableBikesGroup = timeDim.group().reduceSum(function(d) {
-      return d["available_bikes"];
-    });
-    //moment().format('MMMM Do YYYY, h:mm:ss a');
-    let start = moment.utc().startOf('day').add(3, 'hours');
-    let end = moment.utc().endOf('day').add(2, 'hours');
+    let sid_ = this.options.id;
+    let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
+    //    let timeParse = d3.timeParse("%d/%m/%Y");
+    d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function (stationData) {
+        // stationData.forEach(function (d) {
+        //     d.hour = new Date(d["last_update"]).getHours();
+        // });
+        let standsCount = stationData[0].bike_stands;
+        let ndx = crossfilter(stationData);
+        let timeDim = ndx.dimension(function (d) {
+            return d["last_update"];
+        });
+        let latest = timeDim.top(1)[0].last_update;
+//        console.log ("latest: "+JSON.stringify(timeDim.top(1)[0].last_update));
+        let availableBikesGroup = timeDim.group().reduceSum(function (d) {
+            return d["available_bikes"];
+        });
+        //moment().format('MMMM Do YYYY, h:mm:ss a');
+        let start = moment.utc().startOf('day').add(3, 'hours');
+        let end = moment.utc().endOf('day').add(2, 'hours');
 
-    //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
-    bikeSpark.width(200).height(100);
-    bikeSpark.dimension(timeDim);
-    bikeSpark.group(availableBikesGroup);
-    //        console.log("day range: " + start + " - " + end);
-    bikeSpark.x(d3.scaleTime().domain([start, end]));
-    bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
-    bikeSpark.margins({
-      left: 20,
-      top: 10,
-      right: 30,
-      bottom: 20
+        //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
+        bikeSpark.width(250).height(100);
+        bikeSpark.dimension(timeDim);
+        bikeSpark.group(availableBikesGroup);
+        //        console.log("day range: " + start + " - " + end);
+        bikeSpark.x(d3.scaleTime().domain([start, end]));
+        bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
+        bikeSpark.margins({
+            left: 20,
+            top: 10,
+            right: 20,
+            bottom: 20
+        });
+
+        bikeSpark.xAxis().ticks(3);
+        bikeSpark.renderArea(true);
+        bikeSpark.renderDataPoints(false);
+//        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
+        bikeSpark.renderLabel(false);//, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
+        bikeSpark.label(function (d) {
+            if (d.x === latest) {
+                console.log(JSON.stringify(d));
+                let hour = new Date(d.x).getHours();
+                let mins = new Date(d.x).getMinutes().toString().padStart(2, '0');
+                let end = ((d.y == 1) ? ' bike' : ' bikes');
+//                let str = hour + ':' + mins + 
+                let str = JSON.stringify(d.y) + end;
+                console.log(str);
+                return str;
+                ;
+            }
+            return '';
+        });
+//        bikeSpark.title(function (d, i) {
+//            let hour = new Date(d.key).getHours();
+//            let mins = new Date(d.key).getMinutes().toString().padStart(2, '0');
+//            let val = ((d.value == 1) ? ' bike available' : ' bikes available');
+//            let str = hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val;
+////              console.log(str);
+//            return str;
+//        });
+        bikeSpark.renderVerticalGridLines(true);
+        bikeSpark.useRightYAxis(true);
+        bikeSpark.xyTipsOn(false);
+        bikeSpark.brushOn(false);
+        bikeSpark.clipPadding(15);
+        bikeSpark.render();
     });
-    bikeSpark.xAxis().ticks(3);
-    bikeSpark.renderArea(true).renderDataPoints(false).clipPadding(15);
-    bikeSpark.renderLabel(false); //labels on points -> how to apply to last point only?
-    bikeSpark.xyTipsOn(true);
-    bikeSpark.title(function(d) {
-      let hour = new Date(d.key).getHours();
-      let mins = new Date(d.key).getMinutes().toString().padStart(2, '0');
-      let val = ((d.value == 1) ? ' bike available' : ' bikes available');
-      return hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val;
-    });
-    bikeSpark.brushOn(false);
-    bikeSpark.render();
-  });
 }
 
 function getBikesStationPopupChart(d_) {
-  //    d3.select("#bike-spark-67").text('Selected from D3');
+    //    d3.select("#bike-spark-67").text('Selected from D3');
 
-  var width = 300;
-  var height = 100;
-  var margin = {
-    left: 0,
-    right: 15,
-    top: 40,
-    bottom: 40
-  };
+    var width = 300;
+    var height = 100;
+    var margin = {
+        left: 0,
+        right: 15,
+        top: 40,
+        bottom: 40
+    };
 
-  var parse = d3.timeParse("%m");
-  var format = d3.timeFormat("%b");
+    var parse = d3.timeParse("%m");
+    var format = d3.timeFormat("%b");
 
-  var div = d3.create("div").html("test string");
-  var svg = div.append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
-  var g = svg.append("g")
-    .attr("transform", "translate(" + [margin.left, margin.top] + ")");
+    var div = d3.create("div").html("test string");
+    var svg = div.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+    var g = svg.append("g")
+            .attr("transform", "translate(" + [margin.left, margin.top] + ")");
 
-  //    let y = d3.scaleLinear()
-  //            .domain([0, d3.max(d_, function (d) {
-  //                    return d;
-  //                })])
-  //            .range([height, 0]);
-  //    //
-  //    var yAxis = d3.axisLeft()
-  //            .ticks(4)
-  //            .scale(y);
-  //    g.append("g").call(yAxis);
-  //    //
-  //    var x = d3.scaleBand()
-  //            .domain(d3.range(12))
-  //            .range([0, width]);
-  //    //
-  //    var xAxis = d3.axisBottom()
-  //            .scale(x)
-  //            .tickFormat(function (d) {
-  //                return format(parse(d + 1));
-  //            });
-  //    //
-  //    g.append("g")
-  //            .attr("transform", "translate(0," + height + ")")
-  //            .call(xAxis)
-  //            .selectAll("text")
-  //            .attr("text-anchor", "end")
-  //            .attr("transform", "rotate(-90)translate(-12,-15)");
-  //    //
-  //    var rects = g.selectAll("rect")
-  //            .data(d_)
-  //            .enter()
-  //            .append("rect")
-  //            .attr("y", height)
-  //            .attr("height", 50)
-  //            .attr("width", 50)
-  //            .attr("x", function (d_, i) {
-  //                return 100;
-  //            })
-  //            //.attr("width", x.bandwidth() - 2)
-  ////     .attr("x", function(d, i) {
-  ////       return x(i);
-  ////     })
-  //            .attr("fill", "steelblue")
-  //            //.transition()
-  ////     .attr("height", function(d) {
-  ////       return height - y(d);
-  ////     })
-  ////     .attr("y", function(d) {
-  ////       return y(d);
-  ////     })
-  //            //.duration(1000)
-  //            ;
-  //    //
-  //    var title = svg.append("text")
-  //            .style("font-size", "20px")
-  //            .text("test")
-  //            .attr("x", width / 2 + margin.left)
-  //            .attr("y", 30)
-  //            .attr("text-anchor", "middle");
+    //    let y = d3.scaleLinear()
+    //            .domain([0, d3.max(d_, function (d) {
+    //                    return d;
+    //                })])
+    //            .range([height, 0]);
+    //    //
+    //    var yAxis = d3.axisLeft()
+    //            .ticks(4)
+    //            .scale(y);
+    //    g.append("g").call(yAxis);
+    //    //
+    //    var x = d3.scaleBand()
+    //            .domain(d3.range(12))
+    //            .range([0, width]);
+    //    //
+    //    var xAxis = d3.axisBottom()
+    //            .scale(x)
+    //            .tickFormat(function (d) {
+    //                return format(parse(d + 1));
+    //            });
+    //    //
+    //    g.append("g")
+    //            .attr("transform", "translate(0," + height + ")")
+    //            .call(xAxis)
+    //            .selectAll("text")
+    //            .attr("text-anchor", "end")
+    //            .attr("transform", "rotate(-90)translate(-12,-15)");
+    //    //
+    //    var rects = g.selectAll("rect")
+    //            .data(d_)
+    //            .enter()
+    //            .append("rect")
+    //            .attr("y", height)
+    //            .attr("height", 50)
+    //            .attr("width", 50)
+    //            .attr("x", function (d_, i) {
+    //                return 100;
+    //            })
+    //            //.attr("width", x.bandwidth() - 2)
+    ////     .attr("x", function(d, i) {
+    ////       return x(i);
+    ////     })
+    //            .attr("fill", "steelblue")
+    //            //.transition()
+    ////     .attr("height", function(d) {
+    ////       return height - y(d);
+    ////     })
+    ////     .attr("y", function(d) {
+    ////       return y(d);
+    ////     })
+    //            //.duration(1000)
+    //            ;
+    //    //
+    //    var title = svg.append("text")
+    //            .style("font-size", "20px")
+    //            .text("test")
+    //            .attr("x", width / 2 + margin.left)
+    //            .attr("y", 30)
+    //            .attr("text-anchor", "middle");
 
-  return div.node();
+    return div.node();
 
 }
 
@@ -293,92 +318,93 @@ function getBikesStationPopupChart(d_) {
  ************************************/
 
 let osmBus = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: min_zoom,
-  maxZoom: max_zoom,
-  attribution: stamenTonerAttrib
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
 });
 
 let busMap = new L.Map('chart-transport-bus');
 busMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 busMap.addLayer(osmBus);
 let markerRefBus;
-busMap.on('popupopen', function(e) {
-  markerRefBus = e.popup._source;
-  //console.log("ref: "+JSON.stringify(e));
+busMap.on('popupopen', function (e) {
+    markerRefBus = e.popup._source;
+    //console.log("ref: "+JSON.stringify(e));
 });
 
 let busCluster = L.markerClusterGroup();
 
 let dublinBusMapIcon = L.icon({
-  iconUrl: '/images/transport/bus-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/bus-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
-d3.json("/data/Transport/busstopinformation_bac.json").then(function(data) {
-  //    console.log("data.results[0]" + JSON.stringify(data.results[0]));
-  processBusStops(data.results); //TODO: bottleneck?
+d3.json("/data/Transport/busstopinformation_bac.json").then(function (data) {
+    //    console.log("data.results[0]" + JSON.stringify(data.results[0]));
+    processBusStops(data.results); //TODO: bottleneck?
 });
 
 
 function processBusStops(res_) {
-  //    console.log("Bus data \n");
-  res_.forEach(function(d) {
-    d.lat = +d.latitude;
-    d.lng = +d.longitude;
-    //add a property to act as key for filtering
-    d.type = "Dublin Bus Stop";
+    //    console.log("Bus data \n");
+    res_.forEach(function (d) {
+        d.lat = +d.latitude;
+        d.lng = +d.longitude;
+        //add a property to act as key for filtering
+        d.type = "Dublin Bus Stop";
 
-  });
-  //    console.log("Bus Stop: \n" + JSON.stringify(res_[0]));
-  //    console.log("# of bus stops is " + res_.length + "\n"); // +
-  updateMapBuses(res_);
-};
+    });
+    //    console.log("Bus Stop: \n" + JSON.stringify(res_[0]));
+    //    console.log("# of bus stops is " + res_.length + "\n"); // +
+    updateMapBuses(res_);
+}
+;
 
 function updateMapBuses(data__) {
-  busCluster.clearLayers();
-  busMap.removeLayer(busCluster);
-  _.each(data__, function(d, i) {
-    let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-      icon: dublinBusMapIcon
+    busCluster.clearLayers();
+    busMap.removeLayer(busCluster);
+    _.each(data__, function (d, i) {
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+            icon: dublinBusMapIcon
+        });
+        marker.bindPopup(getBusContent(d));
+        busCluster.addLayer(marker);
+        //        console.log("getMarkerID: "+marker.optiid);
     });
-    marker.bindPopup(getBusContent(d));
-    busCluster.addLayer(marker);
-    //        console.log("getMarkerID: "+marker.optiid);
-  });
-  busMap.addLayer(busCluster);
-  busMap.fitBounds(busCluster.getBounds());
+    busMap.addLayer(busCluster);
+    busMap.fitBounds(busCluster.getBounds());
 }
 
 
 function getBusContent(d_) {
-  let str = '';
-  if (d_.fullname) {
-    str += '<b>' + d_.fullname + '</b><br>';
-  }
-  if (d_.stopid) {
-    str += 'Stop ' + d_.stopid + '<br>';
-  }
-  if (d_.operators[0].routes) {
-    str += 'Routes: ';
-    _.each(d_.operators[0].routes, function(i) {
-      str += i;
-      str += ' ';
-    });
-    str += '<br>';
-  }
-  if (d_.address && d_.address !== d_.name) {
-    str += d_.address + '<br>';
-  }
-  //    if (d_.stopid) {
-  //        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
-  //        str += '<br/><button type="button" class="btn btn-primary busRTPIbutton" data="'
-  //                + d_.stopid + '">Real Time Information</button>';
-  //    }
-  ;
+    let str = '';
+    if (d_.fullname) {
+        str += '<b>' + d_.fullname + '</b><br>';
+    }
+    if (d_.stopid) {
+        str += 'Stop ' + d_.stopid + '<br>';
+    }
+    if (d_.operators[0].routes) {
+        str += 'Routes: ';
+        _.each(d_.operators[0].routes, function (i) {
+            str += i;
+            str += ' ';
+        });
+        str += '<br>';
+    }
+    if (d_.address && d_.address !== d_.name) {
+        str += d_.address + '<br>';
+    }
+    //    if (d_.stopid) {
+    //        //add a button and attached the busstop id to it as data, clicking the button will query using 'stopid'
+    //        str += '<br/><button type="button" class="btn btn-primary busRTPIbutton" data="'
+    //                + d_.stopid + '">Real Time Information</button>';
+    //    }
+    ;
 
-  return str;
+    return str;
 }
 
 ////Handle button in publicMap popup and get RTPI data
@@ -426,84 +452,84 @@ function getBusContent(d_) {
  * Luas
  ************************************/
 let osmLuas = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: min_zoom,
-  maxZoom: max_zoom,
-  attribution: stamenTonerAttrib
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
 });
 
 let luasMap = new L.Map('chart-transport-luas');
 luasMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 luasMap.addLayer(osmLuas);
 let markerRefLuas;
-luasMap.on('popupopen', function(e) {
-  markerRefLuas = e.popup._source;
-  //console.log("ref: "+JSON.stringify(e));
+luasMap.on('popupopen', function (e) {
+    markerRefLuas = e.popup._source;
+    //console.log("ref: "+JSON.stringify(e));
 });
 
 let luasCluster = L.markerClusterGroup();
 
 let luasMapIcon = L.icon({
-  iconUrl: '/images/transport/rail-light-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/rail-light-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
 //create points on publicMap for Luas stops even if RTI not available
-d3.tsv("/data/Transport/luas-stops.txt").then(function(data) {
-  processLuas(data);
+d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
+    processLuas(data);
 });
 
 function processLuas(data_) {
-  //    console.log("Luas- \n");
-  data_.forEach(function(d) {
-    d.lat = +d.Latitude;
-    d.lng = +d.Longitude;
-    d.StopID = +d.StopID;
-    //add a property to act as key for filtering
-    d.type = "Luas stop";
-    //        console.log("luas stop : " + d.Name);
-  });
-  updateMapLuas(data_);
+    //    console.log("Luas- \n");
+    data_.forEach(function (d) {
+        d.lat = +d.Latitude;
+        d.lng = +d.Longitude;
+        d.StopID = +d.StopID;
+        //add a property to act as key for filtering
+        d.type = "Luas stop";
+        //        console.log("luas stop : " + d.Name);
+    });
+    updateMapLuas(data_);
 }
 
 function updateMapLuas(data__) {
-  luasCluster.clearLayers();
-  luasMap.removeLayer(luasCluster);
-  _.each(data__, function(d, k) {
-    //        console.log("k: " + k + "\n");
-    let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-      icon: luasMapIcon
+    luasCluster.clearLayers();
+    luasMap.removeLayer(luasCluster);
+    _.each(data__, function (d, k) {
+        //        console.log("k: " + k + "\n");
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+            icon: luasMapIcon
+        });
+        marker.bindPopup(getLuasContent(d));
+        luasCluster.addLayer(marker);
     });
-    marker.bindPopup(getLuasContent(d));
-    luasCluster.addLayer(marker);
-  });
-  luasMap.addLayer(luasCluster);
-  luasMap.fitBounds(luasCluster.getBounds());
+    luasMap.addLayer(luasCluster);
+    luasMap.fitBounds(luasCluster.getBounds());
 }
 
 function getLuasContent(d_) {
-  let str = '';
-  if (d_.Name) {
-    str += '<b>' + d_.Name + '</b><br>';
-  }
-  if (d_.IrishName) {
-    str += '<i>' + d_.IrishName + '</i><br>';
-  }
-  if (d_.LineID) {
-    str += getLuasLine(d_.LineID) + ' Line <br>';
-  }
-  //    if (d_.Name) {
-  //        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
-  //                + d_.StopID + '">Real Time Information</button>';
-  //    }
-  ;
+    let str = '';
+    if (d_.Name) {
+        str += '<b>' + d_.Name + '</b><br>';
+    }
+    if (d_.IrishName) {
+        str += '<i>' + d_.IrishName + '</i><br>';
+    }
+    if (d_.LineID) {
+        str += getLuasLine(d_.LineID) + ' Line <br>';
+    }
+    //    if (d_.Name) {
+    //        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="'
+    //                + d_.StopID + '">Real Time Information</button>';
+    //    }
+    ;
 
-  return str;
+    return str;
 }
 
 function getLuasLine(id_) {
-  return (id_ === "1" ? "Red" : "Green");
+    return (id_ === "1" ? "Red" : "Green");
 }
 
 //let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
@@ -581,9 +607,9 @@ function getLuasLine(id_) {
  ************************************/
 
 let osmCarpark = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: min_zoom,
-  maxZoom: max_zoom,
-  attribution: stamenTonerAttrib
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
 });
 
 let parkingMap = new L.Map('chart-transport-parking');
@@ -591,134 +617,135 @@ parkingMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 parkingMap.addLayer(osmCarpark);
 
 let markerRefCarpark; //TODO: fix horrible hack!!!
-parkingMap.on('popupopen', function(e) {
-  markerRefCarpark = e.popup._source;
-  //console.log("ref: "+JSON.stringify(e));
+parkingMap.on('popupopen', function (e) {
+    markerRefCarpark = e.popup._source;
+    //console.log("ref: "+JSON.stringify(e));
 });
 
 /************************************
  * Disabled Parking
  ************************************/
 let disabledParkingkMapIcon = L.icon({
-  iconUrl: '/images/transport/parking-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
+    iconUrl: '/images/transport/parking-15.svg',
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+            //popupAnchor: [-3, -76]
 });
 
 let disabledParkingCluster = L.markerClusterGroup();
 
-d3.csv("/data/Transport/fccdisabledparking-bayp20111013-2046.csv").then(function(data) {
-  //    console.log("DP data length "+data.length);
-  processDisabledParking(data); //TODO: bottleneck?
+d3.csv("/data/Transport/fccdisabledparking-bayp20111013-2046.csv").then(function (data) {
+    //    console.log("DP data length "+data.length);
+    processDisabledParking(data); //TODO: bottleneck?
 });
 
 function processDisabledParking(data_) {
-  //    console.log("- \n");
-  data_.forEach(function(d) {
-    d.lat = +d["LAT"];
-    d.lng = +d["LONG"];
-    //        d.StopID = +d.StopID;
-    //add a property to act as key for filtering
-    d.type = "Fingal County Council Disabled Parking Bay";
-    //        console.log("DP bay : " + d.lat);
-  });
-  d3.select('#fingal-disabled_parking-count').html(data_.length);
-  updateMapDisabledParking(data_);
+    //    console.log("- \n");
+    data_.forEach(function (d) {
+        d.lat = +d["LAT"];
+        d.lng = +d["LONG"];
+        //        d.StopID = +d.StopID;
+        //add a property to act as key for filtering
+        d.type = "Fingal County Council Disabled Parking Bay";
+        //        console.log("DP bay : " + d.lat);
+    });
+    d3.select('#fingal-disabled_parking-count').html(data_.length);
+    updateMapDisabledParking(data_);
 }
 
 function updateMapDisabledParking(data__) {
-  disabledParkingCluster.clearLayers();
-  parkingMap.removeLayer(disabledParkingCluster);
-  _.each(data__, function(d, k) {
-    //        console.log("d: " + d.type + "\n");
-    let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-      icon: disabledParkingkMapIcon
+    disabledParkingCluster.clearLayers();
+    parkingMap.removeLayer(disabledParkingCluster);
+    _.each(data__, function (d, k) {
+        //        console.log("d: " + d.type + "\n");
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+            icon: disabledParkingkMapIcon
+        });
+        marker.bindPopup(getDisbaledParkingContent(d));
+        disabledParkingCluster.addLayer(marker);
     });
-    marker.bindPopup(getDisbaledParkingContent(d));
-    disabledParkingCluster.addLayer(marker);
-  });
-  parkingMap.addLayer(disabledParkingCluster);
-  parkingMap.fitBounds(disabledParkingCluster.getBounds());
+    parkingMap.addLayer(disabledParkingCluster);
+    parkingMap.fitBounds(disabledParkingCluster.getBounds());
 }
 
 function getDisbaledParkingContent(d_) {
-  let str = '';
-  if (d_["AREA_DESC"]) {
-    str += '<b>' + d_["AREA_DESC"] + '</b><br>';
-  }
-  if (d_.type) {
-    str += '<b>' + d_.type + '</b><br><br>';
-  }
-  if (d_["TOTAL_SPACES"]) {
-    str += 'Total Spaces: ' + d_["TOTAL_SPACES"] + '<br><br>';
-  }
-  if (d_["DIPPED_FOOTPATH"] === "TRUE") {
-    str += '<i>This parking bay HAS a dipped footpath</i> <br>';
-  } else {
-    str += '<i>This parking bay DOES NOT HAVE a dipped footpath</i> <br>';
-  }
-  if (d_.Name) {
-    str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="' +
-      d_.StopID + '">Real Time Information</button>';
-  };
+    let str = '';
+    if (d_["AREA_DESC"]) {
+        str += '<b>' + d_["AREA_DESC"] + '</b><br>';
+    }
+    if (d_.type) {
+        str += '<b>' + d_.type + '</b><br><br>';
+    }
+    if (d_["TOTAL_SPACES"]) {
+        str += 'Total Spaces: ' + d_["TOTAL_SPACES"] + '<br><br>';
+    }
+    if (d_["DIPPED_FOOTPATH"] === "TRUE") {
+        str += '<i>This parking bay HAS a dipped footpath</i> <br>';
+    } else {
+        str += '<i>This parking bay DOES NOT HAVE a dipped footpath</i> <br>';
+    }
+    if (d_.Name) {
+        str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="' +
+                d_.StopID + '">Real Time Information</button>';
+    }
+    ;
 
-  return str;
+    return str;
 }
 
 /************************************
  * Button listeners
  ************************************/
-d3.select(".public_transport_bikes").on("click", function() {
-  //    console.log("bikes");
-  bikeMap.removeLayer(busCluster);
-  bikeMap.removeLayer(luasCluster);
-  if (!bikeMap.hasLayer(bikeCluster)) {
-    bikeMap.addLayer(bikeCluster);
-  }
-  bikeMap.fitBounds(bikeCluster.getBounds());
+d3.select(".public_transport_bikes").on("click", function () {
+    //    console.log("bikes");
+    bikeMap.removeLayer(busCluster);
+    bikeMap.removeLayer(luasCluster);
+    if (!bikeMap.hasLayer(bikeCluster)) {
+        bikeMap.addLayer(bikeCluster);
+    }
+    bikeMap.fitBounds(bikeCluster.getBounds());
 });
 
-d3.select(".public_transport_buses").on("click", function() {
-  //    console.log("buses");
-  publicMap.removeLayer(bikeCluster);
-  publicMap.removeLayer(luasCluster);
-  if (!publicMap.hasLayer(busCluster)) {
-    publicMap.addLayer(busCluster);
-  }
-  publicMap.fitBounds(busCluster.getBounds());
+d3.select(".public_transport_buses").on("click", function () {
+    //    console.log("buses");
+    publicMap.removeLayer(bikeCluster);
+    publicMap.removeLayer(luasCluster);
+    if (!publicMap.hasLayer(busCluster)) {
+        publicMap.addLayer(busCluster);
+    }
+    publicMap.fitBounds(busCluster.getBounds());
 });
 
-d3.select(".public_transport_luas").on("click", function() {
-  //    console.log("luas");
-  publicMap.removeLayer(bikeCluster);
-  publicMap.removeLayer(busCluster);
-  if (!publicMap.hasLayer(luasCluster)) {
-    publicMap.addLayer(luasCluster);
-  }
-  publicMap.fitBounds(luasCluster.getBounds());
+d3.select(".public_transport_luas").on("click", function () {
+    //    console.log("luas");
+    publicMap.removeLayer(bikeCluster);
+    publicMap.removeLayer(busCluster);
+    if (!publicMap.hasLayer(luasCluster)) {
+        publicMap.addLayer(luasCluster);
+    }
+    publicMap.fitBounds(luasCluster.getBounds());
 });
-d3.select(".public_transport_all").on("click", function() {
-  //    console.log("all");
-  if (!publicMap.hasLayer(busCluster)) {
-    publicMap.addLayer(busCluster);
-  }
-  if (!publicMap.hasLayer(luasCluster)) {
-    publicMap.addLayer(luasCluster);
-  }
-  if (!publicMap.hasLayer(bikeCluster)) {
-    publicMap.addLayer(bikeCluster);
-  }
-  publicMap.fitBounds(busCluster.getBounds());
+d3.select(".public_transport_all").on("click", function () {
+    //    console.log("all");
+    if (!publicMap.hasLayer(busCluster)) {
+        publicMap.addLayer(busCluster);
+    }
+    if (!publicMap.hasLayer(luasCluster)) {
+        publicMap.addLayer(luasCluster);
+    }
+    if (!publicMap.hasLayer(bikeCluster)) {
+        publicMap.addLayer(bikeCluster);
+    }
+    publicMap.fitBounds(busCluster.getBounds());
 
 });
 
-d3.select(".parking_multi").on("click", function() {
-  //    console.log("bikes");
-  //    parkingMap.removeLayer(busCluster);
-  //    parkingMap.removeLayer(luasCluster);
-  if (!parkingMap.hasLayer(carparkCluster)) {
-    parkingMap.addLayer(carparkCluster);
-  }
-  parkingMap.fitBounds(carparkCluster.getBounds());
+d3.select(".parking_multi").on("click", function () {
+    //    console.log("bikes");
+    //    parkingMap.removeLayer(busCluster);
+    //    parkingMap.removeLayer(luasCluster);
+    if (!parkingMap.hasLayer(carparkCluster)) {
+        parkingMap.addLayer(carparkCluster);
+    }
+    parkingMap.fitBounds(carparkCluster.getBounds());
 });
