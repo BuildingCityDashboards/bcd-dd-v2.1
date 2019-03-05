@@ -23,23 +23,23 @@ let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
 });
 
 let bikeMap = new L.Map('chart-transport-bikes', {
-    closePopupOnClick: true
+    closePopupOnClick: true,
+    zoomControl: true
+    //zoomsliderControl: true
 });
+
+//let zoomSlider = new Zoomslider();
+//bikeMap.addControl(new L.Control.Zoomslider());
 bikeMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 bikeMap.addLayer(osmBike);
-
-
 let bikeCluster = L.markerClusterGroup();
-
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
 //Get latest bikes data from file, display in map iconography
 d3.json("/data/Transport/bikesData.json").then(function (data) {
-    //console.log(data[0]);
+//console.log(data[0]);
     processLatestBikes(data);
 });
-
-
 /* TODO: performance- move to _each in updateMap */
 function processLatestBikes(data_) {
     let bikeStands = 0;
@@ -61,19 +61,16 @@ function processLatestBikes(data_) {
     updateMapBikes(data_);
 }
 ;
-
 //let markerRefBike; //TODO: fix horrible hack!!!
 let customBikesStationMarker = L.Marker.extend({
     options: {
         id: 0
     }
 });
-
 let bikesStationPopupOptons = {
     // 'maxWidth': '500',
     'className': 'bikesStationPopup'
 };
-
 function updateMapBikes(data__) {
     bikeCluster.clearLayers();
     bikeMap.removeLayer(bikeCluster); //required
@@ -120,8 +117,7 @@ function bikesStationPopupInit(d_) {
         str += '<div class=\"col-sm-12 \">';
         str += '<b>' + d_.bike_stands + '</b> stands';
         str += '</div></div>';
-
-        str += '<div class=\"row \">'
+        str += '<div class=\"row \">';
         str += '<span id="bike-spark-' + d_.number + '"> </span>';
         str += '</div>';
     }
@@ -151,7 +147,6 @@ function getBikesStationPopup() {
         //moment().format('MMMM Do YYYY, h:mm:ss a');
         let start = moment.utc().startOf('day').add(3, 'hours');
         let end = moment.utc().endOf('day').add(2, 'hours');
-
         //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
         bikeSpark.width(250).height(100);
         bikeSpark.dimension(timeDim);
@@ -161,16 +156,15 @@ function getBikesStationPopup() {
         bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
         bikeSpark.margins({
             left: 20,
-            top: 10,
+            top: 15,
             right: 20,
             bottom: 20
         });
-
         bikeSpark.xAxis().ticks(3);
         bikeSpark.renderArea(true);
         bikeSpark.renderDataPoints(false);
 //        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
-        bikeSpark.renderLabel(false);//, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
+        bikeSpark.renderLabel(false); //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
         bikeSpark.label(function (d) {
             if (d.x === latest) {
                 console.log(JSON.stringify(d));
@@ -179,7 +173,7 @@ function getBikesStationPopup() {
                 let end = ((d.y == 1) ? ' bike' : ' bikes');
 //                let str = hour + ':' + mins + 
                 let str = JSON.stringify(d.y) + end;
-                console.log(str);
+//                console.log(str);
                 return str;
                 ;
             }
@@ -204,7 +198,7 @@ function getBikesStationPopup() {
 
 function getBikesIcon(d_) {
     var percentageFree = (d_.available_bikes / d_.bike_stands) * 100;
-    console.log("% " + percentageFree);
+//    console.log("% " + percentageFree);
 
     var one = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_1.png'}),
             two = new bikesIcon({iconUrl: 'images/transport/bikes_icon_blue_2.png'}),
@@ -244,7 +238,6 @@ let osmBus = new L.TileLayer(stamenTonerUrl_Lite, {
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
-
 let busMap = new L.Map('chart-transport-bus');
 busMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 busMap.addLayer(osmBus);
@@ -253,22 +246,17 @@ busMap.on('popupopen', function (e) {
     markerRefBus = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
 });
-
 let busCluster = L.markerClusterGroup();
-
 let dublinBusMapIcon = L.icon({
     iconUrl: '/images/transport/bus-15.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY] //,
             //popupAnchor: [-3, -76]
 });
-
 d3.json("/data/Transport/busstopinformation_bac.json").then(function (data) {
     //    console.log("data.results[0]" + JSON.stringify(data.results[0]));
     processBusStops(data.results); //TODO: bottleneck?
 });
-
-
 function processBusStops(res_) {
     //    console.log("Bus data \n");
     res_.forEach(function (d) {
@@ -276,14 +264,12 @@ function processBusStops(res_) {
         d.lng = +d.longitude;
         //add a property to act as key for filtering
         d.type = "Dublin Bus Stop";
-
     });
     //    console.log("Bus Stop: \n" + JSON.stringify(res_[0]));
     //    console.log("# of bus stops is " + res_.length + "\n"); // +
     updateMapBuses(res_);
 }
 ;
-
 function updateMapBuses(data__) {
     busCluster.clearLayers();
     busMap.removeLayer(busCluster);
@@ -325,7 +311,6 @@ function getBusContent(d_) {
     //                + d_.stopid + '">Real Time Information</button>';
     //    }
     ;
-
     return str;
 }
 
@@ -378,7 +363,6 @@ let osmLuas = new L.TileLayer(stamenTonerUrl_Lite, {
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
-
 let luasMap = new L.Map('chart-transport-luas');
 luasMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 luasMap.addLayer(osmLuas);
@@ -387,21 +371,17 @@ luasMap.on('popupopen', function (e) {
     markerRefLuas = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
 });
-
 let luasCluster = L.markerClusterGroup();
-
 let luasMapIcon = L.icon({
     iconUrl: '/images/transport/rail-light-15.svg',
     iconSize: [30, 30], //orig size
     iconAnchor: [iconAX, iconAY] //,
             //popupAnchor: [-3, -76]
 });
-
 //create points on publicMap for Luas stops even if RTI not available
 d3.tsv("/data/Transport/luas-stops.txt").then(function (data) {
     processLuas(data);
 });
-
 function processLuas(data_) {
     //    console.log("Luas- \n");
     data_.forEach(function (d) {
@@ -446,7 +426,6 @@ function getLuasContent(d_) {
     //                + d_.StopID + '">Real Time Information</button>';
     //    }
     ;
-
     return str;
 }
 
@@ -533,17 +512,14 @@ let osmCarpark = new L.TileLayer(stamenTonerUrl_Lite, {
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
 });
-
 let parkingMap = new L.Map('chart-transport-parking');
 parkingMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 parkingMap.addLayer(osmCarpark);
-
 let markerRefCarpark; //TODO: fix horrible hack!!!
 parkingMap.on('popupopen', function (e) {
     markerRefCarpark = e.popup._source;
     //console.log("ref: "+JSON.stringify(e));
 });
-
 /************************************
  * Disabled Parking
  ************************************/
@@ -553,14 +529,11 @@ let disabledParkingkMapIcon = L.icon({
     iconAnchor: [iconAX, iconAY] //,
             //popupAnchor: [-3, -76]
 });
-
 let disabledParkingCluster = L.markerClusterGroup();
-
 d3.csv("/data/Transport/fccdisabledparking-bayp20111013-2046.csv").then(function (data) {
     //    console.log("DP data length "+data.length);
     processDisabledParking(data); //TODO: bottleneck?
 });
-
 function processDisabledParking(data_) {
     //    console.log("- \n");
     data_.forEach(function (d) {
@@ -611,7 +584,6 @@ function getDisbaledParkingContent(d_) {
                 d_.StopID + '">Real Time Information</button>';
     }
     ;
-
     return str;
 }
 
@@ -627,7 +599,6 @@ d3.select(".public_transport_bikes").on("click", function () {
     }
     bikeMap.fitBounds(bikeCluster.getBounds());
 });
-
 d3.select(".public_transport_buses").on("click", function () {
     //    console.log("buses");
     publicMap.removeLayer(bikeCluster);
@@ -637,7 +608,6 @@ d3.select(".public_transport_buses").on("click", function () {
     }
     publicMap.fitBounds(busCluster.getBounds());
 });
-
 d3.select(".public_transport_luas").on("click", function () {
     //    console.log("luas");
     publicMap.removeLayer(bikeCluster);
@@ -659,9 +629,7 @@ d3.select(".public_transport_all").on("click", function () {
         publicMap.addLayer(bikeCluster);
     }
     publicMap.fitBounds(busCluster.getBounds());
-
 });
-
 d3.select(".parking_multi").on("click", function () {
     //    console.log("bikes");
     //    parkingMap.removeLayer(busCluster);
