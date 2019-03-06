@@ -106,7 +106,7 @@ const getDublinBikesData = async url => {
         const response = await fetch(url);
         const json = await response.json();
 //    console.log("Example Dublin Bikes data: "+JSON.stringify(json[0]));
-        StationModel.insertMany(json); //saved to MongoDb using mongoose connection
+//        StationModel.insertMany(json); //saved to MongoDb using mongoose connection
 
     } catch (error) {
         console.log(error);
@@ -117,12 +117,10 @@ const getDublinBikesData = async url => {
 //getDublinBikesData(bikesURI); //call on app start for debug
 if (process.env.PRODUCTION == 1) {
     console.log("\n\n***Dashboard is in production***\n\n");
-
 }
 cron.schedule("15 * * * *", function () {
     if (process.env.PRODUCTION == 1) {
         getDublinBikesData(bikesURI);
-
     }
 });
 
@@ -143,7 +141,6 @@ cron.schedule("*/1 * * * *", function () {
     fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
         if (err)
             return console.log(">>>Error writing to api-status.json\n" + err);
-
     });
 
     let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");
@@ -162,7 +159,6 @@ cron.schedule("*/1 * * * *", function () {
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
                     return console.log(">>>Error writing carparks to api-status.json\n" + err);
-
             });
         });
     });
@@ -173,21 +169,17 @@ cron.schedule("*/1 * * * *", function () {
             return console.log(">>>Error on dublinbikes GET\n");
         }
         response.pipe(bikeFile);
-
         const {
             statusCode
         } = response;
         response.on('end', function () {
             apiStatus.dublinbikes.status = statusCode;
             //console.log(JSON.stringify(apiStatus));
-
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
                     return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
             });
-
         });
-
     });
 
     //    let busFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
@@ -204,8 +196,6 @@ cron.schedule("*/1 * * * *", function () {
             if (err)
                 return console.log(">>>Error writing dublinbus to api-status.json\n" + err);
         });
-
-
     });
 
     //example query used for Luas returns xml, which is not parsed here
@@ -221,7 +211,6 @@ cron.schedule("*/1 * * * *", function () {
             if (err)
                 return console.log(">>>Error writing luas to api-status.json\n" + err);
         });
-
     });
 
     let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
@@ -229,16 +218,13 @@ cron.schedule("*/1 * * * *", function () {
         if (error) {
             return console.log(">>>Error on traveltimes GET\n");
         }
-
         response.pipe(travelTimesFile);
-
         const {
             statusCode
         } = response;
         response.on('end', function () {
             apiStatus.traveltimes.status = statusCode;
 //            console.log(JSON.stringify(apiStatus));
-
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
                     return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
@@ -251,16 +237,13 @@ cron.schedule("*/1 * * * *", function () {
         if (error) {
             return console.log(">>>Error on traveltimesroads GET\n");
         }
-
         response.pipe(travelTimesRoadsFile);
-
         const {
             statusCode
         } = response;
         response.on('end', function () {
             apiStatus.traveltimesroads.status = statusCode;
 //            console.log(JSON.stringify(apiStatus));
-
             fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function (err) {
                 if (err)
                     return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
@@ -309,7 +292,6 @@ cron.schedule("*/15 * * * *", function () {
 
 let hour = new Date().getHours();
 let min = new Date().getMinutes().toString().padStart(2, '0');
-console.log("Dublin Dashboard Beta App started at " + hour + ":" + min);
-
+console.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min+"\n\n");
 
 module.exports = app;

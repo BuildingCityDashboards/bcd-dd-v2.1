@@ -226,15 +226,6 @@ function getBikesIcon(d_) {
     });
   //            six = new bikeIcon({iconUrl: 'images/transport/bike120.png'});
 
-
-  /*return percentageFree < 20 ? '#eff3ff' :
-   percentageFree < 40  ? '#c6dbef' :
-   percentageFree < 60  ? '#9ecae1' :
-   percentageFree < 80  ? '#6baed6' :
-   percentageFree < 100   ? '#3182bd' :
-   percentageFree < 120   ? '#08519c' :
-   '#000000';*/
-
   return percentageFree < 20 ? one :
     percentageFree < 40 ? two :
     percentageFree < 60 ? three :
@@ -242,7 +233,6 @@ function getBikesIcon(d_) {
   //            percentageFree < 101 ? five
   //            // percentageFree < 120   ? six :
   //            'six';
-
 
 }
 
@@ -262,6 +252,7 @@ function setBikeStationColour(bikes, totalStands) {
 let legend = L.control({
   position: 'bottomright'
 });
+
 legend.onAdd = function(map) {
   let div = L.DomUtil.create('div', 'info legend'),
     //ttGrades = [1, 1, 2, 3, 4, 5, 6, 6],
