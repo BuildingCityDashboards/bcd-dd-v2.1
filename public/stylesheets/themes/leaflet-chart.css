@@ -47,13 +47,18 @@
     /* color:#fff; text colour */
 }
 
+.popup-error{
+  margin: 40px;
+
+}
+
 /* .dc-chart .axis {
     display: none;
 
 } */
 /*
 .dc-chart .axis text {
-   font-size: 50px; 
+   font-size: 50px;
   fill: #ffffff;
 }*/
 .dc-chart svg g g.axis.y {
