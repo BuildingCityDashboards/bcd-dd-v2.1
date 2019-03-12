@@ -77,11 +77,11 @@ app.use(function(err, req, res, next) {
 
 let connections = require('./database/connections');
 
-let census2016Connection = connections.census2016Connection;
-census2016Connection.on('connected', function() {
-  console.log("Connected to Census2016 MongoDB Database");
-});
-census2016Connection.on('error', console.error.bind(console, 'Census 2016 MongoDB connection error:'));
+// let census2016Connection = connections.census2016Connection;
+// census2016Connection.on('connected', function() {
+//   console.log("Connected to Census2016 MongoDB Database");
+// });
+// census2016Connection.on('error', console.error.bind(console, 'Census 2016 MongoDB connection error:'));
 
 //dublinbikes database connection and data model setup
 let dublinBikesConnection = connections.dublinBikesConnection;
