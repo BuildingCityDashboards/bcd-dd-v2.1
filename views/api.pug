@@ -13,7 +13,7 @@ block content
         b Get the data for a particular small area from its GEOGID:
         p
           text.api-query /census2016/smallareas/*GEOGID*
-    row
+    div.mb-5
         h2 Dublin Bikes Dataset
         b List static data associated with all Dublin Bikes stations (e.g. location, number, name):
         p <a href= '/api/dublinbikes/stations/list' target='_blank'>/dublinbikes/stations/list</a>
@@ -26,4 +26,17 @@ block content
         b List today's dynamic data for a particular station by its number:
         p 
           text.api-query  /dublinbikes/stations/*number*/today
- 
+          
+    div.mb-5
+        h2 Noise Monitioring Dataset
+        b List static data associated with all noise monitors (e.g. location, number, name):
+        p <a href= '/api/noise/monitors/list' target='_blank'>/noise/monitors/list</a>
+        b Get all data associated with an example noise monitor:
+        p <a href= '/api/noise/monitors/example' target='_blank'>/noise/monitors/example</a>
+        b Get static and dynamic data for a particular monitor by its number:
+        p 
+          text.api-query /api/noise/monitors/*number*
+
+        b List today's dynamic data for a particular station by its number:
+        p 
+          text.api-query  /api/noise/monitors/*number*/today
