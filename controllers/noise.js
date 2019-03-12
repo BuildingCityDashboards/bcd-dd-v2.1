@@ -17,7 +17,7 @@ exports.listAllMonitors = function(req, res, next) {
 
 exports.getMonitorExample = function(req, res, next) {
 
-  let start = moment().startOf('day');
+  let start = moment.utc().startOf('day');
   let end = moment.utc().endOf('day');
   console.log("\nStart: " + start + "\nEnd: " + end);
 
