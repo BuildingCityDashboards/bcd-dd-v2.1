@@ -8,7 +8,7 @@ let SmallArea = census2016Connection.model('Small_Area', SmallAreaSchema);
 exports.listAllSAGGEOGIDs = function(req, res, next) {
   SmallArea.find({}, 'GEOGID -_id', function(err, sas) {
     if (err) {
-      return console.error(err);
+      return console.error("\n\nCensus2016 controller: "+err+"\n\n");
     }
     res.send(sas);
   });

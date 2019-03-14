@@ -1,12 +1,6 @@
 /************************************
  * Bikes
  ************************************/
-//let dublinBikesMapIcon = L.icon({
-//    iconUrl: '/images/transport/bicycle-w-blue-15.svg',
-//    iconSize: [30, 30], //orig size
-//    iconAnchor: [iconAX, iconAY] //,
-//            //popupAnchor: [-3, -76]
-//});
 
 let bikesIcon = L.Icon.extend({
   options: {
