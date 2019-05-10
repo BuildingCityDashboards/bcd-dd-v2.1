@@ -22,7 +22,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-logger.debug("Overriding 'Express' logger");
+// logger.debug("Overriding 'Express' logger");
 app.use(morgan('combined', {
   "stream": logger.stream
 }));
@@ -128,7 +128,7 @@ const getDublinBikesData_derilinx = async url => {
     const response = await fetch(url);
     const json = await response.json();
     console.log("Example Dublin Bikes data from Derilinx: "+JSON.stringify(json[0]));
-    
+
   } catch (error) {
     console.log(error);
   }

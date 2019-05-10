@@ -8,7 +8,7 @@
     "timestamp": null
   },
   "dublinbus": {
-    "status": null,
+    "status": 200,
     "timestamp": null
   },
   "luas": {
