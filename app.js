@@ -114,12 +114,12 @@ const getDublinBikesData = async url => {
 };
 
 let bikes_url_derilinx =
-            "http://mario.staging.derilinx.com/api/v1/resources/historical?from="
-            + "201903082000"
-            + "&to="
-            + "201903082010"
-            + "&station="
-            + 67;
+  "http://mario.staging.derilinx.com/api/v1/resources/historical?from=" +
+  "201903082000" +
+  "&to=" +
+  "201903082010" +
+  "&station=" +
+  67;
 
 const getDublinBikesData_derilinx = async url => {
 
@@ -127,14 +127,14 @@ const getDublinBikesData_derilinx = async url => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log("Example Dublin Bikes data from Derilinx: "+JSON.stringify(json[0]));
+    console.log("Example Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]));
 
   } catch (error) {
     console.log(error);
   }
 };
 
-getDublinBikesData_derilinx(bikes_url_derilinx);
+// getDublinBikesData_derilinx(bikes_url_derilinx);
 //getDublinBikesData(bikesURI); //call on app start for debug
 
 if (process.env.PRODUCTION == 1) {
