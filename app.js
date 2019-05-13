@@ -45,7 +45,6 @@ console.log(__dirname);
 // app.use('/javascripts/vendor/popper.js', express.static(
 //   path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
 
-
 app.use('/', index);
 app.use('/themes', themes);
 app.use('/stories', stories);
@@ -75,7 +74,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-let connections = require('./database/connections');
+// let connections = require('./database/connections');
 
 // let census2016Connection = connections.census2016Connection;
 // census2016Connection.on('connected', function() {
@@ -98,20 +97,20 @@ let connections = require('./database/connections');
  * check if record exists for timestamp for station and only insert if false
  ****/
 
-const bikesURI = 'https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=' + process.env.BIKES_API_KEY;
-const getDublinBikesData = async url => {
-
-  const fetch = require("node-fetch");
-  try {
-    const response = await fetch(url);
-    const json = await response.json();
-    console.log("Example Dublin Bikes data: " + JSON.stringify(json[0]));
-    // StationModel.insertMany(json); //saved to MongoDb using mongoose connection
-
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const bikesURI = 'https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=' + process.env.BIKES_API_KEY;
+// const getDublinBikesData = async url => {
+//
+//   const fetch = require("node-fetch");
+//   try {
+//     const response = await fetch(url);
+//     const json = await response.json();
+//     console.log("Example Dublin Bikes data: " + JSON.stringify(json[0]));
+//     // StationModel.insertMany(json); //saved to MongoDb using mongoose connection
+//
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 //
 // let bikes_url_derilinx =
 //   "http://mario.staging.derilinx.com/api/v1/resources/historical?from=" +
