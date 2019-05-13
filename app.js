@@ -84,13 +84,13 @@ let connections = require('./database/connections');
 // census2016Connection.on('error', console.error.bind(console, 'Census 2016 MongoDB connection error:'));
 
 //dublinbikes database connection and data model setup
-let dublinBikesConnection = connections.dublinBikesConnection;
-dublinBikesConnection.on('connected', function() {
-  console.log("Connected to Dublin Bikes MongoDB Database");
-});
-dublinBikesConnection.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
-let BikesStationSchema = require('./models/dublinbikes');
-let StationModel = dublinBikesConnection.model('Station', BikesStationSchema); //the data model to call
+// let dublinBikesConnection = connections.dublinBikesConnection;
+// dublinBikesConnection.on('connected', function() {
+//   console.log("Connected to Dublin Bikes MongoDB Database");
+// });
+// dublinBikesConnection.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
+// let BikesStationSchema = require('./models/dublinbikes');
+// let StationModel = dublinBikesConnection.model('Station', BikesStationSchema); //the data model to call
 
 /*Hourly trend data- rewritten every day*/
 
@@ -105,37 +105,41 @@ const getDublinBikesData = async url => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    //    console.log("Example Dublin Bikes data: "+JSON.stringify(json[0]));
-    StationModel.insertMany(json); //saved to MongoDb using mongoose connection
+    console.log("Example Dublin Bikes data: " + JSON.stringify(json[0]));
+    // StationModel.insertMany(json); //saved to MongoDb using mongoose connection
 
   } catch (error) {
     console.log(error);
   }
 };
+//
+// let bikes_url_derilinx =
+//   "http://mario.staging.derilinx.com/api/v1/resources/historical?from=" +
+//   "201903082000" +
+//   "&to=" +
+//   "201903082010" +
+//   "&station=" +
+//   67;
 
-let bikes_url_derilinx =
-  "http://mario.staging.derilinx.com/api/v1/resources/historical?from=" +
-  "201903082000" +
-  "&to=" +
-  "201903082010" +
-  "&station=" +
-  67;
+let bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+  "dfrom=201903082000" +
+  "&dto=201903082010" +
+  "&station=42";
 
 const getDublinBikesData_derilinx = async url => {
-
   const fetch = require("node-fetch");
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log("Example Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]));
+    console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
 
   } catch (error) {
     console.log(error);
   }
 };
 
-// getDublinBikesData_derilinx(bikes_url_derilinx);
-//getDublinBikesData(bikesURI); //call on app start for debug
+getDublinBikesData_derilinx(bikes_url_derilinx);
+// getDublinBikesData(bikesURI); //call on app start for debug
 
 if (process.env.PRODUCTION == 1) {
   console.log("\n\n***Dashboard is in production***\n\n");

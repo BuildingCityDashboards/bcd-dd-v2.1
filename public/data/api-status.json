@@ -4,15 +4,15 @@
     "timestamp": null
   },
   "dublinbikes": {
-    "status": null,
+    "status": 200,
     "timestamp": null
   },
   "dublinbus": {
-    "status": null,
+    "status": 503,
     "timestamp": null
   },
   "luas": {
-    "status": null,
+    "status": 200,
     "timestamp": null
   },
   "train": {
@@ -20,11 +20,11 @@
     "timestamp": null
   },
   "traveltimes": {
-    "status": null,
+    "status": 200,
     "timestamp": null
   },
   "traveltimesroads": {
-    "status": null,
+    "status": 200,
     "timestamp": null
   }
 }
