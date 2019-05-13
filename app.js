@@ -111,15 +111,6 @@ app.use(function(err, req, res, next) {
 //     console.log(error);
 //   }
 // };
-//
-// let bikes_url_derilinx =
-//   "http://mario.staging.derilinx.com/api/v1/resources/historical?from=" +
-//   "201903082000" +
-//   "&to=" +
-//   "201903082010" +
-//   "&station=" +
-//   67;
-
 let bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
   "dfrom=201903082000" +
   "&dto=201903082010" +
@@ -130,7 +121,7 @@ const getDublinBikesData_derilinx = async url => {
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
+    // console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
 
   } catch (error) {
     console.log(error);
@@ -143,11 +134,11 @@ getDublinBikesData_derilinx(bikes_url_derilinx);
 if (process.env.PRODUCTION == 1) {
   console.log("\n\n***Dashboard is in production***\n\n");
 }
-cron.schedule("15 * * * *", function() {
-  if (process.env.PRODUCTION == 1) {
-    getDublinBikesData(bikesURI);
-  }
-});
+// cron.schedule("15 * * * *", function() {
+//   if (process.env.PRODUCTION == 1) {
+//     getDublinBikesData(bikesURI);
+//   }
+// });
 
 /*TODO: refactor to await/async to remove dupliation*/
 cron.schedule("*/1 * * * *", function() {

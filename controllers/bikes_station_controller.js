@@ -1,13 +1,10 @@
 let async = require('async');
 let BikesStationModel = require('../models/bikes_station');
 exports.test = function(req, res, next) {
-
   console.log("\n\nTest Dublin Bikes database: ");
   // + JSON.stringify(req.node) + "\n\n");
   db.stats();
-
   res.send("Results");
-
 }
 // const recordLimit = 10000;
 exports.list_all_stations = function(req, res, next) {
