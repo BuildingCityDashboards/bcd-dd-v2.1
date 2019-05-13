@@ -36,14 +36,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 console.log(__dirname);
 
 // point to the bootstrap and jquery files
-app.use('/javascripts/vendor/bootstrap/js', express.static(
-  path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'js')));
-app.use('/stylesheets/bootstrap/css', express.static(
-  path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')));
-app.use('/javascripts/vendor/jquery', express.static(
-  path.join(__dirname, 'node_modules', 'jquery', 'dist')));
-app.use('/javascripts/vendor/popper.js', express.static(
-  path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
+// app.use('/javascripts/vendor/bootstrap/js', express.static(
+//   path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'js')));
+// app.use('/stylesheets/bootstrap/css', express.static(
+//   path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')));
+// app.use('/javascripts/vendor/jquery', express.static(
+//   path.join(__dirname, 'node_modules', 'jquery', 'dist')));
+// app.use('/javascripts/vendor/popper.js', express.static(
+//   path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
 
 
 app.use('/', index);
