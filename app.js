@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var logger = require("./utils/logger");
 require('dotenv').config();
-
 var cron = require("node-cron");
 
 // get routes files
@@ -144,9 +143,10 @@ if (process.env.PRODUCTION == 1) {
 cron.schedule("*/1 * * * *", function() {
   let http = require('https');
   let fs = require('fs');
-
-  let apiStatusFile = './public/data/api-status.json';
-  let apiStatus = require(apiStatusFile);
+  const fetch = require("node-fetch");
+  let apiStatusDefault = './public/data/api-status-default.json';
+  let apiStatusUpdate = './public/data/api-status.json';
+  let apiStatus = require(apiStatusDefault);
   //reset file when cron job is run
   apiStatus.carparks.status = null;
   apiStatus.dublinbus.status = null;
@@ -154,7 +154,7 @@ cron.schedule("*/1 * * * *", function() {
   apiStatus.luas.status = null;
   apiStatus.traveltimes.status = null;
   apiStatus.traveltimesroads.status = null;
-  fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+  fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
     if (err)
       return console.log(">>>Error writing to api-status.json\n" + err);
   });
@@ -172,7 +172,7 @@ cron.schedule("*/1 * * * *", function() {
       apiStatus.carparks.status = statusCode;
       //            console.log(JSON.stringify(apiStatus));
 
-      fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
           return console.log(">>>Error writing carparks to api-status.json\n" + err);
       });
@@ -191,7 +191,7 @@ cron.schedule("*/1 * * * *", function() {
     response.on('end', function() {
       apiStatus.dublinbikes.status = statusCode;
       //console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
           return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
       });
@@ -208,7 +208,7 @@ cron.schedule("*/1 * * * *", function() {
       statusCode
     } = response;
     apiStatus.dublinbus.status = statusCode;
-    fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+    fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
       if (err)
         return console.log(">>>Error writing dublinbus to api-status.json\n" + err);
     });
@@ -223,7 +223,7 @@ cron.schedule("*/1 * * * *", function() {
       statusCode
     } = response;
     apiStatus.luas.status = statusCode;
-    fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+    fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
       if (err)
         return console.log(">>>Error writing luas to api-status.json\n" + err);
     });
@@ -241,7 +241,7 @@ cron.schedule("*/1 * * * *", function() {
     response.on('end', function() {
       apiStatus.traveltimes.status = statusCode;
       //            console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
           return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
       });
@@ -260,7 +260,7 @@ cron.schedule("*/1 * * * *", function() {
     response.on('end', function() {
       apiStatus.traveltimesroads.status = statusCode;
       //            console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusFile, JSON.stringify(apiStatus, null, 2), function(err) {
+      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
       });
