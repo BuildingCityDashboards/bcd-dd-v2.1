@@ -177,11 +177,13 @@ function getBikesStationPopup() {
     "&dto=201903082010" +
     "&station=42";
 
-  //    d3.json(bikes_url_derilinx).then(function (stationData, err) {
-  d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
+  d3.json(bikes_url_derilinx).then(function(stationData, err) {
+    // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
     // stationData.forEach(function (d) {
     //     d.hour = new Date(d["last_update"]).getHours();
     // });
+    console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
+
     let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
     if (err) {
       let str = "<div class=\"popup-error\">" +
