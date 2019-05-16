@@ -1,19 +1,12 @@
 /*TODO:
  *
- * Check if passing a subset of data increases memory usage e.g. data.properties sent to updateMap
- * Only use a processing fucntion with a text data file (not json)
- *
  * Test support for DOM node methods on Firefox
  */
-
 
 /************************************
  * Dublin bikes
  ************************************/
-
-
 /************************************
- * Map pattern
  * Page load
  *** Set timeout
  ***** Get latest snapshot (exAPI)
@@ -96,7 +89,7 @@ d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/
   })
   .catch(function(err) {
     console.error("Error fetching Dublin Bikes data");
-  })
+  });
 
 // Slow update of map stations and symbology
 const stationTimer = setIntervalAsync(
@@ -309,7 +302,7 @@ function getBikesStationPopup() {
       bikeSpark.renderLabel(false); //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
       bikeSpark.label(function(d) {
         if (d.x === latest) {
-          console.log(JSON.stringify(d));
+          // console.log(JSON.stringify(d));
           let hour = new Date(d.x).getHours();
           let mins = new Date(d.x).getMinutes().toString().padStart(2, '0');
           let end = ((d.y == 1) ? ' bike' : ' bikes');
@@ -478,7 +471,7 @@ function displayRTPI(sid_) {
   let rtpiBase, rtpi;
   d3.json(busAPIBase + sid_)
     .catch(function(err) {
-      console.log("Error fetching Bus stop realtime data" + err);
+      console.error("Error fetching Bus stop realtime data" + err);
       rtpiBase = "<br><br><strong>We're sorry... </strong> <br>" +
         "The real-time provider did not answer our request for data at this time.";
       rtpi = rtpiBase;
@@ -586,7 +579,7 @@ function getCarparkContent(d_, k_) {
 
 function displayCarpark(k_) {
   //dynamic data (available spaces)
-  console.log("retrieving live carpark data");
+  // console.log("retrieving live carpark data");
   d3.xml("/data/Transport/cpdata.xml")
     .then(function(xmlDoc) {
       //        if (error) {
@@ -595,13 +588,13 @@ function displayCarpark(k_) {
       //        }
       //TODO: convert to arrow function + d3
       let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-      console.log("timestamp :" + timestamp);
+      // console.log("timestamp :" + timestamp);
       for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
         let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
         if (name === k_) {
           let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-          console.log("found:" + name + " spaces: " + spaces + "marker" +
-            markerRefPrivate.getPopup().getContent());
+          // console.log("found:" + name + " spaces: " + spaces + "marker" +
+          // markerRefPrivate.getPopup().getContent());
           if (spaces !== ' ') {
             return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
               '<br><br> Free spaces: ' +
@@ -1083,69 +1076,73 @@ d3.select("#luas-checkbox").on("click", function() {
 //D3 DOM manipulation
 
 //set API activity icons
-d3.json('/data/api-status.json').then(function(data) {
-  //console.log("api status "+JSON.stringify(data));
+d3.json('/data/api-status.json')
+  .then(function(data) {
+    //console.log("api status "+JSON.stringify(data));
 
-  if (data["dublinbikes"].status === 200) {
-    d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#bike-age')
-      .text(''); //TODO: call to getAge function from here
+    if (data["dublinbikes"].status === 200) {
+      d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#bike-age')
+        .text(''); //TODO: call to getAge function from here
 
-  } else {
-    d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#bike-age')
-      .text('Unavailable');
-  }
+    } else {
+      d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#bike-age')
+        .text('Unavailable');
+    }
 
-  if (data["dublinbus"].status === 200) {
-    d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#bus-age')
-      .text(''); //TODO: call to getAge function from here
-  } else {
-    d3.select('#bus-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#bus-age')
-      .text('Unavailable');
-  }
+    if (data["dublinbus"].status === 200) {
+      d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#bus-age')
+        .text(''); //TODO: call to getAge function from here
+    } else {
+      d3.select('#bus-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#bus-age')
+        .text('Unavailable');
+    }
 
-  if (data["carparks"].status === 200) {
-    d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#parking-age')
-      .text(''); //TODO: call to getAge function from here
+    if (data["carparks"].status === 200) {
+      d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#parking-age')
+        .text(''); //TODO: call to getAge function from here
 
-  } else {
-    d3.select('#parking-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#parking-age')
-      .text('Unavailable');
-  }
+    } else {
+      d3.select('#parking-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#parking-age')
+        .text('Unavailable');
+    }
 
-  if (data["luas"].status === 200) {
-    d3.select('#luas-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#luas-age')
-      .text('');
-  } else {
-    d3.select('#luas-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#luas-age')
-      .text('Unavailable');
-  }
+    if (data["luas"].status === 200) {
+      d3.select('#luas-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#luas-age')
+        .text('');
+    } else {
+      d3.select('#luas-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#luas-age')
+        .text('Unavailable');
+    }
 
-  if (data["train"].status === 200) {
-    d3.select('#train-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#train-age')
-      .text('');
-  } else {
-    d3.select('#train-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#train-age')
-      .text('Unavailable');
-  }
+    if (data["train"].status === 200) {
+      d3.select('#train-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#train-age')
+        .text('');
+    } else {
+      d3.select('#train-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#train-age')
+        .text('Unavailable');
+    }
 
-  if (data["traveltimes"].status === 200) {
-    d3.select('#motorway-activity-icon').attr('src', '/images/icons/activity.svg');
-    d3.select('#motorway-age')
-      .text('');
-  } else {
-    d3.select('#motorway-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
-    d3.select('#motorway-age')
-      .text('Unavailable');
-  }
+    if (data["traveltimes"].status === 200) {
+      d3.select('#motorway-activity-icon').attr('src', '/images/icons/activity.svg');
+      d3.select('#motorway-age')
+        .text('');
+    } else {
+      d3.select('#motorway-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#motorway-age')
+        .text('Unavailable');
+    }
 
-});
+  })
+  .catch(function(err) {
+    console.error("Error fetching API status file data");
+  });
