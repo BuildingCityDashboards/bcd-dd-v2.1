@@ -203,6 +203,8 @@ function getBikesIcon(d_) {
 }
 
 function bikesStationPopupInit(d_) {
+
+  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
   let str = "<div class=\"container \">" +
     "<div class=\"row \">" +
     "<div class=\"col-sm-9 \">";
@@ -219,15 +221,18 @@ function bikesStationPopupInit(d_) {
   // // if (d_.type) {
   // //   str += d_.type;
   // // }
-  // if (d_.bike_stands) {
-  //   str += '<div class=\"row \">';
-  //   str += '<div class=\"col-sm-12 \">';
-  //   str += '<b>' + d_.bike_stands + '</b> stands';
-  //   str += '</div></div>';
-  //   str += '<div class=\"row \">';
-  //   str += '<span id="bike-spark-' + d_.number + '"> </span>';
-  //   str += '</div>';
-  // }
+
+  if (d_.bike_stands) {
+    str += '<div class=\"row \">';
+    str += '<div class=\"col-sm-12 \">';
+    str += '<b>' + d_.bike_stands + '</b> stands';
+    str += '</div></div>';
+  }
+  if (d_.id) {
+    str += '<div class=\"row \">';
+    str += '<span id="bike-spark-' + d_.id + '"> </span>';
+    str += '</div>';
+  }
   str += '</div>' //closes container
   return str;
 }
@@ -239,6 +244,7 @@ function getBikesStationPopup() {
   let sid_ = this.options.id;
   let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
   let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
+
 
   console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
   const bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
@@ -255,18 +261,18 @@ function getBikesStationPopup() {
     // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
 
     let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
+    // console.log("Select bike spark #" + sid_);
     if (err) {
       let str = "<div class=\"popup-error\">" +
         "<div class=\"row \">" +
         "We can't get the Dublin Bikes data right now, please try again later" +
         "</div>" +
         "</div>";
-      console.warn("\n\n Error fetching Station Data: " + JSON.stringify(err[0]));
+      console.log("\n\n Error fetching Station Data: " + JSON.stringify(err[0]));
       return d3.select("#bike-spark-" + sid_)
         .html(str);
     }
     let standsCount = stationData[0].historic[0].bike_stands; //assuming # bike stands doesn't change throughout day
-
     let processedData = stationData[0].historic.map((d) => {
       d.ms = moment(d.time).valueOf(); //add a property for the day formatted as Epoch time
       return d;
@@ -282,12 +288,12 @@ function getBikesStationPopup() {
     let latest = timeDim.top(1)[0];
     // let latestMS = moment(latest).valueOf();
     // moment(timeDim.top(1)[0].time).format();
-    console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n");
-    console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n");
+    // console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n");
+    // console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n");
     let availableBikesGroup = timeDim.group().reduceSum(function(d) {
       return d["available_bikes"];
     });
-    console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
+    // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
     //moment().format('MMMM Do YYYY, h:mm:ss a');
     // startChart = moment.utc().startOf('day').format('YYYYMMDDHHmm');
     // endChart = end.add(2, 'hours');
@@ -297,12 +303,12 @@ function getBikesStationPopup() {
 
     let startChart = moment.utc().startOf('day').add(3, 'hours');
     let endChart = moment.utc().endOf('day').add(2, 'hours');
-    console.log("chart range: " + startChart + " - " + endChart);
+    // console.log("chart time range: " + startChart + " - " + endChart);
     bikeSpark.width(250).height(100);
     bikeSpark.dimension(timeDim);
     bikeSpark.group(availableBikesGroup);
     bikeSpark.x(d3.scaleTime().domain([startChart, endChart]));
-    bikeSpark.y(d3.scaleLinear().domain([0, 30]));
+    bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
     bikeSpark.margins({
       left: 20,
       top: 15,
@@ -352,11 +358,11 @@ function setBikeStationColour(bikes, totalStands) {
     percentageFree < 80 ? '#6baed6' : '#3182bd';
 }
 
-let legend = L.control({
+let bikesLegend = L.control({
   position: 'bottomright'
 });
 
-legend.onAdd = function(map) {
+bikesLegend.onAdd = function(map) {
   let div = L.DomUtil.create('div', 'info legend'),
     bikeGrades = [0, 20, 40, 60, 80],
     labels = [],
@@ -373,107 +379,8 @@ legend.onAdd = function(map) {
   return div;
 };
 
-legend.addTo(gettingAroundMap);
+bikesLegend.addTo(gettingAroundMap);
 
-//
-//
-//let bikeCluster = L.markerClusterGroup({
-//  //   spiderfyOnMaxZoom: false,
-//  //   showCoverageOnHover: false,
-//  //   zoomToBoundsOnClick: false
-//  //   // maxZoom: 14,
-//  //   // zoomOnClick: false
-//  disableClusteringAtZoom: maxZoom,
-//  spiderfyOnMaxZoom: false
-//  //   // singleMarkerMode: true
-//  //   // maxClusterRadius: 100,
-//  //   // iconCreateFunction: function(cluster) {
-//  //   //   return L.divIcon({
-//  //   //     html: '<b>' + cluster.getChildCount() + '</b>'
-//  //   //   });
-//  //   // }
-//});
-//
-//var testMarkers = L.markerClusterGroup({
-//  spiderfyOnMaxZoom: false,
-//  showCoverageOnHover: false,
-//  zoomToBoundsOnClick: false
-//});
-//
-//let dublinBikeMapIcon = L.icon({
-//  iconUrl: '/images/transport/bicycle-w-blue-15.svg',
-//  iconSize: [30, 30], //orig size
-//  iconAnchor: [iconAX, iconAY] //,
-//  //popupAnchor: [-3, -76]
-//});
-//
-//d3.json("/data/Transport/bikesData.json").then(function(data) {
-//  //console.log(data[0]);
-//  processBikes(data);
-//});
-///* TODO: performance- move to _each in updateMap */
-//function processBikes(data_) {
-//
-//  //console.log("Bike data \n");
-//  data_.forEach(function(d) {
-//    d.lat = +d.position.lat;
-//    d.lng = +d.position.lng;
-//    //add a property to act as key for filtering
-//    d.type = "Dublin Bike Station";
-//  });
-//  //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-//  //    console.log("# of bike stations is " + data_.length + "\n"); // +
-//  updateMapBikes(data_);
-//};
-//
-//function updateMapBikes(data__) {
-//  //bikeCluster.clearLayers();
-//  gettingAroundMap.removeLayer(bikeCluster);
-//  let ageMax = 0; //used to find oldest data in set and check if API has recently returned valid data
-//  /*TODO: note impact on page load performance*/
-//  _.each(data__, function(d, i) {
-//    if (ageMax < Date.now() - d.last_update) {
-//      ageMax = Date.now() - d.last_update;
-//    }
-//    bikeCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {
-//        icon: dublinBikeMapIcon
-//      })
-//      .bindPopup(getBikeContent(d)));
-//  });
-//  //console.log("Age Max: " + ageMax);
-//  if (ageMax < (1000 * 60 * 15)) {
-//    d3.select('#bike-age')
-//      .text(Math.floor(ageMax / 60000) + " mins ago");
-//  }
-//  gettingAroundMap.addLayer(bikeCluster);
-//}
-//
-//let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-//
-//function getBikeContent(d_) {
-//  let str = '';
-//  if (d_.name) {
-//    str += d_.name + '<br>';
-//  }
-//  if (d_.type) {
-//    str += d_.type + '<br>';
-//  }
-//  //    if (d_.address && d_.address !== d_.name) {
-//  //        str += d_.address + '<br>';
-//  //    }
-//  if (d_.available_bikes) {
-//    str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
-//  }
-//  if (d_.available_bike_stands) {
-//    str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
-//  }
-//  if (d_.last_update) {
-//    let updateTime = bikeTime(new Date(d_.last_update));
-//    str += '<br>Last updated ' + updateTime + '<br>';
-//
-//  }
-//  return str;
-//}
 
 /************************************
  * Bus Stops
