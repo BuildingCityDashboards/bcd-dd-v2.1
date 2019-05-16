@@ -174,7 +174,7 @@ cron.schedule("*/1 * * * *", function() {
 
       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
         if (err)
-          return console.log(">>>Error writing carparks to api-status.json\n" + err);
+          return console.error(">>>Error writing carparks to api-status.json\n" + err);
       });
     });
   });
