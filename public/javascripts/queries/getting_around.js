@@ -89,11 +89,14 @@ let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 
-console.log('Fetch Dublin Bikes snapshot on pageload at ' + moment().format());
+// console.log('Fetch Dublin Bikes snapshot on pageload at ' + moment().format());
 d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/")
   .then((data) => {
     updateMapBikes(data);
-  });
+  })
+  .catch(function(err) {
+    console.error("Error fetching Dublin Bikes data");
+  })
 
 // Slow update of map stations and symbology
 const stationTimer = setIntervalAsync(
@@ -104,31 +107,14 @@ const stationTimer = setIntervalAsync(
         // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
         // console.log('Data: ' + JSON.stringify(data[0]));
         updateMapBikes(data);
-      });
+      })
+      .catch(function(err) {
+        console.error("Error fetching Dublin Bikes data");
+      })
   },
   20000
 );
 
-/* TODO: performance- move to _each in updateMap */
-// function processBikesStations(data_) {
-//   let bikeStands = 0;
-//   //console.log("Bike data \n");
-//   data_.forEach(function(d) {
-//     d.lat = +d.position.lat;
-//     d.lng = +d.position.lng;
-//     //add a property to act as key for filtering
-//     d.type = "Dublin Bikes Station";
-//     if (d.bike_stands) {
-//       bikeStands += d.bike_stands;
-//     }
-//   });
-//   // d3.select('#stations-count').html(data_.length);
-//   // d3.select('#stands-count').html(bikeStands);
-//   //console.log("# of available bike is " + available + "\n");
-//   //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-//   //    console.log("# of bike stations is " + data_.length + "\n"); // +
-//   updateMapBikes(data_);
-// };
 //let markerRefBike; //TODO: fix horrible hack!!!
 let customBikesStationMarker = L.Marker.extend({
   options: {
@@ -242,11 +228,11 @@ function bikesStationPopupInit(d_) {
 function getBikesStationPopup() {
   ////d3.select("#bike-spark-67").text('Selected from D3');
   let sid_ = this.options.id;
+
+  /*Fetch trend data for the day and display in popup*/
   let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
   let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
-
-
-  console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+  // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
   const bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
     "dfrom=" +
     startQuery +
@@ -255,99 +241,112 @@ function getBikesStationPopup() {
     "&station=" +
     sid_;
 
-  d3.json(bikes_url_derilinx).then(function(stationData, err) {
-    // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
+  d3.json(bikes_url_derilinx)
+    .then(function(stationData) {
+      // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
 
-    // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
+      // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
 
-    let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
-    // console.log("Select bike spark #" + sid_);
-    if (err) {
+      let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
+      // console.log("Select bike spark #" + sid_);
+      // if (err) {
+      //   let str = "<div class=\"popup-error\">" +
+      //     "<div class=\"row \">" +
+      //     "We can't get the Dublin Bikes data right now, please try again later" +
+      //     "</div>" +
+      //     "</div>";
+      //   console.error("\n\n Error fetching Station Data: " + JSON.stringify(err[0]));
+      //   return d3.select("#bike-spark-" + sid_)
+      //     .html(str);
+      // }
+      let standsCount = stationData[0].historic[0].bike_stands; //assuming # bike stands doesn't change throughout day
+      let processedData = stationData[0].historic.map((d) => {
+        d.ms = moment(d.time).valueOf(); //add a property for the day formatted as Epoch time
+        return d;
+      });
+
+      let ndx = crossfilter(processedData);
+      let timeDim = ndx.dimension(function(d) {
+        // return d["last_update"];
+        return d.ms;
+      });
+      let earliest = timeDim.bottom(1)[0];
+      // let earliestMS = moment(earliest).valueOf();
+      let latest = timeDim.top(1)[0];
+      // let latestMS = moment(latest).valueOf();
+      // moment(timeDim.top(1)[0].time).format();
+      // console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n");
+      // console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n");
+      let availableBikesGroup = timeDim.group().reduceSum(function(d) {
+        return d["available_bikes"];
+      });
+      // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
+      //moment().format('MMMM Do YYYY, h:mm:ss a');
+      // startChart = moment.utc().startOf('day').format('YYYYMMDDHHmm');
+      // endChart = end.add(2, 'hours');
+      //2019-05-15T00:00:02Z - 2019-05-15T14:20:04Z
+      // console.log("day range: " + earliest + " - " + latest);
+      //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
+
+      let startChart = moment.utc().startOf('day').add(3, 'hours');
+      let endChart = moment.utc().endOf('day').add(2, 'hours');
+      // console.log("chart time range: " + startChart + " - " + endChart);
+      bikeSpark.width(250).height(100);
+      bikeSpark.dimension(timeDim);
+      bikeSpark.group(availableBikesGroup);
+      bikeSpark.x(d3.scaleTime().domain([startChart, endChart]));
+      bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
+      bikeSpark.margins({
+        left: 20,
+        top: 15,
+        right: 20,
+        bottom: 20
+      });
+      bikeSpark.xAxis().ticks(3);
+      bikeSpark.renderArea(true);
+      bikeSpark.renderDataPoints(true);
+      //        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
+      bikeSpark.renderLabel(false); //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
+      bikeSpark.label(function(d) {
+        if (d.x === latest) {
+          console.log(JSON.stringify(d));
+          let hour = new Date(d.x).getHours();
+          let mins = new Date(d.x).getMinutes().toString().padStart(2, '0');
+          let end = ((d.y == 1) ? ' bike' : ' bikes');
+          //                let str = hour + ':' + mins +
+          let str = JSON.stringify(d.y) + end;
+          //                console.log(str);
+          return str;;
+        }
+        return '';
+      });
+      //        bikeSpark.title(function (d, i) {
+      //            let hour = new Date(d.key).getHours();
+      //            let mins = new Date(d.key).getMinutes().toString().padStart(2, '0');
+      //            let val = ((d.value == 1) ? ' bike available' : ' bikes available');
+      //            let str = hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val;
+      ////              console.log(str);
+      //            return str;
+      //        });
+      bikeSpark.renderVerticalGridLines(true);
+      bikeSpark.useRightYAxis(true);
+      bikeSpark.xyTipsOn(false);
+      bikeSpark.brushOn(false);
+      bikeSpark.clipPadding(15);
+      bikeSpark.render();
+    })
+    .catch(function(err) {
       let str = "<div class=\"popup-error\">" +
         "<div class=\"row \">" +
         "We can't get the Dublin Bikes data right now, please try again later" +
         "</div>" +
         "</div>";
-      console.log("\n\n Error fetching Station Data: " + JSON.stringify(err[0]));
+      console.error("\n\n Error fetching Dublin Bikes Station Data: " + JSON.stringify(err));
       return d3.select("#bike-spark-" + sid_)
         .html(str);
-    }
-    let standsCount = stationData[0].historic[0].bike_stands; //assuming # bike stands doesn't change throughout day
-    let processedData = stationData[0].historic.map((d) => {
-      d.ms = moment(d.time).valueOf(); //add a property for the day formatted as Epoch time
-      return d;
-    });
 
-    let ndx = crossfilter(processedData);
-    let timeDim = ndx.dimension(function(d) {
-      // return d["last_update"];
-      return d.ms;
-    });
-    let earliest = timeDim.bottom(1)[0];
-    // let earliestMS = moment(earliest).valueOf();
-    let latest = timeDim.top(1)[0];
-    // let latestMS = moment(latest).valueOf();
-    // moment(timeDim.top(1)[0].time).format();
-    // console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n");
-    // console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n");
-    let availableBikesGroup = timeDim.group().reduceSum(function(d) {
-      return d["available_bikes"];
-    });
-    // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
-    //moment().format('MMMM Do YYYY, h:mm:ss a');
-    // startChart = moment.utc().startOf('day').format('YYYYMMDDHHmm');
-    // endChart = end.add(2, 'hours');
-    //2019-05-15T00:00:02Z - 2019-05-15T14:20:04Z
-    // console.log("day range: " + earliest + " - " + latest);
-    //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
+    })
 
-    let startChart = moment.utc().startOf('day').add(3, 'hours');
-    let endChart = moment.utc().endOf('day').add(2, 'hours');
-    // console.log("chart time range: " + startChart + " - " + endChart);
-    bikeSpark.width(250).height(100);
-    bikeSpark.dimension(timeDim);
-    bikeSpark.group(availableBikesGroup);
-    bikeSpark.x(d3.scaleTime().domain([startChart, endChart]));
-    bikeSpark.y(d3.scaleLinear().domain([0, standsCount]));
-    bikeSpark.margins({
-      left: 20,
-      top: 15,
-      right: 20,
-      bottom: 20
-    });
-    bikeSpark.xAxis().ticks(3);
-    bikeSpark.renderArea(true);
-    bikeSpark.renderDataPoints(true);
-    //        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
-    bikeSpark.renderLabel(false); //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
-    bikeSpark.label(function(d) {
-      if (d.x === latest) {
-        console.log(JSON.stringify(d));
-        let hour = new Date(d.x).getHours();
-        let mins = new Date(d.x).getMinutes().toString().padStart(2, '0');
-        let end = ((d.y == 1) ? ' bike' : ' bikes');
-        //                let str = hour + ':' + mins +
-        let str = JSON.stringify(d.y) + end;
-        //                console.log(str);
-        return str;;
-      }
-      return '';
-    });
-    //        bikeSpark.title(function (d, i) {
-    //            let hour = new Date(d.key).getHours();
-    //            let mins = new Date(d.key).getMinutes().toString().padStart(2, '0');
-    //            let val = ((d.value == 1) ? ' bike available' : ' bikes available');
-    //            let str = hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val;
-    ////              console.log(str);
-    //            return str;
-    //        });
-    bikeSpark.renderVerticalGridLines(true);
-    bikeSpark.useRightYAxis(true);
-    bikeSpark.xyTipsOn(false);
-    bikeSpark.brushOn(false);
-    bikeSpark.clipPadding(15);
-    bikeSpark.render();
-  });
 }
 
 function setBikeStationColour(bikes, totalStands) {
@@ -406,9 +405,12 @@ let dublinBusMapIcon = L.icon({
 });
 
 d3.json("/data/Transport/busstopinformation_bac.json").then(function(data) {
-  //    console.log("data.results[0]" + JSON.stringify(data.results[0]));
-  processBusStops(data.results); //TODO: bottleneck?
-});
+    //    console.log("data.results[0]" + JSON.stringify(data.results[0]));
+    processBusStops(data.results); //TODO: bottleneck?
+  })
+  .catch(function(err) {
+    console.error("Error fetching Bus stop information data");
+  });
 
 
 function processBusStops(res_) {
@@ -476,7 +478,7 @@ function displayRTPI(sid_) {
   let rtpiBase, rtpi;
   d3.json(busAPIBase + sid_)
     .catch(function(err) {
-      console.log("Error: " + err);
+      console.log("Error fetching Bus stop realtime data" + err);
       rtpiBase = "<br><br><strong>We're sorry... </strong> <br>" +
         "The real-time provider did not answer our request for data at this time.";
       rtpi = rtpiBase;
@@ -543,10 +545,15 @@ let carparkMapIcon = L.icon({
 });
 
 //create points on privateMap for carparks even if RTI not available
-d3.json("/data/Transport/cpCaps.json").then(function(data) {
-  //    console.log("data.carparks :" + JSON.stringify(data.carparks));
-  updateMapCarparks(data.carparks);
-});
+d3.json("/data/Transport/cpCaps.json")
+  .then(function(data) {
+    //    console.log("data.carparks :" + JSON.stringify(data.carparks));
+    updateMapCarparks(data.carparks);
+  })
+  .catch(function(err) {
+    console.error("Error fetching car parks static data");
+
+  });
 
 function updateMapCarparks(data__) {
   carparkCluster.clearLayers();
@@ -580,37 +587,41 @@ function getCarparkContent(d_, k_) {
 function displayCarpark(k_) {
   //dynamic data (available spaces)
   console.log("retrieving live carpark data");
-  d3.xml("/data/Transport/cpdata.xml").then(function(xmlDoc) {
-    //        if (error) {
-    //            console.log("error retrieving data");
-    //            return;
-    //        }
-    //TODO: convert to arrow function + d3
-    let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-    console.log("timestamp :" + timestamp);
-    for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
-      let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
-      if (name === k_) {
-        let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
-        console.log("found:" + name + " spaces: " + spaces + "marker" +
-          markerRefPrivate.getPopup().getContent());
-        if (spaces !== ' ') {
-          return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
-            '<br><br> Free spaces: ' +
-            spaces +
-            '<br> Last updated: ' +
-            timestamp
-          );
-        } else {
-          return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
-            '<br><br> No information on free spaces available' +
-            '<br> Last updated: ' +
-            timestamp
-          );
+  d3.xml("/data/Transport/cpdata.xml")
+    .then(function(xmlDoc) {
+      //        if (error) {
+      //            console.log("error retrieving data");
+      //            return;
+      //        }
+      //TODO: convert to arrow function + d3
+      let timestamp = xmlDoc.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
+      console.log("timestamp :" + timestamp);
+      for (let i = 0; i < xmlDoc.getElementsByTagName("carpark").length; i += 1) {
+        let name = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("name");
+        if (name === k_) {
+          let spaces = xmlDoc.getElementsByTagName("carpark")[i].getAttribute("spaces");
+          console.log("found:" + name + " spaces: " + spaces + "marker" +
+            markerRefPrivate.getPopup().getContent());
+          if (spaces !== ' ') {
+            return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
+              '<br><br> Free spaces: ' +
+              spaces +
+              '<br> Last updated: ' +
+              timestamp
+            );
+          } else {
+            return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
+              '<br><br> No information on free spaces available' +
+              '<br> Last updated: ' +
+              timestamp
+            );
+          }
         }
       }
-    }
-  });
+    })
+    .catch(function(err) {
+      console.error("Error fetching car parks realtime data");
+    });
 }
 let displayCarparkBounced = _.debounce(displayCarpark, 100); //debounce using underscore
 
@@ -690,16 +701,25 @@ let luasMapIconSmallRed = L.icon({
 });
 
 //create points on gettingAroundMap for Luas stops even if RTI not available
-d3.tsv("/data/Transport/luas-stops.txt").then(function(data) {
-  processLuas(data);
-});
+d3.tsv("/data/Transport/luas-stops.txt")
+  .then(function(data) {
+    processLuas(data);
+  })
+  .catch(function(err) {
+    console.error("Error fetching Luas stop data");
+  });
 
-d3.json("/data/Transport/LUAS_Green_Line.geojson").then(function(data) {
-  updateMapLuasLineGreen(data);
-});
+d3.json("/data/Transport/LUAS_Green_Line.geojson")
+  .then(function(data) {
+    updateMapLuasLineGreen(data);
+  }).catch(function(err) {
+    console.error("Error fetching Luas Green Line path");
+  });
 
 d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function(data) {
   updateMapLuasLineRed(data);
+}).catch(function(err) {
+  console.error("Error fetching Luas Red Line path");
 });
 
 function processLuas(data_) {
@@ -802,18 +822,14 @@ function getLuasContent(d_) {
   //     //console.log(displayLuasRT(d_.StopID));
   // }
   // ;
-
   return str;
 }
 
-
-
 let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
-
 
 function markerOnClickLuas(e) {
   let sid_ = this.options.id;
-  console.log("marker " + sid_ + "\n");
+  // console.log("marker " + sid_ + "\n");
   //Luas API returns html, so we need to parse this into a suitable JSON structure
   d3.html(luasAPIBase + sid_)
     .then(function(htmlDoc) {
@@ -872,6 +888,9 @@ function markerOnClickLuas(e) {
 
       //console.log("split " + markerRefPublic.getPopup().getContent().split(rtpi)[0]);
       markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent().split(luasRTBase)[0] + luasRT);
+    })
+    .catch(function(err) {
+      console.error("Error fetching Luas realtime data");
     });
 }
 
@@ -926,13 +945,13 @@ function chooseLookByZoom() {
  * Motorway Junctions
  ************************************/
 
-d3.json("/data/Transport/traveltimes.json").then(function(data) {
-  //processTravelTimes(data);
-});
-
-d3.json("/data/Transport/traveltimesroad.json").then(function(data) {
-  processRoads(data);
-});
+// d3.json("/data/Transport/traveltimes.json").then(function(data) {
+//   //processTravelTimes(data);
+// });
+//
+// d3.json("/data/Transport/traveltimesroad.json").then(function(data) {
+//   //processRoads(data);
+// });
 
 function processTravelTimes(data_) {
   //console.log("travel times data : " + JSON.stringify(data_));
