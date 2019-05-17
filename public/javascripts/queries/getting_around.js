@@ -18,7 +18,7 @@
  ******* Draw marker popup
  ************************************/
 
-let bikeClusterToggle = true,
+let bikesClusterToggle = true,
   busClusterToggle = true,
   luasClusterToggle = false,
   carparkClusterToggle = true;
@@ -72,12 +72,17 @@ let customBikesStationMarker = L.Marker.extend({
   }
 });
 
+let customBikesLayer = L.Layer.extend({
+
+});
+
 let bikesStationPopupOptons = {
   // 'maxWidth': '500',
   'className': 'bikesStationPopup'
 };
 
-let bikeCluster = L.markerClusterGroup();
+let bikesCluster = L.markerClusterGroup();
+// let bikesLayerGroup = L.layerGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
 //Get latest bikes data from file, display in map iconography
@@ -93,35 +98,37 @@ let bikeHour = d3.timeFormat("%H");
 d3.json('/api/dublinbikes/stations/list')
   .catch((err) => {
     console.error("Error fetching Dublin Bikes data" + JSON.stringify(err));
+    /** @todo Should load stations from an archived file if this fails**/
   })
   .then((data) => initBikeStationsMarkers(data));
 
 
-// Timed refresh of map station markers symbology
 let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 // // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
-// const stationTimer = setIntervalAsync(
-//   () => {
-//
-//     return d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/")
-//       .then((data) => {
-//         // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
-//         // console.log('Data: ' + JSON.stringify(data[0]));
-//         updateMapBikes(data);
-//       })
-//       .catch(function(err) {
-//         console.error("Error fetching Dublin Bikes data");
-//       })
-//   },
-//   20000
-// );
+// Timed refresh of map station markers symbology
+const stationTimer = setIntervalAsync(
+  () => {
+
+    return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+      .catch(function(err) {
+        console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
+      })
+      .then((data) => {
+        // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
+        console.log('Data: ' + JSON.stringify(data[0]));
+        // updateMapBikes(data);
+        updateBikeStationsMarkers(data);
+      })
+  },
+  10000
+);
 
 function initBikeStationsMarkers(data_) {
   // console.log('update map\n' + JSON.stringify(data__[0]));
-  // bikeCluster.clearLayers();
-  // gettingAroundMap.removeLayer(bikeCluster); //required
+  // bikesCluster.clearLayers();
+  // gettingAroundMap.removeLayer(bikesCluster); //required
   data_.forEach((d, i) => {
     d.type = "Dublin Bikes Station"; //used in alt text (tooltip)
     let m = new customBikesStationMarker(
@@ -139,23 +146,35 @@ function initBikeStationsMarkers(data_) {
       });
     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
     m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
-    bikeCluster.addLayer(m);
+    bikesCluster.addLayer(m);
+    // bikesLayerGroup.addLayer(m);
+    // gettingAroundMap.addLayer(bikesLayerGroup);
   });
-  gettingAroundMap.addLayer(bikeCluster);
-  // gettingAroundMap.fitBounds(bikeCluster.getBounds());
+  gettingAroundMap.addLayer(bikesCluster);
+  // gettingAroundMap.fitBounds(bikesCluster.getBounds());
+}
+
+
+function updateBikeStationsMarkers(data_) {
+  bikesCluster.eachLayer(function(layer) {
+    console.log("layer: " + bikesCluster.getLatLng(layer));
+    /***@todo: start here and try invoke method or setStyle as a featuregroup ***/
+
+    // console.log("lid: " + bikesLayerGroup.getLayerId(layer));
+    // layer.bindPopup('Hello');
+    // layer.setIcon(getBikesIcon(d));
+  });
+  // data_.forEach((d, i) => {
+  //   bikesLayerGroup.layers[i].setIcon(getBikesIcon(d));
+  // });
 }
 
 //Choose a symbol for the map marker icon based on the current availability
 //the data element for the station is passed in and parsed
 
 function getBikesIcon(d_) {
-  var percentageFree = Math.round((d_.available_bikes / d_.bike_stands) * 100);
-  // if (d_.id === 42) {
-  //   console.log("Station #" + d_.id + "\t" + d_.name);
-  //   console.log("Avail #" + d_.available_bikes + "\t stands #" + d_.bike_stands + "\t% Free = " + percentageFree);
-  // }
-
-  let one = new bikesIcon({
+  const percentageFree = Math.round((d_.available_bikes / d_.bike_stands) * 100);
+  const one = new bikesIcon({
       iconUrl: 'images/transport/bikes_icon_blue_1.png'
     }),
     two = new bikesIcon({
@@ -170,20 +189,13 @@ function getBikesIcon(d_) {
     five = new bikesIcon({
       iconUrl: 'images/transport/bikes_icon_blue_5.png'
     });
-  //            six = new bikeIcon({iconUrl: 'images/transport/bike120.png'});
-
   return percentageFree < 20 ? one :
     percentageFree < 40 ? two :
     percentageFree < 60 ? three :
     percentageFree < 80 ? four : five;
-  //            percentageFree < 101 ? five
-  //            // percentageFree < 120   ? six :
-  //            'six';
-
 }
 
 function bikesStationPopupInit(d_) {
-
   // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
   let str = "<div class=\"container \">" +
     "<div class=\"row \">" +
@@ -1014,16 +1026,16 @@ d3.select("#bikes-checkbox").on("click", function() {
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
       cb.classed('active', false);
-      if (gettingAroundMap.hasLayer(bikeCluster)) {
-        gettingAroundMap.removeLayer(bikeCluster);
+      if (gettingAroundMap.hasLayer(bikesCluster)) {
+        gettingAroundMap.removeLayer(bikesCluster);
 
         //gettingAroundMap.fitBounds(luasCluster.getBounds());
       }
 
     } else {
       cb.classed('active', true);
-      if (!gettingAroundMap.hasLayer(bikeCluster)) {
-        gettingAroundMap.addLayer(bikeCluster);
+      if (!gettingAroundMap.hasLayer(bikesCluster)) {
+        gettingAroundMap.addLayer(bikesCluster);
 
       }
     }

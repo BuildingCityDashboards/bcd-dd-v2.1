@@ -31,7 +31,7 @@ exports.getStationsList = async (req, res, next) => {
 
 exports.getStationsSnapshot = async (req, res, next) => {
   console.log("\n\n**********Get Stations Snapshot******************\n");
-  let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/stations/";
+  let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/";
   const response = await getDublinBikesData_derilinx(url);
   res.send(response);
 };
