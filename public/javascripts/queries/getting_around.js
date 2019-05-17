@@ -4,13 +4,15 @@
  */
 
 /************************************
- * Dublin bikes
+ * Dublin Bikes
  ************************************/
 /************************************
  * Page load
+ *** Get station list
+ *** Draw markers with default icons
  *** Set timeout
  ***** Get latest snapshot (exAPI)
- ******* Draw markers with symbology on Map
+ ******* Draw/redraw markers with symbology on Map
  *** Marker click
  ***** Get station trend data (exAPI)
  ******* Draw marker popup
@@ -63,6 +65,17 @@ let bikesIcon = L.Icon.extend({
     popupAnchor: [-3, -46]
   }
 });
+//Add an id field to the markers to match with bike station id
+let customBikesStationMarker = L.Marker.extend({
+  options: {
+    id: 0
+  }
+});
+
+let bikesStationPopupOptons = {
+  // 'maxWidth': '500',
+  'className': 'bikesStationPopup'
+};
 
 let bikeCluster = L.markerClusterGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
@@ -77,58 +90,46 @@ let bikeHour = d3.timeFormat("%H");
 //   "st_NAME": "CLARENDON ROW"
 // }
 
+d3.json('/api/dublinbikes/stations/list')
+  .catch((err) => {
+    console.error("Error fetching Dublin Bikes data" + JSON.stringify(err));
+  })
+  .then((data) => initBikeStationsMarkers(data));
+
+
+// Timed refresh of map station markers symbology
 let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 // // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
+// const stationTimer = setIntervalAsync(
+//   () => {
+//
+//     return d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/")
+//       .then((data) => {
+//         // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
+//         // console.log('Data: ' + JSON.stringify(data[0]));
+//         updateMapBikes(data);
+//       })
+//       .catch(function(err) {
+//         console.error("Error fetching Dublin Bikes data");
+//       })
+//   },
+//   20000
+// );
 
-// console.log('Fetch Dublin Bikes snapshot on pageload at ' + moment().format());
-d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/")
-  .then((data) => {
-    updateMapBikes(data);
-  })
-  .catch(function(err) {
-    console.error("Error fetching Dublin Bikes data");
-  });
-
-// Slow update of map stations and symbology
-const stationTimer = setIntervalAsync(
-  () => {
-
-    return d3.json("https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/")
-      .then((data) => {
-        // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
-        // console.log('Data: ' + JSON.stringify(data[0]));
-        updateMapBikes(data);
-      })
-      .catch(function(err) {
-        console.error("Error fetching Dublin Bikes data");
-      })
-  },
-  20000
-);
-
-//let markerRefBike; //TODO: fix horrible hack!!!
-let customBikesStationMarker = L.Marker.extend({
-  options: {
-    id: 0
-  }
-});
-let bikesStationPopupOptons = {
-  // 'maxWidth': '500',
-  'className': 'bikesStationPopup'
-};
-
-function updateMapBikes(data__) {
+function initBikeStationsMarkers(data_) {
   // console.log('update map\n' + JSON.stringify(data__[0]));
-  bikeCluster.clearLayers();
-  gettingAroundMap.removeLayer(bikeCluster); //required
-  _.each(data__, function(d, i) {
+  // bikeCluster.clearLayers();
+  // gettingAroundMap.removeLayer(bikeCluster); //required
+  data_.forEach((d, i) => {
     d.type = "Dublin Bikes Station"; //used in alt text (tooltip)
     let m = new customBikesStationMarker(
-      new L.LatLng(+d.latitude, +d.longitude), {
-        id: d.id,
-        icon: getBikesIcon(d),
+      new L.LatLng(+d.st_LATITUDE, +d.st_LONGITUDE), {
+        id: d.st_ID,
+        icon: new bikesIcon({
+          iconUrl: 'images/transport/bikes_icon_default.png' //loads a default grey icon
+        }),
         opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
         title: d.type + '\t' + d.st_NAME,
         alt: d.type + ' icon',
@@ -137,7 +138,7 @@ function updateMapBikes(data__) {
 
       });
     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
-    m.on('popupopen', getBikesStationPopup);
+    m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
     bikeCluster.addLayer(m);
   });
   gettingAroundMap.addLayer(bikeCluster);

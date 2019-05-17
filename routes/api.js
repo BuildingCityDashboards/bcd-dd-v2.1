@@ -14,9 +14,10 @@ router.get('/', function(req, res, next) {
 //router.get('/census2016/smallareas/:GEOGID', census2016Controller.getSAData);
 
 var dublinBikesController = require('../controllers/dublinbikes_derilinx');
-router.get('/dublinbikes/stations/list', dublinBikesController.listAllStations);
-router.get('/dublinbikes/stations/example', dublinBikesController.getStationExample);
-router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);
-router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday);
+// router.get('/dublinbikes/snapshot', dublinBikesController.getBikesSnapshot);
+router.get('/dublinbikes/stations/list', dublinBikesController.getStationsList);
+// router.get('/dublinbikes/stations/example', dublinBikesController.getStationExample);
+// router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);
+// router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday);
 
 module.exports = router;
