@@ -80,13 +80,13 @@ let bikesStationPopupOptons = {
   // 'maxWidth': '500',
   'className': 'bikesStationPopup'
 };
-
 let bikesCluster = L.markerClusterGroup();
 // let bikesLayerGroup = L.layerGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
-//Get latest bikes data from file, display in map iconography
+
 // {
+//Get latest bikes data from file, display in map iconography
 //   "st_ADDRESS": "Clarendon Row",
 //   "st_CONTRACTNAME": "Dublin",
 //   "st_ID": 1,
@@ -110,7 +110,6 @@ let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 // Timed refresh of map station markers symbology
 const stationTimer = setIntervalAsync(
   () => {
-
     return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
       .catch(function(err) {
         console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
@@ -122,7 +121,7 @@ const stationTimer = setIntervalAsync(
         updateBikeStationsMarkers(data);
       })
   },
-  10000
+  5000
 );
 
 function initBikeStationsMarkers(data_) {
@@ -157,16 +156,47 @@ function initBikeStationsMarkers(data_) {
 
 function updateBikeStationsMarkers(data_) {
   bikesCluster.eachLayer(function(layer) {
-    console.log("layer: " + bikesCluster.getLatLng(layer));
-    /***@todo: start here and try invoke method or setStyle as a featuregroup ***/
-
+    // console.log("layer id: " + layer.options.id);
+    // console.log("\nlayer options: " + JSON.stringify(layer.options));
+    // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon));
+    layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png';
+    // console.log("\nlayer icon changed: " + JSON.stringify(layer.options.icon));
+    //indicate if asscoiated popup open or closed
+    // const msg = layer.isPopupOpen() ? "Popup is open" : "Popup is closed";
+    // console.log("layer popup: " + msg);
     // console.log("lid: " + bikesLayerGroup.getLayerId(layer));
     // layer.bindPopup('Hello');
     // layer.setIcon(getBikesIcon(d));
+
+    /***@todo try this***/
+    // create custom icon
+    // IconStyleOne = L.icon({
+    //   iconUrl: 'img/image1.png'
+    // });
+    // IconStyleTwo = L.icon({
+    //   iconUrl: 'img/image2.png'
+    // });
+    //
+    // // ...
+    //
+    // //Create empty geojson with mouseover and mouseout events
+    // geojson_feature = L.geoJson(false, {
+    //   pointToLayer: function(feature, latlng) {
+    //     return L.marker(latlng, {
+    //       icon: IconStyleOne
+    //     });
+    //   },
+    //   onEachFeature: function(feature, layer) {
+    //     layer.on("mouseover", function(e) {
+    //       layer.setIcon(IconStyleOne)
+    //     });
+    //     layer.on("mouseout", function(e) {
+    //       layer.setIcon(IconStyleTwo)
+    //     });
+    //   }
+    // }).addTo(this.map); **
+    // * /
   });
-  // data_.forEach((d, i) => {
-  //   bikesLayerGroup.layers[i].setIcon(getBikesIcon(d));
-  // });
 }
 
 //Choose a symbol for the map marker icon based on the current availability
