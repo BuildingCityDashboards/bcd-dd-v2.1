@@ -236,7 +236,7 @@ function bikesStationPopupInit(d_) {
   str += "</div>" +
     "<div class=\"col-sm-3 \">";
   if (d_.banking) {
-    str += "<img alt=\"Banking icon \" src=\"images/bank-card-w.svg\" height= \"25px\" title=\"Banking available\" />";
+    str += "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"25px\" title=\"Banking available\" />";
   }
   str += '</div></div>'; //closes col then row
 

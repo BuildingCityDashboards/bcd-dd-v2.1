@@ -1,14 +1,6 @@
 const moment = require('moment');
 // const fetch = require("node-fetch");
 
-// exports.listAllStations = function(req, res, next) {
-//
-// };
-//
-// exports.getBikesSnapshot = function(req, res, next) {
-//
-// }
-
 const getDublinBikesData_derilinx = async url => {
   const fetch = require("node-fetch");
   try {

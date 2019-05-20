@@ -1,26 +1,13 @@
 var createError = require('http-errors');
-var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var morgan = require('morgan');
 var logger = require("./utils/logger");
 require('dotenv').config();
 var cron = require("node-cron");
 
-// get routes files
-var index = require('./routes/index');
-var themes = require('./routes/themes');
-var stories = require('./routes/stories');
-var tools = require('./routes/tools');
-var queries = require('./routes/queries');
-var api = require('./routes/api');
-
+var express = require('express');
 var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
+var morgan = require('morgan');
 // logger.debug("Overriding 'Express' logger");
 app.use(morgan('combined', {
   "stream": logger.stream
@@ -33,6 +20,22 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 console.log(__dirname);
+
+// get routes files
+var index = require('./routes/index');
+var themes = require('./routes/themes');
+var stories = require('./routes/stories');
+var tools = require('./routes/tools');
+var queries = require('./routes/queries');
+var api = require('./routes/api');
+
+
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+
 
 // point to the bootstrap and jquery files
 // app.use('/javascripts/vendor/bootstrap/js', express.static(
