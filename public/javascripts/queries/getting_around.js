@@ -1,5 +1,26 @@
 /*TODO:
- *
+The following TODO list addresses issues #27 #22 #21 #16 #15 #14 #13
+* Working bike symbology
+* Working bike traces
+  - Add day/ week/ month selection
+* Update !bikes data periodically
+* Add different icons for different transport modes
+* Add car park data
+  - Add day popup trace as per bikes
+* Add bike station comparisons to popups
+* Check API status periodically and update symbol
+  - Enable/disable buttons accordingly
+  - Add tooltip to say data unavailable over button
+  - Animate activity symbol (when refreshing data?)
+* Add current time indicator
+* Add last/ next refresh time indicator
+* Remove button in Bus popup
+* Unify popup designs
+* Redesign legend
+* Convert icons to vector graphics
+* Keep popups open when map data refreshes
+* Place popups over controls or make them sit away from controls.
+* Place icons in filter buttons
  * Test support for DOM node methods on Firefox
  */
 
@@ -44,12 +65,12 @@ gettingAroundMap.on('popupopen', function(e) {
 // on a production site, omit the "lc = "!
 L.control.locate({
   strings: {
-    title: "Zoom to near your location"
+    title: "Zoom to your location"
   }
 }).addTo(gettingAroundMap);
 
 var osmGeocoder = new L.Control.OSMGeocoder({
-  placeholder: 'Enter street/area name etc.',
+  placeholder: 'Enter street name, area etc.',
   bounds: dublinBounds
 });
 gettingAroundMap.addControl(osmGeocoder);
@@ -85,16 +106,6 @@ let bikesCluster = L.markerClusterGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
 
-// {
-//Get latest bikes data from file, display in map iconography
-//   "st_ADDRESS": "Clarendon Row",
-//   "st_CONTRACTNAME": "Dublin",
-//   "st_ID": 1,
-//   "st_LATITUDE": 53.340927,
-//   "st_LONGITUDE": -6.262501,
-//   "st_NAME": "CLARENDON ROW"
-// }
-
 d3.json('/api/dublinbikes/stations/list')
   .catch((err) => {
     console.error("Error fetching Dublin Bikes data" + JSON.stringify(err));
@@ -116,8 +127,9 @@ const stationTimer = setIntervalAsync(
       })
       .then((data) => {
         // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
-        console.log('Data: ' + JSON.stringify(data[0]));
+        // console.log('Data: ' + JSON.stringify(data[0]));
         // updateMapBikes(data);
+        console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
         updateBikeStationsMarkers(data);
       })
   },
@@ -153,13 +165,23 @@ function initBikeStationsMarkers(data_) {
   // gettingAroundMap.fitBounds(bikesCluster.getBounds());
 }
 
+//Doing the following to update the marker icons without instantiating them on each data load
+/***@todo: check if this is actually more performant than bikesCluster.clearLayers + re-instantiation***/
 
 function updateBikeStationsMarkers(data_) {
+  gettingAroundMap.removeLayer(bikesCluster);
   bikesCluster.eachLayer(function(layer) {
+    data_.forEach((d, i) => {
+      if (d.id === layer.options.id) {
+        layer.options.icon.options.iconUrl = getBikesIcon(d);
+      };
+    });
+    gettingAroundMap.addLayer(bikesCluster);
     // console.log("layer id: " + layer.options.id);
     // console.log("\nlayer options: " + JSON.stringify(layer.options));
     // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon));
-    layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png';
+    // layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png';
+
     // console.log("\nlayer icon changed: " + JSON.stringify(layer.options.icon));
     //indicate if asscoiated popup open or closed
     // const msg = layer.isPopupOpen() ? "Popup is open" : "Popup is closed";
@@ -204,21 +226,12 @@ function updateBikeStationsMarkers(data_) {
 
 function getBikesIcon(d_) {
   const percentageFree = Math.round((d_.available_bikes / d_.bike_stands) * 100);
-  const one = new bikesIcon({
-      iconUrl: 'images/transport/bikes_icon_blue_1.png'
-    }),
-    two = new bikesIcon({
-      iconUrl: 'images/transport/bikes_icon_blue_2.png'
-    }),
-    three = new bikesIcon({
-      iconUrl: 'images/transport/bikes_icon_blue_3.png'
-    }),
-    four = new bikesIcon({
-      iconUrl: 'images/transport/bikes_icon_blue_4.png'
-    }),
-    five = new bikesIcon({
-      iconUrl: 'images/transport/bikes_icon_blue_5.png'
-    });
+  const one = 'images/transport/bikes_icon_blue_1.png',
+    two = 'images/transport/bikes_icon_blue_2.png',
+    three = 'images/transport/bikes_icon_blue_3.png',
+    four = 'images/transport/bikes_icon_blue_4.png',
+    five = 'images/transport/bikes_icon_blue_5.png';
+
   return percentageFree < 20 ? one :
     percentageFree < 40 ? two :
     percentageFree < 60 ? three :
@@ -475,7 +488,7 @@ function updateMapBuses(data__) {
     //        console.log("getMarkerID: "+marker.optiid);
   });
 
-  gettingAroundMap.addLayer(busCluster);
+  // gettingAroundMap.addLayer(busCluster);
 }
 
 function getBusContent(d_) {
@@ -1027,8 +1040,6 @@ function processRoads(data_) {
 /************************************
  * Button Listeners
  ************************************/
-// TODO: generalise
-//
 
 d3.select("#bus-checkbox").on("click", function() {
   let cb = d3.select(this);
@@ -1122,7 +1133,6 @@ d3.select("#luas-checkbox").on("click", function() {
 d3.json('/data/api-status.json')
   .then(function(data) {
     //console.log("api status "+JSON.stringify(data));
-
     if (data["dublinbikes"].status === 200) {
       d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
       d3.select('#bike-age')
