@@ -14,6 +14,16 @@ const getDublinBikesData_derilinx = async url => {
   }
 };
 
+/* Station list data format*/
+// {
+// "st_ADDRESS": "Clarendon Row",
+// "st_CONTRACTNAME": "Dublin",
+// "st_ID": 1,
+// "st_LATITUDE": 53.340927,
+// "st_LONGITUDE": -6.262501,
+// "st_NAME": "CLARENDON ROW"
+//}
+
 exports.getStationsList = async (req, res, next) => {
   console.log("\n\n**********Get Stations List******************\n");
   let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/stations/";
@@ -21,6 +31,21 @@ exports.getStationsList = async (req, res, next) => {
   res.send(response);
 };
 
+/* Station snapshot data format*/
+// {
+// "address": "Blessington Street",
+// "available_bike_stands": 20,
+// "available_bikes": 0,
+// "banking": "True",
+// "bike_stands": 20,
+// "id": 2,
+// "last_update": "2019-05-21T09:29:15Z",
+// "latitude": 53.35677,
+// "longitude": -6.26814,
+// "name": "BLESSINGTON STREET",
+// "status": "open",
+// "time": "2019-05-21T09:40:02Z"
+// }
 exports.getStationsSnapshot = async (req, res, next) => {
   console.log("\n\n**********Get Stations Snapshot******************\n");
   let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/";
@@ -28,17 +53,44 @@ exports.getStationsSnapshot = async (req, res, next) => {
   res.send(response);
 };
 
+//Station query format
+// [{
+//   "address": "Heuston Bridge (South)",
+//   "banking": "False",
+//   "historic": [{
+//       "available_bike_stands": 0,
+//       "available_bikes": 25,
+//       "bike_stands": 25,
+//       "status": "open",
+//       "time": "2019-03-08T20:00:05Z"
+//     },
+//     {
+//       "available_bike_stands": 0,
+//       "available_bikes": 25,
+//       "bike_stands": 25,
+//       "status": "open",
+//       "time": "2019-03-08T20:05:04Z"
+//     }
+//   ],
+//   "id": 100,
+//   "latitude": 53.347107,
+//   "longitude": -6.292041,
+//   "name": "HEUSTON BRIDGE (SOUTH)"
+// }]
 exports.getStationDataToday = async (req, res, next) => {
-  console.log("\n\n**********Get Station #" + req.params.id + " Data (Today)******************\n");
+  console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
 
-  let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+  /*Fetch trend data for the day and display in popup*/
+  let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
+  let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
+  // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+  const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
     "dfrom=" +
-    start +
+    startQuery +
     "&dto=" +
-    end +
+    endQuery +
     "&station=" +
-    req.params.id;
-
+    req.params.number;
   const response = await getDublinBikesData_derilinx(url);
   res.send(response);
 };

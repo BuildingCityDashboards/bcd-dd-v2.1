@@ -118,7 +118,8 @@ let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 // // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
-// Timed refresh of map station markers symbology
+
+// Timed refresh of map station markers symbology using data snapshot
 const stationTimer = setIntervalAsync(
   () => {
     return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
@@ -129,11 +130,11 @@ const stationTimer = setIntervalAsync(
         // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
         // console.log('Data: ' + JSON.stringify(data[0]));
         // updateMapBikes(data);
-        console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
+        // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
         updateBikeStationsMarkers(data);
       })
   },
-  5000
+  30000
 );
 
 function initBikeStationsMarkers(data_) {
@@ -181,7 +182,6 @@ function updateBikeStationsMarkers(data_) {
     // console.log("\nlayer options: " + JSON.stringify(layer.options));
     // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon));
     // layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png';
-
     // console.log("\nlayer icon changed: " + JSON.stringify(layer.options.icon));
     //indicate if asscoiated popup open or closed
     // const msg = layer.isPopupOpen() ? "Popup is open" : "Popup is closed";
@@ -189,7 +189,6 @@ function updateBikeStationsMarkers(data_) {
     // console.log("lid: " + bikesLayerGroup.getLayerId(layer));
     // layer.bindPopup('Hello');
     // layer.setIcon(getBikesIcon(d));
-
     /***@todo try this***/
     // create custom icon
     // IconStyleOne = L.icon({
@@ -240,32 +239,34 @@ function getBikesIcon(d_) {
 
 function bikesStationPopupInit(d_) {
   // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
-  let str = "<div class=\"container \">" +
-    "<div class=\"row \">" +
-    "<div class=\"col-sm-9 \">";
-  if (d_.name) {
-    str += "<h6>" + d_.id + " " + d_.name + '</h6>';
+  //if no station id none of the mappings witll work so escape
+  if (!d_.st_ID) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We can't get the Dublin Bikes data right now, please try again later" +
+      "</div>" +
+      "</div>";
+    return str;
   }
-  str += "</div>" +
-    "<div class=\"col-sm-3 \">";
-  if (d_.banking) {
-    str += "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"25px\" title=\"Banking available\" />";
-  }
-  str += '</div></div>'; //closes col then row
 
-  // // if (d_.type) {
-  // //   str += d_.type;
-  // // }
-
-  if (d_.bike_stands) {
-    str += '<div class=\"row \">';
-    str += '<div class=\"col-sm-12 \">';
-    str += '<b>' + d_.bike_stands + '</b> stands';
-    str += '</div></div>';
+  let str = "<div class=\"bike-popup-container\">";
+  if (d_.st_NAME) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.st_ID + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.st_NAME + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.st_ID + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
   }
-  if (d_.id) {
+  str += "<div class=\"row \">";
+  str += "<span id=\"bike-standcount-" + d_.st_ID + "\" class=\"col-9\" ></span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.st_ID) {
     str += '<div class=\"row \">';
-    str += '<span id="bike-spark-' + d_.id + '"> </span>';
+    str += '<span id="bike-spark-' + d_.st_ID + '"></span>';
     str += '</div>';
   }
   str += '</div>' //closes container
@@ -273,42 +274,41 @@ function bikesStationPopupInit(d_) {
 }
 
 
-//Sparkline for popup
+//Sparkline for popup geterated from station query
 function getBikesStationPopup() {
   ////d3.select("#bike-spark-67").text('Selected from D3');
   let sid_ = this.options.id;
+  // /api/dublinbikes / stations / snapshot
+  d3.json('/api/dublinbikes/stations/' + sid_ + '/today')
+    .catch(function(err) {
+      let str = "<div class=\"popup-error\">" +
+        "<div class=\"row \">" +
+        "We can't get the Dublin Bikes data right now, please try again later" +
+        "</div>" +
+        "</div>";
+      console.error("\n\n Error fetching Dublin Bikes Station Data: " + JSON.stringify(err));
+      return d3.select("#bike-spark-" + sid_)
+        .html(str);
 
-  /*Fetch trend data for the day and display in popup*/
-  let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
-  let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
-  // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
-  const bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
-    "dfrom=" +
-    startQuery +
-    "&dto=" +
-    endQuery +
-    "&station=" +
-    sid_;
-
-  d3.json(bikes_url_derilinx)
+    })
     .then(function(stationData) {
       // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
-
       // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
 
-      let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
-      // console.log("Select bike spark #" + sid_);
-      // if (err) {
-      //   let str = "<div class=\"popup-error\">" +
-      //     "<div class=\"row \">" +
-      //     "We can't get the Dublin Bikes data right now, please try again later" +
-      //     "</div>" +
-      //     "</div>";
-      //   console.error("\n\n Error fetching Station Data: " + JSON.stringify(err[0]));
-      //   return d3.select("#bike-spark-" + sid_)
-      //     .html(str);
-      // }
-      let standsCount = stationData[0].historic[0].bike_stands; //assuming # bike stands doesn't change throughout day
+      if (stationData[0].banking) {
+        console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
+        let bankStr = "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"20px\" title=\"Banking available\" />";
+        d3.select("#bike-banking-" + sid_)
+          .html(bankStr);
+      }
+      //assuming static data doesn't change throughout day...
+      let standsCount = stationData[0].historic[0].bike_stands;
+      if (standsCount) {
+        // console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
+        let stdStr = '<strong>' + standsCount + ' total stands </strong>';
+        d3.select("#bike-standcount-" + sid_)
+          .html(stdStr);
+      }
       let processedData = stationData[0].historic.map((d) => {
         d.ms = moment(d.time).valueOf(); //add a property for the day formatted as Epoch time
         return d;
@@ -330,16 +330,12 @@ function getBikesStationPopup() {
         return d["available_bikes"];
       });
       // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
-      //moment().format('MMMM Do YYYY, h:mm:ss a');
-      // startChart = moment.utc().startOf('day').format('YYYYMMDDHHmm');
-      // endChart = end.add(2, 'hours');
-      //2019-05-15T00:00:02Z - 2019-05-15T14:20:04Z
-      // console.log("day range: " + earliest + " - " + latest);
-      //        console.log("bikes: " + JSON.stringify(timeDim.top(Infinity)));
 
       let startChart = moment.utc().startOf('day').add(3, 'hours');
       let endChart = moment.utc().endOf('day').add(2, 'hours');
       // console.log("chart time range: " + startChart + " - " + endChart);
+      let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
+      // console.log("Select bike spark #" + sid_);
       bikeSpark.width(250).height(100);
       bikeSpark.dimension(timeDim);
       bikeSpark.group(availableBikesGroup);
@@ -384,18 +380,6 @@ function getBikesStationPopup() {
       bikeSpark.clipPadding(15);
       bikeSpark.render();
     })
-    .catch(function(err) {
-      let str = "<div class=\"popup-error\">" +
-        "<div class=\"row \">" +
-        "We can't get the Dublin Bikes data right now, please try again later" +
-        "</div>" +
-        "</div>";
-      console.error("\n\n Error fetching Dublin Bikes Station Data: " + JSON.stringify(err));
-      return d3.select("#bike-spark-" + sid_)
-        .html(str);
-
-    })
-
 }
 
 function setBikeStationColour(bikes, totalStands) {
