@@ -24,6 +24,9 @@ The following TODO list addresses issues #27 #22 #21 #16 #15 #14 #13
  * Test support for DOM node methods on Firefox
  */
 
+
+
+
 /************************************
  * Dublin Bikes
  ************************************/
@@ -113,30 +116,6 @@ d3.json('/api/dublinbikes/stations/list')
   })
   .then((data) => initBikeStationsMarkers(data));
 
-
-let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
-// // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
-// // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
-let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
-
-// Timed refresh of map station markers symbology using data snapshot
-const stationTimer = setIntervalAsync(
-  () => {
-    return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
-      .catch(function(err) {
-        console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
-      })
-      .then((data) => {
-        console.log('/n/n/n >Fetched Dublin Bikes snapshot</n/n/n');
-        // console.log('Data: ' + JSON.stringify(data[0]));
-        // updateMapBikes(data);
-        // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
-        updateBikeStationsMarkers(data);
-      })
-  },
-  10000
-);
-
 function initBikeStationsMarkers(data_) {
   // console.log('update map\n' + JSON.stringify(data__[0]));
   // bikesCluster.clearLayers();
@@ -164,6 +143,52 @@ function initBikeStationsMarkers(data_) {
   });
   gettingAroundMap.addLayer(bikesCluster);
   // gettingAroundMap.fitBounds(bikesCluster.getBounds());
+}
+
+
+let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
+// // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
+// // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
+let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
+
+// Timed refresh of map station markers symbology using data snapshot
+const stationTimer = setIntervalAsync(
+  () => {
+    return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+      .catch(function(err) {
+        console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
+        upDateBikeAPIStatus(false);
+      })
+      .then((data) => {
+        console.log('/n/n/n >Fetched Dublin Bikes snapshot</n/n/n');
+        upDateBikeAPIStatus(true);
+
+        // console.log('Data: ' + JSON.stringify(data[0]));
+        // updateMapBikes(data);
+        // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
+        updateBikeStationsMarkers(data);
+      })
+  },
+  10000
+);
+
+
+//Update the API activity icon and time
+function upDateBikeAPIStatus(live) {
+  let d = new Date();
+  let tf = moment(d).format('hh:mm a');
+  if (live) {
+
+    d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+    d3.select('#bike-age')
+      .text('Live @  ' + tf);
+
+  } else {
+    d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+    d3.select('#bike-age')
+      .text('Unavailable');
+  }
+
 }
 
 //Doing the following to update the marker icons without instantiating them on each data load
