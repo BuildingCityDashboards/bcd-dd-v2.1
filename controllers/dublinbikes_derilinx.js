@@ -46,7 +46,7 @@ exports.getStationsList = async (req, res, next) => {
 // "status": "open",
 // "time": "2019-05-21T09:40:02Z"
 // }
-exports.getStationsSnapshot = async (req, res, next) => {
+exports.getStationsSnapshot = async (req, res) => {
   console.log("\n\n**********Get Stations Snapshot******************\n");
   let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/";
   const response = await getDublinBikesData_derilinx(url);

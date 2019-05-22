@@ -127,14 +127,14 @@ const stationTimer = setIntervalAsync(
         console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
       })
       .then((data) => {
-        // console.log('Fetched Dublin Bikes snapshot at ' + moment().format());
+        console.log('/n/n/n >Fetched Dublin Bikes snapshot</n/n/n');
         // console.log('Data: ' + JSON.stringify(data[0]));
         // updateMapBikes(data);
         // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
         updateBikeStationsMarkers(data);
       })
   },
-  30000
+  10000
 );
 
 function initBikeStationsMarkers(data_) {
@@ -177,7 +177,8 @@ function updateBikeStationsMarkers(data_) {
         layer.options.icon.options.iconUrl = getBikesIcon(d);
       };
     });
-    gettingAroundMap.addLayer(bikesCluster);
+    console.log("Icons loaded");
+
     // console.log("layer id: " + layer.options.id);
     // console.log("\nlayer options: " + JSON.stringify(layer.options));
     // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon));
@@ -218,6 +219,7 @@ function updateBikeStationsMarkers(data_) {
     // }).addTo(this.map); **
     // * /
   });
+  gettingAroundMap.addLayer(bikesCluster);
 }
 
 //Choose a symbol for the map marker icon based on the current availability
