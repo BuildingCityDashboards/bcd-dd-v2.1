@@ -4,7 +4,7 @@
     "timestamp": null
   },
   "dublinbikes": {
-    "status": 200,
+    "status": 403,
     "timestamp": null
   },
   "dublinbus": {
