@@ -409,6 +409,7 @@ bikesLegend.onAdd = function(map) {
     labels.push('<i style="background: ' + setBikeStationColour(from, 100) + '"></i>' +
       +from + (to ? '%&ndash;' + to + '%' : '%' + '+'));
   }
+  labels.push('<i style="background: #454545"></i>' + 'No data');
   div.innerHTML = labels.join('<br>');
   return div;
 };
