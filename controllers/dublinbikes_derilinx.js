@@ -77,7 +77,7 @@ exports.getStationsSnapshot = async (req, res) => {
 //   "longitude": -6.292041,
 //   "name": "HEUSTON BRIDGE (SOUTH)"
 // }]
-exports.getStationDataToday = async (req, res, next) => {
+exports.getStationDataToday = async (req, res) => {
   console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
 
   /*Fetch trend data for the day and display in popup*/

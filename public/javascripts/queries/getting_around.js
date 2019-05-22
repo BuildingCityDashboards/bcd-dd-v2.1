@@ -276,6 +276,18 @@ function bikesStationPopupInit(d_) {
 }
 
 
+function setBikesStationPopupError(id, err) {
+  let str = "<div class=\"popup-error\">" +
+    "<div class=\"row \">" +
+    "We can't get the Dublin Bikes data for this station right now, please try again later" +
+    "</div>" +
+    "</div>";
+  console.error("\n\n Dublin Bikes Station data was not returned: " + JSON.stringify(err));
+  d3.select("#bike-spark-" + id)
+    .html(str);
+}
+
+
 //Sparkline for popup geterated from station query
 function getBikesStationPopup() {
   ////d3.select("#bike-spark-67").text('Selected from D3');
@@ -283,25 +295,24 @@ function getBikesStationPopup() {
   // /api/dublinbikes / stations / snapshot
   d3.json('/api/dublinbikes/stations/' + sid_ + '/today')
     .catch(function(err) {
-      let str = "<div class=\"popup-error\">" +
-        "<div class=\"row \">" +
-        "We can't get the Dublin Bikes data right now, please try again later" +
-        "</div>" +
-        "</div>";
-      console.error("\n\n Error fetching Dublin Bikes Station Data: " + JSON.stringify(err));
-      return d3.select("#bike-spark-" + sid_)
-        .html(str);
+      return setBikesStationPopupError(sid_, err);
 
     })
     .then(function(stationData) {
       // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
       // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
-
+      if (stationData.length === 0) {
+        let obj = {
+          "length": 0
+        };
+        return setBikesStationPopupError(sid_, obj);
+      }
       if (stationData[0].banking) {
         console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
         let bankStr = "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"20px\" title=\"Banking available\" />";
         d3.select("#bike-banking-" + sid_)
           .html(bankStr);
+
       }
       //assuming static data doesn't change throughout day...
       let standsCount = stationData[0].historic[0].bike_stands;
