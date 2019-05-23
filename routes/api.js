@@ -21,4 +21,8 @@ router.get('/dublinbikes/stations/snapshot', dublinBikesController.getStationsSn
 // router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);
 router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday);
 
+var carparksController = require('../controllers/carparks_controller');
+router.get('/carparks/snapshot', carparksController.getCarparksSnapshot);
+
+
 module.exports = router;

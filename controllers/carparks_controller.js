@@ -1,33 +1,50 @@
 const moment = require('moment');
 // const fetch = require("node-fetch");
 
-const getDublinBikesData_derilinx = async url => {
+const getData = async url => {
   const fetch = require("node-fetch");
   try {
     const response = await fetch(url);
-    const json = await response.json();
-    // console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
-    return json;
+    const xml = await response.text();
+    console.log("\n******\nCar Parks data: " + xml + "\n******\n");
+    return xml;
 
   } catch (error) {
     return console.log(error);
   }
 };
 
-/* Station list data format*/
-// {
-// "st_ADDRESS": "Clarendon Row",
-// "st_CONTRACTNAME": "Dublin",
-// "st_ID": 1,
-// "st_LATITUDE": 53.340927,
-// "st_LONGITUDE": -6.262501,
-// "st_NAME": "CLARENDON ROW"
-//}
+/* data format*/
+// <carparkData>
+// <Northwest>
+// <carpark name="PARNELL" spaces="111"> </carpark>
+// <carpark name="ILAC" spaces="792"> </carpark>
+// <carpark name="JERVIS" spaces="517"> </carpark>
+// <carpark name="ARNOTTS" spaces="236"> </carpark>
+// </Northwest>
+// <Northeast>
+// <carpark name="MARLBORO" spaces="34"> </carpark>
+// <carpark name="ABBEY" spaces=" "> </carpark>
+// </Northeast>
+// <Southwest>
+// <carpark name="THOMASST" spaces="188"> </carpark>
+// <carpark name="C/CHURCH" spaces="FULL"> </carpark>
+// </Southwest>
+// <Southeast>
+// <carpark name="SETANTA" spaces="14"> </carpark>
+// <carpark name="DAWSON" spaces="106"> </carpark>
+// <carpark name="TRINITY" spaces="178"> </carpark>
+// <carpark name="GREENRCS" spaces="588"> </carpark>
+// <carpark name="DRURY" spaces="145"> </carpark>
+// <carpark name="B/THOMAS" spaces="304"> </carpark>
+// </Southeast>
+// <Timestamp>10:26:50 on Thursday 23/05/2019</Timestamp>
+// </carparkData>
 
-exports.getStationsList = async (req, res, next) => {
-  // console.log("\n\n**********Get Stations List******************\n");
-  let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/stations/";
-  const response = await getDublinBikesData_derilinx(url);
+exports.getCarparksSnapshot = async (req, res, next) => {
+  console.log("\n\n**********Get Carpark Data******************\n");
+  let url = "https://www.dublincity.ie/dublintraffic/cpdata.xml";
+  const response = await getData(url);
   res.send(response);
 };
 
@@ -46,12 +63,12 @@ exports.getStationsList = async (req, res, next) => {
 // "status": "open",
 // "time": "2019-05-21T09:40:02Z"
 // }
-exports.getStationsSnapshot = async (req, res) => {
-  // console.log("\n\n**********Get Stations Snapshot******************\n");
-  let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/";
-  const response = await getDublinBikesData_derilinx(url);
-  res.send(response);
-};
+// exports.getStationsSnapshot = async (req, res) => {
+//   console.log("\n\n**********Get Stations Snapshot******************\n");
+//   let url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/lastsnapshot/";
+//   const response = await getDublinBikesData_derilinx(url);
+//   res.send(response);
+// };
 
 //Station query format
 // [{
@@ -77,23 +94,23 @@ exports.getStationsSnapshot = async (req, res) => {
 //   "longitude": -6.292041,
 //   "name": "HEUSTON BRIDGE (SOUTH)"
 // }]
-exports.getStationDataToday = async (req, res) => {
-  // console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
-
-  /*Fetch trend data for the day and display in popup*/
-  let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
-  let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
-  // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
-  const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
-    "dfrom=" +
-    startQuery +
-    "&dto=" +
-    endQuery +
-    "&station=" +
-    req.params.number;
-  const response = await getDublinBikesData_derilinx(url);
-  res.send(response);
-};
+// exports.getStationDataToday = async (req, res) => {
+//   console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
+//
+//   /*Fetch trend data for the day and display in popup*/
+//   let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
+//   let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
+//   // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+//   const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+//     "dfrom=" +
+//     startQuery +
+//     "&dto=" +
+//     endQuery +
+//     "&station=" +
+//     req.params.number;
+//   const response = await getDublinBikesData_derilinx(url);
+//   res.send(response);
+// };
 
 // exports.getStationData = function(req, res, next) {
 //   //console.log("req: " + JSON.stringify(req.params));
