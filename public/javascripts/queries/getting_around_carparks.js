@@ -59,15 +59,8 @@ const carparksTimer = setIntervalAsync(
         updateAPIStatus('#parking-activity-icon', '#parking-age', false);
       })
       .then((xml) => {
-
         updateAPIStatus('#parking-activity-icon', '#parking-age', true);
-        let e = xml.getElementsByTagName("Timestamp")[0].childNodes[0].nodeValue;
-        console.log('\n\n\n >Fetched Car Parks snapshot<\n');
-        console.log('\nxml: ' + e + ' \n');
-        // console.log('Data: ' + JSON.stringify(data[0]));
-        // updateMapBikes(data);
-        // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
-        // updateBikeStationsMarkers(data);
+        updateCarparkMarkers(xml);
       })
   },
   10000
@@ -92,6 +85,63 @@ function initCarparksMarkers(data_) {
   gettingAroundMap.addLayer(carparkCluster);
 }
 
+function updateCarparkMarkers(xml_) {
+  // gettingAroundMap.removeLayer(carparkCluster);
+  // carparkCluster.clearLayers();
+  // for (let i = 0; i < xml_.getElementsByTagName("carpark").length; i += 1) {
+  //   let name = xml_.getElementsByTagName("carpark")[i].getAttribute("name");
+  //   // if (name === k_) {
+  //   let spaces = xml_.getElementsByTagName("carpark")[i].getAttribute("spaces");
+  //   console.log("found:" + name + " spaces: " + spaces);
+  //   let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
+  //     icon: new carparkMapIcon({
+  //       iconUrl: '/images/transport/parking-garage-w-cd-green-1-15.svg' //loads a default grey icon
+  //     }),
+  //     opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
+  //     title: 'Car Park:' + '\t' + d.name,
+  //     alt: 'Car Park icon',
+  //   });
+  //   m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
+  //   carparkCluster.addLayer(m);
+  // }
+
+
+  // + "marker" +
+  //         // markerRefPrivate.getPopup().getContent());
+  //         if (spaces !== ' ') {
+  //           return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
+  //             '<br><br> Free spaces: ' +
+  //             spaces +
+  //             '<br> Last updated: ' +
+  //             timestamp
+  //           );
+  //         } else {
+  //           return markerRefPublic.getPopup().setContent(markerRefPublic.getPopup().getContent() +
+  //             '<br><br> No information on free spaces available' +
+  //             '<br> Last updated: ' +
+  //             timestamp
+  //           );
+  //         }
+  // }
+  //
+  // data_.forEach((d, k) => {
+  //   let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
+  //     icon: new carparkMapIcon({
+  //       iconUrl: '/images/transport/parking-garage-w-cd-green-1-15.svg' //loads a default grey icon
+  //     }),
+  //     opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
+  //     title: 'Car Park:' + '\t' + d.name,
+  //     alt: 'Car Park icon',
+  //   });
+  //   m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
+  //   carparkCluster.addLayer(m);
+  // }
+  gettingAroundMap.addLayer(bikesCluster);
+
+}
+
+
+
 function carparkPopupInit(d_) {
   // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
   //if no station id none of the mappings witll work so escape
@@ -107,17 +157,20 @@ function carparkPopupInit(d_) {
   let str = "<div class=\"bike-popup-container\">";
   if (d_.name) {
     str += "<div class=\"row \">";
-    str += "<span id=\"carpark-name-" + d_.id + "\" class=\"col-9\">"; //id for name div
+    str += "<span id=\"carpark-name-" + d_.id + "\" class=\"col-12\">"; //id for name div
     str += "<strong>" + d_.name + "</strong>";
     str += "</span>" //close bike name div
-    //div for banking icon
-    str += "<span id=\"carpark-open-" + d_.id + "\" class= \"col-3\"></span>";
     str += '</div>'; //close row
   }
   str += "<div class=\"row \">";
   str += "<span id=\"carpark-spacescount-" + d_.id + "\" class=\"col-9\" >" +
     d_.Totalspaces +
     " total spaces</span>";
+  str += "</div>"; //close row
+
+  //set up a div to display availability
+  str += "<div class=\"row \">";
+  str += "<span id=\"carpark-available-" + d_.id + "\" class=\"col-9\" ></span>";
   str += "</div>"; //close row
 
   //initialise div to hold chart with id linked to station id

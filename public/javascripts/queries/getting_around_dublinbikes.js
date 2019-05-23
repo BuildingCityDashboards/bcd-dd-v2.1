@@ -46,12 +46,7 @@ const bikesTimer = setIntervalAsync(
         updateAPIStatus('#bike-activity-icon', '#bike-age', false);
       })
       .then((data) => {
-        // console.log('/n/n/n >Fetched Dublin Bikes snapshot</n/n/n');
         updateAPIStatus('#bike-activity-icon', '#bike-age', true);
-
-        // console.log('Data: ' + JSON.stringify(data[0]));
-        // updateMapBikes(data);
-        // console.log('Snapshot size ' + JSON.stringify(data.length)); //??snapshot size varies??
         updateBikeStationsMarkers(data);
       })
   },
