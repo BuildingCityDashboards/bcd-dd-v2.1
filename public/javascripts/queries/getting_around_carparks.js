@@ -1,6 +1,30 @@
 /************************************
  * Carparks
  ************************************/
+let carparkMapIcon = L.Icon.extend({
+  options: {
+    iconSize: [30, 30], //orig size
+    iconAnchor: [iconAX, iconAY] //,
+    //popupAnchor: [-3, -76]
+  }
+});
+
+//Add an id field to the markers to match with bike station id
+let customCarparkMarker = L.Marker.extend({
+  options: {
+    id: 0
+  }
+});
+
+let customCarparkLayer = L.Layer.extend({
+
+});
+
+let carparkPopupOptons = {
+  // 'maxWidth': '500',
+  'className': 'carparkPopup'
+};
+
 let carparkCluster = L.markerClusterGroup({
   //   showCoverageOnHover: false,
   //   zoomToBoundsOnClick: false
@@ -15,22 +39,15 @@ let carparkCluster = L.markerClusterGroup({
   //   // }
 });
 
-let carparkMapIcon = L.icon({
-  iconUrl: '/images/transport/parking-garage-w-cbs-blue-6-15.svg',
-  iconSize: [30, 30], //orig size
-  iconAnchor: [iconAX, iconAY] //,
-  //popupAnchor: [-3, -76]
-});
-
 //create points on privateMap for carparks even if RTI not available
-d3.json("/data/Transport/cpCaps.json")
-  .then(function(data) {
-    //    console.log("data.carparks :" + JSON.stringify(data.carparks));
-    updateMapCarparks(data.carparks);
-  })
-  .catch(function(err) {
+d3.json("/data/Transport/carparks_static.json")
+  .catch((err) => {
     console.error("Error fetching car parks static data");
 
+  })
+  .then((data) => {
+    //    console.log("data.carparks :" + JSON.stringify(data.carparks));
+    initCarparksMarkers(data);
   });
 
 // Timed refresh of map station markers symbology using data snapshot
@@ -58,31 +75,42 @@ const carparksTimer = setIntervalAsync(
 
 //New way
 function initCarparksMarkers(data_) {
-  // console.log('update map\n' + JSON.stringify(data__[0]));
+  console.log('Car parks init: \n' + JSON.stringify(data_));
+  data_.forEach((d, k) => {
+    let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
+      icon: new carparkMapIcon({
+        iconUrl: '/images/transport/parking-garage-w-default-15.svg' //loads a default grey icon
+      })
+    });
+    // marker.bindPopup(getCarparkContent(d, k));
+    carparkCluster.addLayer(m);
+    //        console.log("getMarkerID: "+marker.optiid);
+  });
+  gettingAroundMap.addLayer(carparkCluster);
   // bikesCluster.clearLayers();
   // gettingAroundMap.removeLayer(bikesCluster); //required
-  data_.forEach((d, i) => {
-    d.type = "Dublin Bikes Station"; //used in alt text (tooltip)
-    let m = new customBikesStationMarker(
-      new L.LatLng(+d.st_LATITUDE, +d.st_LONGITUDE), {
-        id: d.st_ID,
-        icon: new bikesIcon({
-          iconUrl: 'images/transport/bikes_icon_default.png' //loads a default grey icon
-        }),
-        opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
-        title: d.type + '\t' + d.st_NAME,
-        alt: d.type + ' icon',
-        //            riseOnHover: true,
-        //            riseOffset: 250
-
-      });
-    m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
-    m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
-    bikesCluster.addLayer(m);
-    // bikesLayerGroup.addLayer(m);
-    // gettingAroundMap.addLayer(bikesLayerGroup);
-  });
-  gettingAroundMap.addLayer(bikesCluster);
+  // data_.forEach((d, i) => {
+  //   d.type = "Car Park"; //used in alt text (tooltip)
+  //   let m = new customCarparkMarker(
+  //     new L.LatLng(+d.st_LATITUDE, +d.st_LONGITUDE), {
+  //       id: d.st_ID,
+  //       icon: new bikesIcon({
+  //         iconUrl: 'images/transport/bikes_icon_default.png' //loads a default grey icon
+  //       }),
+  //       opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
+  //       title: d.type + '\t' + d.st_NAME,
+  //       alt: d.type + ' icon',
+  //       //            riseOnHover: true,
+  //       //            riseOffset: 250
+  //
+  //     });
+  // m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
+  // m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
+  // bikesCluster.addLayer(m);
+  // bikesLayerGroup.addLayer(m);
+  // gettingAroundMap.addLayer(bikesLayerGroup);
+  // });
+  // gettingAroundMap.addLayer(bikesCluster);
   // gettingAroundMap.fitBounds(bikesCluster.getBounds());
 }
 

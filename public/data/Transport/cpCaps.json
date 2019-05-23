@@ -1,43 +1,43 @@
 {
     "carparks": {
-       
+
         "PARNELL": [
             {
                 "Totalspaces": 500,
                 "lat": 53.3504742,
                 "lon": -6.2679004,
                 "name": "Parnell Street"
-               
+
             }
         ],
-        
+
          "ILAC": [
             {
                 "Totalspaces": 1000,
                 "lat": 53.3512519,
                 "lon": -6.2656422,
                 "name": "Ilac"
-               
+
             }
         ],
-        
+
          "ARNOTTS": [
             {
                 "Totalspaces": 350,
                 "lat": 53.348772,
                 "lon": -6.26239,
                 "name": "Arnotts"
-               
+
             }
         ],
-    
+
         "MARLBORO": [
             {
                 "Totalspaces": 612,
                 "lat": 53.351806,
                 "lon": -6.258687,
                 "name": "Malboro Street"
-               
+
             }
         ],
         "ABBEY": [
@@ -46,99 +46,98 @@
                 "lat": 53.349345,
                 "lon": -6.256093,
                 "name": "Abbey Street"
-               
+
             }
         ],
-        
+
          "JERVIS": [
             {
                 "Totalspaces": 750,
                 "lat": 53.347253,
                 "lon": -6.266151,
                 "name": "Jervis"
-               
+
             }
         ],
-        
+
         "THOMASST": [
             {
                 "Totalspaces": 220,
                 "lat": 53.343053,
                 "lon": -6.280035,
                 "name": "Thomas Street"
-               
+
             }
         ],
-        
+
          "C\/CHURCH": [
             {
                 "Totalspaces": 212,
                 "lat": 53.342426,
                 "lon": -6.270104,
                 "name": "Christ Church"
-               
+
             }
         ],
-        
+
          "SETANTA": [
             {
                 "Totalspaces": 225,
                 "lat": 53.341257,
                 "lon": -6.257647,
                 "name": "Setanta"
-               
+
             }
         ],
-        
+
          "DAWSON": [
             {
                 "Totalspaces": 370,
                 "lat": 53.340128,
                 "lon": -6.2569134,
                 "name": "Dawson Street"
-               
+
             }
         ],
-        
+
          "TRINITY": [
             {
                 "Totalspaces": 373,
                 "lat": 53.343868,
                 "lon": -6.262172,
                 "name": "Trinity"
-               
+
             }
         ],
-        
+
          "GREENRCS": [
             {
                 "Totalspaces": 1127,
                 "lat": 53.3398159,
                 "lon": -6.2625345,
                 "name": "St Stephens Green-Royal College of Surgeons"
-               
+
             }
         ],
-        
+
         "DRURY": [
             {
                 "Totalspaces": 464,
                 "lat": 53.341657,
                 "lon": -6.263919,
                 "name": "Drury Street"
-               
+
             }
         ],
-        
+
          "B\/THOMAS": [
             {
                 "Totalspaces": 380,
                 "lat": 53.342699,
                 "lon": -6.261413,
                 "name": "Brown Thomas"
-               
+
             }
         ]
     }
 }
-

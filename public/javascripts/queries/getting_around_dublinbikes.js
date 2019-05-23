@@ -29,10 +29,10 @@ let bikesCluster = L.markerClusterGroup();
 let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
 let bikeHour = d3.timeFormat("%H");
 
+/** @todo Should load stations from an archived file if this fails**/
 d3.json('/api/dublinbikes/stations/list')
   .catch((err) => {
     console.error("Error fetching Dublin Bikes data" + JSON.stringify(err));
-    /** @todo Should load stations from an archived file if this fails**/
   })
   .then((data) => initBikeStationsMarkers(data));
 
