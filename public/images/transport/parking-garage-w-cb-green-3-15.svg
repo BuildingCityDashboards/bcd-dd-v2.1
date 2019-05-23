@@ -5,15 +5,14 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 15 15"
 	 style="enable-background:new 0 0 15 15;" xml:space="preserve">
 <style type="text/css">
-	.st0{opacity:0.9;fill:#454545;enable-background:new    ;}
-	.st1{fill:#FFFFFF;}
+	.st0{opacity:0.9;fill:#74C476;enable-background:new    ;}
 </style>
 <sodipodi:namedview  bordercolor="#666666" borderopacity="1" gridtolerance="10" guidetolerance="10" id="namedview4744" inkscape:current-layer="Layer_1" inkscape:cx="7.5" inkscape:cy="7.5" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-height="480" inkscape:window-maximized="1" inkscape:window-width="725" inkscape:window-x="0" inkscape:window-y="0" inkscape:zoom="15.733333" objecttolerance="10" pagecolor="#ffffff" showgrid="false">
 	</sodipodi:namedview>
 <path id="path8564-5-6-4" inkscape:connector-curvature="0" class="st0" d="M7.5-2.9c6,0,11.1,4.7,11.1,10.3s-5,10.3-11.1,10.3
 	S-3.5,13.1-3.5,7.5S1.5-2.9,7.5-2.9z"/>
-<path id="path4741" class="st1" d="M10.3,9.8c-0.6,0.4-1.4,0.7-2.1,0.6H6.4v2.9H4.6V5.1h3.6c0.7,0,1.4,0.2,2,0.6
-	c0.5,0.5,0.8,1.2,0.7,2C11.1,8.4,10.8,9.2,10.3,9.8z M8.9,6.8c-0.3-0.2-0.6-0.3-1-0.3H6.4V9H8c0.3,0,0.7-0.1,0.9-0.3
-	s0.4-0.6,0.3-0.9C9.2,7.4,9.1,7,8.9,6.8z M13.9,4.3c0.1-0.2,0-0.5-0.2-0.6L7.5,0.9L1.3,3.7C1,3.8,0.9,4.1,1,4.3s0.4,0.3,0.6,0.2l0,0
-	l5.8-2.7l5.8,2.7C13.5,4.7,13.8,4.6,13.9,4.3L13.9,4.3z"/>
+<path id="path4741" d="M10.3,9.8c-0.6,0.4-1.4,0.7-2.1,0.6H6.4v2.9H4.6V5.1h3.6c0.7,0,1.4,0.2,2,0.6c0.5,0.5,0.8,1.2,0.7,2
+	C11.1,8.4,10.8,9.2,10.3,9.8z M8.9,6.8c-0.3-0.2-0.6-0.3-1-0.3H6.4V9H8c0.3,0,0.7-0.1,0.9-0.3s0.4-0.6,0.3-0.9
+	C9.2,7.4,9.1,7,8.9,6.8z M13.9,4.3c0.1-0.2,0-0.5-0.2-0.6L7.5,0.9L1.3,3.7C1,3.8,0.9,4.1,1,4.3s0.4,0.3,0.6,0.2l0,0l5.8-2.7l5.8,2.7
+	C13.5,4.7,13.8,4.6,13.9,4.3L13.9,4.3z"/>
 </svg>

@@ -20,7 +20,7 @@ let customCarparkLayer = L.Layer.extend({
 
 });
 
-let carparkPopupOptons = {
+let carparkPopupOptions = {
   // 'maxWidth': '500',
   'className': 'carparkPopup'
 };
@@ -80,40 +80,56 @@ function initCarparksMarkers(data_) {
     let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
       icon: new carparkMapIcon({
         iconUrl: '/images/transport/parking-garage-w-default-15.svg' //loads a default grey icon
-      })
+      }),
+      opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
+      title: 'Car Park:' + '\t' + d.name,
+      alt: 'Car Park icon',
     });
-    // marker.bindPopup(getCarparkContent(d, k));
+    m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
     carparkCluster.addLayer(m);
     //        console.log("getMarkerID: "+marker.optiid);
   });
   gettingAroundMap.addLayer(carparkCluster);
-  // bikesCluster.clearLayers();
-  // gettingAroundMap.removeLayer(bikesCluster); //required
-  // data_.forEach((d, i) => {
-  //   d.type = "Car Park"; //used in alt text (tooltip)
-  //   let m = new customCarparkMarker(
-  //     new L.LatLng(+d.st_LATITUDE, +d.st_LONGITUDE), {
-  //       id: d.st_ID,
-  //       icon: new bikesIcon({
-  //         iconUrl: 'images/transport/bikes_icon_default.png' //loads a default grey icon
-  //       }),
-  //       opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
-  //       title: d.type + '\t' + d.st_NAME,
-  //       alt: d.type + ' icon',
-  //       //            riseOnHover: true,
-  //       //            riseOffset: 250
-  //
-  //     });
-  // m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
-  // m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
-  // bikesCluster.addLayer(m);
-  // bikesLayerGroup.addLayer(m);
-  // gettingAroundMap.addLayer(bikesLayerGroup);
-  // });
-  // gettingAroundMap.addLayer(bikesCluster);
-  // gettingAroundMap.fitBounds(bikesCluster.getBounds());
 }
 
+function carparkPopupInit(d_) {
+  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  //if no station id none of the mappings witll work so escape
+  if (!d_.name) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We can't get the Car Park data right now, please try again later" +
+      "</div>" +
+      "</div>";
+    return str;
+  }
+
+  let str = "<div class=\"bike-popup-container\">";
+  if (d_.name) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"carpark-name-" + d_.id + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.name + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"carpark-open-" + d_.id + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
+  }
+  str += "<div class=\"row \">";
+  str += "<span id=\"carpark-spacescount-" + d_.id + "\" class=\"col-9\" >" +
+    d_.Totalspaces +
+    " total spaces</span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.id) {
+    str += '<div class=\"row \">';
+    str += '<span id="carpark-spark-' + d_.id + '"></span>';
+    str += '</div>';
+  }
+  str += '</div>' //closes container
+  return str;
+
+}
 
 function updateMapCarparks(data__) {
   carparkCluster.clearLayers();

@@ -47,10 +47,26 @@
     /* color:#fff; text colour */
 }
 
+.carparkPopup .leaflet-popup-content-wrapper {
+    background: #001f35;
+}
+
+.carparkPopup .leaflet-popup-content {
+    color: #ffffff;
+    width: 250px !important;
+    height: 175px !important;
+    /* font-size:16px;
+    line-height:24px;
+    border-radius: 0px;
+    */
+
+    /* color:#fff; text colour */
+}
+
 .popup-error{
   margin: 40px;
-
 }
+
 
 /* .dc-chart .axis {
     display: none;
