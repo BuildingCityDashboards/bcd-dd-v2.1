@@ -29,13 +29,9 @@ var tools = require('./routes/tools');
 var queries = require('./routes/queries');
 var api = require('./routes/api');
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-
 
 // point to the bootstrap and jquery files
 // app.use('/javascripts/vendor/bootstrap/js', express.static(
