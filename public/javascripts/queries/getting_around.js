@@ -26,6 +26,10 @@ The following TODO list addresses issues #27 #22 #21 #16 #15 #14 #13
 
 //***@todo: refactor to use ES6 imports ***/
 
+/*
+API activity checks that the buttons are not disabled
+
+*/
 
 
 /************************************
@@ -157,8 +161,6 @@ function processRoads(data_) {
   //             );
   // });
 }
-
-
 /************************************
  * Button Listeners
  ************************************/

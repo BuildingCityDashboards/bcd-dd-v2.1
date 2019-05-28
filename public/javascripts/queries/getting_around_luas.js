@@ -73,7 +73,7 @@ d3.tsv("/data/Transport/luas-stops.txt")
     processLuas(data);
   })
   .catch(function(err) {
-    console.error("Error fetching Luas stop data");
+    console.error("Error fetching Luas stop data: " + JSON.stringify(err));
   });
 
 d3.json("/data/Transport/LUAS_Green_Line.geojson")
@@ -88,6 +88,26 @@ d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function(data) {
 }).catch(function(err) {
   console.error("Error fetching Luas Red Line path");
 });
+
+let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
+
+// Timed refresh of api status
+const luasTimer = setIntervalAsync(
+  () => {
+    return d3.html(luasAPIBase) //get latest snapshot of all stations
+      .catch(function(err) {
+        console.error("Error fetching Luas data: " + JSON.stringify(err));
+        updateAPIStatus('#luas-activity-icon', '#luas-age', false);
+      })
+      .then((data) => {
+        updateAPIStatus('#luas-activity-icon', '#luas-age', true);
+        // console.log("Luas API active");
+        // updateBikeStationsMarkers(data);
+      })
+  },
+  15000
+);
+
 
 function processLuas(data_) {
   //    console.log("Luas- \n");
@@ -136,6 +156,7 @@ function updateMapLuas(data__) {
     //console.log("marker ID: "+marker.options.id);
   });
   gettingAroundMap.addLayer(luasLayer);
+  // gettingAroundMap.fitBounds(luasLayer.getBounds());
   chooseLookByZoom();
 
 }
@@ -191,8 +212,6 @@ function getLuasContent(d_) {
   // ;
   return str;
 }
-
-let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 
 function markerOnClickLuas(e) {
   let sid_ = this.options.id;
@@ -264,7 +283,6 @@ function markerOnClickLuas(e) {
 //Adapt map features for various zoom levels
 gettingAroundMap.on('zoomend', function(ev) {
   chooseLookByZoom();
-
 });
 
 function chooseLookByZoom() {
