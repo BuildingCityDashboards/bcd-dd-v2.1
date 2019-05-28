@@ -41,26 +41,26 @@ let carparkCluster = L.markerClusterGroup({
 
 //create points on privateMap for carparks even if RTI not available
 d3.json("/data/Transport/carparks_static.json")
-  .catch((err) => {
-    console.error("Error fetching car parks static data");
-
-  })
   .then((data) => {
     //    console.log("data.carparks :" + JSON.stringify(data.carparks));
     initCarparksMarkers(data);
+  })
+  .catch((err) => {
+    console.error("Error fetching car parks static data");
+
   });
 
 // Timed refresh of map station markers symbology using data snapshot
 const carparksTimer = setIntervalAsync(
   () => {
     return d3.xml('/api/carparks/snapshot') //get latest snapshot of all stations
-      .catch(function(err) {
-        console.error("Getting Around - Error fetching Car Park data");
-        updateAPIStatus('#parking-activity-icon', '#parking-age', false);
-      })
       .then((xml) => {
         updateAPIStatus('#parking-activity-icon', '#parking-age', true);
         updateCarparkMarkers(xml);
+      })
+      .catch(function(err) {
+        console.error("Getting Around - Error fetching Car Park data");
+        updateAPIStatus('#parking-activity-icon', '#parking-age', false);
       })
   },
   10000
@@ -86,24 +86,24 @@ function initCarparksMarkers(data_) {
 }
 
 function updateCarparkMarkers(xml_) {
-  // gettingAroundMap.removeLayer(carparkCluster);
-  // carparkCluster.clearLayers();
-  // for (let i = 0; i < xml_.getElementsByTagName("carpark").length; i += 1) {
-  //   let name = xml_.getElementsByTagName("carpark")[i].getAttribute("name");
-  //   // if (name === k_) {
-  //   let spaces = xml_.getElementsByTagName("carpark")[i].getAttribute("spaces");
-  //   console.log("found:" + name + " spaces: " + spaces);
-  //   let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
-  //     icon: new carparkMapIcon({
-  //       iconUrl: '/images/transport/parking-garage-w-cd-green-1-15.svg' //loads a default grey icon
-  //     }),
-  //     opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
-  //     title: 'Car Park:' + '\t' + d.name,
-  //     alt: 'Car Park icon',
-  //   });
-  //   m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
-  //   carparkCluster.addLayer(m);
-  // }
+  gettingAroundMap.removeLayer(carparkCluster);
+  carparkCluster.clearLayers();
+  for (let i = 0; i < xml_.getElementsByTagName("carpark").length; i += 1) {
+    let name = xml_.getElementsByTagName("carpark")[i].getAttribute("name");
+    // if (name === k_) {
+    let spaces = xml_.getElementsByTagName("carpark")[i].getAttribute("spaces");
+    console.log("found:" + name + " spaces: " + spaces);
+    let m = new customCarparkMarker(new L.LatLng(d.lat, d.lon), {
+      icon: new carparkMapIcon({
+        iconUrl: '/images/transport/parking-garage-w-cd-green-1-15.svg' //loads a default grey icon
+      }),
+      opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
+      title: 'Car Park:' + '\t' + d.name,
+      alt: 'Car Park icon',
+    });
+    m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
+    carparkCluster.addLayer(m);
+  }
 
 
   // + "marker" +
@@ -136,7 +136,7 @@ function updateCarparkMarkers(xml_) {
   //   m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
   //   carparkCluster.addLayer(m);
   // }
-  gettingAroundMap.addLayer(bikesCluster);
+  gettingAroundMap.addLayer(carparkCluster);
 
 }
 

@@ -11,9 +11,9 @@ div(class="tab-content" id="nav-tabContent")
       #weather-chart.col-xl-3.col-sm-6.col-11
         +card-rt("/", "card text-white o-hidden border-blue", "Weather", "test", "rt-weather")
       #bikes-chart.col-xl-3.col-sm-6.col-11
-        +card-rt("/", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+        +card-rt("queries#dublin-bikes-query", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
       #traveltimes-chart.col-xl-3.col-sm-6.col-11
-        +card-rt("/", "card text-white o-hidden border-blue", "Motorway Travel Times", "test","rt-travelTimes")
+        +card-rt("queries#dublinbikes", "card text-white o-hidden border-blue", "Motorway Travel Times", "test","rt-travelTimes")
       #air-chart.col-xl-3.col-sm-6.col-11
         +card-rt("/", "card text-white o-hidden border-teal", "Air Quality - Coming Soon", "test","rt-air")
     #data-text.d-sm-none.d-md-block 
@@ -53,7 +53,7 @@ div(class="tab-content" id="nav-tabContent")
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
   //-     .col-xl-3.col-sm-6
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-        
+
   //- div(class="tab-pane tab-charts fade" id="nav-economy")
   //-   .row.tab-charts__row
   //-     .col-xl-3.col-sm-6
@@ -68,7 +68,7 @@ div(class="tab-content" id="nav-tabContent")
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
   //-     .col-xl-3.col-sm-6
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-      
+
   //- div(class="tab-pane tab-charts fade" id="nav-environment")
   //- div(class="tab-pane tab-charts fade" id="nav-health")
   //- div(class="tab-pane tab-charts fade" id="nav-housing")
@@ -85,6 +85,3 @@ div(class="tab-content" id="nav-tabContent")
 //-     a(class="nav-item tab-link" id="nav-education-tab" data-toggle="tab" href="#nav-education") Education
 //-     a(class="nav-item tab-link" id="nav-health-tab" data-toggle="tab" href="#nav-health") Health
 //-     a(class="nav-item tab-link" id="nav-demographics-tab" data-toggle="tab" href="#nav-demographics") Demographics
-    
-    
-    

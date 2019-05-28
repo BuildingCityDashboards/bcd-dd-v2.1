@@ -6,7 +6,7 @@ const getData = async url => {
   try {
     const response = await fetch(url);
     const xml = await response.text();
-    console.log("\n******\nCar Parks data: " + xml + "\n******\n");
+    console.log("\n******\nCar Parks (controller) data: " + xml + "\n******\n");
     return xml;
 
   } catch (error) {
