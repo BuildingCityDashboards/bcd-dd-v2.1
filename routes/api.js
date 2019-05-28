@@ -19,6 +19,7 @@ router.get('/dublinbikes/stations/list', dublinBikesController.getStationsList);
 router.get('/dublinbikes/stations/snapshot', dublinBikesController.getStationsSnapshot);
 // router.get('/dublinbikes/stations/example', dublinBikesController.getStationExample);
 // router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);
+router.get('/dublinbikes/stations/all/today', dublinBikesController.getAllStationsDataToday);
 router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday);
 
 var carparksController = require('../controllers/carparks_controller');

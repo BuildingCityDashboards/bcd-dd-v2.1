@@ -208,7 +208,6 @@ function setBikesStationPopupError(id, err) {
     .html(str);
 }
 
-
 //Sparkline for popup geterated from station query
 function getBikesStationPopup() {
   ////d3.select("#bike-spark-67").text('Selected from D3');

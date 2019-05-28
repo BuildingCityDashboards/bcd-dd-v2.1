@@ -78,8 +78,7 @@ exports.getStationsSnapshot = async (req, res) => {
 //   "name": "HEUSTON BRIDGE (SOUTH)"
 // }]
 exports.getStationDataToday = async (req, res) => {
-  // console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
-
+  console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
   /*Fetch trend data for the day and display in popup*/
   let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
   let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
@@ -91,6 +90,24 @@ exports.getStationDataToday = async (req, res) => {
     endQuery +
     "&station=" +
     req.params.number;
+  const response = await getDublinBikesData_derilinx(url);
+  res.send(response);
+};
+
+exports.getAllStationsDataToday = async (req, res) => {
+  // console.log("\n\n**********Get Station Trend " + req.params.number + "******************\n");
+  /*Fetch trend data for the day and display in popup*/
+  let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm');
+  // let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm');
+  let endQuery = moment.utc().format('YYYYMMDDHH');
+  // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+  const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+    "dfrom=" +
+    startQuery +
+    "&dto=" +
+    endQuery + '00';
+
+  console.log("\n\n\nURL - - " + url + "\n\n\n ")
   const response = await getDublinBikesData_derilinx(url);
   res.send(response);
 };
