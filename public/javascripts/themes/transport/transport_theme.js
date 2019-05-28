@@ -4,7 +4,7 @@
 Promise.all([
   d3.json("/api/dublinbikes/stations/all/today")
 ]).then(data => {
-  console.log("Bikes theme data size: " + JSON.stringify(data[0]));
+  // console.log("Bikes theme data size: " + JSON.stringify(data[0]));
   // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
   //
   // //1.  data processing for house completion chart

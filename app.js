@@ -147,128 +147,132 @@ cron.schedule("*/1 * * * *", function() {
   let http = require('https');
   let fs = require('fs');
   const fetch = require("node-fetch");
-  let apiStatusDefault = './public/data/api-status-default.json';
-  let apiStatusUpdate = './public/data/api-status.json';
-  let apiStatus = require(apiStatusDefault);
-  //reset file when cron job is run
-  apiStatus.carparks.status = null;
-  apiStatus.dublinbus.status = null;
-  apiStatus.dublinbikes.status = null;
-  apiStatus.luas.status = null;
-  apiStatus.traveltimes.status = null;
-  apiStatus.traveltimesroads.status = null;
-  fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-    if (err)
-      return console.log(">>>Error writing to api-status.json\n" + err);
-  });
+  // let apiStatusDefault = './public/data/api-status-default.json';
+  // let apiStatusUpdate = './public/data/api-status.json';
+  // let apiStatus = require(apiStatusDefault);
+  // //reset file when cron job is run
+  // apiStatus.carparks.status = null;
+  // apiStatus.dublinbus.status = null;
+  // apiStatus.dublinbikes.status = null;
+  // apiStatus.luas.status = null;
+  // apiStatus.traveltimes.status = null;
+  // apiStatus.traveltimesroads.status = null;
 
-  let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");
-  http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function(response, error) {
-    if (error) {
-      return console.log(">>>Error on carparks GET\n");
-    }
-    response.pipe(carparkFile);
-    const {
-      statusCode
-    } = response;
-    response.on('end', function() {
-      apiStatus.carparks.status = statusCode;
-      //            console.log(JSON.stringify(apiStatus));
 
-      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-        if (err)
-          return console.error(">>>Error writing carparks to api-status.json\n" + err);
-      });
-    });
-  });
+  // fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //   if (err)
+  //     return console.log(">>>Error writing to api-status.json\n" + err);
+  // });
 
-  let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
-  http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
-    if (error) {
-      return console.log(">>>Error on dublinbikes GET\n");
-    }
-    response.pipe(bikeFile);
-    const {
-      statusCode
-    } = response;
-    response.on('end', function() {
-      apiStatus.dublinbikes.status = statusCode;
-      //console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-        if (err)
-          return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
-      });
-    });
-  });
+  // let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
+  // http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
+  //   if (error) {
+  //     return console.log(">>>Error on dublinbikes GET\n");
+  //   }
+  //   response.pipe(bikeFile);
+  //   const {
+  //     statusCode
+  //   } = response;
+  //   response.on('end', function() {
+  //     apiStatus.dublinbikes.status = statusCode;
+  //     //console.log(JSON.stringify(apiStatus));
+  //     fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //       if (err)
+  //         return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
+  //     });
+  //   });
+  // });
+
+  // let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");
+  // http.get("https://www.dublincity.ie/dublintraffic/cpdata.xml", function(response, error) {
+  //   if (error) {
+  //     return console.log(">>>Error on carparks GET\n");
+  //   }
+  //   response.pipe(carparkFile);
+  //   const {
+  //     statusCode
+  //   } = response;
+  //   response.on('end', function() {
+  //     apiStatus.carparks.status = statusCode;
+  //     //            console.log(JSON.stringify(apiStatus));
+  //
+  //     fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //       if (err)
+  //         return console.error(">>>Error writing carparks to api-status.json\n" + err);
+  //     });
+  //   });
+  // });
+
+
 
   //    let busFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
   //just use an example query here, don't parse
-  http.get("https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=184&format=json", function(response, error) {
-    if (error) {
-      return console.log(">>>Error on dublinbus GET\n");
-    }
-    const {
-      statusCode
-    } = response;
-    apiStatus.dublinbus.status = statusCode;
-    fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-      if (err)
-        return console.log(">>>Error writing dublinbus to api-status.json\n" + err);
-    });
-  });
+  // http.get("https://data.smartdublin.ie/cgi-bin/rtpi/realtimebusinformation?stopid=184&format=json", function(response, error) {
+  //   if (error) {
+  //     return console.log(">>>Error on dublinbus GET\n");
+  //   }
+  //   const {
+  //     statusCode
+  //   } = response;
+  //   apiStatus.dublinbus.status = statusCode;
+  //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //     if (err)
+  //       return console.log(">>>Error writing dublinbus to api-status.json\n" + err);
+  //   });
+  // });
 
   //example query used for Luas returns xml, which is not parsed here
-  http.get("https://luasforecasts.rpa.ie/xml/get.ashx?action=forecast&stop=ran&encrypt=false", function(response, error) {
-    if (error) {
-      return console.log(">>>Error on luas GET\n");
-    }
-    const {
-      statusCode
-    } = response;
-    apiStatus.luas.status = statusCode;
-    fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-      if (err)
-        return console.log(">>>Error writing luas to api-status.json\n" + err);
-    });
-  });
+  // http.get("https://luasforecasts.rpa.ie/xml/get.ashx?action=forecast&stop=ran&encrypt=false", function(response, error) {
+  //   if (error) {
+  //     return console.log(">>>Error on luas GET\n");
+  //   }
+  //   const {
+  //     statusCode
+  //   } = response;
+  //   apiStatus.luas.status = statusCode;
+  //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //     if (err)
+  //       return console.log(">>>Error writing luas to api-status.json\n" + err);
+  //   });
+  // });
 
-  let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
-  http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
-    if (error) {
-      return console.log(">>>Error on traveltimes GET\n");
-    }
-    response.pipe(travelTimesFile);
-    const {
-      statusCode
-    } = response;
-    response.on('end', function() {
-      apiStatus.traveltimes.status = statusCode;
-      //            console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-        if (err)
-          return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
-      });
-    });
-
-  });
-  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
-  http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
-    if (error) {
-      return console.log(">>>Error on traveltimesroads GET\n");
-    }
-    response.pipe(travelTimesRoadsFile);
-    const {
-      statusCode
-    } = response;
-    response.on('end', function() {
-      apiStatus.traveltimesroads.status = statusCode;
-      //            console.log(JSON.stringify(apiStatus));
-      fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-        if (err)
-          return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
-      });
-    });
-  });
+  // let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
+  // http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
+  //   if (error) {
+  //     return console.log(">>>Error on traveltimes GET\n");
+  //   }
+  //   response.pipe(travelTimesFile);
+  //   const {
+  //     statusCode
+  //   } = response;
+  //   response.on('end', function() {
+  //     apiStatus.traveltimes.status = statusCode;
+  //     //            console.log(JSON.stringify(apiStatus));
+  //     fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //       if (err)
+  //         return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
+  //     });
+  //   });
+  //
+  // });
+  //   let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
+  //   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
+  //     if (error) {
+  //       return console.log(">>>Error on traveltimesroads GET\n");
+  //     }
+  //     response.pipe(travelTimesRoadsFile);
+  //     const {
+  //       statusCode
+  //     } = response;
+  //     response.on('end', function() {
+  //       apiStatus.traveltimesroads.status = statusCode;
+  //       //            console.log(JSON.stringify(apiStatus));
+  //       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //         if (err)
+  //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
+  //       });
+  //     });
+  //   });
 });
 
 //Water Levels
