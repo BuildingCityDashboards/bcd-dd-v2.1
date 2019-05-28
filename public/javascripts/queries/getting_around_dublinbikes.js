@@ -31,24 +31,26 @@ let bikeHour = d3.timeFormat("%H");
 
 /** @todo Should load stations from an archived file if this fails**/
 d3.json('/api/dublinbikes/stations/list')
+  .then((data) => initBikeStationsMarkers(data))
   .catch((err) => {
     console.error("Error fetching Dublin Bikes data" + JSON.stringify(err));
-  })
-  .then((data) => initBikeStationsMarkers(data));
+  });
 
 
 // Timed refresh of map station markers symbology using data snapshot
 const bikesTimer = setIntervalAsync(
   () => {
     return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
-      .catch(function(err) {
-        // console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
-        updateAPIStatus('#bike-activity-icon', '#bike-age', false);
-      })
       .then((data) => {
+        console.log("Fetched Dublin Bikes data ");
         updateAPIStatus('#bike-activity-icon', '#bike-age', true);
         updateBikeStationsMarkers(data);
       })
+      .catch(function(err) {
+        console.error("Error fetching Dublin Bikes data: " + JSON.stringify(err));
+        updateAPIStatus('#bike-activity-icon', '#bike-age', false);
+      })
+
   },
   10000
 );
@@ -213,10 +215,6 @@ function getBikesStationPopup() {
   let sid_ = this.options.id;
   // /api/dublinbikes / stations / snapshot
   d3.json('/api/dublinbikes/stations/' + sid_ + '/today')
-    .catch(function(err) {
-      return setBikesStationPopupError(sid_, err);
-
-    })
     .then(function(stationData) {
       // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
       // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
@@ -311,6 +309,10 @@ function getBikesStationPopup() {
       bikeSpark.brushOn(false);
       bikeSpark.clipPadding(15);
       bikeSpark.render();
+    })
+    .catch(function(err) {
+      return setBikesStationPopupError(sid_, err);
+
     })
 }
 

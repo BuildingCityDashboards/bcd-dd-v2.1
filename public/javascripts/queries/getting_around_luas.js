@@ -83,11 +83,12 @@ d3.json("/data/Transport/LUAS_Green_Line.geojson")
     console.error("Error fetching Luas Green Line path");
   });
 
-d3.json("/data/Transport/LUAS_Red_Line.geojson").then(function(data) {
-  updateMapLuasLineRed(data);
-}).catch(function(err) {
-  console.error("Error fetching Luas Red Line path");
-});
+d3.json("/data/Transport/LUAS_Red_Line.geojson")
+  .then(function(data) {
+    updateMapLuasLineRed(data);
+  }).catch(function(err) {
+    console.error("Error fetching Luas Red Line path");
+  });
 
 let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 
@@ -95,14 +96,14 @@ let luasAPIBase = "https://luasforecasts.rpa.ie/analysis/view.aspx?id=";
 const luasTimer = setIntervalAsync(
   () => {
     return d3.html(luasAPIBase) //get latest snapshot of all stations
-      .catch(function(err) {
-        console.error("Error fetching Luas data: " + JSON.stringify(err));
-        updateAPIStatus('#luas-activity-icon', '#luas-age', false);
-      })
       .then((data) => {
         updateAPIStatus('#luas-activity-icon', '#luas-age', true);
         // console.log("Luas API active");
         // updateBikeStationsMarkers(data);
+      })
+      .catch(function(err) {
+        console.error("Error fetching Luas data: " + JSON.stringify(err));
+        updateAPIStatus('#luas-activity-icon', '#luas-age', false);
       })
   },
   15000

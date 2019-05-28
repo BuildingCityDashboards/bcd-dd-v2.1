@@ -68,7 +68,7 @@ function updateAPIStatus(activity, age, isLive) {
   } else {
     d3.select(activity).attr('src', '/images/icons/alert-triangle.svg');
     d3.select(age)
-      .text('Unavailable');
+      .text('No data @ ' + tf);
   }
 
 }
