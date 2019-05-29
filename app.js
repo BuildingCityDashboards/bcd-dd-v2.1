@@ -76,28 +76,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// let connections = require('./database/connections');
-
-// let census2016Connection = connections.census2016Connection;
-// census2016Connection.on('connected', function() {
-//   console.log("Connected to Census2016 MongoDB Database");
-// });
-// census2016Connection.on('error', console.error.bind(console, 'Census 2016 MongoDB connection error:'));
-
-//dublinbikes database connection and data model setup
-// let dublinBikesConnection = connections.dublinBikesConnection;
-// dublinBikesConnection.on('connected', function() {
-//   console.log("Connected to Dublin Bikes MongoDB Database");
-// });
-// dublinBikesConnection.on('error', console.error.bind(console, 'Dublin Bikes MongoDB connection error:'));
-// let BikesStationSchema = require('./models/dublinbikes');
-// let StationModel = dublinBikesConnection.model('Station', BikesStationSchema); //the data model to call
-
-/*Hourly trend data- rewritten every day*/
-
-/***TODO:
- * check if record exists for timestamp for station and only insert if false
- ****/
 
 // const bikesURI = 'https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=' + process.env.BIKES_API_KEY;
 // const getDublinBikesData = async url => {
@@ -113,17 +91,14 @@ app.use(function(err, req, res, next) {
 //     console.log(error);
 //   }
 // };
-// let bikes_url_derilinx = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
-//   "dfrom=201903082000" +
-//   "&dto=201903082010" +
-//   "&station=42";
-
+// let bikes_url_derilinx = "/api/dublinbikes/stations/snapshot";
+//
 // const getDublinBikesData_derilinx = async url => {
 //   const fetch = require("node-fetch");
 //   try {
 //     const response = await fetch(url);
 //     const json = await response.json();
-//     // console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
+//     console.log("\n******\nApp - Example Dublin Bikes data from API: " + JSON.stringify(json[0]) + "\n******\n");
 //
 //   } catch (error) {
 //     console.log(error);
@@ -164,23 +139,26 @@ cron.schedule("*/1 * * * *", function() {
   //     return console.log(">>>Error writing to api-status.json\n" + err);
   // });
 
-  // let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
-  // http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
-  //   if (error) {
-  //     return console.log(">>>Error on dublinbikes GET\n");
-  //   }
-  //   response.pipe(bikeFile);
-  //   const {
-  //     statusCode
-  //   } = response;
-  //   response.on('end', function() {
-  //     apiStatus.dublinbikes.status = statusCode;
-  //     //console.log(JSON.stringify(apiStatus));
-  //     fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-  //       if (err)
-  //         return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
-  //     });
-  //   });
+  /*** @todo use new API for this ****/
+
+  let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
+  http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
+    if (error) {
+      return console.log(">>>Error on dublinbikes GET\n");
+    }
+    console.log(">>>Successful dublinbikes GET\n");
+    response.pipe(bikeFile);
+    // const {
+    //   statusCode
+    // } = response;
+    // response.on('end', function() {
+    //   apiStatus.dublinbikes.status = statusCode;
+    //   //console.log(JSON.stringify(apiStatus));
+    //   // fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //   //   if (err)
+    //   //     return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
+    //   // });
+  });
   // });
 
   // let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");
