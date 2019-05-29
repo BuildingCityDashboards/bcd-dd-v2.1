@@ -233,24 +233,24 @@ cron.schedule("*/1 * * * *", function() {
   //   });
   //
   // });
-  //   let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
-  //   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
-  //     if (error) {
-  //       return console.log(">>>Error on traveltimesroads GET\n");
-  //     }
-  //     response.pipe(travelTimesRoadsFile);
-  //     const {
-  //       statusCode
-  //     } = response;
-  //     response.on('end', function() {
-  //       apiStatus.traveltimesroads.status = statusCode;
-  //       //            console.log(JSON.stringify(apiStatus));
-  //       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-  //         if (err)
-  //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
-  //       });
-  //     });
-  //   });
+  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
+  http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
+    if (error) {
+      return console.log(">>>Error on traveltimesroads GET\n");
+    }
+    response.pipe(travelTimesRoadsFile);
+    //     const {
+    //       statusCode
+    //     } = response;
+    //     response.on('end', function() {
+    //       apiStatus.traveltimesroads.status = statusCode;
+    //       //            console.log(JSON.stringify(apiStatus));
+    //       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //         if (err)
+    //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
+    //       });
+    //     });
+  });
 });
 
 //Water Levels
