@@ -100,29 +100,32 @@ const getDublinBikesData_API = async url => {
   }
 };
 
+let bikesLatest;
 //Fetch snapshot of data and save to file every n minutes
 cron.schedule("*/1 * * * *", async () => {
   let fs = require('fs');
   let fileName = "bikesData.json";
-  let bikesByHour = fs.createWriteStream("./public/data/Transport/" + fileName);
+  bikesLatest = fs.createWriteStream("./public/data/Transport/" + fileName);
   const data = await getDublinBikesData_API(bikesSnapshotURL);
-  bikesByHour.write(JSON.stringify(data, null, 2));
+  bikesLatest.write(JSON.stringify(data, null, 2));
 });
 
 //Fetch snapshot of data and save to file at n minutes past the hour, every hour
+let bikesHourly;
 cron.schedule("6 */1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikesData-" + new Date().getHours() + ".json";
-  let bikesByHour = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
+  bikesHourly = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesSnapshotURL);
-  bikesByHour.write(JSON.stringify(data, null, 2));
+  bikesHourly.write(JSON.stringify(data, null, 2));
 });
 
 //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
+let bikesYesterday;
 cron.schedule("30 1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikes_yesterday.json";
-  let bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
   bikesYesterday.write(JSON.stringify(data, null, 2));
 });
