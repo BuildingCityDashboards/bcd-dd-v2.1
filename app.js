@@ -76,46 +76,63 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/************
+ Fetching bikes data via API for various time resolutions and spans
+ ************/
 
-// const bikesURI = 'https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=' + process.env.BIKES_API_KEY;
-// const getDublinBikesData = async url => {
-//
-//   const fetch = require("node-fetch");
-//   try {
-//     const response = await fetch(url);
-//     const json = await response.json();
-//     console.log("Example Dublin Bikes data: " + JSON.stringify(json[0]));
-//     // StationModel.insertMany(json); //saved to MongoDb using mongoose connection
-//
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// let bikes_url_derilinx = "/api/dublinbikes/stations/snapshot";
-//
-// const getDublinBikesData_derilinx = async url => {
-//   const fetch = require("node-fetch");
-//   try {
-//     const response = await fetch(url);
-//     const json = await response.json();
-//     console.log("\n******\nApp - Example Dublin Bikes data from API: " + JSON.stringify(json[0]) + "\n******\n");
-//
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-//
-// getDublinBikesData_derilinx(bikes_url_derilinx);
+let bikesSnapshotURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/snapshot";
+
+const getDublinBikesData_API = async url => {
+  const fetch = require("node-fetch");
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    console.log("\n******\nApp - Example Dublin Bikes data from API: [0] " + JSON.stringify(json[0]) + "\n******\n");
+    return (json);
+    // bikesTodayStream.write(JSON.stringify(json, null, 2));
+
+    // bikesTodayStream.end();
+
+  } catch (error) {
+    console.log("\n******\nApp - Dublin Bikes fetch fail " + error + "\n******\n");
+  }
+};
+
+//Hourly trend data- rewritten every day
+// let fsBikes = require('fs');
+// let bikesTodayStream = fsBikes.createWriteStream("./public/data/Transport/bikesDataToday.json", {
+//   'flags': 'a'
+// });
+let bikesByHour;
+//# (s) min hour day-month month day-week
+cron.schedule("8 */1 * * *", async () => {
+  let fs = require('fs');
+  let fileName = "bikesData-" + new Date().getHours() + ".json";
+  bikesByHour = fs.createWriteStream("./public/data/Transport/daily_bikes/" + fileName);
+  const data = await getDublinBikesData_API(bikesSnapshotURL);
+  bikesByHour.write(JSON.stringify(data, null, 2));
+});
+
+let count = 0;
+
+
+
 // getDublinBikesData(bikesURI); //call on app start for debug
+
+/*****************/
+
+
+
 
 if (process.env.PRODUCTION == 1) {
   console.log("\n\n***Dashboard is in production***\n\n");
 }
-// cron.schedule("15 * * * *", function() {
-//   if (process.env.PRODUCTION == 1) {
-//     getDublinBikesData(bikesURI);
-//   }
-// });
+
+function getBikesToday(url) {
+  let http = require('https');
+  let fs = require('fs');
+  const fetch = require("node-fetch");
+}
 
 /*TODO: refactor to await/async to remove dupliation*/
 cron.schedule("*/1 * * * *", function() {
