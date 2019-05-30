@@ -143,10 +143,11 @@ cron.schedule("*/1 * * * *", function() {
 
   let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
   http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
+    let d = new Date();
     if (error) {
-      return console.log(">>>Error on dublinbikes GET\n");
+      return console.log(">>>Error on dublinbikes GET @ " + d + "\n");
     }
-    console.log(">>>Successful dublinbikes GET\n");
+    console.log(">>>Successful dublinbikes GET @ " + d + "\n");
     response.pipe(bikeFile);
     // const {
     //   statusCode
@@ -214,26 +215,28 @@ cron.schedule("*/1 * * * *", function() {
   //   });
   // });
 
-  // let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
-  // http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
-  //   if (error) {
-  //     return console.log(">>>Error on traveltimes GET\n");
-  //   }
-  //   response.pipe(travelTimesFile);
-  //   const {
-  //     statusCode
-  //   } = response;
-  //   response.on('end', function() {
-  //     apiStatus.traveltimes.status = statusCode;
-  //     //            console.log(JSON.stringify(apiStatus));
-  //     fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-  //       if (err)
-  //         return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
-  //     });
-  //   });
-  //
-  // });
-  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
+  let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
+  http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
+    let d = new Date();
+    if (error) {
+      return console.log(">>>Error on traveltimes GET @ " + d + "\n");
+    }
+    console.log(">>>Successful traveltimes GET @ " + d + "\n");
+    response.pipe(travelTimesFile);
+    // const {
+    //   statusCode
+    // } = response;
+    // response.on('end', function() {
+    //   apiStatus.traveltimes.status = statusCode;
+    //   //            console.log(JSON.stringify(apiStatus));
+    //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //     if (err)
+    //       return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
+    //   });
+    // });
+
+  });
+  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
     if (error) {
       return console.log(">>>Error on traveltimesroads GET\n");
