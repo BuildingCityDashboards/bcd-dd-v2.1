@@ -105,7 +105,7 @@ const getDublinBikesData_API = async url => {
 // });
 let bikesByHour;
 //# (s) min hour day-month month day-week
-cron.schedule("8 */1 * * *", async () => {
+cron.schedule("5 */1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikesData-" + new Date().getHours() + ".json";
   bikesByHour = fs.createWriteStream("./public/data/Transport/daily_bikes/" + fileName);

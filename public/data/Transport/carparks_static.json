@@ -1,0 +1,97 @@
+[ {
+  "Totalspaces": 500,
+  "lat": 53.3504742,
+  "lon": -6.2679004,
+  "name": "Parnell Street",
+  "id": "PARNELL"
+  },
+ {
+    "Totalspaces": 1000,
+    "lat": 53.3512519,
+    "lon": -6.2656422,
+    "name": "Ilac",
+    "id": "Ilac"
+  },
+ { "Totalspaces": 350,
+    "lat": 53.348772,
+    "lon": -6.26239,
+    "name": "Arnotts",
+    "id": "Arnotts"
+  },
+ { "Totalspaces": 612,
+    "lat": 53.351806,
+    "lon": -6.258687,
+    "name": "Malboro Street",
+    "id": "Malboro"
+  },
+ {
+    "Totalspaces": 340,
+    "lat": 53.349345,
+    "lon": -6.256093,
+    "name": "Abbey Street",
+    "id": "Abbey"
+  },
+ {
+    "Totalspaces": 750,
+    "lat": 53.347253,
+    "lon": -6.266151,
+    "name": "Jervis",
+    "id": "Jervis"
+  },
+ {
+    "Totalspaces": 220,
+    "lat": 53.343053,
+    "lon": -6.280035,
+    "name": "Thomas Street",
+    "id": "Thomas"
+  },
+ {
+    "Totalspaces": 212,
+    "lat": 53.342426,
+    "lon": -6.270104,
+    "name": "Christ Church",
+    "id": "Christ"
+
+  },
+ {
+    "Totalspaces": 225,
+    "lat": 53.341257,
+    "lon": -6.257647,
+    "name": "Setanta",
+    "id": "Setanta"
+  },
+ {
+    "Totalspaces": 370,
+    "lat": 53.340128,
+    "lon": -6.2569134,
+    "name": "Dawson Street",
+    "id": "Dawson"
+  },
+ {
+    "Totalspaces": 373,
+    "lat": 53.343868,
+    "lon": -6.262172,
+    "name": "Trinity",
+    "id": "Trinity"
+  },
+ {
+    "Totalspaces": 1127,
+    "lat": 53.3398159,
+    "lon": -6.2625345,
+    "name": "St Stephens Green-Royal College of Surgeons",
+    "id": "Surgeons"
+},
+ {"Totalspaces": 464,
+  "lat": 53.341657,
+  "lon": -6.263919,
+  "name": "Drury Street",
+  "id": "Drury"
+},
+ {
+  "Totalspaces": 380,
+  "lat": 53.342699,
+  "lon": -6.261413,
+  "name": "Brown Thomas",
+  "id": "Brown"
+
+}]
