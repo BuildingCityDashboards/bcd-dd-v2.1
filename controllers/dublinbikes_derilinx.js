@@ -107,9 +107,43 @@ exports.getAllStationsDataToday = async (req, res) => {
     "&dto=" +
     endQuery + '00';
 
-  console.log("\n\n\nURL - - " + url + "\n\n\n ")
+  // console.log("\n\n\nURL - - " + url + "\n\n\n ")
   const response = await getDublinBikesData_derilinx(url);
   res.send(response);
+};
+
+/********
+Fetch yesterday's bikes data at hourly intervals (called from app at 1.30 am every day)
+********/
+exports.getAllStationsDataYesterdayHourly = async (req, res) => {
+  let h = 0;
+  let responses = [];
+  for (let h = 4; h <= 23; h += 1) {
+    let startQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').format('YYYYMMDDHHmm');
+    let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(6, 'm').format('YYYYMMDDHHmm');
+    // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+    const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+      "dfrom=" +
+      startQuery +
+      "&dto=" +
+      endQuery;
+    // console.log("URL - - " + url + "\n")
+    try {
+      const response = await getDublinBikesData_derilinx(url);
+      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response) + "\n");
+      responses.push(response);
+    } catch (e) {
+      console.error("Error in getAllStationsDataYesterdayHourly" + e);
+    }
+
+  }
+  // console.log("\n\nresponses arr \t" + responses.length);
+  if (responses.length == 20) {
+    res.send(responses);
+  } else {
+    res.send("error");
+  }
+
 };
 
 // exports.getStationData = function(req, res, next) {

@@ -105,15 +105,32 @@ const getDublinBikesData_API = async url => {
 // });
 let bikesByHour;
 //# (s) min hour day-month month day-week
-cron.schedule("15 */1 * * *", async () => {
+//fetch data and save to file at n minutes past the hour
+cron.schedule("6 */1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikesData-" + new Date().getHours() + ".json";
-  bikesByHour = fs.createWriteStream("./public/data/Transport/daily_bikes/" + fileName);
+  bikesByHour = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesSnapshotURL);
   bikesByHour.write(JSON.stringify(data, null, 2));
 });
 
-let count = 0;
+//Fetch yesterday's data at granularity of 1 hour
+const getYesterdaysBikesData = async () => {
+  let url = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/yesterday";
+  const data = await getDublinBikesData_API(url);
+  return data;
+  // console.log("\n******\nApp - Dublin Bikes fetch fail " + error + "\n******\n");
+
+}
+//at 1.30am every day, get yesterday's bike data and write to file
+cron.schedule("30 1 * * *", async () => {
+  let fs = require('fs');
+  let fileName = "bikes_yesterday.json";
+  let bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  const data = await getYesterdaysBikesData();
+  bikesYesterday.write(JSON.stringify(data, null, 2));
+});
+
 
 
 
@@ -128,11 +145,11 @@ if (process.env.PRODUCTION == 1) {
   console.log("\n\n***Dashboard is in production***\n\n");
 }
 
-function getBikesToday(url) {
-  let http = require('https');
-  let fs = require('fs');
-  const fetch = require("node-fetch");
-}
+// function getBikesToday(url) {
+//   let http = require('https');
+//   let fs = require('fs');
+//   const fetch = require("node-fetch");
+// }
 
 /*TODO: refactor to await/async to remove dupliation*/
 cron.schedule("*/1 * * * *", function() {
