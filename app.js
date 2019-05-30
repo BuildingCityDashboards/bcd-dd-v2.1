@@ -96,6 +96,7 @@ const getDublinBikesData_API = async url => {
     // bikesTodayStream.write(JSON.stringify(json, null, 2));
     // bikesTodayStream.end();
   } catch (error) {
+    const d = new Date();
     console.log("\n******\nApp - Dublin Bikes fetch fail @" + d + ": " + error + "\n******\n");
   }
 };

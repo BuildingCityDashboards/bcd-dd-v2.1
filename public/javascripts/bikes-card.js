@@ -1,4 +1,4 @@
-d3.json("/data/Transport/bikesData.json").then(function(data) {
+d3.json("/api/dublinbikes/stations/snapshot").then(function(data) {
   //    console.lodata[0]);
   processBikes(data);
 });
