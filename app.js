@@ -82,74 +82,56 @@ app.use(function(err, req, res, next) {
 
 let bikesSnapshotURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/snapshot";
 
+let bikesYesterdayURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/yesterday";
+
 const getDublinBikesData_API = async url => {
   const fetch = require("node-fetch");
   try {
     const response = await fetch(url);
     const json = await response.json();
-    console.log("\n******\nApp - Example Dublin Bikes data from API: [0] " + JSON.stringify(json[0]) + "\n******\n");
+    // console.log("\n******\nApp - Example Dublin Bikes data from API: [0] " + JSON.stringify(json[0]) + "\n******\n");
+    const d = new Date();
+    console.log("\n******\nApp - Dublin Bikes fetch success @" + d + "\n******\n");
     return (json);
     // bikesTodayStream.write(JSON.stringify(json, null, 2));
-
     // bikesTodayStream.end();
-
   } catch (error) {
-    console.log("\n******\nApp - Dublin Bikes fetch fail " + error + "\n******\n");
+    console.log("\n******\nApp - Dublin Bikes fetch fail @" + d + ": " + error + "\n******\n");
   }
 };
 
-//Hourly trend data- rewritten every day
-// let fsBikes = require('fs');
-// let bikesTodayStream = fsBikes.createWriteStream("./public/data/Transport/bikesDataToday.json", {
-//   'flags': 'a'
-// });
-let bikesByHour;
-//# (s) min hour day-month month day-week
-//fetch data and save to file at n minutes past the hour
-cron.schedule("6 */1 * * *", async () => {
+//Fetch snapshot of data and save to file every n minutes
+cron.schedule("*/1 * * * *", async () => {
   let fs = require('fs');
-  let fileName = "bikesData-" + new Date().getHours() + ".json";
-  bikesByHour = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
+  let fileName = "bikesData.json";
+  let bikesByHour = fs.createWriteStream("./public/data/Transport/" + fileName);
   const data = await getDublinBikesData_API(bikesSnapshotURL);
   bikesByHour.write(JSON.stringify(data, null, 2));
 });
 
-//Fetch yesterday's data at granularity of 1 hour
-const getYesterdaysBikesData = async () => {
-  let url = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/yesterday";
-  const data = await getDublinBikesData_API(url);
-  return data;
-  // console.log("\n******\nApp - Dublin Bikes fetch fail " + error + "\n******\n");
+//Fetch snapshot of data and save to file at n minutes past the hour, every hour
+cron.schedule("6 */1 * * *", async () => {
+  let fs = require('fs');
+  let fileName = "bikesData-" + new Date().getHours() + ".json";
+  let bikesByHour = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
+  const data = await getDublinBikesData_API(bikesSnapshotURL);
+  bikesByHour.write(JSON.stringify(data, null, 2));
+});
 
-}
-//at 1.30am every day, get yesterday's bike data and write to file
+//Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
 cron.schedule("30 1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikes_yesterday.json";
   let bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
-  const data = await getYesterdaysBikesData();
+  const data = await getDublinBikesData_API(bikesYesterdayURL);
   bikesYesterday.write(JSON.stringify(data, null, 2));
 });
 
-
-
-
-// getDublinBikesData(bikesURI); //call on app start for debug
-
 /*****************/
-
-
-
 
 if (process.env.PRODUCTION == 1) {
   console.log("\n\n***Dashboard is in production***\n\n");
 }
-
-// function getBikesToday(url) {
-//   let http = require('https');
-//   let fs = require('fs');
-//   const fetch = require("node-fetch");
-// }
 
 /*TODO: refactor to await/async to remove dupliation*/
 cron.schedule("*/1 * * * *", function() {
@@ -173,27 +155,26 @@ cron.schedule("*/1 * * * *", function() {
   //     return console.log(">>>Error writing to api-status.json\n" + err);
   // });
 
-  /*** @todo use new API for this ****/
-
-  let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
-  http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
-    let d = new Date();
-    if (error) {
-      return console.log(">>>Error on dublinbikes GET @ " + d + "\n");
-    }
-    console.log(">>>Successful dublinbikes GET @ " + d + "\n");
-    response.pipe(bikeFile);
-    // const {
-    //   statusCode
-    // } = response;
-    // response.on('end', function() {
-    //   apiStatus.dublinbikes.status = statusCode;
-    //   //console.log(JSON.stringify(apiStatus));
-    //   // fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-    //   //   if (err)
-    //   //     return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
-    //   // });
-  });
+  /*** still used for bikes card- @todo use new API for this ****/
+  // let bikeFile = fs.createWriteStream("./public/data/Transport/bikesData.json");
+  // http.get("https://api.jcdecaux.com/vls/v1/stations?contract=dublin&apiKey=" + process.env.BIKES_API_KEY, function(response, error) {
+  //   let d = new Date();
+  //   if (error) {
+  //     return console.log(">>>Error on dublinbikes GET @ " + d + "\n");
+  //   }
+  //   console.log(">>>Successful dublinbikes GET @ " + d + "\n");
+  //   response.pipe(bikeFile);
+  //   // const {
+  //   //   statusCode
+  //   // } = response;
+  //   // response.on('end', function() {
+  //   //   apiStatus.dublinbikes.status = statusCode;
+  //   //   //console.log(JSON.stringify(apiStatus));
+  //   //   // fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+  //   //   //   if (err)
+  //   //   //     return console.log(">>>Error writing dublinbikes to api-status.json\n" + err);
+  //   //   // });
+  // });
   // });
 
   // let carparkFile = fs.createWriteStream("./public/data/Transport/cpdata.xml");

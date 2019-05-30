@@ -1,78 +1,82 @@
-d3.json("/data/Transport/bikesData.json").then(function (data) {
-//    console.lodata[0]);
-    processBikes(data);
+d3.json("/data/Transport/bikesData.json").then(function(data) {
+  //    console.lodata[0]);
+  processBikes(data);
 });
 
 function processBikes(data_) {
-    let availableBikes = 0, availableStands = 0, latestUpdate = 0;
-    //console.log("Bike data \n");
-    data_.forEach(function (d) {
-        if (d.available_bikes) {
-            availableBikes += d.available_bikes;
-        }
-        if (d.available_bike_stands) {
-            availableStands += d.available_bike_stands;
-        }
-        //TODO: old school, use d3.max instead?
-        if (d.last_update > latestUpdate) {
-            latestUpdate = d.last_update;
-        }
-    });
+  let availableBikes = 0,
+    availableStands = 0,
+    latestUpdate = 0;
+  //console.log("Bike data \n");
+  data_.forEach(function(d) {
+    if (d.available_bikes) {
+      availableBikes += d.available_bikes;
+    }
+    if (d.available_bike_stands) {
+      availableStands += d.available_bike_stands;
+    }
+    //TODO: old school, use d3.max instead?
+    if (d.last_update) {
+      let lup = moment(d.last_update);
+      if (lup > latestUpdate) {
+        latestUpdate = lup;
+      }
+    }
+  });
 
-    updateBikesDisplay(availableBikes, availableStands, latestUpdate);
+  updateBikesDisplay(availableBikes, availableStands, latestUpdate);
 }
 
 function updateBikesDisplay(ab, as, l) {
-    let bikeTimeShort = d3.timeFormat("%a, %H:%M");
+  let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-    d3.select("#bikes-chart").select('.card__header')
-            .html(
-                    "<div class = 'row'>"
-                    + "<div class = 'col-6' align='left'>"
-                    + "<b>Dublin Bikes</b>"
-                    + "</div>"
-                    + "<div class = 'col-6' align='right'>"
-                    + bikeTimeShort(l) + " &nbsp;&nbsp;"
-                    + "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>"
-                    + "</div>"
-                    + "</div>"
-                    );
+  d3.select("#bikes-chart").select('.card__header')
+    .html(
+      "<div class = 'row'>" +
+      "<div class = 'col-6' align='left'>" +
+      "<b>Dublin Bikes</b>" +
+      "</div>" +
+      "<div class = 'col-6' align='right'>" +
+      bikeTimeShort(l) + " &nbsp;&nbsp;" +
+      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "</div>" +
+      "</div>"
+    );
 
-    d3.select("#rt-bikes").select("#card-left")
-            .html("<div align='center'>"
-                    + '<h3>' + ab + '</h3>'
-                    + '<p>bikes</p>'
-                    + '</div>');
+  d3.select("#rt-bikes").select("#card-left")
+    .html("<div align='center'>" +
+      '<h3>' + ab + '</h3>' +
+      '<p>bikes</p>' +
+      '</div>');
 
-    d3.select("#rt-bikes").select("#card-center")
-            .html("<div align='center'>"
-                    + '<img src = "/images/transport/bicycle-w-15.svg" width="60">'
-                    + '</div>');
+  d3.select("#rt-bikes").select("#card-center")
+    .html("<div align='center'>" +
+      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
+      '</div>');
 
 
-    d3.select("#rt-bikes").select("#card-right")
-            .html("<div align='center'>"
-                    + '<h3>' + as + '</h3>'
-                    + '<p> stands </p>'
-                    + '</div>');
+  d3.select("#rt-bikes").select("#card-right")
+    .html("<div align='center'>" +
+      '<h3>' + as + '</h3>' +
+      '<p> stands </p>' +
+      '</div>');
 
-    updateInfo("#bikes-chart a", "<b>Dublin Bikes</b> currently have <b>" + ab + " bikes </b> and <b>" + as + " stands </b> available across the city");
+  updateInfo("#bikes-chart a", "<b>Dublin Bikes</b> currently have <b>" + ab + " bikes </b> and <b>" + as + " stands </b> available across the city");
 
 }
 
 function updateInfo(selector, infoText) {
 
-    let text = d3.select("#data-text p"),
-            textString = text.text();
-    ;
+  let text = d3.select("#data-text p"),
+    textString = text.text();;
 
-    d3.select(selector)
-            .on("mouseover", (d) => {
-                text.html(infoText);
-            })
-            .on("mouseout", (d) => {
-                text.text(textString);
-            });
+  d3.select(selector)
+    .on("mouseover", (d) => {
+      text.html(infoText);
+    })
+    .on("mouseout", (d) => {
+      text.text(textString);
+    });
 }
 //
 //
