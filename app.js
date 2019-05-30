@@ -233,7 +233,7 @@ cron.schedule("*/1 * * * *", function() {
   //   });
   //
   // });
-  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
+  let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
     if (error) {
       return console.log(">>>Error on traveltimesroads GET\n");
