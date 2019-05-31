@@ -15,7 +15,7 @@ const travelTimesCardTimer = setIntervalAsync(
   () => {
     return fetchTTData();
   },
-  30000
+  25000
 );
 
 
