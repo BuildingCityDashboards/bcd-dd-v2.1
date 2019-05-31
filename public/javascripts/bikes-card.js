@@ -1,7 +1,24 @@
-d3.json("/api/dublinbikes/stations/snapshot").then(function(data) {
-  //    console.lodata[0]);
-  processBikes(data);
-});
+const fetchData = function() {
+  d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+    .then((data) => {
+      console.log("Fetched Dublin Bikes card data ");
+      processBikes(data);
+    })
+    .catch(function(err) {
+      console.error("Error fetching Dublin Bikes card data: " + JSON.stringify(err));
+
+    })
+}
+
+fetchData(); //initial load
+
+// Timed refresh of map station markers symbology using data snapshot
+const bikesCardTimer = setIntervalAsync(
+  () => {
+    return fetchData();
+  },
+  10000
+);
 
 function processBikes(data_) {
   let availableBikes = 0,
@@ -78,30 +95,3 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
-//
-//
-//;
-//let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-//function getBikeContent(d_) {
-//    let str = '';
-//    if (d_.name) {
-//        str += d_.name + '<br>';
-//    }
-//    if (d_.type) {
-//        str += d_.type + '<br>';
-//    }
-////    if (d_.address && d_.address !== d_.name) {
-////        str += d_.address + '<br>';
-////    }
-//    if (d_.available_bikes) {
-//        str += '<br><b>' + d_.available_bikes + '</b>' + ' bikes are available<br>';
-//    }
-//    if (d_.available_bike_stands) {
-//        str += '<b>' + d_.available_bike_stands + '</b>' + ' stands are available<br>';
-//    }
-//
-//    if (d_.last_update) {
-//        str += '<br>Last updated ' + bikeTime(new Date(d_.last_update)) + '<br>';
-//    }
-//    return str;
-//}
