@@ -6,18 +6,16 @@ const fetchData = function() {
     })
     .catch(function(err) {
       console.error("Error fetching Dublin Bikes card data: " + JSON.stringify(err));
-
+      initialiseBikesDisplay();
     })
 }
-
-fetchData(); //initial load
 
 // Timed refresh of map station markers symbology using data snapshot
 const bikesCardTimer = setIntervalAsync(
   () => {
     return fetchData();
   },
-  10000
+  30000
 );
 
 function processBikes(data_) {
@@ -42,6 +40,42 @@ function processBikes(data_) {
   });
 
   updateBikesDisplay(availableBikes, availableStands, latestUpdate);
+}
+
+function initialiseBikesDisplay() {
+  let bikeTimeShort = d3.timeFormat("%a, %H:%M");
+
+  d3.select("#bikes-chart").select('.card__header')
+    .html(
+      "<div class = 'row'>" +
+      "<div class = 'col-6' align='left'>" +
+      "<b>Dublin Bikes</b>" +
+      "</div>" +
+      "<div class = 'col-6' align='right'>" +
+      "Awaiting Data... &nbsp;&nbsp;" +
+      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "</div>" +
+      "</div>"
+    );
+
+  d3.select("#rt-bikes").select("#card-left")
+    .html("<div align='center'>" +
+      '<h3> ? </h3>' +
+      '<p>bikes</p>' +
+      '</div>');
+
+  d3.select("#rt-bikes").select("#card-center")
+    .html("<div align='center'>" +
+      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
+      '</div>');
+
+
+  d3.select("#rt-bikes").select("#card-right")
+    .html("<div align='center'>" +
+      '<h3> ? </h3>' +
+      '<p> stands </p>' +
+      '</div>');
+
 }
 
 function updateBikesDisplay(ab, as, l) {
@@ -95,3 +129,6 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
+
+initialiseBikesDisplay();
+fetchData(); //initial load
