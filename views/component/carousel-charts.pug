@@ -1,5 +1,6 @@
 include card-chart 
 include card-rt
+include card-time
 
 div(class="tab-content" id="nav-tabContent")
   //- button.arrow-left
@@ -14,8 +15,8 @@ div(class="tab-content" id="nav-tabContent")
         +card-rt("queries#dublin-bikes-query", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
       #traveltimes-chart.col-xl-3.col-sm-6.col-11
         +card-rt("queries#dublinbikes", "card text-white o-hidden border-blue", "Motorway Travel Times", "test","rt-travelTimes")
-      #air-chart.col-xl-3.col-sm-6.col-11
-        +card-rt("/", "card text-white o-hidden border-teal", "Air Quality - Coming Soon", "test","rt-air")
+      #time-chart.col-xl-3.col-sm-6.col-11
+        +card-time("/", "card text-white o-hidden border-teal", "Dublin Time", "test","rt-time")
     #data-text.d-sm-none.d-md-block 
       p Hover over these charts for more information, click to go to the data page    
     .row.tab-charts__row
