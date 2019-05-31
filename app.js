@@ -101,15 +101,15 @@ const getDublinBikesData_API = async url => {
   }
 };
 
-let bikesLatest;
-//Fetch snapshot of data and save to file every n minutes
-cron.schedule("*/1 * * * *", async () => {
-  let fs = require('fs');
-  let fileName = "bikesData.json";
-  bikesLatest = fs.createWriteStream("./public/data/Transport/" + fileName);
-  const data = await getDublinBikesData_API(bikesSnapshotURL);
-  bikesLatest.write(JSON.stringify(data, null, 2));
-});
+// let bikesLatest;
+// //Fetch snapshot of data and save to file every n minutes
+// cron.schedule("*/1 * * * *", async () => {
+//   let fs = require('fs');
+//   let fileName = "bikesData.json";
+//   bikesLatest = fs.createWriteStream("./public/data/Transport/" + fileName);
+//   const data = await getDublinBikesData_API(bikesSnapshotURL);
+//   bikesLatest.write(JSON.stringify(data, null, 2));
+// });
 
 //Fetch snapshot of data and save to file at n minutes past the hour, every hour
 let bikesHourly;

@@ -1,3 +1,6 @@
+let ttInterval = 25000;
+let ttCountdown = ttInterval;
+
 const fetchTTData = function() {
   d3.json("/data/Transport/traveltimes.json") //get latest snapshot of all stations
     .then((data) => {
@@ -55,15 +58,15 @@ function initialiseTTDisplay() {
       "<b>Motorway Travel Times</b>" +
       "</div>" +
       "<div class = 'col-5' align='right'>" +
-      "Awaiting Data...&nbsp;&nbsp;" +
-      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "<div id ='tt-countdown' ></div>" +
+      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
     );
 
   d3.select("#rt-travelTimes").select("#card-left")
     .html("<div align='center'>" +
-      '<h3> ? </h3>' +
+      '<h3>--</h3>' +
       '<p> </p>' +
       '</div>');
 
@@ -75,7 +78,7 @@ function initialiseTTDisplay() {
 
   d3.select("#rt-travelTimes").select("#card-right")
     .html("<div align='center'>" +
-      '<h3> ? </h3>' +
+      '<h3>--</h3>' +
       '<p> </p>' +
       '</div>');
 
@@ -145,6 +148,16 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
+
+setInterval(function() {
+  ttCountdown -= 1000;
+  let cd = ttCountdown / 1000;
+  d3.select('#tt-countdown').text("Update in " + cd);
+
+  if (ttCountdown < 1000) {
+    ttCountdown = ttInterval;
+  }
+}, 1000);
 
 initialiseTTDisplay();
 fetchTTData();

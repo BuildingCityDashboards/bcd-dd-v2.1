@@ -1,4 +1,5 @@
-let intervalTime = 1000 * 60 * 5;
+let weatherInterval = 1000 * 60 * 5;
+let weatherCountdown = weatherInterval;
 const fetchWeatherData = function() {
   d3.xml("/data/Environment/met_eireann_forecast.xml")
     .then((data) => {
@@ -16,7 +17,7 @@ const weatherCardTimer = setIntervalAsync(
   () => {
     return fetchWeatherData();
   },
-  intervalTime
+  weatherInterval
 );
 
 function processWeather(xmlWeather) {
@@ -101,8 +102,8 @@ function initialiseWeatherDisplay() {
       "<b>Weather Forecast</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
-      "Awaiting Data...&nbsp;&nbsp;" +
-      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "<div id ='weather-countdown' ></div>" +
+      //"<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
     );
@@ -186,5 +187,16 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
+
+setInterval(function() {
+  weatherCountdown -= 1000;
+  let cd = weatherCountdown / 1000;
+  d3.select('#weather-countdown').text("Update in " + cd);
+
+  if (weatherCountdown < 1000) {
+    weatherCountdown = weatherInterval;
+  }
+}, 1000);
+
 fetchWeatherData();
 initialiseWeatherDisplay();

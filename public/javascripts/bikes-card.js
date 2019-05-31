@@ -1,3 +1,6 @@
+let bikesInterval = 30000;
+let countdown = bikesInterval;
+
 const fetchData = function() {
   d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
     .then((data) => {
@@ -52,15 +55,15 @@ function initialiseBikesDisplay() {
       "<b>Dublin Bikes</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
-      "Awaiting Data... &nbsp;&nbsp;" +
-      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "<div id ='bikes-countdown' ></div>" +
+      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
     );
 
   d3.select("#rt-bikes").select("#card-left")
     .html("<div align='center'>" +
-      '<h3> ? </h3>' +
+      '<h3>--</h3>' +
       '<p>bikes</p>' +
       '</div>');
 
@@ -72,7 +75,7 @@ function initialiseBikesDisplay() {
 
   d3.select("#rt-bikes").select("#card-right")
     .html("<div align='center'>" +
-      '<h3> ? </h3>' +
+      '<h3>--</h3>' +
       '<p> stands </p>' +
       '</div>');
 
@@ -129,6 +132,16 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
+
+setInterval(function() {
+  countdown -= 1000;
+  let cd = countdown / 1000;
+  d3.select('#bikes-countdown').text("Update in " + cd);
+
+  if (countdown < 1000) {
+    countdown = bikesInterval;
+  }
+}, 1000);
 
 initialiseBikesDisplay();
 fetchData(); //initial load
