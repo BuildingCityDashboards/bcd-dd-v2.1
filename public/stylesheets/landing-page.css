@@ -19,9 +19,9 @@
   100% { opacity:1; }
 }
 .animate-update {
-   -webkit-animation: updateAnimation 0.5s 4s;
-   -moz-animation: updateAnimation 1s 4s;
-   -o-animation: updateAnimation 1s 4s;
+   -webkit-animation: updateAnimation 1s 3;
+   -moz-animation: updateAnimation 1s 3;
+   -o-animation: updateAnimation 1s 3;
     animation: updateAnimation 1s 3 ;
 }
 

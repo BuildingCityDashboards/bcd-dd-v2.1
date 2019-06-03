@@ -1,46 +1,54 @@
 header.header
   .row
     .col-lg-12
-      h1 Demographics <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p.lead Demographics data coming soon!
-      //p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-//article.article
-  //.row
-    .col-lg-12
-      h2.header__h2.mb-2 Population Statistics
+      h1 Demographics 
+      p.lead Statistical data relating to the population and particular groups within it.
 
-    #population.section-body.row.wrapper
-    .col-lg-4
-      h3 Population of Dublin <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA13&PLanguage=0" target ="blank") CSO   
-          img(src='../images/external-link.svg' height='11px' width='11px') 
-      p Annual Rate of Population Increase
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+article.article
+  .row.wrapper
+    .col-lg-12
+      //h2.header__h2.mb-2 Population Statistics
+      h2 Population Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
+      //- p Dublin is the capital and largest city in Ireland. It is located in the 
+        | province of Leinster. It covers a total area of 921 km² and in 2019 has a 
+        | total population of approximately 1.3M people, with a median age of 36.7 years. 
+  .section-body.row.wrapper
+    .col-lg-6.pt-2
+      .chart-heading Population of Dublin 
+        //- <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA13&PLanguage=0" target ="blank") CSO   
+            img(src='../images/external-link.svg' height='11px' width='11px') 
+      //- p Annual Rate of Population Increase
+      //- p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      div#chart-population.chart-holder
+      #chart-population.chart-holder
+    .col-lg-6.pt-2
+      .chart-heading Number of Households (Number) in Dublin 
+        //- <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
+            img(src='../images/external-link.svg' height='11px' width='11px') 
+      #chart-households.chart-holder
 
   .section-body.row.wrapper
-    .col-lg-4
-      h3 Population Born Outside the State (Excluding N. Ireland) <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CD101&PLanguage=0" target ="blank") CSO   
-          img(src='../images/external-link.svg' height='11px' width='11px') 
-        
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
+    .col-lg-6.pt-2
+      .chart-heading Population Born Outside the State (Excluding N. Ireland) 
+        //- <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        //- h3 Population Born Outside the State (Excluding N. Ireland) <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        p Source:
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CD101&PLanguage=0" target ="blank") CSO   
+            img(src='../images/external-link.svg' height='11px' width='11px') 
       #chart-bornOutsideState.chart-holder
+    .col-lg-6.pt-2
+      .chart-heading Private Permanent Households (Number) by Number of Persons 
+        //- <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
+            img(src='../images/external-link.svg' height='11px' width='11px') 
+      #chart-householdComposition.chart-holder
 
   //.section-body.row.wrapper
     .col-lg-4
@@ -55,36 +63,36 @@ header.header
       #chart-ageProfile.chart-holder
 
 //article#income_poverty.article
-  //.section-body.row.wrapper
-    .col-lg-12
-      h2.header__h2.mb-5 Household Statistics
-  
-  //.section-body.row.wrapper
-    .col-lg-4
-      h3 Number of Households <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
-          img(src='../images/external-link.svg' height='11px' width='11px') 
-      p Number of Households (Number) in Dublin
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-households.chart-holder
+//.section-body.row.wrapper
+  .col-lg-12
+    h2.header__h2.mb-5 Household Statistics
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Household Composition <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
-          img(src='../images/external-link.svg' height='11px' width='11px') 
-      p Private Permanent Households (Number) by Number of Persons
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-householdComposition.chart-holder
+//.section-body.row.wrapper
+  .col-lg-4
+    h3 Number of Households <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
+        img(src='../images/external-link.svg' height='11px' width='11px') 
+    p Number of Households (Number) in Dublin
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-households.chart-holder
+
+  //- .section-body.row.wrapper
+  .col-lg-4
+    h3 Household Composition <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
+        img(src='../images/external-link.svg' height='11px' width='11px') 
+    p Private Permanent Households (Number) by Number of Persons
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-householdComposition.chart-holder

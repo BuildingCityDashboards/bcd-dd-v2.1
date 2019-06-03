@@ -149,6 +149,12 @@ a:hover {
   box-shadow: 0 0 16px #ccc;
   padding: 1rem;
 }
+/* //specific adjustments for page anchors */
+#HPM06{
+  padding-top: 100px;
+  margin-top: -100px;
+
+}
 
 /* Colour Utilities Classes */
 .bg-dark {
@@ -168,7 +174,7 @@ a:hover {
 }
 
 .light {
-  background:#f8f8f8; 
+  background:#f8f8f8;
   color:#212529;
 }
 
