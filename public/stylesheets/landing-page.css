@@ -1,28 +1,28 @@
-@keyframes flickerAnimation {
+@keyframes updateAnimation {
   0%   { opacity:1; }
   50%  { opacity:0; }
   100% { opacity:1; }
 }
-@-o-keyframes flickerAnimation{
+@-o-keyframes updateAnimation{
   0%   { opacity:1; }
   50%  { opacity:0; }
   100% { opacity:1; }
 }
-@-moz-keyframes flickerAnimation{
+@-moz-keyframes updateAnimation{
   0%   { opacity:1; }
   50%  { opacity:0; }
   100% { opacity:1; }
 }
-@-webkit-keyframes flickerAnimation{
+@-webkit-keyframes updateAnimation{
   0%   { opacity:1; }
   50%  { opacity:0; }
   100% { opacity:1; }
 }
-.animate-flicker {
-   -webkit-animation: flickerAnimation 3s infinite;
-   -moz-animation: flickerAnimation 3s infinite;
-   -o-animation: flickerAnimation 3s infinite;
-    animation: flickerAnimation 3s infinite;
+.animate-update {
+   -webkit-animation: updateAnimation 0.5s 4s;
+   -moz-animation: updateAnimation 1s 4s;
+   -o-animation: updateAnimation 1s 4s;
+    animation: updateAnimation 1s 3 ;
 }
 
 .hero {

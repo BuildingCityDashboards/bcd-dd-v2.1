@@ -8,6 +8,7 @@ const updateBikesCountdown = function() {
 }
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000);
+let prevBikesAgeMins;
 
 const fetchBikesData = function() {
   d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
@@ -54,8 +55,9 @@ function processBikes(data_) {
     }
   });
   let now = moment(new Date());
-  let ageSeconds = ((now - latestUpdate) / 1000) / 60;
-  updateBikesDisplay(availableBikes, availableStands, ageSeconds);
+  let bikesAgeMins = Math.floor(((now - latestUpdate) / 1000) / 60);
+  // console.log("bikes age: " + bikesAgeMins)
+  updateBikesDisplay(availableBikes, availableStands, bikesAgeMins);
 }
 
 function initialiseBikesDisplay() {
@@ -95,6 +97,13 @@ function initialiseBikesDisplay() {
 }
 
 function updateBikesDisplay(ab, as, age) {
+  let animateClass = '';
+  if (age !== prevBikesAgeMins) {
+    animateClass = "animate-update";
+  }
+  prevBikesAgeMins = age;
+  let bikesAgeDisplay = age > 0 ? age + ' m ago' : 'Just now';
+
   d3.select("#bikes-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
@@ -102,7 +111,8 @@ function updateBikesDisplay(ab, as, age) {
       "<b>Dublin Bikes</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
-      'Latest: ' + Math.floor(age) + " m ago &nbsp;&nbsp;" +
+      "<span class = '" + animateClass + "'>" +
+      bikesAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
       "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"

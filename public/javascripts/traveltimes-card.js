@@ -11,6 +11,7 @@ const updateTTCountdown = function() {
 }
 
 let ttTimer = setInterval(updateTTCountdown, 1000);
+let prevTTAgeMins;
 
 const fetchTTData = function() {
   d3.json("/data/Transport/traveltimes.json")
@@ -21,7 +22,7 @@ const fetchTTData = function() {
       timeSinceUpdate = moment(new Date());
     })
     .catch(function(err) {
-      console.error("Error fetching Travel Times  card data: " + JSON.stringify(err));
+      console.error("Error fetching Travel Times card data: " + JSON.stringify(err));
       initialiseTTDisplay();
       // restart the timer
       clearInterval(ttTimer);
@@ -43,9 +44,6 @@ function processTravelTimes(data_) {
   d3.keys(data_).forEach(
     //for each key
     function(d) {
-      //                        console.log("d = "+JSON.stringify(d));
-      //for each data array element
-
       data_[d].data.forEach(function(d_) {
         if (d_["current_travel_time"] > (d_["free_flow_travel_time"] * 1.25)) {
           let delay = +(d_["current_travel_time"] - d_["free_flow_travel_time"]);
@@ -103,8 +101,13 @@ function initialiseTTDisplay() {
 function updateTTDisplay(d__) {
   if (d__) {
     let ttAgeMins = Math.floor(((moment(new Date()) - timeSinceUpdate) / 1000) / 60);
-    let ttAgeDisplay = ttAgeMins > 0 ? ttAgeMins + ' m ago' : 'just now';
-    console.log("ages: " + ttAgeMins + '\t' + ttAgeDisplay);
+    let animateClass = '';
+    if (ttAgeMins !== prevTTAgeMins) {
+      animateClass = "animate-update";
+    }
+    prevTTAgeMins = ttAgeMins;
+    let ttAgeDisplay = ttAgeMins > 0 ? ttAgeMins + ' m ago' : 'Just now';
+    // console.log("ages: " + ttAgeMins + '\t' + ttAgeDisplay);
     let name = d__.name.split('_')[0];
     let direction = d__.name.split('_')[1].split('B')[0];
     let info = "Longest current delay- travelling on the " +
@@ -120,7 +123,8 @@ function updateTTDisplay(d__) {
         "<b>Motorway Travel Times</b>" +
         "</div>" +
         "<div class = 'col-5' align='right'>" +
-        'Latest: ' + ttAgeDisplay + "&nbsp;&nbsp;" +
+        "<span class = '" + animateClass + "'>" +
+        ttAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
         "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
         "</div>" +
         "</div>"
