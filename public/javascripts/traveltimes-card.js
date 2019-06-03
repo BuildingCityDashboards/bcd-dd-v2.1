@@ -1,26 +1,41 @@
-let ttInterval = 25000;
+let ttInterval = 30000;
 let ttCountdown = ttInterval;
+let timeSinceUpdate = moment(new Date());
+
+const updateTTCountdown = function() {
+  let cd = ttCountdown / 1000;
+  d3.select('#tt-countdown').text("Update in " + cd);
+  if (ttCountdown > 0) {
+    ttCountdown -= 1000;
+  }
+}
+
+let ttTimer = setInterval(updateTTCountdown, 1000);
 
 const fetchTTData = function() {
-  d3.json("/data/Transport/traveltimes.json") //get latest snapshot of all stations
+  d3.json("/data/Transport/traveltimes.json")
     .then((data) => {
       console.log("Fetched Travel Times card data ");
       processTravelTimes(data);
+      clearInterval(ttTimer);
+      timeSinceUpdate = moment(new Date());
     })
     .catch(function(err) {
       console.error("Error fetching Travel Times  card data: " + JSON.stringify(err));
       initialiseTTDisplay();
+      // restart the timer
+      clearInterval(ttTimer);
+      ttCountdown = ttInterval;
+      ttTimer = setInterval(updateTTCountdown, 1000);
     })
 }
 
-// Timed refresh of map station markers symbology using data snapshot
 const travelTimesCardTimer = setIntervalAsync(
   () => {
     return fetchTTData();
   },
-  25000
+  ttInterval
 );
-
 
 function processTravelTimes(data_) {
   let maxDelayed = null;
@@ -86,9 +101,10 @@ function initialiseTTDisplay() {
 
 
 function updateTTDisplay(d__) {
-  let traveltimesTimeShort = d3.timeFormat("%a, %H:%M");
-
   if (d__) {
+    let ttAgeMins = Math.floor(((moment(new Date()) - timeSinceUpdate) / 1000) / 60);
+    let ttAgeDisplay = ttAgeMins > 0 ? ttAgeMins + ' m ago' : 'just now';
+    console.log("ages: " + ttAgeMins + '\t' + ttAgeDisplay);
     let name = d__.name.split('_')[0];
     let direction = d__.name.split('_')[1].split('B')[0];
     let info = "Longest current delay- travelling on the " +
@@ -104,7 +120,7 @@ function updateTTDisplay(d__) {
         "<b>Motorway Travel Times</b>" +
         "</div>" +
         "<div class = 'col-5' align='right'>" +
-        traveltimesTimeShort(Date.now()) + " &nbsp;&nbsp;" +
+        'Latest: ' + ttAgeDisplay + "&nbsp;&nbsp;" +
         "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
         "</div>" +
         "</div>"
@@ -148,16 +164,6 @@ function updateInfo(selector, infoText) {
       text.text(textString);
     });
 }
-
-setInterval(function() {
-  ttCountdown -= 1000;
-  let cd = ttCountdown / 1000;
-  d3.select('#tt-countdown').text("Update in " + cd);
-
-  if (ttCountdown < 1000) {
-    ttCountdown = ttInterval;
-  }
-}, 1000);
 
 initialiseTTDisplay();
 fetchTTData();

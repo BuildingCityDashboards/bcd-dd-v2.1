@@ -1,24 +1,36 @@
-let bikesInterval = 30000;
-let countdown = bikesInterval;
+let bikesInterval = 20000;
+let bikesCountdown = bikesInterval;
 
-const fetchData = function() {
+const updateBikesCountdown = function() {
+  let cd = bikesCountdown / 1000;
+  d3.select('#bikes-bikesCountdown').text("Update in " + cd);
+  if (bikesCountdown > 0) bikesCountdown -= 1000;
+}
+
+let bikesTimer = setInterval(updateBikesCountdown, 1000);
+
+const fetchBikesData = function() {
   d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
     .then((data) => {
       console.log("Fetched Dublin Bikes card data ");
       processBikes(data);
+      clearInterval(bikesTimer);
     })
     .catch(function(err) {
       console.error("Error fetching Dublin Bikes card data: " + JSON.stringify(err));
       initialiseBikesDisplay();
+      // restart the timer
+      clearInterval(bikesTimer);
+      bikesCountdown = bikesInterval;
+      bikesTimer = setInterval(updateBikesCountdown, 1000);
     })
 }
 
-// Timed refresh of map station markers symbology using data snapshot
 const bikesCardTimer = setIntervalAsync(
   () => {
-    return fetchData();
+    return fetchBikesData();
   },
-  30000
+  bikesInterval
 );
 
 function processBikes(data_) {
@@ -41,12 +53,13 @@ function processBikes(data_) {
       }
     }
   });
-
-  updateBikesDisplay(availableBikes, availableStands, latestUpdate);
+  let now = moment(new Date());
+  let ageSeconds = ((now - latestUpdate) / 1000) / 60;
+  updateBikesDisplay(availableBikes, availableStands, ageSeconds);
 }
 
 function initialiseBikesDisplay() {
-  let bikeTimeShort = d3.timeFormat("%a, %H:%M");
+  // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
   d3.select("#bikes-chart").select('.card__header')
     .html(
@@ -55,7 +68,7 @@ function initialiseBikesDisplay() {
       "<b>Dublin Bikes</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
-      "<div id ='bikes-countdown' ></div>" +
+      "<div id ='bikes-bikesCountdown' ></div>" +
       // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
@@ -81,9 +94,7 @@ function initialiseBikesDisplay() {
 
 }
 
-function updateBikesDisplay(ab, as, l) {
-  let bikeTimeShort = d3.timeFormat("%a, %H:%M");
-
+function updateBikesDisplay(ab, as, age) {
   d3.select("#bikes-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
@@ -91,7 +102,7 @@ function updateBikesDisplay(ab, as, l) {
       "<b>Dublin Bikes</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
-      bikeTimeShort(l) + " &nbsp;&nbsp;" +
+      'Latest: ' + Math.floor(age) + " m ago &nbsp;&nbsp;" +
       "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
@@ -133,15 +144,5 @@ function updateInfo(selector, infoText) {
     });
 }
 
-setInterval(function() {
-  countdown -= 1000;
-  let cd = countdown / 1000;
-  d3.select('#bikes-countdown').text("Update in " + cd);
-
-  if (countdown < 1000) {
-    countdown = bikesInterval;
-  }
-}, 1000);
-
 initialiseBikesDisplay();
-fetchData(); //initial load
+fetchBikesData(); //initial load

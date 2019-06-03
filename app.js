@@ -29,13 +29,9 @@ var tools = require('./routes/tools');
 var queries = require('./routes/queries');
 var api = require('./routes/api');
 
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
-
 
 // point to the bootstrap and jquery files
 // app.use('/javascripts/vendor/bootstrap/js', express.static(
@@ -233,7 +229,7 @@ cron.schedule("*/1 * * * *", function() {
   //       return console.log(">>>Error writing luas to api-status.json\n" + err);
   //   });
   // });
-
+  //
   let travelTimesFile = fs.createWriteStream("./public/data/Transport/traveltimes.json");
   http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
     let d = new Date();
@@ -242,19 +238,20 @@ cron.schedule("*/1 * * * *", function() {
     }
     console.log(">>>Successful traveltimes GET @ " + d + "\n");
     response.pipe(travelTimesFile);
-    // const {
-    //   statusCode
-    // } = response;
-    // response.on('end', function() {
-    //   apiStatus.traveltimes.status = statusCode;
-    //   //            console.log(JSON.stringify(apiStatus));
-    //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-    //     if (err)
-    //       return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
-    //   });
-    // });
-
+    //   // const {
+    //   //   statusCode
+    //   // } = response;
+    //   // response.on('end', function() {
+    //   //   apiStatus.traveltimes.status = statusCode;
+    //   //   //            console.log(JSON.stringify(apiStatus));
+    //   //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //   //     if (err)
+    //   //       return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
+    //   //   });
+    //   // });
   });
+
+
   let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
     if (error) {
