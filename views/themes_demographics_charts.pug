@@ -49,6 +49,33 @@ article.article
           a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
             img(src='../images/external-link.svg' height='11px' width='11px') 
       #chart-householdComposition.chart-holder
+article.article.pt-5
+  .row
+    .col-lg-12
+      h2.mb-2 Employment Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
+
+  #employment.section-body.row.wrapper
+    .col-lg-6.pt-2
+      .chart-heading Numbers in Employment 
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+      <button type="button" class="btn btn-bcd active employment-btn employment_count">Count</button>
+      //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
+      <button type="button" class="btn btn-bcd employment-btn employment_arate">Annual % Change</button>
+      #chart-employment.chart-holder
+      #chart-emp-rate.chart-holder
+
+    .col-lg-6.pt-2
+      .chart-heading Numbers Unemployed 
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+      <button type="button" class="btn btn-bcd unemployment_count active">Count</button>
+      //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
+      <button type="button" class="btn btn-bcd unemployment_arate">Annual % Change</button>
+      #chartNew.chart-holder
+      #chart-unemp-rate.chart-holder
 
   //.section-body.row.wrapper
     .col-lg-4

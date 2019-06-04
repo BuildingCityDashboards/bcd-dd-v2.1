@@ -2,31 +2,49 @@ header.header
   .row
     .col-lg-12
       h1 Economy
-      p.lead Economy data coming soon!
+      //p.lead Economy data coming soon!
       //p.lead Lorem ipsum dolor sit amet, consectetur adipiscing elit,
         | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
         |nisi ut aliquip ex ea commodo consequat.
 
-    
-//article.article.pt-5
+
+article.article.pt-5
   .row
     .col-lg-12
-      h2.mb-2 Employment Statistics
+      h2.mb-2 Employment Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
 
   #employment.section-body.row.wrapper
-    .col-lg-4
+    .col-lg-6.pt-2
+      .chart-heading Numbers in Employment 
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+      <button type="button" class="btn btn-bcd active employment-btn employment_count">Count</button>
+      //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
+      <button type="button" class="btn btn-bcd employment-btn employment_arate">Annual % Change</button>
+      #chart-employment.chart-holder
+      #chart-emp-rate.chart-holder
+
+    .col-lg-6.pt-2
+      .chart-heading Numbers Unemployed 
+        p Source: 
+          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+            img(src='../images/external-link.svg' height='11px' width='11px')
+      <button type="button" class="btn btn-bcd unemployment_count active">Count</button>
+      //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
+      <button type="button" class="btn btn-bcd unemployment_arate">Annual % Change</button>
+      #chartNew.chart-holder
+      #chart-unemp-rate.chart-holder
+
+    //- .col-lg-4
       h3 Numbers in Employment <img height='15px' width='15px' src='/images/calendar-w.svg'>
       p Source: 
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
           img(src='../images/external-link.svg' height='11px' width='11px')
       p Persons aged 15 years and over in Employment (Thousand)
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-  
-    .col-lg-8
+
+    //- .col-lg-8
       .pt-2
         <button type="button" class="btn btn-bcd active employment-btn employment_count">Count</button>
         //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
@@ -34,17 +52,13 @@ header.header
       #chart-employment.chart-holder
       #chart-emp-rate.chart-holder
 
-  #unemployed.section-body.row.wrapper
+  //- #unemployed.section-body.row.wrapper
     .col-lg-4
       h3 Numbers Unemployed <img height='15px' width='15px' src='/images/calendar-w.svg'>
       p Source: 
         a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
           img(src='../images/external-link.svg' height='11px' width='11px')
       p Unemployed Persons aged 15 years and over (Thousand)
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
 
     .col-lg-8
       .pt-2
@@ -55,7 +69,7 @@ header.header
       #chartNew.chart-holder
       #chart-unemp-rate.chart-holder
 
-  #grossValue.section-body.row.wrapper
+  //- #grossValue.section-body.row.wrapper
     .col-lg-4
       h3 Gross Value Added <img height='15px' width='15px' src='/images/calendar-w.svg'>
       p Source: 
@@ -70,11 +84,11 @@ header.header
       .pt-2
       #chart-gva.chart-holder
 
-//article#income_poverty.article
+//- article#income_poverty.article
   .section-body.row.wrapper
     .col-lg-12
       h2.mb-2 Income & Poverty
-  
+
   .section-body.row.wrapper
     .col-lg-4
       h3 Median Real Household Disposable Income <img height='15px' width='15px' src='/images/calendar-w.svg'>
@@ -106,7 +120,7 @@ header.header
         //- <button type="button" class="btn btn-bcd active">Rate</button>
       #chart-poverty-rate.chart-holder
 
-//article.article
+//- article.article
   .section-body.row.wrapper
     .col-lg-12
       h2.mb-2 Industry Sectors
