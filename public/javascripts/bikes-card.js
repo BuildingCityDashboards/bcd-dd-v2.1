@@ -8,7 +8,9 @@ const updateBikesCountdown = function() {
 }
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000);
-let prevBikesAgeMins;
+let prevBikesAgeMins, prevBikesAvailable, prevStandsAvailable;
+let indicatorUpSymbol = "▲",
+  indicatorDownSymbol = "▼";
 
 const fetchBikesData = function() {
   d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
@@ -97,11 +99,17 @@ function initialiseBikesDisplay() {
 }
 
 function updateBikesDisplay(ab, as, age) {
-  let animateClass = '';
-  if (age !== prevBikesAgeMins) {
-    animateClass = "animate-update";
-  }
+  let animateClass = age < prevBikesAgeMins ? "animate-update" : "";
+  let bikesAvailableDirection = ab > prevBikesAvailable ? indicatorUpSymbol :
+    ab < prevBikesAvailable ? indicatorDownSymbol : "";
+
+  let standsAvailableDirection = as > prevStandsAvailable ? indicatorUpSymbol :
+    as < prevStandsAvailable ? indicatorDownSymbol : "";
+
   prevBikesAgeMins = age;
+  prevBikesAvailable = ab;
+  prevStandsAvailable = as;
+
   let bikesAgeDisplay = age > 0 ? age + ' m ago' : 'Just now';
 
   d3.select("#bikes-chart").select('.card__header')
@@ -119,10 +127,12 @@ function updateBikesDisplay(ab, as, age) {
     );
 
   d3.select("#rt-bikes").select("#card-left")
-    .html("<div align='center'>" +
-      '<h3>' + ab + '</h3>' +
-      '<p>bikes</p>' +
-      '</div>');
+    .html("<div class = '" + animateClass + "'align='center'>" +
+      "<h3>" + bikesAvailableDirection + " " + ab + "</h3>" +
+      "</div>" +
+      "<div align='center'>" +
+      "<p> bikes </p>" +
+      "</div>");
 
   d3.select("#rt-bikes").select("#card-center")
     .html("<div align='center'>" +
@@ -131,10 +141,12 @@ function updateBikesDisplay(ab, as, age) {
 
 
   d3.select("#rt-bikes").select("#card-right")
-    .html("<div align='center'>" +
-      '<h3>' + as + '</h3>' +
-      '<p> stands </p>' +
-      '</div>');
+    .html("<div class = '" + animateClass + "'align='center'>" +
+      "<h3>" + standsAvailableDirection + " " + as + "</h3>" +
+      "</div>" +
+      "<div align='center'>" +
+      "<p> stands </p>" +
+      "</div>");
 
   updateInfo("#bikes-chart a", "<b>Dublin Bikes</b> currently have <b>" + ab + " bikes </b> and <b>" + as + " stands </b> available across the city");
 

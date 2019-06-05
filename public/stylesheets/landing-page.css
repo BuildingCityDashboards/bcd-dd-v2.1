@@ -1,29 +1,3 @@
-@keyframes updateAnimation {
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
-}
-@-o-keyframes updateAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
-}
-@-moz-keyframes updateAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
-}
-@-webkit-keyframes updateAnimation{
-  0%   { opacity:1; }
-  50%  { opacity:0; }
-  100% { opacity:1; }
-}
-.animate-update {
-   -webkit-animation: updateAnimation 1s 3;
-   -moz-animation: updateAnimation 1s 3;
-   -o-animation: updateAnimation 1s 3;
-    animation: updateAnimation 1s 3 ;
-}
 
 .hero {
     position: relative;

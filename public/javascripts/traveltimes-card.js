@@ -59,8 +59,6 @@ function processTravelTimes(data_) {
   updateTTDisplay(maxDelayed);
   //            console.log("ind " + JSON.stringify(indicatorUpSymbol.style));
 };
-let indicatorUpSymbol = "▲",
-  indicatorUpColor = "#da1e4d"; /*TODO: color symbol with style*/
 
 function initialiseTTDisplay() {
 
