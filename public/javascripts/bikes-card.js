@@ -110,7 +110,7 @@ function updateBikesDisplay(ab, as, age) {
   prevBikesAvailable = ab;
   prevStandsAvailable = as;
 
-  let bikesAgeDisplay = age > 0 ? age + ' m ago' : 'Just now';
+  let bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now';
 
   d3.select("#bikes-chart").select('.card__header')
     .html(

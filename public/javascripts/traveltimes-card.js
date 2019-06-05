@@ -104,7 +104,7 @@ function updateTTDisplay(d__) {
       animateClass = "animate-update";
     }
     prevTTAgeMins = ttAgeMins;
-    let ttAgeDisplay = ttAgeMins > 0 ? ttAgeMins + ' m ago' : 'Just now';
+    let ttAgeDisplay = ttAgeMins > 0 ? ttAgeMins + 'm ago' : 'Just now';
     // console.log("ages: " + ttAgeMins + '\t' + ttAgeDisplay);
     let name = d__.name.split('_')[0];
     let direction = d__.name.split('_')[1].split('B')[0];
