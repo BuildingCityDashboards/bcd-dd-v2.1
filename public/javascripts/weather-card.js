@@ -1,4 +1,4 @@
-let weatherInterval = 1000 * 60 * 5;
+let weatherInterval = 1000 * 30;
 let weatherCountdown = weatherInterval;
 const fetchWeatherData = function() {
   d3.xml("/api/weather")
@@ -114,7 +114,7 @@ function initialiseWeatherDisplay() {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>-- C</h3>' +
-      '<p>Precip. -- mm</p>' +
+      '<p>Precip. - mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
