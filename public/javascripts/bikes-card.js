@@ -69,7 +69,7 @@ function initialiseBikesDisplay() {
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-6' align='left'>" +
-      "<b>Dublin Bikes</b>" +
+      "<b>Dublin Bikes Availability</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
       "<div id ='bikes-bikesCountdown' ></div>" +
@@ -116,7 +116,7 @@ function updateBikesDisplay(ab, as, age) {
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-6' align='left'>" +
-      "<b>Dublin Bikes</b>" +
+      "<b>Dublin Bikes Availability</b>" +
       "</div>" +
       "<div class = 'col-6' align='right'>" +
       "<span class = '" + animateClass + "'>" +

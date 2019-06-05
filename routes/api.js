@@ -33,8 +33,11 @@ router.get('/dublinbikes/stations/all/yesterday', dublinBikesController.getAllSt
 //one station, all readings so far today
 router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday);
 
-var carparksController = require('../controllers/carparks_controller');
+let carparksController = require('../controllers/carparks_controller');
 router.get('/carparks/snapshot', carparksController.getCarparksSnapshot);
+
+let weatherController = require('../controllers/weather_controller');
+router.get('/weather', weatherController.getWeather);
 
 
 module.exports = router;

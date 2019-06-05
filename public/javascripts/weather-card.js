@@ -1,7 +1,7 @@
 let weatherInterval = 1000 * 60 * 5;
 let weatherCountdown = weatherInterval;
 const fetchWeatherData = function() {
-  d3.xml("/data/Environment/met_eireann_forecast.xml")
+  d3.xml("/api/weather")
     .then((data) => {
       console.log("Fetched Weather card data ");
       processWeather(data);
@@ -21,9 +21,12 @@ const weatherCardTimer = setIntervalAsync(
 );
 
 function processWeather(xmlWeather) {
-  //console.log("Weather: " + xmlWeather);
+  let modelXML = xmlWeather.getElementsByTagName("model");
+  let forecastTime = moment(modelXML[0].getAttribute("runended")).fromNow();
+  console.log("forecastTime: " + JSON.stringify(forecastTime));
+
   let timesXML = xmlWeather.getElementsByTagName("time");
-  console.log("#timesXML: " + timesXML.length);
+  // console.log("#timesXML: " + timesXML.length);
   //use index in loop to track odd/even entry
   let forecasts = []; //array of objects
   let id = 0;
@@ -90,7 +93,7 @@ function processWeather(xmlWeather) {
     }
     id += 1;
   }
-  updateWeatherDisplay(forecasts);
+  updateWeatherDisplay(forecasts, forecastTime);
 };
 
 function initialiseWeatherDisplay() {
@@ -110,35 +113,48 @@ function initialiseWeatherDisplay() {
 
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
-      '<h3> -- C</h3>' +
-      '<p> -- % hum</p>' +
+      '<h3>-- C</h3>' +
+      '<p>Precip. -- mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
     .html("<div align='center'>" +
-      '<h2> ? </h2>' +
+      '<h2>--</h2>' +
       '</div>');
 
 
   d3.select("#rt-weather").select("#card-right")
     .html("<div align='center'>" +
-      '<h3> ? </h3>' +
-      '<p> -- mps</p>' +
+      '<h3>-- </h3>' +
+      '<p>-- mps</p>' +
       '</div>');
 }
 
-function updateWeatherDisplay(f) {
+function updateWeatherDisplay(f, fTime) {
+
+  let fTimeDisplay;
+  if (fTime.includes("minutes")) {
+    fTimeDisplay = fTime.replace("minutes", "m");
+  } else if (fTime.includes("minute")) {
+    fTimeDisplay = fTime.replace("minute", "m");
+  } else if (fTime.includes("hours")) {
+    fTimeDisplay = fTime.replace("hours", "h");
+  } else if (fTime.includes("hour")) {
+    fTimeDisplay = fTime.replace("hour", "h");
+  } else {
+    fTimeDisplay = fTimeDisplay = "earlier";
+  }
+
 
   let weatherTime = d3.timeFormat("%a, %H:%M");
-
   d3.select("#weather-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-6' align='left'>" +
-      "<b>Weather Forecast</b>" +
+      "<div class = 'col-8' align='left'>" +
+      "<b>Weather Forecast </b> for " + weatherTime(f[0].date) +
       "</div>" +
-      "<div class = 'col-6' align='right'>" +
-      weatherTime(f[0].date) + " &nbsp;&nbsp;" +
+      "<div class = 'col-4' align='right'>" +
+      fTimeDisplay + " &nbsp;&nbsp;" +
       "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
       "</div>"
@@ -147,7 +163,7 @@ function updateWeatherDisplay(f) {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>' + parseInt(f[0].temperature) + ' C</h3>' +
-      '<p>' + parseInt(f[0].humidity) + '% hum</p>' +
+      '<p>Precip. ' + parseInt(f[0].precip) + ' mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
@@ -169,8 +185,8 @@ function updateWeatherDisplay(f) {
     " </b> is for a temperature of " + parseInt(f[0].temperature) + "C with " +
     f[0].windDir + " winds of " + parseInt(f[0].windSpeed) + ' mps, ' +
     f[0].symbolId + " with " +
-    parseInt(f[0].humidity) + "% humidity. Chance of precipitation is " +
-    parseInt(f[0].precip) + "%");
+    parseInt(f[0].humidity) + "% humidity. Predicted precipitation is " +
+    parseInt(f[0].precip) + " mm precip");
 
 }
 
