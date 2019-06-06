@@ -93,19 +93,19 @@ function initialiseTTDisplay() {
     .html("<div align='center'>" +
       '<h3>--</h3>' +
       '<p> </p>' +
-      '</div>');
+      "</div>");
 
   d3.select("#rt-travelTimes").select("#card-center")
     .html("<div align='center'>" +
       '<img src = "/images/transport/car-w-15.svg" width="60">' +
-      '</div>');
+      "</div>");
 
 
   d3.select("#rt-travelTimes").select("#card-right")
     .html("<div align='center'>" +
       '<h3>--</h3>' +
       '<p> </p>' +
-      '</div>');
+      "</div>");
 
 }
 
@@ -125,12 +125,12 @@ function updateTTDisplay(d__) {
     let delayMins = (+d__.delay / 60).toFixed(0);
 
     let delayDirection = delayMins > prevLongestDelay ? indicatorUpSymbol :
-      delayMins > prevLongestDelay ? indicatorDownSymbol : "";
-
+      delayMins < prevLongestDelay ? indicatorDownSymbol : "";
     prevLongestDelay = delayMins;
+
     let info = "Longest current delay- travelling on the " +
       "<b>" + name + "</b> " + direction +
-      " from <b>" + d__["from_name"] + "</b> to <b>" + d__["to_name"] + "</b>" +
+      // " from <b>" + d__["from_name"] + "</b> to <b>" + d__["to_name"] + "</b>" +
       " is taking <b>" + delayMins + " minutes</b> longer than with free-flowing traffic";
     updateInfo("#traveltimes-chart a", info);
 
@@ -149,22 +149,23 @@ function updateTTDisplay(d__) {
       );
 
     d3.select("#rt-travelTimes").select("#card-left")
-      .html("<div align='center'>" +
-        '<h3>' + name + '</h3>' +
-        '<p>' + direction + '</p>' +
-        '</div>');
+      .html("<div class = '" + animateClass + "'align='center'>" +
+        "<h3>" + name + "</h3>" +
+        "<p>" + direction + "</p>" +
+        "</div>");
 
     d3.select("#rt-travelTimes").select("#card-center")
       .html("<div align='center'>" +
-        '<img src = "/images/transport/car-w-15.svg" width="60">' +
-        '</div>');
+        "<img src = '/images/transport/car-w-15.svg' width='60'>" +
+        "</div>");
 
 
     d3.select("#rt-travelTimes").select("#card-right")
-      .html("<div align='center'>" +
-        '<h3>' + delayDirection + " " + delayMins + '</h3>' +
-        '<p>minutes</p>' +
-        '</div>');
+      .html("<div class = '" + animateClass + "'align='center'>" +
+        "<h3>" + delayDirection + " " + delayMins + "</h3>" +
+        "</div>" +
+        "<p>minutes</p>" +
+        "</div>");
 
 
   } else {
