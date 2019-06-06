@@ -114,7 +114,7 @@ function initialiseWeatherDisplay() {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>-- C</h3>' +
-      '<p>Precip. - mm</p>' +
+      '<p>Prec. - mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
@@ -140,7 +140,7 @@ function updateWeatherDisplay(f, fTime) {
   } else if (fTime.includes("hours")) {
     fTimeDisplay = fTime.replace("hours", "h");
   } else if (fTime.includes("hour")) {
-    fTimeDisplay = fTime.replace("hour", "h");
+    fTimeDisplay = fTime.replace("an hour", "1h");
   } else {
     fTimeDisplay = fTimeDisplay = "earlier";
   }
@@ -151,8 +151,8 @@ function updateWeatherDisplay(f, fTime) {
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-8' align='left'>" +
-      "<b>Weather Forecast </b> for " + weatherTime(f[0].date) +
-      "</div>" +
+      "<b>Weather Forecast </b> for <b>" + weatherTime(f[0].date) +
+      "</b></div>" +
       "<div class = 'col-4' align='right'>" +
       fTimeDisplay + " &nbsp;&nbsp;" +
       "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
@@ -163,7 +163,7 @@ function updateWeatherDisplay(f, fTime) {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>' + parseInt(f[0].temperature) + ' C</h3>' +
-      '<p>Precip. ' + parseInt(f[0].precip) + ' mm</p>' +
+      '<p>Prec. ' + parseInt(f[0].precip) + ' mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
@@ -186,7 +186,7 @@ function updateWeatherDisplay(f, fTime) {
     f[0].windDir + " winds of " + parseInt(f[0].windSpeed) + ' mps, ' +
     f[0].symbolId + " with " +
     parseInt(f[0].humidity) + "% humidity. Predicted precipitation is " +
-    parseInt(f[0].precip) + " mm precip");
+    parseInt(f[0].precip) + " mm.");
 
 }
 
