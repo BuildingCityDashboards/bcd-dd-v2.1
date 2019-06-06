@@ -63,9 +63,11 @@
     fill: currentColor;
 }
 
-.card-left, .card-right {
+.card-left, .card-right, .card-div {
   padding: 0px;
+  text-align: center;
 }
+
 
 /* border utilities classes, need to add these to a util.css*/
 .border-blue{
