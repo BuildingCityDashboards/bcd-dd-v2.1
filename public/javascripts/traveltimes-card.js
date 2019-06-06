@@ -11,7 +11,7 @@ const updateTTCountdown = function() {
 }
 
 let ttTimer = setInterval(updateTTCountdown, 1000);
-let prevTTAgeMins;
+let prevTTAgeMins, prevLongestDelay;
 
 const fetchTTData = function() {
   d3.json("/data/Transport/traveltimes.json")
@@ -39,24 +39,38 @@ const travelTimesCardTimer = setIntervalAsync(
 );
 
 function processTravelTimes(data_) {
-  let maxDelayed = null;
+  let maxDelayedMotorway = {};
   let maxDelay = 0;
+  let longestMotorwayDelay = 0;
   d3.keys(data_).forEach(
-    //for each key
-    function(d) {
-      data_[d].data.forEach(function(d_) {
-        if (d_["current_travel_time"] > (d_["free_flow_travel_time"] * 1.25)) {
-          let delay = +(d_["current_travel_time"] - d_["free_flow_travel_time"]);
-          if (delay > maxDelay) {
-            d_.name = d;
-            d_.delay = delay;
-            maxDelayed = d_;
-          }
+    //for each key = motorway+direction
+    function(k) {
+      let motorwayDelay = 0;
+      //for each section on a motorway
+      data_[k].data.forEach(function(d_) {
+        if (+d_["current_travel_time"] > +d_["free_flow_travel_time"]) {
+          let sectionDelay = +d_["current_travel_time"] - (+d_["free_flow_travel_time"]);
+          console.log("Section delay: " + k + "\t" + sectionDelay);
+          motorwayDelay += sectionDelay;
+          // if (sectionDelay > maxDelay) {
+          //   d_.name = d;
+          //   d_.delay = delay;
+          //   maxDelayed = d_;
+          // }
         }
+
       });
+      console.log("Motorway delay: " + k + "\t" + motorwayDelay);
+
+      if (motorwayDelay > longestMotorwayDelay) {
+        maxDelayedMotorway.name = k;
+        maxDelayedMotorway.delay = motorwayDelay;
+        longestMotorwayDelay = motorwayDelay;
+      }
     }
   );
-  updateTTDisplay(maxDelayed);
+  console.log("Longest MWay delay : " + JSON.stringify(maxDelayedMotorway) + "\t" + longestMotorwayDelay);
+  updateTTDisplay(maxDelayedMotorway);
   //            console.log("ind " + JSON.stringify(indicatorUpSymbol.style));
 };
 
@@ -66,7 +80,7 @@ function initialiseTTDisplay() {
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-7' align='left'>" +
-      "<b>Motorway Travel Times</b>" +
+      "<b>Motorway Delays</b>" +
       "</div>" +
       "<div class = 'col-5' align='right'>" +
       "<div id ='tt-countdown' ></div>" +
@@ -108,17 +122,23 @@ function updateTTDisplay(d__) {
     // console.log("ages: " + ttAgeMins + '\t' + ttAgeDisplay);
     let name = d__.name.split('_')[0];
     let direction = d__.name.split('_')[1].split('B')[0];
+    let delayMins = (+d__.delay / 60).toFixed(0);
+
+    let delayDirection = delayMins > prevLongestDelay ? indicatorUpSymbol :
+      delayMins > prevLongestDelay ? indicatorDownSymbol : "";
+
+    prevLongestDelay = delayMins;
     let info = "Longest current delay- travelling on the " +
       "<b>" + name + "</b> " + direction +
       " from <b>" + d__["from_name"] + "</b> to <b>" + d__["to_name"] + "</b>" +
-      " is taking <b>" + d__.delay + " seconds</b> longer than with free-flowing traffic";
+      " is taking <b>" + delayMins + " minutes</b> longer than with free-flowing traffic";
     updateInfo("#traveltimes-chart a", info);
 
     d3.select("#traveltimes-chart").select('.card__header')
       .html(
         "<div class = 'row'>" +
         "<div class = 'col-7' align='left'>" +
-        "<b>Motorway Travel Times</b>" +
+        "<b>Motorway Delays</b>" +
         "</div>" +
         "<div class = 'col-5' align='right'>" +
         "<span class = '" + animateClass + "'>" +
@@ -142,9 +162,8 @@ function updateTTDisplay(d__) {
 
     d3.select("#rt-travelTimes").select("#card-right")
       .html("<div align='center'>" +
-        '<h3> ' + indicatorUpSymbol + ' ' +
-        d__.delay + '</h3>' +
-        '<p>seconds</p>' +
+        '<h3>' + delayDirection + " " + delayMins + '</h3>' +
+        '<p>minutes</p>' +
         '</div>');
 
 

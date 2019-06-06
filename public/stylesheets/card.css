@@ -63,6 +63,10 @@
     fill: currentColor;
 }
 
+.card-left, .card-right {
+  padding: 0px;
+}
+
 /* border utilities classes, need to add these to a util.css*/
 .border-blue{
 border-color: var(--vivid-cyan);

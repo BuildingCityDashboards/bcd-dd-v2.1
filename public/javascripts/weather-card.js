@@ -114,7 +114,7 @@ function initialiseWeatherDisplay() {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>-- C</h3>' +
-      '<p>Prec. - mm</p>' +
+      '<p>Prec -- mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
@@ -134,11 +134,11 @@ function updateWeatherDisplay(f, fTime) {
 
   let fTimeDisplay;
   if (fTime.includes("minutes")) {
-    fTimeDisplay = fTime.replace("minutes", "m");
+    fTimeDisplay = fTime.replace(" minutes", "m");
   } else if (fTime.includes("minute")) {
-    fTimeDisplay = fTime.replace("minute", "m");
+    fTimeDisplay = fTime.replace(" minute", "m");
   } else if (fTime.includes("hours")) {
-    fTimeDisplay = fTime.replace("hours", "h");
+    fTimeDisplay = fTime.replace(" hours", "h");
   } else if (fTime.includes("hour")) {
     fTimeDisplay = fTime.replace("an hour", "1h");
   } else {
@@ -146,7 +146,7 @@ function updateWeatherDisplay(f, fTime) {
   }
 
 
-  let weatherTime = d3.timeFormat("%a, %H:%M");
+  let weatherTime = d3.timeFormat("%a %_I%p");
   d3.select("#weather-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
@@ -163,7 +163,7 @@ function updateWeatherDisplay(f, fTime) {
   d3.select("#rt-weather").select("#card-left")
     .html("<div align='center'>" +
       '<h3>' + parseInt(f[0].temperature) + ' C</h3>' +
-      '<p>Prec. ' + parseInt(f[0].precip) + ' mm</p>' +
+      '<p>Prec ' + f[0].precip + ' mm</p>' +
       '</div>');
 
   d3.select("#rt-weather").select("#card-center")
