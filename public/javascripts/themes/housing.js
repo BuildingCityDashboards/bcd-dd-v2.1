@@ -36,8 +36,6 @@ Promise.all([
     d.year = formatYear(d[dateField]);
   });
 
-
-
   const houseCompCharts = new StackedAreaChart(houseCompContent);
   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
@@ -230,10 +228,13 @@ Promise.all([
     rentPricesRegions = rentPricesData.columns[1],
     rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType);
 
+
   rentPricesDataProcessed.forEach(d => {
     d.label = d[rentPricesDate];
     d[rentPricesDate] = convertQuarter(d[rentPricesDate]);
   });
+
+  // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
 
   const rentPricesContent = {
       e: "#chart-rentPrices",
@@ -384,10 +385,10 @@ Promise.all([
       ySF: "millions",
     };
 
-//  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
-//
-//  nonNewConnectionsChart.tickNumber = 20;
-//  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
+  //  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
+  //
+  //  nonNewConnectionsChart.tickNumber = 20;
+  //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
 
   // setup chart and data for New Dwelling Completion by type chart
   // process the data

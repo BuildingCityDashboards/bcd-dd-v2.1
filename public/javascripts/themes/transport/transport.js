@@ -2,25 +2,39 @@
  * Bikes
  ************************************/
 Promise.all([
-  d3.json("/api/dublinbikes/stations/all/today")
+  d3.json("/data/Transport/bikes_dummy_availability_day_hourly.json")
 ]).then(data => {
-  // console.log("Bikes theme data size: " + JSON.stringify(data[0]));
+  console.log("Bikes theme data: " + JSON.stringify(data));
+  // data.length = 1;
+  // data[0].length = 20; //readings for each hour?
+  // data[0][0] = 113; //readings for each station
+
   // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
+  // const rentPricesData = datafiles[5],
+  // rentPricesType = rentPricesData.columns.slice(2),
+  //   rentPricesDate = rentPricesData.columns[0],
+  //   rentPricesRegions = rentPricesData.columns[1],
+  //   rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType);
   //
-  // //1.  data processing for house completion chart
-  // const completionData = datafiles[0],
-  //   keys = completionData.columns.slice(1),
-  //   dateField = completionData.columns[0],
-  //   compDataProcessed = dataSets(completionData, keys),
-  //   houseCompContent = {
-  //     e: "#chart-dublinbikes-theme",
-  //     d: compDataProcessed,
-  //     ks: keys,
-  //     xV: dateField,
-  //     tX: "Months",
-  //     tY: "Units",
-  //     ySF: "millions",
-  //   };
+  // rentPricesDataProcessed.forEach(d => {
+  //   d.label = d[rentPricesDate];
+  //   d[rentPricesDate] = convertQuarter(d[rentPricesDate]);
+  // });
+  //
+  // const rentPricesContent = {
+  //     e: "#chart-rentPrices",
+  //     d: rentPricesDataProcessed,
+  //     k: rentPricesRegions,
+  //     xV: rentPricesDate,
+  //     yV: "value",
+  //     tX: "Quarters",
+  //     tY: "€"
+  //   },
+  //
+  //   rentPricesChart = new MultiLineChart(rentPricesContent);
+  // rentPricesChart.drawChart();
+  // rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+
   //
   // compDataProcessed.forEach(function(d) {
   //   d.label = d[dateField];
@@ -28,7 +42,7 @@ Promise.all([
   //   d.year = formatYear(d[dateField]);
   // });
   //
-  // const houseCompCharts = new StackedAreaChart(houseCompContent);
+  // const dublinbikesChart = new MultiLineChart(houseCompContent);
   // houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
   d3.select("#dublinbikes_day").on("click", function() {
@@ -182,61 +196,26 @@ function activeBtn(e) {
 
 }
 
-
-
-
-// let bikesIcon = L.Icon.extend({
-//   options: {
-//     iconSize: [36, 45],
-//     iconAnchor: [18, 45],
-//     popupAnchor: [-3, -46]
-//   }
-// });
-//
-// let osmBike = new L.TileLayer(stamenTonerUrl_Lite, {
-//   minZoom: min_zoom,
-//   maxZoom: max_zoom,
-//   attribution: stamenTonerAttrib
-// });
-//
-// let bikesMap = new L.Map('chart-transport-bikes', {
-//   closePopupOnClick: true,
-//   zoomControl: true
-//   //zoomsliderControl: true
-// });
-//
-// //let zoomSlider = new Zoomslider();
-// //bikesMap.addControl(new L.Control.Zoomslider());
-// bikesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
-// bikesMap.addLayer(osmBike);
-// let bikeCluster = L.markerClusterGroup();
-// let bikeTime = d3.timeFormat("%a %B %d, %H:%M");
-// let bikeHour = d3.timeFormat("%H");
-// //Get latest bikes data from file, display in map iconography
-// d3.json("/data/Transport/bikesData.json").then(function(data) {
-//   //console.log(data[0]);
-//   processLatestBikes(data);
-// });
 // /* TODO: performance- move to _each in updateMap */
-// function processLatestBikes(data_) {
-//   let bikeStands = 0;
-//   //console.log("Bike data \n");
-//   data_.forEach(function(d) {
-//     d.lat = +d.position.lat;
-//     d.lng = +d.position.lng;
-//     //add a property to act as key for filtering
-//     d.type = "Dublin Bikes Station";
-//     if (d.bike_stands) {
-//       bikeStands += d.bike_stands;
-//     }
-//   });
-//   d3.select('#stations-count').html(data_.length);
-//   d3.select('#stands-count').html(bikeStands);
-//   //console.log("# of available bike is " + available + "\n");
-//   //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-//   //    console.log("# of bike stations is " + data_.length + "\n"); // +
-//   updateMapBikes(data_);
-// };
+function processLatestBikes(data_) {
+  let bikeStands = 0;
+  //console.log("Bike data \n");
+  data_.forEach(function(d) {
+    d.lat = +d.position.lat;
+    d.lng = +d.position.lng;
+    //add a property to act as key for filtering
+    d.type = "Dublin Bikes Station";
+    if (d.bike_stands) {
+      bikeStands += d.bike_stands;
+    }
+  });
+  d3.select('#stations-count').html(data_.length);
+  d3.select('#stands-count').html(bikeStands);
+  //console.log("# of available bike is " + available + "\n");
+  //    console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
+  //    console.log("# of bike stations is " + data_.length + "\n"); // +
+  updateMapBikes(data_);
+};
 // //let markerRefBike; //TODO: fix horrible hack!!!
 // let customBikesStationMarker = L.Marker.extend({
 //   options: {

@@ -39,5 +39,4 @@ router.get('/carparks/snapshot', carparksController.getCarparksSnapshot);
 let weatherController = require('../controllers/weather_controller');
 router.get('/weather', weatherController.getWeather);
 
-
 module.exports = router;

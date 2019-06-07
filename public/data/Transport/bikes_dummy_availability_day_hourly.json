@@ -1,0 +1,89 @@
+[{
+    "available_bike_stands": 2747,
+    "available_bikes": 1082,
+    "time": "2019-06-06T04:05:02Z"
+  },
+  {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T05:05:02Z"
+  },
+  {
+    "available_bike_stands": 2850,
+    "available_bikes": 950,
+    "time": "2019-06-06T06:05:02Z"
+  }, {
+    "available_bike_stands": 2900,
+    "available_bikes": 900,
+    "time": "2019-06-06T07:05:02Z"
+  }, {
+    "available_bike_stands": 2192,
+    "available_bikes": 1900,
+    "time": "2019-06-06T08:05:02Z"
+  }, {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T09:05:02Z"
+  }, {
+    "available_bike_stands": 2700,
+    "available_bikes": 2000,
+    "time": "2019-06-06T10:05:02Z"
+  }, {
+    "available_bike_stands": 2747,
+    "available_bikes": 1082,
+    "time": "2019-06-06T11:05:02Z"
+  },
+  {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T12:05:02Z"
+  },
+  {
+    "available_bike_stands": 2850,
+    "available_bikes": 950,
+    "time": "2019-06-06T13:05:02Z"
+  }, {
+    "available_bike_stands": 2900,
+    "available_bikes": 900,
+    "time": "2019-06-06T14:05:02Z"
+  }, {
+    "available_bike_stands": 2192,
+    "available_bikes": 1900,
+    "time": "2019-06-06T15:05:02Z"
+  }, {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T16:05:02Z"
+  }, {
+    "available_bike_stands": 2700,
+    "available_bikes": 2000,
+    "time": "2019-06-06T17:05:02Z"
+  },
+  {
+    "available_bike_stands": 2747,
+    "available_bikes": 1082,
+    "time": "2019-06-06T18:05:02Z"
+  },
+  {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T19:05:02Z"
+  },
+  {
+    "available_bike_stands": 2850,
+    "available_bikes": 950,
+    "time": "2019-06-06T20:05:02Z"
+  }, {
+    "available_bike_stands": 2900,
+    "available_bikes": 900,
+    "time": "2019-06-06T21:05:02Z"
+  }, {
+    "available_bike_stands": 2192,
+    "available_bikes": 1900,
+    "time": "2019-06-06T22:05:02Z"
+  }, {
+    "available_bike_stands": 2800,
+    "available_bikes": 1000,
+    "time": "2019-06-06T23:05:02Z"
+  }
+]
