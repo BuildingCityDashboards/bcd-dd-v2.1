@@ -49,8 +49,11 @@ a:hover {
    -o-animation: updateAnimation 1s 3;
     animation: updateAnimation 1s 3 ;
 }
-
-
+/*Pages*/
+/*Themes*/
+.theme-section{
+  padding-bottom: 75px;
+}
 
 /* charts */
 
