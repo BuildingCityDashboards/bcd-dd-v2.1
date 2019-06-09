@@ -1,5 +1,5 @@
 /* Typography*/
-/* font size based on perfect fourth*/ 
+/* font size based on perfect fourth*/
 html{
   font-family: sans-serif;
   font-size: 16px;
@@ -8,6 +8,9 @@ html{
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: transparent;
+  overflow-y: scroll;
+  /*Check compatibility*/
+  scroll-behavior:smooth;
 }
 
 .page{
