@@ -2,7 +2,7 @@
  * Bikes
  ************************************/
 Promise.all([
-  d3.json("/data/Transport/bikes_dummy_availability_day_hourly.json")
+  d3.json("/data/Transport/bikes-dummy-availability-day-hourly.json")
 ]).then(data => {
   console.log("Bikes theme data: " + JSON.stringify(data));
   // data.length = 1;
