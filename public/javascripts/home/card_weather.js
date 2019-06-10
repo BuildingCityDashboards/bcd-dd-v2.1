@@ -3,11 +3,11 @@ let weatherCountdown = weatherInterval;
 const fetchWeatherData = function() {
   d3.xml("/api/weather")
     .then((data) => {
-      console.log("Fetched Weather card data ");
+      //console.log("Fetched Weather card data ");
       processWeather(data);
     })
     .catch(function(err) {
-      console.error("Error fetching Weather card data: " + JSON.stringify(err));
+      //console.error("Error fetching Weather card data: " + JSON.stringify(err));
       initialiseWeatherDisplay();
     })
 }
@@ -23,7 +23,7 @@ const weatherCardTimer = setIntervalAsync(
 function processWeather(xmlWeather) {
   let modelXML = xmlWeather.getElementsByTagName("model");
   let forecastTime = moment(modelXML[0].getAttribute("runended")).fromNow();
-  console.log("forecastTime: " + JSON.stringify(forecastTime));
+  //console.log("forecastTime: " + JSON.stringify(forecastTime));
 
   let timesXML = xmlWeather.getElementsByTagName("time");
   // console.log("#timesXML: " + timesXML.length);

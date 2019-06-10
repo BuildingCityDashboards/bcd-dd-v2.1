@@ -16,13 +16,13 @@ let prevTTAgeMins, prevLongestDelay;
 const fetchTTData = function() {
   d3.json("/data/Transport/traveltimes.json")
     .then((data) => {
-      console.log("Fetched Travel Times card data ");
+      //console.log("Fetched Travel Times card data ");
       processTravelTimes(data);
       clearInterval(ttTimer);
       timeSinceUpdate = moment(new Date());
     })
     .catch(function(err) {
-      console.error("Error fetching Travel Times card data: " + JSON.stringify(err));
+      //console.error("Error fetching Travel Times card data: " + JSON.stringify(err));
       initialiseTTDisplay();
       // restart the timer
       clearInterval(ttTimer);
@@ -50,7 +50,7 @@ function processTravelTimes(data_) {
       data_[k].data.forEach(function(d_) {
         if (+d_["current_travel_time"] > +d_["free_flow_travel_time"]) {
           let sectionDelay = +d_["current_travel_time"] - (+d_["free_flow_travel_time"]);
-          console.log("Section delay: " + k + "\t" + sectionDelay);
+          //console.log("Section delay: " + k + "\t" + sectionDelay);
           motorwayDelay += sectionDelay;
           // if (sectionDelay > maxDelay) {
           //   d_.name = d;
@@ -60,7 +60,7 @@ function processTravelTimes(data_) {
         }
 
       });
-      console.log("Motorway delay: " + k + "\t" + motorwayDelay);
+      //console.log("Motorway delay: " + k + "\t" + motorwayDelay);
 
       if (motorwayDelay > longestMotorwayDelay) {
         maxDelayedMotorway.name = k;
@@ -69,7 +69,7 @@ function processTravelTimes(data_) {
       }
     }
   );
-  console.log("Longest MWay delay : " + JSON.stringify(maxDelayedMotorway) + "\t" + longestMotorwayDelay);
+  //console.log("Longest MWay delay : " + JSON.stringify(maxDelayedMotorway) + "\t" + longestMotorwayDelay);
   updateTTDisplay(maxDelayedMotorway);
   //            console.log("ind " + JSON.stringify(indicatorUpSymbol.style));
 };
