@@ -4,36 +4,52 @@
 Promise.all([
   d3.json("/data/Transport/bikes-dummy-availability-day-hourly.json")
 ]).then(data => {
-  console.log("Bikes theme data: " + JSON.stringify(data));
+  const dayFormat = d3.timeFormat("%a, %I:%M");
+
+  // console.log("Bikes theme data: " + JSON.stringify(data));
   // data.length = 1;
   // data[0].length = 20; //readings for each hour?
   // data[0][0] = 113; //readings for each station
+  let dublinBikesData = data[0],
+    dublinBikesAvailable = []
+  dublinBikesDate = [];
 
+  dublinBikesData.forEach(d => {
+    d["available_bikes"] = +d["available_bikes"];
+    d["time"] = new Date(d["time"]);
+    d.dayTime = dayFormat(d["time"]);
+    d.label = "" + d.dayTime;
+    // d.key = "test";
+  });
+
+  console.log("data: " + JSON.stringify(dublinBikesData[0]));
   // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
-  // const rentPricesData = datafiles[5],
-  // rentPricesType = rentPricesData.columns.slice(2),
-  //   rentPricesDate = rentPricesData.columns[0],
-  //   rentPricesRegions = rentPricesData.columns[1],
-  //   rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType);
+  // const dublinBikesData = datafiles[5],
+  // dublinBikesType = dublinBikesData.columns.slice(2),
+  //   dublinBikesDate = dublinBikesData.columns[0],
+  //   dublinBikesRegions = dublinBikesData.columns[1],
+  //dublinBikesDataProcessed = dataSets(dublinBikesData, dublinBikesType);
   //
-  // rentPricesDataProcessed.forEach(d => {
-  //   d.label = d[rentPricesDate];
-  //   d[rentPricesDate] = convertQuarter(d[rentPricesDate]);
+  // dublinBikesDataP.forEach(d => {
+  //   d.label = d[dublinBikesDate];
+  //   d[dublinBikesDate] = convertQuarter(d[dublinBikesDate]);
   // });
   //
-  // const rentPricesContent = {
-  //     e: "#chart-rentPrices",
-  //     d: rentPricesDataProcessed,
-  //     k: rentPricesRegions,
-  //     xV: rentPricesDate,
-  //     yV: "value",
-  //     tX: "Quarters",
-  //     tY: "€"
-  //   },
-  //
-  //   rentPricesChart = new MultiLineChart(rentPricesContent);
-  // rentPricesChart.drawChart();
-  // rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+  const dublinBikesContent = {
+    e: "#chart-dublinbikes",
+    d: dublinBikesData,
+    k: dublinBikesData, //?
+    xV: "time", //expects a date object
+    yV: "available_bikes",
+    tX: "Time", //string axis title
+    tY: "Number available"
+  };
+
+  const dublinBikesChart = new MultiLineChart(dublinBikesContent);
+  dublinBikesChart.drawChart();
+  // addTooltip(title, format, dateField, prefix, postfix)
+  //format just formats comms for thousands etc
+  dublinBikesChart.addTooltip("Number available on ", "thousands", "label", "", "");
 
   //
   // compDataProcessed.forEach(function(d) {
@@ -85,7 +101,7 @@ Promise.all([
     // supplyChart.drawChart();
     // contributionChart.drawChart();
     // housePricesChart.drawChart();
-    // rentPricesChart.drawChart();
+    // dublinBikesChart.drawChart();
   });
 
 }).catch(function(error) {
@@ -862,16 +878,16 @@ function processLatestBikes(data_) {
 
 /************************************
  * Button listeners
- ************************************/
-d3.select(".public_transport_bikes").on("click", function() {
-  //    console.log("bikes");
-  bikesMap.removeLayer(busCluster);
-  bikesMap.removeLayer(luasCluster);
-  if (!bikesMap.hasLayer(bikeCluster)) {
-    bikesMap.addLayer(bikeCluster);
-  }
-  bikesMap.fitBounds(bikeCluster.getBounds());
-});
+//  ************************************/
+// d3.select(".public_transport_bikes").on("click", function() {
+//   //    console.log("bikes");
+//   bikesMap.removeLayer(busCluster);
+//   bikesMap.removeLayer(luasCluster);
+//   if (!bikesMap.hasLayer(bikeCluster)) {
+//     bikesMap.addLayer(bikeCluster);
+//   }
+//   bikesMap.fitBounds(bikeCluster.getBounds());
+// });
 // d3.select(".public_transport_buses").on("click", function() {
 //   //    console.log("buses");
 //   publicMap.removeLayer(bikeCluster);
