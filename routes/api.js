@@ -19,7 +19,7 @@ var dublinBikesController = require('../controllers/dublinbikes_derilinx');
 router.get('/dublinbikes/stations/list', dublinBikesController.getStationsList);
 
 //all station snapshot
-router.get('/dublinbikes/stations/snapshot', dublinBikesController.getStationsSnapshot);
+router.get('/dublinbikes/stations/all/snapshot', dublinBikesController.getStationsSnapshot);
 
 // router.get('/dublinbikes/stations/example', dublinBikesController.getStationExample);
 // router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);

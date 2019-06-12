@@ -79,6 +79,10 @@ app.use(function(err, req, res, next) {
 let bikesSnapshotURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/snapshot";
 
 let bikesYesterdayURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/yesterday";
+let bikesLastDayURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastday";
+let bikesLastWeekURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastweek";
+let bikesLastMonthURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastmonth";
+let bikesLastYearURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastyear";
 
 const getDublinBikesData_API = async url => {
   const fetch = require("node-fetch");
@@ -121,7 +125,7 @@ cron.schedule("6 */1 * * *", async () => {
 let bikesYesterday;
 cron.schedule("30 1 * * *", async () => {
   let fs = require('fs');
-  let fileName = "bikes_yesterday.json";
+  let fileName = "dublinbikes-yesterday-hourly.json";
   bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
   bikesYesterday.write(JSON.stringify(data, null, 2));

@@ -1,7 +1,7 @@
 /************************************
  * Bikes
  ************************************/
-d3.json("/data/Transport/multiline-chart-bikes.json")
+d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.json")
   .then(data => {
     const dayFormat = d3.timeFormat("%a, %I:%M");
 
@@ -9,17 +9,24 @@ d3.json("/data/Transport/multiline-chart-bikes.json")
     // data.length = 1;
     // data[0].length = 20; //readings for each hour?
     // data[0][0] = 113; //readings for each station
-    let dublinBikesData = data;
+    let dublinBikesData = d3.nest()
+      .key(function(d) {
+        return d.key;
+      })
+      .entries(data);
+
 
     dublinBikesData.forEach(d => {
       // d["available_bikes"] = +d["available_bikes"];
       d["key"] = d["key"].replace(/_/g, " ");
       d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
-      console.log("d key: " + JSON.stringify(d["key"]));
+      console.log("\n\nd key: " + JSON.stringify(d["key"]));
+
+
       d["values"].forEach(v => {
         v["date"] = new Date(v["date"]); //parse to date
         // console.log("v: " + JSON.stringify(v["date"]));
-        v["label"] = dayFormat(v["date"]);
+        // v["label"] = dayFormat(v["date"]);
       });
     });
 
@@ -37,7 +44,7 @@ d3.json("/data/Transport/multiline-chart-bikes.json")
     dublinBikesChart.drawChart();
     // addTooltip(title, format, dateField, prefix, postfix)
     //format just formats comms for thousands etc
-    dublinBikesChart.addTooltip("Number available on ", "thousands", "label", "", "");
+    dublinBikesChart.addTooltip("Number available at ", "thousands", "label", "", "");
 
 
     d3.select("#dublinbikes_day").on("click", function() {

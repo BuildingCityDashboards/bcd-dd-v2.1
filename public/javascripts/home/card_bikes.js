@@ -13,7 +13,7 @@ let indicatorUpSymbol = "▲",
   indicatorDownSymbol = "▼";
 
 const fetchBikesData = function() {
-  d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+  d3.json('/api/dublinbikes/stations/all/snapshot') //get latest snapshot of all stations
     .then((data) => {
       //console.log("Fetched Dublin Bikes card data ");
       processBikes(data);
