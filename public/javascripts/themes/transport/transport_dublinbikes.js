@@ -1,119 +1,91 @@
 /************************************
  * Bikes
  ************************************/
-Promise.all([
-  d3.json("/data/Transport/multiline-chart-bikes.json")
-]).then(data => {
-  const dayFormat = d3.timeFormat("%a, %I:%M");
+d3.json("/data/Transport/multiline-chart-bikes.json")
+  .then(data => {
+    const dayFormat = d3.timeFormat("%a, %I:%M");
 
-  // console.log("Bikes theme data: " + JSON.stringify(data));
-  // data.length = 1;
-  // data[0].length = 20; //readings for each hour?
-  // data[0][0] = 113; //readings for each station
-  let dublinBikesData = data[0];
+    // console.log("Bikes theme data: " + JSON.stringify(data));
+    // data.length = 1;
+    // data[0].length = 20; //readings for each hour?
+    // data[0][0] = 113; //readings for each station
+    let dublinBikesData = data;
 
-  dublinBikesData.forEach(d => {
-    // d["available_bikes"] = +d["available_bikes"];
-    d["key"] = d["key"].replace(/_/g, " ");
-    d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
-    console.log("d key: " + JSON.stringify(d["key"]));
-    d["values"].forEach(v => {
-      v["date"] = new Date(v["date"]); //parse to date
-      // console.log("v: " + JSON.stringify(v["date"]));
-      v["label"] = dayFormat(v["date"]);
-
+    dublinBikesData.forEach(d => {
+      // d["available_bikes"] = +d["available_bikes"];
+      d["key"] = d["key"].replace(/_/g, " ");
+      d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
+      console.log("d key: " + JSON.stringify(d["key"]));
+      d["values"].forEach(v => {
+        v["date"] = new Date(v["date"]); //parse to date
+        // console.log("v: " + JSON.stringify(v["date"]));
+        v["label"] = dayFormat(v["date"]);
+      });
     });
 
-    // d.dayTime = dayFormat(d["time"]);
-    // d.label = "" + d.dayTime;
-    // d.key = "test";
+    const dublinBikesContent = {
+      e: "#chart-dublinbikes",
+      d: dublinBikesData,
+      //k: dublinBikesData, //?
+      xV: "date", //expects a date object
+      yV: "value",
+      tX: "Time", //string axis title
+      tY: "Number available"
+    };
+
+    const dublinBikesChart = new MultiLineChart(dublinBikesContent);
+    dublinBikesChart.drawChart();
+    // addTooltip(title, format, dateField, prefix, postfix)
+    //format just formats comms for thousands etc
+    dublinBikesChart.addTooltip("Number available on ", "thousands", "label", "", "");
+
+
+    d3.select("#dublinbikes_day").on("click", function() {
+      activeBtn(this);
+      // hCBTChart.yV = hCBTType[0];
+      // hCBTChart.updateChart();
+      // hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
+      // hCBTChart.hideRate(false);
+    });
+
+    d3.select("#dublinbikes_week").on("click", function() {
+      activeBtn(this);
+
+      // hCBTChart.yV = hCBTType[1];
+      // hCBTChart.updateChart();
+      // hCBTChart.addTooltip("Private Houses - ", "thousands", "label");
+      // hCBTChart.hideRate(false);
+    });
+
+    d3.select("#dublinbikes_month").on("click", function() {
+      activeBtn(this);
+      // hCBTChart.yV = hCBTType[2];
+      // hCBTChart.updateChart();
+      // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
+      // hCBTChart.hideRate(true);
+    });
+
+    d3.select("#dublinbikes_year").on("click", function() {
+      activeBtn(this);
+      // hCBTChart.yV = hCBTType[2];
+      // hCBTChart.updateChart();
+      // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
+      // hCBTChart.hideRate(true);
+    });
+
+
+    // add buttons to switch between total, housing and apartments
+
+    d3.select(window).on("resize", function() {
+      // supplyChart.drawChart();
+      // contributionChart.drawChart();
+      // housePricesChart.drawChart();
+      // dublinBikesChart.drawChart();
+    });
+
+  }).catch(function(error) {
+    console.log(error);
   });
-
-  // console.log("data: " + JSON.stringify(dublinBikesData[0]));
-  // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
-  // const dublinBikesData = datafiles[5],
-  // dublinBikesType = dublinBikesData.columns.slice(2),
-  //   dublinBikesDate = dublinBikesData.columns[0],
-  //   dublinBikesRegions = dublinBikesData.columns[1],
-  //dublinBikesDataProcessed = dataSets(dublinBikesData, dublinBikesType);
-  //
-  // dublinBikesDataP.forEach(d => {
-  //   d.label = d[dublinBikesDate];
-  //   d[dublinBikesDate] = convertQuarter(d[dublinBikesDate]);
-  // });
-  //
-  const dublinBikesContent = {
-    e: "#chart-dublinbikes",
-    d: dublinBikesData,
-    //k: dublinBikesData, //?
-    xV: "date", //expects a date object
-    yV: "value",
-    tX: "Time", //string axis title
-    tY: "Number available"
-  };
-
-  const dublinBikesChart = new MultiLineChart(dublinBikesContent);
-  dublinBikesChart.drawChart();
-  // addTooltip(title, format, dateField, prefix, postfix)
-  //format just formats comms for thousands etc
-  dublinBikesChart.addTooltip("Number available on ", "thousands", "label", "", "");
-
-  //
-  // compDataProcessed.forEach(function(d) {
-  //   d.label = d[dateField];
-  //   d[dateField] = parseMonth(d[dateField]);
-  //   d.year = formatYear(d[dateField]);
-  // });
-  //
-  // const dublinbikesChart = new MultiLineChart(houseCompContent);
-  // houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
-
-  d3.select("#dublinbikes_day").on("click", function() {
-    activeBtn(this);
-    // hCBTChart.yV = hCBTType[0];
-    // hCBTChart.updateChart();
-    // hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
-    // hCBTChart.hideRate(false);
-  });
-
-  d3.select("#dublinbikes_week").on("click", function() {
-    activeBtn(this);
-
-    // hCBTChart.yV = hCBTType[1];
-    // hCBTChart.updateChart();
-    // hCBTChart.addTooltip("Private Houses - ", "thousands", "label");
-    // hCBTChart.hideRate(false);
-  });
-
-  d3.select("#dublinbikes_month").on("click", function() {
-    activeBtn(this);
-    // hCBTChart.yV = hCBTType[2];
-    // hCBTChart.updateChart();
-    // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
-    // hCBTChart.hideRate(true);
-  });
-
-  d3.select("#dublinbikes_year").on("click", function() {
-    activeBtn(this);
-    // hCBTChart.yV = hCBTType[2];
-    // hCBTChart.updateChart();
-    // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
-    // hCBTChart.hideRate(true);
-  });
-
-
-  // add buttons to switch between total, housing and apartments
-
-  d3.select(window).on("resize", function() {
-    // supplyChart.drawChart();
-    // contributionChart.drawChart();
-    // housePricesChart.drawChart();
-    // dublinBikesChart.drawChart();
-  });
-
-}).catch(function(error) {
-  console.log(error);
-});
 
 //End of bikes data load
 
