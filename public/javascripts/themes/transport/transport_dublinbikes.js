@@ -2,7 +2,7 @@
  * Bikes
  ************************************/
 Promise.all([
-  d3.json("/data/Transport/bikes-dummy-availability-day-hourly.json")
+  d3.json("/data/Transport/multiline-chart-bikes.json")
 ]).then(data => {
   const dayFormat = d3.timeFormat("%a, %I:%M");
 
@@ -10,19 +10,26 @@ Promise.all([
   // data.length = 1;
   // data[0].length = 20; //readings for each hour?
   // data[0][0] = 113; //readings for each station
-  let dublinBikesData = data[0],
-    dublinBikesAvailable = []
-  dublinBikesDate = [];
+  let dublinBikesData = data[0];
 
   dublinBikesData.forEach(d => {
-    d["available_bikes"] = +d["available_bikes"];
-    d["time"] = new Date(d["time"]);
-    d.dayTime = dayFormat(d["time"]);
-    d.label = "" + d.dayTime;
+    // d["available_bikes"] = +d["available_bikes"];
+    d["key"] = d["key"].replace(/_/g, " ");
+    d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
+    console.log("d key: " + JSON.stringify(d["key"]));
+    d["values"].forEach(v => {
+      v["date"] = new Date(v["date"]); //parse to date
+      // console.log("v: " + JSON.stringify(v["date"]));
+      v["label"] = dayFormat(v["date"]);
+
+    });
+
+    // d.dayTime = dayFormat(d["time"]);
+    // d.label = "" + d.dayTime;
     // d.key = "test";
   });
 
-  console.log("data: " + JSON.stringify(dublinBikesData[0]));
+  // console.log("data: " + JSON.stringify(dublinBikesData[0]));
   // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
   // const dublinBikesData = datafiles[5],
   // dublinBikesType = dublinBikesData.columns.slice(2),
@@ -38,9 +45,9 @@ Promise.all([
   const dublinBikesContent = {
     e: "#chart-dublinbikes",
     d: dublinBikesData,
-    k: dublinBikesData, //?
-    xV: "time", //expects a date object
-    yV: "available_bikes",
+    //k: dublinBikesData, //?
+    xV: "date", //expects a date object
+    yV: "value",
     tX: "Time", //string axis title
     tY: "Number available"
   };

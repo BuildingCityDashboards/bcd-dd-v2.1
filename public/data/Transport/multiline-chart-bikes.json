@@ -1,0 +1,88 @@
+[{
+  "key": "available_bike_stands",
+  "values": [{
+    "date": "2006-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 393,
+    "label": "2006"
+  }, {
+    "date": "2007-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 386,
+    "label": "2007"
+  }, {
+    "date": "2008-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 384,
+    "label": "2008"
+  }, {
+    "date": "2009-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 344,
+    "label": "2009"
+  }, {
+    "date": "2010-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 318,
+    "label": "2010"
+  }, {
+    "date": "2011-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 295,
+    "label": "2011"
+  }, {
+    "date": "2012-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 271,
+    "label": "2012"
+  }, {
+    "date": "2013-01-01T00:00:00.000Z",
+    "region": "Dublin City",
+    "value": 264,
+    "label": "2013"
+  }]
+}, 
+ {
+  "key": "available_bikes",
+  "values": [{
+    "date": "2006-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 420,
+    "label": "2006"
+  }, {
+    "date": "2007-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 426,
+    "label": "2007"
+  }, {
+    "date": "2008-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 432,
+    "label": "2008"
+  }, {
+    "date": "2009-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 438,
+    "label": "2009"
+  }, {
+    "date": "2010-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 392,
+    "label": "2010"
+  }, {
+    "date": "2011-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 345,
+    "label": "2011"
+  }, {
+    "date": "2012-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 308,
+    "label": "2012"
+  }, {
+    "date": "2013-01-01T00:00:00.000Z",
+    "region": "South Dublin",
+    "value": 296,
+    "label": "2013"
+  }]
+}]
