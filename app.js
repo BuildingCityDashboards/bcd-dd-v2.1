@@ -134,14 +134,19 @@ cron.schedule("30 2 * * *", function() {
 //This is the working pattern
 async function getBikesYesterdayHourly() {
   // console.log("\n\ngetBikesYesterday\n\n\");
-  let fs = require('fs');
-  let filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
-  let fileName = "dublinbikes-yesterday-hourly.json";
-  let fullPath = path.join(filePath, fileName);
+  const fs = require('fs');
+  const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
+  const fileName = "dublinbikes-yesterday-hourly.json";
+  const fullPath = path.join(filePath, fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
-  bikesYesterday = fs.createWriteStream(fullPath);
-  bikesYesterday.write(JSON.stringify(data, null, 2));
-  bikesYesterday.end();
+  fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
+    if (!err) {
+      console.log("\nFS FIle Written\n");
+    }
+  });
+  // bikesYesterday = fs.createWriteStream(fullPath);
+  // bikesYesterday.write(JSON.stringify(data, null, 2));
+  // bikesYesterday.end();
 }
 
 getBikesYesterdayHourly().catch((err) => {
