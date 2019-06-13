@@ -6,9 +6,7 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
     const dayFormat = d3.timeFormat("%a, %I:%M");
 
     // console.log("Bikes theme data: " + JSON.stringify(data));
-    // data.length = 1;
-    // data[0].length = 20; //readings for each hour?
-    // data[0][0] = 113; //readings for each station
+
     let dublinBikesData = d3.nest()
       .key(function(d) {
         return d.key;
@@ -22,11 +20,8 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
       d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
       console.log("\n\nd key: " + JSON.stringify(d["key"]));
 
-
       d["values"].forEach(v => {
         v["date"] = new Date(v["date"]); //parse to date
-        // console.log("v: " + JSON.stringify(v["date"]));
-        // v["label"] = dayFormat(v["date"]);
       });
     });
 
@@ -37,7 +32,7 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
       xV: "date", //expects a date object
       yV: "value",
       tX: "Time", //string axis title
-      tY: "Number available"
+      tY: "Bikes in motion"
     };
 
     const dublinBikesChart = new MultiLineChart(dublinBikesContent);

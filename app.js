@@ -113,7 +113,7 @@ const getDublinBikesData_API = async url => {
 
 //Fetch snapshot of data and save to file at n minutes past the hour, every hour
 let bikesHourly;
-cron.schedule("6 */1 * * *", async () => {
+cron.schedule("15 */1 * * *", async () => {
   let fs = require('fs');
   let fileName = "bikesData-" + new Date().getHours() + ".json";
   bikesHourly = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
@@ -123,13 +123,47 @@ cron.schedule("6 */1 * * *", async () => {
 
 //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
 let bikesYesterday;
-cron.schedule("30 1 * * *", async () => {
+cron.schedule("30 2 * * *", function() {
+  getBikesYesterdaygetBikesYesterdayHourly();
+});
+//This is the working pattern
+async function getBikesYesterdayHourly() {
+  // console.log("\n\ngetBikesYesterday\n\n\");
   let fs = require('fs');
   let fileName = "dublinbikes-yesterday-hourly.json";
-  bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
+  bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
   bikesYesterday.write(JSON.stringify(data, null, 2));
-});
+}
+
+async function getBikesLastDayHourly() {
+  // console.log("\n\ngetBikesYesterday\n\n\");
+  // let fs = require('fs');
+  // let fileName = "dublinbikes-yesterday-hourly.json";
+  // const data = await getDublinBikesData_API(bikesYesterdayURL);
+  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  // bikesYesterday.write(JSON.stringify(data, null, 2));
+}
+
+async function getBikesLastWeekHourly() {
+  // console.log("\n\ngetBikesYesterday\n\n\");
+  // let fs = require('fs');
+  // let fileName = "dublinbikes-yesterday-hourly.json";
+  // const data = await getDublinBikesData_API(bikesYesterdayURL);
+  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  // bikesYesterday.write(JSON.stringify(data, null, 2));
+}
+
+async function getBikesLastMonthDaily() {
+  // console.log("\n\ngetBikesYesterday\n\n\");
+  // let fs = require('fs');
+  // let fileName = "dublinbikes-yesterday-hourly.json";
+  // const data = await getDublinBikesData_API(bikesYesterdayURL);
+  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  // bikesYesterday.write(JSON.stringify(data, null, 2));
+}
+
+getBikesYesterdayHourly();
 
 /*****************/
 
