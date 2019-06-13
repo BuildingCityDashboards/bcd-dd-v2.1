@@ -119,6 +119,7 @@ cron.schedule("15 */1 * * *", async () => {
   bikesHourly = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
   const data = await getDublinBikesData_API(bikesSnapshotURL);
   bikesHourly.write(JSON.stringify(data, null, 2));
+  bikesHourly.end();
 });
 
 //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
@@ -136,6 +137,7 @@ async function getBikesYesterdayHourly() {
   const data = await getDublinBikesData_API(bikesYesterdayURL);
   bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
   bikesYesterday.write(JSON.stringify(data, null, 2));
+  bikesYesterday.end();
 }
 
 async function getBikesLastDayHourly() {
@@ -165,9 +167,9 @@ async function getBikesLastMonthDaily() {
   // bikesYesterday.write(JSON.stringify(data, null, 2));
 }
 
-// getBikesYesterdayHourly().catch(() => {
-//   console.log("Catch!");
-// });
+getBikesYesterdayHourly().catch(() => {
+  console.log("Catch!");
+});
 
 /*****************/
 

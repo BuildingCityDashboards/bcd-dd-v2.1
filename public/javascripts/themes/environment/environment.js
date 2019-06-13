@@ -28,7 +28,7 @@ Promise.all([
     })
     .entries(wasteDataProcessed);
 
-  console.log("wasteDataNested " + JSON.stringify(wasteDataNested));
+  // console.log("wasteDataNested " + JSON.stringify(wasteDataNested));
 
   const wasteContent = {
     e: "#chart-waste",

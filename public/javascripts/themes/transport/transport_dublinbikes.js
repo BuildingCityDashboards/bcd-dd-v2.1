@@ -18,7 +18,7 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
       // d["available_bikes"] = +d["available_bikes"];
       d["key"] = d["key"].replace(/_/g, " ");
       d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
-      console.log("\n\nd key: " + JSON.stringify(d["key"]));
+      // console.log("\n\nd key: " + JSON.stringify(d["key"]));
 
       d["values"].forEach(v => {
         v["date"] = new Date(v["date"]); //parse to date
