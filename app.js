@@ -77,11 +77,12 @@ app.use(function(err, req, res, next) {
  ************/
 
 let bikesSnapshotURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/snapshot";
-let bikesYesterdayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/yesterday";
+// let bikesYesterdayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/yesterday";
+let bikesYesterdayURL = "https://dublindashboard-beta.azurewebsites.net/api/dublinbikes/stations/all/yesterday"
 let bikesLastDayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/lastday";
-let bikesLastWeekURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastweek";
-let bikesLastMonthURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastmonth";
-let bikesLastYearURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastyear";
+// let bikesLastWeekURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastweek";
+// let bikesLastMonthURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastmonth";
+// let bikesLastYearURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastyear";
 
 const getDublinBikesData_API = async url => {
   const fetch = require("node-fetch");
@@ -138,9 +139,10 @@ async function getBikesYesterdayHourly() {
   const fileName = "dublinbikes-yesterday-hourly.json";
   const fullPath = path.join(filePath, fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
+  console.log("\n\nTried to fetch data from " + bikesYesterdayURL);
   fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
     if (!err) {
-      console.log("\nFS FIle Written\n");
+      console.log("\nFS File Write finished\n");
     }
   });
   // bikesYesterday = fs.createWriteStream(fullPath);
