@@ -165,9 +165,9 @@ async function getBikesLastMonthDaily() {
   // bikesYesterday.write(JSON.stringify(data, null, 2));
 }
 
-getBikesYesterdayHourly().catch(() => {
-  console.log("Catch!");
-});
+// getBikesYesterdayHourly().catch(() => {
+//   console.log("Catch!");
+// });
 
 /*****************/
 
