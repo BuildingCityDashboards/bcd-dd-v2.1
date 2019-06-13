@@ -139,7 +139,10 @@ async function getBikesYesterdayHourly() {
   const fileName = "dublinbikes-yesterday-hourly.json";
   const fullPath = path.join(filePath, fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
-  console.log("\n\nTried to fetch data from " + bikesYesterdayURL);
+  console.log("\n\nTried to fetch data from " +
+    bikesYesterdayURL +
+    " and got: " +
+    JSON.stringify(data, null, 2));
   fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
     if (!err) {
       console.log("\nFS File Write finished\n");
