@@ -124,7 +124,9 @@ cron.schedule("15 */1 * * *", async () => {
 //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
 let bikesYesterday;
 cron.schedule("30 2 * * *", function() {
-  getBikesYesterdayHourly();
+  getBikesYesterdayHourly().catch(() => {
+    console.log("Catch!");
+  });
 });
 //This is the working pattern
 async function getBikesYesterdayHourly() {
@@ -163,7 +165,9 @@ async function getBikesLastMonthDaily() {
   // bikesYesterday.write(JSON.stringify(data, null, 2));
 }
 
-getBikesYesterdayHourly();
+getBikesYesterdayHourly().catch(() => {
+  console.log("Catch!");
+});
 
 /*****************/
 

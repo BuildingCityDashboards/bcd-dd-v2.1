@@ -170,7 +170,7 @@ exports.getAllStationsDataYesterdayHourly = async (req, res) => {
 
   }
 
-  console.log("Summary hourly " + JSON.stringify(hourlyValues));
+  // console.log("Summary hourly " + JSON.stringify(hourlyValues));
   // console.log("\n\nresponses arr \t" + responses.length);
   if (hourlyValues.length >= 1) {
     res.send(hourlyValues);
