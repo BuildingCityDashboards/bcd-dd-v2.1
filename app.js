@@ -114,31 +114,39 @@ const getDublinBikesData_API = async url => {
 //Fetch snapshot of data and save to file at n minutes past the hour, every hour
 let bikesHourly;
 cron.schedule("15 */1 * * *", async () => {
-  let fs = require('fs');
-  let fileName = "bikesData-" + new Date().getHours() + ".json";
-  bikesHourly = fs.createWriteStream("./public/data/Transport/bikes_today_hourly/" + fileName);
-  const data = await getDublinBikesData_API(bikesSnapshotURL);
-  bikesHourly.write(JSON.stringify(data, null, 2));
-  bikesHourly.end();
+  // let fs = require('fs');
+  // let fileName = "bikesData-" + new Date().getHours() + ".json";
+  // let filePath = path.normalize("./public/data/Transport/bikes_today_hourly/");
+  // let fullPath = path.join(filePath, fileName);
+  // bikesHourly = fs.createWriteStream(fullPath);
+  // const data = await getDublinBikesData_API(bikesSnapshotURL);
+  // bikesHourly.write(JSON.stringify(data, null, 2));
+  // bikesHourly.end();
 });
 
 //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
 let bikesYesterday;
 cron.schedule("30 2 * * *", function() {
-  getBikesYesterdayHourly().catch(() => {
-    console.log("Catch!");
+  getBikesYesterdayHourly().catch((err) => {
+    console.log("Catch! :" + err);
   });
 });
 //This is the working pattern
 async function getBikesYesterdayHourly() {
   // console.log("\n\ngetBikesYesterday\n\n\");
   let fs = require('fs');
+  let filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
   let fileName = "dublinbikes-yesterday-hourly.json";
+  let fullPath = path.join(filePath, fileName);
   const data = await getDublinBikesData_API(bikesYesterdayURL);
-  bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+  bikesYesterday = fs.createWriteStream(fullPath);
   bikesYesterday.write(JSON.stringify(data, null, 2));
   bikesYesterday.end();
 }
+
+getBikesYesterdayHourly().catch((err) => {
+  console.log("Catch! " + err);
+});
 
 async function getBikesLastDayHourly() {
   // console.log("\n\ngetBikesYesterday\n\n\");
@@ -167,9 +175,6 @@ async function getBikesLastMonthDaily() {
   // bikesYesterday.write(JSON.stringify(data, null, 2));
 }
 
-getBikesYesterdayHourly().catch(() => {
-  console.log("Catch!");
-});
 
 /*****************/
 
