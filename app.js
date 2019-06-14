@@ -153,6 +153,20 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
     // res.send(hourlyValues);
     console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
 
+    const fs = require('fs');
+    const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
+    const fileName = "dublinbikes-yesterday-hourly.json";
+    const fullPath = path.join(filePath, fileName);
+
+    fs.writeFile(fullPath, JSON.stringify(hourlyValues, null, 2), err => {
+      if (!err) {
+        console.log("\nFS File Write finished\n");
+      }
+    });
+    //   // bikesYesterday = fs.createWriteStream(fullPath);
+    //   // bikesYesterday.write(JSON.stringify(data, null, 2));
+    //   // bikesYesterday.end();//
+
   } else {
     // res.send("Error fetching data");
     console.log("\n\n\nnewBikesData error: ");
@@ -163,6 +177,16 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
 getAllStationsDataYesterdayHourly().catch((e) => {
   console.log("\n\n Handling errror " + e);
 });
+
+cron.schedule("30 2 * * *", () => {
+  getAllStationsDataYesterdayHourly().catch((e) => {
+    console.log("\n\n Handling errror in cron for getAllStationsDataYesterdayHourly " + e);
+  });
+});
+
+
+
+
 //
 // let bikesSnapshotURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/snapshot";
 // // let bikesYesterdayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/yesterday";
