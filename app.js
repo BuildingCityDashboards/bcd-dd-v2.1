@@ -75,114 +75,202 @@ app.use(function(err, req, res, next) {
 /************
  Fetching bikes data via API for various time resolutions and spans
  ************/
+const moment = require('moment');
 
-let bikesSnapshotURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/snapshot";
-// let bikesYesterdayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/yesterday";
-let bikesYesterdayURL = "https://dublindashboard-beta.azurewebsites.net/api/dublinbikes/stations/all/yesterday"
-let bikesLastDayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/lastday";
-// let bikesLastWeekURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastweek";
-// let bikesLastMonthURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastmonth";
-// let bikesLastYearURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastyear";
-
-const getDublinBikesData_API = async url => {
+const getDublinBikesData_derilinx = async url => {
   const fetch = require("node-fetch");
   try {
     const response = await fetch(url);
     const json = await response.json();
-    // console.log("\n******\nApp - Example Dublin Bikes data from API: [0] " + JSON.stringify(json[0]) + "\n******\n");
-    const d = new Date();
-    console.log("\n******\nApp - Dublin Bikes fetch success @" + d + "\n******\n");
-    return (json);
-    // bikesTodayStream.write(JSON.stringify(json, null, 2));
-    // bikesTodayStream.end();
+    // console.log("\n******\nExample Dublin Bikes data from Derilinx: " + JSON.stringify(json[0]) + "\n******\n");
+    return json;
+
   } catch (error) {
-    const d = new Date();
-    console.log("\n******\nApp - Dublin Bikes fetch fail @" + d + ": " + error + "\n******\n");
+    return console.log(error);
   }
 };
 
-// let bikesLatest;
-// //Fetch snapshot of data and save to file every n minutes
-// cron.schedule("*/1 * * * *", async () => {
-//   let fs = require('fs');
-//   let fileName = "bikesData.json";
-//   bikesLatest = fs.createWriteStream("./public/data/Transport/" + fileName);
-//   const data = await getDublinBikesData_API(bikesSnapshotURL);
-//   bikesLatest.write(JSON.stringify(data, null, 2));
-// });
+getAllStationsDataYesterdayHourly = async (req, res) => {
+  console.log("\n\n\nTry newBikesData: ");
+  let hStart = 3,
+    hEnd = 26; //hours to gather data for
+  let responses = [];
+  let summary = [];
+  let hourlyValues = [];
+  let totalBikesDay = 0; //the total bikes avaiilable taken as the # available before opening hour
+  for (let h = hStart; h <= hEnd; h += 1) {
+    let startQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').format('YYYYMMDDHHmm');
+    let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
+    // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+    const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+      "dfrom=" +
+      startQuery +
+      "&dto=" +
+      endQuery;
+    // console.log("URL - - " + url + "\n")
+    try {
+      const response = await getDublinBikesData_derilinx(url);
 
-//Fetch snapshot of data and save to file at n minutes past the hour, every hour
-let bikesHourly;
-cron.schedule("15 */1 * * *", async () => {
-  // let fs = require('fs');
-  // let fileName = "bikesData-" + new Date().getHours() + ".json";
-  // let filePath = path.normalize("./public/data/Transport/bikes_today_hourly/");
-  // let fullPath = path.join(filePath, fileName);
-  // bikesHourly = fs.createWriteStream(fullPath);
-  // const data = await getDublinBikesData_API(bikesSnapshotURL);
-  // bikesHourly.write(JSON.stringify(data, null, 2));
-  // bikesHourly.end();
-});
+      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response) + "\n");
+      // responses.push(response);
+      let availableBikesSum = 0,
+        availableStandsSum = 0,
+        bikesInMotionSum = 0; //sum of values at a particluar hour
 
-//Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
-let bikesYesterday;
-cron.schedule("30 2 * * *", function() {
-  getBikesYesterdayHourly().catch((err) => {
-    console.log("Catch! :" + err);
-  });
-});
-//This is the working pattern
-async function getBikesYesterdayHourly() {
-  // console.log("\n\ngetBikesYesterday\n\n\");
-  const fs = require('fs');
-  const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
-  const fileName = "dublinbikes-yesterday-hourly.json";
-  const fullPath = path.join(filePath, fileName);
-  const data = await getDublinBikesData_API(bikesYesterdayURL);
-  console.log("\n\nTried to fetch data from " +
-    bikesYesterdayURL +
-    " and got: " +
-    JSON.stringify(data, null, 2));
-  fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
-    if (!err) {
-      console.log("\nFS File Write finished\n");
+      // console.log("\n\n\n bikes total: " + totalBikes + "\n\n\n");
+      response.forEach(r => {
+        availableBikesSum += r.historic[0].available_bikes;
+        availableStandsSum += r.historic[0].available_bike_stands;
+      });
+      if (h == hStart) {
+        totalBikesDay = availableBikesSum;
+      }
+      const date = new Date(response[0].historic[0].time);
+      const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+      const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
+      let label = hour12 + " " + ampm;
+      hourlyValues.push({
+        "key": "available_bikes",
+        "date": date,
+        "value": availableBikesSum,
+        "label": label
+      });
+      hourlyValues.push({
+        "key": "bikes_in_motion",
+        "date": date,
+        "value": totalBikesDay - availableBikesSum,
+        "label": label
+      });
+    } catch (e) {
+      console.error("Error in getAllStationsDataYesterdayHourly" + e);
     }
-  });
-  // bikesYesterday = fs.createWriteStream(fullPath);
-  // bikesYesterday.write(JSON.stringify(data, null, 2));
-  // bikesYesterday.end();
-}
 
-getBikesYesterdayHourly().catch((err) => {
-  console.log("Catch! " + err);
+  }
+
+  // console.log("Summary hourly " + JSON.stringify(hourlyValues));
+  // console.log("\n\nresponses arr \t" + responses.length);
+  if (hourlyValues.length >= 1) {
+    // res.send(hourlyValues);
+    console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
+
+  } else {
+    // res.send("Error fetching data");
+    console.log("\n\n\nnewBikesData error: ");
+
+  }
+};
+
+getAllStationsDataYesterdayHourly().catch((e) => {
+  console.log("\n\n Handling errror " + e);
 });
-
-async function getBikesLastDayHourly() {
-  // console.log("\n\ngetBikesYesterday\n\n\");
-  // let fs = require('fs');
-  // let fileName = "dublinbikes-yesterday-hourly.json";
-  // const data = await getDublinBikesData_API(bikesYesterdayURL);
-  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
-  // bikesYesterday.write(JSON.stringify(data, null, 2));
-}
-
-async function getBikesLastWeekHourly() {
-  // console.log("\n\ngetBikesYesterday\n\n\");
-  // let fs = require('fs');
-  // let fileName = "dublinbikes-yesterday-hourly.json";
-  // const data = await getDublinBikesData_API(bikesYesterdayURL);
-  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
-  // bikesYesterday.write(JSON.stringify(data, null, 2));
-}
-
-async function getBikesLastMonthDaily() {
-  // console.log("\n\ngetBikesYesterday\n\n\");
-  // let fs = require('fs');
-  // let fileName = "dublinbikes-yesterday-hourly.json";
-  // const data = await getDublinBikesData_API(bikesYesterdayURL);
-  // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
-  // bikesYesterday.write(JSON.stringify(data, null, 2));
-}
+//
+// let bikesSnapshotURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/snapshot";
+// // let bikesYesterdayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/yesterday";
+// let bikesYesterdayURL = "https://dublindashboard-beta.azurewebsites.net/api/dublinbikes/stations/all/yesterday"
+// let bikesLastDayURL = "https://" + process.env.HOSTNAME + "/api/dublinbikes/stations/all/lastday";
+// // let bikesLastWeekURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastweek";
+// // let bikesLastMonthURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastmonth";
+// // let bikesLastYearURL = "http://" + process.env.HOSTNAME + ":" + process.env.PORT + "/api/dublinbikes/stations/all/lastyear";
+//
+// const getDublinBikesData_API = async url => {
+//   const fetch = require("node-fetch");
+//   try {
+//     const response = await fetch(url);
+//     const json = await response.json();
+//     // console.log("\n******\nApp - Example Dublin Bikes data from API: [0] " + JSON.stringify(json[0]) + "\n******\n");
+//     const d = new Date();
+//     console.log("\n******\nApp - Dublin Bikes fetch success @" + d + "\n******\n");
+//     return (json);
+//     // bikesTodayStream.write(JSON.stringify(json, null, 2));
+//     // bikesTodayStream.end();
+//   } catch (error) {
+//     const d = new Date();
+//     console.log("\n******\nApp - Dublin Bikes fetch fail @" + d + ": " + error + "\n******\n");
+//   }
+// };
+//
+// // let bikesLatest;
+// // //Fetch snapshot of data and save to file every n minutes
+// // cron.schedule("*/1 * * * *", async () => {
+// //   let fs = require('fs');
+// //   let fileName = "bikesData.json";
+// //   bikesLatest = fs.createWriteStream("./public/data/Transport/" + fileName);
+// //   const data = await getDublinBikesData_API(bikesSnapshotURL);
+// //   bikesLatest.write(JSON.stringify(data, null, 2));
+// // });
+//
+// //Fetch snapshot of data and save to file at n minutes past the hour, every hour
+// let bikesHourly;
+// cron.schedule("15 */1 * * *", async () => {
+//   // let fs = require('fs');
+//   // let fileName = "bikesData-" + new Date().getHours() + ".json";
+//   // let filePath = path.normalize("./public/data/Transport/bikes_today_hourly/");
+//   // let fullPath = path.join(filePath, fileName);
+//   // bikesHourly = fs.createWriteStream(fullPath);
+//   // const data = await getDublinBikesData_API(bikesSnapshotURL);
+//   // bikesHourly.write(JSON.stringify(data, null, 2));
+//   // bikesHourly.end();
+// });
+//
+// //Fetch yesterday's data at granularity of 1 hour at 1.30am every day, and write to file
+// let bikesYesterday;
+// cron.schedule("30 2 * * *", function() {
+//   getBikesYesterdayHourly().catch((err) => {
+//     console.log("Catch! :" + err);
+//   });
+// });
+// //This is the working pattern
+// async function getBikesYesterdayHourly() {
+//   // console.log("\n\ngetBikesYesterday\n\n\");
+//   const fs = require('fs');
+//   const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
+//   const fileName = "dublinbikes-yesterday-hourly.json";
+//   const fullPath = path.join(filePath, fileName);
+//   const data = await getDublinBikesData_API(bikesYesterdayURL);
+//   console.log("\n\nTried to fetch data from " +
+//     bikesYesterdayURL +
+//     " and got: " +
+//     JSON.stringify(data, null, 2));
+//   fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
+//     if (!err) {
+//       console.log("\nFS File Write finished\n");
+//     }
+//   });
+//   // bikesYesterday = fs.createWriteStream(fullPath);
+//   // bikesYesterday.write(JSON.stringify(data, null, 2));
+//   // bikesYesterday.end();
+// }
+// //
+// // getBikesYesterdayHourly().catch((err) => {
+// //   console.log("Catch! " + err);
+// // });
+//
+// async function getBikesLastDayHourly() {
+//   // console.log("\n\ngetBikesYesterday\n\n\");
+//   // let fs = require('fs');
+//   // let fileName = "dublinbikes-yesterday-hourly.json";
+//   // const data = await getDublinBikesData_API(bikesYesterdayURL);
+//   // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+//   // bikesYesterday.write(JSON.stringify(data, null, 2));
+// }
+//
+// async function getBikesLastWeekHourly() {
+//   // console.log("\n\ngetBikesYesterday\n\n\");
+//   // let fs = require('fs');
+//   // let fileName = "dublinbikes-yesterday-hourly.json";
+//   // const data = await getDublinBikesData_API(bikesYesterdayURL);
+//   // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+//   // bikesYesterday.write(JSON.stringify(data, null, 2));
+// }
+//
+// async function getBikesLastMonthDaily() {
+//   // console.log("\n\ngetBikesYesterday\n\n\");
+//   // let fs = require('fs');
+//   // let fileName = "dublinbikes-yesterday-hourly.json";
+//   // const data = await getDublinBikesData_API(bikesYesterdayURL);
+//   // bikesYesterday = fs.createWriteStream("./public/data/Transport/bikes_yesterday_hourly/" + fileName);
+//   // bikesYesterday.write(JSON.stringify(data, null, 2));
+// }
 
 
 /*****************/

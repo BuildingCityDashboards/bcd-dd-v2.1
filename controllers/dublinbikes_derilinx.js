@@ -173,9 +173,8 @@ exports.getAllStationsDataYesterdayHourly = async (req, res) => {
   // console.log("Summary hourly " + JSON.stringify(hourlyValues));
   // console.log("\n\nresponses arr \t" + responses.length);
   if (hourlyValues.length >= 1) {
-    res.body.send(hourlyValues);
+    res.send(hourlyValues);
   } else {
     res.send("Error fetching data");
   }
-
 };
