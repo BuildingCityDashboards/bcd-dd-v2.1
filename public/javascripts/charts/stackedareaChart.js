@@ -106,7 +106,7 @@ class StackedAreaChart extends Chart {
       return (d[c.xV]);
     }));
 
-    c.y.domain([0, maxVal]);
+    c.y.domain([0, maxVal * 1.2]);
 
     // Update X axis
     c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);
@@ -177,6 +177,7 @@ class StackedAreaChart extends Chart {
       .attr("d", c.area)
       .style("fill-opacity", 0.75)
       .style("fill", (d) => {
+        // console.log("\n\nc.colour(d.key) " + d.key);
         return c.colour(d.key);
       });
 

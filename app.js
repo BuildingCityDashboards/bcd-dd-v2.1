@@ -90,6 +90,12 @@ const getDublinBikesData_derilinx = async url => {
   }
 };
 
+/***
+Daily data
+
+***/
+
+
 getAllStationsDataYesterdayHourly = async (req, res) => {
   console.log("\n\n\nTry newBikesData: ");
   let hStart = 3,
@@ -156,7 +162,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       /* Data formatted for StackedAreaChart */
       hourlyValues.push({
         "date": date,
-        "Bikes in use": (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0,
+        "Bikes in use": (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0, //// TODO: Fix hack!
         "Bikes available": availableBikesSum,
         "label": label,
         "year": "2019" //if this is a number it gets added to the yAxis domain calc !!!
@@ -197,6 +203,118 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
   }
 };
 
+/***
+Weekly data
+
+***/
+
+getAllStationsLastWeek = async (req, res) => {
+  console.log("\n\n\nTry newBikesData weekly: ");
+  // let dStart = 3,
+  //   dEnd = 26; //hours to gather data for
+  // let responses = [];
+  // let summary = [];
+  // let hourlyValues = [];
+  // let totalBikesDay = 0; //the total bikes avaiilable taken as the # available before opening hour
+  // for (let h = hStart; h <= hEnd; h += 1) {
+  //   let startQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').format('YYYYMMDDHHmm');
+  //   let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
+  //   // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+  //   const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+  //     "dfrom=" +
+  //     startQuery +
+  //     "&dto=" +
+  //     endQuery;
+  //   // console.log("URL - - " + url + "\n")
+  //   try {
+  //     const response = await getDublinBikesData_derilinx(url);
+  //
+  //     // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response[0]) + "\n");
+  //     // responses.push(response);
+  //     let availableBikesSum = 0,
+  //       availableStandsSum = 0,
+  //       bikesInMotionSum = 0; //sum of values at a particluar hour
+  //
+  //     // console.log("\n\n\n bikes total: " + totalBikes + "\n\n\n");
+  //     response.forEach(r => {
+  //       availableBikesSum += r.historic[0].available_bikes;
+  //       availableStandsSum += r.historic[0].available_bike_stands;
+  //     });
+  //     if (h == hStart) {
+  //       totalBikesDay = availableBikesSum;
+  //     }
+  //     const date = new Date(response[0].historic[0].time);
+  //     const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
+  //     const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
+  //     const day = date.getDay();
+  //     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  //
+  //     let label = weekdays[day] + ", " + hour12 + " " + ampm;
+  //
+  //     /* Data formatted for Multiline Chart */
+  //     // hourlyValues.push({
+  //     //   "key": "available_bikes",
+  //     //   "date": date,
+  //     //   "value": availableBikesSum,
+  //     //   "label": label
+  //     // });
+  //     // hourlyValues.push({
+  //     //   "key": "total_available_bikes",
+  //     //   "date": date,
+  //     //   "value": availableBikesSum > totalBikesDay ? availableBikesSum : totalBikesDay,
+  //     //   "label": label
+  //     // });
+  //     // hourlyValues.push({
+  //     //   "key": "bikes_in_motion",
+  //     //   "date": date,
+  //     //   "value": totalBikesDay - availableBikesSum,
+  //     //   "label": label
+  //     // });
+  //
+  //     /* Data formatted for StackedAreaChart */
+  //     hourlyValues.push({
+  //       "date": date,
+  //       "Bikes in use": (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0, //// TODO: Fix hack!
+  //       "Bikes available": availableBikesSum,
+  //       "label": label,
+  //       "year": "2019" //if this is a number it gets added to the yAxis domain calc !!!
+  //     });
+  //
+  //
+  //
+  //   } catch (e) {
+  //     console.error("Error in getAllStationsDataYesterdayHourly" + e);
+  //   }
+  //
+  // }
+  //
+  // // console.log("Summary hourly " + JSON.stringify(hourlyValues));
+  // // console.log("\n\nresponses arr \t" + responses.length);
+  // if (hourlyValues.length >= 1) {
+  //   // res.send(hourlyValues);
+  //   console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
+  //
+  //   const fs = require('fs');
+  //   const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
+  //   const fileName = "dublinbikes-yesterday-hourly.json";
+  //   const fullPath = path.join(filePath, fileName);
+  //
+  //   fs.writeFile(fullPath, JSON.stringify(hourlyValues, null, 2), err => {
+  //     if (!err) {
+  //       console.log("\nFS File Write finished\n");
+  //     }
+  //   });
+  //   //   // bikesYesterday = fs.createWriteStream(fullPath);
+  //   //   // bikesYesterday.write(JSON.stringify(data, null, 2));
+  //   //   // bikesYesterday.end();//
+  //
+  // } else {
+  //   // res.send("Error fetching data");
+  //   console.log("\n\n\nnewBikesData error: " + err);
+  //
+  // }
+};
+
 getAllStationsDataYesterdayHourly().catch((e) => {
   console.log("\n\n Handling errror " + e);
 });
@@ -207,7 +325,9 @@ cron.schedule("30 2 * * *", () => {
   });
 });
 
-
+getAllStationsLastWeek().catch((e) => {
+  console.log("\n\n Handling errror " + e);
+});
 
 
 //
