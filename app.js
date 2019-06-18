@@ -111,7 +111,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
     try {
       const response = await getDublinBikesData_derilinx(url);
 
-      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response) + "\n");
+      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response[0]) + "\n");
       // responses.push(response);
       let availableBikesSum = 0,
         availableStandsSum = 0,
@@ -129,18 +129,38 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
       const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
       let label = hour12 + " " + ampm;
+
+      /* Data formatted for Multiline Chart */
+      // hourlyValues.push({
+      //   "key": "available_bikes",
+      //   "date": date,
+      //   "value": availableBikesSum,
+      //   "label": label
+      // });
+      // hourlyValues.push({
+      //   "key": "total_available_bikes",
+      //   "date": date,
+      //   "value": availableBikesSum > totalBikesDay ? availableBikesSum : totalBikesDay,
+      //   "label": label
+      // });
+      // hourlyValues.push({
+      //   "key": "bikes_in_motion",
+      //   "date": date,
+      //   "value": totalBikesDay - availableBikesSum,
+      //   "label": label
+      // });
+
+      /* Data formatted for StackedAreaChart */
       hourlyValues.push({
-        "key": "available_bikes",
         "date": date,
-        "value": availableBikesSum,
-        "label": label
+        "Bikes in use": totalBikesDay - availableBikesSum,
+        "Bikes available": availableBikesSum,
+        "label": label,
+        "year": 2019
       });
-      hourlyValues.push({
-        "key": "bikes_in_motion",
-        "date": date,
-        "value": totalBikesDay - availableBikesSum,
-        "label": label
-      });
+
+
+
     } catch (e) {
       console.error("Error in getAllStationsDataYesterdayHourly" + e);
     }
@@ -169,7 +189,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
 
   } else {
     // res.send("Error fetching data");
-    console.log("\n\n\nnewBikesData error: ");
+    console.log("\n\n\nnewBikesData error: " + err);
 
   }
 };

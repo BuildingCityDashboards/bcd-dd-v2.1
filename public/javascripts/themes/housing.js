@@ -36,6 +36,10 @@ Promise.all([
     d.year = formatYear(d[dateField]);
   });
 
+
+  console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
+  console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
+
   const houseCompCharts = new StackedAreaChart(houseCompContent);
   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 

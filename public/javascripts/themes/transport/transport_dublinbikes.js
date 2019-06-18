@@ -5,37 +5,50 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
   .then(data => {
     const dayFormat = d3.timeFormat("%a, %I:%M");
 
-    // console.log("Bikes theme data: " + JSON.stringify(data));
+    console.log("\n\nBikes theme data: " + JSON.stringify(data[0]));
 
-    let dublinBikesData = d3.nest()
-      .key(function(d) {
-        return d.key;
-      })
-      .entries(data);
+    // let dublinBikesData = d3.nest()
+    //   .key(function(d) {
+    //     return d.key;
+    //   })
+    //   .entries(data);
 
+    let keys = ["Bikes in use", "Bikes available"]; //this controls stacking order
+    /*For stacked area chart*/
+    data.forEach(d => {
+      //  d["Total available (daily)"] = +d["Total available (daily)"];
+      //d["TBikes in use"] = +d["Bikes in use"];
+      d["date"] = new Date(d["date"]);
 
-    dublinBikesData.forEach(d => {
-      // d["available_bikes"] = +d["available_bikes"];
-      d["key"] = d["key"].replace(/_/g, " ");
-      d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
-      // console.log("\n\nd key: " + JSON.stringify(d["key"]));
+    })
 
-      d["values"].forEach(v => {
-        v["date"] = new Date(v["date"]); //parse to date
-      });
-    });
+    /* For multiline chart */
+    // dublinBikesData.forEach(d => {
+    //   // d["available_bikes"] = +d["available_bikes"];
+    //   d["key"] = d["key"].replace(/_/g, " ");
+    //   d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
+    //   // console.log("\n\nd key: " + JSON.stringify(d["key"]));
+    //
+    //   // keys.push(d["key"]);
+    //   d["values"].forEach(v => {
+    //     v["date"] = new Date(v["date"]); //parse to date
+    //   });
+    // });
+
+    console.log("Bikes Keys: " + JSON.stringify(keys));
 
     const dublinBikesContent = {
       e: "#chart-dublinbikes",
-      d: dublinBikesData,
+      d: data,
       //k: dublinBikesData, //?
+      ks: keys,
       xV: "date", //expects a date object
       yV: "value",
       tX: "Time", //string axis title
-      tY: "Bikes in motion"
+      tY: "No of bikes"
     };
 
-    const dublinBikesChart = new MultiLineChart(dublinBikesContent);
+    const dublinBikesChart = new StackedAreaChart(dublinBikesContent);
     dublinBikesChart.drawChart();
     // addTooltip(title, format, dateField, prefix, postfix)
     //format just formats comms for thousands etc

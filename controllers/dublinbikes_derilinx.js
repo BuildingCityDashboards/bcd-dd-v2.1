@@ -116,7 +116,7 @@ Fetch yesterday's bikes data at hourly intervals (called from app at 1.30 am eve
 ********/
 exports.getAllStationsDataYesterdayHourly = async (req, res) => {
   let hStart = 3,
-    hEnd = 26; //hours to gather data for
+    hEnd = 26; //hours to gather data for- no. of hours past start of day
   let responses = [];
   let summary = [];
   let hourlyValues = [];
@@ -156,6 +156,12 @@ exports.getAllStationsDataYesterdayHourly = async (req, res) => {
         "key": "available_bikes",
         "date": date,
         "value": availableBikesSum,
+        "label": label
+      });
+      hourlyValues.push({
+        "key": "total_available_bikes",
+        "date": date,
+        "value": totalBikesDay,
         "label": label
       });
       hourlyValues.push({

@@ -1,290 +1,170 @@
 [
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T03:00:02.000Z",
-    "value": 1373,
-    "label": "4 AM"
+    "date": "2019-06-17T03:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1395,
+    "label": "4 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T03:00:02.000Z",
-    "value": 0,
-    "label": "4 AM"
+    "date": "2019-06-17T04:00:03.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1395,
+    "label": "5 AM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T04:00:02.000Z",
-    "value": 1373,
-    "label": "5 AM"
+    "date": "2019-06-17T05:00:02.000Z",
+    "Bikes in use": 19,
+    "Bikes available": 1376,
+    "label": "6 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T04:00:02.000Z",
-    "value": 0,
-    "label": "5 AM"
+    "date": "2019-06-17T06:00:02.000Z",
+    "Bikes in use": 100,
+    "Bikes available": 1295,
+    "label": "7 AM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T05:00:03.000Z",
-    "value": 1352,
-    "label": "6 AM"
+    "date": "2019-06-17T07:00:03.000Z",
+    "Bikes in use": 288,
+    "Bikes available": 1107,
+    "label": "8 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T05:00:03.000Z",
-    "value": 21,
-    "label": "6 AM"
+    "date": "2019-06-17T08:00:02.000Z",
+    "Bikes in use": 367,
+    "Bikes available": 1028,
+    "label": "9 AM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T06:00:02.000Z",
-    "value": 1284,
-    "label": "7 AM"
+    "date": "2019-06-17T09:00:03.000Z",
+    "Bikes in use": 163,
+    "Bikes available": 1232,
+    "label": "10 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T06:00:02.000Z",
-    "value": 89,
-    "label": "7 AM"
+    "date": "2019-06-17T10:00:02.000Z",
+    "Bikes in use": 167,
+    "Bikes available": 1228,
+    "label": "11 AM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T07:00:02.000Z",
-    "value": 1170,
-    "label": "8 AM"
+    "date": "2019-06-17T11:00:03.000Z",
+    "Bikes in use": 102,
+    "Bikes available": 1293,
+    "label": "12 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T07:00:02.000Z",
-    "value": 203,
-    "label": "8 AM"
+    "date": "2019-06-17T12:00:02.000Z",
+    "Bikes in use": 184,
+    "Bikes available": 1211,
+    "label": "1 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T08:00:02.000Z",
-    "value": 988,
-    "label": "9 AM"
+    "date": "2019-06-17T13:00:02.000Z",
+    "Bikes in use": 145,
+    "Bikes available": 1250,
+    "label": "2 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T08:00:02.000Z",
-    "value": 385,
-    "label": "9 AM"
+    "date": "2019-06-17T14:00:02.000Z",
+    "Bikes in use": 83,
+    "Bikes available": 1312,
+    "label": "3 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T09:00:02.000Z",
-    "value": 1228,
-    "label": "10 AM"
+    "date": "2019-06-17T15:00:02.000Z",
+    "Bikes in use": 64,
+    "Bikes available": 1331,
+    "label": "4 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T09:00:02.000Z",
-    "value": 145,
-    "label": "10 AM"
+    "date": "2019-06-17T16:00:03.000Z",
+    "Bikes in use": 222,
+    "Bikes available": 1173,
+    "label": "5 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T10:00:02.000Z",
-    "value": 1284,
-    "label": "11 AM"
+    "date": "2019-06-17T17:00:02.000Z",
+    "Bikes in use": 307,
+    "Bikes available": 1088,
+    "label": "6 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T10:00:02.000Z",
-    "value": 89,
-    "label": "11 AM"
+    "date": "2019-06-17T18:00:02.000Z",
+    "Bikes in use": 180,
+    "Bikes available": 1215,
+    "label": "7 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T11:00:02.000Z",
-    "value": 1253,
-    "label": "12 PM"
+    "date": "2019-06-17T19:00:02.000Z",
+    "Bikes in use": 95,
+    "Bikes available": 1300,
+    "label": "8 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T11:00:02.000Z",
-    "value": 120,
-    "label": "12 PM"
+    "date": "2019-06-17T20:00:02.000Z",
+    "Bikes in use": 62,
+    "Bikes available": 1333,
+    "label": "9 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T12:00:03.000Z",
-    "value": 1190,
-    "label": "1 PM"
+    "date": "2019-06-17T21:00:02.000Z",
+    "Bikes in use": 23,
+    "Bikes available": 1372,
+    "label": "10 PM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T12:00:03.000Z",
-    "value": 183,
-    "label": "1 PM"
+    "date": "2019-06-17T22:00:02.000Z",
+    "Bikes in use": 11,
+    "Bikes available": 1384,
+    "label": "11 PM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T13:00:02.000Z",
-    "value": 1236,
-    "label": "2 PM"
+    "date": "2019-06-17T23:00:27.000Z",
+    "Bikes in use": -4,
+    "Bikes available": 1399,
+    "label": "12 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T13:00:02.000Z",
-    "value": 137,
-    "label": "2 PM"
+    "date": "2019-06-18T00:00:02.000Z",
+    "Bikes in use": -11,
+    "Bikes available": 1406,
+    "label": "1 AM",
+    "year": 2019
   },
   {
-    "key": "available_bikes",
-    "date": "2019-06-13T14:00:02.000Z",
-    "value": 1271,
-    "label": "3 PM"
+    "date": "2019-06-18T01:00:02.000Z",
+    "Bikes in use": -15,
+    "Bikes available": 1410,
+    "label": "2 AM",
+    "year": 2019
   },
   {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T14:00:02.000Z",
-    "value": 102,
-    "label": "3 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T15:00:02.000Z",
-    "value": 1271,
-    "label": "4 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T15:00:02.000Z",
-    "value": 102,
-    "label": "4 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T16:00:02.000Z",
-    "value": 1165,
-    "label": "5 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T16:00:02.000Z",
-    "value": 208,
-    "label": "5 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T17:00:03.000Z",
-    "value": 1051,
-    "label": "6 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T17:00:03.000Z",
-    "value": 322,
-    "label": "6 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T18:00:02.000Z",
-    "value": 1201,
-    "label": "7 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T18:00:02.000Z",
-    "value": 172,
-    "label": "7 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T19:00:03.000Z",
-    "value": 1275,
-    "label": "8 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T19:00:03.000Z",
-    "value": 98,
-    "label": "8 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T20:00:27.000Z",
-    "value": 1331,
-    "label": "9 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T20:00:27.000Z",
-    "value": 42,
-    "label": "9 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T21:00:02.000Z",
-    "value": 1333,
-    "label": "10 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T21:00:02.000Z",
-    "value": 40,
-    "label": "10 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T22:00:03.000Z",
-    "value": 1352,
-    "label": "11 PM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T22:00:03.000Z",
-    "value": 21,
-    "label": "11 PM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-13T23:00:02.000Z",
-    "value": 1357,
-    "label": "12 AM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-13T23:00:02.000Z",
-    "value": 16,
-    "label": "12 AM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-14T00:00:02.000Z",
-    "value": 1366,
-    "label": "1 AM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-14T00:00:02.000Z",
-    "value": 7,
-    "label": "1 AM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-14T01:00:03.000Z",
-    "value": 1371,
-    "label": "2 AM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-14T01:00:03.000Z",
-    "value": 2,
-    "label": "2 AM"
-  },
-  {
-    "key": "available_bikes",
-    "date": "2019-06-14T02:00:02.000Z",
-    "value": 1373,
-    "label": "3 AM"
-  },
-  {
-    "key": "bikes_in_motion",
-    "date": "2019-06-14T02:00:02.000Z",
-    "value": 0,
-    "label": "3 AM"
+    "date": "2019-06-18T02:00:02.000Z",
+    "Bikes in use": -16,
+    "Bikes available": 1411,
+    "label": "3 AM",
+    "year": 2019
   }
 ]
