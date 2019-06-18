@@ -97,7 +97,7 @@ class StackedAreaChart extends Chart {
         return key === c.xV || typeof d[key] === 'string' ? 0 : d[key];
         // return key !== c.xV ? d[key] : 0;
       });
-      console.log("Vals: " + vals);
+      //console.log("Vals: " + vals);
       return d3.sum(vals);
     });
 

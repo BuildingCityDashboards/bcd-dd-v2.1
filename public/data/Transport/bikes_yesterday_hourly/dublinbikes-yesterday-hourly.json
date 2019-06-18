@@ -3,168 +3,168 @@
     "date": "2019-06-17T03:00:02.000Z",
     "Bikes in use": 0,
     "Bikes available": 1395,
-    "label": "4 AM",
+    "label": "Mon, 4 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T04:00:03.000Z",
     "Bikes in use": 0,
     "Bikes available": 1395,
-    "label": "5 AM",
+    "label": "Mon, 5 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T05:00:02.000Z",
     "Bikes in use": 19,
     "Bikes available": 1376,
-    "label": "6 AM",
+    "label": "Mon, 6 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T06:00:02.000Z",
     "Bikes in use": 100,
     "Bikes available": 1295,
-    "label": "7 AM",
+    "label": "Mon, 7 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T07:00:03.000Z",
     "Bikes in use": 288,
     "Bikes available": 1107,
-    "label": "8 AM",
+    "label": "Mon, 8 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T08:00:02.000Z",
     "Bikes in use": 367,
     "Bikes available": 1028,
-    "label": "9 AM",
+    "label": "Mon, 9 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T09:00:03.000Z",
     "Bikes in use": 163,
     "Bikes available": 1232,
-    "label": "10 AM",
+    "label": "Mon, 10 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T10:00:02.000Z",
     "Bikes in use": 167,
     "Bikes available": 1228,
-    "label": "11 AM",
+    "label": "Mon, 11 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T11:00:03.000Z",
     "Bikes in use": 102,
     "Bikes available": 1293,
-    "label": "12 PM",
+    "label": "Mon, 12 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T12:00:02.000Z",
     "Bikes in use": 184,
     "Bikes available": 1211,
-    "label": "1 PM",
+    "label": "Mon, 1 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T13:00:02.000Z",
     "Bikes in use": 145,
     "Bikes available": 1250,
-    "label": "2 PM",
+    "label": "Mon, 2 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T14:00:02.000Z",
     "Bikes in use": 83,
     "Bikes available": 1312,
-    "label": "3 PM",
+    "label": "Mon, 3 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T15:00:02.000Z",
     "Bikes in use": 64,
     "Bikes available": 1331,
-    "label": "4 PM",
+    "label": "Mon, 4 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T16:00:03.000Z",
     "Bikes in use": 222,
     "Bikes available": 1173,
-    "label": "5 PM",
+    "label": "Mon, 5 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T17:00:02.000Z",
     "Bikes in use": 307,
     "Bikes available": 1088,
-    "label": "6 PM",
+    "label": "Mon, 6 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T18:00:02.000Z",
     "Bikes in use": 180,
     "Bikes available": 1215,
-    "label": "7 PM",
+    "label": "Mon, 7 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T19:00:02.000Z",
     "Bikes in use": 95,
     "Bikes available": 1300,
-    "label": "8 PM",
+    "label": "Mon, 8 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T20:00:02.000Z",
     "Bikes in use": 62,
     "Bikes available": 1333,
-    "label": "9 PM",
+    "label": "Mon, 9 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T21:00:02.000Z",
     "Bikes in use": 23,
     "Bikes available": 1372,
-    "label": "10 PM",
+    "label": "Mon, 10 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T22:00:02.000Z",
     "Bikes in use": 11,
     "Bikes available": 1384,
-    "label": "11 PM",
+    "label": "Mon, 11 PM",
     "year": "2019"
   },
   {
     "date": "2019-06-17T23:00:27.000Z",
-    "Bikes in use": -4,
+    "Bikes in use": 0,
     "Bikes available": 1399,
-    "label": "12 AM",
+    "label": "Tue, 12 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-18T00:00:02.000Z",
-    "Bikes in use": -11,
+    "Bikes in use": 0,
     "Bikes available": 1406,
-    "label": "1 AM",
+    "label": "Tue, 1 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-18T01:00:02.000Z",
-    "Bikes in use": -15,
+    "Bikes in use": 0,
     "Bikes available": 1410,
-    "label": "2 AM",
+    "label": "Tue, 2 AM",
     "year": "2019"
   },
   {
     "date": "2019-06-18T02:00:02.000Z",
-    "Bikes in use": -16,
+    "Bikes in use": 0,
     "Bikes available": 1411,
-    "label": "3 AM",
+    "label": "Tue, 3 AM",
     "year": "2019"
   }
 ]

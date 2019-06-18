@@ -128,7 +128,10 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       const date = new Date(response[0].historic[0].time);
       const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
       const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
-      let label = hour12 + " " + ampm;
+      const day = date.getDay();
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
+      let label = weekdays[day] + ", " + hour12 + " " + ampm;
 
       /* Data formatted for Multiline Chart */
       // hourlyValues.push({
@@ -153,7 +156,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       /* Data formatted for StackedAreaChart */
       hourlyValues.push({
         "date": date,
-        "Bikes in use": totalBikesDay - availableBikesSum,
+        "Bikes in use": (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0,
         "Bikes available": availableBikesSum,
         "label": label,
         "year": "2019" //if this is a number it gets added to the yAxis domain calc !!!
