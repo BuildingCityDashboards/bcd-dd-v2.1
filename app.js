@@ -156,7 +156,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
         "Bikes in use": totalBikesDay - availableBikesSum,
         "Bikes available": availableBikesSum,
         "label": label,
-        "year": 2019
+        "year": "2019" //if this is a number it gets added to the yAxis domain calc !!!
       });
 
 

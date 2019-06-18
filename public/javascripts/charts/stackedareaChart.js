@@ -92,11 +92,12 @@ class StackedAreaChart extends Chart {
     c.y = d3.scaleLinear().range([c.h, 0]);
 
     // get the the combined max value for the y scale
-    let maxDateVal = d3.max(c.d, d => {
+    let maxVal = d3.max(c.d, d => {
       let vals = d3.keys(d).map(key => {
         return key === c.xV || typeof d[key] === 'string' ? 0 : d[key];
         // return key !== c.xV ? d[key] : 0;
       });
+      console.log("Vals: " + vals);
       return d3.sum(vals);
     });
 
@@ -104,7 +105,8 @@ class StackedAreaChart extends Chart {
     c.x.domain(d3.extent(c.d, (d) => {
       return (d[c.xV]);
     }));
-    c.y.domain([0, maxDateVal]);
+
+    c.y.domain([0, maxVal]);
 
     // Update X axis
     c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x);

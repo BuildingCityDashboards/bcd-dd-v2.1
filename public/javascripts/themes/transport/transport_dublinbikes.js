@@ -41,7 +41,7 @@ d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.jso
       e: "#chart-dublinbikes",
       d: data,
       //k: dublinBikesData, //?
-      ks: keys,
+      ks: keys, //For StackedAreaChart-formatted data need to provide keys
       xV: "date", //expects a date object
       yV: "value",
       tX: "Time", //string axis title
