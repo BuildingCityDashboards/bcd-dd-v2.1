@@ -40,7 +40,7 @@ d3.json('/api/dublinbikes/stations/list')
 // Timed refresh of map station markers symbology using data snapshot
 const bikesTimer = setIntervalAsync(
   () => {
-    return d3.json('/api/dublinbikes/stations/snapshot') //get latest snapshot of all stations
+    return d3.json('/api/dublinbikes/stations/all/snapshot') //get latest snapshot of all stations
       .then((data) => {
         console.log("Fetched Dublin Bikes data ");
         updateAPIStatus('#bike-activity-icon', '#bike-age', true);
