@@ -14,6 +14,7 @@
       d3.csv(src + "Social_housing_units.csv"),
       d3.csv(src + "Property_tax.csv"),
       d3.csv(src + "Property_tax.csv"),
+      d3.csv(src + "House_Com.csv"),
     ]).then(datafiles => {
 
       const chart1D = datafiles[0];
@@ -56,6 +57,8 @@
       chart6D.forEach(d => {
         d.value = +d.value;
       });
+
+      const chart7D = datafiles[10];
 
       const chart8D = datafiles[8],
         chart8K = chart8D.columns.slice(1);
@@ -284,17 +287,17 @@
 
       Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
-      const chart7C = chartContent(chart7D, "type", "value", "date", "#chart7", cA1),
+      const chart7C = chartContent(chart7D, "region", "value", "date", "#chart7", cA1),
         Chart7 = new MultiLineChart(chart7C);
 
       Chart7.tX = "Years";
-      Chart7.tY = "Property Prices (Euro)";
-      Chart7.yScaleFormat = "millions";
+      Chart7.tY = "Social Housing Units";
+      Chart7.yScaleFormat = "units";
 
       //   Chart4.tickNumber = 27;
       Chart7.drawChart();
 
-      Chart7.addTooltip("House Prices (€) - Year: ", "thousands", "label");
+      Chart7.addTooltip("Social Housing Units - Year: ", "thousands", "label");
 
 
       //chart5DN = nestData(chart5D, "label", "type", "value"),
@@ -324,17 +327,17 @@
       Chart6.addTooltip("Property Types - Year", "thousands", "label");
 
 
-      const chart8C = {
-          element: "#chart8",
-          data: chart8D,
-          key: "type",
-          value: "value",
-          titles: ["€ ( Millions )", "Years"],
-          cScheme: cA3_2,
-          scaleY: "millions",
-        },
-        Chart8 = new StackBarChart(chart8C);
-      Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
+      // const chart8C = {
+      //     element: "#chart8",
+      //     data: chart8D,
+      //     key: "type",
+      //     value: "value",
+      //     titles: ["€ ( Millions )", "Years"],
+      //     cScheme: cA3_2,
+      //     scaleY: "millions",
+      //   },
+      //   Chart8 = new StackBarChart(chart8C);
+      // Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 
     }).catch(function(error) {
       console.log(error);
