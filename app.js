@@ -316,14 +316,14 @@ getAllStationsLastWeek = async (req, res) => {
 };
 
 const dateStart = moment.utc().subtract(1, 'days').startOf('day');
-const calendarStart = moment.utc(dateStart).calendar();
-console.log(`Date started at ${dateStart}`);
-console.log(`This was ${calendarStart}`);
+// const calendarStart = moment.utc(dateStart).calendar();
+// console.log(`Date started at ${dateStart}`);
+// console.log(`This was ${calendarStart}`);
 
 const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
-const calendarEnd = moment.utc(dateEnd).calendar();
-console.log(`Date ended at ${dateEnd}`);
-console.log(`This was ${calendarEnd}`);
+// const calendarEnd = moment.utc(dateEnd).calendar();
+// console.log(`Date ended at ${dateEnd}`);
+// console.log(`This was ${calendarEnd}`);
 const span = 'day';
 
 getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
@@ -335,6 +335,14 @@ getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
 // });
 
 cron.schedule("30 2 * * *", () => {
+  const dateStart = moment.utc().subtract(1, 'days').startOf('day');
+  const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
+  const span = 'day';
+
+  getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
+    console.log("\n\n Handling errror " + e);
+  });
+
   // getAllStationsDataYesterdayHourly().catch((e) => {
   //   console.log("\n\n Handling errror in cron for getAllStationsDataYesterdayHourly " + e);
   // });
