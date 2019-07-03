@@ -4,22 +4,23 @@ var cookieParser = require('cookie-parser');
 var logger = require("./utils/logger");
 require('dotenv').config();
 var cron = require("node-cron");
+var morgan = require('morgan');
+
 
 var express = require('express');
 var app = express();
-var morgan = require('morgan');
-// logger.debug("Overriding 'Express' logger");
-app.use(morgan('combined', {
-  "stream": logger.stream
-}));
-
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-console.log(__dirname);
+// console.log(__dirname);
+// logger.debug("Overriding 'Express' logger");
+app.use(morgan('combined', {
+  "stream": logger.stream
+}));
+
 
 // get routes files
 var index = require('./routes/index');
@@ -72,6 +73,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+
+let hour = new Date().getHours();
+let min = new Date().getMinutes().toString().padStart(2, '0');
+console.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min + "\n\n");
+
+
 /************
  Fetching bikes data via API for various time resolutions and spans
  ************/
@@ -91,13 +98,11 @@ const getDublinBikesData_derilinx = async url => {
 };
 
 /***
-Daily data
-
+Get one day of hourly data
 ***/
-
-
-getAllStationsDataYesterdayHourly = async (req, res) => {
-  console.log("\n\n\nTry newBikesData: ");
+//span decides what folder to place data in 'day', 'week' etc for easy retrival by client
+getAllStationsDataDayHourly = async (start, end, span) => {
+  console.log(`\n\n\nCall getAllStationsDataDayHourly from ${start} to ${end} with span of \"${span}\"`);
   let hStart = 3,
     hEnd = 26; //hours to gather data for
   let responses = [];
@@ -105,8 +110,8 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
   let hourlyValues = [];
   let totalBikesDay = 0; //the total bikes avaiilable taken as the # available before opening hour
   for (let h = hStart; h <= hEnd; h += 1) {
-    let startQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').format('YYYYMMDDHHmm');
-    let endQuery = moment.utc().subtract(1, 'days').startOf('day').add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
+    let startQuery = moment(start).add(h, 'h').format('YYYYMMDDHHmm');
+    let endQuery = moment(start).add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
     // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
     const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
       "dfrom=" +
@@ -117,7 +122,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
     try {
       const response = await getDublinBikesData_derilinx(url);
 
-      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response[0]) + "\n");
+      // console.log("\n\nResponse hour  " + h + "\n" + JSON.stringify(response[0].historic[0]) + "\n");
       // responses.push(response);
       let availableBikesSum = 0,
         availableStandsSum = 0,
@@ -159,7 +164,7 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       //   "label": label
       // });
 
-      /* Data formatted for StackedAreaChart */
+      /* Data formatted for StackedAreaChart, (actually not stacking the data) */
       hourlyValues.push({
         "date": date,
         "Bikes in use": (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0, //// TODO: Fix hack!
@@ -169,27 +174,22 @@ getAllStationsDataYesterdayHourly = async (req, res) => {
       });
 
 
-
     } catch (e) {
       console.error("Error in getAllStationsDataYesterdayHourly" + e);
     }
-
   }
-
   // console.log("Summary hourly " + JSON.stringify(hourlyValues));
-  // console.log("\n\nresponses arr \t" + responses.length);
   if (hourlyValues.length >= 1) {
     // res.send(hourlyValues);
-    console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
+    // console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
 
     const fs = require('fs');
-    const filePath = path.normalize("./public/data/Transport/bikes_yesterday_hourly/");
-    const fileName = "dublinbikes-yesterday-hourly.json";
-    const fullPath = path.join(filePath, fileName);
-
+    const filePath = path.normalize("./public/data/Transport/dublinbikes/");
+    const fileName = `${span}.json`;
+    const fullPath = path.join(filePath, span, "/", fileName);
     fs.writeFile(fullPath, JSON.stringify(hourlyValues, null, 2), err => {
       if (!err) {
-        console.log("\nFS File Write finished\n");
+        console.log(`\nFS File Write finished ${fullPath}\n`);
       }
     });
     //   // bikesYesterday = fs.createWriteStream(fullPath);
@@ -209,7 +209,7 @@ Weekly data
 ***/
 
 getAllStationsLastWeek = async (req, res) => {
-  console.log("\n\n\nTry newBikesData weekly: ");
+  console.log("\n\n\nCall getAllStationsLastWeek ");
   // let dStart = 3,
   //   dEnd = 26; //hours to gather data for
   // let responses = [];
@@ -315,14 +315,29 @@ getAllStationsLastWeek = async (req, res) => {
   // }
 };
 
-getAllStationsDataYesterdayHourly().catch((e) => {
+const dateStart = moment.utc().subtract(1, 'days').startOf('day');
+const calendarStart = moment.utc(dateStart).calendar();
+console.log(`Date started at ${dateStart}`);
+console.log(`This was ${calendarStart}`);
+
+const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
+const calendarEnd = moment.utc(dateEnd).calendar();
+console.log(`Date ended at ${dateEnd}`);
+console.log(`This was ${calendarEnd}`);
+const span = 'day';
+
+getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
   console.log("\n\n Handling errror " + e);
 });
 
+// getAllStationsDataYesterdayHourly().catch((e) => {
+//   console.log("\n\n Handling errror " + e);
+// });
+
 cron.schedule("30 2 * * *", () => {
-  getAllStationsDataYesterdayHourly().catch((e) => {
-    console.log("\n\n Handling errror in cron for getAllStationsDataYesterdayHourly " + e);
-  });
+  // getAllStationsDataYesterdayHourly().catch((e) => {
+  //   console.log("\n\n Handling errror in cron for getAllStationsDataYesterdayHourly " + e);
+  // });
 });
 
 getAllStationsLastWeek().catch((e) => {
@@ -549,7 +564,7 @@ cron.schedule("*/1 * * * *", function() {
     if (error) {
       return console.log(">>>Error on traveltimes GET @ " + d + "\n");
     }
-    console.log(">>>Successful traveltimes GET @ " + d + "\n");
+    // console.log(">>>Successful traveltimes GET @ " + d + "\n");
     response.pipe(travelTimesFile);
     //   // const {
     //   //   statusCode
@@ -620,9 +635,5 @@ cron.schedule("*/15 * * * *", function() {
       });
   }
 });
-
-let hour = new Date().getHours();
-let min = new Date().getMinutes().toString().padStart(2, '0');
-console.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min + "\n\n");
 
 module.exports = app;

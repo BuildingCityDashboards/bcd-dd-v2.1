@@ -1,7 +1,7 @@
 /************************************
  * Bikes
  ************************************/
-d3.json("/data/Transport/bikes_yesterday_hourly/dublinbikes-yesterday-hourly.json")
+d3.json("/data/Transport/dublinbikes/day/day.json")
   .then(data => {
     const dayFormat = d3.timeFormat("%a, %I:%M");
 
