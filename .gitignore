@@ -67,6 +67,9 @@ typings/
 /public/data/Environment/sound_levels/**
 /public/data/Environment/waterlevel.json
 /public/data/Transport/cpdata.xml
+/public/data/Transport/dublinbikes/day/*.json
+/public/data/Transport/dublinbikes/week/*.json
+/public/data/Transport/dublinbikes/month/*.json
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
 /public/data/Transport/bikesData.json
