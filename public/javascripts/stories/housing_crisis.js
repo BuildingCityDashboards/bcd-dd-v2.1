@@ -61,9 +61,9 @@
       const chart7D = datafiles[10];
 
       const chart8D = datafiles[8],
-        chart8K = chart8D.columns.slice(1);
+      chart8K = chart8D.columns.slice(1);
       chart8D.forEach(d => {
-        d.value = +d.value;
+      d.value = +d.value;
       });
 
       const popRate = chart1D2.filter(d => {
@@ -73,7 +73,7 @@
       const houseRate = chart1D2.filter(d => {
         return d.type === "households";
       });
-
+      // colors of the Local Autjorites.. 
       const cA1 = [
           "#00929e", //BCD-teal
           "#ffc20e", //BCD-yellow
@@ -287,7 +287,8 @@
 
       Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
-      const chart7C = chartContent(chart7D, "region", "value", "date", "#chart7", cA1),
+    // strat here 
+     const chart7C = chartContent(chart7D, "region", "value", "date", "#chart7", cA1),
         Chart7 = new MultiLineChart(chart7C);
 
       Chart7.tX = "Years";
@@ -297,7 +298,25 @@
       //   Chart4.tickNumber = 27;
       Chart7.drawChart();
 
-      Chart7.addTooltip("Social Housing Units - Year: ", "thousands", "label");
+      Chart7.addTooltip("Social Housing Units - Year55: ", "thousands", "label");
+
+
+     //--
+
+     const chart8C = chartContent(chart8D, "type", "value", "date", "#chart8", cA1),
+        Chart8 = new MultiLineChart(chart8C);
+
+      Chart8.tX = "Years";
+      Chart8.tY = "Value";
+      Chart8.yScaleFormat = "units";
+
+      //   Chart4.tickNumber = 27;
+      Chart8.drawChart();
+
+      Chart8.addTooltip("Tax Revenue Values- Year: ", "thousands", "label");
+
+
+     //--
 
 
       //chart5DN = nestData(chart5D, "label", "type", "value"),
