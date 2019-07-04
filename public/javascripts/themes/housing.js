@@ -41,6 +41,7 @@ Promise.all([
   console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
   const houseCompCharts = new StackedAreaChart(houseCompContent);
+  houseCompCharts.drawChart();
   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
   //2.  data processing for planning charts.
@@ -279,6 +280,7 @@ Promise.all([
 
   // drawing charts for planning data.
   rentByBedsChart = new GroupedBarChart(rentByBedContent);
+  rentByBedsChart.drawChart();
   rentByBedsChart.addTooltip(rentByBedTT);
 
 
@@ -447,9 +449,26 @@ Promise.all([
 
   d3.select(window).on("resize", function() {
     supplyChart.drawChart();
+    supplyChart.addTooltip("Land - Year", "thousands", "label");
+
+    houseCompCharts.drawChart();
+    houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
+
     contributionChart.drawChart();
+    contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
+
     housePricesChart.drawChart();
+    housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+
     rentPricesChart.drawChart();
+    rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+
+    rentByBedsChart.drawChart();
+    rentByBedsChart.addTooltip(rentByBedTT);
+
+    HPM06Charts.drawChart(); // draw axis
+    HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
+    HPM06Charts.addBaseLine(100); // add horizontal baseline
   });
 
 }).catch(function(error) {
