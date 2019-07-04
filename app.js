@@ -1,14 +1,16 @@
-var createError = require('http-errors');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require("./utils/logger");
+const createError = require('http-errors');
+const path = require('path');
+const fs = require('fs');
+const cookieParser = require('cookie-parser');
+const logger = require("./utils/logger");
+const util = require("util");
 require('dotenv').config();
-var cron = require("node-cron");
-var morgan = require('morgan');
+const cron = require("node-cron");
+const morgan = require('morgan');
 
 
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 app.use(express.json());
 app.use(express.urlencoded({
   extended: false
@@ -23,12 +25,12 @@ app.use(morgan('combined', {
 
 
 // get routes files
-var index = require('./routes/index');
-var themes = require('./routes/themes');
-var stories = require('./routes/stories');
-var tools = require('./routes/tools');
-var queries = require('./routes/queries');
-var api = require('./routes/api');
+const index = require('./routes/index');
+const themes = require('./routes/themes');
+const stories = require('./routes/stories');
+const tools = require('./routes/tools');
+const queries = require('./routes/queries');
+const api = require('./routes/api');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -76,7 +78,7 @@ app.use(function(err, req, res, next) {
 
 let hour = new Date().getHours();
 let min = new Date().getMinutes().toString().padStart(2, '0');
-console.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min + "\n\n");
+util.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min + "\n\n");
 
 
 /************
@@ -93,7 +95,7 @@ const getDublinBikesData_derilinx = async url => {
     return json;
 
   } catch (error) {
-    return console.log(error);
+    return util.log(error);
   }
 };
 
@@ -102,7 +104,7 @@ Get one day of hourly data
 ***/
 //span decides what folder to place data in 'day', 'week' etc for easy retrival by client
 getAllStationsDataDayHourly = async (start, end, span) => {
-  console.log(`\n\n\nCall getAllStationsDataDayHourly from ${start} to ${end} with span of \"${span}\"`);
+  util.log(`\n\n\nCall getAllStationsDataDayHourly from ${start} to ${end} with span of \"${span}\"`);
   let hStart = 3,
     hEnd = 26; //hours to gather data for
   let responses = [];
@@ -136,6 +138,7 @@ getAllStationsDataDayHourly = async (start, end, span) => {
       if (h == hStart) {
         totalBikesDay = availableBikesSum;
       }
+
       const date = new Date(response[0].historic[0].time);
       const ampm = date.getHours() >= 12 ? 'PM' : 'AM';
       const hour12 = (date.getHours() % 12) == 0 ? '12' : date.getHours() % 12;
@@ -175,33 +178,14 @@ getAllStationsDataDayHourly = async (start, end, span) => {
 
 
     } catch (e) {
-      console.error("Error in getAllStationsDataYesterdayHourly" + e);
+      util.error("Error in getAllStationsDataYesterdayHourly" + e);
     }
   }
-  // console.log("Summary hourly " + JSON.stringify(hourlyValues));
-  if (hourlyValues.length >= 1) {
-    // res.send(hourlyValues);
-    // console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
-
-    const fs = require('fs');
-    const filePath = path.normalize("./public/data/Transport/dublinbikes/");
-    const fileName = `${span}.json`;
-    const fullPath = path.join(filePath, span, "/", fileName);
-    fs.writeFile(fullPath, JSON.stringify(hourlyValues, null, 2), err => {
-      if (!err) {
-        console.log(`\nFS File Write finished ${fullPath}\n`);
-      }
-    });
-    //   // bikesYesterday = fs.createWriteStream(fullPath);
-    //   // bikesYesterday.write(JSON.stringify(data, null, 2));
-    //   // bikesYesterday.end();//
-
-  } else {
-    // res.send("Error fetching data");
-    console.log("\n\n\nnewBikesData error: " + err);
-
-  }
+  return hourlyValues;
 };
+
+
+
 
 /***
 Weekly data
@@ -209,7 +193,7 @@ Weekly data
 ***/
 
 getAllStationsLastWeek = async (req, res) => {
-  console.log("\n\n\nCall getAllStationsLastWeek ");
+  util.log("Call getAllStationsLastWeek ");
   // let dStart = 3,
   //   dEnd = 26; //hours to gather data for
   // let responses = [];
@@ -326,9 +310,41 @@ const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
 // console.log(`This was ${calendarEnd}`);
 const span = 'day';
 
-getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
-  console.log("\n\n Handling errror " + e);
-});
+getAllStationsDataDayHourly(dateStart, dateEnd, span)
+  .then((data) => {
+    if (data.length >= 1) {
+      // res.send(hourlyValues);
+      // console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
+
+      const filePath = path.normalize("./public/data/Transport/dublinbikes/");
+      const fileName = `${span}.json`;
+      const fullPath = path.join(filePath, span, fileName);
+      fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
+        if (!err) {
+          util.log(`\nFS File Write finished ${fullPath}\n`);
+        }
+      });
+      //   // bikesYesterday = fs.createWriteStream(fullPath);
+      //   // bikesYesterday.write(JSON.stringify(data, null, 2));
+      //   // bikesYesterday.end();//
+
+    } else {
+      // res.send("Error fetching data");
+      util.log("\n\n\nnewBikesData error: " + err);
+
+    }
+
+  })
+  .catch((e) => {
+    util.log("\n\n Handling errror " + e);
+  });
+
+
+function writeToFile(vals, span) {
+  // console.log("Summary hourly " + JSON.stringify(hourlyValues));
+
+
+}
 
 // getAllStationsDataYesterdayHourly().catch((e) => {
 //   console.log("\n\n Handling errror " + e);
@@ -340,7 +356,7 @@ cron.schedule("30 2 * * *", () => {
   const span = 'day';
 
   getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
-    console.log("\n\n Handling errror " + e);
+    util.log("\n\n Handling errror " + e);
   });
 
   // getAllStationsDataYesterdayHourly().catch((e) => {
@@ -349,7 +365,7 @@ cron.schedule("30 2 * * *", () => {
 });
 
 getAllStationsLastWeek().catch((e) => {
-  console.log("\n\n Handling errror " + e);
+  util.log("\n\n Handling errror " + e);
 });
 
 
@@ -466,7 +482,7 @@ getAllStationsLastWeek().catch((e) => {
 /*****************/
 
 if (process.env.PRODUCTION == 1) {
-  console.log("\n\n***Dashboard is in production***\n\n");
+  util.log("\n\n***Dashboard is in production***\n\n");
 }
 
 /*TODO: refactor to await/async to remove dupliation*/
@@ -570,7 +586,7 @@ cron.schedule("*/1 * * * *", function() {
   http.get("https://dataproxy.mtcc.ie/v1.5/api/traveltimes", function(response, error) {
     let d = new Date();
     if (error) {
-      return console.log(">>>Error on traveltimes GET @ " + d + "\n");
+      return util.log(">>>Error on traveltimes GET @ " + d + "\n");
     }
     // console.log(">>>Successful traveltimes GET @ " + d + "\n");
     response.pipe(travelTimesFile);
@@ -591,7 +607,7 @@ cron.schedule("*/1 * * * *", function() {
   let travelTimesRoadsFile = fs.createWriteStream("./public/data/Transport/traveltimesroad.json");
   http.get("https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad", function(response, error) {
     if (error) {
-      return console.log(">>>Error on traveltimesroads GET\n");
+      return util.log(">>>Error on traveltimesroads GET\n");
     }
     response.pipe(travelTimesRoadsFile);
     //     const {
