@@ -103,10 +103,15 @@ const getDublinBikesData_derilinx = async url => {
 Get one day of hourly data
 ***/
 //span decides what folder to place data in 'day', 'week' etc for easy retrival by client
-getAllStationsDataDayHourly = async (start, end, span) => {
-  util.log(`\n\n\nCall getAllStationsDataDayHourly from ${start} to ${end} with span of \"${span}\"`);
+getAllStationsDataHourly = async (start, end) => {
+  util.log(`\n\n\nCall getAllStationsDataHourly from ${start} to ${end}`);
+  const e = new moment(dateEnd);
+  const s = new moment(dateStart);
+  const durMs = moment.duration(e.diff(s));
+  const durHrs = Math.ceil(durMs / 1000 / 60 / 60);
+  // util.log("\nQuery duration (hours): " + durHrs);
   let hStart = 3,
-    hEnd = 26; //hours to gather data for
+    hEnd = durHrs + 2; //hours to gather data for
   let responses = [];
   let summary = [];
   let hourlyValues = [];
@@ -184,16 +189,12 @@ getAllStationsDataDayHourly = async (start, end, span) => {
   return hourlyValues;
 };
 
-
-
-
 /***
 Weekly data
 
 ***/
-
 getAllStationsLastWeek = async (req, res) => {
-  util.log("Call getAllStationsLastWeek ");
+  // util.log("Call getAllStationsLastWeek ");
   // let dStart = 3,
   //   dEnd = 26; //hours to gather data for
   // let responses = [];
@@ -299,7 +300,7 @@ getAllStationsLastWeek = async (req, res) => {
   // }
 };
 
-const dateStart = moment.utc().subtract(1, 'days').startOf('day');
+const dateStart = moment.utc().subtract(29, 'days').startOf('day');
 // const calendarStart = moment.utc(dateStart).calendar();
 // console.log(`Date started at ${dateStart}`);
 // console.log(`This was ${calendarStart}`);
@@ -310,16 +311,19 @@ const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
 // console.log(`This was ${calendarEnd}`);
 const span = 'day';
 
-getAllStationsDataDayHourly(dateStart, dateEnd, span)
+getAllStationsDataHourly(dateStart, dateEnd)
   .then((data) => {
     if (data.length >= 1) {
       // res.send(hourlyValues);
-      // console.log("\n\n\nnewBikesData: " + JSON.stringify(hourlyValues[0]));
-
+      const e = new moment(dateEnd);
+      const s = new moment(dateStart);
+      const durMs = moment.duration(e.diff(s));
+      const durHrs = Math.ceil(durMs / 1000 / 60 / 60);
+      util.log("\nQuery duration (hours): " + durHrs);
       const filePath = path.normalize("./public/data/Transport/dublinbikes/");
-      const fileName = `${span}.json`;
-      const fullPath = path.join(filePath, span, fileName);
-      fs.writeFile(fullPath, JSON.stringify(data, null, 2), err => {
+      const fileName = `${durHrs}.json`;
+      const fullPath = path.join(filePath, fileName);
+      fs.writeFile(fullPath, JSON.stringify(data, null, 2), (err) => {
         if (!err) {
           util.log(`\nFS File Write finished ${fullPath}\n`);
         }
@@ -330,13 +334,12 @@ getAllStationsDataDayHourly(dateStart, dateEnd, span)
 
     } else {
       // res.send("Error fetching data");
-      util.log("\n\n\nnewBikesData error: " + err);
-
+      util.log("\nWrite to file error: " + err);
     }
 
   })
-  .catch((e) => {
-    util.log("\n\n Handling errror " + e);
+  .catch((err) => {
+    util.log("\n\n Handling errror " + err);
   });
 
 
@@ -355,7 +358,7 @@ cron.schedule("30 2 * * *", () => {
   const dateEnd = moment.utc().subtract(1, 'days').endOf('day');
   const span = 'day';
 
-  getAllStationsDataDayHourly(dateStart, dateEnd, span).catch((e) => {
+  getAllStationsDataHourly(dateStart, dateEnd).catch((e) => {
     util.log("\n\n Handling errror " + e);
   });
 
