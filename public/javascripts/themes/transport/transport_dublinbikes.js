@@ -1,26 +1,37 @@
 /************************************
  * Bikes
  ************************************/
-d3.json("/data/Transport/dublinbikes/696.json")
+Promise.all([
+    d3.json("/data/Transport/dublinbikes/day.json"),
+    d3.json("/data/Transport/dublinbikes/week.json"),
+    d3.json("/data/Transport/dublinbikes/month.json")
+  ])
   .then(data => {
-    const dayFormat = d3.timeFormat("%a, %I:%M");
-
-    console.log("\n\nBikes theme data: " + JSON.stringify(data[0]));
-
-    // let dublinBikesData = d3.nest()
-    //   .key(function(d) {
-    //     return d.key;
-    //   })
-    //   .entries(data);
-
+    console.log("Bikes data length " + data[0].length);
+    // const dayFormat = d3.timeFormat("%a, %I:%M");
     let keys = ["Bikes in use", "Bikes available"]; //this controls stacking order
-    /*For stacked area chart*/
-    data.forEach(d => {
-      //  d["Total available (daily)"] = +d["Total available (daily)"];
-      //d["TBikes in use"] = +d["Bikes in use"];
-      d["date"] = new Date(d["date"]);
 
-    })
+    let dataDay = data[0];
+    let dataWeek = data[1];
+    let dataMonth = data[2];
+
+    //TODO: is coercing to a date on the client  slow for large query spans (month)?
+
+    /*For stacked area chart*/
+    dataDay.forEach(d => {
+      //  d["Total available (daily)"] = +d["Total available (daily)"];
+      d["date"] = new Date(d["date"]);
+    });
+
+    dataWeek.forEach(d => {
+      //  d["Total available (daily)"] = +d["Total available (daily)"];
+      d["date"] = new Date(d["date"]);
+    });
+
+    dataMonth.forEach(d => {
+      //  d["Total available (daily)"] = +d["Total available (daily)"];
+      d["date"] = new Date(d["date"]);
+    });
 
     /* For multiline chart */
     // dublinBikesData.forEach(d => {
@@ -35,11 +46,11 @@ d3.json("/data/Transport/dublinbikes/696.json")
     //   });
     // });
 
-    console.log("Bikes Keys: " + JSON.stringify(keys));
+    // console.log("Bikes Keys: " + JSON.stringify(keys));
 
     const dublinBikesContent = {
       e: "#chart-dublinbikes",
-      d: data,
+      d: dataDay,
       //k: dublinBikesData, //?
       ks: keys, //For StackedAreaChart-formatted data need to provide keys
       xV: "date", //expects a date object
@@ -52,13 +63,14 @@ d3.json("/data/Transport/dublinbikes/696.json")
     dublinBikesChart.drawChart();
     // addTooltip(title, format, dateField, prefix, postfix)
     //format just formats comms for thousands etc
-    dublinBikesChart.addTooltip("Number available at ", "thousands", "label", "", "");
+    dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
 
 
     d3.select("#dublinbikes_day").on("click", function() {
       activeBtn(this);
-      // hCBTChart.yV = hCBTType[0];
-      // hCBTChart.updateChart();
+      dublinBikesChart.d = dataDay;
+      dublinBikesChart.updateChart();
+      dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
       // hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
       // hCBTChart.hideRate(false);
     });
@@ -66,27 +78,22 @@ d3.json("/data/Transport/dublinbikes/696.json")
     d3.select("#dublinbikes_week").on("click", function() {
       activeBtn(this);
 
-      // hCBTChart.yV = hCBTType[1];
-      // hCBTChart.updateChart();
-      // hCBTChart.addTooltip("Private Houses - ", "thousands", "label");
+      dublinBikesChart.d = dataWeek;
+      dublinBikesChart.updateChart();
+      dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
       // hCBTChart.hideRate(false);
     });
 
     d3.select("#dublinbikes_month").on("click", function() {
       activeBtn(this);
-      // hCBTChart.yV = hCBTType[2];
-      // hCBTChart.updateChart();
-      // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
-      // hCBTChart.hideRate(true);
+      dublinBikesChart.d = dataMonth;
+      dublinBikesChart.updateChart();
+      dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
     });
 
-    d3.select("#dublinbikes_year").on("click", function() {
-      activeBtn(this);
-      // hCBTChart.yV = hCBTType[2];
-      // hCBTChart.updateChart();
-      // hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
-      // hCBTChart.hideRate(true);
-    });
+    // d3.select("#dublinbikes_year").on("click", function() {
+    //   activeBtn(this);
+    // });
 
 
     // add buttons to switch between total, housing and apartments
@@ -103,73 +110,6 @@ d3.json("/data/Transport/dublinbikes/696.json")
   });
 
 //End of bikes data load
-
-function convertQuarter(q) {
-  let splitted = q.split('Q');
-  let year = splitted[0];
-  let quarterEndMonth = splitted[1] * 3 - 2;
-  let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
-  return date;
-}
-
-function qToQuarter(q) {
-  let splitted = q.split('Q');
-  let year = splitted[0];
-  let quarter = splitted[1];
-  let quarterString = ("Quarter " + quarter + ' ' + year);
-  return quarterString;
-}
-
-function dataSets(data, columns) {
-  coercedData = data.map(d => {
-    for (var i = 0, n = columns.length; i < n; i++) {
-      // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
-      d[columns[i]] = +d[columns[i]];
-    }
-    return d;
-  });
-  return coercedData;
-}
-
-function formatQuarter(date) {
-  let newDate = new Date();
-  newDate.setMonth(date.getMonth() + 1);
-  let year = (date.getFullYear());
-  let q = Math.ceil((newDate.getMonth()) / 3);
-  return "Quarter " + q + ' ' + year;
-}
-
-function filterbyDate(data, dateField, date) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(date);
-  });
-}
-
-function filterByDateRange(data, dateField, dateOne, dateTwo) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
-  });
-}
-
-function nestData(data, label, name, value) {
-  let nested_data = d3.nest()
-    .key(function(d) {
-      return d[label];
-    })
-    .entries(data); // its the string not the date obj
-
-  let mqpdata = nested_data.map(function(d) {
-    let obj = {
-      label: d.key
-    }
-    d.values.forEach(function(v) {
-      obj[v[name]] = v[value];
-      obj.date = v.date;
-    })
-    return obj;
-  })
-  return mqpdata;
-}
 
 function chartContent(data, key, value, date, selector) {
 
