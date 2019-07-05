@@ -1,3 +1,5 @@
+let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts;
+let rentByBedTT, planningTT;
 Promise.all([
   d3.csv("../data/Housing/constructionsmonthlies.csv"),
   d3.csv("../data/Housing/planningapplications.csv"),
@@ -37,10 +39,10 @@ Promise.all([
   });
 
 
-  console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
-  console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
+  // console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
+  // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
-  const houseCompCharts = new StackedAreaChart(houseCompContent);
+  houseCompCharts = new StackedAreaChart(houseCompContent);
   houseCompCharts.drawChart();
   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
@@ -101,19 +103,24 @@ Promise.all([
       tX: "Years",
       tY: "Applications",
       // ySF: "percentage"
-    },
+    };
 
-    planningTT = {
-      title: "Planning Applications - Year",
-      datelabel: date,
-      format: "thousands",
-    },
+  planningTT = {
+    title: "Planning Applications - Year",
+    datelabel: date,
+    format: "thousands",
+  };
 
-    // drawing charts for planning data.
-    dccChart = new GroupedBarChart(dccContent),
-    drccChart = new GroupedBarChart(drccContent),
-    fccChart = new GroupedBarChart(fccContent),
-    sdccChart = new GroupedBarChart(sdccContent);;
+  // drawing charts for planning data.
+  dccChart = new GroupedBarChart(dccContent);
+  drccChart = new GroupedBarChart(drccContent);
+  fccChart = new GroupedBarChart(fccContent);
+  sdccChart = new GroupedBarChart(sdccContent);
+
+  dccChart.drawChart();
+  drccChart.drawChart();
+  fccChart.drawChart();
+  sdccChart.drawChart();
 
   dccChart.addTooltip(planningTT);
   drccChart.addTooltip(planningTT);
@@ -141,7 +148,7 @@ Promise.all([
     tX: "Years",
     tY: "Hectares"
   }
-  const supplyChart = new MultiLineChart(supplyContent);
+  supplyChart = new MultiLineChart(supplyContent);
   supplyChart.drawChart();
   supplyChart.addTooltip("Land - Year", "thousands", "label");
 
@@ -189,7 +196,7 @@ Promise.all([
   };
 
   // draw the chart
-  const contributionChart = new MultiLineChart(contriContent);
+  contributionChart = new MultiLineChart(contriContent);
   contributionChart.yScaleFormat = "millions";
   contributionChart.drawChart();
   contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
@@ -219,7 +226,7 @@ Promise.all([
   };
 
   // draw the chart
-  const housePricesChart = new MultiLineChart(housePricesContent);
+  housePricesChart = new MultiLineChart(housePricesContent);
   housePricesChart.ySF = "millions";
   housePricesChart.drawChart();
   housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
@@ -242,16 +249,16 @@ Promise.all([
   // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
 
   const rentPricesContent = {
-      e: "#chart-rentPrices",
-      d: rentPricesDataProcessed,
-      k: rentPricesRegions,
-      xV: rentPricesDate,
-      yV: "value",
-      tX: "Quarters",
-      tY: "€"
-    },
+    e: "#chart-rentPrices",
+    d: rentPricesDataProcessed,
+    k: rentPricesRegions,
+    xV: rentPricesDate,
+    yV: "value",
+    tX: "Quarters",
+    tY: "€"
+  };
 
-    rentPricesChart = new MultiLineChart(rentPricesContent);
+  rentPricesChart = new MultiLineChart(rentPricesContent);
   rentPricesChart.drawChart();
   rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
 
@@ -270,13 +277,13 @@ Promise.all([
       tX: "Quarters",
       tY: "Price",
       ySF: "euros"
-    },
-
-    rentByBedTT = {
-      title: "Rent Prices - Year:",
-      datelabel: rentByBedsDate,
-      format: "euros2",
     };
+
+  rentByBedTT = {
+    title: "Rent Prices - Year:",
+    datelabel: rentByBedsDate,
+    format: "euros2",
+  };
 
   // drawing charts for planning data.
   rentByBedsChart = new GroupedBarChart(rentByBedContent);
@@ -334,7 +341,7 @@ Promise.all([
   }
 
   // draw the chart
-  const hCBTChart = new MultiLineChart(hCBTContent);
+  hCBTChart = new MultiLineChart(hCBTContent);
   hCBTChart.drawChart();
   hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
 
@@ -421,7 +428,7 @@ Promise.all([
 
 
   // draw the chart
-  const newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
+  newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
   newCompByTypeChart.drawChart();
   newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
 
@@ -440,36 +447,48 @@ Promise.all([
   HPM06Content.tY = "Price Index (Base 100)";
 
   // draw the chart
-  const HPM06Charts = new MultiLineChart(HPM06Content);
+  HPM06Charts = new MultiLineChart(HPM06Content);
   HPM06Charts.drawChart(); // draw axis
   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
   HPM06Charts.addBaseLine(100); // add horizontal baseline
 
   // add buttons to switch between total, housing and apartments
 
-  d3.select(window).on("resize", function() {
-    supplyChart.drawChart();
-    supplyChart.addTooltip("Land - Year", "thousands", "label");
-
-    houseCompCharts.drawChart();
-    houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
-
-    contributionChart.drawChart();
-    contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
-
-    housePricesChart.drawChart();
-    housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-
-    rentPricesChart.drawChart();
-    rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-
-    rentByBedsChart.drawChart();
-    rentByBedsChart.addTooltip(rentByBedTT);
-
-    HPM06Charts.drawChart(); // draw axis
-    HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
-    HPM06Charts.addBaseLine(100); // add horizontal baseline
-  });
+  // d3.select(window).on("resize", function() {
+  //   console.log("Resize Housing");
+  //   supplyChart.drawChart();
+  //   supplyChart.addTooltip("Land - Year", "thousands", "label");
+  //
+  //   houseCompCharts.drawChart();
+  //   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
+  //
+  //   contributionChart.drawChart();
+  //   contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
+  //
+  //   housePricesChart.drawChart();
+  //   housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+  //
+  //   rentPricesChart.drawChart();
+  //   rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
+  //
+  //   rentByBedsChart.drawChart();
+  //   rentByBedsChart.addTooltip(rentByBedTT);
+  //
+  //   dccChart.drawChart();
+  //   drccChart.drawChart();
+  //   fccChart.drawChart();
+  //   sdccChart.drawChart();
+  //
+  //   dccChart.addTooltip(planningTT);
+  //   drccChart.addTooltip(planningTT);
+  //   fccChart.addTooltip(planningTT);
+  //   sdccChart.addTooltip(planningTT);
+  //
+  //
+  //   HPM06Charts.drawChart(); // draw axis
+  //   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
+  //   HPM06Charts.addBaseLine(100); // add horizontal baseline
+  // });
 
 }).catch(function(error) {
   console.log(error);

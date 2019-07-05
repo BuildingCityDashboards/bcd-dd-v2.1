@@ -1,6 +1,7 @@
 /************************************
  * Bikes
  ************************************/
+let dublinBikesChart;
 Promise.all([
     d3.json("/data/Transport/dublinbikes/day.json"),
     d3.json("/data/Transport/dublinbikes/week.json"),
@@ -59,7 +60,7 @@ Promise.all([
       tY: "No of bikes"
     };
 
-    const dublinBikesChart = new StackedAreaChart(dublinBikesContent);
+    dublinBikesChart = new StackedAreaChart(dublinBikesContent);
     dublinBikesChart.drawChart();
     // addTooltip(title, format, dateField, prefix, postfix)
     //format just formats comms for thousands etc
@@ -98,12 +99,10 @@ Promise.all([
 
     // add buttons to switch between total, housing and apartments
 
-    d3.select(window).on("resize", function() {
-      // supplyChart.drawChart();
-      // contributionChart.drawChart();
-      // housePricesChart.drawChart();
-      // dublinBikesChart.drawChart();
-    });
+    // d3.select(window).on("resize", function() {
+    //   dublinBikesChart.drawChart();
+    //   dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
+    // });
 
   }).catch(function(error) {
     console.log(error);

@@ -1,3 +1,6 @@
+let wasteChart, recyclingsChart, organicrecyclingsChart, waterconsChart, riverqualitiesChart, greenflagsChart, localagendasChart;
+let recyclings_tooltip, orChart_tooltip, wcChart_tooltip, rqChart_tooltip, greenflags_tooltip;
+
 Promise.all([
   d3.csv("../data/Environment/wastes.csv"),
   d3.csv("../data/Environment/recyclings.csv"),
@@ -40,7 +43,7 @@ Promise.all([
   };
 
   // draw the chart
-  const wasteChart = new MultiLineChart(wasteContent);
+  wasteChart = new MultiLineChart(wasteContent);
   wasteChart.drawChart();
   wasteChart.addTooltip("Waste - Year ", "thousands", "label", "", "Kg");
 
@@ -59,11 +62,11 @@ Promise.all([
       tX: "Years",
       tY: "%",
       ySF: "percentage"
-    },
+    };
 
-    // drawing charts for planning data.
-    recyclingsChart = new GroupedBarChart(recyclingsContent),
-    recyclings_tooltip = {};
+  // drawing charts for planning data.
+  recyclingsChart = new GroupedBarChart(recyclingsContent);
+  recyclings_tooltip = {};
 
   //title, format, date
   recyclings_tooltip.title = "Recycling Rate Dry - Year";
@@ -88,11 +91,11 @@ Promise.all([
       tX: "Years",
       tY: "%",
       ySF: "percentage"
-    },
+    };
 
-    // drawing charts for planning data.
-    organicrecyclingsChart = new GroupedBarChart(organicrecyclingsContent),
-    orChart_tooltip = {};
+  // drawing charts for planning data.
+  organicrecyclingsChart = new GroupedBarChart(organicrecyclingsContent);
+  orChart_tooltip = {};
 
   //title, format, date
   orChart_tooltip.title = "Recycling Rate Organics - Year";
@@ -117,17 +120,17 @@ Promise.all([
       tX: "Years",
       tY: "Litres",
       // yScaleFormat: "percentage"
-    },
+    };
 
-    wcChart_tooltip = {
-      //title, format, date
-      title: "Water Consumption - Year",
-      format: "thousands",
-      date: waterconsDate
-    },
+  wcChart_tooltip = {
+    //title, format, date
+    title: "Water Consumption - Year",
+    format: "thousands",
+    date: waterconsDate
+  };
 
-    // drawing charts for planning data.
-    waterconsChart = new GroupedBarChart(waterconsContent);
+  // drawing charts for planning data.
+  waterconsChart = new GroupedBarChart(waterconsContent);
 
   waterconsChart.addTooltip(wcChart_tooltip);
 
@@ -146,17 +149,17 @@ Promise.all([
       tX: "Years",
       tY: "% of Surveryed Channel Length (1156.5km)",
       // yScaleFormat: "percentage"
-    },
+    };
 
-    rqChart_tooltip = {
-      //title, format, date
-      title: "Water Quality - Year",
-      format: "thousands",
-      date: riverqualitiesDate
-    },
+  rqChart_tooltip = {
+    //title, format, date
+    title: "Water Quality - Year",
+    format: "thousands",
+    date: riverqualitiesDate
+  };
 
-    // drawing charts for planning data.
-    riverqualitiesChart = new GroupedBarChart(riverqualitiesContent);
+  // drawing charts for planning data.
+  riverqualitiesChart = new GroupedBarChart(riverqualitiesContent);
   riverqualitiesChart.addTooltip(rqChart_tooltip);
 
 
@@ -174,17 +177,17 @@ Promise.all([
       tX: "Years",
       tY: "Number of Schools",
       // yScaleFormat: "percentage"
-    },
+    };
 
-    greenflags_tooltip = {
-      //title, format, date
-      title: "Green Flag Schools - Year",
-      format: "thousands",
-      date: greenflagsDate,
-    },
+  greenflags_tooltip = {
+    //title, format, date
+    title: "Green Flag Schools - Year",
+    format: "thousands",
+    date: greenflagsDate,
+  };
 
-    // drawing charts for planning data.
-    greenflagsChart = new GroupedBarChart(greenflagsContent);
+  // drawing charts for planning data.
+  greenflagsChart = new GroupedBarChart(greenflagsContent);
   greenflagsChart.addTooltip(greenflags_tooltip);
 
 
@@ -215,19 +218,18 @@ Promise.all([
   });
 
   const localagendasContent = {
-      e: "#chart-localagendas",
-      d: localagendasDataNested,
-      xV: localagendasDate,
-      yV: localagendasType[0],
-      tX: "Years",
-      tY: "Number of Projects"
-    },
-    // draw the chart
-    // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-    localagendasChart = new MultiLineChart(localagendasContent);
+    e: "#chart-localagendas",
+    d: localagendasDataNested,
+    xV: localagendasDate,
+    yV: localagendasType[0],
+    tX: "Years",
+    tY: "Number of Projects"
+  };
+  // draw the chart
+  // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
+  localagendasChart = new MultiLineChart(localagendasContent);
   localagendasChart.drawChart();
   localagendasChart.addTooltip("Projects - Year ", "thousands", "label", "", "");
-
 
 }).catch(function(error) {
   console.log(error);

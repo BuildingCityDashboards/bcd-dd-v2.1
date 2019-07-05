@@ -1,6 +1,9 @@
+let employmentLine, unemploymentLine, employmentStack, unemploymentStack;
 let annual = "../data/Economy/annualemploymentchanges.csv",
   QNQ22 = "../data/Economy/QNQ22_2.csv",
   pageSize = 12;
+
+
 
 /*** This QNQ22 employment and unemployment Charts ***/
 Promise.all([
@@ -64,9 +67,9 @@ Promise.all([
         tX: "Quarters",
         tY: "Thousands",
         ySF: "millions",
-      },
-      employmentStack = new StackedAreaChart(empCStack),
-      unemploymentStack = new StackedAreaChart(unempCStack);
+      };
+    employmentStack = new StackedAreaChart(empCStack);
+    unemploymentStack = new StackedAreaChart(unempCStack);
     employmentStack.tickNumber = 24;
     //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
     //   employmentStack.getData(empData);
@@ -76,7 +79,7 @@ Promise.all([
     //   unemploymentStack.getData(unempData);
     unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
-    const employmentLine = new MultiLineChart(empContent);
+    employmentLine = new MultiLineChart(empContent);
     employmentLine.tickNumber = 24;
     //   employmentLine.createScales();
 
@@ -96,9 +99,9 @@ Promise.all([
       d3.select("#chart-emp-rate").style("display", "block");
     });
 
-    const unemploymentLine = new MultiLineChart(unempContent);
+    unemploymentLine = new MultiLineChart(unempContent);
     unemploymentLine.tickNumber = 24;
-    unemploymentLine.drawChart()
+    unemploymentLine.drawChart();
     unemploymentLine.hideRate(true);
 
     d3.select("#chart-unemp-rate").style("display", "none");
