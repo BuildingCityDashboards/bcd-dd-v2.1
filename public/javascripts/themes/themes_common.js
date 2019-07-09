@@ -1,5 +1,6 @@
 d3.select(window).on("resize", function() {
-  console.log("Resize");
+  let w = window.innerWidth;
+  console.log("Resize: " + w);
   dublinBikesChart.drawChart();
   dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
 
@@ -59,10 +60,14 @@ d3.select(window).on("resize", function() {
   localagendasChart.drawChart();
   localagendasChart.addTooltip("Projects - Year ", "thousands", "label", "", "");
 
-
+  //if width is smaller select fewer labels for chart
+  // let populationChartLabels = [0, 16, 26, 36, 46, 56, 69, 76, 81, 86, 92, 96, 101, 106]: [0, 26, 41, 51, 61, 71, 81, 92, 101, 106];
+  populationChart.tickNumber = 106;
   populationChart.drawChart();
   populationChart.addTooltip("Year: ", "thousands", "label");
+  populationChart.showSelectedLabels([0, 16, 26, 36, 46, 56, 66, 76, 86, 96, 106]);
   // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
+
   outsideStateChart.drawChart();
   outsideStateChart.addTooltip(outsideStateTT);
   houseHoldsChart.drawChart();

@@ -42,7 +42,8 @@ d3.csv("../data/Demographics/CNA13.csv").then(data => {
 
   // add the tooltip
   populationChart.addTooltip("Year: ", "thousands", "label");
-  populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
+  populationChart.showSelectedLabels([0, 16, 26, 36, 46, 56, 66, 76, 86, 96, 106]);
+  // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
 
   // d3.select(window).on("resize", function() {
   //   populationChart.drawChart();
