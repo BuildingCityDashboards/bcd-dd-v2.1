@@ -49,6 +49,64 @@ a:hover {
    -o-animation: updateAnimation 1s 3;
     animation: updateAnimation 1s 3 ;
 }
+
+.chart-heading{
+  font-weight: 500;
+  color: #f8f8f8;
+  /* font-size: 1.25rem; */
+  /* text-align: center;
+  text-indent:-100px; */
+
+}
+
+
+.section-header{
+  /* margin-top: -75px; */
+  padding-top: 20px;
+}
+
+/* Anchor offset for fixed navbar*/
+.head-anchor{
+  /*position: relative;*/
+  padding-top: 75px;
+  margin-top: 0px;
+}
+
+/* .section-header > div:nth-child(even){
+
+  background: #fff;
+} */
+
+
+
+.section-body{
+  /* margin-top: -70px; */
+  padding-top: 25px;
+}
+
+.is-active::before{
+  content: "";
+  width: 80%;
+  display: inline-block;
+  position: absolute;
+  z-index: 10;
+  bottom: -1.5px;
+  left: 10%;
+  height: 4px;
+  -webkit-transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
+  -moz-transition: all 0.25s ease;
+  -o-transition: all 0.25s ease;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  background: var(--vivid-cyan);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
 /*Pages*/
 /*Themes*/
 .theme-section{
@@ -290,7 +348,6 @@ select:hover:not([disabled]) {
 .btn-page.active{
   font-weight:600;
 }
-
 
 
 #chart-employment .x-axis g.tick text{

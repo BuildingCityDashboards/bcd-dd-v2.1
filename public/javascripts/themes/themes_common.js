@@ -3,16 +3,6 @@ d3.select(window).on("resize", function() {
   dublinBikesChart.drawChart();
   dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
 
-  populationChart.drawChart();
-  populationChart.addTooltip("Year: ", "thousands", "label");
-  // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
-  outsideStateChart.drawChart();
-  outsideStateChart.addTooltip(outsideStateTT);
-  houseHoldsChart.drawChart();
-  houseHoldsChart.addTooltip(houseHoldsTT);
-  houseHoldCompositionChart.drawChart();
-  houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
-
   supplyChart.drawChart();
   supplyChart.addTooltip("Land - Year", "thousands", "label");
 
@@ -52,6 +42,34 @@ d3.select(window).on("resize", function() {
   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
   HPM06Charts.addBaseLine(100); // add horizontal baseline
 
+
+
+  wasteChart.drawChart();
+  wasteChart.addTooltip("Waste - Year ", "thousands", "label", "", "Kg");
+  recyclingsChart.drawChart();
+  recyclingsChart.addTooltip(recyclings_tooltip);
+  organicrecyclingsChart.drawChart();
+  organicrecyclingsChart.addTooltip(orChart_tooltip);
+  waterconsChart.drawChart();
+  waterconsChart.addTooltip(wcChart_tooltip);
+  riverqualitiesChart.drawChart();
+  riverqualitiesChart.addTooltip(rqChart_tooltip);
+  greenflagsChart.drawChart();
+  greenflagsChart.addTooltip(greenflags_tooltip);
+  localagendasChart.drawChart();
+  localagendasChart.addTooltip("Projects - Year ", "thousands", "label", "", "");
+
+
+  populationChart.drawChart();
+  populationChart.addTooltip("Year: ", "thousands", "label");
+  // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
+  outsideStateChart.drawChart();
+  outsideStateChart.addTooltip(outsideStateTT);
+  houseHoldsChart.drawChart();
+  houseHoldsChart.addTooltip(houseHoldsTT);
+  houseHoldCompositionChart.drawChart();
+  houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
+
   // Employment charts use 2 charts, 1 hidden by display; need to check which is active
   if (d3.select(".employment_count").classed('active')) {
     d3.select("#chart-employment").style("display", "block");
@@ -84,20 +102,6 @@ d3.select(window).on("resize", function() {
     unemploymentLine.hideRate(true);
     // console.log("unemployment_count is not active")
   };
-
-  wasteChart.drawChart();
-  wasteChart.addTooltip("Waste - Year ", "thousands", "label", "", "Kg");
-  recyclingsChart.drawChart();
-  recyclingsChart.addTooltip(recyclings_tooltip);
-  organicrecyclingsChart.drawChart();
-  organicrecyclingsChart.addTooltip(orChart_tooltip);
-  waterconsChart.drawChart();
-  waterconsChart.addTooltip(wcChart_tooltip);
-  riverqualitiesChart.addTooltip(rqChart_tooltip);
-  greenflagsChart.drawChart();
-  greenflagsChart.addTooltip(greenflags_tooltip);
-  localagendasChart.drawChart();
-  localagendasChart.addTooltip("Projects - Year ", "thousands", "label", "", "");
 
 
 });

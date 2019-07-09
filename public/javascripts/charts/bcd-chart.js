@@ -31,8 +31,8 @@ class Chart {
       eW = eN.getBoundingClientRect().width,
       aR = eW < 800 ? eW * 0.55 : eW * 0.5,
       cScheme = c.cS || d3.schemeBlues[5],
-      bP = 576;
-
+      bP = 450;
+    console.log("ew: " + eW);
     // margins
     m.t = eW < bP ? 40 : 50;
     m.b = eW < bP ? 30 : 80;
