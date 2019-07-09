@@ -322,7 +322,7 @@ class MultiLineChart extends Chart {
     let q = Math.ceil((newDate.getMonth()) / 3);
     return year + " Q" + q;
   }
-
+  //hides the rate column in the tooltip e.g. when showing % change
   hideRate(value) {
     let c = this,
       i = c.getElement(".bcd-text-indicator"),

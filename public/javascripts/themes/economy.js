@@ -51,7 +51,7 @@ Promise.all([
         ySF: "percentage",
       },
       unempCStack = {
-        e: "#chartNew",
+        e: "#chart-unemployment",
         d: unempData,
         ks: grouping,
         xV: "date",
@@ -69,54 +69,69 @@ Promise.all([
         ySF: "millions",
       };
     employmentStack = new StackedAreaChart(empCStack);
-    unemploymentStack = new StackedAreaChart(unempCStack);
     employmentStack.tickNumber = 24;
     //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
     //   employmentStack.getData(empData);
+    employmentStack.drawChart();
     employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
-
-    unemploymentStack.tickNumber = 24;
-    //   unemploymentStack.getData(unempData);
-    unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
 
     employmentLine = new MultiLineChart(empContent);
     employmentLine.tickNumber = 24;
+    employmentLine.drawChart();
+    employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
+    employmentLine.hideRate(true); //hides the rate column in the tooltip when the % change chart is shown
+
+    unemploymentStack = new StackedAreaChart(unempCStack);
+    unemploymentStack.tickNumber = 24;
+    //   unemploymentStack.getData(unempData);
+    unemploymentStack.drawChart();
+    unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
     //   employmentLine.createScales();
 
+    unemploymentLine = new MultiLineChart(unempContent);
+    unemploymentLine.tickNumber = 24;
+    unemploymentLine.drawChart();
+    unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "label");
+    unemploymentLine.hideRate(true);
+
     d3.select("#chart-emp-rate").style("display", "none");
-    employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
-    employmentLine.hideRate(true);
 
     d3.select(".employment_count").on("click", function() {
       activeBtn(this);
       d3.select("#chart-employment").style("display", "block");
       d3.select("#chart-emp-rate").style("display", "none");
+      //need to redraw in case window size has changed
+      employmentStack.drawChart();
+      employmentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
+
     });
 
     d3.select(".employment_arate").on("click", function() {
       activeBtn(this);
       d3.select("#chart-employment").style("display", "none");
       d3.select("#chart-emp-rate").style("display", "block");
+      employmentLine.drawChart();
+      employmentLine.addTooltip("Employment Annual % Change - ", "percentage2", "label");
+      employmentLine.hideRate(true);
     });
 
-    unemploymentLine = new MultiLineChart(unempContent);
-    unemploymentLine.tickNumber = 24;
-    unemploymentLine.drawChart();
-    unemploymentLine.hideRate(true);
-
     d3.select("#chart-unemp-rate").style("display", "none");
-    unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "label");
 
     d3.select(".unemployment_count").on("click", function() {
       activeBtn(this);
-      d3.select("#chartNew").style("display", "block");
+      d3.select("#chart-unemployment").style("display", "block");
       d3.select("#chart-unemp-rate").style("display", "none");
+      unemploymentStack.drawChart();
+      unemploymentStack.addTooltip("Thousands - Quarter:", "thousands", "label");
     });
 
     d3.select(".unemployment_arate").on("click", function() {
       activeBtn(this);
-      d3.select("#chartNew").style("display", "none");
+      d3.select("#chart-unemployment").style("display", "none");
       d3.select("#chart-unemp-rate").style("display", "block");
+      unemploymentLine.drawChart();
+      unemploymentLine.addTooltip("Unemployment Annual % Change - ", "percentage2", "label");
+      unemploymentLine.hideRate(true);
     });
 
   })
