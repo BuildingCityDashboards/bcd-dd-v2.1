@@ -1,3 +1,6 @@
 # BCD Code Style Guide and Conventions
 
-* Use a beautify package e.g. for Atim https://github.com/Glavin001/atom-beautify and/or Prettier e.g. https://atom.io/packages/prettier-atom
+* Use a beautify package e.g. for Atom https://github.com/Glavin001/atom-beautify and/or Prettier e.g. https://atom.io/packages/prettier-atom
+
+## File Naming 
+* All javascript files' names should use lowercase seperated by hyphens
