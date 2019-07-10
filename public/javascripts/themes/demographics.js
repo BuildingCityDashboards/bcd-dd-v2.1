@@ -116,8 +116,10 @@ d3.csv("../data/Demographics/CNA31.csv").then(data => {
   //  for each d in combineData get the key and assign to each d in d.values
 
   outsideStateChart = new GroupedBarChart(outsideStateContent);
+  // outsideStateChart.tickNumber = 1;
   outsideStateChart.drawChart();
   outsideStateChart.addTooltip(outsideStateTT);
+  outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14]);
 
   // d3.select(window).on("resize", function() {
   //   outsideStateChart.drawChart();

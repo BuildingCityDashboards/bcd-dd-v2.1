@@ -45,6 +45,8 @@ Promise.all([
   houseCompCharts = new StackedAreaChart(houseCompContent);
   houseCompCharts.drawChart();
   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
+  // houseCompCharts.tickNumber = 4;
+  houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
 
   //2.  data processing for planning charts.
   const planningData = datafiles[1],
