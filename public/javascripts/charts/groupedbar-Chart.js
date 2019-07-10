@@ -161,14 +161,14 @@ class GroupedBarChart extends Chart {
       obj.colour = c.colour(d);
       legendArray.push(obj);
     });
-
+    // TODO: compute padding for legend elements
     let legends = legend.selectAll(".legend")
       .data(legendArray)
       .enter()
       .append("g")
       .attr("class", "legend")
       .attr("transform", (d, i) => {
-        return "translate(0," + i * 40 + ")";
+        return "translate(5," + i * 28 + ")";
       });
 
     legends.append("rect")
