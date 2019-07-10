@@ -11,7 +11,7 @@ article.article
       h2 Residential Costs
       //p The cost of accomodation in Dublin.
 
-  #propertyprices.section-body.row.wrapper
+  div#propertyprices.section-body.row.wrapper
     .col-lg-12
       h3 Monthly Rent Prices for Private Dwellings
       p Source: 
@@ -38,10 +38,10 @@ article.article
           img(src='../images/external-link.svg' height='11px' width='11px')
     .col-lg-6
       .chart-heading.h3 Monthly rent for a property in Dublin
-      #chart-rentPrices.chart-holder
+      div#chart-rentPrices.chart-holder
     .col-lg-6
       .chart-heading.h3 Monthly rent by number of rooms in Dublin
-      #chart-rentByBeds.chart-holder
+      div#chart-rentByBeds.chart-holder
 
   .section-body.row.wrapper
     .col-lg-4
@@ -59,7 +59,7 @@ article.article
     .col-lg-8
       .pt-2
         //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-housePrices.chart-holder
+      div#chart-housePrices.chart-holder
 
   .section-body.row.wrapper
     .col-lg-4
@@ -85,7 +85,7 @@ article.article
       .pt-2
         //- <button type="button" class="btn btn-bcd active" value="">Count</button>
         //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="">Rate</button>
-      #chart-HPM06.chart-holder
+      div#chart-HPM06.chart-holder
 
 
   //.section-body.row.wrapper
@@ -104,7 +104,7 @@ article.article
       #chart-rentInspect.chart-holder
 
 article.article
-  #unitscompmonth.section-body.row.wrapper
+  div#unitscompmonth.section-body.row.wrapper
     .col-lg-12
       h2.mb-2 Planning and Completions Statistics
 
@@ -162,7 +162,7 @@ article.article
         <button id="houseCompByType_total" type="button" class="btn btn-bcd btn-sm active">Total Houses</button>
         <button id="houseCompByType_private" type="button" class="btn btn-bcd btn-sm">Private Houses</button>
         <button id="houseCompByType_social" type="button" class="btn btn-bcd btn-sm">Social Houses</button>
-      #chart-houseCompByType.chart-holder
+      div#chart-houseCompByType.chart-holder
 
   .section-body.row.wrapper
     .col-lg-4
@@ -206,20 +206,22 @@ article.article
     .col-lg-6
       .pt-2
       .chart-heading.h3 Dublin City Council
-      #chart-planningDCC.chart-holder
+      div#chart-planningDCC.chart-holder
+        
     .col-lg-6
       .pt-2
       .chart-heading.h3 Dun Laoghaire-Rathdown County Council
-      #chart-planningDRCC.chart-holder
+      div#chart-planningDRCC.chart-holder
 
     .col-lg-6
       .pt-2
       .chart-heading.h3 Fingal County Council
-      #chart-planningFCC.chart-holder
+      div#chart-planningFCC.chart-holder
+        
     .col-lg-6
       .pt-2
       .chart-heading.h3 South Dublin City Council
-      #chart-planningSDCC.chart-holder
+      div#chart-planningSDCC.chart-holder
 
   //.section-body.row.wrapper
     .col-lg-4
@@ -284,7 +286,7 @@ article.article
       .pt-2
         <button id="supply_land" type="button" class="btn btn-bcd btn-sm active">Lands</button>
         <button id="supply_units" type="button" class="btn btn-bcd btn-sm">Units</button>
-      #chart-houseSupply.chart-holder
+      div#chart-houseSupply.chart-holder
 
   .section-body.row.wrapper
     .col-lg-4
@@ -300,4 +302,4 @@ article.article
     .col-lg-8
       .pt-2
         //- <button type="button" class="btn btn-bcd active">Count</button>
-      #chart-houseContributions.chart-holder
+      div#chart-houseContributions.chart-holder

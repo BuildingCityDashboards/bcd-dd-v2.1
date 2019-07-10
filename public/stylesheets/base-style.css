@@ -240,6 +240,19 @@ a:hover {
   box-shadow: 0 0 16px #ccc;
   padding: 1rem;
 }
+
+.map-holder{
+  margin-right: -1rem;
+  border-radius: .325rem;
+}
+
+.map-holder-border{
+  border: 1px solid #8080802e;
+  border-radius: 12px;
+  box-shadow: 0 0 16px #ccc;
+  padding: 1rem;
+}
+
 /* //specific adjustments for page anchors */
 #HPM06{
   padding-top: 100px;
