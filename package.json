@@ -19,7 +19,7 @@
     "jquery": ">=3.4.0",
     "leaflet": "^1.5.1",
     "leaflet-spin": "^1.1.0",
-    "lodash": ">=4.17.11",
+    "lodash": ">=4.17.14",
     "moment": "^2.24.0",
     "mongoose": "^5.3.16",
     "morgan": "^1.9.1",
