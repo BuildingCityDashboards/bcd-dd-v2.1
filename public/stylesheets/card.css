@@ -5,12 +5,13 @@
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 0;
-    min-height: 150px;
+    min-height: 185px;
     word-wrap: break-word;
     background-color: transparent;
     background-clip: border-box;
     border: 1px solid;
     border-radius: .25rem;
+
 }
 
 .card__link{
@@ -38,6 +39,8 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
     padding: .5rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .card__title{
@@ -45,6 +48,8 @@
 }
 
 .card__text{
+  display: flex;
+  align-self: center;
 
 }
 .card__icon{
@@ -64,8 +69,10 @@
 }
 
 .card-left, .card-right, .card-div {
+  /* display: flex; */
+  /* align-self: center; */
   padding: 0px;
-  text-align: center;
+  /* text-align: center; */
 }
 
 
