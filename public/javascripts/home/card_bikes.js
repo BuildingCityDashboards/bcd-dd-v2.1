@@ -68,13 +68,13 @@ function initialiseBikesDisplay() {
   d3.select("#bikes-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-8' align='left'>" +
-      "<b>Dublin Bikes Availability</b>" +
+      "<div class = 'col-12' align='left'>" +
+      "Dublin Bikes Availability" +
       "</div>" +
-      "<div class = 'col-4' align='right'>" +
-      "<div id ='bikes-bikesCountdown' ></div>" +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      "</div>" +
+      // "<div class = 'col-4' align='right'>" +
+      // "<div id ='bikes-bikesCountdown' ></div>" +
+      // // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      // "</div>" +
       "</div>"
     );
 
@@ -115,14 +115,14 @@ function updateBikesDisplay(ab, as, age) {
   d3.select("#bikes-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-8' align='left'>" +
-      "<b>Dublin Bikes Availability</b>" +
+      "<div class = 'col-12' align='left'>" +
+      "Dublin Bikes Availability" +
       "</div>" +
-      "<div class = 'col-4' align='right'>" +
-      "<span class = '" + animateClass + "'>" +
-      bikesAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
-      "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      "</div>" +
+      // "<div class = 'col-4' align='right'>" +
+      // "<span class = '" + animateClass + "'>" +
+      // bikesAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
+      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      // "</div>" +
       "</div>"
     );
 

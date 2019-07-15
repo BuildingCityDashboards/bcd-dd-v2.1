@@ -79,13 +79,13 @@ function initialiseTTDisplay() {
   d3.select("#traveltimes-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
+      "<div class = 'col-12' align='left'>" +
       "<b>Motorway Delays</b>" +
       "</div>" +
-      "<div class = 'col-5' align='right'>" +
-      "<div id ='tt-countdown' ></div>" +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      "</div>" +
+      // "<div class = 'col-5' align='right'>" +
+      // "<div id ='tt-countdown' ></div>" +
+      // // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      // "</div>" +
       "</div>"
     );
 
@@ -137,14 +137,14 @@ function updateTTDisplay(d__) {
     d3.select("#traveltimes-chart").select('.card__header')
       .html(
         "<div class = 'row'>" +
-        "<div class = 'col-7' align='left'>" +
-        "<b>Motorway Delays</b>" +
+        "<div class = 'col-12' align='left'>" +
+        "Motorway Delays" +
         "</div>" +
-        "<div class = 'col-5' align='right'>" +
-        "<span class = '" + animateClass + "'>" +
-        ttAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
-        "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-        "</div>" +
+        // "<div class = 'col-5' align='right'>" +
+        // "<span class = '" + animateClass + "'>" +
+        // ttAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
+        // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+        // "</div>" +
         "</div>"
       );
 
