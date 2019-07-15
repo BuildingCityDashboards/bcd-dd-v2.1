@@ -18,7 +18,7 @@
     padding: .75rem .5rem;
     margin-bottom: 0;
     background-color: rgba(0,0,0,.03);
-    border-bottom: 1px solid rgba(0,0,0,.125);
+    /* border-bottom: 1px solid rgba(255,255,255,.25); */
     font-size: .875rem;
 }
 
@@ -52,8 +52,6 @@
     background: #1d21244d;
 }
 
-
-
 .card__title{
     margin-bottom: .75rem;
 }
@@ -77,9 +75,6 @@
     fill: currentColor;
 }
 
-
-
-
 /* border utilities classes, need to add these to a util.css*/
 .border-blue{
 border-color: var(--vivid-cyan);
@@ -95,4 +90,15 @@ border-color: var(--vivid-red);
 
 .border-teal{
 border-color: var(--teal);
+}
+
+
+#clock{
+  display: flex;
+  font-size: 2.5rem;
+  justify-content: center;
+  /* align-self: center; */
+  align-content:center;
+    align-items: center;
+  /* text-align: center; */
 }
