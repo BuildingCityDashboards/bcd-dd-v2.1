@@ -9,67 +9,75 @@ div(class="tab-content" id="nav-tabContent")
   //-   +svg("","icon__arrow")(class="icon icon-arrow")
   div(class="tab-pane tab-charts fade show active" id="nav-all")
     .row.tab-charts__row
-      #time-chart.col-xl-3.col-sm-6.col-11
+      #time-chart.col-xl-3.col-sm-6.col-12.px-1
+        //.col-11
         +card-time("/", "card text-white o-hidden border-yellow", "Dublin Time", "test","rt-time")
-      #weather-chart.col-xl-3.col-sm-6.col-11
+      #weather-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-rt("/", "card text-white o-hidden border-yellow", "Weather", "test", "rt-weather")
-      #bikes-chart.col-xl-3.col-sm-6.col-11
+      #bikes-chart.col-xl-3.col-sm-6.col-12.px-1
+        //.col-11
         +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
-      #traveltimes-chart.col-xl-3.col-sm-6.col-11
+      #traveltimes-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-rt("queries#dublinbikes", "card text-white o-hidden border-yellow", "Motorway Travel Times", "test","rt-travelTimes")
     #data-text.d-sm-none.d-md-block 
       p Hover over these charts for more information, click to go to the data page    
     .row.tab-charts__row
-      #apd-chart.col-xl-3.col-sm-6.col-11
+      #apd-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-chart("themes#demographics", "card text-white o-hidden border-blue", "Annual Population", "test","pr-glance", "../images/calendar-w.svg")
 
-      #emp-chart.col-xl-3.col-sm-6.col-11
+      #emp-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-chart("themes#employment", "card text-white o-hidden border-blue", "Unemployment Quarterly Count", "test", "test-glance", "../images/calendar-w.svg")  
 
-      #app-chart.col-xl-3.col-sm-6.col-11
+      #app-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-chart("themes#HPM06", "card text-white o-hidden border-blue", "Monthly Property Price Index", "test", "ap-glance", "../images/calendar-w.svg")
         //- stack area chart with just population. 
-      #huc-chart.col-xl-3.col-sm-6.col-11
+      #huc-chart.col-xl-3.col-sm-6.col-12.px-1 
+        //.col-11
         +card-chart("themes#unitscompmonth", "card text-white o-hidden border-blue", "Monthly House Unit Completions", "test","hc-glance", "../images/calendar-w.svg")
-      //- .col-xl-3.col-sm-6
+      //- .col-xl-3.col-sm-6.col-12
       //-   +card-chart("/", "card text-white o-hidden border-blue", "Dublin Median House Prices", "test","rt-chart1")
       //-   +card-chart("card text-white o-hidden border-yellow", "Weather Dublin", "test","rt-chart2")
-      //- .col-xl-3.col-sm-6
+      //- .col-xl-3.col-sm-6.col-12
       //-   +card-chart("card text-white o-hidden border-yellow", "M50 Traffic times", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart3")
       //-   +card-chart("card text-white o-hidden border-red", "Bike Usage", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart4")
-      //- .col-xl-3.col-sm-6
+      //- .col-xl-3.col-sm-6.col-12
       //-   +card-chart("card text-white o-hidden border-blue", "Dublin Median House Prices", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
       //-   +card-chart("card text-white o-hidden border-yellow", "Weather Dublin", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart2")
-      //- .col-xl-3.col-sm-6
+      //- .col-xl-3.col-sm-6.col-12
       //-   +card-chart("card text-white o-hidden border-yellow", "M50 Traffic times", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart3")
       //-   +card-chart("card text-white o-hidden border-red", "Bike Usage", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart4")
 
   //- div(class="tab-pane tab-charts fade" id="nav-demographics")
   //-   .row.tab-charts__row
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-        +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-blue", "Dublin Demographics", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
 
   //- div(class="tab-pane tab-charts fade" id="nav-economy")
   //-   .row.tab-charts__row
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-        +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
-  //-     .col-xl-3.col-sm-6
+  //-     .col-xl-3.col-sm-6.col-12
   //-       +card-chart("card text-white o-hidden border-red", "Dublin Economy", "test", "Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Example of a popover for data at a glance.", "rt-chart1")
 
   //- div(class="tab-pane tab-charts fade" id="nav-environment")

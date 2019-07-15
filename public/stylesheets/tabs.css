@@ -23,6 +23,7 @@
 
 .tab-charts__row{
     position: relative;
+    /* height: 250px; */
 }
 
 .tab-charts__row::-webkit-scrollbar {

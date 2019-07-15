@@ -1,12 +1,12 @@
 /* Root Variables */
 :root {
-    
+
   /*
     Colourblind safe colours
   blues/ greens: ['#f6eff7','#d0d1e6','#a6bddb','#67a9cf','#1c9099','#016c59']
   */
-  
-  --cbs-blue-1: #f6eff7; 
+
+  --cbs-blue-1: #f6eff7;
   --cbs-blue-2: #d0d1e6;
   --cbs-blue-3: #a6bddb;
   --cbs-blue-4: #67a9cf;
@@ -28,12 +28,10 @@
   --soft-blue: #6f9ceb;
   --grayish-blue: #6d7c8f;
   --very-light-grey: #f8f8f8;
-  --breakpoint-xs: 0;
+  --breakpoint-xs: 0px;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
   --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-
-
