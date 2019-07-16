@@ -10,7 +10,7 @@ html{
   -webkit-tap-highlight-color: transparent;
   overflow-y: scroll;
   /*Check compatibility*/
-  scroll-behavior:smooth;
+  /* scroll-behavior:smooth; */
 }
 
 .page{
