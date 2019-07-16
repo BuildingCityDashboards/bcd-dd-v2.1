@@ -5,7 +5,7 @@ header.header
       p.lead Statistical data relating to the population and particular groups within it.
 
 article.article
-  .row.wrapper
+  div#population.row.wrapper
     .col-lg-12
       //h2.header__h2.mb-2 Population Statistics
       h2 Population Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
@@ -49,12 +49,13 @@ article.article
           a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA33&PLanguage=0" target ="blank") CSO  
             img(src='../images/external-link.svg' height='11px' width='11px') 
       div#chart-householdComposition.chart-holder
+
 article.article.pt-5
-  .row
+  div#employment.row
     .col-lg-12
       h2.mb-2 Employment Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
 
-  #employment.section-body.row.wrapper
+  .section-body.row.wrapper
     .col-lg-6.pt-2
       .chart-heading.h3 Numbers in Employment 
         p Source: 
