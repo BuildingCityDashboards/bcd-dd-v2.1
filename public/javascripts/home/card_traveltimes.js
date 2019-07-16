@@ -80,7 +80,7 @@ function initialiseTTDisplay() {
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-7' align='left'>" +
-      "<b>Motorway Delays</b>" +
+      "Motorway Delays" +
       "</div>" +
       "<div class = 'col-5' align='right'>" +
       "<div id ='tt-countdown' ></div>" +
@@ -138,12 +138,12 @@ function updateTTDisplay(d__) {
       .html(
         "<div class = 'row'>" +
         "<div class = 'col-7' align='left'>" +
-        "<b>Motorway Delays</b>" +
+        "Motorway Delays" +
         "</div>" +
         "<div class = 'col-5' align='right'>" +
         "<span class = '" + animateClass + "'>" +
         ttAgeDisplay + "</span>" + "&nbsp;&nbsp;" +
-        "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+        // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
         "</div>" +
         "</div>"
       );

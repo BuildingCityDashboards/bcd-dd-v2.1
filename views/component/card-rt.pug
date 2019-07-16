@@ -2,12 +2,11 @@ mixin card-rt(href, style, Header, title, Chartid)
   a(href=href class="card__link")
     div(class=style)
       .card__header=Header
-      .card__body.card-graph
-        div(id=Chartid width="205" height="70")
-           .container-fluid
-                .row
-                    #card-left.card-left.col-4
-                    #card-center.card-center.col-4
-                    #card-right.card-right.col-4
+      .card__body(id=Chartid width="205" height="70")
+          //- .container-fluid
+          //- .row
+          #card-left.card-left.col-4
+          #card-center.card-center.col-4
+          #card-right.card-right.col-4
                         
                     

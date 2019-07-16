@@ -2,6 +2,8 @@
 .hero {
     position: relative;
     padding-top: 1rem;
+    min-height: 100vh;
+    /* overflow-y:inherit; */
 }
 
 .hero__title{
@@ -11,7 +13,7 @@
 }
 
 .bg-img {
-    min-height: 662px;
+    /* min-height: 662px; */
     height: 100%;
     left: 0;
     right: 0;

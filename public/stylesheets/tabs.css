@@ -22,7 +22,11 @@
 }
 
 .tab-charts__row{
-    position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  position: relative;
+  justify-content: space-between;
     /* height: 250px; */
 }
 
