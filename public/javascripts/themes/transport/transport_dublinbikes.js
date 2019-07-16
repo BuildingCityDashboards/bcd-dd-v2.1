@@ -35,7 +35,7 @@ Promise.all([
     });
 
     /* For multiline chart */
-    // dublinBikesData.forEach(d => {
+    // dataDay.forEach(d => {
     //   // d["available_bikes"] = +d["available_bikes"];
     //   d["key"] = d["key"].replace(/_/g, " ");
     //   d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
@@ -46,6 +46,32 @@ Promise.all([
     //     v["date"] = new Date(v["date"]); //parse to date
     //   });
     // });
+    //
+    // dataWeek.forEach(d => {
+    //   // d["available_bikes"] = +d["available_bikes"];
+    //   d["key"] = d["key"].replace(/_/g, " ");
+    //   d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
+    //   // console.log("\n\nd key: " + JSON.stringify(d["key"]));
+    //
+    //   // keys.push(d["key"]);
+    //   d["values"].forEach(v => {
+    //     v["date"] = new Date(v["date"]); //parse to date
+    //   });
+    // });
+    //
+    // dataMonth.forEach(d => {
+    //   // d["available_bikes"] = +d["available_bikes"];
+    //   d["key"] = d["key"].replace(/_/g, " ");
+    //   d["key"] = d["key"].charAt(0).toUpperCase() + d["key"].slice(1);
+    //   // console.log("\n\nd key: " + JSON.stringify(d["key"]));
+    //
+    //   // keys.push(d["key"]);
+    //   d["values"].forEach(v => {
+    //     v["date"] = new Date(v["date"]); //parse to date
+    //   });
+    // });
+
+
 
     // console.log("Bikes Keys: " + JSON.stringify(keys));
 
@@ -72,8 +98,6 @@ Promise.all([
       dublinBikesChart.d = dataDay;
       dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
-      // hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
-      // hCBTChart.hideRate(false);
     });
 
     d3.select("#dublinbikes_week").on("click", function() {
@@ -91,18 +115,6 @@ Promise.all([
       dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
     });
-
-    // d3.select("#dublinbikes_year").on("click", function() {
-    //   activeBtn(this);
-    // });
-
-
-    // add buttons to switch between total, housing and apartments
-
-    // d3.select(window).on("resize", function() {
-    //   dublinBikesChart.drawChart();
-    //   dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
-    // });
 
   }).catch(function(error) {
     console.log(error);
