@@ -191,16 +191,13 @@ getAllStationsDataHourly = async (start, end) => {
 };
 
 
-
-
-cron.schedule("30 2 * * *", () => {
+cron.schedule('2 17 * * *', () => {
 
   //Generating date queries to GET each night in cron
   const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day');
   const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day');
   const weekStart = moment.utc().subtract(1, 'weeks').startOf('day');
   const monthStart = moment.utc().subtract(1, 'months').startOf('day');
-
 
   getAllStationsDataHourly(yesterdayStart, yesterdayEnd)
     .then((data) => {
@@ -440,7 +437,6 @@ cron.schedule("*/5 * * * *", function() {
     response.pipe(file);
   });
 });
-
 
 //Sound level readings
 cron.schedule("*/15 * * * *", function() {
