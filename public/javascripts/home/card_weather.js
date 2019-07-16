@@ -101,13 +101,13 @@ function initialiseWeatherDisplay() {
   d3.select("#weather-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-12' align='left'>" +
+      "<div class = 'col-7' align='left'>" +
       "Weather Forecast" +
       "</div>" +
-      // "<div class = 'col-6' align='right'>" +
-      // "<div id ='weather-countdown' ></div>" +
-      // //"<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      // "</div>" +
+      "<div class = 'col-5' align='right'>" +
+      "<div id ='weather-countdown' ></div>" +
+      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+      "</div>" +
       "</div>"
     );
 
@@ -150,13 +150,13 @@ function updateWeatherDisplay(f, fTime) {
   d3.select("#weather-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-12' align='left'>" +
-      "Weather Forecast for " + weatherTime(f[0].date) +
+      "<div class = 'col-7' align='left'>" +
+      "Weather " + weatherTime(f[0].date) +
       "</div>" +
-      // "<div class = 'col-4' align='right'>" +
-      // fTimeDisplay + " &nbsp;&nbsp;" +
+      "<div class = 'col-5' align='right'>" +
+      fTimeDisplay +
       // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      // "</div>" +
+      "</div>" +
       "</div>"
     );
 
