@@ -70,6 +70,7 @@ typings/
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
 /public/data/Transport/bikesData.json
+/public/data/Transport/bikesData.json
 /public/data/Stories/Housing/housetype.csv
 
 public/images/.DS_Store
