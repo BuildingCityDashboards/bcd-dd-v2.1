@@ -26,19 +26,19 @@ block content
         h1 Queries
         p.lead Interact with maps and charts to find answers to common questions
         +accordion("one")
-          //+accordion-item("Homes and Housing",  "How much does it cost to live in Dublin? Are homes available?")
+          //- +accordion-item("Homes and Housing",  "How much does it cost to live in Dublin? Are homes available?")
             include queries/homes_housing.pug
           +accordion-item("Getting Around",  "What are my transport options?")
             include queries/getting_around.pug
-          +accordion-item("Dublin Bikes",  "How busy are the Dublin Bikes?")
+          //- +accordion-item("Dublin Bikes",  "How busy are the Dublin Bikes?")
             include queries/dublin_bikes.pug
-          //+accordion-item("Environment Live!", "What's happening in my surroundings?")
+          //- +accordion-item("Environment Live!", "What's happening in my surroundings?")
             p Coming Soon
-          //+accordion-item("Planning Applications", "What have people been trying to build, and where?")
+          //- +accordion-item("Planning Applications", "What have people been trying to build, and where?")
             p Coming Soon                
-          //+accordion-item("Hospital Waiting Lists", "Which hospital has the shortest wait for my procedure?")
-          //include queries_health.pug
-          p Coming Soon
+          //- +accordion-item("Hospital Waiting Lists", "Which hospital has the shortest wait for my procedure?")
+          //- include queries_health.pug
+          //- p Coming Soon
 
 block append scripts
   script(src='/javascripts/accordion.js' type="text/javascript")

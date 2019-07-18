@@ -191,7 +191,7 @@ getAllStationsDataHourly = async (start, end) => {
 };
 
 
-cron.schedule('10 10 * * *', () => {
+cron.schedule('45 10 * * *', () => {
   util.log(`\n\nRunning bikes cron\n\n`);
 
   //Generating date queries to GET each night in cron
