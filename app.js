@@ -191,7 +191,8 @@ getAllStationsDataHourly = async (start, end) => {
 };
 
 
-cron.schedule('2 17 * * *', () => {
+cron.schedule('10 10 * * *', () => {
+  util.log(`\n\nRunning bikes cron\n\n`);
 
   //Generating date queries to GET each night in cron
   const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day');
