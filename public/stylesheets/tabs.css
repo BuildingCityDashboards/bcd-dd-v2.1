@@ -24,7 +24,7 @@
 .tab-charts__row{
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: scroll;
+  overflow-x: hidden;
   position: relative;
   justify-content: space-between;
     /* height: 250px; */
