@@ -11,13 +11,26 @@ let render = function(template, node) {
 let dateShort = d3.timeFormat("%A, %B %d");
 
 var tickClock = function() {
-  let d = new Date();
-  let ampm = d.getHours() >= 12 ? 'PM' : 'AM';
-  let hour12 = (d.getHours() % 12) == 0 ? '12' : d.getHours() % 12;
-  let min = d.getMinutes().toString().padStart(2, '0');
-  let s = d.getSeconds() % 2 == 0 ? ' ' : 'hidden';
-  render(`${hour12}<div style="visibility:${s}">:</div>${min}
-   ${ampm}`, document.getElementById('clock'));
+  let dNew = new Date();
+
+  console.log("New date: " + dNew);
+  let options = {
+    timeZone: 'Europe/Dublin',
+    timeZoneName: 'short',
+    hour12: true,
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric'
+
+  };
+  let d = dNew.toLocaleTimeString('en-GB', options).split('G')[0];
+  console.log("Local time: " + d);
+
+  // let ampm = d.getHours() >= 12 ? 'PM' : 'AM';
+  // let hour12 = (d.getHours() % 12) == 0 ? '12' : d.getHours() % 12;
+  // let min = d.getMinutes().toString().padStart(2, '0');
+  // let s = d.getSeconds() % 2 == 0 ? ' ' : 'hidden';
+  render(`${d}`, document.getElementById('clock'));
   // render("<div class = 'row'>" +
   //   "<div class = 'col-1 card-div'>" +
   //   "</div>" +
