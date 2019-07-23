@@ -7,7 +7,7 @@ const util = require("util");
 require('dotenv').config();
 const cron = require("node-cron");
 const morgan = require('morgan');
-
+// const sm = require('sitemap');
 
 const express = require('express');
 const app = express();
@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // logger.debug("Overriding 'Express' logger");
 app.use(morgan('combined', {
   "stream": logger.stream
+
 }));
 
 
@@ -31,6 +32,45 @@ const stories = require('./routes/stories');
 const tools = require('./routes/tools');
 const queries = require('./routes/queries');
 const api = require('./routes/api');
+
+
+
+// siteMap = sm.createSitemap({
+//   hostname: 'https://dublindashboard-beta.azurewebsites.net/',
+//   cacheTime: 600000, // 600 sec - cache purge period
+//   urls: [{
+//       url: '/themes/',
+//       changefreq: 'daily',
+//       priority: 0.7
+//     },
+//     {
+//       url: '/stories/',
+//       changefreq: 'weekly',
+//       priority: 0.3
+//     },
+//     {
+//       url: '/queries/',
+//       changefreq: 'weekly',
+//       priority: 0.5
+//     },
+//     {
+//       url: '/tools/',
+//     } //img: "http://urlTest.com" }
+//   ]
+//
+// });
+//
+// app.get('/sitemap.xml', function(req, res) {
+//   siteMap.toXML(function(err, xml) {
+//     if (err) {
+//       return res.status(500).end();
+//     }
+//     res.header('Content-Type', 'application/xml');
+//     res.send(xml);
+//   })
+//   // res.header('Content-Type', 'text/html');
+//   // res.send("<h1>Site map response</h1>");
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,7 +83,7 @@ app.set('view engine', 'pug');
 //   path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')));
 // app.use('/javascripts/vendor/jquery', express.static(
 //   path.join(__dirname, 'node_modules', 'jquery', 'dist')));
-// app.use('/javascripts/vendor/popper.js', express.static(
+//https: //github.com/LiamOSullivan/bcd-dd-v2.git// app.use('/javascripts/vendor/popper.js', express.static(
 //   path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
 
 app.use('/', index);
@@ -83,6 +123,10 @@ util.log("\n\nDublin Dashboard Beta App started at " + hour + ":" + min + "\n\n"
 if (process.env.PRODUCTION == 1) {
   util.log("\n\n***Dashboard is in production***\n\n");
 }
+
+
+
+
 
 
 /************
