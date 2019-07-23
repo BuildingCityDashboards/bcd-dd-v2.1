@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/themes</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/stories</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/queries</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/stories/housing-dublin</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/tools</loc>
+  </url>
+  <url>
+    <loc>https://dublindashboard-beta.azurewebsites.net/tools/planning</loc>
+  </url>
+</urlset>
