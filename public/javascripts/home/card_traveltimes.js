@@ -128,10 +128,10 @@ function updateTTDisplay(d__) {
       delayMins < prevLongestDelay ? indicatorDownSymbol : "";
     prevLongestDelay = delayMins;
 
-    let info = "Longest current delay- travelling on the " +
-      "<b>" + name + "</b> " + direction +
+    let info = "Longest current <b>Motorway Delay</b>; travelling on the " +
+      "<b>" + name + " " + direction +
       // " from <b>" + d__["from_name"] + "</b> to <b>" + d__["to_name"] + "</b>" +
-      " is taking <b>" + delayMins + " minutes</b> longer than with free-flowing traffic";
+      "</b> is taking <b>" + delayMins + " minutes</b> longer than with free-flowing traffic";
     updateInfo("#traveltimes-chart a", info);
 
     d3.select("#traveltimes-chart").select('.card__header')
@@ -175,15 +175,15 @@ function updateTTDisplay(d__) {
 
 function updateInfo(selector, infoText) {
 
-  let text = d3.select("#data-text p"),
-    textString = text.text();;
+  let text = d3.select("#data-text p");
+  let textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
 
   d3.select(selector)
     .on("mouseover", (d) => {
       text.html(infoText);
     })
     .on("mouseout", (d) => {
-      text.text(textString);
+      text.html(textString);
     });
 }
 

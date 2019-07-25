@@ -45,6 +45,7 @@
     height: 150px;
     padding: 1rem 0rem;
     color:#f8f8f8;
+    border: 2px solid rgba(0,0,0,0);
     border-radius: 6px;
     /* background: #002035ab;
     border: 1px solid #16c1f37a; */
@@ -60,7 +61,7 @@
 .icon-nav__link--box:hover{
     color: #ffffff;
     border: 2px solid #16c1f37a;
-    box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
+    /* //box-shadow: 0 12px 30px 0 rgba(0,0,0,.2); */
     transition-property: -webkit-box-shadow,-webkit-transform;
     transition-property: box-shadow,transform;
     transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;

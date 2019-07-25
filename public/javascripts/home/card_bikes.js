@@ -99,6 +99,7 @@ function initialiseBikesDisplay() {
 }
 
 function updateBikesDisplay(ab, as, age) {
+  console.log("age: " + age);
   let animateClass = age < prevBikesAgeMins ? "animate-update" : "";
   let bikesAvailableDirection = ab > prevBikesAvailable ? indicatorUpSymbol :
     ab < prevBikesAvailable ? indicatorDownSymbol : "";
@@ -109,6 +110,7 @@ function updateBikesDisplay(ab, as, age) {
   prevBikesAgeMins = age;
   prevBikesAvailable = ab;
   prevStandsAvailable = as;
+
 
   let bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now';
 
@@ -154,15 +156,15 @@ function updateBikesDisplay(ab, as, age) {
 
 function updateInfo(selector, infoText) {
 
-  let text = d3.select("#data-text p"),
-    textString = text.text();;
+  let text = d3.select("#data-text p");
+  let textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
 
   d3.select(selector)
     .on("mouseover", (d) => {
       text.html(infoText);
     })
     .on("mouseout", (d) => {
-      text.text(textString);
+      text.html(textString);
     });
 }
 

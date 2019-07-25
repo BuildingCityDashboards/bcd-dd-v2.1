@@ -146,14 +146,14 @@ function updateWeatherDisplay(f, fTime) {
   }
 
 
-  let weatherTime = d3.timeFormat("%a %_I%p");
+  let weatherTime = d3.timeFormat("%_I%p");
   d3.select("#weather-chart").select('.card__header')
     .html(
       "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      "Weather " + weatherTime(f[0].date) +
+      "<div class = 'col-8 pr-0' align='left'>" +
+      "Weather Forecast for " + weatherTime(f[0].date) +
       "</div>" +
-      "<div class = 'col-5' align='right'>" +
+      "<div class = 'col-4 pl-0' align='right'>" +
       fTimeDisplay +
       // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
       "</div>" +
@@ -177,30 +177,33 @@ function updateWeatherDisplay(f, fTime) {
       '<h3>' +
       '<img src = "/images/Met50v2/15d.png" width="20">' +
       ' ' + f[0].windDir + '</h3>' +
-      '<p>' + parseInt(f[0].windSpeed) + ' mps</p>' +
+      '<p>' + parseInt(f[0].windSpeed) * 3.6 + ' kph</p>' +
       '</div>');
 
-  updateInfo("#weather-chart a", "<b>Met Eireann</b> weather forecast for <b>" +
+  updateInfo("#weather-chart a", "<b>Met Eireann Weather Forecast</b> for <b>" +
     weatherTime(f[0].date) +
-    " </b> is for a temperature of " + parseInt(f[0].temperature) + "C with " +
-    f[0].windDir + " winds of " + parseInt(f[0].windSpeed) + ' mps, ' +
-    f[0].symbolId + " with " +
-    parseInt(f[0].humidity) + "% humidity. Predicted precipitation is " +
-    parseInt(f[0].precip) + " mm.");
+    "</b>; <b>" + parseInt(f[0].temperature) + "&#176C</b>, <b>" +
+    f[0].symbolId.toString().toLowerCase() + "</b> with <b>" +
+    f[0].windDir + " winds</b> of <b>" + parseInt(f[0].windSpeed) * 3.6 + ' kph</b>. ' +
+    "<b>Humidity " +
+    parseInt(f[0].humidity) + "%</b> & <b>precipitation " +
+    f[0].precip + " mm</b>");
 
 }
 
 function updateInfo(selector, infoText) {
 
-  let text = d3.select("#data-text p"),
-    textString = text.text();;
+  let text = d3.select("#data-text p");
+  let textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
+
 
   d3.select(selector)
     .on("mouseover", (d) => {
+      // console.log(textString);
       text.html(infoText);
     })
     .on("mouseout", (d) => {
-      text.text(textString);
+      text.html(textString);
     });
 }
 

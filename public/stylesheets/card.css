@@ -7,9 +7,10 @@
     min-width: 0;
     min-height: 150px;
     word-wrap: break-word;
-    background-color: transparent;
+    background-color: rgba(0,0,0,.3);;
     background-clip: border-box;
-    border: 1px solid;
+    /* border: 1px solid; */
+    border: 2px solid rgba(0,0,0,0);
     border-radius: .25rem;
 
 }
@@ -17,8 +18,8 @@
 .card__header{
     padding: .75rem .5rem;
     margin-bottom: 0px;
-    background-color: rgba(0,0,0,.03);
-    border-bottom: 1px solid rgba(255,255,255,.2);
+    /* background-color: rgba(0,0,0,.03); */
+    /* border-bottom: 1px solid rgba(255,255,255,.2); */
     font-size: .875rem;
 }
 
@@ -49,7 +50,16 @@
 }
 
 .card__link:hover .card, .card__link:focus .card{
-    background: #1d21244d;
+    /* background: #1d21244d; */
+    color: #ffffff;
+    border: 2px solid #16c1f37a;
+    box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
+    transition-property: -webkit-box-shadow,-webkit-transform;
+    transition-property: box-shadow,transform;
+    transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
+    transition-duration: .6s;
+    transition-timing-function: cubic-bezier(.16,1,.29,.99);
+    text-decoration: none;
 }
 
 .card__title{
@@ -59,6 +69,7 @@
 .card__text{
 
   }
+
 .card__icon{
     position: absolute;
     top: .5rem;
@@ -66,9 +77,9 @@
 }
 
 .card__svg{
-    color: var(--vivid-cyan);
-    display: inline-block;
-    vertical-align: middle;
+    /* color: var(--vivid-cyan); */
+    /* display: inline-block; */
+    /* vertical-align: middle; */
 }
 
 .card__g{
@@ -84,11 +95,11 @@
 
 /* border utilities classes, need to add these to a util.css*/
 .border-blue{
-border-color: var(--vivid-cyan);
+/* border-color: var(--vivid-cyan); */
 }
 
 .border-yellow{
-border-color: var(--yellow);
+/* border-color: var(--vivid-cyan); */
 }
 
 .border-red{

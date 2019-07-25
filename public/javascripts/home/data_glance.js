@@ -149,10 +149,10 @@ Promise.all([
     },
     priceIndexChart = new DataGlanceLine(priceIndex);
 
-  updateInfoText("#emp-chart a", "Total Unemployment in Dublin for ", " on previous Quarter", dublinData, columnNames1[1], "label", d3.format(".2s"), true);
-  updateInfoText("#app-chart a", "The Property Price Index for Dublin on ", " on previous Month", date4Filtered, columnNames4[0], "label", locale.format(""));
-  updateInfoText("#apd-chart a", "The total population of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s"));
-  updateInfoText("#huc-chart a", "Monthly House unit completions in Dublin ", " on previous Month", dataSet3, columnNames3[0], "date", d3.format(""));
+  updateInfoText("#emp-chart a", "<b>Total Unemployment</b> in Dublin for ", " on previous quarter", dublinData, columnNames1[1], "label", d3.format(".2s"), true);
+  updateInfoText("#app-chart a", "The <b>Property Price Index</b> for Dublin on ", " on previous month", date4Filtered, columnNames4[0], "label", locale.format(""));
+  updateInfoText("#apd-chart a", "The <b>Total Population</b> of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s"));
+  updateInfoText("#huc-chart a", "<b>Monthly House Unit Completions</b> in Dublin ", " on previous month", dataSet3, columnNames3[0], "date", d3.format(""));
 
 
 }).catch(function(error) {
@@ -476,7 +476,8 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
     lastData = data[data.length - 1],
     previousData = data[data.length - 2],
     text = d3.select("#data-text p"),
-    textString = text.text(),
+    // textString = text.text(),
+    textString = "<b>Hover over these charts for more information, click to go to the data page </b>",
     currentValue = lastData[valueName],
     prevValue = previousData[valueName],
     difference = ((currentValue - prevValue) / currentValue),
@@ -491,7 +492,7 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
   d3.select(selector)
     .on("mouseover", (d) => {
 
-      text.text(startString);
+      text.html(startString).attr("class", "bold-text");
       text.append("span").text(lastElementDate).attr("class", "bold-text");
 
       text.append("text").text(" was ");
@@ -507,7 +508,7 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
       text.append("text").text(" " + endString);
     })
     .on("mouseout", (d) => {
-      text.text(textString);
+      text.html(textString);
     });
 
   d3.select(selector).on("blur", (d) => {
