@@ -39,7 +39,7 @@
     /* background-image: -webkit-linear-gradient(top, rgba(20, 27, 46, 0.15) 0%,rgba(20, 27, 46, 0.3) 10%,rgba(20, 27, 46, 0.25) 60%,#001f35 100%),
                       -webkit-linear-gradient(top, rgba(0,31,53,1) 0%, rgba(20, 27, 46,0) 100%); */
     background-image: -webkit-linear-gradient(top, rgba(20, 27, 46, 0.98) 0%,rgba(20, 27, 46, 0) 10%,rgba(20, 27, 46, 0.14) 50%,#001f35 100%),
-                      -webkit-linear-gradient(top, rgba(0,31,53,1) 0%, rgba(20, 27, 46, 0.7) 100%)
+                      -webkit-linear-gradient(top, rgba(0,31,53,1) 0%, rgba(20, 27, 46, 0.6) 100%)
   }
 
 .content-wrapper--darkblue{
