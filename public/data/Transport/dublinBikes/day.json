@@ -1,0 +1,170 @@
+[
+  {
+    "date": "2019-07-17T03:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1395,
+    "label": "4am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T04:00:03.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1395,
+    "label": "5am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T05:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1396,
+    "label": "6am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T06:00:02.000Z",
+    "Bikes in use": 88,
+    "Bikes available": 1307,
+    "label": "7am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T07:00:02.000Z",
+    "Bikes in use": 248,
+    "Bikes available": 1147,
+    "label": "8am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T08:00:02.000Z",
+    "Bikes in use": 357,
+    "Bikes available": 1038,
+    "label": "9am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T09:00:03.000Z",
+    "Bikes in use": 125,
+    "Bikes available": 1270,
+    "label": "10am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T10:00:02.000Z",
+    "Bikes in use": 119,
+    "Bikes available": 1276,
+    "label": "11am, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T11:00:03.000Z",
+    "Bikes in use": 122,
+    "Bikes available": 1273,
+    "label": "12pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T12:00:02.000Z",
+    "Bikes in use": 186,
+    "Bikes available": 1209,
+    "label": "1pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T13:00:02.000Z",
+    "Bikes in use": 143,
+    "Bikes available": 1252,
+    "label": "2pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T14:00:02.000Z",
+    "Bikes in use": 51,
+    "Bikes available": 1344,
+    "label": "3pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T15:00:03.000Z",
+    "Bikes in use": 119,
+    "Bikes available": 1276,
+    "label": "4pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T16:00:02.000Z",
+    "Bikes in use": 241,
+    "Bikes available": 1154,
+    "label": "5pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T17:00:03.000Z",
+    "Bikes in use": 383,
+    "Bikes available": 1012,
+    "label": "6pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T18:00:02.000Z",
+    "Bikes in use": 231,
+    "Bikes available": 1164,
+    "label": "7pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T19:00:02.000Z",
+    "Bikes in use": 139,
+    "Bikes available": 1256,
+    "label": "8pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T20:00:02.000Z",
+    "Bikes in use": 91,
+    "Bikes available": 1304,
+    "label": "9pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T21:00:02.000Z",
+    "Bikes in use": 51,
+    "Bikes available": 1344,
+    "label": "10pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T22:00:02.000Z",
+    "Bikes in use": 18,
+    "Bikes available": 1377,
+    "label": "11pm, Wednesday July 17th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-17T23:00:02.000Z",
+    "Bikes in use": 23,
+    "Bikes available": 1372,
+    "label": "12am, Thursday July 18th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-18T00:00:02.000Z",
+    "Bikes in use": 7,
+    "Bikes available": 1388,
+    "label": "1am, Thursday July 18th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-18T01:00:03.000Z",
+    "Bikes in use": 3,
+    "Bikes available": 1392,
+    "label": "2am, Thursday July 18th",
+    "year": "2019"
+  },
+  {
+    "date": "2019-07-18T02:00:03.000Z",
+    "Bikes in use": 1,
+    "Bikes available": 1394,
+    "label": "3am, Thursday July 18th",
+    "year": "2019"
+  }
+]
