@@ -244,6 +244,9 @@ a:hover {
 }
 
 .map-holder{
+  height: 400px;
+  width: auto;
+  /* margin: 20px; */
   margin-right: -1rem;
   border-radius: .325rem;
 }

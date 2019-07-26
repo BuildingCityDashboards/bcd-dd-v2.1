@@ -113,7 +113,7 @@
     color: #777;
 }
 
-
+/* TODO: replace these with map-holder */
 
 #chart-water-map {
     /*height: inherit;*/
@@ -171,12 +171,12 @@
     margin: 20px;
 }
 
-#chart-transport-parking {
+/* #chart-transport-parking {
     /*height: inherit;*/
-    height: 400px;
+    /* height: 400px;
     width: auto;
     margin: 20px;
-}
+} */
 
 #chart-environment-map {
     /*height: inherit;*/
