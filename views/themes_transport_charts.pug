@@ -27,11 +27,12 @@ article.article
       p The chart shows the general trend of bikes availability for the past day, week and month- 
         |click on a button to move between views.
 
-
-      div#chart-transport-bikes-figure
-        //- p There are <b id='stations-count'></b> bike stations around 
-          |the city with <b id='stands-count'></b> stands.
-        //- p See also: 
+      div#bikes-info-text
+        p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+        
+        //- bike stations around 
+        //-   |the city with <b id='stands-count'></b> stands.
+        //- //- p See also: 
           li <a href="../queries"> Getting Around</a> for <b>all</b> transport & travel on one map
 
     .col-lg-8
