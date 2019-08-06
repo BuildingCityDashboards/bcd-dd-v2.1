@@ -87,8 +87,7 @@ if (app.get('env') === 'development') {
 /************
  Fetching dublin bikes data via Derilinx API for various time resolutions and spans
  ************/
-
-let bikesQuery = require("./services/get-hourly-data.js");
+let bikesQuery = require("./services/derilinx-api-query.js");
 
 //Every night at 3.45 am
 cron.schedule('45 3 * * *', () => {
