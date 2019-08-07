@@ -471,20 +471,20 @@ function formatQuarter(date) {
 }
 
 function updateInfoText(selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
-  let green = "#20c997",
-    red = "#da1e4d",
-    lastData = data[data.length - 1],
+  let lastData = data[data.length - 1],
     previousData = data[data.length - 2],
-    text = d3.select("#data-text p"),
-    // textString = text.text(),
-    textString = "<b>Hover over these charts for more information, click to go to the data page </b>",
     currentValue = lastData[valueName],
     prevValue = previousData[valueName],
     difference = ((currentValue - prevValue) / currentValue),
-    lastElementDate = lastData[labelName],
+    lastElementDate = lastData[labelName];
+  let green = "#20c997",
+    red = "#da1e4d",
+    text = d3.select("#data-text p"),
+    // textString = text.text(),
+    textString = "<b>Hover over these charts for more information, click to go to the data page </b>",
     cArrow = changeArrrow,
-    indicatorSymbol = difference > 0 ? "▲ " : "▼ ",
-    indicator = difference > 0 ? "Up" : "Down",
+    indicatorSymbol = difference > 0 ? "▲ " : difference < 0 ? "▼ " : " ",
+    indicator = difference > 0 ? "Up" : difference < 0 ? "Down" : " a change of ",
     indicatorColour = cArrow ? difference > 0 ? red : green : difference > 0 ? green : red,
     startString = startText,
     endString = endText;
