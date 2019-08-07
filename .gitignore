@@ -62,6 +62,8 @@ typings/
 
 /nbproject/private/
 
+localhost.crt
+localhost.key
 /public/data/.DS_Store
 /public/data/Environment/met_eireann_forecast.xml
 /public/data/Environment/sound_levels/**
