@@ -8,8 +8,6 @@ let render = function(template, node) {
   return node;
 };
 
-let dateShort = d3.timeFormat("%A, %B %d");
-
 var tickClock = function() {
   let dNew = new Date();
 
@@ -17,15 +15,21 @@ var tickClock = function() {
   let options = {
     timeZone: 'Europe/Dublin',
     timeZoneName: 'short',
-    hour12: true,
-    weekday: 'short',
+    hour12: false,
+    weekday: 'long',
     month: 'short',
     day: 'numeric'
 
   };
   let d = dNew.toLocaleTimeString('en-GB', options).split('G')[0];
+  let day = d.split(',')[0];
+  let date = d.split(',')[1];
+  let time = d.split(',')[2].split(' ')[1];
+  // let meridian = d.split(',')[2].split(' ')[1];
+
   // console.log("Local time: " + d);
-  render(`${d}`, document.getElementById('clock'));
+  render(`${time}<br>`, document.getElementById('clock-time'));
+  render(`${day}<br>${date}`, document.getElementById('clock-day'));
 
 };
 

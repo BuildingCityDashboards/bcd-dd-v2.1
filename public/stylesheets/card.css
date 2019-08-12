@@ -110,13 +110,22 @@ border-color: var(--vivid-red);
 border-color: var(--teal);
 }
 
-
 #clock{
   display: flex;
   font-size: 1.5rem;
   justify-content: center;
+  letter-spacing:1px;
   /* align-self: center; */
   /* align-content:center; */
     /* align-items: center; */
   /* text-align: center; */
 }
+ #clock-time {
+   text-align: left;
+
+ }
+
+ #clock-day {
+   text-align: right;
+   border-right: 1px solid;
+ }
