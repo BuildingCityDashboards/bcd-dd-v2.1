@@ -25,7 +25,7 @@
                   d.label = d.date;
                   d.date = parseYearMonth(d.date);
               });
-              
+
         const chart1D2 = datafiles[1];
               chart1D2Types = chart1D2.columns.slice(2)
               chart1D2.forEach(d=>{
@@ -38,7 +38,7 @@
               chart2D.forEach(d => {
                 d.value = +d.value;
               });
-            
+
         const chart3D = datafiles[3],
             //   chart3K = chart3D.columns.slice(1),
               chart3R = chart3D.columns[1];
@@ -114,8 +114,8 @@
             cA3_2 = [
                     "#d73027",
                     "#4575b4"
-                    ].reverse(),//diverging blue to red 
-                
+                    ].reverse(),//diverging blue to red
+
             cA4 = [
                     "#00929e", //BCD-teal
                     "#ffc20e", //BCD-yellow
@@ -138,17 +138,30 @@
                     ]; // qualitative pastel
 
 
+                    var myarray=new array();
+                    //"red","green","black","blue",
+                    myarray['Detached house']="blue";
+                    myarray['Semi- detached house']="Fuchsia";
+                    myarray['Terraced house']="DarkTurquoise";
+                    myarray['Flat or apartment in a purpose- built block']="DarkOrange";
+                    myarray['Flat or apartment in a converted house or commercial building and bedsits']="Cyan";
+                    myarray['Not stated']="Coral";
+                    myarray['Private']="Beige";
+                    myarray['Social/Voluntary Body']="navy";
+                    myarray['Private Rented']="yellow";
+                    myarray['Not Stated']="AliceBlue";
+
         // nest the processed data by regions
         const nest =  d3.nest().key( d => { return d["region"] ;}).entries(chart1D),
-                
+                console.log(nest);
               // filter out the rest of Ireland fig.
               nestFiltered = nest.filter(
                   d => { return d.key !== "Rest of Ireland"}
               ),
-        
+
         // get array of keys from nest
               keys = nest.map(d => {return(d.key);}),
-            
+
                 chart1C = {
 
                     element: "#chart1",
@@ -163,9 +176,9 @@
               Chart_fig1.titleX = "Months";
               Chart_fig1.titleY = "Price Index (Base 100)";
               Chart_fig1.yScaleFormat = "millions";
-              
+
               Chart_fig1.drawChart();
-              
+
               Chart_fig1.addTooltip("Price Index by Month: ", "thousands", "label");
 
                 d3.select("#chart1 .chart_pop").on("click", function(){
@@ -195,7 +208,8 @@
                     d: chart2D,
                     v: "value",
                     c: cA4,
-                    ySF: "m"
+                    ySF: "m",
+                    marr:myarray;
                  };
 
         const Chart2 = new GroupStackBar(Chart2C);
@@ -211,14 +225,14 @@
 
         const chart4C = chartContent(chart4D, "type", "value", "date", "#chart4", cA1),
               Chart4 = new MultiLineChart(chart4C);
-            
+
               Chart4.titleX = "Years";
               Chart4.titleY = "Property Prices (Euro)";
               Chart4.yScaleFormat = "millions";
 
             //   Chart4.tickNumber = 27;
               Chart4.drawChart();
-              
+
               Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
 
@@ -231,7 +245,7 @@
             Chart5.titleY = "€ ( Billions )";
             Chart5.tickNumber = 6;
             Chart5.yScaleFormat = "millions";
-            
+
             Chart5.drawChart();
             Chart5.addTooltip("Mortgage Debt € - Year:", "millions", "label");
 
@@ -244,7 +258,7 @@
                 c: cA4,
                 ySF:"m"
                 },
-              
+
               Chart6 = new GroupStackBar(Chart6C);
               Chart6.addTooltip("Property Types - Year", "thousands", "label");
 
@@ -257,7 +271,7 @@
                 titles: ["€ ( Millions )", "Years"],
                 cScheme: cA3_2,
                 scaleY: "millions",
-              },    
+              },
               Chart8 = new StackBarChart(chart8C);
               Chart8.addTooltip("Gross Value Added - Year:", "millions", "date");
 
@@ -278,24 +292,24 @@
                     c = +f.properties.DESTDUBLIN,
                     p = pFormat(c/t);
 
-                let popupContent = 
+                let popupContent =
                         "<p style=font-weight:400; font-size:14px;>Of the " +
-                        f.properties.WORKFORCE + 
-                        " workers in this ED (" + 
-                        
+                        f.properties.WORKFORCE +
+                        " workers in this ED (" +
+
                         f.properties.EDNAME +
                         ")*, " +
                         f.properties.DESTDUBLIN +
                         " (" + p +")" +
                         " work in Dublin City**";
-        
+
                 if (f.properties && f.properties.popupContent) {
                     popupContent += f.properties.popupContent;
                 }
-        
+
                 layer.bindPopup(popupContent);
             }
-        
+
             L.geoJSON(datafiles[0], {
                 style: colour,
                 onEachFeature: onEachFeature
@@ -315,24 +329,24 @@
                 let total = +d.WORKFORCE,
                     commute = +d.DESTDUBLIN,
                     percentage = (commute/total);
-                    
+
                 switch (true){
                     case percentage > 0.5:
                         return "#b30000";
                         break;
-                
+
                     case percentage > 0.3:
                         return "#e34a33";
                         break;
-                
+
                     case percentage > 0.1:
                         return "#fc8d59";
                         break;
-                
+
                     case percentage > 0.05:
                         return "#fdcc8a";
                         break;
-                
+
                     default:
                         return "#fef0d9";
                 }
@@ -349,14 +363,14 @@
             d.date = pYear(d[date]);
             d[value] = +d[value];
         });
-    
+
         // nest the processed data by regions
         const nest =  d3.nest().key( d => { return d[key] ;}).entries(data);
-        
+
         // get array of keys from nest
         const keys = [];
               nest.forEach(d => {keys.push(d.key);});
-    
+
         return {
                 element: selector,
                 keys: keys,
@@ -364,7 +378,7 @@
                 value: value,
                 colour: colour,
             }
-    
+
     }
 
     function nestData(data, label, name, value){
