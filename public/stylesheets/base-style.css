@@ -451,7 +451,7 @@ select:hover:not([disabled]) {
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
-.collape {
+.collapse {
   transition: none;
 }
 }

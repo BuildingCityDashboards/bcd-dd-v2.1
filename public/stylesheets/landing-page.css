@@ -43,6 +43,14 @@
   }
 
 .content-wrapper--darkblue{
+    background: var(--dark-blue);
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+}
+
+.content-wrapper--very-dark-blue{
     background: var(--very-dark-blue);
     color: var(--white);
     -webkit-font-smoothing: antialiased;
@@ -58,9 +66,25 @@
     -o-font-smoothing: antialiased;
 }
 
+
+
 .about__header{
     font-size:2rem;
     text-transform:uppercase;
+
+}
+
+
+#about-dd-title #twitter-button{
+  display:flex;
+  align-items: center;
+  justify-content: flex-end;
+
+}
+
+#about-dublin-dashboard{
+  width: 75%;
+  border: 1px solid;
 }
 
 #region__total-population, #region__total-house, #region__total-vacant{
@@ -93,6 +117,8 @@
     visibility: hidden;
 }
 
+
+
 @media (min-width: 576px){
     .hero__title{
         font-size: 2.5rem;
@@ -102,5 +128,7 @@
 @media (min-width: 992px){
     .columns-2{
         column-count: 2;
+
+
     }
 }

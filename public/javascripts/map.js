@@ -72,16 +72,19 @@ function renderMap(root) {
     elementWidth = parentElement.getBoundingClientRect().width,
     aspect = elementWidth / (2 * Math.PI),
     WIDTH = elementWidth,
-    HEIGHT = WIDTH * ((aspect + 55) / 100),
-    scaleValue = aspect * 528,
+    HEIGHT = (WIDTH * (aspect / 100) > 700) ? WIDTH * (aspect / 100) : 700,
+    scaleValue = (aspect * 500) < 41000 ? aspect * 500 : 41000; //controls size of map bounding
 
-    projection = d3
+
+
+  const projection = d3
     .geoMercator()
     .center(center)
     .scale(scaleValue)
-    .translate([WIDTH / 4, HEIGHT / 2]),
+    .translate([WIDTH / 3, HEIGHT / 2]),
 
     path = d3.geoPath().projection(projection);
+  console.log(`scaleValue: ${scaleValue}`);
 
 
   svg.attr("width", WIDTH)
