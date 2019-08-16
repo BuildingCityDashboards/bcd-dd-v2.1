@@ -95,6 +95,7 @@ Promise.all([
 
     d3.select("#dublinbikes_day").on("click", function() {
       activeBtn(this);
+      
       dublinBikesChart.d = dataDay;
       dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
