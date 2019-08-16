@@ -170,7 +170,7 @@ let displayHydronetBounced = _.debounce(displayHydronet, 100); //debounce using 
 /************************************
  * Sound Map
  ************************************/
-let noiseMapIcon = L.icon({
+/*let noiseMapIcon = L.icon({
   iconUrl: '/images/environment/microphone-black-shape.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
@@ -200,7 +200,7 @@ d3.json('/data/Environment/Soundsites.json')
   .then(function(data) {
     //            console.log(data.features);
     processSoundsites(data.sound_monitoring_sites);
-  });
+  });*/
 
 function processSoundsites(data_) {
   //console.log("sound data \n"+ JSON.stringify(data_));
@@ -369,7 +369,7 @@ function getSoundsitePopup() {
 /************************************
  * Air Quality Map
  ************************************/
-let airMapIcon = L.icon({
+/*let airMapIcon = L.icon({
   iconUrl: '/images/environment/water-15.svg',
   iconSize: [30, 30], //orig size
   iconAnchor: [iconAX, iconAY] //,
@@ -389,7 +389,7 @@ let markerRefAir; //TODO: fix horrible hack!!!
 airMap.on('popupopen', function(e) {
   markerRefAir = e.popup._source;
   //console.log("ref: "+JSON.stringify(e));
-});
+});*/
 
 /************************************
  * Button listeners
