@@ -1,36 +1,36 @@
 ﻿date,region ,Total Houses,Private Houses,Social Houses
-2014Q1,Dublin City Centre,112,87,25
-2014Q2,Dublin City Centre,374,374,0
-2014Q3,Dublin City Centre,270,270,0
-2014Q4,Dublin City Centre,158,11,147
-2015Q1,Dublin City Centre,182,64,118
-2015Q2,Dublin City Centre,131,131,0
-2015Q3,Dublin City Centre,181,162,19
-2015Q4,Dublin City Centre,173,123,50
-2016Q1,Dublin City Centre,219,219,0
-2016Q2,Dublin City Centre,281,259,22
-2016Q3,Dublin City Centre,339,328,11
-2016Q4,Dublin City Centre,201,166,35
-2017Q1,Dublin City Centre,192,176,16
-2017Q2,Dublin City Centre,null,null,null
-2017Q3,Dublin City Centre,null,null,null
-2017Q4,Dublin City Centre,null,null,null
-2014Q1,Dun Laoghaire- Rathdown,160,160,0
-2014Q2,Dun Laoghaire- Rathdown,244,242,2
-2014Q3,Dun Laoghaire- Rathdown,100,100,0
-2014Q4,Dun Laoghaire- Rathdown,209,206,3
-2015Q1,Dun Laoghaire- Rathdown,166,166,0
-2015Q2,Dun Laoghaire- Rathdown,190,190,0
-2015Q3,Dun Laoghaire- Rathdown,143,143,0
-2015Q4,Dun Laoghaire- Rathdown,152,151,1
-2016Q1,Dun Laoghaire- Rathdown,328,313,15
-2016Q2,Dun Laoghaire- Rathdown,211,206,5
-2016Q3,Dun Laoghaire- Rathdown,260,212,48
-2016Q4,Dun Laoghaire- Rathdown,380,366,14
-2017Q1,Dun Laoghaire- Rathdown,407,388,19
-2017Q2,Dun Laoghaire- Rathdown,null,null,null
-2017Q3,Dun Laoghaire- Rathdown,null,null,null
-2017Q4,Dun Laoghaire- Rathdown,null,null,null
+2014Q1,Dublin City,112,87,25
+2014Q2,Dublin City,374,374,0
+2014Q3,Dublin City,270,270,0
+2014Q4,Dublin City,158,11,147
+2015Q1,Dublin City,182,64,118
+2015Q2,Dublin City,131,131,0
+2015Q3,Dublin City,181,162,19
+2015Q4,Dublin City,173,123,50
+2016Q1,Dublin City,219,219,0
+2016Q2,Dublin City,281,259,22
+2016Q3,Dublin City,339,328,11
+2016Q4,Dublin City,201,166,35
+2017Q1,Dublin City,192,176,16
+2017Q2,Dublin City,null,null,null
+2017Q3,Dublin City,null,null,null
+2017Q4,Dublin City,null,null,null
+2014Q1,Dun Laoghaire-Rathdown,160,160,0
+2014Q2,Dun Laoghaire-Rathdown,244,242,2
+2014Q3,Dun Laoghaire-Rathdown,100,100,0
+2014Q4,Dun Laoghaire-Rathdown,209,206,3
+2015Q1,Dun Laoghaire-Rathdown,166,166,0
+2015Q2,Dun Laoghaire-Rathdown,190,190,0
+2015Q3,Dun Laoghaire-Rathdown,143,143,0
+2015Q4,Dun Laoghaire-Rathdown,152,151,1
+2016Q1,Dun Laoghaire-Rathdown,328,313,15
+2016Q2,Dun Laoghaire-Rathdown,211,206,5
+2016Q3,Dun Laoghaire-Rathdown,260,212,48
+2016Q4,Dun Laoghaire-Rathdown,380,366,14
+2017Q1,Dun Laoghaire-Rathdown,407,388,19
+2017Q2,Dun Laoghaire-Rathdown,null,null,null
+2017Q3,Dun Laoghaire-Rathdown,null,null,null
+2017Q4,Dun Laoghaire-Rathdown,null,null,null
 2014Q1,Fingal,126,126,0
 2014Q2,Fingal,152,152,0
 2014Q3,Fingal,283,283,0
