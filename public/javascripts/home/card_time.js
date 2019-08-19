@@ -16,7 +16,7 @@ var tickClock = function() {
     timeZone: 'Europe/Dublin',
     timeZoneName: 'short',
     hour12: false,
-    weekday: 'long',
+    weekday: 'short',
     month: 'short',
     day: 'numeric'
 

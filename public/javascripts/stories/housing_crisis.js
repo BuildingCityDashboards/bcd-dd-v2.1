@@ -30,8 +30,9 @@
       });
 
       const chart2D = datafiles[2],
-        chart2Keys = chart2D.columns.slice(2);
-      chart2D.forEach(d => {
+        //chart2Keys = ['date','region','type','value'];
+        chart2Keys = chart2D.columns.slice(4);
+        chart2D.forEach(d => {
         d.value = +d.value;
       });
 
@@ -73,7 +74,7 @@
       const houseRate = chart1D2.filter(d => {
         return d.type === "households";
       });
-      // colors of the Local Autjorites.. 
+      // colors of the Local Autjorites..
       const cA1 = [
           "#00929e", //BCD-teal
           "#ffc20e", //BCD-yellow
@@ -287,7 +288,7 @@
 
       Chart4.addTooltip("House Prices (€) - Year: ", "thousands", "label");
 
-    // strat here 
+    // strat here
      const chart7C = chartContent(chart7D, "region", "value", "date", "#chart7", cA1),
         Chart7 = new MultiLineChart(chart7C);
 
@@ -401,6 +402,29 @@
         onEachFeature: onEachFeature
       }).addTo(map);
 
+      ///--
+      var legend = L.control({position: 'topright'});
+
+  legend.onAdd = function (map) {
+
+  	var div = L.DomUtil.create('div', 'info legend'),
+  		grades = [500, 1500, 2500, 3500, 4500],
+  		labels = [];
+
+  	// loop through our density intervals and generate a label with a colored square for each interval
+  	for (var i = 0; i < grades.length; i++) {
+      console.log(i);
+  		div.innerHTML +=
+  			'<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+  			grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+  	}
+
+  	return div;
+  };
+
+legend.addTo(map);
+      ///--
+
 
       function colour(f) {
         return {
@@ -504,6 +528,15 @@
       })
 
     }
+
+    function getColor(d) {
+	return d > 3500  ? '#b30000' :
+	       d > 3500  ? '#e34a33' :
+	       d > 2500   ? '#fc8d59' :
+	       d > 1500   ? '#fdcc8a' :
+	       d > 500   ?  '#fef0d9' :
+	                  '#FFEDA0';
+}
 
     function activeBtn(e) {
       let btn = e;

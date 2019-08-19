@@ -94,26 +94,30 @@ Promise.all([
     updateTextInfo(dataDay);
 
     d3.select("#dublinbikes_day").on("click", function() {
-      activeBtn(this);
+      activeBtn(this,dublinBikesChart);
       dublinBikesChart.d = dataDay;
-      dublinBikesChart.updateChart();
+      dublinBikesChart.drawChart();
+      //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
+
     });
 
     d3.select("#dublinbikes_week").on("click", function() {
-      activeBtn(this);
-
+    activeBtn(this,dublinBikesChart);
       dublinBikesChart.d = dataWeek;
-      dublinBikesChart.updateChart();
+      dublinBikesChart.drawChart();
+      //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
 
     });
 
     d3.select("#dublinbikes_month").on("click", function() {
-      activeBtn(this);
+      activeBtn(this,dublinBikesChart);
       dublinBikesChart.d = dataMonth;
-      dublinBikesChart.updateChart();
+      dublinBikesChart.drawChart();
+      //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
+
     });
 
   }).catch(function(error) {
@@ -150,12 +154,15 @@ function chartContent(data, key, value, date, selector) {
 
 }
 
-function activeBtn(e) {
+ function activeBtn(e,dublinBikesChart) {
   let btn = e;
+  //var act = e.active ? true : false
+  // newOpacity = active ? 0 : 1;
   $(btn).siblings().removeClass('active');
   $(btn).addClass('active');
-
-}
+  let G_chart=dublinBikesChart;
+  G_chart.updateChart();
+  }
 
 function updateTextInfo(data) {
   //console.log("Bikes data " + JSON.stringify(data) + "\n");

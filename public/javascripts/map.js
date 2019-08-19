@@ -39,7 +39,8 @@ function clickHandler(d, i) {
   let opentext = "",
     localdiff = (getPerChange(d.properties.POPULATION, d.properties.PREVPOPULATION)),
     localdiffIncome = (getPerChange(d.properties.INCOME, d.properties.PREVINCOME));
-  console.log(localdiff, localdiffIncome);
+
+  // console.log(`d: ` + JSON.stringify(d));
 
   d3.selectAll(".local").classed("local-on", false);
   d3.select(this).classed("local-on", true);
@@ -199,3 +200,15 @@ if (screenSize >= 768) {
 } else {
   renderTabs(dublincoco);
 }
+
+// Initialise with one LA chosen
+let clickEvent = new MouseEvent('click', {
+  view: window,
+  bubbles: true,
+  cancelable: true
+});
+
+const ids = ['local1', 'local7', 'local11', 'local16'];
+
+let mapElement = document.getElementById(ids[Math.floor(Math.random() * 4)]);
+mapElement.dispatchEvent(clickEvent);

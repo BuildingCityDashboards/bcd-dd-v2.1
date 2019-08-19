@@ -1,31 +1,36 @@
-class GroupStackBar {
+//var myObj = { "name":"John", "age":30, "car":null };
+//var x = myObj.name;
+//console.log(myObj.name);
 
+console.log('Hi Lares');
+class GroupStackBar {
+      //var colour1 =  d3.scaleOrdinal().range(["red","green","black","blue","AliceBlue","yellow","navy","Beige","Coral","Cyan","DarkOrange","DarkTurquoise","Fuchsia"]);
     constructor(obj){
-      //  console.clear();
-        //console.log('hereffff');
+       //var colour1 =  d3.scaleOrdinal().range(["red","green","black","blue","AliceBlue","yellow","navy","Beige","Coral","Cyan","DarkOrange","DarkTurquoise","Fuchsia"]);
         this.d = obj.d; // the data
+        // console.log(this.d);
         this.e = obj.e; // selector element
         this.k = obj.k; // key
-        //console.log(typeof this.k);
+
         this.ks = obj.ks;
         this.xV = obj.xV; // x value
+        //console.log(this.xV);
         this.yV = obj.yV; // y value
-
         this.cS = obj.cS; // colour scheme
 
         this.tX = obj.tX;
         this.tY = obj.tY;
         this.ySF = obj.ySF || "thousands"; // format for y axis
-
-
-
-                      //var keys = z1.domain().reverse();
-
-
+        this.arr = obj.marr;
+        //console.log(this.k);
         this.drawChart();
 
 
     }
+
+
+
+
 
     drawChart(){
         let c = this;
@@ -33,7 +38,7 @@ class GroupStackBar {
         c.init();
         c.stackData();
         // c.getKeys();
-        // c.drdfawTooltip();
+        // c.drawTooltip();
         c.createScales();//parent once I setup setScales:done and setDomain with switch.
         c.addAxis();
         c.drawGridLines();
@@ -50,12 +55,14 @@ class GroupStackBar {
             m = c.m = {},
             w,
             h,
+            arr,
             bP;
 
         eN = d3.select(c.e).node(),
         eW = eN.getBoundingClientRect().width,
         aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-        c.Scheme = c.cS || d3.schemeBlues[5].slice(1),
+        cScheme = c.cS || d3.schemeBlues[5].slice(1),
+        arr= c.arr,
         bP = 576;
 
         // margins
@@ -75,13 +82,12 @@ class GroupStackBar {
 
         // to remove existing svg on resize
         d3.select(c.e).select("svg").remove();
-               // add the svg to the target element
+
+        // add the svg to the target element
         c.svg = d3.select(c.e)
             .append("svg")
             .attr("width", w + m.l + m.r)
             .attr("height", h + m.t + m.b);
-            //.attr("width", w + m.l + m.r)
-            //.attr("height", h + m.t + m.b);
 
         c.g = c.svg.append("g")
             .attr("transform", "translate(" + m.l + "," + m.t + ")");
@@ -92,17 +98,17 @@ class GroupStackBar {
         c.ease = d3.easeQuadInOut;
 
         // set colour function
-      //  c.colour = d3.scaleOrdinal(c.cScheme); The Original Script
-       c.colour = d3.scaleOrdinal().range(["#375073", "#6794D3  ", "#5981B8  ", "#486895  ", "#375073  ", "#2A3D58" ]);
-       c.colour2 = d3.scaleOrdinal().range(["#FEFFBE", "#FDFF98", "#FDFF77", "#FCFF46", "#FAFD24", "#FBFF07" ]);
+       // c.colour = d3.scaleOrdinal(c.cScheme); The Original Script
 
+       //c.colour =  d3.scaleOrdinal().range(["red","green"]);
+       c.colour = d3.scaleOrdinal().range(["#FEFFBE", "#FDFF98", "#FDFF77", "#FCFF46", "#FAFD24", "#FBFF07" , "#2A3D58 ", "#67cdf0", "#000033", "#381CC2", "#000932"]);
+       c.colour2 = d3.scaleOrdinal().range(["#FEFFBE", "#FDFF98", "#FDFF77", "#FCFF46", "#FAFD24", "#FBFF07" , "#2A3D58 ", "#67cdf0", "#000033", "#381CC2", "#000932"]);
+       c.colour3 = d3.scaleOrdinal().range(["#790001", "#67cdf0  ", "#000033  ", "#381CC2  ", "#000932", "#002Cd2" ]);
+       c.colour4 = d3.scaleOrdinal().range(["#11099C", "#CD2300", "#C7DD00", "#FCFF46", "#FAFD24", "#FBFF07" ]);
 
-        //--
-
-
-
-        //--
-
+       //var T.color=d3.scaleOrdinal().range(["blue"]);
+       //var wk=w.color.domain();
+       //var z3=w.color;
 
         // // tick numbers
         // c.tickNumber = "undefined";
@@ -112,19 +118,17 @@ class GroupStackBar {
 
         c.bisectDate = d3.bisector( (d) => { return d[c.xV]; } ).left;
 
+        //console.log(c.bisectDate);
         // c.yAxisCall = d3.axisLeft();
 
         // c.xAxisCall = d3.axisBottom();
 
         c.drawTooltip();
 
-
  }
 
     addAxis(){
         let c = this,
-
-
             g = c.g,
             gLines,
             xLabel,
@@ -136,19 +140,97 @@ class GroupStackBar {
             c.xAxis = g.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", "translate(0," + c.h +")");
+                //.orient("bottom").ticks(5);
+              //  .call(c.xAxis)
+            //  .selectAll("text")
+          //  .style("text-anchor", "end")
+            //.attr("x", c.w/4)
+            //.attr("y", c.h + 60)
+            //.text(c.d.map(d => { return d.date;}))
+            //.attr("transform", "rotate(120)");
+
+
+/*var myarray=new array();
+//"red","green","black","blue",
+myarray['Detached house']="blue";
+myarray['Semi- detached house']="Fuchsia";
+myarray['Terraced house']="DarkTurquoise";
+myarray['Flat or apartment in a purpose- built block']="DarkOrange";
+myarray['Flat or apartment in a converted house or commercial building and bedsits']="Cyan";
+myarray['Not stated']="Coral";
+myarray['Private']="Beige";
+myarray['Social/Voluntary Body']="navy";
+myarray['Private Rented']="yellow";
+myarray['Not Stated']="AliceBlue";*/
+
+
+
+
+
+
+
+
+
+
+
+
+           var darray =
+           ['2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016',
+           '2002',
+           '2006',
+           '2011',
+           '2016'];
+
+
+          /* for (let i = 0; i < darray.length; i++)
+           {
+              console.log(darray[i]);
+            }*/
+   //console.log(darray);
 
             c.yAxis = g.append("g")
                 .attr("class", "y-axis");
 
             // X title
-           xLabel = g.append("text")
-
+            /*xLabel = g.append("text")
                 .attr("class", "titleX")
-                .attr("x", c.w/2)
-                .attr("y", c.h + 60)
-                .attr("text-anchor", "middle");
-                //.text(c.tX);
+                .attr("x", 0)
+                //.data(darray)
+                .attr("y", 280)
+                .attr("transform", "translate(0," + c.h +")")
+                .attr("text-anchor", "left").attr("transform", "rotate(0)")
+                .style('font-size', '12px')
+                .text(function() {var i;
+                  for (i = 0; i < darray.length; i++) {
+                     return darray[i];
+                    }
+                  }
+                );
 
+                // .rotate(-45);
             // Y title
             yLabel = g.append("text")
                 .attr("class", "titleY")
@@ -156,7 +238,7 @@ class GroupStackBar {
                 .attr("y", -45)
                 .attr("text-anchor", "middle")
                 .attr("transform", "rotate(-90)")
-                .text(c.tY);
+                .text(c.tY);*/
     }
 
     drawTooltip(){
@@ -171,15 +253,14 @@ class GroupStackBar {
             c.colour.domain(c.d.map(d => { return d[c.k]; }));
             keys = c.colour.domain();
 
-            //c.colour2.domain(c.d.map(d => { return d[c.k]; }));
-            //keys = c.colour2.domain();
-
-            //keys = c.colour2.domain();
-
             //--
             c.colour2.domain(c.d.map(d => { return d[c.k]; }));
-             keys2 = c.colour2.domain();
+            keys2 = c.colour2.domain();
 
+
+            //colour1.domain(c.d.map(d => { return d[c.k]; }));
+            //keys = colour1.domain();
+            //var z3 = colour1;
             //--
 
             c.newToolTip = d3.select(c.e)
@@ -197,12 +278,10 @@ class GroupStackBar {
 
             divHeaders
                 .append("span")
-                .attr("fill", 'red')
                 .attr("class", "bcd-rect");
 
             pHeader = divHeaders
                 .append("p")
-                .attr("fill", 'red')
                 .attr("class","bcd-text");
 
             pHeader
@@ -213,7 +292,6 @@ class GroupStackBar {
             pHeader
                 .append("span")
                 .attr("class","bcd-text-value")
-                //.style("fill", 'red')
                 .text("Value");
 
             pHeader
@@ -235,14 +313,43 @@ class GroupStackBar {
                 div = c.newToolTip
                         .append("div")
                         .attr("id", "bcd-tt" + i);
+
+
+
+
                 div.append("span").attr("class", "bcd-rect");
+
                 p = div.append("p").attr("class","bcd-text");
+
+                p.append("span").attr("class","bcd-text-title");
+                p.append("span").attr("class","bcd-text-value");
+                p.append("span").attr("class","bcd-text-slice");
+                //p.append("span").attr("class","bcd-text-rate");
+                //p.append("span").attr("class","bcd-text-indicator");
+            });
+
+
+            keys2.forEach( (d, i) => {
+                div = c.newToolTip
+                        .append("div")
+                        .attr("id", "bcd-tt" + i);
+
+
+
+
+                div.append("span").attr("class", "bcd-rect");
+
+                p = div.append("p").attr("class","bcd-text");
+
                 p.append("span").attr("class","bcd-text-title");
                 p.append("span").attr("class","bcd-text-value");
                 p.append("span").attr("class","bcd-text-slice");
                 // p.append("span").attr("class","bcd-text-rate");
                 // p.append("span").attr("class","bcd-text-indicator");
             });
+
+
+
 
         let lastDiv = c.newToolTip.append("div")
                     .attr("id", "bcd-tt-total"),
@@ -276,31 +383,40 @@ class GroupStackBar {
             groupData,
             stack = d3.stack();
 
+            //console.log(c.d);
             c.colour.domain(data.map(d => { return d.type; }));
             keys = c.colour.domain();
 
-            c.colour2.domain(data.map(d => { return d.type; }));
-            keys2 = c.colour.domain();
+          //  colour1.domain(data.map(d => { return d.type; }));
+          //  keys = colour1.domain();
+          //  c.colour2.domain(data.map(d => { return d.type; }));
+        ///    keys2 = c.colour2.domain();
 
-          groupData = d3.nest()
-                .key(d => { return  d.date + d.region })
+
+
+            groupData = d3.nest()
+                .key(d => { return d.date + d.region; })
                 .rollup((d, i) => {
-
-
                     const d2 = {
                         date: d[0].date,
                         region: d[0].region
-                    }
-
+                    };
                     d.forEach(d => {
-                    d2[d.type] = d.value;
+                        d2[d.type] = d.value;
                     });
                 return d2;
                 })
                 .entries(data)
                 .map(d => { return d.value; });
 
-            c.stackD = stack.keys(keys)(groupData)
+              //let ndata= [];
+              //let groupbyreg = d3.nest()
+            //        .key(d => { d.region; })
+            //        .entries(ndata);
+
+              //  console.log(ndata);
+
+            c.stackD = stack.keys(keys)(groupData);
             c.keys = keys.reverse();
             c.gData = groupData;
 
@@ -319,11 +435,11 @@ class GroupStackBar {
 
         yAxisCall = d3.axisLeft();
         xAxisCall = d3.axisBottom();
-        xt = c.getElement(".titleX").text(c.tX);
+        //xt = c.getElement(".titleX").text(c.tX);
         yt = c.getElement(".titleY").text(c.tY);
 
         x0 = d3.scaleBand()
-                .range([10, c.w])
+                .range([0, c.w])
                 .padding(0.05),
 
         x1 = d3.scaleBand()
@@ -332,9 +448,10 @@ class GroupStackBar {
         y = d3.scaleLinear()
                 .range([c.h, 0]);
 
-        x0.domain(c.d.map(d => { return d.date; }));
+        x0.domain(c.d.map(function (d) { return d.region; }));
 
-        x1.domain(c.d.map(d => { return d.region; }))
+        //x1.domain(c.d).rangeRound([0, x0.bandwidth()]);
+        x1.domain(c.d.map(d => { return d.date; }))
             .rangeRound([0, x0.bandwidth()])
             .padding(0.2);
 
@@ -342,9 +459,7 @@ class GroupStackBar {
             c.stackD, d => { return d3.max(d, d => { return d[0]; });
             })]).nice();
 
-        xAxisCall.scale(x0)
-        //.tickFormat(function(d) { return d.date; });
-        //.orient("bottom");
+        xAxisCall.scale(x1);
         c.ySF ? yAxisCall.scale(y).tickFormat(formatValue(c.ySF) ) : yAxisCall.scale(y);
         // c.yAxisCall.scale(y);
 
@@ -381,133 +496,270 @@ class GroupStackBar {
     }
 
     drawStack(){
-
         let c = this,
             data = c.stackD,
             g = c.g,
             z = c.colour,
+            z2 = c.colour2,
             x0 = c.x0,
             x1 = c.x1,
             y = c.y;
 
 
-            let co1=['#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848'];
-            let wkc=['#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e'];
-            let Fic=['#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff'];
-            let Mec=['#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978'];
-            let kic=['#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df'];
-            let Dlc=['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'];
-            let SDc=['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'];
-
-            var z1 = d3.scaleOrdinal()
-                .range(co1);
-            var z2 = d3.scaleOrdinal()
-                    .range(wkc);
-            var z3=d3.scaleOrdinal()
-                    .range(Fic);
-            var z4=d3.scaleOrdinal()
-                   .range(Mec);
-            var z5=d3.scaleOrdinal()
-                          .range(kic);
-
-            var z6=d3.scaleOrdinal()
-                        .range(Dlc);
-
-            var z7=d3.scaleOrdinal()
-                        .range(SDc);
-
-            z1.domain(c.stackD.map(function(d) { return d.type}))
-            z2.domain(c.stackD.map(function(d) { return d.type}))
-            z3.domain(c.stackD.map(function(d) { return d.type}))
-            z4.domain(c.stackD.map(function(d) { return d.type}))
-            z5.domain(c.stackD.map(function(d) { return d.type}))
-            z6.domain(c.stackD.map(function(d) { return d.type}))
-            z7.domain(c.stackD.map(function(d) { return d.type}))
 
 
             c.series = g.selectAll(".series")
                     .data(data)
                     .enter().append("g")
                     .attr("class", "series")
-                    .attr("fill", (g) =>  {
-                     return z(g.key);
-                   })
-
-
-                     .each(function(d)  {
-                       //console.log(d);
-                     })
+                    //.attr("fill", d => {
+                    //  console.log(d);
+                      //console.log(z);
+                    //  return z[d.key]})
                     .attr("width", x1.bandwidth())
                     .style("fill-opacity", 0.75)
                     .on("click", (d, i) => {
-                   //console.log("series-rect click d", i, d);
-                    }
-                  );
+                    console.log("series-rect click d", i,d);
+                    });
+
 
 
             c.series.selectAll("rect")
                     .data(d => {
-
+                      //console.log(d);
                         return d;
                     }).enter()
                     .append("rect")
                         .attr("class", "series-rect")
                         .attr("transform", d =>  {
-                            return "translate(" + x0(d.data.date) + ",0)";
+                            return "translate(" + x0(d.data.region) + ",0)";
                         })
                         .attr("x", d =>  {
-                            return x1(d.data.region);
+                            return x1(d.data.date);
                         })
                         .attr("y", d =>  {
-                        //  console.log(d[1]);
                             return y(d[1]);
                         })
                         .attr("height", d =>  {
                             return y(d[0]) - y(d[1]);
                         })
                         .attr("width", x1.bandwidth())
-
+                      //  .style("fill", (d, i) => {
+                    ///      if (i==10)
+                  //        {
+                            //console.log(d.key);
+                          //return z(d.key);
+                    //      }
+                    //    })
                         .style("fill-opacity", 0.75)
 
                         .on("click", (d, i) => {
-                           //console.log("series-rect click d", i, d);
-                        })
+                        //console.log("series-rect click d", i, d);
+                        });
 
-                          c.series.selectAll("rect")
-                          .filter(function(d,i)
-                          { return i < 7  })
-                          .attr("fill",function(i) {
-                           return z1(i)});
 
-                          c.series.selectAll("rect")
-                          .filter(function(d,i) {return i > 3  && i < 8 })
-                          .attr("fill", function(i) {
-                           return z2(i)});
+                        c.series.selectAll("rect")
+                            //.filter(function(d, i) { return i == 0 })
+                            // .attr('fill', (d, i) => {
+                            //   console.log(i + '--'+ d.key);
+                            //   return z(d.key)})
+                             .attr("width", x1.bandwidth())
+                            .style("fill-opacity", 0.75)
+                            .on("click", (d, i) => {
+                                console.log("series-rect click d", i, d);
+                            });
 
-                           c.series.selectAll("rect")
-                           .filter(function(d,i) {return i > 7  && i < 12  })
-                           .attr("fill", function(i) {
-                            return z3(i)});
 
-                            c.series.selectAll("rect")
-                            .filter(function(d,i) {return i > 11  && i < 16  })
-                            .attr("fill", function(i) {
-                             return z4(i)});
+                   /*    c.series.selectAll("rect")
+                        .filter(function(d, i) { return i == 0 })
+                         .attr('fill', 'red')
+                         .attr("width", x1.bandwidth())
+                        .style("fill-opacity", 0.75)
+                        .on("click", (d, i) => {
+                            console.log("series-rect click d", i, d);
+                        });*/
 
-                             c.series.selectAll("rect")
-                             .filter(function(d,i) {return i > 15  && i < 20  })
-                             .attr("fill", function(i) {
-                              return z5(i)});
+              /*          c.series.selectAll("rect")
+                        .each(function (d, i) {
+         if (i === 1) {
+           // put all your operations on the second element, e.g.
+           d3.select(this).attr('fill', 'red');
+         }
+       });*/
 
-                              c.series.selectAll("rect")
-                              .filter(function(d,i) {return i > 19  && i < 24  })
-                              .attr("fill", function(i) {
-                               return z6(i)});
 
-                               c.series.selectAll("rect")
-                               .filter(function(d,i) {return i > 23  && i < 28   })
-                               .attr("fill", function(i) {
-                                return z7(i)});
+
+                      /*  .filter(function(d) {
+                         //for (let k=0; k< 5; k++)
+                        //return i < 4})
+
+                        .attr('fill', d =>  {return z(d.key);
+                        })*/
+
+
+          /*               c.series.selectAll("rect")
+                        .data(data)
+                        .each(function (d, i) {
+                      if (i < 4 ) {
+                      var that = this;
+                     (  function () {
+                     d3.select(that).attr("fill", 'red')
+               }
+                 )();
+                  }
+
+
+
+
+                }
+              );
+                  c.series.selectAll("rect")
+              //   .data(data)
+                 .each(function (d,i) {
+                  if (i > 3  && i < 8) {
+                  var that = this;
+                 (  function () {
+
+                 d3.select(that).attr("fill","blue")
+           }
+             )();
+              }
+            }
+          );
+
+          c.series.selectAll("rect")
+      //   .data(data)
+         .each(function (d,i) {
+          if (i > 7  && i < 12) {
+          var that = this;
+         (  function () {
+
+         d3.select(that).attr("fill","lightblue")
+   }
+     )();
+      }
+    }
+  );
+
+
+  c.series.selectAll("rect")
+//   .data(data)
+ .each(function (d,i) {
+  if (i > 11  && i < 16) {
+  var that = this;
+ (  function () {
+
+ d3.select(that).attr("fill","yellow")
+}
+)();
+}
+}
+);
+
+c.series.selectAll("rect")
+//   .data(data)
+.each(function (d,i) {
+if (i > 15  && i < 20) {
+var that = this;
+(  function () {
+
+d3.select(that).attr("fill","Coral")
+}
+)();
+}
+}
+);
+
+c.series.selectAll("rect")
+//   .data(data)
+.each(function (d,i) {
+if (i > 19  && i < 24) {
+var that = this;
+(  function () {
+
+d3.select(that).attr("fill","Cyan")
+}
+)();
+}
+}
+);
+
+c.series.selectAll("rect")
+//   .data(data)
+.each(function (d,i) {
+//console.log(d[0]);
+if (i > 23  && i < 28) {
+var that = this;
+(  function () {
+
+d3.select(that).attr("fill","green")
+}
+)();
+}
+}
+);*/
+
+
+
+                            /*.attr('fill', d =>  {
+                              //console.log(d.key);
+                              return z(d.key); })
+
+                        return i < 4})
+                        .attr('fill', d =>  {
+                          //console.log(d.key);
+                          return z(d.key); })*/
+
+                        /*c.series.selectAll("rect")
+                        .filter(function(d, i) {
+                        return i > 7 && i < 12})
+                        .attr('fill', 'blue');
+
+                        c.series.selectAll("rect")
+                        .filter(function(d, i) {
+                        return i > 11 && i < 16})
+                        .attr('fill', 'brown');
+
+                        c.series.selectAll("rect")
+                        .filter(function(d, i) {
+                        return i > 15 && i < 20})
+                        .attr('fill', 'black');
+
+                        c.series.selectAll("rect")
+                        .filter(function(d, i) {
+                        return i > 19 && i < 24})
+                        .attr('fill', 'yellow');
+
+                        c.series.selectAll("rect")
+                        .filter(function(d, i) {
+                        return i > 23 && i < 28})
+                        .attr('fill', 'navy');*/
+
+
+                         //.attr('fill', 'green');
+                         //c.series.selectAll("rect")
+                         //.filter(function(d, i) { return i == 1 })
+                        //  .attr('fill', 'green');
+                        //  c.series.selectAll("rect")
+                      //    .filter(function(d, i) { return i == 2 })
+                        //   .attr('fill', 'blue');
+                        //   c.series.selectAll("rect")
+                          // .filter(function(d, i) { return i == 3 })
+                        //    .attr('fill', 'green');
+                        //    c.series.selectAll("rect")
+                        //    .filter(function(d, i) { return i == 4 })
+                      //       .attr('fill', 'red');
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -526,8 +778,8 @@ class GroupStackBar {
             .attr("transform", d =>  {
                 const d1 = d[d.length - 1];
                 return "translate("
-                    + (x0(d1.data.date)
-                    + x1(d1.data.region)
+                    + (x0(d1.data.region)
+                    + x1(d1.data.date)
                     + x1.bandwidth())
                     + ","
                     + ((y(d1[0])
@@ -577,8 +829,9 @@ class GroupStackBar {
 
     mousemove(d){
         let c = this,
-            x = c.x0(d.data.date) + c.x1(d.data.region),
+            x = c.x0(d.data.region) + c.x1(d.data.date),
             y = 100,
+
             total = 0,
             tooltipX = c.getTooltipPosition(x),
             bisect = d3.bisector(function(d) { return d.date; }).left,
@@ -600,7 +853,7 @@ class GroupStackBar {
 
             c.keys.forEach( (reg,idx) => {
                     // total += d.data[reg];// for the last text total;
-
+            //    console.log("total value is", total);
 
             let id = "#bcd-tt" + idx,
                 div = c.newToolTip.select(id),
@@ -619,22 +872,7 @@ class GroupStackBar {
                                                 : rV > 0 ? "#20c997" : rV < 0 ? "#da1e4d"
                                                 : "#f8f8f8";
 
-                c.newToolTipTitle.text(c.ttTitle + " " + (d.data.date) + " " + d.data.region );
-                /*let f= d.data.region;
-                console.log(f);
-                if (f =='Fingal')
-                {
-                 c.colour=c.colour2;
-                 div.select(".bcd-rect").style("background-color", c.colour2(reg));
-                }
-
-                if (f !=='Fingal')
-                {
-                 c.colour=c.colour;
-                 div.select(".bcd-rect").style("background-color", c.colour(reg));
-               }*/
-
-
+                c.newToolTipTitle.text(c.ttTitle + " " + (d.data.date) + '---'+ (d.data.region));
 
                 div.style("opacity", 1);
                 div.select(".bcd-rect").style("background-color", c.colour(reg));
@@ -643,7 +881,6 @@ class GroupStackBar {
                 // p.select(".bcd-text-rate").text((rate));
                 // p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
                 p.select(".bcd-text-slice").text(slice);
-                c.colour2=c.colour;
 
         });
 
@@ -661,11 +898,11 @@ class GroupStackBar {
             // show right
             if ( mouseX < cW) {
                 ttX = mouseX + dv.m.l + dv.x1.bandwidth()*2;
-                //console.log("tt pos", cW, ttX, mouseX);
+              //  console.log("tt pos", cW, ttX, mouseX);
             }
             else{
                 ttX = (mouseX + dv.m.l + dv.x1.bandwidth()) - dv.ttWidth;
-                //console.log("tt pos", mouseX);
+              //  console.log("tt pos", mouseX);
             }
 
             return ttX;
@@ -752,6 +989,4 @@ function textWrap(text, width, xpos = 0, limit=3) {
             }
         }
     });
-    //  console.clear();
 }
-  // console.clear();
