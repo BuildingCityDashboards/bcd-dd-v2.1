@@ -84,7 +84,7 @@ function renderMap(root) {
     .translate([WIDTH / 3, HEIGHT / 2]),
 
     path = d3.geoPath().projection(projection);
-  console.log(`scaleValue: ${scaleValue}`);
+  // console.log(`scaleValue: ${scaleValue}`);
 
 
   svg.attr("width", WIDTH)

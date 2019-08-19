@@ -1,7 +1,7 @@
 .row
-  #dublin-text.col-lg-7.col-md-6
-    h2.about__header.py-3.my-3 About Dublin
-    .columns-2
+  #dublin-text.col-lg-8.col-md-6.py-5.pl-5
+    h2.about__header About Dublin
+    .columns-2.pb-3
       p#region__open Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
         |It covers a total area of 
         span#region__area xxx.xx km2. 
@@ -9,7 +9,7 @@
         span#region__population x,xxx,xxx 
         |people with a median age of 
         span#region__age xx.x 
-        |and a median household income of 
+        | years and a median household income of 
         span#region__income €xx.xx.
       p In 2016, the population of Dublin 
         span#region__populationIndicator declined/increased 
@@ -19,16 +19,23 @@
         span#region__population xxxxxx 
         |, a 
         span#region__populationChange x.xx% decrease/increase 
-        |  and its median household income 
-        span#region__incomeIndicator grew/shrunk 
-        |from 
-        span#region__income__prev €xx.xx 
-        |to 
-        span#region__income €xx.xx
-        |, a 
-        span#region__income__change x.xx% decrease/increase
+        //- |  and its median household income 
+        //- span#region__incomeIndicator grew/shrunk 
+        //- |from 
+        //- span#region__income__prev €xx.xx 
+        //- |to 
+        //- span#region__income €xx.xx
+        //- |, a 
+        //- span#region__income__change x.xx% decrease/increase
         |.
-      p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. 
+      p There are four local authorities whose remit collectively encompasses the 
+        |geographic area of the county and city of Dublin.
+      .row.help-text
+        .div.col-2.pr-0
+          img(src="/images/icons/tap.svg" width="35px" alt="Image to click")  
+        .div.col-10.pl-0
+          p Interact with the map to select the various local authoirties 
+           |and to display information below. 
       
       //- .col-md-6
       //-   h3 Dublin County
@@ -45,11 +52,11 @@
       <button type="button" class="btn btn-bcd" value="">Test</button>
       <button type="button" class="btn btn-bcd" value="">Test</button>
       <button type="button" class="btn btn-bcd" value="">Test</button>
-    .lp-map__compare.py-5
+    .lp-map__compare
       h3 
         span#local__title   Dublin
-      .columns-2
-        p
+      .columns-2.m-0
+        p.m-0
           span#local__open Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
           |It covers a total area of 
           span#local__area xxx.xx km2.
@@ -57,9 +64,11 @@
           | has a total population of 
           span#local__total-poualtion x,xxx,xxx 
           |people with a median age of 
-          span#local__age xx.x 
-          |and a median household income of 
-          span#local__income €xx.xx.
+          span#local__age xx.x
+          |years. 
+          //- |and a median household income of 
+          //- span#local__income €xx.xx
+          //- |.
         p In 2016 the population of 
           span#local__title__small Dublin
           span#local__populationIndicator declined/increased 
@@ -69,18 +78,18 @@
           span#local__curPopulation xxxxxx 
           |, a 
           span#local__populationChange x.xx% decrease/increase 
-          |  and its median household income 
-          span#local__incomeIndicator grew/shrunk 
-          |from 
-          span#local__income__prev €xx.xx 
-          |to 
-          span#local__income €xx.xx
-          |, a 
-          span#local__income__change x.xx% decrease/increase
+          //- |  and its median household income 
+          //- span#local__incomeIndicator grew/shrunk 
+          //- |from 
+          //- span#local__income__prev €xx.xx 
+          //- |to 
+          //- span#local__income €xx.xx
+          //- |, a 
+          //- span#local__income__change x.xx% decrease/increase
           |.
 
   // map holder
-  .py-3.col-lg-5.col-md-6.d-sm-none.d-md-block
+  .py-1.col-lg-4.col-md-6.d-sm-none.d-md-block
     //- p Click on the map to see info about each of the local authorities.
     #map__container 
     //-( viewBox="-80 80 400 400")
