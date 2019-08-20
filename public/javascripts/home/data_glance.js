@@ -134,6 +134,7 @@ Promise.all([
     let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
     if (screenSize >= 768) {
       renderMap(dublincoco);
+      mapElement.dispatchEvent(clickEvent);
     } else {
       renderTabs(dublincoco);
     }
