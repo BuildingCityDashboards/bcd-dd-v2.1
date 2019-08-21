@@ -322,6 +322,13 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+#search-results{
+  position: fixed;
+  top: 3.5rem;
+  right: 60px;
+  z-index: 9999;
+}
+
 
 /* side navigaton dots */
 
