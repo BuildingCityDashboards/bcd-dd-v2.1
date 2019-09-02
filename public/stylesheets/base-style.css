@@ -115,6 +115,17 @@ a:hover {
   padding-bottom: 75px;
 }
 
+
+.up-arrow{
+  fill: green;
+  color: green;
+}
+
+.down-arrow{
+  fill: red;
+  color: red;
+}
+
 /* charts */
 
 .chart{
@@ -283,6 +294,11 @@ a:hover {
 #population{
   padding-top: 100px;
   margin-top: -100px;
+}
+
+.chart-holder{
+  padding-top: 100px;
+  margin-top: -100px;  
 }
 
 /* Colour Utilities Classes */

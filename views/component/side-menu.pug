@@ -18,11 +18,14 @@ mixin nav-dropdown(name, link)
             each val, key in subLinks
                 +dropdown-item(key, val, link) 
         
+
 form(class="form-inline float-right search-box")
-    input(class="search-box__input" type="search" placeholder="Search" aria-label="Search")
+    input(class="search-box__input" type="text" id="site-search" onkeyup="searchSite()" placeholder="Search" aria-label="Search")
 button.side-menu__toggler.side-menu__right.search__trigger
     .menu-button
         img(height='20px' width='20px' class="float-right" title="Click to open search box" src="../images/magnifying-glass.svg")
+
+
 
 button.side-menu__toggler.s-m__trigger.side-menu__left
     .menu-button
@@ -45,3 +48,8 @@ nav.side-menu
             p.side-menu__p Dashboards
 
 .side-menu__overlay.s-m__trigger
+  
+#search-results.p
+  
+append scripts
+  script(src="/lib/d3v5/d3.js" type="text/javascript")

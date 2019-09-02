@@ -9,8 +9,14 @@ const updateBikesCountdown = function() {
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000);
 let prevBikesAgeMins, prevBikesAvailable, prevStandsAvailable;
-let indicatorUpSymbol = "▲",
-  indicatorDownSymbol = "▼";
+let indicatorUpSymbol = "<span class='up-arrow'>▲</span>",
+  indicatorDownSymbol = "<span class='down-arrow'>▼</span>",
+  prevBikesAvailableDirection = "▶",
+  prevStandsAvailableDirection = "▶",
+  prevBikesTrendString = "(no change)",
+  prevStandsTrendString = "(no change)";
+
+// indicatorUpSymbol.style.color = 'green';
 
 const fetchBikesData = function() {
   d3.json('/api/dublinbikes/stations/all/snapshot') //get latest snapshot of all stations
@@ -99,20 +105,37 @@ function initialiseBikesDisplay() {
 }
 
 function updateBikesDisplay(ab, as, age) {
-  console.log("age: " + age);
+  //console.log("age: " + age);
   let animateClass = age < prevBikesAgeMins ? "animate-update" : "";
+
   let bikesAvailableDirection = ab > prevBikesAvailable ? indicatorUpSymbol :
-    ab < prevBikesAvailable ? indicatorDownSymbol : "";
+    ab < prevBikesAvailable ? indicatorDownSymbol : prevBikesAvailableDirection;
+
+  let bikesTrendDelta = Math.abs(prevBikesAvailable - ab);
+  let bikesTrendString = ab > prevBikesAvailable ? `(${indicatorUpSymbol} Up ${bikesTrendDelta})` :
+    ab < prevBikesAvailable ? `(${indicatorDownSymbol} Down ${bikesTrendDelta})` : prevBikesTrendString;
 
   let standsAvailableDirection = as > prevStandsAvailable ? indicatorUpSymbol :
-    as < prevStandsAvailable ? indicatorDownSymbol : "";
+    as < prevStandsAvailable ? indicatorDownSymbol : prevStandsAvailableDirection;
+
+  let standsTrendDelta = Math.abs(prevStandsAvailable - as);
+  let standsTrendString = as > prevStandsAvailable ? `(${indicatorUpSymbol} Up ${standsTrendDelta})` :
+    as < prevStandsAvailable ? `(${indicatorDownSymbol} Down ${standsTrendDelta})` : prevStandsTrendString;
 
   prevBikesAgeMins = age;
-  prevBikesAvailable = ab;
-  prevStandsAvailable = as;
-
+  if (prevBikesAvailable !== ab) {
+    prevBikesAvailable = ab;
+    prevBikesAvailableDirection = bikesAvailableDirection;
+    prevBikesTrendString = bikesTrendString;
+  }
+  if (prevStandsAvailable !== as) {
+    prevStandsAvailable = as;
+    prevStandsAvailableDirection = standsAvailableDirection;
+    prevStandsTrendString = standsTrendString;
+  }
 
   let bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now';
+
 
   d3.select("#bikes-chart").select('.card__header')
     .html(
@@ -150,7 +173,8 @@ function updateBikesDisplay(ab, as, age) {
       "<p> stands </p>" +
       "</div>");
 
-  updateInfo("#bikes-chart a", "<b>Dublin Bikes</b> currently have <b>" + ab + " bikes </b> and <b>" + as + " stands </b> available across the city");
+  updateInfo("#bikes-chart a",
+    `<b>Dublin Bikes</b> currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city`);
 
 }
 

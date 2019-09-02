@@ -36,14 +36,21 @@ function mouseOutHandler(d, i) {
 }
 
 function clickHandler(d, i) {
+
+  console.log("click on ");
+  // console.log(`d: ` + JSON.stringify(d));
   let opentext = "",
     localdiff = (getPerChange(d.properties.POPULATION, d.properties.PREVPOPULATION)),
     localdiffIncome = (getPerChange(d.properties.INCOME, d.properties.PREVINCOME));
-  console.log(localdiff, localdiffIncome);
+
 
   d3.selectAll(".local").classed("local-on", false);
   d3.select(this).classed("local-on", true);
   d3.select("#local" + d.properties.OBJECTID).classed("local-on", true);
+  if (d3.select("#local" + d.properties.OBJECTID).classed("btn")) {
+    d3.selectAll(".btn").classed("active", false);
+    d3.select("#local" + d.properties.OBJECTID).classed("active", true);
+  }
   d3.select("#local__title").text(d.properties.ENGLISH + " ");
   d3.select("#local__open").text(d.properties.ABOUT);
   d3.selectAll("#local__title__small").text(d.properties.ENGLISH + " ");
@@ -63,7 +70,6 @@ function clickHandler(d, i) {
 }
 
 function renderMap(root) {
-
   d3.select(element).select("svg").remove();
 
   const svg = d3.select(element).append("svg"),
@@ -130,7 +136,7 @@ function renderMap(root) {
 function renderTabs(root) {
   // Remove old and Draw local aut and register event listeners
   let tabs = d3.select("#lp-tabs").selectAll(".btn-bcd");
-  console.log("this is the tabs", tabs);
+  // console.log("this is the tabs", tabs);
 
   // tabs.remove();
   tabs.data(root.features).enter();
@@ -138,6 +144,25 @@ function renderTabs(root) {
     .text(d => d.properties.ENGLISH)
     .on("click", clickHandler);
 }
+let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+if (screenSize >= 768) {
+  renderMap(dublincoco);
+} else {
+  renderTabs(dublincoco);
+}
+
+// Initialise with one LA chosen
+let clickEvent = new MouseEvent('click', {
+  view: window,
+  bubbles: true,
+  cancelable: true
+});
+
+const ids = ['local1', 'local7', 'local11', 'local16'];
+let laElement = document.getElementById(ids[Math.floor(Math.random() * 4)]);
+laElement.dispatchEvent(clickEvent);
+// console.log("e type" + laElement);
 
 function getPerChange(d1, d0) {
   let value = (d1 - d0) / d0;
@@ -200,3 +225,4 @@ if (screenSize >= 768) {
 } else {
   renderTabs(dublincoco);
 }
+
