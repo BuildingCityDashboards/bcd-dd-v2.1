@@ -1,5 +1,4 @@
 let render = function(template, node) {
-	//alert(template);
   if (!node) return;
   node.innerHTML = (typeof template === 'function' ? template() : template);
   var event = new CustomEvent('elementRenders', {

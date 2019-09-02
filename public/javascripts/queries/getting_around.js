@@ -57,7 +57,6 @@ let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 //Update the API activity icon and time
 //called from the individual getting-around modules
 function updateAPIStatus(activity, age, isLive) {
-    //alert(age); 
   let d = new Date();
   let tf = moment(d).format('hh:mm a');
   if (isLive) {
@@ -65,7 +64,6 @@ function updateAPIStatus(activity, age, isLive) {
     d3.select(activity).attr('src', '/images/icons/activity.svg');
     d3.select(age)
       .text('Live @  ' + tf);
-
 
   } else {
     d3.select(activity).attr('src', '/images/icons/alert-triangle.svg');
@@ -171,10 +169,8 @@ function processRoads(data_) {
 
 d3.select("#bikes-checkbox").on("click", function() {
   let cb = d3.select(this);
-
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-
       cb.classed('active', false);
       if (gettingAroundMap.hasLayer(bikesCluster)) {
         gettingAroundMap.removeLayer(bikesCluster);
@@ -262,13 +258,12 @@ d3.select("#luas-checkbox").on("click", function() {
 //initalise API activity icons
 d3.json('/data/api-status.json')
   .then(function(data) {
-  
+    //console.log("api status "+JSON.stringify(data));
     if (data["dublinbikes"].status === 200 && !(d3.select('#bikes-checkbox').classed('disabled'))) {
       d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
-     
       d3.select('#bike-age')
         .text('Awaitng data...'); //TODO: call to getAge function from here
-          
+
     } else {
       d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
       d3.select('#bike-age')
@@ -277,7 +272,6 @@ d3.json('/data/api-status.json')
 
     if (data["dublinbus"].status === 200 && !(d3.select('#bus-checkbox').classed('disabled'))) {
       d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg');
-      
       d3.select('#bus-age')
         .text('Awaitng data...'); //TODO: call to getAge function from here
     } else {
@@ -288,7 +282,6 @@ d3.json('/data/api-status.json')
 
     if (data["carparks"].status === 200 && !(d3.select('#carparks-checkbox').classed('disabled'))) {
       d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg');
-
       d3.select('#parking-age')
         .text('Awaitng data...'); //TODO: call to getAge function from here
 
