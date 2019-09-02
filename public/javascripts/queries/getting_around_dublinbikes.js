@@ -42,7 +42,9 @@ const bikesTimer = setIntervalAsync(
   () => {
     return d3.json('/api/dublinbikes/stations/all/snapshot') //get latest snapshot of all stations
       .then((data) => {
-        console.log("Fetched Dublin Bikes data ");
+        console.log("Fetched Dublin Bikes data");
+        //console.log(JSON.stringify(data));
+        //console.log(data);
         updateAPIStatus('#bike-activity-icon', '#bike-age', true);
         updateBikeStationsMarkers(data);
       })
@@ -67,8 +69,8 @@ function initBikeStationsMarkers(data_) {
         icon: new bikesIcon({
           iconUrl: 'images/transport/bikes_icon_default.png' //loads a default grey icon
         }),
-        opacity: 0.9, //(Math.random() * (1.0 - 0.5) + 0.5),
-        title: d.type + '\t' + d.st_NAME,
+        opacity: 0.7, //(Math.random() * (1.0 - 0.5) + 0.5),
+        title: d.type + '\t' + d.st_NAME ,
         alt: d.type + ' icon',
         //            riseOnHover: true,
         //            riseOffset: 250
@@ -223,13 +225,22 @@ function getBikesStationPopup() {
         };
         return setBikesStationPopupError(sid_, obj);
       }
-      if (stationData[0].banking) {
+
+      if (stationData[0].banking =='True') {
         console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
         let bankStr = "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"20px\" title=\"Banking available\" />";
         d3.select("#bike-banking-" + sid_)
           .html(bankStr);
 
       }
+
+      /*if (stationData[0].banking =='False') {
+        console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
+        let bankStr = "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"20px\" title=\"Banking not available\" />";
+        d3.select("#bike-banking-" + sid_)
+          .html(bankStr);
+
+      }*/
       //assuming static data doesn't change throughout day...
       let standsCount = stationData[0].historic[0].bike_stands;
       if (standsCount) {

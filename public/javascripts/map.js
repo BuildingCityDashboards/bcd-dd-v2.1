@@ -13,7 +13,7 @@ const HOVER_COLOR = "#16c1f3",
   diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
 dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + " ");
 dublin.select("#region__area").text(dData.AREA + ", ");
-dublin.select("#region__age").text(dData.AGE + " ");
+dublin.select("#region__age").text(dData.AGE + "  ");
 dublin.selectAll("#region__income").text(euro(dData.INCOME) + " ");
 dublin.select("#region__prePopulation").text(thousands(dData.PREVPOPULATION) + " ");
 dublin.select("#region__populationIndicator").text(indicatorText(diff, "#region__populationIndicator", "increased", false));
@@ -58,6 +58,7 @@ function clickHandler(d, i) {
   d3.select("#local__area").text(d.properties.AREA + ", ");
   d3.select("#local__age").text(d.properties.AGE + " ");
   d3.selectAll("#local__income").text(d.properties.INCOME + " ");
+  //console.log('uuuu'+ dData.INCOME);
   d3.select("#local__prePopulation").text(d.properties.PREVPOPULATION + " ");
   d3.select("#local__curPopulation").text(d.properties.POPULATION + " ");
   d3.select("#local__populationIndicator").text(indicatorText(localdiff, "#local__populationIndicator", "increased", false));
@@ -216,3 +217,12 @@ function indicatorText(value, selector, text, negative) {
   // d3.select(selector).style("color", indicatorColour);
   return indicatorText;
 }
+
+let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+if (screenSize >= 768) {
+  renderMap(dublincoco);
+} else {
+  renderTabs(dublincoco);
+}
+

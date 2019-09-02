@@ -27,6 +27,8 @@ class GroupStackBar {
 
     }
 
+
+
     drawChart(){
         let c = this;
 
@@ -96,14 +98,6 @@ class GroupStackBar {
        c.colour = d3.scaleOrdinal().range(["#375073", "#6794D3  ", "#5981B8  ", "#486895  ", "#375073  ", "#2A3D58" ]);
        c.colour2 = d3.scaleOrdinal().range(["#FEFFBE", "#FDFF98", "#FDFF77", "#FCFF46", "#FAFD24", "#FBFF07" ]);
 
-
-        //--
-
-
-
-        //--
-
-
         // // tick numbers
         // c.tickNumber = "undefined";
 
@@ -120,6 +114,8 @@ class GroupStackBar {
 
 
  }
+
+
 
     addAxis(){
         let c = this,
@@ -305,7 +301,10 @@ class GroupStackBar {
             c.gData = groupData;
 
             // console.log("grouped the shit", c.stackD);
+
     }
+
+
 
     createScales(){
         let c = this,
@@ -399,8 +398,7 @@ class GroupStackBar {
             let Dlc=['#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b'];
             let SDc=['#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db'];
 
-            var z1 = d3.scaleOrdinal()
-                .range(co1);
+            var z1 = d3.scaleOrdinal().range(co1);
             var z2 = d3.scaleOrdinal()
                     .range(wkc);
             var z3=d3.scaleOrdinal()
@@ -601,7 +599,7 @@ class GroupStackBar {
             c.keys.forEach( (reg,idx) => {
                     // total += d.data[reg];// for the last text total;
 
-
+             
             let id = "#bcd-tt" + idx,
                 div = c.newToolTip.select(id),
                 unText = "N/A",
@@ -634,16 +632,25 @@ class GroupStackBar {
                  div.select(".bcd-rect").style("background-color", c.colour(reg));
                }*/
 
+                var colors = new Array ( );
+                colors['Dublin City'] = new Array ('#d5e6ef','#cae0eb','#bfdae7','#b4d4e3','#a9cedf','#9ec8db');
+                colors['Fingal'] = new Array ('#2f4970','#365481','#3e6194','#476faa','#527fc3','#5e92df');
+                colors['Kildare'] = new Array ('#e5e5a2','#e8e89c','#ebeb95','#efef8d','#f4f483','#f9f978');
+                colors['Meath'] = new Array ('#bbffff','#b2ffff','#a8ffff','#9cffff','#8effff','#7effff');
+                colors['South Dublin'] = new Array ('#ffc9c9','#ffbaba','#ffabab','#ff9c9c','#ff8d8d','#ff7e7e');
+                colors['Wicklow'] = new Array ('#6f0000','#930000','#b70000','#db0000','#ff2424','#ff4848');
+                colors['Dún Laoghaire-Rathdown'] = new Array ('#46bb98','#41b18f','#3da686','#399b7d','#359074','#31856b');
 
-
+                
                 div.style("opacity", 1);
-                div.select(".bcd-rect").style("background-color", c.colour(reg));
+                //div.select(".bcd-rect").style("background-color",colors[d.data.region][idx]);
+                div.select(".bcd-rect").style("background-color",colors[d.data.region][idx]);
                 p.select(".bcd-text-title").text(reg);
                 p.select(".bcd-text-value").text(v);
                 // p.select(".bcd-text-rate").text((rate));
                 // p.select(".bcd-text-indicator").text(" " + indicator).style("color", indicatorColour);
                 p.select(".bcd-text-slice").text(slice);
-                c.colour2=c.colour;
+                //c.colour2=c.colour;
 
         });
 
@@ -754,4 +761,4 @@ function textWrap(text, width, xpos = 0, limit=3) {
     });
     //  console.clear();
 }
-  // console.clear();
+  
