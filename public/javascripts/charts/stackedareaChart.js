@@ -2,12 +2,13 @@ class StackedAreaChart extends Chart {
 
   constructor(obj) {
     super(obj);
+
     this.drawChart();
   }
 
   drawChart() {
     let c = this;
-   
+
     super.init();
     super.addAxis();
     super.getKeys();
@@ -215,7 +216,6 @@ class StackedAreaChart extends Chart {
       g = c.g,
       v = c.value,
       z = c.colour,
-
       lH = 10;
 
     // data values for last readable value
@@ -521,9 +521,9 @@ class StackedAreaChart extends Chart {
           c.updatePosition(c.x(d[c.xV]), 80);
 
           dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false;
-          
+
           div.style("opacity", 1);
-          div.select(".bcd-dot").style("background-color", c.colour(key));
+          div.select(".bcd-dot").style("background-color", c.colour(d.key));
           p.select(".bcd-text-title").text(key);
           p.select(".bcd-text-value").text(isNaN(d[key]) ? "N/A" : d[key]);
           p.select(".bcd-text-rate").text(rate);
