@@ -1,4 +1,5 @@
 let render = function(template, node) {
+	//alert(template);
   if (!node) return;
   node.innerHTML = (typeof template === 'function' ? template() : template);
   var event = new CustomEvent('elementRenders', {
@@ -25,6 +26,7 @@ var tickClock = function() {
   };
   let d = dNew.toLocaleTimeString('en-GB', options).split('G')[0];
   // console.log("Local time: " + d);
+  //render(`hi`, document.getElementById('clock'));
   render(`${d}`, document.getElementById('clock'));
 
 };
