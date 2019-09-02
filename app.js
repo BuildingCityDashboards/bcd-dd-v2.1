@@ -31,6 +31,7 @@ const themes = require('./routes/themes');
 const stories = require('./routes/stories');
 const tools = require('./routes/tools');
 const queries = require('./routes/queries');
+const portal = require('./routes/portal');
 const api = require('./routes/api');
 
 // view engine setup
@@ -52,6 +53,7 @@ app.use('/themes', themes);
 app.use('/stories', stories);
 app.use('/tools', tools);
 app.use('/queries', queries);
+app.use('/portal', portal);
 app.use('/api', api);
 
 ////additional functionality from node modules
