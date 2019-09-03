@@ -16,9 +16,9 @@ block content
       div.col-lg-12
         h1 Portal
         p.lead The Portal page contains a list of information resources. This includes
-          | the sources of our data on the Dublin Dashboard, other data services available for Dublin,
-          | and mobile apps relating to Dublin.
-    div.row
+          |  the sources of our data on the Dublin Dashboard, other data services available for Dublin,
+          |  and mobile apps relating to Dublin.
+    .portal-section.row
       div.col-lg-12
         h2 Sources
         p.lead Data sources used on the Dublin Dashboard 
@@ -34,7 +34,7 @@ block content
               include portal/epa.pug
             +accordion-item("Housing, Planning & Local Government, Dept. of",  "")
               include portal/hplc.pug
-    div.row
+    .portal-section.row
       div.col-lg-12
         h2 Services
         p.lead Other Dublin data sites available from outside agencies
@@ -57,19 +57,22 @@ block content
             +accordion-item("Fix Your Street",  "")
               include portal/fix-your-street.pug
                         
-    div.row
-      div.col-lg-12
-        h2 Mobile Apps
-        p.lead Quo consequat an cupidatat et proident an voluptate, senserit illustriora ex 
-          |quamquam ad ab in elit eram magna, vidisse tempor arbitror laboris se est eu 
-          |despicationes ab hic te efflorescere qui laborum e expetendis. Noster admodum 
-          |eiusmod.
-        div.col-sm-12
-          +accordion("one") 
-            +accordion-item("Central Statistics Office",  "")
-            +accordion-item("Dublin City Council",  "")
-            +accordion-item("Environmental Protection Agency",  "")
-            +accordion-item("Housing, Planning & Local Government, Dept. of",  "")
+    .portal-section.row
+        div.col-lg-12
+          h2 Mobile Apps
+          p.lead A selection of mobile apps relevant to the Dublin area
+          div.col-sm-12
+            +accordion("one")
+              +accordion-item("Dublin Airport Official",  "")
+                include portal/app-airport.pug
+              +accordion-item("Dublin Bus",  "")
+                include portal/app-dublin-bus.pug
+              +accordion-item("Irish Rail",  "")
+                include portal/app-irish-rail.pug
+              +accordion-item("Luas",  "")
+                include portal/app-luas.pug
+              +accordion-item("Parking Tag",  "")
+                include portal/app-park-tag.pug
       
 
 

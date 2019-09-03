@@ -1,3 +1,12 @@
+#portal-container{
+  width: 70%;
+  margin: 100px auto;
+}
+
+.portal-section{
+  margin-top: 3rem;
+}
+
 .accordion{
     padding:0;
     list-style:none;
@@ -134,9 +143,45 @@
 
 }
 
+.app-icon-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
 
+.app-store-icon-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
 
+.app-icon-container a {
+  padding: 0;
+  margin: 0;
+}
 
+.app-icon{
+  max-height: 96px;
+  max-width: 100%;
+
+}
+
+.app-store-icon{
+  max-height: 36px;
+  max-width: 100%;
+
+}
+
+@media (max-width: 576px){
+  .app-icon{
+    margin-bottom: 18px;
+
+  }
+}
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
