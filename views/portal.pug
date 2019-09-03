@@ -3,6 +3,7 @@ extends layout
 include component/accordion
 
 block append head
+  link(rel='stylesheet', href='/stylesheets/portal.css')
   
 
 
@@ -10,18 +11,18 @@ block navigation
   +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
 
 block content
-  div(class="container mt-2 py-5 px-5")
+  #portal-container
     div.row
       div.col-lg-12
         h1 Portal
-        p.lead The Portal page conatins a list of Dublin data resources. This includes
+        p.lead The Portal page contains a list of information resources. This includes
           | the sources of our data on the Dublin Dashboard, other data services available for Dublin,
           | and mobile apps relating to Dublin.
     div.row
-      div.col-lg-12.bg-dark-blue
+      div.col-lg-12
         h2 Sources
         p.lead Data sources used on the Dublin Dashboard 
-        div.col-sm-12.bg-dark-blue
+        div.col-sm-12
           +accordion("one") 
             +accordion-item("Central Statistics Office (CSO)",  "")
               include portal/cso.pug
@@ -31,7 +32,6 @@ block content
               include portal/dublin-bikes.pug
             +accordion-item("Environmental Protection Agency (EPA)",  "")
               include portal/epa.pug
-          
             +accordion-item("Housing, Planning & Local Government, Dept. of",  "")
               include portal/hplc.pug
     div.row
@@ -40,17 +40,25 @@ block content
         p.lead Other Dublin data sites available from outside agencies
         div.col-sm-12
           +accordion("one") 
-            +accordion-item("All-Ireland Research Observatory",  "http://airo.maynoothuniversity.ie/datastore")
-            +accordion-item("Dublinked",  "https://data.smartdublin.ie/dataset")
-            +accordion-item("data.gov.ie",  "https://data.gov.ie/")
-            +accordion-item("EPA Geoportal",  "http://gis.epa.ie/Home")
-            +accordion-item("Eurostat Urban Audit",  "https://ec.europa.eu/eurostat/web/regions-and-cities")
-            +accordion-item("Fingal Open Data",  "http://data.fingal.ie/")
-            +accordion-item("Fix My Street",  "https://fixmystreet.ie/reports/Dublin+City")
-            +accordion-item("Fix Your Street",  "http://www.fixyourstreet.ie")
+            +accordion-item("All-Ireland Research Observatory",  "")
+              include portal/airo.pug
+            +accordion-item("Dublinked",  "")
+              include portal/dublinked.pug
+            +accordion-item("data.gov.ie",  "")
+              include portal/datagov.pug
+            +accordion-item("EPA Geoportal",  "")
+              include portal/epa-geoportal.pug
+            +accordion-item("Eurostat Urban Audit",  "")
+              include portal/eurostat.pug
+            +accordion-item("Fingal Open Data",  "")
+              include portal/fingal-open-data.pug
+            +accordion-item("Fix My Street",  "")
+              include portal/fix-my-street.pug
+            +accordion-item("Fix Your Street",  "")
+              include portal/fix-your-street.pug
                         
     div.row
-      div.col-lg-12.bg-dark-blue
+      div.col-lg-12
         h2 Mobile Apps
         p.lead Quo consequat an cupidatat et proident an voluptate, senserit illustriora ex 
           |quamquam ad ab in elit eram magna, vidisse tempor arbitror laboris se est eu 
