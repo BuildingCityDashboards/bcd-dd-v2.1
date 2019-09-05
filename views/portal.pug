@@ -11,14 +11,14 @@ block navigation
   +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
 
 block content
-  #portal-container
+  div#portal-container
     div.row
       div.col-lg-12
         h1 Portal
         p.lead The Portal page contains a list of information resources. This includes
           |  the sources of our data on the Dublin Dashboard, other data services available for Dublin,
           |  and mobile apps relating to Dublin.
-    .portal-section.row
+    div#our-sources.portal-section.row
       div.col-lg-12
         h2 Our Sources
         p.lead Data sources used on the Dublin Dashboard 
@@ -34,7 +34,7 @@ block content
               include portal/epa.pug
             +accordion-item("Housing, Planning & Local Government, Dept. of",  "")
               include portal/hplc.pug
-    .portal-section.row
+    div#other-sources.portal-section.row
       div.col-lg-12
         h2 Other Sources
         p.lead Other Dublin data sites available from outside agencies
@@ -54,7 +54,7 @@ block content
               include portal/fingal-open-data.pug
 
 
-    .portal-section.row
+    div#services.portal-section.row
       div.col-lg-12
         h2 Services
         p.lead Data visualisations and tools relevant to Dublin
@@ -80,18 +80,18 @@ block content
               include portal/flight-radar.pug
             +accordion-item("Heritage Maps",  "")
               include portal/heritage-maps.pug
-            //- +accordion-item("Mapnificent",  "")
-            //-   include portal/mapnificent.pug
-            //- +accordion-item("Hit The Road",  "")
-            //-   include portal/hit-the-road.pug
+            +accordion-item("Inside Airbnb",  "")
+              include portal/inside-airbnb.pug
+            +accordion-item("Mapnificent",  "")
+              include portal/mapnificent.pug
+            +accordion-item("Hit The Road",  "")
+              include portal/hit-the-road.pug
             +accordion-item("Marine Traffic",  "")
               include portal/marine-traffic.pug
             +accordion-item("MyHome",  "")
               include portal/myhome.pug
             +accordion-item("MyPlan",  "")
               include portal/myplan.pug
-            //- +accordion-item("Inside Airbnb",  "")
-            //-   include portal/inside-airbnb.pug
             +accordion-item("Residential Land Survey 2014",  "")
               include portal/land-survey.pug
 
@@ -101,7 +101,7 @@ block content
             //-   include portal/sentinel-hub.pug
 
 
-    .portal-section.row
+    div#mobile-apps.portal-section.row
       div.col-lg-12
         h2 Mobile Apps
         p.lead A selection of mobile apps relevant to the Dublin area
