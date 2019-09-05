@@ -7,6 +7,7 @@
   margin-top: 3rem;
 }
 
+
 .accordion{
     padding:0;
     list-style:none;
@@ -139,7 +140,7 @@
 }
 
 .accordion__content a{
-    padding-left: 3rem;
+    padding-left: 1rem;
 
 }
 
@@ -176,12 +177,71 @@
 
 }
 
+.accordian-screenshot-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.accordian-screenshot{
+  max-height: 240px;
+  max-width: 100%;
+}
+
+/* bottstrap breakpoints */
+/* // Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .accordian-screenshot-container{
+    padding-left: 0rem;
+    margin-top: 1rem;
+  }
+}
+
+/* // Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .accordian-screenshot-container{
+    padding-left: 1rem;
+
+  }
+
+}
+
+/* // Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* // Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .accordian-screenshot-container{
+    padding-left: 0;
+  }
+}
+/*
 @media (max-width: 576px){
   .app-icon{
     margin-bottom: 18px;
-
   }
 }
+
+@media (max-width: 900px){
+  .accordian-screenshot-container{
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 1200px){
+  .app-icon{
+    margin-bottom: 18px;
+  }
+
+  .accordian-screenshot{
+    max-height: 240px;
+    max-width: 90%;
+  }
+} */
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
