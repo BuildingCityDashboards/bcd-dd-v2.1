@@ -12,9 +12,9 @@ const HOVER_COLOR = "#16c1f3",
   diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
   diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
 dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + " ");
-dublin.select("#region__area").text(dData.AREA + ", ");
+dublin.select("#region__area").text(dData.AREA + "");
 dublin.select("#region__age").text(dData.AGE + " ");
-dublin.selectAll("#region__income").text(euro(dData.INCOME) + " ");
+dublin.selectAll("#region__income").text(euro(dData.INCOME) + "");
 dublin.select("#region__prePopulation").text(thousands(dData.PREVPOPULATION) + " ");
 dublin.select("#region__populationIndicator").text(indicatorText(diff, "#region__populationIndicator", "increased", false));
 dublin.select("#region__populationChange").text(percentage(diff) + indicator(diff, "#region__populationChange", false));
@@ -55,7 +55,7 @@ function clickHandler(d, i) {
   d3.select("#local__open").text(d.properties.ABOUT);
   d3.selectAll("#local__title__small").text(d.properties.ENGLISH + " ");
   d3.select("#local__total-poualtion").text(d.properties.POPULATION + " ");
-  d3.select("#local__area").text(d.properties.AREA + ", ");
+  d3.select("#local__area").text(d.properties.AREA + "");
   d3.select("#local__age").text(d.properties.AGE + " ");
   d3.selectAll("#local__income").text(d.properties.INCOME + " ");
   d3.select("#local__prePopulation").text(d.properties.PREVPOPULATION + " ");
