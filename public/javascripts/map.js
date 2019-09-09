@@ -5,10 +5,12 @@ const HOVER_COLOR = "#16c1f3",
   dData = dublincoco.features[0].properties,
   percentage = d3.format(".2%"),
   thousands = d3.format(",.3s"),
+  popFormat = d3.format(",.5r"),
   maplocale = d3.formatLocale({
+    "thousands": ',',
     "currency": ["€", ""]
   }),
-  euro = maplocale.format("$,"),
+  euro = maplocale.format("$,.5r"),
   diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
   diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
 dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + "");
@@ -54,12 +56,12 @@ function clickHandler(d, i) {
   d3.select("#local__title").text(d.properties.ENGLISH + "");
   d3.select("#local__open").text(d.properties.ABOUT);
   d3.selectAll("#local__title__small").text(d.properties.ENGLISH + "");
-  d3.select("#local__total-poualtion").text(d.properties.POPULATION + "");
+  d3.select("#local__total-poualtion").text(popFormat(d.properties.POPULATION) + "");
   d3.select("#local__area").text(d.properties.AREA + "");
   d3.select("#local__age").text(d.properties.AGE + "");
   d3.selectAll("#local__income").text(d.properties.INCOME + "");
-  d3.select("#local__prePopulation").text(d.properties.PREVPOPULATION + "");
-  d3.select("#local__curPopulation").text(d.properties.POPULATION + "");
+  d3.select("#local__prePopulation").text(popFormat(d.properties.PREVPOPULATION) + "");
+  d3.select("#local__curPopulation").text(popFormat(d.properties.POPULATION) + "");
   d3.select("#local__populationIndicator").text(indicatorText(localdiff, "#local__populationIndicator", "increased", false));
   d3.select("#local__populationChange").text(percentage(localdiff) + indicator(localdiff, "#local__populationChange", false));
   d3.select("#local__incomeIndicator").text(indicatorText(localdiff, "#local__incomeIndicator", "grew", false));
