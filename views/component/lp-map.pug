@@ -32,7 +32,7 @@
         span#region__income__change x.xx% decrease/increase
         |.
       p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin.
-        |  Interact with the map to see specific information about each of these.
+        |  Select a council to see specific information.
 
       //- .col-md-6
       //-   h3 Dublin County
@@ -43,12 +43,22 @@
       //-     |   of which vacant households (excluding holiday homes) numbered 
       //-     span#region__total-vacant 31,459.
 
-    #lp-tabs.py-3.d-md-none.d-sm-block 
-      <button type="button" class="btn btn-bcd d-none" value="">Test</button>
+    //- #lp-tabs.py-3.d-md-none
+    //- <button type="button" class="btn btn-bcd d-none" value="">Test</button>
+    //- .row
       <button type="button" class="btn btn-bcd " value="">Test</button>
       <button type="button" class="btn btn-bcd " value="">Test</button>
+    //- .row
       <button type="button" class="btn btn-bcd " value="">Test</button>
       <button type="button" class="btn btn-bcd " value="">Test</button>
+
+    #lp-tabs(class="btn-group d-flex d-md-none")  
+      <button type="button" class="btn btn-bcd btn-sm w-100 ml-1 mr-1 d-none" value=""></button>
+      <button type="button" class="btn btn-bcd btn-sm w-100 ml-1 mr-1" value=""></button>
+      <button type="button" class="btn btn-bcd btn-sm w-100 ml-1 mr-1" value=""></button>
+      <button type="button" class="btn btn-bcd btn-sm w-100 ml-1 mr-1" value=""></button>
+      <button type="button" class="btn btn-bcd btn-sm w-100 ml-1 mr-1" value=""></button>
+
     .lp-map__compare.py-3
       h3 
         span#local__title   Dublin

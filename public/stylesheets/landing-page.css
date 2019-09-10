@@ -80,6 +80,11 @@
     font-weight: 100;
 }
 
+#lp-tabs{
+  display: flex;
+  
+}
+
 /* default adjusted in media query min 992 */
 .columns-2{
     column-count: 1;
