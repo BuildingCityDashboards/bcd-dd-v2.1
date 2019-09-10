@@ -21,15 +21,20 @@ var tickClock = function() {
     day: 'numeric'
 
   };
-  let d = dNew.toLocaleTimeString('en-GB', options).split('G')[0];
-  let day = d.split(',')[0];
-  let date = d.split(',')[1];
-  let time = d.split(',')[2].split(' ')[1];
+
+  let d = dNew.toLocaleTimeString('en-GB', options).replace(/I/, 'G').split('G')[0];
+
+  d = d.replace(/,/g, '');
+  // console.log(`d: ${d}`);
+  let day = d.split(' ')[0];
+  let date = d.split(' ')[1];
+  let month = d.split(' ')[2];
+  let time = d.split(' ')[3];
   // let meridian = d.split(',')[2].split(' ')[1];
 
   // console.log("Local time: " + d);
   render(`${time}<br>`, document.getElementById('clock-time'));
-  render(`${day}<br>${date}`, document.getElementById('clock-day'));
+  render(`${day} <br>${date} ${month}`, document.getElementById('clock-day'));
 
 };
 
