@@ -1,3 +1,10 @@
+function checkTouchDevice() {
+  return 'ontouchstart' in document.documentElement;
+}
+const IS_TOUCH_DEVICE = checkTouchDevice();
+
+console.log("Touch = " + IS_TOUCH_DEVICE);
+
 //Manage periodic async data fetching (for realtime data cards)
 let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
 // // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
@@ -149,7 +156,7 @@ Promise.all([
       dL: "label"
     },
     priceIndexChart = new DataGlanceLine(priceIndex);
-
+  initInfoText();
   updateInfoText("#emp-chart a", "<b>Total Unemployment</b> in Dublin for ", " on previous quarter", dublinData, columnNames1[1], "label", d3.format(".2s"), true);
   updateInfoText("#app-chart a", "The <b>Property Price Index</b> for Dublin on ", " on previous month", date4Filtered, columnNames4[0], "label", locale.format(""));
   updateInfoText("#apd-chart a", "The <b>Total Population</b> of Dublin in ", " on 2011", dataSet2, columnNames2[0], "date", d3.format(".2s"));
@@ -478,12 +485,20 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
     prevValue = previousData[valueName],
     difference = ((currentValue - prevValue) / currentValue),
     lastElementDate = lastData[labelName];
+
   let green = "#20c997",
     red = "#da1e4d",
     text = d3.select("#data-text p"),
-    // textString = text.text(),
-    textString = "<b>Hover over these charts for more information, click to go to the data page </b>",
-    cArrow = changeArrrow,
+    textString;
+  // textString = text.text(),
+  if (IS_TOUCH_DEVICE) {
+    textString = "<b>Slide for more, touch to go to the full chart page </b>";
+
+  } else {
+    textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
+  }
+
+  cArrow = changeArrrow,
     indicatorSymbol = difference > 0 ? "▲ " : difference < 0 ? "▼ " : " ",
     indicator = difference > 0 ? "Up" : difference < 0 ? "Down" : " a change of ",
     indicatorColour = cArrow ? difference > 0 ? red : green : difference > 0 ? green : red,
@@ -533,6 +548,23 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
   });
 }
 
-function infoText() {
+function initInfoText() {
+  // d3.select('#data-text').attr("hidden", true); //to hide
+  let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  if (IS_TOUCH_DEVICE && screenWidth < 1200) {
+    //   console.log("Hide data text on mobile");
+    d3.select('#data-text').html("<p><b>Swipe for more, touch to go to the full chart page </b></p>");
+    d3.selectAll('.tab-charts__row').style("overflow-x", "scroll");
+    d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
 
+  } else if (IS_TOUCH_DEVICE && screenWidth >= 1200) {
+    //   console.log("Hide data text on mobile");
+    d3.select('#data-text').html("<p><b>Click a mini-chart to go to an associated full chart </b></p>");
+    d3.select('.tab-charts__row').style("overflow-x", "hidden");
+
+  } else {
+    d3.select('#data-text').html("<p><b>Hover over these charts for more information, click to go to the full chart </b></p>");
+    // d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
+    d3.select('.tab-charts__row').style("overflow-x", "hidden");
+  }
 }
