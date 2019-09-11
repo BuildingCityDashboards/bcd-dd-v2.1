@@ -1,5 +1,5 @@
 mixin card-rt(href, style, Header, title, Chartid)
-  a(href=href class="card__link")
+  a(href=href||null class="card__link")
     div(class=style)
       .card__header=Header
       .card__body(id=Chartid width="205" height="70")

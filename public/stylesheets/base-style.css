@@ -365,12 +365,6 @@ select {
   /* height: 75px; */
 }
 
-@media (max-width: 768px){
-  /* #data-text{
-    display: none;
-  } */
-}
-
 .btn-bcd{
   color: #00c0f5;
   background-color: transparent;

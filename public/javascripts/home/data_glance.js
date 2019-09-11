@@ -496,7 +496,6 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 
   } else {
     textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
-
   }
 
   cArrow = changeArrrow,
@@ -551,12 +550,21 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
 
 function initInfoText() {
   // d3.select('#data-text').attr("hidden", true); //to hide
-  if (IS_TOUCH_DEVICE) {
+  let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  if (IS_TOUCH_DEVICE && screenWidth < 1200) {
     //   console.log("Hide data text on mobile");
     d3.select('#data-text').html("<p><b>Swipe for more, touch to go to the full chart page </b></p>");
+    d3.selectAll('.tab-charts__row').style("overflow-x", "scroll");
+    d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
+
+  } else if (IS_TOUCH_DEVICE && screenWidth >= 1200) {
+    //   console.log("Hide data text on mobile");
+    d3.select('#data-text').html("<p><b>Click a mini-chart to go to an associated full chart </b></p>");
+    d3.select('.tab-charts__row').style("overflow-x", "hidden");
 
   } else {
-    d3.select('#data-text').html("<p><b>Hover over these charts for more information, click to go to the data page </b></p>");
-
+    d3.select('#data-text').html("<p><b>Hover over these charts for more information, click to go to the full chart </b></p>");
+    // d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
+    d3.select('.tab-charts__row').style("overflow-x", "hidden");
   }
 }
