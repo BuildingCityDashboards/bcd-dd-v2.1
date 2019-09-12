@@ -291,33 +291,28 @@ a:hover {
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
 #HPM06{
-  padding-top: 4rem;
+  padding-top: 5rem;
   margin-top: -3rem;
 }
 
 #employment{
-  padding-top: 4rem;
+  padding-top: 5rem;
   margin-top: -3rem;
 }
 
 #property-price-monthly{
-  padding-top: 4rem;
+  padding-top: 5rem;
   margin-top: -3rem;
 }
 
 #dublin-bikes{
-  padding-top: 4rem;
+  padding-top: 5rem;
   margin-top: -3rem;
 }
 
 #population{
-  padding-top: 4rem;
+  padding-top: 5rem;
   margin-top: -3rem;
-}
-
-.chart-holder{
-  padding-top: 100px;
-  margin-top: -100px;
 }
 
 /* Colour Utilities Classes */
