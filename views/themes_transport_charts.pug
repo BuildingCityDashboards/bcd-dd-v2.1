@@ -1,4 +1,4 @@
-header.header
+header
   .row
     .col-12
       h1 Transport
@@ -13,7 +13,7 @@ header.header
 
 article.article
   div#dublin-bikes.row.wrapper
-    .col-lg-4
+    .col-lg-4  
       h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
       p Source: 
         a(href="http://www.dublinbikes.ie/" target="_blank") Dublin Bikes Website 
@@ -29,14 +29,14 @@ article.article
 
       div#bikes-info-text
         p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
-        
+
         //- bike stations around 
         //-   |the city with <b id='stands-count'></b> stands.
         //- //- p See also: 
           li <a href="../queries"> Getting Around</a> for <b>all</b> transport & travel on one map
 
     .col-lg-8
-      .div.pt-2.ml-4
+      .div.my-2
         <button id="dublinbikes_day" type="button" class="btn btn-bcd btn-sm active">Day</button>
         <button id="dublinbikes_week" type="button" class="btn btn-bcd btn-sm">Week</button>
         <button id="dublinbikes_month" type="button" class="btn btn-bcd btn-sm">Month</button>
@@ -93,7 +93,7 @@ article.article
       //-     div#chart-transport-luas
 
   .row.wrapper
-    .col-lg-4
+    .col-lg-4.pt-3
       h3 Fingal Disabled Parking Bays <img height='15px' width='15px' src='/images/calendar-w.svg'>
       p Source: 
         a(href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank") Data.gov 

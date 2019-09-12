@@ -61,7 +61,6 @@ a:hover {
 
 }
 
-
 .section-header{
   /* margin-top: -75px; */
   padding-top: 20px;
@@ -112,9 +111,29 @@ a:hover {
 /*Pages*/
 /*Themes*/
 .theme-section{
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
+  /* margin-top: 3rem; */
 }
 
+#transport{
+  margin-top:-3rem;
+  padding-top: 4rem;
+}
+
+#environment{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#housing {
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#demographics{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
 
 .up-arrow{
   fill: green;
