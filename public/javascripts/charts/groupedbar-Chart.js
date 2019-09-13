@@ -211,6 +211,7 @@ class GroupedBarChart extends Chart {
 
     if (c.sscreens) {
       c.newToolTip.style("visibility", "visible");
+
     } else {
       c.newToolTip.style("visibility", "hidden");
 
@@ -222,6 +223,9 @@ class GroupedBarChart extends Chart {
 
     c.tooltipHeaders();
     c.tooltipBody();
+    if (c.sscreens) {
+      c.ttContent(c.d[1], c.d[0], c.ks); //initalise tooltip hack
+    }
   }
 
   tooltipHeaders() {
@@ -302,12 +306,17 @@ class GroupedBarChart extends Chart {
       prevData = a[e - 1] ? a[e - 1].__data__ : null,
       key = c.ks;
 
-    console.log(`d: ${JSON.stringify(d)}, e: ${e}, a: ${JSON.stringify(a[0])}`);
+    // console.log(`d: ${JSON.stringify(d)}, e: ${e}, a: ${JSON.stringify(a[0])}`);
 
     c.newToolTip.style("visibility", "visible");
     c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
     c.ttContent(data, prevData, key);
   }
+
+  // initToolTip() {
+  //   c.newToolTip.style("visibility", "visible");
+  //   c.ttContent(data, prevData, key);
+  // }
 
   // function fakemove() {
   //   focus.style("visibility", "visible");
@@ -356,6 +365,7 @@ class GroupedBarChart extends Chart {
   }
 
   ttContent(d, pD, k) {
+    // console.log(`d: ${JSON.stringify(d)}, pD: ${JSON.stringify(pD)}, k: ${k}`);
     let c = this;
     k.forEach((v, i) => {
       let id = "#bcd-tt" + i,
