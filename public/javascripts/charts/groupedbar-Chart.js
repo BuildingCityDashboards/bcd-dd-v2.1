@@ -204,28 +204,27 @@ class GroupedBarChart extends Chart {
 
   drawTooltip() {
     let c = this;
-
-    c.newToolTip = d3.select(c.e)
-      .append("div")
-      .attr("class", "tool-tip bcd")
-
     if (c.sscreens) {
-      c.newToolTip.style("visibility", "visible");
+      // c.newToolTip.style("visibility", "visible");
 
     } else {
+      c.newToolTip = d3.select(c.e)
+        .append("div")
+        .attr("class", "tool-tip bcd")
       c.newToolTip.style("visibility", "hidden");
+      c.newToolTipTitle = c.newToolTip
+        .append("div")
+        .attr("id", "bcd-tt-title");
+
+      c.tooltipHeaders();
+      c.tooltipBody();
 
     }
 
-    c.newToolTipTitle = c.newToolTip
-      .append("div")
-      .attr("id", "bcd-tt-title");
 
-    c.tooltipHeaders();
-    c.tooltipBody();
-    if (c.sscreens) {
-      c.ttContent(c.d[1], c.d[0], c.ks); //initalise tooltip hack
-    }
+    // if (c.sscreens) {
+    //   c.ttContent(c.d[1], c.d[0], c.ks); //initalise tooltip hack
+    // }
   }
 
   tooltipHeaders() {
@@ -298,19 +297,21 @@ class GroupedBarChart extends Chart {
   }
 
   mousemove(d, e, a) {
-    let c = this,
-      x = c.x0(d[c.xV]),
-      y = -20,
-      tooltipX = c.getTooltipPosition(x),
-      data = a[e].__data__,
-      prevData = a[e - 1] ? a[e - 1].__data__ : null,
-      key = c.ks;
+    let c = this;
+    if (!c.sscreens) {
+      let x = c.x0(d[c.xV]),
+        y = -20,
+        tooltipX = c.getTooltipPosition(x),
+        data = a[e].__data__,
+        prevData = a[e - 1] ? a[e - 1].__data__ : null,
+        key = c.ks;
 
-    // console.log(`d: ${JSON.stringify(d)}, e: ${e}, a: ${JSON.stringify(a[0])}`);
+      // console.log(`d: ${JSON.stringify(d)}, e: ${e}, a: ${JSON.stringify(a[0])}`);
 
-    c.newToolTip.style("visibility", "visible");
-    c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
-    c.ttContent(data, prevData, key);
+      c.newToolTip.style("visibility", "visible");
+      c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
+      c.ttContent(data, prevData, key);
+    }
   }
 
   // initToolTip() {
