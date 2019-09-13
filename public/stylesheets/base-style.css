@@ -61,18 +61,24 @@ a:hover {
 
 }
 
+.section-header{
+  /* margin-top: -75px; */
+  padding-top: 20px;
+}
 
 /* Anchor offset for fixed navbar*/
-/* .head-anchor{
+.head-anchor{
   /*position: relative;*/
-  /* padding-top: 75px;
+  padding-top: 75px;
   margin-top: 0px;
-} */
+}
 
 /* .section-header > div:nth-child(even){
 
   background: #fff;
 } */
+
+
 
 .section-body{
   /* margin-top: -70px; */
@@ -256,7 +262,7 @@ a:hover {
 }
 
 .chart-holder{
-  margin-right: 1rem;
+  margin-right: -1rem;
   border-radius: .325rem;
 }
 
@@ -264,14 +270,14 @@ a:hover {
   border: 1px solid #8080802e;
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
-  padding: 0rem;
+  padding: 1rem;
 }
 
 .map-holder{
   height: 400px;
   width: auto;
   /* margin: 20px; */
-  margin-right: 1rem;
+  margin-right: -1rem;
   border-radius: .325rem;
 }
 
@@ -280,12 +286,6 @@ a:hover {
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
   padding: 1rem;
-}
-
-/*Pages*/
-/*Themes*/
-.theme-section{
-  padding-bottom: 75px;
 }
 
 /* //specific adjustments for page anchors */
@@ -460,22 +460,6 @@ select {
   right: 0;
   bottom: 0;
 }
-
-@media(max-width: 576px){
-  .chart-holder{
-    margin-right: 0rem;
-    border-radius: .325rem;
-  }
-
-  .map-holder{
-    height: 400px;
-    width: auto;
-    /* margin: 20px; */
-    margin-right: 1rem;
-    border-radius: .325rem;
-  }
-}
-
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {

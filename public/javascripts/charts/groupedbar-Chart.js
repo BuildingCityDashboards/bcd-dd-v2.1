@@ -12,7 +12,7 @@ class GroupedBarChart extends Chart {
     super.init();
     super.addAxis();
     super.getKeys();
-    // c.drawTooltip();
+    c.drawTooltip();
     c.createScales(); //parent once I setup setScales:done and setDomain with switch.
     super.drawGridLines();
     c.drawBars(); //child - like createScales could be added to parent with switch.
@@ -124,7 +124,7 @@ class GroupedBarChart extends Chart {
       .enter();
 
     // // append a rectangle overlay to capture the mouse
-    let element = c.rectsOverlay.append("g")
+    c.rectsOverlay.append("g")
       .attr("class", "focus_overlay")
       .append("rect")
       .attr("x", d => c.x0(d[c.xV]))
@@ -139,25 +139,15 @@ class GroupedBarChart extends Chart {
         d3.select(this).style("visibility", "visible");
       })
       .on("mouseout", function() {
+        d3.select(this).style("visibility", "hidden");
         if (!c.sscreens) {
           c.newToolTip.style("visibility", "hidden");
-
+          d3.select(this).style("visibility", "hidden");
         }
-        d3.select(this).style("visibility", "hidden");
       })
       .on("mousemove", (d, e, a) => c.mousemove(d, e, a));
 
-    if (!c.sscreens) {
-      c.addLegend(); //don't draw legend on mobile
-    } else {
-      // c.mousemove(c.d, 0, c.node());
-      // c.g.select("rect").style("visibility", "visible");
-
-
-    }
-    // element.on("", (d, e, a) => c.mousemove(d, e, a));
-
-
+    c.addLegend();
   }
 
   addLegend() {
@@ -221,10 +211,10 @@ class GroupedBarChart extends Chart {
 
     }
 
-
     // if (c.sscreens) {
     //   c.ttContent(c.d[1], c.d[0], c.ks); //initalise tooltip hack
     // }
+
   }
 
   tooltipHeaders() {
@@ -297,6 +287,7 @@ class GroupedBarChart extends Chart {
   }
 
   mousemove(d, e, a) {
+
     let c = this;
     if (!c.sscreens) {
       let x = c.x0(d[c.xV]),
@@ -312,24 +303,7 @@ class GroupedBarChart extends Chart {
       c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
       c.ttContent(data, prevData, key);
     }
-  }
-
-  // initToolTip() {
-  //   c.newToolTip.style("visibility", "visible");
-  //   c.ttContent(data, prevData, key);
-  // }
-
-  // function fakemove() {
-  //   focus.style("visibility", "visible");
-  //   c.newToolTip.style("visibility", "visible");
-  //
-  //   let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
-  //     x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
-  //     i = c.bisectDate(c.d[0].values, x0, 1),
-  //     tooldata = c.sortData(i, x0);
-  //   // c.moveTooltip(tooldata);
-  //   c.ttContent(tooldata); // add values to tooltip
-  // }
+}
 
   getTooltipPosition(mouseX) {
     let c = this,
@@ -366,7 +340,6 @@ class GroupedBarChart extends Chart {
   }
 
   ttContent(d, pD, k) {
-    // console.log(`d: ${JSON.stringify(d)}, pD: ${JSON.stringify(pD)}, k: ${k}`);
     let c = this;
     k.forEach((v, i) => {
       let id = "#bcd-tt" + i,
