@@ -144,7 +144,9 @@ class GroupedBarChart extends Chart {
       })
       .on("mousemove", (d, e, a) => c.mousemove(d, e, a));
 
-    c.addLegend();
+    if (!c.sscreens) {
+      c.addLegend(); //don't draw legend on mobile
+    }
   }
 
   addLegend() {
