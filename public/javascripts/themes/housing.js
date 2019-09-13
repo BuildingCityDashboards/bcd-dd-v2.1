@@ -492,6 +492,8 @@ Promise.all([
   //   HPM06Charts.addBaseLine(100); // add horizontal baseline
   // });
 
+
+
 }).catch(function(error) {
   console.log(error);
 });
