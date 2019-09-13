@@ -140,7 +140,10 @@ class GroupedBarChart extends Chart {
       })
       .on("mouseout", function() {
         d3.select(this).style("visibility", "hidden");
-        c.newToolTip.style("visibility", "hidden");
+        if (!c.sscreens) {
+          c.newToolTip.style("visibility", "hidden");
+          d3.select(this).style("visibility", "hidden");
+        }
       })
       .on("mousemove", (d, e, a) => c.mousemove(d, e, a));
 
