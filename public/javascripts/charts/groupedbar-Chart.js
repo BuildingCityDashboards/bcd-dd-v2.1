@@ -12,7 +12,7 @@ class GroupedBarChart extends Chart {
     super.init();
     super.addAxis();
     super.getKeys();
-    c.drawTooltip();
+    // c.drawTooltip();
     c.createScales(); //parent once I setup setScales:done and setDomain with switch.
     super.drawGridLines();
     c.drawBars(); //child - like createScales could be added to parent with switch.
@@ -124,7 +124,7 @@ class GroupedBarChart extends Chart {
       .enter();
 
     // // append a rectangle overlay to capture the mouse
-    c.rectsOverlay.append("g")
+    let element = c.rectsOverlay.append("g")
       .attr("class", "focus_overlay")
       .append("rect")
       .attr("x", d => c.x0(d[c.xV]))
@@ -146,7 +146,15 @@ class GroupedBarChart extends Chart {
 
     if (!c.sscreens) {
       c.addLegend(); //don't draw legend on mobile
+    } else {
+      // c.mousemove(c.d, 0, c.node());
+      // c.g.select("rect").style("visibility", "visible");
+
+
     }
+    // element.on("", (d, e, a) => c.mousemove(d, e, a));
+
+
   }
 
   addLegend() {
@@ -197,7 +205,13 @@ class GroupedBarChart extends Chart {
     c.newToolTip = d3.select(c.e)
       .append("div")
       .attr("class", "tool-tip bcd")
-      .style("visibility", "hidden");
+
+    if (c.sscreens) {
+      c.newToolTip.style("visibility", "visible");
+    } else {
+      c.newToolTip.style("visibility", "hidden");
+
+    }
 
     c.newToolTipTitle = c.newToolTip
       .append("div")
@@ -285,10 +299,24 @@ class GroupedBarChart extends Chart {
       prevData = a[e - 1] ? a[e - 1].__data__ : null,
       key = c.ks;
 
+    console.log(`d: ${JSON.stringify(d)}, e: ${e}, a: ${JSON.stringify(a[0])}`);
+
     c.newToolTip.style("visibility", "visible");
     c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
     c.ttContent(data, prevData, key);
   }
+
+  // function fakemove() {
+  //   focus.style("visibility", "visible");
+  //   c.newToolTip.style("visibility", "visible");
+  //
+  //   let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+  //     x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+  //     i = c.bisectDate(c.d[0].values, x0, 1),
+  //     tooldata = c.sortData(i, x0);
+  //   // c.moveTooltip(tooldata);
+  //   c.ttContent(tooldata); // add values to tooltip
+  // }
 
   getTooltipPosition(mouseX) {
     let c = this,
