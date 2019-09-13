@@ -147,7 +147,9 @@ class GroupedBarChart extends Chart {
       })
       .on("mousemove", (d, e, a) => c.mousemove(d, e, a));
 
-    c.addLegend();
+    if (!c.sscreens) {
+      c.addLegend();
+    }
   }
 
   addLegend() {
@@ -303,7 +305,7 @@ class GroupedBarChart extends Chart {
       c.newToolTip.style("left", tooltipX + "px").style("top", y + "px");
       c.ttContent(data, prevData, key);
     }
-}
+  }
 
   getTooltipPosition(mouseX) {
     let c = this,
