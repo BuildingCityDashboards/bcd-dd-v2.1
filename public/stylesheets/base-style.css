@@ -102,8 +102,32 @@ a:hover {
 }
 
 
+/*Pages*/
+/*Themes*/
+.theme-section{
+  /* padding-bottom: 75px; */
+  /* margin-top: 3rem; */
+}
 
+#transport{
+  margin-top:-3rem;
+  padding-top: 5rem;
+}
 
+#environment{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#housing {
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#demographics{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
 
 .up-arrow{
   fill: green;
@@ -232,7 +256,7 @@ a:hover {
 }
 
 .chart-holder{
-  margin-right: -1rem;
+  margin-right: 1rem;
   border-radius: .325rem;
 }
 
@@ -240,14 +264,14 @@ a:hover {
   border: 1px solid #8080802e;
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
-  padding: 1rem;
+  padding: 0rem;
 }
 
 .map-holder{
   height: 400px;
   width: auto;
   /* margin: 20px; */
-  margin-right: -1rem;
+  margin-right: 1rem;
   border-radius: .325rem;
 }
 
@@ -267,33 +291,28 @@ a:hover {
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
 #HPM06{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #employment{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #property-price-monthly{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #dublin-bikes{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #population{
-  padding-top: 100px;
-  margin-top: -100px;
-}
-
-.chart-holder{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 /* Colour Utilities Classes */
@@ -441,6 +460,22 @@ select {
   right: 0;
   bottom: 0;
 }
+
+@media(max-width: 576px){
+  .chart-holder{
+    margin-right: 0rem;
+    border-radius: .325rem;
+  }
+
+  .map-holder{
+    height: 400px;
+    width: auto;
+    /* margin: 20px; */
+    margin-right: 1rem;
+    border-radius: .325rem;
+  }
+}
+
 
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
