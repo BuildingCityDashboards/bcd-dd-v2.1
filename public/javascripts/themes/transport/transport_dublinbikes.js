@@ -8,7 +8,7 @@ Promise.all([
     d3.json("/data/Transport/dublinbikes/month.json")
   ])
   .then(data => {
-    // console.log("Bikes data length " + data[0].length);
+    console.log("Bikes data length " + data[0].length);
     // const dayFormat = d3.timeFormat("%a, %I:%M");
     let keys = ["Bikes in use", "Bikes available"]; //this controls stacking order
 
@@ -178,6 +178,6 @@ function getMax(data, p) {
   let max = data.reduce((acc, curr) => {
     return acc[p] > curr[p] ? acc : curr;
   });
-  // console.log("Bikes info " + JSON.stringify(max));
+  console.log("Bikes info " + JSON.stringify(max));
   return max;
 };
