@@ -262,7 +262,8 @@ a:hover {
 }
 
 .chart-holder{
-  margin-right: -1rem;
+  padding-right: 1rem;
+  /* padding-left: 3rem; */
   border-radius: .325rem;
 }
 
@@ -270,7 +271,7 @@ a:hover {
   border: 1px solid #8080802e;
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .map-holder{
