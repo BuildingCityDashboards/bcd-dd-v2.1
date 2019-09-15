@@ -489,13 +489,13 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
   let green = "#20c997",
     red = "#da1e4d",
     text = d3.select("#data-text p"),
-    textString;
-  // textString = text.text(),
+    defaultString;
+  // defaultString = text.text(),
   if (IS_TOUCH_DEVICE) {
-    textString = "<b>Slide for more, touch to go to the full chart page </b>";
+    defaultString = "<b>Slide for more, touch to go to the full chart page </b>";
 
   } else {
-    textString = "<b>Hover over these charts for more information, click to go to the data page </b>";
+    defaultString = "<b>Hover over these charts for more information, click to go to the data page </b>";
   }
 
   cArrow = changeArrrow,
@@ -524,28 +524,34 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
       text.append("text").text(" " + endString);
     })
     .on("mouseout", (d) => {
-      text.html(textString);
+      text.html(defaultString);
     });
 
-  d3.select(selector).on("blur", (d) => {
-    text.html(textString);
-  });
+  // d3.select(selector).on("blur", (d) => {
+  //   text.html(defaultString);
+  // });
 
-  d3.select(selector).on("focus", (d) => {
-    text.text(startString);
-    text.append("span").text(lastElementDate).attr("class", "bold-text");
+  // d3.select(selector).on("click", (d) => {
+  //   text.html(defaultString);
+  // });
 
-    text.append("text").text(" was ");
-
-    text.append("span").text(format(currentValue))
-      .attr("class", "bold-text");
-
-    text.append("text").text(". That's ");
-
-    text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color", indicatorColour);
-
-    text.append("text").text(" " + endString);
-  });
+  // d3.select(selector).on("focus", (d) => {
+  //
+  //   console.log("Focus");
+  //   text.text(startString);
+  //   text.append("span").text(lastElementDate).attr("class", "bold-text");
+  //
+  //   text.append("text").text(" was ");
+  //
+  //   text.append("span").text(format(currentValue))
+  //     .attr("class", "bold-text");
+  //
+  //   text.append("text").text(". That's ");
+  //
+  //   text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color", indicatorColour);
+  //
+  //   text.append("text").text(" " + endString);
+  // });
 }
 
 function initInfoText() {
