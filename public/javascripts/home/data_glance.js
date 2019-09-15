@@ -508,7 +508,7 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
   d3.select(selector)
     .on("mouseover", (d) => {
 
-      text.html(startString).attr("class", "bold-text");
+      text.html(startText).attr("class", "bold-text");
       text.append("span").text(lastElementDate).attr("class", "bold-text");
 
       text.append("text").text(" was ");
@@ -528,7 +528,7 @@ function updateInfoText(selector, startText, endText, data, valueName, labelName
     });
 
   d3.select(selector).on("blur", (d) => {
-    text.text(textString);
+    text.html(textString);
   });
 
   d3.select(selector).on("focus", (d) => {
