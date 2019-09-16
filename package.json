@@ -15,7 +15,7 @@
     "debug": "~2.6.9",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "http-errors": "~1.6.2",
+    "http-errors": "^1.6.3",
     "jquery": ">=3.4.0",
     "leaflet": "^1.5.1",
     "leaflet-spin": "^1.1.0",
