@@ -9,35 +9,34 @@ div(class="tab-content" id="nav-tabContent")
   //-   +svg("","icon__arrow")(class="icon icon-arrow")
   div(class="tab-pane tab-charts fade show active" id="nav-all")
     .row.tab-charts__row
-      #time-chart.col-xl-3.col-sm-6.col-12.px-1
+      #time-chart.col-xl-3.col-sm-5.col-11.px-1
         //.col-11
-        +card-time("/", "card text-white o-hidden border-yellow", "Dublin Time", "test","rt-time")
-      #weather-chart.col-xl-3.col-sm-6.col-12.px-1 
+        +card-time("", "card text-white o-hidden border-yellow", "Dublin Time", "test","rt-time")
+      #weather-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
-        +card-rt("/", "card text-white o-hidden border-yellow", "Weather", "test", "rt-weather")
-      #bikes-chart.col-xl-3.col-sm-6.col-12.px-1
+        +card-rt("", "card text-white o-hidden border-yellow", "Weather", "test", "rt-weather")
+      #bikes-chart.col-xl-3.col-sm-5.col-11.px-1
         //.col-11
         +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
-      #traveltimes-chart.col-xl-3.col-sm-6.col-12.px-1 
+      #traveltimes-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
         +card-rt("queries#dublinbikes", "card text-white o-hidden border-yellow", "Motorway Travel Times", "test","rt-travelTimes")
-    div.d-sm-none.d-md-block
-      #data-text.div 
-        p <b>Hover over these charts for more information, click to go to the data page</b>   
+    #data-text.div 
+          
     .row.tab-charts__row
-      #apd-chart.col-xl-3.col-sm-6.col-12.px-1 
+      #apd-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
         +card-chart("themes#population", "card text-white o-hidden border-blue", "Annual Population", "test","pr-glance", "../images/calendar-w.svg")
 
-      #emp-chart.col-xl-3.col-sm-6.col-12.px-1 
+      #emp-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
         +card-chart("themes#employment", "card text-white o-hidden border-blue", "Unemployment Quarterly Count", "test", "test-glance", "../images/calendar-w.svg")  
 
-      #app-chart.col-xl-3.col-sm-6.col-12.px-1 
+      #app-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
         +card-chart("themes#property-price-monthly", "card text-white o-hidden border-blue", "Monthly Property Price Index", "test", "ap-glance", "../images/calendar-w.svg")
         //- stack area chart with just population. 
-      #huc-chart.col-xl-3.col-sm-6.col-12.px-1 
+      #huc-chart.col-xl-3.col-sm-5.col-11.px-1 
         //.col-11
         +card-chart("themes#unitscompmonth", "card text-white o-hidden border-blue", "Monthly House Unit Completions", "test","hc-glance", "../images/calendar-w.svg")
       //- .col-xl-3.col-sm-6.col-12

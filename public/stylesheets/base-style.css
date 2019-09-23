@@ -80,7 +80,6 @@ a:hover {
 
 }
 
-
 .section-header{
   /* margin-top: -75px; */
   padding-top: 20px;
@@ -131,9 +130,29 @@ a:hover {
 /*Pages*/
 /*Themes*/
 .theme-section{
-  padding-bottom: 75px;
+  /* padding-bottom: 75px; */
+  /* margin-top: 3rem; */
 }
 
+#transport{
+  margin-top:-3rem;
+  padding-top: 5rem;
+}
+
+#environment{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#housing {
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
+
+#demographics{
+  margin-top:-3rem;
+  padding-top: 5rem;
+  }
 
 .up-arrow{
   fill: green;
@@ -262,7 +281,8 @@ a:hover {
 }
 
 .chart-holder{
-  margin-right: -1rem;
+  padding-right: 1rem;
+  /* padding-left: 3rem; */
   border-radius: .325rem;
 }
 
@@ -270,7 +290,7 @@ a:hover {
   border: 1px solid #8080802e;
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .map-holder{
@@ -291,28 +311,28 @@ a:hover {
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
 #HPM06{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #employment{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #property-price-monthly{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #dublin-bikes{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 #population{
-  padding-top: 100px;
-  margin-top: -100px;
+  padding-top: 5rem;
+  margin-top: -3rem;
 }
 
 /* Colour Utilities Classes */
@@ -357,17 +377,15 @@ select {
 
 }
 
-
-
 #data-text{
   display: flex;
   /* //padding: .5rem; */
   height: 75px;
   /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
   justify-content: center;
-  /* align-content: center; */
+  align-content: center;
   /* background-color: rgba(0,0,0,.3); */
 
 }
@@ -375,15 +393,10 @@ select {
 #data-text p{
   font-size: 1.35rem;
   font-weight: 220;
+  text-align: center;
   /* box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2); */
   margin: 0 ;
   /* height: 75px; */
-}
-
-select:hover:not([disabled]) {
-  /* border-color: transparent; */
-  /* box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2); */
-
 }
 
 .btn-bcd{

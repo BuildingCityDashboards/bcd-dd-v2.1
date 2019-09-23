@@ -25,7 +25,7 @@
     align-items: center;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: .25rem 1rem;
+    padding: .25rem;
 }
 
 .nav-link{
@@ -48,7 +48,7 @@
     color: #f8f8f8;
     font-size: 14px;
     display: block;
-    padding: .5rem 1rem;
+    padding: .25rem .25rem;
   }
 
 
@@ -322,6 +322,13 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+#search-results{
+  position: fixed;
+  top: 3.5rem;
+  right: 60px;
+  z-index: 9999;
+}
+
 
 /* side navigaton dots */
 
@@ -364,6 +371,12 @@
 
     .bcd-nav{
         padding: 0 1rem;
+    }
+
+    .subnav-link{
+      font-size: 14px;
+      display: block;
+      padding: .5rem 1rem;
     }
 
     .side-menu {

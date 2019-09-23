@@ -24,7 +24,7 @@
 .tab-charts__row{
   display: flex;
   flex-wrap: nowrap;
-  overflow-x: hidden;
+  overflow-x: scroll;
   position: relative;
   justify-content: space-between;
     /* height: 250px; */
@@ -72,7 +72,7 @@
     outline: none;
 }
 
-@media (max-width: 768px){
+/* @media (max-width: 768px){
 
     .tab-charts__row{
         position: relative;
@@ -81,4 +81,4 @@
         -webkit-overflow-scrolling: touch;
     }
 
-}
+} */

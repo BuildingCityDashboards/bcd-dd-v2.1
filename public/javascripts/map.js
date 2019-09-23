@@ -4,22 +4,24 @@ const HOVER_COLOR = "#16c1f3",
   dublin = d3.select("#dublin-text"),
   dData = dublincoco.features[0].properties,
   percentage = d3.format(".2%"),
-  thousands = d3.format(".3s"),
+  thousands = d3.format(",.3s"),
+  popFormat = d3.format(",.5r"),
   maplocale = d3.formatLocale({
+    "thousands": ',',
     "currency": ["€", ""]
   }),
-  euro = maplocale.format("$,"),
+  euro = maplocale.format("$,.5r"),
   diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
   diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME));
-dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + " ");
-dublin.select("#region__area").text(dData.AREA + ", ");
-dublin.select("#region__age").text(dData.AGE + " ");
-dublin.selectAll("#region__income").text(euro(dData.INCOME) + " ");
-dublin.select("#region__prePopulation").text(thousands(dData.PREVPOPULATION) + " ");
+dublin.selectAll("#region__population").text(thousands(dData.POPULATION) + "");
+dublin.select("#region__area").text(dData.AREA + "");
+dublin.select("#region__age").text(dData.AGE + "");
+dublin.selectAll("#region__income").text(euro(dData.INCOME) + "");
+dublin.select("#region__prePopulation").text(thousands(dData.PREVPOPULATION) + "");
 dublin.select("#region__populationIndicator").text(indicatorText(diff, "#region__populationIndicator", "increased", false));
 dublin.select("#region__populationChange").text(percentage(diff) + indicator(diff, "#region__populationChange", false));
 dublin.select("#region__incomeIndicator").text(indicatorText(diff, "#region__incomeIndicator", "grew", false));
-dublin.select("#region__income__prev").text(euro(dData.PREVINCOME) + " ");
+dublin.select("#region__income__prev").text(euro(dData.PREVINCOME) + "");
 dublin.select("#region__income__change").text(percentage(diffIncome) + indicator(diffIncome, "#region__income__change", false));
 
 // Event Handlers
@@ -36,34 +38,39 @@ function mouseOutHandler(d, i) {
 }
 
 function clickHandler(d, i) {
+
+  console.log("click on ");
+  // console.log(`d: ` + JSON.stringify(d));
   let opentext = "",
     localdiff = (getPerChange(d.properties.POPULATION, d.properties.PREVPOPULATION)),
     localdiffIncome = (getPerChange(d.properties.INCOME, d.properties.PREVINCOME));
 
-  // console.log(`d: ` + JSON.stringify(d));
 
   d3.selectAll(".local").classed("local-on", false);
   d3.select(this).classed("local-on", true);
   d3.select("#local" + d.properties.OBJECTID).classed("local-on", true);
-  d3.select("#local__title").text(d.properties.ENGLISH + " ");
+  if (d3.select("#local" + d.properties.OBJECTID).classed("btn")) {
+    d3.selectAll(".btn").classed("active", false);
+    d3.select("#local" + d.properties.OBJECTID).classed("active", true);
+  }
+  d3.select("#local__title").text(d.properties.ENGLISH + "");
   d3.select("#local__open").text(d.properties.ABOUT);
-  d3.selectAll("#local__title__small").text(d.properties.ENGLISH + " ");
-  d3.select("#local__total-poualtion").text(d.properties.POPULATION + " ");
-  d3.select("#local__area").text(d.properties.AREA + ", ");
-  d3.select("#local__age").text(d.properties.AGE + " ");
-  d3.selectAll("#local__income").text(d.properties.INCOME + " ");
-  d3.select("#local__prePopulation").text(d.properties.PREVPOPULATION + " ");
-  d3.select("#local__curPopulation").text(d.properties.POPULATION + " ");
+  d3.selectAll("#local__title__small").text(d.properties.ENGLISH + "");
+  d3.select("#local__total-poualtion").text(popFormat(d.properties.POPULATION) + "");
+  d3.select("#local__area").text(d.properties.AREA + "");
+  d3.select("#local__age").text(d.properties.AGE + "");
+  d3.selectAll("#local__income").text(d.properties.INCOME + "");
+  d3.select("#local__prePopulation").text(popFormat(d.properties.PREVPOPULATION) + "");
+  d3.select("#local__curPopulation").text(popFormat(d.properties.POPULATION) + "");
   d3.select("#local__populationIndicator").text(indicatorText(localdiff, "#local__populationIndicator", "increased", false));
   d3.select("#local__populationChange").text(percentage(localdiff) + indicator(localdiff, "#local__populationChange", false));
   d3.select("#local__incomeIndicator").text(indicatorText(localdiff, "#local__incomeIndicator", "grew", false));
-  d3.select("#local__income__prev").text(d.properties.PREVINCOME + " ");
+  d3.select("#local__income__prev").text(d.properties.PREVINCOME + "");
   d3.select("#local__income__change").text(percentage(localdiffIncome) + indicator(localdiffIncome, "#local__income__change", false));
   d3.select(".lp-map__compare").style("visibility", "visible");
 }
 
 function renderMap(root) {
-
   d3.select(element).select("svg").remove();
 
   const svg = d3.select(element).append("svg"),
@@ -133,7 +140,7 @@ function renderMap(root) {
 function renderTabs(root) {
   // Remove old and Draw local aut and register event listeners
   let tabs = d3.select("#lp-tabs").selectAll(".btn-bcd");
-  console.log("this is the tabs", tabs);
+  // console.log("this is the tabs", tabs);
 
   // tabs.remove();
   tabs.data(root.features).enter();
@@ -141,6 +148,25 @@ function renderTabs(root) {
     .text(d => d.properties.ENGLISH)
     .on("click", clickHandler);
 }
+let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+if (screenSize >= 768) {
+  renderMap(dublincoco);
+} else {
+  renderTabs(dublincoco);
+}
+
+// Initialise with one LA chosen
+let clickEvent = new MouseEvent('click', {
+  view: window,
+  bubbles: true,
+  cancelable: true
+});
+
+const ids = ['local1', 'local7', 'local11', 'local16'];
+let laElement = document.getElementById(ids[Math.floor(Math.random() * 4)]);
+laElement.dispatchEvent(clickEvent);
+// console.log("e type" + laElement);
 
 function getPerChange(d1, d0) {
   let value = (d1 - d0) / d0;
@@ -195,23 +221,3 @@ function indicatorText(value, selector, text, negative) {
   // d3.select(selector).style("color", indicatorColour);
   return indicatorText;
 }
-
-let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
-if (screenSize >= 768) {
-  renderMap(dublincoco);
-} else {
-  renderTabs(dublincoco);
-}
-
-// Initialise with one LA chosen
-let clickEvent = new MouseEvent('click', {
-  view: window,
-  bubbles: true,
-  cancelable: true
-});
-
-const ids = ['local1', 'local7', 'local11', 'local16'];
-
-let mapElement = document.getElementById(ids[Math.floor(Math.random() * 4)]);
-mapElement.dispatchEvent(clickEvent);

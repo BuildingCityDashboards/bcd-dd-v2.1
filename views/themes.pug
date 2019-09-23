@@ -15,7 +15,7 @@ block navigation
 block content
   .content.bg-dark-blue
     .container
-      header.header.mt-5.py-5
+      header.mt-5
         .row
           .col-md-12
             h1= title
@@ -33,20 +33,19 @@ block content
               |For deeper data exploration, see our 
               |<a href="../queries"> Queries</a> and <a href="../tools"> Tools</a>.
 
-      .subnav
-        +subnavbar("bcd-nav")
-
-    section#transport.section-header.bg-dark.head-anchor.theme-section
+    .subnav
+      +subnavbar("bcd-nav")
+    section#transport.bg-dark-blue
       .wrap
         .container
           include themes_transport_charts
 
-    section#environment.section-header.bg-dark-blue.head-anchor.theme-section
+    section#environment.bg-dark-blue
       .wrap
         .container
           include themes_environment_charts
 
-    section#housing.section-header.bg-dark.head-anchor.theme-section
+    section#housing.bg-dark-blue
       .wrap
         .container
           include themes_housing_charts
@@ -66,7 +65,7 @@ block content
         .container
           include themes_health_charts
 
-    section#demographics.section-header.bg-dark-blue.head-anchor.theme-section 
+    section#demographics.bg-dark-blue 
       .wrap
         .container
           include themes_demographics_charts
