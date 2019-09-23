@@ -6,6 +6,7 @@
         |It is located in the province of Leinster and covers a total area of 
         span#region__area xxx.xx
         |. 
+
         |Dublin has a total population of 
         span#region__population x,xxx,xxx 
         |  people, with a median age of 
@@ -43,6 +44,7 @@
       //-     |   of which vacant households (excluding holiday homes) numbered 
       //-     span#region__total-vacant 31,459.
 
+
     //- #lp-tabs.py-3.d-md-none
     //- <button type="button" class="btn btn-bcd d-none" value="">Test</button>
     //- .row
@@ -62,8 +64,8 @@
     .lp-map__compare.py-3
       h3 
         span#local__title   Dublin
-      .columns-2
-        p
+      .columns-2.m-0
+        p.m-0
           span#local__open Dublin is the capital and largest city in Ireland. It is located in the province of Leinster. 
           |It covers an area of 
           span#local__area xxx.xx km2
@@ -87,18 +89,9 @@
           |, a 
           span#local__populationChange x.xx% decrease/increase
           |. 
-          //- |  and its median household income 
-          //- span#local__incomeIndicator grew/shrunk 
-          //- |from 
-          //- span#local__income__prev €xx.xx 
-          //- |to 
-          //- span#local__income €xx.xx
-          //- |, a 
-          //- span#local__income__change x.xx% decrease/increase
-          //- |.
 
   // map holder
-  .py-3.col-lg-5.col-md-6.d-sm-none.d-md-block
+  .py-1.col-lg-4.col-md-6.d-sm-none.d-md-block
     //- p Click on the map to see info about each of the local authorities.
     #map__container 
     //-( viewBox="-80 80 400 400")

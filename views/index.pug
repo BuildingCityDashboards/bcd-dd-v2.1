@@ -22,6 +22,16 @@ block content
     .content-wrapper.content-wrapper--darkblue
       .container
         include component/lp-map.pug
+        
+  section.map
+    .content-wrapper.content-wrapper--very-dark-blue
+      .container
+        include component/about-dd.pug
+        
+  //section.search
+    .content-wrapper.content-wrapper--very-dark-blue
+      .container
+        include component/gSiteSearch.html
 
   //- include component/scroll-to-top
 
@@ -36,3 +46,4 @@ block append scripts
   script(src='javascripts/home/card_bikes.js')
   script(src='javascripts/home/card_traveltimes.js')
   script(src='javascripts/home/card_time.js')
+  script(src='javascripts/search.js')

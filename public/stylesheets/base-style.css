@@ -7,6 +7,7 @@ body{
   position: relative;
 }
 
+
 /* Links*/
 a {
   color: var(--vivid-cyan);
@@ -50,6 +51,24 @@ a:hover {
    -moz-animation: updateAnimation 1s 3;
    -o-animation: updateAnimation 1s 3;
     animation: updateAnimation 1s 3 ;
+}
+
+.help-text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  border-radius: 1rem;
+  background-color: var(--grayish-blue);
+}
+
+.help-text p{
+  margin: 0;
+  padding: 0.75rem 0;
+  font-weight: 500;
+
+
 }
 
 .chart-heading{
@@ -462,9 +481,12 @@ select {
   bottom: 0;
 }
 
+
+
+
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
-.collape {
+.collapse {
   transition: none;
 }
 }

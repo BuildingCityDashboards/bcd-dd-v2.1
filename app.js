@@ -22,7 +22,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // logger.debug("Overriding 'Express' logger");
 app.use(morgan('combined', {
   "stream": logger.stream
-
 }));
 
 // get routes files
@@ -31,6 +30,7 @@ const themes = require('./routes/themes');
 const stories = require('./routes/stories');
 const tools = require('./routes/tools');
 const queries = require('./routes/queries');
+const portal = require('./routes/portal');
 const api = require('./routes/api');
 
 // view engine setup
@@ -52,13 +52,14 @@ app.use('/themes', themes);
 app.use('/stories', stories);
 app.use('/tools', tools);
 app.use('/queries', queries);
+app.use('/portal', portal);
 app.use('/api', api);
 
 ////additional functionality from node modules
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  next((404));
 });
 
 // error handler
