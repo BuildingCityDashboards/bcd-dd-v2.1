@@ -3,6 +3,11 @@ Promise.all([
     d3.csv("../data/Health/healthlevels2011.csv"),
     d3.csv("../data/Health/healthlevelscount2011.csv")
 ]).then(datafiles => {
+  // d3.select('#chart-healthlevels').selectAll(".chart-holder").style("background-image", "none");
+  // d3.select('#').selectAll(".chart-holder").style("background-color","#f8f8f8");
+  // d3.select('#chart-healthlevels').selectAll(".chart-holder").style("background-image", "none");
+   // d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
+  /*background-color: #f8f8f8;*/
     // t is for trolleys
     const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p),
           tData = datafiles[0],
@@ -32,7 +37,7 @@ Promise.all([
           tDataProcessed.forEach( d => {
             let d1 = parseTime(d[tdateField]);
                 d1.setDate(d1.getDate()-2);
-                d.label = "W" + d.week;  
+                d.label = "W" + d.week;
                 d.date = d1;
           });
 
@@ -98,7 +103,7 @@ function qToQuarter(q){
 }
 
 function dataSets(data, columns){
-    
+
     coercedData = data.map( d => {
         for( var i = 0, n = columns.length; i < n; i++ ){
             d[columns[i]] = d[columns[i]] !== "NULL" ? +d[columns[i]] : "unavailable";
@@ -111,13 +116,13 @@ function dataSets(data, columns){
 }
 
 function formatQuarter(date){
-    
+
     let newDate = new Date();
         newDate.setMonth(date.getMonth() + 1);
-    
+
     let year = (date.getFullYear());
     let q = Math.ceil(( newDate.getMonth()) / 3 );
-    
+
     return "Quarter "+ q + " " + year;
 }
 

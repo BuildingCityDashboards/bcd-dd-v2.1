@@ -19,10 +19,10 @@ dublin.select("#region__age").text(dData.AGE + "");
 dublin.selectAll("#region__income").text(euro(dData.INCOME) + "");
 dublin.select("#region__prePopulation").text(thousands(dData.PREVPOPULATION) + "");
 dublin.select("#region__populationIndicator").text(indicatorText(diff, "#region__populationIndicator", "increased", false));
-dublin.select("#region__populationChange").text(percentage(diff) + indicator(diff, "#region__populationChange", false));
+dublin.select("#region__populationChange").text(percentage(diff) + indicator_f(diff, "#region__populationChange", false));
 dublin.select("#region__incomeIndicator").text(indicatorText(diff, "#region__incomeIndicator", "grew", false));
 dublin.select("#region__income__prev").text(euro(dData.PREVINCOME) + "");
-dublin.select("#region__income__change").text(percentage(diffIncome) + indicator(diffIncome, "#region__income__change", false));
+dublin.select("#region__income__change").text(percentage(diffIncome) + indicator_f(diffIncome, "#region__income__change", false));
 
 // Event Handlers
 function mouseOverHandler(d, i) {
@@ -63,10 +63,10 @@ function clickHandler(d, i) {
   d3.select("#local__prePopulation").text(popFormat(d.properties.PREVPOPULATION) + "");
   d3.select("#local__curPopulation").text(popFormat(d.properties.POPULATION) + "");
   d3.select("#local__populationIndicator").text(indicatorText(localdiff, "#local__populationIndicator", "increased", false));
-  d3.select("#local__populationChange").text(percentage(localdiff) + indicator(localdiff, "#local__populationChange", false));
+  d3.select("#local__populationChange").text(percentage(localdiff) + indicator_f(localdiff, "#local__populationChange", false));
   d3.select("#local__incomeIndicator").text(indicatorText(localdiff, "#local__incomeIndicator", "grew", false));
   d3.select("#local__income__prev").text(d.properties.PREVINCOME + "");
-  d3.select("#local__income__change").text(percentage(localdiffIncome) + indicator(localdiffIncome, "#local__income__change", false));
+  d3.select("#local__income__change").text(percentage(localdiffIncome) + indicator_f(localdiffIncome, "#local__income__change", false));
   d3.select(".lp-map__compare").style("visibility", "visible");
 }
 
@@ -150,6 +150,8 @@ function renderTabs(root) {
 }
 let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
+//console.log(screenSize);
+
 if (screenSize >= 768) {
   renderMap(dublincoco);
 } else {
@@ -179,7 +181,7 @@ function getPerChange(d1, d0) {
 
 }
 
-function indicator(value, selector, negative) {
+function indicator_f (value, selector, negative) {
   let indicatorColour,
     indicatorSymbol = value > 0 ? " ▲ increase" : value < 0 ? " ▼ decrease" : "";
 

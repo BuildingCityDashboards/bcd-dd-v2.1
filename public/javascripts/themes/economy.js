@@ -23,6 +23,47 @@ Promise.all([
     coerceNum(annual, keysA);
     parseQuarter(QNQ22, "quarter");
     parseYearDates(annual, "date");
+    // d3.select('#economy').selectAll(".chart-holder").style("background-image", "none");
+    // d3.select('#').selectAll(".chart-holder").style("background-color","#f8f8f8");
+    // d3.selectAll(".chart-holder_PH").attr("class", "chart-holder");
+    // d3.select('#chart-healthlevels').selectAll(".chart-holder").style("background-image", "none");
+
+    /*d3.select("#chart-employment").style("background-image", "none");
+    d3.select("#chart-emp-rate").style("background-image", "none");
+    d3.select("#chart-unemp-rate").style("background-image", "none");
+    d3.select("#chart-unemployment").style("background-image", "none");
+    d3.select("#chart-population").style("background-image", "none");
+    d3.select("#chart-households").style("background-image", "none");
+    d3.select("#chart-bornOutsideState").style("background-image", "none");
+    d3.select("#chart-householdComposition").style("background-image", "none");
+    d3.select("#chart-waste").style("background-image", "none");
+    d3.select("#chart-recyclings").style("background-image", "none");
+    d3.select("#chart-organicrecyclings").style("background-image", "none");
+    d3.select("#chart-watercons").style("background-image", "none");
+    d3.select("#chart-riverqualities").style("background-image", "none");
+    d3.select("#chart-greenflags").style("background-image", "none");
+    d3.select("#chart-localagendas").style("background-image", "none");*/
+    //
+
+    /*d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");
+    d3.select("#").style("background-image", "none");*/
+    //
+
+
+
+
+
 
     const emp = keys[0],
       unemp = QNQ22.columns[4],
@@ -464,3 +505,4 @@ function activeBtn(e) {
   $(btn).siblings().removeClass('active');
   $(btn).addClass('active');
 }
+// d3.selectAll(".chart-holder_PH").attr("class", "chart-holder");

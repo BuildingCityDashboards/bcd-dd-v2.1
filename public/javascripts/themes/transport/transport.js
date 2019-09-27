@@ -4,6 +4,8 @@
 Promise.all([
   d3.json("/data/Transport/bikes_dummy_availability_day_hourly.json")
 ]).then(data => {
+   // d3.select('#').selectAll(".chart-holder").style("background-image", "none");
+   // d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
   console.log("Bikes theme data: " + JSON.stringify(data));
   // data.length = 1;
   // data[0].length = 20; //readings for each hour?
