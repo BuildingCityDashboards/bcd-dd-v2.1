@@ -9,7 +9,7 @@ svg(xmlns='http://www.w3.org/2000/svg', style="display:none")
         line(x1="6.27" y1="9.74" x2="19.48" y2="9.74")
         line(x1="6.27" y1="16.09" x2="15" y2="16.09")
         polyline(points="26.98 20.47 29.61 15.13 34.13 20.28 38.63 10.64")
-        line(x1="6.27" y1="22.47" x2="19.48" y2="22.47")
+        line(x1="6.27" y1="22.47" x2="19.48" y2="42.47")
     symbol#icon__queries(viewBox='0 0 50 50')
         polyline(class="cls-1" points="42 5.32 37.52 10.54 33.04 5.32")
         rect(class="cls-2" x="0.5" y="0.5" width="45" height="14" rx="4.36" ry="4.36")
@@ -24,11 +24,21 @@ svg(xmlns='http://www.w3.org/2000/svg', style="display:none")
         line(x1="23.37" y1="24.58" x2="27.11" y2="28.4")
         line(x1="24.47" y1="23.66" x2="28.18" y2="27.44")
         path(d="M17.24,16.28,11.62,10.4h0a4.08,4.08,0,0,0-1.09-4.69L5.12.71.71,5.47l5.4,5a4.06,4.06,0,0,0,4.39,1h0l5.76,5.88")
+    
     symbol#icon__(viewbox='0 0 24 24')
         path(fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', d='M20,9c0,4.9-8,13-8,13 S4,13.9,4,9c0-5.1,4.1-8,8-8S20,3.9,20,9z', stroke-linejoin='miter')
         circle(data-color='color-2', fill='none', stroke-width='1', stroke-linecap='square', stroke-miterlimit='10', cx='12', cy='9', r='3', stroke-linejoin='miter')
     symbol#icon__arrow
-        polyline(class="cls-1" points="22.65 1 11.82 13.61 1 1")
+    polyline(class="cls-1" points="22.65 1 11.82 13.61 1 1")
+    
+    symbol#icon__tools(viewbox='8 2 50 50')
+    path(d="M-288.25-118.56h9.12a4.44,4.44,0,0,0,4.63-4.26v-22.34a4.5,4.5,0,0,0-4.63-4.34h-35.74a4.5,4.5,0,0,0-4.63,4.34v22.34a4.44,4.44,0,0,0,4.63,4.26l17.87.14,8.24,7.26" transform="translate(320 150)")
+    line(x1="16.27" y1="19.74" x2="29.48" y2="9.74")
+    line(x1="16.27" y1="16.09" x2="25" y2="16.09")
+    polyline(points="26.98 20.47 29.61 15.13 34.13 20.28 38.63 10.64")
+    line(x1="16.27" y1="22.47" x2="29.48" y2="22.47")
+    
+      
 
 // Mixins, used on or off of the page
 mixin svg(svg_url, svg_id)
