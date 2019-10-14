@@ -1,4 +1,4 @@
-# bcd-dd-v2.1
+# bcd-dd-v2
 
 Live beta site location: https://dublindashboard-beta.azurewebsites.net/
 
@@ -31,4 +31,4 @@ Live beta site location: https://dublindashboard-beta.azurewebsites.net/
 
 + Open a browser (Chrome recommended) to http://localhost:3000/
 
-
++ Enjoy!

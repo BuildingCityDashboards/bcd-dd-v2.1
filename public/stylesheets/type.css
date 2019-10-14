@@ -94,4 +94,10 @@ p, .p{
   font-weight: 600;
 }
 
+.n-text{
+  font-weight: 100;
+  font-style: normal;
+  
+}
+
 /* end typography */

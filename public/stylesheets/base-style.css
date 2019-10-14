@@ -7,7 +7,6 @@ body{
   position: relative;
 }
 
-
 /* Links*/
 a {
   color: var(--vivid-cyan);
@@ -53,24 +52,6 @@ a:hover {
     animation: updateAnimation 1s 3 ;
 }
 
-.help-text {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  border-radius: 1rem;
-  background-color: var(--grayish-blue);
-}
-
-.help-text p{
-  margin: 0;
-  padding: 0.75rem 0;
-  font-weight: 500;
-
-
-}
-
 .chart-heading{
   font-weight: 500;
   color: #f8f8f8;
@@ -79,6 +60,7 @@ a:hover {
   text-indent:-100px; */
 
 }
+
 
 .section-header{
   /* margin-top: -75px; */
@@ -130,29 +112,9 @@ a:hover {
 /*Pages*/
 /*Themes*/
 .theme-section{
-  /* padding-bottom: 75px; */
-  /* margin-top: 3rem; */
+  padding-bottom: 75px;
 }
 
-#transport{
-  margin-top:-3rem;
-  padding-top: 5rem;
-}
-
-#environment{
-  margin-top:-3rem;
-  padding-top: 5rem;
-  }
-
-#housing {
-  margin-top:-3rem;
-  padding-top: 5rem;
-  }
-
-#demographics{
-  margin-top:-3rem;
-  padding-top: 5rem;
-  }
 
 .up-arrow{
   fill: green;
@@ -281,8 +243,74 @@ a:hover {
 }
 
 .chart-holder{
-  padding-right: 1rem;
-  /* padding-left: 3rem; */
+
+  /* background-image: linear-gradient(#f8f8f8,gray); */
+
+ /* background-image: url("https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-1,h-1:w-300,h-200"); */
+ /*background-color: #f8f8f8;*/
+
+  margin-right: -1rem;
+  border-radius: .325rem;
+}
+
+/*.chart-holder_PH{
+ /* background-image: linear-gradient(#000,#000); */
+ /* background-image: url("https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-1,h-1:w-300,h-200"); */
+ /* background-color: #000; */
+ /* background-image: url("paper.gif"); */
+
+  /* background-color: gray; */
+   /* margin-right: -1rem; */
+  /* border-radius: .325rem;
+
+      animation-duration: 3s;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-name: placeHolderShimmer;
+      animation-timing-function: linear;
+      background: #808080;
+      background: linear-gradient(to right, #808080 8%, #808080 18%, #808080 33%);
+      background-size: 1000px 1000px;
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+
+}*/
+
+
+@keyframes placeHolderShimmer{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+
+.chart-holder_PH {
+
+  height: 400px;
+  position: relative;
+  background: rgba(72,72,72,0.6);
+  /*animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background-Color: rgba(40,40,40,0.6);
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 1000px 104px;
+    height: 400px;
+    position: relative;
+    overflow: hidden;*/
+}
+
+.chart-holder{
+  /* background-image: linear-gradient(#f8f8f8,gray); */
+ /* background-image: url("https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-1,h-1:w-300,h-200"); */
+ /*background-color: #f8f8f8;*/
+
+  margin-right: -1rem;
   border-radius: .325rem;
 }
 
@@ -290,7 +318,7 @@ a:hover {
   border: 1px solid #8080802e;
   border-radius: 12px;
   box-shadow: 0 0 16px #ccc;
-  /* padding: 1rem; */
+  padding: 1rem;
 }
 
 .map-holder{
@@ -311,28 +339,33 @@ a:hover {
 /* //specific adjustments for page anchors */
 /*TODO: wrap all these sections anchors in a class*/
 #HPM06{
-  padding-top: 5rem;
-  margin-top: -3rem;
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 #employment{
-  padding-top: 5rem;
-  margin-top: -3rem;
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 #property-price-monthly{
-  padding-top: 5rem;
-  margin-top: -3rem;
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 #dublin-bikes{
-  padding-top: 5rem;
-  margin-top: -3rem;
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 #population{
-  padding-top: 5rem;
-  margin-top: -3rem;
+  padding-top: 100px;
+  margin-top: -100px;
+}
+
+.chart-holder{
+  padding-top: 100px;
+  margin-top: -100px;
 }
 
 /* Colour Utilities Classes */
@@ -377,15 +410,17 @@ select {
 
 }
 
+
+
 #data-text{
   display: flex;
   /* //padding: .5rem; */
   height: 75px;
   /* flex-wrap: wrap; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   justify-content: center;
-  align-content: center;
+  /* align-content: center; */
   /* background-color: rgba(0,0,0,.3); */
 
 }
@@ -393,10 +428,15 @@ select {
 #data-text p{
   font-size: 1.35rem;
   font-weight: 220;
-  text-align: center;
   /* box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2); */
   margin: 0 ;
   /* height: 75px; */
+}
+
+select:hover:not([disabled]) {
+  /* border-color: transparent; */
+  /* box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0 rgba(99,115,129,.2); */
+
 }
 
 .btn-bcd{
@@ -481,12 +521,9 @@ select {
   bottom: 0;
 }
 
-
-
-
 /* from this https://css-tricks.com/introduction-reduced-motion-media-query/ */
 @media screen and (prefers-reduced-motion: reduce) {
-.collapse {
+.collape {
   transition: none;
 }
 }
