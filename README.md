@@ -1,6 +1,6 @@
 # bcd-dd-v2.1
 
-Live beta site location: https://dublindashboard-beta.azurewebsites.net/
+Live beta site (MVP version) location: https://dublindashboard-beta.azurewebsites.net/
 
 ## Quick Setup
 
@@ -17,7 +17,7 @@ Live beta site location: https://dublindashboard-beta.azurewebsites.net/
     git checkout staging
 ```
 
-+ Enter into the new repo directory created and install the required dependencies using NPM:
++ Install the required dependencies using NPM:
 
 ```
     npm install
@@ -29,6 +29,10 @@ Live beta site location: https://dublindashboard-beta.azurewebsites.net/
     npm run dev
 ```
 
-+ Open a browser (Chrome recommended) to http://localhost:3000/
++ OR launch the application in production mode:
 
-+ Enjoy!
+```
+    npm run dev
+```
+
++ Open a browser (Chrome recommended) to http://localhost:3000/
