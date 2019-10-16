@@ -1,4 +1,4 @@
-# bcd-dd-v2
+# bcd-dd-v2.1
 
 Live beta site location: https://dublindashboard-beta.azurewebsites.net/
 
@@ -8,7 +8,7 @@ Live beta site location: https://dublindashboard-beta.azurewebsites.net/
 + Navigate to your desired local folder, open a command line/terminal and clone the repositiory using the link on Github:
 
 ```
-    git clone https://github.com/LiamOSullivan/bcd-dd-v2.git
+    git clone https://github.com/LiamOSullivan/bcd-dd-v2.1.git
 ```
 
 + Check out the branch required and/or create your own. For example to check out the MVP-housing branch:
