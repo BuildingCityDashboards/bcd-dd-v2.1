@@ -8,13 +8,13 @@ Live beta site location: https://dublindashboard-beta.azurewebsites.net/
 + Navigate to your desired local folder, open a command line/terminal and clone the repositiory using the link on Github:
 
 ```
-    git clone https://github.com/LiamOSullivan/bcd-dd-v2.1.git
+    https://github.com/BuildingCityDashboards/bcd-dd-v2.1.git
 ```
 
-+ Check out the branch required and/or create your own. For example to check out the MVP-housing branch:
++ Enter the new 'bcd-dd-v2.1' directory. Check out the branch required and/or create your own. For example to check out the current 'staging' branch:
 
 ```
-    git checkout MVP-housing
+    git checkout staging
 ```
 
 + Enter into the new repo directory created and install the required dependencies using NPM:
