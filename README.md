@@ -32,7 +32,7 @@ Live beta site (MVP version) location: https://dublindashboard-beta.azurewebsite
 + OR launch the application in production mode:
 
 ```
-    npm run dev
+    npm start
 ```
 
 + Open a browser (Chrome recommended) to http://localhost:3000/
