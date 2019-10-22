@@ -244,7 +244,21 @@ function markerOnClickLuas(e) {
       }
       //console.log("tabledata: " + JSON.stringify(tableData));
       let luasRTBase = "<br><br> Next trams after ";
-      let luasRT = luasRTBase + infoString.split("at ")[1] + "<br>";
+      let currenTime=infoString.split("at ")[1];
+      let timeStr = currenTime;
+      let parts = timeStr.split(':');
+      let  hour = parseInt($.trim(parts[0]));
+      hour += 1;
+      //let  Modi_Time= hour+':'+parts[1]+':'+parts[2];
+
+      //-- or use the current hour from the system time 
+       let d = new Date();
+       let h = d.getHours();
+       let Modi_Time= h +':'+parts[1]+':'+parts[2];
+      //--
+
+      // console.log(currenTime);  //.split("at ")[1]);
+      let luasRT = luasRTBase + Modi_Time + "<br>";
       if (tableData.length > 0) {
         //                    console.log("RTPI " + JSON.stringify(data.results[0]));
         _.each(tableData, function(d, i) {

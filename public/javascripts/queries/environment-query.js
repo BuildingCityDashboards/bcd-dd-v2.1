@@ -10,7 +10,7 @@ waterMap.addLayer(osmEnv);
 let markerRefEnv; //TODO: fix horrible hack!!!
 waterMap.on('popupopen', function (e) {
     markerRefEnv = e.popup._source;
-    //console.log("ref: "+JSON.stringify(e));
+    // console.log("ref: "+JSON.stringify(e));
 });
 let waterLevelCluster = L.markerClusterGroup();
 let hydronetCluster = L.markerClusterGroup();
@@ -65,7 +65,7 @@ function getWaterLevelContent(d_) {
     let str = '';
     if (d_.properties["station.name"]) {
         str += '<b>' + d_.properties["station.name"] + '</b><br>'
-                + 'Sensor ' + d_.properties["sensor.ref"] + '<br>'
+                + 'Sensor_Test' + d_.properties["sensor.ref"] + '<br>'
                 + d_.type + '<br>';
     }
     if (d_.properties["value"]) {
