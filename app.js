@@ -90,17 +90,24 @@ if (app.get('env') === 'development') {
  ************/
 let bikesQuery = require("./services/derilinx-api-query.js");
 
-//Every night at 3.45 am
-cron.schedule('45 3 * * *', () => {
+//Every 30 minutes
+cron.schedule('*/10 * * * *', () => {
   util.log(`\n\nRunning bikes cron\n\n`);
 
   //Generating date queries to GET each night in cron
-  const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day');
-  const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day');
-  const weekStart = moment.utc().subtract(1, 'weeks').startOf('day');
-  const monthStart = moment.utc().subtract(1, 'months').startOf('day');
+  const now = moment.utc();
+  //const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day');
+  //const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day');
+  //const weekStart = moment.utc().subtract(1, 'weeks').startOf('day');
+  //const monthStart = moment.utc().subtract(1, 'months').startOf('day');
 
-  bikesQuery.getAllStationsDataHourly(yesterdayStart, yesterdayEnd)
+  const yesterdayStart = moment.utc().subtract(1, 'days');
+  const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day');
+  const weekStart = moment.utc().subtract(1, 'weeks');
+  const monthStart = moment.utc().subtract(1, 'months');
+
+
+  bikesQuery.getAllStationsDataHourly(yesterdayStart, now)
     .then((data) => {
       if (data.length >= 1) {
         const e = new moment(yesterdayEnd);
@@ -126,7 +133,7 @@ cron.schedule('45 3 * * *', () => {
       util.log("\n\n Handling errror " + err);
     });
 
-  bikesQuery.getAllStationsDataHourly(weekStart, yesterdayEnd)
+  bikesQuery.getAllStationsDataHourly(weekStart, now)
     .then((data) => {
       if (data.length >= 1) {
         const e = new moment(weekStart);
@@ -152,7 +159,7 @@ cron.schedule('45 3 * * *', () => {
       util.log("\n\n Handling errror " + err);
     });
 
-  bikesQuery.getAllStationsDataHourly(monthStart, yesterdayEnd)
+  bikesQuery.getAllStationsDataHourly(monthStart, now)
     .then((data) => {
       if (data.length >= 1) {
         const e = new moment(monthStart);

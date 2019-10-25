@@ -17,19 +17,45 @@ exports.getAllStationsDataHourly = async (start, end) => {
   util.log(`\n\n\nCall getAllStationsDataHourly from ${start} to ${end}`);
   const e = new moment(end);
   const s = new moment(start);
+  //moment representing 3 am (when bikes in use should be 0)
+  const threeAM = moment(new moment(e).startOf('day')).add(3, 'h');
   const durMs = moment.duration(e.diff(s));
+  const threeAMDiffMs = moment.duration(e.diff(threeAM));
+  if (threeAMDiffMs < 0) {
+    threeAMDiffMs = 0;
+  }
   const durHrs = Math.ceil(durMs / 1000 / 60 / 60);
-  util.log("\nQuery duration (hours): " + durHrs);
-  let hStart = 3,
+  const threeAmDiffHrs = Math.ceil(threeAMDiffMs / 1000 / 60 / 60);
+
+  //util.log("\nQuery duration (hours): " + durHrs);
+  // no offset to hstart necessary
+  let hStart = 0,
     hEnd = durHrs + 2; //hours to gather data for
   let responses = [];
   let summary = [];
   let hourlyValues = [];
-  let totalBikesDay = 0; //the total bikes avaiilable taken as the # available before opening hour
+  //the total bikes avaiilable taken as the # available before opening hour
+  //pre-call the dublinbikes api at 3 am on the day of the end query to get total bikes
+  let totalBikesDay = 0;
+  let preStartQuery = moment(end).subtract(threeAmDiffHrs, 'h').format('YYYYMMDDHHmm');
+  let preEndQuery = moment(end).subtract(threeAmDiffHrs, 'h').add(2, 'm').format('YYYYMMDDHHmm');
+  const preUrl = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
+      "dfrom=" +
+      preStartQuery +
+      "&dto=" +
+      preEndQuery;
+  try {
+    const response = await getDublinBikesData_derilinx(preUrl);
+    response.forEach(prer => {
+      totalBikesDay += prer.historic[0].available_bikes;
+    });
+  } catch (e) {
+    util.error("Error in getAllStationsDataHourly preQuery" + e);
+  } 
   for (let h = hStart; h <= hEnd; h += 1) {
     let startQuery = moment(start).add(h, 'h').format('YYYYMMDDHHmm');
     let endQuery = moment(start).add(h, 'h').add(2, 'm').format('YYYYMMDDHHmm');
-    // console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
+    //console.log("\nStart Query: " + startQuery + "\nEnd Query: " + endQuery);
     const url = "https://dublinbikes.staging.derilinx.com/api/v1/resources/historical/?" +
       "dfrom=" +
       startQuery +
@@ -49,11 +75,15 @@ exports.getAllStationsDataHourly = async (start, end) => {
         availableBikesSum += r.historic[0].available_bikes;
         availableStandsSum += r.historic[0].available_bike_stands;
       });
-      if (h == hStart) {
-        totalBikesDay = availableBikesSum;
-      }
+      //this only works if chron is scheduled in the middle of the night when no bikes should be in use
+      //if (h == hStart) {
+      //  totalBikesDay = availableBikesSum;
+      //}
+
+      //this converts to user's local time - no good if not in Dublin
       const date = moment(response[0].historic[0].time);
       const dateLabel = moment(response[0].historic[0].time).format('ha, dddd MMMM Do');
+
       // console.log("\n\nmoment: " + dateLabel + "\n\n\n");
       let label = dateLabel;
 

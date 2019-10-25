@@ -1,7 +1,7 @@
 header
   .row
     .col-12
-      h1 Transport_Test
+      h1 Transport
       p.lead Transport and travel data for Dublin
       // is available for the Airport <i>(coming soon)</i>, 
         |Bike Hire, Bus, Luas, Port <i>(coming soon)</i>, Tram, and Private Car Parking.
@@ -28,7 +28,8 @@ article.article
         |click on a button to move between views.
 
       div#bikes-info-text
-        p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+        p In the past <b id='time-period'></b>, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+        p The current <b id='current-bikes-in-use-count'></b> bikes in use is <b id='percent-change-with-indicator'></b>  <b id='previous-time'></b>.
 
         //- bike stations around 
         //-   |the city with <b id='stands-count'></b> stands.

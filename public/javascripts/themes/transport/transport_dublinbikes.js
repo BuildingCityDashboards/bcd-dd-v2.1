@@ -97,7 +97,7 @@ Promise.all([
       dublinBikesChart.drawChart();
       //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
-
+      updateTextInfo(dataDay);
     });
 
     d3.select("#dublinbikes_week").on("click", function() {
@@ -106,7 +106,7 @@ Promise.all([
       dublinBikesChart.drawChart();
       //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
-
+      updateTextInfo(dataWeek);
     });
 
     d3.select("#dublinbikes_month").on("click", function() {
@@ -115,7 +115,7 @@ Promise.all([
       dublinBikesChart.drawChart();
       //dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip("Dublin Bikes at ", "thousands", "label", "", "");
-
+      updateTextInfo(dataMonth);
     });
 
   }).catch(function(error) {
@@ -166,9 +166,19 @@ function updateTextInfo(data) {
   //console.log("Bikes data " + JSON.stringify(data) + "\n");
   let peakUse = getMax(data, "Bikes in use");
   d3.select('#bikes-in-use-count').text(peakUse["Bikes in use"]);
-  d3.select('#max-bikes-use-time').text(peakUse["label"].split(',')[0]);
+  d3.select('#max-bikes-use-time').text(peakUse["label"]);//.split(',')[0]);
   d3.select('#bikes-available').text(peakUse["Bikes available"]);
   // d3.select('#stands-count').html(bikeStands);
+  let currentBikes = data[data.length-1]["Bikes in use"];
+  let timePeriod = getTimePeriod(data);
+  let percentChange = getPercentChange(data, "Bikes in use");
+  let previousTime = getPreviousTime(data);
+  d3.select('#current-bikes-in-use-count').text(currentBikes);
+  d3.select('#time-period').text(timePeriod);
+  d3.select('#percent-change-with-indicator').text(indicatorText(percentChange.toPrecision(2))); 
+  setIndicatorColour(percentChange, "#percent-change-with-indicator");
+  d3.select('#previous-time').text(previousTime);
+
 
   // console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
   // console.log("# of bike stations is " + data_.length + "\n");
@@ -180,4 +190,84 @@ function getMax(data, p) {
   });
   console.log("Bikes info " + JSON.stringify(max));
   return max;
+};
+
+//ars are array and property to be evaluated as a string
+function getPercentChange(data, p) {
+  let percent = 0; //default is no change
+  if (data[0][p] >0 ) {
+	
+	//may be negative, which is ok for now
+	percent = 100*((data[data.length-1][p] - data[0][p]) / data[0][p]);
+  } else if (data[data.length-1][p] > 0) { 
+    //special case where change is from 0 to anything other than 0
+	percent = 100;
+  }
+  return percent;
+};
+
+function getTimePeriod(data) {
+  //may be negative, which is ok for now
+  let period = "";
+  switch(data.length) {
+	case 25: 
+		period = "day";
+		break;
+	
+	case 169:
+		period = "week";
+		break;
+	
+	default:
+		period = "month";
+		break;	
+  
+  }
+
+  return period;
+};
+
+function indicatorText(value){
+  let indicatorColour,
+      indicatorText,
+	  directionText,
+      indicatorSymbol = value > 0 ? " ▲ " : value < 0 ? " ▼ " : " ";
+
+  directionText = value < 0 ? "fewer than it was " : value > 0 ? "greater than it was " : " no change from ";
+
+	
+  indicatorText = "" + Math.abs(value) + "% " + indicatorSymbol + directionText;
+      
+  return indicatorText;
+}
+
+function setIndicatorColour(value, selector) {
+	
+	  if(value < 0 ){
+      indicatorColour = value < 0 ? "#da1e4d" : value > 0 ? "#20c997" : "#f8f8f8";
+  }
+  else{
+      indicatorColour = value > 0 ? "#20c997" : value < 0 ? "#da1e4d" : "#f8f8f8";
+  }
+  
+  d3.select(selector).style("color", indicatorColour);
+}
+
+function getPreviousTime(data) {
+  let previous = "";
+  switch(data.length) {
+	case 25: 
+		previous = "yesterday";
+		break;
+	
+	case 169:
+		previous = "one week ago";
+		break;
+	
+	default:
+		previous = "one month ago";
+		break;	
+  
+  }
+  return previous;
 };
