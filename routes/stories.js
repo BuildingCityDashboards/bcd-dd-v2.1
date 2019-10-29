@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/housing-dublin', function(req, res, next) {
-  res.render('stories/stories_housing', {
+router.get('/housing-dublin-phase-1', function(req, res, next) {
+  res.render('stories/stories_housing_1', {
     title: 'Housing Crisis Phase 1: 1993-2006 (the Celtic Tiger years)',
     page: 'page light'
   });
