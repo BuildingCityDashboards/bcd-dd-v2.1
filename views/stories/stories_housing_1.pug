@@ -41,13 +41,14 @@ block content
                 h2.mt-5.mb-4 Housing Crisis Phase 1: 1993-2006 (the Celtic Tiger years)
                 .something
                   p.lead The exact start date of the Celtic Tiger era is still debated, but most analysts accept it was between 1991 and 1995. From the early 1990s the Irish economy began to transform with a growth in economic activity and numbers in employment. As the economy grew, the population increased through immigration and natural increase and average household size shrank through alterations in family structure.  Between April 1991 and April 2006 the population of Ireland increased by 704,129 (20%), the number of households by 440,437 (43%). 
-                #chart1
-                  <button type="button" class="btn btn-bcd active chart-btn chart_pop">Population</button>
-                  <button type="button" class="btn btn-bcd chart-btn chart_hos">Households</button>
-                  <button type="button" class="btn btn-bcd chart-btn chart_prate">Population % Change</button>
-                  <button type="button" class="btn btn-bcd chart-btn chart_hrate">Households % Change</button>
-                  #chart1a.chart
-                  #chart1b.chart
+                //- #chart1
+                //-   <button type="button" class="btn btn-bcd active chart-btn chart_pop">Population</button>
+                //-   <button type="button" class="btn btn-bcd chart-btn chart_hos">Households</button>
+                //-   <button type="button" class="btn btn-bcd chart-btn chart_prate">Population % Change</button>
+                //-   <button type="button" class="btn btn-bcd chart-btn chart_hrate">Households % Change</button>
+                //-   #chart1a.chart
+                //-   #chart1b.chart
+                #pop-projection-chart
                 .something
                   p.small.text-center Figure 1: Growth in population and households 1991-2016.
                   p.lead The demand for housing thus expanded rapidly, as did the need to produce a more diversified stock that would cater for different sized and types of household.  Population and households expanded very rapidly in the counties surrounding Dublin; for example, in Kildare and Meath the number of households grew by 85% and 87% between 1991-2006. In Dublin 4 LAs?
@@ -187,10 +188,15 @@ block content
 block append scripts
   script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" type="text/javascript")
   script(src="/lib/d3v5/d3.js" type="text/javascript")
-  script(src="/javascripts/charts/bcd-chart.js" type="text/javascript")
-  script(src="/javascripts/charts/multiline-chart.js" type="text/javascript")
-  script(src="/javascripts/charts/groupedbar-Chart.js" type="text/javascript")
-  script(src="/javascripts/charts/stackedareaChart.js" type="text/javascript")
-  script(src="/javascripts/charts/stackbarChart.js" type="text/javascript")
-  script(src="/javascripts/charts/grouped-stack.js" type="text/javascript")
-  script(src="/javascripts/stories/housing_crisis.js" type="text/javascript")
+  script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
+  script(src="/javascripts/charts/plotly/plotly_common.js" type="text/javascript")
+  script(src="/javascripts/charts/plotly/plotly_mode_bar_buttons.js" type="text/javascript")
+  script(src="/javascripts/stories/story-housing1-fig1.js" type="text/javascript")
+  
+  //- script(src="/javascripts/charts/bcd-chart.js" type="text/javascript")
+  //- script(src="/javascripts/charts/multiline-chart.js" type="text/javascript")
+  //- script(src="/javascripts/charts/groupedbar-Chart.js" type="text/javascript")
+  //- script(src="/javascripts/charts/stackedareaChart.js" type="text/javascript")
+  //- script(src="/javascripts/charts/stackbarChart.js" type="text/javascript")
+  //- script(src="/javascripts/charts/grouped-stack.js" type="text/javascript")
+  //- script(src="/javascripts/stories/housing_crisis.js" type="text/javascript")
