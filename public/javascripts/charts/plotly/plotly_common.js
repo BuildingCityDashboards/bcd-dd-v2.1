@@ -15,8 +15,8 @@ let chartFont = {
   color: '#313131'
 };
 
-// let chartColor = '#ffffff';
-let chartColor = '#d8d8d8'; //nearly same as background
+let chartColor = '#ffffff';
+// let chartColor = '#d8d8d8'; //nearly same as background
 
 // let colorWay = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844'];
 // let colorWay = ['#e7a4b6', '#a262a9', '#6f4d96', '#182844'];
@@ -72,6 +72,18 @@ let groupedColumnLayout = {
 let multilineChartLayout = {
   responsive: true,
   margin: margins,
+  title: {
+    text: 'Plot Title',
+    font: {
+      family: 'Courier New, monospace',
+      size: 24
+    },
+    xref: 'paper',
+    x: 0
+  },
+  xaxis: {
+    showticklabels: false
+  },
   yaxis: {
     showticklabels: true
   },
@@ -80,6 +92,11 @@ let multilineChartLayout = {
   colorway: colorWay,
   font: chartFont,
   showlegend: true,
+  legend: {
+    x: 1,
+    y: 0.5,
+    'orientation': 'v'
+  },
   annotations: [],
   hovermode: 'x'
 };
