@@ -18,9 +18,9 @@ let chartFont = {
 let chartColor = '#ffffff';
 // let chartColor = '#d8d8d8'; //nearly same as background
 
-// let colorWay = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844'];
+let colorWay = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844'];
 // let colorWay = ['#e7a4b6', '#a262a9', '#6f4d96', '#182844'];
-let colorWay = ['#f4a582', '#f7f7f7', '#92c5de', '#0571b0']; //colorbrewer divergent
+// let colorWay = ['#f4a582', '#f7f7f7', '#92c5de', '#0571b0']; //colorbrewer divergent
 
 
 let margins = {

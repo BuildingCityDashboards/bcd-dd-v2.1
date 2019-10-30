@@ -35,7 +35,7 @@ d3.csv(srcPath + srcFile)
       return v.region === regions[6];
     });
 
-    let popProjDC = {
+    let dcPop = {
       x: dcData.map((v) => {
         return v.date;
       }),
@@ -48,52 +48,107 @@ d3.csv(srcPath + srcFile)
       visible: true //'legendonly'
     };
 
-    // let popProjNI = {
-    //   x: niData.map((v) => {
-    //     return v.Year;
-    //   }),
-    //   y: niData.map((v) => {
-    //     return v.Count;
-    //   }),
-    //   mode: 'lines+markers',
-    //   name: 'NI',
-    //   visible: 'legendonly'
-    // };
-    //
-    // let popProjDon = {
-    //   x: donegalData.map((v) => {
-    //     return v.Year;
-    //   }),
-    //   y: donegalData.map((v) => {
-    //     return v.Count;
-    //   }),
-    //   mode: 'lines+markers',
-    //   name: 'Donegal'
-    // };
-    //
-    // let popProjROI = {
-    //   x: roiData.map((v) => {
-    //     return v.Year;
-    //   }),
-    //   y: roiData.map((v) => {
-    //     return v.Count;
-    //   }),
-    //   mode: 'lines+markers',
-    //   name: 'RoI',
-    //   visible: 'legendonly'
-    // };
-
-    let popProjectionData = [popProjDC]
-    //, popProjNI, popProjDon, popProjDS];
-    let popProjectionLayout = Object.assign({}, multilineChartLayout);
-    popProjectionLayout.title.text = title;
-    popProjectionLayout.legend = {
-      x: 1,
-      y: 1,
-      'orientation': 'v'
+    let dlrPop = {
+      x: dlrData.map((v) => {
+        return v.date;
+      }),
+      y: dlrData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[1],
+      visible: true //'legendonly'
     };
 
-    Plotly.newPlot(divID, popProjectionData, popProjectionLayout, {
+    let fPop = {
+      x: fData.map((v) => {
+        return v.date;
+      }),
+      y: fData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[2],
+      visible: true //'legendonly'
+    };
+
+    let sdPop = {
+      x: sdData.map((v) => {
+        return v.date;
+      }),
+      y: sdData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[3],
+      visible: true //'legendonly'
+    };
+
+    let kPop = {
+      x: kData.map((v) => {
+        return v.date;
+      }),
+      y: kData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[4],
+      visible: true //'legendonly'
+    };
+
+    let mPop = {
+      x: mData.map((v) => {
+        return v.date;
+      }),
+      y: mData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[5],
+      visible: true //'legendonly'
+    };
+
+    let wPop = {
+      x: wData.map((v) => {
+        return v.date;
+      }),
+      y: wData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[6],
+      visible: true //'legendonly'
+    };
+
+    // let dcHouse = {
+    //   x: dcData.map((v) => {
+    //     return v.date;
+    //   }),
+    //   y: dcData.map((v) => {
+    //     return v.households;
+    //   }),
+    //   type: 'scatter',
+    //   mode: 'lines+markers',
+    //   name: regions[0] + ' house',
+    //   visible: true //'legendonly'
+    // };
+
+    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop];
+    //, popProjNI, popProjDon, popProjDS];
+    let popLayout = Object.assign({}, multilineChartLayout);
+    popLayout.title.text = title;
+    popLayout.legend = {
+      x: 1,
+      y: 1
+    };
+
+    Plotly.newPlot(divID, popData, popLayout, {
       modeBarButtons: multilineModeBarButtonsInclude,
       displayModeBar: true,
       displaylogo: false,
