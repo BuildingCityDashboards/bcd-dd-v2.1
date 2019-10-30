@@ -10,6 +10,9 @@ d3.csv(srcPath + srcFile)
     let dcData = data.filter((v) => {
       return v.region === regions[0];
     });
+    let lastY = dcData[dcData.length - 1].population;
+    let lastX = dcData[dcData.length - 1].date;
+
 
     let dlrData = data.filter((v) => {
       return v.region === regions[1];
@@ -143,10 +146,25 @@ d3.csv(srcPath + srcFile)
     //, popProjNI, popProjDon, popProjDS];
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
+    popLayout.showlegend = false;
+
     popLayout.legend = {
-      x: 1,
-      y: 1
+      x: 0.95,
+      y: 0.99
     };
+
+    popLayout.annotations = [{
+      x: lastX,
+      y: lastY,
+      xref: 'x',
+      yref: 'y',
+      align: 'right',
+      text: regions[0],
+      showarrow: true,
+      arrowhead: 7,
+      ax: 50,
+      ay: 0
+    }]
 
     Plotly.newPlot(divID, popData, popLayout, {
       modeBarButtons: multilineModeBarButtonsInclude,
