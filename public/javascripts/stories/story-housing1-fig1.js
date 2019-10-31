@@ -44,6 +44,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[0],
       visible: true //'legendonly'
     };
@@ -57,6 +66,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[1],
       visible: true //'legendonly'
     };
@@ -70,6 +88,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[2],
       visible: true //'legendonly'
     };
@@ -83,6 +110,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[3],
       visible: true //'legendonly'
     };
@@ -96,6 +132,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[4],
       visible: true //'legendonly'
     };
@@ -109,6 +154,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[5],
       visible: true //'legendonly'
     };
@@ -122,6 +176,15 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
       name: regions[6],
       visible: true //'legendonly'
     };
@@ -144,11 +207,6 @@ d3.csv(srcPath + srcFile)
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
     popLayout.showlegend = false;
-    popLayout.legend = {
-      x: 0.95,
-      y: 0.99
-    };
-
     popLayout.annotations = [{
       x: dcData[dcData.length - 1].date,
       y: dcData[dcData.length - 1].population,
@@ -245,7 +303,7 @@ d3.csv(srcPath + srcFile)
       font: {
         family: null,
         size: null,
-        color: colorWay[4]
+        color: colorWay[colorWay.length - 1] //last element should be grey
       },
       showarrow: true,
       xanchor: 'left',
@@ -266,7 +324,7 @@ d3.csv(srcPath + srcFile)
       font: {
         family: null,
         size: null,
-        color: colorWay[5]
+        color: colorWay[colorWay.length - 1]
       },
       showarrow: true,
       xanchor: 'left',
@@ -287,7 +345,7 @@ d3.csv(srcPath + srcFile)
       font: {
         family: null,
         size: null,
-        color: colorWay[0]
+        color: colorWay[colorWay.length - 1]
       },
       showarrow: true,
       xanchor: 'left',

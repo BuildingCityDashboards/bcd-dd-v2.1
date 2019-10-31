@@ -84,6 +84,7 @@ cA5 = [
 ]; // qualitative pastel
 
 colorWay = cA1; //choose the colorWay to be applied in the chart
+colorWay.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
 let margins = {
   l: 40,
@@ -137,8 +138,8 @@ let multilineChartLayout = {
   title: {
     text: 'Plot Title',
     font: {
-      family: 'Courier New, monospace',
-      size: 24
+      family: null,
+      size: 20
     },
     xref: 'paper',
     x: 0
