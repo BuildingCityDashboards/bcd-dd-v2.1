@@ -141,7 +141,7 @@ let multilineChartLayout = {
       family: null,
       size: 20
     },
-    xref: 'paper',
+    xref: 'container',
     x: 0
   },
   xaxis: {

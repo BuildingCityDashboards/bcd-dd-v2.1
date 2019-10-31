@@ -669,9 +669,10 @@ d3.csv(srcPath + srcFile)
       active: 0,
       type: 'dropdown',
       x: 0,
-      xanchor: 'auto',
+      xref: 'container',
+      xanchor: 'left',
       y: 1,
-      yanchor: 'middle'
+      yanchor: null
     }];
 
 
@@ -684,12 +685,13 @@ d3.csv(srcPath + srcFile)
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'testytest',
+        filename: 'Dublin Dashboard - ' + title,
         width: null,
         height: null,
         format: 'png'
       }
     });
+
 
   })
   .catch(function(err) {
