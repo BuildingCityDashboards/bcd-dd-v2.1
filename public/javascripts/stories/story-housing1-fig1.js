@@ -1,40 +1,42 @@
 const srcPath = "../data/Stories/Housing/",
-  srcFile = "pop_house.csv";
+  srcFile1 = "pop_house.csv",
+  srcFile2 = "pop_house_rate.csv";
 const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let title = "Growth in population and households 1991-2016";
-const popTitle = "Population of Dublin and surrounding areas 1991-2016";
-const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
+const popTitle = "Populations of Dublin and surrounding areas 1991-2016";
+const houseTitle = "Numbers of households in Dublin and surrounding areas 1991-2016";
 title = popTitle;
 const divID = "population-households-chart";
+Promise.all([
+    d3.csv(srcPath + srcFile1),
+    d3.csv(srcPath + srcFile2)
+  ]).then(function(data) {
 
-d3.csv(srcPath + srcFile)
-  .then(function(data) {
-
-    let dcData = data.filter((v) => {
+    let dcData = data[0].filter((v) => {
       return v.region === regions[0];
     });
 
-    let dlrData = data.filter((v) => {
+    let dlrData = data[0].filter((v) => {
       return v.region === regions[1];
     });
 
-    let fData = data.filter((v) => {
+    let fData = data[0].filter((v) => {
       return v.region === regions[2];
     });
 
-    let sdData = data.filter((v) => {
+    let sdData = data[0].filter((v) => {
       return v.region === regions[3];
     });
 
-    let kData = data.filter((v) => {
+    let kData = data[0].filter((v) => {
       return v.region === regions[4];
     });
 
-    let mData = data.filter((v) => {
+    let mData = data[0].filter((v) => {
       return v.region === regions[5];
     });
 
-    let wData = data.filter((v) => {
+    let wData = data[0].filter((v) => {
       return v.region === regions[6];
     });
 
@@ -59,7 +61,6 @@ d3.csv(srcPath + srcFile)
       name: regions[0],
       visible: true //'legendonly'
     };
-
     let dlrPop = {
       x: dlrData.map((v) => {
         return v.date;
@@ -81,7 +82,6 @@ d3.csv(srcPath + srcFile)
       name: regions[1],
       visible: true //'legendonly'
     };
-
     let fPop = {
       x: fData.map((v) => {
         return v.date;
@@ -103,7 +103,6 @@ d3.csv(srcPath + srcFile)
       name: regions[2],
       visible: true //'legendonly'
     };
-
     let sdPop = {
       x: sdData.map((v) => {
         return v.date;
@@ -125,7 +124,6 @@ d3.csv(srcPath + srcFile)
       name: regions[3],
       visible: true //'legendonly'
     };
-
     let kPop = {
       x: kData.map((v) => {
         return v.date;
@@ -147,7 +145,6 @@ d3.csv(srcPath + srcFile)
       name: regions[4],
       visible: true //'legendonly'
     };
-
     let mPop = {
       x: mData.map((v) => {
         return v.date;
@@ -169,7 +166,6 @@ d3.csv(srcPath + srcFile)
       name: regions[5],
       visible: true //'legendonly'
     };
-
     let wPop = {
       x: wData.map((v) => {
         return v.date;
@@ -191,7 +187,6 @@ d3.csv(srcPath + srcFile)
       name: regions[6],
       visible: true //'legendonly'
     };
-
     let dcHouse = {
       x: dcData.map((v) => {
         return v.date;
@@ -204,7 +199,6 @@ d3.csv(srcPath + srcFile)
       name: regions[0],
       visible: true //'legendonly'
     };
-
     let dlrHouse = {
       x: dlrData.map((v) => {
         return v.date;
@@ -217,7 +211,6 @@ d3.csv(srcPath + srcFile)
       name: regions[1],
       visible: true //'legendonly'
     };
-
     let fHouse = {
       x: fData.map((v) => {
         return v.date;
@@ -230,7 +223,6 @@ d3.csv(srcPath + srcFile)
       name: regions[2],
       visible: true //'legendonly'
     };
-
     let sdHouse = {
       x: sdData.map((v) => {
         return v.date;
@@ -243,7 +235,6 @@ d3.csv(srcPath + srcFile)
       name: regions[3],
       visible: true //'legendonly'
     };
-
     let kHouse = {
       x: kData.map((v) => {
         return v.date;
@@ -308,8 +299,59 @@ d3.csv(srcPath + srcFile)
       visible: true //'legendonly'
     };
 
+    let dcRateData = data[1].filter((v) => {
+      return v.region === regions[0];
+    });
+
+    let dlrRateData = data[1].filter((v) => {
+      return v.region === regions[1];
+    });
+
+    let fRateData = data[1].filter((v) => {
+      return v.region === regions[2];
+    });
+
+    let sdRateData = data[1].filter((v) => {
+      return v.region === regions[3];
+    });
+
+    let kRateData = data[1].filter((v) => {
+      return v.region === regions[4];
+    });
+
+    let mRateData = data[1].filter((v) => {
+      return v.region === regions[5];
+    });
+
+    let wRateData = data[1].filter((v) => {
+      return v.region === regions[6];
+    });
+
+    let dcPopRate = {
+      x: dcRateData.map((v) => {
+        return v.date;
+      }),
+      y: dcRateData.map((v) => {
+        return v.population;
+      }),
+      type: 'scatter',
+      mode: 'lines',
+      opacity: 1.0,
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
+      name: regions[0],
+      visible: true //'legendonly'
+    };
+
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
-      dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse
+      dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse,
+      dcPopRate
     ];
 
     //Set default visible traces
@@ -631,7 +673,8 @@ d3.csv(srcPath + srcFile)
           args: [{
               //Each variable has 16 traces
               'visible': [true, true, true, true, true, true, true,
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false,
+                false
               ]
             },
             {
@@ -639,14 +682,15 @@ d3.csv(srcPath + srcFile)
               'annotations': popAnnotations
             }
           ],
-          label: 'Population',
+          label: 'Populations',
           method: 'update',
           execute: true
         },
         {
           args: [{
               'visible': [false, false, false, false, false, false, false,
-                true, true, true, true, true, true, true
+                true, true, true, true, true, true, true,
+                false
               ]
             },
             {
@@ -657,22 +701,39 @@ d3.csv(srcPath + srcFile)
           label: 'Households',
           method: 'update',
           execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                true
+              ]
+            },
+            {
+              'title': 'Rate',
+              'annotations': null
+            }
+          ],
+          label: 'Rate',
+          method: 'update',
+          execute: true
         }
       ],
       direction: 'down',
       pad: {
-        'l': 20,
+        'l': 0,
         't': 0,
         'b': 0
       },
       showactive: true,
       active: 0,
-      type: 'dropdown',
-      x: 0,
+      type: 'buttons',
+      x: -0.05,
       xref: 'container',
-      xanchor: 'left',
+      xanchor: 'right',
+      yref: 'container',
       y: 1,
-      yanchor: null
+      yanchor: 'top'
     }];
 
 

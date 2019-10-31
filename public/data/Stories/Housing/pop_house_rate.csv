@@ -1,6 +1,6 @@
 ﻿type,region,1991-2006,1991-2016
 population,Dublin City,0.058157692,0.199927119
-population,Dún Laoghaire- Rathdown,0.046534707,0.214011925
+population,Dún Laoghaire-Rathdown,0.046534707,0.214011925
 population,Fingal,0.570977835,0.975867492
 population,South Dublin,0.182984493,0.471314916
 population,Kildare,0.519167428,0.849648016
@@ -8,7 +8,7 @@ population,Meath,0.545325994,0.872457127
 population,Wicklow,0.297424562,0.527470961
 population,State,0.202548473,0.427989358
 households,Dublin City,0.159211437,0.330378291
-households,Dún Laoghaire- Rathdown,0.175869694,0.394821834
+households,Dún Laoghaire-Rathdown,0.175869694,0.394821834
 households,Fingal,0.937734836,1.379140863
 households,South Dublin,0.335481151,0.688314295
 households,Kildare,0.814049048,1.233159364
