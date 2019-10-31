@@ -10,9 +10,6 @@ d3.csv(srcPath + srcFile)
     let dcData = data.filter((v) => {
       return v.region === regions[0];
     });
-    let lastY = dcData[dcData.length - 1].population;
-    let lastX = dcData[dcData.length - 1].date;
-
 
     let dlrData = data.filter((v) => {
       return v.region === regions[1];
@@ -143,27 +140,162 @@ d3.csv(srcPath + srcFile)
     // };
 
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop];
-    //, popProjNI, popProjDon, popProjDS];
+
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
     popLayout.showlegend = false;
-
     popLayout.legend = {
       x: 0.95,
       y: 0.99
     };
 
     popLayout.annotations = [{
-      x: lastX,
-      y: lastY,
+      x: dcData[dcData.length - 1].date,
+      y: dcData[dcData.length - 1].population,
       xref: 'x',
       yref: 'y',
-      align: 'right',
+      width: null, //text box
+      height: null,
+      align: 'right', //within textbox
       text: regions[0],
-      showarrow: true,
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[0]
+      },
+      showarrow: true, //need this to use ay offset
+      xanchor: 'left',
+      arrowcolor: '#fff',
       arrowhead: 7,
-      ax: 50,
-      ay: 0
+      ax: 0,
+      ay: 0,
+      borderpad: 5
+    }, {
+      x: dlrData[dlrData.length - 1].date,
+      y: dlrData[dlrData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[1],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[1]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 5,
+      borderpad: 5
+    }, {
+      x: fData[fData.length - 1].date,
+      y: fData[fData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[2],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[2]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: -5,
+      borderpad: 5
+    }, {
+      x: sdData[sdData.length - 1].date,
+      y: sdData[sdData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[3],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[3]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 5,
+      borderpad: 5
+    }, {
+      x: kData[kData.length - 1].date,
+      y: kData[kData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[4],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[4]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: -7,
+      borderpad: 5
+    }, {
+      x: mData[mData.length - 1].date,
+      y: mData[mData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[5],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[5]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 4,
+      borderpad: 5
+    }, {
+      x: wData[wData.length - 1].date,
+      y: wData[wData.length - 1].population,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[6],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[0]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 0,
+      borderpad: 5
     }]
 
     Plotly.newPlot(divID, popData, popLayout, {
