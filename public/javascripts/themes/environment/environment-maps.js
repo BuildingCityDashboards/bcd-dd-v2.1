@@ -1,5 +1,6 @@
-let popupTime = d3.timeFormat("%a %B %d, %H:%M");
 
+ let popupTime = d3.timeFormat("%a %B %d, %H:%M");
+//let str='';
 
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
 +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
@@ -36,7 +37,7 @@ waterMap.on('popupopen', function(e) {
 
 let waterOPWCluster = L.markerClusterGroup();
 
-d3.json('/data/Environment/waterlevel.json')
+d3.json('/data/Environment/w_l.json')
   .then(function(data) {
     processWaterLevels(data.features);
   });
@@ -49,40 +50,212 @@ function processWaterLevels(data_) {
       d.properties["station.region_id"] === 10;
   });
   regionData.forEach(function(d) {
+
     d.lat = +d.geometry.coordinates[1];
     d.lng = +d.geometry.coordinates[0];
     d.type = "OPW GPRS Station Water Level Monitor";
-
-  });
+    
+    
+     
+     });
   waterMapLayerSizes[0] = regionData.length;
+  // console.log(regionData);
   initMapWaterLevels(regionData);
 };
 
 function initMapWaterLevels(data__) {
-  _.each(data__, function(d, i) {
-    waterOPWCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {
-        icon: waterMapIcon
-      })
-      .bindPopup(getWaterLevelContent(d)));
-  });
+    _.each(data__, function(d, i) {
+    station_ref = d.properties['station.ref'].substring(5, 10);
+    sensor_ref = d.properties['sensor.ref'];
+    fname= station_ref.concat('_',sensor_ref).concat('.csv');
+
+
+   let content='';
+   //content=getCon(fname);  
+   waterOPWCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng)
+   
+
+    , {
+   icon: waterMapIcon,
+        
+      }).on('click', onClick))
+
+      //bindPopup(getstr(fname)));
+
+      //.bindPopup(getWaterLevelContent(d))
+            // ).bindPopup(fname, fname)
+
+             //.on('popupopen', '456'); //refeshes data on every popup open;
+  }
+  );
+
   waterMap.addLayer(waterOPWCluster);
+
+
+
+function getstr(fname)
+{
+ 
+let values ='mmmm';
+let fb='/data/Environment/36015_0003.csv';
+d3.csv(fb).then(function(d) {
+  values += +d['value'];
+  })
+
+  return values;
 }
 
-function getWaterLevelContent(d_) {
-  let str = '';
-  if (d_.properties["station.name"]) {
-    str += '<b>' + d_.properties["station.name"] + '</b><br>' +
-      'Sensor ' + d_.properties["sensor.ref"] + '<br>' +
-      d_.type + '<br>';
-  }
-  //    if (d_.properties["value"]) {
-  //        str += '<br><b>Water level: </b>' + d_.properties["value"] + '<br>';
-  //    }
-  //    if (d_.properties.datetime) {
-  //        str += '<br>Last updated on ' + popupTime(new Date(d_.properties.datetime)) + '<br>';
-  //    }
-  return str;
+ 
+   }
+
+
+function onClick(e) {alert(e.latlng);}
+
+//-
+let mstr = 'bbb';
+
+/*function getCon(fname)
+{
+
+  let strv='bbbbb';
+  strv+= getstr(fname);
+
+  return  fname; /// + '<br>'+ fname;
+}*/  
+ //let values ='nnnn';
+
+
+
+
+
+
+function getconent() {
+//let fn=fname.toString();
+
+//d3.csv('/data/Environment/' +fn, function(data) {
+ 
+ for(var i = 0; i < 20; i++)
+
+   {
+         mstr += i +'<br>';
+    }
+
+
+ 
+  
+//});
+//});
+
+return mstr;
 }
+//-
+
+
+
+let str = 'sddd';
+function getWaterLevelContent(d_) {
+  // console.log(d_);
+  
+  let station_ref = d_.properties['station.ref'].substring(5, 10);
+  let sensor_ref = d_.properties['sensor.ref'];
+  let fname= station_ref.concat('_',sensor_ref).concat('.csv');;
+  //fname=fname.concat('.csv'); 
+  //fname='09001_0001.csv'
+  str += fname + '<br>';
+  //let value=9.9;
+  //--
+  //d3.csv("./data/Environment/ " + fname).then(function(data) {
+  //data.forEach(function(d) {
+  //str += d.value;
+  
+//});
+//});
+
+
+return str;
+};
+
+
+/*
+let str_test=' ';
+function getWaterLevelContent_test(fname) {
+  // console.log(d_);
+  
+  
+  d3.csv("./data/Environment/ " + fname).then(function(data) {
+  data.forEach(function(d) {
+  str_test += d.value;
+
+});
+
+});
+
+
+return str_test;
+};
+
+
+*/
+
+
+
+
+
+
+  //let url ='http://waterlevel.ie/';
+  //if (d_.properties["station.name"]) {
+   // url += d_.properties["csv_file"];
+   // str += '<b>' + d_.properties["station.name"] + '</b><br>' +
+   //   'Sensor ' + d_.properties["sensor.ref"] + '<br>' +
+   //   d_.type + '<br>' + 
+   //   d_.properties["value"] + '<br>' +
+   //   d_.properties["station.region_id"] + 
+   //   '<br>' +
+   //   d_.properties["sensor.ref"] + '<br>' + 
+   //   d_.properties["station.ref"] + '<br>' + 
+   //   url +'<br>' + fname; 
+    
+
+      //if (d_.properties["station.ref"] === '0000009001')
+      //{
+
+ 
+
+
+
+
+  //d3.csv("./data/Environment/" + fname, function(da) {
+   //let data='/data/Environment/09045_0003.csv';
+   //let str='';
+   //let result='aaaa';
+    //da.forEach(function(d, i) {
+    //let result = +d["value"];
+    //str += result;
+    //str +='hi there';
+
+    // return str;
+ 
+
+
+
+  
+   //var csv = require('fast-csv');
+  //var list = [];
+  //const data = "";
+
+  // str += '<br>' + 'ccccccc';
+  
+ 
+// str +='hi there3';
+ //});
+
+ //});
+  
+ //} 
+
+//}
+  
+//}
 
 /************************************
  * Hydronet

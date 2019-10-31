@@ -223,7 +223,7 @@ function getBikesStationPopup() {
         };
         return setBikesStationPopupError(sid_, obj);
       }
-      if (stationData[0].banking) {
+      if (stationData[0].banking === 'True') {
         console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
         let bankStr = "<img alt=\"Banking icon \" src = \"images/bank-card-w.svg\" height= \"20px\" title=\"Banking available\" />";
         d3.select("#bike-banking-" + sid_)
