@@ -189,24 +189,67 @@ d3.csv(srcPath + srcFile)
       visible: true //'legendonly'
     };
 
-    // let dcHouse = {
-    //   x: dcData.map((v) => {
-    //     return v.date;
-    //   }),
-    //   y: dcData.map((v) => {
-    //     return v.households;
-    //   }),
-    //   type: 'scatter',
-    //   mode: 'lines+markers',
-    //   name: regions[0] + ' house',
-    //   visible: true //'legendonly'
-    // };
+    let dcHouse = {
+      x: dcData.map((v) => {
+        return v.date;
+      }),
+      y: dcData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[0] + ' house',
+      visible: true //'legendonly'
+    };
 
-    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop];
+    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop, dcHouse];
+
+    let updateMenus = [{
+      buttons: [{
+          args: [{
+              //Each variable has 16 traces
+              'visible': [true, true, true, true, true, true, true, false]
+            },
+            {
+              'title': 'Pop',
+              // 'annotations': high_annotations
+            }
+          ],
+          label: 'Pop',
+          method: 'update'
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false, true]
+            },
+            {
+              'title': 'House',
+              // 'annotations': high_annotations
+            }
+          ],
+          label: 'House',
+          method: 'update'
+        }
+      ],
+      direction: 'left',
+      pad: {
+        'r': 10,
+        't': 10
+      },
+      showactive: true,
+      type: 'buttons',
+      x: 0.5,
+      xanchor: 'center',
+      y: 0.95,
+      yanchor: 'bottom'
+    }];
 
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
     popLayout.showlegend = false;
+    popLayout.updatemenus = updateMenus;
+
+
     popLayout.annotations = [{
       x: dcData[dcData.length - 1].date,
       y: dcData[dcData.length - 1].population,
@@ -354,7 +397,7 @@ d3.csv(srcPath + srcFile)
       ax: 0,
       ay: 0,
       borderpad: 5
-    }]
+    }]; //end of annotations
 
     Plotly.newPlot(divID, popData, popLayout, {
       modeBarButtons: multilineModeBarButtonsInclude,
