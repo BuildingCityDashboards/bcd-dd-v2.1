@@ -1,6 +1,6 @@
 const srcPath = "../data/Stories/Housing/",
   srcFile1 = "pop_house.csv",
-  srcFile2 = "pop_house_rate.csv";
+  srcFile2 = "pop_house_rate_new.csv";
 const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let title = "Growth in population and households 1991-2016";
 const popTitle = "Populations of Dublin and surrounding areas 1991-2016";
