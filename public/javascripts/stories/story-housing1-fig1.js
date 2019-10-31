@@ -1,7 +1,10 @@
 const srcPath = "../data/Stories/Housing/",
   srcFile = "pop_house.csv";
 const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-const title = "Growth in population and households 1991-2016";
+let title = "Growth in population and households 1991-2016";
+const popTitle = "Population of Dublin and surrounding areas 1991-2016";
+const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
+title = popTitle;
 const divID = "population-households-chart";
 
 d3.csv(srcPath + srcFile)
@@ -198,59 +201,131 @@ d3.csv(srcPath + srcFile)
       }),
       type: 'scatter',
       mode: 'lines+markers',
-      name: regions[0] + ' house',
+      name: regions[0],
       visible: true //'legendonly'
     };
 
-    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop, dcHouse];
+    let dlrHouse = {
+      x: dlrData.map((v) => {
+        return v.date;
+      }),
+      y: dlrData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[1],
+      visible: true //'legendonly'
+    };
 
-    let updateMenus = [{
-      buttons: [{
-          args: [{
-              //Each variable has 16 traces
-              'visible': [true, true, true, true, true, true, true, false]
-            },
-            {
-              'title': 'Pop',
-              // 'annotations': high_annotations
-            }
-          ],
-          label: 'Pop',
-          method: 'update'
-        },
-        {
-          args: [{
-              'visible': [false, false, false, false, false, false, false, true]
-            },
-            {
-              'title': 'House',
-              // 'annotations': high_annotations
-            }
-          ],
-          label: 'House',
-          method: 'update'
+    let fHouse = {
+      x: fData.map((v) => {
+        return v.date;
+      }),
+      y: fData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[2],
+      visible: true //'legendonly'
+    };
+
+    let sdHouse = {
+      x: sdData.map((v) => {
+        return v.date;
+      }),
+      y: sdData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      name: regions[3],
+      visible: true //'legendonly'
+    };
+
+    let kHouse = {
+      x: kData.map((v) => {
+        return v.date;
+      }),
+      y: kData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
         }
-      ],
-      direction: 'left',
-      pad: {
-        'r': 10,
-        't': 10
       },
-      showactive: true,
-      type: 'buttons',
-      x: 0.5,
-      xanchor: 'center',
-      y: 0.95,
-      yanchor: 'bottom'
-    }];
+      name: regions[4],
+      visible: true //'legendonly'
+    };
+    let mHouse = {
+      x: mData.map((v) => {
+        return v.date;
+      }),
+      y: mData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
+      name: regions[5],
+      visible: true //'legendonly'
+    };
+    let wHouse = {
+      x: wData.map((v) => {
+        return v.date;
+      }),
+      y: wData.map((v) => {
+        return v.households;
+      }),
+      type: 'scatter',
+      mode: 'lines+markers',
+      opacity: 0.5,
+      marker: {
+        symbol: null,
+        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+        }
+      },
+      name: regions[6],
+      visible: true //'legendonly'
+    };
+
+    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
+      dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse
+    ];
+
+    //Set default visible traces
+    popData.map((t, i) => {
+      if (i < 7) return t.visible = true;
+      else return t.visible = false;
+    });
+
 
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
     popLayout.showlegend = false;
-    popLayout.updatemenus = updateMenus;
+    // popLayout.hidesources = false;
 
 
-    popLayout.annotations = [{
+    let popAnnotations = [{
       x: dcData[dcData.length - 1].date,
       y: dcData[dcData.length - 1].population,
       xref: 'x',
@@ -397,14 +472,223 @@ d3.csv(srcPath + srcFile)
       ax: 0,
       ay: 0,
       borderpad: 5
-    }]; //end of annotations
+    }]; //end of pop annotations
+
+
+    let houseAnnotations = [{
+      x: dcData[dcData.length - 1].date,
+      y: dcData[dcData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null, //text box
+      height: null,
+      align: 'right', //within textbox
+      text: regions[0],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[0]
+      },
+      showarrow: true, //need this to use ay offset
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 0,
+      borderpad: 5
+    }, {
+      x: dlrData[dlrData.length - 1].date,
+      y: dlrData[dlrData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[1],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[1]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: -3,
+      borderpad: 5
+    }, {
+      x: fData[fData.length - 1].date,
+      y: fData[fData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[2],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[2]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: -5,
+      borderpad: 5
+    }, {
+      x: sdData[sdData.length - 1].date,
+      y: sdData[sdData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[3],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[3]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 5,
+      borderpad: 5
+    }, {
+      x: kData[kData.length - 1].date,
+      y: kData[kData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[4],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[colorWay.length - 1] //last element should be grey
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 5,
+      borderpad: 5
+    }, {
+      x: mData[mData.length - 1].date,
+      y: mData[mData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[5],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[colorWay.length - 1]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 4,
+      borderpad: 5
+    }, {
+      x: wData[wData.length - 1].date,
+      y: wData[wData.length - 1].households,
+      xref: 'x',
+      yref: 'y',
+      width: null,
+      height: null,
+      align: 'right',
+      text: regions[6],
+      font: {
+        family: null,
+        size: null,
+        color: colorWay[colorWay.length - 1]
+      },
+      showarrow: true,
+      xanchor: 'left',
+      arrowcolor: '#fff',
+      arrowhead: 7,
+      ax: 0,
+      ay: 0,
+      borderpad: 5
+    }]; //end of house annotations
+
+    popLayout.annotations = popAnnotations;
+
+    let updateMenus = [{
+      buttons: [{
+          args: [{
+              //Each variable has 16 traces
+              'visible': [true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': popTitle,
+              'annotations': popAnnotations
+            }
+          ],
+          label: 'Population',
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true
+              ]
+            },
+            {
+              'title': houseTitle,
+              'annotations': houseAnnotations
+            }
+          ],
+          label: 'Households',
+          method: 'update',
+          execute: true
+        }
+      ],
+      direction: 'down',
+      pad: {
+        'l': 20,
+        't': 0,
+        'b': 0
+      },
+      showactive: true,
+      active: 0,
+      type: 'dropdown',
+      x: 0,
+      xanchor: 'auto',
+      y: 1,
+      yanchor: 'middle'
+    }];
+
+
+    popLayout.updatemenus = updateMenus;
 
     Plotly.newPlot(divID, popData, popLayout, {
       modeBarButtons: multilineModeBarButtonsInclude,
       displayModeBar: true,
       displaylogo: false,
       showSendToCloud: false,
-      responsive: true
+      responsive: true,
+      toImageButtonOptions: {
+        filename: 'testytest',
+        width: null,
+        height: null,
+        format: 'png'
+      }
     });
 
   })
