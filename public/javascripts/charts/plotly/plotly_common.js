@@ -132,33 +132,51 @@ let groupedColumnLayout = {
   hovermode: 'x'
 };
 
-const buttonRowMargins = {
-  l: 75,
-  r: 50,
+const dropdownAsTitleChartMargins = {
+  l: 0,
+  r: 25,
   b: 50,
-  t: 100
+  t: 0
 }
 
 
 let multilineChartLayout = {
   responsive: true,
-  margin: buttonRowMargins,
+  margin: dropdownAsTitleChartMargins,
   title: {
-    text: 'Plot Title',
+    text: '',
     font: {
       family: null,
-      size: 20
+      size: 18
     },
+    visible: false,
     xref: 'container',
-    x: 0,
+    x: 0.1,
+    xanchor: 'left',
     yref: 'container',
-    y: 1
+    y: 1.05,
+    yanchor: 'bottom'
   },
   xaxis: {
-    showticklabels: true
+    visible: true,
+    type: 'date',
+    showticklabels: true,
+    nticks: 4,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
   },
   yaxis: {
-    showticklabels: true
+    visible: true,
+    showticklabels: true,
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
   },
   paper_bgcolor: chartColor, //'#E0E0E0',
   plot_bgcolor: chartColor,
@@ -166,9 +184,9 @@ let multilineChartLayout = {
   font: chartFont,
   showlegend: false,
   legend: {
-    x: 1,
-    y: 0.5,
-    'orientation': 'v'
+    x: null,
+    y: null
+    //'orientation': 'v'
   },
   annotations: [],
   hovermode: 'x'

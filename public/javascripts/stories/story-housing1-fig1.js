@@ -3,11 +3,11 @@ const srcPath = "../data/Stories/Housing/",
   srcFile2 = "pop_house_rate_new.csv";
 const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let title = "Growth in population and households 1991-2016";
-const popTitle = "Populations of Dublin and surrounding areas 1991-2016";
-const houseTitle = "Numbers of households in Dublin and surrounding areas 1991-2016";
-const popRateTitle = "Population % changes in Dublin and surrounding areas 1991-2016";
-const houseRateTitle = "Households % changes in Dublin and surrounding areas 1991-2016";
-title = popTitle;
+const popTitle = "Population of Dublin and surrounding areas 1991-2016";
+const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
+const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
+const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
+title = ''; //set default on load
 const divID = "population-households-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -784,7 +784,7 @@ Promise.all([
       text: regions[0],
       font: {
         family: null,
-        size: null,
+        size: 16,
         color: colorWay[0]
       },
       showarrow: true, //need this to use ay offset
@@ -921,7 +921,6 @@ Promise.all([
       ay: 0,
       borderpad: 5
     }]; //end of pop annotations
-
 
     let houseAnnotations = [{
       x: dcData[dcData.length - 1].date,
@@ -1383,11 +1382,11 @@ Promise.all([
               ]
             },
             {
-              'title': popTitle,
+              'title': null,
               'annotations': popAnnotations
             }
           ],
-          label: 'Populations',
+          label: popTitle,
           method: 'update',
           execute: true
         },
@@ -1400,11 +1399,11 @@ Promise.all([
               ]
             },
             {
-              'title': houseTitle,
+              'title': null,
               'annotations': houseAnnotations
             }
           ],
-          label: 'Households',
+          label: houseTitle,
           method: 'update',
           execute: true
         },
@@ -1417,11 +1416,11 @@ Promise.all([
               ]
             },
             {
-              'title': popRateTitle,
+              'title': null,
               'annotations': popRateAnnotations
             }
           ],
-          label: 'Population % change',
+          label: popRateTitle,
           method: 'update',
           execute: true
         },
@@ -1434,17 +1433,24 @@ Promise.all([
               ]
             },
             {
-              'title': houseRateTitle,
+              'title': null,
               'annotations': houseRateAnnotations
             }
           ],
-          label: 'Households % change',
+          label: houseRateTitle,
           method: 'update',
           execute: true
         }
       ],
-      type: 'buttons',
-      direction: 'right',
+      type: 'dropdown',
+      direction: 'down',
+      font: {
+        family: null,
+        size: 20,
+        color: null
+
+      },
+      bordercolor: 'lightblue',
       pad: {
         'l': 0,
         't': 0,
@@ -1452,7 +1458,7 @@ Promise.all([
       },
       showactive: true,
       active: 0,
-      x: 0,
+      x: -0.05,
       xref: 'container',
       xanchor: 'left',
       yref: 'container',
