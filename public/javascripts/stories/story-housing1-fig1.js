@@ -41,7 +41,7 @@ Promise.all([
     let wData = data[0].filter((v) => {
       return v.region === regions[6];
     });
-
+    //Traces
     let dcPop = {
       x: dcData.map((v) => {
         return v.date;
@@ -52,12 +52,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[0],
@@ -73,12 +77,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[1],
@@ -94,12 +102,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[2],
@@ -115,12 +127,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[3],
@@ -136,12 +152,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[4],
@@ -157,12 +177,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[5],
@@ -178,12 +202,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[6],
@@ -198,6 +226,19 @@ Promise.all([
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+
+        }
+      },
       name: regions[0],
       visible: true //'legendonly'
     };
@@ -210,6 +251,19 @@ Promise.all([
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+
+        }
+      },
       name: regions[1],
       visible: true //'legendonly'
     };
@@ -222,6 +276,19 @@ Promise.all([
       }),
       type: 'scatter',
       mode: 'lines+markers',
+      opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null,
+          color: null
+
+        }
+      },
       name: regions[2],
       visible: true //'legendonly'
     };
@@ -247,6 +314,9 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
@@ -268,6 +338,9 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
@@ -289,6 +362,9 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
@@ -333,12 +409,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[0],
@@ -354,12 +434,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[1],
@@ -375,12 +459,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[2],
@@ -396,12 +484,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[3],
@@ -417,12 +509,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[4],
@@ -438,12 +534,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[5],
@@ -459,12 +559,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[6],
@@ -481,12 +585,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[0],
@@ -502,12 +610,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[1],
@@ -523,12 +635,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[2],
@@ -544,12 +660,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: null, //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[3],
@@ -565,12 +685,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[4],
@@ -586,12 +710,16 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
         line: {
           width: null,
           color: null
+
         }
       },
       name: regions[5],
@@ -607,6 +735,9 @@ Promise.all([
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 0.5,
+      line: {
+        shape: 'spline'
+      },
       marker: {
         symbol: null,
         color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
@@ -618,8 +749,6 @@ Promise.all([
       name: regions[6],
       visible: true //'legendonly'
     };
-
-
 
 
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
