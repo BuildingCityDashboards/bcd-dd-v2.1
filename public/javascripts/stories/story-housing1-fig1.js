@@ -9,6 +9,9 @@ const popRateTitle = "Population % changes in Dublin and surrounding areas 1991-
 const houseRateTitle = "Households % changes in Dublin and surrounding areas 1991-2016";
 title = popTitle;
 const divID = "population-households-chart";
+
+//@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
+//Want a better mechanism for page load that doesn't have to wait for all the data
 Promise.all([
     d3.csv(srcPath + srcFile1),
     d3.csv(srcPath + srcFile2)
@@ -217,6 +220,7 @@ Promise.all([
       name: regions[6],
       visible: true //'legendonly'
     };
+
     let dcHouse = {
       x: dcData.map((v) => {
         return v.date;
@@ -749,7 +753,6 @@ Promise.all([
       name: regions[6],
       visible: true //'legendonly'
     };
-
 
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
       dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse,
@@ -1367,7 +1370,7 @@ Promise.all([
       borderpad: 5
     }]; //end of house rate annotations
 
-    popLayout.annotations = popAnnotations;
+    popLayout.annotations = popAnnotations; //set default
 
     let updateMenus = [{
       buttons: [{
@@ -1440,7 +1443,8 @@ Promise.all([
           execute: true
         }
       ],
-      direction: 'down',
+      type: 'buttons',
+      direction: 'right',
       pad: {
         'l': 0,
         't': 0,
@@ -1448,13 +1452,12 @@ Promise.all([
       },
       showactive: true,
       active: 0,
-      type: 'buttons',
-      x: -0.05,
+      x: 0,
       xref: 'container',
-      xanchor: 'right',
+      xanchor: 'left',
       yref: 'container',
-      y: 1,
-      yanchor: 'top'
+      y: 1.05, //place above plot area with >1.0
+      yanchor: 'bottom'
     }];
 
 
