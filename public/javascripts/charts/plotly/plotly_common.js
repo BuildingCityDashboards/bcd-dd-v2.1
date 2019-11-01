@@ -139,22 +139,22 @@ let multilineChartLayout = {
     text: 'Plot Title',
     font: {
       family: null,
-      size: 20
+      size: 28
     },
     xref: 'container',
-    x: 0
+    x: 0.01
   },
   xaxis: {
-    showticklabels: false
+    showticklabels: true
   },
   yaxis: {
     showticklabels: true
   },
-  paper_bgcolor: chartColor,
+  paper_bgcolor: '#E0E0E0',
   plot_bgcolor: chartColor,
   colorway: colorWay,
   font: chartFont,
-  showlegend: true,
+  showlegend: false,
   legend: {
     x: 1,
     y: 0.5,
