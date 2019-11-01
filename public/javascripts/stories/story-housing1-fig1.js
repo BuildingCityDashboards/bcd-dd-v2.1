@@ -751,8 +751,6 @@ Promise.all([
     };
 
 
-
-
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
       dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse,
       dcPopRate, dlrPopRate, fPopRate, sdPopRate, kPopRate, mPopRate, wPopRate,
