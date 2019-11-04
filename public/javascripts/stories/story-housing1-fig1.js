@@ -1470,6 +1470,12 @@ Promise.all([
     popLayout.updatemenus = updateMenus;
 
     Plotly.newPlot(divID, popData, popLayout, {
+      modeBar: {
+        orientation: 'v',
+        bgcolor: 'black',
+        color: null /* implied icon color */ ,
+        activecolor: null /* just like we currently use for rangeselector */
+      },
       modeBarButtons: multilineModeBarButtonsInclude,
       displayModeBar: true,
       displaylogo: false,
