@@ -30,7 +30,7 @@ Promise.all([
 
     //Traces
     //common config
-    let traceCommon = {
+    let TRACES_COMMON = {
       type: 'scatter',
       mode: 'lines+markers',
       opacity: 1.0, //default
@@ -51,14 +51,12 @@ Promise.all([
     //traces for chart a
     let popTraces = [];
     let houseTraces = [];
-
     dataByRegion.forEach((regionData, i) => {
-      console.log(i)
-      let trace = Object.assign({}, traceCommon);
+      let trace = Object.assign({}, TRACES_COMMON);
       trace.name = regionData[0].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, traceCommon.marker);
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = regionData.map((v) => {
@@ -88,7 +86,7 @@ Promise.all([
     // chartLayout.hidesources = false;
 
     //Set annotations per chart with config per trace
-    let commonAnnotations = {
+    let ANNOTATIONS_COMMON = {
       xref: 'x',
       yref: 'y',
       width: null, //text box
@@ -112,14 +110,14 @@ Promise.all([
     let popAnnotations = [];
     popTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, commonAnnotations);
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, commonAnnotations.font);
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
       (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
