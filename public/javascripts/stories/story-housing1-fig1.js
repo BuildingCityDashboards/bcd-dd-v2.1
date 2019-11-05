@@ -91,8 +91,6 @@ Promise.all([
       // console.log("trace house " + JSON.stringify(trace));
     });
 
-
-
     //Set layout options
     let chartLayout = Object.assign({}, multilineChartLayout);
     chartLayout.title.text = title;
@@ -171,6 +169,104 @@ Promise.all([
 
     //Set default view annotations
     chartLayout.annotations = popAnnotations; //set default
+
+    //Set button menu
+    let updateMenus = [{
+      buttons: [{
+          args: [{
+              //Each variable has 16 traces
+              'visible': [true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': null,
+              'annotations': popAnnotations
+            }
+          ],
+          label: popTitle,
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': null,
+              'annotations': houseAnnotations
+            }
+          ],
+          label: houseTitle,
+          method: 'update',
+          execute: true
+        },
+        //   {
+        //     args: [{
+        //         'visible': [false, false, false, false, false, false, false,
+        //           false, false, false, false, false, false, false,
+        //           true, true, true, true, true, true, true,
+        //           false, false, false, false, false, false, false,
+        //         ]
+        //       },
+        //       {
+        //         'title': null,
+        //         'annotations': popRateAnnotations
+        //       }
+        //     ],
+        //     label: popRateTitle,
+        //     method: 'update',
+        //     execute: true
+        //   },
+        //   {
+        //     args: [{
+        //         'visible': [false, false, false, false, false, false, false,
+        //           false, false, false, false, false, false, false,
+        //           false, false, false, false, false, false, false,
+        //           true, true, true, true, true, true, true
+        //         ]
+        //       },
+        //       {
+        //         'title': null,
+        //         'annotations': houseRateAnnotations
+        //       }
+        //     ],
+        //     label: houseRateTitle,
+        //     method: 'update',
+        //     execute: true
+        //   }
+      ],
+      type: menuStyle,
+      direction: 'down',
+      font: {
+        family: null,
+        size: 20,
+        color: null
+
+      },
+      bordercolor: 'lightblue',
+      pad: {
+        'l': 0,
+        't': 0,
+        'b': 0
+      },
+      showactive: true,
+      active: 0,
+      x: -0.05,
+      xref: 'container',
+      xanchor: 'left',
+      yref: 'container',
+      y: 1.05, //place above plot area with >1.0
+      yanchor: 'bottom'
+    }];
+
+    chartLayout.updatemenus = updateMenus;
 
     let chartTraces = popTraces.concat(houseTraces);
 
@@ -1041,100 +1137,3 @@ Promise.all([
 //
 // chartLayout.annotations = popAnnotations; //set default
 //
-// //Set button menu
-// let updateMenus = [{
-//   buttons: [{
-//       args: [{
-//           //Each variable has 16 traces
-//           'visible': [true, true, true, true, true, true, true,
-//             false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false
-//           ]
-//         },
-//         {
-//           'title': null,
-//           'annotations': popAnnotations
-//         }
-//       ],
-//       label: popTitle,
-//       method: 'update',
-//       execute: true
-//     },
-//     {
-//       args: [{
-//           'visible': [false, false, false, false, false, false, false,
-//             true, true, true, true, true, true, true,
-//             false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false
-//           ]
-//         },
-//         {
-//           'title': null,
-//           'annotations': houseAnnotations
-//         }
-//       ],
-//       label: houseTitle,
-//       method: 'update',
-//       execute: true
-//     },
-//     {
-//       args: [{
-//           'visible': [false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false,
-//             true, true, true, true, true, true, true,
-//             false, false, false, false, false, false, false,
-//           ]
-//         },
-//         {
-//           'title': null,
-//           'annotations': popRateAnnotations
-//         }
-//       ],
-//       label: popRateTitle,
-//       method: 'update',
-//       execute: true
-//     },
-//     {
-//       args: [{
-//           'visible': [false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false,
-//             false, false, false, false, false, false, false,
-//             true, true, true, true, true, true, true
-//           ]
-//         },
-//         {
-//           'title': null,
-//           'annotations': houseRateAnnotations
-//         }
-//       ],
-//       label: houseRateTitle,
-//       method: 'update',
-//       execute: true
-//     }
-//   ],
-//   type: menuStyle,
-//   direction: 'down',
-//   font: {
-//     family: null,
-//     size: 20,
-//     color: null
-//
-//   },
-//   bordercolor: 'lightblue',
-//   pad: {
-//     'l': 0,
-//     't': 0,
-//     'b': 0
-//   },
-//   showactive: true,
-//   active: 0,
-//   x: -0.05,
-//   xref: 'container',
-//   xanchor: 'left',
-//   yref: 'container',
-//   y: 1.05, //place above plot area with >1.0
-//   yanchor: 'bottom'
-// }];
-//
-// chartLayout.updatemenus = updateMenus;
