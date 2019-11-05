@@ -1,3 +1,5 @@
+//Options for chart
+//TODO: pass these in as config and/or create accessor functions
 const srcPath = "../data/Stories/Housing/",
   srcFile1 = "pop_house.csv",
   srcFile2 = "pop_house_rate_new.csv";
@@ -9,6 +11,7 @@ const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2
 const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
 title = ''; //set default on load
 const divID = "population-households-chart";
+const menuStyle = "dropdown";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
 //Want a better mechanism for page load that doesn't have to wait for all the data
@@ -16,34 +19,29 @@ Promise.all([
     d3.csv(srcPath + srcFile1),
     d3.csv(srcPath + srcFile2)
   ]).then(function(data) {
-
+    //Data per region
     let dcData = data[0].filter((v) => {
       return v.region === regions[0];
     });
-
     let dlrData = data[0].filter((v) => {
       return v.region === regions[1];
     });
-
     let fData = data[0].filter((v) => {
       return v.region === regions[2];
     });
-
     let sdData = data[0].filter((v) => {
       return v.region === regions[3];
     });
-
     let kData = data[0].filter((v) => {
       return v.region === regions[4];
     });
-
     let mData = data[0].filter((v) => {
       return v.region === regions[5];
     });
-
     let wData = data[0].filter((v) => {
       return v.region === regions[6];
     });
+
     //Traces
     let dcPop = {
       x: dcData.map((v) => {
@@ -754,25 +752,27 @@ Promise.all([
       visible: true //'legendonly'
     };
 
+    //TODO: could be a beter way of grouping traces per chart?
+    //Add traces to chart data (all charts)
     let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
       dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse,
       dcPopRate, dlrPopRate, fPopRate, sdPopRate, kPopRate, mPopRate, wPopRate,
       dcHouseRate, dlrHouseRate, fHouseRate, sdHouseRate, kHouseRate, mHouseRate, wHouseRate
     ];
 
-    //Set default visible traces
+    //Set default visible traces (i.e. traces on each chart)
     popData.map((t, i) => {
       if (i < 7) return t.visible = true;
       else return t.visible = false;
     });
 
-
+    //Set layout options
     let popLayout = Object.assign({}, multilineChartLayout);
     popLayout.title.text = title;
     popLayout.showlegend = false;
     // popLayout.hidesources = false;
 
-
+    //Set annotations per chart
     let popAnnotations = [{
       x: dcData[dcData.length - 1].date,
       y: dcData[dcData.length - 1].population,
@@ -1371,6 +1371,7 @@ Promise.all([
 
     popLayout.annotations = popAnnotations; //set default
 
+    //Set button menu
     let updateMenus = [{
       buttons: [{
           args: [{
@@ -1442,7 +1443,7 @@ Promise.all([
           execute: true
         }
       ],
-      type: 'dropdown',
+      type: menuStyle,
       direction: 'down',
       font: {
         family: null,
@@ -1466,9 +1467,9 @@ Promise.all([
       yanchor: 'bottom'
     }];
 
-
     popLayout.updatemenus = updateMenus;
 
+    //Draw plot
     Plotly.newPlot(divID, popData, popLayout, {
       modeBar: {
         orientation: 'v',
@@ -1488,7 +1489,6 @@ Promise.all([
         format: 'png'
       }
     });
-
 
   })
   .catch(function(err) {
