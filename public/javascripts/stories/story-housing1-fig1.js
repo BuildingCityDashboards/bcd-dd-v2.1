@@ -21,8 +21,12 @@ Promise.all([
   ]).then((data) => {
     //Data per region
     let dataByRegion = [];
+    let dataRateByRegion = [];
     regions.forEach((regionName) => {
       dataByRegion.push(data[0].filter((v) => {
+        return v.region === regionName;
+      }));
+      dataRateByRegion.push(data[1].filter((v) => {
         return v.region === regionName;
       }));
     });
@@ -49,7 +53,6 @@ Promise.all([
 
     //traces for chart a
     let popTraces = [];
-    let houseTraces = [];
     dataByRegion.forEach((regionData, i) => {
       let trace = Object.assign({}, TRACES_COMMON);
       trace.name = regionData[0].region;
@@ -69,7 +72,8 @@ Promise.all([
 
       popTraces.push(trace);
     });
-
+    //traces for chart b
+    let houseTraces = [];
     dataByRegion.forEach((regionData, i) => {
       let trace = Object.assign({}, TRACES_COMMON);
       trace.name = regionData[0].region;
@@ -90,6 +94,48 @@ Promise.all([
       houseTraces.push(trace);
       // console.log("trace house " + JSON.stringify(trace));
     });
+    //traces for chart c
+    let popRateTraces = [];
+    dataRateByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[1].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
+        return v.date;
+      });
+
+      trace.y = regionData.map((v) => {
+        return v.population_rate;
+      });
+
+      popRateTraces.push(trace);
+    });
+    //traces for chart d
+    let houseRateTraces = [];
+    dataRateByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[1].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
+        return v.date;
+      });
+
+      trace.y = regionData.map((v) => {
+        return v.households_rate;
+      });
+
+      houseRateTraces.push(trace);
+      // console.log("trace house " + JSON.stringify(trace));
+    });
+
 
     //Set layout options
     let chartLayout = Object.assign({}, multilineChartLayout);
@@ -119,7 +165,6 @@ Promise.all([
       borderpad: 5
     }
     let popAnnotations = [];
-    let houseAnnotations = [];
     popTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_COMMON);
@@ -136,6 +181,7 @@ Promise.all([
       popAnnotations.push(annotation);
     })
 
+    let houseAnnotations = [];
     houseTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_COMMON);
@@ -152,12 +198,46 @@ Promise.all([
       houseAnnotations.push(annotation);
     })
 
+    let popRateAnnotations = [];
+    popRateTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      popRateAnnotations.push(annotation);
+    })
+
+    let houseRateAnnotations = [];
+    houseRateTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      houseRateAnnotations.push(annotation);
+    })
+
     //set individual annotation stylings
     //TODO: be better! Don't use array index for access
-    popAnnotations[1].ay = -3; //move DLR up
+    popAnnotations[1].ay = 6; //move DLR down
     popAnnotations[2].ay = -4; //move Fingal up
     popAnnotations[3].ay = 4; //move SD down
-    popAnnotations[4].ay = 4; //move K down
+    popAnnotations[4].ay = -6; //move K up
     popAnnotations[5].ay = 4; //move M down
 
     houseAnnotations[1].ay = -3; //move DLR up
@@ -165,6 +245,19 @@ Promise.all([
     houseAnnotations[3].ay = 4; //move SD down
     houseAnnotations[4].ay = 4; //move K down
     houseAnnotations[5].ay = 4; //move M down
+
+    popRateAnnotations[0].ay = 6; // DC
+    popRateAnnotations[1].ay = -6; // DLR
+    popRateAnnotations[2].ay = -4; // Fingal
+    popRateAnnotations[3].ay = 4; // SD
+    popRateAnnotations[4].ay = 5; // K
+    popRateAnnotations[5].ay = -3; // M
+
+    houseRateAnnotations[1].ay = -5; // DLR
+    houseRateAnnotations[2].ay = -4; // Fingal
+    houseRateAnnotations[3].ay = 4; // SD
+    houseRateAnnotations[4].ay = -7; // K
+    houseRateAnnotations[5].ay = 7; // M
 
 
     //Set default view annotations
@@ -174,7 +267,6 @@ Promise.all([
     let updateMenus = [{
       buttons: [{
           args: [{
-              //Each variable has 16 traces
               'visible': [true, true, true, true, true, true, true,
                 false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false,
@@ -207,40 +299,40 @@ Promise.all([
           method: 'update',
           execute: true
         },
-        //   {
-        //     args: [{
-        //         'visible': [false, false, false, false, false, false, false,
-        //           false, false, false, false, false, false, false,
-        //           true, true, true, true, true, true, true,
-        //           false, false, false, false, false, false, false,
-        //         ]
-        //       },
-        //       {
-        //         'title': null,
-        //         'annotations': popRateAnnotations
-        //       }
-        //     ],
-        //     label: popRateTitle,
-        //     method: 'update',
-        //     execute: true
-        //   },
-        //   {
-        //     args: [{
-        //         'visible': [false, false, false, false, false, false, false,
-        //           false, false, false, false, false, false, false,
-        //           false, false, false, false, false, false, false,
-        //           true, true, true, true, true, true, true
-        //         ]
-        //       },
-        //       {
-        //         'title': null,
-        //         'annotations': houseRateAnnotations
-        //       }
-        //     ],
-        //     label: houseRateTitle,
-        //     method: 'update',
-        //     execute: true
-        //   }
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': null,
+              'annotations': popRateAnnotations
+            }
+          ],
+          label: popRateTitle,
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true
+              ]
+            },
+            {
+              'title': null,
+              'annotations': houseRateAnnotations
+            }
+          ],
+          label: houseRateTitle,
+          method: 'update',
+          execute: true
+        }
       ],
       type: menuStyle,
       direction: 'down',
@@ -250,7 +342,7 @@ Promise.all([
         color: null
 
       },
-      bordercolor: 'lightblue',
+      bordercolor: 'white',
       pad: {
         'l': 0,
         't': 0,
@@ -268,7 +360,16 @@ Promise.all([
 
     chartLayout.updatemenus = updateMenus;
 
-    let chartTraces = popTraces.concat(houseTraces);
+    let chartTraces = popTraces
+      .concat(houseTraces)
+      .concat(popRateTraces)
+      .concat(houseRateTraces);
+
+    // //Set default visible traces (i.e. traces on each chart)
+    chartTraces.map((t, i) => {
+      if (i < 7) return t.visible = true;
+      else return t.visible = false;
+    });
 
 
     Plotly.newPlot(divID, chartTraces, chartLayout, {
@@ -678,11 +779,7 @@ Promise.all([
 // console.log(popDatas);
 //
 //
-// //Set default visible traces (i.e. traces on each chart)
-// popData.map((t, i) => {
-//   if (i < 7) return t.visible = true;
-//   else return t.visible = false;
-// });
+
 //
 
 //
