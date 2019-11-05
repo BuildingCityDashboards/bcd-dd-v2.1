@@ -66,8 +66,21 @@ Promise.all([
       trace.y = regionData.map((v) => {
         return v.population;
       });
-      console.log("y: " + trace.y);
+
       popTraces.push(trace);
+    });
+
+    dataByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[0].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
+        return v.date;
+      });
 
       //chart b- households
       trace.y = regionData.map((v) => {
@@ -75,7 +88,9 @@ Promise.all([
       });
 
       houseTraces.push(trace);
+      // console.log("trace house " + JSON.stringify(trace));
     });
+
 
 
     //Set layout options
@@ -157,11 +172,10 @@ Promise.all([
     //Set default view annotations
     chartLayout.annotations = popAnnotations; //set default
 
-    let chartData = popTraces.concat(houseTraces);
+    let chartTraces = popTraces.concat(houseTraces);
 
-    console.log(chartData);
 
-    Plotly.newPlot(divID, chartData, chartLayout, {
+    Plotly.newPlot(divID, chartTraces, chartLayout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
