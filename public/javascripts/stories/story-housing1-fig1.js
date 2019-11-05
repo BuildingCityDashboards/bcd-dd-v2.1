@@ -27,7 +27,6 @@ Promise.all([
       }));
     });
 
-
     //Traces
     //common config
     let TRACES_COMMON = {
@@ -67,8 +66,9 @@ Promise.all([
       trace.y = regionData.map((v) => {
         return v.population;
       });
-
+      console.log("y: " + trace.y);
       popTraces.push(trace);
+
       //chart b- households
       trace.y = regionData.map((v) => {
         return v.households;
@@ -77,7 +77,6 @@ Promise.all([
       houseTraces.push(trace);
     });
 
-    let chartData = popTraces;
 
     //Set layout options
     let chartLayout = Object.assign({}, multilineChartLayout);
@@ -106,8 +105,8 @@ Promise.all([
       ay: 0,
       borderpad: 5
     }
-
     let popAnnotations = [];
+    let houseAnnotations = [];
     popTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_COMMON);
@@ -124,15 +123,43 @@ Promise.all([
       popAnnotations.push(annotation);
     })
 
+    houseTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      houseAnnotations.push(annotation);
+    })
+
     //set individual annotation stylings
-    //TODO: be better!
+    //TODO: be better! Don't use array index for access
     popAnnotations[1].ay = -3; //move DLR up
     popAnnotations[2].ay = -4; //move Fingal up
     popAnnotations[3].ay = 4; //move SD down
     popAnnotations[4].ay = 4; //move K down
     popAnnotations[5].ay = 4; //move M down
 
+    houseAnnotations[1].ay = -3; //move DLR up
+    houseAnnotations[2].ay = -4; //move Fingal up
+    houseAnnotations[3].ay = 4; //move SD down
+    houseAnnotations[4].ay = 4; //move K down
+    houseAnnotations[5].ay = 4; //move M down
+
+
+    //Set default view annotations
     chartLayout.annotations = popAnnotations; //set default
+
+    let chartData = popTraces.concat(houseTraces);
+
+    console.log(chartData);
 
     Plotly.newPlot(divID, chartData, chartLayout, {
       modeBar: {
@@ -699,154 +726,6 @@ Promise.all([
 //   borderpad: 5
 // }]; //end of pop annotations
 //
-// let houseAnnotations = [{
-//   x: dcData[dcData.length - 1].date,
-//   y: dcData[dcData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null, //text box
-//   height: null,
-//   align: 'right', //within textbox
-//   text: regions[0],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[0]
-//   },
-//   showarrow: true, //need this to use ay offset
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: 0,
-//   borderpad: 5
-// }, {
-//   x: dlrData[dlrData.length - 1].date,
-//   y: dlrData[dlrData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[1],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[1]
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: -3,
-//   borderpad: 5
-// }, {
-//   x: fData[fData.length - 1].date,
-//   y: fData[fData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[2],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[2]
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: -5,
-//   borderpad: 5
-// }, {
-//   x: sdData[sdData.length - 1].date,
-//   y: sdData[sdData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[3],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[3]
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: 5,
-//   borderpad: 5
-// }, {
-//   x: kData[kData.length - 1].date,
-//   y: kData[kData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[4],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[colorWay.length - 1] //last element should be grey
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: 5,
-//   borderpad: 5
-// }, {
-//   x: mData[mData.length - 1].date,
-//   y: mData[mData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[5],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[colorWay.length - 1]
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: 4,
-//   borderpad: 5
-// }, {
-//   x: wData[wData.length - 1].date,
-//   y: wData[wData.length - 1].households,
-//   xref: 'x',
-//   yref: 'y',
-//   width: null,
-//   height: null,
-//   align: 'right',
-//   text: regions[6],
-//   font: {
-//     family: null,
-//     size: null,
-//     color: colorWay[colorWay.length - 1]
-//   },
-//   showarrow: true,
-//   xanchor: 'left',
-//   arrowcolor: '#fff',
-//   arrowhead: 7,
-//   ax: 0,
-//   ay: 0,
-//   borderpad: 5
-// }]; //end of house annotations
 //
 // let popRateAnnotations = [{
 //   x: dcRateData[dcRateData.length - 1].date,
