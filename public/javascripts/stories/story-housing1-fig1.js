@@ -22,6 +22,8 @@ Promise.all([
     //Data per region- use the array of region variable values
     let dataByRegion = [];
     let dataRateByRegion = [];
+
+    //Create sub arrays of filtered by variable (region)
     regions.forEach((regionName) => {
       dataByRegion.push(data[0].filter((v) => {
         return v.region === regionName;
@@ -50,6 +52,7 @@ Promise.all([
       name: 'trace',
       visible: true //'legendonly'
     };
+
 
     //traces for chart a
     let popTraces = [];
