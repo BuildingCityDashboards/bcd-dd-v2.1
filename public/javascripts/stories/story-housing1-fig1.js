@@ -1,791 +1,160 @@
+//Options for chart
+//TODO: pass these in as config and/or create accessor functions
 const srcPath = "../data/Stories/Housing/",
   srcFile1 = "pop_house.csv",
   srcFile2 = "pop_house_rate_new.csv";
 const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let title = "Growth in population and households 1991-2016";
-const popTitle = "Populations of Dublin and surrounding areas 1991-2016";
-const houseTitle = "Numbers of households in Dublin and surrounding areas 1991-2016";
-const popRateTitle = "Population % changes in Dublin and surrounding areas 1991-2016";
-const houseRateTitle = "Households % changes in Dublin and surrounding areas 1991-2016";
-title = popTitle;
+const popTitle = "Population of Dublin and surrounding areas 1991-2016";
+const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
+const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
+const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
+title = popTitle; //set default on load
 const divID = "population-households-chart";
+const menuStyle = "dropdown";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
 //Want a better mechanism for page load that doesn't have to wait for all the data
 Promise.all([
     d3.csv(srcPath + srcFile1),
     d3.csv(srcPath + srcFile2)
-  ]).then(function(data) {
-
-    let dcData = data[0].filter((v) => {
-      return v.region === regions[0];
+  ]).then((data) => {
+    //Data per region- use the array of region variable values
+    let dataByRegion = [];
+    let dataRateByRegion = [];
+    regions.forEach((regionName) => {
+      dataByRegion.push(data[0].filter((v) => {
+        return v.region === regionName;
+      }));
+      dataRateByRegion.push(data[1].filter((v) => {
+        return v.region === regionName;
+      }));
     });
 
-    let dlrData = data[0].filter((v) => {
-      return v.region === regions[1];
-    });
-
-    let fData = data[0].filter((v) => {
-      return v.region === regions[2];
-    });
-
-    let sdData = data[0].filter((v) => {
-      return v.region === regions[3];
-    });
-
-    let kData = data[0].filter((v) => {
-      return v.region === regions[4];
-    });
-
-    let mData = data[0].filter((v) => {
-      return v.region === regions[5];
-    });
-
-    let wData = data[0].filter((v) => {
-      return v.region === regions[6];
-    });
     //Traces
-    let dcPop = {
-      x: dcData.map((v) => {
+    //common config
+    let TRACES_COMMON = {
+      type: 'scatter',
+      mode: 'lines+markers',
+      opacity: 1.0, //default
+      line: {
+        shape: 'spline'
+      },
+      marker: {
+        symbol: null,
+        color: null, //lines + markers, defaults to colorway
+        line: {
+          width: null
+        }
+      },
+      name: 'trace',
+      visible: true //'legendonly'
+    };
+
+    //traces for chart a
+    let popTraces = [];
+    dataByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[0].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
         return v.date;
-      }),
-      y: dcData.map((v) => {
+      });
+
+      //chart a- population
+      trace.y = regionData.map((v) => {
         return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[0],
-      visible: true //'legendonly'
-    };
-    let dlrPop = {
-      x: dlrData.map((v) => {
+      popTraces.push(trace);
+    });
+    //traces for chart b
+    let houseTraces = [];
+    dataByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[0].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
         return v.date;
-      }),
-      y: dlrData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[1],
-      visible: true //'legendonly'
-    };
-    let fPop = {
-      x: fData.map((v) => {
-        return v.date;
-      }),
-      y: fData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[2],
-      visible: true //'legendonly'
-    };
-    let sdPop = {
-      x: sdData.map((v) => {
-        return v.date;
-      }),
-      y: sdData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[3],
-      visible: true //'legendonly'
-    };
-    let kPop = {
-      x: kData.map((v) => {
-        return v.date;
-      }),
-      y: kData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[4],
-      visible: true //'legendonly'
-    };
-    let mPop = {
-      x: mData.map((v) => {
-        return v.date;
-      }),
-      y: mData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[5],
-      visible: true //'legendonly'
-    };
-    let wPop = {
-      x: wData.map((v) => {
-        return v.date;
-      }),
-      y: wData.map((v) => {
-        return v.population;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[6],
-      visible: true //'legendonly'
-    };
-
-    let dcHouse = {
-      x: dcData.map((v) => {
-        return v.date;
-      }),
-      y: dcData.map((v) => {
+      //chart b- households
+      trace.y = regionData.map((v) => {
         return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[0],
-      visible: true //'legendonly'
-    };
-    let dlrHouse = {
-      x: dlrData.map((v) => {
-        return v.date;
-      }),
-      y: dlrData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      houseTraces.push(trace);
+      // console.log("trace house " + JSON.stringify(trace));
+    });
+    //traces for chart c
+    let popRateTraces = [];
+    dataRateByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[1].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
-        }
-      },
-      name: regions[1],
-      visible: true //'legendonly'
-    };
-    let fHouse = {
-      x: fData.map((v) => {
+      trace.x = regionData.map((v) => {
         return v.date;
-      }),
-      y: fData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[2],
-      visible: true //'legendonly'
-    };
-    let sdHouse = {
-      x: sdData.map((v) => {
-        return v.date;
-      }),
-      y: sdData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      name: regions[3],
-      visible: true //'legendonly'
-    };
-    let kHouse = {
-      x: kData.map((v) => {
-        return v.date;
-      }),
-      y: kData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-        }
-      },
-      name: regions[4],
-      visible: true //'legendonly'
-    };
-    let mHouse = {
-      x: mData.map((v) => {
-        return v.date;
-      }),
-      y: mData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-        }
-      },
-      name: regions[5],
-      visible: true //'legendonly'
-    };
-    let wHouse = {
-      x: wData.map((v) => {
-        return v.date;
-      }),
-      y: wData.map((v) => {
-        return v.households;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-        }
-      },
-      name: regions[6],
-      visible: true //'legendonly'
-    };
-
-    let dcRateData = data[1].filter((v) => {
-      return v.region === regions[0];
-    });
-    let dlrRateData = data[1].filter((v) => {
-      return v.region === regions[1];
-    });
-    let fRateData = data[1].filter((v) => {
-      return v.region === regions[2];
-    });
-    let sdRateData = data[1].filter((v) => {
-      return v.region === regions[3];
-    });
-    let kRateData = data[1].filter((v) => {
-      return v.region === regions[4];
-    });
-    let mRateData = data[1].filter((v) => {
-      return v.region === regions[5];
-    });
-    let wRateData = data[1].filter((v) => {
-      return v.region === regions[6];
-    });
-
-    let dcPopRate = {
-      x: dcRateData.map((v) => {
-        return v.date;
-      }),
-      y: dcRateData.map((v) => {
+      trace.y = regionData.map((v) => {
         return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[0],
-      visible: true //'legendonly'
-    };
-    let dlrPopRate = {
-      x: dlrRateData.map((v) => {
+      popRateTraces.push(trace);
+    });
+    //traces for chart d
+    let houseRateTraces = [];
+    dataRateByRegion.forEach((regionData, i) => {
+      let trace = Object.assign({}, TRACES_COMMON);
+      trace.name = regionData[1].region;
+      //reassign colour to -defocus some traces
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+
+      trace.x = regionData.map((v) => {
         return v.date;
-      }),
-      y: dlrRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[1],
-      visible: true //'legendonly'
-    };
-    let fPopRate = {
-      x: fRateData.map((v) => {
-        return v.date;
-      }),
-      y: fRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[2],
-      visible: true //'legendonly'
-    };
-    let sdPopRate = {
-      x: sdRateData.map((v) => {
-        return v.date;
-      }),
-      y: sdRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[3],
-      visible: true //'legendonly'
-    };
-    let kPopRate = {
-      x: kRateData.map((v) => {
-        return v.date;
-      }),
-      y: kRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[4],
-      visible: true //'legendonly'
-    };
-    let mPopRate = {
-      x: mRateData.map((v) => {
-        return v.date;
-      }),
-      y: mRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[5],
-      visible: true //'legendonly'
-    };
-    let wPopRate = {
-      x: wRateData.map((v) => {
-        return v.date;
-      }),
-      y: wRateData.map((v) => {
-        return v.population_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[6],
-      visible: true //'legendonly'
-    };
-
-    let dcHouseRate = {
-      x: dcRateData.map((v) => {
-        return v.date;
-      }),
-      y: dcRateData.map((v) => {
+      trace.y = regionData.map((v) => {
         return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
+      });
 
-        }
-      },
-      name: regions[0],
-      visible: true //'legendonly'
-    };
-    let dlrHouseRate = {
-      x: dlrRateData.map((v) => {
-        return v.date;
-      }),
-      y: dlrRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[1],
-      visible: true //'legendonly'
-    };
-    let fHouseRate = {
-      x: fRateData.map((v) => {
-        return v.date;
-      }),
-      y: fRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[2],
-      visible: true //'legendonly'
-    };
-    let sdHouseRate = {
-      x: sdRateData.map((v) => {
-        return v.date;
-      }),
-      y: sdRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[3],
-      visible: true //'legendonly'
-    };
-    let kHouseRate = {
-      x: kRateData.map((v) => {
-        return v.date;
-      }),
-      y: kRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[4],
-      visible: true //'legendonly'
-    };
-    let mHouseRate = {
-      x: mRateData.map((v) => {
-        return v.date;
-      }),
-      y: mRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-
-        }
-      },
-      name: regions[5],
-      visible: true //'legendonly'
-    };
-    let wHouseRate = {
-      x: wRateData.map((v) => {
-        return v.date;
-      }),
-      y: wRateData.map((v) => {
-        return v.households_rate;
-      }),
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 0.5,
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: colorWay[colorWay.length - 1], //lines + markers, defaults to colorway
-        line: {
-          width: null,
-          color: null
-        }
-      },
-      name: regions[6],
-      visible: true //'legendonly'
-    };
-
-    let popData = [dcPop, dlrPop, fPop, sdPop, kPop, mPop, wPop,
-      dcHouse, dlrHouse, fHouse, sdHouse, kHouse, mHouse, wHouse,
-      dcPopRate, dlrPopRate, fPopRate, sdPopRate, kPopRate, mPopRate, wPopRate,
-      dcHouseRate, dlrHouseRate, fHouseRate, sdHouseRate, kHouseRate, mHouseRate, wHouseRate
-    ];
-
-    //Set default visible traces
-    popData.map((t, i) => {
-      if (i < 7) return t.visible = true;
-      else return t.visible = false;
+      houseRateTraces.push(trace);
+      // console.log("trace house " + JSON.stringify(trace));
     });
 
 
-    let popLayout = Object.assign({}, multilineChartLayout);
-    popLayout.title.text = title;
-    popLayout.showlegend = false;
-    // popLayout.hidesources = false;
+    //Set layout options
+    let chartLayout = Object.assign({}, multilineChartLayout);
+    chartLayout.title.text = title;
+    chartLayout.showlegend = false;
+    // chartLayout.hidesources = false;
 
-
-    let popAnnotations = [{
-      x: dcData[dcData.length - 1].date,
-      y: dcData[dcData.length - 1].population,
+    //Set annotations per chart with config per trace
+    let ANNOTATIONS_COMMON = {
       xref: 'x',
       yref: 'y',
       width: null, //text box
       height: null,
       align: 'right', //within textbox
-      text: regions[0],
+      opacity: 1.0, //default
       font: {
         family: null,
-        size: null,
-        color: colorWay[0]
+        size: 16,
+        color: null //default
       },
       showarrow: true, //need this to use ay offset
       xanchor: 'left',
@@ -794,588 +163,110 @@ Promise.all([
       ax: 0,
       ay: 0,
       borderpad: 5
-    }, {
-      x: dlrData[dlrData.length - 1].date,
-      y: dlrData[dlrData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[1],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: fData[fData.length - 1].date,
-      y: fData[fData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[2],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[2]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -5,
-      borderpad: 5
-    }, {
-      x: sdData[sdData.length - 1].date,
-      y: sdData[sdData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[3],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[3]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: kData[kData.length - 1].date,
-      y: kData[kData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[4],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1] //last element should be grey
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -7,
-      borderpad: 5
-    }, {
-      x: mData[mData.length - 1].date,
-      y: mData[mData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[5],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 4,
-      borderpad: 5
-    }, {
-      x: wData[wData.length - 1].date,
-      y: wData[wData.length - 1].population,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[6],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }]; //end of pop annotations
+    }
+    let popAnnotations = [];
+    popTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      popAnnotations.push(annotation);
+    })
+
+    let houseAnnotations = [];
+    houseTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      houseAnnotations.push(annotation);
+    })
+
+    let popRateAnnotations = [];
+    popRateTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      popRateAnnotations.push(annotation);
+    })
+
+    let houseRateAnnotations = [];
+    houseRateTraces.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
+      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      houseRateAnnotations.push(annotation);
+    })
+
+    //set individual annotation stylings
+    //TODO: be better! Don't use array index for access
+    popAnnotations[1].ay = 6; //move DLR down
+    popAnnotations[2].ay = -4; //move Fingal up
+    popAnnotations[3].ay = 4; //move SD down
+    popAnnotations[4].ay = -6; //move K up
+    popAnnotations[5].ay = 4; //move M down
+
+    houseAnnotations[1].ay = -3; //move DLR up
+    houseAnnotations[2].ay = -4; //move Fingal up
+    houseAnnotations[3].ay = 4; //move SD down
+    houseAnnotations[4].ay = 4; //move K down
+    houseAnnotations[5].ay = 4; //move M down
+
+    popRateAnnotations[0].ay = 6; // DC
+    popRateAnnotations[1].ay = -6; // DLR
+    popRateAnnotations[2].ay = -4; // Fingal
+    popRateAnnotations[3].ay = 4; // SD
+    popRateAnnotations[4].ay = 5; // K
+    popRateAnnotations[5].ay = -3; // M
+
+    houseRateAnnotations[1].ay = -5; // DLR
+    houseRateAnnotations[2].ay = -4; // Fingal
+    houseRateAnnotations[3].ay = 4; // SD
+    houseRateAnnotations[4].ay = -7; // K
+    houseRateAnnotations[5].ay = 7; // M
 
 
-    let houseAnnotations = [{
-      x: dcData[dcData.length - 1].date,
-      y: dcData[dcData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null, //text box
-      height: null,
-      align: 'right', //within textbox
-      text: regions[0],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[0]
-      },
-      showarrow: true, //need this to use ay offset
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }, {
-      x: dlrData[dlrData.length - 1].date,
-      y: dlrData[dlrData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[1],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -3,
-      borderpad: 5
-    }, {
-      x: fData[fData.length - 1].date,
-      y: fData[fData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[2],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[2]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -5,
-      borderpad: 5
-    }, {
-      x: sdData[sdData.length - 1].date,
-      y: sdData[sdData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[3],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[3]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: kData[kData.length - 1].date,
-      y: kData[kData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[4],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1] //last element should be grey
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: mData[mData.length - 1].date,
-      y: mData[mData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[5],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 4,
-      borderpad: 5
-    }, {
-      x: wData[wData.length - 1].date,
-      y: wData[wData.length - 1].households,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[6],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }]; //end of house annotations
+    //Set default view annotations
+    chartLayout.annotations = popAnnotations; //set default
 
-    let popRateAnnotations = [{
-      x: dcRateData[dcRateData.length - 1].date,
-      y: dcRateData[dcRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null, //text box
-      height: null,
-      align: 'right', //within textbox
-      text: regions[0],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[0]
-      },
-      showarrow: true, //need this to use ay offset
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 6,
-      borderpad: 5
-    }, {
-      x: dlrRateData[dlrRateData.length - 1].date,
-      y: dlrRateData[dlrRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[1],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -6,
-      borderpad: 5
-    }, {
-      x: fRateData[fRateData.length - 1].date,
-      y: fRateData[fRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[2],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[2]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -5,
-      borderpad: 5
-    }, {
-      x: sdRateData[sdRateData.length - 1].date,
-      y: sdRateData[sdRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[3],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[3]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: kRateData[kRateData.length - 1].date,
-      y: kRateData[kRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[4],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1] //last element should be grey
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 2,
-      borderpad: 5
-    }, {
-      x: mRateData[mRateData.length - 1].date,
-      y: mRateData[mRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[5],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -2,
-      borderpad: 5
-    }, {
-      x: wRateData[wRateData.length - 1].date,
-      y: wRateData[wRateData.length - 1].population_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[6],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }]; //end of pop rate annotations
-
-    let houseRateAnnotations = [{
-      x: dcRateData[dcRateData.length - 1].date,
-      y: dcRateData[dcRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null, //text box
-      height: null,
-      align: 'right', //within textbox
-      text: regions[0],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[0]
-      },
-      showarrow: true, //need this to use ay offset
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 2,
-      borderpad: 5
-    }, {
-      x: dlrRateData[dlrRateData.length - 1].date,
-      y: dlrRateData[dlrRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[1],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -2,
-      borderpad: 5
-    }, {
-      x: fRateData[fRateData.length - 1].date,
-      y: fRateData[fRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[2],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[2]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -5,
-      borderpad: 5
-    }, {
-      x: sdRateData[sdRateData.length - 1].date,
-      y: sdRateData[sdRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[3],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[3]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 5,
-      borderpad: 5
-    }, {
-      x: kRateData[kRateData.length - 1].date,
-      y: kRateData[kRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[4],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1] //last element should be grey
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: -6,
-      borderpad: 5
-    }, {
-      x: mRateData[mRateData.length - 1].date,
-      y: mRateData[mRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[5],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 6,
-      borderpad: 5
-    }, {
-      x: wRateData[wRateData.length - 1].date,
-      y: wRateData[wRateData.length - 1].households_rate,
-      xref: 'x',
-      yref: 'y',
-      width: null,
-      height: null,
-      align: 'right',
-      text: regions[6],
-      font: {
-        family: null,
-        size: null,
-        color: colorWay[colorWay.length - 1]
-      },
-      showarrow: true,
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }]; //end of house rate annotations
-
-    popLayout.annotations = popAnnotations; //set default
-
+    //Set button menu
     let updateMenus = [{
       buttons: [{
           args: [{
-              //Each variable has 16 traces
               'visible': [true, true, true, true, true, true, true,
                 false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false,
@@ -1387,7 +278,7 @@ Promise.all([
               'annotations': popAnnotations
             }
           ],
-          label: 'Populations',
+          label: 'Population',
           method: 'update',
           execute: true
         },
@@ -1413,7 +304,7 @@ Promise.all([
               'visible': [false, false, false, false, false, false, false,
                 false, false, false, false, false, false, false,
                 true, true, true, true, true, true, true,
-                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false
               ]
             },
             {
@@ -1438,21 +329,29 @@ Promise.all([
               'annotations': houseRateAnnotations
             }
           ],
-          label: 'Households % change',
+          label: 'Household % change',
           method: 'update',
           execute: true
         }
       ],
       type: 'buttons',
       direction: 'right',
+      font: {
+        family: null,
+        size: 16,
+        color: null
+      },
+      bordercolor: 'grey',
       pad: {
-        'l': 0,
+
         't': 0,
-        'b': 0
+        'r': 0,
+        'b': 0,
+        'l': 0
       },
       showactive: true,
       active: 0,
-      x: 0,
+      x: 0, // -0.05,
       xref: 'container',
       xanchor: 'left',
       yref: 'container',
@@ -1460,10 +359,27 @@ Promise.all([
       yanchor: 'bottom'
     }];
 
+    chartLayout.updatemenus = updateMenus;
 
-    popLayout.updatemenus = updateMenus;
+    let chartTraces = popTraces
+      .concat(houseTraces)
+      .concat(popRateTraces)
+      .concat(houseRateTraces);
 
-    Plotly.newPlot(divID, popData, popLayout, {
+    // //Set default visible traces (i.e. traces on each chart)
+    chartTraces.map((t, i) => {
+      if (i < 7) return t.visible = true;
+      else return t.visible = false;
+    });
+
+
+    Plotly.newPlot(divID, chartTraces, chartLayout, {
+      modeBar: {
+        orientation: 'v',
+        bgcolor: 'black',
+        color: null,
+        activecolor: null
+      },
       modeBarButtons: multilineModeBarButtonsInclude,
       displayModeBar: true,
       displaylogo: false,
@@ -1476,9 +392,7 @@ Promise.all([
         format: 'png'
       }
     });
-
-
-  })
+  }) //end of then
   .catch(function(err) {
     console.log("Error loading file:\n " + err)
   });
