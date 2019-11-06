@@ -9,7 +9,7 @@ const popTitle = "Population of Dublin and surrounding areas 1991-2016";
 const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
 const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
 const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
-title = ''; //set default on load
+title = popTitle; //set default on load
 const divID = "population-households-chart";
 const menuStyle = "dropdown";
 
@@ -19,7 +19,7 @@ Promise.all([
     d3.csv(srcPath + srcFile1),
     d3.csv(srcPath + srcFile2)
   ]).then((data) => {
-    //Data per region
+    //Data per region- use the array of region variable values
     let dataByRegion = [];
     let dataRateByRegion = [];
     regions.forEach((regionName) => {
@@ -274,11 +274,11 @@ Promise.all([
               ]
             },
             {
-              'title': null,
+              'title': popTitle,
               'annotations': popAnnotations
             }
           ],
-          label: popTitle,
+          label: 'Population',
           method: 'update',
           execute: true
         },
@@ -291,11 +291,11 @@ Promise.all([
               ]
             },
             {
-              'title': null,
+              'title': houseTitle,
               'annotations': houseAnnotations
             }
           ],
-          label: houseTitle,
+          label: 'Households',
           method: 'update',
           execute: true
         },
@@ -308,11 +308,11 @@ Promise.all([
               ]
             },
             {
-              'title': null,
+              'title': popRateTitle,
               'annotations': popRateAnnotations
             }
           ],
-          label: popRateTitle,
+          label: 'Population % change',
           method: 'update',
           execute: true
         },
@@ -325,32 +325,33 @@ Promise.all([
               ]
             },
             {
-              'title': null,
+              'title': houseRateTitle,
               'annotations': houseRateAnnotations
             }
           ],
-          label: houseRateTitle,
+          label: 'Household % change',
           method: 'update',
           execute: true
         }
       ],
-      type: menuStyle,
-      direction: 'down',
+      type: 'buttons',
+      direction: 'right',
       font: {
         family: null,
-        size: 20,
+        size: 16,
         color: null
-
       },
-      bordercolor: 'white',
+      bordercolor: 'grey',
       pad: {
-        'l': 0,
+
         't': 0,
-        'b': 0
+        'r': 0,
+        'b': 0,
+        'l': 0
       },
       showactive: true,
       active: 0,
-      x: -0.05,
+      x: 0, // -0.05,
       xref: 'container',
       xanchor: 'left',
       yref: 'container',

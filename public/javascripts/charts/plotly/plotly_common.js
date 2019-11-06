@@ -9,6 +9,29 @@ let areaChartModeBarButtonsInclude = [
   ['toImage', 'hoverClosestCartesian', 'hoverCompareCartesian']
 ];
 
+
+const margins = {
+  l: 40,
+  r: 40,
+  b: 40,
+  t: 60,
+  pad: 0
+};
+
+const buttonRowMargins = {
+  l: 0,
+  r: 0,
+  b: 50,
+  t: 100
+}
+
+const dropdownAsTitleChartMargins = {
+  l: 0,
+  r: 25,
+  b: 50,
+  t: 0
+}
+
 let chartFont = {
   family: 'PT Sans',
   size: 16,
@@ -86,17 +109,11 @@ cA5 = [
 colorWay = cA1; //choose the colorWay to be applied in the chart
 colorWay.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
-let margins = {
-  l: 40,
-  r: 40,
-  b: 40,
-  t: 60,
-  pad: 0
-};
+
 
 let rowChartLayout = {
   responsive: true,
-  margin: margins,
+  margin: buttonRowMargins,
   yaxis: {
     showticklabels: true
   },
@@ -132,30 +149,25 @@ let groupedColumnLayout = {
   hovermode: 'x'
 };
 
-const dropdownAsTitleChartMargins = {
-  l: 0,
-  r: 25,
-  b: 50,
-  t: 0
-}
+
 
 
 let multilineChartLayout = {
   responsive: true,
-  margin: dropdownAsTitleChartMargins,
+  margin: buttonRowMargins,
   title: {
-    text: '',
+    text: 'Default chart title',
     font: {
       family: null,
-      size: 18
+      size: 20
     },
     visible: false,
     xref: 'container',
-    x: 0.1,
+    x: 0.0,
     xanchor: 'left',
     yref: 'container',
-    y: 1.05,
-    yanchor: 'bottom'
+    y: 1.0,
+    yanchor: 'top'
   },
   xaxis: {
     visible: true,
