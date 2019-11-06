@@ -1,4 +1,4 @@
-date,region,all,houses,apartments
+date,region,all,house,apartments
 2005-Jan,Dublin,100,100,100
 2005-Feb,Dublin,102.1,101.7,103.3
 2005-Mar,Dublin,102.9,102.6,104.2
@@ -162,179 +162,195 @@ date,region,all,houses,apartments
 2018-May,Dublin,104.8,110.1,88.9
 2018-Jun,Dublin,104.9,109.9,89.7
 2018-Jul,Dublin,105.8,110.9,90.1
-2018-Aug,Dublin,106,111,90.9
-2018-Sep,Dublin,108,113,92
-2018-Oct,Dublin,108,114,90
-2018-Nov,Dublin,null,null,null
-2018-Dec,Dublin,null,null,null
-2005-Jan,Rest of Ireland,100,null,null
-2005-Feb,Rest of Ireland,100.1,null,null
-2005-Mar,Rest of Ireland,100.5,null,null
-2005-Apr,Rest of Ireland,101.2,null,null
-2005-May,Rest of Ireland,101.9,null,null
-2005-Jun,Rest of Ireland,103.3,null,null
-2005-Jul,Rest of Ireland,105.1,null,null
-2005-Aug,Rest of Ireland,106.7,null,null
-2005-Sep,Rest of Ireland,107.4,null,null
-2005-Oct,Rest of Ireland,109.3,null,null
-2005-Nov,Rest of Ireland,110,null,null
-2005-Dec,Rest of Ireland,111.4,null,null
-2006-Jan,Rest of Ireland,111.9,null,null
-2006-Feb,Rest of Ireland,111.8,null,null
-2006-Mar,Rest of Ireland,112.4,null,null
-2006-Apr,Rest of Ireland,113.9,null,null
-2006-May,Rest of Ireland,115.8,null,null
-2006-Jun,Rest of Ireland,117.4,null,null
-2006-Jul,Rest of Ireland,119.5,null,null
-2006-Aug,Rest of Ireland,121.6,null,null
-2006-Sep,Rest of Ireland,123.1,null,null
-2006-Oct,Rest of Ireland,123.8,null,null
-2006-Nov,Rest of Ireland,124.1,null,null
-2006-Dec,Rest of Ireland,125.5,null,null
-2007-Jan,Rest of Ireland,127.1,null,null
-2007-Feb,Rest of Ireland,127.7,null,null
-2007-Mar,Rest of Ireland,128.6,null,null
-2007-Apr,Rest of Ireland,129.2,null,null
-2007-May,Rest of Ireland,129.3,null,null
-2007-Jun,Rest of Ireland,128.7,null,null
-2007-Jul,Rest of Ireland,128.8,null,null
-2007-Aug,Rest of Ireland,128.8,null,null
-2007-Sep,Rest of Ireland,128.7,null,null
-2007-Oct,Rest of Ireland,128.1,null,null
-2007-Nov,Rest of Ireland,128.7,null,null
-2007-Dec,Rest of Ireland,128.4,null,null
-2008-Jan,Rest of Ireland,128.2,null,null
-2008-Feb,Rest of Ireland,126.9,null,null
-2008-Mar,Rest of Ireland,125.6,null,null
-2008-Apr,Rest of Ireland,124.1,null,null
-2008-May,Rest of Ireland,122.1,null,null
-2008-Jun,Rest of Ireland,120.9,null,null
-2008-Jul,Rest of Ireland,120.5,null,null
-2008-Aug,Rest of Ireland,119.5,null,null
-2008-Sep,Rest of Ireland,119.1,null,null
-2008-Oct,Rest of Ireland,117.2,null,null
-2008-Nov,Rest of Ireland,115.7,null,null
-2008-Dec,Rest of Ireland,113.5,null,null
-2009-Jan,Rest of Ireland,110.8,null,null
-2009-Feb,Rest of Ireland,108.5,null,null
-2009-Mar,Rest of Ireland,106.3,null,null
-2009-Apr,Rest of Ireland,104.6,null,null
-2009-May,Rest of Ireland,102.1,null,null
-2009-Jun,Rest of Ireland,100.2,null,null
-2009-Jul,Rest of Ireland,98.5,null,null
-2009-Aug,Rest of Ireland,96.6,null,null
-2009-Sep,Rest of Ireland,96.8,null,null
-2009-Oct,Rest of Ireland,96.2,null,null
-2009-Nov,Rest of Ireland,96.4,null,null
-2009-Dec,Rest of Ireland,95.5,null,null
-2010-Jan,Rest of Ireland,95.2,null,null
-2010-Feb,Rest of Ireland,94.1,null,null
-2010-Mar,Rest of Ireland,93.6,null,null
-2010-Apr,Rest of Ireland,92.8,null,null
-2010-May,Rest of Ireland,90.7,null,null
-2010-Jun,Rest of Ireland,89.9,null,null
-2010-Jul,Rest of Ireland,88.8,null,null
-2010-Aug,Rest of Ireland,87.9,null,null
-2010-Sep,Rest of Ireland,86.2,null,null
-2010-Oct,Rest of Ireland,84.6,null,null
-2010-Nov,Rest of Ireland,82.9,null,null
-2010-Dec,Rest of Ireland,81.8,null,null
-2011-Jan,Rest of Ireland,81.3,null,null
-2011-Feb,Rest of Ireland,79.8,null,null
-2011-Mar,Rest of Ireland,78.1,null,null
-2011-Apr,Rest of Ireland,76.6,null,null
-2011-May,Rest of Ireland,75.2,null,null
-2011-Jun,Rest of Ireland,74.1,null,null
-2011-Jul,Rest of Ireland,72.2,null,null
-2011-Aug,Rest of Ireland,70,null,null
-2011-Sep,Rest of Ireland,68.9,null,null
-2011-Oct,Rest of Ireland,67.7,null,null
-2011-Nov,Rest of Ireland,66.9,null,null
-2011-Dec,Rest of Ireland,66.1,null,null
-2012-Jan,Rest of Ireland,65.1,null,null
-2012-Feb,Rest of Ireland,63.9,null,null
-2012-Mar,Rest of Ireland,64.1,null,null
-2012-Apr,Rest of Ireland,62.4,null,null
-2012-May,Rest of Ireland,62,null,null
-2012-Jun,Rest of Ireland,61.5,null,null
-2012-Jul,Rest of Ireland,61.5,null,null
-2012-Aug,Rest of Ireland,61,null,null
-2012-Sep,Rest of Ireland,61.2,null,null
-2012-Oct,Rest of Ireland,61.1,null,null
-2012-Nov,Rest of Ireland,60.3,null,null
-2012-Dec,Rest of Ireland,60,null,null
-2013-Jan,Rest of Ireland,58.3,null,null
-2013-Feb,Rest of Ireland,58.1,null,null
-2013-Mar,Rest of Ireland,56.8,null,null
-2013-Apr,Rest of Ireland,56.7,null,null
-2013-May,Rest of Ireland,56.2,null,null
-2013-Jun,Rest of Ireland,56.9,null,null
-2013-Jul,Rest of Ireland,57.4,null,null
-2013-Aug,Rest of Ireland,57.5,null,null
-2013-Sep,Rest of Ireland,58.3,null,null
-2013-Oct,Rest of Ireland,58.7,null,null
-2013-Nov,Rest of Ireland,58.4,null,null
-2013-Dec,Rest of Ireland,59.1,null,null
-2014-Jan,Rest of Ireland,58.9,null,null
-2014-Feb,Rest of Ireland,59.1,null,null
-2014-Mar,Rest of Ireland,58.9,null,null
-2014-Apr,Rest of Ireland,59.5,null,null
-2014-May,Rest of Ireland,60.5,null,null
-2014-Jun,Rest of Ireland,61.2,null,null
-2014-Jul,Rest of Ireland,62.3,null,null
-2014-Aug,Rest of Ireland,63.3,null,null
-2014-Sep,Rest of Ireland,64.4,null,null
-2014-Oct,Rest of Ireland,65.5,null,null
-2014-Nov,Rest of Ireland,66.3,null,null
-2014-Dec,Rest of Ireland,66.4,null,null
-2015-Jan,Rest of Ireland,66.6,null,null
-2015-Feb,Rest of Ireland,66.5,null,null
-2015-Mar,Rest of Ireland,67,null,null
-2015-Apr,Rest of Ireland,68.1,null,null
-2015-May,Rest of Ireland,69.2,null,null
-2015-Jun,Rest of Ireland,70.5,null,null
-2015-Jul,Rest of Ireland,71.2,null,null
-2015-Aug,Rest of Ireland,72.2,null,null
-2015-Sep,Rest of Ireland,72.8,null,null
-2015-Oct,Rest of Ireland,73.5,null,null
-2015-Nov,Rest of Ireland,73.4,null,null
-2015-Dec,Rest of Ireland,73.5,null,null
-2016-Jan,Rest of Ireland,73.8,null,null
-2016-Feb,Rest of Ireland,73.5,null,null
-2016-Mar,Rest of Ireland,73.8,null,null
-2016-Apr,Rest of Ireland,74.2,null,null
-2016-May,Rest of Ireland,74.7,null,null
-2016-Jun,Rest of Ireland,76.1,null,null
-2016-Jul,Rest of Ireland,78.5,null,null
-2016-Aug,Rest of Ireland,79.5,null,null
-2016-Sep,Rest of Ireland,80.1,null,null
-2016-Oct,Rest of Ireland,80.7,null,null
-2016-Nov,Rest of Ireland,81.9,null,null
-2016-Dec,Rest of Ireland,81.7,null,null
-2017-Jan,Rest of Ireland,82.4,null,null
-2017-Feb,Rest of Ireland,82.7,null,null
-2017-Mar,Rest of Ireland,82.8,null,null
-2017-Apr,Rest of Ireland,84.1,null,null
-2017-May,Rest of Ireland,84.4,null,null
-2017-Jun,Rest of Ireland,85.1,null,null
-2017-Jul,Rest of Ireland,87.4,null,null
-2017-Aug,Rest of Ireland,88.8,null,null
-2017-Sep,Rest of Ireland,90.2,null,null
-2017-Oct,Rest of Ireland,90.4,null,null
-2017-Nov,Rest of Ireland,91.6,null,null
-2017-Dec,Rest of Ireland,92.1,null,null
-2018-Jan,Rest of Ireland,92.4,null,null
-2018-Feb,Rest of Ireland,92.9,null,null
-2018-Mar,Rest of Ireland,94.1,null,null
-2018-Apr,Rest of Ireland,95.7,null,null
-2018-May,Rest of Ireland,96.2,null,null
-2018-Jun,Rest of Ireland,98,null,null
-2018-Jul,Rest of Ireland,98.5,null,null
-2018-Aug,Rest of Ireland,98.9,null,null
-2018-Sep,Rest of Ireland,100,null,null
-2018-Oct,Rest of Ireland,100,null,null
-2018-Nov,Rest of Ireland,null,null,null
-2018-Dec,Rest of Ireland,null,null,null
+2018-Aug,Dublin,106.6,111.7,91
+2018-Sep,Dublin,107.5,112.7,91.6
+2018-Oct,Dublin,107.8,113.4,91.1
+2018-Nov,Dublin,107,112.4,91.1
+2018-Dec,Dublin,106.1,111.4,90.6
+2019-Jan,Dublin,105.6,110.9,90.1
+2019-Feb,Dublin,105.2,110.8,89.1
+2019-Mar,Dublin,104.6,109.9,88.8
+2019-Apr,Dublin,104.6,109.6,89.2
+2019-May,Dublin,104.8,109.9,89.2
+2019-Jun,Dublin,105,110,89.7
+2019-Jul,Dublin,105.7,110.5,90.7
+2019-Aug,Dublin,106.3,111,91.6
+2005-Jan,Rest of Ireland,100,100,100
+2005-Feb,Rest of Ireland,100.1,100.6,94.2
+2005-Mar,Rest of Ireland,100.5,101.1,92.1
+2005-Apr,Rest of Ireland,101.2,101.8,91.3
+2005-May,Rest of Ireland,101.9,102.5,91.9
+2005-Jun,Rest of Ireland,103.3,104,91.6
+2005-Jul,Rest of Ireland,105.1,105.8,93.5
+2005-Aug,Rest of Ireland,106.7,107.3,96.7
+2005-Sep,Rest of Ireland,107.4,108,98.5
+2005-Oct,Rest of Ireland,109.3,109.7,102.4
+2005-Nov,Rest of Ireland,110,110.4,103.8
+2005-Dec,Rest of Ireland,111.4,111.7,106.4
+2006-Jan,Rest of Ireland,111.9,112.2,108
+2006-Feb,Rest of Ireland,111.8,112.2,108
+2006-Mar,Rest of Ireland,112.4,112.8,107.9
+2006-Apr,Rest of Ireland,113.9,114.3,108.5
+2006-May,Rest of Ireland,115.8,116.3,109.5
+2006-Jun,Rest of Ireland,117.4,118,110
+2006-Jul,Rest of Ireland,119.5,120.1,111.4
+2006-Aug,Rest of Ireland,121.6,122.2,112.7
+2006-Sep,Rest of Ireland,123.1,123.7,114.7
+2006-Oct,Rest of Ireland,123.8,124.3,116.6
+2006-Nov,Rest of Ireland,124.1,124.7,116.1
+2006-Dec,Rest of Ireland,125.5,126.2,116.4
+2007-Jan,Rest of Ireland,127.1,127.8,117.6
+2007-Feb,Rest of Ireland,127.7,128.4,117.9
+2007-Mar,Rest of Ireland,128.6,129.4,118.2
+2007-Apr,Rest of Ireland,129.2,130,119.1
+2007-May,Rest of Ireland,129.3,130,119.5
+2007-Jun,Rest of Ireland,128.7,129.4,120
+2007-Jul,Rest of Ireland,128.8,129.7,118.5
+2007-Aug,Rest of Ireland,128.8,129.6,118.5
+2007-Sep,Rest of Ireland,128.7,129.5,118.5
+2007-Oct,Rest of Ireland,128.1,128.8,119
+2007-Nov,Rest of Ireland,128.7,129.3,119.5
+2007-Dec,Rest of Ireland,128.4,129.2,118.4
+2008-Jan,Rest of Ireland,128.2,129.2,116
+2008-Feb,Rest of Ireland,126.9,128.1,113.7
+2008-Mar,Rest of Ireland,125.6,126.5,114.4
+2008-Apr,Rest of Ireland,124.1,125,112.5
+2008-May,Rest of Ireland,122.1,123,110.1
+2008-Jun,Rest of Ireland,120.9,121.7,110.3
+2008-Jul,Rest of Ireland,120.5,121.3,110.2
+2008-Aug,Rest of Ireland,119.5,120.3,108.9
+2008-Sep,Rest of Ireland,119.1,119.8,109.8
+2008-Oct,Rest of Ireland,117.2,118,106.8
+2008-Nov,Rest of Ireland,115.7,116.6,104.5
+2008-Dec,Rest of Ireland,113.5,114.4,102.8
+2009-Jan,Rest of Ireland,110.8,112,96.9
+2009-Feb,Rest of Ireland,108.5,109.7,94.6
+2009-Mar,Rest of Ireland,106.3,107.2,94
+2009-Apr,Rest of Ireland,104.6,105.8,89.4
+2009-May,Rest of Ireland,102.1,103.4,85.8
+2009-Jun,Rest of Ireland,100.2,101.6,82.4
+2009-Jul,Rest of Ireland,98.5,99.9,81
+2009-Aug,Rest of Ireland,96.6,98.1,77.8
+2009-Sep,Rest of Ireland,96.8,98.4,76.1
+2009-Oct,Rest of Ireland,96.2,97.8,75.2
+2009-Nov,Rest of Ireland,96.4,98.1,74.5
+2009-Dec,Rest of Ireland,95.5,97.1,74.2
+2010-Jan,Rest of Ireland,95.2,96.8,74.1
+2010-Feb,Rest of Ireland,94.1,95.7,72.7
+2010-Mar,Rest of Ireland,93.6,95.3,70.9
+2010-Apr,Rest of Ireland,92.8,94.4,71.8
+2010-May,Rest of Ireland,90.7,92.4,68.8
+2010-Jun,Rest of Ireland,89.9,91.6,68.3
+2010-Jul,Rest of Ireland,88.8,90.5,67.2
+2010-Aug,Rest of Ireland,87.9,89.6,66.6
+2010-Sep,Rest of Ireland,86.2,87.7,66.5
+2010-Oct,Rest of Ireland,84.6,86.1,65.4
+2010-Nov,Rest of Ireland,82.9,84.3,64.1
+2010-Dec,Rest of Ireland,81.8,83.2,63.5
+2011-Jan,Rest of Ireland,81.3,82.6,63.8
+2011-Feb,Rest of Ireland,79.8,81.2,61.8
+2011-Mar,Rest of Ireland,78.1,79.5,60.1
+2011-Apr,Rest of Ireland,76.6,78,59.7
+2011-May,Rest of Ireland,75.2,76.7,57.3
+2011-Jun,Rest of Ireland,74.1,75.6,55.3
+2011-Jul,Rest of Ireland,72.2,73.7,52.1
+2011-Aug,Rest of Ireland,70,71.9,46.1
+2011-Sep,Rest of Ireland,68.9,70.9,42.8
+2011-Oct,Rest of Ireland,67.7,69.8,40.6
+2011-Nov,Rest of Ireland,66.9,68.9,40.8
+2011-Dec,Rest of Ireland,66.1,67.7,42.7
+2012-Jan,Rest of Ireland,65.1,66.6,43.7
+2012-Feb,Rest of Ireland,63.9,65.2,45
+2012-Mar,Rest of Ireland,64.1,65.5,45
+2012-Apr,Rest of Ireland,62.4,63.9,43.7
+2012-May,Rest of Ireland,62,63.5,43.1
+2012-Jun,Rest of Ireland,61.5,63,42.3
+2012-Jul,Rest of Ireland,61.5,63,42.7
+2012-Aug,Rest of Ireland,61,62.5,41.2
+2012-Sep,Rest of Ireland,61.2,62.7,42.1
+2012-Oct,Rest of Ireland,61.1,62.5,42.4
+2012-Nov,Rest of Ireland,60.3,61.6,42.6
+2012-Dec,Rest of Ireland,60,61.3,42.7
+2013-Jan,Rest of Ireland,58.3,59.5,43.4
+2013-Feb,Rest of Ireland,58.1,59.2,43.8
+2013-Mar,Rest of Ireland,56.8,57.9,42.7
+2013-Apr,Rest of Ireland,56.7,57.9,41.7
+2013-May,Rest of Ireland,56.2,57.3,41.6
+2013-Jun,Rest of Ireland,56.9,58.2,40.8
+2013-Jul,Rest of Ireland,57.4,58.7,41
+2013-Aug,Rest of Ireland,57.5,58.8,41.4
+2013-Sep,Rest of Ireland,58.3,59.7,40.3
+2013-Oct,Rest of Ireland,58.7,60.1,40.4
+2013-Nov,Rest of Ireland,58.4,59.9,39.2
+2013-Dec,Rest of Ireland,59.1,60.5,40.4
+2014-Jan,Rest of Ireland,58.9,60.4,40
+2014-Feb,Rest of Ireland,59.1,60.4,41.4
+2014-Mar,Rest of Ireland,58.9,60.1,42
+2014-Apr,Rest of Ireland,59.5,60.8,42.5
+2014-May,Rest of Ireland,60.5,61.9,42.6
+2014-Jun,Rest of Ireland,61.2,62.6,43.4
+2014-Jul,Rest of Ireland,62.3,63.6,45.2
+2014-Aug,Rest of Ireland,63.3,64.7,45.8
+2014-Sep,Rest of Ireland,64.4,65.8,45.9
+2014-Oct,Rest of Ireland,65.5,67.1,46
+2014-Nov,Rest of Ireland,66.3,67.8,46.7
+2014-Dec,Rest of Ireland,66.4,67.9,46.9
+2015-Jan,Rest of Ireland,66.6,68.1,47.1
+2015-Feb,Rest of Ireland,66.5,68.1,46.8
+2015-Mar,Rest of Ireland,67,68.3,48.9
+2015-Apr,Rest of Ireland,68.1,69.6,48.5
+2015-May,Rest of Ireland,69.2,70.8,48.7
+2015-Jun,Rest of Ireland,70.5,72.1,49.4
+2015-Jul,Rest of Ireland,71.2,72.9,49.9
+2015-Aug,Rest of Ireland,72.2,73.8,51.4
+2015-Sep,Rest of Ireland,72.8,74.4,51.9
+2015-Oct,Rest of Ireland,73.5,75.2,52.1
+2015-Nov,Rest of Ireland,73.4,75,52.3
+2015-Dec,Rest of Ireland,73.5,75.2,52.2
+2016-Jan,Rest of Ireland,73.8,75.5,52.6
+2016-Feb,Rest of Ireland,73.5,75.1,52.7
+2016-Mar,Rest of Ireland,73.8,75.2,54.1
+2016-Apr,Rest of Ireland,74.2,75.7,54.4
+2016-May,Rest of Ireland,74.7,76.2,55.1
+2016-Jun,Rest of Ireland,76.1,77.4,57.5
+2016-Jul,Rest of Ireland,78.5,79.9,58.4
+2016-Aug,Rest of Ireland,79.5,81,58.4
+2016-Sep,Rest of Ireland,80.1,81.9,57.9
+2016-Oct,Rest of Ireland,80.7,82.5,58
+2016-Nov,Rest of Ireland,81.9,83.7,59
+2016-Dec,Rest of Ireland,81.7,83.4,59.3
+2017-Jan,Rest of Ireland,82.4,83.9,60.9
+2017-Feb,Rest of Ireland,82.7,84.2,61.6
+2017-Mar,Rest of Ireland,82.8,84.3,62.5
+2017-Apr,Rest of Ireland,84.1,85.5,64.1
+2017-May,Rest of Ireland,84.4,85.9,64.4
+2017-Jun,Rest of Ireland,85.1,86.7,63.4
+2017-Jul,Rest of Ireland,87.4,89.2,64.7
+2017-Aug,Rest of Ireland,88.8,90.4,66.3
+2017-Sep,Rest of Ireland,90.2,92,65.8
+2017-Oct,Rest of Ireland,90.4,92.1,67
+2017-Nov,Rest of Ireland,91.6,93.4,67.5
+2017-Dec,Rest of Ireland,92.1,94,67.3
+2018-Jan,Rest of Ireland,92.4,94.5,66.1
+2018-Feb,Rest of Ireland,92.9,94.6,68.8
+2018-Mar,Rest of Ireland,94.1,95.6,71
+2018-Apr,Rest of Ireland,95.7,96.9,74.5
+2018-May,Rest of Ireland,96.2,97.4,74.9
+2018-Jun,Rest of Ireland,98,99.5,75.4
+2018-Jul,Rest of Ireland,98.5,100,76.1
+2018-Aug,Rest of Ireland,98.8,100.3,76.8
+2018-Sep,Rest of Ireland,99.8,101.4,76.7
+2018-Oct,Rest of Ireland,100,101.5,77
+2018-Nov,Rest of Ireland,100,101.5,77.8
+2018-Dec,Rest of Ireland,100.2,101.7,77.9
+2019-Jan,Rest of Ireland,99.6,101.1,77.2
+2019-Feb,Rest of Ireland,99.7,101.1,76.9
+2019-Mar,Rest of Ireland,100.5,102,77.7
+2019-Apr,Rest of Ireland,100.9,102.3,78
+2019-May,Rest of Ireland,101.3,102.7,78.6
+2019-Jun,Rest of Ireland,101.9,103.3,79.3
+2019-Jul,Rest of Ireland,103,104.5,80.1
+2019-Aug,Rest of Ireland,103.1,104.4,80.9
 2005-Jan,National,100,100,100
 2005-Feb,National,100.8,100.9,100.2
 2005-Mar,National,101.4,101.6,100.2
@@ -497,9 +513,17 @@ date,region,all,houses,apartments
 2018-Apr,National,103.6,106.7,86.1
 2018-May,National,104.3,107.3,86.9
 2018-Jun,National,105.3,108.4,87.7
-2018-Jul,National,106,109.2,88.3
-2018-Aug,National,106.3,109.4,89.1
-2018-Sep,National,108,111,90
-2018-Oct,National,108,112,89
-2018-Nov,National,null,null,null
-2018-Dec,National,null,null,null
+2018-Jul,National,106,109.2,88.2
+2018-Aug,National,106.6,109.7,89.1
+2018-Sep,National,107.6,110.8,89.5
+2018-Oct,National,107.8,111.2,89.5
+2018-Nov,National,107.5,110.7,89.8
+2018-Dec,National,107.1,110.4,89.6
+2019-Jan,National,106.5,109.8,89.2
+2019-Feb,National,106.4,109.8,88.5
+2019-Mar,National,106.5,109.9,88.3
+2019-Apr,National,106.7,109.9,88.4
+2019-May,National,107,110.3,88.4
+2019-Jun,National,107.4,110.7,88.7
+2019-Jul,National,108.4,111.6,89.4
+2019-Aug,National,108.7,111.8,90.1
