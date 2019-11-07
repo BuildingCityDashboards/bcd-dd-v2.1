@@ -38,33 +38,11 @@ d3.csv(srcPathFig5 + srcFileFig5)
     chartLayout.margin = {
       l: 70,
       r: 175, //annotations space
-      b: 60, //x axis tooltip
       t: 40
     };
 
     // chartLayout.hidesources = false;
 
-    //Set annotations per chart with config per trace
-    let ANNOTATIONS_DEFAULT = {
-      xref: 'x',
-      yref: 'y',
-      width: null, //text box
-      height: null,
-      align: 'right', //within textbox
-      opacity: 1.0, //default
-      font: {
-        family: null,
-        size: 16,
-        color: null //default
-      },
-      showarrow: true, //need this to use ay offset
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }
     let mortgageDebtAnnotations = [];
     mortgageDebtTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));

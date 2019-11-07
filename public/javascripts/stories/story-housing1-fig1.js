@@ -121,14 +121,16 @@ Promise.all([
     //Set layout options
     let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     chartLayout.title.text = titleFig1;
+    chartLayout.height = 600;
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [1991, 2016];
+    chartLayout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    chartLayout.yaxis.title = '';
     chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     chartLayout.margin = {
       l: 0,
       r: 200, //Dun Laoghaire!!!
-      b: 40, //x axis tooltip
       t: 100 //button row
     };
 
@@ -246,8 +248,9 @@ Promise.all([
               ]
             },
             {
-              'titleFig1': popTitle,
+              'title': popTitle,
               'annotations': popAnnotations,
+
             }
           ],
           label: 'Population',
@@ -263,7 +266,7 @@ Promise.all([
               ]
             },
             {
-              'titleFig1': houseTitle,
+              'title': houseTitle,
               'annotations': houseAnnotations
             }
           ],
@@ -280,8 +283,9 @@ Promise.all([
               ]
             },
             {
-              'titleFig1': popRateTitle,
+              'title': popRateTitle,
               'annotations': popRateAnnotations
+
             }
           ],
           label: 'Population % change',
@@ -297,7 +301,7 @@ Promise.all([
               ]
             },
             {
-              'titleFig1': houseRateTitle,
+              'title': houseRateTitle,
               'annotations': houseRateAnnotations
             }
           ],
@@ -323,8 +327,8 @@ Promise.all([
       },
       showactive: true,
       active: 0,
-      x: 0, // -0.05,
       xref: 'container',
+      x: 0,
       xanchor: 'left',
       yref: 'container',
       y: 1.05, //place above plot area with >1.0

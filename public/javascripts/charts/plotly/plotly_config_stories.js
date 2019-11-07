@@ -180,14 +180,15 @@ const GROUPED_COLUMN_CHART_LAYOUT = {
 
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
+  height: 500,
   margin: {
     l: 0,
     r: 0,
-    b: 0,
+    b: 50,
     t: 0
   },
   title: {
-    text: 'Default chart title',
+    text: '',
     font: {
       family: null,
       size: 20
@@ -202,6 +203,9 @@ const MULTILINE_CHART_LAYOUT = {
   },
   xaxis: {
     title: 'Years',
+    titlefont: {
+      size: 16
+    },
     visible: true,
     type: null,
     range: null,
@@ -216,7 +220,7 @@ const MULTILINE_CHART_LAYOUT = {
     }
   },
   yaxis: {
-    title: 'Axis title',
+    title: '',
     visible: true,
     type: null,
     range: null,
