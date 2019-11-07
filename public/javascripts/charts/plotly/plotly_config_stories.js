@@ -97,6 +97,7 @@ CHART_COLORWAY = CHART_COLORWAY_BCD_1; //choose the CHART_COLORWAY to be applied
 CHART_COLORWAY.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
 const ANNOTATIONS_DEFAULT = {
+  text: 'test1 </br> test2',
   xref: 'x',
   yref: 'y',
   width: null, //text box
