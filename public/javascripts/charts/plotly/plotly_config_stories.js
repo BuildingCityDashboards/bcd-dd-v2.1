@@ -223,7 +223,7 @@ const MULTILINE_CHART_LAYOUT = {
   yaxis: {
     title: '',
     titlefont: {
-      size: 10
+      size: 16
     },
     visible: true,
     type: null,

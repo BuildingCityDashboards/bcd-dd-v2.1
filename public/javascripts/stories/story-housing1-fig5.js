@@ -33,8 +33,9 @@ d3.csv(srcPathFig5 + srcFileFig5)
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [2002, 2007];
-    chartLayout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    chartLayout.yaxis.titlefont.size = 16;
+    chartLayout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
+    // chartLayout.yaxis.titlefont.size = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont.size);
+    chartLayout.yaxis.titlefont.size = 16; //bug? need to call this
     chartLayout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
     chartLayout.yaxis.title = '€Bn';
     chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
