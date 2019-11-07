@@ -1,28 +1,28 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPath = "../data/Stories/Housing/",
-  srcFile1 = "pop_house.csv",
-  srcFile2 = "pop_house_rate_new.csv";
-const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-let title = "Growth in population and households 1991-2016";
+const srcPathFig1 = "../data/Stories/Housing/",
+  srcFileFig11 = "pop_house.csv",
+  srcFileFig12 = "pop_house_rate_new.csv";
+const regionsFig1 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
+let titleFig1 = "Growth in population and households 1991-2016";
 const popTitle = "Population of Dublin and surrounding areas 1991-2016";
 const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
 const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
 const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
-title = popTitle; //set default on load
-const divID = "population-households-chart";
-const menuStyle = "dropdown";
+titleFig1 = popTitle; //set default on load
+const divIDFig1 = "population-households-chart";
+
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
 //Want a better mechanism for page load that doesn't have to wait for all the data
 Promise.all([
-    d3.csv(srcPath + srcFile1),
-    d3.csv(srcPath + srcFile2)
+    d3.csv(srcPathFig1 + srcFileFig11),
+    d3.csv(srcPathFig1 + srcFileFig12)
   ]).then((data) => {
     //Data per region- use the array of region variable values
     let dataByRegion = [];
     let dataRateByRegion = [];
-    regions.forEach((regionName) => {
+    regionsFig1.forEach((regionName) => {
       dataByRegion.push(data[0].filter((v) => {
         return v.region === regionName;
       }));
@@ -139,10 +139,17 @@ Promise.all([
 
     //Set layout options
     let chartLayout = Object.assign({}, multilineChartLayout);
-    chartLayout.title.text = title;
+    chartLayout.title.text = titleFig1;
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, multilineChartLayout.xaxis);
     chartLayout.xaxis.range = [1991, 2016];
+    chartLayout.margin = Object.assign({}, multilineChartLayout.margin);
+    chartLayout.margin = {
+      l: 0,
+      r: 200, //Dun Laoghaire!!!
+      b: 40, //x axis tooltip
+      t: 100 //button row
+    };
 
     // chartLayout.hidesources = false;
 
@@ -277,7 +284,7 @@ Promise.all([
               ]
             },
             {
-              'title': popTitle,
+              'titleFig1': popTitle,
               'annotations': popAnnotations,
             }
           ],
@@ -294,7 +301,7 @@ Promise.all([
               ]
             },
             {
-              'title': houseTitle,
+              'titleFig1': houseTitle,
               'annotations': houseAnnotations
             }
           ],
@@ -311,7 +318,7 @@ Promise.all([
               ]
             },
             {
-              'title': popRateTitle,
+              'titleFig1': popRateTitle,
               'annotations': popRateAnnotations
             }
           ],
@@ -328,7 +335,7 @@ Promise.all([
               ]
             },
             {
-              'title': houseRateTitle,
+              'titleFig1': houseRateTitle,
               'annotations': houseRateAnnotations
             }
           ],
@@ -377,7 +384,7 @@ Promise.all([
     });
 
 
-    Plotly.newPlot(divID, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig1, chartTraces, chartLayout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
@@ -390,7 +397,7 @@ Promise.all([
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + title,
+        filename: 'Dublin Dashboard - ' + titleFig1,
         width: null,
         height: null,
         format: 'png'

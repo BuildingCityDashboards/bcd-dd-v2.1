@@ -154,9 +154,9 @@ let multilineChartLayout = {
   responsive: true,
   margin: {
     l: 0,
-    r: 200, //Dun Laoghaire!!!
+    r: 0,
     b: 0,
-    t: 100 //button row
+    t: 0
   },
   title: {
     text: 'Default chart title',
