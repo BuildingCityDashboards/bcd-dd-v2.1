@@ -155,7 +155,7 @@ const ROW_CHART_LAYOUT = {
   hovermode: 'closest'
 };
 
-constGROUPED_COLUMN_CHART_LAYOUT = {
+const GROUPED_COLUMN_CHART_LAYOUT = {
   barmode: 'group',
   responsive: true,
   margin: MARGINS,
@@ -177,9 +177,6 @@ constGROUPED_COLUMN_CHART_LAYOUT = {
   annotations: [],
   hovermode: 'x'
 };
-
-
-
 
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
@@ -204,6 +201,7 @@ const MULTILINE_CHART_LAYOUT = {
     yanchor: 'top'
   },
   xaxis: {
+    title: 'Years',
     visible: true,
     type: null,
     range: null,
@@ -218,6 +216,7 @@ const MULTILINE_CHART_LAYOUT = {
     }
   },
   yaxis: {
+    title: 'Axis title',
     visible: true,
     type: null,
     range: null,

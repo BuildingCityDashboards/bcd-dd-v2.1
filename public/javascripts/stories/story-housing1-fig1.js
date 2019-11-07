@@ -32,7 +32,6 @@ Promise.all([
     });
 
     //Traces
-
     //traces for chart a
     let popTraces = [];
     dataByRegion.forEach((regionData, i) => {
