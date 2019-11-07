@@ -11,7 +11,7 @@ const divIDFig4 = "property-price-growth-chart";
 
 d3.csv(srcPathFig4 + srcFileFig4)
   .then((data) => {
-    console.log(data.length);
+
     //Data per type- use the array of type variable values
     let dataByType = [];
     typesFig4.forEach((typeName) => {
@@ -21,33 +21,14 @@ d3.csv(srcPathFig4 + srcFileFig4)
     });
 
     //Traces
-    //common config
-    let TRACES_COMMON = {
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0, //default
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null
-        }
-      },
-      name: 'trace',
-      visible: true //'legendonly'
-    };
-
     //traces for chart a
     let ppGrowthTraces = [];
     dataByType.forEach((typeData, i) => {
-      let trace = Object.assign({}, TRACES_COMMON);
+      let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = typeData[0].type;
       //reassign colour to -defocus some traces
       (i > 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i > 1) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = typeData.map((v) => {
@@ -63,12 +44,12 @@ d3.csv(srcPathFig4 + srcFileFig4)
 
 
     //Set layout options
-    let chartLayout = Object.assign({}, multilineChartLayout);
+    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     chartLayout.title.text = titleFig4;
     chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, multilineChartLayout.xaxis);
+    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [1975, 2016];
-    chartLayout.margin = Object.assign({}, multilineChartLayout.margin);
+    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     chartLayout.margin = {
       l: 0,
       r: 175, //annotations space
@@ -79,7 +60,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
     // chartLayout.hidesources = false;
 
     //Set annotations per chart with config per trace
-    let ANNOTATIONS_COMMON = {
+    let ANNOTATIONS_DEFAULT = {
       xref: 'x',
       yref: 'y',
       width: null, //text box
@@ -102,15 +83,15 @@ d3.csv(srcPathFig4 + srcFileFig4)
     let ppGrowthAnnotations = [];
     ppGrowthTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i > 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
-      (i > 1) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i > 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       ppGrowthAnnotations.push(annotation);
@@ -126,7 +107,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
         color: null,
         activecolor: null
       },
-      modeBarButtons: multilineModeBarButtonsInclude,
+      modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
       displaylogo: false,
       showSendToCloud: false,
