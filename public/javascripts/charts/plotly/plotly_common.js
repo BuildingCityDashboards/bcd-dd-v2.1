@@ -12,18 +12,11 @@ let areaChartModeBarButtonsInclude = [
 
 const margins = {
   l: 40,
-  r: 40,
+  r: 0,
   b: 40,
   t: 60,
   pad: 0
 };
-
-const buttonRowMargins = {
-  l: 0,
-  r: 0,
-  b: 50,
-  t: 100
-}
 
 const dropdownAsTitleChartMargins = {
   l: 0,
@@ -113,7 +106,12 @@ colorWay.push('grey'); //add grey as last element to allow muted colors for seco
 
 let rowChartLayout = {
   responsive: true,
-  margin: buttonRowMargins,
+  margin: {
+    l: 0,
+    r: 200, //Dun Laoghaire!!!
+    b: 50,
+    t: 100
+  },
   yaxis: {
     showticklabels: true
   },
@@ -154,7 +152,12 @@ let groupedColumnLayout = {
 
 let multilineChartLayout = {
   responsive: true,
-  margin: buttonRowMargins,
+  margin: {
+    l: 0,
+    r: 200, //Dun Laoghaire!!!
+    b: 0,
+    t: 100 //button row
+  },
   title: {
     text: 'Default chart title',
     font: {
@@ -171,9 +174,11 @@ let multilineChartLayout = {
   },
   xaxis: {
     visible: true,
-    type: 'date',
+    type: null,
+    range: null,
+    fixedrange: true,
     showticklabels: true,
-    nticks: 4,
+    nticks: null,
     ticks: '',
     automargin: true,
     tickfont: {
@@ -183,7 +188,12 @@ let multilineChartLayout = {
   },
   yaxis: {
     visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
     showticklabels: true,
+    nticks: null,
+    ticks: '',
     automargin: true,
     tickfont: {
       family: null,

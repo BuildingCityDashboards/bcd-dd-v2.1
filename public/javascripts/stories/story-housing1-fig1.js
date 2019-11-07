@@ -141,6 +141,9 @@ Promise.all([
     let chartLayout = Object.assign({}, multilineChartLayout);
     chartLayout.title.text = title;
     chartLayout.showlegend = false;
+    chartLayout.xaxis = Object.assign({}, multilineChartLayout.xaxis);
+    chartLayout.xaxis.range = [1991, 2016];
+
     // chartLayout.hidesources = false;
 
     //Set annotations per chart with config per trace
@@ -275,7 +278,7 @@ Promise.all([
             },
             {
               'title': popTitle,
-              'annotations': popAnnotations
+              'annotations': popAnnotations,
             }
           ],
           label: 'Population',
@@ -360,6 +363,7 @@ Promise.all([
     }];
 
     chartLayout.updatemenus = updateMenus;
+
 
     let chartTraces = popTraces
       .concat(houseTraces)
