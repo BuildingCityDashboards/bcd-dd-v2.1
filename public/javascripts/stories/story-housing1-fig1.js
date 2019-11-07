@@ -121,7 +121,7 @@ Promise.all([
     //Set layout options
     let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     chartLayout.title.text = titleFig1;
-    chartLayout.height = 600;
+    chartLayout.height = 500;
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [1991, 2016];
