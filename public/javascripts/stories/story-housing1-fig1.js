@@ -1,28 +1,28 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPath = "../data/Stories/Housing/",
-  srcFile1 = "pop_house.csv",
-  srcFile2 = "pop_house_rate_new.csv";
-const regions = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-let title = "Growth in population and households 1991-2016";
+const srcPathFig1 = "../data/Stories/Housing/",
+  srcFileFig11 = "pop_house.csv",
+  srcFileFig12 = "pop_house_rate_new.csv";
+const regionsFig1 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
+let titleFig1 = "Growth in population and households 1991-2016";
 const popTitle = "Population of Dublin and surrounding areas 1991-2016";
 const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
 const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
 const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
-title = popTitle; //set default on load
-const divID = "population-households-chart";
-const menuStyle = "dropdown";
+titleFig1 = popTitle; //set default on load
+const divIDFig1 = "population-households-chart";
+
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
 //Want a better mechanism for page load that doesn't have to wait for all the data
 Promise.all([
-    d3.csv(srcPath + srcFile1),
-    d3.csv(srcPath + srcFile2)
+    d3.csv(srcPathFig1 + srcFileFig11),
+    d3.csv(srcPathFig1 + srcFileFig12)
   ]).then((data) => {
     //Data per region- use the array of region variable values
     let dataByRegion = [];
     let dataRateByRegion = [];
-    regions.forEach((regionName) => {
+    regionsFig1.forEach((regionName) => {
       dataByRegion.push(data[0].filter((v) => {
         return v.region === regionName;
       }));
@@ -32,33 +32,14 @@ Promise.all([
     });
 
     //Traces
-    //common config
-    let TRACES_COMMON = {
-      type: 'scatter',
-      mode: 'lines+markers',
-      opacity: 1.0, //default
-      line: {
-        shape: 'spline'
-      },
-      marker: {
-        symbol: null,
-        color: null, //lines + markers, defaults to colorway
-        line: {
-          width: null
-        }
-      },
-      name: 'trace',
-      visible: true //'legendonly'
-    };
-
     //traces for chart a
     let popTraces = [];
     dataByRegion.forEach((regionData, i) => {
-      let trace = Object.assign({}, TRACES_COMMON);
+      let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionData[0].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = regionData.map((v) => {
@@ -75,11 +56,11 @@ Promise.all([
     //traces for chart b
     let houseTraces = [];
     dataByRegion.forEach((regionData, i) => {
-      let trace = Object.assign({}, TRACES_COMMON);
+      let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionData[0].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = regionData.map((v) => {
@@ -97,11 +78,11 @@ Promise.all([
     //traces for chart c
     let popRateTraces = [];
     dataRateByRegion.forEach((regionData, i) => {
-      let trace = Object.assign({}, TRACES_COMMON);
+      let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionData[1].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = regionData.map((v) => {
@@ -117,11 +98,11 @@ Promise.all([
     //traces for chart d
     let houseRateTraces = [];
     dataRateByRegion.forEach((regionData, i) => {
-      let trace = Object.assign({}, TRACES_COMMON);
+      let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionData[1].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_COMMON.marker);
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = regionData.map((v) => {
@@ -138,44 +119,37 @@ Promise.all([
 
 
     //Set layout options
-    let chartLayout = Object.assign({}, multilineChartLayout);
-    chartLayout.title.text = title;
+    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    chartLayout.title.text = titleFig1;
+    chartLayout.height = 500;
     chartLayout.showlegend = false;
+    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    chartLayout.xaxis.range = [1991, 2016];
+    chartLayout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    chartLayout.yaxis.title = '';
+    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    chartLayout.margin = {
+      l: 0,
+      r: 200, //Dun Laoghaire!!!
+      t: 100 //button row
+    };
+
     // chartLayout.hidesources = false;
 
     //Set annotations per chart with config per trace
-    let ANNOTATIONS_COMMON = {
-      xref: 'x',
-      yref: 'y',
-      width: null, //text box
-      height: null,
-      align: 'right', //within textbox
-      opacity: 1.0, //default
-      font: {
-        family: null,
-        size: 16,
-        color: null //default
-      },
-      showarrow: true, //need this to use ay offset
-      xanchor: 'left',
-      arrowcolor: '#fff',
-      arrowhead: 7,
-      ax: 0,
-      ay: 0,
-      borderpad: 5
-    }
+
     let popAnnotations = [];
     popTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
-      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       popAnnotations.push(annotation);
@@ -184,15 +158,15 @@ Promise.all([
     let houseAnnotations = [];
     houseTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
-      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       houseAnnotations.push(annotation);
@@ -201,15 +175,15 @@ Promise.all([
     let popRateAnnotations = [];
     popRateTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
-      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       popRateAnnotations.push(annotation);
@@ -218,15 +192,15 @@ Promise.all([
     let houseRateAnnotations = [];
     houseRateTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
-      let annotation = Object.assign({}, ANNOTATIONS_COMMON);
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_COMMON.font);
-      (i < 4) ? annotation.font.color = colorWay[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       houseRateAnnotations.push(annotation);
@@ -275,7 +249,8 @@ Promise.all([
             },
             {
               'title': popTitle,
-              'annotations': popAnnotations
+              'annotations': popAnnotations,
+
             }
           ],
           label: 'Population',
@@ -310,6 +285,7 @@ Promise.all([
             {
               'title': popRateTitle,
               'annotations': popRateAnnotations
+
             }
           ],
           label: 'Population % change',
@@ -351,8 +327,8 @@ Promise.all([
       },
       showactive: true,
       active: 0,
-      x: 0, // -0.05,
       xref: 'container',
+      x: 0,
       xanchor: 'left',
       yref: 'container',
       y: 1.05, //place above plot area with >1.0
@@ -360,6 +336,7 @@ Promise.all([
     }];
 
     chartLayout.updatemenus = updateMenus;
+
 
     let chartTraces = popTraces
       .concat(houseTraces)
@@ -373,20 +350,20 @@ Promise.all([
     });
 
 
-    Plotly.newPlot(divID, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig1, chartTraces, chartLayout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
         color: null,
         activecolor: null
       },
-      modeBarButtons: multilineModeBarButtonsInclude,
+      modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
       displaylogo: false,
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + title,
+        filename: 'Dublin Dashboard - ' + titleFig1,
         width: null,
         height: null,
         format: 'png'
