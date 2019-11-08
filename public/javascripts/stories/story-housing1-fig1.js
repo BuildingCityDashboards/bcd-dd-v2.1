@@ -5,10 +5,10 @@ const srcPathFig1 = "../data/Stories/Housing/",
   srcFileFig12 = "pop_house_rate_new.csv";
 const regionsFig1 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let titleFig1 = "Growth in population and households 1991-2016";
-const popTitle = "Population of Dublin and surrounding areas 1991-2016";
-const houseTitle = "Number of households in Dublin and surrounding areas 1991-2016";
-const popRateTitle = "Population % change in Dublin and surrounding areas 1991-2016";
-const houseRateTitle = "Households % change in Dublin and surrounding areas 1991-2016";
+const popTitle = "Population of Dublin and Surrounding Areas (1991-2016)";
+const houseTitle = "Number of Households in Dublin and Surrounding Areas (1991-2016)";
+const popRateTitle = "Population % Change in Dublin and Surrounding Areas (1991-2016)";
+const houseRateTitle = "Households % Change in Dublin and Surrounding Areas (1991-2016)";
 titleFig1 = popTitle; //set default on load
 const divIDFig1 = "population-households-chart";
 

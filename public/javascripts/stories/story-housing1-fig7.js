@@ -3,7 +3,7 @@
 const srcPathFig7 = "../data/Stories/Housing/",
   srcFileFig7 = "House_Com.csv";
 const regionsFig7 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-let titleFig7 = "Social housing units built or acquired through purchase/long-term lease, and sold";
+let titleFig7 = "Social Housing Units Built or Acquired through Purchase/Long-term Lease, and Sold";
 const divIDFig7 = "social-housing-units-build-chart";
 
 

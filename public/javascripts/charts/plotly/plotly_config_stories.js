@@ -97,7 +97,7 @@ CHART_COLORWAY = CHART_COLORWAY_BCD_1; //choose the CHART_COLORWAY to be applied
 CHART_COLORWAY.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
 const ANNOTATIONS_DEFAULT = {
-  text: 'test1 </br> test2',
+  text: '',
   xref: 'x',
   yref: 'y',
   width: null, //text box
@@ -202,7 +202,6 @@ const MULTILINE_CHART_LAYOUT = {
     y: 1.0,
     yanchor: 'top'
   },
-
   xaxis: {
     title: 'Years',
     titlefont: {
@@ -239,6 +238,7 @@ const MULTILINE_CHART_LAYOUT = {
       size: 12
     }
   },
+
   paper_bgcolor: CHART_COLOR, //'#E0E0E0',
   plot_bgcolor: CHART_COLOR,
   colorway: CHART_COLORWAY,
@@ -255,9 +255,62 @@ const MULTILINE_CHART_LAYOUT = {
 
 const AREA_CHART_LAYOUT = {
   responsive: true,
-  margin: MARGINS,
+  height: 400,
+  margin: {
+    l: 0,
+    r: 0,
+    b: 50,
+    t: 0
+  },
+  title: {
+    text: '',
+    font: {
+      family: null,
+      size: 20
+    },
+    visible: false,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 1.0,
+    yanchor: 'top'
+  },
+  xaxis: {
+    title: 'Years',
+    titlefont: {
+      size: 16
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
+  },
   yaxis: {
-    showticklabels: true
+    title: '',
+    titlefont: {
+      size: 16
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
   },
   paper_bgcolor: CHART_COLOR,
   plot_bgcolor: CHART_COLOR,
