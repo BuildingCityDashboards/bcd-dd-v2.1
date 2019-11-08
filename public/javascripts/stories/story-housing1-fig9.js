@@ -51,7 +51,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
     chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     chartLayout.margin = {
       l: 0,
-      r: 175, //annotations space
+      r: 125, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
     };

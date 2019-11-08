@@ -3,7 +3,7 @@
 const srcPathFig4 = "../data/Stories/Housing/",
   srcFileFig4 = "propertyprices.csv";
 const typesFig4 = ["National New", "National Second Hand", "Dublin New", "Dublin Second Hand"];
-const titleFig4 = "Property prices by type 1975-2016";
+const titleFig4 = "Property Prices by Type (1975-2016)";
 const divIDFig4 = "property-price-growth-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each

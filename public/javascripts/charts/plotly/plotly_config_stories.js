@@ -202,7 +202,6 @@ const MULTILINE_CHART_LAYOUT = {
     y: 1.0,
     yanchor: 'top'
   },
-
   xaxis: {
     title: 'Years',
     titlefont: {
@@ -239,6 +238,7 @@ const MULTILINE_CHART_LAYOUT = {
       size: 12
     }
   },
+
   paper_bgcolor: CHART_COLOR, //'#E0E0E0',
   plot_bgcolor: CHART_COLOR,
   colorway: CHART_COLORWAY,
