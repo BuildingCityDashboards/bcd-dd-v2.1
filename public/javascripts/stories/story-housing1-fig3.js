@@ -1,22 +1,22 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig4 = "../data/Stories/Housing/",
-  srcFileFig4 = "propertyprices.csv";
-const typesFig4 = ["National New", "National Second Hand", "Dublin New", "Dublin Second Hand"];
-const titleFig4 = "Property Prices by Type (1975-2016)";
-const divIDFig4 = "property-price-growth-chart";
+const srcPathFig3 = "../data/Stories/Housing/",
+  srcFileFig3 = "housecomp.csv";
+const typesFig3 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "Rest of Ireland"];
+const titleFig3 = "Number of Housing Completions by Region (1994-2016)";
+const divIDFig3 = "housing-completions-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
 //Want a better mechanism for page load that doesn't have to wait for all the data
 
-d3.csv(srcPathFig4 + srcFileFig4)
+d3.csv(srcPathFig3 + srcFileFig3)
   .then((data) => {
 
     //Data per type- use the array of type variable values
     let dataByType = [];
-    typesFig4.forEach((typeName) => {
+    typesFig3.forEach((typeName) => {
       dataByType.push(data.filter((v) => {
-        return v.type === typeName;
+        return v.region === typeName;
       }));
     });
 
@@ -25,11 +25,12 @@ d3.csv(srcPathFig4 + srcFileFig4)
     let chartTraces = [];
     dataByType.forEach((typeData, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.name = typeData[0].type;
+      trace.name = typeData[0].region;
+      trace.stackgroup = 'one';
       //reassign colour to -defocus some traces
-      (i > 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      (i > 1) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = typeData.map((v) => {
         return v.date;
@@ -43,23 +44,22 @@ d3.csv(srcPathFig4 + srcFileFig4)
     });
 
 
-
     //Set layout options
-    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    chartLayout.title.text = titleFig4;
+    let chartLayout = Object.assign({}, AREA_CHART_LAYOUT);
+    chartLayout.height = 500;
+    chartLayout.title.text = titleFig3;
     chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [1975, 2016];
-    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    chartLayout.xaxis = Object.assign({}, AREA_CHART_LAYOUT.xaxis);
+    chartLayout.xaxis.range = [1994, 2016];
+    chartLayout.margin = Object.assign({}, AREA_CHART_LAYOUT.margin);
     chartLayout.margin = {
       l: 0,
-      r: 175, //annotations space
+      r: 180, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
     };
 
     // chartLayout.hidesources = false;
-
 
     let chartAnnotations = [];
     chartTraces.forEach((trace, i) => {
@@ -67,22 +67,35 @@ d3.csv(srcPathFig4 + srcFileFig4)
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
-      annotation.text = trace.name;
+      (i < 4 || i == 7) ? annotation.text = trace.name: null;
       //de-focus some annotations
       //TODO: function for this
-      (i > 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      (i > 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
       // console.log(annotation.font.color);
       chartAnnotations.push(annotation);
     })
+    //add a one-off annotation
+    let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    annotation.x = 2010;
+    annotation.y = 40000;
+    annotation.opacity = 0.5;
+    annotation.text = 'Hover for other regions';
+    chartAnnotations.push(annotation);
 
+    chartAnnotations[0].ay = 0; //DC
+    chartAnnotations[1].ay = -15; //DLR
+    chartAnnotations[2].ay = -30; //Fingal
+    chartAnnotations[3].ay = -50; //SD
+    chartAnnotations[7].ay = -40; //RoI
+    // chartAnnotations[5].ay = 0; // M
 
     //Set default view annotations
     chartLayout.annotations = chartAnnotations; //set default
 
-    Plotly.newPlot(divIDFig4, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig3, chartTraces, chartLayout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
@@ -95,7 +108,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + titleFig4,
+        filename: 'Dublin Dashboard - ' + titleFig3,
         width: null,
         height: null,
         format: 'png'
