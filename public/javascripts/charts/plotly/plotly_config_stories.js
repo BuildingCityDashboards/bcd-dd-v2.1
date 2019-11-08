@@ -10,7 +10,7 @@ const ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
 const MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
   ['toImage', 'hoverClosestCartesian', 'hoverCompareCartesian']
 ];
-const AREA_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
+const STACKED_AREA_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
   ['toImage', 'hoverClosestCartesian', 'hoverCompareCartesian']
 ];
 
@@ -253,7 +253,7 @@ const MULTILINE_CHART_LAYOUT = {
   hovermode: 'x'
 };
 
-const AREA_CHART_LAYOUT = {
+const STACKED_AREA_CHART_LAYOUT = {
   responsive: true,
   height: 400,
   margin: {
