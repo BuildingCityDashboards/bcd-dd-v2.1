@@ -137,12 +137,12 @@ const TRACES_DEFAULT = {
 };
 
 const ROW_CHART_LAYOUT = {
-  responsive: true,
+  height: 400,
   margin: {
     l: 0,
-    r: 200, //Dun Laoghaire!!!
-    b: 50,
-    t: 100
+    r: 0,
+    b: 0,
+    t: 0
   },
   yaxis: {
     showticklabels: true

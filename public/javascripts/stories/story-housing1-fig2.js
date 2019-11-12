@@ -1,7 +1,7 @@
 // Chart of house completions over time, by type of house, for each region in Dublin+
 // This chart will have multiple plots loaded by buttons.
 // Each plot will show a different house type
-// Each trace will show the data over time for a region
+// Each trace will show the house completion data over time for a region
 
 
 //Options for chart
@@ -10,7 +10,7 @@ const srcPathFig2 = "../data/Stories/Housing/",
   srcFileFig2 = "housetype.csv";
 
 const regionsFig2 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-const typesFig2 = ["Detached house", "Semi-detached house", "Terraced house",
+const yearsFig2 = ["Detached house", "Semi-detached house", "Terraced house",
   "Flat or apartment in a purpose- built block", "Flat or apartment in a converted house or commercial building and bedsits",
   "Not stated"
 ];
@@ -20,36 +20,124 @@ const typesFig2 = ["Detached house", "Semi-detached house", "Terraced house",
 // const popRateTitle = "Population % Change in Dublin and Surrounding Areas (1991-2016)";
 // const houseRateTitle = "Households % Change in Dublin and Surrounding Areas (1991-2016)";
 // titleFig2 = popTitle; //set default on load
-// const divIDFig2 = "population-households-chart";
+const divIDFig2 = "housing-types-chart";
 
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
+    let completetionsByYearByType = d3.nest()
+      .key(function(d) {
+        return d["date"];
+      })
+      .key(function(d) {
+        return d["type"];
+      })
+      .object(data);
+
+    // console.log(completetionsByYearByType);
+
+    let bars = {
+      x: completetionsByYearByType["2002"]["Detached house"].map((v) => {
+        return v["value"];
+      }),
+      y: completetionsByYearByType["2002"]["Detached house"].map((v) => {
+        return v["region"];
+      }),
+      transforms: [{
+        type: 'sort',
+        target: 'x',
+        order: 'ascending'
+      }],
+      name: 'blah',
+      orientation: 'h',
+      type: 'bar',
+      mode: 'bars+text',
+      marker: {
+        color: 'rgb(55, 83, 109)'
+      },
+      // text: ['test']
+    }
+
+    let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT);
+
+    Plotly.newPlot(divIDFig2, [bars], fig2Layout, {
+      modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+      displayModeBar: true,
+      displaylogo: false,
+      showSendToCloud: false,
+      responsive: true
+
+    });
+
+
+    //workaround to place y axis labels on bars
+    document.getElementById('divIDFig2').on('plotly_afterplot', function() {
+      let yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
+      for (let i = 0; i < yAxisLabels.length; i++) {
+        yAxisLabels[i].setAttribute('text-anchor', 'start');
+      }
+    })
+
+
 
     /**
     groupBy takes an array of flat data and groups by a key into subarrays indexed by that key
     **/
-    const groupBy = (data, key) => {
-      return data.reduce((accumulator, row) => {
-        const group = row[key];
-        console.log("data" + JSON.stringify(data));
-        // create array in output object to hold data values
-        accumulator[group] = accumulator[group] || [];
-        // add this item to its group
-        accumulator[group].push(row);
-        // return the updated array to the reduce function
-        return accumulator; //store grows with each new item oushed in and returned to reduce
-      }, {}); // {} is the initial value of the store for reduce
-    };
+    // const groupBy = (data, key) => {
+    //   return data.reduce((accumulator, row) => {
+    //     const group = row[key];
+    //     // console.log("data" + JSON.stringify(data));
+    //     // create array in output object to hold data values
+    //     accumulator[group] = accumulator[group] || [];
+    //     // add this item to its group
+    //     accumulator[group].push(row);
+    //     // return the updated array to the reduce function
+    //     return accumulator; //accumulator grows with each new item pushed in and returned to reduce
+    //   }, {}); // {} is the initial value of the accumulator for reduce
+    // };
+    // //
+    // let dataByYear = groupBy(data, 'date');
+    // let years = Object.keys(dataByYear);
+    // console.log("years: " + years);
     //
-    let dataByType = groupBy(data, 'type');
-    // let dataByTypeByRegion = groupBy(dataByType, 'region');
-    // console.log("groupBy \n" + JSON.stringify(dataByType.keys()));
+    // let dataByYearByType = {}; //Each of these is a subplot for a given year
+    // years.forEach((year) => {
+    //   groupBy(groupBy(dataByYear[year], 'type'), year);
+    //   // console.log("dataByYearByType: \n" + JSON.stringify(dataByYearByType));
+    // })
+    //
+    // let types = Object.keys(dataByYearByType); //will create a subplot for each type
+    //
+    // console.log("DbyYbyT[0]: " + JSON.stringify(dataByYearByType[0]));
+
+    // let bar = {
+    //   x: dataByYearByType[0].map((v) => {
+    //     return v["value"];
+    //   }),
+    //   y: dataByYearByType[0].map((v) => {
+    //     return v["date"];
+    //   })
+    // }
+
+
+    /*
+    Create subplots: grid: {rows: 2, columns: 2, pattern: 'independent'},
+    grid: {
+        rows: 2,
+        columns: 1,
+        pattern: 'independent',
+        roworder: 'bottom to top'}
+    };
+
+    */
+
+    // let dataByYearByType = groupBy(dataByYear, 'region');
+    // console.log("groupBy \n" + JSON.stringify(dataByYear.keys()));
 
     // Next iterate thru the object created above and use the keys as traces names etc
 
     //Data per region- use the array of region variable values
-    // let dataByRegion = groupDataByVariableValues(data, 'region', regionsFig2);
-    // // console.log(JSON.stringify(dataByRegion));
+    // let dataByType = groupDataByVariableValues(data, 'region', regionsFig2);
+    // // console.log(JSON.stringify(dataByType));
     //
     // function groupDataByVariableValues(data_, variable_, values_) {
     //   let grouped = [];
@@ -66,7 +154,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     //
     //
     //
-    // let chartTraces = getTracesForVariable(dataByRegion, 'Detached house', 'region', 'date', 'value');
+    // let chartTraces = getTracesForVariable(dataByType, 'Detached house', 'region', 'date', 'value');
     // console.log(JSON.stringify(chartTraces));
     //
     //
@@ -101,7 +189,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     //traces for chart 2
     // let houseTraces = [];
-    // dataByRegion.forEach((regionData, i) => {
+    // dataByType.forEach((regionData, i) => {
     //   let trace = Object.assign({}, TRACES_DEFAULT);
     //   trace.name = regionData[0].region;
     //   //reassign colour to -defocus some traces
@@ -123,7 +211,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // });
     // //traces for chart c
     // let popRateTraces = [];
-    // dataRateByRegion.forEach((regionData, i) => {
+    // dataRateByType.forEach((regionData, i) => {
     //   let trace = Object.assign({}, TRACES_DEFAULT);
     //   trace.name = regionData[1].region;
     //   //reassign colour to -defocus some traces
@@ -143,7 +231,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // });
     // //traces for chart d
     // let houseRateTraces = [];
-    // dataRateByRegion.forEach((regionData, i) => {
+    // dataRateByType.forEach((regionData, i) => {
     //   let trace = Object.assign({}, TRACES_DEFAULT);
     //   trace.name = regionData[1].region;
     //   //reassign colour to -defocus some traces
