@@ -52,7 +52,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
       type: 'bar',
       mode: 'bars+text',
       marker: {
-        color: 'rgb(55, 83, 109)'
+        color: CHART_COLORWAY //order not guaranteed here!!!
       },
       // text: ['test']
     }
@@ -65,19 +65,15 @@ d3.csv(srcPathFig2 + srcFileFig2)
       displaylogo: false,
       showSendToCloud: false,
       responsive: true
-
     });
 
-
     //workaround to place y axis labels on bars
-    document.getElementById('divIDFig2').on('plotly_afterplot', function() {
+    document.getElementById(divIDFig2).on('plotly_afterplot', function() {
       let yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
       for (let i = 0; i < yAxisLabels.length; i++) {
         yAxisLabels[i].setAttribute('text-anchor', 'start');
       }
     })
-
-
 
     /**
     groupBy takes an array of flat data and groups by a key into subarrays indexed by that key

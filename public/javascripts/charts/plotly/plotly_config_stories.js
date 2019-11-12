@@ -96,6 +96,14 @@ const CHART_COLORWAY_QUAL_PASTEL = [
 CHART_COLORWAY = CHART_COLORWAY_BCD_1; //choose the CHART_COLORWAY to be applied in the chart
 CHART_COLORWAY.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
+//Allows color get by name when data order is not guaranteed
+const CHART_COLORS_BY_REGION = {
+  "Dublin City": '#e7a4b6',
+  "South Dublin": '#cd7eaf',
+  "Dún Laoghaire-Rathdown": '#a262a9',
+  "Fingal": '#6f4d96'
+}
+
 const ANNOTATIONS_DEFAULT = {
   text: '',
   xref: 'x',
@@ -139,7 +147,7 @@ const TRACES_DEFAULT = {
 const ROW_CHART_LAYOUT = {
   height: 400,
   margin: {
-    l: 0,
+    l: 50,
     r: 0,
     b: 0,
     t: 0
