@@ -1,3 +1,9 @@
+// Chart of house completions over time, by type of house, for each region in Dublin+
+// This chart will have multiple plots loaded by buttons.
+// Each plot will show a different house type
+// Each trace will show the data over time for a region
+
+
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
 const srcPathFig2 = "../data/Stories/Housing/",
@@ -18,46 +24,80 @@ const typesFig2 = ["Detached house", "Semi-detached house", "Terraced house",
 
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
+
+    /**
+    groupBy takes an array of flat data and groups by a key into subarrays indexed by that key
+    **/
+    const groupBy = (data, key) => {
+      return data.reduce((accumulator, row) => {
+        const group = row[key];
+        console.log("data" + JSON.stringify(data));
+        // create array in output object to hold data values
+        accumulator[group] = accumulator[group] || [];
+        // add this item to its group
+        accumulator[group].push(row);
+        // return the updated array to the reduce function
+        return accumulator; //store grows with each new item oushed in and returned to reduce
+      }, {}); // {} is the initial value of the store for reduce
+    };
+    //
+    let dataByType = groupBy(data, 'type');
+    // let dataByTypeByRegion = groupBy(dataByType, 'region');
+    // console.log("groupBy \n" + JSON.stringify(dataByType.keys()));
+
+    // Next iterate thru the object created above and use the keys as traces names etc
+
     //Data per region- use the array of region variable values
-    let dataByRegion = [];
-    regionsFig2.forEach((regionName) => {
-      dataByRegion.push(data.filter((v) => {
-        return v.region === regionName;
-      }));
-    });
+    // let dataByRegion = groupDataByVariableValues(data, 'region', regionsFig2);
+    // // console.log(JSON.stringify(dataByRegion));
+    //
+    // function groupDataByVariableValues(data_, variable_, values_) {
+    //   let grouped = [];
+    //   values_.forEach((value) => {
+    //     grouped.push(data.filter((v) => {
+    //       return v[`${variable_}`] === value;
+    //     }));
+    //   })
+    //   return grouped;
+    // }
+    //
+    // //Traces
+    // //traces for chart 1
+    //
+    //
+    //
+    // let chartTraces = getTracesForVariable(dataByRegion, 'Detached house', 'region', 'date', 'value');
+    // console.log(JSON.stringify(chartTraces));
+    //
+    //
+    // //Get trace for each house type
+    // function getTracesForVariable(data_, variable_, traceName_, xVariable_, yVariable_) {
+    //   let traces = [];
+    //   data_.forEach((data__, i) => {
+    //     let trace = Object.assign({}, TRACES_DEFAULT);
+    //     trace.name = data__[0][`${traceName_}`];
+    //     //reassign colour to -defocus some traces
+    //     (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+    //     trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    //     (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+    //
+    //     trace.x = data__.filter((d) => {
+    //       return d.type === `${variable_}`
+    //     }).map((v) => {
+    //       return v[`${xVariable_}`];
+    //     });
+    //     trace.y = data__.filter((d) => {
+    //       return d.type === `${variable_}`
+    //     }).map((v) => {
+    //       return v[`${yVariable_}`];
+    //     });
+    //
+    //     traces.push(trace);
+    //   });
+    //   return traces;
+    // }
 
-    //Traces
-    //traces for chart 1
-    let chartTraces = getTracesForVariable(dataByRegion, 'Detached house');
-    console.log(JSON.stringify(chartTraces));
 
-    function getTracesForVariable(dataByRegion_, variable) {
-      let traces = [];
-      dataByRegion_.forEach((regionData, i) => {
-        let trace = Object.assign({}, TRACES_DEFAULT);
-        trace.name = regionData[0].region;
-        //reassign colour to -defocus some traces
-        (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-        trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-        (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
-        //.filter(function(obj) {
-        // return obj.selected;
-        // }).map(function(obj) { return obj.id; });
-        trace.x = regionData.filter((rd) => {
-          return rd.type === 'Detached house'
-        }).map((v) => {
-          return v[`date`];
-        });
-        trace.y = regionData.filter((rd) => {
-          return rd.type === 'Detached house'
-        }).map((v) => {
-          return v[`value`];
-        });
-
-        traces.push(trace);
-      });
-      return traces;
-    }
 
     //traces for chart 2
     // let houseTraces = [];
