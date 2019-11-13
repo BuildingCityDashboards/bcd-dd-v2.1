@@ -71,7 +71,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         target: 'x',
         order: 'ascending'
       }],
-      name: 'blah',
+      name: '',
       orientation: 'h',
       type: 'bar',
       mode: 'bars+text',
@@ -85,8 +85,20 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SMALL.title);
     fig2Layout.title.text = titleFig2;
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
+    fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    // fig2Layout.xaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis.title = "Detached house";
+    fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis2.title = "Semi-detached house";
+
+
+
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
     fig2Layout.grid = {
       rows: 1,
       columns: 2,
@@ -116,8 +128,9 @@ d3.csv(srcPathFig2 + srcFileFig2)
       for (let i = 0; i < y2AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y2AxisLabels[i].setAttribute('text-anchor', 'start');
-        let y2x y2AxisLabels[i].getAttribute('x');
-        y2AxisLabels[i].setAttribute('x', '10'); //add left spacing
+        let y2x = parseInt(y2AxisLabels[i].getAttribute('x'));
+        y2x += 5;
+        y2AxisLabels[i].setAttribute('x', y2x); //add left spacing
       }
     })
 

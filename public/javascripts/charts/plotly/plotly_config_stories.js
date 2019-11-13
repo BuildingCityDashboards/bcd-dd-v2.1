@@ -256,10 +256,7 @@ const ROW_CHART_LAYOUT_SMALL = {
   },
   title: {
     text: '',
-    font: {
-      family: null,
-      size: 20
-    },
+    font: CHART_TITLE_FONT,
     visible: true,
     xref: 'container',
     x: 0.0,
@@ -270,11 +267,10 @@ const ROW_CHART_LAYOUT_SMALL = {
   },
   xaxis: {
     title: '',
-    title: '',
     titlefont: {
       family: 'Arial, sans-serif',
       size: 18,
-      color: 'lightgrey'
+      color: 'grey'
     },
     visible: true,
     type: null,
@@ -309,7 +305,7 @@ const ROW_CHART_LAYOUT_SMALL = {
       family: null,
       size: 16,
       color: 'white'
-    }
+    },
   },
   paper_bgcolor: CHART_COLOR,
   plot_bgcolor: CHART_COLOR,
