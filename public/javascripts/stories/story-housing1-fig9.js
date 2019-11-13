@@ -25,8 +25,9 @@ d3.csv(srcPathFig9 + srcFileFig9)
     dataByType.forEach((typeData, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = typeData[0].type;
+      trace.stackgroup = 'one'; //converts to grouped area
       //reassign colour to -defocus some traces
-      (i == 0) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      (i == 0) ? trace.opacity = 1.0: trace.opacity = 0.1; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i == 0) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
