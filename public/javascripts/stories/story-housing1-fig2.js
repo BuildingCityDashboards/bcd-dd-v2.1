@@ -40,7 +40,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         return v["value"];
       }),
       y: completetionsByYearByType["2002"]["Detached house"].map((v) => {
-        return ' ' + v["region"]; //hack to space tick labels
+        return v["region"];
       }),
       transforms: [{
         type: 'sort',
@@ -81,6 +81,8 @@ d3.csv(srcPathFig2 + srcFileFig2)
       for (let i = 0; i < yAxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         yAxisLabels[i].setAttribute('text-anchor', 'start');
+        yAxisLabels[i].setAttribute('x', '10'); //add left spacing
+
 
       }
     })
