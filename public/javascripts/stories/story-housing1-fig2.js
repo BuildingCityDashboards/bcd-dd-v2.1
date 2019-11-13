@@ -31,6 +31,10 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     // console.log(completetionsByYearByType);
 
+    let colourArray = completetionsByYearByType["2002"]["Detached house"].map((v) => {
+      return CHART_COLORS_BY_REGION[v["region"]] || 'grey';
+    })
+
     let bars = {
       x: completetionsByYearByType["2002"]["Detached house"].map((v) => {
         return v["value"];
@@ -48,7 +52,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
       type: 'bar',
       mode: 'bars+text',
       marker: {
-        color: CHART_COLORWAY //order not guaranteed here!!!
+        color: colourArray //order not guaranteed here!!!
       },
       // text: ['test']
     }

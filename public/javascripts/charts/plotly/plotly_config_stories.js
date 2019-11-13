@@ -98,10 +98,10 @@ CHART_COLORWAY.push('grey'); //add grey as last element to allow muted colors fo
 
 //Allows color get by name when data order is not guaranteed
 const CHART_COLORS_BY_REGION = {
-  "Dublin City": '#e7a4b6',
-  "South Dublin": '#cd7eaf',
-  "Dún Laoghaire-Rathdown": '#a262a9',
-  "Fingal": '#6f4d96'
+  "Dublin City": CHART_COLORWAY[0],
+  "South Dublin": CHART_COLORWAY[3],
+  "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
+  "Fingal": CHART_COLORWAY[2]
 }
 
 const ANNOTATIONS_DEFAULT = {
