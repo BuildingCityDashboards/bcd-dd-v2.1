@@ -152,6 +152,54 @@ const ROW_CHART_LAYOUT = {
     b: 0,
     t: 0
   },
+  title: {
+    text: '',
+    font: {
+      family: null,
+      size: 20
+    },
+    visible: false,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 1.0,
+    yanchor: 'top'
+  },
+  yaxis: {
+    showticklabels: true
+  },
+  paper_bgcolor: CHART_COLOR,
+  plot_bgcolor: CHART_COLOR,
+  colorway: CHART_COLORWAY,
+  font: CHART_FONT,
+  showlegend: false,
+  annotations: [],
+  hovermode: 'closest'
+};
+
+const ROW_CHART_LAYOUT_SMALL = {
+  height: 270,
+  margin: {
+    l: 20,
+    r: 0,
+    b: 40,
+    t: 50
+  },
+  title: {
+    text: '',
+    font: {
+      family: null,
+      size: 20
+    },
+    visible: true,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 0.95,
+    yanchor: 'top'
+  },
   yaxis: {
     showticklabels: true
   },

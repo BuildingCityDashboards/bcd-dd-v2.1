@@ -14,7 +14,7 @@ const yearsFig2 = ["Detached house", "Semi-detached house", "Terraced house",
   "Flat or apartment in a purpose- built block", "Flat or apartment in a converted house or commercial building and bedsits",
   "Not stated"
 ];
-// let titleFig2 = "Growth in population and households 1991-2016";
+let titleFig2 = "Number of Household Types by Region (2002-2016)";
 // titleFig2 = popTitle; //set default on load
 const divIDFig2 = "housing-types-chart";
 
@@ -30,7 +30,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
       .object(data);
 
     // console.log(completetionsByYearByType);
-
+    //generate a color array ordered by the data
     let colourArray = completetionsByYearByType["2002"]["Detached house"].map((v) => {
       return CHART_COLORS_BY_REGION[v["region"]] || 'grey';
     })
@@ -57,7 +57,9 @@ d3.csv(srcPathFig2 + srcFileFig2)
       // text: ['test']
     }
 
-    let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT);
+    let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SMALL);
+    fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SMALL.title);
+    fig2Layout.title.text = titleFig2;
     Plotly.newPlot(divIDFig2, [bars], fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
