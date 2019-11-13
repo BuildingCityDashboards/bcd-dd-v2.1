@@ -22,19 +22,12 @@ const MARGINS = {
   pad: 0
 };
 
-const CHART_FONT = {
-  family: 'PT Sans',
-  size: 16,
-  color: '#313131'
-};
-
 const CHART_COLOR = '#ffffff';
 // constCHART_COLOR = '#d8d8d8'; //nearly same as background
 //CHART_COLORWAY is used in charts and high_annotations- defaults here
 let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844'];
 // constCHART_COLORWAY = ['#e7a4b6', '#a262a9', '#6f4d96', '#182844'];
 // constCHART_COLORWAY = ['#f4a582', '#f7f7f7', '#92c5de', '#0571b0']; //colorbrewer divergent
-
 const CHART_COLORWAY_BCD_1 = [
   "#00929e", //BCD-teal
   "#ffc20e", //BCD-yellow
@@ -44,7 +37,6 @@ const CHART_COLORWAY_BCD_1 = [
   "#aae0fa", //BCD-pale-blue
   "#012e5f" //BCD-navy
 ]; // orignal
-
 const CHART_COLORWAY_BCD_2 = [
   // "#012e5f", //BCD-navy
   "#086fb8", //BCD-strong-blue
@@ -57,7 +49,6 @@ const CHART_COLORWAY_BCD_2 = [
   "#f5b4c4", //pink
   "#998ce3", //purple
 ] // new version
-
 const CHART_COLORWAY_BLUE_RED = [
   "#d73027",
   "#f46d43",
@@ -69,9 +60,6 @@ const CHART_COLORWAY_BLUE_RED = [
   "#74add1",
   "#4575b4"
 ].reverse(); //diverging blue to red
-
-
-
 const CHART_COLORWAY_BCD_3 = [
   "#00929e", //BCD-teal
   "#ffc20e", //BCD-yellow
@@ -80,7 +68,6 @@ const CHART_COLORWAY_BCD_3 = [
   "#998ce3", //purple
   "#6aedc7" //green
 ];
-
 const CHART_COLORWAY_QUAL_PASTEL = [
   "#8dd3c7",
   "#ffffb3",
@@ -92,7 +79,6 @@ const CHART_COLORWAY_QUAL_PASTEL = [
   "#fccde5",
   "#d9d9d9"
 ]; // qualitative pastel
-
 CHART_COLORWAY = CHART_COLORWAY_BCD_1; //choose the CHART_COLORWAY to be applied in the chart
 CHART_COLORWAY.push('grey'); //add grey as last element to allow muted colors for secondary variab;es
 
@@ -102,6 +88,17 @@ const CHART_COLORS_BY_REGION = {
   "South Dublin": CHART_COLORWAY[3],
   "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
   "Fingal": CHART_COLORWAY[2]
+}
+
+const CHART_FONT = {
+  family: 'PT Sans',
+  size: 16,
+  color: '#313131'
+};
+const CHART_TITLE_FONT = {
+  family: 'PT Sans',
+  size: 24,
+  color: '#313131'
 }
 
 const ANNOTATIONS_DEFAULT = {
@@ -144,49 +141,6 @@ const TRACES_DEFAULT = {
   visible: true //'legendonly'
 };
 
-const ROW_CHART_LAYOUT = {
-  height: 400,
-  margin: {
-    l: 50,
-    r: 0,
-    b: 0,
-    t: 0
-  },
-  yaxis: {
-    showticklabels: true
-  },
-  paper_bgcolor: CHART_COLOR,
-  plot_bgcolor: CHART_COLOR,
-  colorway: CHART_COLORWAY,
-  font: CHART_FONT,
-  showlegend: false,
-  annotations: [],
-  hovermode: 'closest'
-};
-
-const GROUPED_COLUMN_CHART_LAYOUT = {
-  barmode: 'group',
-  responsive: true,
-  margin: MARGINS,
-  yaxis: {
-    autotick: true,
-    ticks: 'inside',
-    tickson: 'labels',
-    tick0: 0,
-    // dtick: 0.25,
-    ticklen: 8,
-    tickwidth: 2,
-    tickcolor: '#000'
-  },
-  paper_bgcolor: CHART_COLOR,
-  plot_bgcolor: CHART_COLOR,
-  colorway: CHART_COLORWAY,
-  font: CHART_FONT,
-  showlegend: true,
-  annotations: [],
-  hovermode: 'x'
-};
-
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
   height: 400,
@@ -198,10 +152,7 @@ const MULTILINE_CHART_LAYOUT = {
   },
   title: {
     text: '',
-    font: {
-      family: null,
-      size: 20
-    },
+    font: CHART_TITLE_FONT,
     visible: false,
     xref: 'container',
     x: 0.0,
@@ -261,6 +212,133 @@ const MULTILINE_CHART_LAYOUT = {
   hovermode: 'x'
 };
 
+const ROW_CHART_LAYOUT = {
+  height: 400,
+  margin: {
+    l: 50,
+    r: 0,
+    b: 0,
+    t: 0
+  },
+  title: {
+    text: '',
+    font: {
+      family: null,
+      size: 20
+    },
+    visible: false,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 1.0,
+    yanchor: 'top'
+  },
+  yaxis: {
+    showticklabels: true
+  },
+  paper_bgcolor: CHART_COLOR,
+  plot_bgcolor: CHART_COLOR,
+  colorway: CHART_COLORWAY,
+  font: CHART_FONT,
+  showlegend: false,
+  annotations: [],
+  hovermode: 'closest'
+};
+
+const ROW_CHART_LAYOUT_SMALL = {
+  height: 270,
+  margin: {
+    l: 0,
+    r: 0,
+    b: 40,
+    t: 50
+  },
+  title: {
+    text: '',
+    font: CHART_TITLE_FONT,
+    visible: true,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 0.95,
+    yanchor: 'top'
+  },
+  xaxis: {
+    title: '',
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 18,
+      color: 'grey'
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12,
+      color: null
+    }
+  },
+  yaxis: {
+    title: '',
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 18,
+      color: 'lightgrey'
+    },
+    visible: true, //false to left-align chart, changed in chart code OR...
+    automargin: false, //... turn off auto margin
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    tickfont: {
+      family: null,
+      size: 16,
+      color: 'white'
+    },
+  },
+  paper_bgcolor: CHART_COLOR,
+  plot_bgcolor: CHART_COLOR,
+  colorway: CHART_COLORWAY,
+  font: CHART_FONT,
+  showlegend: false,
+  annotations: [],
+  hovermode: 'closest'
+};
+
+const GROUPED_COLUMN_CHART_LAYOUT = {
+  barmode: 'group',
+  responsive: true,
+  margin: MARGINS,
+  yaxis: {
+    autotick: true,
+    ticks: 'inside',
+    tickson: 'labels',
+    tick0: 0,
+    // dtick: 0.25,
+    ticklen: 8,
+    tickwidth: 2,
+    tickcolor: '#000'
+  },
+  paper_bgcolor: CHART_COLOR,
+  plot_bgcolor: CHART_COLOR,
+  colorway: CHART_COLORWAY,
+  font: CHART_FONT,
+  showlegend: true,
+  annotations: [],
+  hovermode: 'x'
+};
+
 const STACKED_AREA_CHART_LAYOUT = {
   responsive: true,
   height: 400,
@@ -272,10 +350,7 @@ const STACKED_AREA_CHART_LAYOUT = {
   },
   title: {
     text: '',
-    font: {
-      family: null,
-      size: 20
-    },
+    font: CHART_TITLE_FONT,
     visible: false,
     xref: 'container',
     x: 0.0,
