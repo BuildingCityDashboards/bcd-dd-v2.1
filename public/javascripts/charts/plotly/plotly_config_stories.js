@@ -28,6 +28,13 @@ const CHART_FONT = {
   color: '#313131'
 };
 
+const CHART_TITLE_FONT = {
+  family: 'PT Sans',
+  size: 24,
+  color: '#313131'
+}
+
+
 const CHART_COLOR = '#ffffff';
 // constCHART_COLOR = '#d8d8d8'; //nearly same as background
 //CHART_COLORWAY is used in charts and high_annotations- defaults here
@@ -218,7 +225,8 @@ const ROW_CHART_LAYOUT_SMALL = {
     automargin: true,
     tickfont: {
       family: null,
-      size: 12
+      size: 12,
+      color: null
     }
   },
   yaxis: {
@@ -238,7 +246,7 @@ const ROW_CHART_LAYOUT_SMALL = {
     automargin: true,
     tickfont: {
       family: null,
-      size: 12,
+      size: 16,
       color: 'white'
     }
   },
@@ -285,10 +293,7 @@ const MULTILINE_CHART_LAYOUT = {
   },
   title: {
     text: '',
-    font: {
-      family: null,
-      size: 40
-    },
+    font: CHART_TITLE_FONT,
     visible: false,
     xref: 'container',
     x: 0.0,
@@ -359,10 +364,7 @@ const STACKED_AREA_CHART_LAYOUT = {
   },
   title: {
     text: '',
-    font: {
-      family: null,
-      size: 20
-    },
+    font: CHART_TITLE_FONT,
     visible: false,
     xref: 'container',
     x: 0.0,

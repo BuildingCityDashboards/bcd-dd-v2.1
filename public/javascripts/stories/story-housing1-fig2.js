@@ -32,7 +32,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // console.log(completetionsByYearByType);
     //generate a color array ordered by the data
     let colourArray = completetionsByYearByType["2002"]["Detached house"].map((v) => {
-      return CHART_COLORS_BY_REGION[v["region"]] || 'grey';
+      return CHART_COLORS_BY_REGION[v["region"]] || 'lightgrey';
     })
 
     let bars = {
@@ -40,7 +40,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         return v["value"];
       }),
       y: completetionsByYearByType["2002"]["Detached house"].map((v) => {
-        return v["region"];
+        return ' ' + v["region"]; //hack to space tick labels
       }),
       transforms: [{
         type: 'sort',
@@ -63,7 +63,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
-    fig2Layout.yaxis.titlefont.size = 32;
 
     Plotly.newPlot(divIDFig2, [bars], fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
