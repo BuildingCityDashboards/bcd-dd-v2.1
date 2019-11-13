@@ -64,6 +64,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
 
+
     Plotly.newPlot(divIDFig2, [bars], fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
@@ -74,11 +75,13 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     //workaround to place y axis labels on bars
     document.getElementById(divIDFig2).on('plotly_afterplot', function() {
+
+
       let yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
       for (let i = 0; i < yAxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
         yAxisLabels[i].setAttribute('text-anchor', 'start');
-        yAxisLabels[i].setAttribute('font-color', '#ffffb3');
-        yAxisLabels[i].setAttribute('text-indent', '50px');
+
       }
     })
 
