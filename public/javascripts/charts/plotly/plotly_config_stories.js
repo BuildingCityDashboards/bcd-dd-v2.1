@@ -181,7 +181,7 @@ const ROW_CHART_LAYOUT = {
 const ROW_CHART_LAYOUT_SMALL = {
   height: 270,
   margin: {
-    l: 20,
+    l: 0,
     r: 0,
     b: 40,
     t: 50
@@ -200,8 +200,47 @@ const ROW_CHART_LAYOUT_SMALL = {
     y: 0.95,
     yanchor: 'top'
   },
+  xaxis: {
+    title: '',
+    title: '',
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 18,
+      color: 'lightgrey'
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
+  },
   yaxis: {
-    showticklabels: true
+    title: '',
+    titlefont: {
+      family: 'Arial, sans-serif',
+      size: 18,
+      color: 'lightgrey'
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12,
+      color: 'white'
+    }
   },
   paper_bgcolor: CHART_COLOR,
   plot_bgcolor: CHART_COLOR,
@@ -248,7 +287,7 @@ const MULTILINE_CHART_LAYOUT = {
     text: '',
     font: {
       family: null,
-      size: 20
+      size: 40
     },
     visible: false,
     xref: 'container',

@@ -60,6 +60,11 @@ d3.csv(srcPathFig2 + srcFileFig2)
     let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SMALL);
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SMALL.title);
     fig2Layout.title.text = titleFig2;
+    fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
+    fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis.titlefont.size = 32;
+
     Plotly.newPlot(divIDFig2, [bars], fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
@@ -73,6 +78,8 @@ d3.csv(srcPathFig2 + srcFileFig2)
       let yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
       for (let i = 0; i < yAxisLabels.length; i++) {
         yAxisLabels[i].setAttribute('text-anchor', 'start');
+        yAxisLabels[i].setAttribute('font-color', '#ffffb3');
+        yAxisLabels[i].setAttribute('text-indent', '50px');
       }
     })
 
