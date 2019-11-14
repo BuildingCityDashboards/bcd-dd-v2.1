@@ -252,7 +252,7 @@ const ROW_CHART_LAYOUT_SMALL = {
     l: 0,
     r: 0,
     b: 40,
-    t: 75
+    t: 40
   },
   title: {
     text: '',
@@ -262,7 +262,7 @@ const ROW_CHART_LAYOUT_SMALL = {
     x: 0.0,
     xanchor: 'left',
     yref: 'container',
-    y: 0.95,
+    y: 1.0,
     yanchor: 'top'
   },
   xaxis: {
@@ -304,7 +304,7 @@ const ROW_CHART_LAYOUT_SMALL = {
     tickfont: {
       family: null,
       size: 16,
-      color: 'white'
+      color: 'black'
     },
   },
   paper_bgcolor: CHART_COLOR,

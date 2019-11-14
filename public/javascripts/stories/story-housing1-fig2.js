@@ -88,23 +88,30 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.title.text = titleFig2;
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
 
+    const xaxisRange = [0, 70000]
     fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis.title = "Detached house";
+    fig2Layout.xaxis.range = xaxisRange;
     fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis2.title = "Semi-detached house";
+    fig2Layout.xaxis2.range = xaxisRange;
     fig2Layout.xaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis3.title = "Terraced house";
+    fig2Layout.xaxis3.range = xaxisRange;
     fig2Layout.xaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis4.title = "Flat or apartment (purpose-built)";
+    fig2Layout.xaxis4.range = xaxisRange;
     fig2Layout.xaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis5.title = "Flat, apartment (converted) or bedsit";
+    fig2Layout.xaxis5.range = xaxisRange;
     fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis6.title = "Not stated";
+    fig2Layout.xaxis6.range = xaxisRange;
 
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
@@ -152,6 +159,43 @@ d3.csv(srcPathFig2 + srcFileFig2)
         y2x += 5;
         y2AxisLabels[i].setAttribute('x', y2x); //add left spacing
       }
+
+      let y3AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
+      for (let i = 0; i < y3AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+        y3AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y3x = parseInt(y3AxisLabels[i].getAttribute('x'));
+        y3x += 5;
+        y3AxisLabels[i].setAttribute('x', y3x); //add left spacing
+      }
+
+      let y4AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
+      for (let i = 0; i < y4AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+        y4AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y4x = parseInt(y4AxisLabels[i].getAttribute('x'));
+        y4x += 5;
+        y4AxisLabels[i].setAttribute('x', y4x); //add left spacing
+      }
+
+      let y5AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y5tick text, [class*=" yaxislayer"] .y5tick text'))
+      for (let i = 0; i < y5AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+        y5AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y5x = parseInt(y5AxisLabels[i].getAttribute('x'));
+        y5x += 5;
+        y5AxisLabels[i].setAttribute('x', y5x); //add left spacing
+      }
+
+      let y6AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y6tick text, [class*=" yaxislayer"] .y6tick text'))
+      for (let i = 0; i < y6AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+        y6AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y6x = parseInt(y6AxisLabels[i].getAttribute('x'));
+        y6x += 5;
+        y6AxisLabels[i].setAttribute('x', y6x); //add left spacing
+      }
+
     })
 
   }) //end of then
