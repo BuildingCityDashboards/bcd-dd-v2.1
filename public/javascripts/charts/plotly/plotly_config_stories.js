@@ -247,12 +247,12 @@ const ROW_CHART_LAYOUT = {
 };
 
 const ROW_CHART_LAYOUT_SMALL = {
-  height: 270,
+  height: 800,
   margin: {
     l: 0,
     r: 0,
     b: 40,
-    t: 50
+    t: 75
   },
   title: {
     text: '',
@@ -269,7 +269,7 @@ const ROW_CHART_LAYOUT_SMALL = {
     title: '',
     titlefont: {
       family: 'Arial, sans-serif',
-      size: 18,
+      size: 16,
       color: 'grey'
     },
     visible: true,
