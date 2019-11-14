@@ -27,10 +27,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
       .key(function(d) {
         return d["region"];
       })
-      // .map(function(d) {
-      //   // d["type"]
-      //   return d;
-      // })
       .object(data);
 
     let dc2002 = getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type');
@@ -133,6 +129,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.xaxis5.domain = [0, 0.3];
     fig2Layout.xaxis5.anchor = 'y5';
 
+
     fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis6.title = "Meath";
     fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
@@ -171,20 +168,22 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.yaxis4.anchor = 'x4';
 
     fig2Layout.yaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
-    fig2Layout.yaxis5.domain = [0.0, 0.20];
+    fig2Layout.yaxis5.domain = [0.0, 0.15];
     fig2Layout.yaxis5.anchor = 'x5';
     fig2Layout.yaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis5.showticklabels = false;
 
     fig2Layout.yaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
-    fig2Layout.yaxis6.domain = [0.0, 0.20];
+    fig2Layout.yaxis6.domain = [0.0, 0.15];
     fig2Layout.yaxis6.anchor = 'x6';
     fig2Layout.yaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis6.showticklabels = false;
 
     fig2Layout.yaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
-    fig2Layout.yaxis7.domain = [0.0, 0.20];
+    fig2Layout.yaxis7.domain = [0.0, 0.15];
     fig2Layout.yaxis7.anchor = 'x7';
     fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
-
+    fig2Layout.yaxis7.showticklabels = false;
 
 
     // fig2Layout.grid = {
@@ -238,33 +237,33 @@ d3.csv(srcPathFig2 + srcFileFig2)
         y4x += 5;
         y4AxisLabels[i].setAttribute('x', y4x); //add left spacing
       }
-
-      let y5AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y5tick text, [class*=" yaxislayer"] .y5tick text'))
-      for (let i = 0; i < y5AxisLabels.length; i++) {
-        // yAxisLabels[i].setAttribute('visible', true);
-        y5AxisLabels[i].setAttribute('text-anchor', 'start');
-        let y5x = parseInt(y5AxisLabels[i].getAttribute('x'));
-        y5x += 5;
-        y5AxisLabels[i].setAttribute('x', y5x); //add left spacing
-      }
-
-      let y6AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y6tick text, [class*=" yaxislayer"] .y6tick text'))
-      for (let i = 0; i < y6AxisLabels.length; i++) {
-        // yAxisLabels[i].setAttribute('visible', true);
-        y6AxisLabels[i].setAttribute('text-anchor', 'start');
-        let y6x = parseInt(y6AxisLabels[i].getAttribute('x'));
-        y6x += 5;
-        y6AxisLabels[i].setAttribute('x', y6x); //add left spacing
-      }
-
-      let y7AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y7tick text, [class*=" yaxislayer"] .y7tick text'))
-      for (let i = 0; i < y7AxisLabels.length; i++) {
-        // yAxisLabels[i].setAttribute('visible', true);
-        y7AxisLabels[i].setAttribute('text-anchor', 'start');
-        let y7x = parseInt(y7AxisLabels[i].getAttribute('x'));
-        y7x += 5;
-        y7AxisLabels[i].setAttribute('x', y7x); //add left spacing
-      }
+      // 
+      // let y5AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y5tick text, [class*=" yaxislayer"] .y5tick text'))
+      // for (let i = 0; i < y5AxisLabels.length; i++) {
+      //   // yAxisLabels[i].setAttribute('visible', true);
+      //   y5AxisLabels[i].setAttribute('text-anchor', 'start');
+      //   let y5x = parseInt(y5AxisLabels[i].getAttribute('x'));
+      //   y5x += 5;
+      //   y5AxisLabels[i].setAttribute('x', y5x); //add left spacing
+      // }
+      //
+      // let y6AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y6tick text, [class*=" yaxislayer"] .y6tick text'))
+      // for (let i = 0; i < y6AxisLabels.length; i++) {
+      //   // yAxisLabels[i].setAttribute('visible', true);
+      //   y6AxisLabels[i].setAttribute('text-anchor', 'start');
+      //   let y6x = parseInt(y6AxisLabels[i].getAttribute('x'));
+      //   y6x += 5;
+      //   y6AxisLabels[i].setAttribute('x', y6x); //add left spacing
+      // }
+      //
+      // let y7AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y7tick text, [class*=" yaxislayer"] .y7tick text'))
+      // for (let i = 0; i < y7AxisLabels.length; i++) {
+      //   // yAxisLabels[i].setAttribute('visible', true);
+      //   y7AxisLabels[i].setAttribute('text-anchor', 'start');
+      //   let y7x = parseInt(y7AxisLabels[i].getAttribute('x'));
+      //   y7x += 5;
+      //   y7AxisLabels[i].setAttribute('x', y7x); //add left spacing
+      // }
 
     })
 

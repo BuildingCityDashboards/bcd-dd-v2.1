@@ -247,7 +247,7 @@ const ROW_CHART_LAYOUT = {
 };
 
 const ROW_CHART_LAYOUT_SMALL = {
-  height: 900,
+  height: 800,
   margin: {
     l: 0,
     r: 0,
