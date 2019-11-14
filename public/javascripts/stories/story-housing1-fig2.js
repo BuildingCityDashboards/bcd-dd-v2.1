@@ -13,69 +13,90 @@ let titleFig2 = "Number of Households by Type by Region (2002-2016)";
 // titleFig2 = popTitle; //set default on load
 const divIDFig2 = "housing-types-chart";
 
+const shortNames = {
+  "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
+  "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
+} // (converted house/commercial building) or bedsit"
+
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
-    let completetionsByYearByType = d3.nest()
+    let completetionsByYearByRegion = d3.nest()
       .key(function(d) {
         return d["date"];
       })
       .key(function(d) {
-        return d["type"];
+        return d["region"];
       })
+      // .map(function(d) {
+      //   // d["type"]
+      //   return d;
+      // })
       .object(data);
 
-    // console.log(completetionsByYearByType.filter("2002"));
-    //generate a color array ordered by the data- pick arbitrary data subset
-    let colourArray = completetionsByYearByType["2002"]["Detached house"].map((v) => {
-      return CHART_COLORS_BY_REGION[v["region"]] || 'lightgrey';
-    })
+    // console.log(Object.keys(completetionsByYearByRegion["2002"]));
 
-    // Object.keys(completetionsByYearByType). //years
-    // Object.keys(completetionsByYearByType).map((year) => {
+    // console.log(completetionsByYearByRegion.filter("2002"));
+    //generate a color array ordered by the data- pick arbitrary data subset
+    let colourArray = [];
+    // Object.keys(completetionsByYearByRegion["2002"]).map((v) => {
+    //   console.log(v);
+    //   return CHART_COLORS_BY_REGION[v] || 'lightgrey';
+    // })
+
+    // console.log(colourArray);
+
+    // Object.keys(completetionsByYearByRegion). //years
+    // Object.keys(completetionsByYearByRegion).map((year) => {
     //   return getBars(year);
     // }); //types
 
-    let detachedBars = getBars(completetionsByYearByType["2002"]["Detached house"], 'value', 'region');
-    let semidBars = getBars(completetionsByYearByType["2002"]["Semi-detached house"], 'value', 'region');
-    semidBars.xaxis = 'x2';
-    semidBars.yaxis = 'y2';
-    let terracedBars = getBars(completetionsByYearByType["2002"]["Terraced house"], 'value', 'region');
-    terracedBars.xaxis = 'x3';
-    terracedBars.yaxis = 'y3';
-    let flatBlockBars = getBars(completetionsByYearByType["2002"]["Flat or apartment in a purpose- built block"], 'value', 'region');
-    flatBlockBars.xaxis = 'x4';
-    flatBlockBars.yaxis = 'y4';
-    let flatConvertBars = getBars(completetionsByYearByType["2002"]["Flat or apartment in a converted house or commercial building and bedsits"], 'value', 'region');
-    flatConvertBars.xaxis = 'x5';
-    flatConvertBars.yaxis = 'y5';
-    let notStatedBars = getBars(completetionsByYearByType["2002"]["Not stated"], 'value', 'region');
-    notStatedBars.xaxis = 'x6';
-    notStatedBars.yaxis = 'y6';
+    let dc2002 = getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type');
+    let dlr2002 = getBars(completetionsByYearByRegion["2002"]["Dún Laoghaire-Rathdown"], 'value', 'type');
+    dlr2002.xaxis = 'x2';
+    dlr2002.yaxis = 'y2';
+    let f2002 = getBars(completetionsByYearByRegion["2002"]["Fingal"], 'value', 'type');
+    f2002.xaxis = 'x3';
+    f2002.yaxis = 'y3';
+    let sdcc2002 = getBars(completetionsByYearByRegion["2002"]["South Dublin"], 'value', 'type');
+    sdcc2002.xaxis = 'x4';
+    sdcc2002.yaxis = 'y4';
+    let k2002 = getBars(completetionsByYearByRegion["2002"]["Kildare"], 'value', 'type');
+    k2002.xaxis = 'x5';
+    k2002.yaxis = 'y5';
+    let m2002 = getBars(completetionsByYearByRegion["2002"]["Meath"], 'value', 'type');
+    m2002.xaxis = 'x6';
+    m2002.yaxis = 'y6';
+    let w2002 = getBars(completetionsByYearByRegion["2002"]["Wicklow"], 'value', 'type');
+    w2002.xaxis = 'x7';
+    w2002.yaxis = 'y7';
 
-    // let detachedBars = getBars(completetionsByYearByType["2002"]["Detached house"], 'value', 'region');
-    // let detachedBars = getBars(completetionsByYearByType["2002"]["Detached house"], 'value', 'region');
+    // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
+    // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
 
     function getBars(data, xVar, yVar) {
+      // console.log("data: " + JSON.stringify(data[0]["region"]));
+      // colourArray.push(CHART_COLORS_BY_REGION[data[0]["region"]] || 'lightgrey');
+      console.log(colourArray);
       let trace = {
         x: data.map((v) => {
-          return v[xVar];
+          return shortNames[v[xVar]] || v[xVar]; //type - if there's a shortNames entry, use it
         }),
         y: data.map((v) => {
-          return v[yVar];
+          return shortNames[v[yVar]] || v[yVar]; //region
         }),
         xaxis: null,
         yaxis: null,
         transforms: [{
           type: 'sort',
-          target: 'x',
-          order: 'ascending'
+          target: 'y',
+          order: 'descending'
         }],
         name: '',
         orientation: 'h',
         type: 'bar',
         mode: 'bars+text',
         marker: {
-          color: colourArray
+          color: CHART_COLORS_BY_REGION[data[0]["region"]] || 'lightgrey'
         },
         // text: ['test']
       }
@@ -88,34 +109,39 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.title.text = titleFig2;
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
 
-    const xaxisRange = [0, 70000]
+    const xaxisRange = [0, 70000];
     fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis.title = "Detached house";
+    fig2Layout.xaxis.title = "Dublin City";
     fig2Layout.xaxis.range = xaxisRange;
     fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
-    fig2Layout.xaxis2.title = "Semi-detached house";
+    fig2Layout.xaxis2.title = "Dún Laoghaire-Rathdown";
     fig2Layout.xaxis2.range = xaxisRange;
     fig2Layout.xaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
-    fig2Layout.xaxis3.title = "Terraced house";
+    fig2Layout.xaxis3.title = "Fingal";
     fig2Layout.xaxis3.range = xaxisRange;
     fig2Layout.xaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
-    fig2Layout.xaxis4.title = "Flat or apartment (purpose-built)";
+    fig2Layout.xaxis4.title = "South Dublin";
     fig2Layout.xaxis4.range = xaxisRange;
     fig2Layout.xaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
-    fig2Layout.xaxis5.title = "Flat, apartment (converted) or bedsit";
+    fig2Layout.xaxis5.title = "Kildare";
     fig2Layout.xaxis5.range = xaxisRange;
     fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
-    fig2Layout.xaxis6.title = "Not stated";
+    fig2Layout.xaxis6.title = "Meath";
     fig2Layout.xaxis6.range = xaxisRange;
+    fig2Layout.xaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis7.title = "Wicklow";
+    fig2Layout.xaxis7.range = xaxisRange;
 
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
-    fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis.titlefont.color =
+      fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
     fig2Layout.yaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
@@ -125,14 +151,17 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.yaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
     fig2Layout.yaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
 
     fig2Layout.grid = {
-      rows: 3,
+      rows: 4,
       columns: 2,
       pattern: 'independent'
     }
 
-    let plots = [detachedBars, semidBars, terracedBars, flatBlockBars, flatConvertBars, notStatedBars];
+    let plots = [dc2002, dlr2002, f2002, sdcc2002, k2002, m2002, w2002];
     Plotly.newPlot(divIDFig2, plots, fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
