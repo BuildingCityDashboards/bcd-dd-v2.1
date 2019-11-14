@@ -33,24 +33,9 @@ d3.csv(srcPathFig2 + srcFileFig2)
       // })
       .object(data);
 
-    // console.log(Object.keys(completetionsByYearByRegion["2002"]));
-
-    // console.log(completetionsByYearByRegion.filter("2002"));
-    //generate a color array ordered by the data- pick arbitrary data subset
-    let colourArray = [];
-    // Object.keys(completetionsByYearByRegion["2002"]).map((v) => {
-    //   console.log(v);
-    //   return CHART_COLORS_BY_REGION[v] || 'lightgrey';
-    // })
-
-    // console.log(colourArray);
-
-    // Object.keys(completetionsByYearByRegion). //years
-    // Object.keys(completetionsByYearByRegion).map((year) => {
-    //   return getBars(year);
-    // }); //types
-
     let dc2002 = getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type');
+    dc2002.xaxis = 'x1';
+    dc2002.yaxis = 'y1';
     let dlr2002 = getBars(completetionsByYearByRegion["2002"]["Dún Laoghaire-Rathdown"], 'value', 'type');
     dlr2002.xaxis = 'x2';
     dlr2002.yaxis = 'y2';
@@ -74,9 +59,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
 
     function getBars(data, xVar, yVar) {
-      // console.log("data: " + JSON.stringify(data[0]["region"]));
-      // colourArray.push(CHART_COLORS_BY_REGION[data[0]["region"]] || 'lightgrey');
-      console.log(colourArray);
       let trace = {
         x: data.map((v) => {
           return shortNames[v[xVar]] || v[xVar]; //type - if there's a shortNames entry, use it
@@ -110,56 +92,106 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
 
     const xaxisRange = [0, 70000];
+
     fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
     fig2Layout.xaxis.title = "Dublin City";
+    fig2Layout.xaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis.title] || null;
     fig2Layout.xaxis.range = xaxisRange;
+    fig2Layout.xaxis.domain = [0, 0.45];
+    fig2Layout.xaxis.anchor = 'y1';
+
     fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis2.title = "Dún Laoghaire-Rathdown";
+    fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis2.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis2.title] || null;
     fig2Layout.xaxis2.range = xaxisRange;
+    fig2Layout.xaxis2.domain = [0.55, 1.0];
+    fig2Layout.xaxis2.anchor = 'y2';
+
     fig2Layout.xaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis3.title = "Fingal";
+    fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis3.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis3.title] || null;
     fig2Layout.xaxis3.range = xaxisRange;
+    fig2Layout.xaxis3.domain = [0.0, 0.45];
+    fig2Layout.xaxis3.anchor = 'y3';
+
     fig2Layout.xaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis4.title = "South Dublin";
+    fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis4.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis4.title] || null;
     fig2Layout.xaxis4.range = xaxisRange;
+    fig2Layout.xaxis4.domain = [0.55, 1.0];
+    fig2Layout.xaxis4.anchor = 'y4';
+
     fig2Layout.xaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis5.title = "Kildare";
+    fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis5.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis5.title] || null;
     fig2Layout.xaxis5.range = xaxisRange;
+    fig2Layout.xaxis5.domain = [0, 0.3];
+    fig2Layout.xaxis5.anchor = 'y5';
+
     fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis6.title = "Meath";
+    fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis6.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis6.title] || null;
     fig2Layout.xaxis6.range = xaxisRange;
+    fig2Layout.xaxis6.domain = [0.35, 0.65];
+    fig2Layout.xaxis6.anchor = 'y6';
+
     fig2Layout.xaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
-    fig2Layout.xaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
     fig2Layout.xaxis7.title = "Wicklow";
+    fig2Layout.xaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis7.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis7.title] || null;
     fig2Layout.xaxis7.range = xaxisRange;
+    fig2Layout.xaxis7.domain = [0.7, 1.0];
+    fig2Layout.xaxis7.anchor = 'y7';
+
 
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis.domain = [0.7, 1.0];
+    fig2Layout.yaxis.anchor = 'x1';
     fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
-    fig2Layout.yaxis.titlefont.color =
-      fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+
+    fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis2.domain = [0.7, 1.0];
+    fig2Layout.yaxis2.anchor = 'x2';
     fig2Layout.yaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
     fig2Layout.yaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis3.domain = [0.30, 0.60];
+    fig2Layout.yaxis3.anchor = 'x3';
     fig2Layout.yaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
     fig2Layout.yaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
     fig2Layout.yaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis4.domain = [0.30, 0.60];
+    fig2Layout.yaxis4.anchor = 'x4';
+
     fig2Layout.yaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis5.domain = [0.0, 0.20];
+    fig2Layout.yaxis5.anchor = 'x5';
     fig2Layout.yaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
     fig2Layout.yaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis6.domain = [0.0, 0.20];
+    fig2Layout.yaxis6.anchor = 'x6';
     fig2Layout.yaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+
     fig2Layout.yaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis7.domain = [0.0, 0.20];
+    fig2Layout.yaxis7.anchor = 'x7';
     fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
 
 
-    fig2Layout.grid = {
-      rows: 4,
-      columns: 2,
-      pattern: 'independent'
-    }
+
+    // fig2Layout.grid = {
+    //   rows: 3,
+    //   // columns: 2,
+    //   pattern: 'independent'
+    // }
 
     let plots = [dc2002, dlr2002, f2002, sdcc2002, k2002, m2002, w2002];
     Plotly.newPlot(divIDFig2, plots, fig2Layout, {
@@ -223,6 +255,15 @@ d3.csv(srcPathFig2 + srcFileFig2)
         let y6x = parseInt(y6AxisLabels[i].getAttribute('x'));
         y6x += 5;
         y6AxisLabels[i].setAttribute('x', y6x); //add left spacing
+      }
+
+      let y7AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y7tick text, [class*=" yaxislayer"] .y7tick text'))
+      for (let i = 0; i < y7AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+        y7AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y7x = parseInt(y7AxisLabels[i].getAttribute('x'));
+        y7x += 5;
+        y7AxisLabels[i].setAttribute('x', y7x); //add left spacing
       }
 
     })

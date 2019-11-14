@@ -247,7 +247,7 @@ const ROW_CHART_LAYOUT = {
 };
 
 const ROW_CHART_LAYOUT_SMALL = {
-  height: 800,
+  height: 900,
   margin: {
     l: 0,
     r: 0,
@@ -303,8 +303,8 @@ const ROW_CHART_LAYOUT_SMALL = {
     ticks: '',
     tickfont: {
       family: null,
-      size: 16,
-      color: 'black'
+      size: 14,
+      color: 'verydarkgrey'
     },
   },
   paper_bgcolor: CHART_COLOR,
