@@ -237,7 +237,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         y4x += 5;
         y4AxisLabels[i].setAttribute('x', y4x); //add left spacing
       }
-      // 
+      //
       // let y5AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y5tick text, [class*=" yaxislayer"] .y5tick text'))
       // for (let i = 0; i < y5AxisLabels.length; i++) {
       //   // yAxisLabels[i].setAttribute('visible', true);

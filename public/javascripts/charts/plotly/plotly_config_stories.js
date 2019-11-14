@@ -247,12 +247,12 @@ const ROW_CHART_LAYOUT = {
 };
 
 const ROW_CHART_LAYOUT_SMALL = {
-  height: 270,
+  height: 800,
   margin: {
     l: 0,
     r: 0,
     b: 40,
-    t: 50
+    t: 40
   },
   title: {
     text: '',
@@ -262,14 +262,14 @@ const ROW_CHART_LAYOUT_SMALL = {
     x: 0.0,
     xanchor: 'left',
     yref: 'container',
-    y: 0.95,
+    y: 1.0,
     yanchor: 'top'
   },
   xaxis: {
     title: '',
     titlefont: {
       family: 'Arial, sans-serif',
-      size: 18,
+      size: 16,
       color: 'grey'
     },
     visible: true,
@@ -303,8 +303,8 @@ const ROW_CHART_LAYOUT_SMALL = {
     ticks: '',
     tickfont: {
       family: null,
-      size: 16,
-      color: 'white'
+      size: 14,
+      color: 'verydarkgrey'
     },
   },
   paper_bgcolor: CHART_COLOR,

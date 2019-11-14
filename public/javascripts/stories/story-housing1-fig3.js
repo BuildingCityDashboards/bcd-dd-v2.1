@@ -29,9 +29,9 @@ d3.csv(srcPathFig3 + srcFileFig3)
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'lightgrey'; //magic number!!!
       // (i < 4) ? trace.marker.opacity = 1.0: trace.marker.opacity = 0.1; //magic number!!!
-      (i < 4) ? trace.marker.line.opacity = 1.0: trace.marker.line.opacity = 0.1; //magic number!!!
+      trace.marker.opacity = 0.0; //magic number!!!
 
       trace.x = typeData.map((v) => {
         return v.date;
@@ -49,6 +49,8 @@ d3.csv(srcPathFig3 + srcFileFig3)
     let chartLayout = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
     chartLayout.height = 500;
     chartLayout.title.text = titleFig3;
+    chartLayout.marker = Object.assign({}, STACKED_AREA_CHART_LAYOUT.marker);
+    chartLayout.marker.opacity = 0;;
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [1994, 2016];

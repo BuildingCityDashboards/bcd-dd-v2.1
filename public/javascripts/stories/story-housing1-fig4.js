@@ -30,7 +30,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
       (i > 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i > 1) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
-
+      trace.marker.opacity = 0.0;
       trace.x = typeData.map((v) => {
         return v.date;
       });
