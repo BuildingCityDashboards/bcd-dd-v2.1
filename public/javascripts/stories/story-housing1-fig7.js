@@ -27,7 +27,7 @@ d3.csv(srcPathFig7 + srcFileFig7)
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
-
+      trace.marker.opacity = 0.0;
       trace.x = regionData.map((v) => {
         return v.date;
       });

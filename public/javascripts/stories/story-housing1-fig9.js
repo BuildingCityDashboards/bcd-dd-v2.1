@@ -29,6 +29,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
       //reassign colour to -defocus some traces
       (i == 0) ? trace.opacity = 1.0: trace.opacity = 0.1; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.opacity = 0.0;
       (i == 0) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
 
       trace.x = typeData.map((v) => {
