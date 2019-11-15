@@ -73,9 +73,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
       return trace;
     }
 
-
-
-
     let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS);
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
     fig2Layout.title.text = titleFig2;
@@ -188,11 +185,11 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     let annotations = [];
     fig2Plots.forEach((plot, i) => {
-      annotations.push(getAnnotation(plot, i));
+      annotations.push(getAnnotationForPlot(plot, i));
     });
-    // annotations.push(getAnnotation(fig2Plots[0]));
+    // annotations.push(getAnnotationForPlot(fig2Plots[0]));
 
-    function getAnnotation(plot, i) {
+    function getAnnotationForPlot(plot, i) {
       // console.log("trace: " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.xref = 'x' + (i + 1); //Is order guaranteed?
@@ -219,7 +216,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     };
 
     fig2Layout.annotations = annotations;
-    console.log(fig2Layout);
+    // console.log(fig2Layout);
 
 
     // fig2Layout.grid = {
