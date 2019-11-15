@@ -97,7 +97,7 @@ const CHART_FONT = {
 };
 const CHART_TITLE_FONT = {
   family: 'PT Sans',
-  size: 24,
+  size: 20,
   color: '#313131'
 }
 
@@ -116,6 +116,7 @@ const ANNOTATIONS_DEFAULT = {
   },
   showarrow: true, //need this to use ay offset
   xanchor: 'left',
+  yanchor: 'center',
   arrowcolor: '#fff',
   arrowhead: 7,
   ax: 0,
@@ -246,8 +247,8 @@ const ROW_CHART_LAYOUT = {
   hovermode: 'closest'
 };
 
-const ROW_CHART_LAYOUT_SMALL = {
-  height: 800,
+const ROW_CHART_LAYOUT_SUBPLOTS = {
+  height: 700,
   margin: {
     l: 0,
     r: 0,

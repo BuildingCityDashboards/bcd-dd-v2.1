@@ -29,27 +29,19 @@ d3.csv(srcPathFig2 + srcFileFig2)
       })
       .object(data);
 
-    let dc2002 = getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type');
-    dc2002.xaxis = 'x1';
-    dc2002.yaxis = 'y1';
-    let dlr2002 = getBars(completetionsByYearByRegion["2002"]["Dún Laoghaire-Rathdown"], 'value', 'type');
-    dlr2002.xaxis = 'x2';
-    dlr2002.yaxis = 'y2';
-    let f2002 = getBars(completetionsByYearByRegion["2002"]["Fingal"], 'value', 'type');
-    f2002.xaxis = 'x3';
-    f2002.yaxis = 'y3';
-    let sdcc2002 = getBars(completetionsByYearByRegion["2002"]["South Dublin"], 'value', 'type');
-    sdcc2002.xaxis = 'x4';
-    sdcc2002.yaxis = 'y4';
-    let k2002 = getBars(completetionsByYearByRegion["2002"]["Kildare"], 'value', 'type');
-    k2002.xaxis = 'x5';
-    k2002.yaxis = 'y5';
-    let m2002 = getBars(completetionsByYearByRegion["2002"]["Meath"], 'value', 'type');
-    m2002.xaxis = 'x6';
-    m2002.yaxis = 'y6';
-    let w2002 = getBars(completetionsByYearByRegion["2002"]["Wicklow"], 'value', 'type');
-    w2002.xaxis = 'x7';
-    w2002.yaxis = 'y7';
+    let fig2Plots = [];
+
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Dún Laoghaire-Rathdown"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Fingal"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["South Dublin"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Kildare"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Meath"], 'value', 'type'));
+    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Wicklow"], 'value', 'type'));
+    fig2Plots.forEach((plot, i) => {
+      plot.xaxis = 'x' + (i + 1);
+      plot.yaxis = 'y' + (i + 1);
+    })
 
     // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
     // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
@@ -69,121 +61,165 @@ d3.csv(srcPathFig2 + srcFileFig2)
           target: 'y',
           order: 'descending'
         }],
-        name: '',
+        name: data[0]["region"],
         orientation: 'h',
         type: 'bar',
         mode: 'bars+text',
         marker: {
-          color: CHART_COLORS_BY_REGION[data[0]["region"]] || 'lightgrey'
-        },
+          color: CHART_COLORS_BY_REGION[data[0]["region"]] || 'grey'
+        }
         // text: ['test']
       }
       return trace;
     }
 
 
-    let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SMALL);
-    fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SMALL.title);
+
+
+    let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS);
+    fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
     fig2Layout.title.text = titleFig2;
-    fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SMALL.margin);
+    fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
 
     const xaxisRange = [0, 70000];
 
-    fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis.title = "Dublin City";
-    fig2Layout.xaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis.visible = false;
+    fig2Layout.xaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis.title] || null;
     fig2Layout.xaxis.range = xaxisRange;
     fig2Layout.xaxis.domain = [0, 0.45];
     fig2Layout.xaxis.anchor = 'y1';
 
-    fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis2.title = "Dún Laoghaire-Rathdown";
-    fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis2.visible = false;
+    fig2Layout.xaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis2.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis2.title] || null;
     fig2Layout.xaxis2.range = xaxisRange;
     fig2Layout.xaxis2.domain = [0.55, 1.0];
     fig2Layout.xaxis2.anchor = 'y2';
 
-    fig2Layout.xaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis3.title = "Fingal";
-    fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis3.visible = false;
+    fig2Layout.xaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis3.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis3.title] || null;
     fig2Layout.xaxis3.range = xaxisRange;
     fig2Layout.xaxis3.domain = [0.0, 0.45];
     fig2Layout.xaxis3.anchor = 'y3';
 
-    fig2Layout.xaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis4.title = "South Dublin";
-    fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis4.visible = false;
+    fig2Layout.xaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis4.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis4.title] || null;
     fig2Layout.xaxis4.range = xaxisRange;
     fig2Layout.xaxis4.domain = [0.55, 1.0];
     fig2Layout.xaxis4.anchor = 'y4';
 
-    fig2Layout.xaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis5.title = "Kildare";
-    fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis5.visible = false;
+    fig2Layout.xaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis5.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis5.title] || null;
     fig2Layout.xaxis5.range = xaxisRange;
     fig2Layout.xaxis5.domain = [0, 0.3];
     fig2Layout.xaxis5.anchor = 'y5';
 
 
-    fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis6.title = "Meath";
-    fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis6.visible = false;
+    fig2Layout.xaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis6.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis6.title] || null;
     fig2Layout.xaxis6.range = xaxisRange;
     fig2Layout.xaxis6.domain = [0.35, 0.65];
     fig2Layout.xaxis6.anchor = 'y6';
 
-    fig2Layout.xaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis);
+    fig2Layout.xaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
     fig2Layout.xaxis7.title = "Wicklow";
-    fig2Layout.xaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.xaxis.titlefont);
+    fig2Layout.xaxis7.visible = false;
+    fig2Layout.xaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
     fig2Layout.xaxis7.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis7.title] || null;
     fig2Layout.xaxis7.range = xaxisRange;
     fig2Layout.xaxis7.domain = [0.7, 1.0];
     fig2Layout.xaxis7.anchor = 'y7';
 
 
-    fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis.domain = [0.7, 1.0];
     fig2Layout.yaxis.anchor = 'x1';
-    fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
 
-    fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis2 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis2.domain = [0.7, 1.0];
     fig2Layout.yaxis2.anchor = 'x2';
-    fig2Layout.yaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis2.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
 
-    fig2Layout.yaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis3 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis3.domain = [0.30, 0.60];
     fig2Layout.yaxis3.anchor = 'x3';
-    fig2Layout.yaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis3.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
 
-    fig2Layout.yaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
-    fig2Layout.yaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis4 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
+    fig2Layout.yaxis4.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
     fig2Layout.yaxis4.domain = [0.30, 0.60];
     fig2Layout.yaxis4.anchor = 'x4';
 
-    fig2Layout.yaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis5 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis5.domain = [0.0, 0.15];
     fig2Layout.yaxis5.anchor = 'x5';
-    fig2Layout.yaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis5.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
     fig2Layout.yaxis5.showticklabels = false;
 
-    fig2Layout.yaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis6 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis6.domain = [0.0, 0.15];
     fig2Layout.yaxis6.anchor = 'x6';
-    fig2Layout.yaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis6.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
     fig2Layout.yaxis6.showticklabels = false;
 
-    fig2Layout.yaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis);
+    fig2Layout.yaxis7 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis7.domain = [0.0, 0.15];
     fig2Layout.yaxis7.anchor = 'x7';
-    fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SMALL.yaxis.titlefont);
+    fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
     fig2Layout.yaxis7.showticklabels = false;
+
+    let annotations = [];
+    fig2Plots.forEach((plot, i) => {
+      annotations.push(getAnnotation(plot, i));
+    });
+    // annotations.push(getAnnotation(fig2Plots[0]));
+
+    function getAnnotation(plot, i) {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.xref = 'x' + (i + 1); //Is order guaranteed?
+      annotation.yref = 'y' + (i + 1);
+      annotation.xanchor = 'right';
+      annotation.align = 'right';
+      annotation.x = 70000;
+      annotation.y = 'Not stated';
+      annotation.ay = 9;
+
+      annotation.text = plot["name"];
+      annotation.opacity = 1.0;
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = CHART_COLORS_BY_REGION[plot["name"]] || 'grey';
+      annotation.font.size = 18;
+      //de-focus some annotations
+      //TODO: function for this
+      // (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      // annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      // (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      return annotation;
+    };
+
+    fig2Layout.annotations = annotations;
+    console.log(fig2Layout);
 
 
     // fig2Layout.grid = {
@@ -192,8 +228,8 @@ d3.csv(srcPathFig2 + srcFileFig2)
     //   pattern: 'independent'
     // }
 
-    let plots = [dc2002, dlr2002, f2002, sdcc2002, k2002, m2002, w2002];
-    Plotly.newPlot(divIDFig2, plots, fig2Layout, {
+
+    Plotly.newPlot(divIDFig2, fig2Plots, fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
       displaylogo: false,
@@ -237,7 +273,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         y4x += 5;
         y4AxisLabels[i].setAttribute('x', y4x); //add left spacing
       }
-      // 
+      //
       // let y5AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y5tick text, [class*=" yaxislayer"] .y5tick text'))
       // for (let i = 0; i < y5AxisLabels.length; i++) {
       //   // yAxisLabels[i].setAttribute('visible', true);
