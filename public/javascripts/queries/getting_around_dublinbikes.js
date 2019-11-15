@@ -61,6 +61,8 @@ function initBikeStationsMarkers(data_) {
   // gettingAroundMap.removeLayer(bikesCluster); //required
   data_.forEach((d, i) => {
     d.type = "Dublin Bikes Station"; //used in alt text (tooltip)
+    
+
     let m = new customBikesStationMarker(
       new L.LatLng(+d.st_LATITUDE, +d.st_LONGITUDE), {
         id: d.st_ID,
@@ -74,8 +76,9 @@ function initBikeStationsMarkers(data_) {
         //            riseOffset: 250
 
       });
-    m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
-    m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open
+
+    m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons); // To Write Station name and Direcation and number of stands avaliable
+    m.on('popupopen', getBikesStationPopup); //refeshes data on every popup open (and plot line chart)
     bikesCluster.addLayer(m);
     // bikesLayerGroup.addLayer(m);
     // gettingAroundMap.addLayer(bikesLayerGroup);
@@ -262,6 +265,8 @@ function getBikesStationPopup() {
 
       let startChart = moment.utc().startOf('day').add(3, 'hours');
       let endChart = moment.utc().endOf('day').add(2, 'hours');
+
+      //console.log(startChart + '---' + endChart);
       // console.log("chart time range: " + startChart + " - " + endChart);
       let bikeSpark = dc.lineChart("#bike-spark-" + sid_);
       // console.log("Select bike spark #" + sid_);

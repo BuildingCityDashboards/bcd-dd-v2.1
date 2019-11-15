@@ -262,7 +262,7 @@
       const chart3DN = nestData(chart3D, "label", chart3R, "value"),
         chart3Content = {
           e: "#chart3",
-          d: chart3DN,
+          d: chart3D,
           ks: chart3K,
           xV: "date",
           cS: cA3,

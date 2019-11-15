@@ -1,5 +1,6 @@
+// let fs = require('fs');
 
- let popupTime = d3.timeFormat("%a %B %d, %H:%M");
+let popupTime = d3.timeFormat("%a %B %d, %H:%M");
 //let str='';
 
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
@@ -9,6 +10,23 @@ var secondProjection = "EPSG:4326";
 
 let waterMapLayerSizes = [];
 
+//Add an id field to the markers to match with bike station id
+let customWaterStationMarker = L.Marker.extend({
+  options: {
+    sid: 0,
+    sfn:''
+    }
+});
+
+
+let customWaterLayer = L.Layer.extend({
+
+});
+
+let bikesStationPopupOptons = {
+  // 'maxWidth': '500',
+  'className': 'bikesStationPopup'
+};
 /************************************
  * OPW Water Levels
  ************************************/
@@ -30,15 +48,18 @@ let waterMap = new L.Map('chart-water-map');
 waterMap.setView(new L.LatLng(dubLat, dubLng), zoom);
 waterMap.addLayer(osmWater);
 let markerRefWater; //TODO: fix horrible hack!!!
-waterMap.on('popupopen', function(e) {
-  markerRefWater = e.popup._source;
+waterMap.on('popupopen', function(e) 
+{
+ //{ alert(e.popup._source._popup._content); };
+   markerRefWater = e.popup._source; //.feature.properties.markerid;
+  //console.log(e.popup._source.feature.properties.markerid);
   //console.log("ref: "+JSON.stringify(e));
 });
 
 let waterOPWCluster = L.markerClusterGroup();
 
-d3.json('/data/Environment/w_l.json')
-  .then(function(data) {
+d3.json('/data/Environment/w_l.json').then(function(data) 
+{
     processWaterLevels(data.features);
   });
 
@@ -53,151 +74,376 @@ function processWaterLevels(data_) {
 
     d.lat = +d.geometry.coordinates[1];
     d.lng = +d.geometry.coordinates[0];
-    d.type = "OPW GPRS Station Water Level Monitor";
-    
-    
-     
+    d.type = "OPW GPRS Station Water Level Monitor";        
      });
   waterMapLayerSizes[0] = regionData.length;
   // console.log(regionData);
   initMapWaterLevels(regionData);
 };
 
+// pretty error 
+
 function initMapWaterLevels(data__) {
     _.each(data__, function(d, i) {
     station_ref = d.properties['station.ref'].substring(5, 10);
     sensor_ref = d.properties['sensor.ref'];
     fname= station_ref.concat('_',sensor_ref).concat('.csv');
-
-
-   let content='';
-   //content=getCon(fname);  
-   waterOPWCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng)
+    station_name= d.properties['station.name'];
+    
+    let content='';
+    //content=getCon(fname);  
    
 
-    , {
-   icon: waterMapIcon,
-        
-      }).on('click', onClick))
+   let m = new customWaterStationMarker(
+      new L.LatLng(+d.lat, +d.lng), {
+      icon: waterMapIcon,
+      sid:d.id,
+      sfn:fname
+      }) 
 
-      //bindPopup(getstr(fname)));
-
-      //.bindPopup(getWaterLevelContent(d))
-            // ).bindPopup(fname, fname)
-
-             //.on('popupopen', '456'); //refeshes data on every popup open;
-  }
-  );
-
+   waterOPWCluster.addLayer(m);
+    //m.bindPopup(getstr(fname));
+     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
+     m.on('popupopen', getBikesStationPopup);
+  
   waterMap.addLayer(waterOPWCluster);
+})};
 
 
 
-function getstr(fname)
-{
- 
-let values ='mmmm';
-let fb='/data/Environment/36015_0003.csv';
-d3.csv(fb).then(function(d) {
-  values += +d['value'];
-  })
+/*function bikesStationPopupInit(d_) {
+  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  //if no station id none of the mappings will work so escape
+  if (!d_.properties['id']) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We_Test can't get the Dublin Bikes data right now, please try again later" +
+      "</div>" +
+      "</div>";
+     return str;
+  }
 
-  return values;
+  let str = "<div class=\"bike-popup-container\">";
+  if (d_.properties['station.name']) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.properties['id'] + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.station.name + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.properties['id'] + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
+  }
+  str += "<div class=\"row \">";
+  str += "<span id=\"bike-standcount-" + d_.properties['id'] + "\" class=\"col-9\" ></span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.properties['id']) {
+    str += '<div class=\"row \">';
+    str += '<span id="bike-spark-' + d_.properties['id'] + '"></span>';
+    str += '</div>';
+  }
+  str += '</div>' //closes container
+  return str;
+}*/
+
+function bikesStationPopupInit(d_) {
+
+  
+    let station_ref = d_.properties['station.ref'].substring(5, 10);
+    let sensor_ref = d_.properties['sensor.ref'];
+    let fname= station_ref.concat('_',sensor_ref).concat('.csv');
+    
+
+       // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  //if no station id none of the mappings witll work so escape
+  if (!d_.id) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We can't get the Water station data right now, please try again later" +
+      "</div>" +
+      "</div>";
+    return str;
+  }
+
+
+let str = "<div class=\"bike-popup-container\">";
+  if (d_.properties['station.name']) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.id + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.properties['station.name'] + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.id + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
+  }
+
+
+
+
+
+
+
+    
+    
+
+
+    /*let str = "<div class=\"bike-popup-container\">";
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.properties['station.name'] + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.properties['station.name'] + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.properties['station.region_id'] + "\" class= \"col-3\"></span>";
+    
+  str += '</div>' //closes container
+  return str;*/
+
+
+  str += "<div class=\"row \">";
+  str += "<span id=\"bike-standcount-" + d_.id + "\" class=\"col-9\" ></span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.id) {
+    str += '<div class=\"row \">';
+    str += '<span id="bike-spark-' + d_.id + '"></span>';
+    str += '</div>';
+  }
+  str += '</div>' //closes container
+  return str;
+
 }
 
- 
-   }
-
-
-function onClick(e) {alert(e.latlng);}
-
-//-
-let mstr = 'bbb';
-
-/*function getCon(fname)
-{
-
-  let strv='bbbbb';
-  strv+= getstr(fname);
-
-  return  fname; /// + '<br>'+ fname;
-}*/  
- //let values ='nnnn';
 
 
 
 
 
+function getBikesStationPopup() {
+  ////d3.select("#bike-spark-67").text('Selected from D3');
+  let sid_ = this.options.sid;
+  let sfn= this.options.sfn;
+  let result='';
+  let str = "This Chart from"  + sfn + "file" + '<br>';
+  console.log(sfn);
 
-function getconent() {
-//let fn=fname.toString();
+var stationdReadingsPerMonthChart = dc.lineChart("#bike-spark-" + sid_);
 
-//d3.csv('/data/Environment/' +fn, function(data) {
- 
- for(var i = 0; i < 20; i++)
+d3.csv("./data/Environment/"+sfn).then(function(md){
+                 
+                md.forEach(function(d){
+                  if(value) 
+                  {
 
-   {
-         mstr += i +'<br>';
-    }
+                  var value= +d.value;
+                  } 
+                //var datetime = parseDate(d.datetime);
+              })
 
 
- 
-  
-//});
-//});
+var ndx = crossfilter(md);
+var all = ndx.groupAll();
 
-return mstr;
+var datetimeDimension = ndx.dimension(function (d) {
+     //d3.isoParse
+    return d3.isoParse(d.datetime);
+});
+
+var valuePerDayGroup = datetimeDimension.group().reduceSum(function (d) {
+    return d.value;
+});
+
+
+
+function reduceAddAvg(p,v,attr) {
+  ++p.count
+  p.sum += v[attr];
+  p.avg = p.sum/p.count;
+  return p;
 }
-//-
+function reduceRemoveAvg(p,v,attr) {
+  --p.count
+  p.sum -= v[attr];
+  p.avg = p.sum/p.count;
+  return p;
+}
+function reduceInitAvg() {
+  return {count:0, sum:0, avg:0};
+}
 
-
-
-let str = 'sddd';
-function getWaterLevelContent(d_) {
-  // console.log(d_);
+var statesAvgGroup = datetimeDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'value');
+//var statesAvgGroup = statesAvgDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'cost');
   
-  let station_ref = d_.properties['station.ref'].substring(5, 10);
-  let sensor_ref = d_.properties['sensor.ref'];
-  let fname= station_ref.concat('_',sensor_ref).concat('.csv');;
-  //fname=fname.concat('.csv'); 
-  //fname='09001_0001.csv'
-  str += fname + '<br>';
-  //let value=9.9;
-  //--
-  //d3.csv("./data/Environment/ " + fname).then(function(data) {
-  //data.forEach(function(d) {
-  //str += d.value;
-  
-//});
-//});
+stationdReadingsPerMonthChart
+    .width(200)
+    .height(100)
+    .margins({top: 10, right: 10, bottom: 20, left: 60})
+    .dimension(datetimeDimension)
+    .group(valuePerDayGroup)
+    .x(d3.scaleTime().domain([new Date(md[0].datetime), new Date(md[md.length-1].datetime)]))
+    .y(d3.scaleLinear().domain([0, d3.max(md, function(d) { return d.value + 100; })]))
+    .elasticX(false)
+    .elasticY(true)
+    .margins({
+        left: 20,
+        top: 15,
+        right: 20,
+        bottom: 20
+      })
+      .renderVerticalGridLines(false)
+      .useRightYAxis(true)
+      .xyTipsOn(false)
+      .brushOn(false)
+      .clipPadding(15)
+      .renderArea(true)
+      .renderDataPoints(true)
+      .yAxisLabel("value")
+      .renderHorizontalGridLines(false);
+      //stationdReadingsPerMonthChart.xAxis(d3.axisTop())
+      stationdReadingsPerMonthChart.xAxis().ticks(6);
+      stationdReadingsPerMonthChart.yAxis().ticks(6);
+
+      stationdReadingsPerMonthChart.render();  
+
+      
+
+      
+
+//dc.renderAll();
 
 
-return str;
-};
+});
 
 
-/*
-let str_test=' ';
-function getWaterLevelContent_test(fname) {
-  // console.log(d_);
-  
-  
-  d3.csv("./data/Environment/ " + fname).then(function(data) {
+/*var chart = dc.lineChart("#bike-name-"+sid_);
+d3.csv("./data/Environment/morley.csv").then(function(experiments) {
+  experiments.forEach(function(x) {
+    x.Speed = +x.Speed;
+  });
+  var ndx                 = crossfilter(experiments),
+      runDimension        = ndx.dimension(function(d) {return +d.Run;}),
+      speedSumGroup       = runDimension.group().reduceSum(function(d) {return d.Speed * d.Run / 1000;});
+  chart
+    .width(180)
+    .height(180)
+    .x(d3.scaleLinear().domain([0,20]))
+    .curve(d3.curveStepBefore)
+    .renderArea(true)
+    .brushOn(false)
+    .renderDataPoints(true)
+    .clipPadding(10)
+    .yAxisLabel("This is the Y Axis!_Test")
+    .dimension(runDimension)
+    .group(speedSumGroup);
+  chart.render();
+});*/
+
+
+
+
+}
+
+
+
+    
+  //d3.select("#bike-spark-" + sid_)
+   // .html(str);
+
+
+  //console.log(sid_);
+ /* console.log(sid_);
+  d3.csv("./data/Environment/" + sid_).then(function(data) {
   data.forEach(function(d) {
-  str_test += d.value;
+  result += +d["value"];
+  });
+  console.log(result);
+  d3.select("#bike-name-" + fd).html(result);
 
-});
-
-});
-
-
-return str_test;
-};
+ })*/
 
 
-*/
+/*var chart = dc.lineChart("#bike-name-" + fd);
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         d3.csv("./data/Environment/people.csv", function(errors, people) {
+            var mycrossfilter = crossfilter(people);
+
+            var ageDimension = mycrossfilter.dimension(function(data) { 
+               return ~~((Date.now() - new Date(data.DOB)) / (31557600000)) 
+            });
+            var ageGroup = ageDimension.group().reduceCount();
+
+            chart
+               .width(250).height(100)
+               .x(d3.scaleLinear().domain([15,70]))
+               .brushOn(false)
+               .yAxisLabel("Count_Test")
+               .xAxisLabel("Age")
+               .dimension(ageDimension)
+               .group(ageGroup)
+               .on('renderlet', function(chart) {
+                  chart.selectAll('rect').on('click', function(d) {
+                     console.log('click!', d);
+                  });
+               });
+            chart.render();
+            });*/
+
+
+/*var chart = dc.lineChart("#bike-name-"+fd);
+d3.csv("./data/Environment/morley.csv").then(function(experiments) {
+  experiments.forEach(function(x) {
+    x.Speed = +x.Speed;
+  });
+  var ndx                 = crossfilter(experiments),
+      runDimension        = ndx.dimension(function(d) {return +d.Run;}),
+      speedSumGroup       = runDimension.group().reduceSum(function(d) {return d.Speed * d.Run / 1000;});
+  chart
+    .width(180)
+    .height(180)
+    .x(d3.scaleLinear().domain([0,20]))
+    .curve(d3.curveStepBefore)
+    .renderArea(true)
+    .brushOn(false)
+    .renderDataPoints(true)
+    .clipPadding(10)
+    .yAxisLabel("This is the Y Axis!_Test")
+    .dimension(runDimension)
+    .group(speedSumGroup);
+  chart.render();
+});*/
+
+
+
+
+       
 
 
 

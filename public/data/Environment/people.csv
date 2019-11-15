@@ -1,0 +1,9 @@
+id,name,gender,DOB,MaritalStatus,CreditCardType
+1,Damaris,Female,1973-02-18,false,visa-electron
+2,Barbe,Female,1969-04-10,true,americanexpress
+3,Belia,Female,1960-04-16,false,maestro
+4,Leoline,Female,1995-01-19,true,bankcard
+5,Valentine,Female,1992-04-16,false,
+6,Rosanne,Female,1985-01-05,true,bankcard
+7,Shalna,Female,1956-11-01,false,jcb
+8,Mordy,Male,1990-03-27,true,china-unionpay

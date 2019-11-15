@@ -1,5 +1,6 @@
 class Chart {
 
+
   constructor(obj) {
 
     this.d = obj.d; // the data
@@ -17,6 +18,7 @@ class Chart {
   }
   // initialise method to draw c area
   init() {
+    //console.log(this.d);
     let c = this,
       eN,
       eW,
