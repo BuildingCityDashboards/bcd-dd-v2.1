@@ -5,4 +5,5 @@
 ## File Naming 
 * All javascript files' names should use lowercase seperated by hyphens
 
+* Adopt clean code recommendations as per https://github.com/ryanmcdermott/clean-code-javascript
 

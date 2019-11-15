@@ -1,0 +1,11 @@
+.js-plotly-plot .plotly .modebar {
+    orientation: 'v';
+}
+
+.infolayer [class^='y'][class$='title'] {
+  transform: rotate(0deg) translate(0px, 0px);
+}
+
+.infolayer [class^='x'][class$='title'] {
+  transform: translate(0px, 0px);
+}

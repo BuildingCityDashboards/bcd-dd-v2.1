@@ -262,11 +262,11 @@ cron.schedule("*/15 * * * *", function() {
 
 
 const readFileAsync = () => {
-const FILE_NAME = './public/data/Environment/waterlevel.json';
-fs.readFile(FILE_NAME, (error, data) => {
+  const FILE_NAME = './public/data/Environment/waterlevel.json';
+  fs.readFile(FILE_NAME, (error, data) => {
     //console.log('Async Read: starting...');
     if (error) {
-     // console.log('Async Read: NOT successful!');
+      // console.log('Async Read: NOT successful!');
       console.log(error);
     } else {
       try {
@@ -275,40 +275,39 @@ fs.readFile(FILE_NAME, (error, data) => {
         //console.log(dataJson);
         //processWaterLevels(dataJson.features);
         //console.log('here3');
-        let data_=dataJson.features;
+        let data_ = dataJson.features;
         let regionData = data_.filter(function(d) {
-    return d.properties["station.region_id"] === null || d.properties["station.region_id"] === 10;
-  });
+          return d.properties["station.region_id"] === null || d.properties["station.region_id"] === 10;
+        });
 
-regionData.forEach(function(d,i) {
-   let station_ref = d.properties['station.ref'].substring(5, 10);
-   let sensor_ref = d.properties['sensor.ref'];
-   let fname= station_ref.concat('_',sensor_ref);
-   //console.log(i + '---'+ fname);
-   var fs = require('fs');
-   var file = fs.createWriteStream("./public/data/Environment/" + fname + ".csv");
-  var http = require('http');
-   //http://waterlevel.ie/data/month/25017_0001.csv
-   http.get("http://waterlevel.ie/data/month/"+fname+ ".csv",
-     function(response) {
-     response.pipe(file);
-})
+        regionData.forEach(function(d, i) {
+          let station_ref = d.properties['station.ref'].substring(5, 10);
+          let sensor_ref = d.properties['sensor.ref'];
+          let fname = station_ref.concat('_', sensor_ref);
+          //console.log(i + '---'+ fname);
+          var fs = require('fs');
+          var file = fs.createWriteStream("./public/data/Environment/" + fname + ".csv");
+          var http = require('http');
+          //http://waterlevel.ie/data/month/25017_0001.csv
+          http.get("http://waterlevel.ie/data/month/" + fname + ".csv",
+            function(response) {
+              response.pipe(file);
+            })
 
-       
 
-  });
+
+        });
 
 
         //console.log(dataJson.features);
 
-      } 
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
     }
   });
 
-//});
+  //});
 
 
 
