@@ -282,7 +282,7 @@ regionData.forEach(function(d,i) {
    let fname= station_ref.concat('_',sensor_ref);
    //console.log(i + '---'+ fname);
    var fs = require('fs');
-   var file = fs.createWriteStream("./public/data/Environment/" + fname + ".csv");
+   var file = fs.createWriteStream("./public/data/Environment/water_levels/" + fname + ".csv");
    var http = require('http');
    //http://waterlevel.ie/data/month/25017_0001.csv
    http.get("http://waterlevel.ie/data/month/"+fname+ ".csv",
@@ -299,6 +299,6 @@ regionData.forEach(function(d,i) {
     }
   });
 };
+readFileAsync();
 
-// readFileAsync();
 module.exports = app;
