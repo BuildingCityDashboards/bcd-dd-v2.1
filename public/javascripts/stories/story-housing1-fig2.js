@@ -9,10 +9,11 @@
 const srcPathFig2 = "../data/Stories/Housing/",
   srcFileFig2 = "housetype.csv";
 
-let titleFig2 = "Number of Households by Type by Region (2002-2016)";
+const titleFig2 = "Number of Households by Type, by Region (2002-2016)";
 // titleFig2 = popTitle; //set default on load
-const divIDFig2 = "housing-types-chart";
+const fig2DivID = "housing-types-chart";
 
+//object used to look up shorter names to use a s labels in plots
 const shortNames = {
   "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
   "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
@@ -20,7 +21,7 @@ const shortNames = {
 
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
-    let completetionsByYearByRegion = d3.nest()
+    let completionsByYearByRegion = d3.nest()
       .key(function(d) {
         return d["date"];
       })
@@ -29,24 +30,44 @@ d3.csv(srcPathFig2 + srcFileFig2)
       })
       .object(data);
 
-    let fig2Plots = [];
+    //Create a subplot for each region
 
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Dublin City"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Dún Laoghaire-Rathdown"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Fingal"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["South Dublin"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Kildare"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Meath"], 'value', 'type'));
-    fig2Plots.push(getBars(completetionsByYearByRegion["2002"]["Wicklow"], 'value', 'type'));
+    let years = Object.keys(completionsByYearByRegion);
+    //console.log(years);
+    let noOfSubplots = Object.keys(completionsByYearByRegion[years[0]]).length; //assumes same no of regions per year
+    //console.log(noOfSubplots);
+
+    let fig2Plots = [];
+    let yearsTest = ["2002"];
+    yearsTest.forEach((year) => {
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Dublin City"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Dún Laoghaire-Rathdown"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Fingal"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["South Dublin"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Kildare"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Meath"], 'value', 'type'));
+      fig2Plots.push(getSubplot(completionsByYearByRegion[year]["Wicklow"], 'value', 'type'));
+    })
+    //TODO remove this additional loop
     fig2Plots.forEach((plot, i) => {
-      plot.xaxis = 'x' + (i + 1);
-      plot.yaxis = 'y' + (i + 1);
+      plot.xaxis = 'x' + ((i % noOfSubplots) + 1); //% no of subplots
+      plot.yaxis = 'y' + ((i % noOfSubplots) + 1);
+      // console.log(plot.xaxis);
     })
 
-    // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
-    // let detachedBars = getBars(completetionsByYearByRegion["2002"]["Detached house"], 'value', 'region');
+    let plotty = getSubplot(completionsByYearByRegion[2006]["Dublin City"], 'value', 'type');
+    fig2Plots.push(plotty);
+    // plotty.xaxis = 'x'; //% no of subplots
+    // plotty.yaxis = 'y';
+    console.log(fig2Plots);
 
-    function getBars(data, xVar, yVar) {
+    // //Set default visible traces (i.e. traces on each chart)
+    fig2Plots.map((t, i) => {
+      if (i < 7) return t.visible = true;
+      else return t.visible = false;
+    });
+
+    function getSubplot(data, xVar, yVar) {
       let trace = {
         x: data.map((v) => {
           return shortNames[v[xVar]] || v[xVar]; //type - if there's a shortNames entry, use it
@@ -146,6 +167,25 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.xaxis7.anchor = 'y7';
 
 
+    ///
+
+
+    fig2Layout.xaxis8 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
+    fig2Layout.xaxis8.title = "Dublin City";
+    fig2Layout.xaxis8.visible = false;
+    fig2Layout.xaxis8.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont);
+    fig2Layout.xaxis8.titlefont.color = CHART_COLORS_BY_REGION[fig2Layout.xaxis8.title] || null;
+    fig2Layout.xaxis8.range = xaxisRange;
+    fig2Layout.xaxis8.domain = [0, 0.45];;
+    fig2Layout.xaxis8.anchor = 'y8';
+
+
+    /*****
+
+    *****/
+
+
+
     fig2Layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
     fig2Layout.yaxis.domain = [0.7, 1.0];
     fig2Layout.yaxis.anchor = 'x1';
@@ -184,10 +224,18 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.yaxis7.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
     fig2Layout.yaxis7.showticklabels = false;
 
+    fig2Layout.yaxis8 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis);
+    fig2Layout.yaxis8.domain = [0.7, 1.0];
+    fig2Layout.yaxis8.anchor = 'x8';
+    fig2Layout.yaxis8.titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont);
+    fig2Layout.yaxis8.showticklabels = false;
+
+
+
     let annotations = [];
-    fig2Plots.forEach((plot, i) => {
-      annotations.push(getAnnotationForPlot(plot, i));
-    });
+    // fig2Plots.forEach((plot, i) => {
+    //   annotations.push(getAnnotationForPlot(plot, i));
+    // });
     // annotations.push(getAnnotationForPlot(fig2Plots[0]));
 
     function getAnnotationForPlot(plot, i) {
@@ -328,7 +376,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // }
 
 
-    Plotly.newPlot(divIDFig2, fig2Plots, fig2Layout, {
+    Plotly.newPlot(fig2DivID, fig2Plots, fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
       displaylogo: false,
@@ -337,7 +385,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     });
 
     //workaround to place y axis labels on bars
-    document.getElementById(divIDFig2).on('plotly_afterplot', function() {
+    document.getElementById(fig2DivID).on('plotly_afterplot', function() {
 
       let yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
       for (let i = 0; i < yAxisLabels.length; i++) {
