@@ -15,10 +15,10 @@ const STACKED_AREA_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
 ];
 
 const MARGINS = {
-  l: 40,
+  l: 0,
   r: 0,
   b: 40,
-  t: 60,
+  t: 0,
   pad: 0
 };
 
