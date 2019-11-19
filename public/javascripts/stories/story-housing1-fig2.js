@@ -77,6 +77,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
     fig2Layout.title.text = titleFig2;
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
+    fig2Layout.margin.t = 100;
 
     const xaxisRange = [0, 70000];
 
@@ -217,6 +218,107 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     fig2Layout.annotations = annotations;
     // console.log(fig2Layout);
+
+
+    //Set button menu
+    let updateMenus = [{
+      buttons: [{
+          args: [{
+              'visible': [true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': '2002',
+              'annotations': annotations
+
+            }
+          ],
+          label: '2002',
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': '2006',
+              'annotations': annotations
+            }
+          ],
+          label: '2006',
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': '2011',
+              'annotations': annotations
+
+            }
+          ],
+          label: '2011',
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true
+              ]
+            },
+            {
+              'title': '2016',
+              'annotations': annotations
+            }
+          ],
+          label: '2016',
+          method: 'update',
+          execute: true
+        }
+      ],
+      type: 'buttons',
+      direction: 'right',
+      font: {
+        family: null,
+        size: 16,
+        color: null
+      },
+      bordercolor: 'grey',
+      pad: {
+
+        't': 0,
+        'r': 0,
+        'b': 0,
+        'l': 0
+      },
+      showactive: true,
+      active: 0,
+      xref: 'container',
+      x: 0.0,
+      xanchor: 'left',
+      yref: 'container',
+      y: 1.05, //place above plot area with >1.0
+      yanchor: 'bottom'
+    }];
+
+    fig2Layout.updatemenus = updateMenus;
 
 
     // fig2Layout.grid = {

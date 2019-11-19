@@ -328,7 +328,7 @@ Promise.all([
       showactive: true,
       active: 0,
       xref: 'container',
-      x: 0,
+      x: 0.0,
       xanchor: 'left',
       yref: 'container',
       y: 1.05, //place above plot area with >1.0
