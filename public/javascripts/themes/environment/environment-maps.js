@@ -1,12 +1,31 @@
 let popupTime = d3.timeFormat("%a %B %d, %H:%M");
 
-
 proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
 +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
 var firstProjection = "EPSG:29902";
 var secondProjection = "EPSG:4326";
 
 let waterMapLayerSizes = [];
+
+//Add an id field to the markers to match with bike station id
+let customWaterStationMarker = L.Marker.extend({
+  options: {
+    sid: 0,
+    sfn:''
+    }
+});
+
+
+let customWaterLayer = L.Layer.extend({
+
+});
+
+
+let bikesStationPopupOptons = {
+  // 'maxWidth': '500',
+  'className': 'bikesStationPopup'
+};
+
 
 /************************************
  * OPW Water Levels
@@ -21,7 +40,7 @@ let waterMapIcon = L.icon({
 
 let osmWater = new L.TileLayer(stamenTerrainUrl, {
   minZoom: min_zoom,
-  maxZoom: max_zoom - 1,
+  maxZoom: 12,
   attribution: stamenTonerAttrib
 });
 
@@ -41,7 +60,267 @@ d3.json('/data/Environment/waterlevel.json')
     processWaterLevels(data.features);
   });
 
+////************
+
 function processWaterLevels(data_) {
+  //will filter out all data bar Greater Dublin
+  let regionData = data_.filter(function(d) {
+    return d.properties["station.region_id"] === null //Dublin OPW stations have null id
+      ||
+      d.properties["station.region_id"] === 10;
+  });
+  regionData.forEach(function(d) {
+
+    d.lat = +d.geometry.coordinates[1];
+    d.lng = +d.geometry.coordinates[0];
+    d.type = "OPW GPRS Station Water Level Monitor";        
+     });
+  waterMapLayerSizes[0] = regionData.length;
+  // console.log(regionData);
+  initMapWaterLevels(regionData);
+};
+
+// pretty error 
+
+function initMapWaterLevels(data__) {
+    _.each(data__, function(d, i) {
+    station_ref = d.properties['station.ref'].substring(5, 10);
+    sensor_ref = d.properties['sensor.ref'];
+    fname= station_ref.concat('_',sensor_ref).concat('.csv');
+    station_name= d.properties['station.name'];
+    
+    let content='';
+    //content=getCon(fname);  
+   
+
+   let m = new customWaterStationMarker(
+      new L.LatLng(+d.lat, +d.lng), {
+      icon: waterMapIcon,
+      sid:d.id,
+      sfn:fname
+      }) 
+
+   waterOPWCluster.addLayer(m);
+    //m.bindPopup(getstr(fname));
+     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons);
+     m.on('popupopen', getBikesStationPopup);
+  
+  waterMap.addLayer(waterOPWCluster);
+})};
+
+
+
+/*function bikesStationPopupInit(d_) {
+  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  //if no station id none of the mappings will work so escape
+  if (!d_.properties['id']) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We_Test can't get the Dublin Bikes data right now, please try again later" +
+      "</div>" +
+      "</div>";
+     return str;
+  }
+
+  let str = "<div class=\"bike-popup-container\">";
+  if (d_.properties['station.name']) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.properties['id'] + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.station.name + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.properties['id'] + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
+  }
+  str += "<div class=\"row \">";
+  str += "<span id=\"bike-standcount-" + d_.properties['id'] + "\" class=\"col-9\" ></span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.properties['id']) {
+    str += '<div class=\"row \">';
+    str += '<span id="bike-spark-' + d_.properties['id'] + '"></span>';
+    str += '</div>';
+  }
+  str += '</div>' //closes container
+  return str;
+}*/
+
+function bikesStationPopupInit(d_) {
+
+  
+    let station_ref = d_.properties['station.ref'].substring(5, 10);
+    let sensor_ref = d_.properties['sensor.ref'];
+    let fname= station_ref.concat('_',sensor_ref).concat('.csv');
+    
+
+       // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  //if no station id none of the mappings witll work so escape
+  if (!d_.id) {
+    let str = "<div class=\"popup-error\">" +
+      "<div class=\"row \">" +
+      "We can't get the Water station data right now, please try again later" +
+      "</div>" +
+      "</div>";
+    return str;
+  }
+
+
+let str = "<div class=\"bike-popup-container\">";
+  if (d_.properties['station.name']) {
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.id + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.properties['station.name'] + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.id + "\" class= \"col-3\"></span>";
+    str += '</div>'; //close row
+  }
+    
+    /*let str = "<div class=\"bike-popup-container\">";
+    str += "<div class=\"row \">";
+    str += "<span id=\"bike-name-" + d_.properties['station.name'] + "\" class=\"col-9\">"; //id for name div
+    str += "<strong>" + d_.properties['station.name'] + "</strong>";
+    str += "</span>" //close bike name div
+    //div for banking icon
+    str += "<span id=\"bike-banking-" + d_.properties['station.region_id'] + "\" class= \"col-3\"></span>";
+    
+  str += '</div>' //closes container
+  return str;*/
+
+
+  str += "<div class=\"row \">";
+  str += "<span id=\"bike-standcount-" + d_.id + "\" class=\"col-9\" ></span>";
+  str += "</div>"; //close row
+
+  //initialise div to hold chart with id linked to station id
+  if (d_.id) {
+    str += '<div class=\"row \">';
+    str += '<span id="bike-spark-' + d_.id + '"></span>';
+    str += '</div>';
+  }
+  str += '</div>' //closes container
+  return str;
+
+}
+function getBikesStationPopup() {
+  ////d3.select("#bike-spark-67").text('Selected from D3');
+  let sid_ = this.options.sid;
+  let sfn= this.options.sfn;
+  let result='';
+  let str = "This Chart from"  + sfn + "file" + '<br>';
+  console.log(sfn);
+
+var stationdReadingsPerMonthChart = dc.lineChart("#bike-spark-" + sid_);
+
+d3.csv("./data/Environment/water_levels/"+sfn).then(function(md){
+                 
+                md.forEach(function(d){
+                  if(value) 
+                  {
+
+                  var value= +d.value;
+                  } 
+                //var datetime = parseDate(d.datetime);
+              })
+
+
+var ndx = crossfilter(md);
+var all = ndx.groupAll();
+
+var datetimeDimension = ndx.dimension(function (d) {
+     //d3.isoParse
+    return d3.isoParse(d.datetime);
+});
+
+var valuePerDayGroup = datetimeDimension.group().reduceSum(function (d) {
+    return d.value;
+});
+
+
+
+function reduceAddAvg(p,v,attr) {
+  ++p.count
+  p.sum += v[attr];
+  p.avg = p.sum/p.count;
+  return p;
+}
+function reduceRemoveAvg(p,v,attr) {
+  --p.count
+  p.sum -= v[attr];
+  p.avg = p.sum/p.count;
+  return p;
+}
+function reduceInitAvg() {
+  return {count:0, sum:0, avg:0};
+}
+
+var statesAvgGroup = datetimeDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'value');
+//var statesAvgGroup = statesAvgDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'cost');
+  
+stationdReadingsPerMonthChart
+    .width(200)
+    .height(100)
+    .margins({top: 10, right: 10, bottom: 20, left: 60})
+    .dimension(datetimeDimension)
+    .group(valuePerDayGroup)
+    .x(d3.scaleTime().domain([new Date(md[0].datetime), new Date(md[md.length-1].datetime)]))
+    .y(d3.scaleLinear().domain([0, d3.max(md, function(d) { return d.value + 100; })]))
+    .elasticX(false)
+    .elasticY(true)
+    .margins({
+        left: 20,
+        top: 15,
+        right: 20,
+        bottom: 20
+      })
+      .renderVerticalGridLines(false)
+      .useRightYAxis(true)
+      .xyTipsOn(false)
+      .brushOn(false)
+      .clipPadding(15)
+      .renderArea(true)
+      .renderDataPoints(true)
+      .yAxisLabel("value")
+      .renderHorizontalGridLines(false);
+      //stationdReadingsPerMonthChart.xAxis(d3.axisTop())
+      stationdReadingsPerMonthChart.xAxis().ticks(6);
+      stationdReadingsPerMonthChart.yAxis().ticks(6);
+
+      stationdReadingsPerMonthChart.render();  
+});
+
+}
+
+/*var chart = dc.lineChart("#bike-name-"+sid_);
+d3.csv("./data/Environment/morley.csv").then(function(experiments) {
+  experiments.forEach(function(x) {
+    x.Speed = +x.Speed;
+  });
+  var ndx                 = crossfilter(experiments),
+      runDimension        = ndx.dimension(function(d) {return +d.Run;}),
+      speedSumGroup       = runDimension.group().reduceSum(function(d) {return d.Speed * d.Run / 1000;});
+  chart
+    .width(180)
+    .height(180)
+    .x(d3.scaleLinear().domain([0,20]))
+    .curve(d3.curveStepBefore)
+    .renderArea(true)
+    .brushOn(false)
+    .renderDataPoints(true)
+    .clipPadding(10)
+    .yAxisLabel("This is the Y Axis!_Test")
+    .dimension(runDimension)
+    .group(speedSumGroup);
+  chart.render();
+});*/
+
+
+
+
+
+
+/*function processWaterLevels(data_) {
   //will filter out all data bar Greater Dublin
   let regionData = data_.filter(function(d) {
     return d.properties["station.region_id"] === null //Dublin OPW stations have null id
@@ -82,7 +361,7 @@ function getWaterLevelContent(d_) {
   //        str += '<br>Last updated on ' + popupTime(new Date(d_.properties.datetime)) + '<br>';
   //    }
   return str;
-}
+}*/
 
 /************************************
  * Hydronet
