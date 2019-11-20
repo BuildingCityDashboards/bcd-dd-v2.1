@@ -1,0 +1,9776 @@
+var allRoutesSegments = {
+
+  Segment0: {
+    "Route": 1,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 6006,
+    "TCS2": 2031,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.172557, 53.291523],
+        [-6.184391, 53.296467]
+      ]
+    }
+  },
+  Segment1: {
+    "Route": 1,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 2031,
+    "TCS2": 6006,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.184391, 53.296467],
+        [-6.172557, 53.291523]
+      ]
+    }
+  },
+  Segment2: {
+    "Route": 1,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 2031,
+    "TCS2": 6003,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.184391, 53.296467],
+        [-6.192645, 53.300267]
+      ]
+    }
+  },
+  Segment3: {
+    "Route": 1,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 6003,
+    "TCS2": 2031,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.192645, 53.300267],
+        [-6.184391, 53.296467]
+      ]
+    }
+  },
+  Segment4: {
+    "Route": 1,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 6003,
+    "TCS2": 6008,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.192645, 53.300267],
+        [-6.195941, 53.280799]
+      ]
+    }
+  },
+  Segment5: {
+    "Route": 1,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 6008,
+    "TCS2": 6003,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.195941, 53.280799],
+        [-6.192645, 53.300267]
+      ]
+    }
+  },
+  Segment6: {
+    "Route": 1,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 6008,
+    "TCS2": 1125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.195941, 53.280799],
+        [-6.205578, 53.299843]
+      ]
+    }
+  },
+  Segment7: {
+    "Route": 1,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 1125,
+    "TCS2": 6008,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.205578, 53.299843],
+        [-6.195941, 53.280799]
+      ]
+    }
+  },
+  Segment8: {
+    "Route": 1,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 1125,
+    "TCS2": 1127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.205578, 53.299843],
+        [-6.204785, 53.298375]
+      ]
+    }
+  },
+  Segment9: {
+    "Route": 1,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 1127,
+    "TCS2": 1125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.204785, 53.298375],
+        [-6.205578, 53.299843]
+      ]
+    }
+  },
+  Segment10: {
+    "Route": 1,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 1127,
+    "TCS2": 2127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.204785, 53.298375],
+        [-6.208586, 53.303950]
+      ]
+    }
+  },
+  Segment11: {
+    "Route": 1,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 2127,
+    "TCS2": 1127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.208586, 53.303950],
+        [-6.204785, 53.298375]
+      ]
+    }
+  },
+  Segment12: {
+    "Route": 1,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 2127,
+    "TCS2": 175,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.208586, 53.303950],
+        [-6.222931, 53.313986]
+      ]
+    }
+  },
+  Segment13: {
+    "Route": 1,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 175,
+    "TCS2": 2127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222931, 53.313986],
+        [-6.208586, 53.303950]
+      ]
+    }
+  },
+  Segment14: {
+    "Route": 1,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 175,
+    "TCS2": 174,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222931, 53.313986],
+        [-6.231923, 53.319341]
+      ]
+    }
+  },
+  Segment15: {
+    "Route": 1,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 174,
+    "TCS2": 175,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.231923, 53.319341],
+        [-6.222931, 53.313986]
+      ]
+    }
+  },
+  Segment16: {
+    "Route": 1,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 174,
+    "TCS2": 615,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.231923, 53.319341],
+        [-6.232642, 53.319747]
+      ]
+    }
+  },
+  Segment17: {
+    "Route": 1,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 615,
+    "TCS2": 174,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232642, 53.319747],
+        [-6.231923, 53.319341]
+      ]
+    }
+  },
+  Segment18: {
+    "Route": 1,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 615,
+    "TCS2": 118,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232642, 53.319747],
+        [-6.240860, 53.325000]
+      ]
+    }
+  },
+  Segment19: {
+    "Route": 1,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 118,
+    "TCS2": 615,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240860, 53.325000],
+        [-6.232642, 53.319747]
+      ]
+    }
+  },
+  Segment20: {
+    "Route": 1,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 118,
+    "TCS2": 610,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240860, 53.325000],
+        [-6.244765, 53.327870]
+      ]
+    }
+  },
+  Segment21: {
+    "Route": 1,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 610,
+    "TCS2": 118,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244765, 53.327870],
+        [-6.240860, 53.325000]
+      ]
+    }
+  },
+  Segment22: {
+    "Route": 1,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 610,
+    "TCS2": 103,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244765, 53.327870],
+        [-6.247175, 53.328759]
+      ]
+    }
+  },
+  Segment23: {
+    "Route": 1,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 103,
+    "TCS2": 610,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.247175, 53.328759],
+        [-6.244765, 53.327870]
+      ]
+    }
+  },
+  Segment24: {
+    "Route": 1,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 103,
+    "TCS2": 613,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.247175, 53.328759],
+        [-6.252208, 53.330846]
+      ]
+    }
+  },
+  Segment25: {
+    "Route": 1,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 613,
+    "TCS2": 103,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252208, 53.330846],
+        [-6.247175, 53.328759]
+      ]
+    }
+  },
+  Segment26: {
+    "Route": 1,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 613,
+    "TCS2": 104,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252208, 53.330846],
+        [-6.253144, 53.332190]
+      ]
+    }
+  },
+  Segment27: {
+    "Route": 1,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 104,
+    "TCS2": 613,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253144, 53.332190],
+        [-6.252208, 53.330846]
+      ]
+    }
+  },
+  Segment28: {
+    "Route": 1,
+    "Link": 15,
+    "Direction": 1,
+    "TCS1": 104,
+    "TCS2": 758,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253144, 53.332190],
+        [-6.252895, 53.332411]
+      ]
+    }
+  },
+  Segment29: {
+    "Route": 1,
+    "Link": 15,
+    "Direction": 2,
+    "TCS1": 758,
+    "TCS2": 104,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252895, 53.332411],
+        [-6.253144, 53.332190]
+      ]
+    }
+  },
+  Segment30: {
+    "Route": 1,
+    "Link": 16,
+    "Direction": 1,
+    "TCS1": 758,
+    "TCS2": 163,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252895, 53.332411],
+        [-6.257417, 53.336359]
+      ]
+    }
+  },
+  Segment31: {
+    "Route": 1,
+    "Link": 16,
+    "Direction": 2,
+    "TCS1": 163,
+    "TCS2": 758,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257417, 53.336359],
+        [-6.252895, 53.332411]
+      ]
+    }
+  },
+  Segment32: {
+    "Route": 3,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 269,
+    "TCS2": 39,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253116, 53.335433],
+        [-6.251104, 53.341317]
+      ]
+    }
+  },
+  Segment33: {
+    "Route": 3,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 39,
+    "TCS2": 269,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251104, 53.341317],
+        [-6.253116, 53.335433]
+      ]
+    }
+  },
+  Segment34: {
+    "Route": 3,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 39,
+    "TCS2": 116,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251104, 53.341317],
+        [-6.246770, 53.339734]
+      ]
+    }
+  },
+  Segment35: {
+    "Route": 3,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 116,
+    "TCS2": 39,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246770, 53.339734],
+        [-6.251104, 53.341317]
+      ]
+    }
+  },
+  Segment36: {
+    "Route": 3,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 116,
+    "TCS2": 133,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246770, 53.339734],
+        [-6.238163, 53.336184]
+      ]
+    }
+  },
+  Segment37: {
+    "Route": 3,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 133,
+    "TCS2": 116,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.238163, 53.336184],
+        [-6.246770, 53.339734]
+      ]
+    }
+  },
+  Segment38: {
+    "Route": 4,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 515,
+    "TCS2": 597,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328615, 53.371139],
+        [-6.324446, 53.369804]
+      ]
+    }
+  },
+  Segment39: {
+    "Route": 4,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 597,
+    "TCS2": 515,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.324446, 53.369804],
+        [-6.328615, 53.371139]
+      ]
+    }
+  },
+  Segment40: {
+    "Route": 4,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 597,
+    "TCS2": 470,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.324446, 53.369804],
+        [-6.318031, 53.367881]
+      ]
+    }
+  },
+  Segment41: {
+    "Route": 4,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 470,
+    "TCS2": 597,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.318031, 53.367881],
+        [-6.324446, 53.369804]
+      ]
+    }
+  },
+  Segment42: {
+    "Route": 4,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 470,
+    "TCS2": 125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.318031, 53.367881],
+        [-6.308273, 53.365029]
+      ]
+    }
+  },
+  Segment43: {
+    "Route": 4,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 125,
+    "TCS2": 470,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308273, 53.365029],
+        [-6.318031, 53.367881]
+      ]
+    }
+  },
+  Segment44: {
+    "Route": 4,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 125,
+    "TCS2": 667,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308273, 53.365029],
+        [-6.300962, 53.362616]
+      ]
+    }
+  },
+  Segment45: {
+    "Route": 4,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 667,
+    "TCS2": 125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.300962, 53.362616],
+        [-6.308273, 53.365029]
+      ]
+    }
+  },
+  Segment46: {
+    "Route": 4,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 667,
+    "TCS2": 422,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.300962, 53.362616],
+        [-6.298307, 53.361778]
+      ]
+    }
+  },
+  Segment47: {
+    "Route": 4,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 422,
+    "TCS2": 667,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298307, 53.361778],
+        [-6.300962, 53.362616]
+      ]
+    }
+  },
+  Segment48: {
+    "Route": 4,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 422,
+    "TCS2": 151,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298307, 53.361778],
+        [-6.288644, 53.357371]
+      ]
+    }
+  },
+  Segment49: {
+    "Route": 4,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 151,
+    "TCS2": 422,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288644, 53.357371],
+        [-6.298307, 53.361778]
+      ]
+    }
+  },
+  Segment50: {
+    "Route": 4,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 151,
+    "TCS2": 20,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288644, 53.357371],
+        [-6.281815, 53.350138]
+      ]
+    }
+  },
+  Segment51: {
+    "Route": 4,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 20,
+    "TCS2": 151,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.281815, 53.350138],
+        [-6.288644, 53.357371]
+      ]
+    }
+  },
+  Segment52: {
+    "Route": 4,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 20,
+    "TCS2": 773,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.281815, 53.350138],
+        [-6.280324, 53.347268]
+      ]
+    }
+  },
+  Segment53: {
+    "Route": 4,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 773,
+    "TCS2": 20,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280324, 53.347268],
+        [-6.281815, 53.350138]
+      ]
+    }
+  },
+  Segment54: {
+    "Route": 4,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 773,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280324, 53.347268],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment55: {
+    "Route": 4,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 152,
+    "TCS2": 773,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.280324, 53.347268]
+      ]
+    }
+  },
+  Segment56: {
+    "Route": 5,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 4012,
+    "TCS2": 510,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.311474, 53.404873],
+        [-6.298202, 53.387396]
+      ]
+    }
+  },
+  Segment57: {
+    "Route": 5,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 510,
+    "TCS2": 4012,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298202, 53.387396],
+        [-6.311474, 53.404873]
+      ]
+    }
+  },
+  Segment58: {
+    "Route": 5,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 510,
+    "TCS2": 528,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298202, 53.387396],
+        [-6.288194, 53.379839]
+      ]
+    }
+  },
+  Segment59: {
+    "Route": 5,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 528,
+    "TCS2": 510,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288194, 53.379839],
+        [-6.298202, 53.387396]
+      ]
+    }
+  },
+  Segment60: {
+    "Route": 5,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 528,
+    "TCS2": 327,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288194, 53.379839],
+        [-6.287507, 53.377852]
+      ]
+    }
+  },
+  Segment61: {
+    "Route": 5,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 327,
+    "TCS2": 528,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.287507, 53.377852],
+        [-6.288194, 53.379839]
+      ]
+    }
+  },
+  Segment62: {
+    "Route": 5,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 327,
+    "TCS2": 458,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.287507, 53.377852],
+        [-6.286757, 53.375945]
+      ]
+    }
+  },
+  Segment63: {
+    "Route": 5,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 458,
+    "TCS2": 327,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.286757, 53.375945],
+        [-6.287507, 53.377852]
+      ]
+    }
+  },
+  Segment64: {
+    "Route": 5,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 458,
+    "TCS2": 459,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.286757, 53.375945],
+        [-6.283507, 53.372691]
+      ]
+    }
+  },
+  Segment65: {
+    "Route": 5,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 459,
+    "TCS2": 458,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283507, 53.372691],
+        [-6.286757, 53.375945]
+      ]
+    }
+  },
+  Segment66: {
+    "Route": 5,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 459,
+    "TCS2": 405,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283507, 53.372691],
+        [-6.271908, 53.367473]
+      ]
+    }
+  },
+  Segment67: {
+    "Route": 5,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 405,
+    "TCS2": 459,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271908, 53.367473],
+        [-6.283507, 53.372691]
+      ]
+    }
+  },
+  Segment68: {
+    "Route": 6,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 405,
+    "TCS2": 150,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271908, 53.367473],
+        [-6.272153, 53.364763]
+      ]
+    }
+  },
+  Segment69: {
+    "Route": 6,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 150,
+    "TCS2": 405,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272153, 53.364763],
+        [-6.271908, 53.367473]
+      ]
+    }
+  },
+  Segment70: {
+    "Route": 6,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 150,
+    "TCS2": 148,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272153, 53.364763],
+        [-6.272977, 53.362573]
+      ]
+    }
+  },
+  Segment71: {
+    "Route": 6,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 148,
+    "TCS2": 150,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272977, 53.362573],
+        [-6.272153, 53.364763]
+      ]
+    }
+  },
+  Segment72: {
+    "Route": 6,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 148,
+    "TCS2": 149,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272977, 53.362573],
+        [-6.273046, 53.360867]
+      ]
+    }
+  },
+  Segment73: {
+    "Route": 6,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 149,
+    "TCS2": 148,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273046, 53.360867],
+        [-6.272977, 53.362573]
+      ]
+    }
+  },
+  Segment74: {
+    "Route": 6,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 149,
+    "TCS2": 44,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273046, 53.360867],
+        [-6.273319, 53.354509]
+      ]
+    }
+  },
+  Segment75: {
+    "Route": 6,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 44,
+    "TCS2": 149,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273319, 53.354509],
+        [-6.273046, 53.360867]
+      ]
+    }
+  },
+  Segment76: {
+    "Route": 6,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 44,
+    "TCS2": 351,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273319, 53.354509],
+        [-6.274337, 53.350866]
+      ]
+    }
+  },
+  Segment77: {
+    "Route": 6,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 351,
+    "TCS2": 44,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274337, 53.350866],
+        [-6.273319, 53.354509]
+      ]
+    }
+  },
+  Segment78: {
+    "Route": 6,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 351,
+    "TCS2": 36,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274337, 53.350866],
+        [-6.274665, 53.350170]
+      ]
+    }
+  },
+  Segment79: {
+    "Route": 6,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 36,
+    "TCS2": 351,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274665, 53.350170],
+        [-6.274337, 53.350866]
+      ]
+    }
+  },
+  Segment80: {
+    "Route": 6,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 36,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274665, 53.350170],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment81: {
+    "Route": 6,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 37,
+    "TCS2": 36,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.274665, 53.350170]
+      ]
+    }
+  },
+  Segment82: {
+    "Route": 7,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 179,
+    "TCS2": 64,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244510, 53.382646],
+        [-6.250649, 53.375898]
+      ]
+    }
+  },
+  Segment83: {
+    "Route": 7,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 64,
+    "TCS2": 179,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250649, 53.375898],
+        [-6.244510, 53.382646]
+      ]
+    }
+  },
+  Segment84: {
+    "Route": 7,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 64,
+    "TCS2": 65,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250649, 53.375898],
+        [-6.252700, 53.372765]
+      ]
+    }
+  },
+  Segment85: {
+    "Route": 7,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 65,
+    "TCS2": 64,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252700, 53.372765],
+        [-6.250649, 53.375898]
+      ]
+    }
+  },
+  Segment86: {
+    "Route": 7,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 65,
+    "TCS2": 66,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252700, 53.372765],
+        [-6.255238, 53.368776]
+      ]
+    }
+  },
+  Segment87: {
+    "Route": 7,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 66,
+    "TCS2": 65,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255238, 53.368776],
+        [-6.252700, 53.372765]
+      ]
+    }
+  },
+  Segment88: {
+    "Route": 7,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 66,
+    "TCS2": 750,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255238, 53.368776],
+        [-6.255768, 53.367571]
+      ]
+    }
+  },
+  Segment89: {
+    "Route": 7,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 750,
+    "TCS2": 66,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255768, 53.367571],
+        [-6.255238, 53.368776]
+      ]
+    }
+  },
+  Segment90: {
+    "Route": 7,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 750,
+    "TCS2": 63,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255768, 53.367571],
+        [-6.258325, 53.363447]
+      ]
+    }
+  },
+  Segment91: {
+    "Route": 7,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 63,
+    "TCS2": 750,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.258325, 53.363447],
+        [-6.255768, 53.367571]
+      ]
+    }
+  },
+  Segment92: {
+    "Route": 7,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 63,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.258325, 53.363447],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment93: {
+    "Route": 7,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 67,
+    "TCS2": 63,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.258325, 53.363447]
+      ]
+    }
+  },
+  Segment94: {
+    "Route": 7,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 67,
+    "TCS2": 55,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.260660, 53.360714]
+      ]
+    }
+  },
+  Segment95: {
+    "Route": 7,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 55,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.260660, 53.360714],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment96: {
+    "Route": 7,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 55,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.260660, 53.360714],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment97: {
+    "Route": 7,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 61,
+    "TCS2": 55,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.260660, 53.360714]
+      ]
+    }
+  },
+  Segment98: {
+    "Route": 7,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 61,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment99: {
+    "Route": 7,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 59,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment100: {
+    "Route": 7,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 59,
+    "TCS2": 76,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.259389, 53.356885]
+      ]
+    }
+  },
+  Segment101: {
+    "Route": 7,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 76,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259389, 53.356885],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment102: {
+    "Route": 7,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 76,
+    "TCS2": 141,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259389, 53.356885],
+        [-6.257209, 53.354337]
+      ]
+    }
+  },
+  Segment103: {
+    "Route": 7,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 141,
+    "TCS2": 76,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257209, 53.354337],
+        [-6.259389, 53.356885]
+      ]
+    }
+  },
+  Segment104: {
+    "Route": 7,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 141,
+    "TCS2": 166,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257209, 53.354337],
+        [-6.256358, 53.353130]
+      ]
+    }
+  },
+  Segment105: {
+    "Route": 7,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 166,
+    "TCS2": 141,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.256358, 53.353130],
+        [-6.257209, 53.354337]
+      ]
+    }
+  },
+  Segment106: {
+    "Route": 7,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 166,
+    "TCS2": 182,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.256358, 53.353130],
+        [-6.254650, 53.350822]
+      ]
+    }
+  },
+  Segment107: {
+    "Route": 7,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 182,
+    "TCS2": 166,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.254650, 53.350822],
+        [-6.256358, 53.353130]
+      ]
+    }
+  },
+  Segment108: {
+    "Route": 7,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 182,
+    "TCS2": 403,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.254650, 53.350822],
+        [-6.253856, 53.349651]
+      ]
+    }
+  },
+  Segment109: {
+    "Route": 7,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 403,
+    "TCS2": 182,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253856, 53.349651],
+        [-6.254650, 53.350822]
+      ]
+    }
+  },
+  Segment110: {
+    "Route": 8,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 81,
+    "TCS2": 38,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275684, 53.329777],
+        [-6.275354, 53.332378]
+      ]
+    }
+  },
+  Segment111: {
+    "Route": 8,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 38,
+    "TCS2": 81,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275354, 53.332378],
+        [-6.275684, 53.329777]
+      ]
+    }
+  },
+  Segment112: {
+    "Route": 8,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 38,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275354, 53.332378],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment113: {
+    "Route": 8,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 142,
+    "TCS2": 38,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.275354, 53.332378]
+      ]
+    }
+  },
+  Segment114: {
+    "Route": 8,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment115: {
+    "Route": 8,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 126,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment116: {
+    "Route": 8,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 126,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment117: {
+    "Route": 8,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 35,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment118: {
+    "Route": 8,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 35,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment119: {
+    "Route": 8,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 193,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment120: {
+    "Route": 9,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 69,
+    "TCS2": 494,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.142767, 53.384889],
+        [-6.149639, 53.382399]
+      ]
+    }
+  },
+  Segment121: {
+    "Route": 9,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 494,
+    "TCS2": 69,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.149639, 53.382399],
+        [-6.142767, 53.384889]
+      ]
+    }
+  },
+  Segment122: {
+    "Route": 9,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 494,
+    "TCS2": 90,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.149639, 53.382399],
+        [-6.164622, 53.374057]
+      ]
+    }
+  },
+  Segment123: {
+    "Route": 9,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 90,
+    "TCS2": 494,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.164622, 53.374057],
+        [-6.149639, 53.382399]
+      ]
+    }
+  },
+  Segment124: {
+    "Route": 9,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 90,
+    "TCS2": 630,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.164622, 53.374057],
+        [-6.172567, 53.367134]
+      ]
+    }
+  },
+  Segment125: {
+    "Route": 9,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 630,
+    "TCS2": 90,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.172567, 53.367134],
+        [-6.164622, 53.374057]
+      ]
+    }
+  },
+  Segment126: {
+    "Route": 9,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 630,
+    "TCS2": 223,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.172567, 53.367134],
+        [-6.182387, 53.360922]
+      ]
+    }
+  },
+  Segment127: {
+    "Route": 9,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 223,
+    "TCS2": 630,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.182387, 53.360922],
+        [-6.172567, 53.367134]
+      ]
+    }
+  },
+  Segment128: {
+    "Route": 9,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 223,
+    "TCS2": 506,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.182387, 53.360922],
+        [-6.196027, 53.359134]
+      ]
+    }
+  },
+  Segment129: {
+    "Route": 9,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 506,
+    "TCS2": 223,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.196027, 53.359134],
+        [-6.182387, 53.360922]
+      ]
+    }
+  },
+  Segment130: {
+    "Route": 9,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 506,
+    "TCS2": 41,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.196027, 53.359134],
+        [-6.209570, 53.360371]
+      ]
+    }
+  },
+  Segment131: {
+    "Route": 9,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 41,
+    "TCS2": 506,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.209570, 53.360371],
+        [-6.196027, 53.359134]
+      ]
+    }
+  },
+  Segment132: {
+    "Route": 9,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 41,
+    "TCS2": 655,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.209570, 53.360371],
+        [-6.214792, 53.361213]
+      ]
+    }
+  },
+  Segment133: {
+    "Route": 9,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 655,
+    "TCS2": 41,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214792, 53.361213],
+        [-6.209570, 53.360371]
+      ]
+    }
+  },
+  Segment134: {
+    "Route": 9,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 655,
+    "TCS2": 443,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214792, 53.361213],
+        [-6.222264, 53.363239]
+      ]
+    }
+  },
+  Segment135: {
+    "Route": 9,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 443,
+    "TCS2": 655,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222264, 53.363239],
+        [-6.214792, 53.361213]
+      ]
+    }
+  },
+  Segment136: {
+    "Route": 9,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 443,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222264, 53.363239],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment137: {
+    "Route": 9,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 443,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.222264, 53.363239]
+      ]
+    }
+  },
+  Segment138: {
+    "Route": 9,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 73,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment139: {
+    "Route": 9,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 72,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment140: {
+    "Route": 9,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 72,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment141: {
+    "Route": 9,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 194,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment142: {
+    "Route": 9,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 194,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment143: {
+    "Route": 9,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 282,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment144: {
+    "Route": 9,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 282,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment145: {
+    "Route": 9,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 2,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment146: {
+    "Route": 9,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 2,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment147: {
+    "Route": 9,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 3,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment148: {
+    "Route": 10,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 124,
+    "TCS2": 410,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.342682, 53.326935],
+        [-6.345230, 53.326251]
+      ]
+    }
+  },
+  Segment149: {
+    "Route": 10,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 410,
+    "TCS2": 124,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.345230, 53.326251],
+        [-6.342682, 53.326935]
+      ]
+    }
+  },
+  Segment150: {
+    "Route": 10,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 410,
+    "TCS2": 487,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.345230, 53.326251],
+        [-6.334177, 53.329108]
+      ]
+    }
+  },
+  Segment151: {
+    "Route": 10,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 487,
+    "TCS2": 410,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.334177, 53.329108],
+        [-6.345230, 53.326251]
+      ]
+    }
+  },
+  Segment152: {
+    "Route": 10,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 487,
+    "TCS2": 189,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.334177, 53.329108],
+        [-6.328619, 53.334197]
+      ]
+    }
+  },
+  Segment153: {
+    "Route": 10,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 189,
+    "TCS2": 487,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328619, 53.334197],
+        [-6.334177, 53.329108]
+      ]
+    }
+  },
+  Segment154: {
+    "Route": 10,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 189,
+    "TCS2": 71,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328619, 53.334197],
+        [-6.320961, 53.339589]
+      ]
+    }
+  },
+  Segment155: {
+    "Route": 10,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 71,
+    "TCS2": 189,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.320961, 53.339589],
+        [-6.328619, 53.334197]
+      ]
+    }
+  },
+  Segment156: {
+    "Route": 10,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 71,
+    "TCS2": 372,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.320961, 53.339589],
+        [-6.319335, 53.341624]
+      ]
+    }
+  },
+  Segment157: {
+    "Route": 10,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 372,
+    "TCS2": 71,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.319335, 53.341624],
+        [-6.320961, 53.339589]
+      ]
+    }
+  },
+  Segment158: {
+    "Route": 10,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 372,
+    "TCS2": 42,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.319335, 53.341624],
+        [-6.316895, 53.342955]
+      ]
+    }
+  },
+  Segment159: {
+    "Route": 10,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 42,
+    "TCS2": 372,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.316895, 53.342955],
+        [-6.319335, 53.341624]
+      ]
+    }
+  },
+  Segment160: {
+    "Route": 10,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 42,
+    "TCS2": 172,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.316895, 53.342955],
+        [-6.307828, 53.343654]
+      ]
+    }
+  },
+  Segment161: {
+    "Route": 10,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 172,
+    "TCS2": 42,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.307828, 53.343654],
+        [-6.316895, 53.342955]
+      ]
+    }
+  },
+  Segment162: {
+    "Route": 10,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 172,
+    "TCS2": 370,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.307828, 53.343654],
+        [-6.291630, 53.346190]
+      ]
+    }
+  },
+  Segment163: {
+    "Route": 10,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 370,
+    "TCS2": 172,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.291630, 53.346190],
+        [-6.307828, 53.343654]
+      ]
+    }
+  },
+  Segment164: {
+    "Route": 11,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 130,
+    "TCS2": 5,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298085, 53.352276],
+        [-6.292547, 53.355918]
+      ]
+    }
+  },
+  Segment165: {
+    "Route": 11,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 5,
+    "TCS2": 130,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.292547, 53.355918],
+        [-6.298085, 53.352276]
+      ]
+    }
+  },
+  Segment166: {
+    "Route": 11,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 5,
+    "TCS2": 151,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.292547, 53.355918],
+        [-6.288644, 53.357371]
+      ]
+    }
+  },
+  Segment167: {
+    "Route": 11,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 151,
+    "TCS2": 5,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288644, 53.357371],
+        [-6.292547, 53.355918]
+      ]
+    }
+  },
+  Segment168: {
+    "Route": 11,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 151,
+    "TCS2": 127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.288644, 53.357371],
+        [-6.275753, 53.360807]
+      ]
+    }
+  },
+  Segment169: {
+    "Route": 11,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 127,
+    "TCS2": 151,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275753, 53.360807],
+        [-6.288644, 53.357371]
+      ]
+    }
+  },
+  Segment170: {
+    "Route": 11,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 127,
+    "TCS2": 149,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275753, 53.360807],
+        [-6.273046, 53.360867]
+      ]
+    }
+  },
+  Segment171: {
+    "Route": 11,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 149,
+    "TCS2": 127,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273046, 53.360867],
+        [-6.275753, 53.360807]
+      ]
+    }
+  },
+  Segment172: {
+    "Route": 11,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 149,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273046, 53.360867],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment173: {
+    "Route": 11,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 61,
+    "TCS2": 149,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.273046, 53.360867]
+      ]
+    }
+  },
+  Segment174: {
+    "Route": 12,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 832,
+    "TCS2": 9,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241992, 53.362426],
+        [-6.243025, 53.361417]
+      ]
+    }
+  },
+  Segment175: {
+    "Route": 12,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 9,
+    "TCS2": 832,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.243025, 53.361417],
+        [-6.241992, 53.362426]
+      ]
+    }
+  },
+  Segment176: {
+    "Route": 12,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 9,
+    "TCS2": 178,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.243025, 53.361417],
+        [-6.250185, 53.357146]
+      ]
+    }
+  },
+  Segment177: {
+    "Route": 12,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 178,
+    "TCS2": 9,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250185, 53.357146],
+        [-6.243025, 53.361417]
+      ]
+    }
+  },
+  Segment178: {
+    "Route": 12,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 178,
+    "TCS2": 141,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250185, 53.357146],
+        [-6.257209, 53.354337]
+      ]
+    }
+  },
+  Segment179: {
+    "Route": 12,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 141,
+    "TCS2": 178,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257209, 53.354337],
+        [-6.250185, 53.357146]
+      ]
+    }
+  },
+  Segment180: {
+    "Route": 13,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 494,
+    "TCS2": 88,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.149639, 53.382399],
+        [-6.174884, 53.380397]
+      ]
+    }
+  },
+  Segment181: {
+    "Route": 13,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 88,
+    "TCS2": 494,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.174884, 53.380397],
+        [-6.149639, 53.382399]
+      ]
+    }
+  },
+  Segment182: {
+    "Route": 13,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 88,
+    "TCS2": 86,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.174884, 53.380397],
+        [-6.194405, 53.375455]
+      ]
+    }
+  },
+  Segment183: {
+    "Route": 13,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 86,
+    "TCS2": 88,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194405, 53.375455],
+        [-6.174884, 53.380397]
+      ]
+    }
+  },
+  Segment184: {
+    "Route": 13,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 86,
+    "TCS2": 531,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194405, 53.375455],
+        [-6.202665, 53.371303]
+      ]
+    }
+  },
+  Segment185: {
+    "Route": 13,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 531,
+    "TCS2": 86,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.202665, 53.371303],
+        [-6.194405, 53.375455]
+      ]
+    }
+  },
+  Segment186: {
+    "Route": 13,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 531,
+    "TCS2": 492,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.202665, 53.371303],
+        [-6.213588, 53.367719]
+      ]
+    }
+  },
+  Segment187: {
+    "Route": 13,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 492,
+    "TCS2": 531,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.213588, 53.367719],
+        [-6.202665, 53.371303]
+      ]
+    }
+  },
+  Segment188: {
+    "Route": 13,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 492,
+    "TCS2": 87,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.213588, 53.367719],
+        [-6.223692, 53.366091]
+      ]
+    }
+  },
+  Segment189: {
+    "Route": 13,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 87,
+    "TCS2": 492,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.223692, 53.366091],
+        [-6.213588, 53.367719]
+      ]
+    }
+  },
+  Segment190: {
+    "Route": 13,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 87,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.223692, 53.366091],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment191: {
+    "Route": 13,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 87,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.223692, 53.366091]
+      ]
+    }
+  },
+  Segment192: {
+    "Route": 14,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 727,
+    "TCS2": 797,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179261, 53.403208],
+        [-6.179838, 53.402714]
+      ]
+    }
+  },
+  Segment193: {
+    "Route": 14,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 797,
+    "TCS2": 727,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179838, 53.402714],
+        [-6.179261, 53.403208]
+      ]
+    }
+  },
+  Segment194: {
+    "Route": 14,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 797,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179838, 53.402714],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment195: {
+    "Route": 14,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 456,
+    "TCS2": 797,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.179838, 53.402714]
+      ]
+    }
+  },
+  Segment196: {
+    "Route": 14,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 456,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment197: {
+    "Route": 14,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 110,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment198: {
+    "Route": 14,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 110,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment199: {
+    "Route": 14,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 109,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment200: {
+    "Route": 14,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 109,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment201: {
+    "Route": 14,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 331,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment202: {
+    "Route": 14,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 331,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment203: {
+    "Route": 14,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 586,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment204: {
+    "Route": 14,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 586,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment205: {
+    "Route": 14,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 107,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment206: {
+    "Route": 14,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 107,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment207: {
+    "Route": 14,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 701,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment208: {
+    "Route": 14,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 701,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment209: {
+    "Route": 14,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 108,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment210: {
+    "Route": 14,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 108,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment211: {
+    "Route": 14,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment212: {
+    "Route": 15,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 394,
+    "TCS2": 187,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283794, 53.307240],
+        [-6.283515, 53.310075]
+      ]
+    }
+  },
+  Segment213: {
+    "Route": 15,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 187,
+    "TCS2": 394,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283515, 53.310075],
+        [-6.283794, 53.307240]
+      ]
+    }
+  },
+  Segment214: {
+    "Route": 15,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 187,
+    "TCS2": 84,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283515, 53.310075],
+        [-6.279242, 53.318578]
+      ]
+    }
+  },
+  Segment215: {
+    "Route": 15,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 84,
+    "TCS2": 187,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.279242, 53.318578],
+        [-6.283515, 53.310075]
+      ]
+    }
+  },
+  Segment216: {
+    "Route": 15,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 84,
+    "TCS2": 82,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.279242, 53.318578],
+        [-6.278867, 53.320064]
+      ]
+    }
+  },
+  Segment217: {
+    "Route": 15,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 82,
+    "TCS2": 84,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.278867, 53.320064],
+        [-6.279242, 53.318578]
+      ]
+    }
+  },
+  Segment218: {
+    "Route": 15,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 82,
+    "TCS2": 83,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.278867, 53.320064],
+        [-6.278521, 53.326053]
+      ]
+    }
+  },
+  Segment219: {
+    "Route": 15,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 83,
+    "TCS2": 82,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.278521, 53.326053],
+        [-6.278867, 53.320064]
+      ]
+    }
+  },
+  Segment220: {
+    "Route": 15,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 83,
+    "TCS2": 81,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.278521, 53.326053],
+        [-6.275684, 53.329777]
+      ]
+    }
+  },
+  Segment221: {
+    "Route": 15,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 81,
+    "TCS2": 83,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275684, 53.329777],
+        [-6.278521, 53.326053]
+      ]
+    }
+  },
+  Segment222: {
+    "Route": 15,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 81,
+    "TCS2": 38,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275684, 53.329777],
+        [-6.275354, 53.332378]
+      ]
+    }
+  },
+  Segment223: {
+    "Route": 15,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 38,
+    "TCS2": 81,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275354, 53.332378],
+        [-6.275684, 53.329777]
+      ]
+    }
+  },
+  Segment224: {
+    "Route": 15,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 38,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275354, 53.332378],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment225: {
+    "Route": 15,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 142,
+    "TCS2": 38,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.275354, 53.332378]
+      ]
+    }
+  },
+  Segment226: {
+    "Route": 15,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment227: {
+    "Route": 15,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 126,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment228: {
+    "Route": 15,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 126,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment229: {
+    "Route": 15,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 35,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment230: {
+    "Route": 15,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 35,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment231: {
+    "Route": 15,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 48,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment232: {
+    "Route": 15,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 48,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment233: {
+    "Route": 15,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment234: {
+    "Route": 15,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 49,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment235: {
+    "Route": 15,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment236: {
+    "Route": 16,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 24,
+    "TCS2": 192,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265075, 53.333757],
+        [-6.265935, 53.337705]
+      ]
+    }
+  },
+  Segment237: {
+    "Route": 16,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 192,
+    "TCS2": 24,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265935, 53.337705],
+        [-6.265075, 53.333757]
+      ]
+    }
+  },
+  Segment238: {
+    "Route": 16,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 192,
+    "TCS2": 622,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265935, 53.337705],
+        [-6.265780, 53.340803]
+      ]
+    }
+  },
+  Segment239: {
+    "Route": 16,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 622,
+    "TCS2": 192,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265780, 53.340803],
+        [-6.265935, 53.337705]
+      ]
+    }
+  },
+  Segment240: {
+    "Route": 16,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 622,
+    "TCS2": 173,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265780, 53.340803],
+        [-6.265524, 53.341545]
+      ]
+    }
+  },
+  Segment241: {
+    "Route": 16,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 173,
+    "TCS2": 622,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265524, 53.341545],
+        [-6.265780, 53.340803]
+      ]
+    }
+  },
+  Segment242: {
+    "Route": 16,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 173,
+    "TCS2": 305,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265524, 53.341545],
+        [-6.264602, 53.343176]
+      ]
+    }
+  },
+  Segment243: {
+    "Route": 16,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 305,
+    "TCS2": 173,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264602, 53.343176],
+        [-6.265524, 53.341545]
+      ]
+    }
+  },
+  Segment244: {
+    "Route": 16,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 305,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264602, 53.343176],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment245: {
+    "Route": 16,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 305,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.264602, 53.343176]
+      ]
+    }
+  },
+  Segment246: {
+    "Route": 16,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 49,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment247: {
+    "Route": 16,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 50,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment248: {
+    "Route": 16,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 50,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment249: {
+    "Route": 16,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment250: {
+    "Route": 17,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 190,
+    "TCS2": 761,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.284021, 53.347186],
+        [-6.282435, 53.347056]
+      ]
+    }
+  },
+  Segment251: {
+    "Route": 17,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 761,
+    "TCS2": 190,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.282435, 53.347056],
+        [-6.284021, 53.347186]
+      ]
+    }
+  },
+  Segment252: {
+    "Route": 17,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 761,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.282435, 53.347056],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment253: {
+    "Route": 17,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 152,
+    "TCS2": 761,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.282435, 53.347056]
+      ]
+    }
+  },
+  Segment254: {
+    "Route": 17,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 152,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment255: {
+    "Route": 17,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 37,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment256: {
+    "Route": 17,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 37,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment257: {
+    "Route": 17,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 193,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment258: {
+    "Route": 17,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 193,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment259: {
+    "Route": 17,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 26,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment260: {
+    "Route": 17,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 26,
+    "TCS2": 197,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.259520, 53.347766]
+      ]
+    }
+  },
+  Segment261: {
+    "Route": 17,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 197,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259520, 53.347766],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment262: {
+    "Route": 17,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 197,
+    "TCS2": 17,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259520, 53.347766],
+        [-6.255364, 53.348406]
+      ]
+    }
+  },
+  Segment263: {
+    "Route": 17,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 17,
+    "TCS2": 197,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255364, 53.348406],
+        [-6.259520, 53.347766]
+      ]
+    }
+  },
+  Segment264: {
+    "Route": 18,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 183,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255384, 53.347553],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment265: {
+    "Route": 18,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 196,
+    "TCS2": 183,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.255384, 53.347553]
+      ]
+    }
+  },
+  Segment266: {
+    "Route": 18,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 196,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment267: {
+    "Route": 18,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 26,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment268: {
+    "Route": 18,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 26,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment269: {
+    "Route": 18,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 193,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment270: {
+    "Route": 18,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 193,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment271: {
+    "Route": 18,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 37,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment272: {
+    "Route": 18,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 37,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment273: {
+    "Route": 18,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 152,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment274: {
+    "Route": 18,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 152,
+    "TCS2": 760,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.282435, 53.346310]
+      ]
+    }
+  },
+  Segment275: {
+    "Route": 18,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 760,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.282435, 53.346310],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment276: {
+    "Route": 18,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 760,
+    "TCS2": 190,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.282435, 53.346310],
+        [-6.284021, 53.347186]
+      ]
+    }
+  },
+  Segment277: {
+    "Route": 18,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 190,
+    "TCS2": 760,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.284021, 53.347186],
+        [-6.282435, 53.346310]
+      ]
+    }
+  },
+  Segment278: {
+    "Route": 18,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 190,
+    "TCS2": 420,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.284021, 53.347186],
+        [-6.290691, 53.346770]
+      ]
+    }
+  },
+  Segment279: {
+    "Route": 18,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 420,
+    "TCS2": 190,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.290691, 53.346770],
+        [-6.284021, 53.347186]
+      ]
+    }
+  },
+  Segment280: {
+    "Route": 19,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 49,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment281: {
+    "Route": 19,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 50,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment282: {
+    "Route": 19,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 50,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment283: {
+    "Route": 19,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment284: {
+    "Route": 19,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 272,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment285: {
+    "Route": 19,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 229,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment286: {
+    "Route": 19,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 229,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment287: {
+    "Route": 19,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 196,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment288: {
+    "Route": 20,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 197,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259520, 53.347766],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment289: {
+    "Route": 20,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 196,
+    "TCS2": 197,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.259520, 53.347766]
+      ]
+    }
+  },
+  Segment290: {
+    "Route": 20,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 196,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment291: {
+    "Route": 20,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 232,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment292: {
+    "Route": 20,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 232,
+    "TCS2": 226,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.259665, 53.344578]
+      ]
+    }
+  },
+  Segment293: {
+    "Route": 20,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 226,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259665, 53.344578],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment294: {
+    "Route": 20,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 226,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259665, 53.344578],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment295: {
+    "Route": 20,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 226,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.259665, 53.344578]
+      ]
+    }
+  },
+  Segment296: {
+    "Route": 20,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 272,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment297: {
+    "Route": 20,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 50,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment298: {
+    "Route": 20,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 50,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment299: {
+    "Route": 20,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment300: {
+    "Route": 21,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 38,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275354, 53.332378],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment301: {
+    "Route": 21,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 142,
+    "TCS2": 38,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.275354, 53.332378]
+      ]
+    }
+  },
+  Segment302: {
+    "Route": 21,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment303: {
+    "Route": 21,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 126,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment304: {
+    "Route": 21,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 126,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment305: {
+    "Route": 21,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 35,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment306: {
+    "Route": 21,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 35,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment307: {
+    "Route": 21,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 48,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment308: {
+    "Route": 21,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 48,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment309: {
+    "Route": 21,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment310: {
+    "Route": 22,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 503,
+    "TCS2": 181,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.307715, 53.341954],
+        [-6.246343, 53.389979]
+      ]
+    }
+  },
+  Segment311: {
+    "Route": 22,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 181,
+    "TCS2": 503,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246343, 53.389979],
+        [-6.307715, 53.341954]
+      ]
+    }
+  },
+  Segment312: {
+    "Route": 22,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 181,
+    "TCS2": 180,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246343, 53.389979],
+        [-6.244106, 53.387717]
+      ]
+    }
+  },
+  Segment313: {
+    "Route": 22,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 180,
+    "TCS2": 181,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244106, 53.387717],
+        [-6.246343, 53.389979]
+      ]
+    }
+  },
+  Segment314: {
+    "Route": 22,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 180,
+    "TCS2": 15,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244106, 53.387717],
+        [-6.232834, 53.385502]
+      ]
+    }
+  },
+  Segment315: {
+    "Route": 22,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 15,
+    "TCS2": 180,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232834, 53.385502],
+        [-6.244106, 53.387717]
+      ]
+    }
+  },
+  Segment316: {
+    "Route": 22,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 15,
+    "TCS2": 43,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232834, 53.385502],
+        [-6.239070, 53.381173]
+      ]
+    }
+  },
+  Segment317: {
+    "Route": 22,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 43,
+    "TCS2": 15,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239070, 53.381173],
+        [-6.232834, 53.385502]
+      ]
+    }
+  },
+  Segment318: {
+    "Route": 22,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 43,
+    "TCS2": 691,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239070, 53.381173],
+        [-6.247998, 53.378231]
+      ]
+    }
+  },
+  Segment319: {
+    "Route": 22,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 691,
+    "TCS2": 43,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.247998, 53.378231],
+        [-6.239070, 53.381173]
+      ]
+    }
+  },
+  Segment320: {
+    "Route": 22,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 691,
+    "TCS2": 64,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.247998, 53.378231],
+        [-6.250649, 53.375898]
+      ]
+    }
+  },
+  Segment321: {
+    "Route": 22,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 64,
+    "TCS2": 691,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250649, 53.375898],
+        [-6.247998, 53.378231]
+      ]
+    }
+  },
+  Segment322: {
+    "Route": 22,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 64,
+    "TCS2": 65,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250649, 53.375898],
+        [-6.252700, 53.372765]
+      ]
+    }
+  },
+  Segment323: {
+    "Route": 22,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 65,
+    "TCS2": 64,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252700, 53.372765],
+        [-6.250649, 53.375898]
+      ]
+    }
+  },
+  Segment324: {
+    "Route": 22,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 65,
+    "TCS2": 66,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252700, 53.372765],
+        [-6.255238, 53.368776]
+      ]
+    }
+  },
+  Segment325: {
+    "Route": 22,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 66,
+    "TCS2": 65,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255238, 53.368776],
+        [-6.252700, 53.372765]
+      ]
+    }
+  },
+  Segment326: {
+    "Route": 22,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 66,
+    "TCS2": 750,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255238, 53.368776],
+        [-6.255768, 53.367571]
+      ]
+    }
+  },
+  Segment327: {
+    "Route": 22,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 750,
+    "TCS2": 66,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255768, 53.367571],
+        [-6.255238, 53.368776]
+      ]
+    }
+  },
+  Segment328: {
+    "Route": 22,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 750,
+    "TCS2": 63,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255768, 53.367571],
+        [-6.258325, 53.363447]
+      ]
+    }
+  },
+  Segment329: {
+    "Route": 22,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 63,
+    "TCS2": 750,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.258325, 53.363447],
+        [-6.255768, 53.367571]
+      ]
+    }
+  },
+  Segment330: {
+    "Route": 22,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 63,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.258325, 53.363447],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment331: {
+    "Route": 22,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 67,
+    "TCS2": 63,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.258325, 53.363447]
+      ]
+    }
+  },
+  Segment332: {
+    "Route": 22,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 67,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment333: {
+    "Route": 22,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 61,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment334: {
+    "Route": 22,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 61,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment335: {
+    "Route": 22,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 59,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment336: {
+    "Route": 22,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 59,
+    "TCS2": 58,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.265413, 53.356110]
+      ]
+    }
+  },
+  Segment337: {
+    "Route": 22,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 58,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265413, 53.356110],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment338: {
+    "Route": 23,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 73,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment339: {
+    "Route": 23,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 72,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment340: {
+    "Route": 23,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 72,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment341: {
+    "Route": 23,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 132,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment342: {
+    "Route": 23,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 132,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment343: {
+    "Route": 23,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 194,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment344: {
+    "Route": 23,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 194,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment345: {
+    "Route": 23,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 282,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment346: {
+    "Route": 23,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 282,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment347: {
+    "Route": 23,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 2,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment348: {
+    "Route": 23,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 2,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment349: {
+    "Route": 23,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 3,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment350: {
+    "Route": 23,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 3,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment351: {
+    "Route": 23,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 513,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment352: {
+    "Route": 24,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 472,
+    "TCS2": 348,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.379564, 53.345458],
+        [-6.368896, 53.343678]
+      ]
+    }
+  },
+  Segment353: {
+    "Route": 24,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 348,
+    "TCS2": 472,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.368896, 53.343678],
+        [-6.379564, 53.345458]
+      ]
+    }
+  },
+  Segment354: {
+    "Route": 24,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 348,
+    "TCS2": 209,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.368896, 53.343678],
+        [-6.360274, 53.342975]
+      ]
+    }
+  },
+  Segment355: {
+    "Route": 24,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 209,
+    "TCS2": 348,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.360274, 53.342975],
+        [-6.368896, 53.343678]
+      ]
+    }
+  },
+  Segment356: {
+    "Route": 24,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 209,
+    "TCS2": 553,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.360274, 53.342975],
+        [-6.338849, 53.342535]
+      ]
+    }
+  },
+  Segment357: {
+    "Route": 24,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 553,
+    "TCS2": 209,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.338849, 53.342535],
+        [-6.360274, 53.342975]
+      ]
+    }
+  },
+  Segment358: {
+    "Route": 24,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 553,
+    "TCS2": 651,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.338849, 53.342535],
+        [-6.328857, 53.342315]
+      ]
+    }
+  },
+  Segment359: {
+    "Route": 24,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 651,
+    "TCS2": 553,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328857, 53.342315],
+        [-6.338849, 53.342535]
+      ]
+    }
+  },
+  Segment360: {
+    "Route": 24,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 651,
+    "TCS2": 654,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328857, 53.342315],
+        [-6.325668, 53.342090]
+      ]
+    }
+  },
+  Segment361: {
+    "Route": 24,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 654,
+    "TCS2": 651,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.325668, 53.342090],
+        [-6.328857, 53.342315]
+      ]
+    }
+  },
+  Segment362: {
+    "Route": 24,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 654,
+    "TCS2": 372,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.325668, 53.342090],
+        [-6.319335, 53.341624]
+      ]
+    }
+  },
+  Segment363: {
+    "Route": 24,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 372,
+    "TCS2": 654,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.319335, 53.341624],
+        [-6.325668, 53.342090]
+      ]
+    }
+  },
+  Segment364: {
+    "Route": 24,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 372,
+    "TCS2": 71,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.319335, 53.341624],
+        [-6.320961, 53.339589]
+      ]
+    }
+  },
+  Segment365: {
+    "Route": 24,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 71,
+    "TCS2": 372,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.320961, 53.339589],
+        [-6.319335, 53.341624]
+      ]
+    }
+  },
+  Segment366: {
+    "Route": 24,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 71,
+    "TCS2": 171,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.320961, 53.339589],
+        [-6.307643, 53.340739]
+      ]
+    }
+  },
+  Segment367: {
+    "Route": 24,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 171,
+    "TCS2": 71,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.307643, 53.340739],
+        [-6.320961, 53.339589]
+      ]
+    }
+  },
+  Segment368: {
+    "Route": 24,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 171,
+    "TCS2": 486,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.307643, 53.340739],
+        [-6.293210, 53.342708]
+      ]
+    }
+  },
+  Segment369: {
+    "Route": 24,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 486,
+    "TCS2": 171,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.293210, 53.342708],
+        [-6.307643, 53.340739]
+      ]
+    }
+  },
+  Segment370: {
+    "Route": 24,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 486,
+    "TCS2": 771,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.293210, 53.342708],
+        [-6.290515, 53.343272]
+      ]
+    }
+  },
+  Segment371: {
+    "Route": 24,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 771,
+    "TCS2": 486,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.290515, 53.343272],
+        [-6.293210, 53.342708]
+      ]
+    }
+  },
+  Segment372: {
+    "Route": 24,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 771,
+    "TCS2": 369,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.290515, 53.343272],
+        [-6.281279, 53.343319]
+      ]
+    }
+  },
+  Segment373: {
+    "Route": 24,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 369,
+    "TCS2": 771,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.281279, 53.343319],
+        [-6.290515, 53.343272]
+      ]
+    }
+  },
+  Segment374: {
+    "Route": 24,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 369,
+    "TCS2": 366,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.281279, 53.343319],
+        [-6.279281, 53.342967]
+      ]
+    }
+  },
+  Segment375: {
+    "Route": 24,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 366,
+    "TCS2": 369,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.279281, 53.342967],
+        [-6.281279, 53.343319]
+      ]
+    }
+  },
+  Segment376: {
+    "Route": 24,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 366,
+    "TCS2": 368,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.279281, 53.342967],
+        [-6.276284, 53.343193]
+      ]
+    }
+  },
+  Segment377: {
+    "Route": 24,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 368,
+    "TCS2": 366,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.276284, 53.343193],
+        [-6.279281, 53.342967]
+      ]
+    }
+  },
+  Segment378: {
+    "Route": 24,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 368,
+    "TCS2": 367,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.276284, 53.343193],
+        [-6.275568, 53.343425]
+      ]
+    }
+  },
+  Segment379: {
+    "Route": 24,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 367,
+    "TCS2": 368,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275568, 53.343425],
+        [-6.276284, 53.343193]
+      ]
+    }
+  },
+  Segment380: {
+    "Route": 24,
+    "Link": 15,
+    "Direction": 1,
+    "TCS1": 367,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275568, 53.343425],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment381: {
+    "Route": 24,
+    "Link": 15,
+    "Direction": 2,
+    "TCS1": 35,
+    "TCS2": 367,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.275568, 53.343425]
+      ]
+    }
+  },
+  Segment382: {
+    "Route": 24,
+    "Link": 16,
+    "Direction": 1,
+    "TCS1": 35,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment383: {
+    "Route": 24,
+    "Link": 16,
+    "Direction": 2,
+    "TCS1": 48,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment384: {
+    "Route": 24,
+    "Link": 17,
+    "Direction": 1,
+    "TCS1": 48,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment385: {
+    "Route": 24,
+    "Link": 17,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment386: {
+    "Route": 25,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 58,
+    "TCS2": 140,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265413, 53.356110],
+        [-6.263602, 53.354484]
+      ]
+    }
+  },
+  Segment387: {
+    "Route": 25,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 140,
+    "TCS2": 58,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.263602, 53.354484],
+        [-6.265413, 53.356110]
+      ]
+    }
+  },
+  Segment388: {
+    "Route": 25,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 140,
+    "TCS2": 201,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.263602, 53.354484],
+        [-6.261618, 53.352676]
+      ]
+    }
+  },
+  Segment389: {
+    "Route": 25,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 201,
+    "TCS2": 140,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261618, 53.352676],
+        [-6.263602, 53.354484]
+      ]
+    }
+  },
+  Segment390: {
+    "Route": 25,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 201,
+    "TCS2": 200,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261618, 53.352676],
+        [-6.261356, 53.352097]
+      ]
+    }
+  },
+  Segment391: {
+    "Route": 25,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 200,
+    "TCS2": 201,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261356, 53.352097],
+        [-6.261618, 53.352676]
+      ]
+    }
+  },
+  Segment392: {
+    "Route": 25,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 200,
+    "TCS2": 197,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261356, 53.352097],
+        [-6.259520, 53.347766]
+      ]
+    }
+  },
+  Segment393: {
+    "Route": 25,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 197,
+    "TCS2": 200,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259520, 53.347766],
+        [-6.261356, 53.352097]
+      ]
+    }
+  },
+  Segment394: {
+    "Route": 26,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 197,
+    "TCS2": 200,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259520, 53.347766],
+        [-6.261356, 53.352097]
+      ]
+    }
+  },
+  Segment395: {
+    "Route": 26,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 200,
+    "TCS2": 197,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261356, 53.352097],
+        [-6.259520, 53.347766]
+      ]
+    }
+  },
+  Segment396: {
+    "Route": 26,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 200,
+    "TCS2": 201,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261356, 53.352097],
+        [-6.261618, 53.352676]
+      ]
+    }
+  },
+  Segment397: {
+    "Route": 26,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 201,
+    "TCS2": 200,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261618, 53.352676],
+        [-6.261356, 53.352097]
+      ]
+    }
+  },
+  Segment398: {
+    "Route": 26,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 201,
+    "TCS2": 60,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261618, 53.352676],
+        [-6.267108, 53.354329]
+      ]
+    }
+  },
+  Segment399: {
+    "Route": 26,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 60,
+    "TCS2": 201,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267108, 53.354329],
+        [-6.261618, 53.352676]
+      ]
+    }
+  },
+  Segment400: {
+    "Route": 27,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 144,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241027, 53.342831],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment401: {
+    "Route": 27,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 143,
+    "TCS2": 144,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.241027, 53.342831]
+      ]
+    }
+  },
+  Segment402: {
+    "Route": 27,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 143,
+    "TCS2": 146,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.249781, 53.344299]
+      ]
+    }
+  },
+  Segment403: {
+    "Route": 27,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 146,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.249781, 53.344299],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment404: {
+    "Route": 27,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 146,
+    "TCS2": 288,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.249781, 53.344299],
+        [-6.252566, 53.344843]
+      ]
+    }
+  },
+  Segment405: {
+    "Route": 27,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 288,
+    "TCS2": 146,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252566, 53.344843],
+        [-6.249781, 53.344299]
+      ]
+    }
+  },
+  Segment406: {
+    "Route": 27,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 288,
+    "TCS2": 185,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252566, 53.344843],
+        [-6.255459, 53.346071]
+      ]
+    }
+  },
+  Segment407: {
+    "Route": 27,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 185,
+    "TCS2": 288,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255459, 53.346071],
+        [-6.252566, 53.344843]
+      ]
+    }
+  },
+  Segment408: {
+    "Route": 27,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 185,
+    "TCS2": 183,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255459, 53.346071],
+        [-6.255384, 53.347553]
+      ]
+    }
+  },
+  Segment409: {
+    "Route": 27,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 183,
+    "TCS2": 185,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255384, 53.347553],
+        [-6.255459, 53.346071]
+      ]
+    }
+  },
+  Segment410: {
+    "Route": 27,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 183,
+    "TCS2": 17,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255384, 53.347553],
+        [-6.255364, 53.348406]
+      ]
+    }
+  },
+  Segment411: {
+    "Route": 27,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 17,
+    "TCS2": 183,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255364, 53.348406],
+        [-6.255384, 53.347553]
+      ]
+    }
+  },
+  Segment412: {
+    "Route": 27,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 17,
+    "TCS2": 403,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255364, 53.348406],
+        [-6.253856, 53.349651]
+      ]
+    }
+  },
+  Segment413: {
+    "Route": 27,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 403,
+    "TCS2": 17,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253856, 53.349651],
+        [-6.255364, 53.348406]
+      ]
+    }
+  },
+  Segment414: {
+    "Route": 27,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 403,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.253856, 53.349651],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment415: {
+    "Route": 27,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 513,
+    "TCS2": 403,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.253856, 53.349651]
+      ]
+    }
+  },
+  Segment416: {
+    "Route": 27,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 513,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment417: {
+    "Route": 27,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 3,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment418: {
+    "Route": 27,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 3,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment419: {
+    "Route": 27,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 2,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment420: {
+    "Route": 28,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 2,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment421: {
+    "Route": 28,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 3,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment422: {
+    "Route": 28,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 3,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment423: {
+    "Route": 28,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 513,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment424: {
+    "Route": 28,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 513,
+    "TCS2": 354,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.252303, 53.349440]
+      ]
+    }
+  },
+  Segment425: {
+    "Route": 28,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 354,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252303, 53.349440],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment426: {
+    "Route": 28,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 354,
+    "TCS2": 355,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252303, 53.349440],
+        [-6.251834, 53.348435]
+      ]
+    }
+  },
+  Segment427: {
+    "Route": 28,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 355,
+    "TCS2": 354,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251834, 53.348435],
+        [-6.252303, 53.349440]
+      ]
+    }
+  },
+  Segment428: {
+    "Route": 28,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 355,
+    "TCS2": 439,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251834, 53.348435],
+        [-6.248886, 53.345616]
+      ]
+    }
+  },
+  Segment429: {
+    "Route": 28,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 439,
+    "TCS2": 355,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.248886, 53.345616],
+        [-6.251834, 53.348435]
+      ]
+    }
+  },
+  Segment430: {
+    "Route": 28,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 439,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.248886, 53.345616],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment431: {
+    "Route": 28,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 145,
+    "TCS2": 439,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.248886, 53.345616]
+      ]
+    }
+  },
+  Segment432: {
+    "Route": 28,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 145,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment433: {
+    "Route": 28,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 143,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment434: {
+    "Route": 28,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 143,
+    "TCS2": 144,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.241027, 53.342831]
+      ]
+    }
+  },
+  Segment435: {
+    "Route": 28,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 144,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241027, 53.342831],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment436: {
+    "Route": 29,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 462,
+    "TCS2": 254,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239293, 53.370681],
+        [-6.241694, 53.339750]
+      ]
+    }
+  },
+  Segment437: {
+    "Route": 29,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 254,
+    "TCS2": 462,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241694, 53.339750],
+        [-6.239293, 53.370681]
+      ]
+    }
+  },
+  Segment438: {
+    "Route": 29,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 254,
+    "TCS2": 144,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241694, 53.339750],
+        [-6.241027, 53.342831]
+      ]
+    }
+  },
+  Segment439: {
+    "Route": 29,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 144,
+    "TCS2": 254,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241027, 53.342831],
+        [-6.241694, 53.339750]
+      ]
+    }
+  },
+  Segment440: {
+    "Route": 30,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 39,
+    "TCS2": 120,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251104, 53.341317],
+        [-6.240663, 53.337802]
+      ]
+    }
+  },
+  Segment441: {
+    "Route": 30,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 120,
+    "TCS2": 39,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240663, 53.337802],
+        [-6.251104, 53.341317]
+      ]
+    }
+  },
+  Segment442: {
+    "Route": 30,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 120,
+    "TCS2": 133,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240663, 53.337802],
+        [-6.238163, 53.336184]
+      ]
+    }
+  },
+  Segment443: {
+    "Route": 30,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 133,
+    "TCS2": 120,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.238163, 53.336184],
+        [-6.240663, 53.337802]
+      ]
+    }
+  },
+  Segment444: {
+    "Route": 30,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 133,
+    "TCS2": 134,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.238163, 53.336184],
+        [-6.235566, 53.332165]
+      ]
+    }
+  },
+  Segment445: {
+    "Route": 30,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 134,
+    "TCS2": 133,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.235566, 53.332165],
+        [-6.238163, 53.336184]
+      ]
+    }
+  },
+  Segment446: {
+    "Route": 30,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 134,
+    "TCS2": 147,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.235566, 53.332165],
+        [-6.232143, 53.329643]
+      ]
+    }
+  },
+  Segment447: {
+    "Route": 30,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 147,
+    "TCS2": 134,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232143, 53.329643],
+        [-6.235566, 53.332165]
+      ]
+    }
+  },
+  Segment448: {
+    "Route": 30,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 147,
+    "TCS2": 112,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.232143, 53.329643],
+        [-6.230728, 53.328993]
+      ]
+    }
+  },
+  Segment449: {
+    "Route": 30,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 112,
+    "TCS2": 147,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.230728, 53.328993],
+        [-6.232143, 53.329643]
+      ]
+    }
+  },
+  Segment450: {
+    "Route": 30,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 112,
+    "TCS2": 383,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.230728, 53.328993],
+        [-6.227078, 53.327986]
+      ]
+    }
+  },
+  Segment451: {
+    "Route": 30,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 383,
+    "TCS2": 112,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.227078, 53.327986],
+        [-6.230728, 53.328993]
+      ]
+    }
+  },
+  Segment452: {
+    "Route": 30,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 383,
+    "TCS2": 114,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.227078, 53.327986],
+        [-6.224509, 53.326591]
+      ]
+    }
+  },
+  Segment453: {
+    "Route": 30,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 114,
+    "TCS2": 383,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.224509, 53.326591],
+        [-6.227078, 53.327986]
+      ]
+    }
+  },
+  Segment454: {
+    "Route": 30,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 114,
+    "TCS2": 452,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.224509, 53.326591],
+        [-6.221770, 53.324591]
+      ]
+    }
+  },
+  Segment455: {
+    "Route": 30,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 452,
+    "TCS2": 114,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.221770, 53.324591],
+        [-6.224509, 53.326591]
+      ]
+    }
+  },
+  Segment456: {
+    "Route": 30,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 452,
+    "TCS2": 111,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.221770, 53.324591],
+        [-6.215857, 53.320621]
+      ]
+    }
+  },
+  Segment457: {
+    "Route": 30,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 111,
+    "TCS2": 452,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.215857, 53.320621],
+        [-6.221770, 53.324591]
+      ]
+    }
+  },
+  Segment458: {
+    "Route": 30,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 111,
+    "TCS2": 812,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.215857, 53.320621],
+        [-6.215843, 53.320602]
+      ]
+    }
+  },
+  Segment459: {
+    "Route": 30,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 812,
+    "TCS2": 111,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.215843, 53.320602],
+        [-6.215857, 53.320621]
+      ]
+    }
+  },
+  Segment460: {
+    "Route": 30,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 812,
+    "TCS2": 113,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.215843, 53.320602],
+        [-6.212391, 53.318798]
+      ]
+    }
+  },
+  Segment461: {
+    "Route": 30,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 113,
+    "TCS2": 812,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212391, 53.318798],
+        [-6.215843, 53.320602]
+      ]
+    }
+  },
+  Segment462: {
+    "Route": 30,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 113,
+    "TCS2": 411,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212391, 53.318798],
+        [-6.209425, 53.317954]
+      ]
+    }
+  },
+  Segment463: {
+    "Route": 30,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 411,
+    "TCS2": 113,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.209425, 53.317954],
+        [-6.212391, 53.318798]
+      ]
+    }
+  },
+  Segment464: {
+    "Route": 30,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 411,
+    "TCS2": 275,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.209425, 53.317954],
+        [-6.208285, 53.317586]
+      ]
+    }
+  },
+  Segment465: {
+    "Route": 30,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 275,
+    "TCS2": 411,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.208285, 53.317586],
+        [-6.209425, 53.317954]
+      ]
+    }
+  },
+  Segment466: {
+    "Route": 30,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 275,
+    "TCS2": 441,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.208285, 53.317586],
+        [-6.205274, 53.316400]
+      ]
+    }
+  },
+  Segment467: {
+    "Route": 30,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 441,
+    "TCS2": 275,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.205274, 53.316400],
+        [-6.208285, 53.317586]
+      ]
+    }
+  },
+  Segment468: {
+    "Route": 30,
+    "Link": 15,
+    "Direction": 1,
+    "TCS1": 441,
+    "TCS2": 848,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.205274, 53.316400],
+        [-6.203079, 53.314695]
+      ]
+    }
+  },
+  Segment469: {
+    "Route": 30,
+    "Link": 15,
+    "Direction": 2,
+    "TCS1": 848,
+    "TCS2": 441,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.203079, 53.314695],
+        [-6.205274, 53.316400]
+      ]
+    }
+  },
+  Segment470: {
+    "Route": 30,
+    "Link": 16,
+    "Direction": 1,
+    "TCS1": 848,
+    "TCS2": 6032,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.203079, 53.314695],
+        [-6.201140, 53.311916]
+      ]
+    }
+  },
+  Segment471: {
+    "Route": 30,
+    "Link": 16,
+    "Direction": 2,
+    "TCS1": 6032,
+    "TCS2": 848,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.201140, 53.311916],
+        [-6.203079, 53.314695]
+      ]
+    }
+  },
+  Segment472: {
+    "Route": 30,
+    "Link": 17,
+    "Direction": 1,
+    "TCS1": 6032,
+    "TCS2": 6031,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.201140, 53.311916],
+        [-6.196547, 53.309115]
+      ]
+    }
+  },
+  Segment473: {
+    "Route": 30,
+    "Link": 17,
+    "Direction": 2,
+    "TCS1": 6031,
+    "TCS2": 6032,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.196547, 53.309115],
+        [-6.201140, 53.311916]
+      ]
+    }
+  },
+  Segment474: {
+    "Route": 30,
+    "Link": 18,
+    "Direction": 1,
+    "TCS1": 6031,
+    "TCS2": 6030,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.196547, 53.309115],
+        [-6.187783, 53.305271]
+      ]
+    }
+  },
+  Segment475: {
+    "Route": 30,
+    "Link": 18,
+    "Direction": 2,
+    "TCS1": 6030,
+    "TCS2": 6031,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.187783, 53.305271],
+        [-6.196547, 53.309115]
+      ]
+    }
+  },
+  Segment476: {
+    "Route": 30,
+    "Link": 19,
+    "Direction": 1,
+    "TCS1": 6030,
+    "TCS2": 6021,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.187783, 53.305271],
+        [-6.182733, 53.302651]
+      ]
+    }
+  },
+  Segment477: {
+    "Route": 30,
+    "Link": 19,
+    "Direction": 2,
+    "TCS1": 6021,
+    "TCS2": 6030,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.182733, 53.302651],
+        [-6.187783, 53.305271]
+      ]
+    }
+  },
+  Segment478: {
+    "Route": 30,
+    "Link": 20,
+    "Direction": 1,
+    "TCS1": 6021,
+    "TCS2": 6022,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.182733, 53.302651],
+        [-6.181511, 53.302462]
+      ]
+    }
+  },
+  Segment479: {
+    "Route": 30,
+    "Link": 20,
+    "Direction": 2,
+    "TCS1": 6022,
+    "TCS2": 6021,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.181511, 53.302462],
+        [-6.182733, 53.302651]
+      ]
+    }
+  },
+  Segment480: {
+    "Route": 30,
+    "Link": 21,
+    "Direction": 1,
+    "TCS1": 6022,
+    "TCS2": 6023,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.181511, 53.302462],
+        [-6.178926, 53.300463]
+      ]
+    }
+  },
+  Segment481: {
+    "Route": 30,
+    "Link": 21,
+    "Direction": 2,
+    "TCS1": 6023,
+    "TCS2": 6022,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.178926, 53.300463],
+        [-6.181511, 53.302462]
+      ]
+    }
+  },
+  Segment482: {
+    "Route": 30,
+    "Link": 22,
+    "Direction": 1,
+    "TCS1": 6023,
+    "TCS2": 6024,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.178926, 53.300463],
+        [-6.174081, 53.299400]
+      ]
+    }
+  },
+  Segment483: {
+    "Route": 30,
+    "Link": 22,
+    "Direction": 2,
+    "TCS1": 6024,
+    "TCS2": 6023,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.174081, 53.299400],
+        [-6.178926, 53.300463]
+      ]
+    }
+  },
+  Segment484: {
+    "Route": 30,
+    "Link": 23,
+    "Direction": 1,
+    "TCS1": 6024,
+    "TCS2": 6025,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.174081, 53.299400],
+        [-6.170859, 53.297572]
+      ]
+    }
+  },
+  Segment485: {
+    "Route": 30,
+    "Link": 23,
+    "Direction": 2,
+    "TCS1": 6025,
+    "TCS2": 6024,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.170859, 53.297572],
+        [-6.174081, 53.299400]
+      ]
+    }
+  },
+  Segment486: {
+    "Route": 30,
+    "Link": 24,
+    "Direction": 1,
+    "TCS1": 6025,
+    "TCS2": 6027,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.170859, 53.297572],
+        [-6.169947, 53.296443]
+      ]
+    }
+  },
+  Segment487: {
+    "Route": 30,
+    "Link": 24,
+    "Direction": 2,
+    "TCS1": 6027,
+    "TCS2": 6025,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.169947, 53.296443],
+        [-6.170859, 53.297572]
+      ]
+    }
+  },
+  Segment488: {
+    "Route": 30,
+    "Link": 25,
+    "Direction": 1,
+    "TCS1": 6027,
+    "TCS2": 6028,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.169947, 53.296443],
+        [-6.168841, 53.294953]
+      ]
+    }
+  },
+  Segment489: {
+    "Route": 30,
+    "Link": 25,
+    "Direction": 2,
+    "TCS1": 6028,
+    "TCS2": 6027,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.168841, 53.294953],
+        [-6.169947, 53.296443]
+      ]
+    }
+  },
+  Segment490: {
+    "Route": 31,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 720,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.274747, 53.339594]
+      ]
+    }
+  },
+  Segment491: {
+    "Route": 31,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 720,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274747, 53.339594],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment492: {
+    "Route": 31,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 720,
+    "TCS2": 54,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274747, 53.339594],
+        [-6.291264, 53.333551]
+      ]
+    }
+  },
+  Segment493: {
+    "Route": 31,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 54,
+    "TCS2": 720,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.291264, 53.333551],
+        [-6.274747, 53.339594]
+      ]
+    }
+  },
+  Segment494: {
+    "Route": 31,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 54,
+    "TCS2": 46,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.291264, 53.333551],
+        [-6.298397, 53.330121]
+      ]
+    }
+  },
+  Segment495: {
+    "Route": 31,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 46,
+    "TCS2": 54,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298397, 53.330121],
+        [-6.291264, 53.333551]
+      ]
+    }
+  },
+  Segment496: {
+    "Route": 31,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 46,
+    "TCS2": 47,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298397, 53.330121],
+        [-6.298007, 53.330115]
+      ]
+    }
+  },
+  Segment497: {
+    "Route": 31,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 47,
+    "TCS2": 46,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298007, 53.330115],
+        [-6.298397, 53.330121]
+      ]
+    }
+  },
+  Segment498: {
+    "Route": 31,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 47,
+    "TCS2": 395,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298007, 53.330115],
+        [-6.315892, 53.326128]
+      ]
+    }
+  },
+  Segment499: {
+    "Route": 31,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 395,
+    "TCS2": 47,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.315892, 53.326128],
+        [-6.298007, 53.330115]
+      ]
+    }
+  },
+  Segment500: {
+    "Route": 31,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 395,
+    "TCS2": 679,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.315892, 53.326128],
+        [-6.327250, 53.324697]
+      ]
+    }
+  },
+  Segment501: {
+    "Route": 31,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 679,
+    "TCS2": 395,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.327250, 53.324697],
+        [-6.315892, 53.326128]
+      ]
+    }
+  },
+  Segment502: {
+    "Route": 31,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 679,
+    "TCS2": 390,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.327250, 53.324697],
+        [-6.317284, 53.325078]
+      ]
+    }
+  },
+  Segment503: {
+    "Route": 31,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 390,
+    "TCS2": 679,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.317284, 53.325078],
+        [-6.327250, 53.324697]
+      ]
+    }
+  },
+  Segment504: {
+    "Route": 33,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 720,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.274747, 53.339594]
+      ]
+    }
+  },
+  Segment505: {
+    "Route": 33,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 720,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274747, 53.339594],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment506: {
+    "Route": 33,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 720,
+    "TCS2": 47,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274747, 53.339594],
+        [-6.298007, 53.330115]
+      ]
+    }
+  },
+  Segment507: {
+    "Route": 33,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 47,
+    "TCS2": 720,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298007, 53.330115],
+        [-6.274747, 53.339594]
+      ]
+    }
+  },
+  Segment508: {
+    "Route": 33,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 47,
+    "TCS2": 395,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298007, 53.330115],
+        [-6.315892, 53.326128]
+      ]
+    }
+  },
+  Segment509: {
+    "Route": 33,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 395,
+    "TCS2": 47,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.315892, 53.326128],
+        [-6.298007, 53.330115]
+      ]
+    }
+  },
+  Segment510: {
+    "Route": 33,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 395,
+    "TCS2": 390,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.315892, 53.326128],
+        [-6.317284, 53.325078]
+      ]
+    }
+  },
+  Segment511: {
+    "Route": 33,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 390,
+    "TCS2": 395,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.317284, 53.325078],
+        [-6.315892, 53.326128]
+      ]
+    }
+  },
+  Segment512: {
+    "Route": 33,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 390,
+    "TCS2": 679,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.317284, 53.325078],
+        [-6.327250, 53.324697]
+      ]
+    }
+  },
+  Segment513: {
+    "Route": 33,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 679,
+    "TCS2": 390,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.327250, 53.324697],
+        [-6.317284, 53.325078]
+      ]
+    }
+  },
+  Segment514: {
+    "Route": 34,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 144,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241027, 53.342831],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment515: {
+    "Route": 34,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 145,
+    "TCS2": 144,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.241027, 53.342831]
+      ]
+    }
+  },
+  Segment516: {
+    "Route": 34,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 145,
+    "TCS2": 288,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.252566, 53.344843]
+      ]
+    }
+  },
+  Segment517: {
+    "Route": 34,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 288,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252566, 53.344843],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment518: {
+    "Route": 34,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 288,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252566, 53.344843],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment519: {
+    "Route": 34,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 232,
+    "TCS2": 288,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.252566, 53.344843]
+      ]
+    }
+  },
+  Segment520: {
+    "Route": 34,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 232,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment521: {
+    "Route": 34,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 229,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment522: {
+    "Route": 34,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 229,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment523: {
+    "Route": 34,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment524: {
+    "Route": 34,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 272,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment525: {
+    "Route": 34,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 50,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment526: {
+    "Route": 34,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 50,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment527: {
+    "Route": 34,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment528: {
+    "Route": 34,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 49,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment529: {
+    "Route": 34,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 48,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment530: {
+    "Route": 34,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 48,
+    "TCS2": 22,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.269422, 53.338349]
+      ]
+    }
+  },
+  Segment531: {
+    "Route": 34,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 22,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.269422, 53.338349],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment532: {
+    "Route": 35,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 142,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272549, 53.338996],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment533: {
+    "Route": 35,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 126,
+    "TCS2": 142,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.272549, 53.338996]
+      ]
+    }
+  },
+  Segment534: {
+    "Route": 35,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 126,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272270, 53.340700],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment535: {
+    "Route": 35,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 35,
+    "TCS2": 126,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.272270, 53.340700]
+      ]
+    }
+  },
+  Segment536: {
+    "Route": 35,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 35,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271946, 53.343148],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment537: {
+    "Route": 35,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 48,
+    "TCS2": 35,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.271946, 53.343148]
+      ]
+    }
+  },
+  Segment538: {
+    "Route": 35,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 48,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267442, 53.344233],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment539: {
+    "Route": 35,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 49,
+    "TCS2": 48,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.267442, 53.344233]
+      ]
+    }
+  },
+  Segment540: {
+    "Route": 35,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 49,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264438, 53.344270],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment541: {
+    "Route": 35,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 50,
+    "TCS2": 49,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.264438, 53.344270]
+      ]
+    }
+  },
+  Segment542: {
+    "Route": 35,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 50,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262753, 53.344345],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment543: {
+    "Route": 35,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 272,
+    "TCS2": 50,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.262753, 53.344345]
+      ]
+    }
+  },
+  Segment544: {
+    "Route": 35,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 272,
+    "TCS2": 644,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261185, 53.344492],
+        [-6.259666, 53.344542]
+      ]
+    }
+  },
+  Segment545: {
+    "Route": 35,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 644,
+    "TCS2": 272,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259666, 53.344542],
+        [-6.261185, 53.344492]
+      ]
+    }
+  },
+  Segment546: {
+    "Route": 35,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 644,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259666, 53.344542],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment547: {
+    "Route": 35,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 229,
+    "TCS2": 644,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.259666, 53.344542]
+      ]
+    }
+  },
+  Segment548: {
+    "Route": 35,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 229,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259354, 53.345562],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment549: {
+    "Route": 35,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 232,
+    "TCS2": 229,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.259354, 53.345562]
+      ]
+    }
+  },
+  Segment550: {
+    "Route": 35,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 232,
+    "TCS2": 185,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.255459, 53.346071]
+      ]
+    }
+  },
+  Segment551: {
+    "Route": 35,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 185,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255459, 53.346071],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment552: {
+    "Route": 35,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 185,
+    "TCS2": 188,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.255459, 53.346071],
+        [-6.252491, 53.345956]
+      ]
+    }
+  },
+  Segment553: {
+    "Route": 35,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 188,
+    "TCS2": 185,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252491, 53.345956],
+        [-6.255459, 53.346071]
+      ]
+    }
+  },
+  Segment554: {
+    "Route": 35,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 188,
+    "TCS2": 439,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.252491, 53.345956],
+        [-6.248886, 53.345616]
+      ]
+    }
+  },
+  Segment555: {
+    "Route": 35,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 439,
+    "TCS2": 188,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.248886, 53.345616],
+        [-6.252491, 53.345956]
+      ]
+    }
+  },
+  Segment556: {
+    "Route": 35,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 439,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.248886, 53.345616],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment557: {
+    "Route": 35,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 145,
+    "TCS2": 439,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.248886, 53.345616]
+      ]
+    }
+  },
+  Segment558: {
+    "Route": 35,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 145,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246863, 53.343681],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment559: {
+    "Route": 35,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 143,
+    "TCS2": 145,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.246863, 53.343681]
+      ]
+    }
+  },
+  Segment560: {
+    "Route": 35,
+    "Link": 15,
+    "Direction": 1,
+    "TCS1": 143,
+    "TCS2": 144,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244926, 53.343320],
+        [-6.241027, 53.342831]
+      ]
+    }
+  },
+  Segment561: {
+    "Route": 35,
+    "Link": 15,
+    "Direction": 2,
+    "TCS1": 144,
+    "TCS2": 143,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.241027, 53.342831],
+        [-6.244926, 53.343320]
+      ]
+    }
+  },
+  Segment562: {
+    "Route": 36,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 187,
+    "TCS2": 155,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.283515, 53.310075],
+        [-6.274594, 53.312157]
+      ]
+    }
+  },
+  Segment563: {
+    "Route": 36,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 155,
+    "TCS2": 187,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274594, 53.312157],
+        [-6.283515, 53.310075]
+      ]
+    }
+  },
+  Segment564: {
+    "Route": 36,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 155,
+    "TCS2": 158,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.274594, 53.312157],
+        [-6.265855, 53.322661]
+      ]
+    }
+  },
+  Segment565: {
+    "Route": 36,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 158,
+    "TCS2": 155,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265855, 53.322661],
+        [-6.274594, 53.312157]
+      ]
+    }
+  },
+  Segment566: {
+    "Route": 36,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 158,
+    "TCS2": 157,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265855, 53.322661],
+        [-6.264616, 53.329886]
+      ]
+    }
+  },
+  Segment567: {
+    "Route": 36,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 157,
+    "TCS2": 158,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264616, 53.329886],
+        [-6.265855, 53.322661]
+      ]
+    }
+  },
+  Segment568: {
+    "Route": 36,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 157,
+    "TCS2": 25,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264616, 53.329886],
+        [-6.264969, 53.332659]
+      ]
+    }
+  },
+  Segment569: {
+    "Route": 36,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 25,
+    "TCS2": 157,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.264969, 53.332659],
+        [-6.264616, 53.329886]
+      ]
+    }
+  },
+  Segment570: {
+    "Route": 37,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 232,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.257532, 53.346066],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment571: {
+    "Route": 37,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 196,
+    "TCS2": 232,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.257532, 53.346066]
+      ]
+    }
+  },
+  Segment572: {
+    "Route": 37,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 196,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259268, 53.346945],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment573: {
+    "Route": 37,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 26,
+    "TCS2": 196,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.259268, 53.346945]
+      ]
+    }
+  },
+  Segment574: {
+    "Route": 37,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 26,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268188, 53.346221],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment575: {
+    "Route": 37,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 193,
+    "TCS2": 26,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.268188, 53.346221]
+      ]
+    }
+  },
+  Segment576: {
+    "Route": 37,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 193,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272111, 53.345002],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment577: {
+    "Route": 37,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 37,
+    "TCS2": 193,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.272111, 53.345002]
+      ]
+    }
+  },
+  Segment578: {
+    "Route": 37,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 37,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.275930, 53.345632],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment579: {
+    "Route": 37,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 152,
+    "TCS2": 37,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.275930, 53.345632]
+      ]
+    }
+  },
+  Segment580: {
+    "Route": 37,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 152,
+    "TCS2": 190,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.280431, 53.346856],
+        [-6.284021, 53.347186]
+      ]
+    }
+  },
+  Segment581: {
+    "Route": 37,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 190,
+    "TCS2": 152,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.284021, 53.347186],
+        [-6.280431, 53.346856]
+      ]
+    }
+  },
+  Segment582: {
+    "Route": 37,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 190,
+    "TCS2": 45,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.284021, 53.347186],
+        [-6.308257, 53.348368]
+      ]
+    }
+  },
+  Segment583: {
+    "Route": 37,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 45,
+    "TCS2": 190,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308257, 53.348368],
+        [-6.284021, 53.347186]
+      ]
+    }
+  },
+  Segment584: {
+    "Route": 37,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 45,
+    "TCS2": 31,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308257, 53.348368],
+        [-6.342744, 53.348556]
+      ]
+    }
+  },
+  Segment585: {
+    "Route": 37,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 31,
+    "TCS2": 45,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.342744, 53.348556],
+        [-6.308257, 53.348368]
+      ]
+    }
+  },
+  Segment586: {
+    "Route": 37,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 31,
+    "TCS2": 106,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.342744, 53.348556],
+        [-6.352643, 53.351236]
+      ]
+    }
+  },
+  Segment587: {
+    "Route": 37,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 106,
+    "TCS2": 31,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.352643, 53.351236],
+        [-6.342744, 53.348556]
+      ]
+    }
+  },
+  Segment588: {
+    "Route": 38,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 422,
+    "TCS2": 667,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.298307, 53.361778],
+        [-6.300962, 53.362616]
+      ]
+    }
+  },
+  Segment589: {
+    "Route": 38,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 667,
+    "TCS2": 422,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.300962, 53.362616],
+        [-6.298307, 53.361778]
+      ]
+    }
+  },
+  Segment590: {
+    "Route": 38,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 667,
+    "TCS2": 533,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.300962, 53.362616],
+        [-6.301778, 53.362888]
+      ]
+    }
+  },
+  Segment591: {
+    "Route": 38,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 533,
+    "TCS2": 667,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.301778, 53.362888],
+        [-6.300962, 53.362616]
+      ]
+    }
+  },
+  Segment592: {
+    "Route": 38,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 533,
+    "TCS2": 125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.301778, 53.362888],
+        [-6.308273, 53.365029]
+      ]
+    }
+  },
+  Segment593: {
+    "Route": 38,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 125,
+    "TCS2": 533,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308273, 53.365029],
+        [-6.301778, 53.362888]
+      ]
+    }
+  },
+  Segment594: {
+    "Route": 38,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 125,
+    "TCS2": 470,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.308273, 53.365029],
+        [-6.318031, 53.367881]
+      ]
+    }
+  },
+  Segment595: {
+    "Route": 38,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 470,
+    "TCS2": 125,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.318031, 53.367881],
+        [-6.308273, 53.365029]
+      ]
+    }
+  },
+  Segment596: {
+    "Route": 38,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 470,
+    "TCS2": 597,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.318031, 53.367881],
+        [-6.324446, 53.369804]
+      ]
+    }
+  },
+  Segment597: {
+    "Route": 38,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 597,
+    "TCS2": 470,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.324446, 53.369804],
+        [-6.318031, 53.367881]
+      ]
+    }
+  },
+  Segment598: {
+    "Route": 38,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 597,
+    "TCS2": 515,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.324446, 53.369804],
+        [-6.328615, 53.371139]
+      ]
+    }
+  },
+  Segment599: {
+    "Route": 38,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 515,
+    "TCS2": 597,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328615, 53.371139],
+        [-6.324446, 53.369804]
+      ]
+    }
+  },
+  Segment600: {
+    "Route": 39,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 4014,
+    "TCS2": 4013,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.358046, 53.380228],
+        [-6.362766, 53.382539]
+      ]
+    }
+  },
+  Segment601: {
+    "Route": 39,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 4013,
+    "TCS2": 4014,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.362766, 53.382539],
+        [-6.358046, 53.380228]
+      ]
+    }
+  },
+  Segment602: {
+    "Route": 39,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 4013,
+    "TCS2": 4048,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.362766, 53.382539],
+        [-6.366553, 53.385296]
+      ]
+    }
+  },
+  Segment603: {
+    "Route": 39,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 4048,
+    "TCS2": 4013,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.366553, 53.385296],
+        [-6.362766, 53.382539]
+      ]
+    }
+  },
+  Segment604: {
+    "Route": 39,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 4048,
+    "TCS2": 4015,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.366553, 53.385296],
+        [-6.373002, 53.385680]
+      ]
+    }
+  },
+  Segment605: {
+    "Route": 39,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 4015,
+    "TCS2": 4048,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.373002, 53.385680],
+        [-6.366553, 53.385296]
+      ]
+    }
+  },
+  Segment606: {
+    "Route": 40,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 515,
+    "TCS2": 4014,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.328615, 53.371139],
+        [-6.358046, 53.380228]
+      ]
+    }
+  },
+  Segment607: {
+    "Route": 40,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 4014,
+    "TCS2": 515,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.358046, 53.380228],
+        [-6.328615, 53.371139]
+      ]
+    }
+  },
+  Segment608: {
+    "Route": 40,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 4014,
+    "TCS2": 4013,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.358046, 53.380228],
+        [-6.362766, 53.382539]
+      ]
+    }
+  },
+  Segment609: {
+    "Route": 40,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 4013,
+    "TCS2": 4014,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.362766, 53.382539],
+        [-6.358046, 53.380228]
+      ]
+    }
+  },
+  Segment610: {
+    "Route": 40,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 4013,
+    "TCS2": 4048,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.362766, 53.382539],
+        [-6.366553, 53.385296]
+      ]
+    }
+  },
+  Segment611: {
+    "Route": 40,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 4048,
+    "TCS2": 4013,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.366553, 53.385296],
+        [-6.362766, 53.382539]
+      ]
+    }
+  },
+  Segment612: {
+    "Route": 40,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 4048,
+    "TCS2": 4015,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.366553, 53.385296],
+        [-6.373002, 53.385680]
+      ]
+    }
+  },
+  Segment613: {
+    "Route": 40,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 4015,
+    "TCS2": 4048,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.373002, 53.385680],
+        [-6.366553, 53.385296]
+      ]
+    }
+  },
+  Segment614: {
+    "Route": 41,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 56,
+    "TCS2": 60,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.268498, 53.353010],
+        [-6.267108, 53.354329]
+      ]
+    }
+  },
+  Segment615: {
+    "Route": 41,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 60,
+    "TCS2": 56,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267108, 53.354329],
+        [-6.268498, 53.353010]
+      ]
+    }
+  },
+  Segment616: {
+    "Route": 41,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 60,
+    "TCS2": 58,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.267108, 53.354329],
+        [-6.265413, 53.356110]
+      ]
+    }
+  },
+  Segment617: {
+    "Route": 41,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 58,
+    "TCS2": 60,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265413, 53.356110],
+        [-6.267108, 53.354329]
+      ]
+    }
+  },
+  Segment618: {
+    "Route": 41,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 58,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.265413, 53.356110],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment619: {
+    "Route": 41,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 59,
+    "TCS2": 58,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.265413, 53.356110]
+      ]
+    }
+  },
+  Segment620: {
+    "Route": 41,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 59,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.262301, 53.359138],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment621: {
+    "Route": 41,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 61,
+    "TCS2": 59,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.262301, 53.359138]
+      ]
+    }
+  },
+  Segment622: {
+    "Route": 41,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 61,
+    "TCS2": 55,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.261489, 53.359890],
+        [-6.260660, 53.360714]
+      ]
+    }
+  },
+  Segment623: {
+    "Route": 41,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 55,
+    "TCS2": 61,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.260660, 53.360714],
+        [-6.261489, 53.359890]
+      ]
+    }
+  },
+  Segment624: {
+    "Route": 41,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 55,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.260660, 53.360714],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment625: {
+    "Route": 41,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 67,
+    "TCS2": 55,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.260660, 53.360714]
+      ]
+    }
+  },
+  Segment626: {
+    "Route": 41,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 67,
+    "TCS2": 63,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.259726, 53.361877],
+        [-6.258325, 53.363447]
+      ]
+    }
+  },
+  Segment627: {
+    "Route": 41,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 63,
+    "TCS2": 67,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.258325, 53.363447],
+        [-6.259726, 53.361877]
+      ]
+    }
+  },
+  Segment628: {
+    "Route": 42,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 149,
+    "TCS2": 148,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.273046, 53.360867],
+        [-6.272977, 53.362573]
+      ]
+    }
+  },
+  Segment629: {
+    "Route": 42,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 148,
+    "TCS2": 149,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272977, 53.362573],
+        [-6.273046, 53.360867]
+      ]
+    }
+  },
+  Segment630: {
+    "Route": 42,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 148,
+    "TCS2": 150,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272977, 53.362573],
+        [-6.272153, 53.364763]
+      ]
+    }
+  },
+  Segment631: {
+    "Route": 42,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 150,
+    "TCS2": 148,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272153, 53.364763],
+        [-6.272977, 53.362573]
+      ]
+    }
+  },
+  Segment632: {
+    "Route": 42,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 150,
+    "TCS2": 405,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.272153, 53.364763],
+        [-6.271908, 53.367473]
+      ]
+    }
+  },
+  Segment633: {
+    "Route": 42,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 405,
+    "TCS2": 150,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.271908, 53.367473],
+        [-6.272153, 53.364763]
+      ]
+    }
+  },
+  Segment634: {
+    "Route": 43,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 108,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment635: {
+    "Route": 43,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment636: {
+    "Route": 43,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 73,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment637: {
+    "Route": 43,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 72,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment638: {
+    "Route": 43,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 72,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment639: {
+    "Route": 43,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 132,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment640: {
+    "Route": 44,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 456,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment641: {
+    "Route": 44,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 110,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment642: {
+    "Route": 45,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 586,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment643: {
+    "Route": 45,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 107,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment644: {
+    "Route": 46,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 456,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment645: {
+    "Route": 46,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 110,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment646: {
+    "Route": 46,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 110,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment647: {
+    "Route": 46,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 109,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment648: {
+    "Route": 46,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 109,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment649: {
+    "Route": 46,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 331,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment650: {
+    "Route": 46,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 331,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment651: {
+    "Route": 46,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 586,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment652: {
+    "Route": 46,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 586,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment653: {
+    "Route": 46,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 107,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment654: {
+    "Route": 46,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 107,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment655: {
+    "Route": 46,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 701,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment656: {
+    "Route": 46,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 701,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment657: {
+    "Route": 46,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 108,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment658: {
+    "Route": 46,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 108,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment659: {
+    "Route": 46,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment660: {
+    "Route": 46,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 73,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment661: {
+    "Route": 46,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 72,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment662: {
+    "Route": 46,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 72,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment663: {
+    "Route": 46,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 132,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment664: {
+    "Route": 47,
+    "Link": 1,
+    "Direction": 1,
+    "TCS1": 727,
+    "TCS2": 797,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179261, 53.403208],
+        [-6.179838, 53.402714]
+      ]
+    }
+  },
+  Segment665: {
+    "Route": 47,
+    "Link": 1,
+    "Direction": 2,
+    "TCS1": 797,
+    "TCS2": 727,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179838, 53.402714],
+        [-6.179261, 53.403208]
+      ]
+    }
+  },
+  Segment666: {
+    "Route": 47,
+    "Link": 2,
+    "Direction": 1,
+    "TCS1": 797,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.179838, 53.402714],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment667: {
+    "Route": 47,
+    "Link": 2,
+    "Direction": 2,
+    "TCS1": 456,
+    "TCS2": 797,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.179838, 53.402714]
+      ]
+    }
+  },
+  Segment668: {
+    "Route": 47,
+    "Link": 3,
+    "Direction": 1,
+    "TCS1": 456,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391614],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment669: {
+    "Route": 47,
+    "Link": 3,
+    "Direction": 2,
+    "TCS1": 110,
+    "TCS2": 456,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.194503, 53.391614]
+      ]
+    }
+  },
+  Segment670: {
+    "Route": 47,
+    "Link": 4,
+    "Direction": 1,
+    "TCS1": 110,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.194503, 53.391623],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment671: {
+    "Route": 47,
+    "Link": 4,
+    "Direction": 2,
+    "TCS1": 109,
+    "TCS2": 110,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.194503, 53.391623]
+      ]
+    }
+  },
+  Segment672: {
+    "Route": 47,
+    "Link": 5,
+    "Direction": 1,
+    "TCS1": 109,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.210036, 53.380067],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment673: {
+    "Route": 47,
+    "Link": 5,
+    "Direction": 2,
+    "TCS1": 331,
+    "TCS2": 109,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.210036, 53.380067]
+      ]
+    }
+  },
+  Segment674: {
+    "Route": 47,
+    "Link": 6,
+    "Direction": 1,
+    "TCS1": 331,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.212957, 53.378484],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment675: {
+    "Route": 47,
+    "Link": 6,
+    "Direction": 2,
+    "TCS1": 586,
+    "TCS2": 331,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.212957, 53.378484]
+      ]
+    }
+  },
+  Segment676: {
+    "Route": 47,
+    "Link": 7,
+    "Direction": 1,
+    "TCS1": 586,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.214914, 53.377705],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment677: {
+    "Route": 47,
+    "Link": 7,
+    "Direction": 2,
+    "TCS1": 107,
+    "TCS2": 586,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.214914, 53.377705]
+      ]
+    }
+  },
+  Segment678: {
+    "Route": 47,
+    "Link": 8,
+    "Direction": 1,
+    "TCS1": 107,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.218909, 53.375599],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment679: {
+    "Route": 47,
+    "Link": 8,
+    "Direction": 2,
+    "TCS1": 701,
+    "TCS2": 107,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.218909, 53.375599]
+      ]
+    }
+  },
+  Segment680: {
+    "Route": 47,
+    "Link": 9,
+    "Direction": 1,
+    "TCS1": 701,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.222712, 53.372313],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment681: {
+    "Route": 47,
+    "Link": 9,
+    "Direction": 2,
+    "TCS1": 108,
+    "TCS2": 701,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.222712, 53.372313]
+      ]
+    }
+  },
+  Segment682: {
+    "Route": 47,
+    "Link": 10,
+    "Direction": 1,
+    "TCS1": 108,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.226940, 53.368197],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment683: {
+    "Route": 47,
+    "Link": 10,
+    "Direction": 2,
+    "TCS1": 73,
+    "TCS2": 108,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.226940, 53.368197]
+      ]
+    }
+  },
+  Segment684: {
+    "Route": 47,
+    "Link": 11,
+    "Direction": 1,
+    "TCS1": 73,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.228472, 53.364230],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment685: {
+    "Route": 47,
+    "Link": 11,
+    "Direction": 2,
+    "TCS1": 72,
+    "TCS2": 73,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.228472, 53.364230]
+      ]
+    }
+  },
+  Segment686: {
+    "Route": 47,
+    "Link": 12,
+    "Direction": 1,
+    "TCS1": 72,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.236691, 53.362752],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment687: {
+    "Route": 47,
+    "Link": 12,
+    "Direction": 2,
+    "TCS1": 132,
+    "TCS2": 72,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.236691, 53.362752]
+      ]
+    }
+  },
+  Segment688: {
+    "Route": 47,
+    "Link": 13,
+    "Direction": 1,
+    "TCS1": 132,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.239100, 53.361161],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment689: {
+    "Route": 47,
+    "Link": 13,
+    "Direction": 2,
+    "TCS1": 194,
+    "TCS2": 132,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.239100, 53.361161]
+      ]
+    }
+  },
+  Segment690: {
+    "Route": 47,
+    "Link": 14,
+    "Direction": 1,
+    "TCS1": 194,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.240307, 53.359580],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment691: {
+    "Route": 47,
+    "Link": 14,
+    "Direction": 2,
+    "TCS1": 282,
+    "TCS2": 194,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.240307, 53.359580]
+      ]
+    }
+  },
+  Segment692: {
+    "Route": 47,
+    "Link": 15,
+    "Direction": 1,
+    "TCS1": 282,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.244026, 53.356813],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment693: {
+    "Route": 47,
+    "Link": 15,
+    "Direction": 2,
+    "TCS1": 2,
+    "TCS2": 282,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.244026, 53.356813]
+      ]
+    }
+  },
+  Segment694: {
+    "Route": 47,
+    "Link": 16,
+    "Direction": 1,
+    "TCS1": 2,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.246881, 53.354959],
+        [-6.250721, 53.351403]
+      ]
+    }
+  },
+  Segment695: {
+    "Route": 47,
+    "Link": 16,
+    "Direction": 2,
+    "TCS1": 3,
+    "TCS2": 2,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.246881, 53.354959]
+      ]
+    }
+  },
+  Segment696: {
+    "Route": 47,
+    "Link": 17,
+    "Direction": 1,
+    "TCS1": 3,
+    "TCS2": 513,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.250721, 53.351403],
+        [-6.251572, 53.350067]
+      ]
+    }
+  },
+  Segment697: {
+    "Route": 47,
+    "Link": 17,
+    "Direction": 2,
+    "TCS1": 513,
+    "TCS2": 3,
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [-6.251572, 53.350067],
+        [-6.250721, 53.351403]
+      ]
+    }
+  }
+
+}
