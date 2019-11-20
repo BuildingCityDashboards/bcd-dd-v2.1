@@ -92,7 +92,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
     fig2Layout.margin.t = 100;
 
-    const xaxisRange = [0, 70000];
+    const xaxisRange = [0, 80000]; //TODO: get the max value from the data 
     //configure the axes for each subplot
     regionsFig2.forEach((region, i) => {
       const xAxisName = "xaxis" + (i + 1);
@@ -144,9 +144,9 @@ d3.csv(srcPathFig2 + srcFileFig2)
       annotation.yref = 'y' + (i + 1);
       annotation.xanchor = 'right';
       annotation.align = 'right';
-      annotation.x = 70000;
-      annotation.y = 'Not stated';
-      annotation.ay = 9;
+      annotation.x = xaxisRange[1];
+      annotation.y = 'Detached house'; //the y axis label to align with
+      annotation.ay = 0;
 
       annotation.text = plot["name"];
       annotation.opacity = 1.0;
