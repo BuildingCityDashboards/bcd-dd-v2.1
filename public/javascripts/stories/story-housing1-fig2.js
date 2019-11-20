@@ -3,7 +3,6 @@
 // 6 sub-plots each containing a row chart.
 // Each sub-plot will show a different house type and value per LA
 
-
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
 const srcPathFig2 = "../data/Stories/Housing/",
@@ -12,7 +11,7 @@ const srcPathFig2 = "../data/Stories/Housing/",
 const titleFig2 = "Number of Households by Type, by Region (2002-2016)";
 // titleFig2 = popTitle; //set default on load
 const fig2DivID = "housing-types-chart";
-
+//This array controls the order in which subplotsare drawn
 const regionsFig2 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 
 //object used to look up shorter names to use a s labels in plots
@@ -33,14 +32,14 @@ d3.csv(srcPathFig2 + srcFileFig2)
       .object(data);
 
     //Create a subplot for each region
-
     let years = Object.keys(completionsByYearByRegion);
     //console.log(years);
     let noOfSubplots = regionsFig2.length; //assumes same no of regions per year
     //console.log(noOfSubplots);
 
-    let fig2Plots = [];
-
+    let fig2Plots = []; //the array of plots to be used as an arg to Plotly instantiation
+    //
+    //Nested for each loops are undesriable here
     years.forEach((year) => {
       regionsFig2.forEach((region) => {
         fig2Plots.push(getSubplot(completionsByYearByRegion[year][region], 'value', 'type'));
@@ -52,10 +51,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
       plot.yaxis = 'y' + ((i % noOfSubplots) + 1);
       // console.log(plot.xaxis);
     })
-
-    // plotty.xaxis = 'x'; //% no of subplots
-    // plotty.yaxis = 'y';
-    // console.log(fig2Plots);
 
     // //Set default visible traces (i.e. traces on each chart)
     fig2Plots.map((t, i) => {
@@ -116,6 +111,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         fig2Layout[yAxisName].visible = false;
       }
     })
+
     fig2Layout.xaxis.domain = [0, 0.45];
     fig2Layout.xaxis2.domain = [0.55, 1.0];
     fig2Layout.xaxis3.domain = [0.0, 0.45];
@@ -124,7 +120,6 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.xaxis6.domain = [0.35, 0.65];
     fig2Layout.xaxis7.domain = [0.7, 1.0];
 
-
     fig2Layout.yaxis.domain = [0.7, 1.0];
     fig2Layout.yaxis2.domain = [0.7, 1.0];
     fig2Layout.yaxis3.domain = [0.30, 0.60];
@@ -132,14 +127,13 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.yaxis5.domain = [0.0, 0.15];
     fig2Layout.yaxis6.domain = [0.0, 0.15];
     fig2Layout.yaxis7.domain = [0.0, 0.15];
-    /*****
-
-    *****/
 
     let annotations = [];
-    // fig2Plots.forEach((plot, i) => {
-    //   annotations.push(getAnnotationForPlot(plot, i));
-    // });
+    fig2Plots.forEach((plot, i) => {
+      if (i < 7) {
+        annotations.push(getAnnotationForPlot(plot, i));
+      }
+    });
     // annotations.push(getAnnotationForPlot(fig2Plots[0]));
 
     function getAnnotationForPlot(plot, i) {
