@@ -85,6 +85,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
       return trace;
     }
 
+    //Configure the layout object common to all plots
     let fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS);
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
     fig2Layout.title.text = titleFig2;
@@ -92,7 +93,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.margin.t = 100;
 
     const xaxisRange = [0, 70000];
-
+    //configure the axes for each subplot
     regionsFig2.forEach((region, i) => {
       const xAxisName = "xaxis" + (i + 1);
       fig2Layout[xAxisName] = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis);
@@ -111,7 +112,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
         fig2Layout[yAxisName].visible = false;
       }
     })
-
+    fig2Layout.xaxis.visible = false;
     fig2Layout.xaxis.domain = [0, 0.45];
     fig2Layout.xaxis2.domain = [0.55, 1.0];
     fig2Layout.xaxis3.domain = [0.0, 0.45];
@@ -266,13 +267,11 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
     fig2Layout.updatemenus = updateMenus;
 
-
     // fig2Layout.grid = {
     //   rows: 3,
     //   // columns: 2,
     //   pattern: 'independent'
     // }
-
 
     Plotly.newPlot(fig2DivID, fig2Plots, fig2Layout, {
       modeBarButtons: ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
