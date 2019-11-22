@@ -14,11 +14,6 @@ const divIDFig6 = "social-housing-units-stock-chart";
 //This array controls the order in which subplotsare drawn
 const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 
-//object used to look up shorter names to use a s labels in plots
-const shortNamesFig6 = {
-  "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
-  "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
-} // (converted house/commercial building) or bedsit"
 
 d3.csv(srcPathFig6 + srcFileFig6)
   .then((data) => {
@@ -33,7 +28,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
 
     //Create a subplot for each region
     let years = Object.keys(completionsByYearByRegion);
-    console.log(years);
+    // console.log(years);
     let noOfSubplots = regionsFig6.length; //assumes same no of regions per year
     //console.log(noOfSubplots);
 
@@ -61,10 +56,10 @@ d3.csv(srcPathFig6 + srcFileFig6)
     function getSubplot(data, xVar, yVar) {
       let trace = {
         x: data.map((v) => {
-          return shortNamesFig6[v[xVar]] || v[xVar]; //type - if there's a shortNamesFig6 entry, use it
+          return v[xVar];
         }),
         y: data.map((v) => {
-          return shortNamesFig6[v[yVar]] || v[yVar]; //region
+          return v[yVar]; //region
         }),
         xaxis: null,
         yaxis: null,
@@ -91,6 +86,8 @@ d3.csv(srcPathFig6 + srcFileFig6)
     layoutFig6.title.text = titleFig6;
     layoutFig6.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
     layoutFig6.margin.t = 100;
+    layoutFig6.height = 600;
+
 
     const xaxisRange = [0, 120000]; //TODO: get the max value from the data
     //configure the axes for each subplot
