@@ -6,7 +6,10 @@ const pFormat = d3.format(".2%"),
 const srcPathFig8 = "../data/Stories/Housing/";
 d3.json(srcPathFig8 + "DublinCityDestPOWCAR11_0.js")
   .then(datafiles => {
-    let map = new L.Map("map1", {
+
+    // console.log(datafiles);
+
+    let map = new L.Map("commuter-map", {
         center: [53.35, -6.8],
         zoom: 9
       })
@@ -36,7 +39,7 @@ d3.json(srcPathFig8 + "DublinCityDestPOWCAR11_0.js")
       layer.bindPopup(popupContent);
     }
 
-    L.geoJSON(datafiles[0], {
+    L.geoJSON(datafiles, {
       style: colour,
       onEachFeature: onEachFeature
     }).addTo(map);
