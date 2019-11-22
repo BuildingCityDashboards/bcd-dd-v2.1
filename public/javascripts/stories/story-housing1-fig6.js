@@ -307,14 +307,15 @@ d3.csv(srcPathFig6 + srcFileFig6)
 
     //workaround to place y axis labels on bars
     document.getElementById(divIDFig6).on('plotly_afterplot', function() {
-      let yAxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
-      for (let i = 0; i < yAxisLabels.length; i++) {
+      let y1AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
+      for (let i = 0; i < y1AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
-        yAxisLabels[i].setAttribute('text-anchor', 'start');
-        yAxisLabels[i].setAttribute('x', '10'); //add left spacing
+        y1AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y1x = parseInt(y1AxisLabels[i].getAttribute('x'));
+        y1x += 5;
+        y1AxisLabels[i].setAttribute('x', y1x); //add left spacing
       }
-
-      let y2AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
+      let y2AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
       for (let i = 0; i < y2AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y2AxisLabels[i].setAttribute('text-anchor', 'start');
@@ -323,7 +324,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
         y2AxisLabels[i].setAttribute('x', y2x); //add left spacing
       }
 
-      let y3AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
+      let y3AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
       for (let i = 0; i < y3AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y3AxisLabels[i].setAttribute('text-anchor', 'start');
@@ -332,7 +333,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
         y3AxisLabels[i].setAttribute('x', y3x); //add left spacing
       }
 
-      let y4AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
+      let y4AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
       for (let i = 0; i < y4AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y4AxisLabels[i].setAttribute('text-anchor', 'start');
