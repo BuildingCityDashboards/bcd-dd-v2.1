@@ -68,7 +68,6 @@ localhost.key
 /public/data/Environment/met_eireann_forecast.xml
 /public/data/Environment/sound_levels/**
 /public/data/Environment/water_levels/
-
 /public/data/Transport/dublinBikes/*.json
 /public/data/Transport/cpdata.xml
 /public/data/Transport/traveltimesroad.json
