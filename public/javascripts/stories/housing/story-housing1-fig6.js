@@ -14,11 +14,6 @@ const divIDFig6 = "social-housing-units-stock-chart";
 //This array controls the order in which subplotsare drawn
 const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 
-//object used to look up shorter names to use a s labels in plots
-const shortNamesFig6 = {
-  "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
-  "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
-} // (converted house/commercial building) or bedsit"
 
 d3.csv(srcPathFig6 + srcFileFig6)
   .then((data) => {
@@ -33,7 +28,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
 
     //Create a subplot for each region
     let years = Object.keys(completionsByYearByRegion);
-    console.log(years);
+    // console.log(years);
     let noOfSubplots = regionsFig6.length; //assumes same no of regions per year
     //console.log(noOfSubplots);
 
@@ -61,10 +56,10 @@ d3.csv(srcPathFig6 + srcFileFig6)
     function getSubplot(data, xVar, yVar) {
       let trace = {
         x: data.map((v) => {
-          return shortNamesFig6[v[xVar]] || v[xVar]; //type - if there's a shortNamesFig6 entry, use it
+          return v[xVar];
         }),
         y: data.map((v) => {
-          return shortNamesFig6[v[yVar]] || v[yVar]; //region
+          return v[yVar]; //region
         }),
         xaxis: null,
         yaxis: null,
@@ -91,6 +86,8 @@ d3.csv(srcPathFig6 + srcFileFig6)
     layoutFig6.title.text = titleFig6;
     layoutFig6.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
     layoutFig6.margin.t = 100;
+    layoutFig6.height = 600;
+
 
     const xaxisRange = [0, 120000]; //TODO: get the max value from the data
     //configure the axes for each subplot
@@ -307,14 +304,15 @@ d3.csv(srcPathFig6 + srcFileFig6)
 
     //workaround to place y axis labels on bars
     document.getElementById(divIDFig6).on('plotly_afterplot', function() {
-      let yAxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
-      for (let i = 0; i < yAxisLabels.length; i++) {
+      let y1AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
+      for (let i = 0; i < y1AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
-        yAxisLabels[i].setAttribute('text-anchor', 'start');
-        yAxisLabels[i].setAttribute('x', '10'); //add left spacing
+        y1AxisLabels[i].setAttribute('text-anchor', 'start');
+        let y1x = parseInt(y1AxisLabels[i].getAttribute('x'));
+        y1x += 5;
+        y1AxisLabels[i].setAttribute('x', y1x); //add left spacing
       }
-
-      let y2AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
+      let y2AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
       for (let i = 0; i < y2AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y2AxisLabels[i].setAttribute('text-anchor', 'start');
@@ -323,7 +321,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
         y2AxisLabels[i].setAttribute('x', y2x); //add left spacing
       }
 
-      let y3AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
+      let y3AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
       for (let i = 0; i < y3AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y3AxisLabels[i].setAttribute('text-anchor', 'start');
@@ -332,7 +330,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
         y3AxisLabels[i].setAttribute('x', y3x); //add left spacing
       }
 
-      let y4AxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
+      let y4AxisLabels = [].slice.call(document.getElementById(divIDFig6).querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
       for (let i = 0; i < y4AxisLabels.length; i++) {
         // yAxisLabels[i].setAttribute('visible', true);
         y4AxisLabels[i].setAttribute('text-anchor', 'start');
