@@ -47,14 +47,12 @@ d3.csv(srcPathFig1)
     layoutFig1.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layoutFig1.margin = {
       l: 0,
-      r: 100, //Dun Laoghaire!!!
+      r: 35,
       t: 100 //button row
     };
-
     // layoutFig1.hidesources = false;
 
-    // //Set annotations per chart with config per trace
-    //
+    // Set annotations per chart with config per trace
     let allAnnotations = [];
     allTracesFig1.forEach((trace, i) => {
       console.log("trace: " + JSON.stringify(trace.name));
@@ -68,36 +66,15 @@ d3.csv(srcPathFig1)
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
 
-      // console.log(annotation.font.color);
+      console.log(annotation);
       allAnnotations.push(annotation);
     })
     //
     // //set individual annotation stylings
-    // //TODO: be better! Don't use array index for access
-    // allAnnotations[1].ay = 6; //move DLR down
-    // allAnnotations[2].ay = -4; //move Fingal up
-    // allAnnotations[3].ay = 4; //move SD down
-    // allAnnotations[4].ay = -6; //move K up
-    // allAnnotations[5].ay = 4; //move M down
-    //
-    // houseAnnotations[1].ay = -3; //move DLR up
-    // houseAnnotations[2].ay = -4; //move Fingal up
-    // houseAnnotations[3].ay = 4; //move SD down
-    // houseAnnotations[4].ay = 4; //move K down
-    // houseAnnotations[5].ay = 4; //move M down
-    //
-    // popRateAnnotations[0].ay = 6; // DC
-    // popRateAnnotations[1].ay = -6; // DLR
-    // popRateAnnotations[2].ay = -4; // Fingal
-    // popRateAnnotations[3].ay = 4; // SD
-    // popRateAnnotations[4].ay = 5; // K
-    // popRateAnnotations[5].ay = -3; // M
-    //
-    // houseRateAnnotations[1].ay = -5; // DLR
-    // houseRateAnnotations[2].ay = -4; // Fingal
-    // houseRateAnnotations[3].ay = 4; // SD
-    // houseRateAnnotations[4].ay = -7; // K
-    // houseRateAnnotations[5].ay = 7; // M
+    allAnnotations[0].ay = 0; //Dublin
+    allAnnotations[1].ay = 10; //Rest
+    allAnnotations[2].ay = -15; //Nat
+
     //
     //
     // //Set default view annotations
@@ -216,7 +193,7 @@ d3.csv(srcPathFig1)
     // });
     //
     //
-    layoutFig1.annoations = allAnnotations;
+    layoutFig1.annotations = allAnnotations;
 
     Plotly.newPlot(divIDFig1, allTracesFig1, layoutFig1, {
       modeBar: {
