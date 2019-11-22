@@ -87,7 +87,8 @@ const CHART_COLORS_BY_REGION = {
   "Dublin City": CHART_COLORWAY[0],
   "South Dublin": CHART_COLORWAY[3],
   "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
-  "Fingal": CHART_COLORWAY[2]
+  "Fingal": CHART_COLORWAY[2],
+  "Dublin": CHART_COLORWAY[0]
 }
 
 const CHART_FONT = {
