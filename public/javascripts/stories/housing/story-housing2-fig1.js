@@ -85,7 +85,7 @@ d3.csv(srcPathFig1)
     layoutFig1.height = 500;
     layoutFig1.showlegend = false;
     layoutFig1.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    // layoutFig1.xaxis.visible = false;
+    layoutFig1.xaxis.title = '';
     layoutFig1.xaxis.nticks = 5;
     // layoutFig1.xaxis.range = [1991, 2016];
     layoutFig1.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
@@ -95,7 +95,7 @@ d3.csv(srcPathFig1)
     layoutFig1.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layoutFig1.margin = {
       l: 0,
-      r: 35,
+      r: 0,
       t: 100 //button row
     };
     // layoutFig1.hidesources = false;
@@ -103,7 +103,6 @@ d3.csv(srcPathFig1)
     // Set annotations per chart with config per trace
     let houseAnnotations = [];
     houseTracesFig1.forEach((trace, i) => {
-      console.log("trace: " + JSON.stringify(trace.name));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -113,14 +112,11 @@ d3.csv(srcPathFig1)
       (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-
-      console.log(annotation);
       houseAnnotations.push(annotation);
     })
 
     let apartAnnotations = [];
     apartTracesFig1.forEach((trace, i) => {
-      console.log("trace: " + JSON.stringify(trace.name));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -130,14 +126,11 @@ d3.csv(srcPathFig1)
       (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-
-      console.log(annotation);
       apartAnnotations.push(annotation);
     })
 
     let allAnnotations = [];
     allTracesFig1.forEach((trace, i) => {
-      console.log("trace: " + JSON.stringify(trace.name));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -147,13 +140,9 @@ d3.csv(srcPathFig1)
       (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-
-      console.log(annotation);
       allAnnotations.push(annotation);
     })
 
-
-    //
     // //set individual annotation stylings
     apartAnnotations[0].ay = -7; //Dublin
     apartAnnotations[1].ay = 5; //Rest
@@ -167,10 +156,6 @@ d3.csv(srcPathFig1)
     allAnnotations[1].ay = 10; //Rest
     allAnnotations[2].ay = -15; //Nat
 
-    //
-    //
-    // //Set default view annotations
-    // layoutFig1.annotations = allAnnotations; //set default
     //
     // //Set button menu
     let updateMenus = [{
