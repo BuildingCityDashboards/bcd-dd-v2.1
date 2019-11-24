@@ -7,4 +7,15 @@ The tables of data available from the CSO are located [here](https://statbank.cs
 
 You can also use the [search box here](https://statbank.cso.ie/px/pxeirestat/statire/SelectTable/Omrade0.asp?Planguage=0), into which you can place the table number, if known.
 
-## 
+
+## Select variables
+
+
+## Pivot table
+
+
+## Flatten table
+
+
+## Next steps
+The next guide will describe a pattern for plotting your data on a web page.
