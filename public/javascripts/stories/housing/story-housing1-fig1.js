@@ -238,7 +238,8 @@ Promise.all([
     chartLayout.annotations = popAnnotations; //set default
 
     //Set button menu
-    let updateMenus = [{
+    let updateMenus = [];
+    updateMenus[0] = Object.assign(UPDATEMENUS_BUTTONS_BASE, {
       buttons: [{
           args: [{
               'visible': [true, true, true, true, true, true, true,
@@ -309,31 +310,8 @@ Promise.all([
           method: 'update',
           execute: true
         }
-      ],
-      type: 'buttons',
-      direction: 'right',
-      font: {
-        family: null,
-        size: 16,
-        color: null
-      },
-      bordercolor: 'grey',
-      pad: {
-
-        't': 0,
-        'r': 0,
-        'b': 0,
-        'l': 0
-      },
-      showactive: true,
-      active: 0,
-      xref: 'container',
-      x: 0.0,
-      xanchor: 'left',
-      yref: 'container',
-      y: 1.05, //place above plot area with >1.0
-      yanchor: 'bottom'
-    }];
+      ]
+    });
 
     chartLayout.updatemenus = updateMenus;
 
