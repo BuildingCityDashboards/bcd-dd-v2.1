@@ -9,13 +9,22 @@ You can also use the [search box here](https://statbank.cso.ie/px/pxeirestat/sta
 
 
 ## Select variables
+![select variables](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.44.39.png)
 
+![shown table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.06.png)
 
 ## Pivot table
+![choose pivot](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.14.png)
 
+![pivot selections](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.38.png)
 
 ## Flatten table
 
+![returned table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.47.05.png)
+
+![table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.47.31.png)
+
+![flattened table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.48.38.png)
 
 ## Next steps
 The next guide will describe a pattern for plotting your data on a web page.
