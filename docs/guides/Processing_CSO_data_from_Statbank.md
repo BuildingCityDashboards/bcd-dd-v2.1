@@ -10,27 +10,31 @@ You can also use the [search box here](https://statbank.cso.ie/px/pxeirestat/sta
 ## Select variables
 We're working with the example of table E1071: Housing Stock and Vacancy Rate 1991 to 2016 by County and City, CensusYear and Statistic
 
-* Select the required variables from the options
+* Select the required variables from the options and click *Show table*
 
 ![select variables](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.44.39.png)
 
-* The returned table looks like this. Not exactly flat or easy to use.
+* The returned table looks like this. Not exactly flat or easy to use as-is. (We will show how to parse this in code in a future guide.)
 
 ![shown table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.06.png)
 
 ## Pivot table
-* Use **Edit Table** to pivot the table by drag-and-drop; place the variables you require in rows or columns. We want variables as columns, with dates proceeding downwards as rows at this stage.
+* Use **Edit Table** to pivot the table by drag-and-drop; place the variables you require in rows or columns.
 
 ![choose pivot](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.14.png)
 
 ![pivot selections](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.38.png)
 
+* At this point, we want variables as columns, with dates proceeding downwards as rows. There are still delineated by region, however.
+
 ![returned table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.47.05.png)
 
 ## Flatten table
 
-* Finally we'll use a spreadsheet program to flatten the data more fully and remove extraneous footnates etc. Our processed file looks like this:
+* Finally we'll use a spreadsheet program to flatten the data more fully and remove extraneous footnotes etc still present as shown below.
 ![table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.47.31.png)
+
+* We use the convention of naming the column containing the year as *date* and local authority name as *region* (both lowercase).  Our processed file looks like this:
 
 ![flattened table](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.48.38.png)
 
