@@ -1,0 +1,12 @@
+"Housing Stock and Vacancy Rate 1991 to 2016 by Census Year, County and"
+"City and statistical indicator"
+
+" ","State"," "," ","Dublin City"," "," ","Dún Laoghaire-Rathdown"," "," ","Fingal"," "," ","South Dublin"," "," ","Kildare"," "," ","Meath"," "," ","Wicklow"," "," "
+" ","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)","Total housing stock (Number)","Vacant (Number)","Vacancy rate (%)"
+"1991",1160249,105142,9.1,175933,9670,5.5,60448,2447,4.0,43348,1682,3.9,57182,1490,2.6,35580,1812,5.1,31582,2333,7.4,31709,2958,9.3
+"1996",1258948,105250,8.4,189741,10759,5.7,65504,2076,3.2,50626,1702,3.4,64223,1407,2.2,41477,1480,3.6,30729,1882,6.1,34871,2779,8.0
+"2002",1460053,143418,9.8,199463,12002,6.0,69444,2979,4.3,65432,3212,4.9,76666,2126,2.8,54589,3198,5.9,44972,2895,6.4,40214,2905,7.2
+"2006",1769613,266322,15.0,223098,26092,11.7,77508,6928,8.9,89909,7878,8.8,87484,5407,6.2,68840,6838,9.9,61257,6485,10.6,49088,5577,11.4
+"2011",1994845,289451,14.5,241678,24638,10.2,85896,6616,7.7,102793,7204,7.0,97298,5249,5.4,78794,6311,8.0,69697,6173,8.9,54351,5377,9.9
+"2016",2003645,245460,12.3,240553,19446,8.1,86962,4788,5.5,104851,5233,5.0,98387,3530,3.6,80158,4712,5.9,70649,4875,6.9,54986,4454,8.1
+
