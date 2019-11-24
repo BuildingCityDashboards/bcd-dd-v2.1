@@ -8,7 +8,7 @@ The tables of data available from the CSO are located [here](https://statbank.cs
 You can also use the [search box here](https://statbank.cso.ie/px/pxeirestat/statire/SelectTable/Omrade0.asp?Planguage=0), into which you can place the table number, if known.
 
 ## Select variables
-We're working with the example of table E1071: Housing Stock and Vacancy Rate 1991 to 2016 by County and City, CensusYear and Statistic
+We're working with the example of table *E1071: Housing Stock and Vacancy Rate 1991 to 2016 by County and City, Census Year and Statistic*
 
 * Select the required variables from the options and click *Show table*
 
