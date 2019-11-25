@@ -1,9 +1,9 @@
 //Options for chart
-const srcPathFig1 = "../data/Housing/HPM06.csv";
-let titleFig1 = "Monthly Property Price Index, by Type (2005-2018)";
-const divIDFig1 = "ppi-monthly-chart";
+const srcPathFig2 = "../data/Stories/Housing/part_2/processed/E1071.csv";
+let titleFig2 = "Housing Stock and Vacancy Rates (1991-2016)";
+const divIDFig2 = "vacant-housing-chart";
 
-d3.csv(srcPathFig1)
+d3.csv(srcPathFig2)
   .then((data) => {
     let dataByRegion = d3.nest()
       .key((d) => {
@@ -14,7 +14,7 @@ d3.csv(srcPathFig1)
     // console.log(regions);
 
     // //traces for chart
-    let houseTracesFig1 = [];
+    let stockTraces = [];
     regions.forEach((regionName, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionName;
@@ -28,13 +28,13 @@ d3.csv(srcPathFig1)
       });
 
       trace.y = dataByRegion[regionName].map((v) => {
-        return v.house;
+        return v["Total housing stock (Number)"];
       });
 
-      houseTracesFig1.push(trace);
+      stockTraces.push(trace);
     });
 
-    let apartTracesFig1 = [];
+    let apartTraces = [];
     regions.forEach((regionName, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionName;
@@ -51,10 +51,10 @@ d3.csv(srcPathFig1)
         return v.apartments;
       });
 
-      apartTracesFig1.push(trace);
+      apartTraces.push(trace);
     });
 
-    let allTracesFig1 = [];
+    let allTraces = [];
     regions.forEach((regionName, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionName;
@@ -71,38 +71,38 @@ d3.csv(srcPathFig1)
         return v.all;
       });
 
-      allTracesFig1.push(trace);
+      allTraces.push(trace);
     });
 
-    let tracesFig1 = houseTracesFig1
-      .concat(apartTracesFig1)
-      .concat(allTracesFig1);
+    let traces = stockTraces;
+    // .concat(apartTraces)
+    // .concat(allTraces);
 
 
     //Set layout options
-    let layoutFig1 = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layoutFig1.title.text = titleFig1;
-    layoutFig1.height = 500;
-    layoutFig1.showlegend = false;
-    layoutFig1.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layoutFig1.xaxis.title = '';
-    layoutFig1.xaxis.nticks = 5;
-    // layoutFig1.xaxis.range = [1991, 2016];
-    layoutFig1.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layoutFig1.yaxis.range = [0.1, 150];
-    // layoutFig1.yaxis.visible = false;
-    layoutFig1.yaxis.title = '';
-    layoutFig1.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    layoutFig1.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title.text = titleFig2;
+    layout.height = 500;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.title = '';
+    // layout.xaxis.nticks = 5;
+    layout.xaxis.range = [1991, 2016];
+    layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [0.1, 100000];
+    // layout.yaxis.visible = false;
+    layout.yaxis.title = '';
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 0,
       t: 100 //button row
     };
-    // layoutFig1.hidesources = false;
+    // layout.hidesources = false;
 
     // Set annotations per chart with config per trace
-    let houseAnnotations = [];
-    houseTracesFig1.forEach((trace, i) => {
+    let stockAnnotations = [];
+    stockTraces.forEach((trace, i) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -112,11 +112,11 @@ d3.csv(srcPathFig1)
       (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-      houseAnnotations.push(annotation);
+      stockAnnotations.push(annotation);
     })
 
     let apartAnnotations = [];
-    apartTracesFig1.forEach((trace, i) => {
+    apartTraces.forEach((trace, i) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -130,7 +130,7 @@ d3.csv(srcPathFig1)
     })
 
     let allAnnotations = [];
-    allTracesFig1.forEach((trace, i) => {
+    allTraces.forEach((trace, i) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -144,13 +144,13 @@ d3.csv(srcPathFig1)
     })
 
     // //set individual annotation stylings
-    apartAnnotations[0].ay = -7; //Dublin
-    apartAnnotations[1].ay = 5; //Rest
-    apartAnnotations[2].ay = 7; //Nat
+    apartAnnotations[0].ay = 0; //Dublin
+    apartAnnotations[1].ay = 0; //Rest
+    apartAnnotations[2].ay = 0; //Nat
 
-    houseAnnotations[0].ay = 5; //Dublin
-    houseAnnotations[1].ay = 10; //Rest
-    houseAnnotations[2].ay = -10; //Nat
+    stockAnnotations[0].ay = 5; //Dublin
+    stockAnnotations[1].ay = 10; //Rest
+    stockAnnotations[2].ay = -10; //Nat
 
     allAnnotations[0].ay = -2; //Dublin
     allAnnotations[1].ay = 10; //Rest
@@ -162,46 +162,46 @@ d3.csv(srcPathFig1)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, true,
-                false, false, false,
-                false, false, false
+              'visible': [true, true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false
               ]
             },
             {
-              'title': titleFig1,
-              'annotations': houseAnnotations
+              'title': titleFig2,
+              'annotations': stockAnnotations
 
             }
           ],
-          label: 'House',
+          label: 'Housing & vacancy counts',
           method: 'update',
           execute: true
         },
         {
           args: [{
-              'visible': [false, false, false,
-                true, true, true,
-                false, false, false
+              'visible': [false, false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false, false
               ]
             },
             {
-              'title': titleFig1,
+              'title': titleFig2,
               'annotations': apartAnnotations
             }
           ],
-          label: 'Apartment',
+          label: 'Vacancy rate',
           method: 'update',
           execute: true
         },
         {
           args: [{
-              'visible': [false, false, false,
-                false, false, false,
-                true, true, true
+              'visible': [false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true, true
               ]
             },
             {
-              'title': titleFig1,
+              'title': titleFig2,
               'annotations': allAnnotations
 
             }
@@ -213,16 +213,16 @@ d3.csv(srcPathFig1)
       ],
     });
 
-    layoutFig1.updatemenus = updateMenus;
+    layout.updatemenus = updateMenus;
 
     //Set default visible traces (i.e. traces on each chart)
-    tracesFig1.map((t, i) => {
-      if (i < 3) return t.visible = true;
+    traces.map((t, i) => {
+      if (i < 8) return t.visible = true;
       else return t.visible = false;
     });
-    layoutFig1.annotations = allAnnotations;
+    layout.annotations = allAnnotations;
 
-    Plotly.newPlot(divIDFig1, tracesFig1, layoutFig1, {
+    Plotly.newPlot(divIDFig2, traces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
@@ -235,7 +235,7 @@ d3.csv(srcPathFig1)
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + titleFig1,
+        filename: 'Dublin Dashboard - ' + titleFig2,
         width: null,
         height: null,
         format: 'png'
