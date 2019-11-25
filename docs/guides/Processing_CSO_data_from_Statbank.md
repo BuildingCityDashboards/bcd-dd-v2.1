@@ -23,7 +23,7 @@ We're working with the example of table *E1071: Housing Stock and Vacancy Rate 1
 
 ![choose pivot](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.14.png)
 
-![pivot selections](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-24%20at%2013.45.38.png)
+![pivot selections](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/docs/guides/images/Screen%20Shot%202019-11-25%20at%2010.54.44.png)
 
 * At this point, we want variables as columns, with dates proceeding downwards as rows. There are still delineated by region, however.
 
