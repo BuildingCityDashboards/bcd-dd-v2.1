@@ -91,6 +91,15 @@ const CHART_COLORS_BY_REGION = {
   "Dublin": CHART_COLORWAY[0]
 }
 
+const CHART_OPACITY_BY_REGION = {
+  "Dublin City": 1.0,
+  "South Dublin": 1.0,
+  "Dún Laoghaire-Rathdown": 1.0,
+  "Fingal": 1.0,
+  "Dublin": 1.0
+
+}
+
 const CHART_FONT = {
   family: 'PT Sans',
   size: 16,

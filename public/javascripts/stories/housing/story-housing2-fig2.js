@@ -1,7 +1,8 @@
 //Options for chart
 const srcPathFig2 = "../data/Stories/Housing/part_2/processed/E1071.csv";
-let titleFig2 = "Housing Stock and Vacancy Rates (1991-2016)";
+const titleFig2 = "Housing Stock and Vacancy Rates (1991-2016)";
 const divIDFig2 = "vacant-housing-chart";
+// const regionsFig2 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "State"];
 
 d3.csv(srcPathFig2)
   .then((data) => {
@@ -11,18 +12,18 @@ d3.csv(srcPathFig2)
       })
       .object(data);
     const regions = Object.keys(dataByRegion);
-    // console.log(regions);
+    console.log(regions);
 
     // //traces for chart
     let stockTraces = [];
-    regions.forEach((regionName, i) => {
+    regions.forEach((regionName) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionName;
-      trace.mode = 'lines';
+      trace.mode = 'lines+markers';
       //reassign colour to -defocus some traces
-      (i < 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      trace.opacity = CHART_OPACITY_BY_REGION[regionName] || 0.5;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
+      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
       trace.x = dataByRegion[regionName].map((v) => {
         return v.date;
       });
@@ -34,7 +35,27 @@ d3.csv(srcPathFig2)
       stockTraces.push(trace);
     });
 
-    let apartTraces = [];
+    let vacantCountTraces = [];
+    regions.forEach((regionName, i) => {
+      let trace = Object.assign({}, TRACES_DEFAULT);
+      trace.name = regionName;
+      trace.mode = 'lines';
+      //reassign colour to -defocus some traces
+      trace.opacity = CHART_OPACITY_BY_REGION[regionName] || 0.5;
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
+      trace.x = dataByRegion[regionName].map((v) => {
+        return v.date;
+      });
+
+      trace.y = dataByRegion[regionName].map((v) => {
+        return v["Vacant (Number)"];
+      });
+
+      vacantCountTraces.push(trace);
+    });
+
+    let vacantRateTraces = [];
     regions.forEach((regionName, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = regionName;
@@ -48,35 +69,15 @@ d3.csv(srcPathFig2)
       });
 
       trace.y = dataByRegion[regionName].map((v) => {
-        return v.apartments;
+        return v["Vacancy rate (%)"];
       });
 
-      apartTraces.push(trace);
+      vacantRateTraces.push(trace);
     });
-
-    let allTraces = [];
-    regions.forEach((regionName, i) => {
-      let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.name = regionName;
-      trace.mode = 'lines';
-      //reassign colour to -defocus some traces
-      (i < 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
-      trace.x = dataByRegion[regionName].map((v) => {
-        return v.date;
-      });
-
-      trace.y = dataByRegion[regionName].map((v) => {
-        return v.all;
-      });
-
-      allTraces.push(trace);
-    });
-
-    let traces = stockTraces;
-    // .concat(apartTraces)
-    // .concat(allTraces);
+    //This seems bad as it is order dependant
+    let traces = stockTraces
+      .concat(vacantCountTraces)
+      .concat(vacantRateTraces);
 
 
     //Set layout options
@@ -89,7 +90,7 @@ d3.csv(srcPathFig2)
     // layout.xaxis.nticks = 5;
     layout.xaxis.range = [1991, 2016];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layout.yaxis.range = [0.1, 100000];
+    // layout.yaxis.range = [0.1, 2100000];
     // layout.yaxis.visible = false;
     layout.yaxis.title = '';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
@@ -100,61 +101,36 @@ d3.csv(srcPathFig2)
     };
     // layout.hidesources = false;
 
-    // Set annotations per chart with config per trace
-    let stockAnnotations = [];
-    stockTraces.forEach((trace, i) => {
+    let stateAnnotations = [];
+    let dublinAnnotations = [];
+    traces.forEach((trace, i) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       //de-focus some annotations
       //TODO: function for this
-      (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      // (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-      stockAnnotations.push(annotation);
+      annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
+      if (trace.name === "State") {
+        stateAnnotations.push(annotation);
+      } else {
+        dublinAnnotations.push(annotation);
+      }
     })
-
-    let apartAnnotations = [];
-    apartTraces.forEach((trace, i) => {
-      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.x = trace.x[trace.x.length - 1];
-      annotation.y = trace.y[trace.y.length - 1];
-      annotation.text = trace.name;
-      //de-focus some annotations
-      //TODO: function for this
-      (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-      apartAnnotations.push(annotation);
-    })
-
-    let allAnnotations = [];
-    allTraces.forEach((trace, i) => {
-      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.x = trace.x[trace.x.length - 1];
-      annotation.y = trace.y[trace.y.length - 1];
-      annotation.text = trace.name;
-      //de-focus some annotations
-      //TODO: function for this
-      (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-      allAnnotations.push(annotation);
-    })
-
     // //set individual annotation stylings
-    apartAnnotations[0].ay = 0; //Dublin
-    apartAnnotations[1].ay = 0; //Rest
-    apartAnnotations[2].ay = 0; //Nat
-
-    stockAnnotations[0].ay = 5; //Dublin
-    stockAnnotations[1].ay = 10; //Rest
-    stockAnnotations[2].ay = -10; //Nat
-
-    allAnnotations[0].ay = -2; //Dublin
-    allAnnotations[1].ay = 10; //Rest
-    allAnnotations[2].ay = -15; //Nat
+    // apartAnnotations[0].ay = 0; //Dublin
+    // apartAnnotations[1].ay = 0; //Rest
+    // apartAnnotations[2].ay = 0; //Nat
+    //
+    // stateAnnotations[0].ay = 5; //Dublin
+    // stateAnnotations[1].ay = 10; //Rest
+    // stateAnnotations[2].ay = -10; //Nat
+    //
+    // allAnnotations[0].ay = -2; //Dublin
+    // allAnnotations[1].ay = 10; //Rest
+    // allAnnotations[2].ay = -15; //Nat
 
     //Set button menu
     let updateMenus = [];
@@ -162,65 +138,48 @@ d3.csv(srcPathFig2)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, true, true, true, true, true, true,
-                false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false
+              'visible': [true, false, false, false, false, false, false, false,
+                true, false, false, false, false, false, false, false,
+                true, false, false, false, false, false, false, false
               ]
             },
             {
               'title': titleFig2,
-              'annotations': stockAnnotations
+              'annotations': stateAnnotations
 
             }
           ],
-          label: 'Housing & vacancy counts',
+          label: 'State',
           method: 'update',
-          execute: true
+          // execute: true
         },
         {
           args: [{
-              'visible': [false, false, false, false, false, false, false, false,
-                true, true, true, true, true, true, true, true,
-                false, false, false, false, false, false, false, false
+              'visible': [false, true, true, true, true, true, true, true,
+                false, true, true, true, true, true, true, true,
+                false, true, true, true, true, true, true, true,
               ]
             },
             {
               'title': titleFig2,
-              'annotations': apartAnnotations
+              'annotations': dublinAnnotations
             }
           ],
-          label: 'Vacancy rate',
+          label: 'Dublin Area',
           method: 'update',
           execute: true
         },
-        {
-          args: [{
-              'visible': [false, false, false, false, false, false, false, false,
-                false, false, false, false, false, false, false, false,
-                true, true, true, true, true, true, true, true
-              ]
-            },
-            {
-              'title': titleFig2,
-              'annotations': allAnnotations
-
-            }
-          ],
-          label: 'Both',
-          method: 'update',
-          execute: true
-        }
       ],
     });
 
     layout.updatemenus = updateMenus;
 
     //Set default visible traces (i.e. traces on each chart)
-    traces.map((t, i) => {
-      if (i < 8) return t.visible = true;
+    traces.map((t) => {
+      if (t.name === "State") return t.visible = true;
       else return t.visible = false;
     });
-    layout.annotations = allAnnotations;
+    layout.annotations = stateAnnotations;
 
     Plotly.newPlot(divIDFig2, traces, layout, {
       modeBar: {
