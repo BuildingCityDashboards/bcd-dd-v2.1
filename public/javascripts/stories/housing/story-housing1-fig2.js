@@ -168,7 +168,9 @@ d3.csv(srcPathFig2 + srcFileFig2)
 
 
     //Set button menu
-    let updateMenus = [{
+    let updateMenus = []
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
               'visible': [true, true, true, true, true, true, true,
@@ -240,30 +242,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
           execute: true
         }
       ],
-      type: 'buttons',
-      direction: 'right',
-      font: {
-        family: null,
-        size: 16,
-        color: null
-      },
-      bordercolor: 'grey',
-      pad: {
-
-        't': 0,
-        'r': 0,
-        'b': 0,
-        'l': 0
-      },
-      showactive: true,
-      active: 0,
-      xref: 'container',
-      x: 0.0,
-      xanchor: 'left',
-      yref: 'container',
-      y: 1.05, //place above plot area with >1.0
-      yanchor: 'bottom'
-    }];
+    });
 
     fig2Layout.updatemenus = updateMenus;
 

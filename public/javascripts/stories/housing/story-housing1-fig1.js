@@ -239,7 +239,8 @@ Promise.all([
 
     //Set button menu
     let updateMenus = [];
-    updateMenus[0] = Object.assign(UPDATEMENUS_BUTTONS_BASE, {
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
               'visible': [true, true, true, true, true, true, true,
