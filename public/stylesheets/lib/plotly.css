@@ -9,3 +9,7 @@
 .infolayer [class^='x'][class$='title'] {
   transform: translate(0px, 0px);
 }
+
+rect.updatemenu-item-rect {
+  fill: rgb(0, 0, 0);
+}

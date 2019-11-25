@@ -405,3 +405,32 @@ const STACKED_AREA_CHART_LAYOUT = {
   annotations: [],
   showlegend: true
 };
+
+const UPDATEMENUS_BUTTONS_BASE = {
+  type: 'buttons',
+  direction: 'right',
+  pad: {
+
+    't': 0,
+    'r': 0,
+    'b': 0,
+    'l': 0
+  },
+  font: {
+    family: null,
+    size: 16,
+    color: null
+  },
+  fillcolor: 'black',
+  bordercolor: 'grey',
+  showactive: true,
+  bgcolor: 'lightgrey',
+  active: 0,
+  xref: 'container',
+  x: 0.0,
+  xanchor: 'left',
+  yref: 'container',
+  y: 1.05, //place above plot area with >1.0
+  yanchor: 'bottom'
+
+}
