@@ -22,16 +22,15 @@ d3.csv(srcPathFig9 + srcFileFig9)
 
     //Traces
     let taxTraces = [];
-    dataByType.forEach((typeData, i) => {
+    dataByType.forEach((typeData) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = typeData[0].type;
-      trace.stackgroup = 'one'; //converts to grouped area
+      // trace.stackgroup = 'one'; //converts to grouped area
       //reassign colour to -defocus some traces
-      (i == 0) ? trace.opacity = 1.0: trace.opacity = 0.1; //magic number!!!
+      trace.opacity = CHART_OPACITY_BY_VARIABLE[typeData] || 0.5;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       trace.marker.opacity = 0.0;
-      (i == 0) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
-
+      // trace.marker.color = null : trace.marker.color = 'grey'; //use default colorway or grey
       trace.x = typeData.map((v) => {
         return v.date;
       });
@@ -43,6 +42,23 @@ d3.csv(srcPathFig9 + srcFileFig9)
       taxTraces.push(trace);
     });
 
+
+    //Manually compute trace for total
+    // let trace = Object.assign({}, TRACES_DEFAULT);
+    // trace.name = 'Total Tax';
+    // trace.opacity = CHART_OPACITY_BY_VARIABLE[typeData] || 0.5;
+    // trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    // trace.marker.opacity = 0.0;
+    // // trace.marker.color = null : trace.marker.color = 'grey'; //use default colorway or grey
+    // trace.x = typeData.map((v) => {
+    //   return v.date;
+    // });
+    //
+    // trace.y = typeData.map((v) => {
+    //   return v.value;
+    // });
+    //
+    // taxTraces.push(trace);
 
     //Set layout options
     let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
@@ -68,13 +84,17 @@ d3.csv(srcPathFig9 + srcFileFig9)
       annotation.text = trace.name.split('T')[0];
       //de-focus some annotations
       //TODO: function for this
-      (i == 0) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      // (i == 0) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      (i == 0) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+      annotation.font.color = CHART_COLORWAY[i]; //Is this order smae as fetching from object in trace?
+      console.log(trace);
 
       // console.log(annotation.font.color);
       taxAnnotations.push(annotation);
     })
+
+
+
 
     //Set default view annotations
     chartLayout.annotations = taxAnnotations; //set default

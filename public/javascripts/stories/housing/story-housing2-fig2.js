@@ -96,7 +96,7 @@ d3.csv(srcPathFig2)
     //This seems bad as it is order dependant
     let traces = stockTraces
       .concat(vacantCountTraces)
-    // .concat(vacantRateTraces);
+      .concat(vacantRateTraces);
 
     //Set default visible traces (i.e. traces on each chart)
     traces.map((t) => {
@@ -199,9 +199,9 @@ d3.csv(srcPathFig2)
         },
         {
           args: [{
-              'visible': [false, true, true, true, true, true, true, true,
-                false, true, true, true, true, true, true, true,
-                false, true, true, true, true, true, true, true,
+              'visible': [false, false, false, false, false, false, false, false,
+                false, false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true, true
               ]
             },
             {
