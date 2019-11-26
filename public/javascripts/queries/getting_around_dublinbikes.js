@@ -323,9 +323,29 @@ function setBikeStationColour(bikes, totalStands) {
     percentageFree < 80 ? '#6baed6' : '#3182bd';
 }
 
+
+
+/*let TravelTime_Mon = L.control({
+  position: 'topright'
+});
+
+
+TravelTime_Mon.onAdd = function(map) {
+  let div = L.DomUtil.create('div', 'Travel Time info'),
+    //bikeGrades = [0, 20, 40, 60, 80],
+    //labels = [],
+    //from, to;
+  //    labels.push('Bike S
+}
+
+TravelTime_Mon.addTo(gettingAroundMap);*/
+
 let bikesLegend = L.control({
   position: 'bottomright'
 });
+
+
+
 
 bikesLegend.onAdd = function(map) {
   let div = L.DomUtil.create('div', 'info legend'),

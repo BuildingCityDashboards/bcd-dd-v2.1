@@ -154,6 +154,8 @@ function updateTTDisplay(d__) {
         "<p>" + direction + "</p>" +
         "</div>");
 
+   
+
     d3.select("#rt-travelTimes").select("#card-center")
       .html("<div align='center'>" +
         "<img src = '/images/transport/car-w-15.svg' width='60'>" +
@@ -167,6 +169,8 @@ function updateTTDisplay(d__) {
         "<p>minutes</p>" +
         "</div>");
 
+
+   //alert(name + '---'+ direction + '++++' + delayDirection + "****" + delayMins );
 
   } else {
     updateInfo("#traveltimes-chart a", "Current travel times are close to free-flow times on all motorways");
