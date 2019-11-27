@@ -3,25 +3,27 @@
 // 6 sub-plots each containing a row chart.
 // Each sub-plot will show a different house type and value per LA
 
-//Options for chart
 //TODO: pass these in as config and/or create accessor functions
 const srcPathFig2 = "../data/Stories/Housing/",
   srcFileFig2 = "housetype.csv";
 
-const titleFig2 = "Number of Households by Type, by Region (2002-2016)";
-// titleFig2 = popTitle; //set default on load
-const divIDFig2 = "housing-types-chart";
-//This array controls the order in which subplotsare drawn
-const regionsFig2 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-
-//object used to look up shorter names to use a s labels in plots
-const shortNames = {
-  "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
-  "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
-} // (converted house/commercial building) or bedsit"
-
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
+    //Options for chart
+    const titleFig2 = "Number of Households by Type, by Region (2002-2016)";
+    // titleFig2 = popTitle; //set default on load
+    const divIDFig2 = "housing-types-chart";
+    //This array controls the order in which subplotsare drawn
+    const regionsFig2 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
+
+
+
+    //object used to look up shorter names to use a s labels in plots
+    const shortNames = {
+      "Flat or apartment in a converted house or commercial building and bedsits": "Flat, apartment (converted) or bedsit",
+      "Flat or apartment in a purpose- built block": "Flat or apartment (purpose-built)"
+    } // (converted house/commercial building) or bedsit"
+
     let completionsByYearByRegion = d3.nest()
       .key(function(d) {
         return d["date"];
