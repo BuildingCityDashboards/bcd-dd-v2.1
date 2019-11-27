@@ -88,10 +88,29 @@ const CHART_COLORS_BY_REGION = {
   "South Dublin": CHART_COLORWAY[3],
   "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
   "Fingal": CHART_COLORWAY[2],
+  "Dublin": CHART_COLORWAY[0],
+  "State": CHART_COLORWAY[4]
+}
+//TODO: placeholder- implement with design system
+const CHART_COLORS_BY_VARIABLE = {
+  "Dublin City": CHART_COLORWAY[0],
+  "South Dublin": CHART_COLORWAY[3],
+  "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
+  "Fingal": CHART_COLORWAY[2],
   "Dublin": CHART_COLORWAY[0]
 }
 
 const CHART_OPACITY_BY_REGION = {
+  "Dublin City": 1.0,
+  "South Dublin": 1.0,
+  "Dún Laoghaire-Rathdown": 1.0,
+  "Fingal": 1.0,
+  "Dublin": 1.0,
+  "State": 1.0
+
+}
+//TODO: placeholder- implement with design system
+const CHART_OPACITY_BY_VARIABLE = {
   "Dublin City": 1.0,
   "South Dublin": 1.0,
   "Dún Laoghaire-Rathdown": 1.0,
