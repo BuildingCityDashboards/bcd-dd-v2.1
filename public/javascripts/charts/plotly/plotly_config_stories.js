@@ -147,7 +147,7 @@ const ANNOTATIONS_DEFAULT = {
   xanchor: 'left',
   yanchor: 'center',
   arrowcolor: '#fff',
-  arrowhead: 7,
+  arrowhead: 0,
   ax: 0,
   ay: 0,
   borderpad: 5
@@ -216,7 +216,7 @@ const MULTILINE_CHART_LAYOUT = {
     },
     visible: true,
     type: null,
-    range: [1, 100],
+    range: null,
     fixedrange: true,
     showticklabels: true,
     nticks: null,

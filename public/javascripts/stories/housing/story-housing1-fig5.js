@@ -40,7 +40,7 @@ d3.csv(srcPathFig5 + srcFileFig5)
     chartLayout.yaxis.title = '€bn';
     chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     chartLayout.margin = {
-      l: 70,
+      l: 60,
       r: 175, //annotations space
       t: 40
     };

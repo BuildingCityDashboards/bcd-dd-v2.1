@@ -12,6 +12,10 @@ const divIDFig9 = "property-tax-chart";
 d3.csv(srcPathFig9 + srcFileFig9)
   .then((data) => {
 
+    const yAxisRangeEuros = [1, 50];
+    const yAxisRangePercent = [1, 100];
+    const marginREuros = 100;
+    const marginRPercent = 0;
     //Data per type- use the array of type variable values
     let dataByType = d3.nest()
       .key(function(d) {
@@ -51,7 +55,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
         });
 
         trace.y = data[key].map((y) => {
-          return y[yVar];
+          return y[yVar] / 1000;
         });
 
         traces.push(trace);
@@ -70,14 +74,14 @@ d3.csv(srcPathFig9 + srcFileFig9)
     totalTrace.y = Object.keys(dataByDate).map((key) => {
       let val1 = +dataByDate[key][0]["value"];
       let val2 = +dataByDate[key][1]["value"];
-      return val1 + val2 //Bad coder!
+      return (val1 + val2) / 1000; //Bad coder!
     });
     taxTraces.push(totalTrace);
 
 
     //Manually compute trace for rate
     let rateTrace1 = Object.assign({}, taxTraces[1]);
-    rateTrace1.name = '% Property Tax';
+    rateTrace1.name = '% of Tax from Property';
     rateTrace1.stackgroup = 'one';
     rateTrace1.groupnorm = 'percent';
     rateTrace1.visible = false;
@@ -98,11 +102,14 @@ d3.csv(srcPathFig9 + srcFileFig9)
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [1997, 2009];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layout.yaxis.range = [1, 50000];
+    layout.yaxis.autorange = false;
+    layout.yaxis.range = [0.5, 50];
+    layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
+    layout.yaxis.title.text = '€bn';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 0,
-      r: 125, //annotations space
+      l: 50,
+      r: marginREuros, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
     };
@@ -115,23 +122,33 @@ d3.csv(srcPathFig9 + srcFileFig9)
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
-
+      annotation.text = trace.name.split('Rev')[0];
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       annotation.font.color = CHART_COLORWAY[i]; //Is this order smae as fetching from object in trace?
-      if (i < 3) { //booooo!
-        annotation.text = trace.name.split('Rev')[0];
-        countAnnotations.push(annotation);
-      } else {
-        annotation.text = 'test';
+      if (i === 3) {
+        annotation.text = trace.name;
+        annotation.y = 5;
+        annotation.font.color = CHART_COLORWAY[2];
         rateAnnotations.push(annotation);
+      } else { //booooo!
+        countAnnotations.push(annotation);
       }
     })
 
-    console.log(rateAnnotations);
+    console.log(countAnnotations);
 
-    countAnnotations[0].ay = 7;
-    countAnnotations[1].ay = 0;
-    countAnnotations[2].ay = -7;
+    countAnnotations[0].ay = 10; //other
+    countAnnotations[1].ay = -25; //prop
+    countAnnotations[2].ay = -15; //total
+
+    countAnnotations[0].ax = -0;
+    countAnnotations[1].ax = -65; //prop
+    countAnnotations[2].ax = -0;
+
+    rateAnnotations[0].showarrow = false;
+    rateAnnotations[0].xshift = -170;
+    rateAnnotations[0].yshift = 40;
+    //
 
     //Set default view annotations
     layout.annotations = countAnnotations; //set default
@@ -148,13 +165,15 @@ d3.csv(srcPathFig9 + srcFileFig9)
               ]
             },
             {
-              'title': titleFig9,
+              'title': "Tax Revenue Amount from Property in Billions of Euros (1997-2009)",
               'annotations': countAnnotations,
-              'yaxis.range': [1, 50000]
+              'yaxis.range': [0.5, 50],
+              'yaxis.title.text': '€bn',
+              'margin.r': marginREuros
 
             }
           ],
-          label: 'Amount (€)',
+          label: 'Amount (€bn)',
           method: 'update',
 
           // execute: true
@@ -168,7 +187,9 @@ d3.csv(srcPathFig9 + srcFileFig9)
             {
               'title': titleFig9,
               'annotations': rateAnnotations,
-              'yaxis.range': [0, 100]
+              'yaxis.range': yAxisRangePercent,
+              'yaxis.title.text': '%',
+              'margin.r': marginRPercent
 
             }
           ],
