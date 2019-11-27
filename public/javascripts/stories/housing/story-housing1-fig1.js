@@ -26,7 +26,7 @@ Promise.all([
       dataByRegion.push(data[0].filter((v) => {
         return v.region === regionName;
       }));
-      dataRateByRegion.push(data[1].filter((v) => {
+      dataRateByRegion.push(data[0].filter((v) => {
         return v.region === regionName;
       }));
     });
@@ -79,7 +79,7 @@ Promise.all([
     let popRateTraces = [];
     dataRateByRegion.forEach((regionData, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.name = regionData[1].region;
+      trace.name = regionData[0].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
@@ -90,7 +90,7 @@ Promise.all([
       });
 
       trace.y = regionData.map((v) => {
-        return v.population_rate;
+        return v["population rate"];
       });
 
       popRateTraces.push(trace);
@@ -110,7 +110,7 @@ Promise.all([
       });
 
       trace.y = regionData.map((v) => {
-        return v.households_rate;
+        return v["households rate"];
       });
 
       houseRateTraces.push(trace);
