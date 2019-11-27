@@ -25,11 +25,11 @@ d3.csv(srcPathFig3 + srcFileFig3)
     dataByType.forEach((typeData, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = typeData[0].region;
-      trace.stackgroup = 'one';
+      // trace.stackgroup = 'one';
       //reassign colour to -defocus some traces
-      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+      (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.75; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      (i < 4) ? trace.marker.color = null: trace.marker.color = 'lightgrey'; //magic number!!!
+      (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
       // (i < 4) ? trace.marker.opacity = 1.0: trace.marker.opacity = 0.1; //magic number!!!
       trace.marker.opacity = 0.0; //magic number!!!
 
@@ -54,12 +54,14 @@ d3.csv(srcPathFig3 + srcFileFig3)
     chartLayout.showlegend = false;
     chartLayout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
     chartLayout.xaxis.range = [1994, 2016];
+    chartLayout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    chartLayout.yaxis.fixedrange = false;
     chartLayout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     chartLayout.margin = {
       l: 0,
       r: 180, //annotations space
       b: 40, //x axis tooltip
-      t: 100 //button row
+      t: 50 //button row
     };
 
     // chartLayout.hidesources = false;
@@ -71,28 +73,43 @@ d3.csv(srcPathFig3 + srcFileFig3)
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       (i < 4 || i == 7) ? annotation.text = trace.name: null;
+
       //de-focus some annotations
       //TODO: function for this
-      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-
+      (i < 4) ? annotation.showarrow = true: annotation.showarrow = false;
+      (i < 4) ? annotation.arrowcolor = CHART_COLORWAY[i]: annotation.arrowcolor = 'grey'; //magic number!!!
       // console.log(annotation.font.color);
       chartAnnotations.push(annotation);
     })
     //add a one-off annotation
+    let hoverAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    hoverAnnotation.x = 2010;
+    hoverAnnotation.y = 40000;
+    hoverAnnotation.opacity = 0.75;
+    hoverAnnotation.text = 'Hover for more regions';
+    hoverAnnotation.font.color = 'grey';
+    chartAnnotations.push(hoverAnnotation);
     let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
     annotation.x = 2010;
-    annotation.y = 40000;
-    annotation.opacity = 0.5;
-    annotation.text = 'Hover for more regions';
+    annotation.y = 35000;
+    annotation.opacity = 0.75;
+    annotation.text = 'Drag on plot to zoom';
     chartAnnotations.push(annotation);
 
-    chartAnnotations[0].ay = 0; //DC
-    chartAnnotations[1].ay = -17; //DLR
-    chartAnnotations[2].ay = -30; //Fingal
-    chartAnnotations[3].ay = -50; //SD
-    chartAnnotations[7].ay = -40; //RoI
+    chartAnnotations[0].ax = 10; //DC
+    chartAnnotations[1].ax = 10; //DLR
+    chartAnnotations[2].ax = 10; //Fingal
+    chartAnnotations[3].ax = 10; //SD
+    chartAnnotations[7].ax = 10; //RoI
+
+    chartAnnotations[0].ay = -12; //DC
+    chartAnnotations[1].ay = -30; //DLR
+    chartAnnotations[2].ay = -45; //Fingal
+    chartAnnotations[3].ay = 0; //SD
+    chartAnnotations[7].ay = 0; //RoI
     // chartAnnotations[5].ay = 0; // M
 
     //Set default view annotations

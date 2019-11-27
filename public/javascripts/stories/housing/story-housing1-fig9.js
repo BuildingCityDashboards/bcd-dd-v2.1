@@ -3,7 +3,8 @@
 const srcPathFig9 = "../data/Stories/Housing/",
   srcFileFig9 = "Property_tax.csv";
 const typesFig9 = ["Property Related Tax Revenue", "Other Tax Revenue"];
-const titleFig9 = "Tax Revenue from Property and Other Sources (1997-2009)";
+const titleFig9_1 = "Property-Related & Other Tax Revenue in Billions of Euros (1997-2009)";
+const titleFig9_2 = "Property-Related Tax as a Proportion of All Tax Revenue (1997-2009)";
 const divIDFig9 = "property-tax-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -97,7 +98,8 @@ d3.csv(srcPathFig9 + srcFileFig9)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layout.title.text = titleFig9;
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
+    layout.title.text = titleFig9_1;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [1997, 2009];
@@ -135,8 +137,6 @@ d3.csv(srcPathFig9 + srcFileFig9)
       }
     })
 
-    console.log(countAnnotations);
-
     countAnnotations[0].ay = 10; //other
     countAnnotations[1].ay = -25; //prop
     countAnnotations[2].ay = -15; //total
@@ -165,7 +165,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
               ]
             },
             {
-              'title': "Tax Revenue Amount from Property in Billions of Euros (1997-2009)",
+              'title': titleFig9_1,
               'annotations': countAnnotations,
               'yaxis.range': [0.5, 50],
               'yaxis.title.text': '€bn',
@@ -185,7 +185,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
               ]
             },
             {
-              'title': titleFig9,
+              'title': titleFig9_2,
               'annotations': rateAnnotations,
               'yaxis.range': yAxisRangePercent,
               'yaxis.title.text': '%',
@@ -215,7 +215,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + titleFig9,
+        filename: 'Dublin Dashboard - ' + titleFig9_1,
         width: null,
         height: null,
         format: 'png'
