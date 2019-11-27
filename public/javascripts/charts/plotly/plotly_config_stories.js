@@ -216,7 +216,7 @@ const MULTILINE_CHART_LAYOUT = {
     },
     visible: true,
     type: null,
-    range: null,
+    range: [1, 100],
     fixedrange: true,
     showticklabels: true,
     nticks: null,
