@@ -46,7 +46,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
         trace.mode = "lines";
         //reassign colour to -defocus some traces
         // trace.opacity = CHART_OPACITY_BY_VARIABLE[typeName] || 0.5;
-        // trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+        trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
         // trace.marker.opacity = 0.0;
         // trace.marker.color = null : trace.marker.color = 'grey'; //use default colorway or grey
 
@@ -77,23 +77,23 @@ d3.csv(srcPathFig9 + srcFileFig9)
       return (val1 + val2) / 1000; //Bad coder!
     });
     taxTraces.push(totalTrace);
+    // console.log(taxTraces);
 
 
-    //Manually compute trace for rate
     let rateTrace1 = Object.assign({}, taxTraces[1]);
-    rateTrace1.name = '% of Tax from Property';
+    rateTrace1.name = 'Property Related Tax %';
     rateTrace1.stackgroup = 'one';
     rateTrace1.groupnorm = 'percent';
-    rateTrace1.visible = false;
+    rateTrace1.visible = false; //default on load
     taxTraces.push(rateTrace1);
 
-    let rateTrace2 = Object.assign({}, taxTraces[0]);
+    //Manually compute traces for rate
+    let rateTrace2 = Object.assign({}, taxTraces[2]);
     rateTrace2.name = '';
     rateTrace2.hoverinfo = 'none';
     rateTrace2.stackgroup = 'one';
     rateTrace2.visible = false;
     taxTraces.push(rateTrace2);
-
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);

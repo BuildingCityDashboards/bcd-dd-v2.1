@@ -1,8 +1,7 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
 const srcPathFig1 = "../data/Stories/Housing/",
-  srcFileFig11 = "pop_house.csv",
-  srcFileFig12 = "pop_house_rate_new.csv";
+  srcFileFig11 = "pop_house.csv";
 const regionsFig1 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let titleFig1 = "Growth in population and households 1991-2016";
 const popTitle = "Population of Dublin and Surrounding Areas (1991-2016)";
@@ -13,20 +12,16 @@ titleFig1 = popTitle; //set default on load
 const divIDFig1 = "population-households-chart";
 
 
-//@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
-//Want a better mechanism for page load that doesn't have to wait for all the data
-Promise.all([
-    d3.csv(srcPathFig1 + srcFileFig11),
-    d3.csv(srcPathFig1 + srcFileFig12)
-  ]).then((data) => {
+d3.csv(srcPathFig1 + srcFileFig11)
+  .then((data) => {
     //Data per region- use the array of region variable values
     let dataByRegion = [];
     let dataRateByRegion = [];
     regionsFig1.forEach((regionName) => {
-      dataByRegion.push(data[0].filter((v) => {
+      dataByRegion.push(data.filter((v) => {
         return v.region === regionName;
       }));
-      dataRateByRegion.push(data[0].filter((v) => {
+      dataRateByRegion.push(data.filter((v) => {
         return v.region === regionName;
       }));
     });
@@ -129,7 +124,7 @@ Promise.all([
     chartLayout.yaxis.title = '';
     chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     chartLayout.margin = {
-      l: 0,
+      l: 25,
       r: 200, //Dun Laoghaire!!!
       t: 100 //button row
     };
@@ -252,6 +247,7 @@ Promise.all([
             {
               'title': popTitle,
               'annotations': popAnnotations,
+              'yaxis.title.text': '',
 
             }
           ],
@@ -269,7 +265,8 @@ Promise.all([
             },
             {
               'title': houseTitle,
-              'annotations': houseAnnotations
+              'annotations': houseAnnotations,
+              'yaxis.title.text': '',
             }
           ],
           label: 'Households',
@@ -286,7 +283,8 @@ Promise.all([
             },
             {
               'title': popRateTitle,
-              'annotations': popRateAnnotations
+              'annotations': popRateAnnotations,
+              'yaxis.title.text': '%',
 
             }
           ],
@@ -304,7 +302,8 @@ Promise.all([
             },
             {
               'title': houseRateTitle,
-              'annotations': houseRateAnnotations
+              'annotations': houseRateAnnotations,
+              'yaxis.title.text': '%'
             }
           ],
           label: 'Household % change',
