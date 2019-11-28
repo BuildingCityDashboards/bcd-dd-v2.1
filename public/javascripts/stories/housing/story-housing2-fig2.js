@@ -18,51 +18,25 @@ d3.csv(srcPathFig2)
     let vacantCountTraces = [];
     regions.forEach((regionName, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
-
       trace.x = dataByRegion[regionName].map((v) => {
         return v.date;
       });
-
       trace.y = dataByRegion[regionName].map((v) => {
         return v["Vacant (Number)"];
       });
-
-      trace.name = regionName + " vacant houses";
-      trace.type = 'line';
-      trace.stackgroup = 'one';
-      // trace.base = 'relative';
-      //reassign colour to -defocus some traces
-      // trace.opacity = CHART_OPACITY_BY_REGION[regionName] || 0.5;
-      trace.fillcolor = Object.assign({}, TRACES_DEFAULT.line);
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.opacity = 0.1;
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
-
-
       trace.text = trace.y.map(String);
-      trace.textposition = "inside";
-      trace.textfont = {
-        family: null,
-        size: null,
-        color: '#ffffff'
-      }
-      // trace.hoverinfo = 'none';
-
+      trace.name = regionName + " vacant houses";
+      trace.type = 'scatter';
+      trace.mode = 'lines';
+      trace.fill = 'tozeroy';
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
       vacantCountTraces.push(trace);
     });
 
     let stockTraces = [];
     regions.forEach((regionName) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.name = regionName + " total houses";
-      trace.type = 'line';
-      trace.stackgroup = 'one';
-      // trace.base = 'relative';
-      //reassign colour to -defocus some traces
-      trace.opacity = 0.5;
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
-      trace.fill = CHART_COLORS_BY_REGION[regionName] || 'grey';
       trace.x = dataByRegion[regionName].map((v) => {
         return v.date;
       });
@@ -71,41 +45,44 @@ d3.csv(srcPathFig2)
         return v["Total housing stock (Number)"];
       });
       trace.text = trace.y.map(String);
-      trace.textposition = "inside";
-      trace.textfont = {
-        family: null,
-        size: null,
-        color: '#ffffff'
-      }
-      // trace.hoverinfo = 'none';
+      trace.name = regionName + " total houses";
+
+      trace.type = 'scatter';
+      trace.mode = 'lines';
+      trace.fill = 'tozeroy';
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
+      // fillcolor Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.
+      // trace.fillcolor = CHART_COLORS_BY_REGION[regionName] || 'grey';
+
       stockTraces.push(trace);
     });
 
-
-
-    let vacantRateTraces = [];
-    regions.forEach((regionName, i) => {
-      let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.name = regionName;
-      trace.mode = 'lines';
-      //reassign colour to -defocus some traces
-      // (i < 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
-      trace.x = dataByRegion[regionName].map((v) => {
-        return v.date;
-      });
-
-      trace.y = dataByRegion[regionName].map((v) => {
-        return v["Vacancy rate (%)"];
-      });
-
-      vacantRateTraces.push(trace);
-    });
+    // let vacantRateTraces = [];
+    // regions.forEach((regionName, i) => {
+    //   let trace = Object.assign({}, TRACES_DEFAULT);
+    //   trace.x = dataByRegion[regionName].map((v) => {
+    //     return v.date;
+    //   });
+    //
+    //   trace.y = dataByRegion[regionName].map((v) => {
+    //     return v["Vacancy rate (%)"];
+    //   });
+    //
+    //   trace.name = regionName + " vacant houses";
+    //   trace.type = 'line';
+    //   trace.mode = 'none';
+    //   // trace.stackgroup = 'one';
+    //   //reassign colour to -defocus some traces
+    //   // (i < 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
+    //   // trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    //   // trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
+    //   vacantRateTraces.push(trace);
+    // });
     //This seems bad as it is order dependant
     let traces = vacantCountTraces
-      .concat(stockTraces)
-      .concat(vacantRateTraces);
+      .concat(stockTraces);
+    // .concat(vacantRateTraces);
 
     //Set default visible traces (i.e. traces on each chart)
     traces.map((t) => {
@@ -123,7 +100,7 @@ d3.csv(srcPathFig2)
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.title = '';
     // layout.xaxis.nticks = 5;
-    layout.xaxis.range = [1989, 2018];
+    // layout.xaxis.range = [1989, 2018];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     // layout.yaxis.range = [0.1, 2100000];
     // layout.yaxis.visible = false;

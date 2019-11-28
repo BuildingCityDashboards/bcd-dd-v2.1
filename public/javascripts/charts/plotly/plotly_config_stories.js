@@ -154,6 +154,7 @@ const ANNOTATIONS_DEFAULT = {
 }
 
 const TRACES_DEFAULT = {
+  name: 'trace',
   type: 'scatter',
   mode: 'lines+markers',
   opacity: 1.0, //default
@@ -164,15 +165,15 @@ const TRACES_DEFAULT = {
       width: null
     }
   },
+  fill: null,
   fillcolor: null,
-  hoveron: 'points+fills',
+  hoveron: 'points', //'points+fills',
   line: {
     color: null,
     shape: 'spline'
   },
   text: null,
   hoverinfo: null,
-  name: 'trace',
   visible: true //'legendonly'
 };
 
