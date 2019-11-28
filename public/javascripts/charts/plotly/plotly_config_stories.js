@@ -154,12 +154,10 @@ const ANNOTATIONS_DEFAULT = {
 }
 
 const TRACES_DEFAULT = {
+  name: 'trace',
   type: 'scatter',
   mode: 'lines+markers',
   opacity: 1.0, //default
-  line: {
-    shape: 'spline'
-  },
   marker: {
     symbol: null,
     color: null, //lines + markers, defaults to colorway
@@ -167,7 +165,15 @@ const TRACES_DEFAULT = {
       width: null
     }
   },
-  name: 'trace',
+  fill: null,
+  fillcolor: null,
+  hoveron: 'points', //'points+fills',
+  line: {
+    color: null,
+    shape: 'spline'
+  },
+  text: null,
+  hoverinfo: null,
   visible: true //'legendonly'
 };
 
