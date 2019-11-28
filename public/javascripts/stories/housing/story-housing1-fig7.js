@@ -21,7 +21,7 @@ d3.csv(srcPathFig7 + srcFileFig7)
     let socialHousingBuildTraces = [];
     dataByRegion.forEach((regionData, i) => {
       let trace = Object.assign({}, TRACES_DEFAULT);
-      (i < 4) ? trace.name = regionData[0].region: trace.name = '';
+      (i < 7) ? trace.name = regionData[0].region: trace.name = '';
       // trace.name = regionData[0].region;
       //reassign colour to -defocus some traces
       (i < 4) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
@@ -72,6 +72,7 @@ d3.csv(srcPathFig7 + srcFileFig7)
       (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+      (i < 4) ? annotation.visible = true: annotation.visible = false;
 
       // console.log(annotation.font.color);
       socialHousingBuildAnnotations.push(annotation);
