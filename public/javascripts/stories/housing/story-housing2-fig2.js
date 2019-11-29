@@ -12,51 +12,47 @@ d3.csv(srcPathFig2)
       })
       .object(data);
     const regions = Object.keys(dataByRegion);
-    console.log(regions);
+    // console.log(regions);
 
-    // //traces for chart
-    let vacantCountTraces = [];
-    regions.forEach((regionName, i) => {
-      let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.x = dataByRegion[regionName].map((v) => {
-        return v.date;
-      });
-      trace.y = dataByRegion[regionName].map((v) => {
-        return v["Vacant (Number)"];
-      });
-      trace.text = trace.y.map(String);
-      trace.name = regionName + " vacant houses";
-      trace.type = 'scatter';
-      trace.mode = 'lines';
-      trace.fill = 'tozeroy';
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
-      vacantCountTraces.push(trace);
+    //traces for state count chart
+    let stateTraces = [];
+    let stateVacantTrace = Object.assign({}, TRACES_DEFAULT);
+    stateVacantTrace.x = dataByRegion["State"].map((v) => {
+      return v["date"];
+    });
+    stateVacantTrace.y = dataByRegion["State"].map((v) => {
+      return v["Vacant (Number)"];
+    });
+    stateVacantTrace.text = stateVacantTrace.y.map(String);
+    stateVacantTrace.name = "State" + " vacant houses";
+    stateVacantTrace.type = 'scatter';
+    stateVacantTrace.mode = 'lines';
+    stateVacantTrace.fill = 'tozeroy';
+    stateVacantTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    stateVacantTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    stateTraces.push(stateVacantTrace);
+
+    let stateStockTrace = Object.assign({}, TRACES_DEFAULT);
+    stateStockTrace.x = dataByRegion["State"].map((v) => {
+      return v.date;
     });
 
-    let stockTraces = [];
-    regions.forEach((regionName) => {
-      let trace = Object.assign({}, TRACES_DEFAULT);
-      trace.x = dataByRegion[regionName].map((v) => {
-        return v.date;
-      });
-
-      trace.y = dataByRegion[regionName].map((v) => {
-        return v["Total housing stock (Number)"];
-      });
-      trace.text = trace.y.map(String);
-      trace.name = regionName + " total houses";
-
-      trace.type = 'scatter';
-      trace.mode = 'lines';
-      trace.fill = 'tozeroy';
-      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey';
-      // fillcolor Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.
-      // trace.fillcolor = CHART_COLORS_BY_REGION[regionName] || 'grey';
-
-      stockTraces.push(trace);
+    stateStockTrace.y = dataByRegion["State"].map((v) => {
+      return v["Total housing stock (Number)"];
     });
+    stateStockTrace.text = stateStockTrace.y.map(String);
+    stateStockTrace.name = "State" + " total houses";
+
+    stateStockTrace.type = 'scatter';
+    stateStockTrace.mode = 'lines';
+    stateStockTrace.fill = 'tozeroy';
+    stateStockTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    stateStockTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    // fillcolor Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.
+    // stateStockTrace.fillcolor = CHART_COLORS_BY_REGION[regionName] || 'grey';
+
+    stateTraces.push(stateStockTrace);
+
 
     // let vacantRateTraces = [];
     // regions.forEach((regionName, i) => {
@@ -80,8 +76,8 @@ d3.csv(srcPathFig2)
     //   vacantRateTraces.push(trace);
     // });
     //This seems bad as it is order dependant
-    let traces = vacantCountTraces
-      .concat(stockTraces);
+    let traces = stateTraces;
+    // .concat(stockTraces);
     // .concat(vacantRateTraces);
 
     //Set default visible traces (i.e. traces on each chart)
