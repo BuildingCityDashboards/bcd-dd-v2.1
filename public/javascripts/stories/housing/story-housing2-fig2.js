@@ -16,42 +16,44 @@ d3.csv(srcPathFig2)
 
     //traces for state count chart
     let stateTraces = [];
-    let stateVacantTrace = Object.assign({}, TRACES_DEFAULT);
-    stateVacantTrace.x = dataByRegion["State"].map((v) => {
-      return v["date"];
-    });
-    stateVacantTrace.y = dataByRegion["State"].map((v) => {
-      return v["Vacant (Number)"];
-    });
+
+    let stateVacantTrace = getTrace(dataByRegion, "State", "date", "Vacant (Number)");
     stateVacantTrace.text = stateVacantTrace.y.map(String);
     stateVacantTrace.name = "State" + " vacant houses";
-    stateVacantTrace.type = 'scatter';
+    // stateVacantTrace.type = 'scatter';
     stateVacantTrace.mode = 'lines';
     stateVacantTrace.fill = 'tozeroy';
     stateVacantTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     stateVacantTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
     stateTraces.push(stateVacantTrace);
 
-    let stateStockTrace = Object.assign({}, TRACES_DEFAULT);
-    stateStockTrace.x = dataByRegion["State"].map((v) => {
-      return v.date;
-    });
-
-    stateStockTrace.y = dataByRegion["State"].map((v) => {
-      return v["Total housing stock (Number)"];
-    });
+    let stateStockTrace = getTrace(dataByRegion, "State", "date", "Total housing stock (Number)");
     stateStockTrace.text = stateStockTrace.y.map(String);
     stateStockTrace.name = "State" + " total houses";
-
-    stateStockTrace.type = 'scatter';
+    // stateStockTrace.type = 'scatter';
     stateStockTrace.mode = 'lines';
     stateStockTrace.fill = 'tozeroy';
     stateStockTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     stateStockTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    stateTraces.push(stateStockTrace);
+
+
+    function getTrace(data, key, xVar, yVar) {
+      let trace = Object.assign({}, TRACES_DEFAULT);
+      trace.x = dataByRegion[key].map((x) => {
+        return x[xVar];
+      });
+      trace.y = dataByRegion[key].map((y) => {
+        return y[yVar];
+      });
+      return trace;
+    }
+
+
+
     // fillcolor Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.
     // stateStockTrace.fillcolor = CHART_COLORS_BY_REGION[regionName] || 'grey';
 
-    stateTraces.push(stateStockTrace);
 
 
     // let vacantRateTraces = [];
