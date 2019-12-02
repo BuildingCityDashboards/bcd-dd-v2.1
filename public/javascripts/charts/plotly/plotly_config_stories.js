@@ -100,6 +100,8 @@ const CHART_COLORS_BY_VARIABLE = {
   "Dublin": CHART_COLORWAY[0]
 }
 
+const CHART_COLORWAY_VARIABLES = CHART_COLORWAY_BCD_2;
+
 const CHART_OPACITY_BY_REGION = {
   "Dublin City": 1.0,
   "South Dublin": 1.0,
