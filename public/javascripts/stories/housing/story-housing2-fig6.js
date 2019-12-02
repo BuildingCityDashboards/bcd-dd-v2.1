@@ -11,8 +11,8 @@ d3.csv(srcPathFig6)
 
     const shortColumnNames = {
       "Outstanding Mortgages: Total mortgage loan accounts outstanding": "Outstanding Mortgages",
-      "Arrears: Total mortgage accounts in arrears": "Total in Arrears",
-      "Arrears: Total mortgage accounts in arrears - over 90 days": "Total in Arrears 90+ Days",
+      "Arrears: Total mortgage accounts in arrears": "All Mortgages in Arrears",
+      "Arrears: Total mortgage accounts in arrears - over 90 days": "Mortgages in Arrears >90 Days",
       "Arrears: % of loan accounts in arrears for more than 90 days": "Portion in Arrears 90+ Days"
     };
     let traces = [];
