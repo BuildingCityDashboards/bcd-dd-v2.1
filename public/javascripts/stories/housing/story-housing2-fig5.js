@@ -14,15 +14,17 @@ const shortColumnNames = {
 d3.csv(srcPathFig5)
   .then((data) => {
     let traces = [];
+    const yAxisRangeCount = [1, 825000];
+    const yAxisRangePercent = [1, 100];
+    const marginRCount = 100;
+    const marginRPercent = 0;
 
     let colName = "Outstanding Mortgages: Total mortgage loan accounts outstanding";
     let totalTrace = getTrace(data, "date", colName);
     totalTrace.text = totalTrace.y.map(String);
     totalTrace.name = shortColumnNames[colName];
-    // stotalTrace.type = 'scatter';
     totalTrace.mode = 'lines';
     totalTrace.visible = true;
-    // totalTrace.fill = 'tozeroy';
     // totalTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     // totalTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
     traces.push(totalTrace);
@@ -34,7 +36,6 @@ d3.csv(srcPathFig5)
     // sarrearsTrace.type = 'scatter';
     arrearsTrace.mode = 'lines';
     arrearsTrace.visible = true;
-    // arrearsTrace.fill = 'tozeroy';
     // arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     // arrearsTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
     traces.push(arrearsTrace);
@@ -46,49 +47,52 @@ d3.csv(srcPathFig5)
     // sarrears90DaysTrace.type = 'scatter';
     arrears90DaysTrace.mode = 'lines';
     arrears90DaysTrace.visible = true;
-    // arrears90DaysTrace.fill = 'tozeroy';
     // arrears90DaysTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     // arrears90DaysTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
     traces.push(arrears90DaysTrace);
 
+    //dummy trace for normalised stack
     colName = "Arrears: % of loan accounts in arrears for more than 90 days";
     let arrearsPercentTrace = getTrace(data, "date", "Arrears: % of loan accounts in arrears for more than 90 days");
 
     arrearsPercentTrace.text = arrearsTrace.y.map(String);
     arrearsPercentTrace.name = shortColumnNames[colName];
+    arrearsPercentTrace.stackgroup = 'one';
+    arrearsPercentTrace.groupnorm = 'percent';
     // arrearsPercentTrace.type = 'scatter';
     arrearsPercentTrace.mode = 'lines';
     arrearsPercentTrace.visible = false;
-    // arrearsPercentTrace.fill = 'tozeroy';
     // arrearsPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     // arrearsPercentTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+
     traces.push(arrearsPercentTrace);
+
+    let arrears100PercentTrace = Object.assign({}, TRACES_DEFAULT);
+    arrears100PercentTrace.x = data.map((x) => {
+      let parts = x["date"].split('-');
+      return parts[0] + ' 20' + parts[1]; //modified date format
+
+    });
+    arrears100PercentTrace.y = data.map((y) => {
+      return 100 - y[colName];
+    });
+    arrears100PercentTrace.mode = 'lines';
+    arrears100PercentTrace.visible = false;
+    arrears100PercentTrace.stackgroup = 'one';
+    arrears100PercentTrace.hoverinfo = 'none';
+    traces.push(arrears100PercentTrace);
 
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.x = data.map((x) => {
-        return x[xVar];
+        let parts = x[xVar].split('-');
+        return parts[0] + ' 20' + parts[1]; //modified date format;
       });
       trace.y = data.map((y) => {
         return y[yVar];
       });
       return trace;
     }
-
-
-
-    // fillcolor Sets the fill color. Defaults to a half-transparent variant of the line color, marker color, or marker line color, whichever is available.
-    // stateStockTrace.fillcolor = CHART_COLORS_BY_REGION[regionName] || 'grey';
-
-    // let traces÷ = homeMortgageTraces;
-    // .concat(stockTraces);
-    // .concat(vacantRateTraces);
-
-    //Set default visible traces (i.e. traces on each chart)
-    // traces.map((t) => {
-    //   if (t.name === "State total houses" || t.name === "State vacant houses") return t.visible = true;
-    //   else return t.visible = false;
-    // });
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
@@ -98,23 +102,20 @@ d3.csv(srcPathFig5)
     layout.barmode = 'relative';
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.title = '';
-    // layout.xaxis.nticks = 5;
+    layout.xaxis.nticks = 5;
     // layout.xaxis.range = [1989, 2018];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    // layout.yaxis.range = [0.1, 2100000];
+    layout.yaxis.range = yAxisRangeCount;
     // layout.yaxis.visible = false;
     layout.yaxis.title = '';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 0,
-      r: 150,
+      r: marginRCount,
       t: 100, //button row
       b: 20
     };
-    // layout.hidesources = false;
 
-    let stateAnnotations = [];
-    let dublinAnnotations = [];
     // traces.forEach((trace, i) => {
     //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
     //   annotation.x = trace.x[trace.x.length - 1];
@@ -151,13 +152,16 @@ d3.csv(srcPathFig5)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, true, false
+              'visible': [true, true, true, false, false
 
               ]
             },
             {
               'title': titleFig5,
-              'annotations': null
+              'annotations': null,
+              'yaxis.range': yAxisRangeCount,
+              'yaxis.title.text': '',
+              'margin.r': marginRCount
 
             }
           ],
@@ -167,22 +171,25 @@ d3.csv(srcPathFig5)
         },
         {
           args: [{
-              'visible': [false, false, false, true]
+              'visible': [false, false, false, true, true]
             },
             {
               'title': titleFig5,
-              'annotations': dublinAnnotations
+              'annotations': null,
+              'yaxis.range': yAxisRangePercent,
+              'yaxis.title.text': '%',
+              'margin.r': marginRPercent
             }
           ],
-          label: "Proportion of Mortgages in arrears (%)",
+          label: "Proportion of Mortgages in Arrears (%)",
           method: 'update',
-          execute: true
+          // execute: true
         }
       ],
     });
 
     layout.updatemenus = updateMenus;
-    layout.annotations = stateAnnotations;
+    // layout.annotations = stateAnnotations;
 
     Plotly.newPlot(divIDFig5, traces, layout, {
       modeBar: {
