@@ -1,6 +1,6 @@
 //Options for chart
 const srcPathFig6 = "../data/Stories/Housing/part_2/processed/btl_mortgage_arrears.csv";
-const titleFig6 = "Buy-to-let Mortage Arrears (2009-2018)";
+const titleFig6 = "Buy-to-let Mortage Arrears (2012-2018)";
 const divIDFig6 = "btl-mortgage-arrears-chart";
 // const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "State"];
 
@@ -100,6 +100,7 @@ d3.csv(srcPathFig6)
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title.text = titleFig6;
     layout.height = 500;
+    layout.colorway = CHART_COLORWAY_VARIABLES;
     layout.showlegend = false;
     layout.barmode = 'relative';
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
