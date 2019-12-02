@@ -18,7 +18,7 @@ d3.csv(srcPathFig6)
     let traces = [];
     const yAxisRangeCount = [1, 200000];
     const yAxisRangePercent = [1, 100];
-    const marginRCount = 100;
+    const marginRCount = 0;
     const marginRPercent = 0;
 
     let colName = "Outstanding Mortgages: Total mortgage loan accounts outstanding";
@@ -102,11 +102,9 @@ d3.csv(srcPathFig6)
     layout.height = 500;
     layout.colorway = CHART_COLORWAY_VARIABLES;
     layout.showlegend = false;
-    layout.barmode = 'relative';
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.title = '';
     layout.xaxis.nticks = 5;
-    // layout.xaxis.range = [1989, 2018];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.range = yAxisRangeCount;
     // layout.yaxis.visible = false;
@@ -119,35 +117,29 @@ d3.csv(srcPathFig6)
       b: 20
     };
 
-    // traces.forEach((trace, i) => {
-    //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    //   annotation.x = trace.x[trace.x.length - 1];
-    //   annotation.y = trace.y[trace.y.length - 1];
-    //   annotation.text = trace.name;
-    //   //de-focus some annotations
-    //   //TODO: function for this
-    //   // (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-    //   annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    //   annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
-    //   if (trace.name === "State total houses" || trace.name === "State vacant houses") {
-    //     stateAnnotations.push(annotation);
-    //     console.log(annotation);
-    //   } else {
-    //     dublinAnnotations.push(annotation);
-    //   }
-    // })
+    let countAnnotations = [];
+    let rateAnnotations = [];
+    traces.forEach((trace, i) => {
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      // (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = CHART_COLORWAY_VARIABLES[i % 3] || 'grey';
+      if (i < 3) {
+        countAnnotations.push(annotation);
+        // console.log(annotation);
+      } else if (i === 3) {
+        rateAnnotations.push(annotation);
+      }
+    })
     // //set individual annotation stylings
-    // apartAnnotations[0].ay = 0; //Dublin
-    // apartAnnotations[1].ay = 0; //Rest
-    // apartAnnotations[2].ay = 0; //Nat
-    //
-    // stateAnnotations[0].ay = 5; //Dublin
-    // stateAnnotations[1].ay = 10; //Rest
-    // stateAnnotations[2].ay = -10; //Nat
-    //
-    // allAnnotations[0].ay = -2; //Dublin
-    // allAnnotations[1].ay = 10; //Rest
-    // allAnnotations[2].ay = -15; //Nat
+    countAnnotations[0].ay = 0; //Outstanding
+    countAnnotations[1].ay = -10; //In arrears
+    countAnnotations[2].ay = 0; //90 days
 
     //Set button menu
     let updateMenus = [];
@@ -155,13 +147,11 @@ d3.csv(srcPathFig6)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, true, false, false
-
-              ]
+              'visible': [true, true, true, false, false]
             },
             {
               'title': titleFig6,
-              'annotations': null,
+              'annotations': countAnnotations,
               'yaxis.range': yAxisRangeCount,
               'yaxis.title.text': '',
               'margin.r': marginRCount
@@ -178,7 +168,7 @@ d3.csv(srcPathFig6)
             },
             {
               'title': titleFig6,
-              'annotations': null,
+              'annotations': rateAnnotations,
               'yaxis.range': yAxisRangePercent,
               'yaxis.title.text': '%',
               'margin.r': marginRPercent
@@ -192,7 +182,7 @@ d3.csv(srcPathFig6)
     });
 
     layout.updatemenus = updateMenus;
-    // layout.annotations = stateAnnotations;
+    layout.annotations = countAnnotations;
 
     Plotly.newPlot(divIDFig6, traces, layout, {
       modeBar: {
