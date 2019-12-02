@@ -1,9 +1,12 @@
 //Options for chart
-const srcPathFig5 = "../data/Stories/Housing/part_2/processed/home_mortgage_arrears.csv";
-const titleFig5 = "Home Mortage Arrears (2009-2018)";
-const divIDFig5 = "home-mortgage-arrears-chart";
+const srcPathFig6 = "../data/Stories/Housing/part_2/processed/btl_mortgage_arrears.csv";
+const titleFig6 = "Buy-to-let Mortage Arrears (2009-2018)";
+const divIDFig6 = "btl-mortgage-arrears-chart";
+// const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "State"];
 
-d3.csv(srcPathFig5)
+
+
+d3.csv(srcPathFig6)
   .then((data) => {
 
     const shortColumnNames = {
@@ -12,9 +15,8 @@ d3.csv(srcPathFig5)
       "Arrears: Total mortgage accounts in arrears - over 90 days": "Total in Arrears 90+ Days",
       "Arrears: % of loan accounts in arrears for more than 90 days": "Portion in Arrears 90+ Days"
     };
-
     let traces = [];
-    const yAxisRangeCount = [1, 825000];
+    const yAxisRangeCount = [1, 200000];
     const yAxisRangePercent = [1, 100];
     const marginRCount = 100;
     const marginRPercent = 0;
@@ -96,7 +98,7 @@ d3.csv(srcPathFig5)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layout.title.text = titleFig5;
+    layout.title.text = titleFig6;
     layout.height = 500;
     layout.showlegend = false;
     layout.barmode = 'relative';
@@ -157,7 +159,7 @@ d3.csv(srcPathFig5)
               ]
             },
             {
-              'title': titleFig5,
+              'title': titleFig6,
               'annotations': null,
               'yaxis.range': yAxisRangeCount,
               'yaxis.title.text': '',
@@ -174,7 +176,7 @@ d3.csv(srcPathFig5)
               'visible': [false, false, false, true, true]
             },
             {
-              'title': titleFig5,
+              'title': titleFig6,
               'annotations': null,
               'yaxis.range': yAxisRangePercent,
               'yaxis.title.text': '%',
@@ -191,7 +193,7 @@ d3.csv(srcPathFig5)
     layout.updatemenus = updateMenus;
     // layout.annotations = stateAnnotations;
 
-    Plotly.newPlot(divIDFig5, traces, layout, {
+    Plotly.newPlot(divIDFig6, traces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
@@ -204,7 +206,7 @@ d3.csv(srcPathFig5)
       showSendToCloud: false,
       responsive: true,
       toImageButtonOptions: {
-        filename: 'Dublin Dashboard - ' + titleFig5,
+        filename: 'Dublin Dashboard - ' + titleFig6,
         width: null,
         height: null,
         format: 'png'
