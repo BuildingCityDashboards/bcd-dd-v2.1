@@ -13,7 +13,7 @@ d3.csv(srcPathFig6)
       "Outstanding Mortgages: Total mortgage loan accounts outstanding": "Outstanding Mortgages",
       "Arrears: Total mortgage accounts in arrears": "All Mortgages in Arrears",
       "Arrears: Total mortgage accounts in arrears - over 90 days": "Mortgages in Arrears >90 Days",
-      "Arrears: % of loan accounts in arrears for more than 90 days": "Portion in Arrears 90+ Days"
+      "Arrears: % of loan accounts in arrears for more than 90 days": "Proportion in Arrears 90+ Days"
     };
     let traces = [];
     const yAxisRangeCount = [1, 200000];
@@ -140,6 +140,10 @@ d3.csv(srcPathFig6)
     countAnnotations[0].ay = 0; //Outstanding
     countAnnotations[1].ay = -10; //In arrears
     countAnnotations[2].ay = 0; //90 days
+
+    rateAnnotations[0].showarrow = false;
+    rateAnnotations[0].xshift = -220;
+    rateAnnotations[0].yshift = 25;
 
     //Set button menu
     let updateMenus = [];
