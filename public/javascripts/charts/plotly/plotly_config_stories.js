@@ -1,7 +1,9 @@
 /*
-Default configuration objects ofr plotly charts used in Stories
+Default configuration objects for plotly charts used in Stories
 */
 
+const REGIONS_ORDERED_DUBLIN = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin"]
+const REGIONS_ORDERED_NEIGHBOURS = ["Kildare", "Meath", "Wicklow"];
 
 const MODE_BAR_BUTTONS_TO_REMOVE = ['zoom2d', 'pan2d', 'select2d', 'lasso2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d', 'toggleSpikelines'];
 const ROW_CHART_MODE_BAR_BUTTONS_TO_INCLUDE = [
