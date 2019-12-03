@@ -8,6 +8,9 @@ d3.csv(srcPathFig7)
 
     const regionsFig7 = REGIONS_ORDERED_DUBLIN;
     regionsFig7.push("National");
+    const marginRNat = 75;
+    const marginRDub = 185;
+    const marginRBoth = 75;
 
     let tracesFig7 = [];
 
@@ -40,7 +43,7 @@ d3.csv(srcPathFig7)
     layoutFig7.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layoutFig7.xaxis.title = '';
     layoutFig7.xaxis.nticks = 6;
-    // layoutFig7.xaxis.range = [1991, 2016];
+    layoutFig7.xaxis.range = [1991, 2018];
     layoutFig7.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     // layoutFig7.yaxis.range = [0.1, 150];
     // layoutFig7.yaxis.visible = false;
@@ -48,7 +51,7 @@ d3.csv(srcPathFig7)
     layoutFig7.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layoutFig7.margin = {
       l: 0,
-      r: 0,
+      r: marginRNat,
       t: 100 //button row
     };
     // // layoutFig7.hidesources = false;
@@ -56,6 +59,7 @@ d3.csv(srcPathFig7)
     // Set annotations per chart with config per trace
     let nationalAnnotations = [];
     let dublinAnnotations = [];
+    let bothAnnotations = [];
 
     tracesFig7.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
@@ -69,28 +73,13 @@ d3.csv(srcPathFig7)
 
       trace.name === 'National' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
       trace.name === 'National' ? nationalAnnotations.push(annotation) : dublinAnnotations.push(annotation);
-
+      bothAnnotations.push(Object.assign({}, annotation));
     })
 
-
-    let bothAnnotations = Array.from(dublinAnnotations);
-    bothAnnotations.concat(nationalAnnotations);
-    console.log(nationalAnnotations);
-    console.log(dublinAnnotations);
-    console.log(bothAnnotations);
-
-    bothAnnotations[0].yshift = 15; //Dublin C
-    bothAnnotations[1].yshift = 0; //DLR
-    bothAnnotations[2].yshift = 50; //F
-    bothAnnotations[3].yshift = 10; //SDCC
-
-    // nationalAnnotations[0].ay = 5; //Dublin
-    // nationalAnnotations[1].ay = 10; //Rest
-    // nationalAnnotations[2].ay = -10; //Nat
-    //
-    // bothAnnotations[0].ay = -2; //Dublin
-    // bothAnnotations[1].ay = 10; //Rest
-    // bothAnnotations[2].ay = -15; //Nat
+    bothAnnotations[0].yshift = 20; //Dublin C
+    bothAnnotations[1].yshift = 5; //DLR
+    bothAnnotations[2].yshift = 25; //F
+    bothAnnotations[3].yshift = 15; //SDCC
 
     //Set button menu
     let updateMenus = [];
@@ -102,7 +91,8 @@ d3.csv(srcPathFig7)
             },
             {
               'title': titleFig7,
-              'annotations': nationalAnnotations
+              'annotations': nationalAnnotations,
+              'margin.r': marginRNat
             }
           ],
           label: 'National',
@@ -115,7 +105,8 @@ d3.csv(srcPathFig7)
             },
             {
               'title': titleFig7,
-              'annotations': dublinAnnotations
+              'annotations': dublinAnnotations,
+              'margin.r': marginRDub
             }
           ],
           label: 'Dublin',
@@ -128,7 +119,8 @@ d3.csv(srcPathFig7)
             },
             {
               'title': titleFig7,
-              'annotations': bothAnnotations
+              'annotations': bothAnnotations,
+              'margin.r': marginRDub
 
             }
           ],
