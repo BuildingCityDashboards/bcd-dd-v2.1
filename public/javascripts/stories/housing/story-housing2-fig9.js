@@ -17,6 +17,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
     trace2008.name = "July 2008";
     trace2008.type = 'bar';
     trace2008.orientation = 'h';
+    trace2008.stackgroup = 'one';
     trace2008.text = trace2008.name;
     trace2008.hoverinfo = "x+name";
     trace2008.marker = Object.assign({}, TRACES_DEFAULT.marker);
@@ -32,6 +33,8 @@ d3.csv(srcPathFig9 + srcFileFig9)
     trace2013.name = "March 2013";
     trace2013.type = 'bar';
     trace2013.orientation = 'h';
+    trace2013.stackgroup = 'one';
+
     // trace2013.text = trace2013.name;
     // trace2013.hoverinfo = 'text';
     trace2013.hoverinfo = "x+name";
@@ -49,6 +52,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
     traceOriginal.name = "Original Units";
     traceOriginal.type = 'bar';
     traceOriginal.orientation = 'h';
+    traceOriginal.stackgroup = 'one';
     // traceOriginal.text = traceOriginal.name;
     // traceOriginal.hovertext = traceOriginal.name;
     traceOriginal.hoverinfo = "x+name";
@@ -63,26 +67,31 @@ d3.csv(srcPathFig9 + srcFileFig9)
     });
     traceOriginal.transforms = [{
       type: 'sort',
-      target: 'y',
+      target: 'x',
       order: 'ascending'
     }];
 
-    traces.push(trace2013);
-    traces.push(trace2008);
+
     traces.push(traceOriginal);
+    traces.push(trace2008);
+    traces.push(trace2013);
 
     //Set layout options
     let layout = Object.assign({}, ROW_CHART_LAYOUT);
     // layout.mode = 'bars';
-    layout.height = 500;
+    layout.height = 550;
+    layout.barmode = 'stack';
+    layout.colorway = CHART_COLORWAY_VARIABLES;
     layout.title.text = titleFig9;
-    layout.showlegend = true;
+    // layout.showlegend = true;
     layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
     layout.xaxis.title = "Number of Housing Units";
+    layout.xaxis.range = [0, 1000];
     layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
     layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
     layout.yaxis.titlefont.size = 16; //bug? need to call this
     // layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+
     layout.yaxis.title = '';
     layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin);
     layout.margin = {
@@ -94,14 +103,31 @@ d3.csv(srcPathFig9 + srcFileFig9)
 
     let annotations = [];
     traces.forEach((trace, i) => {
-      // console.log("trace: " + JSON.stringify(trace));
+      // console.log("trace: " + i + " " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.x = trace.x[trace.x.length - 1];
-      annotation.y = trace.y[trace.y.length - 1];
-      annotation.text = trace.name;
-      annotation.font.color = CHART_COLORWAY[i];
-      // annotations.push(annotation);
+      // annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = "St Theresa’s gardens"; //trace.y[trace.y.length - 1];
+
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.font.color = "black" //CHART_COLORWAY_VARIABLES[i];
+      annotation.showarrow = true;
+      annotation.arrowcolor = CHART_COLORWAY_VARIABLES[i];
+      annotations.push(annotation);
     })
+
+    annotations[0].text = traces[0].name;
+    annotations[1].text = "Occupied " + traces[1].name;
+    annotations[2].text = '' //traces[2].name;
+
+    annotations[0].x = traces[0].x[traces[0].x.length - 1]; //orig
+    console.log(traces[0].x[traces[0].x.length - 1]);
+    // annotations[1].x = traces[0].x[traces[0].x.length - 1] + traces[1].x[traces[1].x.length - 1]; //orig
+    // annotations[2].yshift = 20; //Orig
+    //
+    // annotations[0].xshift = 50;
+    // annotations[1].xshift = 350;
+    // annotations[2].xshift = 550;
+
 
     //Set default view annotations
     layout.annotations = annotations; //set default
