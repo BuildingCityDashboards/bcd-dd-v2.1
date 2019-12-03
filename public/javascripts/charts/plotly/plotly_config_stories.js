@@ -274,8 +274,52 @@ const ROW_CHART_LAYOUT = {
     y: 1.0,
     yanchor: 'top'
   },
+  title: {
+    text: '',
+    font: CHART_TITLE_FONT,
+    visible: false,
+    xref: 'container',
+    x: 0.0,
+    xanchor: 'left',
+    yref: 'container',
+    y: 1.0,
+    yanchor: 'top'
+  },
+  xaxis: {
+    title: 'Years',
+    titlefont: {
+      size: 16
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
+  },
   yaxis: {
-    showticklabels: true
+    title: '',
+    titlefont: {
+      size: 16
+    },
+    visible: true,
+    type: null,
+    range: null,
+    fixedrange: true,
+    showticklabels: true,
+    nticks: null,
+    ticks: '',
+    automargin: true,
+    tickfont: {
+      family: null,
+      size: 12
+    }
   },
   paper_bgcolor: CHART_COLOR,
   plot_bgcolor: CHART_COLOR,
@@ -283,7 +327,8 @@ const ROW_CHART_LAYOUT = {
   font: CHART_FONT,
   showlegend: false,
   annotations: [],
-  hovermode: 'closest'
+  hovermode: 'closest',
+
 };
 
 const ROW_CHART_LAYOUT_SUBPLOTS = {
