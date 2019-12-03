@@ -26,7 +26,9 @@ d3.csv(srcPathFig7)
       });
       trace.connectgaps = true;
       trace.mode = 'lines';
-
+      trace.name === 'National' ? trace.visible = true : trace.visible = false;
+      trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
       return trace;
     }
 
@@ -52,126 +54,93 @@ d3.csv(srcPathFig7)
     // // layoutFig7.hidesources = false;
 
     // Set annotations per chart with config per trace
-    // let houseAnnotations = [];
-    // houseTracesFig7.forEach((trace, i) => {
-    //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    //   annotation.x = trace.x[trace.x.length - 1];
-    //   annotation.y = trace.y[trace.y.length - 1];
-    //   annotation.text = trace.name;
-    //   //de-focus some annotations
-    //   //TODO: function for this
-    //   (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-    //   annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    //   (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-    //   houseAnnotations.push(annotation);
-    // })
+    let nationalAnnotations = [];
+    let dublinAnnotations = [];
+
+    tracesFig7.forEach((trace) => {
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
+
+      trace.name === 'National' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
+      trace.name === 'National' ? nationalAnnotations.push(annotation) : dublinAnnotations.push(annotation);
+
+    })
+
+
+    let bothAnnotations = Array.from(dublinAnnotations);
+    bothAnnotations.concat(nationalAnnotations);
+    console.log(nationalAnnotations);
+    console.log(dublinAnnotations);
+    console.log(bothAnnotations);
+
+    bothAnnotations[0].yshift = 15; //Dublin C
+    bothAnnotations[1].yshift = 0; //DLR
+    bothAnnotations[2].yshift = 50; //F
+    bothAnnotations[3].yshift = 10; //SDCC
+
+    // nationalAnnotations[0].ay = 5; //Dublin
+    // nationalAnnotations[1].ay = 10; //Rest
+    // nationalAnnotations[2].ay = -10; //Nat
     //
-    // let apartAnnotations = [];
-    // apartTracesFig7.forEach((trace, i) => {
-    //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    //   annotation.x = trace.x[trace.x.length - 1];
-    //   annotation.y = trace.y[trace.y.length - 1];
-    //   annotation.text = trace.name;
-    //   //de-focus some annotations
-    //   //TODO: function for this
-    //   (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-    //   annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    //   (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-    //   apartAnnotations.push(annotation);
-    // })
-    //
-    // let allAnnotations = [];
-    // allTracesFig7.forEach((trace, i) => {
-    //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    //   annotation.x = trace.x[trace.x.length - 1];
-    //   annotation.y = trace.y[trace.y.length - 1];
-    //   annotation.text = trace.name;
-    //   //de-focus some annotations
-    //   //TODO: function for this
-    //   (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-    //   annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    //   (i < 1) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-    //   allAnnotations.push(annotation);
-    // })
-    //
-    // // //set individual annotation stylings
-    // apartAnnotations[0].ay = -7; //Dublin
-    // apartAnnotations[1].ay = 5; //Rest
-    // apartAnnotations[2].ay = 7; //Nat
-    //
-    // houseAnnotations[0].ay = 5; //Dublin
-    // houseAnnotations[1].ay = 10; //Rest
-    // houseAnnotations[2].ay = -10; //Nat
-    //
-    // allAnnotations[0].ay = -2; //Dublin
-    // allAnnotations[1].ay = 10; //Rest
-    // allAnnotations[2].ay = -15; //Nat
+    // bothAnnotations[0].ay = -2; //Dublin
+    // bothAnnotations[1].ay = 10; //Rest
+    // bothAnnotations[2].ay = -15; //Nat
 
     //Set button menu
-    // let updateMenus = [];
-    // updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
-    // updateMenus[0] = Object.assign(updateMenus[0], {
-    //   buttons: [{
-    //       args: [{
-    //           'visible': [true, true, true,
-    //             false, false, false,
-    //             false, false, false
-    //           ]
-    //         },
-    //         {
-    //           'title': titleFig7,
-    //           'annotations': houseAnnotations
-    //
-    //         }
-    //       ],
-    //       label: 'House',
-    //       method: 'update',
-    //       execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [false, false, false,
-    //             true, true, true,
-    //             false, false, false
-    //           ]
-    //         },
-    //         {
-    //           'title': titleFig7,
-    //           'annotations': apartAnnotations
-    //         }
-    //       ],
-    //       label: 'Apartment',
-    //       method: 'update',
-    //       execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [false, false, false,
-    //             false, false, false,
-    //             true, true, true
-    //           ]
-    //         },
-    //         {
-    //           'title': titleFig7,
-    //           'annotations': allAnnotations
-    //
-    //         }
-    //       ],
-    //       label: 'Both',
-    //       method: 'update',
-    //       execute: true
-    //     }
-    //   ],
-    // });
-    //
-    // layoutFig7.updatemenus = updateMenus;
+    let updateMenus = [];
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
+      buttons: [{
+          args: [{
+              'visible': [false, false, false, false, true]
+            },
+            {
+              'title': titleFig7,
+              'annotations': nationalAnnotations
+            }
+          ],
+          label: 'National',
+          method: 'update',
+          // execute: true
+        },
+        {
+          args: [{
+              'visible': [true, true, true, true, false]
+            },
+            {
+              'title': titleFig7,
+              'annotations': dublinAnnotations
+            }
+          ],
+          label: 'Dublin',
+          method: 'update',
+          // execute: true
+        },
+        {
+          args: [{
+              'visible': [true, true, true, true, true]
+            },
+            {
+              'title': titleFig7,
+              'annotations': bothAnnotations
 
-    //Set default visible traces (i.e. traces on each chart)
-    // tracesFig7.map((t, i) => {
-    //   if (i < 3) return t.visible = true;
-    //   else return t.visible = false;
-    // });
-    // layoutFig7.annotations = allAnnotations;
+            }
+          ],
+          label: 'Both',
+          method: 'update',
+          // execute: true
+        }
+      ],
+    });
+
+    layoutFig7.updatemenus = updateMenus;
+    layoutFig7.annotations = nationalAnnotations;
 
     Plotly.newPlot(divIDFig7, tracesFig7, layoutFig7, {
       modeBar: {
