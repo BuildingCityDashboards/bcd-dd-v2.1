@@ -4,24 +4,41 @@ const srcPathFig10b = "../data/Stories/Housing/part_2/processed/traveller_accomo
 let titleFig10 = "Traveller Accomodation (2002-2013)";
 const divIDFig10 = "traveller-accomodation-chart";
 
-d3.csv(srcPathFig10a)
-  .then((data) => {
+Promise.all([
+    d3.csv(srcPathFig10a),
+    d3.csv(srcPathFig10b)
+  ]).then((data) => {
 
-    const regionsFig10 = REGIONS_ORDERED_DUBLIN;
+    const regionsFig10 = [...REGIONS_ORDERED_DUBLIN].concat([...REGIONS_ORDERED_NEIGHBOURS]);
     regionsFig10.push("state");
-    const marginRNat = 75;
-    const marginRDub = 185;
+
+    console.log(regionsFig10);
+    // regionsFig10.push("state");
+    const marginRUnauth = 185;
+    const marginRAccom = 185;
     const marginRBoth = 75;
 
-    let tracesFig10 = [];
+    let tracesUnauthorisedFig10 = [];
+    let tracesAccomodatedFig10 = [];
 
     regionsFig10.forEach((region) => {
-      tracesFig10.push(getTrace(data, "date", region));
+      tracesUnauthorisedFig10.push(getTrace(data[1], "date", region));
+      tracesAccomodatedFig10.push(getTrace(data[0], "date", region));
     })
+    //change stat from defaults
+    tracesUnauthorisedFig10[7].stackgroup = 'one';
+    tracesUnauthorisedFig10[7].name = 'Total for State';
+    //set default visibility on load
+    tracesUnauthorisedFig10.forEach((trace) => {
+      return trace.visible = true;
+    })
+    let tracesFig10 = tracesUnauthorisedFig10.concat(tracesAccomodatedFig10);
 
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = yVar;
+      trace.stackgroup = 'two';
+      trace.visible = false;
       trace.x = data.map((x) => {
         return x[xVar];
       });
@@ -30,39 +47,39 @@ d3.csv(srcPathFig10a)
       });
       trace.connectgaps = true;
       trace.mode = 'lines';
-      trace.name === 'state' ? trace.visible = true : trace.visible = true;
+      // trace.name === 'state' ? trace.visible = true : trace.visible = true;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
       return trace;
     }
 
     //Set layout options
-    let layoutFig10 = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    let layoutFig10 = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
     layoutFig10.title.text = titleFig10;
     // layoutFig10.height = 500;
     layoutFig10.showlegend = false;
-    layoutFig10.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layoutFig10.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
     layoutFig10.xaxis.title = '';
     layoutFig10.xaxis.nticks = 6;
     layoutFig10.xaxis.range = [2002, 2013];
-    layoutFig10.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    // layoutFig10.yaxis.range = [0.1, 150];
+    layoutFig10.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    // layoutFig10.yaxis.range = [0.1, 500];
     // layoutFig10.yaxis.visible = false;
     layoutFig10.yaxis.title = '';
-    layoutFig10.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layoutFig10.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layoutFig10.margin = {
       l: 0,
-      r: marginRNat,
+      r: marginRUnauth,
       t: 100 //button row
     };
     // // layoutFig10.hidesources = false;
 
     // Set annotations per chart with config per trace
-    let stateAnnotations = [];
-    let dublinAnnotations = [];
+    let unauthorisedAnnotations = [];
+    let accomodatedAnnotations = [];
     let bothAnnotations = [];
 
-    tracesFig10.forEach((trace) => {
+    tracesUnauthorisedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
@@ -71,9 +88,26 @@ d3.csv(srcPathFig10a)
       //TODO: function for this
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
+      unauthorisedAnnotations.push(annotation);
 
-      trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
-      trace.name === 'state' ? stateAnnotations.push(annotation) : dublinAnnotations.push(annotation);
+      // trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
+      // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
+      bothAnnotations.push(Object.assign({}, annotation));
+    })
+
+    tracesAccomodatedFig10.forEach((trace) => {
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
+      accomodatedAnnotations.push(annotation);
+
+      // trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
+      // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
       bothAnnotations.push(Object.assign({}, annotation));
     })
 
@@ -84,56 +118,62 @@ d3.csv(srcPathFig10a)
 
     //Set button menu
     let updateMenus = [];
-    // updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
-    // updateMenus[0] = Object.assign(updateMenus[0], {
-    //   buttons: [{
-    //       args: [{
-    //           'visible': [false, false, false, false, true]
-    //         },
-    //         {
-    //           'title': titleFig10,
-    //           'annotations': stateAnnotations,
-    //           'margin.r': marginRNat
-    //         }
-    //       ],
-    //       label: 'state',
-    //       method: 'update',
-    //       // execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [true, true, true, true, false]
-    //         },
-    //         {
-    //           'title': titleFig10,
-    //           'annotations': dublinAnnotations,
-    //           'margin.r': marginRDub
-    //         }
-    //       ],
-    //       label: 'Dublin',
-    //       method: 'update',
-    //       // execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [true, true, true, true, true]
-    //         },
-    //         {
-    //           'title': titleFig10,
-    //           'annotations': bothAnnotations,
-    //           'margin.r': marginRDub
-    //
-    //         }
-    //       ],
-    //       label: 'Both',
-    //       method: 'update',
-    //       // execute: true
-    //     }
-    //   ],
-    // });
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
+      buttons: [{
+          args: [{
+              'visible': [true, true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'title': titleFig10,
+              'annotations': unauthorisedAnnotations,
+              'margin.r': marginRUnauth
+            }
+          ],
+          label: 'Unauthorised Sites',
+          method: 'update',
+          // execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true, true
+              ]
+            },
+            {
+              'title': titleFig10,
+              'annotations': accomodatedAnnotations,
+              'margin.r': marginRAccom
+            }
+          ],
+          label: 'Accomodated by Local Authorities',
+          method: 'update',
+          // execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false,
+                false, false, false, false,
+              ]
+            },
+            {
+              'title': titleFig10,
+              'annotations': bothAnnotations,
+              'margin.r': marginRAccom
+
+            }
+          ],
+          label: 'Both',
+          method: 'update',
+          // execute: true
+        }
+      ],
+    });
 
     layoutFig10.updatemenus = updateMenus;
-    layoutFig10.annotations = stateAnnotations;
+    layoutFig10.annotations = unauthorisedAnnotations;
 
     Plotly.newPlot(divIDFig10, tracesFig10, layoutFig10, {
       modeBar: {

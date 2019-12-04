@@ -426,7 +426,7 @@ const GROUPED_COLUMN_CHART_LAYOUT = {
 
 const STACKED_AREA_CHART_LAYOUT = {
   responsive: true,
-  height: 400,
+  height: 500,
   margin: {
     l: 0,
     r: 0,
