@@ -6,7 +6,7 @@ const divIDFig7 = "social-housing-wait-chart";
 d3.csv(srcPathFig7)
   .then((data) => {
 
-    const regionsFig7 = REGIONS_ORDERED_DUBLIN;
+    const regionsFig7 = [...REGIONS_ORDERED_DUBLIN];
     regionsFig7.push("National");
     const marginRNat = 75;
     const marginRDub = 185;
