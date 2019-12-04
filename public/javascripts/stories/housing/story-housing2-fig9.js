@@ -86,7 +86,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
     // layout.showlegend = true;
     layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
     layout.xaxis.title = "Number of Housing Units";
-    layout.xaxis.range = [0, 1000];
+    layout.xaxis.range = [0, 800];
     layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
     layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
     layout.yaxis.titlefont.size = 16; //bug? need to call this
@@ -107,20 +107,23 @@ d3.csv(srcPathFig9 + srcFileFig9)
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       // annotation.x = trace.x[trace.x.length - 1];
       annotation.y = "St Theresa’s gardens"; //trace.y[trace.y.length - 1];
-
-      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.font.color = "black" //CHART_COLORWAY_VARIABLES[i];
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = "white" //CHART_COLORWAY_VARIABLES[i];
+      annotation.font.size = 14 //CHART_COLORWAY_VARIABLES[i];
       annotation.showarrow = true;
       annotation.arrowcolor = CHART_COLORWAY_VARIABLES[i];
+      annotation.xanchor = 'left';
       annotations.push(annotation);
     })
 
     annotations[0].text = traces[0].name;
     annotations[1].text = "Occupied " + traces[1].name;
-    annotations[2].text = '' //traces[2].name;
+    annotations[2].text = traces[2].name;
 
-    annotations[0].x = traces[0].x[traces[0].x.length - 1]; //orig
-    console.log(traces[0].x[traces[0].x.length - 1]);
+    annotations[0].x = 5; // traces[0].x[traces[0].x.length - 1]; //TODO: remove hardcode
+    annotations[1].x = annotations[0].x + 346;
+    annotations[2].x = annotations[1].x + 300;
+    // console.log(traces[0].x[traces[0].x.length - 1]);
     // annotations[1].x = traces[0].x[traces[0].x.length - 1] + traces[1].x[traces[1].x.length - 1]; //orig
     // annotations[2].yshift = 20; //Orig
     //
