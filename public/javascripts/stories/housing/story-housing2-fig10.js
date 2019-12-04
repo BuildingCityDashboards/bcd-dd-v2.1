@@ -14,8 +14,8 @@ Promise.all([
 
     console.log(regionsFig10);
     // regionsFig10.push("state");
-    const marginRUnauth = 185;
-    const marginRAccom = 185;
+    const marginRUnauth = 190;
+    const marginRAccom = 190;
     const marginRBoth = 75;
 
     let tracesUnauthorisedFig10 = [];
@@ -26,7 +26,7 @@ Promise.all([
       tracesAccomodatedFig10.push(getTrace(data[0], "date", region));
     })
     //change stat from defaults
-    tracesUnauthorisedFig10[7].stackgroup = 'one';
+    tracesUnauthorisedFig10[7].stackgroup = 'two';
     tracesUnauthorisedFig10[7].name = 'Total for State';
     //set default visibility on load
     tracesUnauthorisedFig10.forEach((trace) => {
@@ -37,7 +37,7 @@ Promise.all([
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = yVar;
-      trace.stackgroup = 'two';
+      trace.stackgroup = 'one';
       trace.visible = false;
       trace.x = data.map((x) => {
         return x[xVar];
@@ -49,6 +49,7 @@ Promise.all([
       trace.mode = 'lines';
       // trace.name === 'state' ? trace.visible = true : trace.visible = true;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+      trace.marker.opacity = 1.0; //how to adjust fill opacity?
       trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
       return trace;
     }
@@ -63,6 +64,7 @@ Promise.all([
     layoutFig10.xaxis.nticks = 6;
     layoutFig10.xaxis.range = [2002, 2013];
     layoutFig10.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layoutFig10.yaxis.fixedrange = false;
     // layoutFig10.yaxis.range = [0.1, 500];
     // layoutFig10.yaxis.visible = false;
     layoutFig10.yaxis.title = '';
@@ -83,23 +85,37 @@ Promise.all([
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
+      annotation.xshift = 10;
       annotation.text = trace.name;
+      annotation.showarrow = true;
+      annotation.arrowcolor = 'black';
       //de-focus some annotations
       //TODO: function for this
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
-      unauthorisedAnnotations.push(annotation);
 
+      unauthorisedAnnotations.push(annotation);
       // trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
       // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
       bothAnnotations.push(Object.assign({}, annotation));
     })
+    unauthorisedAnnotations[0].yshift = -10;
+    unauthorisedAnnotations[1].yshift = 18;
+    unauthorisedAnnotations[2].yshift = 25;
+    unauthorisedAnnotations[3].yshift = 50;
+
+    unauthorisedAnnotations[4].visible = false;
+    unauthorisedAnnotations[5].visible = false;
+    unauthorisedAnnotations[6].visible = false;
+    // unauthorisedAnnotations[7].yshift = 30;
 
     tracesAccomodatedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
+      annotation.showarrow = true;
+      annotation.arrowcolor = '#000000';
       //de-focus some annotations
       //TODO: function for this
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
@@ -111,10 +127,10 @@ Promise.all([
       bothAnnotations.push(Object.assign({}, annotation));
     })
 
-    bothAnnotations[0].yshift = 20; //Dublin C
-    bothAnnotations[1].yshift = 5; //DLR
-    bothAnnotations[2].yshift = 25; //F
-    bothAnnotations[3].yshift = 15; //SDCC
+    // bothAnnotations[0].yshift = 20; //Dublin C
+    // bothAnnotations[1].yshift = 5; //DLR
+    // bothAnnotations[2].yshift = 25; //F
+    // bothAnnotations[3].yshift = 15; //SDCC
 
     //Set button menu
     let updateMenus = [];
