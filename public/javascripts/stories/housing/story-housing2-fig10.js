@@ -11,9 +11,6 @@ Promise.all([
 
     const regionsFig10 = [...REGIONS_ORDERED_DUBLIN].concat([...REGIONS_ORDERED_NEIGHBOURS]);
     regionsFig10.push("state");
-
-    console.log(regionsFig10);
-    // regionsFig10.push("state");
     const marginRUnauth = 190;
     const marginRAccom = 190;
     const marginRBoth = 75;
@@ -112,18 +109,18 @@ Promise.all([
     unauthorisedAnnotations[6].visible = false;
 
     let hoverAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    hoverAnnotation.x = 2010;
+    hoverAnnotation.x = 2008;
     hoverAnnotation.y = 700;
     hoverAnnotation.opacity = 0.75;
     hoverAnnotation.text = 'Hover for more regions';
     hoverAnnotation.font.color = 'grey';
     unauthorisedAnnotations.push(hoverAnnotation);
-    let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    annotation.x = 2010;
-    annotation.y = 600;
-    annotation.opacity = 0.75;
-    annotation.text = 'Drag on plot to zoom';
-    unauthorisedAnnotations.push(annotation);
+    let dragAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    dragAnnotation.x = 2006;
+    dragAnnotation.y = 800;
+    dragAnnotation.opacity = 0.75;
+    dragAnnotation.text = 'Drag vertically on plot to zoom, on yaxis to scroll';
+    unauthorisedAnnotations.push(dragAnnotation);
 
 
     tracesAccomodatedFig10.forEach((trace) => {
