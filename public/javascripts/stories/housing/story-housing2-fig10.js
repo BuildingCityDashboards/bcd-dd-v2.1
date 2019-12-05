@@ -83,12 +83,12 @@ Promise.all([
 
     tracesUnauthorisedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.x = trace.x[trace.x.length - 1];
-      annotation.y = trace.y[trace.y.length - 1];
-      annotation.xshift = 10;
+      annotation.x = +trace.x[trace.x.length - 1];
+      annotation.y = +trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       annotation.showarrow = true;
-      annotation.arrowcolor = 'black';
+      annotation.ax = +10;
+      annotation.arrowcolor = CHART_COLORS_BY_REGION[trace.name] || 'grey';;
       //de-focus some annotations
       //TODO: function for this
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
@@ -99,15 +99,25 @@ Promise.all([
       // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
       bothAnnotations.push(Object.assign({}, annotation));
     })
-    unauthorisedAnnotations[0].yshift = -10;
-    unauthorisedAnnotations[1].yshift = 18;
-    unauthorisedAnnotations[2].yshift = 25;
-    unauthorisedAnnotations[3].yshift = 50;
+    //need to adjust y to take account of stacking
+    unauthorisedAnnotations[1].y = unauthorisedAnnotations[1].y + unauthorisedAnnotations[0].y;
+    unauthorisedAnnotations[2].y = unauthorisedAnnotations[2].y + unauthorisedAnnotations[1].y;
+    unauthorisedAnnotations[3].y = unauthorisedAnnotations[3].y + unauthorisedAnnotations[2].y;
+    unauthorisedAnnotations[0].ay = 12;
+    unauthorisedAnnotations[1].ay = -2;
+    unauthorisedAnnotations[2].ay = -10;
+    unauthorisedAnnotations[3].ay = -25;
 
+
+    // unauthorisedAnnotations[2].ay = 0 //- unauthorisedAnnotations[1].y;
+    // unauthorisedAnnotations[3].ay = 0; // - unauthorisedAnnotations[2].y;
+    //unauthorisedAnnotations[1].visible = false;
+    // unauthorisedAnnotations[2].visible = false;
+    // unauthorisedAnnotations[3].visible = false;
     unauthorisedAnnotations[4].visible = false;
     unauthorisedAnnotations[5].visible = false;
     unauthorisedAnnotations[6].visible = false;
-    // unauthorisedAnnotations[7].yshift = 30;
+    // unauthorisedAnnotations[7].ay = 30;
 
     tracesAccomodatedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
@@ -127,10 +137,10 @@ Promise.all([
       bothAnnotations.push(Object.assign({}, annotation));
     })
 
-    // bothAnnotations[0].yshift = 20; //Dublin C
-    // bothAnnotations[1].yshift = 5; //DLR
-    // bothAnnotations[2].yshift = 25; //F
-    // bothAnnotations[3].yshift = 15; //SDCC
+    // bothAnnotations[0].ay = 20; //Dublin C
+    // bothAnnotations[1].ay = 5; //DLR
+    // bothAnnotations[2].ay = 25; //F
+    // bothAnnotations[3].ay = 15; //SDCC
 
     //Set button menu
     let updateMenus = [];
