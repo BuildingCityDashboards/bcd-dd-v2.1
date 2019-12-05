@@ -142,7 +142,7 @@ d3.csv(srcPathFig6)
     countAnnotations[2].ay = 0; //90 days
 
     rateAnnotations[0].showarrow = false;
-    rateAnnotations[0].xshift = -220;
+    rateAnnotations[0].xshift = -250;
     rateAnnotations[0].yshift = 25;
 
     //Set button menu
