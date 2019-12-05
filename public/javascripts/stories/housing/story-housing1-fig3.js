@@ -90,14 +90,19 @@ d3.csv(srcPathFig3 + srcFileFig3)
     hoverAnnotation.y = 40000;
     hoverAnnotation.opacity = 0.75;
     hoverAnnotation.text = 'Hover for more regions';
+    hoverAnnotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
     hoverAnnotation.font.color = 'grey';
     chartAnnotations.push(hoverAnnotation);
-    let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    annotation.x = 2010;
-    annotation.y = 35000;
-    annotation.opacity = 0.75;
-    annotation.text = 'Drag on plot to zoom';
-    chartAnnotations.push(annotation);
+
+    let dragAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    dragAnnotation.x = 2010;
+    dragAnnotation.y = 35000;
+    dragAnnotation.text = 'Drag on plot to zoom';
+    dragAnnotation.opacity = 0.75;
+    dragAnnotation.text = 'Drag vertically on plot to zoom, on yaxis to scroll';
+    dragAnnotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+    dragAnnotation.font.color = 'grey';
+    chartAnnotations.push(dragAnnotation);
 
     chartAnnotations[0].ax = 10; //DC
     chartAnnotations[1].ax = 10; //DLR
