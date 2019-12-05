@@ -41,22 +41,24 @@ d3.csv(srcPathFig7 + srcFileFig7)
 
 
     //Set layout options
-    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    chartLayout.title.text = titleFig7;
-    chartLayout.height = 500;
-    chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [1994, 2016];
-    chartLayout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    chartLayout.yaxis.title = '';
-    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    chartLayout.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title.text = titleFig7;
+    layout.height = 500;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.range = [1994, 2016];
+    layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layout.yaxis.fixedrange = false;
+    layout.yaxis.range = [1, 8000];
+    layout.yaxis.title = '';
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 200, //Dun Laoghaire!!!
       t: 100 //button row
     };
 
-    // chartLayout.hidesources = false;
+    // layout.hidesources = false;
 
     //Set annotations per chart with config per trace
 
@@ -89,9 +91,9 @@ d3.csv(srcPathFig7 + srcFileFig7)
     socialHousingBuildAnnotations[6].ay = 0; //move M
 
     //Set default view annotations
-    chartLayout.annotations = socialHousingBuildAnnotations; //set default
+    layout.annotations = socialHousingBuildAnnotations; //set default
 
-    Plotly.newPlot(divIDFig7, socialHousingBuildTraces, chartLayout, {
+    Plotly.newPlot(divIDFig7, socialHousingBuildTraces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',

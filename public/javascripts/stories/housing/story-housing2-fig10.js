@@ -64,7 +64,7 @@ Promise.all([
     layoutFig10.xaxis.range = [2002, 2013];
     layoutFig10.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
     layoutFig10.yaxis.fixedrange = false;
-    // layoutFig10.yaxis.range = [0.1, 500];
+    layoutFig10.yaxis.range = [1, 1000];
     // layoutFig10.yaxis.visible = false;
     layoutFig10.yaxis.title = '';
     layoutFig10.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
@@ -163,7 +163,8 @@ Promise.all([
             {
               'title': titleFig10,
               'annotations': unauthorisedAnnotations,
-              'margin.r': marginRUnauth
+              'margin.r': marginRUnauth,
+              'yaxis.range': [1, 1000]
             }
           ],
           label: 'Unauthorised Sites',
@@ -179,7 +180,8 @@ Promise.all([
             {
               'title': titleFig10,
               'annotations': accomodatedAnnotations,
-              'margin.r': marginRAccom
+              'margin.r': marginRAccom,
+              'yaxis.range': [1, 6000]
             }
           ],
           label: 'Accomodated by Local Authorities',

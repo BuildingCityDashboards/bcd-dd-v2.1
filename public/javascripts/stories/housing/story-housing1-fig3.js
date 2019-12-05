@@ -46,25 +46,26 @@ d3.csv(srcPathFig3 + srcFileFig3)
 
 
     //Set layout options
-    let chartLayout = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
-    chartLayout.height = 500;
-    chartLayout.title.text = titleFig3;
-    chartLayout.marker = Object.assign({}, STACKED_AREA_CHART_LAYOUT.marker);
-    chartLayout.marker.opacity = 0;;
-    chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [1994, 2016];
-    chartLayout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
-    chartLayout.yaxis.fixedrange = false;
-    chartLayout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
-    chartLayout.margin = {
+    let layout = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
+    layout.height = 500;
+    layout.title.text = titleFig3;
+    layout.marker = Object.assign({}, STACKED_AREA_CHART_LAYOUT.marker);
+    layout.marker.opacity = 0;;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
+    layout.xaxis.range = [1994, 2016];
+    layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layout.yaxis.fixedrange = false;
+    layout.yaxis.range = [1, 70000];
+    layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 180, //annotations space
       b: 40, //x axis tooltip
       t: 50 //button row
     };
 
-    // chartLayout.hidesources = false;
+    // layout.hidesources = false;
 
     let chartAnnotations = [];
     chartTraces.forEach((trace, i) => {
@@ -118,9 +119,9 @@ d3.csv(srcPathFig3 + srcFileFig3)
     // chartAnnotations[5].ay = 0; // M
 
     //Set default view annotations
-    chartLayout.annotations = chartAnnotations; //set default
+    layout.annotations = chartAnnotations; //set default
 
-    Plotly.newPlot(divIDFig3, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig3, chartTraces, layout, {
       modeBarButtons: STACKED_AREA_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
       displayModeBar: true,
       displaylogo: false,
