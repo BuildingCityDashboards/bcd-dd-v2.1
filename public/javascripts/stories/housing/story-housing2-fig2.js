@@ -193,7 +193,7 @@ d3.csv(srcPathFig2)
             {
               'title': titleFig2,
               'annotations': rateAnnotations,
-              'yaxis.range': [0.1, 15]
+              'yaxis.range': [0.1, 18]
             }
           ],
           label: 'Vacancy % Rate',

@@ -203,30 +203,30 @@ d3.csv(srcPathFig1 + srcFileFig11)
 
     //set individual annotation stylings
     //TODO: be better! Don't use array index for access
-    popAnnotations[1].ay = 6; //move DLR down
-    popAnnotations[2].ay = -4; //move Fingal up
-    popAnnotations[3].ay = 4; //move SD down
-    popAnnotations[4].ay = -6; //move K up
-    popAnnotations[5].ay = 4; //move M down
+    popAnnotations[1].yshift = -6; //move DLR down
+    popAnnotations[2].yshift = 4; //move Fingal up
+    popAnnotations[3].yshift = -4; //move SD down
+    popAnnotations[4].yshift = 6; //move K up
+    popAnnotations[5].yshift = -4; //move M down
 
-    houseAnnotations[1].ay = -3; //move DLR up
-    houseAnnotations[2].ay = -4; //move Fingal up
-    houseAnnotations[3].ay = 4; //move SD down
-    houseAnnotations[4].ay = 4; //move K down
-    houseAnnotations[5].ay = 4; //move M down
+    houseAnnotations[1].yshift = 3; //move DLR up
+    houseAnnotations[2].yshift = 4; //move Fingal up
+    houseAnnotations[3].yshift = -4; //move SD down
+    houseAnnotations[4].yshift = -4; //move K down
+    houseAnnotations[5].yshift = -4; //move M down
 
-    popRateAnnotations[0].ay = 6; // DC
-    popRateAnnotations[1].ay = -6; // DLR
-    popRateAnnotations[2].ay = -4; // Fingal
-    popRateAnnotations[3].ay = 4; // SD
-    popRateAnnotations[4].ay = 5; // K
-    popRateAnnotations[5].ay = -3; // M
+    popRateAnnotations[0].yshift = -6; // DC
+    popRateAnnotations[1].yshift = 6; // DLR
+    popRateAnnotations[2].yshift = 4; // Fingal
+    popRateAnnotations[3].yshift = -4; // SD
+    popRateAnnotations[4].yshift = -5; // K
+    popRateAnnotations[5].yshift = 3; // M
 
-    houseRateAnnotations[1].ay = -5; // DLR
-    houseRateAnnotations[2].ay = -4; // Fingal
-    houseRateAnnotations[3].ay = 4; // SD
-    houseRateAnnotations[4].ay = -7; // K
-    houseRateAnnotations[5].ay = 7; // M
+    houseRateAnnotations[1].yshift = 5; // DLR
+    houseRateAnnotations[2].yshift = 4; // Fingal
+    houseRateAnnotations[3].yshift = -4; // SD
+    houseRateAnnotations[4].yshift = 7; // K
+    houseRateAnnotations[5].yshift = -7; // M
 
 
     //Set default view annotations
