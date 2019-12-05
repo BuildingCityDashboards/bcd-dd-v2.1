@@ -28,6 +28,8 @@ Promise.all([
     //change stat from defaults
     tracesUnauthorisedFig10[7].stackgroup = 'two';
     tracesUnauthorisedFig10[7].name = 'Total for State';
+    tracesAccomodatedFig10[7].stackgroup = 'two';
+    tracesAccomodatedFig10[7].name = 'Total for State';
     //set default visibility on load
     tracesUnauthorisedFig10.forEach((trace) => {
       return trace.visible = true;
@@ -89,8 +91,6 @@ Promise.all([
       annotation.showarrow = true;
       annotation.ax = +10;
       annotation.arrowcolor = CHART_COLORS_BY_REGION[trace.name] || 'grey';;
-      //de-focus some annotations
-      //TODO: function for this
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
 
@@ -107,27 +107,33 @@ Promise.all([
     unauthorisedAnnotations[1].ay = -2;
     unauthorisedAnnotations[2].ay = -10;
     unauthorisedAnnotations[3].ay = -25;
-
-
-    // unauthorisedAnnotations[2].ay = 0 //- unauthorisedAnnotations[1].y;
-    // unauthorisedAnnotations[3].ay = 0; // - unauthorisedAnnotations[2].y;
-    //unauthorisedAnnotations[1].visible = false;
-    // unauthorisedAnnotations[2].visible = false;
-    // unauthorisedAnnotations[3].visible = false;
     unauthorisedAnnotations[4].visible = false;
     unauthorisedAnnotations[5].visible = false;
     unauthorisedAnnotations[6].visible = false;
-    // unauthorisedAnnotations[7].ay = 30;
+
+    let hoverAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    hoverAnnotation.x = 2010;
+    hoverAnnotation.y = 700;
+    hoverAnnotation.opacity = 0.75;
+    hoverAnnotation.text = 'Hover for more regions';
+    hoverAnnotation.font.color = 'grey';
+    unauthorisedAnnotations.push(hoverAnnotation);
+    let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    annotation.x = 2010;
+    annotation.y = 600;
+    annotation.opacity = 0.75;
+    annotation.text = 'Drag on plot to zoom';
+    unauthorisedAnnotations.push(annotation);
+
 
     tracesAccomodatedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-      annotation.x = trace.x[trace.x.length - 1];
-      annotation.y = trace.y[trace.y.length - 1];
+      annotation.x = +trace.x[trace.x.length - 1];
+      annotation.y = +trace.y[trace.y.length - 1];
       annotation.text = trace.name;
       annotation.showarrow = true;
-      annotation.arrowcolor = '#000000';
-      //de-focus some annotations
-      //TODO: function for this
+      annotation.ax = +10;
+      annotation.arrowcolor = CHART_COLORS_BY_REGION[trace.name] || 'grey';;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
       accomodatedAnnotations.push(annotation);
@@ -137,10 +143,16 @@ Promise.all([
       bothAnnotations.push(Object.assign({}, annotation));
     })
 
-    // bothAnnotations[0].ay = 20; //Dublin C
-    // bothAnnotations[1].ay = 5; //DLR
-    // bothAnnotations[2].ay = 25; //F
-    // bothAnnotations[3].ay = 15; //SDCC
+    accomodatedAnnotations[1].y = accomodatedAnnotations[1].y + accomodatedAnnotations[0].y;
+    accomodatedAnnotations[2].y = accomodatedAnnotations[2].y + accomodatedAnnotations[1].y;
+    accomodatedAnnotations[3].y = accomodatedAnnotations[3].y + accomodatedAnnotations[2].y;
+    accomodatedAnnotations[0].ay = 15;
+    accomodatedAnnotations[1].ay = 0;
+    accomodatedAnnotations[2].ay = -10;
+    accomodatedAnnotations[3].ay = -15;
+    accomodatedAnnotations[4].visible = false;
+    accomodatedAnnotations[5].visible = false;
+    accomodatedAnnotations[6].visible = false;
 
     //Set button menu
     let updateMenus = [];
