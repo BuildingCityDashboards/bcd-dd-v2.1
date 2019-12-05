@@ -78,7 +78,7 @@ Promise.all([
     // Set annotations per chart with config per trace
     let unauthorisedAnnotations = [];
     let accomodatedAnnotations = [];
-    let bothAnnotations = [];
+    // let bothAnnotations = [];
 
     tracesUnauthorisedFig10.forEach((trace) => {
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
@@ -92,9 +92,7 @@ Promise.all([
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
 
       unauthorisedAnnotations.push(annotation);
-      // trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
-      // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
-      bothAnnotations.push(Object.assign({}, annotation));
+      // bothAnnotations.push(Object.assign({}, annotation));
     })
     //need to adjust y to take account of stacking
     unauthorisedAnnotations[1].y = unauthorisedAnnotations[1].y + unauthorisedAnnotations[0].y;
@@ -113,6 +111,7 @@ Promise.all([
     hoverAnnotation.y = 700;
     hoverAnnotation.opacity = 0.75;
     hoverAnnotation.text = 'Hover for more regions';
+    hoverAnnotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
     hoverAnnotation.font.color = 'grey';
     unauthorisedAnnotations.push(hoverAnnotation);
     let dragAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
@@ -120,6 +119,8 @@ Promise.all([
     dragAnnotation.y = 800;
     dragAnnotation.opacity = 0.75;
     dragAnnotation.text = 'Drag vertically on plot to zoom, on yaxis to scroll';
+    dragAnnotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+    dragAnnotation.font.color = 'grey';
     unauthorisedAnnotations.push(dragAnnotation);
 
 
@@ -135,9 +136,7 @@ Promise.all([
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'; //magic number!!!
       accomodatedAnnotations.push(annotation);
 
-      // trace.name === 'state' ? annotation.opacity = 0.75 : annotation.opacity = 1.0;
-      // trace.name === 'state' ? unauthorisedAnnotations.push(annotation) : accomodatedAnnotations.push(annotation);
-      bothAnnotations.push(Object.assign({}, annotation));
+      // bothAnnotations.push(Object.assign({}, annotation));
     })
 
     accomodatedAnnotations[1].y = accomodatedAnnotations[1].y + accomodatedAnnotations[0].y;
@@ -187,23 +186,23 @@ Promise.all([
           method: 'update',
           // execute: true
         },
-        {
-          args: [{
-              'visible': [false, false, false, false,
-                false, false, false, false,
-              ]
-            },
-            {
-              'title': titleFig10,
-              'annotations': bothAnnotations,
-              'margin.r': marginRAccom
-
-            }
-          ],
-          label: 'Both',
-          method: 'update',
-          // execute: true
-        }
+        // {
+        //   args: [{
+        //       'visible': [false, false, false, false,
+        //         false, false, false, false,
+        //       ]
+        //     },
+        //     {
+        //       'title': titleFig10,
+        //       'annotations': bothAnnotations,
+        //       'margin.r': marginRAccom
+        //
+        //     }
+        //   ],
+        //   label: 'Both',
+        //   method: 'update',
+        //   // execute: true
+        // }
       ],
     });
 
