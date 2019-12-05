@@ -91,7 +91,7 @@ const CHART_COLORS_BY_REGION = {
   "Dún Laoghaire-Rathdown": CHART_COLORWAY[1],
   "Fingal": CHART_COLORWAY[2],
   "Dublin": CHART_COLORWAY[0],
-  "State": CHART_COLORWAY[4]
+  "State": 'grey'
 }
 //TODO: placeholder- implement with design system
 const CHART_COLORS_BY_VARIABLE = {
