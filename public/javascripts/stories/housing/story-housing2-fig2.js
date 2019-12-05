@@ -96,7 +96,7 @@ d3.csv(srcPathFig2)
     // layout.xaxis.nticks = 5;
     layout.xaxis.range = [1991, 2016];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    // layout.yaxis.range = [0.1, 2100000];
+    layout.yaxis.range = [0.1, 2100000];
     // layout.yaxis.visible = false;
     layout.yaxis.title = '%';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
@@ -157,7 +157,8 @@ d3.csv(srcPathFig2)
             },
             {
               'title': titleFig2,
-              'annotations': stateAnnotations
+              'annotations': stateAnnotations,
+              'yaxis.range': [0.1, 2100000]
 
             }
           ],
@@ -191,7 +192,8 @@ d3.csv(srcPathFig2)
             },
             {
               'title': titleFig2,
-              'annotations': rateAnnotations
+              'annotations': rateAnnotations,
+              'yaxis.range': [0.1, 15]
             }
           ],
           label: 'Vacancy % Rate',

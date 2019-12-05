@@ -45,20 +45,23 @@ d3.csv(srcPathFig4 + srcFileFig4)
 
 
     //Set layout options
-    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    chartLayout.title.text = titleFig4;
-    chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [1975, 2016];
-    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    chartLayout.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title.text = titleFig4;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.range = [1975, 2016];
+    layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layout.yaxis.fixedrange = false;
+    layout.yaxis.range = [1, 520000];
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 175, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
     };
 
-    // chartLayout.hidesources = false;
+    // layout.hidesources = false;
 
 
     let chartAnnotations = [];
@@ -80,9 +83,9 @@ d3.csv(srcPathFig4 + srcFileFig4)
 
 
     //Set default view annotations
-    chartLayout.annotations = chartAnnotations; //set default
+    layout.annotations = chartAnnotations; //set default
 
-    Plotly.newPlot(divIDFig4, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig4, chartTraces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
