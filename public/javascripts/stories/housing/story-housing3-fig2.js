@@ -46,7 +46,7 @@ d3.csv(srcPathFig2)
     layoutFig2.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layoutFig2.margin = {
       l: 0,
-      r: 100,
+      r: 25,
       t: 100 //button row
     };
     layoutFig2.colorway = CHART_COLORWAY_VARIABLES;

@@ -16,7 +16,7 @@ d3.csv(srcPathFig6)
       "Arrears: % of loan accounts in arrears for more than 90 days": "Proportion in Arrears 90+ Days"
     };
     let traces = [];
-    const yAxisRangeCount = [1, 200000];
+    const yAxisRangeCount = [1, 160000];
     const yAxisRangePercent = [1, 100];
     const marginRCount = 0;
     const marginRPercent = 0;
@@ -93,6 +93,7 @@ d3.csv(srcPathFig6)
       trace.y = data.map((y) => {
         return y[yVar];
       });
+      trace.hoverinfo = 'y';
       return trace;
     }
 
