@@ -31,7 +31,7 @@ d3.csv(srcPathFig2)
     stateStockTrace.text = stateStockTrace.y.map(String);
     stateStockTrace.name = "State" + " total houses";
     // stateStockTrace.type = 'scatter';
-    stateStockTrace.mode = 'lines';
+    stateStockTrace.mode = 'lines+markers';
     stateStockTrace.fill = 'tozeroy';
     stateStockTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     stateStockTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
@@ -46,6 +46,7 @@ d3.csv(srcPathFig2)
       trace.y = dataByRegion[key].map((y) => {
         return y[yVar];
       });
+      trace.hoverinfo = 'y';
       return trace;
     }
 
@@ -65,7 +66,7 @@ d3.csv(srcPathFig2)
 
       trace.name = regionName; //+ " vacant houses";
       trace.type = 'line';
-      trace.mode = 'lines';
+      trace.mode = 'lines+markers';
       // trace.stackgroup = 'one';
 
       CHART_COLORS_BY_REGION[trace.name] ? trace.opacity = 1.0 : trace.opacity = 0.5;

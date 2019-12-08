@@ -91,6 +91,7 @@ d3.csv(srcPathFig5)
       trace.y = data.map((y) => {
         return y[yVar];
       });
+      trace.hoverinfo = 'y';
       return trace;
     }
 
