@@ -1,6 +1,6 @@
 //Options for chart
 const srcPathFig2 = "../data/Stories/Housing/part_3/processed/homeless_figures_parsed.csv";
-let titleFig2 = "Number of adults with children accessing emergency accommodation in Dublin (2014-2018)";
+let titleFig2 = "Number of adults with children in emergency accommodation in Dublin (2014-2018)";
 const divIDFig2 = "homelessness-chart";
 
 d3.csv(srcPathFig2)
@@ -32,7 +32,7 @@ d3.csv(srcPathFig2)
 
     //Set layout options
     let layoutFig2 = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
-    // layoutFig2.title.text = titleFig2;
+    layoutFig2.title.text = titleFig2;
     layoutFig2.height = 500;
     layoutFig2.showlegend = false;
     layoutFig2.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
@@ -46,11 +46,27 @@ d3.csv(srcPathFig2)
     layoutFig2.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layoutFig2.margin = {
       l: 0,
-      r: marginRUnauth,
+      r: 100,
       t: 100 //button row
     };
+    layoutFig2.colorway = CHART_COLORWAY_VARIABLES;
 
-    // layoutFig2.annotations = annotations;
+    let annotations = [];
+    tracesFig2.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name.split('Rev')[0];
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      annotation.font.color = CHART_COLORWAY_VARIABLES[i]; //Is this order smae as fetching from object in trace?
+      annotation.text = trace.name;
+      annotations.push(annotation);
+
+    })
+    annotations[1].y = annotations[0].y + annotations[1].y
+
+    layoutFig2.annotations = annotations;
 
     Plotly.newPlot(divIDFig2, tracesFig2, layoutFig2, {
       modeBar: {
