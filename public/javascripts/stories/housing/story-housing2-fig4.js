@@ -10,7 +10,6 @@ Promise.all([
     d3.csv(srcPathFig4a),
     d3.csv(srcPathFig4b)
   ]).then((data) => {
-    console.log(data[0]);
     let tracesHectares = [];
     let tracesExpectedUnits = [];
     // regionsFig4.push("state");
@@ -48,6 +47,7 @@ Promise.all([
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [2000, 2012];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [1, 1500];
     layout.yaxis.title = '';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
@@ -99,107 +99,55 @@ Promise.all([
       annotationsExpectedUnits.push(annotation);
     })
 
-    //set individual annotation stylings
-    annotationsExpectedUnits[0].yshift = 0; //DC
-    annotationsExpectedUnits[1].yshift = 0; //DLR
-    annotationsExpectedUnits[2].yshift = 0; //Fingal
-    annotationsExpectedUnits[3].yshift = 0; //SD
-    annotationsExpectedUnits[4].yshift = 0; //K
-    annotationsExpectedUnits[5].yshift = 0; //M
-    annotationsExpectedUnits[6].yshift = 0; //W
+    layout.annotations = annotationsHectares;
+    //Set button menu
+    let updateMenus = [];
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
+      buttons: [{
+          args: [{
+              'visible': [true, true, true, true, true, true, true,
+                false, false, false, false, false, false, false
+              ]
+            },
+            {
+              'annotations': annotationsHectares,
+              'title': titleFig4,
+              'yaxis.range': [1, 1500]
+            }
+          ],
+          label: 'Hectares',
+          method: 'update',
+          execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, false, false, false, false, false,
+                true, true, true, true, true, true, true,
+              ]
+            },
+            {
+              'annotations': annotationsExpectedUnits,
 
-    layout.annotations = annotationsExpectedUnits; //set default
-    //
-    // //Set button menu
-    // let updateMenus = [];
-    // updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
-    // updateMenus[0] = Object.assign(updateMenus[0], {
-    //   buttons: [{
-    //       args: [{
-    //           'visible': [true, true, true, true, true, true, true,
-    //             false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false
-    //           ]
-    //         },
-    //         {
-    //           'title': popTitle,
-    //           'annotations': annotationsHectares,
-    //           'yaxis.title.text': '',
-    //
-    //         }
-    //       ],
-    //       label: 'Population',
-    //       method: 'update',
-    //       execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [false, false, false, false, false, false, false,
-    //             true, true, true, true, true, true, true,
-    //             false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false
-    //           ]
-    //         },
-    //         {
-    //           'title': houseTitle,
-    //           'annotations': houseAnnotations,
-    //           'yaxis.title.text': '',
-    //         }
-    //       ],
-    //       label: 'Households',
-    //       method: 'update',
-    //       execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false,
-    //             true, true, true, true, true, true, true,
-    //             false, false, false, false, false, false, false
-    //           ]
-    //         },
-    //         {
-    //           'title': popRateTitle,
-    //           'annotations': popRateAnnotations,
-    //           'yaxis.title.text': '%',
-    //
-    //         }
-    //       ],
-    //       label: 'Population % change',
-    //       method: 'update',
-    //       execute: true
-    //     },
-    //     {
-    //       args: [{
-    //           'visible': [false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false,
-    //             false, false, false, false, false, false, false,
-    //             true, true, true, true, true, true, true
-    //           ]
-    //         },
-    //         {
-    //           'title': houseRateTitle,
-    //           'annotations': houseRateAnnotations,
-    //           'yaxis.title.text': '%'
-    //         }
-    //       ],
-    //       label: 'Household % change',
-    //       method: 'update',
-    //       execute: true
-    //     }
-    //   ]
-    // });
-    //
-    // layout.updatemenus = updateMenus;
+              'title': titleFig4,
+              'yaxis.range': [10, 70000]
+            }
+          ],
+          label: 'Expected Units',
+          method: 'update',
+          execute: true
+        }
+      ]
+    });
+
+    layout.updatemenus = updateMenus;
 
     let traces = tracesHectares
       .concat(tracesExpectedUnits);
 
-    //
-    // // //Set default visible traces (i.e. traces on each chart)
+    //Set default visible traces (i.e. traces on each chart)
     traces.map((t, i) => {
-      if (i >= 7) return t.visible = true;
+      if (i < 7) return t.visible = true;
       else return t.visible = false;
     });
 
