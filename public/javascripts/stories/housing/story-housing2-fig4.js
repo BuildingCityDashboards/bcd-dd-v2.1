@@ -55,44 +55,41 @@ Promise.all([
       r: 200,
       t: 100 //button row
     };
-    //
-    // // layout.hidesources = false;
-    //
-    // //Set annotations per chart with config per trace
-    //
-    // let popAnnotations = [];
-    // popTraces.forEach((trace, i) => {
-    //   // console.log("trace: " + JSON.stringify(trace));
-    //   let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
-    //   annotation.x = trace.x[trace.x.length - 1];
-    //   annotation.y = trace.y[trace.y.length - 1];
-    //   annotation.text = trace.name;
-    //   //de-focus some annotations
-    //   //TODO: function for this
-    //   (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
-    //   annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    //   (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
-    //
-    //   // console.log(annotation.font.color);
-    //   popAnnotations.push(annotation);
-    // })
+    let annotationsHectares = [];
+    tracesHectares.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      annotationsHectares.push(annotation);
+    })
     //
     //
     // //set individual annotation stylings
-    // //TODO: be better! Don't use array index for access
-    // popAnnotations[1].yshift = -6; //move DLR down
-    // popAnnotations[2].yshift = 4; //move Fingal up
-    // popAnnotations[3].yshift = -4; //move SD down
-    // popAnnotations[4].yshift = 6; //move K up
-    // popAnnotations[5].yshift = -4; //move M down
+    //TODO: be better! Don't use array index for access
+    annotationsHectares[0].yshift = 8; //DC
+    annotationsHectares[1].yshift = 0; //DLR
+    annotationsHectares[2].yshift = -10; //Fingal
+    annotationsHectares[3].yshift = -4; //SD
+    annotationsHectares[4].yshift = 6; //K
+    annotationsHectares[5].yshift = -12; //M
+    annotationsHectares[6].yshift = -5; //W
     //
-    // houseAnnotations[1].yshift = 3; //move DLR up
+    // houseAnnotations[1].yshift = 3; //  DLR up
     // houseAnnotations[2].yshift = 4; //move Fingal up
     // houseAnnotations[3].yshift = -4; //move SD down
     // houseAnnotations[4].yshift = -4; //move K down
     // houseAnnotations[5].yshift = -4; //move M down
     //
-    // layout.annotations = popAnnotations; //set default
+    layout.annotations = annotationsHectares; //set default
     //
     // //Set button menu
     // let updateMenus = [];
@@ -108,7 +105,7 @@ Promise.all([
     //         },
     //         {
     //           'title': popTitle,
-    //           'annotations': popAnnotations,
+    //           'annotations': annotationsHectares,
     //           'yaxis.title.text': '',
     //
     //         }
@@ -176,19 +173,17 @@ Promise.all([
     // });
     //
     // layout.updatemenus = updateMenus;
-    //
-    //
+
     let traces = tracesHectares
       .concat(tracesExpectedUnits);
 
     //
     // // //Set default visible traces (i.e. traces on each chart)
-    // chartTraces.map((t, i) => {
-    //   if (i < 7) return t.visible = true;
-    //   else return t.visible = false;
-    // });
-    //
-    //
+    traces.map((t, i) => {
+      if (i < 7) return t.visible = true;
+      else return t.visible = false;
+    });
+
     Plotly.newPlot(divIDFig4, traces, layout, {
       modeBar: {
         orientation: 'v',
