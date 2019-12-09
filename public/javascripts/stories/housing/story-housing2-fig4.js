@@ -71,10 +71,8 @@ Promise.all([
       // console.log(annotation.font.color);
       annotationsHectares.push(annotation);
     })
-    //
-    //
-    // //set individual annotation stylings
-    //TODO: be better! Don't use array index for access
+
+    //set individual annotation stylings
     annotationsHectares[0].yshift = 8; //DC
     annotationsHectares[1].yshift = 0; //DLR
     annotationsHectares[2].yshift = -10; //Fingal
@@ -82,14 +80,35 @@ Promise.all([
     annotationsHectares[4].yshift = 6; //K
     annotationsHectares[5].yshift = -12; //M
     annotationsHectares[6].yshift = -5; //W
-    //
-    // houseAnnotations[1].yshift = 3; //  DLR up
-    // houseAnnotations[2].yshift = 4; //move Fingal up
-    // houseAnnotations[3].yshift = -4; //move SD down
-    // houseAnnotations[4].yshift = -4; //move K down
-    // houseAnnotations[5].yshift = -4; //move M down
-    //
-    layout.annotations = annotationsHectares; //set default
+
+
+    let annotationsExpectedUnits = [];
+    tracesExpectedUnits.forEach((trace, i) => {
+      // console.log("trace: " + JSON.stringify(trace));
+      let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+      annotation.x = trace.x[trace.x.length - 1];
+      annotation.y = trace.y[trace.y.length - 1];
+      annotation.text = trace.name;
+      //de-focus some annotations
+      //TODO: function for this
+      (i < 4) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
+      (i < 4) ? annotation.font.color = CHART_COLORWAY[i]: annotation.font.color = 'grey'; //magic number!!!
+
+      // console.log(annotation.font.color);
+      annotationsExpectedUnits.push(annotation);
+    })
+
+    //set individual annotation stylings
+    annotationsExpectedUnits[0].yshift = 0; //DC
+    annotationsExpectedUnits[1].yshift = 0; //DLR
+    annotationsExpectedUnits[2].yshift = 0; //Fingal
+    annotationsExpectedUnits[3].yshift = 0; //SD
+    annotationsExpectedUnits[4].yshift = 0; //K
+    annotationsExpectedUnits[5].yshift = 0; //M
+    annotationsExpectedUnits[6].yshift = 0; //W
+
+    layout.annotations = annotationsExpectedUnits; //set default
     //
     // //Set button menu
     // let updateMenus = [];
@@ -180,7 +199,7 @@ Promise.all([
     //
     // // //Set default visible traces (i.e. traces on each chart)
     traces.map((t, i) => {
-      if (i < 7) return t.visible = true;
+      if (i >= 7) return t.visible = true;
       else return t.visible = false;
     });
 
