@@ -11,7 +11,6 @@ d3.json(srcPathFig1)
     let tracesFig1 = [];
     tracesFig1.push(getTrace(data, "date", "value"));
 
-
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = yVar;
