@@ -78,6 +78,7 @@ d3.csv(srcPathFig2)
     let traces = stateTraces
       // .concat(stockTraces);
       .concat(vacantRateTraces);
+    console.log(traces);
 
     //Set default visible traces (i.e. traces on each chart)
     traces.map((t) => {
@@ -151,7 +152,7 @@ d3.csv(srcPathFig2)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, false, false, false, false, false, false, false,
+              'visible': [true, true, false, false, false, false, false, false, false, false,
                 // true, false, false, false, false, false, false, false,
                 // false, false, false, false, false, false, false, false
               ]
