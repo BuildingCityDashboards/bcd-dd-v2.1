@@ -1,14 +1,21 @@
 //Options for chart
-const srcPathFig2 = "../data/Stories/Housing/part_3/processed/homeless_figures_parsed.csv";
-let titleFig2 = "Number of adults with children in emergency accommodation in Dublin (2014-2018)";
+const srcPathFig2a = "../data/Stories/Housing/part_3/processed/homeless_figures_parsed.csv";
+const srcPathFig2b = "../data/Stories/Housing/part_3/processed/drhe_homelessness.csv";
+let titleFig2 = "Families in Emergency Accommodation in Dublin (2014-2018)";
 const divIDFig2 = "homelessness-chart";
 
-d3.csv(srcPathFig2)
+Promise.all([
+    d3.csv(srcPathFig2a),
+    d3.csv(srcPathFig2b)
+  ])
   .then((data) => {
 
     let tracesFig2 = [];
-    tracesFig2.push(getTrace(data, "date", "Individual adults"));
-    tracesFig2.push(getTrace(data, "date", "Dependents"));
+    tracesFig2.push(getTrace(data[0], "date", "Individual adults"));
+    tracesFig2.push(getTrace(data[0], "date", "Dependents"));
+
+    tracesFig2.push(getTrace(data[1], "date", "Hotels and B&Bs"));
+    tracesFig2.push(getTrace(data[1], "date", "All Other Accommodation"));
 
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
@@ -23,12 +30,10 @@ d3.csv(srcPathFig2)
       });
       // trace.connectgaps = true;
       trace.mode = 'lines';
-      // trace.name === 'state' ? trace.visible = true : trace.visible = true;
-      // trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-      // trace.marker.opacity = 1.0; //how to adjust fill opacity?
-      // trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
       return trace;
     }
+    tracesFig2[2].visible = false;
+    tracesFig2[3].visible = false;
 
     //Set layout options
     let layoutFig2 = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
@@ -46,12 +51,13 @@ d3.csv(srcPathFig2)
     layoutFig2.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layoutFig2.margin = {
       l: 0,
-      r: 25,
+      r: 0,
       t: 100 //button row
     };
     layoutFig2.colorway = CHART_COLORWAY_VARIABLES;
 
-    let annotations = [];
+    let annotationsCount = [];
+    let annotationsType = [];
     tracesFig2.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
       let annotation = Object.assign({}, ANNOTATIONS_DEFAULT);
@@ -59,14 +65,60 @@ d3.csv(srcPathFig2)
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name.split('Rev')[0];
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      annotation.font.color = CHART_COLORWAY_VARIABLES[i]; //Is this order smae as fetching from object in trace?
+      annotation.font.color = CHART_COLORWAY_VARIABLES[i % 2]; //Is this order smae as fetching from object in trace?
       annotation.text = trace.name;
-      annotations.push(annotation);
-
+      if (i < 2) {
+        annotationsCount.push(annotation);
+      } else {
+        annotationsType.push(annotation);
+      }
     })
-    annotations[1].y = annotations[0].y + annotations[1].y
+    annotationsCount[1].y = annotationsCount[0].y + annotationsCount[1].y;
+    annotationsType[1].y = annotationsType[0].y + annotationsType[1].y;
 
-    layoutFig2.annotations = annotations;
+    layoutFig2.annotations = annotationsCount;
+
+
+    //Set button menu
+    let updateMenus = [];
+    updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE);
+    updateMenus[0] = Object.assign(updateMenus[0], {
+      buttons: [{
+          args: [{
+              'visible': [true, true, false, false]
+            },
+            {
+              'title': titleFig2,
+              'annotations': annotationsCount,
+              // 'margin.r': marginRUnauth,
+              'yaxis.range': [1, 5000]
+            }
+          ],
+          label: 'Individuals and Dependents',
+          method: 'update',
+          // execute: true
+        },
+        {
+          args: [{
+              'visible': [false, false, true, true]
+            },
+            {
+              'title': titleFig2,
+              'annotations': annotationsType,
+              // 'margin.r': marginRAccom,
+              'yaxis.range': [1, 1500],
+              'yaxis.nticks': 3
+            }
+          ],
+          label: 'Families By Accomodation Type',
+          method: 'update',
+          // execute: true
+        },
+      ],
+    });
+
+    layoutFig2.updatemenus = updateMenus;
+
 
     Plotly.newPlot(divIDFig2, tracesFig2, layoutFig2, {
       modeBar: {
