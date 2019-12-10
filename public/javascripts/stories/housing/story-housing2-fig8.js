@@ -34,6 +34,7 @@ d3.csv(srcPathFig8 + srcFileFig8)
     layout.xaxis.title = '';
     layout.xaxis.range = [2008, 2018];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [1, 100000];
     layout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
     layout.yaxis.titlefont.size = 16; //bug? need to call this
     // layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
