@@ -28,10 +28,12 @@ d3.csv(srcPathFig5)
     totalTrace.text = totalTrace.y.map(String);
     totalTrace.name = shortColumnNames[colName];
     totalTrace.mode = 'lines';
+    totalTrace.opacity = 0.5
     totalTrace.visible = true;
     totalTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     totalTrace.marker.color = 'grey';
     traces.push(totalTrace);
+
 
     colName = "Arrears: Total mortgage accounts in arrears";
     let arrearsTrace = getTrace(data, "date", colName);
@@ -41,7 +43,7 @@ d3.csv(srcPathFig5)
     arrearsTrace.mode = 'lines';
     arrearsTrace.visible = true;
     arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    arrearsTrace.marker.color = CHART_COLORS_BY_VARIABLE[0];
+    arrearsTrace.marker.color = CHART_COLORWAY_VARIABLES[0];
     traces.push(arrearsTrace);
 
     colName = "Arrears: Total mortgage accounts in arrears - over 90 days"
@@ -51,8 +53,8 @@ d3.csv(srcPathFig5)
     // sarrears90DaysTrace.type = 'scatter';
     arrears90DaysTrace.mode = 'lines';
     arrears90DaysTrace.visible = true;
-    // arrears90DaysTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    // arrears90DaysTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    arrears90DaysTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    arrears90DaysTrace.marker.color = CHART_COLORWAY_VARIABLES[1];
     traces.push(arrears90DaysTrace);
 
 
@@ -63,13 +65,13 @@ d3.csv(srcPathFig5)
 
     });
     arrears100PercentTrace.y = data.map((y) => {
-      return 100;
+      return 102;
     });
+    arrears100PercentTrace.name = 'All Outstanding Mortgages';
     arrears100PercentTrace.mode = 'lines';
-    arrears100PercentTrace.visible = false;
     arrears100PercentTrace.stackgroup = 'three';
     arrears100PercentTrace.hoverinfo = 'none';
-    arrears100PercentTrace.opacity = 0.2;
+    arrears100PercentTrace.opacity = 0.5;
     arrears100PercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrears100PercentTrace.marker.color = 'grey';
     traces.push(arrears100PercentTrace);
@@ -80,28 +82,22 @@ d3.csv(srcPathFig5)
     arrearsPercentTrace.text = arrearsTrace.y.map(String);
     arrearsPercentTrace.name = shortColumnNames[colName];
     arrearsPercentTrace.stackgroup = 'two';
-    // arrearsPercentTrace.groupnorm = 'percent';
-    // arrearsPercentTrace.type = 'scatter';
     arrearsPercentTrace.mode = 'lines';
     arrearsPercentTrace.visible = false;
     arrearsPercentTrace.opacity = 1.0;
     arrearsPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    arrearsPercentTrace.marker.color = CHART_COLORS_BY_VARIABLE[0];
-
+    arrearsPercentTrace.marker.color = CHART_COLORWAY_VARIABLES[0];
     traces.push(arrearsPercentTrace);
 
     colName = "Arrears: % of loan accounts in arrears for more than 90 days";
     let arrears90DaysPercentTrace = getTrace(data, "date", colName);
-
     arrears90DaysPercentTrace.text = arrearsTrace.y.map(String);
     arrears90DaysPercentTrace.name = shortColumnNames[colName];
     arrears90DaysPercentTrace.stackgroup = 'one';
-    // arrears90DaysPercentTrace.groupnorm = 'percent';
-    // arrears90DaysPercentTrace.type = 'scatter';
     arrears90DaysPercentTrace.mode = 'lines';
     arrears90DaysPercentTrace.visible = false;
     arrears90DaysPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    arrears90DaysPercentTrace.marker.color = CHART_COLORS_BY_VARIABLE[1];
+    arrears90DaysPercentTrace.marker.color = CHART_COLORWAY_VARIABLES[1];
     traces.push(arrears90DaysPercentTrace);
 
     function getTrace(data, xVar, yVar) {
@@ -147,26 +143,34 @@ d3.csv(srcPathFig5)
       annotation.x = trace.x[trace.x.length - 1];
       annotation.y = trace.y[trace.y.length - 1];
       annotation.text = trace.name;
-      //de-focus some annotations
-      //TODO: function for this
-      // (i < 1) ? annotation.opacity = 1.0: annotation.opacity = 0.5;
+      annotation.showarrow = false;
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-      annotation.font.color = CHART_COLORWAY_VARIABLES[i % 3] || 'grey';
       if (i < 3) {
         countAnnotations.push(annotation);
         // console.log(annotation);
-      } else if (i === 3) {
+      } else {
         rateAnnotations.push(annotation);
       }
     })
-    // //set individual annotation stylings
-    countAnnotations[0].ay = 0; //Outstanding
-    countAnnotations[1].ay = -10; //In arrears
-    countAnnotations[2].ay = 0; //90 days
 
-    rateAnnotations[0].showarrow = false;
-    rateAnnotations[0].xshift = -240;
-    rateAnnotations[0].yshift = 30;
+    // //set individual annotation stylings
+    countAnnotations[0].yshift = 0; //Outstanding
+    countAnnotations[1].yshift = 5; //In arrears
+    countAnnotations[2].yshift = -3; //90 days
+    countAnnotations[0].opacity = 0.5;
+    countAnnotations[0].font.color = totalTrace.marker.color;
+    countAnnotations[1].font.color = arrearsTrace.marker.color;
+    countAnnotations[2].font.color = arrears90DaysTrace.marker.color;
+
+
+    rateAnnotations[0].y = 50;
+    rateAnnotations[1].yshift = -2;
+    rateAnnotations[2].yshift = -10;
+    rateAnnotations[0].opacity = 0.5;
+    rateAnnotations[0].font.color = arrears100PercentTrace.marker.color;
+    rateAnnotations[1].font.color = arrearsPercentTrace.marker.color;
+    rateAnnotations[2].font.color = arrears90DaysPercentTrace.marker.color;
+
 
     //Set button menu
     let updateMenus = [];
