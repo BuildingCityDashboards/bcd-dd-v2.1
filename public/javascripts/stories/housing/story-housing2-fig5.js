@@ -10,7 +10,8 @@ d3.csv(srcPathFig5)
       "Outstanding Mortgages: Total mortgage loan accounts outstanding": "Outstanding Mortgages",
       "Arrears: Total mortgage accounts in arrears": "All Mortgages in Arrears",
       "Arrears: Total mortgage accounts in arrears - over 90 days": "Mortgages in Arrears >90 Days",
-      "Arrears: % of loan accounts in arrears for more than 90 days": "Proportion in Arrears >90 Days"
+      "Arrears: % of loan accounts in arrears for more than 90 days": "Percentage in Arrears >90 Days",
+      "Arrears: % of loan accounts in arrears": "Percentage in Arrears"
     };
 
     let traces = [];
@@ -19,16 +20,19 @@ d3.csv(srcPathFig5)
     const marginRCount = 0;
     const marginRPercent = 0;
 
-    let colName = "Outstanding Mortgages: Total mortgage loan accounts outstanding";
+    //
+    let colName;
+
+    colName = "Outstanding Mortgages: Total mortgage loan accounts outstanding";
     let totalTrace = getTrace(data, "date", colName);
     totalTrace.text = totalTrace.y.map(String);
     totalTrace.name = shortColumnNames[colName];
     totalTrace.mode = 'lines';
     totalTrace.visible = true;
-    // totalTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    // totalTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    totalTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    totalTrace.marker.color = 'grey';
     traces.push(totalTrace);
-    //
+
     colName = "Arrears: Total mortgage accounts in arrears";
     let arrearsTrace = getTrace(data, "date", colName);
     arrearsTrace.text = arrearsTrace.y.map(String);
@@ -36,8 +40,8 @@ d3.csv(srcPathFig5)
     // sarrearsTrace.type = 'scatter';
     arrearsTrace.mode = 'lines';
     arrearsTrace.visible = true;
-    // arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    // arrearsTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
+    arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    arrearsTrace.marker.color = CHART_COLORS_BY_VARIABLE[0];
     traces.push(arrearsTrace);
 
     colName = "Arrears: Total mortgage accounts in arrears - over 90 days"
@@ -51,21 +55,6 @@ d3.csv(srcPathFig5)
     // arrears90DaysTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
     traces.push(arrears90DaysTrace);
 
-    //dummy trace for normalised stack
-    colName = "Arrears: % of loan accounts in arrears for more than 90 days";
-    let arrearsPercentTrace = getTrace(data, "date", "Arrears: % of loan accounts in arrears for more than 90 days");
-
-    arrearsPercentTrace.text = arrearsTrace.y.map(String);
-    arrearsPercentTrace.name = shortColumnNames[colName];
-    arrearsPercentTrace.stackgroup = 'one';
-    arrearsPercentTrace.groupnorm = 'percent';
-    // arrearsPercentTrace.type = 'scatter';
-    arrearsPercentTrace.mode = 'lines';
-    arrearsPercentTrace.visible = false;
-    // arrearsPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    // arrearsPercentTrace.marker.color = CHART_COLORS_BY_REGION["State"] || 'grey';
-
-    traces.push(arrearsPercentTrace);
 
     let arrears100PercentTrace = Object.assign({}, TRACES_DEFAULT);
     arrears100PercentTrace.x = data.map((x) => {
@@ -74,13 +63,46 @@ d3.csv(srcPathFig5)
 
     });
     arrears100PercentTrace.y = data.map((y) => {
-      return 100 - y[colName];
+      return 100;
     });
     arrears100PercentTrace.mode = 'lines';
     arrears100PercentTrace.visible = false;
-    arrears100PercentTrace.stackgroup = 'one';
+    arrears100PercentTrace.stackgroup = 'three';
     arrears100PercentTrace.hoverinfo = 'none';
+    arrears100PercentTrace.opacity = 0.2;
+    arrears100PercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    arrears100PercentTrace.marker.color = 'grey';
     traces.push(arrears100PercentTrace);
+
+    colName = "Arrears: % of loan accounts in arrears";
+    let arrearsPercentTrace = getTrace(data, "date", colName);
+
+    arrearsPercentTrace.text = arrearsTrace.y.map(String);
+    arrearsPercentTrace.name = shortColumnNames[colName];
+    arrearsPercentTrace.stackgroup = 'two';
+    // arrearsPercentTrace.groupnorm = 'percent';
+    // arrearsPercentTrace.type = 'scatter';
+    arrearsPercentTrace.mode = 'lines';
+    arrearsPercentTrace.visible = false;
+    arrearsPercentTrace.opacity = 1.0;
+    arrearsPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    arrearsPercentTrace.marker.color = CHART_COLORS_BY_VARIABLE[0];
+
+    traces.push(arrearsPercentTrace);
+
+    colName = "Arrears: % of loan accounts in arrears for more than 90 days";
+    let arrears90DaysPercentTrace = getTrace(data, "date", colName);
+
+    arrears90DaysPercentTrace.text = arrearsTrace.y.map(String);
+    arrears90DaysPercentTrace.name = shortColumnNames[colName];
+    arrears90DaysPercentTrace.stackgroup = 'one';
+    // arrears90DaysPercentTrace.groupnorm = 'percent';
+    // arrears90DaysPercentTrace.type = 'scatter';
+    arrears90DaysPercentTrace.mode = 'lines';
+    arrears90DaysPercentTrace.visible = false;
+    arrears90DaysPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
+    arrears90DaysPercentTrace.marker.color = CHART_COLORS_BY_VARIABLE[1];
+    traces.push(arrears90DaysPercentTrace);
 
     function getTrace(data, xVar, yVar) {
       let trace = Object.assign({}, TRACES_DEFAULT);
@@ -152,7 +174,7 @@ d3.csv(srcPathFig5)
     updateMenus[0] = Object.assign(updateMenus[0], {
       buttons: [{
           args: [{
-              'visible': [true, true, true, false, false]
+              'visible': [true, true, true, false, false, false]
             },
             {
               'title': titleFig5,
@@ -169,7 +191,7 @@ d3.csv(srcPathFig5)
         },
         {
           args: [{
-              'visible': [false, false, false, true, true]
+              'visible': [false, false, false, true, true, true]
             },
             {
               'title': titleFig5,
@@ -179,7 +201,7 @@ d3.csv(srcPathFig5)
               'margin.r': marginRPercent
             }
           ],
-          label: "Proportion of Mortgages in Arrears (%)",
+          label: "Percentage of Mortgages in Arrears (%)",
           method: 'update',
           // execute: true
         }
