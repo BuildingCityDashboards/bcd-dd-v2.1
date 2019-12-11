@@ -44,7 +44,6 @@ d3.csv(srcPathFig5)
     arrearsTrace.visible = true;
     arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrearsTrace.marker.color = CHART_COLORWAY_VARIABLES[0];
-    console.log(arrearsTrace.marker.color);
     traces.push(arrearsTrace);
 
     colName = "Arrears: Total mortgage accounts in arrears - over 90 days"
@@ -92,7 +91,6 @@ d3.csv(srcPathFig5)
 
     colName = "Arrears: % of loan accounts in arrears for more than 90 days";
     let arrears90DaysPercentTrace = getTrace(data, "date", colName);
-
     arrears90DaysPercentTrace.text = arrearsTrace.y.map(String);
     arrears90DaysPercentTrace.name = shortColumnNames[colName];
     arrears90DaysPercentTrace.stackgroup = 'one';
@@ -154,7 +152,7 @@ d3.csv(srcPathFig5)
         rateAnnotations.push(annotation);
       }
     })
-    console.log(rateAnnotations);
+
     // //set individual annotation stylings
     countAnnotations[0].yshift = 0; //Outstanding
     countAnnotations[1].yshift = 5; //In arrears
