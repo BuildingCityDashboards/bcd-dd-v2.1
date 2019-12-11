@@ -78,7 +78,7 @@ d3.csv(srcPathFig2)
     let traces = stateTraces
       // .concat(stockTraces);
       .concat(vacantRateTraces);
-    console.log(traces);
+    // console.log(traces);
 
     //Set default visible traces (i.e. traces on each chart)
     traces.map((t) => {
