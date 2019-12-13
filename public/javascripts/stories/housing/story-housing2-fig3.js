@@ -1,5 +1,8 @@
 let dubLat = 53.3498;
 let dubLng = -6.2603;
+let southWest = L.latLng(52.9754658325, -6.8639598864),
+  northEast = L.latLng(53.7009607624, -5.9835178395),
+  dublinBounds = L.latLngBounds(southWest, northEast); //greater Dublin & surrounds
 let min_zoom = 8,
   max_zoom = 18;
 let zoom = 10;
@@ -14,50 +17,98 @@ let osmAttrib_Hot = '&copy; <a href="http://www.openstreetprivateMap.org/copyrig
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>';
 let iconAX = 15; //icon Anchor X
 let iconAY = 15; //icon Anchor Y
+var iconConfig = {
+  iconUrl: '/images/environment/square-stroked-15.svg',
+  iconSize: [30, 30],
+  iconAnchor: [iconAX, iconAY],
+  popupAnchor: [0, 0]
+};
 
-proj4.defs("EPSG:29902", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
-+x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs");
-var firstProjection = "EPSG:29902";
-var secondProjection = "EPSG:4326";
+proj4.defs("EPSG:2157", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+
+var firstProjection = "EPSG:2157"; //ITM
+var secondProjection = "EPSG:4326"; //WGS84
 
 d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dublin_area.csv")
   .then(function(data) {
-    console.log("data length " + data.length);
     data.forEach(function(d) {
-
       let result = proj4(firstProjection, secondProjection,
         [+d["x"], +d["y"]]);
       d.lat = result[1];
       d.lng = result[0];
-      //add a property to act as key for filtering
-      // d.type = "Fingal County Council Disabled Parking Bay";
-      //        console.log("DP bay : " + d.lat);
-
     });
     let osm = new L.TileLayer(stamenTonerUrl_Lite, {
       minZoom: min_zoom,
       maxZoom: max_zoom,
       attribution: stamenTonerAttrib
     });
-    let map = new L.Map('unfinished-estates-map');
-    map.setView(new L.LatLng(dubLat, dubLng), zoom);
-    map.addLayer(osm);
+    let unfinishedEstatesMap = new L.Map('unfinished-estates-map');
+    unfinishedEstatesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+    unfinishedEstatesMap.addLayer(osm);
     let cluster = L.markerClusterGroup();
     updateMap(data);
 
     function updateMap(data_) {
       cluster.clearLayers();
-      map.removeLayer(cluster);
+      unfinishedEstatesMap.removeLayer(cluster);
       data_.forEach((d, i) => {
         //        console.log("d: " + d.type + "\n");
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-          // icon: kMapIcon
+          icon: getIcon(d["TOTAL"])
         });
-        // marker.bindPopup(getDisbaledParkingContent(d));
+        marker.bindPopup(getPopupContent(d));
         cluster.addLayer(marker);
       });
-      map.addLayer(cluster);
-      // map.fitBounds(cluster.getBounds());
+      unfinishedEstatesMap.addLayer(cluster);
+      // unfinishedEstatesMap.fitBounds(cluster.getBounds());
     }
+
+    function getIcon(totalHouses) {
+      // console.log(totalHouses);
+      iconConfig.iconSize = [totalHouses, totalHouses];
+      let icon = L.icon(iconConfig);
+      return icon;
+    }
+
+    function getPopupContent(estate) {
+      let key = "Name of Development";
+      let str = ``;
+      // Catch null development names or blanks or single space
+      (estate[key] && estate[key] !== '' && estate[key] !== ' ') ? str += `<b>${estate[key]}</b><br>`: str += '<b>Unnamed Development</b><br>';
+      key = "Town, Village, Suburb "
+      str += `<i>${estate[key]}</i><br><br>` || '';
+      key = "TOTAL"
+      str += `<b>Total houses</b>: ${estate[key]}<br>` || '';
+      key = "Complete & occupied"
+      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
+      key = "Complete & vacant"
+      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
+
+      // if (d_["TOTAL_SPACES"]) {
+      //   str += 'Total Spaces: ' + d_["TOTAL_SPACES"] + '<br><br>';
+      // }
+      // if (d_["DIPPED_FOOTPATH"] === "TRUE") {
+      //   str += '<i>This parking bay HAS a dipped footpath</i> <br>';
+      // } else {
+      //   str += '<i>This parking bay DOES NOT HAVE a dipped footpath</i> <br>';
+      // }
+      // if (d_.Name) {
+      //   str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="' +
+      //     d_.StopID + '">Real Time Information</button>';
+      // };
+      return str;
+    }
+
+    L.control.locate({
+      strings: {
+        title: "Zoom to your location"
+      }
+    }).addTo(unfinishedEstatesMap);
+
+    let osmGeocoder = new L.Control.OSMGeocoder({
+      placeholder: 'Enter street name, area etc.',
+      bounds: dublinBounds
+    });
+    unfinishedEstatesMap.addControl(osmGeocoder);
 
   });
