@@ -15,15 +15,48 @@ let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/
 let osmAttrib = 'Map data © <a href="http://openstreetprivateMap.org">OpenStreetMap</a> contributors';
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetprivateMap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>';
-let iconAX = 15; //icon Anchor X
-let iconAY = 15; //icon Anchor Y
 var iconConfig = {
-  title: 'text',
-  iconUrl: '/images/environment/landuse-15.svg',
+  title: '',
+  number: '666',
+  iconUrl: '/images/map_icons/house.svg',
   iconSize: [30, 30],
-  iconAnchor: [iconAX, iconAY],
+  iconAnchor: [0, 0],
   popupAnchor: [0, 0]
 };
+
+L.NumberedDivIcon = L.Icon.extend({
+  options: {
+    // EDIT THIS TO POINT TO THE FILE AT http://www.charliecroom.com/marker_hole.png (or your own marker)
+    iconUrl: '/images/map_icons/two-houses.svg',
+    number: '',
+    shadowUrl: null,
+    iconSize: [15, 15],
+    iconAnchor: new L.Point(13, 41),
+    popupAnchor: new L.Point(0, -33),
+    /*
+    iconAnchor: (Point)
+    popupAnchor: (Point)
+    */
+    className: 'leaflet-div-icon'
+  },
+
+  createIcon: function() {
+    var div = document.createElement('div');
+    var img = this._createImg(this.options['iconUrl']);
+    var numdiv = document.createElement('div');
+    numdiv.setAttribute("class", "number");
+    numdiv.innerHTML = this.options['number'] || '';
+    div.appendChild(img);
+    div.appendChild(numdiv);
+    this._setIconStyles(div, 'icon');
+    return div;
+  },
+
+  //you could change this to add a shadow like in the normal marker if you really wanted
+  createShadow: function() {
+    return null;
+  }
+});
 
 proj4.defs("EPSG:2157", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -41,6 +74,9 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     unfinishedEstatesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
     unfinishedEstatesMap.addLayer(osm);
     let cluster = L.markerClusterGroup();
+
+    const MAX_TOTAL_HOUSES = 2314; //used to normalise the sizing of icons based on total houses variable
+
     data.forEach((d) => {
       let result = proj4(firstProjection, secondProjection,
         [+d["x"], +d["y"]]);
@@ -52,26 +88,24 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       // marker.bindPopup(getPopupContent(d));
       marker.bindTooltip(getPopupContent(d));
       cluster.addLayer(marker);
+
     });
 
     unfinishedEstatesMap.addLayer(cluster);
 
-    // function updateMap(data_) {
-    //   cluster.clearLayers();
-    //   unfinishedEstatesMap.removeLayer(cluster);
-    //   data_.forEach((d, i) => {
-    //     //        console.log("d: " + d.type + "\n");
-    //
-    //   });
-    //
-    //   // unfinishedEstatesMap.fitBounds(cluster.getBounds());
-    // }
-
     function getIcon(totalHouses) {
       // console.log(totalHouses);
-      iconConfig.iconSize = [totalHouses, totalHouses];
-      let icon = L.icon(iconConfig);
+      // let fraction = +totalHouses / 2314;
+      // iconConfig.iconSize = [totalHouses, totalHouses];
+      // let icon = L.icon(iconConfig);
+      let icon = new L.NumberedDivIcon({
+        number: totalHouses
+      });
       return icon;
+    }
+
+    function getTooltipContent(estate) {
+
     }
 
     function getPopupContent(estate) {
