@@ -14,6 +14,12 @@ let osmAttrib_Hot = '&copy; <a href="http://www.openstreetprivateMap.org/copyrig
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>';
 let iconAX = 15; //icon Anchor X
 let iconAY = 15; //icon Anchor Y
+var iconConfig = {
+  iconUrl: '/images/environment/circle-stroked-15.svg',
+  iconSize: [30, 30],
+  iconAnchor: [iconAX, iconAY],
+  popupAnchor: [0, 0]
+};
 
 proj4.defs("EPSG:2157", "+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
 
@@ -44,12 +50,21 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       map.removeLayer(cluster);
       data_.forEach((d, i) => {
         //        console.log("d: " + d.type + "\n");
-        let marker = L.marker(new L.LatLng(d.lat, d.lng));
+        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+          icon: getIcon(d["TOTAL"])
+        });
         marker.bindPopup(getPopupContent(d));
         cluster.addLayer(marker);
       });
       map.addLayer(cluster);
       // map.fitBounds(cluster.getBounds());
+    }
+
+    function getIcon(totalHouses) {
+      // console.log(totalHouses);
+      iconConfig.iconSize = [totalHouses, totalHouses];
+      let icon = L.icon(iconConfig);
+      return icon;
     }
 
     function getPopupContent(estate) {
