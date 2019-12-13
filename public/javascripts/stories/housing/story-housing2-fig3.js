@@ -1,6 +1,9 @@
 let dubLat = 53.3498;
 let dubLng = -6.2603;
-let min_zoom = 0,
+let southWest = L.latLng(52.9754658325, -6.8639598864),
+  northEast = L.latLng(53.7009607624, -5.9835178395),
+  dublinBounds = L.latLngBounds(southWest, northEast); //greater Dublin & surrounds
+let min_zoom = 8,
   max_zoom = 18;
 let zoom = 10;
 // tile layer with correct attribution
@@ -15,7 +18,7 @@ let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design<
 let iconAX = 15; //icon Anchor X
 let iconAY = 15; //icon Anchor Y
 var iconConfig = {
-  iconUrl: '/images/environment/circle-stroked-15.svg',
+  iconUrl: '/images/environment/square-stroked-15.svg',
   iconSize: [30, 30],
   iconAnchor: [iconAX, iconAY],
   popupAnchor: [0, 0]
@@ -39,15 +42,15 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       maxZoom: max_zoom,
       attribution: stamenTonerAttrib
     });
-    let map = new L.Map('unfinished-estates-map');
-    map.setView(new L.LatLng(dubLat, dubLng), zoom);
-    map.addLayer(osm);
+    let unfinishedEstatesMap = new L.Map('unfinished-estates-map');
+    unfinishedEstatesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
+    unfinishedEstatesMap.addLayer(osm);
     let cluster = L.markerClusterGroup();
     updateMap(data);
 
     function updateMap(data_) {
       cluster.clearLayers();
-      map.removeLayer(cluster);
+      unfinishedEstatesMap.removeLayer(cluster);
       data_.forEach((d, i) => {
         //        console.log("d: " + d.type + "\n");
         let marker = L.marker(new L.LatLng(d.lat, d.lng), {
@@ -56,8 +59,8 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
         marker.bindPopup(getPopupContent(d));
         cluster.addLayer(marker);
       });
-      map.addLayer(cluster);
-      // map.fitBounds(cluster.getBounds());
+      unfinishedEstatesMap.addLayer(cluster);
+      // unfinishedEstatesMap.fitBounds(cluster.getBounds());
     }
 
     function getIcon(totalHouses) {
@@ -95,5 +98,17 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       // };
       return str;
     }
+
+    L.control.locate({
+      strings: {
+        title: "Zoom to your location"
+      }
+    }).addTo(unfinishedEstatesMap);
+
+    let osmGeocoder = new L.Control.OSMGeocoder({
+      placeholder: 'Enter street name, area etc.',
+      bounds: dublinBounds
+    });
+    unfinishedEstatesMap.addControl(osmGeocoder);
 
   });
