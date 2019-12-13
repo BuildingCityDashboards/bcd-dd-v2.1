@@ -31,6 +31,20 @@
     box-shadow: none;
   } */
 
+  .leaflet-div-icon {
+  	background: transparent;
+  	border: none;
+  }
+
+  .leaflet-marker-icon .number{
+  	position: relative;
+  	top: -50px;
+  	font-size: 16px;
+    font-weight: bold;
+  	width: 25px;
+  	text-align: center;
+  }
+
 .bikesStationPopup .leaflet-popup-content-wrapper {
     background: #001f35;
 }
