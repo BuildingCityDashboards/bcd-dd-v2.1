@@ -18,7 +18,8 @@ let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design<
 let iconAX = 15; //icon Anchor X
 let iconAY = 15; //icon Anchor Y
 var iconConfig = {
-  iconUrl: '/images/environment/square-stroked-15.svg',
+  title: 'text',
+  iconUrl: '/images/environment/landuse-15.svg',
   iconSize: [30, 30],
   iconAnchor: [iconAX, iconAY],
   popupAnchor: [0, 0]
@@ -30,13 +31,7 @@ var firstProjection = "EPSG:2157"; //ITM
 var secondProjection = "EPSG:4326"; //WGS84
 
 d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dublin_area.csv")
-  .then(function(data) {
-    data.forEach(function(d) {
-      let result = proj4(firstProjection, secondProjection,
-        [+d["x"], +d["y"]]);
-      d.lat = result[1];
-      d.lng = result[0];
-    });
+  .then((data) => {
     let osm = new L.TileLayer(stamenTonerUrl_Lite, {
       minZoom: min_zoom,
       maxZoom: max_zoom,
@@ -46,22 +41,31 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     unfinishedEstatesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
     unfinishedEstatesMap.addLayer(osm);
     let cluster = L.markerClusterGroup();
-    updateMap(data);
-
-    function updateMap(data_) {
-      cluster.clearLayers();
-      unfinishedEstatesMap.removeLayer(cluster);
-      data_.forEach((d, i) => {
-        //        console.log("d: " + d.type + "\n");
-        let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-          icon: getIcon(d["TOTAL"])
-        });
-        marker.bindPopup(getPopupContent(d));
-        cluster.addLayer(marker);
+    data.forEach((d) => {
+      let result = proj4(firstProjection, secondProjection,
+        [+d["x"], +d["y"]]);
+      d.lat = result[1];
+      d.lng = result[0];
+      let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+        icon: getIcon(d["TOTAL"])
       });
-      unfinishedEstatesMap.addLayer(cluster);
-      // unfinishedEstatesMap.fitBounds(cluster.getBounds());
-    }
+      // marker.bindPopup(getPopupContent(d));
+      marker.bindTooltip(getPopupContent(d));
+      cluster.addLayer(marker);
+    });
+
+    unfinishedEstatesMap.addLayer(cluster);
+
+    // function updateMap(data_) {
+    //   cluster.clearLayers();
+    //   unfinishedEstatesMap.removeLayer(cluster);
+    //   data_.forEach((d, i) => {
+    //     //        console.log("d: " + d.type + "\n");
+    //
+    //   });
+    //
+    //   // unfinishedEstatesMap.fitBounds(cluster.getBounds());
+    // }
 
     function getIcon(totalHouses) {
       // console.log(totalHouses);
@@ -84,18 +88,6 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       key = "Complete & vacant"
       str += `<b>${key}</b>: ${estate[key]}<br>` || '';
 
-      // if (d_["TOTAL_SPACES"]) {
-      //   str += 'Total Spaces: ' + d_["TOTAL_SPACES"] + '<br><br>';
-      // }
-      // if (d_["DIPPED_FOOTPATH"] === "TRUE") {
-      //   str += '<i>This parking bay HAS a dipped footpath</i> <br>';
-      // } else {
-      //   str += '<i>This parking bay DOES NOT HAVE a dipped footpath</i> <br>';
-      // }
-      // if (d_.Name) {
-      //   str += '<br/><button type="button" class="btn btn-primary luasRTbutton" data="' +
-      //     d_.StopID + '">Real Time Information</button>';
-      // };
       return str;
     }
 
