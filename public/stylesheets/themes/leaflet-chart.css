@@ -31,12 +31,12 @@
     box-shadow: none;
   } */
 
-  .leaflet-div-icon {
+.leaflet-div-icon {
   	background: transparent;
   	border: none;
   }
 
-  .leaflet-marker-icon .number{
+.leaflet-marker-icon .number{
   	position: relative;
   	top: -50px;
   	font-size: 16px;
