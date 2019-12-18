@@ -38,14 +38,14 @@ d3.csv(srcPathFig7)
     //Set layout options
     let layoutFig7 = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layoutFig7.title.text = titleFig7;
-    // layoutFig7.height = 500;
+    layoutFig7.height = 500;
     layoutFig7.showlegend = false;
     layoutFig7.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layoutFig7.xaxis.title = '';
     layoutFig7.xaxis.nticks = 6;
     layoutFig7.xaxis.range = [1991, 2018];
     layoutFig7.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    // layoutFig7.yaxis.range = [0.1, 150];
+    layoutFig7.yaxis.range = [1, 100000];
     // layoutFig7.yaxis.visible = false;
     layoutFig7.yaxis.title = '';
     layoutFig7.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
@@ -76,10 +76,10 @@ d3.csv(srcPathFig7)
       bothAnnotations.push(Object.assign({}, annotation));
     })
 
-    bothAnnotations[0].yshift = 20; //Dublin C
-    bothAnnotations[1].yshift = 5; //DLR
-    bothAnnotations[2].yshift = 25; //F
-    bothAnnotations[3].yshift = 15; //SDCC
+    bothAnnotations[0].yshift = 0; //Dublin C
+    bothAnnotations[1].yshift = -7; //DLR
+    bothAnnotations[2].yshift = 10; //F
+    bothAnnotations[3].yshift = 0; //SDCC
 
     //Set button menu
     let updateMenus = [];
@@ -92,7 +92,8 @@ d3.csv(srcPathFig7)
             {
               'title': titleFig7,
               'annotations': nationalAnnotations,
-              'margin.r': marginRNat
+              'margin.r': marginRNat,
+              'yaxis.range': [1, 100000]
             }
           ],
           label: 'National',
@@ -106,7 +107,8 @@ d3.csv(srcPathFig7)
             {
               'title': titleFig7,
               'annotations': dublinAnnotations,
-              'margin.r': marginRDub
+              'margin.r': marginRDub,
+              'yaxis.range': [1, 21000]
             }
           ],
           label: 'Dublin',
@@ -120,7 +122,8 @@ d3.csv(srcPathFig7)
             {
               'title': titleFig7,
               'annotations': bothAnnotations,
-              'margin.r': marginRDub
+              'margin.r': marginRDub,
+              'yaxis.range': [1, 100000]
 
             }
           ],
