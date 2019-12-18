@@ -128,7 +128,6 @@ d3.csv(srcPathFig6)
       l: 0,
       r: marginRCount,
       t: 100, //button row
-      b: 20
     };
 
     let countAnnotations = [];

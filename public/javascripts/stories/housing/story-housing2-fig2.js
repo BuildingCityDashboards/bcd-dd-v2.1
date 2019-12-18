@@ -106,7 +106,6 @@ d3.csv(srcPathFig2)
       l: 0,
       r: 190,
       t: 100, //button row
-      b: 20
     };
     // layout.hidesources = false;
 

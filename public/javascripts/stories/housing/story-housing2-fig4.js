@@ -45,6 +45,7 @@ Promise.all([
     layout.height = 500;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.title = '';
     layout.xaxis.range = [2000, 2012];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.range = [1, 1500];
