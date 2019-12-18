@@ -2,6 +2,12 @@
   height: 500px;
 }
 
+.map-key{
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .housing-story-map-title{
         /*height: inherit;*/
         /* height: 600px; */

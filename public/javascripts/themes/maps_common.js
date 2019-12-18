@@ -18,7 +18,6 @@ let iconAY = 15; //icon Anchor Y
 
 L.NumberedDivIcon = L.Icon.extend({
   options: {
-    // EDIT THIS TO POINT TO THE FILE AT http://www.charliecroom.com/marker_hole.png (or your own marker)
     iconUrl: '/images/map_icons/two-houses.svg',
     number: '',
     shadowUrl: null,
@@ -44,7 +43,6 @@ L.NumberedDivIcon = L.Icon.extend({
     return div;
   },
 
-  //you could change this to add a shadow like in the normal marker if you really wanted
   createShadow: function() {
     return null;
   }

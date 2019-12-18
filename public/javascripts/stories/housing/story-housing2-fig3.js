@@ -6,7 +6,7 @@ zoom = 10;
 let iconConfig = {
   title: '',
   number: '666',
-  iconUrl: '/images/map_icons/house.svg',
+  iconUrl: '/images/map_icons/two-houses.svg',
   iconSize: [30, 30],
   iconAnchor: [0, 0],
   popupAnchor: [0, 0]
@@ -59,6 +59,18 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     }
 
     function getTooltipContent(estate) {
+      let key = "Name of Development";
+      let str = ``;
+      // Catch null development names or blanks or single space
+      (estate[key] && estate[key] !== '' && estate[key] !== ' ') ? str += `<b>${estate[key]}</b><br>`: str += '<b>Unnamed Development</b><br>';
+      key = "Town, Village, Suburb "
+      str += `<i>${estate[key]}</i><br><br>` || '';
+      key = "TOTAL"
+      str += `<b>Total houses</b>: ${estate[key]}<br>` || '';
+      key = "Complete & occupied"
+      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
+      key = "Complete & vacant"
+      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
 
     }
 
@@ -90,5 +102,31 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       bounds: dublinBounds
     });
     unfinishedEstatesMap.addControl(osmGeocoder);
+
+    var legend = L.control({
+      position: 'bottomright'
+    });
+
+    legend.onAdd = function(map) {
+
+      let div = L.DomUtil.create('div', 'info-legend');
+      div.innerHTML = '<div class="map-key">' +
+        '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
+        '\t\t  is an estate with 8 houses' +
+        '</div>';
+      //   grades = [0, 10, 20, 50, 100, 200, 500, 1000],
+      //   labels = [];
+
+      // loop through our density intervals and generate a label with a colored square for each interval
+      // for (var i = 0; i < grades.length; i++) {
+      //   div.innerHTML +=
+      //     '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+      //     grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+      // }
+
+      return div;
+    };
+
+    legend.addTo(unfinishedEstatesMap);
 
   });
