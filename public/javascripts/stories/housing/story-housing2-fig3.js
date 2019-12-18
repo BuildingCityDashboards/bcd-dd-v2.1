@@ -110,9 +110,10 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     legend.onAdd = function(map) {
 
       let div = L.DomUtil.create('div', 'info-legend');
-      div.innerHTML =
+      div.innerHTML = '<div class="map-key">' +
         '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
-        '\t\t  is an estate with 8 houses';
+        '\t\t  is an estate with 8 houses' +
+        '</div>';
       //   grades = [0, 10, 20, 50, 100, 200, 500, 1000],
       //   labels = [];
 
