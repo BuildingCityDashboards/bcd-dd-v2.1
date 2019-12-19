@@ -221,7 +221,10 @@ const MULTILINE_CHART_LAYOUT = {
     }
   },
   yaxis: {
-    title: '',
+    title: {
+      text: '',
+      standoff: 0
+    },
     titlefont: CHART_FONT,
     visible: true,
     type: null,
@@ -233,6 +236,7 @@ const MULTILINE_CHART_LAYOUT = {
     tickvals: null,
     ticks: '', //inside/ outside
     automargin: true,
+    standoff: 20,
     tickfont: {
       family: 'PT Sans',
       size: 12,
@@ -494,24 +498,23 @@ const UPDATEMENUS_BUTTONS_BASE = {
   type: 'buttons',
   direction: 'right',
   pad: {
-
     't': 0,
     'r': 0,
     'b': 0,
-    'l': 0
+    'l': -40
   },
   font: {
-    family: null,
-    size: 16,
-    color: null
+    family: 'PT Sans',
+    size: 14,
+    color: '#313131'
   },
-  fillcolor: 'black',
-  bordercolor: 'grey',
+  fillcolor: 'lightgrey',
+  bordercolor: 'white',
   showactive: true,
-  bgcolor: 'lightgrey',
+  bgcolor: '#e6e6e6',
   active: 0,
   xref: 'container',
-  x: 0.0,
+  x: 0,
   xanchor: 'left',
   yref: 'container',
   y: 1.05, //place above plot area with >1.0
