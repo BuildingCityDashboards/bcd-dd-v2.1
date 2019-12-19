@@ -183,12 +183,12 @@ const TRACES_DEFAULT = {
 
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
-  height: 400,
+  height: 500,
   margin: {
     l: 0,
     r: 0,
-    b: 50,
-    t: 0
+    b: 0,
+    t: 100
   },
   title: {
     text: '',
@@ -198,46 +198,47 @@ const MULTILINE_CHART_LAYOUT = {
     x: 0.0,
     xanchor: 'left',
     yref: 'container',
-    y: 1.0,
+    y: 0.975,
     yanchor: 'top'
   },
   xaxis: {
-    title: 'Years',
-    titlefont: {
-      size: 16
-    },
+    title: '',
+    titlefont: CHART_FONT,
     visible: true,
     type: null,
     range: null,
     fixedrange: true,
     showticklabels: true,
-    nticks: null,
-    ticks: '',
+    tickmode: 'auto', //'array',
+    nticks: 7,
+    tickvals: null,
+    ticks: '', //inside/ outside
     automargin: true,
     tickfont: {
-      family: null,
-      size: 12
+      family: 'PT Sans',
+      size: 12,
+      color: '#313131'
     }
   },
   yaxis: {
     title: '',
-    titlefont: {
-      size: 16
-    },
+    titlefont: CHART_FONT,
     visible: true,
     type: null,
     range: null,
     fixedrange: true,
     showticklabels: true,
-    nticks: null,
-    ticks: '',
+    tickmode: 'auto', //'array',
+    nticks: 5,
+    tickvals: null,
+    ticks: '', //inside/ outside
     automargin: true,
     tickfont: {
-      family: null,
-      size: 12
+      family: 'PT Sans',
+      size: 12,
+      color: '#313131'
     }
   },
-
   paper_bgcolor: CHART_COLOR, //'#E0E0E0',
   plot_bgcolor: CHART_COLOR,
   colorway: CHART_COLORWAY,
@@ -286,7 +287,7 @@ const ROW_CHART_LAYOUT = {
     yanchor: 'top'
   },
   xaxis: {
-    title: 'Years',
+    title: '',
     titlefont: {
       size: 16
     },
@@ -445,7 +446,7 @@ const STACKED_AREA_CHART_LAYOUT = {
     yanchor: 'top'
   },
   xaxis: {
-    title: 'Years',
+    title: '',
     titlefont: {
       size: 16
     },
