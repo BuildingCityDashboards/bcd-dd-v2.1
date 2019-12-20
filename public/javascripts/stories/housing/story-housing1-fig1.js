@@ -243,7 +243,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': popTitle,
               'annotations': popAnnotations,
               'yaxis.title.text': '',
-              'yaxis.title.standoff': 0,
+              // 'yaxis.title.standoff': 0,
               'yaxis.range': [10, 600000],
               'yaxis.tickvals': [200000, 400000]
 
@@ -265,7 +265,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': houseTitle,
               'annotations': houseAnnotations,
               'yaxis.title.text': '',
-              'yaxis.title.standoff': 0,
+              // 'yaxis.title.standoff': 0,
               'yaxis.range': [10, 250000],
               'yaxis.tickvals': [100000, 200000]
             }
@@ -286,7 +286,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': popRateTitle,
               'annotations': popRateAnnotations,
               'yaxis.title.text': '%',
-              'yaxis.title.standoff': 20,
+              // 'yaxis.title.standoff': 20,
               'yaxis.range': [1, 200],
               'yaxis.tickvals': [50, 100, 150]
 
@@ -308,8 +308,8 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': houseRateTitle,
               'annotations': houseRateAnnotations,
               'yaxis.title.text': '%',
-              'yaxis.title.standoff': 20,
-              'updatemenus.pad.l': -60,
+              // 'yaxis.title.standoff': 20,
+              // 'updatemenus.pad.l': -60,
               'yaxis.range': [1, 200],
               'yaxis.tickvals': [50, 100, 150]
             }

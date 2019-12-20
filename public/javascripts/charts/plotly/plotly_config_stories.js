@@ -186,8 +186,8 @@ const MULTILINE_CHART_LAYOUT = {
   height: 500,
   margin: {
     l: 0,
-    r: 0,
-    b: 0,
+    r: 0, //change in chart based on annotations
+    b: 40,
     t: 100
   },
   title: {
@@ -195,7 +195,7 @@ const MULTILINE_CHART_LAYOUT = {
     font: CHART_TITLE_FONT,
     visible: false,
     xref: 'container',
-    x: 0.0,
+    x: 0.001,
     xanchor: 'left',
     yref: 'container',
     y: 0.975,
@@ -223,7 +223,7 @@ const MULTILINE_CHART_LAYOUT = {
   yaxis: {
     title: {
       text: '',
-      standoff: 0
+      standoff: 20
     },
     titlefont: CHART_FONT,
     visible: true,
@@ -236,7 +236,6 @@ const MULTILINE_CHART_LAYOUT = {
     tickvals: null,
     ticks: '', //inside/ outside
     automargin: true,
-    standoff: 20,
     tickfont: {
       family: 'PT Sans',
       size: 12,
@@ -501,7 +500,7 @@ const UPDATEMENUS_BUTTONS_BASE = {
     't': 0,
     'r': 0,
     'b': 0,
-    'l': -40
+    'l': 0
   },
   font: {
     family: 'PT Sans',
@@ -514,10 +513,10 @@ const UPDATEMENUS_BUTTONS_BASE = {
   bgcolor: '#e6e6e6',
   active: 0,
   xref: 'container',
-  x: 0,
-  xanchor: 'left',
+  x: 0.5,
+  xanchor: 'center',
   yref: 'container',
-  y: 1.05, //place above plot area with >1.0
+  y: 1.01, //place above plot area with >1.0
   yanchor: 'bottom'
 
 }
