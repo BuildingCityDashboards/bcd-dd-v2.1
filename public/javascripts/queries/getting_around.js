@@ -354,11 +354,23 @@ function processTravelTimes(data_) {
 
     
     function updateCarparkMarkers(xml_) {
+      var xmlDoc = xml_;
+       for (let i = 0; i < xml_.getElementsByTagName("objStation").length; i += 1) {
+      var x = xmlDoc.getElementsByTagName("StationLatitude")[i].childNodes[0];
+      var y = xmlDoc.getElementsByTagName("StationLongitude")[i].childNodes[0];
+
+      //var y = x.childNodes[0];
+      console.log(x.nodeValue + '----' + y.nodeValue);
+       }
+      //document.getElementById("demo").innerHTML =
+      //y.nodeValue;
+
      // gettingAroundMap.removeLayer(carparkCluster);
      // carparkCluster.clearLayers();
-      for (let i = 0; i < xml_.getElementsByTagName("objStation").length; i += 1) {
-        let name = xml_.getElementsByTagName("objStation")[i].getAttribute("StationDesc");
-        console.log(name);
+      //for (let i = 0; i < xml_.getElementsByTagName("objStation").length; i += 1) {
+       // let name = xml_.getElementsByTagName("objStation")[i]; //.getAttribute("StationDesc");
+       // var y = name.childNodes[1];
+       // console.log(y.nodeValue);
         // if (name === k_) {
         /*let spaces = xml_.getElementsByTagName("carpark")[i].getAttribute("spaces");
         console.log("found:" + name + " spaces: " + spaces);
@@ -372,7 +384,7 @@ function processTravelTimes(data_) {
         });
         m.bindPopup(carparkPopupInit(d), carparkPopupOptions);
         carparkCluster.addLayer(m);*/
-      }
+      //}
     }
 
 
