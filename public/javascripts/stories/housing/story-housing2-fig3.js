@@ -29,7 +29,7 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     unfinishedEstatesMap.addLayer(osm);
     let cluster = L.markerClusterGroup();
 
-    const MAX_TOTAL_HOUSES = 2314; //used to normalise the sizing of icons based on total houses variable
+    // const MAX_TOTAL_HOUSES = 2314; //used to normalise the sizing of icons based on total houses variable
 
     data.forEach((d) => {
       let result = proj4(firstProjection, secondProjection,
@@ -59,19 +59,7 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     }
 
     function getTooltipContent(estate) {
-      let key = "Name of Development";
-      let str = ``;
-      // Catch null development names or blanks or single space
-      (estate[key] && estate[key] !== '' && estate[key] !== ' ') ? str += `<b>${estate[key]}</b><br>`: str += '<b>Unnamed Development</b><br>';
-      key = "Town, Village, Suburb "
-      str += `<i>${estate[key]}</i><br><br>` || '';
-      key = "TOTAL"
-      str += `<b>Total houses</b>: ${estate[key]}<br>` || '';
-      key = "Complete & occupied"
-      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
-      key = "Complete & vacant"
-      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
-
+      return getPopupContent(estate); //pass through
     }
 
     function getPopupContent(estate) {
@@ -81,14 +69,21 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
       (estate[key] && estate[key] !== '' && estate[key] !== ' ') ? str += `<b>${estate[key]}</b><br>`: str += '<b>Unnamed Development</b><br>';
       key = "Town, Village, Suburb "
       str += `<i>${estate[key]}</i><br><br>` || '';
-      key = "TOTAL"
-      str += `<b>Total houses</b>: ${estate[key]}<br>` || '';
-      key = "Complete & occupied"
-      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
-      key = "Complete & vacant"
-      str += `<b>${key}</b>: ${estate[key]}<br>` || '';
+
+      let keys = ["TOTAL", "Complete & occupied", "Complete & vacant", "Under construction", "No construction started"];
+      keys.forEach(key => {
+        str += getDataString(estate, key) || '';
+      });
+      // str += `<b>${key}</b>: ${estate[key]}<br>` |;
 
       return str;
+    }
+
+    function getDataString(estate, key) {
+      if (estate[key] && estate[key] !== ' ') {
+        let str = `<b>${key}</b>: ${estate[key]}<br>`;
+        return str;
+      }
     }
 
     L.control.locate({
