@@ -1,3 +1,19 @@
+.plotly-chart-medium{
+  padding-top: 80px;
+  margin-top: -80px;
+  margin-bottom: 40px;
+  height: 540px; /* calc(500px + var(margin-bottom)); breaks responsive*/
+
+}
+
+.plotly-chart-large{
+  padding-top: 100px;
+  margin-top: -100px;
+  margin-bottom: 40px;
+  height:  640px; /*calc(600px + var(margin-bottom));*/
+  /* padding-bottom: 100px; */
+}
+
 .js-plotly-plot .plotly .modebar {
     orientation: 'v';
 }

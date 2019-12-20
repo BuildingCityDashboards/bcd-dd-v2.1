@@ -107,32 +107,27 @@ d3.csv(srcPathFig1 + srcFileFig11)
       trace.y = regionData.map((v) => {
         return v["households rate"];
       });
-
       houseRateTraces.push(trace);
-      // console.log("trace house " + JSON.stringify(trace));
     });
 
-
     //Set layout options
-    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    chartLayout.title.text = titleFig1;
-    chartLayout.height = 500;
-    chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [1991, 2016];
-    chartLayout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    chartLayout.yaxis.title = '';
-    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    chartLayout.margin = {
-      l: 25,
-      r: 200, //Dun Laoghaire!!!
-      t: 100 //button row
-    };
-
-    // chartLayout.hidesources = false;
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title.text = titleFig1;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title);
+    layout.xaxis.range = [1991, 2016];
+    layout.xaxis.tickmode = 'array';
+    layout.xaxis.tickvals = [1991, 1996, 2002, 2006, 2011, 2016];
+    layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
+    layout.yaxis.range = [10, 600000];
+    layout.yaxis.tickmode = 'array';
+    layout.yaxis.tickvals = [200000, 400000];
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin.r = 185; //Dun Laoghaire!!!
+    layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend);
 
     //Set annotations per chart with config per trace
-
     let popAnnotations = [];
     popTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
@@ -207,13 +202,13 @@ d3.csv(srcPathFig1 + srcFileFig11)
     popAnnotations[2].yshift = 4; //move Fingal up
     popAnnotations[3].yshift = -4; //move SD down
     popAnnotations[4].yshift = 6; //move K up
-    popAnnotations[5].yshift = -4; //move M down
+    popAnnotations[5].yshift = -8; //move M down
 
     houseAnnotations[1].yshift = 3; //move DLR up
     houseAnnotations[2].yshift = 4; //move Fingal up
     houseAnnotations[3].yshift = -4; //move SD down
     houseAnnotations[4].yshift = -4; //move K down
-    houseAnnotations[5].yshift = -4; //move M down
+    houseAnnotations[5].yshift = -8; //move M down
 
     popRateAnnotations[0].yshift = -6; // DC
     popRateAnnotations[1].yshift = 6; // DLR
@@ -230,7 +225,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
 
 
     //Set default view annotations
-    chartLayout.annotations = popAnnotations; //set default
+    layout.annotations = popAnnotations; //set default
 
     //Set button menu
     let updateMenus = [];
@@ -248,6 +243,9 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': popTitle,
               'annotations': popAnnotations,
               'yaxis.title.text': '',
+              // 'yaxis.title.standoff': 0,
+              'yaxis.range': [10, 600000],
+              'yaxis.tickvals': [200000, 400000]
 
             }
           ],
@@ -267,6 +265,9 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': houseTitle,
               'annotations': houseAnnotations,
               'yaxis.title.text': '',
+              // 'yaxis.title.standoff': 0,
+              'yaxis.range': [10, 250000],
+              'yaxis.tickvals': [100000, 200000]
             }
           ],
           label: 'Households',
@@ -285,6 +286,9 @@ d3.csv(srcPathFig1 + srcFileFig11)
               'title': popRateTitle,
               'annotations': popRateAnnotations,
               'yaxis.title.text': '%',
+              // 'yaxis.title.standoff': 20,
+              'yaxis.range': [1, 200],
+              'yaxis.tickvals': [50, 100, 150]
 
             }
           ],
@@ -303,7 +307,11 @@ d3.csv(srcPathFig1 + srcFileFig11)
             {
               'title': houseRateTitle,
               'annotations': houseRateAnnotations,
-              'yaxis.title.text': '%'
+              'yaxis.title.text': '%',
+              // 'yaxis.title.standoff': 20,
+              // 'updatemenus.pad.l': -60,
+              'yaxis.range': [1, 200],
+              'yaxis.tickvals': [50, 100, 150]
             }
           ],
           label: 'Household % change',
@@ -313,7 +321,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
       ]
     });
 
-    chartLayout.updatemenus = updateMenus;
+    layout.updatemenus = updateMenus;
 
 
     let chartTraces = popTraces
@@ -328,7 +336,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
     });
 
 
-    Plotly.newPlot(divIDFig1, chartTraces, chartLayout, {
+    Plotly.newPlot(divIDFig1, chartTraces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
