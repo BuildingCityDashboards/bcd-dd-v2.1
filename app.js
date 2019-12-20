@@ -234,6 +234,11 @@ cron.schedule("*/15 * * * *", function() {
   });
 });
 
+
+
+
+
+
 //Weather (from old Dublin Dashboard)
 cron.schedule("*/5 * * * *", function() {
   let http = require('https');
@@ -255,6 +260,15 @@ cron.schedule("*/15 * * * *", function() {
         response.pipe(files[i]);
       });
   }
+});
+//get train data from the API evey minute 
+cron.schedule("*/1 * * * *", function() {
+  var http = require('http');
+  var fs = require('fs');
+  var file = fs.createWriteStream("./public/data/Transport/Train_data.xml");
+  http.get("http://api.irishrail.ie/realtime/realtime.asmx/getCurrentTrainsXML_WithTrainType?TrainType=A", function(response) {
+    response.pipe(file);
+  });
 });
 
 const readFileAsync = () => {

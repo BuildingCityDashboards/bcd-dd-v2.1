@@ -1,0 +1,19 @@
+.info {
+    height: 60px;
+    width: 120px;
+    background-color: powderblue;
+    
+}
+.info h4 {
+    margin: 0 0 3px;
+    color: #000;
+}
+#rectangle{
+    width: 20px;
+    height:20px;
+    background:blue;
+}
+#box {
+    fill: orange;
+    stroke: black;
+  }

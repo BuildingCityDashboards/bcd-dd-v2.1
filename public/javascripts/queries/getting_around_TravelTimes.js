@@ -1,3 +1,7 @@
+/************************************
+ * Travel Times
+ ************************************/
+
 /*let ttInterval = 30000;
 let ttCountdown = ttInterval;
 let timeSinceUpdate = moment(new Date());
@@ -35,15 +39,21 @@ const fetchTTData = function() {
     })
 }*/
 
+let markers = new Array();
+let lat_coordinates=[],lon_coordinates=[];
+let myarray= new Array();
 
-let colors=['Green','Blue','Red','Black','Yellow','White'];
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
-const TravelTimes = setIntervalAsync(
+let layerGroup = new L.geoJSON(null, {
+  "style": {
+    "color": "",
+    "weight": 5,
+    "opacity": 0.65
+  }});
+
+
+
+/*const TravelTimes = setIntervalAsync(
   () => {
     return d3.json('/data/Transport/traveltimes.json') //get latest snapshot of all stations
       .then((data) => {
@@ -59,19 +69,197 @@ const TravelTimes = setIntervalAsync(
 
   },
   10000
-);
+);*/
 
 
-
-
-
-const travelTimesCardTimer = setIntervalAsync(
+const TravelTimes = setIntervalAsync(
   () => {
-    return fetchTTData();
+    return d3.json('/data/Transport/traveltimesroad.json') //get latest snapshot of all stations
+      .then((data) => {
+
+      //  coffeeShopPoints = data;
+        
+        
+        console.log("Fetched Travel time data ");
+        updateAPIStatus('#motorway-activity-icon', '#motorway-age', true);
+        processTravelTimesroads2(data);
+        
+
+        
+      })
+      .catch(function(err) {
+        console.error("Error fetching Travel time data: " + JSON.stringify(err));
+        updateAPIStatus('#motorway-activity-icon', '#motorway-age', false);
+      })
 
   },
-  ttInterval
+  10000
 );
+
+function bestCopyEver(src) {
+  return Object.assign({}, src);
+}
+
+function processTravelTimesroads2(data_)
+{
+
+let nJsonF = bestCopyEver(data_);  // clone the json data; 
+var F_Array = [];
+proj4.defs("EPSG:2157","+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+var firstProjection ='EPSG:2157';
+var secondProjection ='EPSG:4326';
+
+var result = nJsonF.features;
+      for (var i = 0; i < result.length; i++) {
+     
+      let coordntes_1=result[i].geometry.coordinates; //[i];
+
+     for  (var l = 0; l < coordntes_1.length; l++)
+      {
+      
+        let coordntes_2=result[i].geometry.coordinates[l];//[i];
+        let lat=+coordntes_2[0];
+        let lon=+coordntes_2[1];
+
+      
+        let conv_res = proj4(firstProjection,secondProjection,[lat,lon]);
+        let nlat= +[conv_res[1]];
+        let nlon= +[conv_res[0]];
+        
+        F_Array =[nlon,nlat];
+        result[i].geometry.coordinates[l]=F_Array;
+
+        
+      }
+
+    
+  }
+ 
+
+ layerGroup = L.geoJSON(nJsonF, {
+
+onEachFeature: function (feature, layer) {
+//var Travel_Time= feature.properties.current_travel_time; 
+var popup = L.popup();
+var TravelTime=feature.properties.current_travel_time; 
+if (TravelTime === null) {TravelTime='Not Avaliable';}
+else
+{
+  TravelTime=fancyTimeFormat(TravelTime);
+  TravelTime+='  ' + 'Min(s)'
+}
+ popup.setContent('Name:' + feature.properties.name + '<br>' + 'From:' + feature.properties.from_name + '<br>' + 'To:' +feature.properties.to_name + '<br>' + 'pk:' + feature.properties.pk + '<br>' + 'Travel Time:' + TravelTime );
+ 
+ layer.bindPopup(popup);
+
+//layer.bindPopup('<h5>' + 'name:' + feature.properties.name + '<br>' + '<h5>'+ 'from:' + feature.properties.from_name + '<br>' + '<h5>' + 'To:' +feature.properties.to_name + '<br>' + '<h5>' + 'pk:' + feature.properties.pk + '<br>' + '<h5>'+ 'Travel Time' + feature.properties.current_travel_time);
+
+ layer.on('mouseover', function (e) {
+    var popup = e.target.getPopup();
+    popup.setLatLng(e.latlng).openOn(gettingAroundMap);
+  });
+
+  layer.on('mouseout', function(e) {
+     e.target.closePopup();
+  });
+
+  // update popup location
+  layer.on('mousemove', function (e) {
+    popup.setLatLng(e.latlng).openOn(gettingAroundMap);
+  })},
+ 
+  style: function(feature){
+    
+    var travel_time =feature.properties.current_travel_time; 
+    if (feature.properties.current_travel_time !== null)
+     {
+       if (feature.properties.current_travel_time >= 300)
+       {
+        return { color: '#FF0000' };
+       }
+
+       if (feature.properties.current_travel_time < 300)
+       {
+        return { color: '#40FF00' };
+       }
+      }
+      if (feature.properties.current_travel_time == null)
+     {
+      {
+        return { color: '#848484' };
+       }
+      }
+    
+  
+}}); //.addTo(gettingAroundMap);
+MWayLayerGroup.addLayer(layerGroup);
+  }
+MWayLayerGroup.addTo(gettingAroundMap);
+
+
+function fancyTimeFormat(time)
+{   
+    // Hours, minutes and seconds
+    var hrs = Math.floor(time / 3600);
+    var mins = Math.floor((time % 3600) / 60);
+    var secs = Math.floor(time % 60);
+
+    // Output like "1:01" or "4:03:59" or "123:03:59"
+    var ret = "";
+
+    if (hrs > 0) {
+        ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+    ret += "" + secs;
+    return ret;
+}
+
+function processTravelTimesroads(data_)
+{
+
+proj4.defs("EPSG:2157","+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=0.99982 +x_0=600000 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs");
+var firstProjection ='EPSG:2157';
+var secondProjection ='EPSG:4326';
+markerDelAgain(markers);
+
+var result = data_.features;
+      for (var i = 0; i < result.length; i++) {
+     
+      let coordntes_1=result[i].geometry.coordinates; //[i];
+
+     for  (var l = 0; l < coordntes_1.length; l++)
+      {
+      
+        let coordntes_2=result[i].geometry.coordinates[l];//[i];
+
+      
+        let lat=+coordntes_2[0];
+        let lon=+coordntes_2[1];
+        
+        let conv_res = proj4(firstProjection,secondProjection,[lat,lon]);
+        let nlat= +[conv_res[1]];
+        let nlon= +[conv_res[0]];
+              
+        var nmarker= L.marker([nlat,nlon]).addTo(gettingAroundMap);
+        markers.push(nmarker);
+       
+      }
+
+      
+    }
+  
+  }
+   
+function markerDelAgain(markers)
+{
+  for(i=0;i<markers.length;i++) {
+    gettingAroundMap.removeLayer(markers[i]);
+    }  
+}
+
+
 
 function processTravelTimes(data_) {
   let maxDelayedMotorway = {};
@@ -97,26 +285,15 @@ function processTravelTimes(data_) {
       });
 
       console.log("Motorway delay: " + k + "\t" + motorwayDelay);
-      if (k ==='M50_northBound' )
       
-      {
+        group.getLayer(k).setStyle({color:  colors[getRandomInt(0,6)]}); 
         d3.select("#M50N-from").text(motorwayDelay);
-      }
-
-      if (k ==='M50_southBound')
-      
-      {
+        group.getLayer(k).setStyle({color: colors[getRandomInt(3,6)]}); 
         d3.select("#M50S-from").text(motorwayDelay);
-      }
-
-      
-      group.getLayer('n4_N').setStyle({color:  colors[getRandomInt(0,6)]}); 
-      group.getLayer('n4_S').setStyle({color:  colors[getRandomInt(2,5)]}); 
-      group.getLayer('m50_N').setStyle({color: colors[getRandomInt(3,6)]}); 
-      group.getLayer('m50_S').setStyle({color: colors[getRandomInt(1,4)]});
-            
-      
-     //}
+        group.getLayer('n4_S').setStyle({color:  colors[getRandomInt(2,5)]}); 
+        group.getLayer('m50_S').setStyle({color: colors[getRandomInt(1,4)]});
+     
+        
 
       if (motorwayDelay > longestMotorwayDelay) {
         maxDelayedMotorway.name = k;
