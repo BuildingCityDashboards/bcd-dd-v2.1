@@ -27,6 +27,23 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     let unfinishedEstatesMap = new L.Map('unfinished-estates-map');
     unfinishedEstatesMap.setView(new L.LatLng(dubLat, dubLng), zoom);
     unfinishedEstatesMap.addLayer(osm);
+
+    let legend = L.control({
+      position: 'bottomright'
+    });
+
+    legend.onAdd = function(map) {
+
+      let div = L.DomUtil.create('div', 'info-legend');
+      div.innerHTML = '<div class="map-key">' +
+        '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
+        '\t\t  is an estate with 8 houses' +
+        '</div>';
+      return div;
+    };
+
+    legend.addTo(unfinishedEstatesMap);
+
     let cluster = L.markerClusterGroup();
 
     // const MAX_TOTAL_HOUSES = 2314; //used to normalise the sizing of icons based on total houses variable
@@ -98,30 +115,6 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     });
     unfinishedEstatesMap.addControl(osmGeocoder);
 
-    var legend = L.control({
-      position: 'bottomright'
-    });
 
-    legend.onAdd = function(map) {
-
-      let div = L.DomUtil.create('div', 'info-legend');
-      div.innerHTML = '<div class="map-key">' +
-        '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
-        '\t\t  is an estate with 8 houses' +
-        '</div>';
-      //   grades = [0, 10, 20, 50, 100, 200, 500, 1000],
-      //   labels = [];
-
-      // loop through our density intervals and generate a label with a colored square for each interval
-      // for (var i = 0; i < grades.length; i++) {
-      //   div.innerHTML +=
-      //     '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-      //     grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-      // }
-
-      return div;
-    };
-
-    legend.addTo(unfinishedEstatesMap);
 
   });
