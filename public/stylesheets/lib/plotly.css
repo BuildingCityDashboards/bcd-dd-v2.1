@@ -2,7 +2,7 @@
   padding-top: 80px;
   margin-top: -80px;
   margin-bottom: 40px;
-  height: 580px; /* calc(500px + var(margin-bottom)); breaks responsive*/
+  height: auto; /* calc(500px + var(margin-bottom)); breaks responsive*/
   min-width: 600px;
 }
 
