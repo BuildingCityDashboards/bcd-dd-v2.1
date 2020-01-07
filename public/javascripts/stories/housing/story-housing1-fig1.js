@@ -355,6 +355,24 @@ d3.csv(srcPathFig1 + srcFileFig11)
         format: 'png'
       }
     });
+
+    //Fix for non-responsive chart height bug
+    //get the height of the chart div before resize (- padding),
+    //then apply this to the svg element of the plot after resize
+    let e = document.getElementById(divIDFig1);
+    let h = parseInt(window.getComputedStyle(e, null).getPropertyValue('height'));
+    let p = parseInt(window.getComputedStyle(e, null).getPropertyValue('padding-top'));
+    let svgH = h - p;
+
+    window.addEventListener('resize', function() {
+      let w = parseInt(window.getComputedStyle(e, null).getPropertyValue('width'));
+      let update = {
+        height: svgH,
+        width: w
+
+      };
+      Plotly.relayout(divIDFig1, update);
+    });
   }) //end of then
   .catch(function(err) {
     console.log("Error loading file:\n " + err)
