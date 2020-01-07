@@ -36,25 +36,26 @@ Promise.all([
     tracesFig2[3].visible = false;
 
     //Set layout options
-    let layoutFig2 = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
-    layoutFig2.title.text = titleFig2;
-    layoutFig2.height = 500;
-    layoutFig2.showlegend = false;
-    layoutFig2.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
-    layoutFig2.xaxis.nticks = 7;
-    layoutFig2.xaxis.title = '';
-    layoutFig2.xaxis.range = ['Jun-14', 'Nov-18'];
-    layoutFig2.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
-    layoutFig2.yaxis.range = [1, 5000];
-    // layoutFig2.yaxis.visible = false;
-    layoutFig2.yaxis.title = '';
-    layoutFig2.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
-    layoutFig2.margin = {
+    let layout = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
+    layout.title.text = titleFig2;
+    layout.height = 500;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
+    layout.xaxis.nticks = 7;
+    layout.xaxis.title = '';
+    layout.xaxis.range = ['Jun-14', 'Nov-18'];
+    layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [1, 5000];
+    // layout.yaxis.visible = false;
+    layout.yaxis.title = '';
+    layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 0,
       t: 100 //button row
     };
-    layoutFig2.colorway = CHART_COLORWAY_VARIABLES;
+    layout.colorway = CHART_COLORWAY_VARIABLES;
 
     let annotationsCount = [];
     let annotationsType = [];
@@ -76,7 +77,7 @@ Promise.all([
     annotationsCount[1].y = annotationsCount[0].y + annotationsCount[1].y;
     annotationsType[1].y = annotationsType[0].y + annotationsType[1].y;
 
-    layoutFig2.annotations = annotationsCount;
+    layout.annotations = annotationsCount;
 
 
     //Set button menu
@@ -117,10 +118,10 @@ Promise.all([
       ],
     });
 
-    layoutFig2.updatemenus = updateMenus;
+    layout.updatemenus = updateMenus;
 
 
-    Plotly.newPlot(divIDFig2, tracesFig2, layoutFig2, {
+    Plotly.newPlot(divIDFig2, tracesFig2, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
