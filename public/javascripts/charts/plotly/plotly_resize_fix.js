@@ -7,7 +7,7 @@ window.addEventListener('resize', relayout);
 
 function relayout() {
   let elements = document.getElementsByClassName('js-plotly-plot');
-  console.log(elements.length);
+  // console.log(elements.length);
   for (let i = 0; i < elements.length; i += 1) {
     // console.log(elements[i]);
     let preHeight = getElementPropertyValue(elements[i], 'height');
