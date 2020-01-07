@@ -38,7 +38,6 @@ d3.csv(srcPathFig4 + srcFileFig4)
       trace.y = typeData.map((v) => {
         return v.value;
       });
-
       chartTraces.push(trace);
     });
 
@@ -52,11 +51,12 @@ d3.csv(srcPathFig4 + srcFileFig4)
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [1975, 2016];
     layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
+    layout.yaxis.title = '€';
     layout.yaxis.fixedrange = false;
     layout.yaxis.range = [1, 520000];
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 0,
+      l: 20,
       r: 175, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
