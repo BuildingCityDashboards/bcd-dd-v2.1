@@ -115,6 +115,7 @@ d3.csv(srcPathFig5)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
     layout.title.text = titleFig5;
     layout.height = 500;
     layout.colorway = CHART_COLORWAY_VARIABLES;

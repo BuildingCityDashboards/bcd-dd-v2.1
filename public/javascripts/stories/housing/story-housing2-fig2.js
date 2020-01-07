@@ -89,6 +89,7 @@ d3.csv(srcPathFig2)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
     layout.title.text = titleFig2;
     layout.height = 500;
     layout.showlegend = false;
