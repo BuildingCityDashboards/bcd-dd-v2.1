@@ -36,25 +36,26 @@ d3.csv(srcPathFig7)
     }
 
     //Set layout options
-    let layoutFig7 = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layoutFig7.title.text = titleFig7;
-    layoutFig7.height = 500;
-    layoutFig7.showlegend = false;
-    layoutFig7.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layoutFig7.xaxis.title = '';
-    layoutFig7.xaxis.nticks = 6;
-    layoutFig7.xaxis.range = [1991, 2018];
-    layoutFig7.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layoutFig7.yaxis.range = [1, 100000];
-    // layoutFig7.yaxis.visible = false;
-    layoutFig7.yaxis.title = '';
-    layoutFig7.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    layoutFig7.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
+    layout.title.text = titleFig7;
+    layout.height = 500;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.title = '';
+    layout.xaxis.nticks = 6;
+    layout.xaxis.range = [1991, 2018];
+    layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [1, 100000];
+    // layout.yaxis.visible = false;
+    layout.yaxis.title = '';
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: marginRNat,
       t: 100 //button row
     };
-    // // layoutFig7.hidesources = false;
+    // // layout.hidesources = false;
 
     // Set annotations per chart with config per trace
     let nationalAnnotations = [];
@@ -134,10 +135,10 @@ d3.csv(srcPathFig7)
       ],
     });
 
-    layoutFig7.updatemenus = updateMenus;
-    layoutFig7.annotations = nationalAnnotations;
+    layout.updatemenus = updateMenus;
+    layout.annotations = nationalAnnotations;
 
-    Plotly.newPlot(divIDFig7, tracesFig7, layoutFig7, {
+    Plotly.newPlot(divIDFig7, tracesFig7, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',

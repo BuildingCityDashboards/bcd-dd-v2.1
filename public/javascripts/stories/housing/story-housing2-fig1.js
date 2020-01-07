@@ -80,25 +80,26 @@ d3.csv(srcPathFig1)
 
 
     //Set layout options
-    let layoutFig1 = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layoutFig1.title.text = titleFig1;
-    layoutFig1.height = 500;
-    layoutFig1.showlegend = false;
-    layoutFig1.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layoutFig1.xaxis.title = '';
-    layoutFig1.xaxis.nticks = 5;
-    // layoutFig1.xaxis.range = [1991, 2016];
-    layoutFig1.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layoutFig1.yaxis.range = [0.1, 150];
-    // layoutFig1.yaxis.visible = false;
-    layoutFig1.yaxis.title = '';
-    layoutFig1.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    layoutFig1.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
+    layout.title.text = titleFig1;
+    layout.height = 500;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.title = '';
+    layout.xaxis.nticks = 5;
+    // layout.xaxis.range = [1991, 2016];
+    layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.range = [0.1, 150];
+    // layout.yaxis.visible = false;
+    layout.yaxis.title = '';
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 0,
       r: 0,
       t: 100 //button row
     };
-    // layoutFig1.hidesources = false;
+    // layout.hidesources = false;
 
     // Set annotations per chart with config per trace
     let houseAnnotations = [];
@@ -213,16 +214,16 @@ d3.csv(srcPathFig1)
       ],
     });
 
-    layoutFig1.updatemenus = updateMenus;
+    layout.updatemenus = updateMenus;
 
     //Set default visible traces (i.e. traces on each chart)
     tracesFig1.map((t, i) => {
       if (i < 3) return t.visible = true;
       else return t.visible = false;
     });
-    layoutFig1.annotations = allAnnotations;
+    layout.annotations = allAnnotations;
 
-    Plotly.newPlot(divIDFig1, tracesFig1, layoutFig1, {
+    Plotly.newPlot(divIDFig1, tracesFig1, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
