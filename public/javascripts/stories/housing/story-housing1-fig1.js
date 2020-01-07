@@ -112,6 +112,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
     layout.title.text = titleFig1;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title);
