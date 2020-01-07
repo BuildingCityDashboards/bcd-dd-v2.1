@@ -28,24 +28,25 @@ d3.csv(srcPathFig5 + srcFileFig5)
     mortgageDebtTraces.push(trace);
 
     //Set layout options
-    let chartLayout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    chartLayout.title.text = titleFig5;
-    chartLayout.showlegend = false;
-    chartLayout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    chartLayout.xaxis.range = [2002, 2007];
-    chartLayout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    chartLayout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
-    chartLayout.yaxis.titlefont.size = 16; //bug? need to call this
-    // chartLayout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
-    chartLayout.yaxis.title = '€bn';
-    chartLayout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    chartLayout.margin = {
+    let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
+    layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
+    layout.title.text = titleFig5;
+    layout.showlegend = false;
+    layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
+    layout.xaxis.range = [2002, 2007];
+    layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
+    layout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
+    layout.yaxis.titlefont.size = 16; //bug? need to call this
+    // layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
+    layout.yaxis.title = '€bn';
+    layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin = {
       l: 60,
       r: 175, //annotations space
       t: 40
     };
 
-    // chartLayout.hidesources = false;
+    // layout.hidesources = false;
 
     let mortgageDebtAnnotations = [];
     mortgageDebtTraces.forEach((trace, i) => {
@@ -59,9 +60,9 @@ d3.csv(srcPathFig5 + srcFileFig5)
     })
 
     //Set default view annotations
-    chartLayout.annotations = mortgageDebtAnnotations; //set default
+    layout.annotations = mortgageDebtAnnotations; //set default
 
-    Plotly.newPlot(divIDFig5, mortgageDebtTraces, chartLayout, {
+    Plotly.newPlot(divIDFig5, mortgageDebtTraces, layout, {
       modeBar: {
         orientation: 'v',
         bgcolor: 'black',
