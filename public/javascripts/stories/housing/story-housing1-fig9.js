@@ -1,6 +1,6 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig9 = "../data/Stories/Housing/",
+const srcPathFig9 = "../data/Stories/Housing/part_1/",
   srcFileFig9 = "Property_tax.csv";
 const typesFig9 = ["Property Related Tax Revenue", "Other Tax Revenue"];
 const titleFig9_1 = "Property-Related & Other Tax Revenue in Billions of Euros (1997-2009)";

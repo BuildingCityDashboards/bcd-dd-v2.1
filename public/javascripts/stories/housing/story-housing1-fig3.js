@@ -1,6 +1,6 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig3 = "../data/Stories/Housing/",
+const srcPathFig3 = "../data/Stories/Housing/part_1/",
   srcFileFig3 = "housecomp.csv";
 const typesFig3 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "Rest of Ireland"];
 const titleFig3 = "Number of Housing Completions by Region (1994-2016)";
