@@ -115,6 +115,4 @@ d3.csv("/data/Stories/Housing/part_2/processed/unifinished_estates_2010_bnsd_dub
     });
     unfinishedEstatesMap.addControl(osmGeocoder);
 
-
-
   });
