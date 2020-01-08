@@ -1,9 +1,9 @@
 const pFormat = d3.format(".2%"),
   pYear = d3.timeParse("%Y"),
-  src = "../data/Stories/Housing/",
+  src = "../data/Stories/Housing/part_1/",
   getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
 
-const srcPathFig8 = "../data/Stories/Housing/";
+const srcPathFig8 = "../data/Stories/Housing/part_1/";
 d3.json(srcPathFig8 + "DublinCityDestPOWCAR11_0.js")
   .then(datafiles => {
 

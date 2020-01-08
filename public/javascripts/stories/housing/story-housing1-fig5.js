@@ -1,6 +1,6 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig5 = "../data/Stories/Housing/",
+const srcPathFig5 = "../data/Stories/Housing/part_1/",
   srcFileFig5 = "mortgage_debt.csv";
 const typesFig5 = ["Value of debt"];
 const titleFig5 = "Residential Mortgage Debt in Billions of Euros (2002-2007)";

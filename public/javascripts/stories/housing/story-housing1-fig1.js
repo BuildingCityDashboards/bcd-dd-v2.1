@@ -1,6 +1,6 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig1 = "../data/Stories/Housing/",
+const srcPathFig1 = "../data/Stories/Housing/part_1/",
   srcFileFig11 = "pop_house.csv";
 const regionsFig1 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
 let titleFig1 = "Growth in population and households 1991-2016";

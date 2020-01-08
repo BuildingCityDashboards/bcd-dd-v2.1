@@ -5,7 +5,7 @@
 
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig6 = "../data/Stories/Housing/",
+const srcPathFig6 = "../data/Stories/Housing/part_1/",
   srcFileFig6 = "Social_housing_stock.csv";
 
 const titleFig6 = "Social Housing Stock by Type, by Region (1991-2016)";

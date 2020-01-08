@@ -1,6 +1,6 @@
 //Options for chart
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig4 = "../data/Stories/Housing/",
+const srcPathFig4 = "../data/Stories/Housing/part_1/",
   srcFileFig4 = "propertyprices.csv";
 const typesFig4 = ["National New", "National Second Hand", "Dublin New", "Dublin Second Hand"];
 const titleFig4 = "Property Prices by Type (1975-2016)";

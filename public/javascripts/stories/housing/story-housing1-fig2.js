@@ -4,7 +4,7 @@
 // Each sub-plot will show a different house type and value per LA
 
 //TODO: pass these in as config and/or create accessor functions
-const srcPathFig2 = "../data/Stories/Housing/",
+const srcPathFig2 = "../data/Stories/Housing/part_1/",
   srcFileFig2 = "housetype.csv";
 
 d3.csv(srcPathFig2 + srcFileFig2)
