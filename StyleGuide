@@ -3,7 +3,9 @@
 * Use a beautify package e.g. for Atom https://github.com/Glavin001/atom-beautify and/or Prettier e.g. https://atom.io/packages/prettier-atom
 * use uppercase variable names for all const decalrations.
 ## File Naming 
-* All javascript files' names should use lowercase seperated by hyphens
+* All client-side javascript files' names should use lowercase seperated by underscores
+
+* All server-side javascript (e.g. Node modules etc) files' names should use lowercase seperated by hyphens
 
 * Adopt clean code recommendations as per https://github.com/ryanmcdermott/clean-code-javascript
 
