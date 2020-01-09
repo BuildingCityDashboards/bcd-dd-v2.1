@@ -115,6 +115,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
     layout.title.text = titleFig1
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
     layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title)
+    layout.xaxis.title.text = 'Census Years'
     layout.xaxis.range = [1991, 2016]
     layout.xaxis.tickmode = 'array'
     layout.xaxis.tickvals = [1991, 1996, 2002, 2006, 2011, 2016]
