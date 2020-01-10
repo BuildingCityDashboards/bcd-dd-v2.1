@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require("./utils/logger");
 const util = require("util");
 require('dotenv').config();
+const cors = require('cors')
 const cron = require("node-cron");
 const morgan = require('morgan');
 // const sm = require('sitemap');
@@ -13,6 +14,7 @@ const express = require('express');
 
 const app = express();
 app.use(express.json());
+app.use(cors()); // Use this after the variable declaration
 app.use(express.urlencoded({
   extended: false
 }));

@@ -56,7 +56,7 @@ function updateMapBuses(data__) {
     //        console.log("getMarkerID: "+marker.optiid);
   });
 
-  // gettingAroundMap.addLayer(busCluster);
+   gettingAroundMap.addLayer(busCluster);
 }
 
 function getBusContent(d_) {
