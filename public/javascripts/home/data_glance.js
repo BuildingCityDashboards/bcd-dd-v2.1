@@ -46,28 +46,33 @@ function dataSets (data, columns) {
 }
 
 Promise.all([
-  d3.csv('/data/Economy/QNQ22_2.csv'),
+  d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv'),
   d3.csv('/data/Demographics/population.csv'),
   d3.csv('data/Housing/houseComp.csv'),
   d3.csv('data/Housing/HPM06.csv')
 ]).then(dataFiles => {
   const economyData = dataFiles[0]
+  // console.log(economyData.length)
   const demographicsData = dataFiles[1]
   const houseCompData = dataFiles[2]
   const priceList = dataFiles[3]
 
-  const columnNames1 = economyData.columns.slice(3)
+  const columnNames1 = economyData.columns.slice(2)
+  // console.log(columnNames1)
   const columnNames2 = demographicsData.columns.slice(2)
   const columnNames3 = houseCompData.columns.slice(1)
   const columnNames4 = priceList.columns.slice(2)
 
-  const empValue = columnNames1[1]
+  const empValue = columnNames1[0]
+  // console.log(empValue)
   const annualPopRate = columnNames2[0]
 
   const xValue = houseCompData.columns[0]
   const xValue2 = priceList.columns[0]
 
   const dataSet = dataSets(economyData, columnNames1)
+  // console.log(dataSet)
+
   const dataSet2 = dataSets(demographicsData, columnNames2)
   const dataSet3 = dataSets(houseCompData, columnNames3)
   const dataSet4 = dataSets(priceList, columnNames4)
@@ -75,7 +80,7 @@ Promise.all([
   dataSet.forEach(d => {
     d.quarter = convertQuarter(d.quarter)
     d.label = formatQuarter(d.quarter)
-    d[empValue] = +d[empValue] * 1000
+    d[empValue] = parseFloat(d[empValue]) * 1000
   })
 
   dataSet4.forEach(d => {
@@ -93,8 +98,10 @@ Promise.all([
   })
 
   const dublinData = dataSet.filter(d => {
-    return d.region === 'Dublin' && !isNaN(d[empValue])
+    return !isNaN(d[empValue])
   })
+
+  // console.log(dublinData)
 
   const dublinAnnualRate = dataSet2.filter(d => {
     return d.region === 'Dublin'
@@ -102,29 +109,29 @@ Promise.all([
 
   // charts setup here
   const unemploy = {
-      d: dublinData,
-      e: '#test-glance',
-      yV: empValue,
-      xV: 'quarter',
-      sN: 'region',
-      fV: d3.format('.2s'),
-      dL: 'label'
+    d: dublinData,
+    e: '#test-glance',
+    yV: empValue,
+    xV: 'quarter',
+    // sN: 'region',
+    // fV: d3.format('.2s'),
+    dL: 'label'
 
-    },
+  }
 
-    unemployChart = new DataGlanceLine(unemploy)
+  const unemployChart = new DataGlanceLine(unemploy)
 
   const pop = {
-      d: dublinAnnualRate,
-      e: '#pr-glance',
-      yV: annualPopRate,
-      xV: 'date',
-      sN: 'region',
-      fV: d3.format('.2s'),
-      dL: 'date'
-    },
+    d: dublinAnnualRate,
+    e: '#pr-glance',
+    yV: annualPopRate,
+    xV: 'date',
+    sN: 'region',
+    fV: d3.format('.2s'),
+    dL: 'date'
+  }
 
-    popChart = new DataGlanceLine(pop)
+  const popChart = new DataGlanceLine(pop)
 
   const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, '#hc-glance', 'Units', 'title2')
 
