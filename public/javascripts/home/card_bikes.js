@@ -1,5 +1,15 @@
 const bikesInterval = 20000
 let bikesCountdown = bikesInterval
+let prevBikesAgeMins, prevBikesAvailable, prevStandsAvailable
+const indicatorUpSymbol = "<span class='up-arrow'>&#x25B2;</span>"
+const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
+const indicatorRightSymbol = "<span class='right-arrow'>&#x25BA;</span>"
+let prevBikesAvailableDirection = indicatorRightSymbol // '▶'
+let prevStandsAvailableDirection = indicatorRightSymbol // '▶'
+let prevBikesTrendString = '(no change)'
+let prevStandsTrendString = '(no change)'
+
+// indicatorUpSymbol.style.color = 'green';
 
 const updateBikesCountdown = function () {
   const cd = bikesCountdown / 1000
@@ -8,15 +18,6 @@ const updateBikesCountdown = function () {
 }
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000)
-let prevBikesAgeMins, prevBikesAvailable, prevStandsAvailable
-const indicatorUpSymbol = "<span class='up-arrow'>▲</span>"
-const indicatorDownSymbol = "<span class='down-arrow'>▼</span>"
-let prevBikesAvailableDirection = '▶'
-let prevStandsAvailableDirection = '▶'
-let prevBikesTrendString = '(no change)'
-let prevStandsTrendString = '(no change)'
-
-// indicatorUpSymbol.style.color = 'green';
 
 const fetchBikesData = function () {
   d3.json('/api/dublinbikes/stations/all/snapshot') // get latest snapshot of all stations
@@ -30,7 +31,6 @@ const fetchBikesData = function () {
       } else {
         initialiseCardDisplay()
         updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
-
         // restart the timer
         clearInterval(bikesTimer)
         bikesCountdown = bikesInterval
@@ -38,9 +38,8 @@ const fetchBikesData = function () {
       }
     })
     .catch((err) => {
-      console.error('Error fetching Dublin Bikes data: ' + JSON.stringify(err))
+      console.error('Dublin Bikes data error: ' + JSON.stringify(err))
       initialiseCardDisplay()
-      updateInfo('The external source did not respond to our request for Dublin Bikes data')
       updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
       // restart the timer
       clearInterval(bikesTimer)
