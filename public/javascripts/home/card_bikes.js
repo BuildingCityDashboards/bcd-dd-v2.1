@@ -28,8 +28,9 @@ const fetchBikesData = function () {
         updateBikesDisplay(cardData.availableBikes, cardData.availableStands, cardData.dataAgeMinutes)
         clearInterval(bikesTimer)
       } else {
-        console.log('The external API returned no data for bikes')
         initialiseCardDisplay()
+        updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
+
         // restart the timer
         clearInterval(bikesTimer)
         bikesCountdown = bikesInterval
@@ -37,8 +38,10 @@ const fetchBikesData = function () {
       }
     })
     .catch((err) => {
-      console.error('Error fetching Dublin Bikes card data: ' + JSON.stringify(err))
+      console.error('Error fetching Dublin Bikes data: ' + JSON.stringify(err))
       initialiseCardDisplay()
+      updateInfo('The external source did not respond to our request for Dublin Bikes data')
+      updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
       // restart the timer
       clearInterval(bikesTimer)
       bikesCountdown = bikesInterval
@@ -169,6 +172,9 @@ function updateBikesDisplay (ab, as, age) {
       "<div align='center'>" +
       '<p> stands </p>' +
       '</div>')
+
+  updateInfo('#bikes-chart a',
+      `<b>Dublin Bikes</b> currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city`)
 }
 
 function updateInfo (selector, infoText) {
@@ -183,6 +189,13 @@ function updateInfo (selector, infoText) {
       text.html(textString)
     })
 }
+
+const bikesCardTimer = setIntervalAsync(
+  () => {
+    return fetchBikesData()
+  },
+  bikesInterval
+)
 
 initialiseCardDisplay()
 fetchBikesData() // initial load
