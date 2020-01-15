@@ -14,6 +14,11 @@ router.get('/', function(req, res, next) {
 //router.get('/census2016/smallareas/:GEOGID', census2016Controller.getSAData);
 
 var dublinBikesController = require('../controllers/dublinbikes_derilinx');
+var trainStationController = require('../controllers/irishTrains');
+
+// static trains list
+router.get('/trainstations/stations/list', trainStationController.getTrainStationsList);
+router.get('/trainstations/stations/:ts', trainStationController.getTrainStationsData);
 
 //static station list
 router.get('/dublinbikes/stations/list', dublinBikesController.getStationsList);

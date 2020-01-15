@@ -1,115 +1,182 @@
-let trainLayerGroup = new L.LayerGroup();
-let trainLine = new L.geoJSON(null, {
-    "style": {
-      "color": "#4baf56",
-      "weight": 5,
-      "opacity": 0.65
-    }
-  });
+/* eslint-disable spaced-comment */
+//import { defaultFormat } from "moment";
 
-  let customMarkern = L.Marker.extend({
-    options: {
-      id: 0,
-      stopdesc:''
-    }
-  });
-  
-  let trainstationsAPIBase ="http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc=";
+/* eslint-disable no-undef */
+const trainLayerGroup = new L.LayerGroup()
+const trainLine = new L.geoJSON(null, {
+  style: {
+    color: '#4baf56',
+    weight: 5,
+    opacity: 0.65
+  }
+})
 
-  d3.xml("/data/Transport/AllStationsXML.XML")
-  .then(function(data) {
-   processtrains(data);
+const CustomMarkern = L.Marker.extend({
+  options: {
+    id: 0,
+    stopdesc: ''
+  }
+})
+
+const trainMapIcon = L.icon({
+  // iconUrl: '/images/transport/rail-light-15-b.svg',
+  iconUrl: '/images/transport/train.svg',
+  iconSize: [15, 15], //orig size
+  iconAnchor: [iconAX, iconAY] //,
+  //popupAnchor: [-3, -76]
+})
+
+const trainCircleIcon = L.icon({
+  // iconUrl: '/images/transport/rail-light-15-b.svg',
+  iconUrl: '/images/transport/circle.svg',
+  iconSize: [8, 8], //orig size
+  iconAnchor: [iconAX, iconAY] //,
+  //popupAnchor: [-3, -76]
+})
+
+
+
+// const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+// const trainstationsAPIBase = 'http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByNameXML?StationDesc='
+/// trainstations/stations/list
+d3.xml('api/trainstations/stations/list')
+  .then(function (data) {
+    processtrains(data)
   })
-  .catch(function(err) {
-    console.error("Error fetching Train stop data: " + JSON.stringify(err));
-  });  
+  .catch(function (err) {
+    console.error('Error fetching Train stop data: ' + JSON.stringify(err))
+  })
 
-  function processtrains(data_) {
-    //    console.log("Luas- \n");
-    /*data_.forEach(function(d) {
-      d.lat = +d.stop_lat;
-      d.lng = +d.stop_lon;
-      d.StopID = +d.stop_id;
-      console.log(d.lat+ '---'+ d.log);
-      //add a property to act as key for filtering
-      //d.type = "train stop";
-      //console.log("luas stop RT : " + d.Name);
-    });
-    //updateMapLuas(data_);
-  }*/
-  //extend the marker class to hold data used when calling RT data
-  /*let customMarker = L.Marker.extend({
-    options: {
-      id: 0,
-      stopdsc:''
-    }
-  });*/
+function processtrains (data_) {
+  const xmlDoc = data_
+  const l = xmlDoc.getElementsByTagName('ArrayOfObjStation')[0].childNodes
+  const x = xmlDoc.getElementsByTagName('StationLatitude')
+  const y = xmlDoc.getElementsByTagName('StationLongitude')
+  const StopDesc = xmlDoc.getElementsByTagName('StationDesc')
+  const StopId = xmlDoc.getElementsByTagName('StationId')
 
-
-  let xmlDoc=data_;
-  let l = xmlDoc.getElementsByTagName("ArrayOfObjStation")[0].childNodes;
-  let x = xmlDoc.getElementsByTagName("StationLatitude");
-  let y = xmlDoc.getElementsByTagName("StationLongitude");
-  let StopDesc=xmlDoc.getElementsByTagName("StationDesc");  
-  let StopId=xmlDoc.getElementsByTagName("StationId");  
-    
-  for (i = 0; i < l.length; i++) {
-  
-    let lat=x[i].firstChild.nodeValue;
-    let lon= y[i].firstChild.nodeValue;
-    let stopds=StopDesc[i].firstChild.nodeValue;
-    let stopId=StopId[i].firstChild.nodeValue;
+  for (let i = 0; i < l.length; i++) {
+    const lat = x[i].firstChild.nodeValue
+    const lon = y[i].firstChild.nodeValue
+    const stopds = StopDesc[i].firstChild.nodeValue
+    const stopId = StopId[i].firstChild.nodeValue
     // console.log(lat+ '--'+ lon+ '--'+ stopds+ '--'+ stopId);
-    
-    if (lat < 54 && lon > -7) 
-    {
-   //var Smarker= L.marker([lat,lon],{Icon: ''});
-    //.on('mouseover', function() {
-      //  this.bindPopup(PubMsg + '<br>' + Direction).openPopup();
-    //});
 
-    let marker = new customMarkern(
+    if (lat < 54 && lon > -7) {
+      const marker = new CustomMarkern(
         new L.LatLng(lat, lon), {
-          //icon: getLuasMapIconSmall(d.LineID),
+          icon: trainCircleIcon, //getLuasMapIconSmall(d.LineID),
           id: stopId,
-          stopdesc: stopds 
+          stopdesc: stopds
         }
-      );
-      //marker.bindPopup(stopId);
-      marker.on('click', markerOnClicktrainstation);
-     /*marker.on('mouseover', function() {
+      )
+      marker.bindPopup(getTSContent(stopds, stopId))
+      // marker.bindPopup(stopId);
+      marker.on('click', markerOnClicktrainstation)
+      /* marker.on('mouseover', function() {
          this.bindPopup(stopId+ '--'+ stopds).openPopup();
-      });*/
-     
-     
-     //bindPopup(id +'--'+stopdsc);
+      }); */
+      // bindPopup(id +'--'+stopdsc);
 
-    trainLayerGroup.addLayer(marker);
+      trainLayerGroup.addLayer(marker)
     }
+    trainLayerGroup.addTo(gettingAroundMap)
+  }
+}
 
-    trainLayerGroup.addTo(gettingAroundMap);
-    }
-    }
+function getTSContent (stopds, stopId) {
+  let str = ''
+  const StopDesc = stopds
+  const StopId = stopId
 
+  if (StopDesc) {
+    str += '<b>' + StopDesc + '</b><br>'
+  }
+  if (StopId) {
+    str += '<i>' + StopId + '</i><br>'
+  }
 
+  return str
+}
 
-    function markerOnClicktrainstation(e) {
-        // let trainstationsAPIBase='lllll';
-        let sdc_ = this.options.stopdesc;
-        //console.log(sdc_);
-        d3.html(trainstationsAPIBase+sdc_ ,{mode: 'no-cors'})
-    .then(function(htmlDoc) {
-       console.log(htmlDoc);
-    });
-    
-    }
+function markerOnClicktrainstation (e) {
+  // let trainstationsAPIBase='lllll';
+  const sdc_ = this.options.stopdesc
+  //let popup = e.target.getPopup();
+  let luasRT = ''
+  luasRT += this.options.stopdesc + '<br>' + this.options.id + '<br>'
+  luasRT += '<br>'
+  luasRT += 'From' + '---' + 'To' + '---' + 'Exdep' + '<br>'
+  // luasRT +="Origion" + "---" + "Destination" + "---" + "Scharrival" + "---" + "Exparrival" + "<br>";
 
+  // popup.setContent('iiii');
+  //let pop = L.popup().setLatLng(this._latlng).setContent('Loading...').openOn(gettingAroundMap);
+  // 'api/trainstations/stations/list
+  d3.xml('api/trainstations/stations/' + sdc_)
+  // d3.xml(proxyUrl + trainstationsAPIBase + sdc_)
+  // d3.xml("api/trainstations/stations/sdc_")
+    .then(function (Doc) {
+      const l = Doc.getElementsByTagName('ArrayOfObjStationData')[0].childNodes
+      const Org = Doc.getElementsByTagName('Origin')
+      const Des = Doc.getElementsByTagName('Destination')
+      const Exav = Doc.getElementsByTagName('Exparrival')
+      const Scav = Doc.getElementsByTagName('Scharrival')
+      const ExDe = Doc.getElementsByTagName('Schdepart')
 
+      for (let i = 0; i < l.length; i++) {
+        let Orgv = Org[i].childNodes[0].nodeValue
+        const Desv = Des[i].childNodes[0].nodeValue
+        const Exar = Exav[i].childNodes[0].nodeValue
+        //if (Exar =='00:00') {Exar ="no Info"}
+        const Scar = Scav[i].childNodes[0].nodeValue
+        const Exdep = ExDe[i].childNodes[0].nodeValue
+        //if (Exdep !=='00:00') {Scar ="no Info"}
+        if (Exdep !== '00:00') {
+          Orgv = sdc_
+          luasRT += Orgv + '---' + Desv + '---' + Exdep + '<br>'
+          markerRefPublic.getPopup().setContent(luasRT)
+        }
 
+      // console.log(Orgv + '---' + Desv);
+      }
+      // Original
+      /*for (let i = 0; i < l.length; i++) {
+      let Orgv = Org[i].childNodes[0].nodeValue;
+      let Desv = Des[i].childNodes[0].nodeValue;
+      let Exar = Exav[i].childNodes[0].nodeValue;
+      if (Exar =='00:00') {Exar ="no Info"}
+      let Scar = Scav[i].childNodes[0].nodeValue;
+      if (Scar =='00:00') {Scar ="no Info"}
+      luasRT += Orgv + "---" + Desv + "---" + Scar + "---" + Exar + "<br>";
+      markerRefPublic.getPopup().setContent(luasRT);
 
+      // console.log(Orgv + '---' + Desv);
+      }*/
 
-  
-  /*function updateMapLuas(data__) {
+      // popup.setContent('<br>' + 'fssdsd');
+    })
+};
+
+function Abc (a, b) {
+  let str = ''
+  const StopDesc = a
+  const StopId = b
+
+  if (StopDesc) {
+    str += '<b>' + StopDesc + '</b><br>'
+  }
+  if (StopId) {
+    str += '<i>' + StopId + '</i><br>'
+  }
+
+  return str
+}
+
+function getdata (Doc, sdc_) {
+  console.log(sdc_ + '<br>' + Doc)
+}
+
+/* function updateMapLuas(data__) {
     //hard-coded icons for ends of lines
     let saggart = L.latLng(53.28467885, -6.43776255);
     //let point = L.latLng( 53.34835, -6.22925833333333 );
@@ -120,12 +187,12 @@ let trainLine = new L.geoJSON(null, {
     let m2 = L.marker(bridesGlen, {
       //icon: luasMapIconLineGreenEnd
     });
-  
+
     //luasIcons = L.layerGroup([m1, m2]);
     _.each(data__, function(d, k) {
       //console.log("luas id: " + d.LineID + "\n");
       let marker = new customMarker(
-        new L.LatLng(d.lat, d.lng), {     
+        new L.LatLng(d.lat, d.lng), {
         }
       );
 
@@ -145,5 +212,5 @@ let trainLine = new L.geoJSON(null, {
     //gettingAroundMap.addLayer(trainLayerGroup);
     // gettingAroundMap.fitBounds(luasLayer.getBounds());
     //chooseLookByZoom();
-  
-  }*/
+
+  } */
