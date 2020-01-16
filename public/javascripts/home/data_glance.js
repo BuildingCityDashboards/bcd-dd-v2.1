@@ -48,41 +48,46 @@ function coerceData (data, columns) {
 Promise.all([
   d3.csv('/data/Demographics/population.csv'),
   d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv'),
-  d3.csv('/data/Housing/processed/NDQ05.csv'), // quarterly housing completions
-  d3.csv('data/Housing/HPM06.csv')
+  d3.csv('data/Housing/HPM06.csv'), // property price
+  d3.csv('/data/Housing/processed/NDQ05.csv') // quarterly housing completions
+
 ]).then(dataFiles => {
-  // Population card
+  /***
+
+  Population card
+
+  ***/
   const populationData = dataFiles[0]
   const populationColumnNames = populationData.columns.slice(2)
   const populationColumnName = populationColumnNames[0]
-  console.log(populationColumnName)
+  // console.log(populationColumnName)
   const populationDataSet = coerceData(populationData, populationColumnNames)
-
-  // const populationDataDublin = populationDataSet.filter(d => {
-  //   return d.region === 'Dublin'
-  // })
 
   const populationConfig = {
     d: populationDataSet,
     e: '#pr-glance',
     yV: populationColumnName,
     xV: 'date',
-    sN: 'region',
+    // sN: 'region',
     fV: d3.format('.2s'),
     dL: 'date'
   }
 
   const popCardChart = new CardLineChart(populationConfig)
 
-  // Unemployment card
+  /***
+
+    Unemployment card
+
+  ***/
   const unemploymentData = dataFiles[1]
   const unemploymentColumnNames = unemploymentData.columns.slice(2)
   const unemploymentColumnName = unemploymentColumnNames[0]
   const unemploymentDataSet = coerceData(unemploymentData, unemploymentColumnNames)
-  console.log(unemploymentDataSet)
-  const dublinData = unemploymentDataSet.filter(d => {
-    return !isNaN(d[unemploymentColumnName])
-  })
+  // console.log(unemploymentDataSet)
+  // const dublinData = unemploymentDataSet.filter(d => {
+  //   return !isNaN(d[unemploymentColumnName])
+  // })
   unemploymentDataSet.forEach(d => {
     d.quarter = convertQuarter(d.quarter)
     d.label = formatQuarter(d.quarter)
@@ -90,7 +95,7 @@ Promise.all([
   })
   // configuration object
   const unemploymentConfig = {
-    d: dublinData,
+    d: unemploymentDataSet,
     e: '#test-glance',
     yV: unemploymentColumnName,
     xV: 'quarter',
@@ -98,55 +103,71 @@ Promise.all([
     // fV: d3.format('.2s'),
     dL: 'label'
   }
-
   const unemployCard = new CardLineChart(unemploymentConfig)
+  /***
 
-  // console.log(unemploymentData.length)
+    Property Price card
 
-  const houseCompData = dataFiles[2]
-  const priceList = dataFiles[3]
-
-  const columnNames3 = houseCompData.columns.slice(5)
-  console.log(columnNames3)
-  const columnNames4 = priceList.columns.slice(2)
-
-  const housingCompletionsX = houseCompData.columns[0] // quarters
-  const xValue2 = priceList.columns[0]
-
-  const dataSet3 = coerceData(houseCompData, columnNames3)
-  console.log(dataSet3)
-  const dataSet4 = coerceData(priceList, columnNames4)
-
-  dataSet3.forEach(d => {
-    d.quarter = convertQuarter(d.quarter)
-    d.label = formatQuarter(d.quarter)
-  })
-
-  dataSet4.forEach(d => {
+  ***/
+  const propertyPriceData = dataFiles[2]
+  const propertyPriceColumnNames = propertyPriceData.columns.slice(2)
+  const propertyPriceColumnName = propertyPriceData.columns[0]
+  let propertyPriceDataSet = coerceData(propertyPriceData, propertyPriceColumnNames)
+  propertyPriceDataSet.forEach(d => {
     d.date = parseMonth(d.date)
     d.label = formatMonth(d.date)
+  })
+  propertyPriceDataSet = propertyPriceDataSet.filter(d => {
+    // return d.region === "Dublin";
+    return d.region === 'Dublin' && !isNaN(d.all)
+  })
+
+  const propertyPriceCardConfig = {
+    d: propertyPriceDataSet,
+    e: '#ap-glance',
+    yV: 'all',
+    xV: 'date',
+    // sN: 'region',
+    dL: 'label'
+  }
+  const propertyPriceCard = new CardLineChart(propertyPriceCardConfig)
+
+  // const propertyPriceDataQuartley = new CardBarChart(date4Filtered, propertyPriceColumnNames, propertyPriceColumnName, "#ap-glance", "€", "title2");
+
+  const completionsData = dataFiles[3]
+  const completionsColumnNames = completionsData.columns.slice(5)
+  const housingCompletionsX = completionsData.columns[0] // quarters
+  const completionsColumnName = completionsColumnNames[0]
+  const completionsDataSet = coerceData(completionsData, completionsColumnNames)
+  // console.log(completionsDataSet)
+
+  completionsDataSet.forEach(d => {
+    d.quarter = convertQuarter(d.quarter)
+    d.label = formatQuarter(d.quarter)
   })
 
   // const dateFiltered = dataSet.filter(d => {
   //   return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
   // })
 
-  const date4Filtered = dataSet4.filter(d => {
-    // return d.region === "Dublin";
-    return d.region === 'Dublin' && !isNaN(d.all)
-  })
-
   // console.log(dublinData)
 
-  const houseCompMonthly = new CardBarChart(dataSet3, columnNames3, housingCompletionsX, '#hc-glance', 'Units', 'title2')
+  const houseCompMonthly = new CardBarChart(completionsDataSet, completionsColumnNames, housingCompletionsX, '#hc-glance', 'Units', 'title2')
 
-  // const priceListQuartley = new CardBarChart(date4Filtered, columnNames4, xValue2, "#ap-glance", "€", "title2");
+  initInfoText()
+  updateInfoText('#apd-chart a', 'The <b>Total Population</b> of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
+
+  updateInfoText('#emp-chart a', '<b>Total Unemployment</b> in Dublin for ', ' on previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format('.2s'), true)
+
+  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', locale.format(''))
+
+  updateInfoText('#huc-chart a', '<b>Monthly House Unit Completions</b> in Dublin ', ' on previous month', completionsDataSet, completionsColumnName, 'date', d3.format(''))
 
   d3.select(window).on('resize', function () {
     houseCompMonthly.init()
     unemployCard.init()
     popCardChart.init()
-    priceIndexChart.init()
+    propertyPriceCard.init()
 
     let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
     if (screenSize >= 768) {
@@ -156,160 +177,9 @@ Promise.all([
     }
     laElement.dispatchEvent(clickEvent)
   })
-
-  const priceIndex = {
-      d: date4Filtered,
-      e: '#ap-glance',
-      yV: 'all',
-      xV: 'date',
-      sN: 'region',
-      dL: 'label'
-    },
-    priceIndexChart = new CardLineChart(priceIndex)
-  initInfoText()
-  updateInfoText('#emp-chart a', '<b>Total Unemployment</b> in Dublin for ', ' on previous quarter', dublinData, unemploymentColumnNames[1], 'label', d3.format('.2s'), true)
-  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous month', date4Filtered, columnNames4[0], 'label', locale.format(''))
-  updateInfoText('#apd-chart a', 'The <b>Total Population</b> of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
-  updateInfoText('#huc-chart a', '<b>Monthly House Unit Completions</b> in Dublin ', ' on previous month', dataSet3, columnNames3[0], 'date', d3.format(''))
 }).catch(function (error) {
   console.log(error)
 })
-
-class CardLineChart {
-
-  // constructor function
-  constructor (obj) {
-    this.d = obj.d
-    this.e = obj.e
-    this.yV = obj.yV
-    this.xV = obj.xV
-    this.sN = obj.sN
-    this.fV = obj.fV
-    this.dL = obj.dL
-
-    // create the chart area
-    this.init()
-  }
-
-  init () {
-    let c = this
-
-    d3.select(c.e).select('svg').remove()
-
-    c.eN = d3.select(c.e).node()
-    c.eW = c.eN.getBoundingClientRect().width
-
-    // dimensions margins, width and height
-    c.m = [20, 10, 25, 10]
-    c.w = c.eW - c.m[1] - c.m[3]
-    c.h = 120 - c.m[0] - c.m[2]
-
-    c.setScales()
-    c.drawLine()
-    c.drawLabels()
-  }
-
-  setScales () {
-    let c = this,
-      maxToday = c.d.length > 0 ? d3.max(c.d, (d) => {
-        return d[c.yV]
-      }) : 0
-
-    // setting the line values ranges
-    c.x = d3.scaleTime().range([0, c.w - 5])
-    c.y = d3.scaleLinear().range([c.h - 10, 0])
-
-    // setup the line chart function
-    c.line = d3.line()
-      .defined((d) => {
-        return !isNaN(d[c.yV])
-      })
-      .x(d => {
-        return c.x(d[c.xV])
-      })
-      .y(d => {
-        return c.y(d[c.yV])
-      })
-      .curve(d3.curveBasis)
-
-    c.x.domain(d3.extent(c.d, d => {
-      return (d[c.xV])
-    }))
-
-    c.y.domain([0, Math.max(maxToday)])
-  }
-
-  drawLine () {
-    let c = this
-
-    // Adds the svg canvas
-    c.svg = d3.select(c.e)
-      .append('svg')
-      .attr('width', c.w + c.m[1] + c.m[3])
-      .attr('height', c.h + c.m[0])
-      .append('g')
-      .attr('transform', 'translate(' + c.m[3] + ',' + '20' + ')')
-
-    // add the data
-    c.svg.append('path')
-      .attr('class', 'activity')
-      .attr('d', c.line(c.d))
-      .attr('stroke', '#16c1f3') // move to css
-      .attr('stroke-width', 4) // move to css
-      .attr('fill', 'none') // move to css
-  }
-
-  drawLabels () {
-    let c = this,
-      l = c.d.length,
-      lD = c.d[l - 1],
-      fD = c.d[0]
-
-    // Region/type name
-    c.svg.append('text')
-      .attr('dx', 0)
-      .attr('dy', -10)
-      .attr('class', 'label')
-      .attr('fill', '#16c1f3') // move to css
-      .text(lD[c.sN]) // needs to be a d.name
-
-    // value label
-    c.svg.append('text')
-      .attr('x', c.w + 10)
-      .attr('y', c.y(lD[c.yV]) - 10)
-      .attr('text-anchor', 'end') // move to css
-      .attr('class', 'label')
-      .attr('fill', '#f8f9fabd') // move to css
-      .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
-
-    // latest date label
-    c.svg.append('text')
-      .attr('x', c.w)
-      .attr('y', c.h - 5)
-      .attr('text-anchor', 'end') // move to css
-      .attr('class', 'label employment')
-      .attr('fill', '#f8f9fabd') // move to css
-      .text(lD[c.dL])
-
-    // first date label
-    c.svg.append('text')
-      .attr('x', 0)
-      .attr('y', c.h - 5)
-      .attr('text-anchor', 'start') // move to css
-      .attr('class', 'label employment')
-      .attr('fill', '#f8f9fabd') // move to css
-      .text(fD[c.dL])
-
-    c.svg.append('circle')
-      .attr('cx', c.x(lD[c.xV]))
-      .attr('cy', c.y(lD[c.yV]))
-      .attr('r', 3)
-      .attr('transform', 'translate(0,0)') // move to css
-      .attr('class', 'cursor')
-      .style('stroke', '#16c1f3') // move to css
-      .style('stroke-width', '2px') // move to css
-  }
-}
 
 class CardBarChart {
   // constructor function
@@ -367,7 +237,7 @@ class CardBarChart {
 
     c.x1 = d3.scaleBand()
       .paddingInner(0.1)
-    console.log(c.height)
+    // console.log(c.height)
     c.y = d3.scaleLinear()
       .range([c.height, 0])
 
