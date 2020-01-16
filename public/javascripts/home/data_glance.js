@@ -51,37 +51,54 @@ Promise.all([
   d3.csv('/data/Housing/processed/NDQ05.csv'), // quarterly housing completions
   d3.csv('data/Housing/HPM06.csv')
 ]).then(dataFiles => {
-  const economyData = dataFiles[0]
-  // console.log(economyData.length)
+  // Unemployment card
+  const unemploymentData = dataFiles[0]
+  const unemploymentColumnNames = unemploymentData.columns.slice(2)
+  const unemploymentValue = unemploymentColumnNames[0]
+  const unemploymentDataSet = dataSets(unemploymentData, unemploymentColumnNames)
+  console.log(unemploymentDataSet)
+  const dublinData = unemploymentDataSet.filter(d => {
+    return !isNaN(d[unemploymentValue])
+  })
+  unemploymentDataSet.forEach(d => {
+    d.quarter = convertQuarter(d.quarter)
+    d.label = formatQuarter(d.quarter)
+    d[unemploymentValue] = parseFloat(d[unemploymentValue]) * 1000
+  })
+
+  // charts setup here
+  const unemploymentConfig = {
+    d: dublinData,
+    e: '#test-glance',
+    yV: unemploymentValue,
+    xV: 'quarter',
+    // sN: 'region',
+    // fV: d3.format('.2s'),
+    dL: 'label'
+  }
+
+  const unemployCard = new CardLineChart(unemploymentConfig)
+
+  // console.log(unemploymentData.length)
   const demographicsData = dataFiles[1]
   const houseCompData = dataFiles[2]
   const priceList = dataFiles[3]
 
-  const columnNames1 = economyData.columns.slice(2)
   const columnNames2 = demographicsData.columns.slice(2)
   const columnNames3 = houseCompData.columns.slice(5)
   console.log(columnNames3)
   const columnNames4 = priceList.columns.slice(2)
 
-  const empValue = columnNames1[0]
   const annualPopRate = columnNames2[0]
 
   const housingCompletionsX = houseCompData.columns[0] // quarters
   const xValue2 = priceList.columns[0]
 
-  const dataSet = dataSets(economyData, columnNames1)
-  console.log(dataSet)
   const dataSet2 = dataSets(demographicsData, columnNames2)
 
   const dataSet3 = dataSets(houseCompData, columnNames3)
   console.log(dataSet3)
   const dataSet4 = dataSets(priceList, columnNames4)
-
-  dataSet.forEach(d => {
-    d.quarter = convertQuarter(d.quarter)
-    d.label = formatQuarter(d.quarter)
-    d[empValue] = parseFloat(d[empValue]) * 1000
-  })
 
   dataSet3.forEach(d => {
     d.quarter = convertQuarter(d.quarter)
@@ -93,17 +110,13 @@ Promise.all([
     d.label = formatMonth(d.date)
   })
 
-  const dateFiltered = dataSet.filter(d => {
-    return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
-  })
+  // const dateFiltered = dataSet.filter(d => {
+  //   return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
+  // })
 
   const date4Filtered = dataSet4.filter(d => {
     // return d.region === "Dublin";
     return d.region === 'Dublin' && !isNaN(d.all)
-  })
-
-  const dublinData = dataSet.filter(d => {
-    return !isNaN(d[empValue])
   })
 
   // console.log(dublinData)
@@ -111,20 +124,6 @@ Promise.all([
   const dublinAnnualRate = dataSet2.filter(d => {
     return d.region === 'Dublin'
   })
-
-  // charts setup here
-  const unemploy = {
-    d: dublinData,
-    e: '#test-glance',
-    yV: empValue,
-    xV: 'quarter',
-    // sN: 'region',
-    // fV: d3.format('.2s'),
-    dL: 'label'
-
-  }
-
-  const unemployChart = new DataGlanceLine(unemploy)
 
   const pop = {
     d: dublinAnnualRate,
@@ -136,15 +135,15 @@ Promise.all([
     dL: 'date'
   }
 
-  const popChart = new DataGlanceLine(pop)
+  const popChart = new CardLineChart(pop)
 
-  const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, housingCompletionsX, '#hc-glance', 'Units', 'title2')
+  const houseCompMonthly = new CardBarChart(dataSet3, columnNames3, housingCompletionsX, '#hc-glance', 'Units', 'title2')
 
-  // const priceListQuartley = new GroupedBarChart(date4Filtered, columnNames4, xValue2, "#ap-glance", "€", "title2");
+  // const priceListQuartley = new CardBarChart(date4Filtered, columnNames4, xValue2, "#ap-glance", "€", "title2");
 
   d3.select(window).on('resize', function () {
     houseCompMonthly.init()
-    unemployChart.init()
+    unemployCard.init()
     popChart.init()
     priceIndexChart.init()
 
@@ -165,9 +164,9 @@ Promise.all([
       sN: 'region',
       dL: 'label'
     },
-    priceIndexChart = new DataGlanceLine(priceIndex)
+    priceIndexChart = new CardLineChart(priceIndex)
   initInfoText()
-  updateInfoText('#emp-chart a', '<b>Total Unemployment</b> in Dublin for ', ' on previous quarter', dublinData, columnNames1[1], 'label', d3.format('.2s'), true)
+  updateInfoText('#emp-chart a', '<b>Total Unemployment</b> in Dublin for ', ' on previous quarter', dublinData, unemploymentColumnNames[1], 'label', d3.format('.2s'), true)
   updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous month', date4Filtered, columnNames4[0], 'label', locale.format(''))
   updateInfoText('#apd-chart a', 'The <b>Total Population</b> of Dublin in ', ' on 2011', dataSet2, columnNames2[0], 'date', d3.format('.2s'))
   updateInfoText('#huc-chart a', '<b>Monthly House Unit Completions</b> in Dublin ', ' on previous month', dataSet3, columnNames3[0], 'date', d3.format(''))
@@ -175,7 +174,7 @@ Promise.all([
   console.log(error)
 })
 
-class DataGlanceLine {
+class CardLineChart {
 
   // constructor function
   constructor (obj) {
@@ -311,8 +310,7 @@ class DataGlanceLine {
   }
 }
 
-class GroupedBarChart {
-
+class CardBarChart {
   // constructor function
   constructor (_data, _keys, _housingCompletionsX, _element, _titleX, _titleY) {
     this.data = _data
@@ -463,7 +461,6 @@ class GroupedBarChart {
       .attr('fill', '#f8f9fabd')
       .text(c.lastValue)
   }
-
 }
 
 function convertQuarter (q) {
