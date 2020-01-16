@@ -48,7 +48,7 @@ function dataSets (data, columns) {
 Promise.all([
   d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv'),
   d3.csv('/data/Demographics/population.csv'),
-  d3.csv('data/Housing/houseComp.csv'),
+  d3.csv('/data/Housing/processed/NDQ05.csv'), // quarterly housing completions
   d3.csv('data/Housing/HPM06.csv')
 ]).then(dataFiles => {
   const economyData = dataFiles[0]
@@ -58,29 +58,34 @@ Promise.all([
   const priceList = dataFiles[3]
 
   const columnNames1 = economyData.columns.slice(2)
-  // console.log(columnNames1)
   const columnNames2 = demographicsData.columns.slice(2)
-  const columnNames3 = houseCompData.columns.slice(1)
+  const columnNames3 = houseCompData.columns.slice(5)
+  console.log(columnNames3)
   const columnNames4 = priceList.columns.slice(2)
 
   const empValue = columnNames1[0]
-  // console.log(empValue)
   const annualPopRate = columnNames2[0]
 
-  const xValue = houseCompData.columns[0]
+  const housingCompletionsX = houseCompData.columns[0] // quarters
   const xValue2 = priceList.columns[0]
 
   const dataSet = dataSets(economyData, columnNames1)
-  // console.log(dataSet)
-
+  console.log(dataSet)
   const dataSet2 = dataSets(demographicsData, columnNames2)
+
   const dataSet3 = dataSets(houseCompData, columnNames3)
+  console.log(dataSet3)
   const dataSet4 = dataSets(priceList, columnNames4)
 
   dataSet.forEach(d => {
     d.quarter = convertQuarter(d.quarter)
     d.label = formatQuarter(d.quarter)
     d[empValue] = parseFloat(d[empValue]) * 1000
+  })
+
+  dataSet3.forEach(d => {
+    d.quarter = convertQuarter(d.quarter)
+    d.label = formatQuarter(d.quarter)
   })
 
   dataSet4.forEach(d => {
@@ -133,7 +138,7 @@ Promise.all([
 
   const popChart = new DataGlanceLine(pop)
 
-  const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, xValue, '#hc-glance', 'Units', 'title2')
+  const houseCompMonthly = new GroupedBarChart(dataSet3, columnNames3, housingCompletionsX, '#hc-glance', 'Units', 'title2')
 
   // const priceListQuartley = new GroupedBarChart(date4Filtered, columnNames4, xValue2, "#ap-glance", "€", "title2");
 
@@ -309,10 +314,10 @@ class DataGlanceLine {
 class GroupedBarChart {
 
   // constructor function
-  constructor (_data, _keys, _xValue, _element, _titleX, _titleY) {
+  constructor (_data, _keys, _housingCompletionsX, _element, _titleX, _titleY) {
     this.data = _data
     this.keys = _keys
-    this.xValue = _xValue
+    this.housingCompletionsX = _housingCompletionsX
     this.element = _element
     this.titleX = _titleX
     this.titleY = _titleY
@@ -363,7 +368,7 @@ class GroupedBarChart {
 
     c.x1 = d3.scaleBand()
       .paddingInner(0.1)
-
+    console.log(c.height)
     c.y = d3.scaleLinear()
       .range([c.height, 0])
 
@@ -401,7 +406,7 @@ class GroupedBarChart {
 
     // Update scales
     c.x0.domain(c.data.map(d => {
-      return d[c.xValue]
+      return d[c.housingCompletionsX]
     }))
     c.x1.domain(c.keys).range([0, c.x0.bandwidth()])
     c.y.domain([0, d3.max(c.data, d => {
@@ -420,7 +425,7 @@ class GroupedBarChart {
       .enter()
       .append('g')
       .attr('transform', (d) => {
-        return 'translate(' + c.x0(d[c.xValue]) + ', 0)'
+        return 'translate(' + c.x0(d[c.housingCompletionsX]) + ', 0)'
       })
       .selectAll('rect')
       .data(d => {
@@ -440,6 +445,7 @@ class GroupedBarChart {
       })
       .attr('width', c.x1.bandwidth())
       .attr('height', d => {
+        console.log(`${c.height} - c.y(${d.value}) - ${c.m[0]}`)
         return (c.height - c.y(d.value) - c.m[0])
       })
       .attr('rx', '2')
