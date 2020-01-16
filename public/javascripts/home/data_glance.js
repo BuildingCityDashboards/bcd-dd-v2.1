@@ -146,13 +146,23 @@ Promise.all([
     d.label = formatQuarter(d.quarter)
   })
 
+  const completionsConfig = {
+    d: completionsDataSet,
+    e: '#hc-glance',
+    yV: 'Dublin',
+    xV: 'quarter',
+    // sN: 'region',
+    dL: 'label'
+  }
+  const completionsConfigCard = new CardLineChart(completionsConfig)
+
   // const dateFiltered = dataSet.filter(d => {
   //   return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
   // })
 
   // console.log(dublinData)
 
-  const houseCompMonthly = new CardBarChart(completionsDataSet, completionsColumnNames, housingCompletionsX, '#hc-glance', 'Units', 'title2')
+  // const houseCompMonthly = new CardBarChart(completionsDataSet, completionsColumnNames, housingCompletionsX, '#hc-glance', 'Units', 'title2')
 
   initInfoText()
   updateInfoText('#apd-chart a', 'The <b>Total Population</b> of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
