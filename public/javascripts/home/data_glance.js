@@ -69,8 +69,8 @@ Promise.all([
     yV: populationColumnName,
     xV: 'date',
     // sN: 'region',
-    fV: d3.format('.2s'),
-    dL: 'date'
+    fV: d3.format('.2s')
+    // dL: 'date'
   }
 
   const populationCard = new CardLineChart(populationConfig)
@@ -136,7 +136,6 @@ Promise.all([
 
   const completionsData = dataFiles[3]
   const completionsColumnNames = completionsData.columns.slice(5)
-  const housingCompletionsX = completionsData.columns[0] // quarters
   const completionsColumnName = completionsColumnNames[0]
   const completionsDataSet = coerceData(completionsData, completionsColumnNames)
   // console.log(completionsDataSet)
@@ -167,9 +166,9 @@ Promise.all([
   initInfoText()
   updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 
-  updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format('.2s'), true)
+  updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
 
-  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', locale.format(''))
+  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format('.2s'))
 
   updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' test', completionsDataSet, completionsColumnName, 'quarter', d3.format(''))
 
