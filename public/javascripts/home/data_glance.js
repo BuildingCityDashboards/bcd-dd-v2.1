@@ -170,7 +170,7 @@ Promise.all([
 
   updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format('.2s'))
 
-  updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' test', completionsDataSet, completionsColumnName, 'quarter', d3.format(''))
+  updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
 
   d3.select(window).on('resize', function () {
     completionsCard.init()
