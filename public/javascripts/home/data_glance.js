@@ -73,7 +73,7 @@ Promise.all([
     dL: 'date'
   }
 
-  const popCardChart = new CardLineChart(populationConfig)
+  const populationCard = new CardLineChart(populationConfig)
 
   /***
 
@@ -154,7 +154,7 @@ Promise.all([
     // sN: 'region',
     dL: 'label'
   }
-  const completionsConfigCard = new CardLineChart(completionsConfig)
+  const completionsCard = new CardLineChart(completionsConfig)
 
   // const dateFiltered = dataSet.filter(d => {
   //   return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
@@ -174,9 +174,9 @@ Promise.all([
   updateInfoText('#huc-chart a', '<b>Monthly House Unit Completions</b> in Dublin ', ' on previous month', completionsDataSet, completionsColumnName, 'date', d3.format(''))
 
   d3.select(window).on('resize', function () {
-    houseCompMonthly.init()
+    completionsCard.init()
     unemployCard.init()
-    popCardChart.init()
+    populationCard.init()
     propertyPriceCard.init()
 
     let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth

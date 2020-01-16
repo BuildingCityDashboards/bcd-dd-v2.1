@@ -37,7 +37,7 @@ class CardLineChart {
 
     // setting the line values ranges
     c.x = d3.scaleTime().range([0, c.w - 5])
-    c.y = d3.scaleLinear().range([c.h - 10, 0])
+    c.y = d3.scaleLinear().range([c.h - 20, 0])
 
     // setup the line chart function
     c.line = d3.line()
