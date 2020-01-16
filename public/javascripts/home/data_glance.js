@@ -69,8 +69,8 @@ Promise.all([
     yV: populationColumnName,
     xV: 'date',
     // sN: 'region',
-    fV: d3.format('.2s'),
-    dL: 'date'
+    fV: d3.format('.2s')
+    // dL: 'date'
   }
 
   const populationCard = new CardLineChart(populationConfig)
@@ -136,7 +136,6 @@ Promise.all([
 
   const completionsData = dataFiles[3]
   const completionsColumnNames = completionsData.columns.slice(5)
-  const housingCompletionsX = completionsData.columns[0] // quarters
   const completionsColumnName = completionsColumnNames[0]
   const completionsDataSet = coerceData(completionsData, completionsColumnNames)
   // console.log(completionsDataSet)
@@ -165,13 +164,13 @@ Promise.all([
   // const houseCompMonthly = new CardBarChart(completionsDataSet, completionsColumnNames, housingCompletionsX, '#hc-glance', 'Units', 'title2')
 
   initInfoText()
-  updateInfoText('#apd-chart a', 'The <b>Total Population</b> of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
+  updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 
-  updateInfoText('#emp-chart a', '<b>Total Unemployment</b> in Dublin for ', ' on previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format('.2s'), true)
+  updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
 
-  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', locale.format(''))
+  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format('.2s'))
 
-  updateInfoText('#huc-chart a', '<b>Monthly House Unit Completions</b> in Dublin ', ' on previous month', completionsDataSet, completionsColumnName, 'date', d3.format(''))
+  updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' test', completionsDataSet, completionsColumnName, 'quarter', d3.format(''))
 
   d3.select(window).on('resize', function () {
     completionsCard.init()
@@ -208,53 +207,6 @@ function formatQuarter (date) {
   return year + ' Q' + q
 }
 
-function updateInfoText (selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
-  let lastData = data[data.length - 1],
-    previousData = data[data.length - 2],
-    currentValue = lastData[valueName],
-    prevValue = previousData[valueName],
-    difference = ((currentValue - prevValue) / currentValue),
-    lastElementDate = lastData[labelName]
-
-  let green = '#20c997',
-    red = '#da1e4d',
-    text = d3.select('#data-text p'),
-    defaultString
-  // defaultString = text.text(),
-  if (IS_TOUCH_DEVICE) {
-    defaultString = '<b>Slide for more, touch to go to the full chart page </b>'
-  } else {
-    defaultString = '<b>Hover over these charts for more information, click to go to the data page </b>'
-  }
-
-  cArrow = changeArrrow,
-    indicatorSymbol = difference > 0 ? '▲ ' : difference < 0 ? '▼ ' : ' ',
-    indicator = difference > 0 ? 'Up' : difference < 0 ? 'Down' : ' a change of ',
-    indicatorColour = cArrow ? difference > 0 ? red : green : difference > 0 ? green : red,
-    startString = startText,
-    endString = endText
-
-  d3.select(selector)
-    .on('mouseover', (d) => {
-      text.html(startText).attr('class', 'bold-text')
-      text.append('span').text(lastElementDate).attr('class', 'bold-text')
-
-      text.append('text').text(' was ')
-
-      text.append('span').text(format(currentValue))
-        .attr('class', 'bold-text')
-
-      text.append('text').text(". That's ")
-
-      text.append('span').text(indicatorSymbol).attr('class', 'bold-text').style('color', indicatorColour)
-      text.append('span').text(indicator + ' ' + d3.format('.2%')(difference)).attr('class', 'bold-text')
-
-      text.append('text').text(' ' + endString)
-    })
-    .on('mouseout', (d) => {
-      text.html(defaultString)
-    })
-
   // d3.select(selector).on("blur", (d) => {
   //   text.html(defaultString);
   // });
@@ -280,7 +232,7 @@ function updateInfoText (selector, startText, endText, data, valueName, labelNam
   //
   //   text.append("text").text(" " + endString);
   // });
-}
+// }
 
 function initInfoText () {
   // d3.select('#data-text').attr("hidden", true); //to hide
@@ -299,4 +251,55 @@ function initInfoText () {
     // d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
     d3.select('.tab-charts__row').style('overflow-x', 'hidden')
   }
+}
+
+function updateInfoText (selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
+  const lastData = data[data.length - 1]
+  const previousData = data[data.length - 2]
+  const currentValue = lastData[valueName]
+  const prevValue = previousData[valueName]
+  const difference = ((currentValue - prevValue) / currentValue)
+  const lastElementDate = lastData[labelName]
+
+  console.log('lastData: ')
+  console.log(lastData)
+
+  let green = '#20c997',
+    red = '#da1e4d',
+    text = d3.select('#data-text p'),
+    defaultString
+  // defaultString = text.text(),
+  if (IS_TOUCH_DEVICE) {
+    defaultString = '<b>Slide for more, touch to go to the full chart page </b>'
+  } else {
+    defaultString = '<b>Hover over these charts for more information, click to go to the data page </b>'
+  }
+
+  cArrow = changeArrrow,
+    indicatorSymbol = difference > 0 ? '▲ ' : difference < 0 ? '▼ ' : ' ',
+    indicator = difference > 0 ? 'Up' : difference < 0 ? 'Down' : ' a change of ',
+    indicatorColour = cArrow ? difference > 0 ? red : green : difference > 0 ? green : red
+  // const startString = startText
+  // const endString = endText
+
+  d3.select(selector)
+    .on('mouseover', (d) => {
+      text.html(startText).attr('class', 'bold-text')
+      text.append('span').text(lastElementDate).attr('class', 'bold-text')
+
+      text.append('text').text(' was ')
+
+      text.append('span').text(format(currentValue))
+        .attr('class', 'bold-text')
+
+      text.append('text').text(". That's ")
+
+      text.append('span').text(indicatorSymbol).attr('class', 'bold-text').style('color', indicatorColour)
+      text.append('span').text(indicator + ' ' + d3.format('.2%')(difference)).attr('class', 'bold-text')
+
+      text.append('text').html(' ' + endText)
+    })
+    .on('mouseout', (d) => {
+      text.html(defaultString)
+    })
 }
