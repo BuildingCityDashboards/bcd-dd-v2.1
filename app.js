@@ -11,8 +11,8 @@ const morgan = require('morgan');
 // const sm = require('sitemap');
 const moment = require('moment');
 const express = require('express');
-
 const app = express();
+
 app.use(express.json());
 app.use(cors()); // Use this after the variable declaration
 app.use(express.urlencoded({
@@ -101,7 +101,7 @@ cron.schedule('45 3 * * *', () => {
   const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day');
   const weekStart = moment.utc().subtract(1, 'weeks').startOf('day');
   const monthStart = moment.utc().subtract(1, 'months').startOf('day');
-
+// call a function getAllStationsDataHourly from bikesQuaery 
   bikesQuery.getAllStationsDataHourly(yesterdayStart, yesterdayEnd)
     .then((data) => {
       if (data.length >= 1) {
@@ -235,11 +235,6 @@ cron.schedule("*/15 * * * *", function() {
     response.pipe(file);
   });
 });
-
-
-
-
-
 
 //Weather (from old Dublin Dashboard)
 cron.schedule("*/5 * * * *", function() {
