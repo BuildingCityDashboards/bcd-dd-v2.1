@@ -1,7 +1,7 @@
 let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
 let rentByBedTT, planningTT
 Promise.all([
-  d3.csv('../data/Housing/constructionsmonthlies.csv'),
+  d3.csv('../data/Housing/processed/NDQ05.csv'),
   d3.csv('../data/Housing/planningapplications.csv'),
   d3.csv('../data/Housing/supplyoflands.csv'),
   d3.csv('../data/Housing/developercontributions.csv'),
@@ -18,35 +18,64 @@ Promise.all([
   const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
 
   // 1.  data processing for house completion chart
-  const completionData = datafiles[0]
-  const keys = completionData.columns.slice(1)
-  const dateField = completionData.columns[0]
-  const compDataProcessed = dataSets(completionData, keys)
+  const completionsData = datafiles[0]
+  let completionsColumns = completionsData.columns.slice(1)
+  // completionsColumns.pop() // remove total column for 'Dublin'
+  const completionsDate = completionsData.columns[0]
+  const compDataProcessed = dataSets(completionsData, completionsColumns)
 
   compDataProcessed.forEach(function (d) {
-    d.label = d[dateField]
-    d[dateField] = parseMonth(d[dateField])
-    d.year = formatYear(d[dateField])
+    d.label = d[completionsDate]
+    d[completionsDate] = convertQuarter(d[completionsDate])
+    // d.year = formatYear(d[dateField])
   })
 
   const houseCompContent = {
     e: '#chart-houseComp',
     d: compDataProcessed,
-    ks: keys,
-    xV: dateField,
-    tX: 'Months',
-    tY: 'Units',
-    ySF: 'millions'
+    k: completionsColumns,
+    xV: completionsDate,
+    yV: 'Dublin',
+    tX: 'Quarter',
+    tY: 'Units'
   }
 
   // console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
   // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
-  houseCompCharts = new StackedAreaChart(houseCompContent)
+  houseCompCharts = new MultiLineChart(houseCompContent)
   houseCompCharts.drawChart()
   houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
   // houseCompCharts.tickNumber = 4;
   houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+
+  // setup chart and data for New Dwelling Completion by type chart
+  // process the data
+  const newCompByTypeData = datafiles[10],
+    newCompByTypeType = newCompByTypeData.columns.slice(2),
+    newCompByTypeDate = newCompByTypeData.columns[0],
+    newCompByTypeRegions = newCompByTypeData.columns[1],
+    newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
+
+  newCompByTypeDataProcessed.forEach(d => {
+    d.label = (d[newCompByTypeDate])
+    d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
+  })
+
+  const newCompByTypeContent = {
+    e: '#chart-newCompByType',
+    d: newCompByTypeDataProcessed,
+    k: newCompByTypeRegions,
+    xV: newCompByTypeDate,
+    yV: newCompByTypeType[0],
+    tX: 'Quarters',
+    tY: 'Numbers'
+  }
+
+  // draw the chart
+  newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
+  newCompByTypeChart.drawChart()
+  newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
 
   // 2.  data processing for planning charts.
   const planningData = datafiles[1],
@@ -398,34 +427,6 @@ Promise.all([
   //
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
-
-  // setup chart and data for New Dwelling Completion by type chart
-  // process the data
-  const newCompByTypeData = datafiles[10],
-    newCompByTypeType = newCompByTypeData.columns.slice(2),
-    newCompByTypeDate = newCompByTypeData.columns[0],
-    newCompByTypeRegions = newCompByTypeData.columns[1],
-    newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
-
-  newCompByTypeDataProcessed.forEach(d => {
-    d.label = (d[newCompByTypeDate])
-    d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
-  })
-
-  const newCompByTypeContent = {
-    e: '#chart-newCompByType',
-    d: newCompByTypeDataProcessed,
-    k: newCompByTypeRegions,
-    xV: newCompByTypeDate,
-    yV: newCompByTypeType[0],
-    tX: 'Quarters',
-    tY: 'Numbers'
-  }
-
-  // draw the chart
-  newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
-  newCompByTypeChart.drawChart()
-  newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
 
   // new chart Price Index
   const HPM06 = datafiles[11],
