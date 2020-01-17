@@ -15,7 +15,7 @@ const parseTime = d3.timeParse('%d/%m/%Y')
 const parseYear = d3.timeParse('%Y')
 const formatYear = d3.timeFormat('%Y')
 const parseMonth = d3.timeParse('%Y-%b')
-const formatMonth = d3.timeFormat('%b-%y')
+const formatMonth = d3.timeFormat('%b %Y')
 const breakPoint = 768
 
 let locale = d3.formatLocale({
@@ -69,8 +69,8 @@ Promise.all([
     yV: populationColumnName,
     xV: 'date',
     // sN: 'region',
-    fV: d3.format('.2s')
-    // dL: 'date'
+    fV: d3.format('.2s'),
+    dL: 'date'
   }
 
   const populationCard = new CardLineChart(populationConfig)
@@ -111,7 +111,7 @@ Promise.all([
   ***/
   const propertyPriceData = dataFiles[2]
   const propertyPriceColumnNames = propertyPriceData.columns.slice(2)
-  const propertyPriceColumnName = propertyPriceData.columns[0]
+  const propertyPriceColumnName = propertyPriceData.columns[2]
   let propertyPriceDataSet = coerceData(propertyPriceData, propertyPriceColumnNames)
   propertyPriceDataSet.forEach(d => {
     d.date = parseMonth(d.date)
@@ -125,14 +125,12 @@ Promise.all([
   const propertyPriceCardConfig = {
     d: propertyPriceDataSet,
     e: '#ap-glance',
-    yV: 'all',
+    yV: propertyPriceColumnName,
     xV: 'date',
     // sN: 'region',
     dL: 'label'
   }
   const propertyPriceCard = new CardLineChart(propertyPriceCardConfig)
-
-  // const propertyPriceDataQuartley = new CardBarChart(date4Filtered, propertyPriceColumnNames, propertyPriceColumnName, "#ap-glance", "€", "title2");
 
   const completionsData = dataFiles[3]
   const completionsColumnNames = completionsData.columns.slice(5)
@@ -155,20 +153,12 @@ Promise.all([
   }
   const completionsCard = new CardLineChart(completionsConfig)
 
-  // const dateFiltered = dataSet.filter(d => {
-  //   return d.quarter >= new Date('Tue Jan 01 2013 00:00:00') && d.quarter <= new Date('Tue Feb 01 2017 00:00:00')
-  // })
-
-  // console.log(dublinData)
-
-  // const houseCompMonthly = new CardBarChart(completionsDataSet, completionsColumnNames, housingCompletionsX, '#hc-glance', 'Units', 'title2')
-
   initInfoText()
   updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 
   updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
 
-  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin on ', ' on previous quarter', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format('.2s'))
+  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin in ', ' on the previous month', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format(''))
 
   updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
 
@@ -178,7 +168,7 @@ Promise.all([
     populationCard.init()
     propertyPriceCard.init()
 
-    let screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
     if (screenSize >= 768) {
       renderMap(dublincoco)
     } else {
@@ -191,48 +181,20 @@ Promise.all([
 })
 
 function convertQuarter (q) {
-  let splitted = q.split('Q')
-  let year = splitted[0]
-  let quarterEndMonth = splitted[1] * 3 - 2
-  let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
-
+  const splitted = q.split('Q')
+  const year = splitted[0]
+  const quarterEndMonth = splitted[1] * 3 - 2
+  const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
   return date
 }
 
 function formatQuarter (date) {
-  let newDate = new Date()
+  const newDate = new Date()
   newDate.setMonth(date.getMonth() + 1)
-  let year = (date.getFullYear())
-  let q = Math.ceil((newDate.getMonth()) / 3)
+  const year = (date.getFullYear())
+  const q = Math.ceil((newDate.getMonth()) / 3)
   return year + ' Q' + q
 }
-
-  // d3.select(selector).on("blur", (d) => {
-  //   text.html(defaultString);
-  // });
-
-  // d3.select(selector).on("click", (d) => {
-  //   text.html(defaultString);
-  // });
-
-  // d3.select(selector).on("focus", (d) => {
-  //
-  //   console.log("Focus");
-  //   text.text(startString);
-  //   text.append("span").text(lastElementDate).attr("class", "bold-text");
-  //
-  //   text.append("text").text(" was ");
-  //
-  //   text.append("span").text(format(currentValue))
-  //     .attr("class", "bold-text");
-  //
-  //   text.append("text").text(". That's ");
-  //
-  //   text.append("span").text(indicator + " " + d3.format(".2%")(difference)).attr("class", "bold-text").style("color", indicatorColour);
-  //
-  //   text.append("text").text(" " + endString);
-  // });
-// }
 
 function initInfoText () {
   // d3.select('#data-text').attr("hidden", true); //to hide
@@ -261,13 +223,13 @@ function updateInfoText (selector, startText, endText, data, valueName, labelNam
   const difference = ((currentValue - prevValue) / currentValue)
   const lastElementDate = lastData[labelName]
 
-  console.log('lastData: ')
-  console.log(lastData)
+  // console.log('lastData: ')
+  // console.log(lastData)
 
-  let green = '#20c997',
-    red = '#da1e4d',
-    text = d3.select('#data-text p'),
-    defaultString
+  const green = '#20c997'
+  const red = '#da1e4d'
+  const text = d3.select('#data-text p')
+  let defaultString
   // defaultString = text.text(),
   if (IS_TOUCH_DEVICE) {
     defaultString = '<b>Slide for more, touch to go to the full chart page </b>'
