@@ -1,0 +1,72 @@
+doctype html
+html(lang='en')
+
+  head
+    meta(http-equiv='content-type' charset='text/html utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name='description', content="The DublinDashboard provides an interface to access and visualise data related to Dublin in Ireland.  It combines historic, near real-time and real-time data to show how Dublin is performing across a number of key indicators.")
+    meta(name='author', content='Building City Dashboards')
+    meta(name='google-site-verification' content='rGwQFRYPMqN9vFb8PWU3GCe5NjV_7LHhjZw1XGN4Dno')
+    meta(name='keywords' content='Dublindashboard, Dashboard, Dublin, Ireland, City Indicators, data, population, demographics, real-time, housing')
+    meta(property='og:site_name' content='')
+    meta(property='og:title' content='The Dublin Dashboard - beta')
+    meta(property='og:type' content='website')
+    meta(property='og:url' content='https://dublindashboard-beta.azurewebsites.net/')
+    meta(property='og:image' content='https://dublindashboard-beta.azurewebsites.net/images/BCD_logo.png')
+    meta(property='og:description' content='The DublinDashboard provides an interface to access and visualise data related to Dublin in Ireland.  It combines historic, near real-time and real-time data to show how Dublin is performing across a number of key indicators.')
+
+    //- favicon
+    link(rel="icon", type="image/png", sizes="32x32", href="/favicon-32x32.png")
+
+    title= title
+
+    link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+
+    link(rel='stylesheet', href='/stylesheets/landing-page.css')
+    link(rel='stylesheet', href='/stylesheets/bcd-root.css')
+    link(rel='stylesheet', href='/stylesheets/base-style.css')
+    link(rel='stylesheet', href='/stylesheets/type.css')
+    link(rel='stylesheet', href='/stylesheets/side-menu.css')
+    link(rel='stylesheet', href='/stylesheets/accordion.css')
+    link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
+    link(rel='stylesheet', href='/stylesheets/icon-nav.css')
+    link(rel='stylesheet', href='/stylesheets/grid.css')
+    link(rel='stylesheet', href='/stylesheets/card.css')
+    link(rel='stylesheet', href='/stylesheets/footer.css')
+    link(rel='stylesheet', href='/stylesheets/toggle-button.css')
+    link(rel='stylesheet', href='/stylesheets/tool-tip.css')
+      
+    
+    //<link rel="preload" href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
+    //<meta name="shareaholic:site_id" content="5f038f076462240e9f7a22354b10a9e3" />
+    //<script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
+    
+
+  block head
+
+  body(class=page)
+    include ../component/icons.pug
+    .page__root
+      include ../component/navbar.pug
+      include ../component/subnavbar.pug
+
+      block navigation
+
+      include ../component/side-menu.pug
+      .bcd-container
+        main
+          //-add subnav.pug here if its the themes page
+          block content
+
+    include ../component/footer.pug
+
+    //- include component/scroll-to-top.pug
+
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous")
+    script(src='https://unpkg.com/popper.js')
+    script(src='/javascripts/side-menu.js')
+    script(src='/javascripts/scrollprogress.js')
+    block scripts
