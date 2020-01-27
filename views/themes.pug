@@ -35,17 +35,20 @@ block content
 
     .subnav
       +subnavbar("bcd-nav")
-    section#transport.bg-dark-blue
+    section.bg-dark-blue.pt-5
+      .position-anchor#transport
       .wrap
         .container
           include themes/themes_transport_charts
 
-    section#environment.bg-dark-blue
+    section.bg-dark-blue.pt-5
+      .position-anchor#environment
       .wrap
         .container
           include themes/themes_environment_charts
 
-    section#housing.bg-dark-blue
+    section.bg-dark-blue.pt-5
+      .position-anchor#housing
       .wrap
         .container
           include themes/themes_housing_charts
@@ -65,7 +68,8 @@ block content
         .container
           include themes_health_charts
 
-    section#demographics.bg-dark-blue 
+    section.bg-dark-blue.pt-5 
+      .position-anchor#demographics
       .wrap
         .container
           include themes/themes_demographics_charts

@@ -11,18 +11,17 @@
     }
   })
 
-  // for (let i = 0; i < docs.length; i++) {
-  //   index.add(i, docs[i]) //this doesn't appear to work???
-  // }
-
   fetch('/api/data/')
     .then((response) => {
       return response.json()
     })
     .then((data) => {
-      console.log('docs \n')
-      console.log(data)
+      // console.log('docs \n')
+      // console.log(data)
       index.add(data)
+      // for (let i = 0; i < docs.length; i++) {
+      //   index.add(i, docs[i]) //this doesn't appear to work???
+      // }
       const suggestions = document.getElementById('suggestions')
       // const autocomplete = document.getElementById('autocomplete')
       const userinput = document.getElementById('userinput')
@@ -34,8 +33,8 @@
       function showResults () {
         const value = this.value
         const results = index.search(value, 8)
-        console.log('results: \n')
-        console.log(results)
+        // console.log('results: \n')
+        // console.log(results)
         let entry
         let childs = suggestions.childNodes
         let i = 0
