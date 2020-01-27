@@ -103,12 +103,7 @@ cron.schedule('45 3 * * *', () => {
   const weekStart = moment.utc().subtract(1, 'weeks').startOf('day')
   const monthStart = moment.utc().subtract(1, 'months').startOf('day')
 
-  // Generating date queries to GET each night in cron
-  const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day')
-  const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day')
-  const weekStart = moment.utc().subtract(1, 'weeks').startOf('day')
-  const monthStart = moment.utc().subtract(1, 'months').startOf('day')
-  // call a function getAllStationsDataHourly from bikesQuaery 
+  // call a function getAllStationsDataHourly from bikesQuaery
   bikesQuery.getAllStationsDataHourly(yesterdayStart, yesterdayEnd)
     .then((data) => {
       if (data.length >= 1) {
@@ -194,6 +189,7 @@ cron.schedule('*/1 * * * *', function () {
     let d = new Date()
     if (error) {
       return util.log('>>>Error on traveltimes GET @ ' + d + '\n')
+    }
 
     // console.log(">>>Successful traveltimes GET @ " + d + "\n");
     response.pipe(travelTimesFile)
@@ -228,7 +224,6 @@ cron.schedule('*/1 * * * *', function () {
     //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
     //       });
     //     });
-
   })
 })
 
@@ -241,7 +236,6 @@ cron.schedule('*/15 * * * *', function () {
     response.pipe(file)
   })
 })
-
 
 // Weather (from old Dublin Dashboard)
 cron.schedule('*/5 * * * *', function () {
@@ -266,7 +260,7 @@ cron.schedule('*/15 * * * *', function () {
   }
 })
 
-// get train data from the API evey minute 
+// get train data from the API evey minute
 cron.schedule('*/1 * * * *', function () {
   var http = require('http')
   var fs = require('fs')
@@ -276,11 +270,9 @@ cron.schedule('*/1 * * * *', function () {
   })
 })
 
-
 const readFileAsync = () => {
   const FILE_NAME = './public/data/Environment/waterlevel.json'
   fs.readFile(FILE_NAME, (error, data) => {
-
     // console.log('Async Read: starting...')
     if (error) {
       // console.log('Async Read: NOT successful!')
@@ -308,7 +300,6 @@ const readFileAsync = () => {
      function (response) {
        response.pipe(file)
      })
-
         })
       } catch (error) {
         console.log(error)
