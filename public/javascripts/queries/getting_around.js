@@ -129,11 +129,11 @@ const gettingAroundOSM = new L.TileLayer(cartoDb, {
   attribution: stamenTonerAttrib
 })
 
-var thunderAttr = { attribution: '© OpenStreetMap contributors. Tiles courtesy of Andy Allan' }
-var transport = new L.tileLayer(
-  '//{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
-  thunderAttr
-)
+// var thunderAttr = { attribution: '© OpenStreetMap contributors. Tiles courtesy of Andy Allan' }
+// var transport = new L.tileLayer(
+//   '//{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
+//   thunderAttr
+// )
 
 /* let gettingAroundtransport = L.tileLayer(
             '//{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
@@ -144,9 +144,9 @@ var transport = new L.tileLayer(
         attribution: '&copy; '+mapLink+' Contributors & '+translink,
         maxZoom: 18,
     }).addTo(map); */
-const tl = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
-  attribution: '© OpenStreetMap contributors'
-})
+// const tl = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
+//   attribution: '© OpenStreetMap contributors'
+// })
 
 // var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',
 // {
@@ -156,7 +156,7 @@ const tl = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
 let gettingAroundMap = new L.Map('getting-around-map')
 gettingAroundMap.setView(new L.LatLng(dubLat, dubLng), zoom)
 // gettingAroundMap.addLayer(gettingAroundOSM)
-gettingAroundMap.addLayer(tl)
+gettingAroundMap.addLayer(gettingAroundOSM)
 
 gettingAroundMap.on('popupopen', function (e) {
   markerRefPublic = e.popup._source
@@ -243,11 +243,9 @@ function updatetrainsmarkers (xmldata) {
       //  this.bindPopup(PubMsg + '<br>' + Direction).openPopup()
       // })
       //   trainLayerGroup.addLayer(Smarker)
-
     }
 
     //   trainLayerGroup.addTo(gettingAroundMap)
-
   }
 }
 
