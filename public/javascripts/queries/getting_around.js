@@ -24,7 +24,7 @@ The following TODO list addresses issues #27 #22 #21 #16 #15 #14 #13
  * Test support for DOM node methods on Firefox
  */
 
-//* **@todo: refactor to use ES6 imports ***/
+// * **@todo: refactor to use ES6 imports ***/
 
 /*
 API activity checks that the buttons are not disabled
@@ -46,10 +46,11 @@ API activity checks that the buttons are not disabled
  ******* Draw marker popup
  ************************************/
 // Manage periodic async data fetching
-const setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync
-const clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
-// let group = new L.LayerGroup();
-// let TrainLayerGroup = new L.LayerGroup();
+let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync
+let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
+// let group = new L.LayerGroup()
+// let TrainLayerGroup = new L.LayerGroup()
+
 const MWayLayerGroup = new L.LayerGroup()
 
 const myIcon = L.icon({
@@ -69,7 +70,7 @@ const myIcon = L.icon({
 
   }
 
-);
+)
 
 let m50_S = new L.geoJSON(null, {
   "style": {
@@ -78,7 +79,7 @@ let m50_S = new L.geoJSON(null, {
     "opacity": 0.65
   },
 
-});
+})
 
 let n4_N = new L.geoJSON(null, {
   "style": {
@@ -87,7 +88,7 @@ let n4_N = new L.geoJSON(null, {
     "opacity": 0.65
   },
 
-});
+})
 
 let n4_S = new L.geoJSON(null, {
   "style": {
@@ -129,7 +130,7 @@ const gettingAroundOSM = new L.TileLayer(cartoDb, {
 })
 
 var thunderAttr = { attribution: '© OpenStreetMap contributors. Tiles courtesy of Andy Allan' }
-var transport = L.tileLayer(
+var transport = new L.tileLayer(
   '//{s}.tile.thunderforest.com/transport/{z}/{x}/{y}.png',
   thunderAttr
 )
@@ -143,18 +144,23 @@ var transport = L.tileLayer(
         attribution: '&copy; '+mapLink+' Contributors & '+translink,
         maxZoom: 18,
     }).addTo(map); */
-const tl = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
+const tl = new L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}{r}.png', {
   attribution: '© OpenStreetMap contributors'
 })
 
-const gettingAroundMap = new L.Map('getting-around-map')
+// var tileLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+// {
+// attribution: false
+// })
+
+let gettingAroundMap = new L.Map('getting-around-map')
 gettingAroundMap.setView(new L.LatLng(dubLat, dubLng), zoom)
-// gettingAroundMap.addLayer(gettingAroundOSM);
+// gettingAroundMap.addLayer(gettingAroundOSM)
 gettingAroundMap.addLayer(tl)
-let markerRefPublic // TODO: fix horrible hack!!!
+
 gettingAroundMap.on('popupopen', function (e) {
   markerRefPublic = e.popup._source
-  // console.log("ref: "+JSON.stringify(e));
+// console.log("ref: "+JSON.stringify(e))
 })
 
 /* gettingAroundMap.on('click', function(e) {
@@ -178,17 +184,17 @@ var trafficinfo = L.control()
 trafficinfo.onAdd = function (map) {
   this._div = L.DomUtil.create('div', 'LTR') // create a div with a class "info"
   this._div.innerHTML = '<h8> Live Traffic Info</h8>' + '<br>' +
-  '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#40FF00";/> </svg>' + '<h8> Fast </h8>' + '</svg>' + '<br>' +
-  '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#FF5733";/> </svg>' + ' <h8> Slow </h8>' + '</svg>' + '<br>' +
-  '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#FF0000";/> </svg>' + '<h8> Slower </h8>' + '</svg>' + '<br>' +
-  '<svg height="10" width="10"> <rect  width="10"  height="10" fill= "#848484"; /> </svg>' + '<h8> No Data </h8>' + '</svg>'
+    '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#40FF00";/> </svg>' + '<h8> Fast </h8>' + '</svg>' + '<br>' +
+    '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#FF5733";/> </svg>' + ' <h8> Slow </h8>' + '</svg>' + '<br>' +
+    '<svg  height="10" width="10"> <rect id="box" width="10" height="10" fill= "#FF0000";/> </svg>' + '<h8> Slower </h8>' + '</svg>' + '<br>' +
+    '<svg height="10" width="10"> <rect  width="10"  height="10" fill= "#848484"; /> </svg>' + '<h8> No Data </h8>' + '</svg>'
   return this._div
 }
 
 /* info.update = function (props) {
   this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
       '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
-      : 'Hover over a state');
+      : 'Hover over a state')
 }; */
 
 trafficinfo.addTo(gettingAroundMap)
@@ -207,15 +213,15 @@ function processTravelTimes (data_) {
       })
     }
   )
-};
+}
 
 const fetchtraindata2 = function () {
   d3.xml('/data/Transport/Train_data.XML')
     .then((data) => {
-      // updatetrainsmarkers(data);
-      // AddTrainStations_Layer(data);
+      // updatetrainsmarkers(data)
+      // AddTrainStations_Layer(data)
       updatetrainsmarkers(data)
-      // updateAPIStatus('#train-activity-icon', '#train-age', true);
+    // updateAPIStatus('#train-activity-icon', '#train-age', true)
     })
     .catch(function (err) {
       updateAPIStatus('#train-activity-icon', '#train-age', false)
@@ -234,12 +240,14 @@ function updatetrainsmarkers (xmldata) {
     if (lat < 54 && lon > -7) {
       var Smarker = L.marker([lat, lon], { Icon: '' })
       // .on('mouseover', function() {
-      //  this.bindPopup(PubMsg + '<br>' + Direction).openPopup();
-      // });
-      TrainLayerGroup.addLayer(Smarker)
+      //  this.bindPopup(PubMsg + '<br>' + Direction).openPopup()
+      // })
+      //   trainLayerGroup.addLayer(Smarker)
+
     }
 
-    TrainLayerGroup.addTo(gettingAroundMap)
+    //   trainLayerGroup.addTo(gettingAroundMap)
+
   }
 }
 
@@ -324,13 +332,13 @@ d3.select('#trains-checkbox').on('click', function () {
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
       cb.classed('active', false)
-      if (gettingAroundMap.hasLayer(TrainLayerGroup)) {
-        gettingAroundMap.removeLayer(TrainLayerGroup)
+      if (gettingAroundMap.hasLayer(trainLayerGroup)) {
+        gettingAroundMap.removeLayer(trainLayerGroup)
       }
     } else {
       cb.classed('active', true)
-      if (!gettingAroundMap.hasLayer(TrainLayerGroup)) {
-        gettingAroundMap.addLayer(TrainLayerGroup)
+      if (!gettingAroundMap.hasLayer(trainLayerGroup)) {
+        gettingAroundMap.addLayer(trainLayerGroup)
       }
     }
   }
@@ -342,16 +350,16 @@ d3.select('#bus-checkbox').on('click', function () {
     if (cb.classed('active')) {
       cb.classed('active', false)
       if (gettingAroundMap.hasLayer(busCluster)) {
-        // console.log('Remove train Layrers');
+        // console.log('Remove train Layrers')
         gettingAroundMap.removeLayer(busCluster)
-        // gettingAroundMap.removeLayer(layerGroup);
+      // gettingAroundMap.removeLayer(layerGroup)
       }
     } else {
       cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(busCluster)) {
-        // console.log('Add train Layrers');
+        // console.log('Add train Layrers')
         gettingAroundMap.addLayer(busCluster)
-        // gettingAroundMap.addLayer(layerGroup);
+      // gettingAroundMap.addLayer(layerGroup)
       }
     }
   }
@@ -371,7 +379,7 @@ function getColor (d) {
 // initalise API activity icons
 d3.json('/data/api-status.json')
   .then(function (data) {
-    // console.log("api status "+JSON.stringify(data));
+    // console.log("api status "+JSON.stringify(data))
     if (data.dublinbikes.status === 200 && !(d3.select('#bikes-checkbox').classed('disabled'))) {
       d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#bike-age')
@@ -436,4 +444,4 @@ d3.json('/data/api-status.json')
     console.error('Error fetching API status file data')
   })
 
-// fetchtraindata2();
+  // fetchtraindata2()

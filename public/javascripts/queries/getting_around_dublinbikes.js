@@ -26,7 +26,7 @@ const bikesStationPopupOptons = {
   className: 'bikesStationPopup'
 }
 const bikesCluster = L.markerClusterGroup()
-// let bikesLayerGroup = L.layerGroup();
+// let bikesLayerGroup = L.layerGroup()
 const bikeTime = d3.timeFormat('%a %B %d, %H:%M')
 const bikeHour = d3.timeFormat('%H')
 
@@ -55,9 +55,9 @@ const bikesTimer = setIntervalAsync(
 )
 
 function initBikeStationsMarkers (data_) {
-  // console.log('update map\n' + JSON.stringify(data__[0]));
-  // bikesCluster.clearLayers();
-  // gettingAroundMap.removeLayer(bikesCluster); //required
+  // console.log('update map\n' + JSON.stringify(data__[0]))
+  // bikesCluster.clearLayers()
+  // gettingAroundMap.removeLayer(bikesCluster) //required
   data_.forEach((d, i) => {
     d.type = 'Dublin Bikes Station' // used in alt text (tooltip)
     const m = new customBikesStationMarker(
@@ -76,11 +76,11 @@ function initBikeStationsMarkers (data_) {
     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons)
     m.on('popupopen', getBikesStationPopup) // refeshes data on every popup open
     bikesCluster.addLayer(m)
-    // bikesLayerGroup.addLayer(m);
-    // gettingAroundMap.addLayer(bikesLayerGroup);
+  // bikesLayerGroup.addLayer(m)
+  // gettingAroundMap.addLayer(bikesLayerGroup)
   })
   gettingAroundMap.addLayer(bikesCluster)
-  // gettingAroundMap.fitBounds(bikesCluster.getBounds());
+// gettingAroundMap.fitBounds(bikesCluster.getBounds())
 }
 
 // Doing the following to update the marker icons without instantiating them on each data load
@@ -92,49 +92,49 @@ function updateBikeStationsMarkers (data_) {
     data_.forEach((d, i) => {
       if (d.id === layer.options.id) {
         layer.options.icon.options.iconUrl = getBikesIcon(d)
-      };
+      }
     })
-    // console.log("Icons loaded");
+    // console.log("Icons loaded")
 
-    // console.log("layer id: " + layer.options.id);
-    // console.log("\nlayer options: " + JSON.stringify(layer.options));
-    // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon));
-    // layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png';
-    // console.log("\nlayer icon changed: " + JSON.stringify(layer.options.icon));
-    // indicate if asscoiated popup open or closed
-    // const msg = layer.isPopupOpen() ? "Popup is open" : "Popup is closed";
-    // console.log("layer popup: " + msg);
-    // console.log("lid: " + bikesLayerGroup.getLayerId(layer));
-    // layer.bindPopup('Hello');
-    // layer.setIcon(getBikesIcon(d));
-    /** *@todo try this***/
-    // create custom icon
-    // IconStyleOne = L.icon({
-    //   iconUrl: 'img/image1.png'
-    // });
-    // IconStyleTwo = L.icon({
-    //   iconUrl: 'img/image2.png'
-    // });
-    //
-    // // ...
-    //
-    // //Create empty geojson with mouseover and mouseout events
-    // geojson_feature = L.geoJson(false, {
-    //   pointToLayer: function(feature, latlng) {
-    //     return L.marker(latlng, {
-    //       icon: IconStyleOne
-    //     });
-    //   },
-    //   onEachFeature: function(feature, layer) {
-    //     layer.on("mouseover", function(e) {
-    //       layer.setIcon(IconStyleOne)
-    //     });
-    //     layer.on("mouseout", function(e) {
-    //       layer.setIcon(IconStyleTwo)
-    //     });
-    //   }
-    // }).addTo(this.map); **
-    // * /
+  // console.log("layer id: " + layer.options.id)
+  // console.log("\nlayer options: " + JSON.stringify(layer.options))
+  // console.log("\nlayer icon: " + JSON.stringify(layer.options.icon))
+  // layer.options.icon.options.iconUrl = 'images/transport/bikes_icon_blue_1.png'
+  // console.log("\nlayer icon changed: " + JSON.stringify(layer.options.icon))
+  // indicate if asscoiated popup open or closed
+  // const msg = layer.isPopupOpen() ? "Popup is open" : "Popup is closed"
+  // console.log("layer popup: " + msg)
+  // console.log("lid: " + bikesLayerGroup.getLayerId(layer))
+  // layer.bindPopup('Hello')
+  // layer.setIcon(getBikesIcon(d))
+  /** *@todo try this***/
+  // create custom icon
+  // IconStyleOne = L.icon({
+  //   iconUrl: 'img/image1.png'
+  // })
+  // IconStyleTwo = L.icon({
+  //   iconUrl: 'img/image2.png'
+  // })
+  //
+  // // ...
+  //
+  // //Create empty geojson with mouseover and mouseout events
+  // geojson_feature = L.geoJson(false, {
+  //   pointToLayer: function(feature, latlng) {
+  //     return L.marker(latlng, {
+  //       icon: IconStyleOne
+  //     })
+  //   },
+  //   onEachFeature: function(feature, layer) {
+  //     layer.on("mouseover", function(e) {
+  //       layer.setIcon(IconStyleOne)
+  //     })
+  //     layer.on("mouseout", function(e) {
+  //       layer.setIcon(IconStyleTwo)
+  //     })
+  //   }
+  // }).addTo(this.map); **
+  // * /
   })
   gettingAroundMap.addLayer(bikesCluster)
 }
@@ -157,7 +157,7 @@ function getBikesIcon (d_) {
 }
 
 function bikesStationPopupInit (d_) {
-  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
+  // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n")
   // if no station id none of the mappings witll work so escape
   if (!d_.st_ID) {
     const str = '<div class="popup-error">' +
@@ -184,7 +184,7 @@ function bikesStationPopupInit (d_) {
 
   // initialise div to hold chart with id linked to station id
   if (d_.st_ID) {
-    str += '<div class=\"row \">'
+    str += '<div class="row ">'
     str += '<span id="bike-spark-' + d_.st_ID + '"></span>'
     str += '</div>'
   }
@@ -205,13 +205,13 @@ function setBikesStationPopupError (id, err) {
 
 // Sparkline for popup geterated from station query
 function getBikesStationPopup () {
-  /// /d3.select("#bike-spark-67").text('Selected from D3');
+  // / /d3.select("#bike-spark-67").text('Selected from D3')
   const sid_ = this.options.id
   // /api/dublinbikes / stations / snapshot
   d3.json('/api/dublinbikes/stations/' + sid_ + '/today')
     .then(function (stationData) {
       // d3.json("/api/dublinbikes/stations/" + sid_ + "/today").then(function(stationData, err) {
-      // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n");
+      // console.log("\n******\nExample Dublin Bikes data from Derilinx to client \n" + JSON.stringify(stationData) + "\n******\n")
       if (stationData.length === 0) {
         const obj = {
           length: 0
@@ -227,7 +227,7 @@ function getBikesStationPopup () {
       // assuming static data doesn't change throughout day...
       const standsCount = stationData[0].historic[0].bike_stands
       if (standsCount) {
-        // console.log("Banking at #" + sid_ + " is " + stationData[0].banking);
+        // console.log("Banking at #" + sid_ + " is " + stationData[0].banking)
         const stdStr = '<strong>' + standsCount + ' total stands </strong>'
         d3.select('#bike-standcount-' + sid_)
           .html(stdStr)
@@ -239,26 +239,26 @@ function getBikesStationPopup () {
 
       const ndx = crossfilter(processedData)
       const timeDim = ndx.dimension(function (d) {
-        // return d["last_update"];
+        // return d["last_update"]
         return d.ms
       })
       const earliest = timeDim.bottom(1)[0]
-      // let earliestMS = moment(earliest).valueOf();
+      // let earliestMS = moment(earliest).valueOf()
       const latest = timeDim.top(1)[0]
-      // let latestMS = moment(latest).valueOf();
-      // moment(timeDim.top(1)[0].time).format();
-      // console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n");
-      // console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n");
+      // let latestMS = moment(latest).valueOf()
+      // moment(timeDim.top(1)[0].time).format()
+      // console.log("\n\n***********\nEarliest returned: " + JSON.stringify(earliest.ms) + "\n***********\n\n")
+      // console.log("\n\n***********\nLatest returned: " + JSON.stringify(latest.ms) + "\n***********\n\n")
       const availableBikesGroup = timeDim.group().reduceSum(function (d) {
         return d.available_bikes
       })
-      // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)));
+      // console.log("available bikes: " + JSON.stringify(availableBikesGroup.top(Infinity)))
 
       const startChart = moment.utc().startOf('day').add(3, 'hours')
       const endChart = moment.utc().endOf('day').add(2, 'hours')
-      // console.log("chart time range: " + startChart + " - " + endChart);
+      // console.log("chart time range: " + startChart + " - " + endChart)
       const bikeSpark = dc.lineChart('#bike-spark-' + sid_)
-      // console.log("Select bike spark #" + sid_);
+      // console.log("Select bike spark #" + sid_)
       bikeSpark.width(250).height(100)
       bikeSpark.dimension(timeDim)
       bikeSpark.group(availableBikesGroup)
@@ -273,29 +273,29 @@ function getBikesStationPopup () {
       bikeSpark.xAxis().ticks(3)
       bikeSpark.renderArea(true)
       bikeSpark.renderDataPoints(true)
-      //        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
-      bikeSpark.renderLabel(false) //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
+      //        bikeSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0})
+      bikeSpark.renderLabel(false) // , fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
       bikeSpark.label(function (d) {
         if (d.x === latest) {
-          // console.log(JSON.stringify(d));
+          // console.log(JSON.stringify(d))
           const hour = new Date(d.x).getHours()
           const mins = new Date(d.x).getMinutes().toString().padStart(2, '0')
           const end = ((d.y == 1) ? ' bike' : ' bikes')
           //                let str = hour + ':' + mins +
           const str = JSON.stringify(d.y) + end
-          //                console.log(str);
+          //                console.log(str)
           return str
         }
         return ''
       })
       //        bikeSpark.title(function (d, i) {
-      //            let hour = new Date(d.key).getHours();
-      //            let mins = new Date(d.key).getMinutes().toString().padStart(2, '0');
-      //            let val = ((d.value == 1) ? ' bike available' : ' bikes available');
-      //            let str = hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val;
-      /// /              console.log(str);
-      //            return str;
-      //        });
+      //            let hour = new Date(d.key).getHours()
+      //            let mins = new Date(d.key).getMinutes().toString().padStart(2, '0')
+      //            let val = ((d.value == 1) ? ' bike available' : ' bikes available')
+      //            let str = hour + ':' + mins + ' - ' + JSON.stringify(d.value) + val
+      // / /              console.log(str)
+      //            return str
+      //        })
       bikeSpark.renderVerticalGridLines(true)
       bikeSpark.useRightYAxis(true)
       bikeSpark.xyTipsOn(false)
@@ -318,13 +318,13 @@ function setBikeStationColour (bikes, totalStands) {
 
 /* let TravelTime_Mon = L.control({
   position: 'topright'
-});
+})
 
 TravelTime_Mon.onAdd = function(map) {
   let div = L.DomUtil.create('div', 'Travel Time info'),
     //bikeGrades = [0, 20, 40, 60, 80],
     //labels = [],
-    //from, to;
+    //from, to
   //    labels.push('Bike S
 }
 
@@ -338,8 +338,9 @@ bikesLegend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'info legend')
   const bikeGrades = [0, 20, 40, 60, 80]
   const labels = []
-  let from; let to
-  //    labels.push('Bike Stations');
+  let from
+  let to
+  //    labels.push('Bike Stations')
   labels.push('Dublin Bikes Availability')
   for (let i = bikeGrades.length - 1; i >= 0; i--) {
     from = bikeGrades[i]
