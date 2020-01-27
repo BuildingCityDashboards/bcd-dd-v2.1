@@ -1,178 +1,206 @@
-let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts;
-let rentByBedTT, planningTT;
+let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
+let rentByBedTT, planningTT
 Promise.all([
-  d3.csv("../data/Housing/constructionsmonthlies.csv"),
-  d3.csv("../data/Housing/planningapplications.csv"),
-  d3.csv("../data/Housing/supplyoflands.csv"),
-  d3.csv("../data/Housing/developercontributions.csv"),
-  d3.csv("../data/Housing/houseprices.csv"),
-  d3.csv("../data/Housing/RIQ02.csv"),
-  d3.csv("../data/Housing/rentpricebybeds.csv"),
-  d3.csv("../data/Housing/rentalinspections.csv"),
-  d3.csv("../data/Housing/houseunitcompbytype.csv"),
-  d3.csv("../data/Housing/NDQ08.csv"),
-  d3.csv("../data/Housing/NDQ06.csv"),
-  d3.csv("../data/Housing/HPM06.csv"),
-  d3.csv("../data/Housing/HPM06Rate.csv"),
+  d3.csv('../data/Housing/processed/NDQ05.csv'),
+  d3.csv('../data/Housing/planningapplications.csv'),
+  d3.csv('../data/Housing/supplyoflands.csv'),
+  d3.csv('../data/Housing/developercontributions.csv'),
+  d3.csv('../data/Housing/houseprices.csv'),
+  d3.csv('../data/Housing/RIQ02.csv'),
+  d3.csv('../data/Housing/rentpricebybeds.csv'),
+  d3.csv('../data/Housing/rentalinspections.csv'),
+  d3.csv('../data/Housing/houseunitcompbytype.csv'),
+  d3.csv('../data/Housing/NDQ08.csv'),
+  d3.csv('../data/Housing/NDQ06.csv'),
+  d3.csv('../data/Housing/HPM06.csv'),
+  d3.csv('../data/Housing/HPM06Rate.csv')
 ]).then(datafiles => {
-  const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p); //function
+  const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
 
-  //1.  data processing for house completion chart
-  const completionData = datafiles[0],
-    keys = completionData.columns.slice(1),
-    dateField = completionData.columns[0],
-    compDataProcessed = dataSets(completionData, keys),
-    houseCompContent = {
-      e: "#chart-houseComp",
-      d: compDataProcessed,
-      ks: keys,
-      xV: dateField,
-      tX: "Months",
-      tY: "Units",
-      ySF: "millions",
-    };
+  // 1.  data processing for house completion chart
+  const completionsData = datafiles[0]
+  let completionsColumns = completionsData.columns.slice(1)
+  // completionsColumns.pop() // remove total column for 'Dublin'
+  const completionsDate = completionsData.columns[0]
+  const compDataProcessed = dataSets(completionsData, completionsColumns)
 
-  compDataProcessed.forEach(function(d) {
-    d.label = d[dateField];
-    d[dateField] = parseMonth(d[dateField]);
-    d.year = formatYear(d[dateField]);
-  });
+  compDataProcessed.forEach(function (d) {
+    d.label = d[completionsDate]
+    d[completionsDate] = convertQuarter(d[completionsDate])
+    // d.year = formatYear(d[dateField])
+  })
 
+  const houseCompContent = {
+    e: '#chart-houseComp',
+    d: compDataProcessed,
+    k: completionsColumns,
+    xV: completionsDate,
+    yV: 'Dublin',
+    tX: 'Quarter',
+    tY: 'Units'
+  }
 
   // console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
   // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
-  houseCompCharts = new StackedAreaChart(houseCompContent);
-  houseCompCharts.drawChart();
-  houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
+  houseCompCharts = new MultiLineChart(houseCompContent)
+  houseCompCharts.drawChart()
+  houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
   // houseCompCharts.tickNumber = 4;
-  houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
+  houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
 
-  //2.  data processing for planning charts.
+  // setup chart and data for New Dwelling Completion by type chart
+  // process the data
+  const newCompByTypeData = datafiles[10],
+    newCompByTypeType = newCompByTypeData.columns.slice(2),
+    newCompByTypeDate = newCompByTypeData.columns[0],
+    newCompByTypeRegions = newCompByTypeData.columns[1],
+    newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
+
+  newCompByTypeDataProcessed.forEach(d => {
+    d.label = (d[newCompByTypeDate])
+    d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
+  })
+
+  const newCompByTypeContent = {
+    e: '#chart-newCompByType',
+    d: newCompByTypeDataProcessed,
+    k: newCompByTypeRegions,
+    xV: newCompByTypeDate,
+    yV: newCompByTypeType[0],
+    tX: 'Quarters',
+    tY: 'Numbers'
+  }
+
+  // draw the chart
+  newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
+  newCompByTypeChart.drawChart()
+  newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+
+  // 2.  data processing for planning charts.
   const planningData = datafiles[1],
     types = planningData.columns.slice(2),
     date = planningData.columns[0],
     planningDataProcessed = dataSets(planningData, types),
 
     dcc = planningDataProcessed.filter(d => {
-      return d.region === "Dublin";
+      return d.region === 'Dublin'
     }),
     drcc = planningDataProcessed.filter(d => {
-      return d.region === "Dun Laoghaire- Rathdown";
+      return d.region === 'Dun Laoghaire- Rathdown'
     }),
     fcc = planningDataProcessed.filter(d => {
-      return d.region === "Fingal";
+      return d.region === 'Fingal'
     }),
     sdcc = planningDataProcessed.filter(d => {
-      return d.region === "South Dublin";
+      return d.region === 'South Dublin'
     }),
 
     dccContent = {
-      e: "#chart-planningDCC",
+      e: '#chart-planningDCC',
       d: dcc,
       ks: types,
       xV: date,
-      tX: "Years",
-      tY: "Applications",
+      tX: 'Years',
+      tY: 'Applications'
       // ySF: "percentage"
     },
 
     drccContent = {
-      e: "#chart-planningDRCC",
+      e: '#chart-planningDRCC',
       d: drcc,
       ks: types,
       xV: date,
-      tX: "Years",
-      tY: "Applications",
+      tX: 'Years',
+      tY: 'Applications'
       // ySF: "percentage"
     },
 
     fccContent = {
-      e: "#chart-planningFCC",
+      e: '#chart-planningFCC',
       d: fcc,
       ks: types,
       xV: date,
-      tX: "Years",
-      tY: "Applications",
+      tX: 'Years',
+      tY: 'Applications'
       // ySF: "percentage"
     },
 
     sdccContent = {
-      e: "#chart-planningSDCC",
+      e: '#chart-planningSDCC',
       d: sdcc,
       ks: types,
       xV: date,
-      tX: "Years",
-      tY: "Applications",
+      tX: 'Years',
+      tY: 'Applications'
       // ySF: "percentage"
-    };
+    }
 
   planningTT = {
-    title: "Planning Applications - Year",
+    title: 'Planning Applications - Year',
     datelabel: date,
-    format: "thousands",
-  };
+    format: 'thousands'
+  }
 
   // drawing charts for planning data.
-  dccChart = new GroupedBarChart(dccContent);
-  drccChart = new GroupedBarChart(drccContent);
-  fccChart = new GroupedBarChart(fccContent);
-  sdccChart = new GroupedBarChart(sdccContent);
+  dccChart = new GroupedBarChart(dccContent)
+  drccChart = new GroupedBarChart(drccContent)
+  fccChart = new GroupedBarChart(fccContent)
+  sdccChart = new GroupedBarChart(sdccContent)
 
-  dccChart.drawChart();
-  drccChart.drawChart();
-  fccChart.drawChart();
-  sdccChart.drawChart();
+  dccChart.drawChart()
+  drccChart.drawChart()
+  fccChart.drawChart()
+  sdccChart.drawChart()
 
-  dccChart.addTooltip(planningTT);
-  drccChart.addTooltip(planningTT);
-  fccChart.addTooltip(planningTT);
-  sdccChart.addTooltip(planningTT);
-
+  dccChart.addTooltip(planningTT)
+  drccChart.addTooltip(planningTT)
+  fccChart.addTooltip(planningTT)
+  sdccChart.addTooltip(planningTT)
 
   const supplyData = datafiles[2],
     supplyType = supplyData.columns.slice(2),
     supplyDate = supplyData.columns[0],
     supplyRegions = supplyData.columns[1],
-    supplyDataProcessed = dataSets(supplyData, supplyType);
+    supplyDataProcessed = dataSets(supplyData, supplyType)
 
   supplyDataProcessed.forEach(d => {
-    d[supplyDate] = parseYear(d[supplyDate]);
-    d.label = formatYear(d[supplyDate]);
-  });
+    d[supplyDate] = parseYear(d[supplyDate])
+    d.label = formatYear(d[supplyDate])
+  })
 
   const supplyContent = {
-    e: "#chart-houseSupply",
+    e: '#chart-houseSupply',
     d: supplyDataProcessed,
     k: supplyRegions,
     xV: supplyDate,
-    yV: "Hectares",
-    tX: "Years",
-    tY: "Hectares"
+    yV: 'Hectares',
+    tX: 'Years',
+    tY: 'Hectares'
   }
-  supplyChart = new MultiLineChart(supplyContent);
-  supplyChart.drawChart();
-  supplyChart.addTooltip("Land - Year", "thousands", "label");
+  supplyChart = new MultiLineChart(supplyContent)
+  supplyChart.drawChart()
+  supplyChart.addTooltip('Land - Year', 'thousands', 'label')
 
-  d3.select("#supply_land").on("click", function() {
-    activeBtn(this);
+  d3.select('#supply_land').on('click', function () {
+    activeBtn(this)
 
-    supplyChart.yV = "Hectares";
-    supplyChart.tY = "Hectares";
-    supplyChart.updateChart();
+    supplyChart.yV = 'Hectares'
+    supplyChart.tY = 'Hectares'
+    supplyChart.updateChart()
 
-    supplyChart.addTooltip("Land - Year", "thousands", "label");
-  });
+    supplyChart.addTooltip('Land - Year', 'thousands', 'label')
+  })
 
-  d3.select("#supply_units").on("click", function() {
-    activeBtn(this);
+  d3.select('#supply_units').on('click', function () {
+    activeBtn(this)
 
-    supplyChart.yV = "Units";
-    supplyChart.tY = "Units";
-    supplyChart.updateChart();
+    supplyChart.yV = 'Units'
+    supplyChart.tY = 'Units'
+    supplyChart.updateChart()
 
-    supplyChart.addTooltip("Units - Year", "thousands", "label");
-  });
+    supplyChart.addTooltip('Units - Year', 'thousands', 'label')
+  })
 
   // setup chart and data for annual contribution chart
   // process the data
@@ -180,28 +208,28 @@ Promise.all([
     contributionType = contributionData.columns.slice(2),
     contributionDate = contributionData.columns[0],
     contributionRegions = contributionData.columns[1],
-    contributionDataProcessed = dataSets(contributionData, contributionType);
+    contributionDataProcessed = dataSets(contributionData, contributionType)
 
   contributionDataProcessed.forEach(d => {
-    d.label = d[contributionDate];
-    d[contributionDate] = parseYear(d[contributionDate]);
-  });
+    d.label = d[contributionDate]
+    d[contributionDate] = parseYear(d[contributionDate])
+  })
 
   const contriContent = {
-    e: "#chart-houseContributions",
+    e: '#chart-houseContributions',
     d: contributionDataProcessed,
     k: contributionRegions,
     xV: contributionDate,
-    yV: "value",
-    tX: "Years",
-    tY: "€"
-  };
+    yV: 'value',
+    tX: 'Years',
+    tY: '€'
+  }
 
   // draw the chart
-  contributionChart = new MultiLineChart(contriContent);
-  contributionChart.yScaleFormat = "millions";
-  contributionChart.drawChart();
-  contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
+  contributionChart = new MultiLineChart(contriContent)
+  contributionChart.yScaleFormat = 'millions'
+  contributionChart.drawChart()
+  contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
 
   // setup chart and data for quarterly house prices chart
   // process the data
@@ -210,29 +238,28 @@ Promise.all([
     housePricesDate = housePricesData.columns[0],
     housePricesRegions = housePricesData.columns[1],
     housePricesDataProcessed = dataSets(housePricesData, housePricesType),
-    yLabels4 = [];
+    yLabels4 = []
 
   housePricesDataProcessed.forEach(d => {
-    d.label = (d[housePricesDate]);
-    d[housePricesDate] = convertQuarter(d[housePricesDate]);
-  });
+    d.label = (d[housePricesDate])
+    d[housePricesDate] = convertQuarter(d[housePricesDate])
+  })
 
   const housePricesContent = {
-    e: "#chart-housePrices",
+    e: '#chart-housePrices',
     d: housePricesDataProcessed,
     k: housePricesRegions,
     xV: housePricesDate,
-    yV: "value",
-    tX: "Quarters",
-    tY: "€"
-  };
+    yV: 'value',
+    tX: 'Quarters',
+    tY: '€'
+  }
 
   // draw the chart
-  housePricesChart = new MultiLineChart(housePricesContent);
-  housePricesChart.ySF = "millions";
-  housePricesChart.drawChart();
-  housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-
+  housePricesChart = new MultiLineChart(housePricesContent)
+  housePricesChart.ySF = 'millions'
+  housePricesChart.drawChart()
+  housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
 
   // setup chart and data for quarterly house prices chart
   // process the data
@@ -240,30 +267,28 @@ Promise.all([
     rentPricesType = rentPricesData.columns.slice(2),
     rentPricesDate = rentPricesData.columns[0],
     rentPricesRegions = rentPricesData.columns[1],
-    rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType);
-
+    rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType)
 
   rentPricesDataProcessed.forEach(d => {
-    d.label = d[rentPricesDate];
-    d[rentPricesDate] = convertQuarter(d[rentPricesDate]);
-  });
+    d.label = d[rentPricesDate]
+    d[rentPricesDate] = convertQuarter(d[rentPricesDate])
+  })
 
   // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
 
   const rentPricesContent = {
-    e: "#chart-rentPrices",
+    e: '#chart-rentPrices',
     d: rentPricesDataProcessed,
     k: rentPricesRegions,
     xV: rentPricesDate,
-    yV: "value",
-    tX: "Quarters",
-    tY: "€"
-  };
+    yV: 'value',
+    tX: 'Quarters',
+    tY: '€'
+  }
 
-  rentPricesChart = new MultiLineChart(rentPricesContent);
-  rentPricesChart.drawChart();
-  rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-
+  rentPricesChart = new MultiLineChart(rentPricesContent)
+  rentPricesChart.drawChart()
+  rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
 
   //  Setup data and chart for rent prices by quarter by bed numbers
   const rentByBedsData = datafiles[6],
@@ -272,26 +297,25 @@ Promise.all([
     rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
 
     rentByBedContent = {
-      e: "#chart-rentByBeds",
+      e: '#chart-rentByBeds',
       d: rentByBedsDataProcessed,
       ks: rentByBedsTypes,
       xV: rentByBedsDate,
-      tX: "Quarters",
-      tY: "Price",
-      ySF: "euros"
-    };
+      tX: 'Quarters',
+      tY: 'Price',
+      ySF: 'euros'
+    }
 
   rentByBedTT = {
-    title: "Rent Prices - Year:",
+    title: 'Rent Prices - Year:',
     datelabel: rentByBedsDate,
-    format: "euros2",
-  };
+    format: 'euros2'
+  }
 
   // drawing charts for planning data.
-  rentByBedsChart = new GroupedBarChart(rentByBedContent);
-  rentByBedsChart.drawChart();
-  rentByBedsChart.addTooltip(rentByBedTT);
-
+  rentByBedsChart = new GroupedBarChart(rentByBedContent)
+  rentByBedsChart.drawChart()
+  rentByBedsChart.addTooltip(rentByBedTT)
 
   //  Setup data and chart for rent prices by quarter by bed numbers
   const rentInspectData = datafiles[7],
@@ -300,19 +324,19 @@ Promise.all([
     rentInspectDataProcessed = dataSets(rentInspectData, rentInspectTypes),
 
     rentInspectContent = {
-      e: "#chart-rentInspect",
+      e: '#chart-rentInspect',
       d: rentInspectDataProcessed,
       ks: rentInspectTypes,
       xV: rentInspectDate,
-      tX: "Years",
-      tY: "Inspections",
+      tX: 'Years',
+      tY: 'Inspections'
     },
 
     rentInspectTT = {
-      title: "Rent Inspections - Year:",
+      title: 'Rent Inspections - Year:',
       datelabel: rentInspectDate,
-      format: "thousands",
-    };
+      format: 'thousands'
+    }
 
   // console.log("rentInspect data processed", rentInspectDataProcessed);
   // drawing charts for planning data.
@@ -325,54 +349,54 @@ Promise.all([
     hCBTType = hCBTData.columns.slice(2),
     hCBTDate = hCBTData.columns[0],
     hCBTRegions = hCBTData.columns[1],
-    hCBTDataProcessed = dataSets(hCBTData, hCBTType);
+    hCBTDataProcessed = dataSets(hCBTData, hCBTType)
 
   hCBTDataProcessed.forEach(d => {
-    d.label = (d[hCBTDate]);
-    d[hCBTDate] = convertQuarter(d[hCBTDate]);
-  });
+    d.label = (d[hCBTDate])
+    d[hCBTDate] = convertQuarter(d[hCBTDate])
+  })
 
   const hCBTContent = {
-    e: "#chart-houseCompByType",
+    e: '#chart-houseCompByType',
     d: hCBTDataProcessed,
     k: hCBTRegions,
     xV: hCBTDate,
     yV: hCBTType[0],
-    tX: "Quarters",
-    tY: "Numbers"
+    tX: 'Quarters',
+    tY: 'Numbers'
   }
 
   // draw the chart
-  hCBTChart = new MultiLineChart(hCBTContent);
-  hCBTChart.drawChart();
-  hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
+  hCBTChart = new MultiLineChart(hCBTContent)
+  hCBTChart.drawChart()
+  hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
 
-  d3.select("#houseCompByType_total").on("click", function() {
-    activeBtn(this);
+  d3.select('#houseCompByType_total').on('click', function () {
+    activeBtn(this)
 
-    hCBTChart.yV = hCBTType[0];
-    hCBTChart.updateChart();
-    hCBTChart.addTooltip("Total Houses - ", "thousands", "label");
-    hCBTChart.hideRate(false);
-  });
+    hCBTChart.yV = hCBTType[0]
+    hCBTChart.updateChart()
+    hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    hCBTChart.hideRate(false)
+  })
 
-  d3.select("#houseCompByType_private").on("click", function() {
-    activeBtn(this);
+  d3.select('#houseCompByType_private').on('click', function () {
+    activeBtn(this)
 
-    hCBTChart.yV = hCBTType[1];
-    hCBTChart.updateChart();
-    hCBTChart.addTooltip("Private Houses - ", "thousands", "label");
-    hCBTChart.hideRate(false);
-  });
+    hCBTChart.yV = hCBTType[1]
+    hCBTChart.updateChart()
+    hCBTChart.addTooltip('Private Houses - ', 'thousands', 'label')
+    hCBTChart.hideRate(false)
+  })
 
-  d3.select("#houseCompByType_social").on("click", function() {
-    activeBtn(this);
+  d3.select('#houseCompByType_social').on('click', function () {
+    activeBtn(this)
 
-    hCBTChart.yV = hCBTType[2];
-    hCBTChart.updateChart();
-    hCBTChart.addTooltip("Social Houses - ", "thousands", "label");
-    hCBTChart.hideRate(true);
-  });
+    hCBTChart.yV = hCBTType[2]
+    hCBTChart.updateChart()
+    hCBTChart.addTooltip('Social Houses - ', 'thousands', 'label')
+    hCBTChart.hideRate(true)
+  })
 
   // setup chart and data for esb non new connections of land chart
   // process the data
@@ -381,59 +405,28 @@ Promise.all([
     nonNewConnectionsDate = nonNewConnectionsData.columns[0],
     nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
     nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
-    nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type));
-
+    nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type))
 
   nonNewConnectionsDataProcessed.forEach(d => {
-    d.label = (d[nonNewConnectionsDate]);
-    d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate]);
-  });
+    d.label = (d[nonNewConnectionsDate])
+    d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate])
+  })
 
-  let nonNewCon = nestData(nonNewConnectionsDataProcessed, "label", nonNewConnectionsRegions, "value"),
+  let nonNewCon = nestData(nonNewConnectionsDataProcessed, 'label', nonNewConnectionsRegions, 'value'),
     nonNewGroupContent = {
-      e: "#chart-nonNewConnections",
+      e: '#chart-nonNewConnections',
       d: nonNewCon,
       ks: nonNewGroup,
       xV: nonNewConnectionsDate,
-      tX: "Quarters",
-      tY: "Numbers",
-      ySF: "millions",
-    };
+      tX: 'Quarters',
+      tY: 'Numbers',
+      ySF: 'millions'
+    }
 
   //  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
   //
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
-
-  // setup chart and data for New Dwelling Completion by type chart
-  // process the data
-  const newCompByTypeData = datafiles[10],
-    newCompByTypeType = newCompByTypeData.columns.slice(2),
-    newCompByTypeDate = newCompByTypeData.columns[0],
-    newCompByTypeRegions = newCompByTypeData.columns[1],
-    newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType);
-
-  newCompByTypeDataProcessed.forEach(d => {
-    d.label = (d[newCompByTypeDate]);
-    d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate]);
-  });
-
-  const newCompByTypeContent = {
-    e: "#chart-newCompByType",
-    d: newCompByTypeDataProcessed,
-    k: newCompByTypeRegions,
-    xV: newCompByTypeDate,
-    yV: newCompByTypeType[0],
-    tX: "Quarters",
-    tY: "Numbers"
-  };
-
-
-  // draw the chart
-  newCompByTypeChart = new MultiLineChart(newCompByTypeContent);
-  newCompByTypeChart.drawChart();
-  newCompByTypeChart.addTooltip("Total Houses - ", "thousands", "label");
-
 
   // new chart Price Index
   const HPM06 = datafiles[11],
@@ -441,18 +434,18 @@ Promise.all([
     HPM06V = HPM06.columns[2],
     HPM06V2 = HPM06.columns[3],
     HPM06V3 = HPM06.columns[3],
-    HPM06D = HPM06.columns[0];
+    HPM06D = HPM06.columns[0]
 
   // create content object
-  const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, "#chart-HPM06");
-  HPM06Content.tX = "Months";
-  HPM06Content.tY = "Price Index (Base 100)";
+  const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
+  HPM06Content.tX = 'Months'
+  HPM06Content.tY = 'Price Index (Base 100)'
 
   // draw the chart
-  HPM06Charts = new MultiLineChart(HPM06Content);
-  HPM06Charts.drawChart(); // draw axis
-  HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
-  HPM06Charts.addBaseLine(100); // add horizontal baseline
+  HPM06Charts = new MultiLineChart(HPM06Content)
+  HPM06Charts.drawChart() // draw axis
+  HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+  HPM06Charts.addBaseLine(100) // add horizontal baseline
 
   // add buttons to switch between total, housing and apartments
 
@@ -491,96 +484,94 @@ Promise.all([
   //   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
   //   HPM06Charts.addBaseLine(100); // add horizontal baseline
   // });
+}).catch(function (error) {
+  console.log(error)
+})
 
-}).catch(function(error) {
-  console.log(error);
-});
-
-function convertQuarter(q) {
-  let splitted = q.split('Q');
-  let year = splitted[0];
-  let quarterEndMonth = splitted[1] * 3 - 2;
-  let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year);
-  return date;
+function convertQuarter (q) {
+  let splitted = q.split('Q')
+  let year = splitted[0]
+  let quarterEndMonth = splitted[1] * 3 - 2
+  let date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
+  return date
 }
 
-function qToQuarter(q) {
-  let splitted = q.split('Q');
-  let year = splitted[0];
-  let quarter = splitted[1];
-  let quarterString = ("Quarter " + quarter + ' ' + year);
-  return quarterString;
+function qToQuarter (q) {
+  let splitted = q.split('Q')
+  let year = splitted[0]
+  let quarter = splitted[1]
+  let quarterString = ('Quarter ' + quarter + ' ' + year)
+  return quarterString
 }
 
-function dataSets(data, columns) {
+function dataSets (data, columns) {
   coercedData = data.map(d => {
     for (var i = 0, n = columns.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
-      d[columns[i]] = +d[columns[i]];
+      d[columns[i]] = +d[columns[i]]
     }
-    return d;
-  });
-  return coercedData;
+    return d
+  })
+  return coercedData
 }
 
-function formatQuarter(date) {
-  let newDate = new Date();
-  newDate.setMonth(date.getMonth() + 1);
-  let year = (date.getFullYear());
-  let q = Math.ceil((newDate.getMonth()) / 3);
-  return "Quarter " + q + ' ' + year;
+function formatQuarter (date) {
+  let newDate = new Date()
+  newDate.setMonth(date.getMonth() + 1)
+  let year = (date.getFullYear())
+  let q = Math.ceil((newDate.getMonth()) / 3)
+  return 'Quarter ' + q + ' ' + year
 }
 
-function filterbyDate(data, dateField, date) {
+function filterbyDate (data, dateField, date) {
   return data.filter(d => {
-    return d[dateField] >= new Date(date);
-  });
+    return d[dateField] >= new Date(date)
+  })
 }
 
-function filterByDateRange(data, dateField, dateOne, dateTwo) {
+function filterByDateRange (data, dateField, dateOne, dateTwo) {
   return data.filter(d => {
-    return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo);
-  });
+    return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo)
+  })
 }
 
-function nestData(data, label, name, value) {
+function nestData (data, label, name, value) {
   let nested_data = d3.nest()
-    .key(function(d) {
-      return d[label];
+    .key(function (d) {
+      return d[label]
     })
-    .entries(data); // its the string not the date obj
+    .entries(data) // its the string not the date obj
 
-  let mqpdata = nested_data.map(function(d) {
+  let mqpdata = nested_data.map(function (d) {
     let obj = {
       label: d.key
     }
-    d.values.forEach(function(v) {
-      obj[v[name]] = v[value];
-      obj.date = v.date;
+    d.values.forEach(function (v) {
+      obj[v[name]] = v[value]
+      obj.date = v.date
     })
-    return obj;
+    return obj
   })
-  return mqpdata;
+  return mqpdata
 }
 
-function chartContent(data, key, value, date, selector) {
-
-  data.forEach(function(d) { //could pass types array and coerce each matching key using dataSets()
-    d.label = d[date];
-    d.date = parseYearMonth(d[date]);
-    d[value] = +d[value];
-  });
+function chartContent (data, key, value, date, selector) {
+  data.forEach(function (d) { // could pass types array and coerce each matching key using dataSets()
+    d.label = d[date]
+    d.date = parseYearMonth(d[date])
+    d[value] = +d[value]
+  })
 
   // nest the processed data by regions
   const nest = d3.nest().key(d => {
-    return d[key];
-  }).entries(data);
+    return d[key]
+  }).entries(data)
 
   // get array of keys from nest
-  const keys = [];
+  const keys = []
   nest.forEach(d => {
-    keys.push(d.key);
-  });
+    keys.push(d.key)
+  })
 
   return {
     e: selector,
@@ -588,11 +579,10 @@ function chartContent(data, key, value, date, selector) {
     xV: date,
     yV: value
   }
-
 }
 
-function activeBtn(e) {
-  let btn = e;
-  $(btn).siblings().removeClass('active');
-  $(btn).addClass('active');
+function activeBtn (e) {
+  let btn = e
+  $(btn).siblings().removeClass('active')
+  $(btn).addClass('active')
 }

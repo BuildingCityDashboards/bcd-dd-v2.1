@@ -20,11 +20,14 @@ mixin nav-dropdown(name, link)
         
 
 form(class="form-inline float-right search-box")
-    input(class="search-box__input" type="text" id="site-search" onkeyup="searchSite()" placeholder="Search" aria-label="Search")
+    //- input(class="search-box__input" type="text" id="userinput" onkeyup="searchSite()" placeholder="Search" aria-label="Search")
+    input(class="search-box__input" type="text" id="userinput" placeholder="Search" aria-label="Search")
+    #suggestions
+
 button.side-menu__toggler.side-menu__right.search__trigger
     .menu-button
         img(height='20px' width='20px' class="float-right" title="Click to open search box" src="../images/magnifying-glass.svg")
-
+    
 
 
 button.side-menu__toggler.s-m__trigger.side-menu__left
@@ -49,7 +52,8 @@ nav.side-menu
 
 .side-menu__overlay.s-m__trigger
   
-#search-results.p
+
   
 append scripts
-  script(src="/lib/d3v5/d3.js" type="text/javascript")
+  script(src='/lib/flexsearch.compact.js' type='text/javascript')
+  script(src='/javascripts/autocomplete.js' type='text/javascript')

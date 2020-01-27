@@ -52,6 +52,14 @@ a:hover {
     animation: updateAnimation 1s 3 ;
 }
 
+/* //used for incomplete charts and maps */
+.coming-soon-placeholder{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .chart-heading{
   font-weight: 500;
   color: #f8f8f8;
@@ -359,6 +367,11 @@ a:hover {
 }
 
 #population{
+  padding-top: 100px;
+  margin-top: -100px;
+}
+
+.position-anchor{
   padding-top: 100px;
   margin-top: -100px;
 }

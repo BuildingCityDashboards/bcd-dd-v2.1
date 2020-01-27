@@ -1,3 +1,19 @@
+.plotly-chart-medium{
+  padding-top: 80px;
+  margin-top: -80px;
+  margin-bottom: 40px;
+  height: auto; /* calc(500px + var(margin-bottom)); breaks responsive*/
+  min-width: 600px;
+}
+
+.plotly-chart-large{
+  padding-top: 100px;
+  margin-top: -100px;
+  margin-bottom: 40px;
+  height:  auto; /*calc(600px + var(margin-bottom));*/
+  /* padding-bottom: 100px; */
+}
+
 .js-plotly-plot .plotly .modebar {
     orientation: 'v';
 }
@@ -8,4 +24,8 @@
 
 .infolayer [class^='x'][class$='title'] {
   transform: translate(0px, 0px);
+}
+/* This gets overwritten by plot js - need workaround */
+rect.updatemenu-item-rect {
+  fill: rgb(0, 0, 0);
 }

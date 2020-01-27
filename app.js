@@ -5,23 +5,24 @@ const cookieParser = require('cookie-parser')
 const logger = require('./utils/logger')
 const util = require('util')
 require('dotenv').config()
-const cors = require('cors')
+
 const cron = require('node-cron')
 const morgan = require('morgan')
-// const sm = require('sitemap')
+// const sm = require('sitemap');
 const moment = require('moment')
 const express = require('express')
-const app = express()
 
+const app = express()
 app.use(express.json())
-app.use(cors()) // Use this after the variable declaration
 app.use(express.urlencoded({
   extended: false
 }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
-// console.log(__dirname)
-// logger.debug("Overriding 'Express' logger")
+
+// console.log(__dirname);
+// logger.debug("Overriding 'Express' logger");
+
 app.use(morgan('combined', {
   'stream': logger.stream
 }))
@@ -45,9 +46,10 @@ app.set('view engine', 'pug')
 // app.use('/stylesheets/bootstrap/css', express.static(
 //   path.join(__dirname, 'node_modules', 'bootstrap', 'dist', 'css')))
 // app.use('/javascripts/vendor/jquery', express.static(
-//   path.join(__dirname, 'node_modules', 'jquery', 'dist')))
+
+//   path.join(__dirname, 'node_modules', 'jquery', 'dist')));
 // https: //github.com/LiamOSullivan/bcd-dd-v2.git// app.use('/javascripts/vendor/popper.js', express.static(
-//   path.join(__dirname, 'node_modules', 'popper.js', 'dist')))
+//   path.join(__dirname, 'node_modules', 'popper.js', 'dist')));
 
 app.use('/', index)
 app.use('/themes', themes)
@@ -100,6 +102,12 @@ cron.schedule('45 3 * * *', () => {
   const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day')
   const weekStart = moment.utc().subtract(1, 'weeks').startOf('day')
   const monthStart = moment.utc().subtract(1, 'months').startOf('day')
+
+  // Generating date queries to GET each night in cron
+  const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day')
+  const yesterdayEnd = moment.utc().subtract(1, 'days').endOf('day')
+  const weekStart = moment.utc().subtract(1, 'weeks').startOf('day')
+  const monthStart = moment.utc().subtract(1, 'months').startOf('day')
   // call a function getAllStationsDataHourly from bikesQuaery 
   bikesQuery.getAllStationsDataHourly(yesterdayStart, yesterdayEnd)
     .then((data) => {
@@ -108,7 +116,7 @@ cron.schedule('45 3 * * *', () => {
         const s = new moment(yesterdayStart)
         const durMs = moment.duration(e.diff(s))
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
-        // util.log("\nQuery duration (hours): " + durHrs)
+        // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
         const fileName = `day.json`
         const fullPath = path.join(filePath, fileName)
@@ -118,7 +126,7 @@ cron.schedule('45 3 * * *', () => {
           }
         })
       } else {
-        // res.send("Error fetching data")
+        // res.send("Error fetching data");
         util.log('\nWrite to file error: ' + err)
       }
     })
@@ -133,7 +141,7 @@ cron.schedule('45 3 * * *', () => {
         const s = new moment(yesterdayEnd)
         const durMs = moment.duration(e.diff(s))
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
-        // util.log("\nQuery duration (hours): " + durHrs)
+        // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
         const fileName = `week.json`
         const fullPath = path.join(filePath, fileName)
@@ -158,7 +166,7 @@ cron.schedule('45 3 * * *', () => {
         const s = new moment(yesterdayEnd)
         const durMs = moment.duration(e.diff(s))
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
-        // util.log("\nQuery duration (hours): " + durHrs)
+        // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
         const fileName = `month.json`
         const fullPath = path.join(filePath, fileName)
@@ -168,7 +176,7 @@ cron.schedule('45 3 * * *', () => {
           }
         })
       } else {
-        // res.send("Error fetching data")
+        // res.send("Error fetching data");
         util.log('\nWrite to file error: ' + err)
       }
     })
@@ -177,7 +185,7 @@ cron.schedule('45 3 * * *', () => {
     })
 })
 
-/*TODO: refactor to await/async to remove dupliation*/
+/* TODO: refactor to await/async to remove dupliation */
 cron.schedule('*/1 * * * *', function () {
   let http = require('https')
   const fetch = require('node-fetch')
@@ -186,20 +194,20 @@ cron.schedule('*/1 * * * *', function () {
     let d = new Date()
     if (error) {
       return util.log('>>>Error on traveltimes GET @ ' + d + '\n')
-    }
-    // console.log(">>>Successful traveltimes GET @ " + d + "\n")
+
+    // console.log(">>>Successful traveltimes GET @ " + d + "\n");
     response.pipe(travelTimesFile)
-  //   // const {
-  //   //   statusCode
-  //   // } = response
-  //   // response.on('end', function() {
-  //   //   apiStatus.traveltimes.status = statusCode
-  //   //   //            console.log(JSON.stringify(apiStatus))
-  //   //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-  //   //     if (err)
-  //   //       return console.log(">>>Error writing traveltimes to api-status.json\n" + err)
-  //   //   })
-  //   // })
+    //   // const {
+    //   //   statusCode
+    //   // } = response;
+    //   // response.on('end', function() {
+    //   //   apiStatus.traveltimes.status = statusCode;
+    //   //   //            console.log(JSON.stringify(apiStatus));
+    //   //   fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //   //     if (err)
+    //   //       return console.log(">>>Error writing traveltimes to api-status.json\n" + err);
+    //   //   });
+    //   // });
   })
 
   let travelTimesRoadsFile = fs.createWriteStream('./public/data/Transport/traveltimesroad.json')
@@ -208,17 +216,19 @@ cron.schedule('*/1 * * * *', function () {
       return util.log('>>>Error on traveltimesroads GET\n')
     }
     response.pipe(travelTimesRoadsFile)
-  //     const {
-  //       statusCode
-  //     } = response
-  //     response.on('end', function() {
-  //       apiStatus.traveltimesroads.status = statusCode
-  //       //            console.log(JSON.stringify(apiStatus))
-  //       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
-  //         if (err)
-  //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err)
-  //       })
-  //     })
+
+    //     const {
+    //       statusCode
+    //     } = response;
+    //     response.on('end', function() {
+    //       apiStatus.traveltimesroads.status = statusCode;
+    //       //            console.log(JSON.stringify(apiStatus));
+    //       fs.writeFile(apiStatusUpdate, JSON.stringify(apiStatus, null, 2), function(err) {
+    //         if (err)
+    //           return console.log(">>>Error writing traveltimesroads to api-status.json\n" + err);
+    //       });
+    //     });
+
   })
 })
 
@@ -232,6 +242,7 @@ cron.schedule('*/15 * * * *', function () {
   })
 })
 
+
 // Weather (from old Dublin Dashboard)
 cron.schedule('*/5 * * * *', function () {
   let http = require('https')
@@ -244,7 +255,6 @@ cron.schedule('*/5 * * * *', function () {
 // Sound level readings
 cron.schedule('*/15 * * * *', function () {
   let http = require('https')
-
   let files = []
   for (let i = 0; i < 15; i += 1) {
     let n = i + 1
@@ -255,6 +265,7 @@ cron.schedule('*/15 * * * *', function () {
       })
   }
 })
+
 // get train data from the API evey minute 
 cron.schedule('*/1 * * * *', function () {
   var http = require('http')
@@ -265,20 +276,19 @@ cron.schedule('*/1 * * * *', function () {
   })
 })
 
+
 const readFileAsync = () => {
   const FILE_NAME = './public/data/Environment/waterlevel.json'
   fs.readFile(FILE_NAME, (error, data) => {
+
     // console.log('Async Read: starting...')
     if (error) {
       // console.log('Async Read: NOT successful!')
+
       console.log(error)
     } else {
       try {
         const dataJson = JSON.parse(data)
-        // console.log('Async Read: successful!')
-        // console.log(dataJson)
-        // processWaterLevels(dataJson.features)
-        // console.log('here3')
         let data_ = dataJson.features
         let regionData = data_.filter(function (d) {
           return d.properties['station.region_id'] === null || d.properties['station.region_id'] === 10
@@ -288,15 +298,17 @@ const readFileAsync = () => {
           let station_ref = d.properties['station.ref'].substring(5, 10)
           let sensor_ref = d.properties['sensor.ref']
           let fname = station_ref.concat('_', sensor_ref)
-          // console.log(i + '---'+ fname)
+
+   // console.log(i + '---'+ fname);
           var fs = require('fs')
           var file = fs.createWriteStream('./public/data/Environment/water_levels/' + fname + '.csv')
           var http = require('http')
-          // http://waterlevel.ie/data/month/25017_0001.csv
+   // http://waterlevel.ie/data/month/25017_0001.csv
           http.get('http://waterlevel.ie/data/month/' + fname + '.csv',
-            function (response) {
-              response.pipe(file)
-            })
+     function (response) {
+       response.pipe(file)
+     })
+
         })
       } catch (error) {
         console.log(error)

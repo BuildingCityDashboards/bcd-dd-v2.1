@@ -1,0 +1,259 @@
+ [{
+     "date": "2007-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1361.94,
+     "label": "2007Q4"
+   },
+   {
+     "date": "2008-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1351.41,
+     "label": "2008Q1"
+   },
+   {
+     "date": "2008-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1350.06,
+     "label": "2008Q2"
+   },
+   {
+     "date": "2008-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1324.83,
+     "label": "2008Q3"
+   },
+   {
+     "date": "2008-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1298.32,
+     "label": "2008Q4"
+   },
+   {
+     "date": "2009-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1261.51,
+     "label": "2009Q1"
+   },
+   {
+     "date": "2009-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1221.27,
+     "label": "2009Q2"
+   },
+   {
+     "date": "2009-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1182.37,
+     "label": "2009Q3"
+   },
+   {
+     "date": "2009-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1127.57,
+     "label": "2009Q4"
+   },
+   {
+     "date": "2010-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1089.05,
+     "label": "2010Q1"
+   },
+   {
+     "date": "2010-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1065.35,
+     "label": "2010Q2"
+   },
+   {
+     "date": "2010-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1053.02,
+     "label": "2010Q3"
+   },
+   {
+     "date": "2010-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1030.62,
+     "label": "2010Q4"
+   },
+   {
+     "date": "2011-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1025.16,
+     "label": "2011Q1"
+   },
+   {
+     "date": "2011-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1030.58,
+     "label": "2011Q2"
+   },
+   {
+     "date": "2011-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1039.55,
+     "label": "2011Q3"
+   },
+   {
+     "date": "2011-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1032.54,
+     "label": "2011Q4"
+   },
+   {
+     "date": "2012-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1032.41,
+     "label": "2012Q1"
+   },
+   {
+     "date": "2012-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1036.1,
+     "label": "2012Q2"
+   },
+   {
+     "date": "2012-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1047,
+     "label": "2012Q3"
+   },
+   {
+     "date": "2012-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1045.67,
+     "label": "2012Q4"
+   },
+   {
+     "date": "2013-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1048.2,
+     "label": "2013Q1"
+   },
+   {
+     "date": "2013-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1058.48,
+     "label": "2013Q2"
+   },
+   {
+     "date": "2013-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1074.65,
+     "label": "2013Q3"
+   },
+   {
+     "date": "2013-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1078.24,
+     "label": "2013Q4"
+   },
+   {
+     "date": "2014-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1090.11,
+     "label": "2014Q1"
+   },
+   {
+     "date": "2014-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1109.29,
+     "label": "2014Q2"
+   },
+   {
+     "date": "2014-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1134.97,
+     "label": "2014Q3"
+   },
+   {
+     "date": "2014-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1154.14,
+     "label": "2014Q4"
+   },
+   {
+     "date": "2015-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1173.72,
+     "label": "2015Q1"
+   },
+   {
+     "date": "2015-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1196.25,
+     "label": "2015Q2"
+   },
+   {
+     "date": "2015-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1232.36,
+     "label": "2015Q3"
+   },
+   {
+     "date": "2015-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1247.12,
+     "label": "2015Q4"
+   },
+   {
+     "date": "2016-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1259.27,
+     "label": "2016Q1"
+   },
+   {
+     "date": "2016-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1282.58,
+     "label": "2016Q2"
+   },
+   {
+     "date": "2016-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1306.89,
+     "label": "2016Q3"
+   },
+   {
+     "date": "2016-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1316.2,
+     "label": "2016Q4"
+   },
+   {
+     "date": "2017-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1340.2,
+     "label": "2017Q1"
+   },
+   {
+     "date": "2017-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1369.33,
+     "label": "2017Q2"
+   },
+   {
+     "date": "2017-06-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1388.39,
+     "label": "2017Q3"
+   },
+   {
+     "date": "2017-09-30T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1408.28,
+     "label": "2017Q4"
+   },
+   {
+     "date": "2018-01-01T00:00:00.000Z",
+     "region": "Dublin",
+     "value": 1426.56,
+     "label": "2018Q1"
+   },
+   {
+     "date": "2018-03-31T23:00:00.000Z",
+     "region": "Dublin",
+     "value": 1450.16,
+     "label": "2018Q2"
+   }
+ ]

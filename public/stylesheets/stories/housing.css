@@ -1,0 +1,32 @@
+.map-key{
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.housing-story-map-title{
+  /*height: inherit;*/
+  /* height: 600px; */
+  width: 100%;
+
+  padding-top: 100px;
+  margin-top: -80px;
+  margin-bottom: 20px;
+  font-family: "PT Sans"; /*from plotly_config_stories */
+  font-size: 20px;
+  color: '#313131';
+}
+
+#commuter-map{
+  position: relative;
+  height: 500px;
+  width: 100%;
+
+}
+
+#unfinished-estates-map{
+  position: relative;
+  height: 500px;
+  width: 100%;
+  margin-bottom: 50px;
+}
