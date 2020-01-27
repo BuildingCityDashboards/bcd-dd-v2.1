@@ -12,7 +12,8 @@ header
 
 
 article.article
-  div#dublin-bikes.row.wrapper
+  div.row.wrapper.pt-3
+    .position-anchor#dublin-bikes
     .col-lg-4  
       h3 Dublin Bikes <img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>
       p Source: 
@@ -92,13 +93,14 @@ article.article
       //-       //<button type="button" class="btn btn-dark employment-btn private_travel_all" value="all" >All</button>
       //-     div#chart-transport-luas
 
-  div#fingal-disabled-parking.row.wrapper.pt-3
+  div.row.wrapper.pt-3
+    .position-anchor#fingal-disabled-parking
     .col-lg-4 
       h3 Fingal Disabled Parking Bays <img height='15px' width='15px' src='/images/calendar-w.svg'>
       p Source: 
         a(href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank") Data.gov 
           img(src='../images/external-link.svg' height='11px' width='11px')          
-        p The map shows the locations of disabled car parking bays within the 
+      p The map shows the locations of disabled car parking bays within the 
           |Fingal County Council local authority area. In total there are
           |<b id='fingal-disabled_parking-count'></b> bays located in this data  
           |from 2011.
