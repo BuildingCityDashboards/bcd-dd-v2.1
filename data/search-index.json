@@ -1,0 +1,523 @@
+[{"id": 0,
+	"type": "themes-header",
+	"title": "Transport",
+	"subtitle": "Transport and travel data for Dublin",
+	"content": "For comprehensive and up-to-date travel information including live availablity, arrivals and departures, and Real-Time Passenger Information, see our  <a href='../queries'> Getting Around</a> query.",
+	"section-name":"", "link": "/themes#transport-header"
+}, {
+	"id": 1,
+	"type": "themes-chart-component",
+	"title": "Dublin Bikes",
+	"subtitle": "",
+	"content": "Just Eat dublinbikes is a self-service bike rental system open to everyone from 14 years of age. It enables you to travel through the city centre, commute between home and work and get out and about to enjoy Dublin city at your leisure. Visit the Dublin Bikes website for more information.",
+	"section-name":"", "link": "/themes#dublin-bikes"
+}, {
+	"id": 2,
+	"type": "",
+	"title": "Fingal Disabled Parking Bays",
+	"subtitle": "",
+	"content": "The map shows the locations of disabled car parking bays within the Fingal County Council local authority area. In total there are <b id='fingal-disabled_parking-count'></b> bays located in this data from 2011.",
+	"section-name":"", "link": "/themes#fingal-disabled-parking"
+}, {
+	"id": 3,
+	"type": "themes-header",
+	"title": "Environment",
+	"subtitle": "Explore the sensors placed through Dublin City to monitor environmental conditions, and charts presenting historical statistics collected on various environmental factors.",
+	"content": "",
+	"section-name":"", "link": "/themes#environment"
+}, {
+	"id": 4,
+	"type": "themes-sub-header",
+	"title": "Environment Monitioring Sites",
+	"subtitle": "",
+	"content": "The monitoring sites described below provide data on various asepcts of the enviroment including water levels, noise pollution and air quality. ",
+	"section-name":"", "link": "/themes#environment-monitoring"
+}, {
+	"id": 5,
+	"type": "themes-chart-component",
+	"title": "Water Monitoring Sites",
+	"subtitle": "",
+	"content": "Two sources, the Office of Public Works (OPW) and the Environmental Protection Agency (EPA), monitor water levels and flows along Dublin’s rivers, canals, and coastline. Use the buttons to switch between the OPW water level monitoring sites and the EPA Hydronet system sites. Click a map icon to get information for that location.",
+	"section-name":"", "link": "/themes#water-monitoring"
+}, {
+	"id": 6,
+	"type": "themes-sub-header",
+	"title": "Waste Management Statistics",
+	"subtitle": "",
+	"content": "The Environmental Protection Agency keeps records on the waste and recycling produced by the four Local Authorities of Dublin and generates yearly reports for public dissemination. Dublin uses a “3 bin” system, which consists of non-recyclable waste (“black bin”), dry recyclables (“green bin”), and organic recyclables (“brown bin”). The following three historical plots – Waste Production Per Capita, Household Dry Recycling Rate, and Household Organic Recycling Rate – are derived from those reports available at the above link. ",
+	"section-name":"", "link": "/themes#waste-management"
+}, {
+	"id": 7,
+	"type": "themes-chart-component",
+	"title": "Waste Produced per Capita",
+	"subtitle": "",
+	"content": "The EPA tracks the amount of waste collected from “black bins” locally throughout Ireland. It is reported as waste production per capita, taking into account the number of people who live in each local authority. Each of the four local authorities’ waste production per capita are plotted over time, with per-person waste across Dublin decreasing since a relative high in 2008-2009.",
+	"section-name":"", "link": "/themes#waste-per-capita"
+}, {
+	"id": 8,
+	"type": "themes-chart-component",
+	"title": "Household Recycling Rate-Dry Recyclables",
+	"subtitle": "",
+	"content": "The EPA records the amount of dry recyclables produced in green bins in localities throughout Ireland. Recycling statistics are reported as recycling rate, which is the percentage of all waste produced (see the Waste Production Per Capita graph for total waste production) which is recycled. Recycled waste is either used in energy recovery or mechanical treatment for repurposing. Dun-Laoghaire Rathdown is consistently the highest-recycling of the four local authorities.",
+	"section-name":"", "link": "/themes#household-recycling-rate-dry"
+}, {
+	"id": 9,
+	"type": "",
+	"title": "Household Recycling Rate-Organics",
+	"subtitle": "",
+	"content": "The third type of waste measured by the EPA is organic waste, recorded as a percentage of the total waste produced at the household level. Organic waste is defined as degradable food, garden, and landscaping wastes, collected in brown bins. The reports are given as percentages of the total waste, which is measured per person in the Waste Production graph. Although the local authorities have different capacities to collect organic waste, Fingal has consistently produced more degradable waste than the other four local authorities.",
+	"section-name":"", "link": "/themes#household-recycling-rate-organics"
+}, {
+	"id": 10,
+	"type": "themes-sub-header",
+	"title": "Water management has been a major environmental concern in Ireland and worldwide for many years. Several sources are monitoring the consumption and quality of water locally in Dublin over several years. The following graphs show water use and quality over time.",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#water-management"
+}, {
+	"id": 11,
+	"type": "themes-chart-component",
+	"title": "Annual Water Consumption per Capita",
+	"subtitle": "",
+	"content": "Water consumption depends on the total population in Dublin, so it is reported per capita. Over the past several years, Dublin’s water consumption per capita has remained very constant at around <i>(coming soon)</i> litres per person per year.",
+	"section-name":"", "link": "/themes#annual-water-consumption-per-capita"
+}, {
+	"id": 12,
+	"type": "themes-chart-component",
+	"title": "Eastern River Basin District Water Quality Trends",
+	"subtitle": "",
+	"content": "Ireland’s natural water quality is measured regionally. The Eastern River Basin District encompasses the Dublin watershed and surrounding areas. Surveys of the water quality along riverways are measured in periods of three years and with five classifications of quality – high, good, moderate, poor, and bad – based on concentrations or potentially harmful chemicals and macroinvertebrate communities.",
+	"section-name":"", "link": "/themes#eastern-river-basin"
+}, {
+	"id": 13,
+	"type": "themes-sub-header",
+	"title": "Environmental Awareness Statistics",
+	"subtitle": "",
+	"content": "The following two charts display initiatives tracking the engagement of public entities – Dublin schools and Local Agenda 21 which promotes and funds various local projects – with healthy environmental practices.",
+	"section-name":"", "link": "/themes#environmental-awareness"
+}, {
+	"id": 14,
+	"type": "",
+	"title": "Schools Awarded the Green Flag in the Dublin Region",
+	"subtitle": "",
+	"content": "Green Flag Schools are schools which are given awards for their 'green', or environmentally-conscious, policies. The Green Schools initiative produces several themes – litter and waste, energy, water, travel, biodiversity, and global citizenship – around which new projects and existing policies by students are rewarded with Green Flag Status. The number of Green Flag schools in Dublin has steadily increased since 2004, with the most recent data in 2013 showing 455 schools – or 67% percent of all total schools in Dublin – as having received a Green Flag award. This is an increase of 13.5% on 2012.",
+	"section-name":"", "link": "/themes#green-flag-schools"
+}, {
+	"id": 15,
+	"type": "themes-chart-component",
+	"title": "Number of Local Agenda 21 Funded Projects",
+	"subtitle": "",
+	"content": "The Local Agenda 21 Environmental Partnership Fund is an environmental awareness initiative meant to provide finding for local and other small scale projects which aim to improve environmental quality and sustainability from the ground up. Tallied at the local authority level, the number of Agenda 21 projects have generally increased over the years, with Dublin City hosting more funded projects than the other local authorities in the most recent data.",
+	"section-name":"", "link": "/themes#local-agenda-21"
+}, {
+	"id": 16,
+	"type": "themes-header",
+	"title": "Housing",
+	"subtitle": "",
+	"content": "The housing data highlights the distribution of residential properties throughout Dublin and seeks to highlight the current housing supply and affordability. For more information on housing please click on this link <a href='../stories'> Housing Stories </a> ",
+	"section-name":"", "link": "/themes#housing"
+}, {
+	"id": 17,
+	"type": "themes-sub-header",
+	"title": "Residential Costs",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#residential-costs"
+}, {
+	"id": 18,
+	"type": "themes-chart-component",
+	"title": "Monthly Rent Prices for Private Dwellings",
+	"subtitle": "",
+	"content": "The <strong>Average Rents Dataset</strong> contains average rents being paid for particular time periods for five different categories of dwelling types in 446 locations throughout the country. The dataset is useful for checking the actual rent being paid for, say, a semi-detached house or a two-bed apartment in an area. However, average rent changes if the mix of properties rented changes, therefore there is a need to mix–adjust to get a standardised rent. The <strong>Standardised Rent</strong> (see the <a href='https://onestopshop.rtb.ie/research/ar' target='blank'>Rent Index</a> for more details) is a mix-adjusted rent i.e. a measure of rents that takes account of the changing mix of properties rented in different time periods. The key point of the standardised index is that it takes into account the changing mix of properties rented in different time periods, whereas the average rents on their own do not.",
+	"section-name":"", "link": "#monthly-rent-prices-private"
+}, {
+	"id": 19,
+	"type": "themes-chart",
+	"title": "Monthly rent for a property in Dublin",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-rentPrices"
+}, {
+	"id": 20,
+	"type": "themes-chart",
+	"title": "Monthly rent by number of rooms in Dublin",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-rentByBeds"
+}, {
+	"id": 21,
+	"type": "themes-chart-component",
+	"title": "Average House Prices",
+	"subtitle": "",
+	"content": "Average house prices are derived from data supplied by the mortgage lending agencies on all loans approved by them. In comparing house prices figures from one period to another, account should be taken of the fact that changes in the mix of dwellings will affect the average figures. This chart shows the trend for the average house price across the fournDublin local authorities for each quarter since the beginning of 2008.",
+	"section-name":"", "link": "/themes#average-house-prices"
+}, {
+	"id": 22,
+	"type": "themes-chart-component",
+	"title": "Monthly Residential Property Price Index",
+	"subtitle": "",
+	"content": "In Dublin, residential property prices rose by 6.3% in the year 2018 to October, with house prices rising by 6.6% and apartments by 5.7%.The highest house price growth in Dublin was in Dún Laoghaire-Rathdown at 8.2%, while the lowest growth was in South Dublin at 5.0%. National residential property prices in Ireland excluding Dublin were 10.6% higher in the year to October, with house prices up by 10.3% and apartments by 14.5%. The region outside of Dublin that saw thelargest rise in property prices was the Mid-West at 21.5%, while thesmallest was recorded in the Mid-East at 8.3%.",
+	"section-name":"", "link": "/themes#property-price-monthly"
+}, {
+	"id": 23,
+	"type": "themes-chart-component",
+	"title": "Planning and Completions Statistics",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#planning-completions"
+}, {
+	"id": 24,
+	"type": "themes-chart-component",
+	"title": "Monthly House Unit Completions",
+	"subtitle": "",
+	"content": "The principal data source for the New Dwellings Completions (NDC) is connections data provided to the CSO by ESB Network (ESBN). This information is collected on the ESBN form NC2 Single Domestic Dwelling or Farm Dwelling application for single dwellings and form NC1 Multi-Unit Development for scheme dwellings and apartments. The chart shows the unit completions for houses across the four Dublin local authorities since January 2014.",
+	"section-name":"", "link": "/themes#unitscompmonth"
+}, {
+	"id": 25,
+	"type": "themes-chart-component",
+	"title": "Quarterly House Unit Completions",
+	"subtitle": "",
+	"content": "The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as either private or social. The data spans from the first quarter of 2014 to the beginning of 2017.",
+	"section-name":"", "link": "/themes#quarterly-house-unit-completions"
+}, {
+	"id": 26,
+	"type": "themes-chart-component",
+	"title": "Quarterly New Dwelling Completions in Dublin County by Type",
+	"subtitle": "",
+	"content": "The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as: 1. apartment, 2. scheme home, or 3. single house. The data spans from the beginning of 2014 to the second quarter of 2018.",
+	"section-name":"", "link": "/themes#quarterly-new-dwelling-completions"
+}, {
+	"id": 27,
+	"type": "themes-chart-component",
+	"title": "Planning Applications Dublin Local Authorities",
+	"subtitle": "",
+	"content": "Each planning authority processes planning applications for permission to build and/or renovate houses and other buildings. The outcome of the planning application process is provided as data on the numbers of: Invalid applications received. Applications for outline permission and full permission. Decisions to grant/refuse permission. Decisions issued within the statutory eight week period. Decisions deferred. Percentages for grants/refusals, decisions made within eight weeks and decisions deferred. The charts show the total applications received, decisions to grant and to refuse permission, and the appeals received for each year from 2009 to 2017, for each local authoirty. ",
+	"section-name":"", "link": "/themes#planning-applications"
+}, {
+	"id": 28,
+	"type": "themes-chart-component",
+	"title": "Available Supply of Housing Land",
+	"subtitle": "",
+	"content": "The <b>2014 Residential Land Availability Survey</b> measured the total amount of lands that had at that time been development plans and that were the highest priority for development. In effect, these lands were the areas within which much, if not all, new urban housing in the state was expected to be provided in the five or six years following the survey completion. The area of such lands amounted to <b>17,434 hectares</b>, which gave a range of densities appropriate to whether the areas were in small villages or larger towns and cities and, as determined by the relevant local authorities, could theoretically enable the construction of over <b>414,000 dwellings</b>.",
+	"section-name":"", "link": "/themes#available-housing-land"
+}, {
+	"id": 29,
+	"type": "themes-chart-component",
+	"title": "Annual Contributions to Councils from Developers",
+	"subtitle": "",
+	"content": "Since the introduction of development contribution schemes in 2000, they have assisted in the delivery of much needed investment in essential infrastructure in conjunction with central exchequer and local authority own resources.",
+	"section-name":"", "link": "/themes#contributions-developers"
+}, {
+	"id": 30,
+	"type": "themes-sub-header",
+	"title": "Demographics",
+	"subtitle": "",
+	"content": "Statistical data relating to the population and particular groups within it.",
+	"section-name":"", "link": "/themes#demographics"
+}, {
+	"id": 31,
+	"type": "themes-chart",
+	"title": "Population of Dublin",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-population"
+}, {
+	"id": 32,
+	"type": "themes-chart",
+	"title": "Number of Households in Dublin",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-households"
+}, {
+	"id": 33,
+	"type": "themes-chart",
+	"title": "Population Born Outside the State (Excluding N. Ireland)",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-bornOutsideState"
+}, {
+	"id": 34,
+	"type": "themes-chart",
+	"title": "Private Permanent Households by Number of Persons",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-householdComposition"
+}, {
+	"id": 35,
+	"type": "themes-sub-header",
+	"title": "Employment Statistics",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#employment"
+}, {
+	"id": 36,
+	"type": "themes-chart",
+	"title": "Numbers in Employment",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-employment"
+}, {
+	"id": 37,
+	"type": "themes-chart",
+	"title": "Numbers Unemployed",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes#chart-unemployment"
+}, {
+	"id": 38,
+	"type": "story-text",
+	"title": "Housing in the Dublin Region, 1991 to Present - Phase 1",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-top"
+},{
+	"id": 39,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Housing in Dublin, and Ireland more generally, is a significant issue and a live political debate. This data story examines housing in the capital through the housing and planning data available for the city. There are two things to keep in mind in terms of understanding housing: First, it is a complex issue that involves a number of factors and outcomes including housing supply and demand (including homelessness), existing stock and type (social/private/rental, vacancy), house and rental prices, mortgage arrears and negative equity, access to land,  access to credit, planning permissions, homelessness, unfinished estates, land supply and price. Second, making sense of the present situation requires placing it in historical context. It is possible to make the case that housing in Ireland has been in crisis since the early 1990s and the start of the Celtic Tiger. Consequently, we have structured this data story into three parts corresponding to the three phases of the crisis: Phase 1: 1993-2006 (the Celtic Tiger years); Phase 2: 2007-2012 (the crash); Phase 3: 2013-present (post-crash).",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-intro"
+},{
+	"id": 40,
+	"type": "story-text",
+	"title": "Housing Crisis Phase 1: 1993-2006 (the Celtic Tiger years)",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-heading#phase1-1"
+},{
+	"id": 41,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The demand for housing thus expanded rapidly, as did the need to produce a more diversified stock that would cater for households of various types and sizes.",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-2"
+},{
+	"id": 42,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The housing demand had a number of effects – a construction boom, a surge in house prices, a large increase in household and mortgage debt, bank indebtedness, overzoning, urban sprawl and long distance commuting. Each of these could be considered a crisis in its own right, given its dramatic transformative effect on the country and the associated economic, political and social demands. Between January 1991 and December 2006, 762,631 housing units were completed in Ireland, peaking with 93,419 units being built in 2006 alone.  Between 1994 and 2006, 154,803 housing units were built in the four Dublin authorities and 84,688 three surrounding counties.",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-3"
+},{
+	"id": 43,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "More units were being built nationally than there were households being formed, especially in the period 2002-2006 (296,000 units built vs 181,563 households<sup>1</sup>). Nonetheless, house prices grew dramatically.  The average new house price rose from €78,715 in Dublin and €66,914 for the country as a whole in 1991, to €416,225 in Dublin (a 429% increase) and €322,634 for the country as a whole (a 382% increase) in 2007.  Secondhand homes followed the same trend, with homes in Dublin rising by 551% and 489% outside the capital. ",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-4"
+},{
+	"id": 44,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "p In the same period, house building costs and wages only doubled.  In the thrid quarter (Q3) of 1995, the average secondhand house price was 4.1 times the average industrial wage of €18,152. By Q2 2007 secondhand house prices had risen to 11.9 times the average industrial wage of €32,616.<sup>2</sup> Not unsurprisingly, the total value of household mortgage debt increased dramatically, from €47.2 billion in 2002 to over €139.8 billion at the end of 2007, with the average size of a new mortgage (€266,000) being nearly double the 2002 figure.<sup>3</sup> ",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-5"
+},{
+	"id": 45,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "During this period a ‘bubble economy’ drove economic growth, underpinned by the expansion of debt to households based on perceived increases in the value of their homes.<sup>4</sup>  Moreover, given rapidly rising prices and a strong rental market, the buy-to-let market flourished, with a significant number of households becoming ‘amateur’ landlords. State investment in social housing was waning whilst demand was growing, with a turn to the private sector to provide accommodation through a rent supplement scheme.  Between 1994 and 2007 47,769 social housing units were built in Ireland, plus between 1999 and 2007 9,378 were acquired through purchase and 1,201 long-term leases acquired through the Rental Accommodation Scheme (RAS).  At the same time 22,633 local authority units were sold to tenants (many of these funded by mortgages provided by local authorities, a large proportion of which are now in arrears). Furthermore, social housing built during the 1950s was coming to the end of its life needing either substantial refurbishment or replacement.",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-6"
+},{
+	"id": 46,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Given the demand for prime land for development, pressure was placed on local authorities to zone more land and the cost of land rose dramatically, especially in 2004-06.  Land prices jumped in value from just under €10,000 per hectare in 1998 to over €58,400 per hectare in 2006.<sup>5</sup>  The result was that land became a significant component of housing cost; up to 50%, against a European average of 10–15%.<sup>6</sup> To enable developers to bid for land and to afford the cost of building, bank lending increased substantially.  In 2003 the indebtedness of Irish banks to overseas banks was just over 10% of Irish GDP.<sup>7</sup>  By 2008 this had risen to 60% of GDP, with over 60% of bank assets tied up in property-related lending. Given the cost of land and housing, households who wished to buy a home but who had limited resources were forced to either buy property that did not suit their future needs with the aim of trading up later, borrowing beyond their means (e.g. 100% or interest-only mortgages or taking out multiple loans), or buying in an area further away and commuting leading to extensive urban sprawl and the growth of smaller towns around the principal cities and towns. ",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-7"
+},{
+	"id": 47,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Somewhat ironically, all of these changes were celebrated by the government, the construction sector, and the media during the Celtic Tiger era.  They were taken as a sign that Ireland was catching up with the rest of the developed West in terms of its economy and property sector.  It was suggested that a virtuous circle had been created whereby people stepping onto the property ladder were immediately gaining the benefit in their prime asset rising in price, and moreover they had more choice in housing options than ever before; the government was collecting significant tax revenue (VAT, capital gains tax, stamp duty, development levies) that could be re-invested into improved services and infrastructure; and the property and banking sector were flourishing whilst helping to bring in overseas investment. ",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-8"
+},{
+	"id": 48,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Whilst price rises were staggering, potential purchasers and investors were assured that there was still plenty of scope for further expansion.  Naysayers were told that the worst that could happen was a 'soft landing', wherein prices levelled off to modest growth, and construction slowed in pace. But the bubble did burst, with devastating consequences for citizens, companies and the state.",
+	"section-name":"Housing Story Phase 1",
+	"link": "/stories/housing-dublin-phase-1#phase1-9"
+},{
+	"id": 49,
+	"type": "story-text",
+	"title": "Housing in the Dublin Region, 1991 to Present - Phase 2",
+	"subtitle": "",
+	"content": "This is the second part of the data story examining housing in the capital through the housing and planning data available for the city. The previous parts described the preceding historical phase:",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-top"
+},{
+	"id": 50,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-intro"
+},{
+	"id": 51,
+	"type": "story-text",
+	"title": "Housing crisis phase 2: 2007-2012 (the crash)",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-heading"
+},{
+	"id": 52,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "As the global economy slowed and the global sub-prime banking crisis began, a(href='housing-dublin-phase-1#property-price-growth-chart') house price rises in Ireland started to slow in September 2006, levelled-off in March 2007, and remained static until November 2007.  From December 2007 to February 2012 they fell consistently before bottoming-out and remaining stable until June 2013, as reflected in the monthly Property Price Index (PPI) figures for the period.  From the peak to bottom, prices fell by 57.4% in Dublin (houses 55.9% and apartments 63.7%) and 48.7% in the rest of the country. Ireland experienced one of the deepest house market collapses on record.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-1"
+},{
+	"id": 53,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "  p  As 2008 started, it was clear that the promise of a 'soft landing' was empty. All of the issues built up over the course of the Celtic Tiger years exploded into a new set of crises, as the property bubble burst and the Irish banking sector collapsed. This culminated in the Irish bank guarantee of September 2008, the creation of the state-owned National Assets Management Agency (NAMA) in September 2009 (which bought €74 billion of distressed property loans from the Irish banks), and the €85 billion IMF–EU-ECB bailout in November 2010. While the global financial crisis was the trigger for the Irish crisis, Irish banks were little exposed to US subprime loans; rather, they were massively exposed to property and development loans in a bubble market.<sup>1</sup> Moreover, it soon became clear that not only were prices over-inflated, but that there was a massive oversupply of housing stock and over-zoning of land. Between 2005 and 2007 there were 252,403 a(href='housing-dublin-phase-1#housing-completions-chart') housing units completed in Ireland (connected to the electricity grid), with another 78,144 added in 2008 and 2009 as legacy construction slowed. This is despite the fact that the 2002 census had reported 143,418 vacant units and that, by the following census of 2006, that figure had grown to 266,322 vacant units. //- p.small.text-center Figure 2: Vacant housing 1991-2016.b Put simply, housing units had been built in excess of demand across the entire country, with a vacancy rate for the state (excluding holiday homes) above 15%. Allowing that one would always expect some units to be vacant in any housing market (typically about 6%) then oversupply was approximately 110,000 units.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-2"
+},{
+	"id": 54,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The most visible manifestation of the oversupply issue was unfinished housing estates. After some speculation as to how many such estates existed, The National Survey of Housing Developments reported that there were 2,846 documented unfinished estates in Ireland in 2010, present in every local authority.<sup>2</sup> With respect to the units on these estates, 78,195 were complete and occupied, 23,250 complete and vacant, and 19,830 under construction, with planning permission in place for a further 58,025 units.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-3"
+},{
+	"id": 55,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2"
+},{
+	"id": 56,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "p  Beyond vacancy and unfinished estates, there has been a concern related to the quality of dwellings constructed during the Celtic Tiger era.  Building control and standards were deregulated in Ireland in 1990, with local authority planning enforcement only undertaking inspections on 10-15% of sites, and not at all stages of development. The highest profile case was Priory Hall in Dublin, where 187 apartments were found to breach fire hazard regulations- with residents forced to vacate their homes for two years whilst continuing to pay mortgages- but there have been numerous other similar examples. Furthermore, there are estimated to be in excess of 20,000 homes whose foundation hardcore and building blocks are contaminated with pyrite; the DECLG presently only recognizes 74 estates containing 12,250 units however, predominately located in Dublin City, Fingal, Meath, Kildare, and Offaly. In addition to the oversupply of dwellings, there was also an oversupply of zoned land and commercial premises.  In June 2008, there was 14,191 hectares of serviced zoned land in the state, enough for up to 462,000 potential new units.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-4"
+},{
+	"id": 57,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Not unsurprisingly, land prices plummeted by between 75-98% in value post-2007.  In Dublin some 782,500m2 of office space (23%) was vacant in 2010.  After a substantial growth in the construction of hotels during the Celtic Tiger, at the end of 2008 15,000 guest rooms (26%) were deemed to be in-excess of demand. As the housing market plummeted and the wider economy crashed, unemployment rose from 4.6% in Q4 2007 to peak at 15.1% in Q3 2011. Households faced tax rises and pay cuts and increasing financial pressure was placed onto households. Faced with paying high payment rates on their a(href='housing-dublin-phase-1#mortgage-debt-chart') mortgages, many households struggled to keep up with payments.  In Q3 2009 3.3% of principal residence mortgages (26,700 mortgages) were in arrears by more than 90 days.  By Q3 2013 this had peaked at 12.9% (98,763 mortgages), with 18.4% in some level of arrears (141,269 mortgages). With respect to buy-to-let mortgages, 21.2% (31,178) were in arrears of more than 90 days, with 27.4% (40,426) in some level of arrears in Q3 2013. ",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-5"
+},{
+	"id": 58,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "As house prices dropped, the number of households in negative equity grew to include more than 50% of residential properties with a mortgage. Similarly, rent arrears to local authorities, boroughs and town councils increased from €32.8m in January 2008 to €58.5m in December 2011, as tenants struggled to pay their bills. The huge house price rises in the Celtic Tiger years, followed by the financial pressures of the crash, had significant spillover effects with respect to social housing demands and homelessness. In 1999 there were 39,176 households on the social housing waiting list, rising to 98,318 in 2011.  The vast majority of people on this list are there because they cannot afford private rental accommodation, or to purchase a home of their own.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-6"
+},{
+	"id": 59,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The austerity programme implemented by two governments from 2008 onwards dramatically reduced state investment in social housing. The capital expenditure for social housing was reduced by 80% (from €1.3bn to €275m) between 2008 and 2013, and funding for the National Regeneration Programme reduced from €121 million in 2008 to €80 million in 2013- a 34% reduction. Between 2008 and 2013, 10,745 a(href='housing-dublin-phase-1#social-housing-units-build-chart') social housing units were built (nearly all in 2008-09, much of it replacement stock in regeneration schemes), 3,293 were acquired through purchase and 8,707 long-term leases were acquired through RAS.  While some stock was being built or acquired then, social housing needs were outstripping the state’s ability to supply suitable affordable accommodation. The shortfall in social housing was made-up through privately rented accommodation subsidized by rent supplement.  97,260 households were receiving rent supplement in late 2010, an increase of 63% on the previous three years, with spending rising from €70 million in the mid-1990s to €516.5 million in 2010. ",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-7"
+},{
+	"id": 60,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Even with the state providing social housing or rent supplement, the financial and other pressures placed onto individuals and households during the crash saw a rise in homelessness: between 2008 and 2011 the number of homeless households increased by 68% to 2,348, with 3,808 people in accommodation for the homeless. Further, much social housing stock was acknowledged to be in poor condition.  Prior to the crash the decision was to taken for large-scale regeneration schemes in North Dublin (Ballymun) and other Dublin estates using public-private partnerships (PPPs). These PPP schemes collapsed with the crash as both private and public finances evaporated.  This left thousands of local authority tenants living in substandard conditions whilst awaiting re-location, and many hundreds permanently relocated in preparation for regeneration.",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-8"
+},{
+	"id": 61,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "At the same, planned investment in Traveller accommodation nationally also stalled during this period. In 2013, there were 361 Traveller families living on unauthorised sites, and 5574 in various types of local authority housing. ",
+	"section-name":"Housing Story Phase 2",
+	"link": "/stories/housing-dublin-phase-2#phase2-9"
+},
+{
+	"id": 62,
+	"type": "story-text",
+	"title": "Housing in the Dublin Region, 1991 to Present - Phase 3",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-top"
+},{
+	"id": 63,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "This is the concluding part of the data story examining housing in the capital through the housing and planning data available for the city. The two previous parts describe the preceding historical phases:",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-intro"
+},{
+	"id": 64,
+	"type": "story-text",
+	"title": "Housing crisis phase 3: 2013 onwards (post-crash)",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3-heading"
+},{
+	"id": 65,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The levelling off in the fall in <a href='housing-dublin-phase-1#property-price-growth-chart'> house prices</a>, followed by a gradual and then rapid increase of prices in Dublin (rising by 24.1% between October 2012 and 2013, before levelling off again in response to Central Bank interventions), is indicative of a new phase in the ongoing housing crisis. This phase sees the continuation of the serious problems of phase 2, such as social housing need, private rent rises, mortgage arrears, negative equity, unfinished estates, but varying levels of change depending on the extent to which solutions are put in place and the wider economy starts to recover. For example, there was large-scale dezoning of serviced zoned land. By Q2 2018 <a href='housing-dublin-phase-2#home-mortgage-arrears-chart'> mortgage accounts remaining in arrears </a> had dropped to less than 67,000 (9.2%), with 46,000 in arrears for more than 90 days (6.3%). With respect to <a href='housing-dublin-phase-2#btl-mortgage-arrears-chart'> buy-to-let (BTL) mortgages</a>, 21,300 (18%) were in arrears, with 17,300 (14.7%) in arrears of more than 90 days. The new or deepening crises in this period are a lack of supply in some areas and associated rising housing and rental prices, continued problems of social housing provision, and rising homelessness in response to a changing rental market. Whilst there was oversupply in every single local authority nationwide for both houses and apartments (with the exception of South Dublin for houses) in 2011, the extent of this oversupply varied geographically. Much of rural Ireland had extensive levels of vacancy. In Dublin, the <a href='housing-dublin-phase-2#vacant-housing-chart'>overall vacancy rate</a> for the four local authorities was 8.4% (44,468 units). While the vacancy rate of houses was low, the vacancy rate for apartments was 16-19%. Despite emigration during the crash, <a href='housing-dublin-phase-1#population-households-chart'>population and households have been growing</a> in Dublin through natural increase, labour migration, and household fragmentation. The levelling off of prices instilled confidence that the bottom of the market had been reached. In combination, the result was an increase in demand by investors trying to maximize return on investment and rental yields and households looking to enter the market. What oversupply there was in the capital was thus absorbed. With respect to new supply, however, construction remained moribund. In 2016 only 4234 units were <a href='housing-dublin-phase-1#housing-completions-chart'> built in Dublin</a>. Assessments by both the Housing Agency and the Economic Social Research Institute (ESRI) suggest that c.8000 units are required per annum in the four Dublin local authorities. This is a very modest figure that is significantly below pre-crash construction rates and is unlikely to quell present demand. The effect of very little new supply for either purchase or rent, but rising demand, led to the inflation of prices.",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-1"
+},{
+	"id": 66,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "One the effects of rent increases is that families who are income insecure – low wage, uncertain hours, flexible working, dependent on welfare – who reside in private rental accommodation cannot afford rent increases and rent supplement is not sufficient to cover the gap, with more than half of those receiving rent supplement having to top up their rent. Consequently, they are being priced out of their homes in favour of those who can afford the new rental price. These families find it difficult to find alternative private rented accommodation due to rent inflation across the rental sector and landlord preferences for tenants not reliant on rent supplement. With no social housing available, these families find themselves homeless. Nationally, the Simon Community reported that in 2012, there was an increase of 24% in those using their services, to over 5,000 individuals. The Dublin Region Homeless Executive (DRHE) detail that a total of 5,480 adult individuals accessed homeless accommodation during 2015 in Dublin. As of April 2018, there were 1444 families homeless in Dublin living in emergency homeless accommodation.",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-2"
+},{
+	"id": 67,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "Without a significant increase in the level of supply competition for property continues to intensify, with rising purchase and rental prices and increasing homelessness. In theory, a lot of the right criteria for creating supply exist. There is an excess of demand; there was 6,400 acres of zoned  <a href='housing-dublin-phase-2#serviced-land-chart'>serviced land</a> available in the four Dublin authorities for 132,000 units in 2014 and there are a lot of outstanding planning permissions still in effect and local authorities want to give permission for developments that meet development plan/zoning criteria. Yet despite these conditions and the need to create supply it is clear that a hangover from <a href='housing-dublin-phase-2'>phase 2</a> of the crisis is blocking development. The state’s finances are limited, there are competing demands for scarce resources, and they are reluctant to significantly increase capital spending on housing and associated infrastructure. The banks are in a weak state and reluctant to lend for development. Builders and developers have limited initial capital to draw down additional finance. With respect to land, it may be the case that owners are reluctant to put into development because they bought it in the boom and cannot afford to develop at present housing prices. With respect to planning, it may be that developers are seeking permissions that contravene development plans or are trying to alter existing permissions. The property industry also argues that the system needs streamlining and simplifying.",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-3"
+},{
+	"id": 68,
+	"type": "story-text",
+	"title": "",
+	"subtitle": "",
+	"content": "The last twenty five years has seen a tumultuous set of changes with regards to Ireland’s housing sector and market. Throughout the entire period it has been transitioning through three phases of crisis. In the <a href='housing-dublin-phase-1'> first phase</a>, there were crises of creating enough supply, very quickly rising prices to levels that were unaffordable for low and middle income households and reduced competitiveness, a significant increase in household debt and bank debt to precarious levels, over-zoning of land and dramatic price increases, the expansion of urban sprawl and long distance commuting. In the <a href='housing-dublin-phase-2'>second phase</a>, the property bubble burst, the fallout was catastrophic for households, the state, and the wider economy. House prices plunged, estates remained unfinished, households were faced with extensive mortgage arrears and negative equity and/or poor build quality, the social housing waiting list extended, and more households became homeless. In the <a href='housing-dublin-phase-3'>third phase</a>, instead of the market returning and fixing the problems, there has been uneven mopping up of oversupply and little new supply of housing units. This has driven up purchase and rental prices in the cities and also created rising homelessness. This present phase is likely to last a number of years and is unlikely to address issues that have persisted since the 1990s, such as housing (to buy or rent) becoming increasingly unaffordable for ordinary citizens.",
+	"section-name":"Housing Story Phase 3",
+	"link": "/stories/housing-dublin-phase-3#phase3-conclusion"
+},
+ {
+	"id": 999,
+	"type": "themes-chart-component",
+	"title": "",
+	"subtitle": "",
+	"content": "",
+	"section-name":"", "link": "/themes"
+}]
