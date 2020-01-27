@@ -73,6 +73,7 @@ localhost.key
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
 /public/data/Transport/bikesData.json
+/public/data/Transport/
 # /public/data/Stories/Housing/housetype.csv
 
 public/images/.DS_Store

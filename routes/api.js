@@ -17,11 +17,13 @@ router.get('/data', (req, res, next) => {
   })
 })
 
-// var census2016Controller = require('../controllers/census2016');
-// // router.get('/census2016/smallareas/count', census2016Controller.countAllSAs);
-// router.get('/census2016/smallareas/list', census2016Controller.listAllSAGGEOGIDs);
-// router.get('/census2016/smallareas/example', census2016Controller.getSAExample);
-// router.get('/census2016/smallareas/:GEOGID', census2016Controller.getSAData);
+var dublinBikesController = require('../controllers/dublinbikes_derilinx');
+var trainStationController = require('../controllers/irishTrains');
+
+// static trains list
+router.get('/trainstations/stations/list', trainStationController.getTrainStationsList);
+router.get('/trainstations/stations/:ts', trainStationController.getTrainStationsData);
+
 
 var dublinBikesController = require('../controllers/dublinbikes_derilinx')
 
