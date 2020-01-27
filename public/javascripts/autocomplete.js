@@ -23,7 +23,7 @@
       console.log('docs \n')
       console.log(data)
       index.add(data)
-      // const suggestions = document.getElementById('suggestions')
+      const suggestions = document.getElementById('suggestions')
       // const autocomplete = document.getElementById('autocomplete')
       const userinput = document.getElementById('userinput')
 
@@ -36,25 +36,25 @@
         const results = index.search(value, 8)
         console.log('results: \n')
         console.log(results)
-      //   let entry
-      //   let childs = suggestions.childNodes
-      //   let i = 0
-      //   const len = results.length
-      //
-      //   for (; i < len; i++) {
-      //     entry = childs[i]
-      //
-      //     if (!entry) {
-      //       entry = document.createElement('div')
-      //       suggestions.appendChild(entry)
-      //     }
-      //     entry.innerHTML = `<a href = '${results[i].link}'> ${results[i]['section-name']} ${results[i].title}</a>`
-      //     // console.log(results[i])
-      //   }
-      //
-      //   while (childs.length > len) {
-      //     suggestions.removeChild(childs[i])
-      //   }
+        let entry
+        let childs = suggestions.childNodes
+        let i = 0
+        const len = results.length
+
+        for (; i < len; i++) {
+          entry = childs[i]
+
+          if (!entry) {
+            entry = document.createElement('div')
+            suggestions.appendChild(entry)
+          }
+          entry.innerHTML = `<a href = '${results[i].link}'> ${results[i]['section-name']} ${results[i].title}</a>`
+          // console.log(results[i])
+        }
+
+        while (childs.length > len) {
+          suggestions.removeChild(childs[i])
+        }
       //
       // //   const firstResult = results[0].content
       // //   const match = firstResult && firstResult.toLowerCase().indexOf(value.toLowerCase())
