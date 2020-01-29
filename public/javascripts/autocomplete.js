@@ -35,19 +35,20 @@
         const results = index.search(value, 8)
         // console.log('results: \n')
         // console.log(results)
-        let entry
+        let suggestion
         let childs = suggestions.childNodes
         let i = 0
         const len = results.length
 
         for (; i < len; i++) {
-          entry = childs[i]
+          suggestion = childs[i]
 
-          if (!entry) {
-            entry = document.createElement('div')
-            suggestions.appendChild(entry)
+          if (!suggestion) {
+            suggestion = document.createElement('div')
+            suggestions.appendChild(suggestion)
           }
-          entry.innerHTML = `<a href = '${results[i].link}'> ${results[i]['section-name']} ${results[i].title}</a>`
+          suggestion.innerHTML = `<a href = '${results[i].link}'> ${results[i]['section-name']} ${results[i].title}</a>`
+
           // console.log(results[i])
         }
 
