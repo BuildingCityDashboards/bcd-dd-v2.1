@@ -542,11 +542,44 @@
 {
  "id": 72,
  "type": "card-component",
- "title": "Motorway Delays",
+ "title": "Motorway Delays Card",
  "subtitle": "",
  "content": "",
  "section-name":"Home Page",
  "link": "/#traveltimes-card"
+},
+{
+ "id": 73,
+ "type": "card-component",
+ "title": "Population Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#apd-card"
+},{
+ "id": 74,
+ "type": "card-component",
+ "title": "Unemployment Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#emp-card"
+},{
+ "id": 75,
+ "type": "card-component",
+ "title": "Property Price Index Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#app-card"
+},{
+ "id": 76,
+ "type": "card-component",
+ "title": "House Unit Completions Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#huc-card"
 },
  {
 	"id": 999,
