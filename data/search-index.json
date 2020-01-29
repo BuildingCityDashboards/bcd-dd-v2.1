@@ -581,6 +581,47 @@
  "section-name":"Home Page",
  "link": "/#huc-card"
 },
+{
+ "id": 77,
+ "type": "page",
+ "title": "Home",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Page",
+ "link": "/"
+},{
+ "id": 78,
+ "type": "page",
+ "title": "Themes",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Page",
+ "link": "/themes"
+},{
+ "id": 79,
+ "type": "page",
+ "title": "Queries",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Page",
+ "link": "/queries"
+},{
+ "id": 80,
+ "type": "page",
+ "title": "Stories",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Page",
+ "link": "/stories"
+},{
+ "id": 81,
+ "type": "page",
+ "title": "Tools",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Page",
+ "link": "/tools"
+},
  {
 	"id": 999,
 	"type": "themes-chart-component",
