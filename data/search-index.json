@@ -621,8 +621,23 @@
  "content": "",
  "section-name":"Page",
  "link": "/tools"
-},
- {
+},{
+ "id": 82,
+ "type": "",
+ "title": "About Dublin Dashboard",
+ "subtitle": "",
+ "content": "Dublin Dashboard provides citizens, public sector workers and companies with real-time information, time-series indicator data, and interactive maps about all aspects of the city. It enables users to gain detailed, up to date intelligence about the city that aids everyday decision making and fosters evidence-informed analysis. The Dublin Dashboard pulls together data from major data sources -- including Dublin City Council, Dublinked, Central Statistics Office, Eurostat, and government departments, and links to a variety of existing applications -- to provide thousands of interactive data visualisations. The underlying data is freely available so others can undertake their own analysis and build their own applications and visualisations.",
+ "section-name":"Home",
+ "link": "/#about-dublin-dashboard"
+},{
+ "id": 83,
+ "type": "",
+ "title": "About Dublin",
+ "subtitle": "",
+ "content": "Dublin is the capital and largest city in Ireland. It is located in the province of Leinster and covers a total area of 921 km². Dublin has a total population of 1.35M people, with a median age of 36.7 years. The median household income is €42821.Between 2011 and 2016, the population of Dublin increased from 1.27M to 1.35M, a 5.68% ▲ increase. The median household income for the region grew from €41035 to €42821, a 4.35% ▲ increase. There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. Select a council to see specific information.",
+ "section-name":"Home",
+ "link": "/#about-dublin"
+},{
 	"id": 999,
 	"type": "themes-chart-component",
 	"title": "",
