@@ -512,6 +512,41 @@
 	"content": "The last twenty five years has seen a tumultuous set of changes with regards to Ireland’s housing sector and market. Throughout the entire period it has been transitioning through three phases of crisis. In the <a href='housing-dublin-phase-1'> first phase</a>, there were crises of creating enough supply, very quickly rising prices to levels that were unaffordable for low and middle income households and reduced competitiveness, a significant increase in household debt and bank debt to precarious levels, over-zoning of land and dramatic price increases, the expansion of urban sprawl and long distance commuting. In the <a href='housing-dublin-phase-2'>second phase</a>, the property bubble burst, the fallout was catastrophic for households, the state, and the wider economy. House prices plunged, estates remained unfinished, households were faced with extensive mortgage arrears and negative equity and/or poor build quality, the social housing waiting list extended, and more households became homeless. In the <a href='housing-dublin-phase-3'>third phase</a>, instead of the market returning and fixing the problems, there has been uneven mopping up of oversupply and little new supply of housing units. This has driven up purchase and rental prices in the cities and also created rising homelessness. This present phase is likely to last a number of years and is unlikely to address issues that have persisted since the 1990s, such as housing (to buy or rent) becoming increasingly unaffordable for ordinary citizens.",
 	"section-name":"Housing Story Phase 3",
 	"link": "/stories/housing-dublin-phase-3#phase3-conclusion"
+},{
+ "id": 69,
+ "type": "card-component",
+ "title": "Time Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#time-card"
+},
+{
+ "id": 70,
+ "type": "card-component",
+ "title": "Weather Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#weather-card"
+},
+{
+ "id": 71,
+ "type": "card-component",
+ "title": "Dublin Bikes Card",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#bikes-card"
+},
+{
+ "id": 72,
+ "type": "card-component",
+ "title": "Motorway Delays",
+ "subtitle": "",
+ "content": "",
+ "section-name":"Home Page",
+ "link": "/#traveltimes-card"
 },
  {
 	"id": 999,
