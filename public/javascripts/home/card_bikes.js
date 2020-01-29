@@ -30,7 +30,7 @@ const fetchBikesData = function () {
         clearInterval(bikesTimer)
       } else {
         initialiseCardDisplay()
-        updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
+        updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
         // restart the timer
         clearInterval(bikesTimer)
         bikesCountdown = bikesInterval
@@ -40,7 +40,7 @@ const fetchBikesData = function () {
     .catch((err) => {
       console.error('Dublin Bikes data error: ' + JSON.stringify(err))
       initialiseCardDisplay()
-      updateInfo('#bikes-chart a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
+      updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
       // restart the timer
       clearInterval(bikesTimer)
       bikesCountdown = bikesInterval
@@ -78,7 +78,7 @@ function getCardData (data_) {
 function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-  d3.select('#bikes-chart').select('.card__header')
+  d3.select('#bikes-card').select('.card__header')
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-7' align='left'>" +
@@ -137,7 +137,7 @@ function updateBikesDisplay (ab, as, age) {
 
   const bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now'
 
-  d3.select('#bikes-chart').select('.card__header')
+  d3.select('#bikes-card').select('.card__header')
     .html(
       "<div class = 'row'>" +
       "<div class = 'col-7' align='left'>" +
@@ -172,7 +172,7 @@ function updateBikesDisplay (ab, as, age) {
       '<p> stands </p>' +
       '</div>')
 
-  updateInfo('#bikes-chart a',
+  updateInfo('#bikes-card a',
       `<b>Dublin Bikes</b> currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city`)
 }
 
