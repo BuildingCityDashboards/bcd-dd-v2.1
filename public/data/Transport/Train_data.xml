@@ -2,120 +2,102 @@
 <ArrayOfObjTrainPositions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://api.irishrail.ie/realtime/">
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
-    <TrainLatitude>51.8491</TrainLatitude>
-    <TrainLongitude>-8.29956</TrainLongitude>
-    <TrainCode>P245</TrainCode>
+    <TrainLatitude>51.9018</TrainLatitude>
+    <TrainLongitude>-8.4582</TrainLongitude>
+    <TrainCode>D248</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P245\nCobh to Cork\nExpected Departure 15:30</PublicMessage>
-    <Direction>To Cork</Direction>
+    <PublicMessage>D248\nCork to Cobh\nExpected Departure 16:00</PublicMessage>
+    <Direction>To Cobh</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
     <TrainLatitude>51.9018</TrainLatitude>
     <TrainLongitude>-8.4582</TrainLongitude>
-    <TrainCode>A221</TrainCode>
+    <TrainCode>D284</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A221\nCork to Dublin Heuston\nExpected Departure 15:25</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>N</TrainStatus>
-    <TrainLatitude>51.9018</TrainLatitude>
-    <TrainLongitude>-8.4582</TrainLongitude>
-    <TrainCode>D283</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D283\nCork to Midleton\nExpected Departure 15:15</PublicMessage>
+    <PublicMessage>D284\nCork to Midleton\nExpected Departure 16:15</PublicMessage>
     <Direction>To Midleton</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
-    <TrainLatitude>53.0371</TrainLatitude>
-    <TrainLongitude>-7.30086</TrainLongitude>
-    <TrainCode>P214</TrainCode>
+    <TrainLatitude>52.2667</TrainLatitude>
+    <TrainLongitude>-7.1183</TrainLongitude>
+    <TrainCode>A515</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P214\nPortlaoise to Dublin Heuston\nExpected Departure 15:25</PublicMessage>
+    <PublicMessage>A515\nWaterford to Dublin Heuston\nExpected Departure 16:00</PublicMessage>
     <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>N</TrainStatus>
-    <TrainLatitude>53.1442</TrainLatitude>
-    <TrainLongitude>-6.06085</TrainLongitude>
-    <TrainCode>E830</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E830\nGreystones to Malahide\nExpected Departure 15:34</PublicMessage>
-    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
     <TrainLatitude>53.2043</TrainLatitude>
     <TrainLongitude>-6.10046</TrainLongitude>
-    <TrainCode>E829</TrainCode>
+    <TrainCode>E831</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E829\nBray to Malahide\nExpected Departure 15:25</PublicMessage>
+    <PublicMessage>E831\nBray to Malahide\nExpected Departure 16:05</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>N</TrainStatus>
+    <TrainLatitude>53.3433</TrainLatitude>
+    <TrainLongitude>-6.24829</TrainLongitude>
+    <TrainCode>D923</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>D923\nDublin Pearse to Maynooth\nExpected Departure 16:12</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
     <TrainLatitude>53.3464</TrainLatitude>
     <TrainLongitude>-6.29461</TrainLongitude>
-    <TrainCode>A406</TrainCode>
+    <TrainCode>A220</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A406\nDublin Heuston to Limerick\nExpected Departure 15:30</PublicMessage>
-    <Direction>To Limerick</Direction>
+    <PublicMessage>A220\nDublin Heuston to Cork\nExpected Departure 16:00</PublicMessage>
+    <Direction>To Cork</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
     <TrainLatitude>53.3464</TrainLatitude>
     <TrainLongitude>-6.29461</TrainLongitude>
-    <TrainCode>D210</TrainCode>
+    <TrainCode>A518</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D210\nDublin Heuston to Portlaoise\nExpected Departure 15:25</PublicMessage>
-    <Direction>To Portlaoise</Direction>
+    <PublicMessage>A518\nDublin Heuston to Waterford\nExpected Departure 16:15</PublicMessage>
+    <Direction>To Waterford</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
-    <TrainLatitude>53.3531</TrainLatitude>
-    <TrainLongitude>-6.24591</TrainLongitude>
-    <TrainCode>D813</TrainCode>
+    <TrainLatitude>53.378</TrainLatitude>
+    <TrainLongitude>-6.58993</TrainLongitude>
+    <TrainCode>P670</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D813\nDublin Connolly to Drogheda\nExpected Departure 15:22</PublicMessage>
-    <Direction>Northbound</Direction>
+    <PublicMessage>P670\nMaynooth to Dublin Pearse\nExpected Departure 16:10</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
     <TrainLatitude>53.4509</TrainLatitude>
     <TrainLongitude>-6.15649</TrainLongitude>
-    <TrainCode>E120</TrainCode>
+    <TrainCode>E242</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E120\nMalahide to Greystones\nExpected Departure 15:31</PublicMessage>
+    <PublicMessage>E242\nMalahide to Bray\nExpected Departure 16:10</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>N</TrainStatus>
-    <TrainLatitude>53.828</TrainLatitude>
-    <TrainLongitude>-9.19296</TrainLongitude>
-    <TrainCode>A866</TrainCode>
+    <TrainLatitude>54.6123</TrainLatitude>
+    <TrainLongitude>-5.91744</TrainLongitude>
+    <TrainCode>A131</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A866\nManulla Junction to Ballina\nExpected Departure 15:32</PublicMessage>
-    <Direction>To Ballina</Direction>
+    <PublicMessage>A131\nBelfast to Dublin Connolly\nExpected Departure 16:05</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>0</TrainLatitude>
     <TrainLongitude>0</TrainLongitude>
-    <TrainCode>A214</TrainCode>
+    <TrainCode>A216</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A214\n13:00 - Dublin Heuston to Cork (8 mins late)\nDeparted Killarney Junction next stop Cork</PublicMessage>
+    <PublicMessage>A216\n14:00 - Dublin Heuston to Cork (14 mins late)\nDeparted LJ896 next stop Mallow</PublicMessage>
     <Direction>To Cork</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>0</TrainLatitude>
-    <TrainLongitude>0</TrainLongitude>
-    <TrainCode>A219</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A219\n14:25 - Cork to Dublin Heuston (2 mins late)\nDeparted LJ895 next stop Limerick Junction</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
@@ -137,12 +119,30 @@
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>52.5009</TrainLatitude>
-    <TrainLongitude>-8.20003</TrainLongitude>
+    <TrainLatitude>52.3468</TrainLatitude>
+    <TrainLongitude>-8.65362</TrainLongitude>
+    <TrainCode>A221</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A221\n15:25 - Cork to Dublin Heuston (0 mins late)\nDeparted Charleville next stop Limerick Junction</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>52.5828</TrainLatitude>
+    <TrainLongitude>-8.38682</TrainLongitude>
     <TrainCode>A474</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A474\n15:38 - Limerick Junction to Ennis (-16 mins late)\nDeparted Limerick Junction next stop Limerick</PublicMessage>
+    <PublicMessage>A474\n15:38 - Limerick Junction to Ennis (12 mins late)\nArrived Drumkeen next stop Limerick</PublicMessage>
     <Direction>To Ennis</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>52.6404</TrainLatitude>
+    <TrainLongitude>-8.52719</TrainLongitude>
+    <TrainCode>A485</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A485\n13:45 - Galway to Limerick Junction (-1 mins late)\nDeparted Killonan next stop Limerick Junction</PublicMessage>
+    <Direction>To Limerick Junction</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
@@ -155,20 +155,38 @@
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>52.7878</TrainLatitude>
-    <TrainLongitude>-7.82293</TrainLongitude>
-    <TrainCode>A216</TrainCode>
+    <TrainLatitude>52.8407</TrainLatitude>
+    <TrainLongitude>-6.92217</TrainLongitude>
+    <TrainCode>A513</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A216\n14:00 - Dublin Heuston to Cork (10 mins late)\nDeparted Templemore next stop Thurles</PublicMessage>
+    <PublicMessage>A513\n14:50 - Waterford to Dublin Heuston (0 mins late)\nArrived Carlow next stop Athy</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>52.8489</TrainLatitude>
+    <TrainLongitude>-7.7174</TrainLongitude>
+    <TrainCode>A218</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A218\n15:00 - Dublin Heuston to Cork (5 mins late)\nDeparted Lisduff next stop Thurles</PublicMessage>
     <Direction>To Cork</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>52.8489</TrainLatitude>
+    <TrainLongitude>-7.7174</TrainLongitude>
+    <TrainCode>A219</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A219\n14:25 - Cork to Dublin Heuston (8 mins late)\nDeparted Lisduff next stop Dublin Heuston</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>52.992</TrainLatitude>
     <TrainLongitude>-6.9762</TrainLongitude>
-    <TrainCode>A506</TrainCode>
+    <TrainCode>A508</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A506\n13:15 - Dublin Heuston to Waterford (-1 mins late)\nDeparted Athy next stop Carlow</PublicMessage>
+    <PublicMessage>A508\n15:10 - Dublin Heuston to Waterford (3 mins late)\nDeparted Athy next stop Carlow</PublicMessage>
     <Direction>To Waterford</Direction>
   </objTrainPositions>
   <objTrainPositions>
@@ -182,461 +200,461 @@
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.1454</TrainLatitude>
-    <TrainLongitude>-7.06361</TrainLongitude>
-    <TrainCode>A217</TrainCode>
+    <TrainLatitude>53.1442</TrainLatitude>
+    <TrainLongitude>-6.06085</TrainLongitude>
+    <TrainCode>E932</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A217\n13:25 - Cork to Dublin Heuston (-2 mins late)\nArrived Monasterevin next stop Dublin Heuston</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
+    <PublicMessage>E932\n16:04 - Greystones to Howth (0 mins late)\nDeparted Greystones next stop Bray</PublicMessage>
+    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.1454</TrainLatitude>
-    <TrainLongitude>-7.06361</TrainLongitude>
-    <TrainCode>A806</TrainCode>
+    <TrainLatitude>53.1545</TrainLatitude>
+    <TrainLongitude>-6.96542</TrainLongitude>
+    <TrainCode>A406</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A806\n14:45 - Dublin Heuston to Westport (6 mins late)\nDeparted Monasterevin next stop Portarlington</PublicMessage>
-    <Direction>To Westport</Direction>
+    <PublicMessage>A406\n15:30 - Dublin Heuston to Limerick (6 mins late)\nArrived Cherryville Junction next stop Portarlington</PublicMessage>
+    <Direction>To Limerick</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.146</TrainLatitude>
-    <TrainLongitude>-7.18055</TrainLongitude>
-    <TrainCode>D209</TrainCode>
+    <TrainLatitude>53.163</TrainLatitude>
+    <TrainLongitude>-6.90802</TrainLongitude>
+    <TrainCode>A708</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D209\n14:20 - Dublin Heuston to Portlaoise (5 mins late)\nDeparted Portarlington next stop Portlaoise</PublicMessage>
-    <Direction>To Portlaoise</Direction>
+    <PublicMessage>A708\n15:35 - Dublin Heuston to Galway (4 mins late)\nArrived Kildare next stop Portarlington</PublicMessage>
+    <Direction>To Galway</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.1855</TrainLatitude>
     <TrainLongitude>-6.80807</TrainLongitude>
-    <TrainCode>A713</TrainCode>
+    <TrainCode>A809</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A713\n13:05 - Galway to Dublin Heuston (1 mins late)\nDeparted Newbridge next stop Dublin Heuston</PublicMessage>
+    <PublicMessage>A809\n13:10 - Westport to Dublin Heuston (3 mins late)\nDeparted Newbridge next stop Dublin Heuston</PublicMessage>
     <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2043</TrainLatitude>
-    <TrainLongitude>-6.10046</TrainLongitude>
-    <TrainCode>E117</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E117\n14:00 - Howth to Greystones (1 mins late)\nDeparted Bray next stop Greystones</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2364</TrainLatitude>
-    <TrainLongitude>-6.11691</TrainLongitude>
-    <TrainCode>E234</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E234\n14:10 - Malahide to Bray (1 mins late)\nDeparted Shankill next stop Bray</PublicMessage>
-    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.2469</TrainLatitude>
     <TrainLongitude>-6.66386</TrainLongitude>
-    <TrainCode>A218</TrainCode>
+    <TrainCode>D210</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A218\n15:00 - Dublin Heuston to Cork (2 mins late)\nDeparted Sallins next stop Thurles</PublicMessage>
-    <Direction>To Cork</Direction>
+    <PublicMessage>D210\n15:25 - Dublin Heuston to Portlaoise (1 mins late)\nDeparted Sallins next stop Newbridge</PublicMessage>
+    <Direction>To Portlaoise</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.2469</TrainLatitude>
+    <TrainLongitude>-6.66386</TrainLongitude>
+    <TrainCode>P214</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>P214\n15:25 - Portlaoise to Dublin Heuston (4 mins late)\nDeparted Sallins next stop Hazelhatch</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.2557</TrainLatitude>
     <TrainLongitude>-6.11317</TrainLongitude>
-    <TrainCode>E929</TrainCode>
+    <TrainCode>E119</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E929\n15:04 - Greystones to Howth (1 mins late)\nArrived Killiney next stop Dalkey</PublicMessage>
+    <PublicMessage>E119\n15:00 - Howth to Greystones (-1 mins late)\nArrived Killiney next stop Shankill</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.2557</TrainLatitude>
+    <TrainLongitude>-6.11317</TrainLongitude>
+    <TrainCode>E931</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E931\n15:55 - Bray to Howth (2 mins late)\nDeparted Killiney next stop Dalkey</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2736</TrainLatitude>
-    <TrainLongitude>-9.04696</TrainLongitude>
-    <TrainCode>A485</TrainCode>
+    <TrainLatitude>53.2951</TrainLatitude>
+    <TrainLongitude>-6.13498</TrainLongitude>
+    <TrainCode>E238</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A485\n13:45 - Galway to Limerick Junction (0 mins late)\nDeparted Galway next stop Oranmore</PublicMessage>
-    <Direction>To Limerick Junction</Direction>
+    <PublicMessage>E238\n15:10 - Malahide to Bray (0 mins late)\nDeparted Dun Laoghaire next stop Sandycove</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2736</TrainLatitude>
-    <TrainLongitude>-9.04696</TrainLongitude>
-    <TrainCode>A715</TrainCode>
+    <TrainLatitude>53.2951</TrainLatitude>
+    <TrainLongitude>-6.13498</TrainLongitude>
+    <TrainCode>E830</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A715\n15:05 - Galway to Dublin Heuston (2 mins late)\nDeparted Galway next stop Athenry</PublicMessage>
+    <PublicMessage>E830\n15:34 - Greystones to Malahide (0 mins late)\nArrived Dun Laoghaire next stop Salthill and Monkstown</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3099</TrainLatitude>
+    <TrainLongitude>-6.19498</TrainLongitude>
+    <TrainCode>E239</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E239\n15:20 - Howth to Bray (0 mins late)\nDeparted Booterstown next stop Blackrock</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3099</TrainLatitude>
+    <TrainLongitude>-6.19498</TrainLongitude>
+    <TrainCode>E930</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E930\n15:35 - Bray to Howth (0 mins late)\nDeparted Booterstown next stop Sydney Parade</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3206</TrainLatitude>
+    <TrainLongitude>-6.21112</TrainLongitude>
+    <TrainCode>P615</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>P615\n14:50 - Drogheda to Bray (-1 mins late)\nArrived Sydney Parade next stop Blackrock</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3334</TrainLatitude>
+    <TrainLongitude>-6.40628</TrainLongitude>
+    <TrainCode>A217</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A217\n13:25 - Cork to Dublin Heuston (1 mins late)\nDeparted Clondalkin next stop Dublin Heuston</PublicMessage>
     <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2756</TrainLatitude>
-    <TrainLongitude>-6.10333</TrainLongitude>
-    <TrainCode>A609</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A609\n12:55 - Rosslare Europort to Dublin Connolly (0 mins late)\nDeparted Dalkey next stop Dun Laoghaire</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2812</TrainLatitude>
-    <TrainLongitude>-6.12289</TrainLongitude>
-    <TrainCode>E235</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E235\n14:23 - Howth to Bray (0 mins late)\nDeparted Glenageary next stop Dalkey</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2878</TrainLatitude>
-    <TrainLongitude>-6.12712</TrainLongitude>
-    <TrainCode>E828</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E828\n15:05 - Bray to Malahide (0 mins late)\nDeparted Sandycove next stop Dun Laoghaire</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.2954</TrainLatitude>
-    <TrainLongitude>-6.15206</TrainLongitude>
-    <TrainCode>E118</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E118\n14:32 - Malahide to Greystones (0 mins late)\nArrived Salthill and Monkstown next stop Dun Laoghaire</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3027</TrainLatitude>
-    <TrainLongitude>-6.17833</TrainLongitude>
-    <TrainCode>E928</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E928\n14:55 - Bray to Howth (1 mins late)\nDeparted Blackrock next stop Booterstown</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3212</TrainLatitude>
-    <TrainLongitude>-8.60608</TrainLongitude>
-    <TrainCode>A706</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A706\n13:25 - Dublin Heuston to Galway (4 mins late)\nArrived Attymon next stop Athenry</PublicMessage>
-    <Direction>To Galway</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3223</TrainLatitude>
-    <TrainLongitude>-6.52356</TrainLongitude>
-    <TrainCode>A508</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A508\n15:10 - Dublin Heuston to Waterford (3 mins late)\nArrived Hazelhatch next stop Newbridge</PublicMessage>
-    <Direction>To Waterford</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3223</TrainLatitude>
-    <TrainLongitude>-6.52356</TrainLongitude>
-    <TrainCode>P412</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P412\n15:05 - Newbridge to Dublin Pearse (0 mins late)\nDeparted Hazelhatch next stop Park West and Cherry Orchard</PublicMessage>
-    <Direction>To Dublin Pearse</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3281</TrainLatitude>
-    <TrainLongitude>-6.22116</TrainLongitude>
-    <TrainCode>E236</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E236\n14:43 - Howth to Bray (2 mins late)\nArrived Sandymount next stop Sydney Parade</PublicMessage>
-    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.334</TrainLatitude>
     <TrainLongitude>-6.37868</TrainLongitude>
-    <TrainCode>A511</TrainCode>
+    <TrainCode>P413</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A511\n13:05 - Waterford to Dublin Heuston (1 mins late)\nDeparted Park West and Cherry Orchard next stop Dublin Heuston</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3345</TrainLatitude>
-    <TrainLongitude>-6.43038</TrainLongitude>
-    <TrainCode>P213</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P213\n14:25 - Portlaoise to Dublin Heuston (3 mins late)\nDeparted Kishogue next stop Clondalkin</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3347</TrainLatitude>
-    <TrainLongitude>-6.22979</TrainLongitude>
-    <TrainCode>E827</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E827\n14:34 - Greystones to Malahide (1 mins late)\nDeparted Lansdowne Road next stop Grand Canal Dock</PublicMessage>
+    <PublicMessage>P413\n15:50 - Hazelhatch to Grand Canal Dock (0 mins late)\nDeparted Park West and Cherry Orchard next stop Drumcondra</PublicMessage>
     <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3353</TrainLatitude>
+    <TrainLongitude>-6.45233</TrainLongitude>
+    <TrainCode>D411</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>D411\n15:20 - Grand Canal Dock to Hazelhatch (-4 mins late)\nArrived Adamstown next stop Hazelhatch</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3395</TrainLatitude>
     <TrainLongitude>-7.61596</TrainLongitude>
-    <TrainCode>A809</TrainCode>
+    <TrainCode>A806</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A809\n13:10 - Westport to Dublin Heuston (8 mins late)\nArrived Clara next stop Tullamore</PublicMessage>
-    <Direction>To Dublin Heuston</Direction>
+    <PublicMessage>A806\n14:45 - Dublin Heuston to Westport (10 mins late)\nDeparted Clara next stop Athlone</PublicMessage>
+    <Direction>To Westport</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3397</TrainLatitude>
     <TrainLongitude>-6.23773</TrainLongitude>
-    <TrainCode>E237</TrainCode>
+    <TrainCode>E829</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E237\n14:50 - Malahide to Bray (0 mins late)\nArrived Grand Canal Dock next stop Lansdowne Road</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3433</TrainLatitude>
-    <TrainLongitude>-6.24829</TrainLongitude>
-    <TrainCode>D411</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D411\n15:20 - Grand Canal Dock to Hazelhatch (0 mins late)\nArrived Dublin Pearse next stop Tara Street</PublicMessage>
-    <Direction>Southbound</Direction>
+    <PublicMessage>E829\n15:25 - Bray to Malahide (0 mins late)\nArrived Grand Canal Dock next stop Dublin Pearse</PublicMessage>
+    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.347</TrainLatitude>
     <TrainLongitude>-6.25425</TrainLongitude>
-    <TrainCode>E927</TrainCode>
+    <TrainCode>D922</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E927\n14:35 - Bray to Howth (1 mins late)\nDeparted Tara Street next stop Dublin Connolly</PublicMessage>
+    <PublicMessage>D922\n16:01 - Dublin Pearse to Maynooth (1 mins late)\nDeparted Tara Street next stop Dublin Connolly</PublicMessage>
     <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.347</TrainLatitude>
+    <TrainLongitude>-6.25425</TrainLongitude>
+    <TrainCode>E120</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E120\n15:31 - Malahide to Greystones (3 mins late)\nDeparted Tara Street next stop Dublin Pearse</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3531</TrainLatitude>
     <TrainLongitude>-6.24591</TrainLongitude>
-    <TrainCode>D920</TrainCode>
+    <TrainCode>E240</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D920\n15:13 - Dublin Pearse to Maynooth (2 mins late)\nDeparted Dublin Connolly next stop Drumcondra</PublicMessage>
-    <Direction>Northbound</Direction>
+    <PublicMessage>E240\n15:40 - Howth to Bray (0 mins late)\nArrived Dublin Connolly next stop Tara Street</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3531</TrainLatitude>
     <TrainLongitude>-6.24591</TrainLongitude>
-    <TrainCode>P667</TrainCode>
+    <TrainCode>E929</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P667\n14:40 - Maynooth to Dublin Pearse (0 mins late)\nDeparted Dublin Connolly next stop Tara Street</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3629</TrainLatitude>
-    <TrainLongitude>-6.22753</TrainLongitude>
-    <TrainCode>A130</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A130\n15:20 - Dublin Connolly to Belfast (0 mins late)\nDeparted Clontarf Road next stop Drogheda</PublicMessage>
+    <PublicMessage>E929\n15:04 - Greystones to Howth (1 mins late)\nDeparted Dublin Connolly next stop Clontarf Road</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3602</TrainLatitude>
+    <TrainLongitude>-7.79847</TrainLongitude>
+    <TrainCode>B701</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>B701\n14:35 - Galway to Dublin Heuston (-6 mins late)\nArrived Clonydonnin next stop Tullamore</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3629</TrainLatitude>
     <TrainLongitude>-6.22753</TrainLongitude>
-    <TrainCode>E119</TrainCode>
+    <TrainCode>P616</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E119\n15:00 - Howth to Greystones (0 mins late)\nDeparted Clontarf Road next stop Dublin Connolly</PublicMessage>
+    <PublicMessage>P616\n15:10 - Drogheda to Dublin Pearse (1 mins late)\nDeparted Clontarf Road next stop Dublin Connolly</PublicMessage>
     <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3632</TrainLatitude>
+    <TrainLongitude>-6.25908</TrainLongitude>
+    <TrainCode>A909</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A909\n13:05 - Sligo to Dublin Connolly (6 mins late)\nArrived Drumcondra next stop Dublin Connolly</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3632</TrainLatitude>
+    <TrainLongitude>-6.25908</TrainLongitude>
+    <TrainCode>A910</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A910\n16:00 - Dublin Connolly to Sligo (-1 mins late)\nArrived Drumcondra next stop Maynooth</PublicMessage>
+    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3704</TrainLatitude>
     <TrainLongitude>-6.50598</TrainLongitude>
-    <TrainCode>D919</TrainCode>
+    <TrainCode>D920</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D919\n14:47 - Dublin Connolly to Maynooth (4 mins late)\nArrived Leixlip (Louisa Bridge) next stop Maynooth</PublicMessage>
+    <PublicMessage>D920\n15:13 - Dublin Pearse to Maynooth (6 mins late)\nDeparted Leixlip (Louisa Bridge) next stop Maynooth</PublicMessage>
     <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3725</TrainLatitude>
+    <TrainLongitude>-6.29869</TrainLongitude>
+    <TrainCode>D310</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>D310\n15:55 - Docklands to M3 Parkway (1 mins late)\nArrived Broombridge next stop Ashtown</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.3755</TrainLatitude>
+    <TrainLongitude>-6.33135</TrainLongitude>
+    <TrainCode>P318</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>P318\n15:40 - M3 Parkway to Docklands (5 mins late)\nDeparted Ashtown next stop Broombridge</PublicMessage>
+    <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3786</TrainLatitude>
     <TrainLongitude>-6.19131</TrainLongitude>
-    <TrainCode>E826</TrainCode>
+    <TrainCode>E828</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E826\n14:25 - Bray to Malahide (1 mins late)\nArrived Harmonstown next stop Raheny</PublicMessage>
+    <PublicMessage>E828\n15:05 - Bray to Malahide (2 mins late)\nDeparted Harmonstown next stop Raheny</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3831</TrainLatitude>
     <TrainLongitude>-6.4242</TrainLongitude>
-    <TrainCode>A908</TrainCode>
+    <TrainCode>D921</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A908\n15:00 - Dublin Connolly to Sligo (2 mins late)\nDeparted Clonsilla next stop Maynooth</PublicMessage>
+    <PublicMessage>D921\n15:38 - Dublin Connolly to Maynooth (0 mins late)\nDeparted Clonsilla next stop Leixlip (Confey)</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3831</TrainLatitude>
     <TrainLongitude>-6.4242</TrainLongitude>
-    <TrainCode>P749</TrainCode>
+    <TrainCode>P750</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P749\n15:05 - Maynooth to Dublin Connolly (1 mins late)\nDeparted Clonsilla next stop Coolmine</PublicMessage>
+    <PublicMessage>P750\n15:42 - Maynooth to Dublin Connolly (5 mins late)\nDeparted Clonsilla next stop Coolmine</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.3853</TrainLatitude>
-    <TrainLongitude>-6.44205</TrainLongitude>
-    <TrainCode>D309</TrainCode>
+    <TrainLatitude>53.3909</TrainLatitude>
+    <TrainLongitude>-6.15672</TrainLongitude>
+    <TrainCode>E241</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D309\n15:14 - Clonsilla to M3 Parkway (4 mins late)\nArrived Hansfield next stop Dunboyne</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.387</TrainLatitude>
-    <TrainLongitude>-6.16163</TrainLongitude>
-    <TrainCode>E238</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E238\n15:10 - Malahide to Bray (0 mins late)\nDeparted Kilbarrack next stop Raheny</PublicMessage>
+    <PublicMessage>E241\n15:52 - Malahide to Bray (3 mins late)\nDeparted Howth Junction next stop Kilbarrack</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.3917</TrainLatitude>
     <TrainLongitude>-6.13678</TrainLongitude>
-    <TrainCode>E926</TrainCode>
+    <TrainCode>E121</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E926\n14:04 - Greystones to Howth (2 mins late)\nDeparted Bayside next stop Sutton</PublicMessage>
+    <PublicMessage>E121\n16:00 - Howth to Greystones (0 mins late)\nArrived Bayside next stop Howth Junction</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.4157</TrainLatitude>
+    <TrainLongitude>-6.83395</TrainLongitude>
+    <TrainCode>A908</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A908\n15:00 - Dublin Connolly to Sligo (7 mins late)\nDeparted Enfield next stop Mullingar</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.392</TrainLatitude>
-    <TrainLongitude>-6.11448</TrainLongitude>
-    <TrainCode>E239</TrainCode>
+    <TrainLatitude>53.4169</TrainLatitude>
+    <TrainLongitude>-6.1512</TrainLongitude>
+    <TrainCode>D814</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E239\n15:20 - Howth to Bray (-1 mins late)\nArrived Sutton next stop Bayside</PublicMessage>
-    <Direction>Southbound</Direction>
+    <PublicMessage>D814\n15:43 - Dublin Pearse to Drogheda (-1 mins late)\nDeparted Portmarnock next stop Malahide</PublicMessage>
+    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.4855</TrainLatitude>
-    <TrainLongitude>-6.15134</TrainLongitude>
-    <TrainCode>P615</TrainCode>
+    <TrainLatitude>53.4273</TrainLatitude>
+    <TrainLongitude>-7.93683</TrainLongitude>
+    <TrainCode>A715</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P615\n14:50 - Drogheda to Bray (0 mins late)\nDeparted Donabate next stop Malahide</PublicMessage>
-    <Direction>Southbound</Direction>
+    <PublicMessage>A715\n15:05 - Galway to Dublin Heuston (0 mins late)\nArrived Athlone next stop Clara</PublicMessage>
+    <Direction>To Dublin Heuston</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.4933</TrainLatitude>
-    <TrainLongitude>-7.15576</TrainLongitude>
-    <TrainCode>A909</TrainCode>
+    <TrainLatitude>53.4509</TrainLatitude>
+    <TrainLongitude>-6.15649</TrainLongitude>
+    <TrainCode>A129</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A909\n13:05 - Sligo to Dublin Connolly (6 mins late)\nDeparted Killucan next stop Enfield</PublicMessage>
+    <PublicMessage>A129\n14:05 - Belfast to Dublin Connolly (0 mins late)\nDeparted Malahide next stop Dublin Connolly</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.5741</TrainLatitude>
     <TrainLongitude>-6.11933</TrainLongitude>
-    <TrainCode>D812</TrainCode>
+    <TrainCode>D813</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D812\n14:50 - Dublin Connolly to Drogheda (2 mins late)\nDeparted Skerries next stop Balbriggan</PublicMessage>
+    <PublicMessage>D813\n15:22 - Dublin Connolly to Drogheda (2 mins late)\nDeparted Skerries next stop Balbriggan</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.6118</TrainLatitude>
+    <TrainLongitude>-6.18226</TrainLongitude>
+    <TrainCode>P712</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>P712\n15:50 - Drogheda to Dublin Connolly (-1 mins late)\nArrived Balbriggan next stop Skerries</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>53.712</TrainLatitude>
+    <TrainLongitude>-6.33538</TrainLongitude>
+    <TrainCode>A130</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>A130\n15:20 - Dublin Connolly to Belfast (1 mins late)\nDeparted Drogheda next stop Dundalk</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
     <TrainLatitude>53.712</TrainLatitude>
     <TrainLongitude>-6.33538</TrainLongitude>
-    <TrainCode>P616</TrainCode>
+    <TrainCode>P617</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P616\n15:10 - Drogheda to Dublin Pearse (8 mins late)\nDeparted Drogheda next stop Laytown</PublicMessage>
+    <PublicMessage>P617\n16:02 - Drogheda to Dublin Pearse (1 mins late)\nDeparted Drogheda next stop Laytown</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>R</TrainStatus>
-    <TrainLatitude>53.9383</TrainLatitude>
-    <TrainLongitude>-8.10657</TrainLongitude>
-    <TrainCode>A906</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A906\n13:00 - Dublin Connolly to Sligo (0 mins late)\nDeparted Carrick on Shannon next stop Boyle</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>54.0007</TrainLatitude>
-    <TrainLongitude>-6.41291</TrainLongitude>
-    <TrainCode>A128</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A128\n13:20 - Dublin Connolly to Belfast (3 mins late)\nDeparted Dundalk next stop Newry</PublicMessage>
-    <Direction>Northbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>54.0007</TrainLatitude>
-    <TrainLongitude>-6.41291</TrainLongitude>
-    <TrainCode>A129</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A129\n14:05 - Belfast to Dublin Connolly (-1 mins late)\nDeparted Dundalk next stop Drogheda</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>R</TrainStatus>
-    <TrainLatitude>54.2723</TrainLatitude>
-    <TrainLongitude>-8.48249</TrainLongitude>
+    <TrainLatitude>53.8591</TrainLatitude>
+    <TrainLongitude>-7.9164</TrainLongitude>
     <TrainCode>A911</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A911\n15:05 - Sligo to Dublin Connolly (1 mins late)\nDeparted Sligo next stop Collooney</PublicMessage>
+    <PublicMessage>A911\n15:05 - Sligo to Dublin Connolly (2 mins late)\nDeparted Dromod next stop Longford</PublicMessage>
     <Direction>Southbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
-    <TrainStatus>T</TrainStatus>
-    <TrainLatitude>52.5009</TrainLatitude>
-    <TrainLongitude>-8.20003</TrainLongitude>
-    <TrainCode>A437</TrainCode>
+    <TrainStatus>R</TrainStatus>
+    <TrainLatitude>54.0887</TrainLatitude>
+    <TrainLongitude>-8.52088</TrainLongitude>
+    <TrainCode>A906</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>A437\n14:55 - Limerick to Limerick Junction(-2 mins late)\nTERMINATED Limerick Junction at 15:21</PublicMessage>
-    <Direction>To Limerick Junction</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>T</TrainStatus>
-    <TrainLatitude>53.3223</TrainLatitude>
-    <TrainLongitude>-6.52356</TrainLongitude>
-    <TrainCode>D410</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>D410\n14:30 - Grand Canal Dock to Hazelhatch(-1 mins late)\nTERMINATED Hazelhatch at 15:15</PublicMessage>
-    <Direction>Southbound</Direction>
-  </objTrainPositions>
-  <objTrainPositions>
-    <TrainStatus>T</TrainStatus>
-    <TrainLatitude>53.3397</TrainLatitude>
-    <TrainLongitude>-6.23773</TrainLongitude>
-    <TrainCode>P411</TrainCode>
-    <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P411\n14:30 - Hazelhatch to Grand Canal Dock(1 mins late)\nTERMINATED Grand Canal Dock at 15:14</PublicMessage>
+    <PublicMessage>A906\n13:00 - Dublin Connolly to Sligo (1 mins late)\nDeparted Ballymote next stop Collooney</PublicMessage>
     <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>T</TrainStatus>
+    <TrainLatitude>53.1442</TrainLatitude>
+    <TrainLongitude>-6.06085</TrainLongitude>
+    <TrainCode>E118</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E118\n14:32 - Malahide to Greystones(-1 mins late)\nTERMINATED Greystones at 15:56</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>T</TrainStatus>
+    <TrainLatitude>53.2043</TrainLatitude>
+    <TrainLongitude>-6.10046</TrainLongitude>
+    <TrainCode>E236</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E236\n14:43 - Howth to Bray(2 mins late)\nTERMINATED Bray at 15:59</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>T</TrainStatus>
+    <TrainLatitude>53.2043</TrainLatitude>
+    <TrainLongitude>-6.10046</TrainLongitude>
+    <TrainCode>E237</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E237\n14:50 - Malahide to Bray(-1 mins late)\nTERMINATED Bray at 16:03</PublicMessage>
+    <Direction>Southbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>T</TrainStatus>
+    <TrainLatitude>53.3433</TrainLatitude>
+    <TrainLongitude>-6.24829</TrainLongitude>
+    <TrainCode>P412</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>P412\n15:05 - Newbridge to Dublin Pearse(3 mins late)\nTERMINATED Dublin Pearse at 16:02</PublicMessage>
+    <Direction>To Dublin Pearse</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>T</TrainStatus>
     <TrainLatitude>53.3531</TrainLatitude>
     <TrainLongitude>-6.24591</TrainLongitude>
-    <TrainCode>P710</TrainCode>
+    <TrainCode>A609</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>P710\n14:20 - Drogheda to Dublin Connolly(0 mins late)\nTERMINATED Dublin Connolly at 15:17</PublicMessage>
-    <Direction>Southbound</Direction>
+    <PublicMessage>A609\n12:55 - Rosslare Europort to Dublin Connolly(5 mins late)\nTERMINATED Dublin Connolly at 16:01</PublicMessage>
+    <Direction>Northbound</Direction>
+  </objTrainPositions>
+  <objTrainPositions>
+    <TrainStatus>T</TrainStatus>
+    <TrainLatitude>53.3891</TrainLatitude>
+    <TrainLongitude>-6.07401</TrainLongitude>
+    <TrainCode>E928</TrainCode>
+    <TrainDate>31 Jan 2020</TrainDate>
+    <PublicMessage>E928\n14:55 - Bray to Howth(-5 mins late)\nTERMINATED Howth at 16:03</PublicMessage>
+    <Direction>Northbound</Direction>
   </objTrainPositions>
   <objTrainPositions>
     <TrainStatus>T</TrainStatus>
     <TrainLatitude>53.4509</TrainLatitude>
     <TrainLongitude>-6.15649</TrainLongitude>
-    <TrainCode>E825</TrainCode>
+    <TrainCode>E827</TrainCode>
     <TrainDate>31 Jan 2020</TrainDate>
-    <PublicMessage>E825\n14:05 - Bray to Malahide(-1 mins late)\nTERMINATED Malahide at 15:18</PublicMessage>
+    <PublicMessage>E827\n14:34 - Greystones to Malahide(-1 mins late)\nTERMINATED Malahide at 15:58</PublicMessage>
     <Direction>Northbound</Direction>
   </objTrainPositions>
 </ArrayOfObjTrainPositions>
