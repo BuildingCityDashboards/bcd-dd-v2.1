@@ -3,7 +3,7 @@ extends layout
 include component/accordion
 
 block append head
-  link(rel='stylesheet', href='/stylesheets/portal.css')
+  //- link(rel='stylesheet', href='/stylesheets/portal.css')
 
 block navigation
   +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
@@ -42,16 +42,27 @@ block content
               include portal/airo-store.pug 
             +accordion-item("Dublinked",  "")
               include portal/dublinked.pug
-            +accordion-item("data.gov.ie",  "")
-              include portal/datagov.pug
+            +accordion-item("Dublin Multi Story Car Parking",  "")
+               include portal/dublin-multi-story-carparking.pug  
             +accordion-item("EPA Geoportal",  "")
               include portal/epa-geoportal.pug
             +accordion-item("Eurostat Urban Audit",  "")
               include portal/eurostat.pug
             +accordion-item("Fingal Open Data",  "")
               include portal/fingal-open-data.pug
-
-
+            +accordion-item("GeoHive",  "")
+              include portal/geohive.pug 
+            +accordion-item("Ireland'S Open Data Portal",  "")
+              include portal/datagov.pug
+            +accordion-item("Irish OpenStreetMap Community",  "")
+               include portal/osi-irishcmmity.pug
+            +accordion-item("Irish Townlands",  "")
+               include portal/irish-townlands.pug
+            +accordion-item("Northern Ireland's Open Data Portal",  "")
+              include portal/open-datani.pug
+            +accordion-item("OSI Open Data",  "")
+              include portal/osiod.pug
+           
     div#services.portal-section.row
       div.col-lg-12
         h2 Services
@@ -78,12 +89,16 @@ block content
               include portal/flight-radar.pug
             +accordion-item("Heritage Maps",  "")
               include portal/heritage-maps.pug
-            +accordion-item("Inside Airbnb",  "")
-              include portal/inside-airbnb.pug
-            +accordion-item("Mapnificent",  "")
-              include portal/mapnificent.pug
             +accordion-item("Hit The Road",  "")
               include portal/hit-the-road.pug
+            +accordion-item("Irish Rail Realtime API",  "")
+              include portal/irish-rail-realtime-api.pug
+            +accordion-item("Inside Airbnb",  "")
+              include portal/inside-airbnb.pug
+            +accordion-item("Luas Forecasting API",  "")
+               include portal/luas-forecasting-api.pug
+            +accordion-item("Mapnificent",  "")
+              include portal/mapnificent.pug
             +accordion-item("Marine Traffic",  "")
               include portal/marine-traffic.pug
             +accordion-item("MyHome",  "")
@@ -92,8 +107,13 @@ block content
               include portal/myplan.pug
             +accordion-item("Residential Land Survey 2014",  "")
               include portal/land-survey.pug
-
-            //- +accordion-item("SEAI Heat Demand Map",  "")
+            +accordion-item("Residential Property Price Register",  "")
+               include portal/residential-property-price-register.pug
+            +accordion-item("Transport Infrastructure Ireland",  "")
+              include portal/transport-infrastructure-ireland.pug
+            +accordion-item("Transport for Ireland",  "")
+               include portal/transport-for-ireland.pug
+            //- - +accordion-item("SEAI Heat Demand Map",  "")
             //-   include portal/seai-heat.pug
             //- +accordion-item("Dublin Sentinel Hub",  "")
             //-   include portal/sentinel-hub.pug
