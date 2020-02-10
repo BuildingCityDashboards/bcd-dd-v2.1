@@ -9,24 +9,26 @@ fetch('../data/statbank_table_codes.json')
   .then(tableCodes => {
     console.log('No of tables:\n')
     console.log(tableCodes.length)
-    let select = document.getElementById('selectTableNumber')
-    tableCodes.forEach((code, i) => {
+
+    let select = document.getElementById('select-table-code')
+
+    tableCodes.forEach((tableCode, i) => {
       let el = document.createElement('option')
-      el.textContent = code.tablecode
-      el.value = code.tablecode
+      el.textContent = tableCode.tablecode
+      el.value = tableCode.tablecode
       select.appendChild(el)
     })
 
     select.addEventListener('change', (e) => {
-      console.log('select \n')
+      // console.log('select \n')
       const tableCode = e.target.value
+      let el = document.getElementById('statbank-loading')
+      el.textContent = 'Fetching data from statbank.cso.ie'
+      let elProgress = document.createElement('progress')
+      elProgress.setAttribute('max', '100')
+      elProgress.setAttribute('value', '50')
+      el.appendChild(elProgress)
       getStatbankTableFromUrl(STATBANK_BASE_URL + tableCode)
-
-      // let options = select.querySelectorAll('option')
-      // let count = options.length
-      // if (typeof (count) === 'undefined' || count < 2) {
-      //   addActivityItem()
-      // }
     })
 
     // const ri = Math.floor(Math.random() * data.length)
@@ -36,14 +38,12 @@ fetch('../data/statbank_table_codes.json')
     // getStatbankTableFromUrl(STATBANK_BASE_URL + tableCode)
   })
 
-let getStatbankURLFromTableCode = (tableCodeValue) => {
-
-}
-
 let getStatbankTableFromUrl = async (url) => {
   const res = await fetch(url)
   const json = await res.json()
-
+  let el = document.getElementById('statbank-loading')
+  el.textContent = ''
+  // el.removeChild(el.childNodes[0])
   /***
   JSON-stat Javascript Toolkit (JJK)
   ***/
@@ -61,7 +61,8 @@ let getStatbankTableFromUrl = async (url) => {
     return stat.Dataset(0).id.includes(dim)
   }
 
-  const aliasesForRegionalDimensions = ['NUTS 3 Regions']
+  const aliasesForRegionalDimensions = ['NUTS 3 Regions', 'Meteorological Weather Station']
+  const categoriesForDublin = ['', 'Dublin airport']
   console.log('dataHasDimension:\n')
   console.log(dataHasDimension(aliasesForRegionalDimensions[0]))
   //
