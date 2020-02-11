@@ -1,0 +1,15 @@
+
+#hero {
+    width: 100vw;
+    height: 100vh;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    background: -webkit-linear-gradient(top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7) 75%, rgba(49,49,49,1.0) 100%),
+                url('../images/dublin-3.jpg') no-repeat top/cover;
+
+    overflow-y: hidden;
+    text-align: center;
+    text-shadow: 0 2px 12px black;
+    color: #fff;
+}
