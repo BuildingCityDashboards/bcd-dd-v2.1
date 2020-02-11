@@ -3,12 +3,33 @@ extends layout
 block append head
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
+  link(href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet")
 
 block navigation
 
 block content
-  .page-grid 
-    #hero
+  #hero 
+    #hero-grid
+      #hero-title
+        div 
+          #hero-title__text--top DUBLIN
+          #hero-title__text--bottom DASHBOARD
+      #hero-time  
+        div
+          p 12:23pm
+      #hero-weather
+        div
+          p Cloudy w/ chance of meatballs
+      #hero-carousel
+        div 
+          p carousel
+        //- include component/carousel-charts.pug
+      #hero-navs
+        div
+          p navs
+      #hero-scroll-arrow
+        div
+          p arrow
     
     //- .bg-img(style='background-image:url("../images/dublin-3.jpg")')
       .content-wrapper.content-wrapper--grad-overlay
@@ -38,7 +59,7 @@ block content
 
 block append scripts
   //- script(src="lib/d3v5/d3.js")
-  //- script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
   //- script(src="https://unpkg.com/set-interval-async" type="text/javascript")
   //- script(src='javascripts/dublinco.js')
   //- script(src='javascripts/map.js')

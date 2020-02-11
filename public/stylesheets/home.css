@@ -4,7 +4,24 @@
 
  /* small/mobile 576px */
 
-.page-grid {
+
+
+#hero {
+    /* align-self: center; */
+    height: 100vh;
+    width: 100vw;
+    /* padding: 0px;*/
+    /* margin: 0px;*/
+    position: relative;
+    background: -webkit-linear-gradient(top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7) 75%, rgba(49,49,49,1.0) 100%),
+                url('../images/dublin-3.jpg') no-repeat top/cover;
+
+    overflow-y: hidden;
+    text-align: center;
+    /* text-shadow: 0 2px 12px black; */
+    /* color: #fff; */
+}
+#hero-grid {
   min-height: 100vh;
   height: auto;
   width: 100vw;
@@ -16,21 +33,33 @@
   /* align-items: top; */
  }
 
-#hero {
-    /* align-self: center; */
-    height: 100vh;
-    grid-column: span 4;
-    grid-row:  span 4;
-    /* padding: 0px;*/
-    /* margin: 0px;
-    /* position: relative; */
-    background: -webkit-linear-gradient(top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7) 75%, rgba(49,49,49,1.0) 100%),
-                url('../images/dublin-3.jpg') no-repeat top/cover;
+#hero-title {
+  grid-column: span 4;
+  grid-row:  2 / 4;
+  border: solid 2px;
+  align-self: center;
 
-    overflow-y: hidden;
-    text-align: center;
-    /* text-shadow: 0 2px 12px black; */
-    /* color: #fff; */
+}
+
+#hero-carousel{
+  grid-column: span 4;
+  grid-row:  4 / 8;
+
+  border: solid 2px;
+
+}
+#hero-navs{
+  grid-column: span 4;
+  grid-row:   8 / 11;
+
+  border: solid 2px;
+
+}
+#hero-scroll-arrow{
+  grid-column: span 4;
+  grid-row:  11 / 13;
+
+  border: solid 2px;
 }
 
 
@@ -49,13 +78,73 @@
 
 /*  large/desktop */
 @media (min-width: 992px){
-  .page-grid {
+  #hero-grid {
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    grid-gap: 24px;
+    justify-content:center;
+    /* align-items: top; */
+   }
+
+  #hero-title {
+    grid-column: span 6;
+    grid-row:  3 / 5;
+    border: solid 2px;
+    align-self: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 144px;
+    text-align: left;
+    letter-spacing: -0.5px;
+    line-height: 103.5px;
   }
 
-  #hero {
-  grid-column: span 12;
+  #hero-title__text--top {
+    color: rgba(111, 209, 246, 0.5)
+
   }
+
+  #hero-title__text--bottom {
+    color: rgba(35, 145, 216, 0.39)
+
+  }
+
+  #hero-time {
+    grid-column: span 6;
+    grid-row:  3 / 4;
+    border: solid 2px;
+    align-self: center;
+
+  }
+
+  #hero-weather {
+    grid-column: span 6;
+    grid-row:  4 / 5;
+    border: solid 2px;
+    align-self: center;
+
+  }
+
+  #hero-carousel{
+    grid-column: span 12;
+    grid-row:  6 / 9;
+
+    border: solid 2px;
+
+  }
+  #hero-navs{
+    grid-column: span 12;
+    grid-row:   10 / 12;
+
+    border: solid 2px;
+
+  }
+  #hero-scroll-arrow{
+    grid-column: span 12;
+    grid-row:  12 / 13;
+
+    border: solid 2px;
+  }
+
 
 
 }
