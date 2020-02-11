@@ -22,14 +22,14 @@
     /* color: #fff; */
 }
 #hero-grid {
-  min-height: 100vh;
-  height: auto;
+  height: 100vh;
+  /* height: auto; */
   width: 100vw;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(12, 1fr);
   grid-gap: 16px;
-  justify-content:center;
+  justify-content: center;
   /* align-items: top; */
  }
 
@@ -57,7 +57,7 @@
 }
 #hero-scroll-arrow{
   grid-column: span 4;
-  grid-row:  11 / 13;
+  grid-row:  12 / 13;
 
   border: solid 2px;
 }
@@ -92,10 +92,11 @@
     border: solid 2px;
     align-self: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 144px;
-    text-align: left;
-    letter-spacing: -0.5px;
-    line-height: 103.5px;
+    font-size: 8vw;
+    text-align:left;
+    letter-spacing: -5px;
+    line-height: 6vw;
+
   }
 
   #hero-title__text--top {
@@ -126,14 +127,14 @@
 
   #hero-carousel{
     grid-column: span 12;
-    grid-row:  6 / 9;
+    grid-row:  5 / 8;
 
     border: solid 2px;
 
   }
   #hero-navs{
     grid-column: span 12;
-    grid-row:   10 / 12;
+    grid-row:   9 / 11;
 
     border: solid 2px;
 
@@ -144,7 +145,4 @@
 
     border: solid 2px;
   }
-
-
-
 }
