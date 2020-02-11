@@ -7,7 +7,9 @@ block append head
 block navigation
 
 block content
-  #hero.position-anchor
+  .page-grid 
+    #hero
+    
     //- .bg-img(style='background-image:url("../images/dublin-3.jpg")')
       .content-wrapper.content-wrapper--grad-overlay
         //- .container
@@ -18,15 +20,14 @@ block content
           //- include component/searchbar.pug
           include component/icon-nav.pug
           //- include component/toggle-button.pug
-
-  #about-dublin.position-anchor
+    //- #about-dublin.position-anchor
     //- .content-wrapper.content-wrapper--darkblue
       .container
       .position-anchor#lp-map
       .position-anchor#about-dublin
         include component/lp-map.pug
         
-  #about-dublin-dashboard.position-anchor
+    //- #about-dublin-dashboard.position-anchor
   //- section.map
     .content-wrapper.content-wrapper--very-dark-blue
       .container

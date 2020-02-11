@@ -43,6 +43,14 @@ select {
 /* Bootstrap overrides*/
 
 /* Base Styles */
+
+.container{
+  width:100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+}
+
 body{
   color: #f8f8f8;
   background:var(--very-dark-blue);
@@ -93,6 +101,60 @@ a:hover {
    -o-animation: updateAnimation 1s 3;
     animation: updateAnimation 1s 3 ;
 }
+
+.bcd-container{
+    width: 100%;
+    /* overflow-x: hidden; */
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.bcd-container .container{
+    transition: 250ms ease;
+}
+
+.body--lock{
+    overflow: hidden;
+}
+
+.bcd-nav{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .25rem;
+}
+
+.nav-link{
+    padding: 0;
+    float: left;
+    font-weight: 600;
+    color: #f8f8f8;
+  }
+
+  .nav-link-ptitle{
+    padding-left: 5px;
+    color: var(--vivid-cyan);
+  }
+
+  .subnav-link{
+    position: relative;
+    padding-right: 0;
+    float: left;
+    font-weight: 500;
+    color: #f8f8f8;
+    font-size: 14px;
+    display: block;
+    padding: .25rem .25rem;
+  }
+
 
 /* //used for incomplete charts and maps */
 .coming-soon-placeholder{

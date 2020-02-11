@@ -1,15 +1,61 @@
 
+
+
+
+ /* small/mobile 576px */
+
+.page-grid {
+  min-height: 100vh;
+  height: auto;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  grid-gap: 16px;
+  justify-content:center;
+  /* align-items: top; */
+ }
+
 #hero {
-    width: 100vw;
+    /* align-self: center; */
     height: 100vh;
-    padding: 0px;
-    margin: 0px;
-    position: relative;
+    grid-column: span 4;
+    grid-row:  span 4;
+    /* padding: 0px;*/
+    /* margin: 0px;
+    /* position: relative; */
     background: -webkit-linear-gradient(top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7) 75%, rgba(49,49,49,1.0) 100%),
                 url('../images/dublin-3.jpg') no-repeat top/cover;
 
     overflow-y: hidden;
     text-align: center;
-    text-shadow: 0 2px 12px black;
-    color: #fff;
+    /* text-shadow: 0 2px 12px black; */
+    /* color: #fff; */
+}
+
+
+/* medium/tablet  768px */
+@media (min-width: 768px){
+  .page-grid {
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 24px;
+  }
+
+  #hero {
+  grid-column: span 8;
+
+  }
+}
+
+/*  large/desktop */
+@media (min-width: 992px){
+  .page-grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  #hero {
+  grid-column: span 12;
+  }
+
+
 }
