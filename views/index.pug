@@ -11,22 +11,26 @@ block content
   #hero 
     #hero-grid
       #hero-title
-        div 
-          #hero-title__text--top DUBLIN
-          #hero-title__text--bottom DASHBOARD
-      #hero-time  
-          #hero-time__clock 13:23:45   
-          #hero-time__date 01/01/2020
-      #hero-weather
-        div
-          #hero-time__left-top 14 C 
-          #hero-time__left-bottom Prec 0.0 mm
-        div
-          #hero-weather__symbol    OO
-        div
-          #hero-time__right-top ~ NE
-          #hero-time__right-bottom 25.5 kph
-        
+          #hero-title-box
+              div 
+                #hero-title__text--top DUBLIN
+                #hero-title__text--bottom DASHBOARD
+      #hero-time-weather
+          #hero-time
+              #hero-time__box  
+                  #hero-time__clock 13:23:45   
+                  #hero-time__date 01/01/2020
+          #hero-weather
+              #hero-weather__box
+                  div
+                      #hero-weather__left-top 14 C 
+                      #hero-weather__left-bottom Prec 0.0 mm
+                  div
+                      #hero-weather__symbol    
+                  div
+                      #hero-weather__right-top ~ NE
+                      #hero-weather__right-bottom 25.5 kph
+    
       #hero-carousel
         div 
           p carousel
