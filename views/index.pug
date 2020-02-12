@@ -3,7 +3,7 @@ extends layout
 block append head
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
-  link(href="https://fonts.googleapis.com/css?family=Roboto:300,500,700&display=swap" rel="stylesheet")
+  link(rel='stylesheet', href='/stylesheets/icon-nav.css')
 
 block navigation
 
@@ -37,7 +37,7 @@ block content
         //- include component/carousel-charts.pug
       #hero-navs
         div
-          p navs
+          include component/icon-nav.pug
       #hero-scroll-arrow
         div
           p arrow

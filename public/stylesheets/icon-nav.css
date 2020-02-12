@@ -1,11 +1,6 @@
 /* Icon Navigation Component */
 
-.icon-nav__item{
-    text-align: center;
-    display: block;
-    flex: 0 0 50%;
-    max-width: 50%;
-}
+
 
 .icon-nav__link{
     display: block;

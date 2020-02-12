@@ -263,9 +263,24 @@
   }
 
   #hero-navs {
-    border      : solid 2px;
-    grid-column : span 12;
-    grid-row    : 7 / 8;
+    display            : -ms-flexbox;
+    display            : flex;
+    border             : solid 2px;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    justify-content    : space-around;
+    grid-column        : span 12;
+    grid-row           : 7 / 8;
+  }
+
+  .icon-nav__item {
+    width            : 165px;
+    height           : 72px;
+    border           : solid 2px;
+    border-radius    : 4px;
+    background-color : rgba(142, 191, 214, 0.12);
+    text-align       : center;
+    /* display: block; flex: 0 0 50%; max-width: 50%; */
   }
 
   #hero-scroll-arrow {
@@ -288,27 +303,27 @@
   }
 }
 
-
-
 @media
   only screen
   and (min-width : 1366px) {
   #hero-title {
-    font-size : 144px;
     padding-left   : 64px;
+    font-size      : 144px;
     grid-column    : 1 / 6;
     grid-row       : 2 / 4;
     line-height    : 103.5px;
     letter-spacing : -0.5px;
   }
 }
+
 /* Largeest size at which to clamp font growth etc */
+
 @media
   only screen
   and (min-width : 1824px) {
   #hero-title {
-    font-size : 144px;
     padding-left   : 64px;
+    font-size      : 144px;
     grid-column    : 1 / 6;
     grid-row       : 2 / 4;
     line-height    : 103.5px;
