@@ -231,7 +231,9 @@
   }
 
   #hero-weather__symbol {
-    font-size : 64px;
+    width            : 48px;
+    height           : 48px;
+    background-color : rgba(255, 255, 255, 0.3);
   }
 
   #hero-weather__right-top {
@@ -262,25 +264,48 @@
     grid-row    : 4 / 6;
   }
 
-  #hero-navs {
+  #hero-icon-navs {
     display            : -ms-flexbox;
     display            : flex;
-    border             : solid 2px;
+    border             : none;
     -ms-flex-direction : row;
     flex-direction     : row;
     justify-content    : space-around;
-    grid-column        : span 12;
+    grid-column        : 3 / 11;
     grid-row           : 7 / 8;
   }
 
-  .icon-nav__item {
-    width            : 165px;
-    height           : 72px;
-    border           : solid 2px;
-    border-radius    : 4px;
-    background-color : rgba(142, 191, 214, 0.12);
-    text-align       : center;
-    /* display: block; flex: 0 0 50%; max-width: 50%; */
+  .icon-nav {
+    display            : -ms-flexbox;
+    display            : flex;
+    width              : 165px;
+    height             : 72px;
+    margin             : 0;
+    padding            : 0;
+    border             : none;
+    border-radius      : 4px;
+    background-color   : rgba(142, 191, 214, 0.12);
+    align-items        : center;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    justify-content    : space-around;
+  }
+
+  .icon-nav__icon {
+    width            : 48px;
+    height           : 48px;
+    background-color : rgba(155, 155, 155, 0.5);
+  }
+
+  .icon-nav__title {
+    width          : 62px;
+    height         : 16px;
+    color          : #6fd1f6;
+    font-size      : 14px;
+    font-style     : normal;
+    font-weight    : 500;
+    line-height    : 1.14;
+    letter-spacing : 1.25px;
   }
 
   #hero-scroll-arrow {
