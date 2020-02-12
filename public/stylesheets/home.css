@@ -5,6 +5,7 @@
   position    : relative;
   width       : 100vw;
   height      : 100vh;
+  min-height  : 700px;
   overflow-y  : hidden;
   background  : -webkit-linear-gradient(
                   top,
@@ -18,12 +19,16 @@
   text-align  : center;
   font-family : 'Roboto',
                 sans-serif;
+  /* max-width: 1500px; */
 }
 
 #hero-grid {
   display               : grid;
   width                 : 100vw;
+  max-width             : 1500px;
   height                : 100vh;
+  min-height  : inherit;
+  margin                : auto;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
@@ -213,7 +218,7 @@
   }
 
   #hero-weather__symbol {
-    font-size      : 64px;
+    font-size : 64px;
   }
 
   #hero-time__right-top {
@@ -254,5 +259,21 @@
     border      : solid 2px;
     grid-column : span 12;
     grid-row    : 12 / 13;
+  }
+}
+
+@media
+  only screen
+  and (min-width : 1224px) {
+  /* #hero-title { font-size : 144px; } */
+}
+
+/* Largeest size at which to clamp font growth etc */
+
+@media
+  only screen
+  and (min-width : 1824px) {
+  #hero-title {
+    font-size : 144px;
   }
 }
