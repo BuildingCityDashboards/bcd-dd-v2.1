@@ -3,9 +3,6 @@
 
 
  /* small/mobile 576px */
-
-
-
 #hero {
     /* align-self: center; */
     height: 100vh;
@@ -63,7 +60,7 @@
 }
 
 
-/* medium/tablet  768px */
+/**** medium/tablet  768px ****************************************/
 @media (min-width: 768px){
   .page-grid {
     grid-template-columns: repeat(8, 1fr);
@@ -76,10 +73,11 @@
   }
 }
 
-/*  large/desktop */
+/*  large/desktop 992px *******************************************/
 @media (min-width: 992px){
   .wrapper{
     width: 100vw;
+    /* max-width:  */
 
   }
 
@@ -118,12 +116,19 @@
 }
 
 #hero-time {
-  grid-column: 10 / 13;
+  /* border: solid 2px; */
+
+  /* max-width: 400px; */
+  padding-top: 8px;
+  padding-bottom: 8px;
+  grid-column-start: 10;
+  grid-column-end: 13;
   grid-row:  3 / 4;
-  border: solid 2px;
+
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-around;
+  align-self: end;
+  /* align-items: center; */
   flex-wrap: nowrap;
   font-family: Roboto;
   font-size: 20px;
@@ -132,60 +137,75 @@
   font-style: normal;
   line-height: 1.2;
   letter-spacing: 0.15px;
+  background-color: rgba(142, 191, 214, 0.08);
 
 }
 
 #hero-time__clock {
-  width: 80px;
+  /* width: 80px; */
+  /* margin-left: 20px; */
+  /* margin-right: 20px; */
   height: 22px;
   color: #6fd1f6;
-
 }
 
 #hero-time__date {
-  width: 109px;
+  /* width: 109px; */
+  /* padding-left: 20px; */
+  /* margin-right: 20px; */
   height: 22px;
+  font-weight: 300;
   color: rgba(255, 255, 255, 0.6);
 }
 
 
 #hero-weather {
+  border: solid 2px;
+
+  padding-top: 8px;
+  padding-bottom: 8px;
   grid-column: 9 / 13;
   grid-row:  4 / 5;
-  border: solid 2px;
+
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: nowrap;
+
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  background-color: rgba(142, 191, 214, 0.08);
 }
 
-  #hero-weather__symbol {
+#hero-weather__symbol {
 
-  }
+}
+#hero-weather__summary {
 
+}
+#hero-carousel{
+  grid-column: span 12;
+  grid-row:  5 / 8;
 
-  #hero-weather__summary {
+  border: solid 2px;
 
-  }
+}
+#hero-navs{
+  grid-column: span 12;
+  grid-row:   9 / 11;
 
-  #hero-carousel{
-    grid-column: span 12;
-    grid-row:  5 / 8;
+  border: solid 2px;
 
-    border: solid 2px;
+}
+#hero-scroll-arrow{
+  grid-column: span 12;
+  grid-row:  12 / 13;
 
-  }
-  #hero-navs{
-    grid-column: span 12;
-    grid-row:   9 / 11;
-
-    border: solid 2px;
-
-  }
-  #hero-scroll-arrow{
-    grid-column: span 12;
-    grid-row:  12 / 13;
-
-    border: solid 2px;
-  }
+  border: solid 2px;
+}
 }
