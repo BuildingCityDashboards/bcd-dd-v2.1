@@ -1,7 +1,7 @@
 extends layout
 
 block append head
-  //- link(rel="stylesheet", href="/stylesheets/tabs.css")
+  link(rel="stylesheet", href="/stylesheets/tabs.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
   link(rel='stylesheet', href='/stylesheets/icon-nav.css')
 
@@ -11,10 +11,9 @@ block content
   #hero 
     #hero-grid
       #hero-title
-          #hero-title-box
-              div 
-                #hero-title__text--top DUBLIN
-                #hero-title__text--bottom DASHBOARD
+          div 
+            #hero-title__text--top DUBLIN
+            #hero-title__text--bottom DASHBOARD
       #hero-time-weather
           #hero-time
               #hero-time__box  
@@ -32,14 +31,13 @@ block content
                       #hero-weather__right-bottom 25.5 kph
     
       #hero-carousel
-        div 
-          p carousel
+        include component/carousel-charts.pug
         //- include component/carousel-charts.pug
       #hero-icon-navs
         include component/icon-nav.pug
       #hero-scroll-arrow
         div
-          p arrow
+          p V
     
     //- .bg-img(style='background-image:url("../images/dublin-3.jpg")')
       .content-wrapper.content-wrapper--grad-overlay

@@ -1,8 +1,7 @@
-
 /* small/mobile < 576px */
-
 @media
-  (max-width : 576px) {
+  only screen
+  and (max-width : 576px) {
 
   #hero {
     /* align-self: center; */
@@ -54,10 +53,6 @@
     letter-spacing : -0.5px;
   }
 
-  #hero-title-box {
-    /* margin-left: 88px; */
-  }
-
   #hero-title__text--top {
     color : rgba(111, 209, 246, 0.5);
   }
@@ -84,8 +79,6 @@
   }
 
   #hero-time__box {
-    /* border: solid 2px; */
-    /* max-width: 400px; */
     display          : flex;
     display          : -ms-flexbox;
     width            : 139px;
@@ -150,8 +143,8 @@
     width          : 36px;
     height         : 12px;
     color          : #6fd1f6;
-    font-family    : Roboto;
     font-size      : 12px;
+    line-height    : 1;
     letter-spacing : 0.15px;
   }
 
@@ -187,7 +180,6 @@
   #hero-icon-navs {
     display            : -ms-flexbox;
     display            : flex;
-    border             : solid 2px;
     align-self         : flex-end;
     -ms-flex-direction : row;
     flex-direction     : row;
@@ -196,15 +188,8 @@
     grid-row           : 7 / 8;
   }
 
-  .icon-nav {}
-
   .icon-nav a {
     text-decoration : none;
-  }
-
-  .icon-nav a:hover {
-    background-color : red;
-    text-decoration  : none;
   }
 
   .icon-nav__box {
@@ -250,16 +235,17 @@
   }
 
   #hero-scroll-arrow {
-    border      : solid 2px;
-    grid-column : span 4;
+
+    grid-column : 2 / 4;
     grid-row    : 8 / 9;
+    align-self: flex-end;
   }
 }
 
 /* bigger mobile 576px */
-
 @media
-  (min-width : 576px) {
+  only screen
+  and (min-width : 576px) {
   #hero-title {
     text-align  : left;
     align-self  : top;
@@ -268,29 +254,16 @@
   }
 }
 
-/**
- * medium/tablet
- *
- * 768px
- */
-
+/* medium/tablet 768px */
 @media
-  (min-width : 768px) {
-  .page-grid {
-    grid-gap              : 24px;
-    grid-template-columns : repeat(8, 1fr);
-  }
+  only screen
+  and (min-width : 768px) {
 }
 
 /* large/desktop 992px */
-
 @media
-  (min-width : 992px) {
-  .wrapper {
-    width : 100vw;
-    /* max-width: */
-  }
-
+  only screen
+  and (min-width : 992px) {
   #hero {
     min-height : 960px;
   }
@@ -315,10 +288,6 @@
     grid-row       : 2 / 4;
     line-height    : 72px;
     letter-spacing : -0.5px;
-  }
-
-  #hero-title-box {
-    /* margin-left: 88px; */
   }
 
   #hero-title__text--top {
@@ -570,7 +539,6 @@
 }
 
 /* Largest size at which to clamp font growth etc */
-
 @media
   only screen
   and (min-width : 1824px) {
