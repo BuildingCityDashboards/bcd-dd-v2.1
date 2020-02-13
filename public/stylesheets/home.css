@@ -5,7 +5,7 @@
   position    : relative;
   width       : 100vw;
   height      : 100vh;
-  min-height  : 700px;
+  /* min-height  : 1080px; */
   overflow-y  : hidden;
   background  : -webkit-linear-gradient(
                   top,
@@ -39,7 +39,7 @@
 
 #hero-title {
   border      : solid 2px;
-  align-self  : center;
+  align-self  : top;
   grid-column : 2 / 4;
   grid-row    : 2 / 4;
 }
@@ -87,6 +87,10 @@
   .wrapper {
     width : 100vw;
     /* max-width: */
+  }
+
+  #hero{
+    min-height  : 960px;
   }
 
   #hero-grid {
@@ -270,7 +274,8 @@
     border             : none;
     -ms-flex-direction : row;
     flex-direction     : row;
-    justify-content    : space-around;
+    justify-content    : space-between;
+    align-self: flex-end;
     grid-column        : 3 / 11;
     grid-row           : 7 / 8;
   }
