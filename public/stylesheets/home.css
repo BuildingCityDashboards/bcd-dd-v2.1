@@ -1,8 +1,7 @@
-/* small/mobile < 576px */
-
+/* xs: 360px x 540px - 576px <MOCKUP> */
 @media
   only screen
-  and (max-width : 576px) {
+  and (max-width : 575px) {
   #hero {
     /* align-self: center; */
     position    : relative;
@@ -38,7 +37,6 @@
     grid-gap              : 16px;
     grid-template-columns : repeat(4, 1fr);
     grid-template-rows    : repeat(8, 1fr);
-
   }
 
   #hero-title {
@@ -184,9 +182,9 @@
     justify-content    : space-around;
     grid-column        : span 4;
     grid-row           : 3 / 6;
-
   }
 
+  .hero-carousel__card {}
 
   #hero-icon-navs {
     display            : -ms-flexbox;
@@ -252,33 +250,279 @@
   }
 }
 
-/* bigger mobile 576px */
-
+/* xs-s: 576px -> 768px (intermediate) */
 @media
   only screen
   and (min-width : 576px) {
+
+
+  #hero {
+    /* align-self: center; */
+    position    : relative;
+    width       : 100vw;
+    min-width   : 360px;
+    height      : 100vh;
+    min-height  : 540px;
+    overflow-y  : hidden;
+    background  : -webkit-linear-gradient(
+                    top,
+                    rgba(49,49,49,1) 0%,
+                    rgba(49,49,49,0.7) 75%,
+                    rgba(49,49,49,1.0) 100%
+                  ),
+                  url(
+                    '../images/dublin-3.jpg'
+                  );
+    text-align  : center;
+    font-family : 'Roboto',
+                  sans-serif;
+  }
+
+  #hero-grid {
+    display               : grid;
+    width                 : 100vw;
+    min-width             : inherit;
+    height                : 100vh;
+    min-height            : inherit;
+    margin                : 0;
+    padding-right         : 16px;
+    padding-left          : 16px;
+    justify-content       : center;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(4, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #hero-title {
+    min-width      : 168px;
+    min-height     : 43px;
+    text-align     : left;
+    align-self     : top;
+    font-size      : 28px;
+    font-weight    : bold;
+    grid-column    : 1 / 3;
+    grid-row       : 2 / 3;
+    line-height    : 0.71;
+    letter-spacing : -0.5px;
+  }
+
   #hero-title {
     text-align  : left;
     align-self  : top;
     font-size   : 48px;
     font-weight : bold;
   }
+
+  #hero-title__text--top {
+    color : rgba(111, 209, 246, 0.5);
+  }
+
+  #hero-title__text--bottom {
+    color : rgba(35, 145, 216, 0.39);
+  }
+
+  #hero-time-weather {
+    display            : -ms-flexbox;
+    display            : flex;
+    -ms-flex-direction : column;
+    flex-direction     : column;
+    justify-content    : center;
+    grid-column-start  : 2;
+    grid-column-end    : 5;
+    grid-row           : 2 / 3;
+  }
+
+  #hero-time {
+    display         : -ms-flexbox;
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    display          : flex;
+    display          : -ms-flexbox;
+    width            : 139px;
+    height           : 24px;
+    padding-top      : 8px;
+    padding-bottom   : 8px;
+    background-color : rgba(142, 191, 214, 0.08);
+    align-items      : center;
+    font-weight      : 500;
+    flex-wrap        : nowrap;
+    justify-content  : space-evenly;
+    line-height      : 1.2;
+    letter-spacing   : 0.15px;
+  }
+
+  #hero-time__clock {
+    width          : 49px;
+    height         : 12px;
+    color          : #6fd1f6;
+    font-size      : 12px;
+    line-height    : 1;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-time__date {
+    width          : 66px;
+    height         : 12px;
+    color          : rgba(255, 255, 255, 0.6);
+    font-size      : 12px;
+    line-height    : 1;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather {
+    display         : -ms-flexbox;
+    display         : flex;
+    padding-top     : 4px;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : -ms-flexbox;
+    display            : flex;
+    position           : relative;
+    width              : 150px;
+    height             : 24px;
+    padding-top        : 0px;
+    padding-bottom     : 0px;
+    background-color   : rgba(142, 191, 214, 0.08);
+    align-items        : center;
+    font-weight        : 500;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-around;
+    line-height        : 1.2;
+    letter-spacing     : 0.15px;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__left-top {
+    width          : 36px;
+    height         : 12px;
+    color          : #6fd1f6;
+    font-size      : 12px;
+    line-height    : 1;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather__left-bottom {
+    display : none;
+  }
+
+  #hero-weather__symbol {
+    width            : 16px;
+    height           : 16px;
+    background-color : rgba(255, 255, 255, 0.3);
+  }
+
+  #hero-weather__right-top {
+    width          : 36px;
+    height         : 12px;
+    color          : #6fd1f6;
+    font-size      : 12px;
+    line-height    : 1;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather__right-bottom {
+    display : none;
+  }
+
+  #hero-carousel {
+    display            : flex;
+    display            : -ms-flexbox;
+    position           : relative;
+    overflow-x         : scroll;
+    border             : solid 2px;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-around;
+    grid-column        : span 4;
+    grid-row           : 3 / 6;
+  }
+
+  .hero-carousel__card {}
+
+  #hero-icon-navs {
+    display            : -ms-flexbox;
+    display            : flex;
+    align-self         : flex-end;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    justify-content    : space-around;
+    grid-column        : span 4;
+    grid-row           : 7 / 8;
+  }
+
+  .icon-nav a {
+    text-decoration : none;
+  }
+
+  .icon-nav__box {
+    display            : -ms-flexbox;
+    display            : flex;
+    width              : 64px;
+    min-height         : 72px;
+    margin             : 0;
+    padding            : 0;
+    border             : none;
+    border-radius      : 4px;
+    background-color   : rgba(142, 191, 214, 0.12);
+    align-items        : center;
+    -ms-flex-direction : column;
+    flex-direction     : column;
+    justify-content    : space-evenly;
+  }
+
+  .icon-nav__icon {
+    width  : 24px;
+    height : 24px;
+    border : none;
+    /* background-color : rgba(155, 155, 155, 0.5); */
+  }
+
+  .icon-nav__icon img {
+    width  : 100%;
+    height : 100%;
+  }
+
+  .icon-nav__title {
+    width          : 54px;
+    height         : 12px;
+    color          : rgba(111, 209, 246, 0.5);
+    font-size      : 12px;
+    font-weight    : 500;
+    line-height    : 1.33;
+    letter-spacing : 1.25px;
+  }
+
+  .icon-nav__text {
+    display : none;
+  }
+
+  #hero-scroll-arrow {
+    align-self  : flex-end;
+    grid-column : 2 / 4;
+    grid-row    : 8 / 9;
+  }
 }
 
-/* medium/tablet 768px */
-
+/* s: 768px -> 1024px x 1400px (intermediate) */
 @media
   only screen
   and (min-width : 768px) {
 }
 
-/* large/desktop 992px */
-
+/* m: 1024 x 1400px <MOCKUP> */
 @media
   only screen
-  and (min-width : 992px) {
+  and (max-width : 1024px) {
   #hero {
-    min-height : 960px;
+    min-height : 1400px;
   }
 
   #hero-grid {
@@ -525,6 +769,7 @@
   }
 }
 
+/* m-l: 1224px (intermediate) */
 @media
   only screen
   and (min-width : 1224px) {
@@ -538,9 +783,10 @@
   }
 }
 
+/* l-xl: 1025px -> 1920px (intermediate) */
 @media
   only screen
-  and (min-width : 1366px) {
+  and (min-width : 1025px) {
   #hero-title {
     padding-left   : 64px;
     font-size      : 144px;
@@ -551,8 +797,7 @@
   }
 }
 
-/* Largest size at which to clamp font growth etc */
-
+/* xl: 1920px v 1080px <MOCKUP> */
 @media
   only screen
   and (min-width : 1824px) {
