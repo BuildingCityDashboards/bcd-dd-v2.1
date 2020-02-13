@@ -21,20 +21,20 @@
     background: var(--vivid-cyan);
 }
 
-.tab-charts__row{
+/* .tab-charts__row{
   display: flex;
   flex-wrap: nowrap;
   overflow-x: scroll;
   position: relative;
   justify-content: space-between;
-    /* height: 250px; */
-}
 
-.tab-charts__row::-webkit-scrollbar {
+} */
+
+/* .tab-charts__row::-webkit-scrollbar {
     width: 0;
     height: 0;
     background: transparent;
-}
+} */
 
 /* .tab-charts__row::-webkit-scrollbar-thumb {
     background: var(--vivid-cyan);
@@ -63,10 +63,10 @@
     border: none;
 }
 
-.icon-arrow{
+/* .icon-arrow{
     max-height: 50px;
     max-width: 50px;
-}
+} */
 
 .arrow-left:focus, .arrow-right:focus{
     outline: none;

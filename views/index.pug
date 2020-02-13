@@ -1,9 +1,10 @@
 extends layout
 
 block append head
-  link(rel="stylesheet", href="/stylesheets/tabs.css")
+
   link(rel="stylesheet", href="/stylesheets/home.css")
-  link(rel='stylesheet', href='/stylesheets/icon-nav.css')
+  //- link(rel="stylesheet", href="/stylesheets/tabs.css")
+  //- link(rel='stylesheet', href='/stylesheets/icon-nav.css')
 
 block navigation
 
@@ -31,8 +32,10 @@ block content
                       #hero-weather__right-bottom 25.5 kph
     
       #hero-carousel
-        include component/carousel-charts.pug
-        //- include component/carousel-charts.pug
+        #bikes-card.hero-carousel__card
+          +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+        
+            //- include component/carousel-charts.pug
       #hero-icon-navs
         include component/icon-nav.pug
       #hero-scroll-arrow
@@ -66,16 +69,14 @@ block content
   //- include component/scroll-to-top
 
 block append scripts
-  //- script(src="lib/d3v5/d3.js")
+  script(src="lib/d3v5/d3.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
-  //- script(src="https://unpkg.com/set-interval-async" type="text/javascript")
+  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
   //- script(src='javascripts/dublinco.js')
   //- script(src='javascripts/map.js')
   //- script(src='javascripts/charts/card_line_chart.js')
   //- script(src='javascripts/charts/card_bar_chart.js')
-  //- script(src='javascripts/home/data_glance.js')
-  //- script(src='javascripts/home/card_weather.js')
-  //- script(src='javascripts/home/card_bikes.js')
+  script(src='javascripts/home/data_glance.js')
+  script(src='javascripts/home/card_bikes.js')
   //- script(src='javascripts/home/card_traveltimes.js')
-  //- script(src='javascripts/home/card_time.js')
   //- script(src='javascripts/search.js')

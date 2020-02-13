@@ -1,8 +1,8 @@
 /* small/mobile < 576px */
+
 @media
   only screen
   and (max-width : 576px) {
-
   #hero {
     /* align-self: center; */
     position    : relative;
@@ -38,6 +38,7 @@
     grid-gap              : 16px;
     grid-template-columns : repeat(4, 1fr);
     grid-template-rows    : repeat(8, 1fr);
+
   }
 
   #hero-title {
@@ -172,10 +173,20 @@
   }
 
   #hero-carousel {
-    border      : solid 2px;
-    grid-column : span 4;
-    grid-row    : 3 / 6;
+    display            : flex;
+    display            : -ms-flexbox;
+    position           : relative;
+    overflow-x         : scroll;
+    border             : solid 2px;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-around;
+    grid-column        : span 4;
+    grid-row           : 3 / 6;
+
   }
+
 
   #hero-icon-navs {
     display            : -ms-flexbox;
@@ -235,14 +246,14 @@
   }
 
   #hero-scroll-arrow {
-
+    align-self  : flex-end;
     grid-column : 2 / 4;
     grid-row    : 8 / 9;
-    align-self: flex-end;
   }
 }
 
 /* bigger mobile 576px */
+
 @media
   only screen
   and (min-width : 576px) {
@@ -255,12 +266,14 @@
 }
 
 /* medium/tablet 768px */
+
 @media
   only screen
   and (min-width : 768px) {
 }
 
 /* large/desktop 992px */
+
 @media
   only screen
   and (min-width : 992px) {
@@ -539,6 +552,7 @@
 }
 
 /* Largest size at which to clamp font growth etc */
+
 @media
   only screen
   and (min-width : 1824px) {
