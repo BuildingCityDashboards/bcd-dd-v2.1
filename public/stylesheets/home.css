@@ -1,25 +1,31 @@
 /* xs: 360px x 540px <MOCKUP> */
 
 #hero {
-  position    : relative;
-  width       : 100vw;
-  min-width   : 360px;
-  height      : 100vh;
-  min-height  : 540px;
-  overflow-y  : hidden;
-  background  : -webkit-linear-gradient(
-                  top,
-                  rgba(49,49,49,1) 0%,
-                  rgba(49,49,49,0.7) 75%,
-                  rgba(49,49,49,1.0) 100%
-                ),
-                url(
-                  '../images/dublin-3.jpg'
-                );
-  text-align  : center;
-  align-self  : center;
-  font-family : 'Roboto',
-                sans-serif;
+  position         : relative;
+  width            : 100vw;
+  min-width        : 360px;
+  height           : 100vh;
+  min-height       : 540px;
+  overflow-y       : hidden;
+  background-image : url('../images/hero-background-image.png');
+  background-size: 100vw auto;
+
+  /* Center and scale the image nicely */
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  text-align       : center;
+  align-self       : center;
+  font-family      : 'Roboto',
+                     sans-serif;
+  /**
+  * background
+  *
+  * : -webkit-linear-gradient( top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7)
+  * 75%, rgba(49,49,49,1.0) 100% ), url( '../images/hero-background-image.png'
+  * );
+  */
 }
 
 #hero-grid {
@@ -480,14 +486,31 @@
 @media
   only screen
   and (min-width : 1224px) {
-  #hero-title {
-    padding-left   : 36px;
-    font-size      : 128px;
-    grid-column    : 1 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 88px;
-    letter-spacing : -0.5px;
-  }
+  /**
+  * #hero-title { padding-left
+  *
+  * : 36px; font-size
+  *
+  *
+  *
+  *
+  *
+  * : 128px; grid-column
+  *
+  *
+  *
+  * : 1 / 6; grid-row
+  *
+  *
+  *
+  *
+  *
+  * : 2 / 4; line-height
+  *
+  *
+  *
+  * : 88px; letter-spacing : -0.5px; }
+  */
 }
 
 /* l-xl: 1025px -> 1920px (intermediate) */
@@ -495,14 +518,31 @@
 @media
   only screen
   and (min-width : 1025px) {
-  #hero-title {
-    padding-left   : 64px;
-    font-size      : 144px;
-    grid-column    : 1 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 103.5px;
-    letter-spacing : -0.5px;
-  }
+  /**
+  * #hero-title { padding-left
+  *
+  * : 64px; font-size
+  *
+  *
+  *
+  *
+  *
+  * : 144px; grid-column
+  *
+  *
+  *
+  * : 1 / 6; grid-row
+  *
+  *
+  *
+  *
+  *
+  * : 2 / 4; line-height
+  *
+  *
+  *
+  * : 103.5px; letter-spacing : -0.5px; }
+  */
 }
 
 /* xl: 1920px v 1080px <MOCKUP> */
@@ -515,16 +555,6 @@
     width      : 100vw;
     height     : 100vh;
     min-height : 1080px;
-    background : -webkit-linear-gradient(
-                   top,
-                   rgba(49,49,49,1) 0%,
-                   rgba(49,49,49,0.7) 75%,
-                   rgba(49,49,49,1.0) 100%
-                 ),
-                 url(
-                   '../images/dublin-3.jpg'
-                 );
-
   }
 
   #hero-grid {
@@ -555,15 +585,14 @@
   }
 
   #hero-icon-navs {
-    align-self         : top;
-    justify-content    : space-between;
-    grid-column        : 3 / 11;
-    grid-row           :  7 / 8;
+    align-self      : top;
+    justify-content : space-between;
+    grid-column     : 3 / 11;
+    grid-row        : 7 / 8;
   }
 
   #hero-scroll-arrow {
     grid-column : 6/8;
     grid-row    : 8 / 9;
   }
-
 }
