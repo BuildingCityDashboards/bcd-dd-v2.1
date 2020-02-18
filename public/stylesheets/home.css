@@ -88,12 +88,10 @@
   display          : -ms-flexbox;
   width            : 139px;
   height           : 24px;
-
   background-color : rgba(142, 191, 214, 0.08);
   align-items      : center;
   flex-wrap        : nowrap;
-  justify-content  : space-evenly;
-
+  justify-content  : space-around;
 }
 
 #hero-time__clock {
@@ -144,7 +142,6 @@
 }
 
 #hero-weather__left-top {
-  width          : 36px;
   height         : 12px;
   color          : #6fd1f6;
   font-size      : 12px;
@@ -163,7 +160,6 @@
 }
 
 #hero-weather__right-top {
-  width          : 36px;
   height         : 12px;
   color          : #6fd1f6;
   font-size      : 12px;
@@ -291,7 +287,7 @@
     justify-content : flex-start;
     grid-column     : 6 / 13;
     grid-row        : 2 / 4;
-    transform: translate(24px,0);
+    transform       : translate(24px,0);
   }
 
   #hero-time {
@@ -317,19 +313,18 @@
     justify-content  : space-around;
     line-height      : 1.2;
     letter-spacing   : 0.15px;
-
   }
 
   #hero-time__clock {
-    width: 80px;
-    height: 22px;
+    width     : 80px;
+    height    : 22px;
     color     : #6fd1f6;
     font-size : 20px;
   }
 
   #hero-time__date {
-    width: 109px;
-    height: 22px;
+    width       : 109px;
+    height      : 22px;
     color       : rgba(255, 255, 255, 0.6);
     font-size   : 20px;
     font-weight : 300;
@@ -338,51 +333,39 @@
   #hero-weather {
     display         : -ms-flexbox;
     display         : flex;
-    padding-top     : 4px;
     justify-content : flex-end;
   }
 
   #hero-weather__box {
     display            : -ms-flexbox;
     display            : flex;
-    position           : relative;
     width              : 366px;
     height             : 64px;
-    padding-top        : 8px;
-    padding-bottom     : 8px;
     background-color   : rgba(142, 191, 214, 0.08);
-    align-items        : center;
-    font-size          : 20px;
     font-style         : normal;
-    font-weight        : 500;
-    font-stretch       : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
     flex-wrap          : nowrap;
     justify-content    : space-evenly;
-    line-height        : 1.2;
-    letter-spacing     : 0.15px;
     word-wrap          : break-word;
   }
 
   #hero-weather__left-top {
-    /* width: 30px; height: 20px; */
+    height         : 20px;
     color          : #6fd1f6;
     font-size      : 20px;
-    font-style     : normal;
     font-weight    : 500;
-    font-stretch   : normal;
     line-height    : 1.2;
     letter-spacing : 0.15px;
   }
 
   #hero-weather__left-bottom {
-    /* width: 100px; height: 20px; */
+    display        : -ms-flexbox;
+    display        : flex;
+    height         : 20px;
     color          : rgba(255, 255, 255, 0.6);
     font-size      : 18px;
-    font-style     : normal;
     font-weight    : 500;
-    font-stretch   : normal;
     line-height    : 1.33;
     letter-spacing : 0.15px;
   }
@@ -394,23 +377,21 @@
   }
 
   #hero-weather__right-top {
-    /* width: 28px; height: 22px; */
+    height         : 20px;
     color          : #6fd1f6;
     font-size      : 20px;
-    font-style     : normal;
     font-weight    : 500;
-    font-stretch   : normal;
     line-height    : 1.2;
     letter-spacing : 0.15px;
   }
 
   #hero-weather__right-bottom {
-    /* width: 54px; height: 20px; */
+    display        : -ms-flexbox;
+    display        : flex;
+    height         : 18px;
     color          : rgba(255, 255, 255, 0.6);
-    font-size      : 16px;
-    font-style     : normal;
+    text-align     : center;
     font-weight    : 500;
-    font-stretch   : normal;
     line-height    : 1.5;
     letter-spacing : 0.15px;
   }
@@ -418,19 +399,19 @@
   #hero-carousel {
     border      : solid 2px;
     grid-column : span 12;
-    grid-row    : 4 / 6;
+    grid-row    : 4 / 10;
   }
 
   #hero-icon-navs {
     display            : -ms-flexbox;
     display            : flex;
     border             : none;
-    align-self         : flex-end;
+    align-self         : center;
     -ms-flex-direction : row;
     flex-direction     : row;
-    justify-content    : space-between;
-    grid-column        : 3 / 11;
-    grid-row           : 7 / 8;
+    justify-content    : space-around;
+    grid-column        : span 12;
+    grid-row           : 10 / 12;
   }
 
   .icon-nav a {
@@ -462,7 +443,7 @@
     width  : 48px;
     height : 48px;
     border : none;
-    /* background-color : rgba(155, 155, 155, 0.5); */
+    /* background-color : rgba(155, 155, 155, 0.0); */
   }
 
   .icon-nav__title {
@@ -478,6 +459,7 @@
   }
 
   .icon-nav__text {
+    display        : flex;
     width          : 165px;
     height         : 40px;
     color          : rgba(255, 255, 255, 0.6);
@@ -488,9 +470,8 @@
   }
 
   #hero-scroll-arrow {
-    border      : solid 2px;
-    grid-column : span 12;
-    grid-row    : 8 / 9;
+    grid-column : 6/8;
+    grid-row    : 12 / 13;
   }
 }
 
@@ -528,13 +509,61 @@
 
 @media
   only screen
-  and (min-width : 1824px) {
+  and (min-width : 1920px) {
+  #hero {
+    position   : relative;
+    width      : 100vw;
+    height     : 100vh;
+    min-height : 1080px;
+    background : -webkit-linear-gradient(
+                   top,
+                   rgba(49,49,49,1) 0%,
+                   rgba(49,49,49,0.7) 75%,
+                   rgba(49,49,49,1.0) 100%
+                 ),
+                 url(
+                   '../images/dublin-3.jpg'
+                 );
+
+  }
+
+  #hero-grid {
+    padding               : 24px;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #hero-title > div {
+    transform : translate(0, 0);
+  }
+
   #hero-title {
-    padding-left   : 64px;
+    padding-left   : 0px;
+    align-self     : top;
     font-size      : 144px;
-    grid-column    : 1 / 6;
+    grid-column    : 2 / 6;
     grid-row       : 2 / 4;
-    line-height    : 103.5px;
+    line-height    : 0.72;
     letter-spacing : -0.5px;
   }
+
+  #hero-carousel {
+    border      : dashed 2px;
+    grid-column : span 12;
+    grid-row    : 4 / 7;
+  }
+
+  #hero-icon-navs {
+    align-self         : top;
+    justify-content    : space-between;
+    grid-column        : 3 / 11;
+    grid-row           :  7 / 8;
+  }
+
+  #hero-scroll-arrow {
+    grid-column : 6/8;
+    grid-row    : 8 / 9;
+  }
+
 }
