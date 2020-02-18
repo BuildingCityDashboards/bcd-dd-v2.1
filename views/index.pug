@@ -42,22 +42,11 @@ block content
             div
               p V
         
-    //- .bg-img(style='background-image:url("../images/dublin-3.jpg")')
-      .content-wrapper.content-wrapper--grad-overlay
-        //- .container
-          .row
-            //- .col-sm-12.mb-2
-              h2.text-center.hero__title DUBLIN DASHBOARD
-          include component/carousel-charts.pug
-          //- include component/searchbar.pug
-          include component/icon-nav.pug
-          //- include component/toggle-button.pug
-    //- #about-dublin.position-anchor
-    //- .content-wrapper.content-wrapper--darkblue
-      .container
-      .position-anchor#lp-map
-      .position-anchor#about-dublin
-        include component/lp-map.pug
+              //- include component/toggle-button.pug
+  #about-dublin.position-anchor
+    #lp-map
+    //- .position-anchor#about-dublin
+      include component/lp-map.pug
         
     //- #about-dublin-dashboard.position-anchor
   //- section.map

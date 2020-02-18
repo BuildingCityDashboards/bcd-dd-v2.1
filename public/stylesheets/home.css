@@ -246,8 +246,12 @@
   align-self  : flex-end;
   grid-column : 2 / 4;
   grid-row    : 8 / 9;
+
 }
 
+#about-dublin{
+  
+}
 /* s: 768px -> 1024px x 1400px (intermediate) */
 
 @media
