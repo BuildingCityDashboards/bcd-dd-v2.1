@@ -11,37 +11,37 @@ block navigation
 block content
   #hero 
     #hero-grid
-      #hero-title
-          div 
-            #hero-title__text--top DUBLIN
-            #hero-title__text--bottom DASHBOARD
-      #hero-time-weather
-          #hero-time
-              #hero-time__box  
-                  #hero-time__clock 13:23:45   
-                  #hero-time__date 01/01/2020
-          #hero-weather
-              #hero-weather__box
-                  div
-                      #hero-weather__left-top 14 C 
-                      #hero-weather__left-bottom Prec 0.0 mm
-                  div
-                      #hero-weather__symbol    
-                  div
-                      #hero-weather__right-top ~ NE
-                      #hero-weather__right-bottom 25.5 kph
-    
-      #hero-carousel
-          #bikes-card.hero-carousel__card
-              //- +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+        #hero-title
+            div 
+              #hero-title__text--top DUBLIN
+              #hero-title__text--bottom DASHBOARD
+        #hero-time-weather
+            #hero-time
+                #hero-time__box  
+                    #hero-time__clock 13:23:45   
+                    #hero-time__date 01/01/2020
+            #hero-weather
+                #hero-weather__box
+                    div
+                        #hero-weather__left-top 14 C 
+                        #hero-weather__left-bottom Prec 0.0 mm
+                    div
+                        #hero-weather__symbol    
+                    div
+                        #hero-weather__right-top ~ NE
+                        #hero-weather__right-bottom 25.5 kph
+            //- 
+        #hero-carousel
+            //-     //- #bikes-card.hero-carousel__card
+            //-         //- +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+            //- 
+            //-         //- include component/carousel-charts.pug
+        #hero-icon-navs
+            include component/icon-nav.pug
+        #hero-scroll-arrow
+            div
+              p V
         
-              //- include component/carousel-charts.pug
-      #hero-icon-navs
-        include component/icon-nav.pug
-      #hero-scroll-arrow
-        div
-          p V
-    
     //- .bg-img(style='background-image:url("../images/dublin-3.jpg")')
       .content-wrapper.content-wrapper--grad-overlay
         //- .container
@@ -69,14 +69,14 @@ block content
   //- include component/scroll-to-top
 
 block append scripts
-  script(src="lib/d3v5/d3.js")
-  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
-  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
-  //- script(src='javascripts/dublinco.js')
+  //- script(src="lib/d3v5/d3.js")
+  //- script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
+  //- script(src="https://unpkg.com/set-interval-async" type="text/javascript")
+  //- //- script(src='javascripts/dublinco.js')
   //- script(src='javascripts/map.js')
   //- script(src='javascripts/charts/card_line_chart.js')
   //- script(src='javascripts/charts/card_bar_chart.js')
-  script(src='javascripts/home/data_glance.js')
-  script(src='javascripts/home/card_bikes.js')
+  //- script(src='javascripts/home/data_glance.js')
+  //- script(src='javascripts/home/card_bikes.js')
   //- script(src='javascripts/home/card_traveltimes.js')
   //- script(src='javascripts/search.js')
