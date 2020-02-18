@@ -29,7 +29,7 @@
   height                : 100vh;
   min-height            : inherit;
   margin                : 0;
-  padding         : 16px;
+  padding               : 4.4vw;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
@@ -74,6 +74,7 @@
   justify-content    : flex-end;
   grid-column        : 2 /5;
   grid-row           : 2 / 3;
+  transform          : translate(4.4vw, 0);
 }
 
 #hero-time {
@@ -87,15 +88,12 @@
   display          : -ms-flexbox;
   width            : 139px;
   height           : 24px;
-  padding-top      : 8px;
-  padding-bottom   : 8px;
+
   background-color : rgba(142, 191, 214, 0.08);
   align-items      : center;
-  font-weight      : 500;
   flex-wrap        : nowrap;
   justify-content  : space-evenly;
-  line-height      : 1.2;
-  letter-spacing   : 0.15px;
+
 }
 
 #hero-time__clock {
@@ -103,6 +101,7 @@
   height         : 12px;
   color          : #6fd1f6;
   font-size      : 12px;
+  font-weight    : 500;
   line-height    : 1;
   letter-spacing : 0.15px;
 }
@@ -177,78 +176,9 @@
 }
 
 #hero-carousel {
-  /**
-  * display
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : flex; display
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : -ms-flexbox; position
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : relative; overflow-x
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : scroll;
-  */
   border      : solid 2px;
   grid-column : span 4;
   grid-row    : 3 / 7;
-  /**
-  * -ms-flex-direction : row; flex-direction
-  *
-  *
-  *
-  * : row; flex-wrap
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : nowrap;
-  */
-  /**
-  * justify-content
-  *
-  *
-  *
-  * : space-around;
-  */
 }
 
 .hero-carousel__card {}
@@ -335,42 +265,33 @@
   #hero-grid {
     padding-right         : 24px;
     padding-left          : 24px;
-    justify-content       : center;
     grid-gap              : 24px;
     grid-template-columns : repeat(12, 1fr);
     grid-template-rows    : repeat(12, 1fr);
-    /* align-items: top; */
   }
 
   #hero-title {
-    padding-left   : 36px;
+    /* width: 453px; height: 180px; */
+    padding-left   : 24px;
     border         : none;
     text-align     : left;
     align-self     : top;
-    font-size      : 104px;
+    font-size      : 76px;
     grid-column    : 1 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 72px;
+    grid-row       : 2 / 3;
+    line-height    : 0.73;
     letter-spacing : -0.5px;
   }
 
-  #hero-title__text--top {
-    color : rgba(111, 209, 246, 0.5);
-  }
-
-  #hero-title__text--bottom {
-    color : rgba(35, 145, 216, 0.39);
+  #hero-title > div {
+    transform : translate(0, 0);
   }
 
   #hero-time-weather {
-    display            : -ms-flexbox;
-    display            : flex;
-    -ms-flex-direction : column;
-    flex-direction     : column;
-    justify-content    : flex-start;
-    grid-column-start  : 9;
-    grid-column-end    : 13;
-    grid-row           : 2 / 4;
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform: translate(24px,0);
   }
 
   #hero-time {
@@ -386,34 +307,31 @@
     display          : -ms-flexbox;
     width            : 325px;
     height           : 64px;
-    padding-top      : 8px;
-    padding-bottom   : 8px;
+    background-color : rgba(142, 191, 214, 0.08);
     background-color : rgba(142, 191, 214, 0.08);
     align-items      : center;
-    font-size        : 20px;
     font-style       : normal;
     font-weight      : 500;
     font-stretch     : normal;
     flex-wrap        : nowrap;
-    justify-content  : space-evenly;
+    justify-content  : space-around;
     line-height      : 1.2;
     letter-spacing   : 0.15px;
+
   }
 
   #hero-time__clock {
-    /* width: 80px; */
-    /* margin-left: 20px; */
-    /* margin-right: 20px; */
-    height : 22px;
-    color  : #6fd1f6;
+    width: 80px;
+    height: 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
   }
 
   #hero-time__date {
-    /* width: 109px; */
-    /* padding-left: 20px; */
-    /* margin-right: 20px; */
-    height      : 22px;
+    width: 109px;
+    height: 22px;
     color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
     font-weight : 300;
   }
 
