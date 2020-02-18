@@ -48,6 +48,14 @@
   grid-row       : 2 / 3;
   line-height    : 0.71;
   letter-spacing : -0.5px;
+  display         : -ms-flexbox;
+  display         : flex;
+  flex-direction: column;
+  justify-content : flex-start;
+}
+
+#hero-title > div{
+  transform: translate(0, -50%);
 }
 
 #hero-title__text--top {
@@ -255,7 +263,7 @@
 /* m: 1024 x 1400px <MOCKUP> */
 @media
   only screen
-  and (max-width : 1024px) {
+  and (min-width : 1024px) {
   #hero {
     min-height : 1400px;
   }
@@ -266,7 +274,7 @@
     justify-content       : center;
     grid-gap              : 24px;
     grid-template-columns : repeat(12, 1fr);
-    grid-template-rows    : repeat(8, 1fr);
+    grid-template-rows    : repeat(12, 1fr);
     /* align-items: top; */
   }
 
