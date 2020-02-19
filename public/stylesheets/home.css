@@ -246,15 +246,15 @@
   grid-row    : 8 / 9;
 }
 
-/* * About Dublin * */
+/* About Dublin * */
 
 #about-dublin {
-  display: grid;
+  display               : grid;
   width                 : 100vw;
   min-width             : 360px;
   height                : 100vh;
   min-height            : 540px;
-  padding        : 16px;
+  padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
@@ -262,28 +262,37 @@
 }
 
 #about-dublin__header {
+  align-self  : center;
   grid-column : 1/3;
   grid-row    : 2/3;
-  align-self: center;
-
 }
 
 #about-dublin__header > h1 {
   /* width: 136px; */
-  margin: 0;
-  height         : 18px;
+  margin         : 0;
   color          : #6fd1f6;
   font-size      : 24px;
   font-weight    : bold;
   line-height    : 0.73;
   letter-spacing : -0.5px;
+  /**
+  * height
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  * : 18px;
+  */
 }
 
 #about-dublin__card {
   padding     : 16px 16px 0 16px;
+  overflow-y  : scroll;
   grid-column : span 4;
   grid-row    : 3/9;
-  overflow-y: scroll;
 }
 
 #about-dublin__card > p {
@@ -296,12 +305,12 @@
 }
 
 #la-map {
-  display: grid;
+  display               : grid;
   width                 : 100vw;
   min-width             : 360px;
   height                : 100vh;
   min-height            : 540px;
-  padding        : 16px;
+  padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
@@ -309,22 +318,84 @@
 }
 
 #la-map__header {
-  grid-column : 1/3;
+  align-self  : center;
+  grid-column : span 4;
   grid-row    : 2/3;
-  align-self: center;
+}
+
+#la-map__header > h1 {
+  /* width: 326px; */
+  /* min-height: 50px; */
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 16px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.5;
+  letter-spacing : 1.5px;
+}
+
+#la-map__map {}
+
+
+#la-info {
+  border: dashed 2px;
+    display               : grid;
+    width                 : 100vw;
+    min-width             : 360px;
+    height                : 100vh;
+    min-height            : 540px;
+    padding               : 16px;
+    justify-content       : center;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(4, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #la-info__map {
+    border: solid 2px;
+    grid-column : span 4;
+    grid-row    : 2 / 6;
+  }
+
+
+  #la-info__card{
+    grid-column : span 4;
+    grid-row    : 6 / 9;
+    border: dashed 2px;
+    padding: 16px;
+overflow-y  : scroll;
+
+  }
+
+  #la-info__card__header{
+    padding-bottom: 16px;
+
+  }
+
+  #la-info__card__header > h1{
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 24px;
+    font-weight    : 500;
+    line-height    : 24px;
+    letter-spacing : 0.18px;
+  }
+
+#la-info__card__body{
+
 
 }
-#la-map__header > h1{
-width: 326px;
- height: 50px;
- font-family: Roboto;
- font-size: 16px;
- font-weight: 500;
- font-stretch: normal;
- font-style: normal;
- line-height: 1.5;
- letter-spacing: 1.5px;
- color: #6fd1f6;
+
+#la-info__card__body > p {
+  margin         : 0;
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 14px;
+  font-weight    : 500;
+  line-height    : 24px;
+  letter-spacing : 0.5px;
+
 }
 
 /* s: 768px -> 1024px x 1400px (intermediate) */
