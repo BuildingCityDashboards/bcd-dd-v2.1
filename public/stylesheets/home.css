@@ -338,55 +338,48 @@
 
 #la-map__map {}
 
-
 #la-info {
-  border: dashed 2px;
-    display               : grid;
-    width                 : 100vw;
-    min-width             : 360px;
-    height                : 100vh;
-    min-height            : 540px;
-    padding               : 16px;
-    justify-content       : center;
-    grid-gap              : 16px;
-    grid-template-columns : repeat(4, 1fr);
-    grid-template-rows    : repeat(8, 1fr);
-  }
-
-  #la-info__map {
-    border: solid 2px;
-    grid-column : span 4;
-    grid-row    : 2 / 6;
-  }
-
-
-  #la-info__card{
-    grid-column : span 4;
-    grid-row    : 6 / 9;
-    border: dashed 2px;
-    padding: 16px;
-overflow-y  : scroll;
-
-  }
-
-  #la-info__card__header{
-    padding-bottom: 16px;
-
-  }
-
-  #la-info__card__header > h1{
-    margin         : 0;
-    color          : #6fd1f6;
-    font-size      : 24px;
-    font-weight    : 500;
-    line-height    : 24px;
-    letter-spacing : 0.18px;
-  }
-
-#la-info__card__body{
-
-
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : 100vh;
+  min-height            : 540px;
+  padding               : 16px;
+  border                : dashed 2px;
+  justify-content       : center;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
 }
+
+#la-info__map {
+  border      : solid 2px;
+  grid-column : span 4;
+  grid-row    : 2 / 6;
+}
+
+#la-info__card {
+  padding     : 16px;
+  overflow-y  : scroll;
+  border      : dashed 2px;
+  grid-column : span 4;
+  grid-row    : 6 / 9;
+}
+
+#la-info__card__header {
+  padding-bottom : 16px;
+}
+
+#la-info__card__header > h1 {
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 24px;
+  font-weight    : 500;
+  line-height    : 24px;
+  letter-spacing : 0.18px;
+}
+
+#la-info__card__body {}
 
 #la-info__card__body > p {
   margin         : 0;
@@ -395,7 +388,51 @@ overflow-y  : scroll;
   font-weight    : 500;
   line-height    : 24px;
   letter-spacing : 0.5px;
+}
 
+#about-dublin-dashboard {
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : 100vh;
+  min-height            : 540px;
+  padding               : 16px;
+  justify-content       : center;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
+}
+
+#about-dublin-dashboard__header {
+  grid-column : span 4;
+  grid-row    : 2/3;
+}
+
+#about-dublin-dashboard__header > h1 {
+  /* width: 136px; */
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 24px;
+  font-weight    : bold;
+  line-height    : 0.73;
+  letter-spacing : -0.5px;
+
+}
+
+#about-dublin-dashboard__card {
+  padding     : 16px 16px 0 16px;
+  overflow-y  : scroll;
+  grid-column : span 4;
+  grid-row    : 3/9;
+}
+
+#about-dublin-dashboard__card > p {
+  /* width: 296px; height: 371px; */
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 14px;
+  font-weight    : 500;
+  line-height    : 1.71;
+  letter-spacing : 0.5px;
 }
 
 /* s: 768px -> 1024px x 1400px (intermediate) */
