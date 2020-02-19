@@ -42,9 +42,49 @@ block content
             div
               p V
         
-              //- include component/toggle-button.pug
-  #about-dublin.position-anchor
-    #lp-map
+            //- include component/toggle-button.pug
+  #about-dublin 
+    //-.position-anchor
+    #about-dublin__header 
+      h1 About Dublin
+    #about-dublin__card
+      p#region__open Dublin is the capital and largest city in Ireland. 
+        |It is located in the province of Leinster and covers a total area of 
+        span#region__area xxx.xx
+        |. 
+
+        |Dublin has a total population of 
+        span#region__population x,xxx,xxx 
+        |  people, with a median age of 
+        span#region__age xx.x 
+        |  years. The median household income is 
+        span#region__income €xx.xx
+        |.
+      p Between 2011 and 2016, the population of Dublin 
+        span#region__populationIndicator declined/increased 
+        |from 
+        span#region__prePopulation xxxxxx 
+        |  to 
+        span#region__population xxxxxx 
+        |, a 
+        span#region__populationChange x.xx% decrease/increase 
+        |. 
+        |  The median household income for the region 
+        span#region__incomeIndicator grew/shrunk 
+        |from 
+        span#region__income__prev €xx.xx 
+        |  to 
+        span#region__income €xx.xx
+        |, a 
+        span#region__income__change x.xx% decrease/increase
+        |.
+      p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin.
+        |  Select a council to see specific information. 
+  #la-map
+    #la-map__header
+      h1 SELECT A COUNTY COUNCIL TO LEARN MORE
+    #la-map__map
+      
     //- .position-anchor#about-dublin
       include component/lp-map.pug
         
