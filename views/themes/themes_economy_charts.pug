@@ -9,165 +9,132 @@ header.header
         |nisi ut aliquip ex ea commodo consequat.
 
 
-article.article.pt-5
-  div#employment.row
-    .col-lg-12
-      h2.mb-2 Employment Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
+      article.article.pt-5
+        div.row
+          #employment.position-anchor
+          .col-lg-12
+            h2.mb-2 Employment Statistics <img height='15px' width='15px' src='/images/calendar-w.svg'>
+      
+        .section-body.row.wrapper.pb-3
+          .col-lg-6.pt-3
+            .chart-heading.h3 Numbers in Employment 
+              p Source: 
+                a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+                  img(src='../images/external-link.svg' height='11px' width='11px')
+            <button type="button" class="btn btn-bcd btn-sm active employment_count">Count</button>
+            //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
+            <button type="button" class="btn btn-bcd btn-sm employment_arate">Annual % Change</button>
+            div#chart-employment.chart-holder_PH
+            div#chart-emp-rate.chart-holder_PH
+      
+          .col-lg-6.pt-3
+            .chart-heading.h3 Numbers Unemployed 
+              p Source: 
+                a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
+                  img(src='../images/external-link.svg' height='11px' width='11px')
+            <button type="button" class="btn btn-bcd btn-sm unemployment_count active">Count</button>
+            //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
+            <button type="button" class="btn btn-bcd btn-sm unemployment_arate">Annual % Change</button>
+            div#chart-unemployment.chart-holder_PH
+            div#chart-unemp-rate.chart-holder_PH
 
-  .section-body.row.wrapper
-    .col-lg-6.pt-2
-      .chart-heading Numbers in Employment 
-        p Source: 
-          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
-            img(src='../images/external-link.svg' height='11px' width='11px')
-      div.pt-2.ml-4
-        <button type="button" class="btn btn-bcd btn-sm active ">Count</button>
-        //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
-        <button type="button" class="btn btn-bcd btn-sm ">Annual % Change</button>
-      div#chart-employment.chart-holder_PH
-      div#chart-emp-rate.chart-holder_PH
-
-    .col-lg-6.pt-2
-      .chart-heading Numbers Unemployed 
-        p Source: 
-          a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
-            img(src='../images/external-link.svg' height='11px' width='11px')
-
-      div.pt-2.ml-4        
-        <button type="button" class="btn btn-bcd btn-sm active">Count</button>
-        //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
-        <button type="button" class="btn btn-bcd btn-sm">Annual % Change</button>
-      div#chartNew.chart-holder_PH
-      div#chart-unemp-rate.chart-holder_PH
-
-    //- .col-lg-4
-      h3 Numbers in Employment <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Persons aged 15 years and over in Employment (Thousand)
-
-    //- .col-lg-8
-      .pt-2
-        <button type="button" class="btn btn-bcd active employment-btn employment_count">Count</button>
-        //- <button type="button" class="btn btn-bcd employment-btn employment_qrate" value="Quartley-On-Quartley  % Change"">Quartley % Change</button>
-        <button type="button" class="btn btn-bcd employment-btn employment_arate">Annual % Change</button>
-      #chart-employment.chart-holder
-      #chart-emp-rate.chart-holder
-
-  //- #unemployed.section-body.row.wrapper
-    .col-lg-4
-      h3 Numbers Unemployed <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Unemployed Persons aged 15 years and over (Thousand)
-
-    .col-lg-8
-      .pt-2
-        <button type="button" class="btn btn-bcd unemployment_count active">Count</button>
-        //- <button type="button" class="btn btn-bcd">Quartley % Change</button>
-        <button type="button" class="btn btn-bcd unemployment_arate">Annual % Change</button>
-        //- <button type="button" class="btn btn-bcd">Rate</button>
-      #chartNew.chart-holder
-      #chart-unemp-rate.chart-holder
-
-  //- #grossValue.section-body.row.wrapper
-    .col-lg-4
-      h3 Gross Value Added <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Gross Value Added per Capita at Basic Prices
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-gva.chart-holder
+  
+#grossValue.section-body.row.wrapper
+  .col-lg-4
+    h3 Gross Value Added <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01" target="_blank") CSO 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Gross Value Added per Capita at Basic Prices
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-gva.chart-holder
 
 //- article#income_poverty.article
-  .section-body.row.wrapper
-    .col-lg-12
-      h2.mb-2 Income & Poverty
+.section-body.row.wrapper
+  .col-lg-12
+    h2.mb-2 Income & Poverty
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Median Real Household Disposable Income <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Survey on Income and Living Conditions for Dublin
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-disposable-income.chart-holder
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Median Real Household Disposable Income <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") CSO 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Survey on Income and Living Conditions for Dublin
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-disposable-income.chart-holder
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Poverty Rating <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Survey on Income and Living Conditions for Dublin
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-        //- <button type="button" class="btn btn-bcd active">Rate</button>
-      #chart-poverty-rate.chart-holder
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Poverty Rating <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=SIA20&PLanguage=0" target="_blank") CSO 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Survey on Income and Living Conditions for Dublin
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+      //- <button type="button" class="btn btn-bcd active">Rate</button>
+    #chart-poverty-rate.chart-holder
 
 //- article.article
-  .section-body.row.wrapper
-    .col-lg-12
-      h2.mb-2 Industry Sectors
+.section-body.row.wrapper
+  .col-lg-12
+    h2.mb-2 Industry Sectors
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Numbers by Employment Sector in Dublin <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF07&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Numbers by Employment Sector in Dublin <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF07&PLanguage=0" target="_blank") CSO 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
 
-    .col-lg-8
-      .pt-2
-      #chart-employment-sector.chart-holder
+  .col-lg-8
+    .pt-2
+    #chart-employment-sector.chart-holder
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Number of Employees by Size of Company <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0" target="_blank") CSO 
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-employees-by-size.chart-holder
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Number of Employees by Size of Company <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0" target="_blank") CSO 
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-employees-by-size.chart-holder
 
-  .section-body.row.wrapper
-    .col-lg-4
-      h3 Overseas Visitors <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="http://www.failteireland.ie/Research-Insights/Tourism-Facts-and-Figures.aspx" target="_blank") Failte Ireland/CSO/DCC  
-          img(src='../images/external-link.svg' height='11px' width='11px')
-      p Total Overseas Visitors to Dublin
-      p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-        | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        |nisi ut aliquip ex ea commodo consequat.
-    .col-lg-8
-      .pt-2
-      #chart-overseas-vistors.chart-holder
+.section-body.row.wrapper
+  .col-lg-4
+    h3 Overseas Visitors <img height='15px' width='15px' src='/images/calendar-w.svg'>
+    p Source: 
+      a(href="http://www.failteireland.ie/Research-Insights/Tourism-Facts-and-Figures.aspx" target="_blank") Failte Ireland/CSO/DCC  
+        img(src='../images/external-link.svg' height='11px' width='11px')
+    p Total Overseas Visitors to Dublin
+    p Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+      | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+      |nisi ut aliquip ex ea commodo consequat.
+  .col-lg-8
+    .pt-2
+    #chart-overseas-vistors.chart-holder

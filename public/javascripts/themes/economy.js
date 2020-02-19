@@ -176,217 +176,205 @@ Promise.all([
   })
 
 /** * This the Gross Value Added per Capita at Basic Prices Chart ***/
-// d3.csv("../data/Economy/RAA01.csv").then( data => {
-//
-//     let columnNames = data.columns.slice(1),
-//         incomeData = data;
-//
-//         incomeData.forEach( d => {
-//             d.label = d.date;
-//             d.date = parseYear(d.date);
-//             d.value = +d.value;
-//         });
-//
-//     const idContent = {
-//         e: "#chart-gva",
-//         xV: "date",
-//         yV: "value",
-//         d: incomeData,
-//         k: "region",
-//         ks: ["Dublin","Dublin plus Mid East","State"],
-//         tX: "Years",
-//         tY: "€"
-//     };
-//
-//     const GVA = new MultiLineChart(idContent);
-//           GVA.drawChart();
-//           GVA.addTooltip("Gross Value Added - Year:", "thousands", "label");
-//
-//     $("[id='Dublin plus Mid East']").attr("dy", -15);// hack as the force simulation won't work on partial data sets
-//
-// })
-// .catch(function(error){
-//     console.log(error);
-// });
-//
-//
-// /*** This Survey on Income and Living Conditions for Dublin Charts ***/
-// d3.csv("../data/Economy/SIA20.csv").then( data => {
-//     let incomeData = data,
-//         incomeContent;
-//
-//         incomeData.forEach( d => {
-//             d.value = +d.value;
-//         });
-//
-//         incomeContent = {
-//             e: "#chart-poverty-rate",
-//             d: incomeData,
-//             k: "type",
-//             xV: "date",
-//             yV: "value",
-//             tY: "%",
-//             tX: "Years",
-//             ySF: "percentage",
-//         };
-//
-//     const IncomeGroupedBar = new StackBarChart(incomeContent);
-//           IncomeGroupedBar.addTooltip("Poverty Rating - Year:", "percentage2", "date");
-//
-//
-// })
-// .catch(function(error){
-//     console.log(error);
-// });
-//
-// // load csv data and turn value into a number
-// d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {
-//     let keys = data.columns,
-//           transposedData = [],
-//           newList,
-//           dataFiltered,
-//           tooltipContent,
-//           disosableIncomeContent,
-//           key = ["Median Real Household Disposable Income (Euro)"];
-//
-//           data.forEach(d => {
-//             for (var key in d) {
-//                 // console.log(key);
-//                 var obj = {};
-//                 if (!(key === "type" || key === "region")){
-//                 obj.type = d.type;
-//                 obj.region = d.region;
-//                 obj[d.type] = +d[key];
-//                 obj.year = key;
-//                 obj.value = +d[key];
-//                 transposedData.push(obj);
-//             }}
-//           });
-//
-//         newList = d3.nest()
-//             .key(d => { return d.region })
-//             // .key(d => { return d.type })
-//             .entries(transposedData);
-//
-//         dataFiltered = newList.find( d => d.key === "Dublin").values.filter(
-//             d => d.type === "Median Real Household Disposable Income (Euro)"
-//         );
-//
-//         tooltipContent = {
-//             title: "Dublin County - Year",
-//             datelabel: "year",
-//             format: "euros",
-//         };
-//
-//         disosableIncomeContent = {
-//             e: "#chart-disposable-income",
-//             d: dataFiltered,
-//             ks: key,
-//             xV: "year",
-//             tX: "Years",
-//             tY: "",
-//             ySF: "euros"
-//         };
-//
-//     const disosableIncomeChart = new GroupedBarChart(disosableIncomeContent);
-//           disosableIncomeChart.addTooltip(tooltipContent);
-//
-// })
-// // catch any error and log to console
-// .catch(function(error){
-// console.log(error);
-// });
-//
-// // load csv data and turn value into a number
-// d3.csv("../data/Economy/IncomeAndLivingData.csv").then( data => {
-//     let columnNames = data.columns.slice(2),
-//         employeesSizeData = data;
-//
-// })
-// // catch any error and log to console
-// .catch(function(error){
-// console.log(error);
-// });
-//
-// //#chart-employees-by-size
-// // load csv data and turn value into a number
-// d3.csv("../data/Economy/BRA08.csv").then( data => {
-//
-//     let columnNames = data.columns.slice(3),
-//     xValue = data.columns[0];
-//
-//     data.forEach(d => {
-//         for(var i = 0, n = columnNames.length; i < n; ++i){
-//
-//             d[columnNames[i]] = +d[columnNames[i]];
-//             d.label = d.date;
-//             d.date = parseYear(d.date);
-//         }
-//         return d;
-//     });
-//
-//     const employeesBySizeData = data,
-//           employeesBySize = {
-//             e: "#chart-employees-by-size",
-//             xV: "date",
-//             yV: "value",
-//             d:employeesBySizeData,
-//             k:"type",
-//             tX: "Years",
-//             tY: "Persons Engaged",
-//             ySF: "millions"
-//           };
-//
-//     const employeesBySizeChart = new MultiLineChart(employeesBySize);
-//           employeesBySizeChart.drawChart();
-//           employeesBySizeChart.addTooltip("Persons Engaged by Size of Company - Year:", "thousands", "label");
-// })
-// // catch any error and log to console
-// .catch(function(error){
-// console.log(error);
-// });
-//
-//
-// //#chart-overseas-vistors
-//     // load csv data and turn value into a number
-//     d3.csv("../data/Economy/overseasvisitors.csv").then( data => {
-//
-//         let columnNames = data.columns.slice(1),
-//             xValue = data.columns[0];
-//
-//             data.forEach(d => {
-//                 for(var i = 0, n = columnNames.length; i < n; ++i){
-//                     d[columnNames[i]] = +d[columnNames[i]];
-//                 }
-//                 return d;
-//             });
-//
-//         let overseasVisitorsData = data;
-//
-//         const tooltipContent = {
-//             title: "Oversea Vistors (Millions) - Year",
-//             datelabel: xValue,
-//             format: "thousands",
-//         },
-//
-//         overseasVisitorContent = {
-//             e: "#chart-overseas-vistors",
-//             d: overseasVisitorsData,
-//             ks: columnNames,
-//             xV: xValue,
-//             tX: "Years",
-//             tY: "Visitors (Millions)",
-//             // ySF: "percentage"
-//         },
-//
-//         overseasvisitorsChart = new GroupedBarChart(overseasVisitorContent);
-//         overseasvisitorsChart.addTooltip(tooltipContent);
-//
-//     })
-//     // catch any error and log to console
-//     .catch(function(error){
-//     console.log(error);
-//     });
+d3.csv('../data/Economy/RAA01.csv').then(data => {
+  let columnNames = data.columns.slice(1),
+    incomeData = data
+
+  incomeData.forEach(d => {
+    d.label = d.date
+    d.date = parseYear(d.date)
+    d.value = +d.value
+  })
+
+  const idContent = {
+    e: '#chart-gva',
+    xV: 'date',
+    yV: 'value',
+    d: incomeData,
+    k: 'region',
+    ks: ['Dublin', 'Dublin plus Mid East', 'State'],
+    tX: 'Years',
+    tY: '€'
+  }
+
+  const GVA = new MultiLineChart(idContent)
+  GVA.drawChart()
+  GVA.addTooltip('Gross Value Added - Year:', 'thousands', 'label')
+
+  $("[id='Dublin plus Mid East']").attr('dy', -15)// hack as the force simulation won't work on partial data sets
+})
+ .catch(function (error) {
+   console.log(error)
+ })
+ /** * This Survey on Income and Living Conditions for Dublin Charts ***/
+d3.csv('../data/Economy/SIA20.csv').then(data => {
+  let incomeData = data,
+    incomeContent
+
+  incomeData.forEach(d => {
+    d.value = +d.value
+  })
+
+  incomeContent = {
+    e: '#chart-poverty-rate',
+    d: incomeData,
+    k: 'type',
+    xV: 'date',
+    yV: 'value',
+    tY: '%',
+    tX: 'Years',
+    ySF: 'percentage'
+  }
+
+  const IncomeGroupedBar = new StackBarChart(incomeContent)
+  IncomeGroupedBar.addTooltip('Poverty Rating - Year:', 'percentage2', 'date')
+})
+ .catch(function (error) {
+   console.log(error)
+ })
+
+ // load csv data and turn value into a number
+d3.csv('../data/Economy/IncomeAndLivingData.csv').then(data => {
+  let keys = data.columns,
+    transposedData = [],
+    newList,
+    dataFiltered,
+    tooltipContent,
+    disosableIncomeContent,
+    key = ['Median Real Household Disposable Income (Euro)']
+
+  data.forEach(d => {
+    for (var key in d) {
+                 // console.log(key);
+      var obj = {}
+      if (!(key === 'type' || key === 'region')) {
+        obj.type = d.type
+        obj.region = d.region
+        obj[d.type] = +d[key]
+        obj.year = key
+        obj.value = +d[key]
+        transposedData.push(obj)
+      }
+    }
+  })
+
+  newList = d3.nest()
+             .key(d => { return d.region })
+             // .key(d => { return d.type })
+             .entries(transposedData)
+
+  dataFiltered = newList.find(d => d.key === 'Dublin').values.filter(
+             d => d.type === 'Median Real Household Disposable Income (Euro)'
+         )
+
+  tooltipContent = {
+    title: 'Dublin County - Year',
+    datelabel: 'year',
+    format: 'euros'
+  }
+
+  disosableIncomeContent = {
+    e: '#chart-disposable-income',
+    d: dataFiltered,
+    ks: key,
+    xV: 'year',
+    tX: 'Years',
+    tY: '',
+    ySF: 'euros'
+  }
+
+  const disosableIncomeChart = new GroupedBarChart(disosableIncomeContent)
+  disosableIncomeChart.addTooltip(tooltipContent)
+})
+ // catch any error and log to console
+ .catch(function (error) {
+   console.log(error)
+ })
+
+ // load csv data and turn value into a number
+d3.csv('../data/Economy/IncomeAndLivingData.csv').then(data => {
+  let columnNames = data.columns.slice(2),
+    employeesSizeData = data
+})
+ // catch any error and log to console
+ .catch(function (error) {
+   console.log(error)
+ })
+
+// #chart-employees-by-size
+// load csv data and turn value into a number
+d3.csv('../data/Economy/BRA08.csv').then(data => {
+  let columnNames = data.columns.slice(3),
+    xValue = data.columns[0]
+
+  data.forEach(d => {
+    for (var i = 0, n = columnNames.length; i < n; ++i) {
+      d[columnNames[i]] = +d[columnNames[i]]
+      d.label = d.date
+      d.date = parseYear(d.date)
+    }
+    return d
+  })
+
+  const employeesBySizeData = data,
+    employeesBySize = {
+      e: '#chart-employees-by-size',
+      xV: 'date',
+      yV: 'value',
+      d: employeesBySizeData,
+      k: 'type',
+      tX: 'Years',
+      tY: 'Persons Engaged',
+      ySF: 'millions'
+    }
+
+  const employeesBySizeChart = new MultiLineChart(employeesBySize)
+  employeesBySizeChart.drawChart()
+  employeesBySizeChart.addTooltip('Persons Engaged by Size of Company - Year:', 'thousands', 'label')
+})
+// catch any error and log to console
+ .catch(function (error) {
+   console.log(error)
+ })
+
+// #chart-overseas-vistors
+     // load csv data and turn value into a number
+d3.csv('../data/Economy/overseasvisitors.csv').then(data => {
+  let columnNames = data.columns.slice(1),
+    xValue = data.columns[0]
+
+  data.forEach(d => {
+    for (var i = 0, n = columnNames.length; i < n; ++i) {
+      d[columnNames[i]] = +d[columnNames[i]]
+    }
+    return d
+  })
+
+  let overseasVisitorsData = data
+
+  const tooltipContent = {
+      title: 'Oversea Vistors (Millions) - Year',
+      datelabel: xValue,
+      format: 'thousands'
+    },
+
+    overseasVisitorContent = {
+      e: '#chart-overseas-vistors',
+      d: overseasVisitorsData,
+      ks: columnNames,
+      xV: xValue,
+      tX: 'Years',
+      tY: 'Visitors (Millions)'
+             // ySF: "percentage"
+    },
+
+    overseasvisitorsChart = new GroupedBarChart(overseasVisitorContent)
+  overseasvisitorsChart.addTooltip(tooltipContent)
+})
+     // catch any error and log to console
+     .catch(function (error) {
+       console.log(error)
+     })
 
 function join (lookupTable, mainTable, lookupKey, mainKey, select) {
   var l = lookupTable.length,
