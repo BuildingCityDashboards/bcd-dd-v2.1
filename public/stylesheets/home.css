@@ -949,11 +949,10 @@
   }
 
   #la-map__header {
-
     display     : flex;
+    display     : none;
     grid-column : 3 / 7;
     grid-row    : 6/7;
-    display: none;
   }
 
   #la-map__header > h1 {
@@ -980,7 +979,7 @@
   }
 
   #la-info__card {
-    display: block;
+    display     : block;
     padding     : 32px;
     overflow-y  : auto;
     border      : dashed 2px;
