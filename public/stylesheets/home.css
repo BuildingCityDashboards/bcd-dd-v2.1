@@ -16,14 +16,6 @@
   align-self          : center;
   font-family         : 'Roboto',
                         sans-serif;
-  /* Center and scale the image nicely */
-  /**
-  * background
-  *
-  * : -webkit-linear-gradient( top, rgba(49,49,49,1) 0%, rgba(49,49,49,0.7)
-  * 75%, rgba(49,49,49,1.0) 100% ), url( '../images/hero-background-image.png'
-  * );
-  */
 }
 
 #hero-grid {
@@ -252,18 +244,18 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 100vh;
-  min-height            : 540px;
+  height                : 300vh;
+  /* min-height            : 540px; */
   padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(8, 1fr);
+  grid-template-rows    : repeat(24, 1fr);
 }
 
 #about-dublin__header {
   align-self  : center;
-  grid-column : 1/3;
+  grid-column : span 4;
   grid-row    : 2/3;
 }
 
@@ -275,17 +267,6 @@
   font-weight    : bold;
   line-height    : 0.73;
   letter-spacing : -0.5px;
-  /**
-  * height
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : 18px;
-  */
 }
 
 #about-dublin__card {
@@ -304,23 +285,12 @@
   letter-spacing : 0.5px;
 }
 
-#la-map {
-  display               : grid;
-  width                 : 100vw;
-  min-width             : 360px;
-  height                : 100vh;
-  min-height            : 540px;
-  padding               : 16px;
-  justify-content       : center;
-  grid-gap              : 16px;
-  grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(8, 1fr);
-}
-
 #la-map__header {
+  text-align  : left;
   align-self  : center;
   grid-column : span 4;
-  grid-row    : 2/3;
+  grid-row    : 9/11;
+
 }
 
 #la-map__header > h1 {
@@ -336,34 +306,24 @@
   letter-spacing : 1.5px;
 }
 
-#la-map__map {}
-
-#la-info {
-  display               : grid;
-  width                 : 100vw;
-  min-width             : 360px;
-  height                : 100vh;
-  min-height            : 540px;
-  padding               : 16px;
-  border                : dashed 2px;
-  justify-content       : center;
-  grid-gap              : 16px;
-  grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(8, 1fr);
+#la-map__map {
+  border: dashed 1px;
+  grid-column : span 4;
+  grid-row    : 11/17;
 }
 
 #la-info__map {
   border      : solid 2px;
   grid-column : span 4;
-  grid-row    : 2 / 6;
+  grid-row    : 17 / 22;
 }
 
 #la-info__card {
   padding     : 16px;
   overflow-y  : scroll;
-  border      : dashed 2px;
+  border      : solid 2px;
   grid-column : span 4;
-  grid-row    : 6 / 9;
+  grid-row    : 22 / 25;
 }
 
 #la-info__card__header {
@@ -404,24 +364,21 @@
 }
 
 #about-dublin-dashboard__header {
+  align-self  : center;
   grid-column : span 4;
   grid-row    : 2/3;
-  align-self: center;
 }
 
 #about-dublin-dashboard__header > h1 {
-  /* width: 271px;
-    height: 18px; */
-    font-size: 24px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 0.73;
-    letter-spacing: -0.5px;
-    color: #6fd1f6;
-    margin : 0;
-
-
+  /* width: 271px; height: 18px; */
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 24px;
+  font-style     : normal;
+  font-weight    : bold;
+  font-stretch   : normal;
+  line-height    : 0.73;
+  letter-spacing : -0.5px;
 }
 
 #about-dublin-dashboard__card {
@@ -671,6 +628,121 @@
     grid-column : 6/8;
     grid-row    : 12 / 13;
   }
+  /* About Dublin * */
+
+  #about-dublin {
+    height: 100vh;
+    padding               : 24px;
+    justify-content       : center;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(12, 1fr);
+  }
+
+  #about-dublin__header {
+    text-align  : center;
+    align-self  : center;
+    grid-column : 1/5;
+    grid-row    : 2/3;
+  }
+
+  #about-dublin__header > h1 {
+    margin         : 0;
+    font-size      : 34px;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+    /* width: 333px; height: 34px; */
+  }
+
+  #about-dublin__card {
+    padding     : 32px;
+    overflow-y  : auto;
+    grid-column : 2/12;
+    grid-row    : 3/6;
+  }
+
+  #about-dublin__card > p {
+    /* width: 746px; height: 246px; */
+    font-size   : 16px;
+    line-height : 1.5;
+  }
+
+  #la-map__header {
+
+    grid-column : 2 / 6;
+    grid-row    : 8/9;
+  }
+
+  #la-map__header > h1 {
+    /* width: 326px; */
+    /* min-height: 50px; */
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 16px;
+    font-style     : normal;
+    font-weight    : 500;
+    font-stretch   : normal;
+    line-height    : 1.5;
+    letter-spacing : 1.5px;
+  }
+
+  #la-map__map {
+    border      : dashed 1px;
+    grid-column : 6 / 13;
+    grid-row    : 6/12;
+  }
+
+  #la-info {
+    display               : grid;
+    width                 : 100vw;
+    min-width             : 360px;
+    height                : 100vh;
+    min-height            : 540px;
+    padding               : 16px;
+    border                : dashed 2px;
+    justify-content       : center;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(4, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #la-info__map {
+    border      : solid 2px;
+    grid-column : span 4;
+    grid-row    : 2 / 6;
+  }
+
+  #la-info__card {
+    padding     : 16px;
+    overflow-y  : scroll;
+    border      : dashed 2px;
+    grid-column : span 4;
+    grid-row    : 6 / 9;
+  }
+
+  #la-info__card__header {
+    padding-bottom : 16px;
+  }
+
+  #la-info__card__header > h1 {
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 24px;
+    font-weight    : 500;
+    line-height    : 24px;
+    letter-spacing : 0.18px;
+  }
+
+  #la-info__card__body {}
+
+  #la-info__card__body > p {
+    margin         : 0;
+    color          : rgba(255, 255, 255, 0.87);
+    font-size      : 14px;
+    font-weight    : 500;
+    line-height    : 24px;
+    letter-spacing : 0.5px;
+  }
 }
 
 /* m-l: 1224px (intermediate) */
@@ -678,31 +750,7 @@
 @media
   only screen
   and (min-width : 1224px) {
-  /**
-  * #hero-title { padding-left
-  *
-  * : 36px; font-size
-  *
-  *
-  *
-  *
-  *
-  * : 128px; grid-column
-  *
-  *
-  *
-  * : 1 / 6; grid-row
-  *
-  *
-  *
-  *
-  *
-  * : 2 / 4; line-height
-  *
-  *
-  *
-  * : 88px; letter-spacing : -0.5px; }
-  */
+
 }
 
 /* l-xl: 1025px -> 1920px (intermediate) */
