@@ -394,6 +394,10 @@
   letter-spacing : -0.5px;
 }
 
+#about-dublin-dashboard__twitter {
+  display: none;
+}
+
 #about-dublin-dashboard__card {
   padding     : 16px 16px 0 16px;
   overflow-y  : scroll;
@@ -785,6 +789,7 @@
   }
 
   #about-dublin-dashboard__twitter {
+    display: inline;
     text-align  : center;
     align-self  : flex-end;
     grid-column : 7 / 13;
