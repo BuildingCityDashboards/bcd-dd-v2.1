@@ -1,9 +1,12 @@
 extends layout
+include component/card-rt
+include component/card-chart 
 
 block append head
 
   link(rel="stylesheet", href="/stylesheets/home.css")
   link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  link(rel="stylesheet", href="/stylesheets/card.css")
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
   //- link(rel='stylesheet', href='/stylesheets/icon-nav.css')
 
@@ -34,15 +37,18 @@ block content
             //- 
         #hero-carousel
             <div class="main-gallery js-flickity" data-flickity-options='{ "cellAlign": "center", "contain": true }'>
-                <div class="gallery-cell">|........................................|</div> 
-                <div class="gallery-cell">|........................................|</div>
-                <div class="gallery-cell">|........................................|</div>
-                <div class="gallery-cell">|........................................|</div> 
-                <div class="gallery-cell">|........................................|</div>
-                <div class="gallery-cell">|........................................|</div>
-                <div class="gallery-cell">|........................................|</div> 
-                <div class="gallery-cell">|........................................|</div>
-                <div class="gallery-cell">|........................................|</div>
+                <div class="gallery-cell">
+                  #bikes-card.hero-carousel__card
+                    +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+                </div> 
+                <div class="gallery-cell">|..................2.....................|</div>
+                <div class="gallery-cell">|..................3.....................|</div>
+                <div class="gallery-cell">|..................4.....................|</div> 
+                <div class="gallery-cell">|..................5.....................|</div>
+                <div class="gallery-cell">|..................6.....................|</div>
+                <div class="gallery-cell">|..................7.....................|</div> 
+                <div class="gallery-cell">|..................8.....................|</div>
+                <div class="gallery-cell">|..................9.....................|</div>
       
             
             </div>
@@ -137,14 +143,14 @@ block content
 
 block append scripts
   script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js" type="text/javascript")
-  //- script(src="lib/d3v5/d3.js")
-  //- script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
-  //- script(src="https://unpkg.com/set-interval-async" type="text/javascript")
+  script(src="lib/d3v5/d3.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
+  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
   //- //- script(src='javascripts/dublinco.js')
   //- script(src='javascripts/map.js')
-  //- script(src='javascripts/charts/card_line_chart.js')
-  //- script(src='javascripts/charts/card_bar_chart.js')
-  //- script(src='javascripts/home/data_glance.js')
-  //- script(src='javascripts/home/card_bikes.js')
+  script(src='javascripts/charts/card_line_chart.js')
+  script(src='javascripts/charts/card_bar_chart.js')
+  script(src='javascripts/home/data_glance.js')
+  script(src='javascripts/home/card_bikes.js')
   //- script(src='javascripts/home/card_traveltimes.js')
   //- script(src='javascripts/search.js')
