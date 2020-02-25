@@ -61,7 +61,6 @@ typings/
 .next
 
 /nbproject/private/
-
 localhost.crt
 localhost.key
 /public/data/.DS_Store
@@ -73,8 +72,8 @@ localhost.key
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
 /public/data/Transport/bikesData.json
-/public/data/Transport/
 /public/data/Transport/Train_data.xml
+/public/data/Transport/
 # /public/data/Stories/Housing/housetype.csv
 
 public/images/.DS_Store
