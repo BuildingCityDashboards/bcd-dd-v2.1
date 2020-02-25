@@ -22,8 +22,8 @@ let bikesTimer = setInterval(updateBikesCountdown, 1000)
 const fetchBikesData = function () {
   d3.json('/api/dublinbikes/stations/all/snapshot') // get latest snapshot of all stations
     .then((data) => {
-      console.log('Fetched Dublin Bikes card data ')
-      console.log(data)
+      // console.log('Fetched Dublin Bikes card data ')
+      // console.log(data)
       // The derilinx API sometimes returns an empty JSON array- need to check for that
       if (data.length > 0) {
         const cardData = getCardData(data)
