@@ -19,10 +19,13 @@ router.get('/data', (req, res, next) => {
 
 var dublinBikesController = require('../controllers/dublinbikes_derilinx');
 var trainStationController = require('../controllers/irishTrains');
-
+var waterLevelController = require('../controllers/WaterLData');
 // static trains list
 router.get('/trainstations/stations/list', trainStationController.getTrainStationsList);
 router.get('/trainstations/stations/:ts', trainStationController.getTrainStationsData);
+
+router.get('/wlstations/stations/list', waterLevelController.getStationsList);
+router.get('/wlstations/stations/:ts', waterLevelController.getStationsData);
 
 
 var dublinBikesController = require('../controllers/dublinbikes_derilinx')

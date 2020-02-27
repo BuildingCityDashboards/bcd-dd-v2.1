@@ -30,7 +30,7 @@ let bikesStationPopupOptons = {
 // Custom map icons
 let waterMapIcon = L.icon({
   iconUrl: '/images/environment/water-15.svg',
-  iconSize: [30, 30], // orig size
+  iconSize: [15, 15], // orig size
   iconAnchor: [iconAX, iconAY] //,
   // popupAnchor: [-3, -76]
 })
@@ -79,7 +79,8 @@ function processWaterLevels (data_) {
 // pretty error
 
 function initMapWaterLevels (data__) {
-  _.each(data__, function (d, i) {
+  //_.each(data__, function (d, i) {
+    data__.forEach(function (d, i) {
     station_ref = d.properties['station.ref'].substring(5, 10)
     sensor_ref = d.properties['sensor.ref']
     fname = station_ref.concat('_', sensor_ref).concat('.csv')
@@ -101,8 +102,7 @@ function initMapWaterLevels (data__) {
     m.on('popupopen', getBikesStationPopup)
 
     waterMap.addLayer(waterOPWCluster)
-  })
-};
+  })};
 
 /* function bikesStationPopupInit(d_) {
   // console.log("\n\nPopup Initi data: \n" + JSON.stringify(d_)  + "\n\n\n");
@@ -192,16 +192,31 @@ function bikesStationPopupInit (d_) {
   return str
 }
 function getBikesStationPopup () {
-  // //d3.select("#bike-spark-67").text('Selected from D3');
+
+  let ts =this.options.sfn
   let sid_ = this.options.sid
+  console.log(ts+ '--'+ sid_)
+  
+ //let ts='19045_0001'
+/*d3.csv('/api/wlstations/stations/'+ts)
+    .then(function (stationData) {
+  console.log(stationData)
+    })*/
+
+  /*d3.csv('/api/wlstations/stations/list')
+    .then(function (stationData) {
+  console.log(stationData)
+    })*/
+  // //d3.select("#bike-spark-67").text('Selected from D3');
+  /*let sid_ = this.options.sid
   let sfn = this.options.sfn
   let result = ''
   let str = 'This Chart from' + sfn + 'file' + '<br>'
-  console.log(sfn)
+  console.log(sfn)*/
 
   var stationdReadingsPerMonthChart = dc.lineChart('#bike-spark-' + sid_)
 
-  d3.csv('./data/Environment/water_levels/' + sfn).then(function (md) {
+  d3.csv('/api/wlstations/stations/'+ts).then(function (md) {
     md.forEach(function (d) {
       if (value) {
         var value = +d.value
@@ -363,7 +378,7 @@ function processHydronet (data_) {
 };
 
 function initMapHydronet (data__) {
-  _.each(data__, function (d, k) {
+  data__.forEach(function (d, k) {
     let marker = L.marker(new L.LatLng(d.lat, d.lng), {
       icon: waterMapIcon
     })
@@ -466,7 +481,7 @@ function processSoundsites (data_) {
 let noiseCluster = L.markerClusterGroup()
 
 function initMapSoundsites (data__) {
-  _.each(data__, function (d, i) {
+  data__.forEach(data__, function (d, i) {
     let m = L.marker(new L.LatLng(+d['lon'], +d['lat']), {
       icon: noiseMapIcon
     })
