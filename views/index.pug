@@ -50,19 +50,19 @@ block content
               </div>
               <div class="carousel-cell">
                 #apd-card
-                  +card-chart("themes#population", "card text-white o-hidden border-blue", "Population", "County Dublin","pr-glance")
+                  +card-chart("themes#population", "card text-white o-hidden border-blue", "Population", "Count","pr-glance")
               </div>
               <div class="carousel-cell">
                 #emp-card 
-                  +card-chart("themes#employment", "card text-white o-hidden border-blue", "Unemployment Count", "test", "test-glance", "../images/calendar-w.svg") 
+                  +card-chart("themes#employment", "card text-white o-hidden border-blue", "Unemployment", "Count", "test-glance", "../images/calendar-w.svg") 
               </div>
               <div class="carousel-cell">
                 #app-card
-                  +card-chart("themes#property-price-monthly", "card text-white o-hidden border-blue", "Property Price Index", "test", "ap-glance", "../images/calendar-w.svg")    
+                  +card-chart("themes#property-price-monthly", "card text-white o-hidden border-blue", "Property Price", "Index", "ap-glance", "../images/calendar-w.svg")    
               </div>
               <div class="carousel-cell">
                 #huc-card
-                  +card-chart("themes#unitscompmonth", "card text-white o-hidden border-blue", "House Unit Completions", "test","hc-glance", "../images/calendar-w.svg")
+                  +card-chart("themes#unitscompmonth", "card text-white o-hidden border-blue", "House Completions", "Units","hc-glance", "../images/calendar-w.svg")
               </div>
               //- <div class="carousel-cell">
                p MORE    
@@ -166,8 +166,11 @@ block append scripts
   script(src='javascripts/charts/card_line_chart.js')
   script(src='javascripts/charts/card_bar_chart.js')
   script(src='javascripts/coerce.js' type="text/javascript")
-  script(src='javascripts/home/data_glance.js')
-  script(src='javascripts/home/card_bikes.js')
-  script(src='javascripts/home/card_traveltimes.js')
-  script(src='javascripts/home/card_population.js')
+  script(src='javascripts/home/data_glance.js' type="text/javascript")
+  script(src='javascripts/home/card_bikes.js' type="text/javascript")
+  script(src='javascripts/home/card_traveltimes.js' type="text/javascript")
+  script(src='javascripts/home/card_population.js' type="text/javascript")
+  script(src='javascripts/home/card_unemployment.js' type="text/javascript")
+  script(src='javascripts/home/card_housecompletions.js' type="text/javascript")
+  script(src='javascripts/home/card_propertyprice.js' type="text/javascript")
   //- script(src='javascripts/search.js')

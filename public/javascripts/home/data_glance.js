@@ -20,68 +20,11 @@ Promise.all([
   d3.csv('/data/Housing/processed/NDQ05.csv') // quarterly housing completions
 
 ]).then(dataFiles => {
-  /***
-
-    Unemployment card
-
-  ***/
-  const unemploymentData = dataFiles[2]
-  const unemploymentColumnNames = unemploymentData.columns.slice(2)
-  const unemploymentColumnName = unemploymentColumnNames[0]
-  const unemploymentDataSet = coerceData(unemploymentData, unemploymentColumnNames)
-  // console.log(unemploymentDataSet)
-  // const dublinData = unemploymentDataSet.filter(d => {
-  //   return !isNaN(d[unemploymentColumnName])
-  // })
-  unemploymentDataSet.forEach(d => {
-    d.quarter = convertQuarter(d.quarter)
-    d.label = formatQuarter(d.quarter)
-    d[unemploymentColumnName] = parseFloat(d[unemploymentColumnName]) * 1000
-  })
-  // configuration object
-  const unemploymentConfig = {
-    d: unemploymentDataSet,
-    e: '#test-glance',
-    yV: unemploymentColumnName,
-    xV: 'quarter',
-    // sN: 'region',
-    // fV: d3.format('.2s'),
-    dL: 'label'
-  }
-  const unemployCard = new CardLineChart(unemploymentConfig)
-  /***
-
-    Property Price card
-
-  ***/
-  const propertyPriceData = dataFiles[1]
-  const propertyPriceColumnNames = propertyPriceData.columns.slice(2)
-  const propertyPriceColumnName = propertyPriceData.columns[2]
-  let propertyPriceDataSet = coerceData(propertyPriceData, propertyPriceColumnNames)
-  propertyPriceDataSet.forEach(d => {
-    d.date = parseMonth(d.date)
-    d.label = formatMonth(d.date)
-  })
-  propertyPriceDataSet = propertyPriceDataSet.filter(d => {
-    // return d.region === "Dublin";
-    return d.region === 'Dublin' && !isNaN(d.all)
-  })
-
-  const propertyPriceCardConfig = {
-    d: propertyPriceDataSet,
-    e: '#ap-glance',
-    yV: propertyPriceColumnName,
-    xV: 'date',
-    // sN: 'region',
-    dL: 'label'
-  }
-  const propertyPriceCard = new CardLineChart(propertyPriceCardConfig)
-
-  const completionsData = dataFiles[2]
-  const completionsColumnNames = completionsData.columns.slice(5)
-  const completionsColumnName = completionsColumnNames[0]
-  const completionsDataSet = coerceData(completionsData, completionsColumnNames)
-  // console.log(completionsDataSet)
+  // const completionsData = dataFiles[2]
+  // const completionsColumnNames = completionsData.columns.slice(5)
+  // const completionsColumnName = completionsColumnNames[0]
+  // const completionsDataSet = coerceData(completionsData, completionsColumnNames)
+  // // console.log(completionsDataSet)
 
   // completionsDataSet.forEach(d => {
   //   d.quarter = convertQuarter(d.quarter)
