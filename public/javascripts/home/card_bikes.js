@@ -14,7 +14,7 @@ let prevStandsTrendString = '(no change)'
 const updateBikesCountdown = function () {
   const cd = bikesCountdown / 1000
   d3.select('#bikes-bikesCountdown').text('Update in ' + cd)
-  if (bikesCountdown > 0) bikesCountdown -= 1000
+  if (bikesCountdown >= 0) bikesCountdown -= 1000
 }
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000)
@@ -79,7 +79,7 @@ function getCardData (data_) {
 function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-  d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' ></div>")
+  d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
   d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg' width='24'>")
 
   d3.select('#rt-bikes').select('#card-left')
@@ -146,18 +146,18 @@ function updateBikesDisplay (ab, as, age) {
     // .text(`<p>Dublin Bikes currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city</p>`)
 }
 
-function updateInfo (selector, infoText) {
-  const text = d3.select('#data-text p')
-  const textString = '<b>Hover over these charts for more information, click to go to the data page </b>'
-
-  d3.select(selector)
-    .on('mouseover', (d) => {
-      text.html(infoText)
-    })
-    .on('mouseout', (d) => {
-      text.html(textString)
-    })
-}
+// function updateInfo (selector, infoText) {
+//   const text = d3.select('#data-text p')
+//   const textString = '<b>Hover over these charts for more information, click to go to the data page </b>'
+//
+//   d3.select(selector)
+//     .on('mouseover', (d) => {
+//       text.html(infoText)
+//     })
+//     .on('mouseout', (d) => {
+//       text.html(textString)
+//     })
+// }
 
 const bikesCardTimer = setIntervalAsync(
   () => {
