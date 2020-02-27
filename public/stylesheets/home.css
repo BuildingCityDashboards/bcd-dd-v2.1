@@ -173,31 +173,66 @@
   grid-row    : 3 / 7;
 }
 
-* { box-sizing: border-box; }
-
+/* { box-sizing : border-box; } */
 
 .carousel {
-  background: #FAFAFA;
-  margin: 0 60px; /* space for prev/next buttons */
+  margin     : 0 20px;
+  background : #FAFAFA;
+  /* space for prev/next buttons */
 }
 
 .carousel-cell {
-  width: 100%;
-  height: 200px;
-  margin-right: 10px;
-  background: #8C8;
-  border-radius: 5px;
-  counter-increment: gallery-cell;
+  width             : 100%;
+  height            : 200px;
+  margin-right      : 15px;
+  border-radius     : 5px;
+  background        : #8C8;
+  counter-increment : gallery-cell;
 }
 
 /* cell number */
+
 .carousel-cell:before {
-  display: block;
-  text-align: center;
-  content: counter(gallery-cell);
-  line-height: 200px;
-  font-size: 80px;
-  color: white;
+  content     : counter(gallery-cell);
+  display     : block;
+  color       : white;
+  text-align  : center;
+  font-size   : 80px;
+  line-height : 200px;
+}
+
+/* smaller, dark, rounded square */
+
+.flickity-button {
+  background : transparent;
+}
+
+.flickity-button:hover {
+  /* background: #F90; */
+  background : transparent;
+}
+
+.flickity-prev-next-button {
+  width         : 48px;
+  height        : 48px;
+  border-radius : 4px;
+}
+
+/* icon color */
+
+.flickity-button-icon {
+  /* fill : #6fd1f6; */
+  fill: grey;
+}
+
+/* position outside */
+
+.flickity-prev-next-button.previous {
+  left : -40px;
+}
+
+.flickity-prev-next-button.next {
+  right : -40px;
 }
 
 .hero-carousel__card {}
@@ -600,8 +635,6 @@
     grid-column : span 12;
     grid-row    : 4 / 10;
   }
-
-
 
   #hero-icon-navs {
     display            : -ms-flexbox;
@@ -1094,10 +1127,7 @@
   #about-dublin-dashboard__card > p {
     /* width: 746px; height: 256px; */
     font-size      : 16px;
-    line-height: 1.5;
+    line-height    : 1.5;
     letter-spacing : 0.5px;
   }
-
-
-
 }

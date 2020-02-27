@@ -4,8 +4,9 @@ include component/card-chart
 
 block append head
 
-  link(rel="stylesheet", href="/stylesheets/home.css")
+  
   link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  link(rel="stylesheet", href="/stylesheets/home.css")
   link(rel="stylesheet", href="/stylesheets/card.css")
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
   //- link(rel='stylesheet', href='/stylesheets/icon-nav.css')
@@ -33,10 +34,13 @@ block content
                         #hero-weather__symbol    
                     div
                         #hero-weather__right-top ~ NE
-                        #hero-weather__right-bottom 25.5 kph
+                        #hero-weather__right-bottom 25.5 
+                        
             //- 
+            
+        l
         #hero-carousel
-            <div class="carousel" data-flickity>
+            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "freeScrollFriction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "center", "percentPosition": false, "pageDots": true}'>
               <div class="carousel-cell"></div>
               <div class="carousel-cell"></div>
               <div class="carousel-cell"></div>
