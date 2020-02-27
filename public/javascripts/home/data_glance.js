@@ -11,76 +11,21 @@ let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 
-const parseTime = d3.timeParse('%d/%m/%Y')
-const parseYear = d3.timeParse('%Y')
-const formatYear = d3.timeFormat('%Y')
-const parseMonth = d3.timeParse('%Y-%b')
-const formatMonth = d3.timeFormat('%b %Y')
-const breakPoint = 768
-
-let locale = d3.formatLocale({
-  'decimal': '.',
-  'thousands': ',',
-  'grouping': [3],
-  'currency': ['€', ''],
-  'dateTime': '%a %b %e %X %Y',
-  'date': '%m/%d/%Y',
-  'time': '%H:%M:%S',
-  'periods': ['AM', 'PM'],
-  'days': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-  'shortDays': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  'months': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  'shortMonths': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-})
-
 //   d3.formatLocale(locale);
 
-function coerceData (data, columns) {
-  coercedData = data.map(d => {
-    for (var i = 0, n = columns.length; i < n; i++) {
-      d[columns[i]] = +d[columns[i]]
-    }
-    return d
-  })
-  return coercedData
-}
 //
 Promise.all([
-  d3.csv('/data/Demographics/population.csv'),
   d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv'),
-  d3.csv('data/Housing/HPM06.csv'), // property price
+  d3.csv('/data/Housing/HPM06.csv'), // property price
   d3.csv('/data/Housing/processed/NDQ05.csv') // quarterly housing completions
 
 ]).then(dataFiles => {
   /***
 
-  Population card
-
-  ***/
-  const populationData = dataFiles[0]
-  const populationColumnNames = populationData.columns.slice(2)
-  const populationColumnName = populationColumnNames[0]
-  // console.log(populationColumnName)
-  const populationDataSet = coerceData(populationData, populationColumnNames)
-
-  const populationConfig = {
-    d: populationDataSet,
-    e: '#pr-glance',
-    yV: populationColumnName,
-    xV: 'date',
-    // sN: 'region',
-    fV: d3.format('.2s'),
-    dL: 'date'
-  }
-
-  const populationCard = new CardLineChart(populationConfig)
-
-  /***
-
     Unemployment card
 
   ***/
-  const unemploymentData = dataFiles[1]
+  const unemploymentData = dataFiles[2]
   const unemploymentColumnNames = unemploymentData.columns.slice(2)
   const unemploymentColumnName = unemploymentColumnNames[0]
   const unemploymentDataSet = coerceData(unemploymentData, unemploymentColumnNames)
@@ -109,7 +54,7 @@ Promise.all([
     Property Price card
 
   ***/
-  const propertyPriceData = dataFiles[2]
+  const propertyPriceData = dataFiles[1]
   const propertyPriceColumnNames = propertyPriceData.columns.slice(2)
   const propertyPriceColumnName = propertyPriceData.columns[2]
   let propertyPriceDataSet = coerceData(propertyPriceData, propertyPriceColumnNames)
@@ -132,38 +77,38 @@ Promise.all([
   }
   const propertyPriceCard = new CardLineChart(propertyPriceCardConfig)
 
-  const completionsData = dataFiles[3]
+  const completionsData = dataFiles[2]
   const completionsColumnNames = completionsData.columns.slice(5)
   const completionsColumnName = completionsColumnNames[0]
   const completionsDataSet = coerceData(completionsData, completionsColumnNames)
   // console.log(completionsDataSet)
 
-  completionsDataSet.forEach(d => {
-    d.quarter = convertQuarter(d.quarter)
-    d.label = formatQuarter(d.quarter)
-  })
+  // completionsDataSet.forEach(d => {
+  //   d.quarter = convertQuarter(d.quarter)
+  //   d.label = formatQuarter(d.quarter)
+  // })
+  //
+  // const completionsConfig = {
+  //   d: completionsDataSet,
+  //   e: '#hc-glance',
+  //   yV: 'Dublin',
+  //   xV: 'quarter',
+  //   // sN: 'region',
+  //   dL: 'label'
+  // }
+  // const completionsCard = new CardLineChart(completionsConfig)
 
-  const completionsConfig = {
-    d: completionsDataSet,
-    e: '#hc-glance',
-    yV: 'Dublin',
-    xV: 'quarter',
-    // sN: 'region',
-    dL: 'label'
-  }
-  const completionsCard = new CardLineChart(completionsConfig)
-
-  initInfoText()
-  updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
-
-  updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
-
-  updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin in ', ' on the previous month', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format(''))
-
-  updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
+  // initInfoText()
+  // updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
+  //
+  // updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
+  //
+  // updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin in ', ' on the previous month', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format(''))
+  //
+  // updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
 
   d3.select(window).on('resize', function () {
-    completionsCard.init()
+    // completionsCard.init()
     unemployCard.init()
     populationCard.init()
     propertyPriceCard.init()
@@ -179,22 +124,6 @@ Promise.all([
 }).catch(function (error) {
   console.log(error)
 })
-
-function convertQuarter (q) {
-  const splitted = q.split('Q')
-  const year = splitted[0]
-  const quarterEndMonth = splitted[1] * 3 - 2
-  const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
-  return date
-}
-
-function formatQuarter (date) {
-  const newDate = new Date()
-  newDate.setMonth(date.getMonth() + 1)
-  const year = (date.getFullYear())
-  const q = Math.ceil((newDate.getMonth()) / 3)
-  return year + ' Q' + q
-}
 
 function initInfoText () {
   // d3.select('#data-text').attr("hidden", true); //to hide

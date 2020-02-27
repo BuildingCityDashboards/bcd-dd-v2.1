@@ -45,12 +45,12 @@ block content
                   +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "Updating", "rt-bikes")
               </div>
               <div class="carousel-cell">
-                #traveltimes-card.hero-carousel__card 
-                  +card-rt("queries", "card text-white o-hidden border-yellow", "Motorway Travel Times", "test","rt-travelTimes")
+                #traveltimes-card
+                  +card-rt("queries", "card text-white o-hidden border-yellow", "Motorway Delays", "test","rt-travelTimes")
               </div>
               <div class="carousel-cell">
                 #apd-card
-                  +card-chart("themes#population", "card text-white o-hidden border-blue", "Population", "test","pr-glance", "../images/calendar-w.svg")
+                  +card-chart("themes#population", "card text-white o-hidden border-blue", "Population", "County Dublin","pr-glance")
               </div>
               <div class="carousel-cell">
                 #emp-card 
@@ -165,7 +165,9 @@ block append scripts
   //- script(src='javascripts/map.js')
   script(src='javascripts/charts/card_line_chart.js')
   script(src='javascripts/charts/card_bar_chart.js')
+  script(src='javascripts/coerce.js' type="text/javascript")
   script(src='javascripts/home/data_glance.js')
   script(src='javascripts/home/card_bikes.js')
   script(src='javascripts/home/card_traveltimes.js')
+  script(src='javascripts/home/card_population.js')
   //- script(src='javascripts/search.js')
