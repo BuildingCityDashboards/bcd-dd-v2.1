@@ -90,6 +90,10 @@ function initialiseCardDisplay () {
     .html(
       '<h3>--</h3>' +
       '<p> stands </p>')
+
+  d3.select('#rt-bikes').select('#card-info')
+        .html(
+          '<p> test </p>')
 }
 
 function updateBikesDisplay (ab, as, age) {
@@ -137,8 +141,9 @@ function updateBikesDisplay (ab, as, age) {
       '<p> stands </p>' +
       '</div>')
 
-  updateInfo('#bikes-card a',
-      `<b>Dublin Bikes</b> currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city`)
+  // d3.select('#rt-bikes').select('#card-info p').html('test')
+
+    // .text(`<p>Dublin Bikes currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city</p>`)
 }
 
 function updateInfo (selector, infoText) {
