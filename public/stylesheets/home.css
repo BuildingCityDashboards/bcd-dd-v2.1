@@ -168,7 +168,15 @@
 }
 
 #hero-carousel {
-  /* border      : solid 2px; */
+  /**
+  * border
+  *
+  *
+  *
+  *
+  *
+  * : solid 2px;
+  */
   grid-column : span 4;
   grid-row    : 3 / 7;
 }
@@ -184,21 +192,37 @@
 .carousel-cell {
   width             : 100%;
   height            : 200px;
-  margin-right      : 16px; /* gap between cards*/
+  margin-right      : 16px;
   border-radius     : 4px;
   background        : transparent;
   counter-increment : gallery-cell;
+  /* gap between cards */
 }
 
 /* cell number */
 
 .carousel-cell:before {
-  /* content     : counter(gallery-cell);
-  display     : block;
-  color       : white;
-  text-align  : center;
-  font-size   : 80px;
-  line-height : 200px; */
+  /**
+  * content
+  *
+  *
+  *
+  * : counter(gallery-cell); display
+  *
+  *
+  *
+  * : block; color
+  *
+  *
+  *
+  *
+  *
+  * : white; text-align
+  *
+  * : center; font-size
+  *
+  * : 80px; line-height : 200px;
+  */
 }
 
 /* smaller, dark, rounded square */
@@ -222,22 +246,21 @@
 
 .flickity-button-icon {
   /* fill : #6fd1f6; */
-  fill: grey;
+  fill : grey;
 }
 
 /* position outside */
 
 .flickity-prev-next-button.previous {
-  left : -40px;
+  left : -32px;
 }
 
 .flickity-prev-next-button.next {
-  right : -40px;
+  right : -32px;
 }
 
 .flickity-button:focus {
-  /* outline: none;
-  box-shadow: 0 0 0 5px #19F; */
+  /* outline: none; box-shadow: 0 0 0 5px #19F; */
 }
 
 .hero-carousel__card {}
@@ -266,11 +289,16 @@
   padding            : 0;
   border             : none;
   border-radius      : 4px;
-  background-color   : rgba(142, 191, 214, 0.12);
+  background         : transparent;
   align-items        : center;
   -ms-flex-direction : column;
   flex-direction     : column;
   justify-content    : space-evenly;
+  /**
+  * background-color
+  *
+  * : rgba(142, 191, 214, 0.12);
+  */
 }
 
 .icon-nav__icon {

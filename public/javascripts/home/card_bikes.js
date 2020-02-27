@@ -80,6 +80,7 @@ function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
   d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
+
   d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg' width='24'>")
 
   d3.select('#rt-bikes').select('#card-left')
@@ -119,6 +120,7 @@ function updateBikesDisplay (ab, as, age) {
   }
 
   const bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now'
+
   d3.select('#bikes-card').select('#bikes-bikesCountdown').html("<span class='" + animateClass + "'>" + bikesAgeDisplay + '</span>')
 
   d3.select('#rt-bikes').select('#card-left')
@@ -137,7 +139,7 @@ function updateBikesDisplay (ab, as, age) {
       '<p> stands </p>' +
       '</div>')
 
-  d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city</p>`)
+  d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city</p>`)
 }
 
 // function updateInfo (selector, infoText) {
