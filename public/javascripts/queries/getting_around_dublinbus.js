@@ -44,19 +44,20 @@ function processBusStops(res_) {
   updateMapBuses(res_);
 };
 
-function updateMapBuses(data__) {
+function updateMapBuses(data_) {
   busCluster.clearLayers();
   gettingAroundMap.removeLayer(busCluster);
-  _.each(data__, function(d, i) {
+  data_.foreach((d, i) => {
     let marker = L.marker(new L.LatLng(d.lat, d.lng), {
       icon: dublinBusMapIcon
-    });
+    })
     marker.bindPopup(getBusContent(d));
     busCluster.addLayer(marker);
     //        console.log("getMarkerID: "+marker.optiid);
-  });
+  //};
 
    gettingAroundMap.addLayer(busCluster);
+  })
 }
 
 function getBusContent(d_) {
@@ -69,7 +70,7 @@ function getBusContent(d_) {
   }
   if (d_.operators[0].routes) {
     str += 'Routes: ';
-    _.each(d_.operators[0].routes, function(i) {
+    d_.foreach(d_.operators[0].routes, function(i) {
       str += i;
       str += ' ';
     });
@@ -108,7 +109,7 @@ function displayRTPI(sid_) {
       rtpi = rtpiBase;
       if (data.results.length > 0) {
         //                    console.log("RTPI " + JSON.stringify(data.results[0]));
-        _.each(data.results, function(d, i) {
+        data.foreach(data.results, function(d, i) {
           //console.log(d.route + " Due: " + d.duetime + "");
           //only return n results
           if (i <= 7) {
