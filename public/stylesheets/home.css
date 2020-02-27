@@ -168,7 +168,7 @@
 }
 
 #hero-carousel {
-  border      : solid 2px;
+  /* border      : solid 2px; */
   grid-column : span 4;
   grid-row    : 3 / 7;
 }
@@ -177,28 +177,28 @@
 
 .carousel {
   margin     : 0 20px;
-  background : #FAFAFA;
+  background : transparent;
   /* space for prev/next buttons */
 }
 
 .carousel-cell {
   width             : 100%;
   height            : 200px;
-  margin-right      : 15px;
-  border-radius     : 5px;
-  background        : #8C8;
+  margin-right      : 16px; /* gap between cards*/
+  border-radius     : 4px;
+  background        : transparent;
   counter-increment : gallery-cell;
 }
 
 /* cell number */
 
 .carousel-cell:before {
-  content     : counter(gallery-cell);
+  /* content     : counter(gallery-cell);
   display     : block;
   color       : white;
   text-align  : center;
   font-size   : 80px;
-  line-height : 200px;
+  line-height : 200px; */
 }
 
 /* smaller, dark, rounded square */
@@ -213,8 +213,8 @@
 }
 
 .flickity-prev-next-button {
-  width         : 48px;
-  height        : 48px;
+  width         : 36px;
+  height        : 36px;
   border-radius : 4px;
 }
 
@@ -233,6 +233,11 @@
 
 .flickity-prev-next-button.next {
   right : -40px;
+}
+
+.flickity-button:focus {
+  /* outline: none;
+  box-shadow: 0 0 0 5px #19F; */
 }
 
 .hero-carousel__card {}

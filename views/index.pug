@@ -41,16 +41,37 @@ block content
         l
         #hero-carousel
             <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "freeScrollFriction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "center", "percentPosition": false, "pageDots": true}'>
-              <div class="carousel-cell"></div>
-              <div class="carousel-cell"></div>
-              <div class="carousel-cell"></div>
-              <div class="carousel-cell"></div>
-              <div class="carousel-cell"></div>
+              <div class="carousel-cell">
+                #bikes-card
+                  +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
+              </div>
+              <div class="carousel-cell">
+                #traveltimes-card.hero-carousel__card 
+                  +card-rt("queries", "card text-white o-hidden border-yellow", "Motorway Travel Times", "test","rt-travelTimes")
+              </div>
+              <div class="carousel-cell">
+                #apd-card
+                  +card-chart("themes#population", "card text-white o-hidden border-blue", "Population", "test","pr-glance", "../images/calendar-w.svg")
+              </div>
+              <div class="carousel-cell">
+                #emp-card 
+                  +card-chart("themes#employment", "card text-white o-hidden border-blue", "Unemployment Count", "test", "test-glance", "../images/calendar-w.svg") 
+              </div>
+              <div class="carousel-cell">
+                #app-card
+                  +card-chart("themes#property-price-monthly", "card text-white o-hidden border-blue", "Property Price Index", "test", "ap-glance", "../images/calendar-w.svg")    
+              </div>
+              <div class="carousel-cell">
+                #huc-card
+                  +card-chart("themes#unitscompmonth", "card text-white o-hidden border-blue", "House Unit Completions", "test","hc-glance", "../images/calendar-w.svg")
+              </div>
+              //- <div class="carousel-cell">
+               p MORE    
+                  
+              //- </div>
             </div>
+            
           
-            //-     //- #bikes-card.hero-carousel__card
-            //-         //- +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "test", "rt-bikes")
-            //- 
             //-         //- include component/carousel-charts.pug
         #hero-icon-navs
             include component/icon-nav.pug
@@ -141,11 +162,11 @@ block append scripts
   script(src="lib/d3v5/d3.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
   script(src="https://unpkg.com/set-interval-async" type="text/javascript")
-  //- //- script(src='javascripts/dublinco.js')
+  script(src='javascripts/dublinco.js')
   //- script(src='javascripts/map.js')
   script(src='javascripts/charts/card_line_chart.js')
   script(src='javascripts/charts/card_bar_chart.js')
   script(src='javascripts/home/data_glance.js')
   script(src='javascripts/home/card_bikes.js')
-  //- script(src='javascripts/home/card_traveltimes.js')
+  script(src='javascripts/home/card_traveltimes.js')
   //- script(src='javascripts/search.js')
