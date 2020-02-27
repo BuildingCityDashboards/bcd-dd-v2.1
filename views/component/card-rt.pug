@@ -1,10 +1,15 @@
-mixin card-rt(href, style, Header, title, Chartid)
+mixin card-rt(href, style, title, subtitle, chartid)
   a(href=href||null class="card__link")
     div(class=style)
-      .card__header=Header
-      .card__body(id=Chartid width="250" height="70")
+      .card__header
+        .card__title=title
+        .card__sub-title=subtitle
+      .card__body(id=chartid min-width="256" min-height="70")
           #card-left.card-left
           #card-center.card-center
           #card-right.card-right
+      .card__info
+          small Dublin Bikes currently have 1199 Bikes and 2229 stands available across the city
+        
                         
                     

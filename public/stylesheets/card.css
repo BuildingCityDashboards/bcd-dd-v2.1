@@ -1,133 +1,204 @@
-.card{
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    min-height: 150px;
-    height: inherit;
-    word-wrap: break-word;
-    background-color: rgba(0,0,0,.2);;
-    background-clip: border-box;
-    /* border: 1px solid; */
-    border: 2px solid rgba(0,0,0,0);
-    border-radius: .25rem;
+.card {
+  display            : -ms-flexbox;
+  display            : flex;
+  position           : relative;
+  min-width          : 256px;
+  min-height         : 190px;
+  background-color   : rgba(0,0,0,.2);
+  -ms-flex-direction : column;
+  flex-direction     : column;
+  word-wrap          : break-word;
+  /* height: inherit; */
+}
+
+.card__header {
+  display            : -ms-flexbox;
+  display            : flex;
+  position           : relative;
+  background-color   : transparent;
+  -ms-flex-direction : column;
+  flex-direction     : column;
+}
+
+.card__title {
+  padding-top    : 12px;
+  color          : #6fd1f6;
+  text-transform : uppercase;
+  font-size      : 14px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.14;
+  letter-spacing : 1.5px;
+}
+
+/* Usually used for time of last update etc. */
+
+.card__sub-title {
+  padding-top    : 6px;
+  color          : rgba(255, 255, 255, 0.6);
+  text-transform : uppercase;
+  font-size      : 10px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.2;
+  letter-spacing : 1.5px;
+}
+
+.card__body {
+  display         : flex;
+  min-height      : 72px;
+  align-items     : center;
+  justify-content : space-around;
 
 }
 
-.card__header{
-    padding: .75rem .5rem;
-    margin-bottom: 0px;
-    /* background-color: rgba(0,0,0,.03); */
-    /* border-bottom: 1px solid rgba(255,255,255,.2); */
-    font-size: .875rem;
+.card-center {}
+
+.card-left,
+.card-right {
+  display            : -ms-flexbox;
+  display            : flex;
+  text-align         : center;
+  -ms-flex-direction : column;
+  flex-direction     : column;
+  justify-content    : flex-start;
 }
 
-.card__body{
-  display: flex;
-  padding: .5rem;
-  height: 110px;
-  /* flex-wrap: wrap; */
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-left, .card-right {
+.card-left h1,
+.card-right h1 {
   /* align-self: center; */
-  /* -ms-flex: 0 1 33%;
-  flex: 0 1 33%; */
-  padding: 0px;
-  text-align: center;
+  /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
+  padding        : 0px;
+  color          : #6fd1f6;
+  text-align     : top;
+  text-transform : capitalize;
+  font-size      : 12px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 2;
+  letter-spacing : 0.15px;
 }
 
-.card__link{
-    color:#f8f8f8;
-    padding: 0 .5rem;
+.card-left p,
+.card-right p {
+  color          : rgba(255, 255, 255, 0.6);
+  text-transform : capitalize;
+  font-size      : 12px;
+  font-style     : normal;
+  font-weight    : normal;
+  font-stretch   : normal;
+  line-height    : 1;
+  letter-spacing : 0.15px;
 }
 
-.card__link:hover{
-    text-decoration: none;
+.card__link {
+  padding : 0 .5rem;
+  color   : #f8f8f8;
 }
 
-.card__link:hover .card, .card__link:focus .card{
-    /* background: #1d21244d; */
-    color: #ffffff;
-    border: 2px solid #16c1f37a;
-    box-shadow: 0 12px 30px 0 rgba(0,0,0,.2);
-    transition-property: -webkit-box-shadow,-webkit-transform;
-    transition-property: box-shadow,transform;
-    transition-property: box-shadow,transform,-webkit-box-shadow,-webkit-transform;
-    transition-duration: .6s;
-    transition-timing-function: cubic-bezier(.16,1,.29,.99);
-    text-decoration: none;
+.card__link:hover {
+  text-decoration : none;
 }
 
-.card__title{
-    margin-bottom: .75rem;
+.card__link:focus .card,
+.card__link:hover .card {
+  /* background: #1d21244d; */
+  color                      : #ffffff;
+  border                     : 2px solid #16c1f37a;
+  box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
+  text-decoration            : none;
+  transition-property        : -webkit-box-shadow,
+                               -webkit-transform;
+  transition-property        : box-shadow,
+                               transform;
+  transition-property        : box-shadow,
+                               transform,
+                               -webkit-box-shadow,
+                               -webkit-transform;
+  transition-duration        : .6s;
+  transition-timing-function : cubic-bezier(.16,1,.29,.99);
 }
 
-.card__text{
+.card__title {}
 
-  }
-
-.card__icon{
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-}
-
-.card__svg{
-    /* color: var(--vivid-cyan); */
-    /* display: inline-block; */
-    /* vertical-align: middle; */
-}
-
-.card__g{
-    fill: currentColor;
-}
-
-.card-left p, .card-right p, .card__body p,
-.card-left h3, .card-right h3, .card__body h3{
-  padding: 0px;
-  margin: 0px;
+.card__info {
+  min-height     : 60px;
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 10px;
+  font-style     : normal;
+  font-weight    : normal;
+  font-stretch   : normal;
+  line-height    : 1.4;
+  letter-spacing : 0.25px;
+  padding:  8px 24px;
+  border-top: 1px solid;
+  border-color: rgba(255, 255, 255, 0.18);
 
 }
 
-/* border utilities classes, need to add these to a util.css*/
-.border-blue{
-/* border-color: var(--vivid-cyan); */
+.card__icon {
+  /* position : absolute; */
+  width  : 26px;
+  height : 20px;
 }
 
-.border-yellow{
-/* border-color: var(--vivid-cyan); */
+.card__svg {
+  /* color: var(--vivid-cyan); */
+  /* display: inline-block; */
+  /* vertical-align: middle; */
 }
 
-.border-red{
-border-color: var(--vivid-red);
+.card__g {
+  fill : currentColor;
 }
 
-.border-teal{
-border-color: var(--teal);
+.card-left h1,
+.card-left p,
+.card-right h1,
+.card-right p,
+.card__body h3,
+.card__body p {
+  margin  : 0px;
+  padding : 0px;
 }
 
-#clock{
-  display: flex;
-  font-size: 1.5rem;
-  justify-content: center;
-  letter-spacing:1px;
+/* border utilities classes, need to add these to a util.css */
+
+.border-blue {
+  /* border-color: var(--vivid-cyan); */
+}
+
+.border-yellow {
+  /* border-color: var(--vivid-cyan); */
+}
+
+.border-red {
+  border-color : var(--vivid-red);
+}
+
+.border-teal {
+  border-color : var(--teal);
+}
+
+#clock {
+  display         : flex;
+  font-size       : 1.5rem;
+  justify-content : center;
+  letter-spacing  : 1px;
   /* align-self: center; */
   /* align-content:center; */
-    /* align-items: center; */
+  /* align-items: center; */
   /* text-align: center; */
 }
- #clock-time {
-   text-align: left;
 
- }
+#clock-time {
+  text-align : left;
+}
 
-
- #clock-day {
-   text-align: right;
-   border-right: 1px solid;
- }
+#clock-day {
+  border-right : 1px solid;
+  text-align   : right;
+}

@@ -79,35 +79,17 @@ function getCardData (data_) {
 function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-  d3.select('#bikes-card').select('.card__header')
-    .html(
-      "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      'Dublin Bikes' +
-      '</div>' +
-      "<div class = 'col-5' align='right'>" +
-      "<div id ='bikes-bikesCountdown' ></div>" +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      '</div>' +
-      '</div>'
-    )
+  d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' ></div>")
+  d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg' width='24'>")
 
   d3.select('#rt-bikes').select('#card-left')
-    .html("<div align='center'>" +
-      '<h3>--</h3>' +
-      '<p>bikes</p>' +
-      '</div>')
-
-  d3.select('#rt-bikes').select('#card-center')
-    .html("<div align='center'>" +
-      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
-      '</div>')
+    .html('<h3>--</h3>' +
+      '<p>bikes</p>')
 
   d3.select('#rt-bikes').select('#card-right')
-    .html("<div align='center'>" +
+    .html(
       '<h3>--</h3>' +
-      '<p> stands </p>' +
-      '</div>')
+      '<p> stands </p>')
 }
 
 function updateBikesDisplay (ab, as, age) {
@@ -137,37 +119,19 @@ function updateBikesDisplay (ab, as, age) {
   }
 
   const bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now'
-
-  d3.select('#bikes-card').select('.card__header')
-    .html(
-      "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      'Dublin Bikes' +
-      '</div>' +
-      "<div class = 'col-5' align='right'>" +
-      "<span class = '" + animateClass + "'>" +
-      bikesAgeDisplay + '</span>' +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      '</div>' +
-      '</div>'
-    )
+  d3.select('#bikes-card').select('#bikes-bikesCountdown').html("<span class='" + animateClass + "'>" + bikesAgeDisplay + '</span>')
 
   d3.select('#rt-bikes').select('#card-left')
     .html("<div class = '" + animateClass + "'align='center'>" +
-      '<h3>' + bikesAvailableDirection + ' ' + ab + '</h3>' +
+      '<h1>' + bikesAvailableDirection + ' ' + ab + '</h1>' +
       '</div>' +
       "<div align='center'>" +
       '<p> bikes </p>' +
       '</div>')
 
-  d3.select('#rt-bikes').select('#card-center')
-    .html("<div align='center'>" +
-      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
-      '</div>')
-
   d3.select('#rt-bikes').select('#card-right')
     .html("<div class = '" + animateClass + "'align='center'>" +
-      '<h3>' + standsAvailableDirection + ' ' + as + '</h3>' +
+      '<h1>' + standsAvailableDirection + ' ' + as + '</h1>' +
       '</div>' +
       "<div align='center'>" +
       '<p> stands </p>' +
