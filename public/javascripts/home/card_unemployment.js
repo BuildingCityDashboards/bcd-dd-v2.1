@@ -29,4 +29,10 @@ d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv')
     dL: 'label'
   }
   const unemployCard = new CardLineChart(unemploymentConfig)
+
+  let info = getInfoText('#employment-card a', 'Unemployment in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
+
+  d3.select('#employment-card')
+    .select('#card-info-text')
+    .html('<p>' + info + '</p>')
 })
