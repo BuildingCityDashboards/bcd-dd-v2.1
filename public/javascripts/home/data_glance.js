@@ -87,7 +87,7 @@ function initInfoText () {
   }
 }
 
-function updateInfoText (selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
+function getInfoText (selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
   const lastData = data[data.length - 1]
   const previousData = data[data.length - 2]
   const currentValue = lastData[valueName]
@@ -103,11 +103,11 @@ function updateInfoText (selector, startText, endText, data, valueName, labelNam
   const text = d3.select('#data-text p')
   let defaultString
   // defaultString = text.text(),
-  if (IS_TOUCH_DEVICE) {
-    defaultString = '<b>Slide for more, touch to go to the full chart page </b>'
-  } else {
-    defaultString = '<b>Hover over these charts for more information, click to go to the data page </b>'
-  }
+  // if (IS_TOUCH_DEVICE) {
+  //   defaultString = '<b>Slide for more, touch to go to the full chart page </b>'
+  // } else {
+  //   defaultString = '<b>Hover over these charts for more information, click to go to the data page </b>'
+  // }
 
   cArrow = changeArrrow,
     indicatorSymbol = difference > 0 ? '▲ ' : difference < 0 ? '▼ ' : ' ',
@@ -116,24 +116,27 @@ function updateInfoText (selector, startText, endText, data, valueName, labelNam
   // const startString = startText
   // const endString = endText
 
-  d3.select(selector)
-    .on('mouseover', (d) => {
-      text.html(startText).attr('class', 'bold-text')
-      text.append('span').text(lastElementDate).attr('class', 'bold-text')
+  // d3.select(selector)
+  //   .on('mouseover', (d) => {
+  //     text.html(startText).attr('class', 'bold-text')
+  //     text.append('span').text(lastElementDate).attr('class', 'bold-text')
+  //
+  //     text.append('text').text(' was ')
+  //
+  //     text.append('span').text(format(currentValue))
+  //       .attr('class', 'bold-text')
+  //
+  //     text.append('text').text(". That's ")
+  //
+  //     text.append('span').text(indicatorSymbol).attr('class', 'bold-text').style('color', indicatorColour)
+  //     text.append('span').text(indicator + ' ' + d3.format('.2%')(difference)).attr('class', 'bold-text')
+  //
+  //     text.append('text').html(' ' + endText)
+  //   })
+  //   .on('mouseout', (d) => {
+  //     text.html(defaultString)
+  //   })
+  let string = startText + lastElementDate + 'was' + format(currentValue) + ". That's " + indicatorSymbol + endText
 
-      text.append('text').text(' was ')
-
-      text.append('span').text(format(currentValue))
-        .attr('class', 'bold-text')
-
-      text.append('text').text(". That's ")
-
-      text.append('span').text(indicatorSymbol).attr('class', 'bold-text').style('color', indicatorColour)
-      text.append('span').text(indicator + ' ' + d3.format('.2%')(difference)).attr('class', 'bold-text')
-
-      text.append('text').html(' ' + endText)
-    })
-    .on('mouseout', (d) => {
-      text.html(defaultString)
-    })
+  return string
 }
