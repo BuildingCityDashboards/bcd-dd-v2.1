@@ -27,6 +27,10 @@ d3.csv('/data/Housing/HPM06.csv')
     dL: 'label'
   }
   const propertyPriceCard = new CardLineChart(propertyPriceCardConfig)
+  let info = getInfoText('#property-price-card a', 'The Property Price Index for Dublin in ', ' on the previous month', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format(''))
+  d3.select('#property-price-card')
+   .select('#card-info-text')
+   .html('<p>' + info + '</p>')
 }).catch(e => {
   console.log('Error in property price fetch')
   console.log(e)
