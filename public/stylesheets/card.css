@@ -53,6 +53,14 @@
   justify-content : space-between;
 }
 
+.card__body--chart {
+  display         : flex;
+  min-height      : 72px;
+  align-items     : center;
+  justify-content : space-between;
+  margin-bottom: 4px;
+}
+
 .card__center {}
 
 .card__left,

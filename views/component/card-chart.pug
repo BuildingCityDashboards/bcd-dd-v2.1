@@ -5,5 +5,7 @@ mixin card-chart(href, style, title, subtitle, chartid)
         .card__title=title
         .card__sub-title=subtitle
         //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
-      .card__body.card-graph
-        div(id=chartid class="line-chart" min-width="256" min-height="70")
+      .card__body--chart.card-graph
+        div(id=chartid class="line-chart" min-width="256" min-height="72")
+      .card__info#card-info-text 
+        p Information will appear here when available

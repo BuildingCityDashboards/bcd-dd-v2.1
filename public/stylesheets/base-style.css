@@ -244,20 +244,21 @@ a:hover {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
 .line-chart{
-  margin-right:40px;
-  width:100%
+  margin-right:0px;
+  width:100%;
+  height: 72px;
 }
 .line-chart:last-child{
   margin-right:0
 }
 .line-chart path.activity{
-  stroke:#16c1f3;
-  stroke-width:4;
+  stroke: #6fd1f6;
+  stroke-width:2;
   fill:none;
 }
 .line-chart .cursor{
@@ -266,8 +267,13 @@ a:hover {
   stroke-width:2
 }
 .line-chart .label, .no-axis{
-  font-size: 14px;
-  font-weight:500;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: 0.15px;
+  color: rgba(255, 255, 255, 0.6);
 }
 .line-chart .label.today{
   fill:#16c1f3;

@@ -20,9 +20,9 @@ class CardLineChart {
     c.eW = c.eN.getBoundingClientRect().width
 
     // dimensions margins, width and height
-    c.m = [20, 10, 25, 10]
+    c.m = [18, 10, 0, 10]
     c.w = c.eW - c.m[1] - c.m[3]
-    c.h = 120 - c.m[0] - c.m[2]
+    c.h = 72 - c.m[0] - c.m[2]
 
     c.setScales()
     c.drawLine()
