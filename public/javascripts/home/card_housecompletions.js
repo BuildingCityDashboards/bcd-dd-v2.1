@@ -19,4 +19,13 @@ d3.csv('/data/Housing/processed/NDQ05.csv')
     dL: 'label'
   }
   const completionsCard = new CardLineChart(completionsConfig)
+
+  let info = getInfoText('#house-completions-card a', 'The number of houses completed in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
+
+  d3.select('#house-completions-card')
+   .select('#card-info-text')
+   .html('<p>' + info + '</p>')
+}).catch(e => {
+  console.log('Error in house completions fetch')
+  console.log(e)
 })
