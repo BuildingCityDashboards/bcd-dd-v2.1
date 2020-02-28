@@ -2,7 +2,6 @@ function checkTouchDevice () {
   return 'ontouchstart' in document.documentElement
 }
 const IS_TOUCH_DEVICE = checkTouchDevice()
-
 // console.log("Touch = " + IS_TOUCH_DEVICE);
 
 // Manage periodic async data fetching (for realtime data cards)
@@ -13,79 +12,39 @@ let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 
 //   d3.formatLocale(locale);
 
-//
-Promise.all([
-  d3.csv('/data/Economy/processed/unemployment_quarterly_dublin.csv'),
-  d3.csv('/data/Housing/HPM06.csv'), // property price
-  d3.csv('/data/Housing/processed/NDQ05.csv') // quarterly housing completions
-
-]).then(dataFiles => {
-  // const completionsData = dataFiles[2]
-  // const completionsColumnNames = completionsData.columns.slice(5)
-  // const completionsColumnName = completionsColumnNames[0]
-  // const completionsDataSet = coerceData(completionsData, completionsColumnNames)
-  // // console.log(completionsDataSet)
-
-  // completionsDataSet.forEach(d => {
-  //   d.quarter = convertQuarter(d.quarter)
-  //   d.label = formatQuarter(d.quarter)
-  // })
-  //
-  // const completionsConfig = {
-  //   d: completionsDataSet,
-  //   e: '#hc-glance',
-  //   yV: 'Dublin',
-  //   xV: 'quarter',
-  //   // sN: 'region',
-  //   dL: 'label'
-  // }
-  // const completionsCard = new CardLineChart(completionsConfig)
-
-  // initInfoText()
-  // updateInfoText('#apd-chart a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
-  //
-  // updateInfoText('#emp-chart a', '<b>Unemployment</b> in Dublin for ', ' on the previous quarter', unemploymentDataSet, unemploymentColumnName, 'label', d3.format(''), true)
-  //
-  // updateInfoText('#app-chart a', 'The <b>Property Price Index</b> for Dublin in ', ' on the previous month', propertyPriceDataSet, propertyPriceColumnName, 'label', d3.format(''))
-  //
-  // updateInfoText('#huc-chart a', '<b>House Unit Completions</b> in Dublin for  ', ' on the previous quarter', completionsDataSet, completionsColumnName, 'label', d3.format(''))
-
-  d3.select(window).on('resize', function () {
+d3.select(window).on('resize', function () {
     // completionsCard.init()
-    unemployCard.init()
-    populationCard.init()
-    propertyPriceCard.init()
+  unemployCard.init()
+  populationCard.init()
+  propertyPriceCard.init()
 
-    const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-    if (screenSize >= 768) {
-      renderMap(dublincoco)
-    } else {
-      renderTabs(dublincoco)
-    }
-    laElement.dispatchEvent(clickEvent)
-  })
-}).catch(function (error) {
-  console.log(error)
+  const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  if (screenSize >= 768) {
+    renderMap(dublincoco)
+  } else {
+    renderTabs(dublincoco)
+  }
+  laElement.dispatchEvent(clickEvent)
 })
 
-function initInfoText () {
-  // d3.select('#data-text').attr("hidden", true); //to hide
-  let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-  if (IS_TOUCH_DEVICE && screenWidth < 1200) {
-    //   console.log("Hide data text on mobile");
-    d3.select('#data-text').html('<p><b>Swipe for more, touch to go to the full chart page </b></p>')
-    d3.selectAll('.tab-charts__row').style('overflow-x', 'scroll')
-    d3.selectAll('.tab-charts__row').style('-webkit-overflow-scrolling', 'touch')
-  } else if (IS_TOUCH_DEVICE && screenWidth >= 1200) {
-    //   console.log("Hide data text on mobile");
-    d3.select('#data-text').html('<p><b>Click a mini-chart to go to an associated full chart </b></p>')
-    d3.select('.tab-charts__row').style('overflow-x', 'hidden')
-  } else {
-    d3.select('#data-text').html('<p><b>Hover over these charts for more information, click to go to the full chart </b></p>')
-    // d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
-    d3.select('.tab-charts__row').style('overflow-x', 'hidden')
-  }
-}
+// function initInfoText () {
+//   // d3.select('#data-text').attr("hidden", true); //to hide
+//   let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+//   if (IS_TOUCH_DEVICE && screenWidth < 1200) {
+//     //   console.log("Hide data text on mobile");
+//     d3.select('#data-text').html('<p><b>Swipe for more, touch to go to the full chart page </b></p>')
+//     d3.selectAll('.tab-charts__row').style('overflow-x', 'scroll')
+//     d3.selectAll('.tab-charts__row').style('-webkit-overflow-scrolling', 'touch')
+//   } else if (IS_TOUCH_DEVICE && screenWidth >= 1200) {
+//     //   console.log("Hide data text on mobile");
+//     d3.select('#data-text').html('<p><b>Click a mini-chart to go to an associated full chart </b></p>')
+//     d3.select('.tab-charts__row').style('overflow-x', 'hidden')
+//   } else {
+//     d3.select('#data-text').html('<p><b>Hover over these charts for more information, click to go to the full chart </b></p>')
+//     // d3.selectAll('.tab-charts__row').style("-webkit-overflow-scrolling", "touch");
+//     d3.select('.tab-charts__row').style('overflow-x', 'hidden')
+//   }
+// }
 
 function getInfoText (selector, startText, endText, data, valueName, labelName, format, changeArrrow) {
   const lastData = data[data.length - 1]
