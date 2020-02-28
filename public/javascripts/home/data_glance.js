@@ -136,7 +136,7 @@ function getInfoText (selector, startText, endText, data, valueName, labelName, 
   //   .on('mouseout', (d) => {
   //     text.html(defaultString)
   //   })
-  let string = startText + lastElementDate + 'was' + format(currentValue) + ". That's " + indicatorSymbol + endText
+  let string = startText + lastElementDate + ' was ' + format(currentValue) + ". That's " + indicatorSymbol + indicator + ' ' + d3.format('.2%')(difference) + endText
 
   return string
 }

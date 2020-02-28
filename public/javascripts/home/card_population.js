@@ -21,17 +21,15 @@ d3.csv('/data/Demographics/population.csv')
   }
 
   const populationCard = new CardLineChart(populationConfig)
-  // d3.select('#population-card')
-  //   .select('#card-info-text')
-  //   .html('<p>The Population of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 
-  console.log(getInfoText('#population-card a', 'The <b>Population</b> of Dublin in ', ' on <b>2011</b>', populationDataSet, populationColumnName, 'date', d3.format('.2s')))
+  let info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
+
+  d3.select('#population-card')
+    .select('#card-info-text')
+    .html('<p>' + info + '</p>')
 })
 .catch(e => {
   console.log('Error in population fetch')
   console.log(e)
 })
 
-function getLastDate () {
-
-}
