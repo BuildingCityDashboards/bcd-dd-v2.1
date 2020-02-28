@@ -17,22 +17,21 @@ router.get('/data', (req, res, next) => {
   })
 })
 
-var dublinBikesController = require('../controllers/dublinbikes_derilinx');
-var trainStationController = require('../controllers/irishTrains');
+const trainStationController = require('../controllers/irish_trains')
 
 // static trains list
-router.get('/trainstations/stations/list', trainStationController.getTrainStationsList);
-router.get('/trainstations/stations/:ts', trainStationController.getTrainStationsData);
+router.get('/trainstations/stations/list', trainStationController.getTrainStationsList)
+router.get('/trainstations/stations/:ts', trainStationController.getTrainStationsData)
 
+const waterLevelController = require('../controllers/water_levels')
+router.get('/wlstations/stations/list', waterLevelController.getStationsList)
+router.get('/wlstations/stations/:ts', waterLevelController.getStationsData)
 
-var dublinBikesController = require('../controllers/dublinbikes_derilinx')
-
+const dublinBikesController = require('../controllers/dublinbikes_derilinx')
 // static station list
 router.get('/dublinbikes/stations/list', dublinBikesController.getStationsList)
-
 // all station snapshot
 router.get('/dublinbikes/stations/all/snapshot', dublinBikesController.getStationsSnapshot)
-
 // router.get('/dublinbikes/stations/example', dublinBikesController.getStationExample);
 // router.get('/dublinbikes/stations/:number', dublinBikesController.getStationData);
 
@@ -45,10 +44,10 @@ router.get('/dublinbikes/stations/all/yesterday', dublinBikesController.getAllSt
 // one station, all readings so far today
 router.get('/dublinbikes/stations/:number/today', dublinBikesController.getStationDataToday)
 
-let carparksController = require('../controllers/carparks_controller')
+const carparksController = require('../controllers/carparks_controller')
 router.get('/carparks/snapshot', carparksController.getCarparksSnapshot)
 
-let weatherController = require('../controllers/weather_controller')
+const weatherController = require('../controllers/weather_controller')
 router.get('/weather', weatherController.getWeather)
 
 module.exports = router
