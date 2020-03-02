@@ -195,7 +195,7 @@ function getBikesStationPopup () {
 
   let ts =this.options.sfn
   let sid_ = this.options.sid
-  console.log(ts+ '--'+ sid_)
+  // console.log(ts+ '--'+ sid_)
   
  //let ts='19045_0001'
 /*d3.csv('/api/wlstations/stations/'+ts)
@@ -664,25 +664,55 @@ airMap.on('popupopen', function(e) {
 // Note that one button is classed active by default and this must be dealt with
 
 d3.select('#water-opw-btn').on('click', function () {
+  // let cbt = d3.select('#water-opw-btn')
+  // cb3.classed('active', true)
+  
   let cb = d3.select('#water-all-btn')
+  let cbs = d3.select('#water-hydronet-btn')
+  let cbt = d3.select('#water-opw-btn')
   if (cb.classed('active')) {
     cb.classed('active', false)
+    //cbt.classed('active', true)
   }
+  if (cbs.classed('active')) {
+    cbs.classed('active', false)
+    //cbt.classed('active', true)
+  }
+  /*let cbt = d3.select('#water-opw-btn')
+  if (cbt.classed('disables')) {
+    cbt.classed('active', true)
+  }*/
+
   d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>' +
     waterMapLayerSizes[0] + ' OPW sites</h4>')
 
-  waterMap.removeLayer(hydronetCluster)
+ waterMap.removeLayer(hydronetCluster)
   if (!waterMap.hasLayer(waterOPWCluster)) {
     waterMap.addLayer(waterOPWCluster)
   }
   waterMap.fitBounds(waterOPWCluster.getBounds())
+  cbt.classed('active', true)
 })
 
 d3.select('#water-hydronet-btn').on('click', function () {
-  let cb = d3.select('#water-all-btn')
+  /*let cb = d3.select('#water-all-btn')
+  let cbt = d3.select('#water-hydronet-btn')
   if (cb.classed('active')) {
     cb.classed('active', false)
+  }*/
+
+  let cb = d3.select('#water-all-btn')
+  let cbs = d3.select('#water-opw-btn')
+  let cbt = d3.select('#water-hydronet-btn')
+  if (cb.classed('active')) {
+    cb.classed('active', false)
+    //cbt.classed('active', true)
   }
+  if (cbs.classed('active')) {
+    cbs.classed('active', false)
+    //cbt.classed('active', true)
+  }
+
   d3.select('#water-site-count').html('<p>The map currently shows:</p> <h4>' +
     waterMapLayerSizes[1] + ' EPA Hydronet sites</h4>')
   waterMap.removeLayer(waterOPWCluster)
@@ -690,13 +720,28 @@ d3.select('#water-hydronet-btn').on('click', function () {
     waterMap.addLayer(hydronetCluster)
   }
   waterMap.fitBounds(hydronetCluster.getBounds())
+  cbt.classed('active', true)
 })
 
 d3.select('#water-all-btn').on('click', function () {
-  let cb = d3.select(this)
+  /*let cb = d3.select(this)
   if (cb.classed('active')) {
     cb.classed('active', false)
+  }*/
+
+  let cb = d3.select('#water-hydronet-btn')
+  let cbs = d3.select('#water-opw-btn')
+  let cbt = d3.select(this)
+  if (cb.classed('active')) {
+    cb.classed('active', false)
+    //cbt.classed('active', true)
   }
+  if (cbs.classed('active')) {
+    cbs.classed('active', false)
+    //cbt.classed('active', true)
+  }
+
+  
 
   // console.log("Showing all " + (waterMapLayerSizes[0] + waterMapLayerSizes[1]) + " sites");
   d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>All ' +
@@ -709,4 +754,5 @@ d3.select('#water-all-btn').on('click', function () {
     waterMap.addLayer(hydronetCluster)
   }
   waterMap.fitBounds(hydronetCluster.getBounds())
+  cbt.classed('active', true)
 })
