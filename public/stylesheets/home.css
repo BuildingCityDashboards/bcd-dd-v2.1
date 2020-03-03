@@ -178,7 +178,6 @@
 #hero-weather__right-top img{
   width            : 16px;
   height           : 16px;
-
 }
 
 #hero-weather__right-bottom {
@@ -647,7 +646,6 @@
   #hero-weather__left-bottom {
     display        : -ms-flexbox;
     display        : flex;
-    height         : 20px;
     color          : rgba(255, 255, 255, 0.6);
     font-size      : 18px;
     font-weight    : 500;
@@ -658,26 +656,32 @@
   #hero-weather__symbol {
     width            : 48px;
     height           : 48px;
-    background-color : rgba(255, 255, 255, 0.3);
+
   }
 
   #hero-weather__right-top {
     height         : 20px;
-    color          : #6fd1f6;
+    /* color          : #6fd1f6; */
     font-size      : 20px;
     font-weight    : 500;
     line-height    : 1.2;
     letter-spacing : 0.15px;
   }
 
+  #hero-weather__right-top img{
+  width: 24px;
+  height: 24px;
+  }
+
   #hero-weather__right-bottom {
     display        : -ms-flexbox;
     display        : flex;
-    height         : 18px;
+    /* height         : 18px; */
     color          : rgba(255, 255, 255, 0.6);
-    text-align     : center;
+    /* text-align     : center; */
+    /* align-items: center; */
     font-weight    : 500;
-    line-height    : 1.5;
+    line-height    : 1.33;
     letter-spacing : 0.15px;
   }
 
@@ -1005,6 +1009,127 @@
     line-height    : 0.72;
     letter-spacing : -0.5px;
   }
+
+  #hero-time-weather {
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform       : translate(24px,0);
+  }
+
+  #hero-time {
+    display         : -ms-flexbox;
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    /* border: solid 2px; */
+    /* max-width: 400px; */
+    display          : flex;
+    display          : -ms-flexbox;
+    width            : 325px;
+    height           : 64px;
+    background-color : rgba(142, 191, 214, 0.08);
+    background-color : rgba(142, 191, 214, 0.08);
+    align-items      : center;
+    font-style       : normal;
+    font-weight      : 500;
+    font-stretch     : normal;
+    flex-wrap        : nowrap;
+    justify-content  : space-around;
+    line-height      : 1.2;
+    letter-spacing   : 0.15px;
+  }
+
+  #hero-time__clock {
+    width     : 80px;
+    height    : 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
+  }
+
+  #hero-time__date {
+    width       : 109px;
+    height      : 22px;
+    color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
+    font-weight : 300;
+  }
+
+  #hero-weather {
+    display         : -ms-flexbox;
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : -ms-flexbox;
+    display            : flex;
+    width              : 366px;
+    height             : 64px;
+    background-color   : rgba(142, 191, 214, 0.08);
+    font-style         : normal;
+    -ms-flex-direction : row;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-evenly;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__left-top {
+    /* height         : 24px;
+    color          : #6fd1f6;
+    font-size      : 24px;
+    font-weight    : 500;
+    line-height    : 1.2;
+    letter-spacing : 0.15px; */
+  }
+
+  #hero-weather__left-bottom {
+    /* height: 20px;
+    display        : -ms-flexbox;
+    display        : flex;
+    color          : rgba(255, 255, 255, 0.6);
+    font-size      : 20px;
+    font-weight    : 500;
+    line-height    : 1.33;
+    letter-spacing : 0.15px; */
+  }
+
+  #hero-weather__symbol {
+    width            : 48px;
+    height           : 48px;
+
+  }
+
+  #hero-weather__right-top {
+    /* height         : 24px;
+    /* color          : #6fd1f6; */
+    /* font-size      : 24px;
+    font-weight    : 500;
+    line-height    : 1.2;
+    letter-spacing : 0.15px; */
+  }
+
+  #hero-weather__right-top img{
+  width: 24px;
+  height: 24px;
+  }
+
+  #hero-weather__right-bottom {
+    /* display        : -ms-flexbox;
+    display        : flex;
+    height         : 1px;
+    color          : rgba(255, 255, 255, 0.6);
+    /* text-align     : center; */
+    /* align-items: center; */
+    /* font-size:  20px;
+    font-weight    : 500;
+    line-height    : 1.33;
+    letter-spacing : 0.15px; */
+  }
+
 
   #hero-carousel {
     border      : dashed 2px;

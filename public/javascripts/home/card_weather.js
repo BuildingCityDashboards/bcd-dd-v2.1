@@ -118,10 +118,10 @@ function initialiseWeatherDisplay () {
       .html('Prec -- mm')
 
   d3.select('#hero-weather__right-top')
-      .html('~ NE')
+      .html('~ --')
 
   d3.select('#hero-weather__right-bottom')
-      .html('~ 25.5 mph')
+      .html('~ -- kph')
 
   d3.select('#hero-weather__symbol')
     .html()
@@ -158,7 +158,7 @@ function updateWeatherDisplay (f, fTime) {
       .html(parseInt(f[0].temperature) + ' C')
   // //
   d3.select('#hero-weather__left-bottom')
-        .html('Prec ' + f[0].precip + ' mm<')
+        .html('Prec ' + f[0].precip + ' mm')
 
   d3.select('#hero-weather__right-top')
         .html('<img src = "/images/Met50v2/15d.png">' + '  ' + f[0].windDir)
