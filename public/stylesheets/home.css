@@ -7,7 +7,7 @@
   height              : 100vh;
   min-height          : 540px;
   overflow-y          : hidden;
-  background-image    : url('../images/hero-background-image.png');
+  background-image    : url('../images/home/hero-background-image-mobile.png');
   background-repeat   : no-repeat;
   background-position : top;
   background-size     : 100vw auto;
@@ -150,34 +150,28 @@
 }
 
 #hero-weather__symbol {
-  width            : 16px;
-  height           : 16px;
+  display     : flex;
+  width       : 16px;
+  height      : 16px;
+  align-items : center;
   /* background-color : rgba(255, 255, 255, 0.3); */
-  display: flex;
-  align-items: center;
 }
 
-#hero-weather__symbol img{
-  width            : inherit;
-  height           : inherit;
+#hero-weather__symbol img {
+  width  : inherit;
+  height : inherit;
   /* background-color : rgba(255, 255, 255, 0.3); */
 }
 
 #hero-weather__right-top {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-items: space-between;
-  height         : 12px;
-  color          : #6fd1f6;
-  font-size      : 12px;
-  line-height    : 1;
-  letter-spacing : 0.15px;
+  display        : flex;
+  align-items    : center;
+  flex-direction : row;
 }
 
-#hero-weather__right-top img{
-  width            : 16px;
-  height           : 16px;
+#hero-weather__right-top img {
+  width  : 16px;
+  height : 16px;
 }
 
 #hero-weather__right-bottom {
@@ -185,15 +179,7 @@
 }
 
 #hero-carousel {
-  /**
-  * border
-  *
-  *
-  *
-  *
-  *
-  * : solid 2px;
-  */
+
   grid-column : span 4;
   grid-row    : 3 / 7;
 }
@@ -539,7 +525,8 @@
   only screen
   and (min-width : 1024px) {
   #hero {
-    min-height : 1400px;
+    min-height       : 1400px;
+    background-image : url('../images/home/hero-background-image-tablet.png');
   }
 
   #hero-grid {
@@ -654,35 +641,62 @@
   }
 
   #hero-weather__symbol {
-    width            : 48px;
-    height           : 48px;
-
+    width  : 48px;
+    height : 48px;
   }
 
   #hero-weather__right-top {
     height         : 20px;
-    /* color          : #6fd1f6; */
     font-size      : 20px;
     font-weight    : 500;
     line-height    : 1.2;
     letter-spacing : 0.15px;
+    /**
+    * color
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : #6fd1f6;
+    */
   }
 
-  #hero-weather__right-top img{
-  width: 24px;
-  height: 24px;
+  #hero-weather__right-top img {
+    width  : 24px;
+    height : 24px;
   }
 
   #hero-weather__right-bottom {
     display        : -ms-flexbox;
     display        : flex;
-    /* height         : 18px; */
     color          : rgba(255, 255, 255, 0.6);
-    /* text-align     : center; */
-    /* align-items: center; */
     font-weight    : 500;
     line-height    : 1.33;
     letter-spacing : 0.15px;
+    /**
+    * height
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : 18px;
+    */
+    /**
+    * text-align
+    *
+    *
+    *
+    * : center;
+    */
+    /* align-items: center; */
   }
 
   #hero-carousel {
@@ -690,6 +704,89 @@
     grid-column : span 12;
     grid-row    : 4 / 10;
   }
+
+  .carousel {
+    margin     : 0 20px;
+    background : transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width             : 50%;
+    height            : 200px;
+    margin-right      : 16px;
+    border-radius     : 4px;
+    background        : transparent;
+    /* counter-increment : gallery-cell; */
+    /* gap between cards */
+  }
+
+  /* cell number */
+
+  .carousel-cell:before {
+    /**
+    * content
+    *
+    *
+    *
+    * : counter(gallery-cell); display
+    *
+    *
+    *
+    * : block; color
+    *
+    *
+    *
+    *
+    *
+    * : white; text-align
+    *
+    * : center; font-size
+    *
+    * : 80px; line-height : 200px;
+    */
+  }
+
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 24px;
+    height        : 24px;
+    border-radius : 4px;
+  }
+
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left : -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .hero-carousel__card {}
+
 
   #hero-icon-navs {
     display            : -ms-flexbox;
@@ -983,10 +1080,11 @@
   only screen
   and (min-width : 1920px) {
   #hero {
-    position   : relative;
-    width      : 100vw;
-    height     : 100vh;
-    min-height : 1080px;
+    position         : relative;
+    width            : 100vw;
+    height           : 100vh;
+    min-height       : 1080px;
+    background-image : url('../images/home/hero-background-image-mobile.png');
   }
 
   #hero-grid {
@@ -1078,64 +1176,289 @@
   }
 
   #hero-weather__left-top {
-    /* height         : 24px;
-    color          : #6fd1f6;
-    font-size      : 24px;
-    font-weight    : 500;
-    line-height    : 1.2;
-    letter-spacing : 0.15px; */
+    /**
+    * height
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : 24px; color
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : #6fd1f6; font-size
+    *
+    *
+    *
+    *
+    *
+    * : 24px; font-weight
+    *
+    *
+    *
+    * : 500; line-height
+    *
+    *
+    *
+    * : 1.2; letter-spacing : 0.15px;
+    */
   }
 
   #hero-weather__left-bottom {
-    /* height: 20px;
-    display        : -ms-flexbox;
-    display        : flex;
-    color          : rgba(255, 255, 255, 0.6);
-    font-size      : 20px;
-    font-weight    : 500;
-    line-height    : 1.33;
-    letter-spacing : 0.15px; */
+    /**
+    * height: 20px; display
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : -ms-flexbox; display
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : flex; color
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : rgba(255, 255, 255, 0.6); font-size
+    *
+    *
+    *
+    *
+    *
+    * : 20px; font-weight
+    *
+    *
+    *
+    * : 500; line-height
+    *
+    *
+    *
+    * : 1.33; letter-spacing : 0.15px;
+    */
   }
 
   #hero-weather__symbol {
-    width            : 48px;
-    height           : 48px;
-
+    width  : 48px;
+    height : 48px;
   }
 
   #hero-weather__right-top {
-    /* height         : 24px;
-    /* color          : #6fd1f6; */
-    /* font-size      : 24px;
-    font-weight    : 500;
-    line-height    : 1.2;
-    letter-spacing : 0.15px; */
+    /**
+    * height
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : 24px; /* color
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : #6fd1f6;
+    */
+    /**
+    * font-size
+    *
+    *
+    *
+    *
+    *
+    * : 24px; font-weight
+    *
+    *
+    *
+    * : 500; line-height
+    *
+    *
+    *
+    * : 1.2; letter-spacing : 0.15px;
+    */
   }
 
-  #hero-weather__right-top img{
-  width: 24px;
-  height: 24px;
+  #hero-weather__right-top img {
+    width  : 24px;
+    height : 24px;
   }
 
   #hero-weather__right-bottom {
-    /* display        : -ms-flexbox;
-    display        : flex;
-    height         : 1px;
-    color          : rgba(255, 255, 255, 0.6);
-    /* text-align     : center; */
+    /**
+    * display
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : -ms-flexbox; display
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : flex; height
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : 1px; color
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : rgba(255, 255, 255, 0.6); /* text-align
+    *
+    *
+    *
+    * : center;
+    */
     /* align-items: center; */
-    /* font-size:  20px;
-    font-weight    : 500;
-    line-height    : 1.33;
-    letter-spacing : 0.15px; */
+    /**
+    * font-size:
+    *
+    * 20px; font-weight
+    *
+    *
+    *
+    * : 500; line-height
+    *
+    *
+    *
+    * : 1.33; letter-spacing : 0.15px;
+    */
   }
-
 
   #hero-carousel {
     border      : dashed 2px;
     grid-column : span 12;
     grid-row    : 4 / 7;
   }
+
+  .carousel {
+    margin     : 0 20px;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width             : 25%;
+    height            : 200px;
+    margin-right      : 16px;
+    border-radius     : 4px;
+
+    /* counter-increment : gallery-cell; */
+    /* gap between cards */
+  }
+
+  /* cell number */
+
+  .carousel-cell:before {
+    /**
+    * content
+    *
+    *
+    *
+    * : counter(gallery-cell); display
+    *
+    *
+    *
+    * : block; color
+    *
+    *
+    *
+    *
+    *
+    * : white; text-align
+    *
+    * : center; font-size
+    *
+    * : 80px; line-height : 200px;
+    */
+  }
+
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 24px;
+    height        : 24px;
+    border-radius : 4px;
+  }
+
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left : -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .hero-carousel__card {}
+
+
+
+
+
 
   #hero-icon-navs {
     align-self      : top;
