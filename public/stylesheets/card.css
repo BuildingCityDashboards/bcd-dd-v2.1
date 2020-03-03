@@ -56,9 +56,9 @@
 .card__body--chart {
   display         : flex;
   min-height      : 72px;
+  margin-bottom   : 4px;
   align-items     : center;
   justify-content : space-between;
-  margin-bottom: 4px;
 }
 
 .card__center {}
@@ -145,7 +145,6 @@
   font-stretch   : normal;
   line-height    : 1.4;
   letter-spacing : 0.25px;
-
 }
 
 .card__icon {
@@ -164,13 +163,13 @@
   fill : currentColor;
 }
 
+.card__body h3,
+.card__body p,
+.card__info p,
 .card__left h1,
 .card__left p,
 .card__right h1,
-.card__right p,
-.card__body h3,
-.card__body p,
-.card__info p {
+.card__right p {
   margin  : 0px;
   padding : 0px;
 }
@@ -193,22 +192,168 @@
   border-color : var(--teal);
 }
 
-#clock {
-  display         : flex;
-  font-size       : 1.5rem;
-  justify-content : center;
-  letter-spacing  : 1px;
-  /* align-self: center; */
-  /* align-content:center; */
-  /* align-items: center; */
-  /* text-align: center; */
-}
+@media
+  only screen
+  and (min-width : 1920px) {
+  .card {
+    min-width  : 256px;
+    min-height : 220px;
+    padding    : 16px 24px;
+    /* height: inherit; */
+  }
 
-#clock-time {
-  text-align : left;
-}
+  .card__header {}
 
-#clock-day {
-  border-right : 1px solid;
-  text-align   : right;
+  .card__title {
+    font-size      : 14px;
+    font-style     : normal;
+    font-weight    : 500;
+    font-stretch   : normal;
+    line-height    : 1.14;
+    letter-spacing : 1.5px;
+  }
+  /* Usually used for time of last update etc. */
+
+  .card__sub-title {
+    padding-top    : 6px;
+    font-size      : 10px;
+    font-style     : normal;
+    font-weight    : 500;
+    font-stretch   : normal;
+    line-height    : 1.2;
+    letter-spacing : 1.5px;
+  }
+
+  .card__body {
+    min-height : 72px;
+  }
+
+  .card__body--chart {
+    min-height    : 72px;
+    margin-bottom : 4px;
+  }
+
+  .card__center {}
+
+  .card__left,
+  .card__right {
+    display            : -ms-flexbox;
+    display            : flex;
+    text-align         : center;
+    -ms-flex-direction : column;
+    flex-direction     : column;
+    justify-content    : flex-start;
+  }
+
+  .card__left h1,
+  .card__right h1 {
+    /* align-self: center; */
+    /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
+    padding        : 0px;
+    color          : #6fd1f6;
+    text-align     : top;
+    text-transform : capitalize;
+    font-size      : 12px;
+    font-style     : normal;
+    font-weight    : 500;
+    font-stretch   : normal;
+    line-height    : 2;
+    letter-spacing : 0.15px;
+  }
+
+  .card__left p,
+  .card__right p {
+    color          : rgba(255, 255, 255, 0.6);
+    text-transform : capitalize;
+    font-size      : 12px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1;
+    letter-spacing : 0.15px;
+  }
+
+  .card__link {
+    padding : 0 .5rem;
+    color   : #f8f8f8;
+  }
+
+  .card__link:hover {
+    text-decoration : none;
+  }
+
+  .card__link:focus .card,
+  .card__link:hover .card {
+    /* background: #1d21244d; */
+    color                      : #ffffff;
+    border                     : 2px solid #16c1f37a;
+    box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
+    text-decoration            : none;
+    transition-property        : -webkit-box-shadow,
+                                 -webkit-transform;
+    transition-property        : box-shadow,
+                                 transform;
+    transition-property        : box-shadow,
+                                 transform,
+                                 -webkit-box-shadow,
+                                 -webkit-transform;
+    transition-duration        : .6s;
+    transition-timing-function : cubic-bezier(.16,1,.29,.99);
+  }
+
+  .card__title {}
+
+  .card__info {
+    /* min-height       : 60px; */
+    transform: translate(0, -60px);
+    padding-top      : 8px;
+    overflow-y       : hidden;
+    border-top       : 1px solid;
+    border-top-color : rgba(255, 255, 255, 0.1);
+    max-height     : 0px;
+
+  }
+
+  .card__info p {
+
+    font-size      : 10px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.4;
+    letter-spacing : 0.25px;
+    /* position: absolute; bottom: -100px; */
+  }
+
+  .card__link:hover .card__info {
+    transform: translate(0, 0px);
+    transition : all 0.4s ease;
+  }
+
+  .card__icon {
+    /* position : absolute; */
+    width  : 26px;
+    height : 20px;
+  }
+
+  .card__svg {
+    /* color: var(--vivid-cyan); */
+    /* display: inline-block; */
+    /* vertical-align: middle; */
+  }
+
+  .card__g {
+    fill : currentColor;
+  }
+
+  .card__body h3,
+  .card__body p,
+  .card__info p,
+  .card__left h1,
+  .card__left p,
+  .card__right h1,
+  .card__right p {
+    margin  : 0px;
+    padding : 0px;
+  }
 }

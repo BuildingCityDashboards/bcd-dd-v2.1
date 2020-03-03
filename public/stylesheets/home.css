@@ -1372,24 +1372,25 @@
     border      : dashed 2px;
     grid-column : span 12;
     grid-row    : 4 / 7;
+
   }
 
   .carousel {
-    margin     : 0 20px;
+    margin     : 0 32px;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width             : 25%;
-    height            : 200px;
-    margin-right      : 16px;
+    width             : 20%;
+    height            : 220px;
+    margin-right      : 32px;
     border-radius     : 4px;
 
     /* counter-increment : gallery-cell; */
-    /* gap between cards */
+
   }
 
-  /* cell number */
+
 
   .carousel-cell:before {
     /**
@@ -1427,8 +1428,8 @@
   }
 
   .flickity-prev-next-button {
-    width         : 24px;
-    height        : 24px;
+    width         : 32px;
+    height        : 32px;
     border-radius : 4px;
   }
 
