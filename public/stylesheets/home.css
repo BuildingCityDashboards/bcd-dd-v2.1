@@ -152,15 +152,33 @@
 #hero-weather__symbol {
   width            : 16px;
   height           : 16px;
-  background-color : rgba(255, 255, 255, 0.3);
+  /* background-color : rgba(255, 255, 255, 0.3); */
+  display: flex;
+  align-items: center;
+}
+
+#hero-weather__symbol img{
+  width            : inherit;
+  height           : inherit;
+  /* background-color : rgba(255, 255, 255, 0.3); */
 }
 
 #hero-weather__right-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: space-between;
   height         : 12px;
   color          : #6fd1f6;
   font-size      : 12px;
   line-height    : 1;
   letter-spacing : 0.15px;
+}
+
+#hero-weather__right-top img{
+  width            : 16px;
+  height           : 16px;
+
 }
 
 #hero-weather__right-bottom {
