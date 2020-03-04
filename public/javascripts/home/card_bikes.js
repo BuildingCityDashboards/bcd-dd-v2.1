@@ -81,7 +81,7 @@ function initialiseCardDisplay () {
 
   d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
 
-  d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg' width='24'>")
+  d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg'>")
 
   d3.select('#rt-bikes').select('#card-left')
     .html('<h3>--</h3>' +

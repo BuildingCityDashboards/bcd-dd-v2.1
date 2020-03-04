@@ -33,13 +33,13 @@ block content
                     div
                         #hero-weather__symbol    
                     div
-                        #hero-weather__right-top ~ NE
-                        #hero-weather__right-bottom 25.5 mph 
+                        #hero-weather__right-top ~ -
+                        #hero-weather__right-bottom -- kph 
                         
             //- 
       
         #hero-carousel
-            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "freeScrollFriction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true}'>
+            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
               .carousel-cell
                 #bikes-card
                   +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "Updating", "rt-bikes")

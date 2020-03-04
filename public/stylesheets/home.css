@@ -167,6 +167,11 @@
   display        : flex;
   align-items    : center;
   flex-direction : row;
+  color          : #6fd1f6;
+  font-size      : 12px;
+  line-height    : 1;
+  letter-spacing : 0.15px;
+
 }
 
 #hero-weather__right-top img {
@@ -179,7 +184,6 @@
 }
 
 #hero-carousel {
-
   grid-column : span 4;
   grid-row    : 3 / 7;
 }
@@ -651,19 +655,7 @@
     font-weight    : 500;
     line-height    : 1.2;
     letter-spacing : 0.15px;
-    /**
-    * color
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : #6fd1f6;
-    */
+
   }
 
   #hero-weather__right-top img {
@@ -696,7 +688,7 @@
     *
     * : center;
     */
-    /* align-items: center; */
+    align-items: center;
   }
 
   #hero-carousel {
@@ -1303,6 +1295,7 @@
     *
     * : 1.2; letter-spacing : 0.15px;
     */
+
   }
 
   #hero-weather__right-top img {
@@ -1369,21 +1362,24 @@
   }
 
   #hero-carousel {
-    border      : dashed 2px;
     grid-column : span 12;
     grid-row    : 4 / 7;
 
   }
 
+  
+
   .carousel {
-    margin     : 0 32px;
+    box-sizing: border-box;
+    margin     : 0 24px;
+
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width             : 20%;
+    width             : 426px; /*set as per card size*/
     height            : 220px;
-    margin-right      : 32px;
+    margin-right      : 24px;
     border-radius     : 4px;
 
     /* counter-increment : gallery-cell; */
@@ -1428,8 +1424,8 @@
   }
 
   .flickity-prev-next-button {
-    width         : 32px;
-    height        : 32px;
+    width         : 24px;
+    height        : 24px;
     border-radius : 4px;
   }
 
@@ -1443,7 +1439,7 @@
   /* position outside */
 
   .flickity-prev-next-button.previous {
-    left : -32px;
+    left : -24px;
   }
 
   .flickity-prev-next-button.next {

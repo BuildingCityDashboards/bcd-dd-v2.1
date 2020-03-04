@@ -18,11 +18,13 @@ class CardLineChart {
     d3.select(c.e).select('svg').remove()
     c.eN = d3.select(c.e).node()
     c.eW = c.eN.getBoundingClientRect().width
+    c.eh = c.eN.getBoundingClientRect().height
+    console.log(c.eh)
 
     // dimensions margins, width and height
     c.m = [18, 10, 0, 10]
     c.w = c.eW - c.m[1] - c.m[3]
-    c.h = 72 - c.m[0] - c.m[2]
+    c.h = c.eh - c.m[0] - c.m[2]
 
     c.setScales()
     c.drawLine()
