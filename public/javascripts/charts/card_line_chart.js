@@ -19,8 +19,8 @@ class CardLineChart {
     c.eN = d3.select(c.e).node()
     c.eW = c.eN.getBoundingClientRect().width
     c.eH = c.eN.getBoundingClientRect().height
-    console.log(c.e)
-    console.log(c.eH)
+    // console.log(c.e)
+    // console.log(c.eH)
 
     // dimensions margins, width and height
     c.m = [20, 10, 0, 10]

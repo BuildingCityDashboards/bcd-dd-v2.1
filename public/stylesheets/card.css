@@ -142,11 +142,11 @@
 
 .card__info {
   display          : flex;
-  flex-direction: column;
   min-height       : 60px;
   padding-top      : 8px;
   border-top       : 1px solid;
   border-top-color : rgba(255, 255, 255, 0.1);
+  flex-direction   : column;
 }
 
 .card__info p {
@@ -225,13 +225,13 @@
   only screen
   and (min-width : 1920px) {
   .card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    display          : flex;
     width            : 426px;
     height           : 308px;
     border-radius    : 4px;
     background-color : rgba(41, 51, 55, 0.63);
+    flex-direction   : column;
+    justify-content  : space-around;
     /* border: 1px solid; */
   }
 
@@ -405,15 +405,26 @@
 
   .card__info {
     /* transform: translate(0, -60px); */
-    display          : flex;
+    display         : flex;
+    height          : 0;
+    min-height      : 0;
+    margin-top      : 0;
+    padding-top     : 0;
+    overflow        : hidden;
+    border-top      : none;
+    flex-direction  : column;
+    justify-content : space-around;
+    transition      : all 0.3s ease-out;
+  }
+
+  .card:hover .card__info {
+    /* transform: translate(0, 0px); */
+    height           : 96px;
     min-height       : 96px;
     margin-top       : 8px;
     padding-top      : 8px;
-    overflow-y       : hidden;
     border-top       : 1px solid;
     border-top-color : rgba(255, 255, 255, 0.1);
-    flex-direction   : column;
-    justify-content: flex-end;
   }
 
   .card__info p {
@@ -442,11 +453,6 @@
     font-stretch   : normal;
     line-height    : 1.14;
     letter-spacing : 1.25px;
-  }
-
-  .card__link:hover .card__info {
-    /* transform: translate(0, 0px); */
-    transition : all 0.4s ease;
   }
 
   .card__icon {
