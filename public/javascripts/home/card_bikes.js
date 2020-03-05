@@ -6,8 +6,8 @@ const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
 const indicatorRightSymbol = "<span class='right-arrow'>&#x25BA;</span>"
 let prevBikesAvailableDirection = indicatorRightSymbol // '▶'
 let prevStandsAvailableDirection = indicatorRightSymbol // '▶'
-let prevBikesTrendString = '(no change)'
-let prevStandsTrendString = '(no change)'
+let prevBikesTrendString = ''// '(no change)'
+let prevStandsTrendString = '' // '(no change)'
 
 // indicatorUpSymbol.style.color = 'green';
 
@@ -41,7 +41,7 @@ const fetchBikesData = function () {
     .catch((err) => {
       console.error('Dublin Bikes data error: ' + JSON.stringify(err))
       initialiseCardDisplay()
-      updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
+      updateInfo('#bikes-card a', 'Dublin Bikes did not respond with data- we will try again soon')
       // restart the timer
       clearInterval(bikesTimer)
       bikesCountdown = bikesInterval
@@ -139,7 +139,7 @@ function updateBikesDisplay (ab, as, age) {
       '<p> stands </p>' +
       '</div>')
 
-  d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city</p>`)
+  d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has ${ab} bikes ${bikesTrendString} and ${as} stands  ${standsTrendString} available across the city</p>`)
 }
 
 // function updateInfo (selector, infoText) {

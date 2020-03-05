@@ -1371,6 +1371,7 @@
   }
 
 
+
   .carousel {
     box-sizing: border-box;
     margin     : 0 24px;
@@ -1381,7 +1382,7 @@
 
   .carousel-cell {
     width             : 426px; /*set as per card size*/
-    height            : 100%;
+    min-height            : 308px;
     margin-right      : 24px;
     border-radius     : 4px;
 
@@ -1414,6 +1415,13 @@
     * : 80px; line-height : 200px;
     */
   }
+
+  .carousel .flickity-viewport {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 
   /* smaller, dark, rounded square */
 

@@ -1,11 +1,14 @@
 mixin card-chart(href, style, title, subtitle, chartid)
-  a(href=href class="card__link")
-    div(class=style)
-      .card__header
-        .card__title=title
-        .card__sub-title=subtitle
-        //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
-      .card__body
-        div(id=chartid class="card__line-chart")
-      .card__info#card-info-text 
-        p Information will appear here when available
+  
+  div(class=style)
+    .card__header
+      .card__title=title
+      .card__sub-title=subtitle
+      //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
+    .card__body
+      div(id=chartid class="card__line-chart")
+    .card__info 
+      #card-info-text.p Information will appear here when available
+      .card__info__buttons 
+        a(href=href class="card__link").button Full Chart
+        //- button

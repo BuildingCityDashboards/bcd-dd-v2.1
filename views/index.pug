@@ -39,7 +39,7 @@ block content
             //- 
       
         #hero-carousel
-            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": false}'>
+            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
               .carousel-cell
                 #bikes-card
                   +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "Updating", "rt-bikes")
@@ -176,4 +176,5 @@ block append scripts
   script(src='javascripts/home/card_housecompletions.js' type="text/javascript")
   script(src='javascripts/home/card_propertyprice.js' type="text/javascript")
   script(src='javascripts/home/home_resize.js' type="text/javascript")
+  script(src='javascripts/home/flickity_utils.js' type="text/javascript")
   //- script(src='javascripts/search.js')
