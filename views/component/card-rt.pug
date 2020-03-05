@@ -9,8 +9,10 @@ mixin card-rt(href, style, title, subtitle, chartid)
         #card-left.card__left
         #card-center.card__center
         #card-right.card__right
+      
       .card__info
-        #card-info-text.p Information will appear here when available
+        #card-info-text
+          p Information will appear here when available
         .card__info__buttons 
           a(href=href class="card__link").button Live Map
           a(href=href class="card__link").button Historic Trends

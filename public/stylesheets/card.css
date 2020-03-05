@@ -66,30 +66,6 @@
   height : 72px;
 }
 
-/**
- * .card__body--chart { display
- *
- *
- *
- *
- *
- *
- *
- * : flex; min-height
- *
- *
- *
- *
- *
- * : 72px; margin-bottom
- *
- * : 4px; align-items
- *
- *
- *
- * : center; justify-content : space-between; }
- */
-
 .card__center {}
 
 .card__center img {
@@ -166,6 +142,7 @@
 
 .card__info {
   display          : flex;
+  flex-direction: column;
   min-height       : 60px;
   padding-top      : 8px;
   border-top       : 1px solid;
@@ -175,10 +152,28 @@
 .card__info p {
   font-size      : 10px;
   font-style     : normal;
-  font-weight    : normal;
+  font-weight    : 300;
   font-stretch   : normal;
   line-height    : 1.4;
   letter-spacing : 0.25px;
+}
+
+.card__info__buttons {
+  display         : flex;
+  padding-top     : 8px;
+  color           : transparent;
+  flex-direction  : row;
+  justify-content : space-around;
+}
+
+.card__info__buttons .button {
+  color          : #8ebfd6;
+  font-size      : 10px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.14;
+  letter-spacing : 1.25px;
 }
 
 .card__icon {
@@ -230,20 +225,14 @@
   only screen
   and (min-width : 1920px) {
   .card {
-    /**
-    * min-width
-    *
-    * : 256px; min-height : 220px; padding
-    *
-    *
-    *
-    * : 16px 24px;
-    */
-    /* height: inherit; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     width            : 426px;
     height           : 308px;
     border-radius    : 4px;
     background-color : rgba(41, 51, 55, 0.63);
+    /* border: 1px solid; */
   }
 
   .card__header {}
@@ -383,100 +372,101 @@
     line-height    : 1.2;
     letter-spacing : 0.15px;
   }
-}
 
-.card__link {
-  padding : 0 .5rem;
-  color   : #f8f8f8;
-}
+  .card__link {
+    padding : 0 .5rem;
+    color   : #f8f8f8;
+  }
 
-.card__link:hover {
-  text-decoration : none;
-}
+  .card__link:hover {
+    text-decoration : none;
+  }
 
-.card__link:focus .card,
-.card__link:hover .card {
-  /* background: #1d21244d; */
-  color                      : #ffffff;
-  border                     : 2px solid #16c1f37a;
-  box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
-  text-decoration            : none;
-  transition-property        : -webkit-box-shadow,
-                               -webkit-transform;
-  transition-property        : box-shadow,
-                               transform;
-  transition-property        : box-shadow,
-                               transform,
-                               -webkit-box-shadow,
-                               -webkit-transform;
-  transition-duration        : .6s;
-  transition-timing-function : cubic-bezier(.16,1,.29,.99);
-}
+  .card__link:focus .card,
+  .card__link:hover .card {
+    /* background: #1d21244d; */
+    color                      : #ffffff;
+    border                     : 2px solid #16c1f37a;
+    box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
+    text-decoration            : none;
+    transition-property        : -webkit-box-shadow,
+                                 -webkit-transform;
+    transition-property        : box-shadow,
+                                 transform;
+    transition-property        : box-shadow,
+                                 transform,
+                                 -webkit-box-shadow,
+                                 -webkit-transform;
+    transition-duration        : .6s;
+    transition-timing-function : cubic-bezier(.16,1,.29,.99);
+  }
 
-.card__title {}
+  .card__title {}
 
-.card__info {
-  /* transform: translate(0, -60px); */
-  display          : flex;
-  min-height       : 96px;
-  padding-top      : 8px;
-  margin-top: 8px;
-  overflow-y       : hidden;
-  border-top       : 1px solid;
-  border-top-color : rgba(255, 255, 255, 0.1);
-  flex-direction   : column;
-}
+  .card__info {
+    /* transform: translate(0, -60px); */
+    display          : flex;
+    min-height       : 96px;
+    margin-top       : 8px;
+    padding-top      : 8px;
+    overflow-y       : hidden;
+    border-top       : 1px solid;
+    border-top-color : rgba(255, 255, 255, 0.1);
+    flex-direction   : column;
+    justify-content: flex-end;
+  }
 
-.card__info p {
-  font-size      : 16px;
-  font-style     : normal;
-  font-weight    : 300;
-  font-stretch   : normal;
-  line-height    : 1.4;
-  letter-spacing : 0.25px;
-  /* position: absolute; bottom: -100px; */
-}
+  .card__info p {
+    font-size      : 16px;
+    font-style     : normal;
+    font-weight    : 300;
+    font-stretch   : normal;
+    line-height    : 1.4;
+    letter-spacing : 0.25px;
+    /* position: absolute; bottom: -100px; */
+  }
 
-.card__info__buttons {
-  display        : flex;
-  color          : transparent;
-  flex-direction : row;
-  justify-content: space-around;
-  padding-top      : 12px;
-}
+  .card__info__buttons {
+    display         : flex;
+    padding-top     : 12px;
+    color           : transparent;
+    flex-direction  : row;
+    justify-content : space-around;
+  }
 
-.card__info__buttons .button{
-  font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.14;
-  letter-spacing: 1.25px;
-  color: #8ebfd6;
-}
+  .card__info__buttons .button {
+    color          : #8ebfd6;
+    font-size      : 14px;
+    font-style     : normal;
+    font-weight    : 500;
+    font-stretch   : normal;
+    line-height    : 1.14;
+    letter-spacing : 1.25px;
+  }
 
-.card__link:hover .card__info {
-  /* transform: translate(0, 0px); */
-  transition : all 0.4s ease;
-}
+  .card__link:hover .card__info {
+    /* transform: translate(0, 0px); */
+    transition : all 0.4s ease;
+  }
 
-.card__icon {
-  /* position : absolute; */
-  width  : 48px;
-  height : auto;
-}
+  .card__icon {
+    /* position : absolute; */
+    width  : 48px;
+    height : auto;
+  }
 
-.card__g {
-  fill : currentColor;
-}
+  .card__g {
+    fill : currentColor;
+  }
 
-.card__body h3,
-.card__body p,
-.card__info p,
-.card__left h1,
-.card__left p,
-.card__right h1,
-.card__right p {
-  margin  : 0px;
-  padding : 0px;
+  .card__body h3,
+  .card__body p,
+  .card__info p,
+  .card__left h1,
+  .card__left p,
+  .card__right h1,
+  .card__right p {
+    margin  : 0px;
+    padding : 0px;
+  }
 }
