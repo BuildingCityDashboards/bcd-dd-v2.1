@@ -18,13 +18,14 @@ class CardLineChart {
     d3.select(c.e).select('svg').remove()
     c.eN = d3.select(c.e).node()
     c.eW = c.eN.getBoundingClientRect().width
-    c.eh = c.eN.getBoundingClientRect().height
-    console.log(c.eh)
+    c.eH = c.eN.getBoundingClientRect().height
+    console.log(c.e)
+    console.log(c.eH)
 
     // dimensions margins, width and height
-    c.m = [18, 10, 0, 10]
+    c.m = [20, 10, 0, 10]
     c.w = c.eW - c.m[1] - c.m[3]
-    c.h = c.eh - c.m[0] - c.m[2]
+    c.h = c.eH - c.m[0] - c.m[2]
 
     c.setScales()
     c.drawLine()
@@ -65,12 +66,13 @@ class CardLineChart {
     let c = this
 
     // Adds the svg canvas
+    let headroom = '24'
     c.svg = d3.select(c.e)
       .append('svg')
       .attr('width', c.w + c.m[1] + c.m[3])
       .attr('height', c.h + c.m[0])
       .append('g')
-      .attr('transform', 'translate(' + c.m[3] + ',' + '20' + ')')
+      .attr('transform', 'translate(' + c.m[3] + ',' + headroom + ')')
 
     // add the data
     c.svg.append('path')

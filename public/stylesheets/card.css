@@ -51,15 +51,33 @@
   min-height      : 72px;
   align-items     : center;
   justify-content : space-between;
+
+
 }
 
-.card__body--chart {
+.card__line-chart {
+  position      : relative;
+  width        : 100%;
+  height       : 72px;
+  margin-right : 0px;
+  padding-right : 0px;
+  padding-left  : 0px;
+}
+
+.card__body svg{
+  height    : 72px;
+}
+
+
+
+
+/* .card__body--chart {
   display         : flex;
   min-height      : 72px;
   margin-bottom   : 4px;
   align-items     : center;
   justify-content : space-between;
-}
+} */
 
 .card__center {}
 
@@ -241,17 +259,59 @@
 
   .card__body {
     min-height : 120px;
+    display         : flex;
+    align-items     : center;
+    /* justify-content : space-between; */
   }
 
-  .card__body--chart {
-    min-height    : 120px;
-    margin-top : 0px;
+  .card__line-chart {
+    position      : relative;
+    width        : 100%;
+    height       : 120px;
+    margin-right : 0px;
+    padding-right : 0px;
+    padding-left  : 0px;
   }
 
-  .card__body--chart svg{
-    /* height    : 120px; */
 
+
+  .card__body svg{
+    height    : 120px;
   }
+
+  .card__svg {
+
+    /* color: var(--vivid-cyan); */
+    /* display: inline-block; */
+    /* vertical-align: middle; */
+  }
+  /* .card__line-chart {
+    position      : relative;
+    width         : 100%;
+    min-height    : 1px;
+    padding-right : 0px;
+    padding-left  : 0px;
+  } */
+
+  .card__line-chart {
+    position      : relative;
+    width        : 100%;
+    height       : 120px;
+    margin-right : 0px;
+    padding-right : 0px;
+    padding-left  : 0px;
+  }
+
+.card__line-chart .label,
+.no-axis {
+  color          : rgba(255, 255, 255, 0.6);
+  font-size      : 20px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.2;
+  letter-spacing : 0.15px;
+}
 
   .card__center {}
 
@@ -370,12 +430,7 @@
   height : auto;
 }
 
-.card__svg {
 
-  /* color: var(--vivid-cyan); */
-  /* display: inline-block; */
-  /* vertical-align: middle; */
-}
 
 .card__g {
   fill : currentColor;

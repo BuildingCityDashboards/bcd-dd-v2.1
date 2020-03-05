@@ -3,6 +3,7 @@
   Population card
 
 ***/
+let populationCard
 
 d3.csv('/data/Demographics/population.csv')
 .then(populationData => {
@@ -12,7 +13,7 @@ d3.csv('/data/Demographics/population.csv')
 
   const populationConfig = {
     d: populationDataSet,
-    e: '#pr-glance',
+    e: '#population-chart',
     yV: populationColumnName,
     xV: 'date',
     // sN: 'region',
@@ -20,7 +21,7 @@ d3.csv('/data/Demographics/population.csv')
     dL: 'date'
   }
 
-  const populationCard = new CardLineChart(populationConfig)
+  populationCard = new CardLineChart(populationConfig)
 
   let info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 

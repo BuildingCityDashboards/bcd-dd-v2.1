@@ -692,7 +692,7 @@
   }
 
   #hero-carousel {
-    border      : solid 2px;
+    /* border      : solid 2px; */
     grid-column : span 12;
     grid-row    : 4 / 10;
   }
@@ -700,12 +700,13 @@
   .carousel {
     margin     : 0 20px;
     background : transparent;
+
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
     width             : 50%;
-    height            : 200px;
+    height            : 256px;
     margin-right      : 16px;
     border-radius     : 4px;
     background        : transparent;
@@ -738,6 +739,8 @@
     * : 80px; line-height : 200px;
     */
   }
+
+
 
   /* smaller, dark, rounded square */
 
@@ -1367,18 +1370,18 @@
 
   }
 
-  
 
   .carousel {
     box-sizing: border-box;
     margin     : 0 24px;
+    height: 100%;
 
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
     width             : 426px; /*set as per card size*/
-    height            : 220px;
+    height            : 100%;
     margin-right      : 24px;
     border-radius     : 4px;
 

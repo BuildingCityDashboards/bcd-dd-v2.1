@@ -12,20 +12,15 @@ let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 
 //   d3.formatLocale(locale);
 
-d3.select(window).on('resize', function () {
-    // completionsCard.init()
-  unemployCard.init()
-  populationCard.init()
-  propertyPriceCard.init()
-
-  const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-  if (screenSize >= 768) {
-    renderMap(dublincoco)
-  } else {
-    renderTabs(dublincoco)
-  }
-  laElement.dispatchEvent(clickEvent)
-})
+// d3.select(window).on('resize', function () {
+//   const screenSize = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+//   if (screenSize >= 768) {
+//     renderMap(dublincoco)
+//   } else {
+//     renderTabs(dublincoco)
+//   }
+//   laElement.dispatchEvent(clickEvent)
+// })
 
 // function initInfoText () {
 //   // d3.select('#data-text').attr("hidden", true); //to hide
