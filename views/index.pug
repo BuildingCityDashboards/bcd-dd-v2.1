@@ -39,9 +39,9 @@ block content
             //- 
       
         #hero-carousel
-            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
+            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "center", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
               .carousel-cell
-                #bikes-card
+                #bikes-card.card-wrapper
                   +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Dublin Bikes", "Updating", "rt-bikes")
               
               .carousel-cell

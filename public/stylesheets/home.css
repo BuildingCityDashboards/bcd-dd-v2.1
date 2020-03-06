@@ -202,7 +202,7 @@
   margin-right      : 16px;
   border-radius     : 4px;
   background        : transparent;
-  counter-increment : gallery-cell;
+  /* counter-increment : gallery-cell; */
   /* gap between cards */
 }
 
@@ -516,20 +516,22 @@
   letter-spacing : 0.5px;
 }
 
-/* s: 768px -> 1024px x 1400px (intermediate) */
+/* s: 768px x 1024px (intermediate) */
 
-@media
+/* @media
   only screen
   and (min-width : 768px) {
-}
+
+
+} */
 
 /* m: 1024 x 1400px <MOCKUP> */
 
 @media
   only screen
-  and (min-width : 1024px) {
+  and (min-width : 768px) {
   #hero {
-    min-height       : 1400px;
+    min-height       : 1024px;
     background-image : url('../images/home/hero-background-image-tablet.png');
   }
 
@@ -694,7 +696,7 @@
   #hero-carousel {
     /* border      : solid 2px; */
     grid-column : span 12;
-    grid-row    : 4 / 10;
+    grid-row    : 5 / 10;
   }
 
   .carousel {
@@ -1073,7 +1075,7 @@
 
 @media
   only screen
-  and (min-width : 1920px) {
+  and (min-width : 1024px) {
   #hero {
     position         : relative;
     width            : 100vw;

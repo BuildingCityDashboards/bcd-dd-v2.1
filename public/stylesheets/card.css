@@ -1,15 +1,20 @@
+.card-wrapper {
+  display         : flex;
+  justify-content : center;
+}
+
 .card {
   display            : -ms-flexbox;
   display            : flex;
   position           : relative;
   min-width          : 256px;
-  min-height         : 190px;
-  padding            : 12px 24px;
+  max-width          : 384px;
+  min-height         : 192px;
+  padding            : 8px 16px;
   background-color   : rgba(41, 51, 55, 0.63);
   -ms-flex-direction : column;
   flex-direction     : column;
   word-wrap          : break-word;
-  /* height: inherit; */
 }
 
 .card__header {
@@ -154,8 +159,8 @@
 .card__info {
   display          : flex;
   min-height       : 60px;
+  margin-top       : 4px;
   padding-top      : 4px;
-    margin-top      : 4px;
   border-top       : 1px solid;
   border-top-color : rgba(255, 255, 255, 0.1);
   flex-direction   : column;
@@ -235,7 +240,32 @@
 
 @media
   only screen
-  and (min-width : 1920px) {
+  and (min-width : 768px) {
+  .card-wrapper {
+    display         : flex;
+    justify-content : space-evenly;
+  }
+}
+
+
+@media
+  only screen
+  and (min-width : 1024px)
+  and (hover: none){
+
+
+}
+
+@media
+  only screen
+  and (min-width : 1024px)
+  and (hover: hover) {
+
+  .card-wrapper {
+    display         : flex;
+    justify-content : space-evenly;
+  }
+
   .card {
     display          : flex;
     width            : 426px;
@@ -487,4 +517,9 @@
     margin  : 0px;
     padding : 0px;
   }
+}
+
+@media
+  only screen
+  and (min-width : 1920px) {
 }
