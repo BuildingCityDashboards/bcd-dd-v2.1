@@ -515,7 +515,7 @@
   letter-spacing : 0.5px;
 }
 
-/* s: 768px x 1024px (intermediate) */
+/* s: 768px x 1024px (interte) */
 
 /**
  * @media only screen and (min-width : 768px) {
@@ -1089,7 +1089,7 @@
     width            : 100vw;
     height           : 100vh;
     min-height       : 1080px;
-    background-image : url('../images/home/hero-background-image-mobile.png');
+    background-image : url('../images/home/hero-background-image.png');
   }
 
   #hero-grid {
@@ -1637,6 +1637,556 @@
 @media
   only screen
   and (min-width : 1280px) {
+
+    #hero {
+      position         : relative;
+      width            : 100vw;
+      height           : 100vh;
+      min-height       : 800px;
+      background-image : url('../images/home/hero-background-image-mobile.png');
+    }
+
+    #hero-grid {
+      padding               : 24px;
+      grid-gap              : 24px;
+      grid-template-columns : repeat(12, 1fr);
+      grid-template-rows    : repeat(8, 1fr);
+    }
+
+    #hero-title > div {
+      /* transform : translate(0, 0); */
+    }
+
+    #hero-title {
+      padding-left   : 0px;
+      align-self     : top;
+      font-size      : 84px;
+      grid-column    : 2 / 6;
+      grid-row       : 2 / 4;
+      line-height    : 0.72;
+      letter-spacing : -0.5px;
+    }
+
+    #hero-time-weather {
+      justify-content : flex-start;
+      grid-column     : 6 / 13;
+      grid-row        : 2 / 4;
+      transform       : translate(24px,0);
+    }
+
+    #hero-time {
+      display         : -ms-flexbox;
+      display         : flex;
+      justify-content : flex-end;
+    }
+
+    #hero-time__box {
+      /* border: solid 2px; */
+      /* max-width: 400px; */
+      display          : flex;
+      display          : -ms-flexbox;
+      width            : 325px;
+      height           : 64px;
+      background-color : rgba(142, 191, 214, 0.08);
+      background-color : rgba(142, 191, 214, 0.08);
+      align-items      : center;
+      font-style       : normal;
+      font-weight      : 500;
+      font-stretch     : normal;
+      flex-wrap        : nowrap;
+      justify-content  : space-around;
+      line-height      : 1.2;
+      letter-spacing   : 0.15px;
+    }
+
+    #hero-time__clock {
+      width     : 80px;
+      height    : 22px;
+      color     : #6fd1f6;
+      font-size : 20px;
+    }
+
+    #hero-time__date {
+      width       : 109px;
+      height      : 22px;
+      color       : rgba(255, 255, 255, 0.6);
+      font-size   : 20px;
+      font-weight : 300;
+    }
+
+    #hero-weather {
+      display         : -ms-flexbox;
+      display         : flex;
+      justify-content : flex-end;
+    }
+
+    #hero-weather__box {
+      display            : -ms-flexbox;
+      display            : flex;
+      width              : 366px;
+      height             : 64px;
+      background-color   : rgba(142, 191, 214, 0.08);
+      font-style         : normal;
+      -ms-flex-direction : row;
+      flex-direction     : row;
+      flex-wrap          : nowrap;
+      justify-content    : space-evenly;
+      word-wrap          : break-word;
+    }
+
+    #hero-weather__left-top {
+      /**
+      * height
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : 24px; color
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : #6fd1f6; font-size
+      *
+      *
+      *
+      *
+      *
+      * : 24px; font-weight
+      *
+      *
+      *
+      * : 500; line-height
+      *
+      *
+      *
+      * : 1.2; letter-spacing : 0.15px;
+      */
+    }
+
+    #hero-weather__left-bottom {
+      /**
+      * height: 20px; display
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : -ms-flexbox; display
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : flex; color
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : rgba(255, 255, 255, 0.6); font-size
+      *
+      *
+      *
+      *
+      *
+      * : 20px; font-weight
+      *
+      *
+      *
+      * : 500; line-height
+      *
+      *
+      *
+      * : 1.33; letter-spacing : 0.15px;
+      */
+    }
+
+    #hero-weather__symbol {
+      width  : 48px;
+      height : 48px;
+    }
+
+    #hero-weather__right-top {
+      /**
+      * height
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : 24px; /* color
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : #6fd1f6;
+      */
+      /**
+      * font-size
+      *
+      *
+      *
+      *
+      *
+      * : 24px; font-weight
+      *
+      *
+      *
+      * : 500; line-height
+      *
+      *
+      *
+      * : 1.2; letter-spacing : 0.15px;
+      */
+    }
+
+    #hero-weather__right-top img {
+      width  : 24px;
+      height : 24px;
+    }
+
+    #hero-weather__right-bottom {
+      /**
+      * display
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : -ms-flexbox; display
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : flex; height
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : 1px; color
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : rgba(255, 255, 255, 0.6); /* text-align
+      *
+      *
+      *
+      * : center;
+      */
+      /* align-items: center; */
+      /**
+      * font-size:
+      *
+      * 20px; font-weight
+      *
+      *
+      *
+      * : 500; line-height
+      *
+      *
+      *
+      * : 1.33; letter-spacing : 0.15px;
+      */
+    }
+
+    #hero-carousel {
+      grid-column : span 12;
+      grid-row    : 4 / 7;
+    }
+
+    .carousel {
+      box-sizing : border-box;
+      height     : 384px;
+      margin     : 0 24px;
+      /* space for prev/next buttons */
+    }
+
+    .carousel-cell {
+      width         : 426px;
+      min-height    : 384px;
+      margin-right  : 24px;
+      border-radius : 4px;
+      /* set as per card size */
+      /* counter-increment : gallery-cell; */
+    }
+
+    .carousel-cell:before {
+      /**
+      * content
+      *
+      *
+      *
+      * : counter(gallery-cell); display
+      *
+      *
+      *
+      * : block; color
+      *
+      *
+      *
+      *
+      *
+      * : white; text-align
+      *
+      * : center; font-size
+      *
+      * : 80px; line-height : 200px;
+      */
+    }
+
+    .carousel .flickity-viewport {
+      position : absolute;
+      width    : 100%;
+      height   : 100%;
+    }
+    /* smaller, dark, rounded square */
+
+    .flickity-button {
+      background : transparent;
+    }
+
+    .flickity-button:hover {
+      /* background: #F90; */
+      background : transparent;
+    }
+
+    .flickity-prev-next-button {
+      width         : 24px;
+      height        : 24px;
+      border-radius : 4px;
+    }
+    /* icon color */
+
+    .flickity-button-icon {
+      /* fill : #6fd1f6; */
+      fill : grey;
+    }
+    /* position outside */
+
+    .flickity-prev-next-button.previous {
+      left : -24px;
+    }
+
+    .flickity-prev-next-button.next {
+      right : -32px;
+    }
+
+    .flickity-button:focus {
+      /* outline: none; box-shadow: 0 0 0 5px #19F; */
+    }
+
+    .hero-carousel__card {}
+
+    #hero-icon-navs {
+      align-self      : top;
+      justify-content : space-between;
+      grid-column     : 2 / 12;
+      grid-row        : 7 / 8;
+    }
+
+    #hero-scroll-arrow {
+      grid-column : 6/8;
+      grid-row    : 8 / 9;
+    }
+
+    #about-dublin {
+      height                : 100vh;
+      padding               : 24px;
+      justify-content       : center;
+      grid-gap              : 24px;
+      grid-template-columns : repeat(12, 1fr);
+      grid-template-rows    : repeat(8, 1fr);
+    }
+
+    #about-dublin__header {
+      text-align  : left;
+      align-self  : flex-end;
+      grid-column : 2/4;
+      grid-row    : 1/2;
+    }
+
+    #about-dublin__header > h1 {
+      font-size      : 34px;
+      line-height    : 1.06;
+      letter-spacing : 0.5px;
+      /* width: 333px; height: 34px; */
+    }
+
+    #about-dublin__card {
+      padding     : 32px;
+      overflow-y  : auto;
+      grid-column : 2/7;
+      grid-row    : 2/5;
+    }
+
+    #about-dublin__card > p {
+      /* width: 702px; height: 245px; */
+      font-size      : 16px;
+      line-height    : 1.5;
+      letter-spacing : 0.5px;
+    }
+
+    #la-map__header {
+      display     : flex;
+      display     : none;
+      grid-column : 3 / 7;
+      grid-row    : 6/7;
+    }
+
+    #la-map__header > h1 {
+      /* width: 326px; */
+      /* min-height: 50px; */
+      margin         : 0;
+      color          : #6fd1f6;
+      font-size      : 16px;
+      font-style     : normal;
+      font-weight    : 500;
+      font-stretch   : normal;
+      line-height    : 1.5;
+      letter-spacing : 1.5px;
+    }
+
+    #la-map__map {
+      display : none;
+    }
+
+    #la-info__map {
+      border      : dashed 1px;
+      grid-column : 8 / 12;
+      grid-row    : 2/9;
+    }
+
+    #la-info__card {
+      display     : block;
+      padding     : 32px;
+      overflow-y  : auto;
+      border      : dashed 2px;
+      grid-column : 2/7;
+      grid-row    : 5/8;
+    }
+
+    #la-info__card__header {
+      padding-bottom : 32px;
+    }
+
+    #la-info__card__header > h1 {
+      font-size      : 24px;
+      font-weight    : 500;
+      line-height    : 1.5;
+      letter-spacing : 0.5px;
+    }
+
+    #la-info__card__body {}
+
+    #la-info__card__body > p {
+      font-size      : 16px;
+      font-weight    : 500;
+      line-height    : 24px;
+      letter-spacing : 0.5px;
+    }
+
+    #about-dublin-dashboard {
+      height                : 50vh;
+      min-height            : 700px;
+      padding               : 32px;
+      grid-gap              : 32px;
+      grid-template-columns : repeat(12, 1fr);
+      grid-template-rows    : repeat(6, 1fr);
+    }
+
+    #about-dublin-dashboard__header {
+      text-align  : center;
+      grid-column : 1 / 5;
+      grid-row    : 2/3;
+    }
+
+    #about-dublin-dashboard__header > h1 {
+      /* width: 388px; height: 34px; */
+      margin         : 0;
+      font-size      : 34px;
+      font-weight    : 500;
+      line-height    : 1.06;
+      letter-spacing : -0.5px;
+      /**
+      * font-stretch
+      *
+      * : normal;
+      */
+    }
+
+    #about-dublin-dashboard__twitter {
+      display     : inline;
+      text-align  : right;
+      align-self  : flex-end;
+      grid-column : 9 / 12;
+      grid-row    : 2/3;
+    }
+
+    #about-dublin-dashboard__twitter > p {
+      /* width: 303px; height: 24px; */
+      color          : #6fd1f6;
+      font-size      : 18px;
+      font-style     : normal;
+      font-weight    : 500;
+      font-stretch   : normal;
+      line-height    : 1.33;
+      letter-spacing : 0.18px;
+    }
+
+    #about-dublin-dashboard__card {
+      padding     : 32px;
+      overflow-y  : auto;
+      grid-column : 2 / 12;
+      grid-row    : 3/7;
+    }
+
+    #about-dublin-dashboard__card > p {
+      /* width: 746px; height: 256px; */
+      font-size      : 16px;
+      line-height    : 1.5;
+      letter-spacing : 0.5px;
+    }
+
+
+
 }
 
 /* xl */
