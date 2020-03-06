@@ -62,6 +62,17 @@
   padding-left  : 0px;
 }
 
+.card__line-chart .label,
+.no-axis {
+  color          : rgba(255, 255, 255, 0.6);
+  font-size      : 12px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.2;
+  letter-spacing : 0.15px;
+}
+
 .card__body svg {
   height : 72px;
 }
@@ -143,7 +154,8 @@
 .card__info {
   display          : flex;
   min-height       : 60px;
-  padding-top      : 8px;
+  padding-top      : 4px;
+    margin-top      : 4px;
   border-top       : 1px solid;
   border-top-color : rgba(255, 255, 255, 0.1);
   flex-direction   : column;

@@ -23,7 +23,7 @@ class CardLineChart {
     // console.log(c.eH)
 
     // dimensions margins, width and height
-    c.m = [20, 10, 0, 10]
+    c.m = [20, 12, 4, 12] // affects visability of axis/ data point labels
     c.w = c.eW - c.m[1] - c.m[3]
     c.h = c.eH - c.m[0] - c.m[2]
 
@@ -79,7 +79,7 @@ class CardLineChart {
       .attr('class', 'activity')
       .attr('d', c.line(c.d))
       .attr('stroke', '#16c1f3') // move to css
-      .attr('stroke-width', 4) // move to css
+      .attr('stroke-width', 2) // move to css
       .attr('fill', 'none') // move to css
   }
 
