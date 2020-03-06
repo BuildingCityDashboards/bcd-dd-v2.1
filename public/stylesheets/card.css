@@ -246,22 +246,22 @@
   {
   .card-wrapper {
     display         : flex;
-    justify-content : space-evenly;
+    justify-content : space-around;
   }
 
   .card {
-    display            : -ms-flexbox;
+    /* display            : -ms-flexbox;
     display            : flex;
-    position           : relative;
+    position           : relative; */
     min-width          : 256px;
     max-width          : 384px;
     min-height         : 256px;
     padding            : 8px 16px;
-    background-color   : rgba(41, 51, 55, 0.63);
+    /* background-color   : rgba(41, 51, 55, 0.63);
     -ms-flex-direction : column;
     flex-direction     : column;
     word-wrap          : break-word;
-    justify-content: space-around;
+    justify-content: space-around; */
   }
 
   .card__header {
@@ -435,17 +435,6 @@
     letter-spacing : 1.25px; */
   }
 
-  .card__icon {
-    /* position : absolute; */
-    width  : 26px;
-    height : 20px;
-  }
-
-  .card__svg {
-    /* color: var(--vivid-cyan); */
-    /* display: inline-block; */
-    /* vertical-align: middle; */
-  }
 
   .card__g {
     fill : currentColor;

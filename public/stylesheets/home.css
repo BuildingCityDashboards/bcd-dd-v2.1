@@ -546,18 +546,18 @@
   #hero-title {
     /* width: 453px; height: 180px; */
     padding-left   : 24px;
-    border         : none;
+    /* border         : none;
     text-align     : left;
-    align-self     : top;
-    font-size      : 76px;
-    grid-column    : 1 / 6;
+    align-self     : top; */
+    font-size      : 56px;
+    /* grid-column    : 1 / 6;
     grid-row       : 2 / 3;
     line-height    : 0.73;
-    letter-spacing : -0.5px;
+    letter-spacing : -0.5px; */
   }
 
   #hero-title > div {
-    transform : translate(0, 0);
+    /* transform : translate(0, 0); */
   }
 
   #hero-time-weather {
@@ -709,9 +709,9 @@
   .carousel-cell {
     width             : 50%;
     height            : 256px;
-    margin-right      : 16px;
+    /* margin-right      : 16px;
     border-radius     : 4px;
-    background        : transparent;
+    background        : transparent; */
     /* counter-increment : gallery-cell; */
     /* gap between cards */
   }
@@ -1092,13 +1092,13 @@
   }
 
   #hero-title > div {
-    transform : translate(0, 0);
+    /* transform : translate(0, 0); */
   }
 
   #hero-title {
     padding-left   : 0px;
     align-self     : top;
-    font-size      : 144px;
+    font-size      : 84px;
     grid-column    : 2 / 6;
     grid-row       : 2 / 4;
     line-height    : 0.72;
