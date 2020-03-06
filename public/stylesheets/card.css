@@ -239,6 +239,7 @@
   border-color : var(--teal);
 }
 
+/* iPad */
 @media
   only screen
   and (min-width : 768px)
@@ -260,8 +261,8 @@
     /* background-color   : rgba(41, 51, 55, 0.63);
     -ms-flex-direction : column;
     flex-direction     : column;
-    word-wrap          : break-word;
-    justify-content: space-around; */
+    word-wrap          : break-word;*/
+    justify-content: space-around;
   }
 
   .card__header {
@@ -400,12 +401,13 @@
 
   .card__info {
     display          : flex;
-    min-height       : 60px;
+    min-height       : 84px;
     margin-top       : 4px;
     padding-top      : 4px;
     border-top       : 1px solid;
     border-top-color : rgba(255, 255, 255, 0.1);
     flex-direction   : column;
+    justify-content: space-around;
   }
 
   .card__info p {
@@ -460,39 +462,244 @@
 
   }
 
-
+/* iPad Pro */
 @media
   only screen
   and (min-width : 1024px)
   and (hover: none){
 
+  .card-wrapper {
+      /* display         : flex;
+      justify-content : space-around; */
+    }
+
+    .card {
+
+      min-width          : 256px;
+      max-width          : 512px;
+      min-height         : 384px;
+      padding            : 8px 16px;
+      justify-content: space-around;
+    }
+
+    .card__header {
+      /* display            : -ms-flexbox;
+      display            : flex;
+      position           : relative;
+      background-color   : transparent;
+      -ms-flex-direction : column;
+      flex-direction     : column; */
+    }
+
+    .card__title {
+      /* color          : #6fd1f6;
+      text-transform : uppercase; */
+      font-size      : 20px;
+      /* font-style     : normal; */
+      /* font-weight    : 500; */
+      /* font-stretch   : normal; */
+      line-height    : 1.14;
+      letter-spacing : 1.5px;
+    }
+
+    /* Usually used for time of last update etc. */
+
+    .card__sub-title {
+      padding-top    : 8px;
+      font-size      : 16px;
+      line-height    : 1.2;
+      letter-spacing : 1.5px;
+    }
+
+    .card__body {
+      display         : flex;
+      min-height      : 108px;
+      align-items     : center;
+      justify-content : space-around;
+    }
+
+    .card__line-chart {
+      /* position      : relative;
+      width         : 100%; */
+      height        : 108px;
+      /* margin-right  : 0px;
+      padding-right : 0px;
+      padding-left  : 0px; */
+    }
+
+    .card__line-chart .label,
+    .no-axis {
+      /* color          : rgba(255, 255, 255, 0.6); */
+      font-size      : 16px;
+      /* font-style     : normal;
+      font-weight    : 500;
+      font-stretch   : normal; */
+      line-height    : 1.2;
+      letter-spacing : 0.15px;
+    }
+
+    .card__body svg {
+      height : 108px;
+    }
+
+    .card__center {}
+
+    .card__center img {
+      width : 48px;
+    }
+
+    .card__left,
+    .card__right {
+      /* display            : -ms-flexbox;
+      display            : flex;
+      text-align         : center;
+      -ms-flex-direction : column;
+      flex-direction     : column;
+      justify-content    : flex-start; */
+    }
+
+    .card__left h1,
+    .card__right h1 {
+      /* align-self: center; */
+      /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
+      /* padding        : 0px; */
+      /* color          : #6fd1f6; */
+      /* text-align     : top; */
+      /* text-transform : capitalize; */
+      font-size      : 24px;
+      /* font-style     : normal; */
+      /* font-weight    : 500; */
+      /* font-stretch   : normal; */
+      line-height    : 2;
+      letter-spacing : 0.15px;
+    }
+
+    .card__left p,
+    .card__right p {
+      /* color          : rgba(255, 255, 255, 0.6); */
+      /* text-transform : capitalize; */
+      font-size      : 18px;
+      /* font-style     : normal; */
+      /* font-weight    : normal; */
+      /* font-stretch   : normal; */
+      line-height    : 1;
+      letter-spacing : 0.15px;
+    }
+
+    .card__link {
+      padding : 0 .5rem;
+      color   : #f8f8f8;
+    }
+
+    .card__link:hover {
+      text-decoration : none;
+    }
+
+    .card__link:focus .card,
+    .card__link:hover .card {
+      /* background: #1d21244d; */
+      color                      : #ffffff;
+      border                     : 2px solid #16c1f37a;
+      box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
+      text-decoration            : none;
+      transition-property        : -webkit-box-shadow,
+                                   -webkit-transform;
+      transition-property        : box-shadow,
+                                   transform;
+      transition-property        : box-shadow,
+                                   transform,
+                                   -webkit-box-shadow,
+                                   -webkit-transform;
+      transition-duration        : .6s;
+      transition-timing-function : cubic-bezier(.16,1,.29,.99);
+    }
+
+    .card__title {}
+
+    .card__info {
+      display          : flex;
+      min-height       : 96px;
+      margin-top       : 4px;
+      padding-top      : 4px;
+      /* border-top       : 1px solid;
+      border-top-color : rgba(255, 255, 255, 0.1); */
+      flex-direction   : column;
+      justify-content: space-around;
+    }
+
+    .card__info p {
+      font-size      : 16px;
+      /* font-style     : normal;
+      font-weight    : 300;
+      font-stretch   : normal;
+      line-height    : 1.4;
+      letter-spacing : 0.25px; */
+    }
+
+    .card__info__buttons {
+      /* display         : flex;
+      padding-top     : 8px;
+      color           : transparent;
+      flex-direction  : row;
+      justify-content : space-around; */
+    }
+
+    .card__info__buttons .button {
+      /* color          : #8ebfd6; */
+      font-size      : 16px;
+      /* font-style     : normal;
+      font-weight    : 500;
+      font-stretch   : normal;
+      line-height    : 1.14;
+      letter-spacing : 1.25px; */
+    }
+
+
+    .card__g {
+      fill : currentColor;
+    }
+
+    .card__body h3,
+    .card__body p,
+    .card__info p,
+    .card__left h1,
+    .card__left p,
+    .card__right h1,
+    .card__right p {
+      margin  : 0px;
+      padding : 0px;
+    }
+
+
 
 }
 
+/*laptop with MDPI devtools setting*/
 @media
   only screen
-  and (min-width : 1024px)
-  and (hover: hover) {
+  and (min-width : 1280px){
+  /* and (hover: hover) { */
 
   .card-wrapper {
     display         : flex;
-    justify-content : space-evenly;
+    justify-content : space-around;
   }
 
   .card {
-    display          : flex;
+    /* display          : flex; */
     width            : 426px;
     height           : 308px;
     border-radius    : 4px;
-    background-color : rgba(41, 51, 55, 0.63);
-    flex-direction   : column;
-    justify-content  : space-around;
+    /* background-color : rgba(41, 51, 55, 0.63); */
+    /* flex-direction   : column; */
+    justify-content  : space-between;
     /* border: 1px solid; */
   }
 
   .card__header {}
 
   .card__title {
+    padding-top    : 8px;
     font-size      : 20px;
     font-style     : normal;
     font-weight    : 500;
@@ -503,7 +710,7 @@
   /* Usually used for time of last update etc. */
 
   .card__sub-title {
-    padding-top    : 6px;
+    padding-top    : 4px;
     color          : rgba(255, 255, 255, 0.87);
     font-size      : 14px;
     font-style     : normal;
@@ -515,9 +722,9 @@
 
   .card__body {
     display     : flex;
-    min-height  : 120px;
+    min-height  : 126px;
     align-items : center;
-    /* justify-content : space-between; */
+    /* justify-content : space-around/; */
   }
 
   .card__line-chart {
@@ -530,7 +737,7 @@
   }
 
   .card__body svg {
-    height : 120px;
+    height : 126px;
   }
 
   .card__svg {
@@ -573,11 +780,11 @@
 
   .card__line-chart .label,
   .no-axis {
-    color          : rgba(255, 255, 255, 0.6);
-    font-size      : 20px;
-    font-style     : normal;
-    font-weight    : 500;
-    font-stretch   : normal;
+    /* color          : rgba(255, 255, 255, 0.6); */
+    font-size      : 16px;
+    /* font-style     : normal; */
+    /* font-weight    : 500; */
+    /* font-stretch   : normal; */
     line-height    : 1.2;
     letter-spacing : 0.15px;
   }
@@ -602,16 +809,16 @@
   .card__right h1 {
     /* align-self: center; */
     /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
-    padding        : 0px;
-    text-align     : top;
-    text-transform : capitalize;
-    font-size      : 34px;
-    font-style     : normal;
-    font-weight    : 500;
-    font-stretch   : normal;
+    /* padding        : 0px; */
+    /* text-align     : top; */
+    /* text-transform : capitalize; */
+    font-size      : 28px;
+    /* font-style     : normal; */
+    /* font-weight    : 500; */
+    /* font-stretch   : normal; */
     line-height    : 1.06;
     letter-spacing : 0.15px;
-    letter-spacing : normal;
+    /* letter-spacing : normal; */
   }
 
   .card__left p,
@@ -732,7 +939,271 @@
   }
 }
 
+/* xl */
 @media
   only screen
   and (min-width : 1920px) {
+    @media
+      only screen
+      and (min-width : 1280px){
+      /* and (hover: hover) { */
+
+      .card-wrapper {
+        display         : flex;
+        justify-content : space-evenly;
+      }
+
+      .card {
+        display          : flex;
+        width            : 426px;
+        height           : 308px;
+        border-radius    : 4px;
+        background-color : rgba(41, 51, 55, 0.63);
+        flex-direction   : column;
+        justify-content  : space-around;
+        /* border: 1px solid; */
+      }
+
+      .card__header {}
+
+      .card__title {
+        font-size      : 20px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        line-height    : 0.8;
+        letter-spacing : 1.5px;
+      }
+      /* Usually used for time of last update etc. */
+
+      .card__sub-title {
+        padding-top    : 6px;
+        color          : rgba(255, 255, 255, 0.87);
+        font-size      : 14px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        line-height    : 1.14;
+        letter-spacing : 1.5px;
+      }
+
+      .card__body {
+        display     : flex;
+        min-height  : 120px;
+        align-items : center;
+        /* justify-content : space-between; */
+      }
+
+      .card__line-chart {
+        position      : relative;
+        width         : 100%;
+        height        : 120px;
+        margin-right  : 0px;
+        padding-right : 0px;
+        padding-left  : 0px;
+      }
+
+      .card__body svg {
+        height : 120px;
+      }
+
+      .card__svg {
+        /* color: var(--vivid-cyan); */
+        /* display: inline-block; */
+        /* vertical-align: middle; */
+      }
+      /**
+      * .card__line-chart { position
+      *
+      *
+      *
+      *
+      *
+      * : relative; width
+      *
+      *
+      *
+      *
+      *
+      *
+      *
+      * : 100%; min-height
+      *
+      *
+      *
+      * : 1px; padding-right : 0px; padding-left
+      *
+      * : 0px; }
+      */
+
+      .card__line-chart {
+        position      : relative;
+        width         : 100%;
+        height        : 120px;
+        margin-right  : 0px;
+        padding-right : 0px;
+        padding-left  : 0px;
+      }
+
+      .card__line-chart .label,
+      .no-axis {
+        color          : rgba(255, 255, 255, 0.6);
+        font-size      : 20px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        line-height    : 1.2;
+        letter-spacing : 0.15px;
+      }
+
+      .card__center {}
+
+      .card__center img {
+        width : 48px;
+      }
+
+      .card__left,
+      .card__right {
+        display            : -ms-flexbox;
+        display            : flex;
+        text-align         : center;
+        -ms-flex-direction : column;
+        flex-direction     : column;
+        justify-content    : flex-start;
+      }
+
+      .card__left h1,
+      .card__right h1 {
+        /* align-self: center; */
+        /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
+        padding        : 0px;
+        text-align     : top;
+        text-transform : capitalize;
+        font-size      : 34px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        line-height    : 1.06;
+        letter-spacing : 0.15px;
+        letter-spacing : normal;
+      }
+
+      .card__left p,
+      .card__right p {
+        color          : rgba(255, 255, 255, 0.6);
+        color          : rgba(255, 255, 255, 0.6);
+        text-transform : capitalize;
+        font-size      : 20px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        font-stretch   : normal;
+        line-height    : 1.2;
+        letter-spacing : 0.15px;
+      }
+
+      .card__link {
+        padding : 0 .5rem;
+        color   : #f8f8f8;
+      }
+
+      .card__link:hover {
+        text-decoration : none;
+      }
+
+      .card__link:focus .card,
+      .card__link:hover .card {
+        /* background: #1d21244d; */
+        color                      : #ffffff;
+        border                     : 2px solid #16c1f37a;
+        box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
+        text-decoration            : none;
+        transition-property        : -webkit-box-shadow,
+                                     -webkit-transform;
+        transition-property        : box-shadow,
+                                     transform;
+        transition-property        : box-shadow,
+                                     transform,
+                                     -webkit-box-shadow,
+                                     -webkit-transform;
+        transition-duration        : .6s;
+        transition-timing-function : cubic-bezier(.16,1,.29,.99);
+      }
+
+      .card__title {}
+
+      .card__info {
+        /* transform: translate(0, -60px); */
+        display         : flex;
+        height          : 0;
+        min-height      : 0;
+        margin-top      : 0;
+        padding-top     : 0;
+        overflow        : hidden;
+        border-top      : none;
+        flex-direction  : column;
+        justify-content : space-around;
+        transition      : all 0.3s ease-out;
+      }
+
+      .card:hover .card__info {
+        /* transform: translate(0, 0px); */
+        height           : 96px;
+        min-height       : 96px;
+        margin-top       : 8px;
+        padding-top      : 8px;
+        border-top       : 1px solid;
+        border-top-color : rgba(255, 255, 255, 0.1);
+      }
+
+      .card__info p {
+        font-size      : 16px;
+        font-style     : normal;
+        font-weight    : 300;
+        font-stretch   : normal;
+        line-height    : 1.4;
+        letter-spacing : 0.25px;
+        /* position: absolute; bottom: -100px; */
+      }
+
+      .card__info__buttons {
+        display         : flex;
+        padding-top     : 12px;
+        color           : transparent;
+        flex-direction  : row;
+        justify-content : space-around;
+      }
+
+      .card__info__buttons .button {
+        color          : #8ebfd6;
+        font-size      : 14px;
+        font-style     : normal;
+        font-weight    : 500;
+        font-stretch   : normal;
+        line-height    : 1.14;
+        letter-spacing : 1.25px;
+      }
+
+      .card__icon {
+        /* position : absolute; */
+        width  : 48px;
+        height : auto;
+      }
+
+      .card__g {
+        fill : currentColor;
+      }
+
+      .card__body h3,
+      .card__body p,
+      .card__info p,
+      .card__left h1,
+      .card__left p,
+      .card__right h1,
+      .card__right p {
+        margin  : 0px;
+        padding : 0px;
+      }
+    }
+
 }
