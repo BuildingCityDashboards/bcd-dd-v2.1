@@ -2185,7 +2185,21 @@
       letter-spacing : 0.5px;
     }
 
+    .carousel {
+      box-sizing : border-box;
+      height     : 320px;
+      margin     : 0 24px;
+      /* space for prev/next buttons */
+    }
 
+    .carousel-cell {
+      width         : 426px;
+      min-height    : 320px;
+      margin-right  : 24px;
+      border-radius : 4px;
+      /* set as per card size */
+      /* counter-increment : gallery-cell; */
+    }
 
 }
 
