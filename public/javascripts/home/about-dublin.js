@@ -23,3 +23,5 @@ dublin.select('#region__populationChange').text(percentage(diff) + indicator_f(d
 dublin.select('#region__incomeIndicator').text(indicatorText(diff, '#region__incomeIndicator', 'grew', false))
 dublin.select('#region__income__prev').text(euro(dData.PREVINCOME) + '')
 dublin.select('#region__income__change').text(percentage(diffIncome) + indicator_f(diffIncome, '#region__income__change', false))
+
+const bigMapDiv = d3.select('#la-map__map')
