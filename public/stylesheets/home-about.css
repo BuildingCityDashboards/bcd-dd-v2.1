@@ -4,40 +4,26 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 300vh;
+  height                : 200vh;
   padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(24, 1fr);
-  /**
-  * min-height
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : 540px;
-  */
+  grid-template-rows    : repeat(16, 1fr);
+
 }
 
 #about-dublin__header {
-  align-self  : center;
+  align-self  : flex-end;
   grid-column : span 4;
-  grid-row    : 2/3;
+  grid-row    : 1/2;
 }
 
 #about-dublin__header > h1 {
   /* width: 136px; */
   margin         : 0;
   color          : #6fd1f6;
-  font-size      : 24px;
+  font-size      : 20px;
   font-weight    : bold;
   line-height    : 0.73;
   letter-spacing : -0.5px;
@@ -47,7 +33,7 @@
   padding     : 16px 16px 0 16px;
   overflow-y  : scroll;
   grid-column : span 4;
-  grid-row    : 3/9;
+  grid-row    : 2/9;
 }
 
 #about-dublin__card > p {
@@ -63,7 +49,8 @@
   text-align  : left;
   align-self  : center;
   grid-column : span 4;
-  grid-row    : 9/11;
+  grid-row    : 14/17;
+  display: none;
 }
 
 #la-map__header > h1 {
@@ -79,15 +66,11 @@
   letter-spacing : 1.5px;
 }
 
-#la-map__map {
-
-}
-
 
 #la-info__map {
-  border      : dashed 1px;
+  /* border      : dashed 1px; */
   grid-column : span 4;
-  grid-row    : 11/16;
+  grid-row    : 9/14;
   display: flex;
   justify-content: center;
 }
@@ -103,19 +86,19 @@
   overflow-y  : scroll;
   border      : solid 2px;
   grid-column : span 4;
-  grid-row    : 17 / 19;
+  grid-row    : 14 / 17;
 }
 
 #la-info__card__header {
-  padding-bottom : 16px;
+  padding-bottom : 8px;
 }
 
 #la-info__card__header > h1 {
   margin         : 0;
   color          : #6fd1f6;
-  font-size      : 24px;
+  font-size      : 20px;
   font-weight    : 500;
-  line-height    : 24px;
+  line-height    : 20px;
   letter-spacing : 0.18px;
 }
 
@@ -137,23 +120,23 @@
   height                : 100vh;
   min-height            : 540px;
   padding               : 16px;
-  justify-content       : center;
+  /* justify-content       : flex-start; */
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
   grid-template-rows    : repeat(8, 1fr);
 }
 
 #about-dublin-dashboard__header {
-  align-self  : center;
+  align-self  : flex-end;
   grid-column : span 4;
-  grid-row    : 2/3;
+  grid-row    : 1/2;
 }
 
 #about-dublin-dashboard__header > h1 {
   /* width: 271px; height: 18px; */
   margin         : 0;
   color          : #6fd1f6;
-  font-size      : 24px;
+  font-size      : 20px;
   font-style     : normal;
   font-weight    : bold;
   font-stretch   : normal;
@@ -169,7 +152,7 @@
   padding     : 16px 16px 0 16px;
   overflow-y  : scroll;
   grid-column : span 4;
-  grid-row    : 3/9;
+  grid-row    : 2/8;
 }
 
 #about-dublin-dashboard__card > p {
