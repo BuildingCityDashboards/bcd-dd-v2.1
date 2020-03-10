@@ -68,15 +68,15 @@
 
 
 #la-info__map {
-  /* border      : dashed 1px; */
+  border      : dashed 1px;
   grid-column : span 4;
   grid-row    : 9/14;
   display: flex;
   justify-content: center;
 }
 
-#la-info__map img {
-  width: 256px;
+#la-info__map svg {
+  width: 100%;
   height: auto;
 }
 
