@@ -108,27 +108,27 @@
   text-align: justify;
 }
 
-#region__total-population, #region__total-house, #region__total-vacant{
+/* #region__total-population, #region__total-house, #region__total-vacant{
     font-weight: 600;
-}
+} */
 
-#region__population, #region__house, #region__vacant, .map span{
+/* #region__population, #region__house, #region__vacant, .map span{
     font-weight: 600;
-}
+} */
 
-#local__title{
+/* #local__title{
     color:#f8f8f8;
-}
+} */
 
-#local__title__small, #local__open, #dublin-text p{
+/* #local__title__small, #local__open, #dublin-text p{
     color: #f8f8f8;
     font-weight: 100;
-}
+} */
 
-#lp-tabs{
+/* #lp-tabs{
   display: flex;
 
-}
+} */
 
 
 /* default adjusted in media query min 992 */

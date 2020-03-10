@@ -68,7 +68,7 @@
 
 
 #la-info__map {
-  border      : dashed 1px;
+  /* border      : dashed 1px; */
   grid-column : span 4;
   grid-row    : 9/14;
   display: flex;
@@ -84,7 +84,7 @@
 #la-info__card {
   padding     : 16px;
   overflow-y  : scroll;
-  border      : solid 2px;
+  /* border      : solid 2px; */
   grid-column : span 4;
   grid-row    : 14 / 17;
 }
@@ -105,7 +105,7 @@
 #la-info__card__body {}
 
 #la-info__card__body > p {
-  margin         : 0;
+  margin         : 0 0 8px 0;
   color          : rgba(255, 255, 255, 0.87);
   font-size      : 14px;
   font-weight    : 500;

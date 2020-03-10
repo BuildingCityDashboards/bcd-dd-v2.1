@@ -1,5 +1,7 @@
-d3.xml('/images/home/dublin-regions-map.svg')
-  .then(xml => {
+Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
+  d3.json('/data/home/dublin-region-data.json')])
+  .then(files => {
+    let xml = files[0]
     // "xml" is the XML DOM tree
     let htmlSVG = document.getElementById('map') // the svg-element in our HTML file
     // append the "maproot" group to the svg-element in our HTML file
@@ -37,13 +39,34 @@ d3.xml('/images/home/dublin-regions-map.svg')
         console.log('click ' + d3.select(this.parentNode).attr('data-name'))
       })
     })
+
+    let dubliRegionsJson = files[1]
+    updateInfoText(dubliRegionsJson[1])
   })
   .catch(e => {
     console.log('error' + e)
   })
 
-function updateInfoText (text) {
+function updateInfoText (d) {
+  d3.select('#local__title').html(d.ENGLISH + '')
+  d3.select('#local__open').html(d.ABOUT)
+  d3.selectAll('#local__title__small').html(d.ENGLISH + '')
+  d3.select('#local__total-popualtion').html(popFormat(d.POPULATION) + '')
+  d3.select('#local__area').html(d.AREA + '')
+  d3.select('#local__age').html(d.AGE + '')
+  d3.selectAll('#local__income').html(d.INCOME + '')
+  d3.select('#local__prePopulation').html(popFormat(d.PREVPOPULATION) + '')
+  d3.select('#local__curPopulation').html(popFormat(d.POPULATION) + '')
 
+  let change = getPerChange(d.POPULATION, d.PREVPOPULATION)
+
+  d3.select('#local__populationIndicator').html(indicatorText(change, '#local__populationIndicator', 'increased', false))
+  d3.select('#local__populationChange').html(percentage(change) + indicator_f(change, '#local__populationChange', false))
+
+  // change = getPerChange(d.INCOME, d.PREVPINCOME)
+  // d3.select('#local__incomeIndicator').html(indicatorText(localdiff, '#local__incomeIndicator', 'grew', false))
+  // d3.select('#local__income__prev').html(d.PREVINCOME + '')
+  // d3.select('#local__income__change').html(percentage(localdiffIncome) + indicator_f(localdiffIncome, '#local__income__change', false))
 }
 
 function getInfoText (region) {

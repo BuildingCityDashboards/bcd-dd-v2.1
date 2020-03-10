@@ -132,13 +132,33 @@ block content
     #la-map__header
       h1 SELECT A COUNTY COUNCIL TO LEARN MORE
     #la-info__card
-      #la-info__card__header
-        h1 Dublin City
+      #la-info__card__header 
+        h1#local__title Dublin City
       #la-info__card__body
-        p Constias multos incididunt cupidatat in offendit ubi aliquip sed an illum fidelissimae te quibusdam legam dolor cernantur quae. Noster fabulas ut 
-          | cupidatat. Mentitum ubi legam, aliqua firmissimum possumus velit laboris, sed doctrina ex proident, velit non se multos admodum.Nam minim ullamco 
-          | instituendarum an quae graviterque officia quorum ingeniis ex ita ita animexpetendis a laborum tamen et cupidatat coniunctione. A ita consectetur, si te 
-        
+        p 
+          span#local__open 
+          | It covers an area of 
+          span#local__area
+          |.  
+          span#local__title__small  
+          |  has a total population of 
+          span#local__total-popualtion 
+          |  people, with a median age of 
+          span#local__age xx.x 
+          |  years.
+          //- |and a median household income of 
+          //- span#local__income €xx.xx.
+        p Between 2011 and 2016 the population of  
+          span#local__title__small Dublin
+          |  
+          span#local__populationIndicator  
+          |from 
+          span#local__prePopulation xxxxxx 
+          |  to 
+          span#local__curPopulation xxxxxx 
+          |, a 
+          span#local__populationChange x.xx% decrease/increase
+          |.
   #about-dublin-dashboard
     #about-dublin-dashboard__header 
       h1 ABOUT DUBLIN DASHBOARD
