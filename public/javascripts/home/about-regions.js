@@ -27,15 +27,17 @@ d3.xml('/images/home/dublin-regions-map.svg')
       p.on('mouseover', function () {
         d3.select(this).style('fill', 'red')
       })
+
       p.on('mouseout', function () {
         d3.select(this).style('fill', d3.select(this).style('fillDefault'))
       })
+
       p.on('click', function () {
         d3.select(this).style('fill', 'green')
+        console.log('click ' + d3.select(this.parentNode).attr('data-name'))
       })
     })
   })
   .catch(e => {
     console.log('error' + e)
   })
-
