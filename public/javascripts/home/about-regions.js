@@ -27,7 +27,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
     let paths = [dccPath, dlrPath, sdPath, fPath]
     paths.forEach(p => {
       p.on('mouseover', function () {
-        d3.select(this).style('fill', 'red')
+        d3.select(this).style('fill', '#6fc6f6')
       })
 
       p.on('mouseout', function () {
@@ -35,7 +35,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       })
 
       p.on('click', function () {
-        d3.select(this).style('fill', 'green')
+        d3.select(this).style('fill', '#6fc6f6')
         console.log('click ' + d3.select(this.parentNode).attr('data-name'))
       })
     })
