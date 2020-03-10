@@ -17,7 +17,7 @@ const geometrySchema = new mongoose.Schema({
 const propertiesSchema = new Schema({
   OBJECTID:{type: Number, required: true},
   COUNTY:{type: String, required: true},
-  ENGLISH:{type: String, required: true},
+  "ENGLISH"{type: String, required: true},
   CONTAE:{type: String, required: true},
   GAEILGE:{type: String},
   PROVINCE:{type: String, required: true},

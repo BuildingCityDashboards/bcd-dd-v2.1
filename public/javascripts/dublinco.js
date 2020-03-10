@@ -5,7 +5,7 @@ const dublincoco = {
       properties: {
         OBJECTID: 0,
         COUNTY: "DUBLIN",
-        ENGLISH: "Dublin County",
+        "ENGLISH" "Dublin County",
         CONTAE: "Baile Átha Cliath",
         POPULATION: 1345402,
         PREVPOPULATION: 1273069,
@@ -26,7 +26,7 @@ const dublincoco = {
       properties: {
         OBJECTID: 1,
         COUNTY: "DUBLIN",
-        ENGLISH: "Dublin City",
+        "ENGLISH" "Dublin City",
         CONTAE: "Baile Átha Cliath",
         POPULATION: 554554,
         PREVPOPULATION: 527612,
@@ -508,7 +508,7 @@ const dublincoco = {
       properties: {
         OBJECTID: 7,
         COUNTY: "DUBLIN",
-        ENGLISH: "South Dublin",
+        "ENGLISH" "South Dublin",
         CONTAE: "Baile Átha Cliath",
         POPULATION: 278767,
         PREVPOPULATION: 265205,
@@ -923,7 +923,7 @@ const dublincoco = {
       properties: {
         OBJECTID: 11,
         COUNTY: "DUBLIN",
-        ENGLISH: "Fingal",
+        "ENGLISH" "Fingal",
         CONTAE: "Baile Átha Cliath",
         POPULATION: 296020,
         PREVPOPULATION: 273991,
@@ -2675,7 +2675,7 @@ const dublincoco = {
       properties: {
         OBJECTID: 16,
         COUNTY: "DUBLIN",
-        ENGLISH: "Dun Laoghaire-Rathdown",
+        "ENGLISH" "Dun Laoghaire-Rathdown",
         CONTAE: "Baile Átha Cliath",
         POPULATION: 218018,
         PREVPOPULATION: 206261,

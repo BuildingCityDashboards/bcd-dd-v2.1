@@ -41,3 +41,13 @@ d3.xml('/images/home/dublin-regions-map.svg')
   .catch(e => {
     console.log('error' + e)
   })
+
+function updateInfoText (text) {
+
+}
+
+function getInfoText (region) {
+  let text
+
+  return text || 'test'
+}
