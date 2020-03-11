@@ -2,6 +2,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
   d3.json('/data/home/dublin-region-data.json')])
   .then(files => {
     let xml = files[0]
+    let dublinRegionsJson = files[1]
     // "xml" is the XML DOM tree
     let htmlSVG = document.getElementById('map') // the svg-element in our HTML file
     // append the "maproot" group to the svg-element in our HTML file
@@ -36,12 +37,20 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
 
       p.on('click', function () {
         d3.select(this).style('fill', '#6fc6f6')
-        console.log('click ' + d3.select(this.parentNode).attr('data-name'))
+        // console.log(d3.select(this.parentNode).attr('data-name'))
+
+        let ref = d3.select(this.parentNode).attr('data-name')
+        updateInfoText(dublinRegionsJson[ref])
+        // on click, remove the call to action
+        d3.select('#la-map__cta').style('display', 'none')
+        // add info card
+        d3.select('#la-info__card').style('display', 'flex')
+        d3.select('#la-info__card').style('visibility', 'visible')
+        d3.select('#la-info__card').style('opacity', 1)
       })
     })
 
-    let dubliRegionsJson = files[1]
-    updateInfoText(dubliRegionsJson[1])
+    //
   })
   .catch(e => {
     console.log('error' + e)

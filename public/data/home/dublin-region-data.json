@@ -1,4 +1,4 @@
-[{"OBJECTID": 0,
+{"Dublin City": {"OBJECTID": 0,
   "COUNTY": "DUBLIN",
 "ENGLISH": "Dublin City",
 "CONTAE": "Baile Átha Cliath",
@@ -20,7 +20,7 @@
 "GUID": "EC7DF314-E9AD-4B31-B76C-E3CE8796A87C",
 "Shape__Area": 0.0173265844470448,
 "Shape__Length": 1.25844625628791},
-{"OBJECTID": 1,
+"South Dublin" : {"OBJECTID": 1,
 "COUNTY": "DUBLIN",
 "ENGLISH": "South Dublin",
 "CONTAE": "Baile Átha Cliath",
@@ -42,7 +42,7 @@
 "GUID": "6C7D5F02-1D93-42BF-9B2E-91CE53906E32",
 "Shape__Area": 0.0300972950901327,
 "Shape__Length": 1.1222813249711},
-{"OBJECTID": 2,
+"Fingal": {"OBJECTID": 2,
 "COUNTY": "DUBLIN",
 "ENGLISH": "Fingal",
 "CONTAE": "Baile Átha Cliath",
@@ -64,7 +64,7 @@
 "Shape__Area": 0.0620038215995737,
 "Shape__Length": 2.86766794208574,
 "ABOUT": "Fingal County Council (FCC) is the authority responsible for local government in the county of Fingal and has 5 local electoral areas. "},
-{
+"Dun Laoghaire-Rathdown":{
 "OBJECTID": 3,
 "COUNTY": "DUBLIN",
 "ENGLISH": "Dun Laoghaire-Rathdown",
@@ -87,4 +87,5 @@
 "GUID": "8CD118DF-9362-4D15-8028-16CB016E942C",
 "Shape__Area": 0.0170381226387334,
 "Shape__Length": 0.808732445531413
-}]
+}
+}
