@@ -35,6 +35,15 @@
   grid-row    : 2/9;
 }
 
+#about-scroll-arrow{
+  grid-column : 2 / 4;
+  grid-row    : 8/9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+}
+
 #about-dublin__card > p {
   /* width: 296px; height: 371px; */
   color          : rgba(255, 255, 255, 0.87);

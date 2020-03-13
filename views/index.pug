@@ -75,9 +75,9 @@ block content
             //-         //- include component/carousel-charts.pug
         #hero-icon-navs
             include component/icon-nav.pug
-        #hero-scroll-arrow
-            div
-              p V
+        #hero-scroll-arrow.home-scroll-arrow
+          a(href='#about-dublin')
+            <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
         
             //- include component/toggle-button.pug
   #about-dublin 
@@ -118,6 +118,10 @@ block content
       p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin.
         | Select a council on the map in the next section to see specific information. 
         //- #regions-map
+        
+    //- #about-scroll-arrow.home-scroll-arrow
+      a(href='#regions-info')
+        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
       
   #regions-info
     #regions-info__map

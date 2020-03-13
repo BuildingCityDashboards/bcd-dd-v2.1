@@ -38,6 +38,8 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       p.on('click', function () {
         d3.select(this).style('fill', '#6fc6f6')
         // console.log(d3.select(this.parentNode).attr('data-name'))
+        // let e = document.getElementById('about-dublin__card')
+        // e.scrollIntoView()
 
         let ref = d3.select(this.parentNode).attr('data-name')
         updateInfoText(dublinRegionsJson[ref])
@@ -47,6 +49,8 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
 // This animated transition doesn't work
 
         d3.select('#regions-info__card').style('display', 'flex')
+
+        // document.getElementById('regions-info').scrollTop = 0
         // //
         d3.select('#regions-info__card').style('visibility', 'visible')
         d3.select('#regions-info__card').style('opacity', 1)

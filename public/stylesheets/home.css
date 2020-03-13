@@ -1,5 +1,9 @@
 /* xs: 360px x 540px <MOCKUP> */
 
+html{
+  scroll-behavior: smooth;
+}
+
 #hero {
   position            : relative;
   width               : 100vw;
@@ -337,6 +341,15 @@
   align-self  : flex-end;
   grid-column : 2 / 4;
   grid-row    : 8 / 9;
+}
+
+.home-scroll-arrow svg {
+  width: 24px;
+  height: auto;
+  fill: grey;
+  background-color: transparent;
+  transform:rotate(-90deg);
+
 }
 
 /* s: 768px x 1024px (interte) */
