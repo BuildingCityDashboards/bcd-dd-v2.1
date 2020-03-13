@@ -50,12 +50,12 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 200vh;
+  height                : 100vh;
   padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(16, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
 }
 
 
@@ -72,19 +72,21 @@
   height : auto;
 }
 
-#regions-info_flex{
-  grid-column    : span 4;
-  grid-row       : 6/9;
+/* #regions-info_flex{
+
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
-}
+} */
 
 #regions-info__cta {
+  grid-column    : span 4;
+  grid-row       : 7/9;
   display        : flex;
   margin         : 0;
   color          : #6fd1f6;
   text-align     : center;
-  align-self     : center;
+  /* align-self     : center; */
   font-size      : 16px;
   font-style     : normal;
   font-weight    : 500;
@@ -95,14 +97,15 @@
 }
 
 #regions-info__card {
+  grid-column    : span 4;
+  grid-row       : 6/9;
   display        : none;
-  visibility     : none;
+  visibility     : hidden;
   padding        : 16px;
   opacity        : 0;
   overflow-y     : scroll;
   flex-direction : column;
-  transition     : visibility 1s linear,
-                   opacity 1s linear;
+  transition     : all 1s linear;
 }
 
 #regions-info__card__header {

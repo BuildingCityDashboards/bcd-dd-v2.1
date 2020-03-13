@@ -43,10 +43,11 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
         updateInfoText(dublinRegionsJson[ref])
         // on click, remove the call to action
         d3.select('#regions-info__cta').style('display', 'none')
-        // add info card
+
+// This animated transition doesn't work
 
         d3.select('#regions-info__card').style('display', 'flex')
-        //
+        // //
         d3.select('#regions-info__card').style('visibility', 'visible')
         d3.select('#regions-info__card').style('opacity', 1)
         document.getElementById('regions-info__card').scrollTop = 0
