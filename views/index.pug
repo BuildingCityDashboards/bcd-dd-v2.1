@@ -118,46 +118,41 @@ block content
       p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin.
         | Select a council on the map in the next section to see specific information. 
         //- #regions-map
-    
-    //- #regions-map__map
       
-      //- img(inline src="src/images/icons/search-icon.svg")
-      //- svg(class="" width="300" height="600" viewBox="0 0 7 12")
-        path(fill-rule="nonzero" d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z")
-      
-  #about-regions
+  #regions-info
     #regions-info__map
       svg#map
-      
-    #regions-map__cta SELECT A COUNTY COUNCIL TO LEARN MORE
-    #regions-info__card
-      #regions-info__card__header
-        h1#local__title Dublin City
-      #regions-info__card__body
-        p 
-          span#local__open 
-          | It covers an area of 
-          span#local__area
-          |.  
-          span#local__title__small  
-          |  has a total population of 
-          span#local__total-popualtion 
-          |  people, with a median age of 
-          span#local__age xx.x 
-          |  years.
-          //- |and a median household income of 
-          //- span#local__income €xx.xx.
-        p Between 2011 and 2016 the population of  
-          span#local__title__small Dublin
-          |  
-          span#local__populationIndicator  
-          |from 
-          span#local__prePopulation xxxxxx 
-          |  to 
-          span#local__curPopulation xxxxxx 
-          |, a 
-          span#local__populationChange x.xx% decrease/increase
-          |.
+    #regions-info_flex
+      #regions-info__cta SELECT A COUNTY COUNCIL ON THE MAP TO LEARN MORE
+      #regions-info__card
+        #regions-info__card__header
+          h1#local__title Dublin City
+        #regions-info__card__body
+          p 
+            span#local__open 
+            | It covers an area of 
+            span#local__area
+            |.  
+            span#local__title__small  
+            |  has a total population of 
+            span#local__total-popualtion 
+            |  people, with a median age of 
+            span#local__age xx.x 
+            |  years.
+            //- |and a median household income of 
+            //- span#local__income €xx.xx.
+          p Between 2011 and 2016 the population of  
+            span#local__title__small Dublin
+            |  
+            span#local__populationIndicator  
+            |from 
+            span#local__prePopulation xxxxxx 
+            |  to 
+            span#local__curPopulation xxxxxx 
+            |, a 
+            span#local__populationChange x.xx% decrease/increase
+            |.
+    
   #about-dublin-dashboard
     #about-dublin-dashboard__header 
       h1 ABOUT DUBLIN DASHBOARD

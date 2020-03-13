@@ -42,12 +42,14 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
         let ref = d3.select(this.parentNode).attr('data-name')
         updateInfoText(dublinRegionsJson[ref])
         // on click, remove the call to action
-        d3.select('#la-map__cta').style('display', 'none')
+        d3.select('#regions-info__cta').style('display', 'none')
         // add info card
-        document.getElementById('la-info__card').scrollTop = 0
-        d3.select('#la-info__card').style('display', 'flex')
-        d3.select('#la-info__card').style('visibility', 'visible')
-        d3.select('#la-info__card').style('opacity', 1)
+
+        d3.select('#regions-info__card').style('display', 'flex')
+        //
+        d3.select('#regions-info__card').style('visibility', 'visible')
+        d3.select('#regions-info__card').style('opacity', 1)
+        document.getElementById('regions-info__card').scrollTop = 0
       })
     })
 

@@ -4,12 +4,12 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 200vh;
+  height                : 100vh;
   padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(18, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
 }
 
 #about-dublin__header {
@@ -44,15 +44,27 @@
   letter-spacing : 0.5px;
 }
 
-#about-regions{
-  
+/*  */
+
+#regions-info {
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : 200vh;
+  padding               : 16px;
+  justify-content       : center;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(16, 1fr);
 }
+
+
 
 #regions-info__map {
   display         : flex;
   justify-content : center;
   grid-column     : span 4;
-  grid-row        : 11/16;
+  grid-row        : 1/6;
 }
 
 #regions-info__map svg {
@@ -60,31 +72,35 @@
   height : auto;
 }
 
-#regions-map__cta {
-  display        : none;
+#regions-info_flex{
+  grid-column    : span 4;
+  grid-row       : 6/9;
+  display: flex;
+  justify-content: space-around;
+}
+
+#regions-info__cta {
+  display        : flex;
   margin         : 0;
   color          : #6fd1f6;
-  text-align     : left;
+  text-align     : center;
   align-self     : center;
   font-size      : 16px;
   font-style     : normal;
   font-weight    : 500;
   font-stretch   : normal;
-  grid-column    : span 4;
-  grid-row       : 15/18;
+
   line-height    : 1.5;
   letter-spacing : 1.5px;
 }
 
 #regions-info__card {
-  display        : flex;
+  display        : none;
   visibility     : none;
   padding        : 16px;
   opacity        : 0;
   overflow-y     : scroll;
   flex-direction : column;
-  grid-column    : span 4;
-  grid-row       : 16 / 20;
   transition     : visibility 1s linear,
                    opacity 1s linear;
 }
@@ -213,29 +229,62 @@
     font-size   : 16px;
     line-height : 1.5;
   }
-
-  #regions-map__header {
-    display     : none;
-    grid-column : 2 / 6;
-    grid-row    : 8/9;
-  }
-
-  #regions-map__header > h1 {
-    /* width: 326px; */
-    /* min-height: 50px; */
-    margin         : 0;
-    color          : #6fd1f6;
-    font-size      : 16px;
-    font-style     : normal;
-    font-weight    : 500;
-    font-stretch   : normal;
-    line-height    : 1.5;
-    letter-spacing : 1.5px;
-  }
-
-  #regions-map__map {
-    display : none;
-  }
+  /**
+  * #regions-map__header { display
+  *
+  *
+  *
+  * : none; grid-column : 2 / 6; grid-row
+  *
+  *
+  *
+  * : 8/9; }
+  */
+  /* #regions-map__header > h1 { */
+  /* width: 326px; */
+  /* min-height: 50px; */
+  /**
+  * margin
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  * : 0; color
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  *
+  * : #6fd1f6; font-size
+  *
+  *
+  *
+  *
+  *
+  * : 16px; font-style
+  *
+  *
+  *
+  * : normal; font-weight
+  *
+  *
+  *
+  * : 500; font-stretch
+  *
+  * : normal; line-height
+  *
+  *
+  *
+  * : 1.5; letter-spacing : 1.5px; }
+  */
+  /* #regions-map__map { display : none; } */
 
   #regions-info {
     display               : grid;
@@ -392,6 +441,7 @@
     line-height    : 1.5;
     letter-spacing : 0.5px;
   }
+  /* Regions */
 
   #regions-map__header {
     display     : flex;
