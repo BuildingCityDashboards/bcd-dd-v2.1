@@ -205,15 +205,15 @@
   }
 
   #about-dublin__header {
-    text-align  : center;
-    align-self  : center;
-    grid-column : 1/7;
+    text-align  : left;
+    /* align-self  : center; */
+    grid-column : 2/7;
     grid-row    : 2/3;
   }
 
   #about-dublin__header > h1 {
     margin         : 0;
-    font-size      : 32px;
+    font-size      : 24px;
     font-style     : normal;
     font-weight    : 500;
     font-stretch   : normal;
@@ -280,6 +280,7 @@
 
   #regions-info__card__header {
     padding-bottom : 16px;
+    text-align: left;
   }
 
   #regions-info__card__header > h1 {
@@ -317,15 +318,16 @@
   }
 
   #about-dublin-dashboard__header {
-    text-align  : center;
-    grid-column : 1 / 7;
+    text-align  : left;
+    align-self: center;
+    grid-column : 2 / 8;
     grid-row    : 2/3;
   }
 
   #about-dublin-dashboard__header > h1 {
     /* width: 388px; height: 34px; */
     margin         : 0;
-    font-size      : 32px;
+    font-size      : 24px;
     font-weight    : 500;
     line-height    : 1.06;
     letter-spacing : 0.5px;
