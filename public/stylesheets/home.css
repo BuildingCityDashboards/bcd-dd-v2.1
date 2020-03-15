@@ -837,7 +837,7 @@ html {
     width            : 100vw;
     height           : 100vh;
     min-height       : 800px;
-    background-image : url('../images/home/hero-background-image-mobile.png');
+    background-image : url('../images/home/hero-background-image.png');
   }
 
   #hero-grid {
@@ -929,87 +929,11 @@ html {
   }
 
   #hero-weather__left-top {
-    /**
-    * height
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : 24px; color
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : #6fd1f6; font-size
-    *
-    *
-    *
-    *
-    *
-    * : 24px; font-weight
-    *
-    *
-    *
-    * : 500; line-height
-    *
-    *
-    *
-    * : 1.2; letter-spacing : 0.15px;
-    */
+
   }
 
   #hero-weather__left-bottom {
-    /**
-    * height: 20px; display
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : -ms-flexbox; display
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : flex; color
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : rgba(255, 255, 255, 0.6); font-size
-    *
-    *
-    *
-    *
-    *
-    * : 20px; font-weight
-    *
-    *
-    *
-    * : 500; line-height
-    *
-    *
-    *
-    * : 1.33; letter-spacing : 0.15px;
-    */
+
   }
 
   #hero-weather__symbol {
@@ -1018,44 +942,7 @@ html {
   }
 
   #hero-weather__right-top {
-    /**
-    * height
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : 24px; /* color
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : #6fd1f6;
-    */
-    /**
-    * font-size
-    *
-    *
-    *
-    *
-    *
-    * : 24px; font-weight
-    *
-    *
-    *
-    * : 500; line-height
-    *
-    *
-    *
-    * : 1.2; letter-spacing : 0.15px;
-    */
+
   }
 
   #hero-weather__right-top img {
@@ -1064,61 +951,7 @@ html {
   }
 
   #hero-weather__right-bottom {
-    /**
-    * display
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : -ms-flexbox; display
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : flex; height
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : 1px; color
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    *
-    * : rgba(255, 255, 255, 0.6); /* text-align
-    *
-    *
-    *
-    * : center;
-    */
-    /* align-items: center; */
-    /**
-    * font-size:
-    *
-    * 20px; font-weight
-    *
-    *
-    *
-    * : 500; line-height
-    *
-    *
-    *
-    * : 1.33; letter-spacing : 0.15px;
-    */
+
   }
 
   #hero-carousel {
@@ -1128,42 +961,22 @@ html {
 
   .carousel {
     box-sizing : border-box;
-    height     : 384px;
-    margin     : 0 24px;
+    /* height     : 276px; */
+    margin     : 0 32px;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width         : 426px;
-    min-height    : 384px;
-    margin-right  : 24px;
+    width         : 320px;
+    min-height    : 180px;
+    margin-right  : 16px;
     border-radius : 4px;
     /* set as per card size */
     /* counter-increment : gallery-cell; */
   }
 
   .carousel-cell:before {
-    /**
-    * content
-    *
-    *
-    *
-    * : counter(gallery-cell); display
-    *
-    *
-    *
-    * : block; color
-    *
-    *
-    *
-    *
-    *
-    * : white; text-align
-    *
-    * : center; font-size
-    *
-    * : 80px; line-height : 200px;
-    */
+
   }
 
   .carousel .flickity-viewport {
@@ -1221,21 +1034,6 @@ html {
     grid-row    : 8 / 9;
   }
 
-  .carousel {
-    box-sizing : border-box;
-    height     : 320px;
-    margin     : 0 24px;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width         : 426px;
-    min-height    : 320px;
-    margin-right  : 24px;
-    border-radius : 4px;
-    /* set as per card size */
-    /* counter-increment : gallery-cell; */
-  }
 }
 
 /* xl */
