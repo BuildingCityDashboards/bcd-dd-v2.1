@@ -327,25 +327,6 @@
     text-decoration : none;
   }
 
-  .card__link:focus .card,
-  .card__link:hover .card {
-    /* background: #1d21244d; */
-    color                      : #ffffff;
-    border                     : 2px solid #16c1f37a;
-    box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
-    text-decoration            : none;
-    transition-property        : -webkit-box-shadow,
-                                 -webkit-transform;
-    transition-property        : box-shadow,
-                                 transform;
-    transition-property        : box-shadow,
-                                 transform,
-                                 -webkit-box-shadow,
-                                 -webkit-transform;
-    transition-duration        : .6s;
-    transition-timing-function : cubic-bezier(.16,1,.29,.99);
-  }
-
   .card__title {}
 
   .card__info {
@@ -391,19 +372,12 @@
   only screen
   and (min-width : 1024px) {
   .card {
+    width           : 95%;
     min-width       : 256px;
+    max-width       : 426px;
     min-height      : 384px;
     padding         : 8px 16px;
     justify-content : space-around;
-    /**
-    * max-width
-    *
-    *
-    *
-    *
-    *
-    * : 512px;
-    */
   }
 
   .card__header {}
@@ -583,12 +557,9 @@
     align-items     : center;
     justify-content : space-around;
   }
+  /* .card__body svg { height : 136px; } */
+  /* use this to set height of svg */
 
-  /* .card__body svg {
-    height : 136px;
-  } */
-
-/* use this to set height of svg */
   .card__line-chart {
     position      : relative;
     width         : 100%;
@@ -707,8 +678,8 @@
   .card {
     box-sizing       : border-box;
     width            : 384px;
-    height           : 180px;
-    min-height       : 180px;
+    height           : 220px;
+    min-height       : 220px;
     padding          : 0px;
     border           : none;
     border-radius    : 4px 4px 0px 0px;
@@ -745,7 +716,7 @@
 
   .card__body {
     display         : flex;
-    min-height      : 140px;
+    min-height      : 180px;
     padding-right   : 16px;
     padding-left    : 16px;
     align-items     : center;
