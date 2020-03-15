@@ -1,8 +1,9 @@
 /* xs: 360px x 540px <MOCKUP> */
 
-html {}
+
 
 #hero {
+
   position            : relative;
   width               : 100vw;
   min-width           : 360px;
