@@ -833,9 +833,6 @@ html {
   only screen
   and (min-width : 1280px) {
   #hero {
-    position         : relative;
-    width            : 100vw;
-    height           : 100vh;
     min-height       : 800px;
     background-image : url('../images/home/hero-background-image.png');
   }
