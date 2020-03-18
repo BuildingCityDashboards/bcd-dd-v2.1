@@ -74,35 +74,19 @@ function processTravelTimes (data_) {
 };
 
 function initialiseTTDisplay () {
-  d3.select('#traveltimes-card').select('.card__header')
-    .html(
-      "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      'Motorway Delays' +
-      '</div>' +
-      "<div class = 'col-5' align='right'>" +
-      "<div id ='tt-countdown' ></div>" +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      '</div>' +
-      '</div>'
-    )
+  d3.select('#traveltimes-card').select('.card__header').select('.card__sub-title')
+    .html("<div id ='tt-countdown' ></div>")
 
   d3.select('#rt-travelTimes').select('#card-left')
-    .html("<div align='center'>" +
-      '<h3>--</h3>' +
-      '<p> </p>' +
-      '</div>')
+    .html('<h3>--</h3>' +
+      '<p> </p>')
 
   d3.select('#rt-travelTimes').select('#card-center')
-    .html("<div align='center'>" +
-      '<img src = "/images/transport/car-w-15.svg" width="60">' +
-      '</div>')
+    .html('<img src = "/images/transport/car-w-15.svg" width="24">')
 
   d3.select('#rt-travelTimes').select('#card-right')
-    .html("<div align='center'>" +
-      '<h3>--</h3>' +
-      '<p> </p>' +
-      '</div>')
+    .html('<h3>--</h3>' +
+      '<p> </p>')
 }
 
 function updateTTDisplay (d__) {
@@ -123,47 +107,34 @@ function updateTTDisplay (d__) {
       delayMins < prevLongestDelay ? indicatorDownSymbol : ''
     prevLongestDelay = delayMins
 
-    let info = 'Longest current <b>Motorway Delay</b>; travelling on the ' +
-      '<b>' + name + ' ' + direction +
+    let info = '<p>Longest current delay is on the ' + name + ' travelling ' + direction +
       // " from <b>" + d__["from_name"] + "</b> to <b>" + d__["to_name"] + "</b>" +
-      '</b> is taking <b>' + delayMins + ' minutes</b> longer than with free-flowing traffic'
-    updateInfo('#traveltimes-card a', info)
+      ', taking ' + delayMins + ' mins longer than with free-flowing traffic</p>'
 
-    d3.select('#traveltimes-card').select('.card__header')
-      .html(
-        "<div class = 'row'>" +
-        "<div class = 'col-7' align='left'>" +
-        'Motorway Delays' +
-        '</div>' +
-        "<div class = 'col-5' align='right'>" +
-        "<span class = '" + animateClass + "'>" +
-        ttAgeDisplay + '</span>' + '&nbsp;&nbsp;' +
-        // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-        '</div>' +
-        '</div>'
-      )
+    d3.select('#traveltimes-card').select('#card-info-text').html(info)
+
+    d3.select('#traveltimes-card').select('#tt-countdown')
+    .html("<span class = '" + animateClass + "'>" +
+        ttAgeDisplay + '</span>')
 
     d3.select('#rt-travelTimes').select('#card-left')
       .html("<div class = '" + animateClass + "'align='center'>" +
-        '<h3>' + name + '</h3>' +
+        '<h1>' + name + '</h1>' +
+        "<div align='center'>" +
         '<p>' + direction + '</p>' +
-        '</div>')
-
-    d3.select('#rt-travelTimes').select('#card-center')
-      .html("<div align='center'>" +
-        "<img src = '/images/transport/car-w-15.svg' width='60'>" +
         '</div>')
 
     d3.select('#rt-travelTimes').select('#card-right')
       .html("<div class = '" + animateClass + "'align='center'>" +
-        '<h3>' + delayDirection + ' ' + delayMins + '</h3>' +
+        '<h1>' + delayDirection + ' ' + delayMins + '</h1>' +
         '</div>' +
+        "<div align='center'>" +
         '<p>minutes</p>' +
         '</div>')
 
    // alert(name + '---'+ direction + '++++' + delayDirection + "****" + delayMins );
   } else {
-    updateInfo('#traveltimes-card a', 'Current travel times are close to free-flow times on all motorways')
+    d3.select('#rt-travelTimes').select('#card-info-text').html('<p>Current travel times are close to free-flow times on all motorways</p>')
   }
 }
 

@@ -18,11 +18,14 @@ class CardLineChart {
     d3.select(c.e).select('svg').remove()
     c.eN = d3.select(c.e).node()
     c.eW = c.eN.getBoundingClientRect().width
+    c.eH = c.eN.getBoundingClientRect().height
+    // console.log(c.e)
+    // console.log(c.eH)
 
     // dimensions margins, width and height
-    c.m = [20, 10, 25, 10]
+    c.m = [20, 12, 4, 12] // affects visability of axis/ data point labels
     c.w = c.eW - c.m[1] - c.m[3]
-    c.h = 120 - c.m[0] - c.m[2]
+    c.h = c.eH - c.m[0] - c.m[2]
 
     c.setScales()
     c.drawLine()
@@ -63,19 +66,20 @@ class CardLineChart {
     let c = this
 
     // Adds the svg canvas
+    let headroom = '24'
     c.svg = d3.select(c.e)
       .append('svg')
       .attr('width', c.w + c.m[1] + c.m[3])
       .attr('height', c.h + c.m[0])
       .append('g')
-      .attr('transform', 'translate(' + c.m[3] + ',' + '20' + ')')
+      .attr('transform', 'translate(' + c.m[3] + ',' + headroom + ')')
 
     // add the data
     c.svg.append('path')
       .attr('class', 'activity')
       .attr('d', c.line(c.d))
       .attr('stroke', '#16c1f3') // move to css
-      .attr('stroke-width', 4) // move to css
+      .attr('stroke-width', 2) // move to css
       .attr('fill', 'none') // move to css
   }
 
