@@ -1,14 +1,12 @@
 /* xs: 360px x 540px <MOCKUP> */
 
-
-
 #hero {
-
   position            : relative;
   width               : 100vw;
   min-width           : 360px;
   height              : 100vh;
   min-height          : 540px;
+  max-height          : 768px;
   overflow-y          : hidden;
   background-image    : url('../images/home/hero-background-image-mobile.png');
   background-repeat   : no-repeat;
@@ -27,6 +25,7 @@
   min-width             : inherit;
   height                : 100vh;
   min-height            : inherit;
+  max-height          : inherit;
   margin                : 0;
   padding               : 4.4vw;
   justify-content       : center;
@@ -344,16 +343,6 @@
   transform        : rotate(-90deg);
 }
 
-/* s: 768px x 1024px (interte) */
-
-/**
- * @media only screen and (min-width : 768px) {
- *
- * }
- */
-
-/* m: 1024 x 1400px <MOCKUP> */
-
 @media
   only screen
   and (min-width : 768px) {
@@ -629,7 +618,8 @@
     position         : relative;
     width            : 100vw;
     height           : 100vh;
-    min-height       : 1080px;
+    min-height       : 1200px;
+    max-height: 1400px;
     background-image : url('../images/home/hero-background-image.png');
   }
 
