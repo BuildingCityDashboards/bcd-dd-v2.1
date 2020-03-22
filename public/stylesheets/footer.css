@@ -1,6 +1,6 @@
 
 
-.footer-nav{
+#footer-nav{
     padding: 32px 16px;
     border: none;
     height: 50vh;
@@ -115,22 +115,46 @@ width: 100%;
 
 #accreditation{
   height: auto;
-  display: flex;
-  justify-content: space-evenly;
+  width: 100%;
 }
 
 #accreditation p {
 padding: 0px 16px;
+font-size: 12px;
+font-weight: 300;
 
 }
 
 .copyright{
     border-top: 1px solid #343a40;
     padding: 16px 0px;
+    font-size: 12px;
 }
 
-@media (min-width: 992px){
-    .footer-nav{
-        border-right: 1px solid #343a40;
+@media (min-width: 768px){
+    #footer-nav{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      height:auto;
+      max-height: 30vh;
+      border-right: 1px solid #343a40;
     }
+
+    #footer-nav div{
+      padding: 0 8px;
+    }
+
+    #footer-address{
+      padding: 32px 16px;
+      height: auto;
+      max-height: 30vh;
+    }
+
+    #accreditation{
+      height: auto;
+      width: 60%;
+    }
+
+
 }
