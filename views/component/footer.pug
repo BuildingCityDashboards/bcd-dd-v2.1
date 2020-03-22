@@ -1,11 +1,11 @@
 //- need to update with mixins for uls similar to the side menu using the same subc-menu component
 footer.footer
   .footer-widgets.content-wrapper--blackblue.py-3
-    .container.pl-3.pr-3
+    .pl-3.pr-3
       .row
-        .col-lg-8.col-sm-12.footer-nav
+        .col-12.col-sm-8#footer-nav
           .row
-            .col-5
+            .col-5.col-sm-3
               a(href="/themes")
                 h6 Themes
               ul.list-unstyled.small
@@ -23,7 +23,7 @@ footer.footer
                   a.footer-link(href="/themes#health") Health
                 li
                   a.footer-link(href="/themes#demographics") Demographics
-            .col-7
+            .col-7.col-sm-3
               a(href="/stories")
                 h6 Stories
               ul.list-unstyled.small
@@ -46,7 +46,7 @@ footer.footer
                   a.footer-link(href="/stories/housing") Housing
                 //- li
                   a.footer-link(href="/stories/transport") Transport
-            .col-5
+            .col-5.col-sm-3
               a(href="/queries")
                 h6 Queries
               ul.list-unstyled.small
@@ -64,7 +64,7 @@ footer.footer
                   a.footer-link(href="/queries/housing") Housing
                 //- li
                   a.footer-link(href="/queries/transport") Transport
-            .col-7
+            .col-7.col-sm-3
               a(href="/tools")
                 h6 Tools
               ul.list-unstyled.small
@@ -89,7 +89,7 @@ footer.footer
                 li
                   a.footer-link(href="/portal") Portal
               
-        .col-9.footer-address
+        #footer-address.col-9.col-sm-3
           h6 
             a(href="https://dashboards.maynoothuniversity.ie/" target="_blank") Building City Dashboards
           .small Iontas Building
@@ -100,16 +100,15 @@ footer.footer
           hr
           .small T: +00 353 (1) 708 6146
           //.small E: dashboards *at* mu *dot* ie
-        .col-3.ml-0.pl-0.mt-3.pr-4
-
+        #footer-social-media.col-3.col-sm-1
           a(href="https://www.twitter.com/dashbuild" target="_blank") 
-            img(src="/images/icons/Twitter_Social_Icon_Circle_White.svg" title="Twitter icon" alt="Twitter icon" height="36" width="36").m-2
+            img(src="/images/icons/Twitter_Social_Icon_Circle_White.svg" title="Twitter icon" alt="Twitter icon" )
 
           a(href="https://www.facebook.com/bcdmu" target="_blank")
-            img(src="/images/icons/f_logo_RGB-White_58.png" title="Facebook icon" alt="Facebook icon" height="36" width="36").m-2
+            img(src="/images/icons/f_logo_RGB-White_58.png" title="Facebook icon" alt="Facebook icon" )
 
           a(href="mailto:dashboards@mu.ie" target="_blank") 
-            img(src="/images/icons/gmail.png" title="Gmail icon" alt="Gmail icon" height="36" width="36").m-2
+            img(src="/images/icons/gmail.png" title="Gmail icon" alt="Gmail icon" )
 
           //- h6 Get Building City Dashboards news
           //- .sign-up.input-group.mb-2
@@ -121,7 +120,7 @@ footer.footer
           //-   a(href="#")   Building City Dashboards Privacy Policy
           //-   |   and the processing and use of my information
 
-      h6.mt-5 Project Partners
+      h6.mt-3 Project Partners
         #partners.row.mt-3
           .col-md-2.partner.ncg
             a(href="https://www.maynoothuniversity.ie/national-centre-geocomputation-ncg" target="_blank")
@@ -154,14 +153,13 @@ footer.footer
 
       h6.mt-5 Accreditation
         #accreditation.row.mt-3
-          p We gratefully acknowledge funding from Science Foundation Ireland under the Investigators' Award Programme. Award Number <strong> 15/IA/3090 </strong> 
-          #icons-credit
-            p Selected icons made by 
-              |<a href="http://www.freepik.com" title="Freepik">Freepik</a> 
-              |from <a href="https://www.flaticon.com/" title="Flaticon">
-              |www.flaticon.com</a> licensed by 
-              |<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
-              |CC BY 3.0</a>
+          p We gratefully acknowledge funding from Science Foundation Ireland under the Investigators' Award Programme. <br> Award Number <strong> 15/IA/3090 </strong>
+          p Selected icons made by 
+            |<a href="http://www.freepik.com" title="Freepik">Freepik</a> 
+            |from <a href="https://www.flaticon.com/" title="Flaticon">
+            |www.flaticon.com</a> licensed by 
+            |<a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
+            |CC BY 3.0</a>
 
 
       .row.copyright
