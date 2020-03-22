@@ -1,10 +1,15 @@
-.copyright{
-    border-top: 1px solid #343a40;
-}
+
 
 .footer-nav{
-    margin: 16px 0;
+    padding: 32px 16px;
     border: none;
+    height: 50vh;
+}
+
+.footer-address{
+  padding: 32px 16px;
+  border: none;
+  height: 50vh;
 }
 
 .footer-link{
@@ -31,15 +36,16 @@
     border-radius: .1875rem;
 }
 
-.credit{
-    float: left;
-    margin: 0 45px 15px 0;
-    height: 29px;
+
+
+#partners{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .partner{
-    float: left;
-    margin: 20px 10px 20px 0;
+    float: center;
+    margin: 16px 8px;
     max-width: 130px;
     cursor: pointer;
 }
@@ -83,6 +89,22 @@
 .partner.cso {
     max-width: 180px;
     padding-top: 15px;
+}
+
+#accreditation{
+  height: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#accreditation p {
+padding: 0px 16px;
+
+}
+
+.copyright{
+    border-top: 1px solid #343a40;
+    padding: 16px 0px;
 }
 
 @media (min-width: 992px){
