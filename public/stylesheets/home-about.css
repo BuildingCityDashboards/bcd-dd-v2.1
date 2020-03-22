@@ -4,7 +4,7 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 100vh;
+  height                : auto;
   padding               : 16px;
   justify-content       : center;
   grid-gap              : 16px;
@@ -133,7 +133,7 @@
   display               : grid;
   width                 : 100vw;
   min-width             : 360px;
-  height                : 100vh;
+  height                : auto;
   min-height            : 540px;
   padding               : 16px;
   grid-gap              : 16px;
@@ -167,7 +167,8 @@
   padding     : 16px 16px 0 16px;
   overflow-y  : auto;
   grid-column : span 4;
-  grid-row    : 2/8;
+  grid-row    : 2/9;
+  background-color: rgba(142, 191, 214, 0.15);
 }
 
 #about-dublin-dashboard__card > p {
@@ -482,13 +483,7 @@
     padding    : 32px;
     overflow-y : auto;
     height: auto;
-    /**
-    * grid-column : 2 / 12; grid-row
-    *
-    *
-    *
-    * : 3/7;
-    */
+
   }
 
   #about-dublin-dashboard__card > p {
