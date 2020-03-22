@@ -93,6 +93,7 @@
 .card__right {
   display            : -ms-flexbox;
   display            : flex;
+  width              : 40%;
   text-align         : center;
   -ms-flex-direction : column;
   flex-direction     : column;
