@@ -17,6 +17,12 @@ date,type,value
 2017Q4,Single house,80
 2018Q1,Single house,47
 2018Q2,Single house,66
+2018Q3,Single house,82
+2018Q4,Single house,84
+2019Q1,Single house,65
+2019Q2,Single house,77
+2019Q3,Single house,77
+2019Q4,Single house,82
 2014Q1,Scheme house,149
 2014Q2,Scheme house,205
 2014Q3,Scheme house,262
@@ -35,6 +41,12 @@ date,type,value
 2017Q4,Scheme house,1124
 2018Q1,Scheme house,787
 2018Q2,Scheme house,1415
+2018Q3,Scheme house,1306
+2018Q4,Scheme house,1391
+2019Q1,Scheme house,934
+2019Q2,Scheme house,899
+2019Q3,Scheme house,1046
+2019Q4,Scheme house,1157
 2014Q1,Apartment,128
 2014Q2,Apartment,199
 2014Q3,Apartment,125
@@ -53,3 +65,9 @@ date,type,value
 2017Q4,Apartment,546
 2018Q1,Apartment,373
 2018Q2,Apartment,323
+2018Q3,Apartment,466
+2018Q4,Apartment,552
+2019Q1,Apartment,477
+2019Q2,Apartment,516
+2019Q3,Apartment,814
+2019Q4,Apartment,847

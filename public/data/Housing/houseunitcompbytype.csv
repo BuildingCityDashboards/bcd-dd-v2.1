@@ -12,9 +12,10 @@
 2016Q3,Dublin City,339,328,11
 2016Q4,Dublin City,201,166,35
 2017Q1,Dublin City,192,176,16
-2017Q2,Dublin City,null,null,null
-2017Q3,Dublin City,null,null,null
-2017Q4,Dublin City,null,null,null
+2017Q2,Dublin City,340,null,null
+2017Q3,Dublin City,559,null,null
+2017Q4,Dublin City,472,null,null
+2018Q1,Dublin City,266,null,null
 2014Q1,Dun Laoghaire-Rathdown,160,160,0
 2014Q2,Dun Laoghaire-Rathdown,244,242,2
 2014Q3,Dun Laoghaire-Rathdown,100,100,0
@@ -28,9 +29,10 @@
 2016Q3,Dun Laoghaire-Rathdown,260,212,48
 2016Q4,Dun Laoghaire-Rathdown,380,366,14
 2017Q1,Dun Laoghaire-Rathdown,407,388,19
-2017Q2,Dun Laoghaire-Rathdown,null,null,null
-2017Q3,Dun Laoghaire-Rathdown,null,null,null
-2017Q4,Dun Laoghaire-Rathdown,null,null,null
+2017Q2,Dun Laoghaire-Rathdown,438,null,null
+2017Q3,Dun Laoghaire-Rathdown,226,null,null
+2017Q4,Dun Laoghaire-Rathdown,317,null,null
+2018Q1,Dun Laoghaire-Rathdown,182,null,null
 2014Q1,Fingal,126,126,0
 2014Q2,Fingal,152,152,0
 2014Q3,Fingal,283,283,0
@@ -44,9 +46,10 @@
 2016Q3,Fingal,297,294,3
 2016Q4,Fingal,437,402,35
 2017Q1,Fingal,362,333,29
-2017Q2,Fingal,null,null,null
-2017Q3,Fingal,null,null,null
-2017Q4,Fingal,null,null,null
+2017Q2,Fingal,371,null,null
+2017Q3,Fingal,631,null,null
+2017Q4,Fingal,773,null,null
+2018Q1,Fingal,329,null,null
 2014Q1,South Dublin,111,109,2
 2014Q2,South Dublin,137,137,0
 2014Q3,South Dublin,334,334,0
@@ -60,6 +63,7 @@
 2016Q3,South Dublin,142,138,4
 2016Q4,South Dublin,185,175,10
 2017Q1,South Dublin,210,207,3
-2017Q2,South Dublin,null,null,null
-2017Q3,South Dublin,null,null,null
-2017Q4,South Dublin,null,null,null
+2017Q2,South Dublin,289,null,null
+2017Q3,South Dublin,214,null,null
+2017Q4,South Dublin,298,null,null
+2018Q1,South Dublin,134,null,null

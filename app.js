@@ -228,14 +228,14 @@ cron.schedule('*/1 * * * *', function () {
 })
 
 // Water Levels
-cron.schedule('*/15 * * * *', function () {
-  var http = require('http')
-  var fs = require('fs')
-  var file = fs.createWriteStream('./public/data/Environment/waterlevel.json')
-  http.get('http://waterlevel.ie/geojson/latest/', function (response) {
-    response.pipe(file)
-  })
-})
+// cron.schedule('*/15 * * * *', function () {
+//   var http = require('http')
+//   var fs = require('fs')
+//   var file = fs.createWriteStream('./public/data/Environment/waterlevel.json')
+//   http.get('http://waterlevel.ie/geojson/latest/', function (response) {
+//     response.pipe(file)
+//   })
+// })
 
 // Weather (from old Dublin Dashboard)
 cron.schedule('*/5 * * * *', function () {
