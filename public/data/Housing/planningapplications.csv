@@ -8,6 +8,7 @@ date,region,Applications  Received,Decisions to Grant,Decisions to Refuse,Appeal
 2015,Dublin,2734,1859,243,0
 2016,Dublin,2440,2106,270,0
 2017,Dublin,1991,1691,260,0
+2018,Dublin,2820,2390,321,0
 2009,Dun Laoghaire- Rathdown,1475,1102,278,260
 2010,Dun Laoghaire- Rathdown,1231,995,185,200
 2011,Dun Laoghaire- Rathdown,1019,841,131,142
@@ -17,6 +18,7 @@ date,region,Applications  Received,Decisions to Grant,Decisions to Refuse,Appeal
 2015,Dun Laoghaire- Rathdown,1342,1359,149,0
 2016,Dun Laoghaire- Rathdown,1545,1467,194,0
 2017,Dun Laoghaire- Rathdown,1231,995,185,0
+2018,Dun Laoghaire- Rathdown,1473,1177,249,0
 2009,Fingal,1143,961,240,182
 2010,Fingal,1027,814,168,133
 2011,Fingal,775,737,105,91
@@ -26,6 +28,7 @@ date,region,Applications  Received,Decisions to Grant,Decisions to Refuse,Appeal
 2015,Fingal,1066,880,84,0
 2016,Fingal,1146,986,92,0
 2017,Fingal,1027,814,168,0
+2018,Fingal,1085,1058,118,0
 2009,South Dublin,909,715,144,110
 2010,South Dublin,773,666,105,24
 2011,South Dublin,688,589,91,27
@@ -35,3 +38,4 @@ date,region,Applications  Received,Decisions to Grant,Decisions to Refuse,Appeal
 2015,South Dublin,735,635,82,0
 2016,South Dublin,830,640,98,0
 2017,South Dublin,773,666,105,0
+2018,South Dublin,1011,723,135,0
