@@ -509,6 +509,13 @@
 
   .flickity-button:focus {}
 
+    .flickity-page-dots {
+      position : absolute;
+      top      : -25px;
+      bottom   : 100%;
+      width    : 100%;
+    }
+
   .hero-carousel__card {}
 
   #hero-icon-navs {
@@ -956,8 +963,8 @@
   /* position outside */
 
   .flickity-prev-next-button {
-
-    top: 80px; /*half of height of card*/
+    top : 80px;
+    /* half of height of card */
     /* transform: translateY(0%); */
   }
 
@@ -972,6 +979,8 @@
   .flickity-button:focus {
     /* outline: none; box-shadow: 0 0 0 5px #19F; */
   }
+
+
 
   .hero-carousel__card {}
 
@@ -1151,6 +1160,7 @@
   }
 
   .carousel {
+    height : 360px;
     margin : 0 24px;
     /* space for prev/next buttons */
   }
@@ -1193,8 +1203,8 @@
   /* position outside */
 
   .flickity-prev-next-button {
-
-    top: 110px; /*half of height of card*/
+    top : 110px;
+    /* half of height of card */
     /* transform: translateY(0%); */
   }
 
