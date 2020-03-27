@@ -159,16 +159,26 @@
 .card__title {}
 
 .card__info {
-  display          : flex;
-  min-height       : 60px;
-  margin-top       : 4px;
-  padding-top      : 4px;
+  display        : flex;
+  min-height     : 60px;
+  margin         : 0;
+  padding-top    : 4px;
+  border         : none;
+  flex-direction : column;
+  justify-content: space-around;
+}
+
+.card__info-border {
+
   border-top       : 1px solid;
   border-top-color : rgba(255, 255, 255, 0.1);
-  flex-direction   : column;
+  height: 8px;
+
+  /* right: -8px; */
 }
 
 .card__info p {
+  padding-top: 16px;
   font-size      : 10px;
   font-style     : normal;
   font-weight    : 300;
@@ -335,8 +345,6 @@
     min-height       : 84px;
     margin-top       : 4px;
     padding-top      : 4px;
-    border-top       : 1px solid;
-    border-top-color : rgba(255, 255, 255, 0.1);
     flex-direction   : column;
     justify-content  : space-around;
   }
@@ -622,8 +630,7 @@
     height           : 96px;
     min-height       : 96px;
     padding-bottom   : 8px;
-    border-top       : 1px solid;
-    border-top-color : rgba(255, 255, 255, 0.1);
+
   }
 
   .card__info p {
@@ -819,12 +826,19 @@
   }
 
   .card:hover .card__info {
-    height           : 96px;
-    min-height       : 96px;
+    height           : 120px;
+    min-height       : 120px;
     padding-bottom   : 8px;
+
+  }
+
+  /* .card__info-bor
+
+  #card-info-text {
+    padding-top: 16px;
     border-top       : 1px solid;
     border-top-color : rgba(255, 255, 255, 0.1);
-  }
+  } */
 
   .card__info p {
     font-size      : 16px;
