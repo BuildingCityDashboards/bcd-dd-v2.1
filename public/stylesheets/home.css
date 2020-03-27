@@ -25,7 +25,7 @@
   min-width             : inherit;
   height                : 100vh;
   min-height            : inherit;
-  max-height          : inherit;
+  max-height            : inherit;
   margin                : 0;
   padding               : 4.4vw;
   justify-content       : center;
@@ -209,29 +209,7 @@
 
 /* cell number */
 
-.carousel-cell:before {
-  /**
-  * content
-  *
-  *
-  *
-  * : counter(gallery-cell); display
-  *
-  *
-  *
-  * : block; color
-  *
-  *
-  *
-  *
-  *
-  * : white; text-align
-  *
-  * : center; font-size
-  *
-  * : 80px; line-height : 200px;
-  */
-}
+.carousel-cell:before {}
 
 /* smaller, dark, rounded square */
 
@@ -619,7 +597,7 @@
     width            : 100vw;
     height           : 100vh;
     min-height       : 1200px;
-    max-height: 1400px;
+    max-height       : 1400px;
     background-image : url('../images/home/hero-background-image.png');
   }
 
@@ -977,12 +955,18 @@
   }
   /* position outside */
 
+  .flickity-prev-next-button {
+
+    top: 80px; /*half of height of card*/
+    /* transform: translateY(0%); */
+  }
+
   .flickity-prev-next-button.previous {
     left : -24px;
   }
 
   .flickity-prev-next-button.next {
-    right : -32px;
+    right : -24px;
   }
 
   .flickity-button:focus {
@@ -1207,6 +1191,12 @@
     fill : grey;
   }
   /* position outside */
+
+  .flickity-prev-next-button {
+
+    top: 110px; /*half of height of card*/
+    /* transform: translateY(0%); */
+  }
 
   .flickity-prev-next-button.previous {
     left : -24px;
