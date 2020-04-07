@@ -31,13 +31,10 @@ function processWeather (xmlWeather) {
   let stations = observations[0].getElementsByTagName('station')
   for (s of stations) {
     if (s.getAttribute('name') === 'Dublin') {
-      console.log()
-      console.log(getStringForAttribute(s, 'weather_text'))
-      console.log()
-      console.log()
-      console.log(getStringForAttribute(s, 'humidity'))
-      console.log()
-      console.log(getStringForAttribute(s, 'pressure'))
+
+      // console.log(getStringForAttribute(s, 'weather_text'))
+      // console.log(getStringForAttribute(s, 'humidity'))
+      // console.log(getStringForAttribute(s, 'pressure'))
     }
   }
 
@@ -68,59 +65,7 @@ function getStringForAttribute (e, n) {
   let v = e.innerHTML.trim()
   return v + u
 }
-
-//   let unit = ''
-
-// if (t.hasAttribute('unit')) {
-//   unit = t.getAttribute('unit')
-// }
-// res[] = t.innerHTML + ' ' + unit
-
-  // let test = ['something', 'something', 'something']
-  // arrTest = test.map((s) => {
-  //   return 'Dublin'
-  // })
-
-  // let timesXML = xmlWeather.getElementsByTagName('time')
-  // // console.log('#timesXML: ' + timesXML.length)
-  // // use index in loop to track odd/even entry
-  // let forecasts = [] // array of objects
-  // let id = 0
-  // /* TODO: fix hack */
-  // for (let i = 0; i < 4; i += 2) {
-  //   let from, startDate, locationEven, lat, lng, temp, humidity, windDir, windSpeed,
-  //     locationOdd, symbolId, symbolNo, precip
-  //   // console.log('TIME #' + i)
-  //   from = timesXML[i].getAttribute('from')
-  //   startDate = new Date(from)
-  //   // console.log('from: ' + from)
-  //   locationEven = timesXML[i].getElementsByTagName('location')[0]
-  //   lat = locationEven.getAttribute('latitude')
-  //   // console.log("lat: " + lat);
-  //   lng = locationEven.getAttribute('longitude')
-  //   // console.log("lng: " + lng);
-  //   temp = locationEven.getElementsByTagName('temperature')[0].getAttribute('value')
-  //   // console.log("temp : " + temp);
-  //   humidity = locationEven.getElementsByTagName('humidity')[0].getAttribute('value')
-  //   // console.log("humidity : " + humidity);
-  //   windDir = locationEven.getElementsByTagName('windDirection')[0].getAttribute('name')
-  //   // console.log("windDir : " + windDir);
-  //   windSpeed = locationEven.getElementsByTagName('windSpeed')[0].getAttribute('beaufort')
-  //   // console.log("i : " + i);
-  //   // console.log('windspeed : ' + windSpeed)
-  //   // Odd entries
-  //   locationOdd = timesXML[i + 1].getElementsByTagName('location')[0]
-  //   // console.log("location odd: " + JSON.stringify(locationOdd.getElementsByTagName("symbol")[0]));
-  //   symbolId = locationOdd.getElementsByTagName('symbol')[0].getAttribute('id')
-  //   // console.log("symbol ID: " + symbolId);
-  //   symbolNo = locationOdd.getElementsByTagName('symbol')[0].getAttribute('number')
-  //   // console.log("symbol #" + symbolNo);
-  //   symbolNo = +symbolNo
-  //   if (symbolNo < 10) {
-  //     symbolNo = '0' + symbolNo // pad with a zero
-  //   }
-  //   // console.log('date: ' + startDate + ' start hour: ' + startDate.getHours())
-  //   // decide if night or day based on hour
+//   // decide if night or day based on hour
   //   // /*TODO: Crude! Improve!*/
   //   if (startDate.getHours() > 18 || startDate.getHours() < 6) {
   //     tod = 'n'
@@ -132,38 +77,8 @@ function getStringForAttribute (e, n) {
   //   //
   //   // Only use the next 48 hourly readings
   //   /* TODO: Better algo to decide if readings are to be used/ are valid */
-  //   if (id < 48) {
-  //     forecasts.push({
-  //       'id': id,
-  //       'date': startDate,
-  //       'temperature': temp,
-  //       'humidity': humidity,
-  //       'windDir': windDir,
-  //       'windSpeed': windSpeed,
-  //       'symbolNo': symbolNo,
-  //       'symbolId': symbolId,
-  //       'precip': precip,
-  //       'tod': tod
-  //
-  //     })
-  //   }
-  //   id += 1
-  // }
 
 function initialiseWeatherDisplay () {
-  // d3.select('#weather-card').select('.card__header')
-  //   .html(
-  //     "<div class = 'row'>" +
-  //     "<div class = 'col-7' align='left'>" +
-  //     'Weather Forecast' +
-  //     '</div>' +
-  //     "<div class = 'col-5' align='right'>" +
-  //     "<div id ='weather-countdown' ></div>" +
-  //     // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-  //     '</div>' +
-  //     '</div>'
-  //   )
-
   d3.select('#hero-weather__left-top')
     .html('-- C')
 
@@ -174,7 +89,7 @@ function initialiseWeatherDisplay () {
       .html('~ --')
 
   d3.select('#hero-weather__right-bottom')
-      .html('~ -- kph')
+      .html('~ -- kts')
 
   d3.select('#hero-weather__symbol')
     .html()
