@@ -7,7 +7,8 @@
 		"urls_local": [],
     "api_endpoints": [],
     "services": []
-	}, "meteireann_location_model": {
+	},
+  "meteireann_location_model": {
     "label": "weather",
     "format": "xml",
     "description" : "",
@@ -15,7 +16,8 @@
 		"urls_local": [],
     "api_endpoints": [],
     "services": []
-	}, "meteireann_county_forecast": {
+	},
+  "meteireann_county_forecast": {
     "label": "weather",
     "format": "xml",
     "description" : "",
@@ -24,7 +26,7 @@
     "api_endpoints": [],
     "services": []
 	},
-  "meteireann_web_forecast": {
+	"meteireann_web_forecast": {
     "label": "weather",
     "format": "xml",
     "description" : "5-day forecasts by location",
