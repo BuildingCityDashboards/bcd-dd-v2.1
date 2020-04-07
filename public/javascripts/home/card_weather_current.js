@@ -31,28 +31,29 @@ function processWeather (xmlWeather) {
   let stations = observations[0].getElementsByTagName('station')
   for (s of stations) {
     if (s.getAttribute('name') === 'Dublin') {
+      d3.select('#hero-weather__left-top')
+          .html(getStringForAttribute(s, 'temp'))
+      // //
+      d3.select('#hero-weather__left-bottom')
+            .html('Prec ' + getStringForAttribute(s, 'rainfall'))
 
-      // console.log(getStringForAttribute(s, 'weather_text'))
+      d3.select('#hero-weather__right-top')
+            .html('<img src = "/images/Met50v2/15d.png">' + '  ' + getStringForAttribute(s, 'wind_direction'))
+
+      d3.select('#hero-weather__right-bottom')
+            .html(getStringForAttribute(s, 'wind_speed'))
+
+      getSymbolID(getStringForAttribute(s, 'weather_text'), observationsTime)
+      // d3.select('#hero-weather__symbol')
+      //       .html('<img src = "/images/Met50v2/' + getSymbolID(weather_text, observationsTime) + '.png">')
+
+      // console.log()
       // console.log(getStringForAttribute(s, 'humidity'))
       // console.log(getStringForAttribute(s, 'pressure'))
     }
   }
 
-  d3.select('#hero-weather__left-top')
-      .html(getStringForAttribute(s, 'temp'))
-  // //
-  d3.select('#hero-weather__left-bottom')
-        .html('Prec ' + getStringForAttribute(s, 'rainfall'))
-
-  d3.select('#hero-weather__right-top')
-        .html('<img src = "/images/Met50v2/15d.png">' + '  ' + getStringForAttribute(s, 'wind_direction'))
-
-  d3.select('#hero-weather__right-bottom')
-        .html(getStringForAttribute(s, 'wind_speed'))
-
-  // d3.select('#hero-weather__symbol')
-  //     .html('<img src = "/images/Met50v2/' + f[0].symbolNo + f[0].tod + '.png">')
-
+  //
   // updateWeatherDisplay(forecasts, forecastTime)
 }
 
@@ -65,6 +66,18 @@ function getStringForAttribute (e, n) {
   let v = e.innerHTML.trim()
   return v + u
 }
+
+function getSymbolID (text, time) {
+  let d = new Date(time)
+  console.log(d.getHours())
+ //  if (time.getHours() > 18 || startDate.getHours() < 6) {
+ // //     tod = 'n'
+ // //   } else {
+ // //     tod = 'd'
+ // //   }
+  return ''
+}
+
 //   // decide if night or day based on hour
   //   // /*TODO: Crude! Improve!*/
   //   if (startDate.getHours() > 18 || startDate.getHours() < 6) {
