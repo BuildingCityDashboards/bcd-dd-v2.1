@@ -1,0 +1,252 @@
+<observations time="2020-04-07T14:00:00+01:00" >
+<station name="Athenry">
+<temp unit="C">14</temp>
+<symbol>cloudy.png</symbol>
+<weather_text>CLOUDY</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> SW </wind_direction>
+<humidity unit="%"> 50 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Ballyhaise">
+<temp unit="C">13</temp>
+<symbol>cloudy.png</symbol>
+<weather_text>CLOUDY</weather_text>
+<wind_speed unit="kts">11 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 54 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="Belmullet">
+<temp unit="C">12</temp>
+<symbol>cloudy.png</symbol>
+<weather_text>CLOUDY</weather_text>
+<wind_speed unit="kts">21 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 63 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1023</pressure>
+</station>
+<station name="Casement">
+<temp unit="C">14</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">15 </wind_speed>
+<wind_direction> SW </wind_direction>
+<humidity unit="%"> 49 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="Claremorris">
+<temp unit="C">12</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">11 </wind_speed>
+<wind_direction> SW </wind_direction>
+<humidity unit="%"> 62 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Cork">
+<temp unit="C">12</temp>
+<symbol>clear_weather_sun.png</symbol>
+<weather_text>FINE</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 68 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Dublin">
+<temp unit="C">13</temp>
+<symbol>clear_weather_sun.png</symbol>
+<weather_text>FINE</weather_text>
+<wind_speed unit="kts">13 </wind_speed>
+<wind_direction> SE </wind_direction>
+<humidity unit="%"> 55 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Dunsany">
+<temp unit="C">14</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">11 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 56 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Finner">
+<temp unit="C">14</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">18 </wind_speed>
+<wind_direction> SW </wind_direction>
+<humidity unit="%"> 49 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Gurteen">
+<temp unit="C">14</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 52 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="Johnstown Castle">
+<temp unit="C">12</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">09 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 60 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1027</pressure>
+</station>
+<station name="Knock">
+<temp unit="C">12</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 59 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Mace Head">
+<temp unit="C">12</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">11 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 68 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Malin Head">
+<temp unit="C">13</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">17 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 52 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1023</pressure>
+</station>
+<station name="Markree Castle">
+<temp unit="C">14</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">-99</wind_speed>
+<wind_direction>-99</wind_direction>
+<humidity unit="%"> 51 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1024</pressure>
+</station>
+<station name="Moore Park">
+<temp unit="C">13</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">10 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 58 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Mt Dillon">
+<temp unit="C">15</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">08 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 52 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="Mullingar">
+<temp unit="C">14</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 50 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="NewportMayo">
+<temp unit="C">14</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">13 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 51 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1023</pressure>
+</station>
+<station name="Oak Park">
+<temp unit="C">13</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">14 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 55 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Phoenix Park">
+<temp unit="C">16</temp>
+<symbol>no_data.png</symbol>
+<weather_text>--</weather_text>
+<wind_speed unit="kts">-99</wind_speed>
+<wind_direction>-99</wind_direction>
+<humidity unit="%"> 51 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Roche's Point">
+<temp unit="C">11</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">12 </wind_speed>
+<wind_direction> SE </wind_direction>
+<humidity unit="%"> 79 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Shannon">
+<temp unit="C">14</temp>
+<symbol>cloudy.png</symbol>
+<weather_text>CLOUDY</weather_text>
+<wind_speed unit="kts">16 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 51 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+<station name="Sherkin Island">
+<temp unit="C">12</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">11 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 80 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1026</pressure>
+</station>
+<station name="Valentia">
+<temp unit="C">12</temp>
+<symbol>scattered_clouds.png</symbol>
+<weather_text>FAIR</weather_text>
+<wind_speed unit="kts">16 </wind_speed>
+<wind_direction> S </wind_direction>
+<humidity unit="%"> 72 </humidity>
+<rainfall unit="mm/h"> 0.0 </rainfall>
+<pressure unit="hPa">1025</pressure>
+</station>
+</observations>
