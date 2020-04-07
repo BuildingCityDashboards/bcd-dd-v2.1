@@ -11,9 +11,10 @@ const getData = async url => {
 }
 
 exports.getWeather = async (req, res, next) => {
-  console.log('\n\n**********Get Weather Data******************\n')
+  // console.log('\n\n**********Get Weather Data******************\n')
   // let url = 'https://dublindashboard.ie/met_eireann_forecast.xml'
-  const url = 'http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=54.7210798611;long=-8.7237392806'
+  // const url = 'http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=54.7210798611;long=-8.7237392806'
+  const url = 'https://www.met.ie/Open_Data/xml/obs_present.xml'
   const response = await getData(url)
   res.send(response)
 }
