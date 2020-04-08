@@ -78,21 +78,20 @@
 #hero-time {
   display         : -ms-flexbox;
   display         : flex;
+  background      : transparent;
   justify-content : flex-end;
-  background: transparent;
-
 }
 
 #hero-time__box {
-  display          : flex;
-  display          : -ms-flexbox;
-  width            : 139px;
-  height           : 24px;
+  display         : flex;
+  display         : -ms-flexbox;
+  width           : 139px;
+  height          : 24px;
+  background      : rgba(28, 32, 34, 0.38);
+  align-items     : center;
+  flex-wrap       : nowrap;
+  justify-content : space-around;
   /* background-color : rgba(28, 32, 34, 0.38); */
-  align-items      : center;
-  flex-wrap        : nowrap;
-  justify-content  : space-around;
-  background: rgba(28, 32, 34, 0.38);
 }
 
 #hero-time__clock {
@@ -130,7 +129,7 @@
   height             : 24px;
   padding-top        : 0px;
   padding-bottom     : 0px;
-  background: rgba(28, 32, 34, 0.38);
+  background         : rgba(28, 32, 34, 0.38);
   align-items        : center;
   font-weight        : 500;
   -ms-flex-direction : row;
@@ -366,18 +365,18 @@
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display          : flex;
-    display          : -ms-flexbox;
-    width            : 325px;
-    height           : 64px;
-    align-items      : center;
-    font-style       : normal;
-    font-weight      : 500;
-    font-stretch     : normal;
-    flex-wrap        : nowrap;
-    justify-content  : space-around;
-    line-height      : 1.2;
-    letter-spacing   : 0.15px;
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
   }
 
   #hero-time__clock {
@@ -406,7 +405,6 @@
     display            : flex;
     width              : 366px;
     height             : 64px;
-
     font-style         : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
@@ -510,12 +508,12 @@
 
   .flickity-button:focus {}
 
-    .flickity-page-dots {
-      position : absolute;
-      top      : -25px;
-      bottom   : 100%;
-      width    : 100%;
-    }
+  .flickity-page-dots {
+    position : absolute;
+    top      : -25px;
+    bottom   : 100%;
+    width    : 100%;
+  }
 
   .hero-carousel__card {}
 
@@ -646,19 +644,18 @@
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display          : flex;
-    display          : -ms-flexbox;
-    width            : 325px;
-    height           : 64px;
-
-    align-items      : center;
-    font-style       : normal;
-    font-weight      : 500;
-    font-stretch     : normal;
-    flex-wrap        : nowrap;
-    justify-content  : space-around;
-    line-height      : 1.2;
-    letter-spacing   : 0.15px;
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
   }
 
   #hero-time__clock {
@@ -840,19 +837,18 @@
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display          : flex;
-    display          : -ms-flexbox;
-    width            : 325px;
-    height           : 64px;
-
-    align-items      : center;
-    font-style       : normal;
-    font-weight      : 500;
-    font-stretch     : normal;
-    flex-wrap        : nowrap;
-    justify-content  : space-around;
-    line-height      : 1.2;
-    letter-spacing   : 0.15px;
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
   }
 
   #hero-time__clock {
@@ -891,7 +887,29 @@
 
   #hero-weather__left-top {}
 
-  #hero-weather__left-bottom {}
+  #hero-weather__left-bottom {
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  #hero-weather__left-bottom__icon{
+  padding-right: 4px;
+  }
+
+  #hero-weather__left-bottom__text{
+
+
+  }
+
+  #hero-weather__left-bottom svg {
+    width  : 14px;
+    height : 22px;
+    stroke: rgba(255, 255, 255, 0.6);
+    stroke-width: 48;
+    /* padding-right: 16px; */
+
+  }
 
   #hero-weather__symbol {
     width  : 48px;
@@ -976,8 +994,6 @@
   .flickity-button:focus {
     /* outline: none; box-shadow: 0 0 0 5px #19F; */
   }
-
-
 
   .hero-carousel__card {}
 
@@ -1090,19 +1106,18 @@
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display          : flex;
-    display          : -ms-flexbox;
-    width            : 325px;
-    height           : 64px;
-
-    align-items      : center;
-    font-style       : normal;
-    font-weight      : 500;
-    font-stretch     : normal;
-    flex-wrap        : nowrap;
-    justify-content  : space-around;
-    line-height      : 1.2;
-    letter-spacing   : 0.15px;
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
   }
 
   #hero-time__clock {

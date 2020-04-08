@@ -39,9 +39,9 @@ async function processWeather (xmlWeather) {
     if (s.getAttribute('name') === 'Dublin') {
       d3.select('#hero-weather__left-top')
           .html(getStringForAttribute(s, 'temp'))
-      // //
-      d3.select('#hero-weather__left-bottom')
-            .html('Prec ' + getStringForAttribute(s, 'rainfall'))
+
+      d3.select('#hero-weather__left-bottom__text')
+            .html(getStringForAttribute(s, 'rainfall'))
 
       d3.select('#hero-weather__right-top')
             .html('<img src = "/images/Met50v2/15d.png">' + '  ' + getStringForAttribute(s, 'wind_direction'))
