@@ -79,6 +79,8 @@
   display         : -ms-flexbox;
   display         : flex;
   justify-content : flex-end;
+  background: transparent;
+
 }
 
 #hero-time__box {
@@ -86,10 +88,11 @@
   display          : -ms-flexbox;
   width            : 139px;
   height           : 24px;
-  background-color : rgba(142, 191, 214, 0.08);
+  /* background-color : rgba(28, 32, 34, 0.38); */
   align-items      : center;
   flex-wrap        : nowrap;
   justify-content  : space-around;
+  background: rgba(28, 32, 34, 0.38);
 }
 
 #hero-time__clock {
@@ -127,7 +130,7 @@
   height             : 24px;
   padding-top        : 0px;
   padding-bottom     : 0px;
-  background-color   : rgba(142, 191, 214, 0.08);
+  background: rgba(28, 32, 34, 0.38);
   align-items        : center;
   font-weight        : 500;
   -ms-flex-direction : row;
@@ -367,8 +370,6 @@
     display          : -ms-flexbox;
     width            : 325px;
     height           : 64px;
-    background-color : rgba(142, 191, 214, 0.08);
-    background-color : rgba(142, 191, 214, 0.08);
     align-items      : center;
     font-style       : normal;
     font-weight      : 500;
@@ -405,7 +406,7 @@
     display            : flex;
     width              : 366px;
     height             : 64px;
-    background-color   : rgba(142, 191, 214, 0.08);
+
     font-style         : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
@@ -649,8 +650,7 @@
     display          : -ms-flexbox;
     width            : 325px;
     height           : 64px;
-    background-color : rgba(142, 191, 214, 0.08);
-    background-color : rgba(142, 191, 214, 0.08);
+
     align-items      : center;
     font-style       : normal;
     font-weight      : 500;
@@ -687,7 +687,6 @@
     display            : flex;
     width              : 366px;
     height             : 64px;
-    background-color   : rgba(142, 191, 214, 0.08);
     font-style         : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
@@ -845,8 +844,7 @@
     display          : -ms-flexbox;
     width            : 325px;
     height           : 64px;
-    background-color : rgba(142, 191, 214, 0.08);
-    background-color : rgba(142, 191, 214, 0.08);
+
     align-items      : center;
     font-style       : normal;
     font-weight      : 500;
@@ -883,7 +881,6 @@
     display            : flex;
     width              : 366px;
     height             : 64px;
-    background-color   : rgba(142, 191, 214, 0.08);
     font-style         : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
@@ -1097,8 +1094,7 @@
     display          : -ms-flexbox;
     width            : 325px;
     height           : 64px;
-    background-color : rgba(142, 191, 214, 0.08);
-    background-color : rgba(142, 191, 214, 0.08);
+
     align-items      : center;
     font-style       : normal;
     font-weight      : 500;
@@ -1135,7 +1131,6 @@
     display            : flex;
     width              : 366px;
     height             : 64px;
-    background-color   : rgba(142, 191, 214, 0.08);
     font-style         : normal;
     -ms-flex-direction : row;
     flex-direction     : row;
