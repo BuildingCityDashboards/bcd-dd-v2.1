@@ -67,15 +67,33 @@ function getStringForAttribute (e, n) {
   return v + u
 }
 
-function getSymbolID (text, time) {
-  let d = new Date(time)
-  console.log(d.getHours())
+async function getSymbolID (text, time) {
+  let symbol = await isDayOrNight(time)
+
  //  if (time.getHours() > 18 || startDate.getHours() < 6) {
  // //     tod = 'n'
  // //   } else {
  // //     tod = 'd'
  // //   }
   return ''
+}
+
+async function isDayOrNight (t) {
+  let d = new Date(t)
+  console.log(d.getHours())
+  console.log(d.getMonth())
+  let data = await d3.csv('/data/Environment/weather/ireland-sunrise-sunset-by-month.csv')
+  console.log(data)
+  let sunriseHour = parseInt(data[d.getMonth()]['sunrise'])
+  let sunsetHour = parseInt(data[d.getMonth()]['sunset'])
+  console.log(sunriseHour)
+  if (d.getHours() < sunriseHour) {
+    console.log('before sr')
+  } else if (d.getHours() >= sunriseHour && d.getHours() <= sunsetHour) {
+    console.log('after sr')
+  } else {
+    console.log('after ss')
+  }
 }
 
 //   // decide if night or day based on hour
