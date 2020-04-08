@@ -23,7 +23,7 @@ fetchWeatherDataLatest()
 //   weatherInterval
 // )
 
-function processWeather (xmlWeather) {
+async function processWeather (xmlWeather) {
   let observations = xmlWeather.getElementsByTagName('observations')
   let observationsTime = observations[0].getAttribute('time')
   console.log('weather for: ' + JSON.stringify(observationsTime))
@@ -43,9 +43,9 @@ function processWeather (xmlWeather) {
       d3.select('#hero-weather__right-bottom')
             .html(getStringForAttribute(s, 'wind_speed'))
 
-      getSymbolID(getStringForAttribute(s, 'weather_text'), observationsTime)
-      // d3.select('#hero-weather__symbol')
-      //       .html('<img src = "/images/Met50v2/' + getSymbolID(weather_text, observationsTime) + '.png">')
+      let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
+      d3.select('#hero-weather__symbol')
+        .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
 
       // console.log()
       // console.log(getStringForAttribute(s, 'humidity'))
@@ -67,47 +67,32 @@ function getStringForAttribute (e, n) {
   return v + u
 }
 
-async function getSymbolID (text, time) {
-  let symbol = await isDayOrNight(time)
-
- //  if (time.getHours() > 18 || startDate.getHours() < 6) {
- // //     tod = 'n'
- // //   } else {
- // //     tod = 'd'
- // //   }
-  return ''
+async function getSymbolName (text, time) {
+  let isDayOrNight = await isDaytime(time)
+  let symbolLookup = await d3.csv('/data/Environment/weather/plain-language-symbol-lookup.csv')
+  console.log(symbolLookup)
+  return '01d'
 }
 
-async function isDayOrNight (t) {
+async function isDaytime (t) {
   let d = new Date(t)
-  console.log(d.getHours())
-  console.log(d.getMonth())
   let data = await d3.csv('/data/Environment/weather/ireland-sunrise-sunset-by-month.csv')
-  console.log(data)
+  // console.log(data)
+  // oging to approximate to the floor hour
   let sunriseHour = parseInt(data[d.getMonth()]['sunrise'])
   let sunsetHour = parseInt(data[d.getMonth()]['sunset'])
-  console.log(sunriseHour)
+  // console.log(sunriseHour)
   if (d.getHours() < sunriseHour) {
-    console.log('before sr')
+    // console.log('before sr')
+    return false
   } else if (d.getHours() >= sunriseHour && d.getHours() <= sunsetHour) {
-    console.log('after sr')
+    // console.log('after sr')
+    return true
   } else {
-    console.log('after ss')
+    // console.log('after ss')
+    return false
   }
 }
-
-//   // decide if night or day based on hour
-  //   // /*TODO: Crude! Improve!*/
-  //   if (startDate.getHours() > 18 || startDate.getHours() < 6) {
-  //     tod = 'n'
-  //   } else {
-  //     tod = 'd'
-  //   }
-  //   precip = locationOdd.getElementsByTagName('precipitation')[0].getAttribute('value')
-  //   // console.log("precip #" + precip);
-  //   //
-  //   // Only use the next 48 hourly readings
-  //   /* TODO: Better algo to decide if readings are to be used/ are valid */
 
 function initialiseWeatherDisplay () {
   d3.select('#hero-weather__left-top')
