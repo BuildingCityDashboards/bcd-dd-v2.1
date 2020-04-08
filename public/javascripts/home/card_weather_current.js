@@ -1,27 +1,33 @@
-// let weatherInterval = 1000 * 30
-// let weatherCountdown = weatherInterval
-const fetchWeatherDataLatest = function () {
+let weatherInterval = 60000 * 10 // n mins
+const fetchWeatherData = function () {
   d3.xml('/api/weather/latest')
-    .then((data) => {
+    .then((xml) => {
       console.log('Fetched Weather card data - latest observations')
-      // console.log(data)
-      processWeather(data)
+      if (xml.getElementsByTagName('observations')[0].childNodes.length >= 1) {
+        processWeather(xml)
+      } else {
+        throw new Error()
+      }
     })
-    .catch(function (err) {
-      console.error('Error fetching Weather card data: ' + JSON.stringify(err))
-      // initialiseWeatherDisplay()
+    .catch(err => {
+      let d = new Date()
+      let m = '' + d.getMinutes()
+      m = m.padStart(2, '0')
+
+      console.error('Error fetching weather data from Met Eireann @ ' + d.getHours() + ':' + m + JSON.stringify(err))
+      initialiseWeatherDisplay()
     })
 }
 
-fetchWeatherDataLatest()
+fetchWeatherData()
 
-// // Timed refresh of map station markers symbology using data snapshot
-// const weatherCardTimer = setIntervalAsync(
-//   () => {
-//     return fetchWeatherData()
-//   },
-//   weatherInterval
-// )
+// Timed refresh of data
+const weatherCardTimer = setIntervalAsync(
+  () => {
+    return fetchWeatherData()
+  },
+  weatherInterval
+)
 
 async function processWeather (xmlWeather) {
   let observations = xmlWeather.getElementsByTagName('observations')
@@ -46,15 +52,8 @@ async function processWeather (xmlWeather) {
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
       d3.select('#hero-weather__symbol')
         .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
-
-      // console.log()
-      // console.log(getStringForAttribute(s, 'humidity'))
-      // console.log(getStringForAttribute(s, 'pressure'))
     }
   }
-
-  //
-  // updateWeatherDisplay(forecasts, forecastTime)
 }
 
 function getStringForAttribute (e, n) {
@@ -85,7 +84,7 @@ async function getSymbolName (text, time) {
 async function isDaytime (t) {
   let d = new Date(t)
   let data = await d3.csv('/data/Environment/weather/ireland-sunrise-sunset-by-month.csv')
-  // console.log(data)
+
   // oging to approximate to the floor hour
   let sunriseHour = parseInt(data[d.getMonth()]['sunrise'])
   let sunsetHour = parseInt(data[d.getMonth()]['sunset'])
@@ -107,7 +106,7 @@ function initialiseWeatherDisplay () {
     .html('-- C')
 
   d3.select('#hero-weather__left-bottom')
-      .html('Prec -- mm')
+      .html('Prec -- mm/h')
 
   d3.select('#hero-weather__right-top')
       .html('~ --')
@@ -119,57 +118,57 @@ function initialiseWeatherDisplay () {
     .html()
 }
 
-function updateWeatherDisplay (f, fTime) {
-  let fTimeDisplay
-  if (fTime.includes('minutes')) {
-    fTimeDisplay = fTime.replace(' minutes', 'm')
-  } else if (fTime.includes('minute')) {
-    fTimeDisplay = fTime.replace(' minute', 'm')
-  } else if (fTime.includes('hours')) {
-    fTimeDisplay = fTime.replace(' hours', 'h')
-  } else if (fTime.includes('hour')) {
-    fTimeDisplay = fTime.replace('an hour', '1h')
-  } else {
-    fTimeDisplay = fTimeDisplay = 'earlier'
-  }
-
-  let weatherTime = d3.timeFormat('%_I%p')
-  // d3.select('#weather-card').select('.card__header')
-  //   .html(
-  //     "<div class = 'row'>" +
-  //     "<div class = 'col-8 pr-0' align='left'>" +
-  //     'Weather Forecast for ' + weatherTime(f[0].date) +
-  //     '</div>' +
-  //     "<div class = 'col-4 pl-0' align='right'>" +
-  //     fTimeDisplay +
-  //     // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-  //     '</div>' +
-  //     '</div>'
-  //   )
-  d3.select('#hero-weather__left-top')
-      .html(parseInt(f[0].temperature) + ' C')
-  // //
-  d3.select('#hero-weather__left-bottom')
-        .html('Prec ' + f[0].precip + ' mm')
-
-  d3.select('#hero-weather__right-top')
-        .html('<img src = "/images/Met50v2/15d.png">' + '  ' + f[0].windDir)
-
-  d3.select('#hero-weather__right-bottom')
-        .html(parseInt(f[0].windSpeed) * 3.6 + ' kph')
-
-  d3.select('#hero-weather__symbol')
-      .html('<img src = "/images/Met50v2/' + f[0].symbolNo + f[0].tod + '.png">')
-
-  // updateInfo('#weather-card a', '<b>Met Eireann Weather Forecast</b> for <b>' +
-  //   weatherTime(f[0].date) +
-  //   '</b>; <b>' + parseInt(f[0].temperature) + '&#176C</b>, <b>' +
-  //   f[0].symbolId.toString().toLowerCase() + '</b> with <b>' +
-  //   f[0].windDir + ' winds</b> of <b>' + parseInt(f[0].windSpeed) * 3.6 + ' kph</b>. ' +
-  //   '<b>Humidity ' +
-  //   parseInt(f[0].humidity) + '%</b> & <b>precipitation ' +
-    // f[0].precip + ' mm</b>')
-}
+// function updateWeatherDisplay (f, fTime) {
+//   let fTimeDisplay
+//   if (fTime.includes('minutes')) {
+//     fTimeDisplay = fTime.replace(' minutes', 'm')
+//   } else if (fTime.includes('minute')) {
+//     fTimeDisplay = fTime.replace(' minute', 'm')
+//   } else if (fTime.includes('hours')) {
+//     fTimeDisplay = fTime.replace(' hours', 'h')
+//   } else if (fTime.includes('hour')) {
+//     fTimeDisplay = fTime.replace('an hour', '1h')
+//   } else {
+//     fTimeDisplay = fTimeDisplay = 'earlier'
+//   }
+//
+// //   let weatherTime = d3.timeFormat('%_I%p')
+//   // d3.select('#weather-card').select('.card__header')
+//   //   .html(
+//   //     "<div class = 'row'>" +
+//   //     "<div class = 'col-8 pr-0' align='left'>" +
+//   //     'Weather Forecast for ' + weatherTime(f[0].date) +
+//   //     '</div>' +
+//   //     "<div class = 'col-4 pl-0' align='right'>" +
+//   //     fTimeDisplay +
+//   //     // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
+//   //     '</div>' +
+//   //     '</div>'
+//   //   )
+//   d3.select('#hero-weather__left-top')
+//       .html(parseInt(f[0].temperature) + ' C')
+//   // //
+//   d3.select('#hero-weather__left-bottom')
+//         .html('Prec ' + f[0].precip + ' mm')
+//
+//   d3.select('#hero-weather__right-top')
+//         .html('<img src = "/images/Met50v2/15d.png">' + '  ' + f[0].windDir)
+//
+//   d3.select('#hero-weather__right-bottom')
+//         .html(parseInt(f[0].windSpeed) * 3.6 + ' kph')
+//
+//   d3.select('#hero-weather__symbol')
+//       .html('<img src = "/images/Met50v2/' + f[0].symbolNo + f[0].tod + '.png">')
+//
+//   // updateInfo('#weather-card a', '<b>Met Eireann Weather Forecast</b> for <b>' +
+//   //   weatherTime(f[0].date) +
+//   //   '</b>; <b>' + parseInt(f[0].temperature) + '&#176C</b>, <b>' +
+//   //   f[0].symbolId.toString().toLowerCase() + '</b> with <b>' +
+//   //   f[0].windDir + ' winds</b> of <b>' + parseInt(f[0].windSpeed) * 3.6 + ' kph</b>. ' +
+//   //   '<b>Humidity ' +
+//   //   parseInt(f[0].humidity) + '%</b> & <b>precipitation ' +
+//     // f[0].precip + ' mm</b>')
+// }
 
 // function updateInfo (selector, infoText) {
 //   let text = d3.select('#data-text p')
