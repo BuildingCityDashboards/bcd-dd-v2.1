@@ -68,10 +68,18 @@ function getStringForAttribute (e, n) {
 }
 
 async function getSymbolName (text, time) {
-  let isDayOrNight = await isDaytime(time)
   let symbolLookup = await d3.csv('/data/Environment/weather/plain-language-symbol-lookup.csv')
-  console.log(symbolLookup)
-  return '01d'
+  let symbolNo = symbolLookup.filter((r) => {
+    return r['PlainLang_hum'] === text
+  })
+  .map(r => {
+    return r['symbol_no'].trim().padStart(2, '0')
+  })
+
+  let isDay = await isDaytime(time)
+
+  if (isDay) return symbolNo + 'd'
+  return symbolNo + 'n'
 }
 
 async function isDaytime (t) {
