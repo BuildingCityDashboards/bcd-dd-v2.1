@@ -1,4 +1,7 @@
 /* xs: 360px x 540px <MOCKUP> */
+html {
+  scroll-behavior: smooth;
+}
 
 #hero {
   position            : relative;
