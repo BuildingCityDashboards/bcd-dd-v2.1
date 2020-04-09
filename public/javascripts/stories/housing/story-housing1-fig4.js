@@ -3,7 +3,7 @@
 const srcPathFig4 = "../data/Stories/Housing/part_1/",
   srcFileFig4 = "propertyprices.csv";
 const typesFig4 = ["National New", "National Second Hand", "Dublin New", "Dublin Second Hand"];
-const titleFig4 = "Property Prices by Type (1975-2016)";
+const titleFig4 = "";
 const divIDFig4 = "property-price-growth-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -30,7 +30,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
       (i > 1) ? trace.opacity = 1.0: trace.opacity = 0.5; //magic number!!!
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i > 1) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
-      trace.marker.opacity = 0.0;
+      trace.marker.opacity = 1;
       trace.x = typeData.map((v) => {
         return v.date;
       });
@@ -49,7 +49,8 @@ d3.csv(srcPathFig4 + srcFileFig4)
     layout.title.text = titleFig4;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layout.xaxis.range = [1975, 2016];
+    layout.xaxis.range = [1974.8, 2016.2];
+    layout.xaxis.title = "Year";
     layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
     layout.yaxis.title = '€';
     layout.yaxis.fixedrange = false;
@@ -57,7 +58,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 20,
-      r: 175, //annotations space
+      r: 180, //annotations space
       b: 40, //x axis tooltip
       t: 100 //button row
     };

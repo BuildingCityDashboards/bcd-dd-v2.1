@@ -3,7 +3,7 @@
 const srcPathFig3 = "../data/Stories/Housing/part_1/",
   srcFileFig3 = "housecomp.csv";
 const typesFig3 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "Rest of Ireland"];
-const titleFig3 = "Number of Housing Completions by Region (1994-2016)";
+const titleFig3 = "";
 const divIDFig3 = "housing-completions-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -31,7 +31,7 @@ d3.csv(srcPathFig3 + srcFileFig3)
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       (i < 4) ? trace.marker.color = null: trace.marker.color = 'grey'; //magic number!!!
       // (i < 4) ? trace.marker.opacity = 1.0: trace.marker.opacity = 0.1; //magic number!!!
-      trace.marker.opacity = 0.0; //magic number!!!
+      trace.marker.opacity = 1; //magic number!!!
 
       trace.x = typeData.map((v) => {
         return v.date;
@@ -53,14 +53,17 @@ d3.csv(srcPathFig3 + srcFileFig3)
     layout.marker.opacity = 0;;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis);
-    layout.xaxis.range = [1994, 2016];
+    //hack to make sure the trace marker symbology isn't cut off by the axis ending at 2016
+    layout.xaxis.range = [1993.85, 2016.15];
+    layout.xaxis.title = "Year";
     layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis);
     layout.yaxis.fixedrange = false;
     layout.yaxis.range = [1, 70000];
+    layout.yaxis.title = "Units";
     layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 0,
-      r: 180, //annotations space
+      l: 10,
+      r: 215, //annotations space
       b: 40, //x axis tooltip
       t: 50 //button row
     };
@@ -86,7 +89,7 @@ d3.csv(srcPathFig3 + srcFileFig3)
       chartAnnotations.push(annotation);
     })
     //add a one-off annotation
-    let hoverAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
+    /*let hoverAnnotation = Object.assign({}, ANNOTATIONS_DEFAULT);
     hoverAnnotation.x = 2010;
     hoverAnnotation.y = 40000;
     hoverAnnotation.opacity = 0.75;
@@ -100,10 +103,11 @@ d3.csv(srcPathFig3 + srcFileFig3)
     dragAnnotation.y = 35000;
     dragAnnotation.text = 'Drag on plot to zoom';
     dragAnnotation.opacity = 0.75;
-    dragAnnotation.text = 'Drag vertically on plot to zoom, on yaxis to scroll';
+    //-dragAnnotation.text = 'Drag vertically on plot to zoom, on yaxis to scroll';
     dragAnnotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
     dragAnnotation.font.color = 'grey';
     chartAnnotations.push(dragAnnotation);
+    */
 
     chartAnnotations[0].ax = 10; //DC
     chartAnnotations[1].ax = 10; //DLR

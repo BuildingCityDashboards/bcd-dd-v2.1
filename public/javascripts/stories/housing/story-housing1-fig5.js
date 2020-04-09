@@ -3,7 +3,7 @@
 const srcPathFig5 = "../data/Stories/Housing/part_1/",
   srcFileFig5 = "mortgage_debt.csv";
 const typesFig5 = ["Value of debt"];
-const titleFig5 = "Residential Mortgage Debt in Billions of Euros (2002-2007)";
+const titleFig5 = "";
 const divIDFig5 = "mortgage-debt-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -33,19 +33,22 @@ d3.csv(srcPathFig5 + srcFileFig5)
     layout.title.text = titleFig5;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layout.xaxis.range = [2002, 2007];
+    layout.xaxis.range = [2001.98, 2007.02];
+    layout.xaxis.title = 'Year';
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
     layout.yaxis.titlefont.size = 16; //bug? need to call this
     // layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
     layout.yaxis.title = '€bn';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
+    layout.margin.r = 195;
+    /*
     layout.margin = {
       l: 60,
-      r: 175, //annotations space
+      r: 185, //annotations space
       t: 40
     };
-
+    */
     // layout.hidesources = false;
 
     let mortgageDebtAnnotations = [];

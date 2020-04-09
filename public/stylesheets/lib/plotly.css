@@ -1,7 +1,7 @@
 .plotly-chart-medium{
   padding-top: 80px;
   margin-top: -80px;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   height: auto; /* calc(500px + var(margin-bottom)); breaks responsive*/
   min-width: 600px;
 }
