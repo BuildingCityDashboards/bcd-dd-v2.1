@@ -1,0 +1,13 @@
+{
+	"MUM01": {
+    "label": "unemployment",
+		"tags": ["unemployment", "monthly"],
+    "format": "json",
+    "description" : "Seasonally Adjusted Monthly Unemployment by Age Group, Sex, Month and Statistic",
+		"frequency": "month",
+		"url_source": "https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/MUM01",
+		"urls_local": [],
+    "api_endpoints": [],
+    "services": []
+	}
+}
