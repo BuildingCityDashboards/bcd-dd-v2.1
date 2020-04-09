@@ -5,7 +5,8 @@ include component/card-chart
 block append head
 
   
-  link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  //- link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
   link(rel="stylesheet", href="/stylesheets/home-about.css")
   link(rel="stylesheet", href="/stylesheets/card.css")
@@ -194,17 +195,19 @@ block content
   //- include component/scroll-to-top
 
 block append scripts
-  script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
-  script(src="lib/d3v5/d3.js")
+  //- script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
+  
+  script(src="lib/flickity.pkgd.min.js" type="text/javascript")
+  script(src="lib/d3v5/d3.js" type="text/javascript")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
-  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
-  script(src='javascripts/dublinco.js')
-  script(src='javascripts/home/home-helper-functions.js')
-  script(src='javascripts/home/about-dublin.js')
-  script(src='javascripts/home/about-regions.js')
+  script(src='lib/set-interval-async.iife.js' type="text/javascript")
+  script(src='javascripts/dublinco.js' type="text/javascript")
+  script(src='javascripts/home/home-helper-functions.js' type="text/javascript")
+  script(src='javascripts/home/about-dublin.js' type="text/javascript")
+  script(src='javascripts/home/about-regions.js' type="text/javascript")
   //- script(src='javascripts/map.js')
-  script(src='javascripts/charts/card_line_chart.js')
-  script(src='javascripts/charts/card_bar_chart.js')
+  script(src='javascripts/charts/card_line_chart.js' type="text/javascript")
+  script(src='javascripts/charts/card_bar_chart.js' type="text/javascript")
   script(src='javascripts/coerce.js' type="text/javascript")
   script(src='javascripts/home/data_glance.js' type="text/javascript")
   script(src='javascripts/home/card_time.js' type="text/javascript")
