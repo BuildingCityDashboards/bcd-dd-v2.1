@@ -39,15 +39,16 @@ async function processWeather (xmlWeather) {
     if (s.getAttribute('name') === 'Dublin') {
       d3.select('#hero-weather__left-top')
           .html(getStringForAttribute(s, 'temp'))
-      // //
-      d3.select('#hero-weather__left-bottom')
-            .html('Prec ' + getStringForAttribute(s, 'rainfall'))
+
+      d3.select('#hero-weather__left-bottom__text')
+            .html(getStringForAttribute(s, 'rainfall'))
 
       d3.select('#hero-weather__right-top')
             .html('<img src = "/images/Met50v2/15d.png">' + '  ' + getStringForAttribute(s, 'wind_direction'))
 
+      let windSpeedKPH = Math.round(parseInt(getStringForAttribute(s, 'wind_speed').split(' ')[0]) * 1.852)
       d3.select('#hero-weather__right-bottom')
-            .html(getStringForAttribute(s, 'wind_speed'))
+            .html(windSpeedKPH + ' kph')
 
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
       d3.select('#hero-weather__symbol')
@@ -64,6 +65,10 @@ function getStringForAttribute (e, n) {
   }
   let v = e.innerHTML.trim()
   return v + u
+}
+
+function convertKnots (kts) {
+  return parseInt(kts) * 1.852
 }
 
 async function getSymbolName (text, time) {
