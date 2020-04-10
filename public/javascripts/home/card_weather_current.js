@@ -2,7 +2,7 @@ let weatherInterval = 60000 * 10 // n mins
 const fetchWeatherData = function () {
   d3.xml('/api/weather/latest')
     .then((xml) => {
-      console.log('Fetched Weather card data - latest observations')
+      // console.log('Fetched Weather card data - latest observations')
       if (xml.getElementsByTagName('observations')[0].childNodes.length >= 1) {
         processWeather(xml)
       } else {
@@ -32,7 +32,7 @@ const weatherCardTimer = setIntervalAsync(
 async function processWeather (xmlWeather) {
   let observations = xmlWeather.getElementsByTagName('observations')
   let observationsTime = observations[0].getAttribute('time')
-  console.log('weather for: ' + JSON.stringify(observationsTime))
+  // console.log('weather for: ' + JSON.stringify(observationsTime))
   // let arr = observations[0].getElementsByTagName('station').namedItem('Dublin')
   let stations = observations[0].getElementsByTagName('station')
   for (s of stations) {
@@ -51,6 +51,7 @@ async function processWeather (xmlWeather) {
             .html(windSpeedKPH + ' kph')
 
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
+
       d3.select('#hero-weather__symbol')
         .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
     }

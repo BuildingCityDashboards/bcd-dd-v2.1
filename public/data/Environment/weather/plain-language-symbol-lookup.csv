@@ -2,99 +2,99 @@ PlainLang_hum,ww,wmo_descrpitors,description,symbol,symbol_no
 FINE,,,Sun/Clear sky,01d,1
 FAIR,,,Partly Cloudy,03d,3
 CLOUDY,,,Cloudy,4,4
-SMOKE HAZE     ,4,"Visibility reduced by smoke, e.g. veldt or forest fires, industrial smoke or volcanic ashes                                      ",Sun/Clear sky,01d,1
-HAZE           ,5,Haze                                                                    ,Fog/mist,15,15
-DUST HAZE      ,6,"Widespread dust in suspension in the air, not raised by wind at or near the station at the time of observation                          ",Sun/Clear sky,01d,1
-DUSTSTORM      ,7,"Dust or sand raised by wind at or near the station at the time of observation, but not well-developed dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen; or, in the case of ships, blowing spray at the station                                     ",Sun/Clear sky,01d,1
-DUST DEVIL     ,8,"Well-developed dust or sand whirl(s) seen at or near the station during the preceding hour or at the time of observation, but no dust storm or sandstorm                                                 ",Sun/Clear sky,01d,1
-DUSTSTORM      ,9,"Duststorm or sandstorm within sight at the time of observation, or at the station during the preceding hour                             ",Sun/Clear sky,01d,1
-MIST           ,10,Mist                                                                    ,Fog/mist,15,15
-FOG PATCHES    ,11,"Patches of shallow fog or ice fog at the station, whether on land or sea not deeper than about 2 metres on land or 10 metres at sea       ",Fog/mist,15,15
-SHALLOW FOG    ,12,"More or less continuous shallow fog or ice fog at the station, whether on land or sea, not deeper than about 2m/land or 10m/sea        ",Fog/mist,15,15
-LIGHTNING      ,13,"Lightning visible, no thunder heard                                     ",Light rain and thunder,30,30
-NEARBY SHOWER  ,14,"Precipitation within sight, not reaching the ground or the surface of the sea                                                  ",Light rain showers,40d,40
-NEARBY SHOWER  ,15,"Precipitation within sight, reaching the ground or the surface of the sea, but distant, i.e. > 5 km from the station                      ",Light rain showers,40d,40
-NEARBY SHOWER  ,16,"Precipitation within sight, reaching the ground or the surface of the sea, near to, but not at the station                                ",Light rain showers,40d,40
-THUNDER        ,17,"Thunderstorm, but no precipitation at the time of observation           ",Rain showers and thunder,06d ,06d
-SQUALL         ,18,Squalls at or within sight of the station during the preceding hour or at the time of observation                                      ,Heavy rain showers,41n,41
-FUNNEL CLOUD   ,19,Funnel clouds at or within sight of the station during the preceding hour or at the time of observation                            ,Heavy rain showers,41n,41
-RECENT DRIZZLE ,20,"Drizzle (not freezing) or snow grains, not falling as showers, during the preceding hour but not at the time of observation            ",Light rain ,46,46
-RECENT RAIN    ,21,"Rain (not freezing), not falling as showers, during the preceding hour but not at the time of observation                                 ",Light rain ,46,46
-RECENT SNOW    ,22,"Snow, not falling as showers, during the preceding hour but not at the time of observation                                              ",Light snow showers,44d ,44
-RECENT SLEET   ,23,"Rain and snow or ice pellets, not falling as showers; during the preceding hour but not at the time of observation                       ",Light snow showers,44d ,44
-RECENT FZ RAIN ,24,Freezing drizzle or freezing rain; during the preceding hour but not at the time of observation                                          ,Light snow showers,44d ,44
-RECENT SHOWER  ,25,Shower(s) of rain during the preceding hour but not at the time of observation                                          ,Light rain showers,40d ,40
-RECENT SNOW    ,26,"Shower(s) of snow, or of rain and snow during the preceding hour but not at the time of observation                                      ",Light snow showers,44d ,44
-RECENT HAIL    ,27,"Shower(s) of hail, or of rain and hail during the preceding hour but not at the time of observation                                      ",Shower_Hail_Night.fbk ,,
-RECENT FOG     ,28,Fog or ice fog during the preceding hour but not at the time of observation                                                          ,Fog/mist,15,15
-RECENT THUNDER ,29,Thunderstorm (with or without precipitation) during the preceding hour but not at the time of observation                                 ,Light rain showers and thunder,24d,24
-DUSTSTORM      ,30,Slight or moderate duststorm or sandstorm - has decreased during the preceding hour                                                      ,Sun/Clear sky,01d,1
-DUSTSTORM      ,31,Slight or moderate duststorm or sandstorm - no appreciable change during the preceding hour                                               ,Sun/Clear sky,01d,1
-DUSTSTORM      ,32,Slight or moderate duststorm or sandstorm - has begun or has increased during the preceding hour                                     ,Sun/Clear sky,01d,1
-DUSTSTORM      ,33,Severe duststorm or sandstorm - has decreased during the preceding hour                                                          ,Sun/Clear sky,01d,1
-DUSTSTORM      ,34,Severe duststorm or sandstorm - no appreciable change during the preceding hour                                                          ,Sun/Clear sky,01d,1
-DUSTSTORM      ,35,Severe duststorm or sandstorm - has begun or has increased during the preceding hour                                                      ,Sun/Clear sky,01d,1
-DRIFTING SNOW  ,36,Slight/moderate drifting snow - generally low (below eye level)         ,Light snow showers,44d ,44
-DRIFTING SNOW  ,37,Heavy drifting snow - generally low (below eye level)                   ,Light snow showers,44d ,44
-BLOWING SNOW   ,38,Slight/moderate blowing snow - generally high (above eye level)         ,Light snow showers,44d ,44
-BLOWING SNOW   ,39,Heavy blowing snow - generally high (above eye level)                   ,Light snow showers,44d ,44
-FOG NEARBY     ,40,"Fog or ice fog at a a distance at the time of observation, but not at station during the preceding hour, the fog or ice fog extending to a level above that of  the observer                        ",Fog/mist,15,15
-FOG PATCHES    ,41,Fog or ice fog in patches                                               ,Fog/mist,15,15
-FOG THINNING   ,42,"Fog/ice fog, sky visible, has become thinner during the preceding hour                                                                    ",Fog/mist,15,15
-FOG THINNING   ,43,"Fog/ice fog, sky invisible, has become thinner during the preceding hour                                                          ",Fog/mist,15,15
-FOG            ,44,"Fog or ice fog, sky visible, no appreciable change during the past hour                                                               ",Fog/mist,15,15
-FOG            ,45,"Fog or ice fog, sky invisible, no appreciable change during the preceding hour                                                          ",Fog/mist,15,15
-FOG THICKENING ,46,"Fog or ice fog, sky visible, has begun or has become thicker during preceding hour                                                   ",Fog/mist,15,15
-FOG THICKENING ,47,"Fog or ice fog, sky invisible, has begun or has become thicker during the preceding hour                                               ",Fog/mist,15,15
-FREEZING FOG   ,48,"Fog, depositing rime, sky visible                                       ",Fog/mist,15,15
-FREEZING FOG   ,49,"Fog, depositing rime, sky invisible                                     ",Fog/mist,15,15
-LIGHT DRIZZLE  ,50,"Drizzle, not freezing, intermittent, slight at time of ob.              ",Light rain ,46,46
-LIGHT DRIZZLE  ,51,"Drizzle, not freezing, continuous, slight at time of ob.                ",Light rain ,46,46
-MOD. DRIZZLE   ,52,"Drizzle, not freezing, intermittent, moderate at time of ob.            ",Light rain ,46,46
-MOD. DRIZZLE   ,53,"Drizzle, not freezing, continuous, moderate at time of ob.              ",Light rain ,46,46
-HEAVY DRIZZLE  ,54,"Drizzle, not freezing, intermittent, heavy at time of ob.               ",Light rain ,46,46
-HEAVY DRIZZLE  ,55,"Drizzle, not freezing, continuous, heavy at time of ob.                 ",Light rain ,46,46
-FREEZING DRIZZL,56,"Drizzle, freezing, slight                                               ",Light rain ,46,46
-FREEZING DRIZZL,57,"Drizzle, freezing, moderate or heavy (dense)                            ",Light rain ,46,46
-RAIN/DRIZZLE   ,58,"Rain and drizzle, slight                                                ",Light rain ,46,46
-RAIN/DRIZZLE   ,59,"Rain and drizzle, moderate or heavy                                     ",Light rain ,46,46
-LIGHT RAIN     ,60,"Rain, not freezing, intermittent, slight at time of ob.                 ",Light rain ,46,46
-LIGHT RAIN     ,61,"Rain, not freezing, continuous, slight at time of ob.                   ",Light rain ,46,46
-MODERATE RAIN  ,62,"Rain, not freezing, intermittent, moderate at time of ob.               ",Light rain ,46,46
-MODERATE RAIN  ,63,"Rain, not freezing, continuous, moderate at time of ob.                 ",Light rain ,46,46
-HEAVY RAIN     ,64,"Rain, not freezing, intermittent, heavy at time of ob.                  ",Heavy rain  ,10,10
-HEAVY RAIN     ,65,"Rain, not freezing, continuous, heavy at time of ob.                    ",Heavy rain  ,10,10
-FREEZING RAIN  ,66,"Rain, freezing, slight                                                  ",Heavy sleet showers,43d ,43
-FREEZING RAIN  ,67,"Rain, freezing, moderate or heavy                                       ",Heavy sleet showers,43d ,43
-LIGHT SLEET    ,68,"Rain or drizzle and snow, slight                                        ",Light sleet showers,42d ,42
-MOD/HEAVY SLEET,69,"Rain or drizzle and snow, moderate or heavy                             ",Sleet,12,12
-LIGHT SNOW     ,70,"Intermittent fall of snowflakes, slight at time of ob.                  ",Light snow,49,49
-LIGHT SNOW     ,71,"Continuous fall of snowflakes, slight at time of ob.                    ",Light snow,49,49
-MODERATE SNOW  ,72,"Intermittent fall of snowflakes, moderate at time of ob.                ",Snow,13,13
-MODERATE SNOW  ,73,"Continuous fall of snowflakes, moderate at time of ob.                  ",Snow,13,13
-HEAVY SNOW     ,74,"Intermittent fall of snowflakes, heavy at time of ob.                   ",Heavy snow  ,50,50
-HEAVY SNOW     ,75,"Continuous fall of snowflakes, heavy at time of ob.                     ",Heavy snow  ,50,50
-DIAMOND DUST   ,76,Diamond dust (with or without fog)                                      ,Light snow,49,49
-SNOW GRAINS    ,77,Snow grains (with or without fog)                                       ,Light snow,49,49
-SNOW CRYSTALS  ,78,Isolated star-like snow crystals (with or without fog)                  ,Light snow,49,49
-ICE PELLETS    ,79,Ice pellets                                                             ,Hail_Medium.fbk ,,
-RAIN SHOWER    ,80,"Rain shower(s), slight                                                  ",Rain showers,05d,5
-MOD RAIN SHOWER,81,"Rain shower(s), moderate or heavy                                       ", Light rain showers,40d,40
-VIOLENT SHOWER ,82,"Rain shower(s), violent                                                 ",Heavy rain showers,41d,41
-SLEET SHOWER   ,83,"Shower(s) of rain and snow, slight                                      ",Sleet showers,07d ,7
-MOD/HEAVY SLEET,84,"Shower(s) of rain and snow, moderate or heavy                           ",Sleet,12,12
-SNOW SHOWER    ,85,"Snow shower(s), slight                                                  ",Snow showers,08d ,8
-MOD/HEAVY SNOW ,86,"Snow shower(s), moderate or heavy                                       ",Heavy snow,50,50
-HAIL SHOWER    ,87,"Shower(s) of snow pellets or small hail, with or without rain or rain and snow mixed - slight                                            ",Shower_Hail_Night.fbk ,,
-HEAVY HAIL     ,88,"Shower(s) of snow pellets or small hail, with or without rain or rain and snow mixed - moderate or heavy                                 ",Shower_Hail_Night.fbk ,,
-HAIL SHOWER    ,89,"Shower(s) of hail, with or without rain or rain and snow mixed, not associated with thunder - slight                                    ",Shower_Hail_Night.fbk ,,
-HEAVY HAIL     ,90,"Shower(s) of hail, with or without rain or rain and snow mixed, not associated with thunder - moderate or heavy                         ",Shower_Hail_Night.fbk ,,
-RAIN/THUNDER   ,91,Slight rain at time of observation - Thunderstorm during the preceding hour but not at time of observation                           ,Rain and thunder,22,22
-RAIN/THUNDER   ,92,Moderate or heavy rain at time of observation - Thunderstorm during the preceding hour but not at time of observation                ,Heavy rain and thunder,11,11
-SLEET/THUNDER  ,93,"Slight snow, or rain and snow mixed or hail at time of observation - thunderstorm during the preceding hour but not at time of observation                                                     ",Sleet showers and thunder,20d ,20
-SLEET/THUNDER  ,94,"Moderate or heavy snow, or rain and snow mixed or hail at time of observation - Thunderstorm during the preceding hour but not at time of observation                                                  ",Sleet showers and thunder,20d ,20
-THUNDERSTORM   ,95,"Thunderstorm, slight or moderate, without hail, but with rain and/or snow at time of observation                                      ",Light rain showers and thunder,24d ,24
-THUNDERSTORM   ,96,"Thunderstorm, slight or moderate, with hail at time of ob.              ",Light rain showers and thunder,24d ,24
-HEAVY THUNDERST,97,"Thunderstorm, heavy, without hail, but with rain and/or snow at time of observation                                                     ",Heavy showers and thunder,29d ,29
-THUNDERSTORM   ,98,Thunderstorm combined with dust/sandstorm at time of observation        ,Light rain showers and thunder,24d ,24
-HEAVY THUNDERST,99,"Thunderstorm, heavy with hail at time of observation       ",Heavy showers and thunder,29d ,29
+SMOKE HAZE,4,"Visibility reduced by smoke, e.g. veldt or forest fires, industrial smoke or volcanic ashes",Sun/Clear sky,01d,1
+HAZE,5,Haze,Fog/mist,15,15
+DUST HAZE,6,"Widespread dust in suspension in the air, not raised by wind at or near the station at the time of observation ",Sun/Clear sky,01d,1
+DUSTSTORM,7,"Dust or sand raised by wind at or near the station at the time of observation, but not well-developed dust whirl(s) or sand whirl(s), and no duststorm or sandstorm seen; or, in the case of ships, blowing spray at the station",Sun/Clear sky,01d,1
+DUST DEVIL,8,"Well-developed dust or sand whirl(s) seen at or near the station during the preceding hour or at the time of observation, but no dust storm or sandstorm ",Sun/Clear sky,01d,1
+DUSTSTORM,9,"Duststorm or sandstorm within sight at the time of observation, or at the station during the preceding hour ",Sun/Clear sky,01d,1
+MIST,10,Mist,Fog/mist,15,15
+FOG PATCHES,11,"Patches of shallow fog or ice fog at the station, whether on land or sea not deeper than about 2 metres on land or 10 metres at sea",Fog/mist,15,15
+SHALLOW FOG,12,"More or less continuous shallow fog or ice fog at the station, whether on land or sea, not deeper than about 2m/land or 10m/sea",Fog/mist,15,15
+LIGHTNING,13,"Lightning visible, no thunder heard",Light rain and thunder,30,30
+NEARBY SHOWER,14,"Precipitation within sight, not reaching the ground or the surface of the sea",Light rain showers,40d,40
+NEARBY SHOWER,15,"Precipitation within sight, reaching the ground or the surface of the sea, but distant, i.e. > 5 km from the station",Light rain showers,40d,40
+NEARBY SHOWER,16,"Precipitation within sight, reaching the ground or the surface of the sea, near to, but not at the station",Light rain showers,40d,40
+THUNDER,17,"Thunderstorm, but no precipitation at the time of observation ",Rain showers and thunder,06d,06d
+SQUALL,18,Squalls at or within sight of the station during the preceding hour or at the time of observation,Heavy rain showers,41n,41
+FUNNEL CLOUD,19,Funnel clouds at or within sight of the station during the preceding hour or at the time of observation,Heavy rain showers,41n,41
+RECENT DRIZZLE,20,"Drizzle (not freezing) or snow grains, not falling as showers, during the preceding hour but not at the time of observation",Light rain,46,46
+RECENT RAIN,21,"Rain (not freezing), not falling as showers, during the preceding hour but not at the time of observation",Light rain,46,46
+RECENT SNOW,22,"Snow, not falling as showers, during the preceding hour but not at the time of observation ",Light snow showers,44d,44
+RECENT SLEET,23,"Rain and snow or ice pellets, not falling as showers; during the preceding hour but not at the time of observation",Light snow showers,44d,44
+RECENT FZ RAIN,24,Freezing drizzle or freezing rain; during the preceding hour but not at the time of observation,Light snow showers,44d,44
+RECENT SHOWER,25,Shower(s) of rain during the preceding hour but not at the time of observation,Light rain showers,40d,40
+RECENT SNOW,26,"Shower(s) of snow, or of rain and snow during the preceding hour but not at the time of observation",Light snow showers,44d,44
+RECENT HAIL,27,"Shower(s) of hail, or of rain and hail during the preceding hour but not at the time of observation",Shower_Hail_Night.fbk,,
+RECENT FOG,28,Fog or ice fog during the preceding hour but not at the time of observation,Fog/mist,15,15
+RECENT THUNDER,29,Thunderstorm (with or without precipitation) during the preceding hour but not at the time of observation,Light rain showers and thunder,24d,24
+DUSTSTORM,30,Slight or moderate duststorm or sandstorm - has decreased during the preceding hour,Sun/Clear sky,01d,1
+DUSTSTORM,31,Slight or moderate duststorm or sandstorm - no appreciable change during the preceding hour,Sun/Clear sky,01d,1
+DUSTSTORM,32,Slight or moderate duststorm or sandstorm - has begun or has increased during the preceding hour,Sun/Clear sky,01d,1
+DUSTSTORM,33,Severe duststorm or sandstorm - has decreased during the preceding hour,Sun/Clear sky,01d,1
+DUSTSTORM,34,Severe duststorm or sandstorm - no appreciable change during the preceding hour,Sun/Clear sky,01d,1
+DUSTSTORM,35,Severe duststorm or sandstorm - has begun or has increased during the preceding hour,Sun/Clear sky,01d,1
+DRIFTING SNOW,36,Slight/moderate drifting snow - generally low (below eye level),Light snow showers,44d,44
+DRIFTING SNOW,37,Heavy drifting snow - generally low (below eye level),Light snow showers,44d,44
+BLOWING SNOW,38,Slight/moderate blowing snow - generally high (above eye level),Light snow showers,44d,44
+BLOWING SNOW,39,Heavy blowing snow - generally high (above eye level),Light snow showers,44d,44
+FOG NEARBY,40,"Fog or ice fog at a a distance at the time of observation, but not at station during the preceding hour, the fog or ice fog extending to a level above that ofthe observer ",Fog/mist,15,15
+FOG PATCHES,41,Fog or ice fog in patches,Fog/mist,15,15
+FOG THINNING,42,"Fog/ice fog, sky visible, has become thinner during the preceding hour",Fog/mist,15,15
+FOG THINNING,43,"Fog/ice fog, sky invisible, has become thinner during the preceding hour",Fog/mist,15,15
+FOG,44,"Fog or ice fog, sky visible, no appreciable change during the past hour",Fog/mist,15,15
+FOG,45,"Fog or ice fog, sky invisible, no appreciable change during the preceding hour",Fog/mist,15,15
+FOG THICKENING,46,"Fog or ice fog, sky visible, has begun or has become thicker during preceding hour ",Fog/mist,15,15
+FOG THICKENING,47,"Fog or ice fog, sky invisible, has begun or has become thicker during the preceding hour",Fog/mist,15,15
+FREEZING FOG,48,"Fog, depositing rime, sky visible ",Fog/mist,15,15
+FREEZING FOG,49,"Fog, depositing rime, sky invisible",Fog/mist,15,15
+LIGHT DRIZZLE,50,"Drizzle, not freezing, intermittent, slight at time of ob. ",Light rain,46,46
+LIGHT DRIZZLE,51,"Drizzle, not freezing, continuous, slight at time of ob. ",Light rain,46,46
+MOD. DRIZZLE,52,"Drizzle, not freezing, intermittent, moderate at time of ob.",Light rain,46,46
+MOD. DRIZZLE,53,"Drizzle, not freezing, continuous, moderate at time of ob. ",Light rain,46,46
+HEAVY DRIZZLE,54,"Drizzle, not freezing, intermittent, heavy at time of ob.",Light rain,46,46
+HEAVY DRIZZLE,55,"Drizzle, not freezing, continuous, heavy at time of ob.",Light rain,46,46
+FREEZING DRIZZL,56,"Drizzle, freezing, slight",Light rain,46,46
+FREEZING DRIZZL,57,"Drizzle, freezing, moderate or heavy (dense)",Light rain,46,46
+RAIN/DRIZZLE,58,"Rain and drizzle, slight",Light rain,46,46
+RAIN/DRIZZLE,59,"Rain and drizzle, moderate or heavy",Light rain,46,46
+LIGHT RAIN,60,"Rain, not freezing, intermittent, slight at time of ob.",Light rain,46,46
+LIGHT RAIN,61,"Rain, not freezing, continuous, slight at time of ob. ",Light rain,46,46
+MODERATE RAIN,62,"Rain, not freezing, intermittent, moderate at time of ob.",Light rain,46,46
+MODERATE RAIN,63,"Rain, not freezing, continuous, moderate at time of ob.",Light rain,46,46
+HEAVY RAIN,64,"Rain, not freezing, intermittent, heavy at time of ob.",Heavy rain,10,10
+HEAVY RAIN,65,"Rain, not freezing, continuous, heavy at time of ob.",Heavy rain,10,10
+FREEZING RAIN,66,"Rain, freezing, slight",Heavy sleet showers,43d,43
+FREEZING RAIN,67,"Rain, freezing, moderate or heavy ",Heavy sleet showers,43d,43
+LIGHT SLEET,68,"Rain or drizzle and snow, slight",Light sleet showers,42d,42
+MOD/HEAVY SLEET,69,"Rain or drizzle and snow, moderate or heavy ",Sleet,12,12
+LIGHT SNOW,70,"Intermittent fall of snowflakes, slight at time of ob.",Light snow,49,49
+LIGHT SNOW,71,"Continuous fall of snowflakes, slight at time of ob.",Light snow,49,49
+MODERATE SNOW,72,"Intermittent fall of snowflakes, moderate at time of ob. ",Snow,13,13
+MODERATE SNOW,73,"Continuous fall of snowflakes, moderate at time of ob.",Snow,13,13
+HEAVY SNOW,74,"Intermittent fall of snowflakes, heavy at time of ob. ",Heavy snow,50,50
+HEAVY SNOW,75,"Continuous fall of snowflakes, heavy at time of ob. ",Heavy snow,50,50
+DIAMOND DUST,76,Diamond dust (with or without fog),Light snow,49,49
+SNOW GRAINS,77,Snow grains (with or without fog),Light snow,49,49
+SNOW CRYSTALS,78,Isolated star-like snow crystals (with or without fog),Light snow,49,49
+ICE PELLETS,79,Ice pellets,Hail_Medium.fbk,,
+RAIN SHOWER,80,"Rain shower(s), slight",Rain showers,05d,5
+MOD RAIN SHOWER,81,"Rain shower(s), moderate or heavy ", Light rain showers,40d,40
+VIOLENT SHOWER,82,"Rain shower(s), violent ",Heavy rain showers,41d,41
+SLEET SHOWER,83,"Shower(s) of rain and snow, slight",Sleet showers,07d,7
+MOD/HEAVY SLEET,84,"Shower(s) of rain and snow, moderate or heavy",Sleet,12,12
+SNOW SHOWER,85,"Snow shower(s), slight",Snow showers,08d,8
+MOD/HEAVY SNOW,86,"Snow shower(s), moderate or heavy ",Heavy snow,50,50
+HAIL SHOWER,87,"Shower(s) of snow pellets or small hail, with or without rain or rain and snow mixed - slight ",Shower_Hail_Night.fbk,,
+HEAVY HAIL,88,"Shower(s) of snow pellets or small hail, with or without rain or rain and snow mixed - moderate or heavy",Shower_Hail_Night.fbk,,
+HAIL SHOWER,89,"Shower(s) of hail, with or without rain or rain and snow mixed, not associated with thunder - slight ",Shower_Hail_Night.fbk,,
+HEAVY HAIL,90,"Shower(s) of hail, with or without rain or rain and snow mixed, not associated with thunder - moderate or heavy",Shower_Hail_Night.fbk,,
+RAIN/THUNDER,91,Slight rain at time of observation - Thunderstorm during the preceding hour but not at time of observation,Rain and thunder,22,22
+RAIN/THUNDER,92,Moderate or heavy rain at time of observation - Thunderstorm during the preceding hour but not at time of observation,Heavy rain and thunder,11,11
+SLEET/THUNDER,93,"Slight snow, or rain and snow mixed or hail at time of observation - thunderstorm during the preceding hour but not at time of observation",Sleet showers and thunder,20d,20
+SLEET/THUNDER,94,"Moderate or heavy snow, or rain and snow mixed or hail at time of observation - Thunderstorm during the preceding hour but not at time of observation",Sleet showers and thunder,20d,20
+THUNDERSTORM,95,"Thunderstorm, slight or moderate, without hail, but with rain and/or snow at time of observation",Light rain showers and thunder,24d,24
+THUNDERSTORM,96,"Thunderstorm, slight or moderate, with hail at time of ob. ",Light rain showers and thunder,24d,24
+HEAVY THUNDERST,97,"Thunderstorm, heavy, without hail, but with rain and/or snow at time of observation",Heavy showers and thunder,29d,29
+THUNDERSTORM,98,Thunderstorm combined with dust/sandstorm at time of observation,Light rain showers and thunder,24d,24
+HEAVY THUNDERST,99,"Thunderstorm, heavy with hail at time of observation",Heavy showers and thunder,29d,29
