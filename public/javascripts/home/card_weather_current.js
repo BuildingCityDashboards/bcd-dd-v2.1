@@ -32,7 +32,7 @@ const weatherCardTimer = setIntervalAsync(
 async function processWeather (xmlWeather) {
   let observations = xmlWeather.getElementsByTagName('observations')
   let observationsTime = observations[0].getAttribute('time')
-  // console.log('weather for: ' + JSON.stringify(observationsTime))
+  console.log('weather for: ' + JSON.stringify(observationsTime))
   // let arr = observations[0].getElementsByTagName('station').namedItem('Dublin')
   let stations = observations[0].getElementsByTagName('station')
   for (s of stations) {
@@ -51,7 +51,7 @@ async function processWeather (xmlWeather) {
             .html(windSpeedKPH + ' kph')
 
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
-
+      console.log(symbolName)
       d3.select('#hero-weather__symbol')
         .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
     }
@@ -78,13 +78,14 @@ async function getSymbolName (text, time) {
     return r['PlainLang_hum'] === text
   })
   .map(r => {
+    // console.log(r['symbol_no'] + r['wmo_descrpitors'])
     return r['symbol_no'].trim().padStart(2, '0')
   })
 
   let isDay = await isDaytime(time)
-
-  if (isDay) return symbolNo + 'd'
-  return symbolNo + 'n'
+// there can be multiple entries for a plain language, just choose the first
+  if (isDay) return symbolNo[0] + 'd'
+  return symbolNo[0] + 'n'
 }
 
 async function isDaytime (t) {
