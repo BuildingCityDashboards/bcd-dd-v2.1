@@ -179,10 +179,14 @@ html {}
   letter-spacing : 0.15px;
 }
 
-#hero-weather__right-top img {
-  width  : 16px;
-  height : 16px;
-  fill   : #6fd1f6;
+#hero-weather__right-top__icon{
+padding-right: 4px;
+}
+
+#hero-weather__right-top__icon svg{
+  width  : auto;
+  height : 24px;
+  fill   : rgba(255, 255, 255, 0.6);
 }
 
 #hero-weather__right-bottom {
@@ -463,10 +467,6 @@ html {}
     letter-spacing : 0.15px;
   }
 
-  #hero-weather__right-top img {
-    width  : 24px;
-    height : 24px;
-  }
 
   #hero-weather__right-bottom {
     display        : -ms-flexbox;
