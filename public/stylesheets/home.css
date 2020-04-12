@@ -1,6 +1,8 @@
 /* xs: 360px x 540px <MOCKUP> */
 
-html {}
+html {
+  scroll-behavior: smooth;
+}
 
 #hero {
   position            : relative;
@@ -181,9 +183,11 @@ html {}
 
 #hero-weather__right-top__icon{
 padding-right: 4px;
+
 }
 
 #hero-weather__right-top__icon svg{
+
   width  : auto;
   height : 24px;
   fill   : rgba(255, 255, 255, 0.6);
