@@ -40,8 +40,8 @@ async function processWeather (xmlWeather) {
       d3.select('#hero-weather__left-top')
           .html(getStringForAttribute(s, 'temp'))
 
-      // d3.select('#hero-weather__left-bottom__text')
-      //       .html(getStringForAttribute(s, 'rainfall'))
+      d3.select('#hero-weather__left-bottom__text')
+            .html(getStringForAttribute(s, 'rainfall'))
 
       d3.select('#hero-weather__right-top__text')
             .html(getStringForAttribute(s, 'wind_direction'))
@@ -53,7 +53,7 @@ async function processWeather (xmlWeather) {
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
       console.log(symbolName)
       d3.select('#hero-weather__symbol')
-        .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
+        .html('<img src = "/images/Met50v2/' + symbolName + '.png" alt = "weather symbol">')
     }
   }
 }
@@ -65,6 +65,7 @@ function getStringForAttribute (e, n) {
     u = ' ' + e.getAttribute('unit')
   }
   let v = e.innerHTML.trim()
+  console.log('attribute\t' + v + u)
   return v + u
 }
 
