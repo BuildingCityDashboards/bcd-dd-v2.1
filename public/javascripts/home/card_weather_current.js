@@ -56,6 +56,9 @@ async function processWeather (xmlWeather) {
       // console.log(symbolName)
       d3.select('#hero-weather__symbol')
         .html('<img src = "/images/Met50v2/' + symbolName + '.png" alt = "weather symbol">')
+
+      d3.select('#hero-weather__tooltip')
+        .html(getStringForAttribute(s, 'weather_text').toLowerCase())
     }
   }
 }
