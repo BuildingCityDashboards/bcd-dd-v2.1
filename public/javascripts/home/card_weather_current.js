@@ -32,16 +32,17 @@ const weatherCardTimer = setIntervalAsync(
 async function processWeather (xmlWeather) {
   let observations = xmlWeather.getElementsByTagName('observations')
   let observationsTime = observations[0].getAttribute('time')
-  console.log('weather for: ' + JSON.stringify(observationsTime))
+  // console.log('weather for: ' + JSON.stringify(observationsTime))
   // let arr = observations[0].getElementsByTagName('station').namedItem('Dublin')
   let stations = observations[0].getElementsByTagName('station')
   for (s of stations) {
     if (s.getAttribute('name') === 'Dublin') {
       d3.select('#hero-weather__left-top')
           .html(getStringForAttribute(s, 'temp'))
+      let rainfall = getStringForAttribute(s, 'rainfall')
 
-      // d3.select('#hero-weather__left-bottom__text')
-      //       .html(getStringForAttribute(s, 'rainfall'))
+      d3.select('#hero-weather__left-bottom__text')
+            .html(rainfall === '0.0 mm/h' ? 'No rain' : rainfall)
 
       d3.select('#hero-weather__right-top__text')
             .html(getStringForAttribute(s, 'wind_direction'))
@@ -51,9 +52,9 @@ async function processWeather (xmlWeather) {
             .html(windSpeedKPH + ' kph')
 
       let symbolName = await getSymbolName(getStringForAttribute(s, 'weather_text'), observationsTime)
-      console.log(symbolName)
+      // console.log(symbolName)
       d3.select('#hero-weather__symbol')
-        .html('<img src = "/images/Met50v2/' + symbolName + '.png">')
+        .html('<img src = "/images/Met50v2/' + symbolName + '.png" alt = "weather symbol">')
     }
   }
 }
@@ -65,6 +66,7 @@ function getStringForAttribute (e, n) {
     u = ' ' + e.getAttribute('unit')
   }
   let v = e.innerHTML.trim()
+  // console.log('attribute\t' + v + u)
   return v + u
 }
 
