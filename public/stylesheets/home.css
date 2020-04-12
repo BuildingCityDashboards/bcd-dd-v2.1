@@ -183,6 +183,7 @@ html {
 #hero-weather__right-top img {
   width  : 16px;
   height : 16px;
+  fill : #6fd1f6;
 }
 
 #hero-weather__right-bottom {
@@ -429,7 +430,7 @@ html {
     display        : -ms-flexbox;
     display        : flex;
     color          : rgba(255, 255, 255, 0.6);
-    font-size      : 18px;
+    font-size      : 16px;
     font-weight    : 500;
     line-height    : 1.33;
     letter-spacing : 0.15px;
@@ -900,19 +901,20 @@ html {
   padding-right: 4px;
   }
 
-  #hero-weather__left-bottom__text{
-
-
-  }
-
-  #hero-weather__left-bottom svg {
-    width  : 14px;
+  #hero-weather__left-bottom__icon svg {
+    width  : 50px;
     height : 22px;
     stroke: rgba(255, 255, 255, 0.6);
     stroke-width: 48;
     /* padding-right: 16px; */
 
   }
+
+  #hero-weather__left-bottom__text{
+
+  }
+
+
 
   #hero-weather__symbol {
     width  : 48px;
