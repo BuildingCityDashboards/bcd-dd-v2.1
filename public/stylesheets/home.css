@@ -1,7 +1,6 @@
 /* xs: 360px x 540px <MOCKUP> */
-html {
-  scroll-behavior: smooth;
-}
+
+html {}
 
 #hero {
   position            : relative;
@@ -183,7 +182,7 @@ html {
 #hero-weather__right-top img {
   width  : 16px;
   height : 16px;
-  fill : #6fd1f6;
+  fill   : #6fd1f6;
 }
 
 #hero-weather__right-bottom {
@@ -435,6 +434,21 @@ html {
     line-height    : 1.33;
     letter-spacing : 0.15px;
   }
+
+  #hero-weather__left-bottom__icon {
+    padding-right : 4px;
+    /* height: 16px */
+  }
+
+  #hero-weather__left-bottom__icon svg {
+    width        : 13px;
+    height       : 22px;
+    stroke       : rgba(255, 255, 255, 0.6);
+    stroke-width : 48;
+    /* padding-right: 16px; */
+  }
+
+  #hero-weather__left-bottom__text {}
 
   #hero-weather__symbol {
     width  : 48px;
@@ -698,7 +712,10 @@ html {
 
   #hero-weather__left-top {}
 
-  #hero-weather__left-bottom {}
+  #hero-weather__left-bottom__icon {
+    padding-right : 8px;
+    /* height: 16px */
+  }
 
   #hero-weather__symbol {
     width  : 48px;
@@ -892,29 +909,20 @@ html {
   #hero-weather__left-top {}
 
   #hero-weather__left-bottom {
-    justify-content: space-evenly;
-    align-items: center;
-    font-size: 16px;
+    align-items     : center;
+    font-size       : 16px;
+    justify-content : space-evenly;
   }
 
-  #hero-weather__left-bottom__icon{
-  padding-right: 4px;
+  #hero-weather__left-bottom__icon {
+    padding-right : 4px;
   }
 
   #hero-weather__left-bottom__icon svg {
-    width  : 50px;
-    height : 22px;
-    stroke: rgba(255, 255, 255, 0.6);
-    stroke-width: 48;
-    /* padding-right: 16px; */
 
   }
 
-  #hero-weather__left-bottom__text{
-
-  }
-
-
+  #hero-weather__left-bottom__text {}
 
   #hero-weather__symbol {
     width  : 48px;
