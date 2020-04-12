@@ -42,7 +42,8 @@ async function processWeather (xmlWeather) {
       let rainfall = getStringForAttribute(s, 'rainfall')
 
       d3.select('#hero-weather__left-bottom__text')
-            .html(rainfall === '0.0 mm/h' ? 'No rain' : rainfall)
+            .html(rainfall === '0.0 mm/h' ? 'No rain'
+            : rainfall === 'Trace mm/h' ? 'Trace of rain' : rainfall)
 
       d3.select('#hero-weather__right-top__text')
             .html(getStringForAttribute(s, 'wind_direction'))
