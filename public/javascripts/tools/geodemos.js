@@ -43,17 +43,18 @@ mapGeodemos.addLayer(osm)
 //     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
 loadData()
 function loadData (file) {
-  d3.csv('/data/tools/geodemographics/dublin_clusters_OBJECTID-CLUSTER.csv')
+  d3.csv('/data/tools/geodemographics/dublin_clusters_sa_cluster.csv')
     .then((data) => {
       let idClusterMap = {}
       data.forEach(function (d) {
-        idClusterMap[d['OBJECTID']] = d['Cluster']
+        idClusterMap[d['SMALL_AREA']] = d['Cluster']
       })
       loadSmallAreas(idClusterMap)
     })
 }
 
-function loadSmallAreas () {
+async function loadSmallAreas (saMap) {
+  let features = []
 // Incrementally load boundaries for each LA to maps
 // signify when finished all
   let dataBase = '/data/tools/census2016/'
@@ -65,45 +66,49 @@ function loadSmallAreas () {
   let pDCC1 = d3.json(dataBase + dcc1)
   let pDCC2 = d3.json(dataBase + dcc2)
 // DCC
-  Promise.all([pDCC0, pDCC1, pDCC2])
-  .then(function (dArr) {
-    updateMap(join(dArr))
-  })
-// Fingal
-  let fcc0 = 'FCC_SA_0.geojson'
-  let pFCC0 = d3.json(dataBase + fcc0)
-  Promise.all([pFCC0])
-  .then(function (dArr) {
-    updateMap(join(dArr))
-  })
-// DL/R
-  let dlr0 = 'DLR_SA_0.geojson'
-  let pDLR0 = d3.json(dataBase + dlr0)
-  Promise.all([pDLR0])
-  .then(function (dArr) {
-    updateMap(join(dArr))
-  })
-// SDCC
-  let sdcc0 = 'SDCC_SA_0.geojson'
-  let pSDCC0 = d3.json(dataBase + sdcc0)
-  Promise.all([pSDCC0])
-  .then(function (dArr) {
-    updateMap(join(dArr))
-  })
-}
-
-function join (dArr_) {
-  //    console.log('Boundaries length = ' + dArr_.length);
-  let features = []
-  // for 3 feature array element
-  dArr_.forEach(function (d, i) {
-    // for each element in features array
-    d.features.forEach(function (f, j) {
-      features.push(f)
+  let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2])
+  // console.log(dccSAs)
+  dccSAs.forEach(sas => {
+    updateMap(sas)
+    sas.features.forEach(sa => {
+      features.push(sa)
     })
   })
-  //    console.log("features length = " + features.length);
-  return features
+
+// Fingal, DL/R, SDCC
+  let fcc = 'FCC_SA_0.geojson'
+  let dlr = 'DLR_SA_0.geojson'
+  let sdcc = 'SDCC_SA_0.geojson'
+  let pfcc = d3.json(dataBase + fcc)
+  let pdlr = d3.json(dataBase + dlr)
+  let psdcc = d3.json(dataBase + sdcc)
+  let otherSAs = await Promise.all([pfcc, pdlr, psdcc])
+  otherSAs.forEach(sas => {
+    updateMap(sas)
+    sas.features.forEach(sa => {
+      features.push(sa)
+    })
+  })
+  let layerGroups = []
+
+  var layer2Style = {
+    'color': '#ff7800',
+    'weight': 5,
+    'opacity': 0.65
+  }
+
+  let layer2 = L.geoJSON(null, {
+    style: layer2Style
+  }).addTo(mapGeodemos)
+
+  if (saMap[features[features.length - 1].properties.SMALL_AREA] == '2') {
+    layer2.addData(features[features.length - 1])
+  }
+  console.log()
+
+  // features.forEach(
+  //
+  // )
 }
 
 // let boundaries, boundariesFCC;
