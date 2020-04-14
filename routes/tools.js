@@ -12,7 +12,7 @@ router.get('/planning', function (req, res, next) {
 })
 
 router.get('/geodemographics', function (req, res, next) {
-  res.render('tools/tools-geodemo', { title: 'Tools: Geodemographics' })
+  res.render('tools/tools-geodemos', { title: 'Tools: Geodemographics' })
 })
 
 router.get('/census2016', function (req, res, next) {
