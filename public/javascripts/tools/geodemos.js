@@ -49,6 +49,7 @@ let dcc2 = 'DCC_SA_2.geojson'
 let pDCC0 = d3.json(dataBase + dcc0)
 let pDCC1 = d3.json(dataBase + dcc1)
 let pDCC2 = d3.json(dataBase + dcc2)
+// DCC
 Promise.all([pDCC0, pDCC1, pDCC2])
   .then(function (dArr) {
     updateMap(join(dArr))
@@ -124,13 +125,13 @@ function updateMap (data__) {
 
         // TODO: check for names of modified boundaries e.g. SA2017_017012002/017012003 or SA2017_017012004/01
 
-        d3.json('/data/tools/census2016/SAPS2016_SA2017.csv' + feature.properties.SMALL_AREA).then(function (data) {
-          d3.select('#data-textgen')
-            .html('<p>' + formatData(data) + '</p>')
-          updateChart(data)
-          d3.select('#data-chart-title')
-            .html('Age distribution of males')
-        })
+        // d3.json('/data/tools/census2016/SAPS2016_SA2017.csv' + feature.properties.SMALL_AREA).then(function (data) {
+        //   d3.select('#data-textgen')
+        //     .html('<p>' + formatData(data) + '</p>')
+        //   updateChart(data)
+        //   d3.select('#data-chart-title')
+        //     .html('Age distribution of males')
+        // })
       }
     })
   }
@@ -247,6 +248,31 @@ function getDataColor (d) {
     d > 10 ? '#FED976' :
     '#FFEDA0'
 };
+
+d3.selectAll('button[type=checkbox]').on('click', function () {
+  console.log('checkbox')
+  let cb = d3.select(this)
+  console.log(cb.property('value'))
+  if (cb.classed('active')) {
+    cb.classed('active', false)
+    // authorityNamesChecked = authorityNamesChecked.filter(function (val) {
+    //   return val !== cb.property('value')
+    // })
+    // console.log("ACTIVE");
+  } else {
+    cb.classed('active', true)
+    // if (authorityNames.includes(cb.property('value'))) {
+    //   authorityNamesChecked.push(cb.property('value'))
+    // } // console.log("INACTIVE");
+  }
+  // // console.log("active; " + cb.classed('active'));
+  // //  console.log("LAs checked array:" + authorityNamesChecked);
+  // authorityDim.filterFunction(function (d) {
+  //   return authorityNamesChecked.includes(d)
+  // })
+  // updateMapData()
+  // updateCharts()
+})
 // $(document).ready(function () {
 //    console.log("ready");
 //
