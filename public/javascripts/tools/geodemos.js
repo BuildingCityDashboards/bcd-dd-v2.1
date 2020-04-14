@@ -40,25 +40,17 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
+//     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
 loadData()
 function loadData (file) {
-  Promise.all([
-    d3.csv('/data/tools/geodemographics/dublin_clusters_OBJECTID-CLUSTER.csv'),
-    d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
- .then((data) => {
-   // .keys
-   console.log(data[0][0])
-
-   var array = [{ name2: 'value1' }, { name2: 'value2' }],
-     object = Object.assign({}, ...array)
-
-   console.log(object)
-   // console.log(kv)
-   console.log(data[1].length)
-    // processVariables(data);
-
-   loadSmallAreas()
- })
+  d3.csv('/data/tools/geodemographics/dublin_clusters_OBJECTID-CLUSTER.csv')
+    .then((data) => {
+      let idClusterMap = {}
+      data.forEach(function (d) {
+        idClusterMap[d['OBJECTID']] = d['Cluster']
+      })
+      loadSmallAreas(idClusterMap)
+    })
 }
 
 function loadSmallAreas () {
