@@ -1,7 +1,9 @@
 /*
  *
- * TODO: import SA_DublinCity_i geojsons instead of lagre generalised file
+ * TODOs:
  *
+  Load SA data into crossfilter dims
+
  */
 
 var authorityNames = [] // names of authoirites as strings
@@ -56,8 +58,8 @@ var dublinSAURI = '/data/tools/small_areas/'
 let smallAreaBoundaries = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson'
 let countyAdminBoundaries = 'Administrative_Counties_Generalised_20m__OSi_National_Administrative_Boundaries_.geojson'
 
-loadJsonFiles(dublinDataURI, 9, 15) // 0-38 inclusive
-createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson')
+// loadJsonFiles(dublinDataURI, 9, 15) // 0-38 inclusive
+// createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson')
 //
 
 // //////////////////////////////////////////////////////////////////////////
@@ -76,14 +78,14 @@ createSAMap(dublinSAURI + 'Small_Areas__Generalised_20m__OSi_National_Boundaries
 
 //    var countByDateArr; //will store number of planning apps per date
 
-let smallAreasURL =
-
-d3.csv('/data/tools/small_areas/SAPS2016_SA2017.csv').then(function (data) {
-//    let keys = d3.keys(data.carparks);
-//    console.log("carpark data.carparks :" + JSON.stringify(data.carparks[keys[0]]));
-  console.log('SA :' + JSON.stringify(data[0]))
-  processHydronet(data)
-})
+// let smallAreasURL =
+//
+// d3.csv('/data/tools/small_areas/SAPS2016_SA2017.csv').then(function (data) {
+// //    let keys = d3.keys(data.carparks);
+// //    console.log("carpark data.carparks :" + JSON.stringify(data.carparks[keys[0]]));
+//   console.log('SA :' + JSON.stringify(data[0]))
+//   processHydronet(data)
+// })
 
 function createSAMap (url_) {
   var promise = []
