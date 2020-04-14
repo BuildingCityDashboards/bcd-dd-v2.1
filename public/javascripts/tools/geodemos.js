@@ -1,10 +1,18 @@
 /**  TODOs
+Load group data
+  key-value SA vs group no
 Load SAs
-Add cluster number to SA objects Needs to happen after SAs loaded
-Filter based on cluster/group number
+  Lookup group number for each SA object
+  Add object to layer group based on group number
+Filter layers based on cluster/group number
 Add zscores data
 Display zscores widget and filter based on group selection
 Use zscores widget to filter map
+
+Issue here is having the SAs load by LA and then update map->
+if we add SA to group as it comes up we're rewriting gorup layers repeatedly
+Solve with async await
+
 **/
 
 let dub_lng = -6.2603
@@ -24,7 +32,7 @@ let osmAttrib = 'Map data © <a href="http://openstreetmapGeodemos.org">OpenStre
 let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmapGeodemos.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapGeodemos.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmapGeodemos.org/copyright">OpenStreetMap</a>'
 let mapGeodemos = new L.Map('map-geodemos')
-let osm = new L.TileLayer(osmUrl_BW, {
+let osm = new L.TileLayer(stamenTonerUrl_Lite, {
   minZoom: min_zoom,
   maxZoom: max_zoom,
   attribution: osmAttrib
@@ -32,9 +40,30 @@ let osm = new L.TileLayer(osmUrl_BW, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
-loadSmallAreas()
+loadData()
+function loadData (file) {
+  Promise.all([
+    d3.csv('/data/tools/geodemographics/dublin_clusters_OBJECTID-CLUSTER.csv'),
+    d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
+ .then((data) => {
+   // .keys
+   console.log(data[0][0])
+
+   var array = [{ name2: 'value1' }, { name2: 'value2' }],
+     object = Object.assign({}, ...array)
+
+   console.log(object)
+   // console.log(kv)
+   console.log(data[1].length)
+    // processVariables(data);
+
+   loadSmallAreas()
+ })
+}
+
 function loadSmallAreas () {
-// Incrementally load boundaries for each LA
+// Incrementally load boundaries for each LA to maps
+// signify when finished all
   let dataBase = '/data/tools/census2016/'
   let dcc0 = 'DCC_SA_0.geojson'
   let dcc1 = 'DCC_SA_1.geojson'
@@ -88,17 +117,17 @@ function join (dArr_) {
 // let boundaries, boundariesFCC;
 function updateMap (data__) {
   let boundaries = L.geoJSON(data__, {
-//                filter: function (f, l) {
-//                    return f.properties.COUNTYNAME.includes("Dublin")
-//                            || f.properties.COUNTYNAME.includes("Fingal")
-//                            || f.properties.COUNTYNAME.includes("Rathdown")
-//                            ;
-//                },
+    // filter: filterByGroup,
     style: style,
     onEachFeature: onEachFeature
   })
 
   boundaries.addTo(mapGeodemos)
+}
+
+function filterByGroup (f, l) {
+  console.log('f: ' + f)
+  return f.properties.EDNAME.includes('North Dock B')
 }
 
 function style (f) {
@@ -148,17 +177,6 @@ function onEachFeature (feature, layer) {
 
 // crossfilter variables
 // let idDim;
-
-function loadData (file) {
-  Promise.all([
-    d3.csv('/data/tools/geodemographics/dublin_clusters.csv'),
-    d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
- .then((data) => {
-   console.log(data[0].length)
-   console.log(data[1].length)
-    // processVariables(data);
- })
-}
 
 let idDim // data dimension accessible by GEOGID
 
