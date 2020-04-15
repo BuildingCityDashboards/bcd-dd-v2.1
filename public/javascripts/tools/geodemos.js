@@ -42,22 +42,23 @@ mapGeodemos.addLayer(osm)
 
 let mapLayers = getEmptyLayersArray(7)
 mapGeodemos.addLayer(mapLayers[0])
-console.log(mapLayers[0])
 
 //     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
 loadData()
 function loadData (file) {
   d3.csv('/data/tools/geodemographics/dublin_clusters_sa_cluster.csv')
     .then((data) => {
-      let idClusterMap = {}
+      let idClusterLookup = {}
       data.forEach(function (d) {
-        idClusterMap[d['SMALL_AREA']] = d['Cluster']
+        idClusterLookup[d['SMALL_AREA']] = d['Cluster']
       })
-      loadSmallAreas(idClusterMap)
+
+      console.log('lookup ' + idClusterLookup['267158009/02'])
+      loadSmallAreas(idClusterLookup)
     })
 }
 
-async function loadSmallAreas (saMap) {
+async function loadSmallAreas (lookup) {
   let features = []
 // Incrementally load boundaries for each LA to maps
 // signify when finished all
@@ -75,8 +76,16 @@ async function loadSmallAreas (saMap) {
   dccSAs.forEach(sas => {
     // updateMap(sas)
     sas.features.forEach(sa => {
-      // features.push(sa)
-      addToLayer(sa, 2) // feature, layer index
+      try{
+        let groupNo = lookup[sa.properties.SMALL_AREA]
+      // console.log(groupNo)
+        let layerNo = parseInt(groupNo) - 1
+        addToLayer(sa, layerNo) // feature, layer index
+      }
+      catch{
+        console.error(`Err on lookup for sa: ${JSON.stringify(sa)}`);
+      }
+      // console.log(layerNo)
     })
   })
 
@@ -91,9 +100,17 @@ async function loadSmallAreas (saMap) {
   let otherSAs = await Promise.all([pfcc, pdlr, psdcc])
   otherSAs.forEach(sas => {
     // updateMap(sas)
-
     sas.features.forEach(sa => {
-      // features.push(sa)
+      try{
+        let groupNo = lookup[sa.properties.SMALL_AREA]
+      // console.log(groupNo)
+        let layerNo = parseInt(groupNo) - 1
+        addToLayer(sa, layerNo) // feature, layer index
+      }
+      catch{
+        console.error(`Err on lookup for sa: ${JSON.stringify(sa)}`);
+      }
+      // console.log(layerNo)
     })
   })
 }
@@ -110,7 +127,7 @@ function getEmptyLayersArray (total) {
 }
 
 function addToLayer (feature, layerNo) {
-  // console.log(feature)
+  // console.log(feature, layerNo)
   // let layerGroups = []
 
   var layer2Style = {
@@ -124,6 +141,10 @@ function addToLayer (feature, layerNo) {
   // if (feature.properties.SMALL_AREA] == '2') {
   //   layer2.addData(features[features.length - 1])
   // }
+}
+
+function getLayerNo (feature) {
+
 }
 
 function updateMap (data__) {
@@ -319,8 +340,9 @@ function getDataColor (d) {
 };
 
 function getLayerColor (index) {
-  let colors = ['#BD0026', '#E31A1C', '#FC4E2A', '#FD8D3C', '#FEB24C', '#FED976', '#FFEDA0']
-  return colors[index]
+  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
+
+  return CHART_COLORWAY[index]
 };
 
 d3.selectAll('button[type=checkbox]').on('click', function () {
