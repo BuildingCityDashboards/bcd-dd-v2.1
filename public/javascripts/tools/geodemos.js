@@ -40,8 +40,21 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
+let naStyle = {
+  fillColor: 'grey',
+  weight: 1,
+  opacity: 2,
+  color: 'grey',
+  dashArray: '1',
+  fillOpacity: 0.5
+}
+
 let mapLayers = getEmptyLayersArray(7)
-mapGeodemos.addLayer(mapLayers[0])
+let naLayer = L.geoJSON(null, {
+  style: naStyle,
+  //onEachFeature: onEachFeature
+}) //layer for 'NA' data
+// mapGeodemos.addLayer(mapLayers[0])
 
 //     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
 loadData()
@@ -52,8 +65,6 @@ function loadData (file) {
       data.forEach(function (d) {
         idClusterLookup[d['SMALL_AREA']] = d['Cluster']
       })
-
-      console.log('lookup ' + idClusterLookup['267158009/02'])
       loadSmallAreas(idClusterLookup)
     })
 }
@@ -78,12 +89,14 @@ async function loadSmallAreas (lookup) {
     sas.features.forEach(sa => {
       try{
         let groupNo = lookup[sa.properties.SMALL_AREA]
-      // console.log(groupNo)
-        let layerNo = parseInt(groupNo) - 1
-        addToLayer(sa, layerNo) // feature, layer index
+        sa.properties.groupnumber= groupNo
+        addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+        
       }
       catch{
-        console.error(`Err on lookup for sa: ${JSON.stringify(sa)}`);
+        console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+        sa.properties.groupnumber= 'NA'
+        addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
       }
       // console.log(layerNo)
     })
@@ -103,12 +116,14 @@ async function loadSmallAreas (lookup) {
     sas.features.forEach(sa => {
       try{
         let groupNo = lookup[sa.properties.SMALL_AREA]
-      // console.log(groupNo)
-        let layerNo = parseInt(groupNo) - 1
-        addToLayer(sa, layerNo) // feature, layer index
+        sa.properties.groupnumber= groupNo
+        addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+        
       }
       catch{
-        console.error(`Err on lookup for sa: ${JSON.stringify(sa)}`);
+        console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+        sa.properties.groupnumber= 'NA'
+        addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
       }
       // console.log(layerNo)
     })
@@ -119,42 +134,23 @@ function getEmptyLayersArray (total) {
   let layersArr = []
   for (let i = 0; i < total; i += 1) {
     layersArr.push(L.geoJSON(null, {
-      style: getLayerStyle(i)
+      style: getLayerStyle(i),
+      onEachFeature: onEachFeature
     })
     )
   }
   return layersArr
 }
 
-function addToLayer (feature, layerNo) {
-  // console.log(feature, layerNo)
-  // let layerGroups = []
-
-  var layer2Style = {
-    'color': '#ff7800',
-    'weight': 5,
-    'opacity': 0.65
+function addFeatureToLayer (feature, layerNo) {
+  if (layerNo ==='NA'){
+    naLayer.addData(feature)
+    mapGeodemos.addLayer(naLayer)
   }
+  else{
   mapLayers[layerNo].addData(feature)
   mapGeodemos.addLayer(mapLayers[layerNo])
-
-  // if (feature.properties.SMALL_AREA] == '2') {
-  //   layer2.addData(features[features.length - 1])
-  // }
-}
-
-function getLayerNo (feature) {
-
-}
-
-function updateMap (data__) {
-  let boundaries = L.geoJSON(data__, {
-    // filter: filterByGroup,
-    style: style,
-    onEachFeature: onEachFeature
-  })
-
-  boundaries.addTo(mapGeodemos)
+  }
 }
 
 function filterByGroup (f, l) {
@@ -174,23 +170,12 @@ function getLayerStyle (index) {
   }
 };
 
-function style (f) {
-  // console.log("style feature "+f.properties.COUNTYNAME)
-  return {
-    fillColor: getCountyColor(f.properties.COUNTYNAME),
-    weight: 1,
-    opacity: 2,
-    color: getCountyColor(f.properties.COUNTYNAME),
-    dashArray: '1',
-    fillOpacity: 0.5
-  }
-};
-
 function onEachFeature (feature, layer) {
-  layer.bindPopup(
+    layer.bindPopup(
                 '<p><b>' + feature.properties.EDNAME + '</b></p>' +
                 '<p>' + feature.properties.COUNTYNAME + '</p>' +
-                '<p>SA ' + feature.properties.SMALL_AREA + '</p>'
+                '<p>SA ' + feature.properties.SMALL_AREA + '</p>'+
+                '<p>Group ' + feature.properties.groupnumber + '</p>'
                 )
         // bind click
   layer.on({
@@ -199,11 +184,11 @@ function onEachFeature (feature, layer) {
                 // let res = idDim.top(Infinity)[0].T1_1AGE1;
                 //                console.log(idDim.top(Infinity));
 
-      d3.select('#data-title')
-          .html(feature.properties.EDNAME)
-      d3.select('#data-subtitle')
-          .html(feature.properties.COUNTYNAME + ', Small Area ' + feature.properties.SMALL_AREA)
-        // d3.select("#data-display")
+      // d3.select('#data-title')
+      //     .html(feature.properties.EDNAME)
+      // d3.select('#data-subtitle')
+      //     .html(feature.properties.COUNTYNAME + ', Small Area ' + feature.properties.SMALL_AREA)
+      //   // d3.select("#data-display")
         //   .html(JSON.stringify(feature.properties));
 
         // TODO: check for names of modified boundaries e.g. SA2017_017012002/017012003 or SA2017_017012004/01
