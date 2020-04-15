@@ -130,8 +130,8 @@ async function loadSmallAreas (lookup) {
   })
   //Set initial layer view
   mapGeodemos.addLayer(mapLayers[0])
-  
-  
+
+
 }
 
 function getEmptyLayersArray (total) {
@@ -315,17 +315,19 @@ function getLayerColor (index) {
 };
 
 d3.selectAll('button[type=checkbox]').on('click', function () {
-  console.log('checkbox')
+  // console.log('checkbox')
   let cb = d3.select(this)
   let layerNo = parseInt(cb.property('value')) - 1
   if (cb.classed('active')) {
     cb.classed('active', false)
-    mapGeodemos.removeLayer(mapLayers[layerNo]);
-    
+    if(mapGeodemos.hasLayer(mapLayers[layerNo])){
+      mapGeodemos.removeLayer(mapLayers[layerNo])
+    }
+
   } else {
     cb.classed('active', true)
-    mapGeodemos.addLayer(mapLayers[layerNo])
-
+    if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
+      mapGeodemos.addLayer(mapLayers[layerNo])
+    }
   }
 })
-
