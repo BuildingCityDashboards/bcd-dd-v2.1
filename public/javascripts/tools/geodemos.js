@@ -40,6 +40,10 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
+let mapLayers = getEmptyLayersArray(7)
+mapGeodemos.addLayer(mapLayers[0])
+console.log(mapLayers[0])
+
 //     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
 loadData()
 function loadData (file) {
@@ -66,12 +70,13 @@ async function loadSmallAreas (saMap) {
   let pDCC1 = d3.json(dataBase + dcc1)
   let pDCC2 = d3.json(dataBase + dcc2)
 // DCC
-  let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2])
-  // console.log(dccSAs)
+  let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2]) // yields an array of 3 feature collections
+  // need to extract each feature and lookup its group, adding to appropriate layer
   dccSAs.forEach(sas => {
-    updateMap(sas)
+    // updateMap(sas)
     sas.features.forEach(sa => {
-      features.push(sa)
+      // features.push(sa)
+      addToLayer(sa, 2) // feature, layer index
     })
   })
 
@@ -82,36 +87,45 @@ async function loadSmallAreas (saMap) {
   let pfcc = d3.json(dataBase + fcc)
   let pdlr = d3.json(dataBase + dlr)
   let psdcc = d3.json(dataBase + sdcc)
+
   let otherSAs = await Promise.all([pfcc, pdlr, psdcc])
   otherSAs.forEach(sas => {
-    updateMap(sas)
+    // updateMap(sas)
+
     sas.features.forEach(sa => {
-      features.push(sa)
+      // features.push(sa)
     })
   })
-  let layerGroups = []
+}
+
+function getEmptyLayersArray (total) {
+  let layersArr = []
+  for (let i = 0; i < total; i += 1) {
+    layersArr.push(L.geoJSON(null, {
+      style: getLayerStyle(i)
+    })
+    )
+  }
+  return layersArr
+}
+
+function addToLayer (feature, layerNo) {
+  // console.log(feature)
+  // let layerGroups = []
 
   var layer2Style = {
     'color': '#ff7800',
     'weight': 5,
     'opacity': 0.65
   }
+  mapLayers[layerNo].addData(feature)
+  mapGeodemos.addLayer(mapLayers[layerNo])
 
-  let layer2 = L.geoJSON(null, {
-    style: layer2Style
-  }).addTo(mapGeodemos)
-
-  if (saMap[features[features.length - 1].properties.SMALL_AREA] == '2') {
-    layer2.addData(features[features.length - 1])
-  }
-  console.log()
-
-  // features.forEach(
-  //
-  // )
+  // if (feature.properties.SMALL_AREA] == '2') {
+  //   layer2.addData(features[features.length - 1])
+  // }
 }
 
-// let boundaries, boundariesFCC;
 function updateMap (data__) {
   let boundaries = L.geoJSON(data__, {
     // filter: filterByGroup,
@@ -126,6 +140,18 @@ function filterByGroup (f, l) {
   console.log('f: ' + f)
   return f.properties.EDNAME.includes('North Dock B')
 }
+
+function getLayerStyle (index) {
+  // console.log("style feature "+f.properties.COUNTYNAME)
+  return {
+    fillColor: getLayerColor(index),
+    weight: 1,
+    opacity: 2,
+    color: getLayerColor(index),
+    dashArray: '1',
+    fillOpacity: 0.5
+  }
+};
 
 function style (f) {
   // console.log("style feature "+f.properties.COUNTYNAME)
@@ -290,6 +316,11 @@ function getDataColor (d) {
     d > 20 ? '#FEB24C' :
     d > 10 ? '#FED976' :
     '#FFEDA0'
+};
+
+function getLayerColor (index) {
+  let colors = ['#BD0026', '#E31A1C', '#FC4E2A', '#FD8D3C', '#FEB24C', '#FED976', '#FFEDA0']
+  return colors[index]
 };
 
 d3.selectAll('button[type=checkbox]').on('click', function () {
