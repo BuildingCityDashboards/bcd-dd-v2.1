@@ -91,7 +91,7 @@ async function loadSmallAreas (lookup) {
         let groupNo = lookup[sa.properties.SMALL_AREA]
         sa.properties.groupnumber= groupNo
         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
-        
+
       }
       catch{
         console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
@@ -118,7 +118,7 @@ async function loadSmallAreas (lookup) {
         let groupNo = lookup[sa.properties.SMALL_AREA]
         sa.properties.groupnumber= groupNo
         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
-        
+
       }
       catch{
         console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
@@ -128,6 +128,10 @@ async function loadSmallAreas (lookup) {
       // console.log(layerNo)
     })
   })
+  //Set initial layer view
+  mapGeodemos.addLayer(mapLayers[0])
+  
+  
 }
 
 function getEmptyLayersArray (total) {
@@ -136,6 +140,7 @@ function getEmptyLayersArray (total) {
     layersArr.push(L.geoJSON(null, {
       style: getLayerStyle(i),
       onEachFeature: onEachFeature
+      // filter: filterInitialView
     })
     )
   }
@@ -149,13 +154,12 @@ function addFeatureToLayer (feature, layerNo) {
   }
   else{
   mapLayers[layerNo].addData(feature)
-  mapGeodemos.addLayer(mapLayers[layerNo])
+
   }
 }
 
-function filterByGroup (f, l) {
-  console.log('f: ' + f)
-  return f.properties.EDNAME.includes('North Dock B')
+function filterInitialView(f, l) {
+  return f.properties.groupnumber==1
 }
 
 function getLayerStyle (index) {
@@ -171,7 +175,7 @@ function getLayerStyle (index) {
 };
 
 function onEachFeature (feature, layer) {
-    layer.bindPopup(
+  layer.bindPopup(
                 '<p><b>' + feature.properties.EDNAME + '</b></p>' +
                 '<p>' + feature.properties.COUNTYNAME + '</p>' +
                 '<p>SA ' + feature.properties.SMALL_AREA + '</p>'+
@@ -304,57 +308,24 @@ let idDim // data dimension accessible by GEOGID
 //   boundaries.addTo(mapGeodemos)
 // };
 
-// ['#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c']
-function getCountyColor (d) {
-  return d === 'Dublin City' ? '#08519c' :
-    d === 'Fingal' ? '#bdd7e7' :
-    d === 'South Dublin' ? '#6baed6' :
-    //            d ==='Dun Council' ? '#BD0026' :
-    '#3182bd'
-}
-
-function getDataColor (d) {
-  return d > 1000 ? '#800026' :
-    d > 500 ? '#BD0026' :
-    d > 200 ? '#E31A1C' :
-    d > 100 ? '#FC4E2A' :
-    d > 50 ? '#FD8D3C' :
-    d > 20 ? '#FEB24C' :
-    d > 10 ? '#FED976' :
-    '#FFEDA0'
-};
 
 function getLayerColor (index) {
   let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
-
   return CHART_COLORWAY[index]
 };
 
 d3.selectAll('button[type=checkbox]').on('click', function () {
   console.log('checkbox')
   let cb = d3.select(this)
-  console.log(cb.property('value'))
+  let layerNo = parseInt(cb.property('value')) - 1
   if (cb.classed('active')) {
     cb.classed('active', false)
-    // authorityNamesChecked = authorityNamesChecked.filter(function (val) {
-    //   return val !== cb.property('value')
-    // })
-    // console.log("ACTIVE");
+    mapGeodemos.removeLayer(mapLayers[layerNo]);
+    
   } else {
     cb.classed('active', true)
-    // if (authorityNames.includes(cb.property('value'))) {
-    //   authorityNamesChecked.push(cb.property('value'))
-    // } // console.log("INACTIVE");
+    mapGeodemos.addLayer(mapLayers[layerNo])
+
   }
-  // // console.log("active; " + cb.classed('active'));
-  // //  console.log("LAs checked array:" + authorityNamesChecked);
-  // authorityDim.filterFunction(function (d) {
-  //   return authorityNamesChecked.includes(d)
-  // })
-  // updateMapData()
-  // updateCharts()
 })
-// $(document).ready(function () {
-//    console.log("ready");
-//
-// });
+
