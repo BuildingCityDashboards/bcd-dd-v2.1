@@ -56,7 +56,74 @@ let naLayer = L.geoJSON(null, {
 }) //layer for 'NA' data
 // mapGeodemos.addLayer(mapLayers[0])
 
-//     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
+d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
+.then((zScores)=>{
+  let trace = {}
+  trace.x = zScores.map((v) => {
+    return v["Age0_4"] || 0;
+  });
+
+  trace.y = zScores.map((v) => {
+    return v["cluster"] + ' ';
+  });
+
+let traces = [trace]
+
+//Set layout options
+let layout = {} //Object.assign({}, ROW_CHART_LAYOUT);
+layout.mode = 'bars'
+layout.height = 600
+layout.barmode = 'group';
+layout.bargroupgap = 0;
+// layout.colorway = CHART_COLORWAY_VARIABLES;
+// layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+// layout.title.text = titleFig9;
+layout.showlegend = true;
+// layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+// layout.legend.xanchor = 'right';
+// layout.legend.y = 0.1;
+// layout.legend.traceorder = 'reversed';
+// layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+// layout.xaxis.title = "Number of Housing Units";
+// layout.xaxis.range = [-1, 1];
+// layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+// layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+// layout.yaxis.titlefont.size = 16; //bug? need to call this
+// layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+
+// layout.yaxis.title = '';
+// layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin);
+layout.margin = {
+  l: 0,
+  r: 0, //annotations space
+  t: 40
+};
+
+
+Plotly.newPlot('chart-geodemos', traces, layout, {
+  // modeBar: {
+  //   orientation: 'v',
+  //   bgcolor: 'black',
+  //   color: null,
+  //   activecolor: null
+  // },
+  // modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+  displayModeBar: true,
+  displaylogo: false,
+  showSendToCloud: false,
+  responsive: true,
+  // toImageButtonOptions: {
+  //   filename: 'Dublin Dashboard - ' + titleFig9,
+  //   width: null,
+  //   height: null,
+  //   format: 'png'
+  // }
+})
+
+}) //end then
+
+
+
 loadData()
 function loadData (file) {
   d3.csv('/data/tools/geodemographics/dublin_clusters_sa_cluster.csv')
@@ -130,8 +197,6 @@ async function loadSmallAreas (lookup) {
   })
   //Set initial layer view
   mapGeodemos.addLayer(mapLayers[0])
-
-
 }
 
 function getEmptyLayersArray (total) {
@@ -158,10 +223,6 @@ function addFeatureToLayer (feature, layerNo) {
   }
 }
 
-function filterInitialView(f, l) {
-  return f.properties.groupnumber==1
-}
-
 function getLayerStyle (index) {
   // console.log("style feature "+f.properties.COUNTYNAME)
   return {
@@ -172,7 +233,12 @@ function getLayerStyle (index) {
     dashArray: '1',
     fillOpacity: 0.5
   }
-};
+}
+
+function getLayerColor (index) {
+  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
+  return CHART_COLORWAY[index]
+}
 
 function onEachFeature (feature, layer) {
   layer.bindPopup(
@@ -184,26 +250,6 @@ function onEachFeature (feature, layer) {
         // bind click
   layer.on({
     click: function () {
-                // idDim.filter(feature.properties.EDNAME);
-                // let res = idDim.top(Infinity)[0].T1_1AGE1;
-                //                console.log(idDim.top(Infinity));
-
-      // d3.select('#data-title')
-      //     .html(feature.properties.EDNAME)
-      // d3.select('#data-subtitle')
-      //     .html(feature.properties.COUNTYNAME + ', Small Area ' + feature.properties.SMALL_AREA)
-      //   // d3.select("#data-display")
-        //   .html(JSON.stringify(feature.properties));
-
-        // TODO: check for names of modified boundaries e.g. SA2017_017012002/017012003 or SA2017_017012004/01
-
-        // d3.json('/data/tools/census2016/SAPS2016_SA2017.csv' + feature.properties.SMALL_AREA).then(function (data) {
-        //   d3.select('#data-textgen')
-        //     .html('<p>' + formatData(data) + '</p>')
-        //   updateChart(data)
-        //   d3.select('#data-chart-title')
-        //     .html('Age distribution of males')
-        // })
     }
   })
 }
@@ -211,7 +257,7 @@ function onEachFeature (feature, layer) {
 // crossfilter variables
 // let idDim;
 
-let idDim // data dimension accessible by GEOGID
+// let idDim // data dimension accessible by GEOGID
 
 // function loadClusters (file) {
 //   //    data_.forEach(function (d) {
@@ -309,10 +355,7 @@ let idDim // data dimension accessible by GEOGID
 // };
 
 
-function getLayerColor (index) {
-  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
-  return CHART_COLORWAY[index]
-}
+
 
 d3
 .select('#group-buttons')
@@ -326,7 +369,7 @@ d3
 
   if (cb.property('value') !== 'all' && cb.classed('active')) {
     cb.classed('active', false)
-    d3.select('#group-buttons').select('#group-all').classed('active', false) 
+    d3.select('#group-buttons').select('#group-all').classed('active', false)
     if(mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.removeLayer(mapLayers[layerNo])
     }
@@ -359,17 +402,3 @@ d3
     })
   }
 })
-
-// d3.select('#group-buttons').select('#group-all').on('click', function() {
-//   let cb = d3.select(this)
-//   if (cb.classed('active')) {
-//     // cb.classed('active', false)
-//     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
-//   }
-//   mapLayers.forEach( l =>{
-//   if(!mapGeodemos.hasLayer(l)){
-//         mapGeodemos.addLayer(l)
-//       }
-//     })
-//     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', true)
-// })
