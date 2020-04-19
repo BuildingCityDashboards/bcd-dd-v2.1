@@ -56,19 +56,17 @@ let naLayer = L.geoJSON(null, {
 }) //layer for 'NA' data
 // mapGeodemos.addLayer(mapLayers[0])
 
+let traces = []
+let layout = {}
+
 d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
 
   console.log(zScores);
   let columnNames = Object.keys(zScores[0])
-
-  // let traceGroup1 = columnNames.forEach( name => {
-  //   zScores[0][name]
-  // })
-
   console.log(columnNames);
-  
-  let traces = []
+
+
   zScores.forEach((row) => {
     let trace = {}
     trace.type = 'bar';
@@ -79,10 +77,10 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
     trace.y = columnNames
     traces.push(trace)
 });
-  
+
 
 //Set layout options
-let layout = {} //Object.assign({}, ROW_CHART_LAYOUT);
+layout = Object.assign({}, ROW_CHART_LAYOUT);
 layout.mode = 'bars'
 layout.height = 600
 // layout.barmode = 'group';
@@ -117,7 +115,7 @@ layout.margin = {
 };
 
 
-Plotly.newPlot('chart-geodemos', traces, layout, {
+Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
   modeBar: {
     orientation: 'v',
     bgcolor: 'black',
@@ -135,9 +133,7 @@ Plotly.newPlot('chart-geodemos', traces, layout, {
   //   height: null,
   //   format: 'png'
   // }
-})
-
-Plotly.deleteTraces('chart-geodemos', [1,2,3,4,5,6])
+  })
 
 }) //end then
 
@@ -403,6 +399,7 @@ d3
     if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.addLayer(mapLayers[layerNo])
     }
+    Plotly.react('chart-geodemos', [traces[layerNo]], layout)
 
   } else if (cb.classed('active')){
     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
