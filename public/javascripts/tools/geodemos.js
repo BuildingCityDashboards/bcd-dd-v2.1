@@ -62,22 +62,17 @@ let layout = {}
 d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
 
-  console.log(zScores);
   let columnNames = Object.keys(zScores[0])
-  console.log(columnNames);
-
-
   zScores.forEach((row) => {
     let trace = {}
-    trace.type = 'bar';
-    trace.orientation = 'h';
+    trace.type = 'bar'
+    trace.orientation = 'h'
     trace.x = columnNames.map( name => {
       return row[name]
     })
     trace.y = columnNames
     traces.push(trace)
-});
-
+})
 
 //Set layout options
 layout = Object.assign({}, ROW_CHART_LAYOUT);
