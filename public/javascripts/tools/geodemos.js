@@ -314,24 +314,62 @@ function getLayerColor (index) {
   return CHART_COLORWAY[index]
 }
 
-d3.select('#group-buttons').selectAll('button[type=checkbox]').on('click', function() {
+d3
+.select('#group-buttons')
+.selectAll('button[type=checkbox]')
+.on('click', function() {
 
   let cb = d3.select(this)
-  let layerNo = parseInt(cb.property('value')) - 1
-  if (cb.classed('active')) {
+  let layerNo = cb.property('value') === 'all' ? 'all' : parseInt(cb.property('value')) - 1
+
+  console.log(layerNo);
+
+  if (cb.property('value') !== 'all' && cb.classed('active')) {
     cb.classed('active', false)
+    d3.select('#group-buttons').select('#group-all').classed('active', false) 
     if(mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.removeLayer(mapLayers[layerNo])
     }
-  
-  } else {
+  } else if (cb.property('value') !== 'all'){
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
+    cb.classed('active', true)
+    mapLayers.forEach( l =>{
+      if(mapGeodemos.hasLayer(l)){
+        mapGeodemos.removeLayer(l)
+      }
+    })
+    if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
+      mapGeodemos.addLayer(mapLayers[layerNo])
+    }
+
+  } else if (cb.classed('active')){
     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
     mapLayers.forEach( l =>{
       if(mapGeodemos.hasLayer(l)){
         mapGeodemos.removeLayer(l)
       }
     })
-    cb.classed('active', true)
-    mapGeodemos.addLayer(mapLayers[layerNo])
+
+  } else {
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', true)
+    mapLayers.forEach( l =>{
+      if(!mapGeodemos.hasLayer(l)){
+        mapGeodemos.addLayer(l)
+      }
+    })
   }
 })
+
+// d3.select('#group-buttons').select('#group-all').on('click', function() {
+//   let cb = d3.select(this)
+//   if (cb.classed('active')) {
+//     // cb.classed('active', false)
+//     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
+//   }
+//   mapLayers.forEach( l =>{
+//   if(!mapGeodemos.hasLayer(l)){
+//         mapGeodemos.addLayer(l)
+//       }
+//     })
+//     d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', true)
+// })
