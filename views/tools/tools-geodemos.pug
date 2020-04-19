@@ -38,7 +38,7 @@ block content
                 .label.m-1 Choose group:
                     
             .col-md-5
-              <div class="btn-group d-flex">
+              <div id="group-buttons" class="btn-group d-flex">
                 //- <button id="group-none" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="none">None</button>
                 <button id="group-1" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="1">1</button>
                 <button id="group-2" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="2">2</button>
@@ -47,15 +47,17 @@ block content
                 <button id="group-5" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="5">5</button>
                 <button id="group-6" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="6">6</button>
                 <button id="group-7" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="7">7</button>
-                //- <button id="group-all" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="all">All</button>  
+                <button id="group-all" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="all">All</button>  
                 
               </div>
                 
             .col-md-3
             
         .row.mt-1
-            .col-sm-12
+            .col-sm-6
                 #map-geodemos.m-1
+            .col-sm-16
+                #chart-geodemos.m-1
       
 
 block append scripts
@@ -70,6 +72,8 @@ block append scripts
     //script(src="/lib/queue.js" type="text/javascript")
     script(src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js")
+    script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
     //    script(src="spin/dist/spin.min.js")
     //    script(src="leaflet.spin.min.js")
+    script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
     script(src="/javascripts/tools/geodemos.js" type="text/javascript")  

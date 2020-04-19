@@ -56,7 +56,89 @@ let naLayer = L.geoJSON(null, {
 }) //layer for 'NA' data
 // mapGeodemos.addLayer(mapLayers[0])
 
-//     d3.csv('/data/tools/geodemographics/dublin_zscores.csv')])
+let traces = []
+let layout = {}
+
+d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
+.then((zScores)=>{
+
+  console.log(zScores);
+  let columnNames = Object.keys(zScores[0])
+  console.log(columnNames);
+
+
+  zScores.forEach((row) => {
+    let trace = {}
+    trace.type = 'bar';
+    trace.orientation = 'h';
+    trace.x = columnNames.map( name => {
+      return row[name]
+    })
+    trace.y = columnNames
+    traces.push(trace)
+});
+
+
+//Set layout options
+layout = Object.assign({}, ROW_CHART_LAYOUT);
+layout.mode = 'bars'
+layout.height = 600
+// layout.barmode = 'group';
+layout.bargroupgap = 0;
+layout.colorway = CHART_COLORWAY_VARIABLES;
+layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+layout.title.text = 'zscores';
+layout.showlegend = true;
+layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+layout.legend.xanchor = 'right';
+// layout.legend.y = 0.1;
+// layout.legend.traceorder = 'reversed';
+layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+layout.xaxis.title = "";
+layout.xaxis.range = [-2, 2]
+layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+layout.yaxis.tickfont ={
+  family: 'PT Sans',
+  size: 10,
+  color: '#313131'
+}
+layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+layout.yaxis.titlefont.size = 16; //bug? need to call this
+layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+
+layout.yaxis.title = '';
+layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
+layout.margin = {
+  l: 40,
+  r: 40, //annotations space
+  t: 40
+};
+
+
+Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
+  modeBar: {
+    orientation: 'v',
+    bgcolor: 'black',
+    color: null,
+    activecolor: null
+  },
+  modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+  displayModeBar: true,
+  displaylogo: false,
+  showSendToCloud: false,
+  responsive: true,
+  // toImageButtonOptions: {
+  //   filename: 'Dublin Dashboard - ' + titleFig9,
+  //   width: null,
+  //   height: null,
+  //   format: 'png'
+  // }
+  })
+
+}) //end then
+
+
+
 loadData()
 function loadData (file) {
   d3.csv('/data/tools/geodemographics/dublin_clusters_sa_cluster.csv')
@@ -130,8 +212,6 @@ async function loadSmallAreas (lookup) {
   })
   //Set initial layer view
   mapGeodemos.addLayer(mapLayers[0])
-
-
 }
 
 function getEmptyLayersArray (total) {
@@ -158,10 +238,6 @@ function addFeatureToLayer (feature, layerNo) {
   }
 }
 
-function filterInitialView(f, l) {
-  return f.properties.groupnumber==1
-}
-
 function getLayerStyle (index) {
   // console.log("style feature "+f.properties.COUNTYNAME)
   return {
@@ -172,7 +248,12 @@ function getLayerStyle (index) {
     dashArray: '1',
     fillOpacity: 0.5
   }
-};
+}
+
+function getLayerColor (index) {
+  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
+  return CHART_COLORWAY[index]
+}
 
 function onEachFeature (feature, layer) {
   layer.bindPopup(
@@ -184,150 +265,53 @@ function onEachFeature (feature, layer) {
         // bind click
   layer.on({
     click: function () {
-                // idDim.filter(feature.properties.EDNAME);
-                // let res = idDim.top(Infinity)[0].T1_1AGE1;
-                //                console.log(idDim.top(Infinity));
-
-      // d3.select('#data-title')
-      //     .html(feature.properties.EDNAME)
-      // d3.select('#data-subtitle')
-      //     .html(feature.properties.COUNTYNAME + ', Small Area ' + feature.properties.SMALL_AREA)
-      //   // d3.select("#data-display")
-        //   .html(JSON.stringify(feature.properties));
-
-        // TODO: check for names of modified boundaries e.g. SA2017_017012002/017012003 or SA2017_017012004/01
-
-        // d3.json('/data/tools/census2016/SAPS2016_SA2017.csv' + feature.properties.SMALL_AREA).then(function (data) {
-        //   d3.select('#data-textgen')
-        //     .html('<p>' + formatData(data) + '</p>')
-        //   updateChart(data)
-        //   d3.select('#data-chart-title')
-        //     .html('Age distribution of males')
-        // })
     }
   })
 }
 
-// crossfilter variables
-// let idDim;
+d3
+.select('#group-buttons')
+.selectAll('button[type=checkbox]')
+.on('click', function() {
 
-let idDim // data dimension accessible by GEOGID
-
-// function loadClusters (file) {
-//   //    data_.forEach(function (d) {
-//   //        d.id = +d.GEOGID.split('_')[1]; //extract the numerical part
-//   //        //corresponding to the boundary geojson
-//   //    });
-//   // console.log('Variables length = ' + data_.length)
-//   // let censusDataXF = crossfilter(data_)
-//   // idDim = censusDataXF.dimension(function (d) {
-//   //   return +d.GEOGID.split('_')[1]
-//   // })
-// }
-
-  // function formatData (data_) {
-  //   // let res = JSON.stringify(data_, null, '\n');
-  //
-  //   let keys = d3.keys(data_[0])
-  //   // Mens ages from index 4 to 37 inclusive
-  //   // 18+ from index 22
-  //   let over18Males = 0
-  //   for (let i = 22; i < 38; i += 1) {
-  //     over18Males += data_[0][keys[i]]
-  //     // console.log(keys[i]+" : "+data_[0][keys[i]]);
-  //   }
-  //   let over18Females = 0
-  //   // Female ages from index 39 to 72 inclusive
-  //   // 18+ from index 57
-  //   for (let i = 57; i < 73; i += 1) {
-  //     over18Females += data_[0][keys[i]]
-  //     // console.log(keys[i]+" : "+data_[0][keys[i]]);
-  //   }
-  //   let totalMale = data_[0]['T1_1AGETM']
-  //   let totalFemale = data_[0]['T1_1AGETF']
-  //   let textOutput1 = 'The population of this small area is <b>' +
-  //     totalMale + ' males</b> and <b>' +
-  //     totalFemale + ' females</b>, giving <b>' +
-  //     (totalMale + totalFemale) + '</b> persons in total. '
-  //   let textOutput2 = 'Of those, <b>' +
-  //     over18Males + ' men</b> and <b>' +
-  //     over18Females + ' women</b> are over 18 years of age. <br>'
-  //   return textOutput1 + textOutput2
-  // }
-  //
-  // let chartMargins = [10, 0, 30, 20]
-  // // (map size - margins)/2 map size is specified in the css for leaflet charts
-  // let chartHeight = 250 // (200 - chartMargins[0] - chartMargins[2]) / 2;
-  // let chartWidth = 500
-  // var chart = dc.barChart('#data-chart')
-  //
-  // function updateChart (data_) {
-  //   let keys = d3.keys(data_[0])
-  //   let objects = []
-  //   console.debug('keys: ' + keys)
-  //   keys.forEach(function (e, i) {
-  //     if (i >= 4) {
-  //       if (i <= 37) {
-  //         console.debug('key: ' + e + ' val: ' + data_[0][keys[i]])
-  //         let obj = {
-  //           ageBand: e,
-  //           cnt: data_[0][keys[i]]
-  //         }
-  //         objects.push(obj)
-  //       }
-  //     }
-  //   })
-  //
-  //   console.log('object zero: ' + JSON.stringify(objects[0]))
-  //   let ndx = crossfilter(objects)
-  //   console.log('xf: ' + ndx.size())
-  //   let ageDimension = ndx.dimension(function (d) {
-  //       // console.log("key: " + d.ageBand);
-  //       return d.ageBand
-  //     }),
-  //     ageGroup = ageDimension.group()
-  //     .reduceSum(function (d) {
-  //       return d.cnt
-  //     })
-  //   chart
-  //     .width(chartWidth)
-  //     .height(chartHeight)
-  //     .x(d3.scaleBand())
-  //     .xUnits(dc.units.ordinal)
-  //     .brushOn(false)
-  //     .xAxisLabel('Age Group')
-  //     .yAxisLabel('# Persons')
-  //     .dimension(ageDimension)
-  //     .barPadding(0.1)
-  //     .outerPadding(0.05)
-  //     .group(ageGroup)
-  //     .xAxis().tickValues([keys[4], keys[37]])
-  //   chart.render()
-  // }
-  //
-//   boundaries.addTo(mapGeodemos)
-// };
-
-
-function getLayerColor (index) {
-  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
-  return CHART_COLORWAY[index]
-};
-
-d3.selectAll('button[type=checkbox]').on('click', function () {
-  // console.log('checkbox')
   let cb = d3.select(this)
-  let layerNo = parseInt(cb.property('value')) - 1
-  if (cb.classed('active')) {
+  let layerNo = cb.property('value') === 'all' ? 'all' : parseInt(cb.property('value')) - 1
+
+  console.log(layerNo);
+
+  if (cb.property('value') !== 'all' && cb.classed('active')) {
     cb.classed('active', false)
+    d3.select('#group-buttons').select('#group-all').classed('active', false)
     if(mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.removeLayer(mapLayers[layerNo])
     }
-
-  } else {
+  } else if (cb.property('value') !== 'all'){
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
     cb.classed('active', true)
+    mapLayers.forEach( l =>{
+      if(mapGeodemos.hasLayer(l)){
+        mapGeodemos.removeLayer(l)
+      }
+    })
     if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.addLayer(mapLayers[layerNo])
     }
+    Plotly.react('chart-geodemos', [traces[layerNo]], layout)
+
+  } else if (cb.classed('active')){
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
+    mapLayers.forEach( l =>{
+      if(mapGeodemos.hasLayer(l)){
+        mapGeodemos.removeLayer(l)
+      }
+    })
+
+  } else {
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', true)
+    mapLayers.forEach( l =>{
+      if(!mapGeodemos.hasLayer(l)){
+        mapGeodemos.addLayer(l)
+      }
+    })
   }
 })
