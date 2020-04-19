@@ -297,7 +297,7 @@ let idDim // data dimension accessible by GEOGID
   //     .brushOn(false)
   //     .xAxisLabel('Age Group')
   //     .yAxisLabel('# Persons')
-  //     .dimension(ageDimension)
+  //     .dimension(ageDimension)``
   //     .barPadding(0.1)
   //     .outerPadding(0.05)
   //     .group(ageGroup)
@@ -312,10 +312,10 @@ let idDim // data dimension accessible by GEOGID
 function getLayerColor (index) {
   let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
   return CHART_COLORWAY[index]
-};
+}
 
-d3.selectAll('button[type=checkbox]').on('click', function () {
-  // console.log('checkbox')
+d3.select('#group-buttons').selectAll('button[type=checkbox]').on('click', function() {
+
   let cb = d3.select(this)
   let layerNo = parseInt(cb.property('value')) - 1
   if (cb.classed('active')) {
@@ -323,11 +323,15 @@ d3.selectAll('button[type=checkbox]').on('click', function () {
     if(mapGeodemos.hasLayer(mapLayers[layerNo])){
       mapGeodemos.removeLayer(mapLayers[layerNo])
     }
-
+  
   } else {
+    d3.select('#group-buttons').selectAll('button[type=checkbox]').classed('active', false)
+    mapLayers.forEach( l =>{
+      if(mapGeodemos.hasLayer(l)){
+        mapGeodemos.removeLayer(l)
+      }
+    })
     cb.classed('active', true)
-    if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
-      mapGeodemos.addLayer(mapLayers[layerNo])
-    }
+    mapGeodemos.addLayer(mapLayers[layerNo])
   }
 })
