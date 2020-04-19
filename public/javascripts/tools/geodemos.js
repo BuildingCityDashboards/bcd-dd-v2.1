@@ -63,6 +63,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
 
   let columnNames = Object.keys(zScores[0])
+  columnNames = columnNames.filter(e=>e!=='cluster')
   zScores.forEach((row) => {
     let trace = {}
     trace.type = 'bar'
@@ -80,7 +81,7 @@ layout.mode = 'bars'
 layout.height = 600
 // layout.barmode = 'group';
 layout.bargroupgap = 0;
-layout.colorway = CHART_COLORWAY_VARIABLES;
+layout.colorway = CHART_COLORWAY_QUAL_PASTEL
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'zscores';
 layout.showlegend = true;
@@ -246,7 +247,7 @@ function getLayerStyle (index) {
 }
 
 function getLayerColor (index) {
-  let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844']
+  let CHART_COLORWAY = CHART_COLORWAY_QUAL_PASTEL
   return CHART_COLORWAY[index]
 }
 
