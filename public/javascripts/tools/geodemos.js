@@ -58,56 +58,73 @@ let naLayer = L.geoJSON(null, {
 
 d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
-  let trace = {}
-  trace.x = zScores.map((v) => {
-    return v["Age0_4"] || 0;
-  });
 
-  trace.y = zScores.map((v) => {
-    return v["cluster"] + ' ';
-  });
+  console.log(zScores);
+  let columnNames = Object.keys(zScores[0])
 
-let traces = [trace]
+  // let traceGroup1 = columnNames.forEach( name => {
+  //   zScores[0][name]
+  // })
+
+  console.log(columnNames);
+  
+  let traces = []
+  zScores.forEach((row) => {
+    let trace = {}
+    trace.type = 'bar';
+    trace.orientation = 'h';
+    trace.x = columnNames.map( name => {
+      return row[name]
+    })
+    trace.y = columnNames
+    traces.push(trace)
+});
+  
 
 //Set layout options
 let layout = {} //Object.assign({}, ROW_CHART_LAYOUT);
 layout.mode = 'bars'
 layout.height = 600
-layout.barmode = 'group';
+// layout.barmode = 'group';
 layout.bargroupgap = 0;
-// layout.colorway = CHART_COLORWAY_VARIABLES;
-// layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-// layout.title.text = titleFig9;
+layout.colorway = CHART_COLORWAY_VARIABLES;
+layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+layout.title.text = 'zscores';
 layout.showlegend = true;
-// layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
-// layout.legend.xanchor = 'right';
+layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+layout.legend.xanchor = 'right';
 // layout.legend.y = 0.1;
 // layout.legend.traceorder = 'reversed';
-// layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
-// layout.xaxis.title = "Number of Housing Units";
-// layout.xaxis.range = [-1, 1];
-// layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
-// layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
-// layout.yaxis.titlefont.size = 16; //bug? need to call this
-// layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+layout.xaxis.title = "";
+layout.xaxis.range = [-2, 2]
+layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+layout.yaxis.tickfont ={
+  family: 'PT Sans',
+  size: 10,
+  color: '#313131'
+}
+layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+layout.yaxis.titlefont.size = 16; //bug? need to call this
+layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
 
-// layout.yaxis.title = '';
-// layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin);
+layout.yaxis.title = '';
+layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
 layout.margin = {
-  l: 0,
-  r: 0, //annotations space
+  l: 40,
+  r: 40, //annotations space
   t: 40
 };
 
 
 Plotly.newPlot('chart-geodemos', traces, layout, {
-  // modeBar: {
-  //   orientation: 'v',
-  //   bgcolor: 'black',
-  //   color: null,
-  //   activecolor: null
-  // },
-  // modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+  modeBar: {
+    orientation: 'v',
+    bgcolor: 'black',
+    color: null,
+    activecolor: null
+  },
+  modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
   displayModeBar: true,
   displaylogo: false,
   showSendToCloud: false,
@@ -119,6 +136,8 @@ Plotly.newPlot('chart-geodemos', traces, layout, {
   //   format: 'png'
   // }
 })
+
+Plotly.deleteTraces('chart-geodemos', [1,2,3,4,5,6])
 
 }) //end then
 
