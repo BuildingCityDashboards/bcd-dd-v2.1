@@ -40,6 +40,8 @@ let osm = new L.TileLayer(stamenTonerUrl_Lite, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
+let GEODEMOS_COLORWAY=CHART_COLORWAY_QUAL_PASTEL
+
 let naStyle = {
   fillColor: 'grey',
   weight: 1,
@@ -64,10 +66,14 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 
   let columnNames = Object.keys(zScores[0])
   columnNames = columnNames.filter(e=>e!=='cluster')
-  zScores.forEach((row) => {
-    let trace = {}
+  zScores.forEach((row, i) => {
+    let trace = Object.assign({}, TRACES_DEFAULT);
     trace.type = 'bar'
     trace.orientation = 'h'
+    trace.marker = {
+      color: getLayerColor(i), // lines + markers, defaults to colorway
+    }
+    
     trace.x = columnNames.map( name => {
       return row[name]
     })
@@ -81,10 +87,10 @@ layout.mode = 'bars'
 layout.height = 600
 // layout.barmode = 'group';
 layout.bargroupgap = 0;
-layout.colorway = CHART_COLORWAY_QUAL_PASTEL
+layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'zscores';
-layout.showlegend = true;
+layout.showlegend = false;
 layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
 layout.legend.xanchor = 'right';
 // layout.legend.y = 0.1;
@@ -247,8 +253,7 @@ function getLayerStyle (index) {
 }
 
 function getLayerColor (index) {
-  let CHART_COLORWAY = CHART_COLORWAY_QUAL_PASTEL
-  return CHART_COLORWAY[index]
+  return GEODEMOS_COLORWAY[index]
 }
 
 function onEachFeature (feature, layer) {
