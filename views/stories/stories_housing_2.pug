@@ -17,146 +17,162 @@ block navigation
     +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
 
 block content    
-      header.header.mt-5.py-5
-        .container
-          .position-anchor#phase2-top.row.justify-content-md-center
-            .col-md-8
-              a(href="/stories").backlink Back to All Stories
-              h1 Housing in the Dublin Region, 1991 to Present - Phase 2
-              img(class="story-image" src="/images/stories/house_crisis2.jpg" alt="")
- 
-      section.position-anchor#phase2-intro
-        .container
-          .row.justify-content-md-center
-              article.col-md-8
-                .div
-                  p  This is the second part of the data story examining housing in the capital through the housing and planning data available for the city. The previous parts described the preceding historical phase: 
-                  ul.lead  
-                    li 
-                      a(href="housing-dublin-phase-1") 1993-2006 (the Celtic Tiger years)
+  .content.bg-dark-blue
+    header.header.mt-5.py-5
+      .container
+        .position-anchor#phase2-top.row.justify-content-md-center
+          .col-md-12
+            a(href="/stories").backlink Back to All Stories
+            h1.mb-5.mt-5 Housing in the Dublin Region, 1991 to Present - Phase 2
+            img(class="story-image" src="/images/stories/house_crisis2.jpg" alt="")
+            section.position-anchor#phase2-intro
+              .div(style="margin-top:30px")
+                p This is the second part of the data story examining housing in the capital through the housing and planning data available for the city. The previous parts described the preceding historical phase: 
+                ul  
+                  li 
+                    a(href="housing-dublin-phase-1") 1993-2006 (the Celtic Tiger years)
 
-              article.position-anchor#phase2-heading.col-md-8
-                h2.mt-5.mb-4 Housing crisis phase 2: 2007-2012 (the crash)
-                .position-anchor#phase2-1.div
-                  p As the global economy slowed and the global sub-prime banking crisis began, 
-                    a(href="housing-dublin-phase-1#property-price-growth-chart") house price rises in Ireland 
-                    |started to slow in September 2006, 
-                    |levelled-off in March 2007, and remained static until November 2007.  From December 2007 to February 2012 they fell consistently before bottoming-out and remaining stable until June 2013, as reflected in the monthly Property Price Index (PPI) figures for the period.
-                  p  From the peak to bottom, prices fell by 57.4% in Dublin (houses 55.9% and apartments 63.7%) and 48.7% in the rest of the country. 
-                    |Ireland experienced one of the deepest house market collapses on record.  
-                //- fig1
-                #ppi-monthly-chart.plotly-chart-medium
-                  //- <button type="button" class="btn btn-bcd active chart-btn chart_pop">All Residential Properties</button>
-                  //- <button type="button" class="btn btn-bcd chart-btn chart_hos">Houses</button>
-                  //- <button type="button" class="btn btn-bcd chart-btn chart_prate">Apartments</button>
-                .div.position-anchor#phase2-2
-                  //- p.small.text-center Figure 1: House price index from 2005-2018 – national/Dublin housing/apartments - CSO.
-                  
-                  p  As 2008 started, it was clear that the promise of a 'soft landing' was empty. All of the issues built up over the course of the 
-                    |Celtic Tiger years exploded into a new set of crises, as the property bubble burst and the Irish banking sector collapsed. 
-                    |This culminated in the Irish bank guarantee of September 2008, the creation of the state-owned National Assets Management Agency (NAMA) in 
-                    |September 2009 (which bought €74 billion of distressed property loans from the Irish banks), and the €85 billion IMF–EU-ECB bailout in November 2010. 
-                  p  While the global financial crisis was the trigger for the Irish crisis, Irish banks were little exposed to US subprime loans; 
-                    |rather, they were massively exposed to property and development loans in a bubble market.<sup>1</sup> Moreover, it soon became clear that not only were prices over-inflated, 
-                    |but that there was a massive oversupply of housing stock and over-zoning of land.
-                  p Between 2005 and 2007 there were 252,403 
-                    a(href='housing-dublin-phase-1#housing-completions-chart') housing units completed in Ireland 
-                    |(connected to the electricity grid), 
-                    |with another 78,144 added in 2008 and 2009 as legacy construction slowed. This is despite the fact that the 2002 census had 
-                    |reported 143,418 vacant units and that, by the following census of 2006, that figure had grown to 266,322 vacant units . 
-                    //- p.small.text-center Figure 2: Vacant housing 1991-2016.
-                  p  Put simply, housing units had been built in excess of demand across the entire country, with a vacancy rate for the state (excluding holiday homes) above 15%. 
-                    //- |The extent of the oversupply was clarified by the 2011 census, which reported that 230,056 units were vacant (excluding holiday homes), 168,427 houses and 61,629 apartments out of a total housing stock of 1,994,845 (11.5% of stock). 
-                    |Allowing that one would always expect some units to be vacant in any housing market (typically about 6%) then oversupply was approximately 110,000 units.
-                    //- (CSO 2014a).   
-                //- fig2
-                #vacant-housing-chart.plotly-chart-medium
-                .div.position-anchor#phase2-3
-                  p  The most visible manifestation of the oversupply issue was unfinished housing estates. After some speculation as to how many such estates existed, 
-                    |The National Survey of Housing Developments reported that there were 2,846 documented unfinished estates in Ireland in 2010, present in every local authority.<sup>2</sup> 
-                    |With respect to the units on these estates, 78,195 were complete and occupied, 23,250 complete and vacant, and 19,830 under construction, with planning permission in place for a further 58,025 units.
-                //- fig3
-                #unfinished-estates-map-title.housing-story-map-title Map of Unfinished Estates in Dublin and Surrounding Areas (2010)
-                #unfinished-estates-map
-                  //- img(class="coming-soon-placeholder" src="/images/coming-soon.png" alt="coming soon placeholder image")
-                  //- p.small.text-center Coming soon: Unfinished Estates Map
-                //- .div
-                  p.small.text-center Figure 3: Map of unfinished estates.
-                .div.position-anchor#phase2-4
-                  p  Beyond vacancy and unfinished estates, there has been a concern related to the quality of dwellings constructed during the Celtic Tiger era.  Building control and standards were deregulated in Ireland in 1990, with local authority planning enforcement only undertaking inspections on 10-15% of sites, and not at all stages of development. The highest profile case was Priory Hall in Dublin, where 187 apartments were found to breach fire hazard regulations- with residents forced to vacate their homes for two years whilst continuing to pay mortgages- but there have been numerous other similar examples.  
-                  p  Furthermore, there are estimated to be in excess of 20,000 homes whose foundation hardcore and building blocks are contaminated with pyrite; the DECLG presently only recognizes 74 estates containing 12,250 units however, predominately located in Dublin City, Fingal, Meath, Kildare, and Offaly.
-                  p  In addition to the oversupply of dwellings, there was also an oversupply of zoned land and commercial premises.  In June 2008, there was 14,191 hectares of serviced zoned land in the state, enough for up to 462,000 potential new units.  
-                  //- In addition, there was another 30,000 hectares of unserviced zoned land.
-                //- fig4
-                #serviced-land-chart.plotly-chart-medium
-                //- #zoned-areas-map.plotly-chart-medium
-                  //- img(class="coming-soon-placeholder" src="/images/coming-soon.png" alt="coming soon placeholder image") 
-                  //- p.small.text-center Coming soon: Zoned Area Map   
-                .div.position-anchor#phase2-5
-                  p  Not unsurprisingly, land prices plummeted by between 75-98% in value post-2007.  In Dublin some 782,500m2 of office space (23%) was vacant in 2010.  After a substantial growth in the construction of hotels during the Celtic Tiger, at the end of 2008 15,000 guest rooms (26%) were deemed to be in-excess of demand. 
-                  p  As the housing market plummeted and the wider economy crashed, unemployment rose from 4.6% in Q4 2007 to peak at 15.1% in Q3 2011. Households faced tax rises and pay cuts and increasing financial pressure was placed onto households.
-                   //- (CSO 2014b). (have link to employment graph elsewhere on site?) 
-                  p Faced with paying high payment rates on their 
-                    a(href="housing-dublin-phase-1#mortgage-debt-chart") mortgages
-                    |, many households struggled to keep up with payments.  In Q3 2009 3.3% of principal residence mortgages (26,700 mortgages) were in arrears by more than 90 days.  By Q3 2013 this had peaked at 12.9% (98,763 mortgages), with 18.4% in some level of arrears (141,269 mortgages).  
-                    //- (Central Bank 2016).  
+    section
+      .container
+        article#phase2-content
+          #phase2-1-heading
+          .position-anchor
+            h2.mt-5.mb-5 After rapid growth, property prices collapsed
+          #phase2-1
+            p As the global economy slowed and the global sub-prime banking crisis began, 
+              a(href="housing-dublin-phase-1#phase1-4-heading") house price rises in Ireland 
+              |started to slow in September 2006, 
+              |levelled-off in March 2007, and remained static until November 2007.  From December 2007 to February 2012 they fell consistently before bottoming-out and remaining stable until June 2013.
+            p  From the peak to bottom, prices fell by 57.4% in Dublin (houses 55.9% and apartments 63.7%) and 48.7% in the rest of the country. 
+              |Ireland experienced one of the deepest house market collapses on record.  
+          //- fig1
+          #ppi-monthly-chart.plotly-chart-medium
+            //- <button type="button" class="btn btn-bcd active chart-btn chart_pop">All Residential Properties</button>
+            //- <button type="button" class="btn btn-bcd chart-btn chart_hos">Houses</button>
+            //- <button type="button" class="btn btn-bcd chart-btn chart_prate">Apartments</button>
+          #phase2-2-heading
+          .position-anchor
+            h2.mt-5.mb-5 More homes were being built than demanded, leading to high vacancy rates
+          #phase2-2
+            //- p.small.text-center Figure 1: House price index from 2005-2018 – national/Dublin housing/apartments - CSO.
             
-                //- fig5
-                #home-mortgage-arrears-chart.plotly-chart-medium
-                .div
-                  p  With respect to buy-to-let mortgages, 21.2% (31,178) were in arrears of more than 90 days, with 27.4% (40,426) in some level of arrears in Q3 2013.  
-                //- fig6
-                #btl-mortgage-arrears-chart.plotly-chart-medium
-                .div.position-anchor#phase2-6
-                  p  As house prices dropped, the number of households in negative equity grew to include more than 50% of residential properties with a mortgage.
-                  p  Similarly, rent arrears to local authorities, boroughs and town councils increased from €32.8m in January 2008 to €58.5m in December 2011, as tenants struggled to pay their bills.
-                  
-                  p  The huge house price rises in the Celtic Tiger years, followed by the financial pressures of the crash, had significant spillover effects with respect to social housing demands and homelessness.  In 1999 there were 39,176 households on the social housing waiting list, rising to 98,318 in 2011.  The vast majority of people on this list are there because they cannot afford private rental accommodation, or to purchase a home of their own.
-                //- fig7
-                #social-housing-wait-chart.plotly-chart-medium
-                .div.position-anchor#phase2-7
-                  p  The austerity programme implemented by two governments from 2008 onwards dramatically reduced state investment in social housing. The capital expenditure for social housing was reduced by 80% (from €1.3bn to €275m) between 2008 and 2013, and funding for the National Regeneration Programme reduced from €121 million in 2008 to €80 million in 2013- a 34% reduction.  
-                  p  Between 2008 and 2013, 10,745
-                    a(href="housing-dublin-phase-1#social-housing-units-build-chart")  social housing units 
-                    |were built (nearly all in 2008-09, much of it replacement stock in regeneration schemes), 3,293 were acquired through purchase and 8,707 long-term leases were acquired through RAS.  While some stock was being built or acquired then, social housing needs were outstripping the state’s ability to supply suitable affordable accommodation.  
-                  p  The shortfall in social housing was made-up through privately rented accommodation subsidized by rent supplement.  97,260 households were receiving rent supplement in late 2010, an increase of 63% on the previous three years, with spending rising from €70 million in the mid-1990s to €516.5 million in 2010.  
-                  //- fig8
-                #rent-suppliment-chart.plotly-chart-medium
-              
-                .div.position-anchor#phase2-8
-                  p  Even with the state providing social housing or rent supplement, the financial and other pressures placed onto individuals and households during the crash saw a rise in homelessness: between 2008 and 2011 the number of homeless households increased by 68% to 2,348, with 3,808 people in accommodation for the homeless. 
-                  p  Further, much social housing stock was acknowledged to be in poor condition.  Prior to the crash the decision was to taken for large-scale regeneration schemes in North Dublin (Ballymun) and other Dublin estates using public-private partnerships (PPPs). These PPP schemes collapsed with the crash as both private and public finances evaporated.  This left thousands of local authority tenants living in substandard conditions whilst awaiting re-location, and many hundreds permanently relocated in preparation for regeneration.
-                  //- fig9
-                #ppp-schemes-chart.plotly-chart-medium
-                  //- img(class="coming-soon-placeholder" src="/images/stories/fig8-alt.png" alt="alt chart placeholder image") 
-                  //- p.small.text-center Alt PPP chart 
-                  .position-anchor#phase2-9
-                  p At the same, planned investment in Traveller accommodation nationally also stalled during this period. In 2013, there were 361 Traveller families living on unauthorised sites, and 5574 in various types of local authority housing. 
-                  //- fig10
-                #traveller-accomodation-chart.plotly-chart-medium
-                
-                bold Next part: 
-                    a(href="housing-dublin-phase-3#phase3") Phase 3: 2013-present (post-crash)
-                  
-                
-              article.col-md-8.py-5
-                h2 Acknowledgement
-                .div
-                  p  This extended data story is an updated and modified version Kitchin, R., Hearne, R. and O’Callaghan, C. (2016) Housing. In Roche, W.K., O’Connell, P. and Prothero, A. (eds) Austerity and Recovery in Ireland: Europe’s Poster Child and the Great Recession. Oxford University Press. pp. 272-289.
+            //-p  As 2008 started, it was clear that the promise of a 'soft landing' was empty. All of the issues built up over the course of the 
+              |Celtic Tiger years exploded into a new set of crises, as the property bubble burst and the Irish banking sector collapsed. 
+              |This culminated in the Irish bank guarantee of September 2008, the creation of the state-owned National Assets Management Agency (NAMA) in 
+              |September 2009 (which bought €74 billion of distressed property loans from the Irish banks), and the €85 billion IMF–EU-ECB bailout in November 2010. 
+            //-p  While the global financial crisis was the trigger for the Irish crisis, Irish banks were little exposed to US subprime loans; 
+              |rather, they were massively exposed to property and development loans in a bubble market.<sup>1</sup> Moreover, it soon became clear that not only were prices over-inflated, 
+              |but that there was a massive oversupply of housing stock and over-zoning of land.
+            p Between 2005 and 2007 there were 252,403 
+              a(href='housing-dublin-phase-1#phase1-3-heading') housing units completed in Ireland 
+              |, with another 78,144 added in 2008 and 2009 as legacy construction slowed. This is despite the fact that the 2002 census had 
+              |reported 143,418 vacant units and that, by the following census of 2006, that figure had grown to 266,322 vacant units. 
+              //- p.small.text-center Figure 2: Vacant housing 1991-2016.
+            p  Put simply, housing units had been built in excess of demand across the entire country, with a vacancy rate for the state (excluding holiday homes) above 15%. 
+              //- |The extent of the oversupply was clarified by the 2011 census, which reported that 230,056 units were vacant (excluding holiday homes), 168,427 houses and 61,629 apartments out of a total housing stock of 1,994,845 (11.5% of stock). 
+              |Oversupply was approximately 110,000 units.
+              //- (CSO 2014a).   
+          //- fig2
+          #vacant-housing-chart.plotly-chart-medium
+          #phase2-3-heading
+          .position-anchor
+            h2.mt-5.mb-5 Estates remained unfinished throughout the country
+          #phase2-3
+            p  The most visible manifestation of the oversupply issue was unfinished housing estates.  
+              |The National Survey of Housing Developments reported that there were 2,846 documented unfinished estates in Ireland in 2010, present in every local authority.<sup>2</sup> 
+              |With respect to the units on these estates, 78,195 were complete and occupied, 23,250 complete and vacant, and 19,830 under construction, with planning permission in place for a further 58,025 units.
+          //- fig3
+          
+          #unfinished-estates-map
+          
+            //- img(class="coming-soon-placeholder" src="/images/coming-soon.png" alt="coming soon placeholder image")
+            //- p.small.text-center Coming soon: Unfinished Estates Map
+          //- .div
+            p.small.text-center Figure 3: Map of unfinished estates.
+          #phase2-4-heading
+          .position-anchor
+            h2.mt-5.mb-5 Non-residential properties were also left vacant
+          #phase2-4
+            p  In addition to the oversupply of dwellings, there was also an oversupply of zoned land and commercial premises.  In June 2008, there was 14,191 hectares of serviced zoned land in the state, enough for up to 462,000 potential new units.  
+            p  In Dublin, some 782,500 square meters of office space (23%) was vacnt in 2010. Not unsurprisingly, land prices plummeted by between 75-98% in value post-2007.
+            //- In addition, there was another 30,000 hectares of unserviced zoned land.
+          //- fig4
+          #serviced-land-chart.plotly-chart-medium
+          //- #zoned-areas-map.plotly-chart-medium
+            //- img(class="coming-soon-placeholder" src="/images/coming-soon.png" alt="coming soon placeholder image") 
+            //- p.small.text-center Coming soon: Zoned Area Map   
+          #phase2-5-heading
+          .position-anchor
+            h2.mt-5.mb-5 High mortgage rates meant many could not afford payments
+          #phase2-5
+            p Faced with high payment rates on their 
+              a(href="housing-dublin-phase-1#mortgage-debt-chart") mortgages
+              |, many households struggled to keep up with payments.  In Q3 2009 3.3% of principal residence mortgages (26,700 mortgages) were in arrears by more than 90 days.  By Q3 2013 this had peaked at 12.9% (98,763 mortgages), with 18.4% in some level of arrears (141,269 mortgages).  
+              //- (Central Bank 2016).  
+      
+          //- fig5
+          #home-mortgage-arrears-chart.plotly-chart-medium
+          #phase2-6-heading
+          .position-anchor
+            h2.mt-5.mb-5 Buy-to-rent mortgages experienced higher rates of arrears
+          #phase2-6
+            p  With respect to buy-to-let mortgages, 21.2% (31,178) were in arrears of more than 90 days, with 27.4% (40,426) in some level of arrears in Q3 2013.  
+          //- fig6
+          #btl-mortgage-arrears-chart.plotly-chart-medium
+          #phase2-7-heading
+          .position-anchor
+            h2.mt-5.mb-5 High housing costs drove many more to seek social housing
+          #phase2-7
+            p  The huge house price rises in the Celtic Tiger years, followed by the financial pressures of the crash, had significant spillover effects with respect to social housing demands and homelessness.  In 1999 there were 39,176 households on the social housing waiting list, rising to 98,318 in 2011.  The vast majority of people on this list are there because they cannot afford private rental accommodation, or to purchase a home of their own.
+          //- fig7
+          #social-housing-wait-chart.plotly-chart-medium
+          //- .div.position-anchor#phase2-7
+          //-   p  The austerity programme implemented by two governments from 2008 onwards dramatically reduced state investment in social housing. The capital expenditure for social housing was reduced by 80% (from €1.3bn to €275m) between 2008 and 2013, and funding for the National Regeneration Programme reduced from €121 million in 2008 to €80 million in 2013- a 34% reduction.  
+          //-   p  Between 2008 and 2013, 10,745
+          //-     a(href="housing-dublin-phase-1#social-housing-units-build-chart")  social housing units 
+          //-     |were built (nearly all in 2008-09, much of it replacement stock in regeneration schemes), 3,293 were acquired through purchase and 8,707 long-term leases were acquired through RAS.  While some stock was being built or acquired then, social housing needs were outstripping the state’s ability to supply suitable affordable accommodation.  
+          //-   p  The shortfall in social housing was made-up through privately rented accommodation subsidized by rent supplement.  97,260 households were receiving rent supplement in late 2010, an increase of 63% on the previous three years, with spending rising from €70 million in the mid-1990s to €516.5 million in 2010.  
+          //-   //- fig8
+          //- #rent-suppliment-chart.plotly-chart-medium
+        
+          //- .div.position-anchor#phase2-8
+          //-   p  Even with the state providing social housing or rent supplement, the financial and other pressures placed onto individuals and households during the crash saw a rise in homelessness: between 2008 and 2011 the number of homeless households increased by 68% to 2,348, with 3,808 people in accommodation for the homeless. 
+          //-   p  Further, much social housing stock was acknowledged to be in poor condition.  Prior to the crash the decision was to taken for large-scale regeneration schemes in North Dublin (Ballymun) and other Dublin estates using public-private partnerships (PPPs). These PPP schemes collapsed with the crash as both private and public finances evaporated.  This left thousands of local authority tenants living in substandard conditions whilst awaiting re-location, and many hundreds permanently relocated in preparation for regeneration.
+          //-   //- fig9
+          //- #ppp-schemes-chart.plotly-chart-medium
+            //- img(class="coming-soon-placeholder" src="/images/stories/fig8-alt.png" alt="alt chart placeholder image") 
+            //- p.small.text-center Alt PPP chart 
+          #phase2-8-heading
+          .position-anchor
+            h2.mt-5.mb-5 Housing assistance for Traveller families also declined
+          #phase2-8
+            p During the crisis, planned investment in Traveller accommodation nationally also stalled. In 2013, there were 361 Traveller families living on unauthorised sites, and 5574 in various types of local authority housing. 
+            //- fig10
+          #traveller-accomodation-chart.plotly-chart-medium(style='margin-bottom:100px')
+          
+          bold Next part: 
+              a(href="housing-dublin-phase-3#phase3") Phase 3: 2013-present (post-crash)
+            
+          
+        //-article.col-md-8.py-5
+        .position-anchor#phase2-acknowledgement
+          h2.mt-5.mb-4 Acknowledgement
+        .div
+          p  This extended data story is an updated and modified version Kitchin, R., Hearne, R. and O’Callaghan, C. (2016) Housing. In Roche, W.K., O’Connell, P. and Prothero, A. (eds) Austerity and Recovery in Ireland: Europe’s Poster Child and the Great Recession. Oxford University Press. pp. 272-289.
 
-              article.col-md-8.pb-5
-                h2 References
-                .div
-                  p <sup>1</sup> O’Toole, F. 2009. Ship of Fools: How Stupidity and Corruption Sank the Celtic Tiger. London: Faber and Faber.
-                  p <sup>2</sup> https://www.housingagency.ie/Our-Services/Unfinished-Housing-Developments.aspx. 
-                  p <sup>3</sup> Central Statistics Office, CSO. 2008. Construction and Housing in Ireland. Available at: 
-                    a( href="http://www.cso.ie/en/media/csoie/releasespublications/documents/construction/current/constructhousing.pdf" target="blank") www.cso.ie
-                  p <sup>4</sup> O’Riain, S. 2014. The Rise and Fall of Ireland’s Celtic Tiger: Liberalism, Boom, and Bust Cambridge: Cambridge University Press.
-                  p <sup>5</sup> Savills HOK 2007. Values Approach €60,000 Hectare. Irish Agricultural Land Research May. 
-                  p <sup>6</sup> O’Toole, F. 2009. Ship of Fools: How Stupidity and Corruption Sank the Celtic Tiger. London: Faber and Faber.
-                  p <sup>7</sup> Honohan, P. 2010. The Irish Banking Crisis: Regulatory and Financial Stability Policy 2003 – 2008.  Irish Central Bank. 
-                    | Available at:  
-                    a(href="http://www.bankinginquiry.gov.ie/the%20irish%20banking%20crisis%20regulatory%20and%20financial%20stability%20policy%202003-2008.pdf" target="blank") www.bankinginquiry.gov.ie
+        .position-anchor#phase2-references
+          h2.mt-5.mb-4 References
+        .div
+          //-p <sup>1</sup> O’Toole, F. 2009. Ship of Fools: How Stupidity and Corruption Sank the Celtic Tiger. London: Faber and Faber.
+          p(style='padding-bottom: 1rem; margin-bottom: 0px') <sup>1</sup> https://www.housingagency.ie/Our-Services/Unfinished-Housing-Developments.aspx. 
+          //-p <sup>3</sup> Central Statistics Office, CSO. 2008. Construction and Housing in Ireland. Available at: 
+            a( href="http://www.cso.ie/en/media/csoie/releasespublications/documents/construction/current/constructhousing.pdf" target="blank") www.cso.ie
+          //-p <sup>4</sup> O’Riain, S. 2014. The Rise and Fall of Ireland’s Celtic Tiger: Liberalism, Boom, and Bust Cambridge: Cambridge University Press.
+          //-p <sup>5</sup> Savills HOK 2007. Values Approach €60,000 Hectare. Irish Agricultural Land Research May. 
+          //-p <sup>6</sup> O’Toole, F. 2009. Ship of Fools: How Stupidity and Corruption Sank the Celtic Tiger. London: Faber and Faber.
+          //-p <sup>7</sup> Honohan, P. 2010. The Irish Banking Crisis: Regulatory and Financial Stability Policy 2003 – 2008.  Irish Central Bank. 
+            | Available at:  
+            a(href="http://www.bankinginquiry.gov.ie/the%20irish%20banking%20crisis%20regulatory%20and%20financial%20stability%20policy%202003-2008.pdf" target="blank") www.bankinginquiry.gov.ie
 
 block append scripts
   script(src="/lib/proj4.js" type="text/javascript")
@@ -176,6 +192,6 @@ block append scripts
   script(src="/javascripts/stories/housing/story-housing2-fig6.js" type="text/javascript")
   script(src="/javascripts/stories/housing/story-housing2-fig7.js" type="text/javascript")
   script(src="/javascripts/stories/housing/story-housing2-fig8.js" type="text/javascript")
-  script(src="/javascripts/stories/housing/story-housing2-fig9.js" type="text/javascript")
-  script(src="/javascripts/stories/housing/story-housing2-fig10.js" type="text/javascript")
+  //-script(src="/javascripts/stories/housing/story-housing2-fig9.js" type="text/javascript")
+  //-script(src="/javascripts/stories/housing/story-housing2-fig10.js" type="text/javascript")
   script(src="/javascripts/charts/plotly/plotly_resize_fix.js" type="text/javascript")

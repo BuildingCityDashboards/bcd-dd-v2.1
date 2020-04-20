@@ -3,7 +3,7 @@
 const srcPathFig4a = "../data/Stories/Housing/part_2/processed/serviced_land_hectares.csv",
   srcPathFig4b = "../data/Stories/Housing/part_2/processed/serviced_land_expected_units.csv";
 const regionsFig4 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-const titleFig4 = "Serviced Land in Dublin and Surrounding Areas (1991-2016)";
+const titleFig4 = "Serviced Land in Dublin and Surrounding Areas 1991-2016";
 const divIDFig4 = "serviced-land-chart";
 
 Promise.all([
@@ -30,7 +30,7 @@ Promise.all([
         return y[yVar];
       });
       // trace.connectgaps = true;
-      trace.mode = 'lines';
+      trace.mode = 'lines+markers';
       // trace.name === 'state' ? trace.visible = true : trace.visible = true;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       REGIONS_ORDERED_DUBLIN.includes(trace.name) ? trace.opacity = 1.0 : trace.opacity = 0.5;
@@ -42,20 +42,21 @@ Promise.all([
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig4;
+    //layout.title.text = titleFig4;
     layout.height = 500;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layout.xaxis.title = '';
-    layout.xaxis.range = [2000, 2012];
+    layout.xaxis.title = 'Year';
+    layout.xaxis.range = [1999.9, 2012.1];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
-    layout.yaxis.range = [1, 1500];
-    layout.yaxis.title = '';
+    layout.yaxis.range = [1, 1520];
+    layout.yaxis.title = 'Hectares';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
-    layout.margin = {
-      l: 25,
-      r: 200,
-      t: 100 //button row
+    layout.margin= {
+      l: 75,
+      r: 210,
+      t: 100, //button row
+      b: 40
     };
     let annotationsHectares = [];
     tracesHectares.forEach((trace, i) => {
@@ -114,11 +115,12 @@ Promise.all([
             },
             {
               'annotations': annotationsHectares,
-              'title': titleFig4,
-              'yaxis.range': [1, 1500]
+              //'title': titleFig4,
+              'yaxis.range': [1, 1520],
+              'yaxis.title' : 'Hectares'
             }
           ],
-          label: 'Hectares',
+          label: 'Land Area',
           method: 'update',
           execute: true
         },
@@ -131,8 +133,9 @@ Promise.all([
             {
               'annotations': annotationsExpectedUnits,
 
-              'title': titleFig4,
-              'yaxis.range': [10, 70000]
+              //'title': titleFig4,
+              'yaxis.range': [10, 70000],
+              'yaxis.title' : 'Units'
             }
           ],
           label: 'Expected Units',

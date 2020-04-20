@@ -3,7 +3,7 @@
 const srcPathFig6 = "../data/Stories/Housing/part_1/",
   srcFileFig6 = "House_Com.csv";
 const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow"];
-let titleFig6 = "";
+let titleFig6 = "Social Housing Stock by Type, by Region 1991-2016";
 const divIDFig6 = "social-housing-units-build-chart";
 
 
@@ -42,7 +42,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layout.title.text = titleFig6;
+    //layout.title.text = titleFig6;
     layout.height = 500;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);

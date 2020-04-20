@@ -1,6 +1,6 @@
 //Options for chart
 const srcPathFig6 = "../data/Stories/Housing/part_2/processed/btl_mortgage_arrears.csv";
-const titleFig6 = "Buy-to-let Mortage Arrears (2012-2018)";
+const titleFig6 = "Buy-to-Let Mortgage Arrears";
 const divIDFig6 = "btl-mortgage-arrears-chart";
 // const regionsFig6 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "State"];
 
@@ -19,14 +19,14 @@ d3.csv(srcPathFig6)
     let traces = [];
     const yAxisRangeCount = [1, 160000];
     const yAxisRangePercent = [1, 100];
-    const marginRCount = 0;
-    const marginRPercent = 0;
+    const marginRCount = 260;
+    const marginRPercent = 260;
 
     let colName = "Outstanding Mortgages: Total mortgage loan accounts outstanding";
     let totalTrace = getTrace(data, "date", colName);
-    totalTrace.text = totalTrace.y.map(String);
+    //totalTrace.text = totalTrace.y.map(String);
     totalTrace.name = shortColumnNames[colName];
-    totalTrace.mode = 'lines';
+    totalTrace.mode = 'lines+markers';
     totalTrace.opacity = 0.5
     totalTrace.visible = true;
     totalTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
@@ -35,10 +35,10 @@ d3.csv(srcPathFig6)
     //
     colName = "Arrears: Total mortgage accounts in arrears";
     let arrearsTrace = getTrace(data, "date", colName);
-    arrearsTrace.text = arrearsTrace.y.map(String);
+    //arrearsTrace.text = arrearsTrace.y.map(String);
     arrearsTrace.name = shortColumnNames[colName];
     // sarrearsTrace.type = 'scatter';
-    arrearsTrace.mode = 'lines';
+    arrearsTrace.mode = 'lines+markers';
     arrearsTrace.visible = true;
     arrearsTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrearsTrace.marker.color = CHART_COLORWAY_VARIABLES[0];
@@ -46,10 +46,10 @@ d3.csv(srcPathFig6)
 
     colName = "Arrears: Total mortgage accounts in arrears - over 90 days"
     let arrears90DaysTrace = getTrace(data, "date", colName);
-    arrears90DaysTrace.text = arrearsTrace.y.map(String);
+    //arrears90DaysTrace.text = arrearsTrace.y.map(String);
     arrears90DaysTrace.name = shortColumnNames[colName];
     // sarrears90DaysTrace.type = 'scatter';
-    arrears90DaysTrace.mode = 'lines';
+    arrears90DaysTrace.mode = 'lines+markers';
     arrears90DaysTrace.visible = true;
     arrears90DaysTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrears90DaysTrace.marker.color = CHART_COLORWAY_VARIABLES[1];
@@ -65,9 +65,10 @@ d3.csv(srcPathFig6)
       return 102;
     });
     arrears100PercentTrace.name = 'All Outstanding Mortgages';
-    arrears100PercentTrace.mode = 'lines';
+    arrears100PercentTrace.mode = 'lines+markers';
     arrears100PercentTrace.stackgroup = 'three';
-    arrears100PercentTrace.hoverinfo = 'none';
+    //arrears100PercentTrace.hoverinfo = 'none';
+    arrears100PercentTrace.visible = false;
     arrears100PercentTrace.opacity = 0.5;
     arrears100PercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrears100PercentTrace.marker.color = 'grey';
@@ -76,10 +77,10 @@ d3.csv(srcPathFig6)
     colName = "Arrears: % of loan accounts in arrears";
     let arrearsPercentTrace = getTrace(data, "date", colName);
 
-    arrearsPercentTrace.text = arrearsTrace.y.map(String);
+    //arrearsPercentTrace.text = arrearsTrace.y.map(String);
     arrearsPercentTrace.name = shortColumnNames[colName];
     arrearsPercentTrace.stackgroup = 'two';
-    arrearsPercentTrace.mode = 'lines';
+    arrearsPercentTrace.mode = 'lines+markers';
     arrearsPercentTrace.visible = false;
     arrearsPercentTrace.opacity = 1.0;
     arrearsPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
@@ -88,10 +89,10 @@ d3.csv(srcPathFig6)
 
     colName = "Arrears: % of loan accounts in arrears for more than 90 days";
     let arrears90DaysPercentTrace = getTrace(data, "date", colName);
-    arrears90DaysPercentTrace.text = arrearsTrace.y.map(String);
+    //arrears90DaysPercentTrace.text = arrearsTrace.y.map(String);
     arrears90DaysPercentTrace.name = shortColumnNames[colName];
     arrears90DaysPercentTrace.stackgroup = 'one';
-    arrears90DaysPercentTrace.mode = 'lines';
+    arrears90DaysPercentTrace.mode = 'lines+markers';
     arrears90DaysPercentTrace.visible = false;
     arrears90DaysPercentTrace.marker = Object.assign({}, TRACES_DEFAULT.marker);
     arrears90DaysPercentTrace.marker.color = CHART_COLORWAY_VARIABLES[1];
@@ -106,29 +107,33 @@ d3.csv(srcPathFig6)
       trace.y = data.map((y) => {
         return y[yVar];
       });
-      trace.hoverinfo = 'y';
+      //trace.hoverinfo = 'y';
       return trace;
     }
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig6;
+    //layout.title.text = titleFig6;
     layout.height = 500;
     layout.colorway = CHART_COLORWAY_VARIABLES;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layout.xaxis.title = '';
+    layout.xaxis.title = 'Month Year';
     layout.xaxis.nticks = 5;
+    layout.xaxis.range = [-0.2,24.2]
+    layout.xaxis.tickmode = 'array'
+    layout.xaxis.tickvals = [0,6,12,18,24,30]
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.range = yAxisRangeCount;
     // layout.yaxis.visible = false;
-    layout.yaxis.title = '';
+    layout.yaxis.title = 'Accounts';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 0,
+      l: 80,
       r: marginRCount,
       t: 100, //button row
+      b: 40
     };
 
     let countAnnotations = [];
@@ -174,10 +179,10 @@ d3.csv(srcPathFig6)
               'visible': [true, true, true, false, false, false]
             },
             {
-              'title': titleFig6,
+              //'title': titleFig6,
               'annotations': countAnnotations,
               'yaxis.range': yAxisRangeCount,
-              'yaxis.title.text': '',
+              'yaxis.title.text': 'Accounts',
               'margin.r': marginRCount
 
             }
@@ -191,7 +196,7 @@ d3.csv(srcPathFig6)
               'visible': [false, false, false, true, true, true]
             },
             {
-              'title': titleFig6,
+              //'title': titleFig6,
               'annotations': rateAnnotations,
               'yaxis.range': yAxisRangePercent,
               'yaxis.title.text': '%',

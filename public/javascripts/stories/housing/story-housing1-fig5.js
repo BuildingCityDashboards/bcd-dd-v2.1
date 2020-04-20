@@ -3,7 +3,7 @@
 const srcPathFig5 = "../data/Stories/Housing/part_1/",
   srcFileFig5 = "mortgage_debt.csv";
 const typesFig5 = ["Value of debt"];
-const titleFig5 = "";
+const titleFig5 = "Residential Mortgage Debt in Billions of Euros 2002-20017";
 const divIDFig5 = "mortgage-debt-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -30,7 +30,7 @@ d3.csv(srcPathFig5 + srcFileFig5)
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig5;
+    //layout.title.text = titleFig5;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [2001.98, 2007.02];

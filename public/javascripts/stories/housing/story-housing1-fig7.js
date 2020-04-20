@@ -8,7 +8,7 @@
 const srcPathFig7 = "../data/Stories/Housing/part_1/",
   srcFileFig7 = "Social_housing_stock.csv";
 
-const titleFig7 = "";
+const titleFig7 = "Social Housing Stock by Type, by Region 1991-2016";
 // titleFig7 = popTitle; //set default on load
 const divIDFig7 = "social-housing-units-stock-chart";
 //This array controls the order in which subplotsare drawn
@@ -86,7 +86,7 @@ d3.csv(srcPathFig7 + srcFileFig7)
     //Configure the layout object common to all plots
     let layoutFig7 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS);
     layoutFig7.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
-    layoutFig7.title.text = titleFig7;
+    //layoutFig7.title.text = titleFig7;
     layoutFig7.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
     layoutFig7.margin.t = 100;
     layoutFig7.height = 600;
@@ -280,7 +280,13 @@ d3.csv(srcPathFig7 + srcFileFig7)
       displayModeBar: true,
       displaylogo: false,
       showSendToCloud: false,
-      responsive: true
+      responsive: true,
+      toImageButtonOptions: {
+        filename: 'Dublin Dashboard - ' + titleFig7,
+        width: null,
+        height: null,
+        format: 'png'
+      }
     });
 
     //workaround to place y axis labels on bars

@@ -3,7 +3,7 @@
 const srcPathFig4 = "../data/Stories/Housing/part_1/",
   srcFileFig4 = "propertyprices.csv";
 const typesFig4 = ["National New", "National Second Hand", "Dublin New", "Dublin Second Hand"];
-const titleFig4 = "";
+const titleFig4 = "Property Prices By Type 1975-2016";
 const divIDFig4 = "property-price-growth-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -46,7 +46,7 @@ d3.csv(srcPathFig4 + srcFileFig4)
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig4;
+    //layout.title.text = titleFig4;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.range = [1974.8, 2016.2];

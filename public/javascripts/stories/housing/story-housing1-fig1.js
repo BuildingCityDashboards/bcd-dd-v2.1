@@ -3,18 +3,18 @@
 const srcPathFig1 = '../data/Stories/Housing/part_1/'
 const srcFileFig11 = 'pop_house.csv'
 const regionsFig1 = ['Dublin City', 'Dún Laoghaire-Rathdown', 'Fingal', 'South Dublin', 'Kildare', 'Meath', 'Wicklow']
-//let titleFig1 = 'Growth in population and households 1991-2016'
+let titleFig1 = 'Growth in population and households 1991-2016'
 //const popTitle = 'Population of Dublin and Surrounding Areas (1991-2016)'
 //const houseTitle = 'Number of Households in Dublin and Surrounding Areas (1991-2016)'
 //const popRateTitle = 'Population % Change in Dublin and Surrounding Areas (1991-2016)'
 //const houseRateTitle = 'Households % Change in Dublin and Surrounding Areas (1991-2016)'
-let titleFig1 = ''
+//let titleFig1 = ''
 const popTitle = ''
 const houseTitle = ''
 const popRateTitle = ''
 const houseRateTitle = ''
 
-titleFig1 = popTitle //  set default on load
+//titleFig1 = popTitle //  set default on load
 const divIDFig1 = 'population-households-chart1'
 
 d3.csv(srcPathFig1 + srcFileFig11)
@@ -118,7 +118,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
     // Set layout options
     const layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
-    layout.title.text = titleFig1
+    //layout.title.text = titleFig1
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
     layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title)
     layout.xaxis.title.text = 'Census Years'

@@ -3,7 +3,7 @@
 const srcPathFig3 = "../data/Stories/Housing/part_1/",
   srcFileFig3 = "housecomp.csv";
 const typesFig3 = ["Dublin City", "Dún Laoghaire-Rathdown", "Fingal", "South Dublin", "Kildare", "Meath", "Wicklow", "Rest of Ireland"];
-const titleFig3 = "";
+const titleFig3 = "Housing Completions By Region 1994-2016";
 const divIDFig3 = "housing-completions-chart";
 
 //@TODO: replace with bluebird style Promise.each, or e.g. https://www.npmjs.com/package/promise-each
@@ -48,7 +48,7 @@ d3.csv(srcPathFig3 + srcFileFig3)
     //Set layout options
     let layout = Object.assign({}, STACKED_AREA_CHART_LAYOUT);
     layout.height = 500;
-    layout.title.text = titleFig3;
+    //layout.title.text = titleFig3;
     layout.marker = Object.assign({}, STACKED_AREA_CHART_LAYOUT.marker);
     layout.marker.opacity = 0;;
     layout.showlegend = false;

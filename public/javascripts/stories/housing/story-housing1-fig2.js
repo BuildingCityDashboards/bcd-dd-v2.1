@@ -10,7 +10,7 @@ const srcFileFig2 = 'housetype.csv'
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
     // Options for chart
-    const titleFig2 = ''
+    const titleFig2 = 'Number of Households by Type, by Region 2002-2016'
     //  titleFig2 = popTitle  // set default on load
     const divIDFig2 = 'housing-types-chart'
     // This array controls the order in which subplotsare drawn
@@ -93,7 +93,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // Configure the layout object common to all plots
     const fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS)
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title)
-    fig2Layout.title.text = titleFig2
+    //fig2Layout.title.text = titleFig2
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
     fig2Layout.margin.t = 100
     fig2Layout.margin.r = 50
