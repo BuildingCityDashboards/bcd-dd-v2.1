@@ -22,25 +22,33 @@ let min_zoom = 10,
   max_zoom = 16
 let zoom = min_zoom
 // tile layer with correct attribution
-let osmUrl = 'http://{s}.tile.openstreetmapGeodemos.org/{z}/{x}/{y}.png'
+let osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 let osmUrl_BW = 'http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png'
-let osmUrl_Hot = 'https://{s}.tile.openstreetmapGeodemos.fr/hot/{z}/{x}/{y}.png'
+let osmUrl_Hot = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
 let stamenTonerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
 let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 let wiki = 'https://maps.wikimedia.org/osm-intl/${z}/${x}/${y}.png'
-let osmAttrib = 'Map data © <a href="http://openstreetmapGeodemos.org">OpenStreetMap</a> contributors'
-let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmapGeodemos.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapGeodemos.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+let osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+let osmAttrib_Hot = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmapGeodemos.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmapGeodemos.org/copyright">OpenStreetMap</a>'
+let cartoDb = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png';
+let cartoDb_Dark = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
+let cartoDb_Lite = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
+let CARTODB_POSITRON = 'https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png';
+let CARTODB_ATTRIBUTION = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/">CartoDB </a> contributors' 
+
 let mapGeodemos = new L.Map('map-geodemos')
-let osm = new L.TileLayer(stamenTonerUrl_Lite, {
+let osm = new L.TileLayer(CARTODB_POSITRON, {
   minZoom: min_zoom,
   maxZoom: max_zoom,
-  attribution: osmAttrib
+  attribution: CARTODB_ATTRIBUTION
 })
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
-let GEODEMOS_COLORWAY=CHART_COLORWAY_QUAL_PASTEL
+const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
+const GEODEMOS_COLORWAY_CBSAFE = ['#d73027','#f46d43','#fdae61','#fee090','#abd9e9','#74add1','#4575b4']
+const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
 
 let naStyle = {
   fillColor: 'grey',
@@ -73,7 +81,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
     trace.marker = {
       color: getLayerColor(i), // lines + markers, defaults to colorway
     }
-    
+
     trace.x = columnNames.map( name => {
       return row[name]
     })
