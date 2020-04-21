@@ -37,7 +37,10 @@ Promise.all([
           tDataProcessed.forEach( d => {
             let d1 = parseTime(d[tdateField]);
                 d1.setDate(d1.getDate()-2);
-                d.label = "W" + d.week;
+                //d.label = "W" + d.week; Original Code
+                //d.date = d1; Original Code
+
+                d.label = d1.getFullYear() + "," +"Week " + d.week + ":  " +"No. of Patients";
                 d.date = d1;
           });
 
@@ -45,8 +48,10 @@ Promise.all([
 
               tCharts.tickNumber = 12;
               tCharts.pagination(tDataProcessed, selector, 52, 4, "year", "No. of Patients:", "000", true);
-              tCharts.addTooltip("No. of Patients:", "thousands", "label");
+              //tCharts.addTooltip("No. of Patients:", "thousands", "label");
 
+               // Original Code tCharts.addTooltip("No. of Patients", "thousands", "label");
+              tCharts.addTooltip(" ", "thousands", "label");
     // health levels data and chart
     // data and chart for hl = health levels
     const hlData = datafiles[2],
