@@ -46,7 +46,9 @@ let osm = new L.TileLayer(CARTODB_POSITRON, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
-let GEODEMOS_COLORWAY=CHART_COLORWAY_QUAL_PASTEL
+const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
+const GEODEMOS_COLORWAY_CBSAFE = ['#d73027','#f46d43','#fdae61','#fee090','#abd9e9','#74add1','#4575b4']
+const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
 
 let naStyle = {
   fillColor: 'grey',
