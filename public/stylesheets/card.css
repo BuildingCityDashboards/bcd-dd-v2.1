@@ -159,26 +159,24 @@
 .card__title {}
 
 .card__info {
-  display        : flex;
-  min-height     : 60px;
-  margin         : 0;
-  padding-top    : 4px;
-  border         : none;
-  flex-direction : column;
-  justify-content: space-around;
+  display         : flex;
+  min-height      : 60px;
+  margin          : 0;
+  padding-top     : 4px;
+  border          : none;
+  flex-direction  : column;
+  justify-content : space-around;
 }
 
 .card__info-border {
-
+  height           : 8px;
   border-top       : 1px solid;
   border-top-color : rgba(255, 255, 255, 0.1);
-  height: 8px;
-
   /* right: -8px; */
 }
 
 .card__info p {
-  padding-top: 16px;
+  padding-top    : 16px;
   font-size      : 10px;
   font-style     : normal;
   font-weight    : 300;
@@ -268,6 +266,11 @@
     justify-content : space-around;
   }
 
+  .card:hover{
+    border           : solid 1px #6fd1f6;
+    background-color : rgba(39, 52, 57, 0.82);
+  }
+
   .card__header {}
 
   .card__title {
@@ -341,12 +344,12 @@
   .card__title {}
 
   .card__info {
-    display          : flex;
-    min-height       : 84px;
-    margin-top       : 4px;
-    padding-top      : 4px;
-    flex-direction   : column;
-    justify-content  : space-around;
+    display         : flex;
+    min-height      : 84px;
+    margin-top      : 4px;
+    padding-top     : 4px;
+    flex-direction  : column;
+    justify-content : space-around;
   }
 
   .card__info p {
@@ -522,14 +525,26 @@
   and (min-width : 1280px) {
   .card {
     width            : 320px;
-    height           : 160px;
+    height           : 100%;
     min-height       : 160px;
     padding          : 0px;
     border           : none;
-    border-radius    : 4px 4px 0px 0px;
+    /* border-top       : solid 1px transparent;
+    border-right     : solid 1px transparent;
+    border-left      : solid 1px transparent;*/
+    border-radius    : 0px;
     background-color : rgba(41, 51, 55, 0.63);
     flex-direction   : column;
     justify-content  : flex-start;
+  }
+
+  .card:hover {
+    /* border-top           : solid 1px #6fd1f6;
+    border-left           : solid 1px #6fd1f6;
+    border-right           : solid 1px #6fd1f6;
+    border-bottom           : none; */
+    border           : none;
+    background-color : rgba(39, 52, 57, 0.82);
   }
 
   .card__header {
@@ -622,15 +637,15 @@
     border-top       : none;
     background-color : rgba(41, 51, 55, 0.63);
     flex-direction   : column;
-    justify-content  : space-around;
+    justify-content  : space-evenly;
     transition       : all 0.3s ease-out;
   }
 
   .card:hover .card__info {
-    height           : 96px;
-    min-height       : 96px;
-    padding-bottom   : 8px;
-
+    height         : 96px;
+    min-height     : 96px;
+    padding-bottom : 8px;
+    background-color : rgba(39, 52, 57, 0.82);
   }
 
   .card__info p {
@@ -672,6 +687,18 @@
     padding : 0px;
   }
 }
+
+/* laptop with HDPI */
+
+@media
+  only screen
+  and (min-width : 1440px) {
+    /* .card:hover .card__info{
+      height: auto;
+    } */
+
+  }
+
 
 /* xl */
 
@@ -826,19 +853,21 @@
   }
 
   .card:hover .card__info {
-    height           : 120px;
-    min-height       : 120px;
-    padding-bottom   : 8px;
-
+    height         : 120px;
+    min-height     : 120px;
+    padding-bottom : 8px;
   }
-
-  /* .card__info-bor
-
-  #card-info-text {
-    padding-top: 16px;
-    border-top       : 1px solid;
-    border-top-color : rgba(255, 255, 255, 0.1);
-  } */
+  /**
+  * .card__info-bor
+  *
+  * #card-info-text { padding-top: 16px; border-top
+  *
+  *
+  *
+  *
+  *
+  * : 1px solid; border-top-color : rgba(255, 255, 255, 0.1); }
+  */
 
   .card__info p {
     font-size      : 16px;

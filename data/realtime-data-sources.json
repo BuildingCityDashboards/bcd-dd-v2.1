@@ -1,0 +1,38 @@
+{
+	"meteireann_obs_present": {
+    "label": "weather",
+    "format": "xml",
+    "description" : "Latest observed weather (usually for the previous hour)",
+		"url_source": "https://www.met.ie/Open_Data/xml/obs_present.xml",
+		"urls_local": [],
+    "api_endpoints": [],
+    "services": []
+	},
+  "meteireann_location_model": {
+    "label": "weather",
+    "format": "xml",
+    "description" : "",
+		"url_source": "http://metwdb-openaccess.ichec.ie/metno-wdb2ts/locationforecast?lat=54.7210798611;long=-8.7237392806",
+		"urls_local": [],
+    "api_endpoints": [],
+    "services": []
+	},
+  "meteireann_county_forecast": {
+    "label": "weather",
+    "format": "xml",
+    "description" : "",
+		"url_source": "https://www.met.ie/Open_Data/xml/county_forecast.xml",
+		"urls_local": [],
+    "api_endpoints": [],
+    "services": []
+	},
+	"meteireann_web_forecast": {
+    "label": "weather",
+    "format": "xml",
+    "description" : "5-day forecasts by location",
+		"url_source": "https://www.met.ie/Open_Data/xml/web-forecast.xml",
+		"urls_local": [],
+    "api_endpoints": [],
+    "services": []
+	}
+}

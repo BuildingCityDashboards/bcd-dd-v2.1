@@ -1,8 +1,6 @@
 /* Colour Utilities Classes */
 
-html {
-  scroll-behavior: smooth;
-}
+
 
 .bg-dark {
   color                  : #ffffff;
@@ -61,7 +59,7 @@ body {
   position   : relative;
   color      : #f8f8f8;
   background : var(--very-dark-blue);
-  
+
 }
 
 /* Links */

@@ -5,7 +5,8 @@ include component/card-chart
 block append head
 
   
-  link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  //- link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
+  link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
   link(rel="stylesheet", href="/stylesheets/home-about.css")
   link(rel="stylesheet", href="/stylesheets/card.css")
@@ -27,17 +28,7 @@ block content
                     #hero-time__clock  
                     #hero-time__date
             #hero-weather
-                #hero-weather__box
-                    div
-                        #hero-weather__left-top -- C 
-                        #hero-weather__left-bottom Prec -- mm
-                    div
-                        #hero-weather__symbol    
-                    div
-                        #hero-weather__right-top ~ -
-                        #hero-weather__right-bottom -- kph 
-                        
-            //- 
+                include component/card-weather
       
         #hero-carousel
             <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": true, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "center", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
@@ -127,7 +118,9 @@ block content
     #regions-info__map
       svg#map
     //- #regions-info_flex
-    #regions-info__cta SELECT A COUNTY COUNCIL ON THE MAP TO LEARN MORE
+    #regions-info__cta SELECT A COUNTY COUNCIL ON THE MAP TO LEARN MORE 
+    #regions-info__cta-arrow 
+      <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
     #regions-info__card
       #regions-info__card__header
         h1#local__title Dublin City
@@ -176,21 +169,24 @@ block content
   //- include component/scroll-to-top
 
 block append scripts
-  script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
-  script(src="lib/d3v5/d3.js")
+  //- script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
+  
+  script(src="lib/flickity.pkgd.min.js" type="text/javascript")
+  script(src="lib/d3v5/d3.js" type="text/javascript")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
-  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
-  script(src='javascripts/dublinco.js')
-  script(src='javascripts/home/home-helper-functions.js')
-  script(src='javascripts/home/about-dublin.js')
-  script(src='javascripts/home/about-regions.js')
+  script(src='lib/set-interval-async.iife.js' type="text/javascript")
+  script(src='javascripts/dublinco.js' type="text/javascript")
+  script(src='javascripts/home/home-helper-functions.js' type="text/javascript")
+  script(src='javascripts/home/about-dublin.js' type="text/javascript")
+  script(src='javascripts/home/about-regions.js' type="text/javascript")
   //- script(src='javascripts/map.js')
-  script(src='javascripts/charts/card_line_chart.js')
-  script(src='javascripts/charts/card_bar_chart.js')
+  script(src='javascripts/charts/card_line_chart.js' type="text/javascript")
+  script(src='javascripts/charts/card_bar_chart.js' type="text/javascript")
   script(src='javascripts/coerce.js' type="text/javascript")
   script(src='javascripts/home/data_glance.js' type="text/javascript")
   script(src='javascripts/home/card_time.js' type="text/javascript")
-  script(src='javascripts/home/card_weather.js' type="text/javascript")
+  //- script(src='javascripts/home/card_weather.js' type="text/javascript")
+  script(src='javascripts/home/card_weather_current.js' type="text/javascript")
   script(src='javascripts/home/card_bikes.js' type="text/javascript")
   script(src='javascripts/home/card_traveltimes.js' type="text/javascript")
   script(src='javascripts/home/card_population.js' type="text/javascript")

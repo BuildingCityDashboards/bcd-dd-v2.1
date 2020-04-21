@@ -45,6 +45,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
         updateInfoText(dublinRegionsJson[ref])
         // on click, remove the call to action
         d3.select('#regions-info__cta').style('display', 'none')
+        d3.select('#regions-info__cta-arrow').style('display', 'none')
 
 // This animated transition doesn't work
 

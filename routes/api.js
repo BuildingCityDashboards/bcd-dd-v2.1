@@ -48,6 +48,7 @@ const carparksController = require('../controllers/carparks_controller')
 router.get('/carparks/snapshot', carparksController.getCarparksSnapshot)
 
 const weatherController = require('../controllers/weather_controller')
-router.get('/weather', weatherController.getWeather)
+router.get('/weather/model', weatherController.getWeatherModel)
+router.get('/weather/latest', weatherController.getWeatherLatest)
 
 module.exports = router
