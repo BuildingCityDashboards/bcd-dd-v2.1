@@ -46,6 +46,29 @@ let osm = new L.TileLayer(CARTODB_POSITRON, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
+// L.control.locate({
+//   strings: {
+//     title: 'Zoom to your location'
+//   }
+// }).addTo(mapGeodemos)
+
+// async function getDublinBounds(){
+// // const DUBLIN_BOUNDS = await d3.json('public/data/common/dublin-bounds.json')
+// // return  L.latLngBounds(L.latLng(DUBLIN_BOUNDS.southwest.lat,DUBLIN_BOUNDS.southwest.long), L.latLng(DUBLIN_BOUNDS.northeast.lat, DUBLIN_BOUNDS.northeast.long))//greater Dublin & surrounds
+// 
+//   return dublinBounds
+// 
+// }
+
+let southWest = L.latLng(52.9754658325, -6.8639598864)
+let  northEast = L.latLng(53.7009607624, -5.9835178395)
+let  dublinBounds = L.latLngBounds(southWest, northEast) //greater Dublin & surrounds
+
+mapGeodemos.addControl(new L.Control.OSMGeocoder({
+  placeholder: 'Enter street name, area etc.',
+  bounds: dublinBounds
+}))
+
 const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
 const GEODEMOS_COLORWAY_CBSAFE = ['#d73027','#f46d43','#fdae61','#fee090','#abd9e9','#74add1','#4575b4']
 const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
