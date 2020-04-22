@@ -14,6 +14,9 @@ if we add SA to group as it comes up we're rewriting gorup layers repeatedly
 Solve with async await
 
 **/
+import { getDublinLatLng } from '../modules/leaflet-maps.js'
+
+
 
 let dub_lng = -6.2603
 let dub_lat = 53.42
@@ -35,7 +38,7 @@ let cartoDb = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/
 let cartoDb_Dark = 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png';
 let cartoDb_Lite = 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png';
 let CARTODB_POSITRON = 'https://{s}.basemaps.cartocdn.com/rastertiles/light_nolabels/{z}/{x}/{y}.png';
-let CARTODB_ATTRIBUTION = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/">CartoDB </a> contributors' 
+let CARTODB_ATTRIBUTION = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/">CartoDB </a> contributors'
 
 let mapGeodemos = new L.Map('map-geodemos')
 let osm = new L.TileLayer(CARTODB_POSITRON, {
@@ -52,21 +55,11 @@ mapGeodemos.addLayer(osm)
 //   }
 // }).addTo(mapGeodemos)
 
-// async function getDublinBounds(){
-// // const DUBLIN_BOUNDS = await d3.json('public/data/common/dublin-bounds.json')
-// // return  L.latLngBounds(L.latLng(DUBLIN_BOUNDS.southwest.lat,DUBLIN_BOUNDS.southwest.long), L.latLng(DUBLIN_BOUNDS.northeast.lat, DUBLIN_BOUNDS.northeast.long))//greater Dublin & surrounds
-// 
-//   return dublinBounds
-// 
-// }
 
-let southWest = L.latLng(52.9754658325, -6.8639598864)
-let  northEast = L.latLng(53.7009607624, -5.9835178395)
-let  dublinBounds = L.latLngBounds(southWest, northEast) //greater Dublin & surrounds
 
 mapGeodemos.addControl(new L.Control.OSMGeocoder({
   placeholder: 'Enter street name, area etc.',
-  bounds: dublinBounds
+  bounds: getDublinLatLng()
 }))
 
 const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
