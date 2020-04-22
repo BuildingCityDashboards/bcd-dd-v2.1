@@ -1,282 +1,74 @@
-/*
-    Author     : Liam
-*/
+/**
+ * Author
+ *
+ *
+ *
+ * : Liam
+ */
 
-.tool-map{
-    height: 500px;
+.tool-map {
+  height : 500px;
 }
 
-#map-geodemos{
-    height: 500px;
-    width: 100%;
+#map-geodemos {
+  width  : 100%;
+  height : 500px;
 }
 
-/*#planning_map {
-    height: inherit;
-    width: 100%;
+/* #planning_map { height: inherit; width: 100%; } */
 
-}*/
 input:checked {
-    background-color: #086fb8;
+  background-color : #086fb8;
 }
 
-/*.dc-chart g.row text {
-  fill: white;
+select:hover:not([disabled]) {
+  /* border-color: transparent; */
+  /**
+  * box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0
+  * rgba(99,115,129,.2);
+  */
 }
 
-
-.dc-chart g.axis label {
-  font-size: 100px;
-  color: white;
-  fill: white;
-  stroke: white;
-}*/
-
-
-
-/**{
-    margin: 20;
-    padding: 0;
-    background-color: goldenrod;
-    box-sizing: border-box; padding and border are included in the total width and height of the elements
-    border: solid 2px #e5e5e5;
-
+.btn-bcd-toggle {
+  color        : #000;
+  border-color : transparent;
+  /* background-color : transparent; */
 }
 
-h3{
-    font-family: 'Proxima Nova', sans-serif;
-    font-weight: normal;
-    margin: 6px 10px 6px 10px;
+.btn-bcd-toggle:hover {
+  color        : #000;
+  border-color : transparent;
+  border-color : #fff;
+}
+
+.btn-bcd-toggle.active {
+  color        : #000;
+  border-color : #fff /* background-color:#00c0f5;
 
 }
 
-h1, h2 {
-    font-family: 'Proxima Nova', sans-serif;
-    font-weight: bold;
-    text-align:left;
-    margin: 10px 10px 10px 10px;
-}*/
-
-/*img, span{
-    margin: 0px;
-}*/
-
-/*For text included with dc-data-count*/
-/*.filter-text{
-    color: #3182bd;
-    font-weight: bold;
-    font-size: 30px;
-
-}*/
-
-/*//mobile first*/
-/*.wrapper{
-    background-color: whitesmoke;
-    margin: 20px 0px 20px 0px;
-    display: grid;;
-    width:100%;
-    height: 1000px;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr;
-    grid-gap:1em;
-     grid-auto-rows:100px;
-    grid-auto-rows: minmax(100px, auto);
-    grid-template-areas:
-        "v1"
-        "v1"
-        "v1"
-        "v1"
-
-        ;
-
+.btn-page.active {
+  font-weight : 600;
 }
 
-.context-text{
-    text-align: justify;
-    text-justify: inter-word;
-    margin: 20px 8px 10px 8px;
-    grid-area: ct;
-}*/
+/**
+ * .dc-chart g.row text { fill: white; } .dc-chart g.axis label { font-size:
+ * 100px; color: white; fill: white; stroke: white; }
+ */
 
-/*.button-table{
-    grid-area: bt;
-    margin: 0;
-}*/
+/**
+ * { margin: 20; padding: 0; background-color: goldenrod; box-sizing:
+ * border-box; padding and border are included in the total width and height of
+ * the elements border: solid 2px #e5e5e5; } h3{ font-family: 'Proxima
+ * Nova', sans-serif; font-weight: normal; margin: 6px 10px 6px 10px; } h1,
+ * h2 { font-family: 'Proxima Nova', sans-serif; font-weight: bold;
+ * text-align:left; margin: 10px 10px 10px 10px; }
+ */
 
-/*
-.viz1 {
-    height: 500px;
-    margin: 20px;
-    display: grid;
-    align-content: space-between;
-    grid-template-areas:
-        "pm"
-        ;
-    grid-template-columns: 1fr;
-    grid-area: v1;
-}
-.viz2 {
+/* img, span{ margin: 0px; } */
 
-    display: grid;
-    align-content: space-between;
-    grid-template-areas:
-        "tp"
-        ;
-    grid-template-columns: 1fr;
-    grid-area: v2;
-}*/
+/* For text included with dc-data-count */
 
+/* .filter-text{ color: #3182bd; font-weight: bold; font-size: 30px; } */
 
-
-
-/*.decision-checkbox input:checked{
-    height: 26px;
-    width: 26px;
-    background-color: #086fb8;
-
-}*/
-
-
-/*#type-pie{
-    grid-area: tp;
-}*/
-/*420
-@media screen and (min-width: 420px)  {
-    #page{
-        display: grid;
-        width:100%;
-        height: 600px;
-
-                grid-gap:1em;
-                grid-auto-rows:100px;
-                grid-auto-rows: minmax(100px, auto);
-        grid-template-areas:
-            "context1 v1 v1"
-            "context2 v1 v1"
-            ;
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 2px;
-
-    }
-}
-iPad Pro
-@media screen and (min-width: 1024px)  {
-    #page{
-        display: grid;
-        width:100%;
-        height:600px ;
-        grid-gap:1em;
-         grid-auto-rows:100px;
-        grid-auto-rows: minmax(100px, auto);
-        grid-template-areas:
-            "context1 v1 v1"
-            "context2 v1 v1"
-            ;
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 2px;
-
-    }
-}*/
-/*Desktop*/
-/*@media screen and (min-width: 1200px)  {
-    .wrapper{
-        margin: 20px 0px 20px 0px;;
-        height: auto;
-        width: auto;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-columns:1fr 1fr 1fr;
-                grid-gap:1em;
-                 grid-auto-rows:100px;
-                grid-auto-rows: minmax(100px, auto);
-        grid-template-areas:
-            "v1 v1 v2"
-            "v1 v1 v3"
-            "bt bt bt"
-
-            ;
-    }
-
-     #planning-map {
-        height: 600px;
-        width: 100%;
-        grid-area: pm;
-    }
-
-    #time-chart{
-        height: 200px;
-        width: 100%;
-        grid-area: tc;
-
-    }
-    #size-chart{
-        height: inherit;
-        width: 100%;
-        grid-area: sc;
-
-    }
-    #decision-row-chart{
-        height: 200px;
-        width: 100%;
-        grid-area: dr;
-
-    }
-
-    .context-text{
-        text-align: justify;
-        text-justify: inter-word;
-        grid-area: ct;
-    }
-
-    .button-table{
-        height: 200px;
-        grid-area: bt;
-    }
-
-    .viz1 {
-        height: 400px;
-        display: grid;
-        align-content: space-between;
-        grid-template-areas:
-            "pm"
-            ;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        grid-area: v1;
-    }
-    .viz2 {
-        height: 300px;
-        display: grid;
-        align-content: space-between;
-        grid-template-areas:
-            "dr"
-
-            ;
-        grid-template-columns: 1fr;
-        grid-area: v2;
-    }
-    .viz3 {
-        height: 300px;
-        display: grid;
-        align-content: space-between;
-        grid-template-areas:
-            "tc"
-            "sc"
-            ;
-        grid-template-columns: 1fr;
-        grid-area: v3;
-    }
-
-
-
-
-    #type-pie{
-        grid-area: tp;
-    }
-
-}
-
-#page > div:nth-child(odd){
-    background-color: lightgrey;
-}*/
+/*  */
