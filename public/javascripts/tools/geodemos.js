@@ -49,11 +49,11 @@ let osm = new L.TileLayer(CARTODB_POSITRON, {
 mapGeodemos.setView(new L.LatLng(dub_lat, dub_lng), zoom)
 mapGeodemos.addLayer(osm)
 
-// L.control.locate({
-//   strings: {
-//     title: 'Zoom to your location'
-//   }
-// }).addTo(mapGeodemos)
+L.control.locate({
+  strings: {
+    title: 'Zoom to your location'
+  }
+}).addTo(mapGeodemos)
 
 
 
