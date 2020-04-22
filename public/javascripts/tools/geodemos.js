@@ -108,9 +108,8 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 //Set layout options
 layout = Object.assign({}, ROW_CHART_LAYOUT);
 layout.mode = 'bars'
-layout.height = 600
+layout.height = 500
 // layout.barmode = 'group';
-layout.bargroupgap = 0;
 layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'zscores';
@@ -137,9 +136,10 @@ layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
 layout.margin = {
   l: 40,
   r: 40, //annotations space
-  t: 40
+  t: 40,
+  b: 0
+  
 };
-
 
 Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
   modeBar: {
@@ -148,7 +148,7 @@ Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
     color: null,
     activecolor: null
   },
-  modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+  modeBarButtons: [['toImage']],
   displayModeBar: true,
   displaylogo: false,
   showSendToCloud: false,
