@@ -1,18 +1,17 @@
 # Design patterns and practices
 
 
-# Modules
+## Modules
 Modules provide common reusable functionality
-* Client-side: see [leaflet map module](public/javascripts/modules/leaflet-maps.js)
+* Server-side: tbc
+* Client-side: see [leaflet map module](https://github.com/BuildingCityDashboards/bcd-dd-v2.1/blob/staging/public/javascripts/modules/leaflet-maps.js)
 
 
 ## Asynchronous fetching
 ### Libraries
-* Server-side: use node-fetch
-* Client-side: use d3
-### Canonical module/exemplar
-* Server-side: tbc
-* Client-side: tbc
+* Server-side: use node-fetch, see tbc
+* Client-side: use d3, see tbc
+
 
 # BCD Code Style Guide and Conventions
 
