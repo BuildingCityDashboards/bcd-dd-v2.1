@@ -302,7 +302,7 @@ d3
   let cb = d3.select(this)
   let layerNo = cb.property('value') === 'all' ? 'all' : parseInt(cb.property('value')) - 1
 
-  console.log(layerNo);
+  // console.log(layerNo);
 
   if (cb.property('value') !== 'all' && cb.classed('active')) {
     cb.classed('active', false)
@@ -339,4 +339,12 @@ d3
       }
     })
   }
+})
+
+
+d3.select('#group-buttons').selectAll('button[type=checkbox]').each(function(d, i){
+  if(i<7){
+    d3.select(this).style("background-color", GEODEMOS_COLORWAY[i])
+  }
+
 })
