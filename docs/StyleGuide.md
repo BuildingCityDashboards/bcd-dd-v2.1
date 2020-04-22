@@ -1,3 +1,19 @@
+# Design patterns and practices
+
+
+# Modules
+Modules provide common reusable functionality
+* Client-side: see [leaflet map module](public/javascripts/modules/leaflet-maps.js)
+
+
+## Asynchronous fetching
+### Libraries
+* Server-side: use node-fetch
+* Client-side: use d3
+### Canonical module/exemplar
+* Server-side: tbc
+* Client-side: tbc
+
 # BCD Code Style Guide and Conventions
 
 * Use a beautify package e.g. for Atom https://github.com/Glavin001/atom-beautify and/or Prettier e.g. https://atom.io/packages/prettier-atom
