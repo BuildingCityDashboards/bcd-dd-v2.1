@@ -1,22 +1,32 @@
 /* Compatible with Leaflet 0.7 */
-
-
 .fa-location-arrow{
+   width: 20px;
+   height: 20px;
     color: #000000;
-    fillColor: #000000;
+    fill: #000000;
 }
-/*
+
+.fa-location-arrow svg{
+   width: 20;
+   height: 20;
+    /* color: #000000;
+    fill: #000000; */
+}
+
 .fa-location-arrow-active{
-    color: #252525;
-  fillColor: #252525;
-}*/
-
-
-/*.leaflet-control-locate.active a {
-  color: #2074B6;
+  width: 20px;
+  height: 20px;
+  color: #252525;
+  fill: #252525;
 }
+
+
+.leaflet-control-locate.active a {
+  /* color: #2074B6; */
+}
+
 .leaflet-control-locate.active.following a {
-  color: #FC8428;
+  /* color: green; */
 }
 
 .leafet-control-locate-location circle {
@@ -36,4 +46,4 @@
     r: 9;
     stroke-width: 1;
   }
-}*/
+}
