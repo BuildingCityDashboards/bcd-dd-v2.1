@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/data/search/statbank', (req, res, next) => {
-  console.log('***\nrequest\n***')
+  // console.log('***\nrequest\n***')
   fs.readFile('data/search-index.json', (err, json) => {
     if (err) console.log(err)
     const obj = JSON.parse(json)
@@ -18,7 +18,7 @@ router.get('/data/search/statbank', (req, res, next) => {
 })
 
 router.get('/data/search/site', (req, res, next) => {
-  console.log('***\nrequest\n***')
+  // console.log('***\nrequest\n***')
   fs.readFile('data/search-index.json', (err, json) => {
     if (err) console.log(err)
     const obj = JSON.parse(json)
