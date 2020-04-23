@@ -6,25 +6,25 @@
     cache: true,
     depth: 3,
     doc: {
-      id: 'id',
-      field: ['title', 'subtitle', 'content']
+      id: 'tablecode',
+      field: ['label', 'source', 'dimensions']
     }
   })
 
-  fetch('/api/data/')
+  fetch('/data/tools/statbank/statbank_tables_metadata_all.json')
     .then((response) => {
       return response.json()
     })
     .then((data) => {
-      // console.log('docs \n')
-      // console.log(data)
+      console.log('docs \n')
+      console.log(data)
       index.add(data)
       // for (let i = 0; i < docs.length; i++) {
       //   index.add(i, docs[i]) //this doesn't appear to work???
       // }
       const suggestions = document.getElementById('statbank-suggestions')
       // const autocomplete = document.getElementById('autocomplete')
-      const userinput = document.getElementById('statbank-userinput')
+      const userinput = document.getElementById('statbank-search-input')
 
       userinput.addEventListener('input', showResults, true)
       // userinput.addEventListener('keyup', acceptAutocomplete, true)
@@ -33,8 +33,8 @@
       function showResults () {
         const value = this.value
         const results = index.search(value, 8)
-        // console.log('results: \n')
-        // console.log(results)
+        console.log('results: \n')
+        console.log(results)
         let suggestion
         let childs = suggestions.childNodes
         let i = 0
@@ -47,7 +47,8 @@
             suggestion = document.createElement('div')
             suggestions.appendChild(suggestion)
           }
-          suggestion.innerHTML = `<a href = '${results[i].link}'> ${results[i]['section-name']} ${results[i].title}</a>`
+          suggestion.innerHTML = `${results[i].tablecode}: ${results[i].label}`
+          // `<a href = '${results[i].tablecode}'> ${results[i]['section-name']} ${results[i].title}</a>`
 
           // console.log(results[i])
         }
