@@ -7,7 +7,7 @@
     depth: 3,
     doc: {
       id: 'tablecode',
-      field: ['label', 'source', 'dimensions']
+      field: ['label', 'source', 'dimensions', 'tablecode']
     }
   })
 
