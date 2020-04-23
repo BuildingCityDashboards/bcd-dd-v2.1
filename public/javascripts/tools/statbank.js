@@ -1,13 +1,13 @@
-import { fetchJsonFromUrlAsync } from './utils/bcd-async.mjs'
-import { forEachAsync } from './utils/bcd-async.mjs'
-import { getTableMetadata } from './utils/bcd-statbank.mjs'
-import { populateDropdownFromArray } from './utils/bcd-ui.mjs'
+import { fetchJsonFromUrlAsync } from '../modules/bcd-async.mjs'
+import { forEachAsync } from '../modules/bcd-async.mjs'
+import { getTableMetadata } from '../modules/bcd-statbank.mjs'
+import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
 
 (async () => {
   console.log('Statbank Tool')
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
-  const tableCodesArrayURI = '../data/statbank_tablecodes.json'
+  const tableCodesArrayURI = '../data/tools/statbank/statbank_tablecodes.json'
 
   // fetch tableCodes for Statbank tables
   const tableCodes = await fetchJsonFromUrlAsync(tableCodesArrayURI)
