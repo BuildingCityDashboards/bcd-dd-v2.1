@@ -61,20 +61,31 @@ block content
             .col-md-3
             
         .row.mt-1
-            .col-sm-2.p-0
-                p
-                  <button id="get-all-metadata" type="button" class="btn btn-bcd btn-sm"> Refresh all metadata</button>
-                  
-            .col-sm-3.p-0
+            .col-sm-3.p-1
                 p
                   select#table-code-dropdown
                     option Choose a Statbank table code
-                    //- 
-                    //- .col-md-8
-                    //-   #statbank-loading.mt-2 
-                    //- .col-md-12
-                    //-   #statbank-test-text.mt-2
-                    //-   #statbank-test-datalist.mt-2
+            .col-sm-3.p-1
+                
+                //- <input id='statbank-search'type="text" placeholder="Search for a keyword">
+                form(class="")
+                    //- input(class="search-box__input" type="text" id="userinput" onkeyup="searchSite()" placeholder="Search" aria-label="Search")
+                    input(class="" type="text" id="statbank-search-input" placeholder="Search" aria-label="Search")
+                    #statbank-suggestions
+            .col-sm-2.p-1
+                p
+                  <button id="get-all-metadata" type="button" class="btn btn-bcd btn-sm"> Refresh all metadata</button>
+                  
+            
+                    
+        .row.mt-1
+            .col-sm-12.p-5#statbank-test-datalist
+                p    Results will appear here
+                //- .col-md-8
+                //-   #statbank-loading.mt-2 
+                //- .col-md-12
+                //-   #statbank-test-text.mt-2
+                //-   #statbank-test-datalist.mt-2
 
 block append scripts
     //- script(src="/lib/proj4.js" type="text/javascript")
@@ -88,4 +99,6 @@ block append scripts
     //- //- //    script(src="spin/dist/spin.min.js")
     //- //- //    script(src="leaflet.spin.min.js")
     //- script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
+    script(src='/lib/flexsearch.compact.js' type='text/javascript')
+    script(src='/javascripts/statbank-autocomplete.js' type='text/javascript')
     script(src='/javascripts/tools/statbank.js' type='module')  

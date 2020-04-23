@@ -53,6 +53,8 @@ const filterForDublin = () => {
 
 export { filterForDublin }
 
+
+
 // JSONstat(JSON.parse(JSON.stringify(tableJson))) // clone
   // const label = stat.Dataset(0).Dimension(0).Category('IE21').label
   // console.log(label)
