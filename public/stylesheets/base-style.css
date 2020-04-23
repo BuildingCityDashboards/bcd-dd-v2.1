@@ -577,6 +577,20 @@ select:hover:not([disabled]) {
   */
 }
 
+.btn-bcd {
+  color            : #00c0f5;
+  border-color     : #00c0f5;
+  background-color : transparent;
+}
+
+.btn-bcd.active,
+.btn-bcd:focus,
+.btn-bcd:hover {
+  color            : #fff;
+  border-color     : #00c0f5;
+  background-color : #00c0f5;
+}
+
 
 .btn-bcd-toggle {
   color            : #00c0f5;
