@@ -1,0 +1,76 @@
+.tool-container {
+  width       : 90%;
+  height      : 100vh;
+  min-height  : 800px;
+  margin      : auto;
+  font-family : 'Roboto',
+                sans-serif;
+  font-weight : 300;
+}
+
+/* #map-geodemos {
+  width  : 100%;
+  height : 500px;
+}
+
+#chart-geodemos {
+  width  : 100%;
+  height : 500px;
+} */
+
+/* #planning_map { height: inherit; width: 100%; } */
+
+input:checked {
+  background-color : #086fb8;
+}
+
+select:hover:not([disabled]) {
+  /* border-color: transparent; */
+  /**
+  * box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0
+  * rgba(99,115,129,.2);
+  */
+}
+
+/* .btn-bcd-toggle {
+  color        : #000;
+  border-color : transparent;
+  /* background-color : transparent; */
+/* } */
+
+/* .btn-bcd-toggle:hover {
+  color        : #000;
+  border-color : transparent;
+  border-color : #fff;
+}
+
+.btn-bcd-toggle.active {
+  color        : #000;
+  border-color : #fff /* background-color:#00c0f5;
+} */
+
+.btn-page.active {
+  font-weight : 600;
+}
+
+/**
+ * .dc-chart g.row text { fill: white; } .dc-chart g.axis label { font-size:
+ * 100px; color: white; fill: white; stroke: white; }
+ */
+
+/**
+ * { margin: 20; padding: 0; background-color: goldenrod; box-sizing:
+ * border-box; padding and border are included in the total width and height of
+ * the elements border: solid 2px #e5e5e5; } h3{ font-family: 'Proxima Nova',
+ * sans-serif; font-weight: normal; margin: 6px 10px 6px 10px; } h1, h2 {
+ * font-family: 'Proxima Nova', sans-serif; font-weight: bold; text-align:left;
+ * margin: 10px 10px 10px 10px; }
+ */
+
+/* img, span{ margin: 0px; } */
+
+/* For text included with dc-data-count */
+
+/* .filter-text{ color: #3182bd; font-weight: bold; font-size: 30px; } */
+
+/*  */
