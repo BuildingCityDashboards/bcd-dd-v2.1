@@ -2,107 +2,55 @@
   {
     "label": "Rainfall by Meteorological Weather Station, Month and Statistic",
     "source": "Met Eireann",
-    "update": "2020-04-23T17:17:33Z",
-    "valueslength": 33570,
+    "update": "2020-02-06T15:42:03Z",
+    "valueslength": 33525,
     "dimensions": [
       "Meteorological Weather Station",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Meteorological Weather Station"
-      ]
-    },
-    "geo": false,
     "tablecode": "MTM01"
   },
   {
     "label": "Temperature by Meteorological Weather Station, Month and Statistic",
     "source": "Met Eireann",
-    "update": "2020-04-23T17:17:36Z",
-    "valueslength": 55950,
+    "update": "2020-02-06T15:42:05Z",
+    "valueslength": 55875,
     "dimensions": [
       "Meteorological Weather Station",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Meteorological Weather Station"
-      ]
-    },
-    "geo": false,
     "tablecode": "MTM02"
   },
   {
     "label": "Sunshine by Meteorological Weather Station, Month and Statistic",
     "source": "Met Eireann",
-    "update": "2020-04-23T17:17:39Z",
-    "valueslength": 22380,
+    "update": "2020-02-06T15:42:08Z",
+    "valueslength": 22350,
     "dimensions": [
       "Meteorological Weather Station",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Meteorological Weather Station"
-      ]
-    },
-    "geo": false,
     "tablecode": "MTM03"
   },
   {
     "label": "Wind, Maximum Gale Gust (>33.5 Knots) by Meteorological Weather Station and Month",
     "source": "Met Eireann",
-    "update": "2020-04-23T17:17:42Z",
-    "valueslength": 11190,
+    "update": "2020-02-06T15:42:11Z",
+    "valueslength": 11175,
     "dimensions": [
       "Meteorological Weather Station",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Meteorological Weather Station"
-      ]
-    },
-    "geo": false,
     "tablecode": "MTM04"
   },
   {
     "label": "When Persons last used the Internet by  Region, Frequency of Use and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:17:44Z",
+    "update": "2020-02-06T15:42:13Z",
     "valueslength": 81,
     "dimensions": [
       "Region",
@@ -110,27 +58,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "Region"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": [
-        "Frequency of Use"
-      ]
-    },
-    "geo": "Region",
     "tablecode": "ICA77"
   },
   {
     "label": "How often Persons used the Internet by  Frequency of Use, Region and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:17:46Z",
+    "update": "2020-02-06T15:42:15Z",
     "valueslength": 135,
     "dimensions": [
       "Frequency of Use",
@@ -138,27 +71,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "Region"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": [
-        "Frequency of Use"
-      ]
-    },
-    "geo": "Region",
     "tablecode": "ICA79"
   },
   {
     "label": "Persons aged 18 years and over by  Purchases Made Online, Region and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:17:48Z",
+    "update": "2020-02-06T15:42:17Z",
     "valueslength": 1620,
     "dimensions": [
       "Purchases Made Online",
@@ -166,28 +84,13 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "Region"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": [
-        "Purchases Made Online"
-      ]
-    },
-    "geo": "Region",
     "tablecode": "ICA55"
   },
   {
     "label": "Residential Dwelling Property Transactions by  County, Dwelling Status, Stamp Duty Event, Type of Buyer, Type of Sale, Month and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:17:51Z",
-    "valueslength": 1423008,
+    "update": "2020-02-06T15:42:19Z",
+    "valueslength": 1388016,
     "dimensions": [
       "County",
       "Dwelling Status",
@@ -197,30 +100,13 @@
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "Type of Buyer",
-        "Type of Sale"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPM02"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings by  Dwelling Status, Stamp Duty Event, RPPI Region, Type of Buyer, Month and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:19:00Z",
-    "valueslength": 491904,
+    "update": "2020-02-06T15:43:11Z",
+    "valueslength": 479808,
     "dimensions": [
       "Dwelling Status",
       "Stamp Duty Event",
@@ -229,29 +115,13 @@
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "RPPI Region",
-        "Type of Buyer"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPM03"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings by  Dwelling Status, Eircode Output, Stamp Duty Event, Type of Buyer, Month and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:19:21Z",
-    "valueslength": 1639680,
+    "update": "2020-02-06T15:43:30Z",
+    "valueslength": 1599360,
     "dimensions": [
       "Dwelling Status",
       "Eircode Output",
@@ -260,29 +130,13 @@
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Dwelling Status",
-        "Eircode Output",
-        "Stamp Duty Event",
-        "Type of Buyer"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPM04"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings by  Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:20:30Z",
-    "valueslength": 368928,
+    "update": "2020-02-06T15:44:25Z",
+    "valueslength": 359856,
     "dimensions": [
       "Type of Dwelling",
       "Dwelling Status",
@@ -291,54 +145,25 @@
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Type of Dwelling",
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "RPPI Region"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPM05"
   },
   {
     "label": "Residential Property Price Index  by Type of Residential Property, Month and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:20:46Z",
-    "valueslength": 14560,
+    "update": "2020-02-06T15:44:39Z",
+    "valueslength": 14320,
     "dimensions": [
       "Type of Residential Property",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Type of Residential Property"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPM06"
   },
   {
     "label": "Residential Dwelling Property Transactions  by  County, Dwelling Status, Stamp Duty Event, Type of Buyer, Type of Sale, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:20:49Z",
-    "valueslength": 116640,
+    "update": "2020-02-06T15:44:42Z",
+    "valueslength": 104976,
     "dimensions": [
       "County",
       "Dwelling Status",
@@ -348,30 +173,13 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "Type of Buyer",
-        "Type of Sale"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPA02"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings  by  Dwelling Status, Stamp Duty Event, RPPI Region, Type of Buyer, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:20:55Z",
-    "valueslength": 40320,
+    "update": "2020-02-06T15:44:47Z",
+    "valueslength": 36288,
     "dimensions": [
       "Dwelling Status",
       "Stamp Duty Event",
@@ -380,29 +188,13 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "RPPI Region",
-        "Type of Buyer"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPA03"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings  by  Dwelling Status, Eircode Output, Stamp Duty Event, Type of Buyer, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:20:58Z",
-    "valueslength": 134400,
+    "update": "2020-02-06T15:44:50Z",
+    "valueslength": 120960,
     "dimensions": [
       "Dwelling Status",
       "Eircode Output",
@@ -411,29 +203,13 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Dwelling Status",
-        "Eircode Output",
-        "Stamp Duty Event",
-        "Type of Buyer"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPA04"
   },
   {
     "label": "Market-based Household Purchases of Residential Dwellings  by  Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:06Z",
-    "valueslength": 30240,
+    "update": "2020-02-06T15:44:57Z",
+    "valueslength": 27216,
     "dimensions": [
       "Type of Dwelling",
       "Dwelling Status",
@@ -442,353 +218,180 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Type of Dwelling",
-        "Dwelling Status",
-        "Stamp Duty Event",
-        "RPPI Region"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPA05"
   },
   {
     "label": "Residential Property Price Index  by Type of Residential Property, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:09Z",
-    "valueslength": 600,
+    "update": "2020-02-06T15:45:00Z",
+    "valueslength": 560,
     "dimensions": [
       "Type of Residential Property",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Type of Residential Property"
-      ]
-    },
-    "geo": false,
     "tablecode": "HPA06"
   },
   {
     "label": "Estimates of Household Income  by County and Region, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:11Z",
-    "valueslength": 9990,
+    "update": "2020-02-06T15:45:02Z",
+    "valueslength": 9435,
     "dimensions": [
       "County and Region",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County and Region"
-      ]
-    },
-    "geo": false,
     "tablecode": "CIA02"
   },
   {
     "label": "Gross Value Addded by Region, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:16Z",
-    "valueslength": 8190,
+    "update": "2020-02-06T15:45:05Z",
+    "valueslength": 7735,
     "dimensions": [
       "Region",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Region"
-      ]
-    },
-    "geo": false,
     "tablecode": "RAA06"
   },
   {
     "label": "Estimates of Household Income by County and Region, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:20Z",
+    "update": "2020-02-06T15:45:09Z",
     "valueslength": 8880,
     "dimensions": [
       "County and Region",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County and Region"
-      ]
-    },
-    "geo": false,
     "tablecode": "CIA01"
   },
   {
     "label": "Gross Value Added  (GVA) by Region, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:24Z",
+    "update": "2020-02-06T15:45:13Z",
     "valueslength": 6720,
     "dimensions": [
       "Region",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "Region"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": null
-    },
-    "geo": "Region",
     "tablecode": "RAA01"
   },
   {
-    "label": "SDG 1.2.1 Proportion of the Population Living below the National Poverty Line by NUTS 3 Regions and Year",
+    "label": "SDG 1.1.1 Proportion of the Population in Consistent Poverty  by NUTS 3 Regions and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:29Z",
+    "update": "2020-02-06T15:45:16Z",
     "valueslength": 126,
     "dimensions": [
       "NUTS 3 Regions",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "NUTS 3 Regions"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": null
-    },
-    "geo": "NUTS 3 Regions",
+    "tablecode": "G0101"
+  },
+  {
+    "label": "SDG 1.2.1 Proportion of the Population Living below the National Poverty Line by NUTS 3 Regions and Year",
+    "source": "Central Statistics Office, Ireland",
+    "update": "2020-02-06T15:45:18Z",
+    "valueslength": 126,
+    "dimensions": [
+      "NUTS 3 Regions",
+      "Year",
+      "Statistic"
+    ],
     "tablecode": "G0102"
   },
   {
     "label": "SDG 1.2.2 Deprivation Rate by NUTS 3 Regions and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:31Z",
+    "update": "2020-02-06T15:45:20Z",
     "valueslength": 126,
     "dimensions": [
       "NUTS 3 Regions",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "NUTS 3 Regions"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": null
-    },
-    "geo": "NUTS 3 Regions",
     "tablecode": "G0103"
   },
   {
     "label": "SDG 1.3.1 Proportion of the population receiving Social Welfare Payments by County, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:33Z",
+    "update": "2020-02-06T15:45:21Z",
     "valueslength": 648,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "G0104"
   },
   {
     "label": "SDG 1.4.1 Dwelling Facilities by NUTS 3 Regions, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:35Z",
+    "update": "2020-02-06T15:45:23Z",
     "valueslength": 36,
     "dimensions": [
       "NUTS 3 Regions",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "NUTS 3 Regions"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": null
-    },
-    "geo": "NUTS 3 Regions",
     "tablecode": "G0105"
   },
   {
     "label": "SDG 1.4.1 Dwelling Facilities  by County, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:37Z",
+    "update": "2020-02-06T15:45:25Z",
     "valueslength": 128,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "G0106"
   },
   {
     "label": "SDG 1.4.2 Proportion of total adult population with secure tenure rights to land by NUTS 3 Regions, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:39Z",
+    "update": "2020-02-06T15:45:26Z",
     "valueslength": 45,
     "dimensions": [
       "NUTS 3 Regions",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "geo": [
-        "NUTS 3 Regions"
-      ],
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "classification": null
-    },
-    "geo": "NUTS 3 Regions",
     "tablecode": "G0107"
   },
   {
     "label": "SDG 1.4.2 Proportion of total adult population with secure tenure rights to land by County, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:42Z",
+    "update": "2020-02-06T15:45:28Z",
     "valueslength": 64,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "G0108"
   },
   {
     "label": "SDG 1.5.4 Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies by State and Year",
     "source": "Department of Communications, Climate Action & Environment",
-    "update": "2020-04-23T17:21:43Z",
+    "update": "2020-02-06T15:45:30Z",
     "valueslength": 1,
     "dimensions": [
       "State",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "State"
-      ]
-    },
-    "geo": false,
     "tablecode": "G0112"
   },
   {
     "label": "Nationality of Pupils attending Primary School by  County, Nationality of Pupil and Year",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:21:45Z",
+    "update": "2020-02-06T15:45:31Z",
     "valueslength": 1152,
     "dimensions": [
       "County",
@@ -796,26 +399,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Nationality of Pupil"
-      ]
-    },
-    "geo": false,
     "tablecode": "ED123"
   },
   {
     "label": "Pupils attending Mainstream Primary Schools by  County, Ethos, Year and Statistic",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:21:48Z",
+    "update": "2020-02-06T15:45:33Z",
     "valueslength": 1920,
     "dimensions": [
       "County",
@@ -823,26 +412,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Ethos"
-      ]
-    },
-    "geo": false,
     "tablecode": "ED126"
   },
   {
     "label": "Pupils enrolled in Second-Level Schools by  County, Nationality of Pupil and Year",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:21:50Z",
+    "update": "2020-02-06T15:45:35Z",
     "valueslength": 7680,
     "dimensions": [
       "County",
@@ -850,76 +425,36 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Nationality of Pupil"
-      ]
-    },
-    "geo": false,
     "tablecode": "ED133"
   },
   {
     "label": "Early Start Pre-school Programmes by County, Year and Statistic",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:21:52Z",
+    "update": "2020-02-06T15:45:36Z",
     "valueslength": 1320,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA43"
   },
   {
     "label": "National Schools by County, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:54Z",
+    "update": "2020-02-06T15:45:38Z",
     "valueslength": 3600,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA56"
   },
   {
     "label": "National School Pupils by  County, School Programme, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:56Z",
+    "update": "2020-02-06T15:45:40Z",
     "valueslength": 7200,
     "dimensions": [
       "County",
@@ -927,26 +462,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "School Programme"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA57"
   },
   {
     "label": "Second Level Schools and Pupils by  County, Type of School, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:21:58Z",
+    "update": "2020-02-06T15:45:42Z",
     "valueslength": 7200,
     "dimensions": [
       "County",
@@ -954,26 +475,12 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County",
-        "Type of School"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA69"
   },
   {
     "label": "Students from Ireland and Northern Ireland by  County of Origin, County of Study and Year",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:22:00Z",
+    "update": "2020-02-06T15:45:43Z",
     "valueslength": 8568,
     "dimensions": [
       "County of Origin",
@@ -981,52 +488,25 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County of Origin",
-        "County of Study"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA98"
   },
   {
     "label": "Students Enrolled in and Entrants to Third Level Courses by Institution, Year and Statistic",
     "source": "Department of Education and Skills",
-    "update": "2020-04-23T17:22:02Z",
+    "update": "2020-02-06T15:45:45Z",
     "valueslength": 2322,
     "dimensions": [
       "Institution",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Institution"
-      ]
-    },
-    "geo": false,
     "tablecode": "EDA99"
   },
   {
     "label": "RTB Average Monthly Rent Report by  Number of Bedrooms, Property Type, Location and HalfYear",
     "source": "Residential Tenancies Board (RTB)",
-    "update": "2020-04-23T17:22:05Z",
-    "valueslength": 142218,
+    "update": "2020-02-06T15:45:47Z",
+    "valueslength": 136996,
     "dimensions": [
       "Number of Bedrooms",
       "Property Type",
@@ -1034,28 +514,13 @@
       "Half Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Half Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Number of Bedrooms",
-        "Property Type",
-        "Location"
-      ]
-    },
-    "geo": false,
     "tablecode": "RIH02"
   },
   {
     "label": "RTB Average Monthly Rent Report by  Number of Bedrooms, Property Type, Location and Quarter",
     "source": "Residential Tenancies Board (RTB)",
-    "update": "2020-04-23T17:22:17Z",
-    "valueslength": 264064,
+    "update": "2020-02-06T15:45:56Z",
+    "valueslength": 259915,
     "dimensions": [
       "Number of Bedrooms",
       "Property Type",
@@ -1063,129 +528,61 @@
       "Quarter",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Quarter"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Number of Bedrooms",
-        "Property Type",
-        "Location"
-      ]
-    },
-    "geo": false,
     "tablecode": "RIQ02"
   },
   {
     "label": "New House Registrations by County and Year",
     "source": "Department of the Environment, Heritage and Local Government",
-    "update": "2020-04-23T17:22:34Z",
-    "valueslength": 1134,
+    "update": "2020-02-06T15:46:12Z",
+    "valueslength": 1107,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "HSA10"
   },
   {
     "label": "Commencement Notices  by  Local Authority, Residential Units Commenced and Month",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:22:36Z",
-    "valueslength": 4185,
+    "update": "2020-02-06T15:46:14Z",
+    "valueslength": 3906,
     "dimensions": [
       "Local Authority",
       "Residential Units Commenced",
       "Month",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Month"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Local Authority",
-        "Residential Units Commenced"
-      ]
-    },
-    "geo": false,
     "tablecode": "HSM13"
   },
   {
     "label": "New House Registrations by County and Quarter",
     "source": "Department of the Environment, Heritage and Local Government",
-    "update": "2020-04-23T17:22:38Z",
-    "valueslength": 2808,
+    "update": "2020-02-06T15:46:16Z",
+    "valueslength": 2781,
     "dimensions": [
       "County",
       "Quarter",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Quarter"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "HSQ10"
   },
   {
     "label": "National Road Length by Type of Carriageway and Year",
     "source": "National Road Authority (NRA)",
-    "update": "2020-04-23T17:22:40Z",
+    "update": "2020-02-06T15:46:18Z",
     "valueslength": 60,
     "dimensions": [
       "Type of Carriageway",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Type of Carriageway"
-      ]
-    },
-    "geo": false,
     "tablecode": "NRA01"
   },
   {
     "label": "National Route Length  by  Local Authority, Type of Carriageway and Year",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:22:42Z",
+    "update": "2020-02-06T15:46:19Z",
     "valueslength": 540,
     "dimensions": [
       "Local Authority",
@@ -1193,51 +590,24 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Local Authority",
-        "Type of Carriageway"
-      ]
-    },
-    "geo": false,
     "tablecode": "NRA03"
   },
   {
     "label": "Persons Killed and Injured by County, Year and Statistic",
     "source": "Road Safety Authority (RSA)",
-    "update": "2020-04-23T17:22:44Z",
+    "update": "2020-02-06T15:46:21Z",
     "valueslength": 972,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "ROA15"
   },
   {
     "label": "Current Driving Licences by  Age Group, Licensing Authority, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:22:46Z",
+    "update": "2020-02-06T15:46:23Z",
     "valueslength": 3564,
     "dimensions": [
       "Age Group",
@@ -1245,45 +615,18 @@
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "Age Group",
-        "Licensing Authority"
-      ]
-    },
-    "geo": false,
     "tablecode": "ROA26"
   },
   {
     "label": "Traffic Collisions and Casualities by County, Year and Statistic",
     "source": "Central Statistics Office, Ireland",
-    "update": "2020-04-23T17:22:49Z",
+    "update": "2020-02-06T15:46:25Z",
     "valueslength": 648,
     "dimensions": [
       "County",
       "Year",
       "Statistic"
     ],
-    "roles": {
-      "time": [
-        "Year"
-      ],
-      "metric": [
-        "Statistic"
-      ],
-      "geo": null,
-      "classification": [
-        "County"
-      ]
-    },
-    "geo": false,
     "tablecode": "ROA27"
   }
 ]

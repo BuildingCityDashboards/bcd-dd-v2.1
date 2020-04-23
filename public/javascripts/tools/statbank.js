@@ -19,28 +19,28 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
 
   const allMetadata = [] // TODO- remove gvar
 
-  document.getElementById('get-all-metadata')
-    .addEventListener('click', async () => {
-      console.log('Loading all metadata... \n')
-
-      const start = async () => {
-        await forEachAsync(tableCodesArray, async (tableCode) => {
-          try {
-            const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
-            const tableMetadata = getTableMetadata(tableJson)
-            tableMetadata.tablecode = tableCode // join
-            console.log(tableMetadata)
-            allMetadata.push(tableMetadata)
-          } catch (e) {
-            console.log('Error fetching metadata for table ' + tableCode)
-            console.log(e)
-          }
-          console.log(allMetadata.length)
-        })
-        console.log('Done loading metadata')
-        console.log(allMetadata)
-      }
-      start() // weird that I have to call this here, use IIFE?
+  // document.getElementById('get-all-metadata')
+  //   .addEventListener('click', async () => {
+  //     console.log('Loading all metadata... \n')
+  //
+  //     const start = async () => {
+  //       await forEachAsync(tableCodesArray, async (tableCode) => {
+  //         try {
+  //           const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
+  //           const tableMetadata = getTableMetadata(tableJson)
+  //           tableMetadata.tablecode = tableCode // join
+  //           console.log(tableMetadata)
+  //           allMetadata.push(tableMetadata)
+  //         } catch (e) {
+  //           console.log('Error fetching metadata for table ' + tableCode)
+  //           console.log(e)
+  //         }
+  //         console.log(allMetadata.length)
+  //       })
+  //       console.log('Done loading metadata')
+  //       console.log(allMetadata)
+  //     }
+  //     start() // weird that I have to call this here, use IIFE?
 
     // tableCodesArray.forEach(async (tableCode) => {
     //   const tableJson = await fetchJsonFromUrl(STATBANK_BASE_URL + tableCode)
@@ -53,7 +53,7 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
     // elProgress.setAttribute('max', '100')
     // elProgress.setAttribute('value', '50')
     // el.appendChild(elProgress)
-    }) // end of event listener
+    // }) // end of event listener
 
   const dropdown = document.getElementById('table-code-dropdown')
 

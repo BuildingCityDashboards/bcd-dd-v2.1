@@ -7,7 +7,7 @@
     depth: 3,
     doc: {
       id: 'tablecode',
-      field: ['label', 'source', 'dimensions']
+      field: ['label', 'source', 'dimensions', 'tablecode']
     }
   })
 
@@ -16,8 +16,8 @@
       return response.json()
     })
     .then((data) => {
-      console.log('docs \n')
-      console.log(data)
+      // console.log('docs \n')
+      // console.log(data)
       index.add(data)
       // for (let i = 0; i < docs.length; i++) {
       //   index.add(i, docs[i]) //this doesn't appear to work???
@@ -33,8 +33,8 @@
       function showResults () {
         const value = this.value
         const results = index.search(value, 8)
-        console.log('results: \n')
-        console.log(results)
+        // console.log('results: \n')
+        // console.log(results)
         let suggestion
         let childs = suggestions.childNodes
         let i = 0
@@ -47,7 +47,7 @@
             suggestion = document.createElement('div')
             suggestions.appendChild(suggestion)
           }
-          suggestion.innerHTML = `${results[i].tablecode}: ${results[i].label}`
+          suggestion.innerHTML = `<b>${results[i].tablecode}</>: ${results[i].label}`
           // `<a href = '${results[i].tablecode}'> ${results[i]['section-name']} ${results[i].title}</a>`
 
           // console.log(results[i])
