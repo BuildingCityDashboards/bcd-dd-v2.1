@@ -1020,11 +1020,40 @@
 {
 	"id": 126,
 	"type": "portal-component",
-	"title": "Parking Tag",
+	"title": "",
 	"subtitle": "",
-	"content": "With the Parking Tag mobile app you can pay for parking using your registered credit or debit card instead.Parking Tag is a Pay by Phone parking solution which can be used in Dublin City, Dún Laoghaire-Rathdown, Fingal and South Dublin County Council and now in Arklow Town, Wicklow Town and Dún.",
+	"content": "",
 	"section-name":"Portal",
 	"link": "/portal#mobile-apps"
+},
+{
+	"id": 127,
+	"type": "portal-component",
+	"title": "Health",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#health"
+},
+{
+	"id": 128,
+	"type": "portal-component",
+	"title": "Education",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#education"
+},
+{
+	"id": 129,
+	"type": "portal-component",
+	"title": "Economy",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#economy"
 }
+
+
 
 ]
