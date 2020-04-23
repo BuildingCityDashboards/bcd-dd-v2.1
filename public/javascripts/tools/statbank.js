@@ -7,6 +7,8 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
   console.log('Statbank Tool')
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+
+  const STATBANK_UNAVAILABLE_URL = 'https://statbank.cso.ie/webserviceclient/unavailableTables.aspx' // TODO- check against this
   const tableCodesArrayURI = '../data/tools/statbank/statbank_tablecodes.json'
 
   // fetch tableCodes for Statbank tables
@@ -15,31 +17,31 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
     return d.tablecode
   })
 
-  const allMetadata = []
+  const allMetadata = [] // TODO- remove gvar
 
-  const getButton = document.getElementById('get-all-metadata')
+  document.getElementById('get-all-metadata')
+    .addEventListener('click', async () => {
+      console.log('Loading all metadata... \n')
 
-  getButton.addEventListener('click', async () => {
-    console.log('Loading all metadata... \n')
+      const start = async () => {
+        await forEachAsync(tableCodesArray, async (tableCode) => {
+          try {
+            const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
+            const tableMetadata = getTableMetadata(tableJson)
+            tableMetadata.tablecode = tableCode // join
+            console.log(tableMetadata)
+            allMetadata.push(tableMetadata)
+          } catch (e) {
+            console.log('Error fetching metadata for table ' + tableCode)
+            console.log(e)
+          }
+          console.log(allMetadata.length)
+        })
+        console.log('Done loading metadata')
+        console.log(allMetadata)
+      }
+      start() // weird that I have to call this here, use IIFE?
 
-    const start = async () => {
-      await forEachAsync(tableCodesArray, async (tableCode) => {
-        try {
-          const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
-          const tableMetadata = getTableMetadata(tableJson)
-          tableMetadata.tablecode = tableCode // join
-          console.log(tableMetadata)
-          allMetadata.push(tableMetadata)
-        } catch (e) {
-          console.log('Error fetching metadata for table ' + tableCode)
-          console.log(e)
-        }
-        console.log(allMetadata.length)
-      })
-      console.log('Done loading metadata')
-      console.log(allMetadata)
-    }
-    start()
     // tableCodesArray.forEach(async (tableCode) => {
     //   const tableJson = await fetchJsonFromUrl(STATBANK_BASE_URL + tableCode)
     //   allMetadata.push(getTableMetadata(tableJson))
@@ -51,7 +53,7 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
     // elProgress.setAttribute('max', '100')
     // elProgress.setAttribute('value', '50')
     // el.appendChild(elProgress)
-  })
+    }) // end of event listener
 
   const dropdown = document.getElementById('table-code-dropdown')
 

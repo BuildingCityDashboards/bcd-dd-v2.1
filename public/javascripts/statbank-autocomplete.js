@@ -11,7 +11,7 @@
     }
   })
 
-  fetch('/api/data/search/site')
+  fetch('/api/data/')
     .then((response) => {
       return response.json()
     })
@@ -22,9 +22,9 @@
       // for (let i = 0; i < docs.length; i++) {
       //   index.add(i, docs[i]) //this doesn't appear to work???
       // }
-      const suggestions = document.getElementById('suggestions')
+      const suggestions = document.getElementById('statbank-suggestions')
       // const autocomplete = document.getElementById('autocomplete')
-      const userinput = document.getElementById('userinput')
+      const userinput = document.getElementById('statbank-userinput')
 
       userinput.addEventListener('input', showResults, true)
       // userinput.addEventListener('keyup', acceptAutocomplete, true)
