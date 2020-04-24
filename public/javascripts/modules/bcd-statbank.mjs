@@ -19,7 +19,7 @@ const getTableMetadata = (tableJson) => {
   let categories = dimensions
     .map((dim) => jsonStat.Dataset(0).Dimension(dim).Category())
     .map((cat) => cat.map(c => c.label))
-  console.log(categories)
+  // console.log(categories)
 
   // const categories = jsonStat.Dataset(0).Dimension(0).Category()
   return {

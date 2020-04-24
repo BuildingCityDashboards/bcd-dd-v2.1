@@ -8,15 +8,28 @@
   font-weight : 300;
 }
 
-/* #map-geodemos {
-  width  : 100%;
-  height : 500px;
+#statbank-results-raw {
+  margin  : 5px;
+  padding : 5px;
+  outline : 1px solid #ccc;
+
 }
 
-#chart-geodemos {
-  width  : 100%;
-  height : 500px;
-} */
+pre{
+    color: white;
+   max-height: 400px;
+   overflow-y: auto;
+}
+
+/**
+ * #map-geodemos { width
+ *
+ * : 100%; height : 500px; }
+ *
+ * #chart-geodemos { width
+ *
+ * : 100%; height : 500px; }
+ */
 
 /* #planning_map { height: inherit; width: 100%; } */
 
@@ -32,22 +45,41 @@ select:hover:not([disabled]) {
   */
 }
 
-/* .btn-bcd-toggle {
-  color        : #000;
-  border-color : transparent;
-  /* background-color : transparent; */
+/**
+ * .btn-bcd-toggle { color
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : #000; border-color : transparent; /* background-color : transparent;
+ */
+
 /* } */
 
-/* .btn-bcd-toggle:hover {
-  color        : #000;
-  border-color : transparent;
-  border-color : #fff;
-}
-
-.btn-bcd-toggle.active {
-  color        : #000;
-  border-color : #fff /* background-color:#00c0f5;
-} */
+/**
+ * .btn-bcd-toggle:hover { color
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : #000; border-color : transparent; border-color : #fff; }
+ *
+ * .btn-bcd-toggle.active { color
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * : #000; border-color : #fff /* background-color:#00c0f5; }
+ */
 
 .btn-page.active {
   font-weight : 600;

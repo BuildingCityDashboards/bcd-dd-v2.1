@@ -17,44 +17,6 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
     return d.tablecode
   })
 
-  const allMetadata = [] // TODO- remove gvar
-
-  // document.getElementById('get-all-metadata')
-  //   .addEventListener('click', async () => {
-  //     console.log('Loading all metadata... \n')
-  //
-  //     const start = async () => {
-  //       await forEachAsync(tableCodesArray, async (tableCode) => {
-  //         try {
-  //           const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
-  //           const tableMetadata = getTableMetadata(tableJson)
-  //           tableMetadata.tablecode = tableCode // join
-  //           console.log(tableMetadata)
-  //           allMetadata.push(tableMetadata)
-  //         } catch (e) {
-  //           console.log('Error fetching metadata for table ' + tableCode)
-  //           console.log(e)
-  //         }
-  //         console.log(allMetadata.length)
-  //       })
-  //       console.log('Done loading metadata')
-  //       console.log(allMetadata)
-  //     }
-  //     start() // weird that I have to call this here, use IIFE?
-
-    // tableCodesArray.forEach(async (tableCode) => {
-    //   const tableJson = await fetchJsonFromUrl(STATBANK_BASE_URL + tableCode)
-    //   allMetadata.push(getTableMetadata(tableJson))
-    //   console.log(allMetadata.length)
-    // })
-    // let el = document.getElementById('statbank-loading')
-    // el.textContent = 'Fetching data from statbank.cso.ie'
-    // let elProgress = document.createElement('progress')
-    // elProgress.setAttribute('max', '100')
-    // elProgress.setAttribute('value', '50')
-    // el.appendChild(elProgress)
-    // }) // end of event listener
-
   const dropdown = document.getElementById('table-code-dropdown')
 
   populateDropdownFromArray(dropdown, tableCodesArray)
@@ -62,7 +24,7 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
   dropdown.addEventListener('change', async (e) => {
     const tableCode = e.target.value
     console.log(`Loading ${tableCode}... \n`)
-    // let el = document.getElementById('statbank-loading')
+    // let el = document.getElementById('#statbank-results-table')
     // el.textContent = 'Fetching data from statbank.cso.ie'
     // let elProgress = document.createElement('progress')
     // elProgress.setAttribute('max', '100')
@@ -70,11 +32,69 @@ import { populateDropdownFromArray } from '../modules/bcd-ui.mjs'
     // el.appendChild(elProgress)
     try {
       const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
+      console.log('raw:\n')
+      console.log(tableJson)
+      console.log('meta\n')
       console.log(getTableMetadata(tableJson))
+
+      // let col = []
+      // for (var i = 0; i < tableJson.length; i++) {
+      //   for (let key in tableJson[i]) {
+      //     if (col.indexOf(key) === -1) {
+      //       col.push(key)
+      //     }
+      //   }
+      // }
+
+      let str = JSON.stringify(getTableMetadata(tableJson), undefined, 4)
+      console.log(str)
+      document.getElementById('statbank-results-raw').appendChild(document.createElement('pre')).innerHTML = str
+      // document.getElementById('statbank-results-raw').innerHTML = `${str}`
+      // document.getElementById('statbank-results-raw').innerHTML = str
+       // JSON.stringify(getTableMetadata(tableJson), undefined, 2)
+      // let table = document.createElement('table')
     } catch (e) {
-      console.log('Error fetching table ' + tableCode)
+      console.error(`Error fetching table ${tableCode} \n ${e}`)
     }
   })
+
+    // const allMetadata = [] // TODO- remove gvars
+
+    // document.getElementById('get-all-metadata')
+    //   .addEventListener('click', async () => {
+    //     console.log('Loading all metadata... \n')
+    //
+    //     const fetchAllTableData = async () => {
+    //       await forEachAsync(tableCodesArray, async (tableCode) => {
+    //         try {
+    //           const tableJson = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + tableCode)
+    //           const tableMetadata = getTableMetadata(tableJson)
+    //           tableMetadata.tablecode = tableCode // join
+    //           console.log(tableMetadata)
+    //           allMetadata.push(tableMetadata)
+    //         } catch (e) {
+    //           console.log('Error fetching metadata for table ' + tableCode)
+    //           console.log(e)
+    //         }
+    //         console.log(allMetadata.length)
+    //       })
+    //       console.log('Done loading metadata')
+    //       console.log(allMetadata)
+    //     }
+    //     fetchAllTableData() // weird that I have to call this here, use IIFE?
+
+      // tableCodesArray.forEach(async (tableCode) => {
+      //   const tableJson = await fetchJsonFromUrl(STATBANK_BASE_URL + tableCode)
+      //   allMetadata.push(getTableMetadata(tableJson))
+      //   console.log(allMetadata.length)
+      // })
+      // let el = document.getElementById('statbank-loading')
+      // el.textContent = 'Fetching data from statbank.cso.ie'
+      // let elProgress = document.createElement('progress')
+      // elProgress.setAttribute('max', '100')
+      // elProgress.setAttribute('value', '50')
+      // el.appendChild(elProgress)
+      // }) // end of event listener
 
   // console.log('Got table')
   // console.log(table)
