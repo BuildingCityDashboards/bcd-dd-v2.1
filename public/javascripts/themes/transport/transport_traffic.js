@@ -24,9 +24,16 @@
 
     let data = await d3.csv('api/traffic/yesterday')
     console.log('traffic data length ' + data.length)
-    for (let i = 0; i < 10; i += 1) {
-      console.log(data[i])
-    }
+    data.map(d => {
+
+    })
+
+    // dublinSensors.forEach(s => {
+    //   console.log(data[dublinSensors.cosit])
+    // })
+    // for (let i = 0; i < 10; i += 1) {
+    //   console.log(data[i])
+    // }
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
