@@ -4,6 +4,8 @@
  ************************************/
   let trafficChart
   try {
+    const STATIC_DATA = await d3.csv('/api/traffic/yesterday')
+
     let data = await d3.csv('/api/traffic/yesterday')
     console.log('traffic data length ' + data.length)
     for (let i = 0; i < 10; i += 1) {
