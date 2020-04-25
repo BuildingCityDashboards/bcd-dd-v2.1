@@ -4,9 +4,25 @@
  ************************************/
   let trafficChart
   try {
-    const STATIC_DATA = await d3.csv('/api/traffic/yesterday')
+    const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
+    let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
+    console.log(rows.length)
+    let dublinSensors = rows
+    .map(r => {
+      let obj = {
+        'cosit': r[1],
+        'description': r[0],
+        'lat': r[5],
+        'lng': r[6]
+      }
+      return obj
+    }).filter(r => {
+      return r.description.includes('Dublin')
+    })
 
-    let data = await d3.csv('/api/traffic/yesterday')
+    console.log(dublinSensors[0])
+
+    let data = await d3.csv('api/traffic/yesterday')
     console.log('traffic data length ' + data.length)
     for (let i = 0; i < 10; i += 1) {
       console.log(data[i])
