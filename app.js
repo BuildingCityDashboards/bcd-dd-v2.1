@@ -306,6 +306,6 @@ const readFileAsync = () => {
     }
   })
 }
-readFileAsync()
+// readFileAsync()
 
 module.exports = app
