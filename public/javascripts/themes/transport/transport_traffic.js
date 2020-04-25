@@ -3,14 +3,16 @@
  * Traffic counter data
  ************************************/
   let trafficChart
-
-// let trafficReportPage = 'https://www.nratrafficdata.ie/c2/tfdayreport.asp?sgid=ZvyVmXU8jBt9PJE$c7UXt6&spid=NRA_000000001503'
-
-  let perSiteDayBaseURL = 'https://data.tii.ie/Datasets/TrafficCountData/'
-  // let perSiteDayQuery = `${year}/${month}/${day}/per-site-class-aggr-${year}-${month}-${day}.csv`
-  let perSiteDayExample = '2020/04/24/per-site-class-aggr-2020-04-24.csv'
-  let data = await d3.csv(perSiteDayBaseURL + perSiteDayExample)
-  console.log('traffic data length ' + data.length)
+  try {
+    let data = await d3.csv('/api/traffic/yesterday')
+    console.log('traffic data length ' + data.length)
+    for (let i = 0; i < 10; i += 1) {
+      console.log(data[i])
+    }
+  } catch (e) {
+    console.error('error fetching traffic data')
+    console.error(e)
+  }
 })()
     // const dayFormat = d3.timeFormat("%a, %I:%M");
 //     let keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
