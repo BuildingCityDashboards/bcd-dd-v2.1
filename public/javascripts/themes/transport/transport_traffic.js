@@ -4,29 +4,41 @@
  ************************************/
   let trafficChart
   try {
+    // need to be able to look up the static data using cosit as key
     const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
     let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
     console.log(rows.length)
     let dublinSensors = rows
-    .map(r => {
-      let obj = {
-        'cosit': r[1],
-        'description': r[0],
-        'lat': r[5],
-        'lng': r[6]
+    .filter(row => {
+      return row[0].includes('Dublin')
+    })
+    .reduce((obj, row) => {
+      obj[`${+row[1]}`] = {
+        'description': row[0],
+        'lat': +row[5],
+        'lng': +row[6]
       }
       return obj
-    }).filter(r => {
-      return r.description.includes('Dublin')
-    })
+    }, {})
 
-    console.log(dublinSensors[0])
+    console.log(dublinSensors)
 
-    let data = await d3.csv('api/traffic/yesterday')
-    console.log('traffic data length ' + data.length)
-    data.map(d => {
+    // arrayToObject(rows, )
 
-    })
+    // let dataCSV = await d3.csv('api/traffic/yesterday')
+    // console.log('traffic data length ' + data.length)
+    // console.log(+data[0].cosit)
+    // let dataObj = data
+    // .map(d => {
+    //   let obj = {}
+    //   obj[`${+d.cosit}`] = {
+    //     count: +d.VehicleCount,
+    //     class: +d.class
+    //   }
+    //   return obj
+    // })
+    //
+    // console.log(dataObj)
 
     // dublinSensors.forEach(s => {
     //   console.log(data[dublinSensors.cosit])
