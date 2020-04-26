@@ -12,15 +12,15 @@ const getData = async url => {
   }
 }
 
-exports.getTrafficPerSiteByDate = async (req, res, next) => {
-  console.log('\n\ngetTrafficPerSiteForDate\n\n')
-  console.log(req.body)
-  try {
-
-  } catch (e) {
-    console.error('Error in getTrafficPerSiteForDate' + e)
-    return [] // todo: return null object
-  }
+exports.getTrafficPerSiteByQuery = async (req, res, next) => {
+  console.log('\n\ngetTrafficPerSiteByQuery\n\n')
+  console.log(req.query.q)
+  // try {
+  //
+  // } catch (e) {
+  //   console.error('Error in getTrafficPerSiteForDate' + e)
+  //   return [] // todo: return null object
+  // }
 }
 
 // This should happen in controller, with logic in service
