@@ -24,30 +24,33 @@
     })
 
     // console.log(dublinSensors)
+    // get the data for a date
 
-    let dataCSV = await d3.csv('api/traffic/yesterday')
-    // console.log('traffic raw ' + JSON.stringify(dataCSV[0]))
-    // console.log(+dataCSV[0].cosit)
-    //
-    // need the vechile count, indexed by cosit
-    let dataObj = dataCSV.reduce((obj, d) => {
+    let dataCSVDay = await d3.csv('api/traffic/yesterday')
+    // let dataCSVDate = await d3.csv('api/traffic/yesterday')
+
+    // console.log('traffic raw ' + JSON.stringify(dataCSVDay[0]))
+    // console.log(+dataCSVDay[0].cosit)
+
+    // need the vehicle count, indexed by cosit number
+    let dataObjDay = dataCSVDay.reduce((obj, d) => {
       obj[`${+d.cosit}`] = {
         count: +d.VehicleCount,
         class: +d.class
       }
       return obj
     }, {})
-    // console.log(dataObj)
+    // console.log(dataObjDay)
 
     // for each dublin sensor object in the array, join the count
     // mutates original array
     dublinSensors.forEach((s) => {
       // console.log(s.id)
       try {
-        s.count = dataObj[s.id].count
-        s.class = dataObj[s.id].class
+        s.count = dataObjDay[s.id].count
+        s.class = dataObjDay[s.id].class
       } catch (e) {
-        console.log('error loking up ' + s.id) // TODO: return null object to catch this
+        console.log('error looking up ' + s.id) // TODO: return null object to catch this
       }
     })
     console.log(dublinSensors)
