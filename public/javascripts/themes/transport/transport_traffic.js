@@ -8,7 +8,7 @@
     // want an array of objects for dublin sensors
     const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
     let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
-    console.log(rows.length)
+    // console.log(rows.length)
     let dublinSensors = rows
     .filter(row => {
       return row[0].includes('Dublin')
@@ -24,33 +24,48 @@
     })
 
     // console.log(dublinSensors)
+    // get the data for a date
 
-    let dataCSV = await d3.csv('api/traffic/yesterday')
-    // console.log('traffic raw ' + JSON.stringify(dataCSV[0]))
-    // console.log(+dataCSV[0].cosit)
-    //
-    // need the vechile count, indexed by cosit
-    let dataObj = dataCSV.reduce((obj, d) => {
+    let dataCSVDay = await d3.csv('api/traffic/yesterday')
+
+    // console.log('traffic raw ' + JSON.stringify(dataCSVDay[0]))
+    // console.log(+dataCSVDay[0].cosit)
+
+    // need the vehicle count, indexed by cosit number
+    let dataObjDay = dataCSVDay.reduce((obj, d) => {
       obj[`${+d.cosit}`] = {
         count: +d.VehicleCount,
         class: +d.class
       }
       return obj
     }, {})
-    // console.log(dataObj)
+    // console.log(dataObjDay)
 
     // for each dublin sensor object in the array, join the count
     // mutates original array
     dublinSensors.forEach((s) => {
       // console.log(s.id)
       try {
-        s.count = dataObj[s.id].count
-        s.class = dataObj[s.id].class
+        s.count = dataObjDay[s.id].count
+        s.class = dataObjDay[s.id].class
       } catch (e) {
-        console.log('error loking up ' + s.id) // TODO: return null object to catch this
+        console.log('error looking up ' + s.id) // TODO: return null object to catch this
       }
     })
-    console.log(dublinSensors)
+    // console.log(dublinSensors)
+
+    const dateObj = new Date()
+    dateObj.setDate(dateObj.getDate() - 1) // yesterday
+    const y = dateObj.getFullYear()
+    let m = dateObj.getMonth()
+    m += 1 // correct for 1-indexed months
+    m = m.toString().padStart(2, '0')
+    let day = dateObj.getDate()
+    day = day.toString().padStart(2, '0')
+    const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
+
+    let dataCSVQuery = await d3.csv('api/traffic?q=' + yesterdayQuery)
+    console.log(dataCSVQuery.length)
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)

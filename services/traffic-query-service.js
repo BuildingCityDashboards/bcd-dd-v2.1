@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const BASE_URL_TRAFFIC = 'https://data.tii.ie/Datasets/TrafficCountData/'
 
 const getData = async url => {
   try {
@@ -10,15 +11,35 @@ const getData = async url => {
     return console.log(error)
   }
 }
-// This should happen in controller, with logic in service
-exports.getTrafficPerSiteDay = async (req, res, next) => {
-  console.log(`\n\n\nCall getTrafficPerSiteDay`)
 
+exports.getTrafficPerSiteByQuery = async (req, res, next) => {
+  console.log('\n\ngetTrafficPerSiteByQuery\n\n')
+  console.log(req.query.q)
+  // try {
+  //
+  // } catch (e) {
+  //   console.error('Error in getTrafficPerSiteForDate' + e)
+  //   return [] // todo: return null object
+  // }
+}
+
+// This should happen in controller, with logic in service
+exports.getTrafficPerSiteYesterday = async (req, res, next) => {
   // const e = new moment(date)
-  const BASE_URL_TRAFFIC = 'https://data.tii.ie/Datasets/TrafficCountData/'
+  const dateObj = new Date()
+  dateObj.setDate(dateObj.getDate() - 1) // yesterday
+  const y = dateObj.getFullYear()
+  let m = dateObj.getMonth()
+  m += 1 // correct for 1-indexed months
+  m = m.toString().padStart(2, '0')
+  let day = dateObj.getDate()
+  day = day.toString().padStart(2, '0')
+
   const SAMPLE_DATE = '2020/04/24/per-site-class-aggr-2020-04-24.csv'
+  const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
+  console.log('\n*\n*\n' + yesterdayQuery + '\n*\n*\n')
   try {
-    const data = await getData(BASE_URL_TRAFFIC + SAMPLE_DATE)
+    const data = await getData(BASE_URL_TRAFFIC + yesterdayQuery)
 
     res.send(data)
     // console.log('\n***\nTraffic res 1 ' + res[2] + '\n***\n')
