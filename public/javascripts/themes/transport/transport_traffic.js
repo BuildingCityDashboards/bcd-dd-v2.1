@@ -4,36 +4,53 @@
  ************************************/
   let trafficChart
   try {
+    // need to be able to look up the static data using cosit as key
+    // want an array of objects for dublin sensors
     const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
     let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
     console.log(rows.length)
     let dublinSensors = rows
-    .map(r => {
+    .filter(row => {
+      return row[0].includes('Dublin')
+    })
+    .map(row => {
       let obj = {
-        'cosit': r[1],
-        'description': r[0],
-        'lat': r[5],
-        'lng': r[6]
+        id: +row[1],
+        'description': row[0],
+        'lat': +row[5],
+        'lng': +row[6]
       }
       return obj
-    }).filter(r => {
-      return r.description.includes('Dublin')
     })
 
-    console.log(dublinSensors[0])
+    // console.log(dublinSensors)
 
-    let data = await d3.csv('api/traffic/yesterday')
-    console.log('traffic data length ' + data.length)
-    data.map(d => {
+    let dataCSV = await d3.csv('api/traffic/yesterday')
+    // console.log('traffic raw ' + JSON.stringify(dataCSV[0]))
+    // console.log(+dataCSV[0].cosit)
+    //
+    // need the vechile count, indexed by cosit
+    let dataObj = dataCSV.reduce((obj, d) => {
+      obj[`${+d.cosit}`] = {
+        count: +d.VehicleCount,
+        class: +d.class
+      }
+      return obj
+    }, {})
+    // console.log(dataObj)
 
+    // for each dublin sensor object in the array, join the count
+    // mutates original array
+    dublinSensors.forEach((s) => {
+      // console.log(s.id)
+      try {
+        s.count = dataObj[s.id].count
+        s.class = dataObj[s.id].class
+      } catch (e) {
+        console.log('error loking up ' + s.id) // TODO: return null object to catch this
+      }
     })
-
-    // dublinSensors.forEach(s => {
-    //   console.log(data[dublinSensors.cosit])
-    // })
-    // for (let i = 0; i < 10; i += 1) {
-    //   console.log(data[i])
-    // }
+    console.log(dublinSensors)
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
