@@ -14,9 +14,7 @@ if we add SA to group as it comes up we're rewriting gorup layers repeatedly
 Solve with async await
 
 **/
-import { getDublinLatLng } from '../modules/leaflet-maps.js'
-
-
+import { getDublinBoundsLatLng } from '../modules/bcd-maps.js'
 
 let dub_lng = -6.2603
 let dub_lat = 53.42
@@ -59,7 +57,7 @@ L.control.locate({
 
 mapGeodemos.addControl(new L.Control.OSMGeocoder({
   placeholder: 'Enter street name, area etc.',
-  bounds: getDublinLatLng()
+  bounds: getDublinBoundsLatLng()
 }))
 
 const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']

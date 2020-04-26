@@ -1,36 +1,3 @@
-/*TODO:
-The following TODO list addresses issues #27 #22 #21 #16 #15 #14 #13
-* Working bike symbology
-* Working bike traces
-  - Add day/ week/ month selection
-* Update !bikes data periodically
-* Add different icons for different transport modes
-* Add car park data
-  - Add day popup trace as per bikes
-* Add bike station comparisons to popups
-* Check API status periodically and update symbol
-  - Enable/disable buttons accordingly
-  - Add tooltip to say data unavailable over button
-  - Animate activity symbol (when refreshing data?)
-* Add current time indicator
-* Add last/ next refresh time indicator
-* Remove button in Bus popup
-* Unify popup designs
-* Redesign legend
-* Convert icons to vector graphics
-* Keep popups open when map data refreshes
-* Place popups over controls or make them sit away from controls.
-* Place icons in filter buttons
- * Test support for DOM node methods on Firefox
- */
-
-//***@todo: refactor to use ES6 imports ***/
-
-/*
-API activity checks that the buttons are not disabled
-
-*/
-
 
 /************************************
  * Design Pattern
@@ -47,82 +14,75 @@ API activity checks that the buttons are not disabled
  ******* Draw marker popup
  ************************************/
 
-
-//Manage periodic async data fetching
-let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync;
+// Manage periodic async data fetching
+let setIntervalAsync = SetIntervalAsync.dynamic.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.fixed.setIntervalAsync
 // // // let setIntervalAsync = SetIntervalAsync.legacy.setIntervalAsync
 let clearIntervalAsync = SetIntervalAsync.clearIntervalAsync
 
-//Update the API activity icon and time
-//called from the individual getting-around modules
-function updateAPIStatus(activity, age, isLive) {
-  let d = new Date();
-  let tf = moment(d).format('hh:mm a');
+// Update the API activity icon and time
+// called from the individual getting-around modules
+function updateAPIStatus (activity, age, isLive) {
+  let d = new Date()
+  let tf = moment(d).format('hh:mm a')
   if (isLive) {
-
-    d3.select(activity).attr('src', '/images/icons/activity.svg');
+    d3.select(activity).attr('src', '/images/icons/activity.svg')
     d3.select(age)
-      .text('Live @  ' + tf);
-
+      .text('Live @  ' + tf)
   } else {
-    d3.select(activity).attr('src', '/images/icons/alert-triangle.svg');
+    d3.select(activity).attr('src', '/images/icons/alert-triangle.svg')
     d3.select(age)
-      .text('No data @ ' + tf);
+      .text('No data @ ' + tf)
   }
-
 }
 
 let bikesClusterToggle = true,
   busClusterToggle = true,
   luasClusterToggle = false,
-  carparkClusterToggle = true;
+  carparkClusterToggle = true
 
-zoom = 11; //zoom on page load
-maxZoom = 26;
+zoom = 11 // zoom on page load
+maxZoom = 26
 let gettingAroundOSM = new L.TileLayer(cartoDb, {
   minZoom: 2,
-  maxZoom: maxZoom, //seems to fix 503 tileserver errors
+  maxZoom: maxZoom, // seems to fix 503 tileserver errors
   attribution: stamenTonerAttrib
-});
+})
 
-let gettingAroundMap = new L.Map('getting-around-map');
-gettingAroundMap.setView(new L.LatLng(dubLat, dubLng), zoom);
-gettingAroundMap.addLayer(gettingAroundOSM);
-let markerRefPublic; //TODO: fix horrible hack!!!
-gettingAroundMap.on('popupopen', function(e) {
-  markerRefPublic = e.popup._source;
-  //console.log("ref: "+JSON.stringify(e));
-});
+let gettingAroundMap = new L.Map('getting-around-map')
+gettingAroundMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+gettingAroundMap.addLayer(gettingAroundOSM)
+let markerRefPublic // TODO: fix horrible hack!!!
+gettingAroundMap.on('popupopen', function (e) {
+  markerRefPublic = e.popup._source
+  // console.log("ref: "+JSON.stringify(e));
+})
 
-
-
-/*gettingAroundMap.on('click', function(e) {
+/* gettingAroundMap.on('click', function(e) {
     alert("Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
-});*/
-
+}); */
 
 // add location control to global name space for testing only
 // on a production site, omit the "lc = "!
 L.control.locate({
   strings: {
-    title: "Zoom to your location"
+    title: 'Zoom to your location'
   }
-}).addTo(gettingAroundMap);
+}).addTo(gettingAroundMap)
 
 var osmGeocoder = new L.Control.OSMGeocoder({
   placeholder: 'Enter street name, area etc.',
   bounds: dublinBounds
-});
-gettingAroundMap.addControl(osmGeocoder);
+})
+gettingAroundMap.addControl(osmGeocoder)
 
-//Dublin Bikes script
+// Dublin Bikes script
 
-//Dublin Bus script
+// Dublin Bus script
 
-//Car Parks script
+// Car Parks script
 
-//Luas script
+// Luas script
 /************************************
  * Motorway Junctions
  ************************************/
@@ -135,30 +95,29 @@ gettingAroundMap.addControl(osmGeocoder);
 //   //processRoads(data);
 // });
 
-function processTravelTimes(data_) {
-  //console.log("travel times data : " + JSON.stringify(data_));
-  //console.log("\n " + JSON.stringify(d3.keys(data_)));
+function processTravelTimes (data_) {
+  // console.log("travel times data : " + JSON.stringify(data_));
+  // console.log("\n " + JSON.stringify(d3.keys(data_)));
   d3.keys(data_).forEach(
-    //for each key
-    function(d) {
-      console.debug(JSON.stringify(d)); // to show meassge to web console at the "debug" log level
-      //for each data array
-      data_[d].data.forEach(function(d_) {
-        console.debug("From " + d_["from_name"] + " to " + d_["to_name"] +
-          " (" + d_["distance"] / 1000 + " km)" +
-          "\nFree flow " + d_["free_flow_travel_time"] + " seconds" +
-          "\nCurrent time " + d_["current_travel_time"] + " seconds"
-        );
-      });
+    // for each key
+    function (d) {
+      console.debug(JSON.stringify(d)) // to show meassge to web console at the "debug" log level
+      // for each data array
+      data_[d].data.forEach(function (d_) {
+        console.debug('From ' + d_['from_name'] + ' to ' + d_['to_name'] +
+          ' (' + d_['distance'] / 1000 + ' km)' +
+          '\nFree flow ' + d_['free_flow_travel_time'] + ' seconds' +
+          '\nCurrent time ' + d_['current_travel_time'] + ' seconds'
+        )
+      })
     }
-  );
-
+  )
 };
 
-function processRoads(data_) {
+function processRoads (data_) {
   // console.debug("roads : " + JSON.stringify(data_.features));
 
-  //data_.features.forEach(function (d_) {
+  // data_.features.forEach(function (d_) {
   //        console.debug("f : " + JSON.stringify(f.properties));
   //        console.debug("" + JSON.stringify(f.geometry.coordinates));
   // console.debug("From " + d_.properties["from_name"] + " to " + d_.properties["to_name"]
@@ -172,30 +131,27 @@ function processRoads(data_) {
  * Button Listeners
  ************************************/
 
-//if buttons are disabled in view, do not update activiy from api-status.json
+// if buttons are disabled in view, do not update activiy from api-status.json
 
+// Adding a geojson layer to leaflet
 
-// Adding a geojson layer to leaflet 
+var myLines =
 
-var myLines = 
+  [
 
-[
- 
- 
-{
-  "type" : "FeatureCollection",
-  "name" : "NationalRoads2013",
-  "features" : [
     {
-      "type" : "Feature",
-      "geometry" : {
-        "type" : "GeometryCollection",
-        "geometries" : [
-          {
-            "type" : "LineString",
-            "coordinates" :
-                    [
-
+      'type': 'FeatureCollection',
+      'name': 'NationalRoads2013',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'GeometryCollection',
+            'geometries': [
+              {
+                'type': 'LineString',
+                'coordinates':
+                [
 
               [ -6.2246232257, 53.3524767787, 0 ],
               [ -6.2241343803, 53.3527806046, 0.0469 ],
@@ -445,11 +401,11 @@ var myLines =
               [ -6.2333536696, 53.4025827825, 6.2984 ],
               [ -6.2327412153, 53.4032097981, 6.3792 ],
               [ -6.230814305, 53.4051728181, 6.6325 ]
-            ]
-          },
-          {
-            "type" : "LineString",
-            "coordinates" : [
+                ]
+              },
+              {
+                'type': 'LineString',
+                'coordinates': [
               [ -6.2275831026, 53.4109222149, 6.6325 ],
               [ -6.2280502758, 53.4108322868, 6.6651 ],
               [ -6.2282029448, 53.4108047536, 6.6757 ],
@@ -1470,50 +1426,47 @@ var myLines =
               [ -6.12925124, 53.2264868808, 45.6398 ],
               [ -6.1292250219, 53.2264153201, 45.6479 ],
               [ -6.1291433932, 53.2260391126, 45.6902 ]
-          ]
+                ]
+              }
+            ]
+          },
+
+          'properties': {
+            'OBJECTID': 3537,
+            'RouteID': 'N50D1CM',
+            'Representa': 'CM',
+            'CreateDate': '2013/12/03',
+            'InServiceD': '2013/12/03',
+            'ChainageSt': 0,
+            'ChainageEn': 45.649986267089844,
+            'Length_KM': 45.649986267089844,
+            'SHAPE_STLe': 45649.984375
           }
-        ]
-      },
-
-
-      "properties" : {
-        "OBJECTID" : 3537,
-        "RouteID" : "N50D1CM",
-        "Representa" : "CM",
-        "CreateDate" : "2013/12/03",
-        "InServiceD" : "2013/12/03",
-        "ChainageSt" : 0,
-        "ChainageEn" : 45.649986267089844,
-        "Length_KM" : 45.649986267089844,
-        "SHAPE_STLe" : 45649.984375
-     }
+        }
+      ]
     }
+
   ]
-}
 
-]
+// --
 
-//--
+var myLines_2 =
 
+  [
 
-var myLines_2 = 
-
-[
- 
- 
-{
-  "type" : "FeatureCollection",
-  "name" : "NationalRoads2013",
-  "features" : [
     {
-      "type" : "Feature",
-      "geometry" : {
-        "type" : "GeometryCollection",
-        "geometries" : [
-          {
-            "type" : "LineString",
-            "coordinates" :
-                    [
+      'type': 'FeatureCollection',
+      'name': 'NationalRoads2013',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'GeometryCollection',
+            'geometries': [
+              {
+                'type': 'LineString',
+                'coordinates':
+                [
 
 [ -6.2248164625, 53.3525771591, 0 ],
               [ -6.2243517829, 53.3528661168, 0.0446 ],
@@ -1741,11 +1694,11 @@ var myLines_2 =
               [ -6.2361062388, 53.4002318991, 5.9713 ],
               [ -6.2342732398, 53.4020999212, 6.2123 ],
               [ -6.2311020025, 53.4053312887, 6.6292 ]
-            ]
-          },
-          {
-            "type" : "LineString",
-            "coordinates" : [
+                ]
+              },
+              {
+                'type': 'LineString',
+                'coordinates': [
               [ -6.2278071329, 53.410450166, 6.6292 ],
               [ -6.2281222514, 53.4105293659, 6.6519 ],
               [ -6.2281913885, 53.4105434193, 6.6568 ],
@@ -2759,55 +2712,47 @@ var myLines_2 =
               [ -6.1289344286, 53.2264525887, 45.5881 ],
               [ -6.1288036565, 53.226071701, 45.6314 ]
 
+                ]
+              }
+            ]
+          },
 
-
-
-           
-          ]
+          'properties': {
+            'OBJECTID': 3537,
+            'RouteID': 'N50D1CM',
+            'Representa': 'CM',
+            'CreateDate': '2013/12/03',
+            'InServiceD': '2013/12/03',
+            'ChainageSt': 0,
+            'ChainageEn': 45.649986267089844,
+            'Length_KM': 45.649986267089844,
+            'SHAPE_STLe': 45649.984375
           }
-        ]
-      },
-
-
-      "properties" : {
-        "OBJECTID" : 3537,
-        "RouteID" : "N50D1CM",
-        "Representa" : "CM",
-        "CreateDate" : "2013/12/03",
-        "InServiceD" : "2013/12/03",
-        "ChainageSt" : 0,
-        "ChainageEn" : 45.649986267089844,
-        "Length_KM" : 45.649986267089844,
-        "SHAPE_STLe" : 45649.984375
-     }
+        }
+      ]
     }
+
   ]
-}
 
-]
+// --
 
+var myLines_3 =
 
+  [
 
-//--
-
-var myLines_3 = 
-
-[
- 
- 
-{
-  "type" : "FeatureCollection",
-  "name" : "NationalRoads2013",
-  "features" : [
     {
-      "type" : "Feature",
-      "geometry" : {
-        "type" : "GeometryCollection",
-        "geometries" : [
-          {
-            "type" : "LineString",
-            "coordinates" :
-                    [
+      'type': 'FeatureCollection',
+      'name': 'NationalRoads2013',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'GeometryCollection',
+            'geometries': [
+              {
+                'type': 'LineString',
+                'coordinates':
+                [
 
               [ -6.3760482023, 53.3560257003, 0 ],
               [ -6.3772798824, 53.3563094674, 0.0879 ],
@@ -3852,8 +3797,8 @@ var myLines_3 =
               [ -6.9985221846, 53.4337761969, 44.9148 ],
               [ -6.9989987622, 53.4339968181, 44.9549 ],
               [ -6.999478285, 53.4342151533, 44.995 ],
-              [ -6.9999607367, 53.434431186, 45.0351 ],
-              /*[ -7.0004460709, 53.4346449061, 45.0751 ],
+              [ -6.9999607367, 53.434431186, 45.0351 ]
+              /* [ -7.0004460709, 53.4346449061, 45.0751 ],
               [ -7.0009342411, 53.4348563021, 45.1152 ],
               [ -7.0013641995, 53.4350394733, 45.1503 ],
               [ -7.0019190324, 53.4352720536, 45.1954 ],
@@ -7229,52 +7174,49 @@ var myLines_3 =
               [ -8.4755577666, 54.2771153565, 198.1171 ],
               [ -8.4753290909, 54.2773315158, 198.1454 ],
               [ -8.4750737892, 54.2775871905, 198.1784 ],
-              [ -8.4748656266, 54.2778123939, 198.2069 ]*/
-          
-          ]
+              [ -8.4748656266, 54.2778123939, 198.2069 ] */
+
+                ]
+              }
+            ]
+          },
+
+          'properties': {
+            'OBJECTID': 3537,
+            'RouteID': 'N50D1CM',
+            'Representa': 'CM',
+            'CreateDate': '2013/12/03',
+            'InServiceD': '2013/12/03',
+            'ChainageSt': 0,
+            'ChainageEn': 45.649986267089844,
+            'Length_KM': 45.649986267089844,
+            'SHAPE_STLe': 45649.984375
           }
-        ]
-      },
-
-
-      "properties" : {
-        "OBJECTID" : 3537,
-        "RouteID" : "N50D1CM",
-        "Representa" : "CM",
-        "CreateDate" : "2013/12/03",
-        "InServiceD" : "2013/12/03",
-        "ChainageSt" : 0,
-        "ChainageEn" : 45.649986267089844,
-        "Length_KM" : 45.649986267089844,
-        "SHAPE_STLe" : 45649.984375
-     }
+        }
+      ]
     }
+
   ]
-}
 
-]
+// --
 
+var myLines_4 =
 
+  [
 
-//--
-
-var myLines_4 = 
-
-[
-
-{
-  "type" : "FeatureCollection",
-  "name" : "NationalRoads2013",
-  "features" : [
     {
-      "type" : "Feature",
-      "geometry" : {
-        "type" : "GeometryCollection",
-        "geometries" : [
-          {
-            "type" : "LineString",
-            "coordinates" :
-                    [
+      'type': 'FeatureCollection',
+      'name': 'NationalRoads2013',
+      'features': [
+        {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'GeometryCollection',
+            'geometries': [
+              {
+                'type': 'LineString',
+                'coordinates':
+                [
 
               [ -6.376144589, 53.3558611691, 0 ],
               [ -6.3769850495, 53.3560536127, 0.0599 ],
@@ -8307,8 +8249,8 @@ var myLines_4 =
               [ -6.9982386522, 53.4334108743, 44.8844 ],
               [ -6.9987103329, 53.4336328585, 44.9243 ],
               [ -6.9991849878, 53.4338525929, 44.9642 ],
-              [ -6.9996625804, 53.4340700385, 45.0041 ],
-              /*[ -7.0001430729, 53.4342851959, 45.044 ],
+              [ -6.9996625804, 53.4340700385, 45.0041 ]
+              /* [ -7.0001430729, 53.4342851959, 45.044 ],
               [ -7.0006264384, 53.4344980584, 45.084 ],
               [ -7.0011126519, 53.4347085943, 45.1239 ],
               [ -7.001601661, 53.434916798, 45.1638 ],
@@ -11707,290 +11649,259 @@ var myLines_4 =
               [ -8.4760739738, 54.2767381907, 198.0723 ],
               [ -8.475927447, 54.2768877642, 198.0915 ],
               [ -8.4756580065, 54.277177785, 198.1282 ],
-              [ -8.4750014615, 54.2778554823, 198.2149 ]*/
+              [ -8.4750014615, 54.2778554823, 198.2149 ] */
 
-
-          ]
+                ]
+              }
+            ]
+          },
+          'properties': {
+            'OBJECTID': 3443,
+            'RouteID': 'N04D1ML',
+            'Representa': 'ML',
+            'CreateDate': '2013/11/25',
+            'InServiceD': '2013/11/25',
+            'ChainageSt': 0,
+            'ChainageEn': 198.21490478515625,
+            'Length_KM': 198.21490478515625,
+            'SHAPE_STLe': 198214.859375
           }
-        ]
-      },
-      "properties" : {
-        "OBJECTID" : 3443,
-        "RouteID" : "N04D1ML",
-        "Representa" : "ML",
-        "CreateDate" : "2013/11/25",
-        "InServiceD" : "2013/11/25",
-        "ChainageSt" : 0,
-        "ChainageEn" : 198.21490478515625,
-        "Length_KM" : 198.21490478515625,
-        "SHAPE_STLe" : 198214.859375
-      }
+        }
+      ]
     }
   ]
-}
-]
-  
-     
-      
-           
+
 var myStyle_1 = {
-    "color": "#9AFE2E",
-    "weight": 5,
-    "opacity": 0.65
-};
+  'color': '#9AFE2E',
+  'weight': 5,
+  'opacity': 0.65
+}
 
 var myStyle_2 = {
-    "color": "#DF0101",
-    "weight": 5,
-    "opacity": 0.65
-};
+  'color': '#DF0101',
+  'weight': 5,
+  'opacity': 0.65
+}
 
 var myStyle_3 = {
-    "color": "#DF01D7",
-    "weight": 5,
-    "opacity": 0.65
-};
+  'color': '#DF01D7',
+  'weight': 5,
+  'opacity': 0.65
+}
 
 var myStyle_4 = {
-    "color": "#000000",
-    "weight": 5,
-    "opacity": 0.65
-};
+  'color': '#000000',
+  'weight': 5,
+  'opacity': 0.65
+}
 
+var R1 = L.geoJSON(myLines, {
+  style: myStyle_1
+}).addTo(gettingAroundMap)
 
+var R2 = L.geoJSON(myLines_2, {
+  style: myStyle_2
+}).addTo(gettingAroundMap)
 
+var R3 = L.geoJSON(myLines_3, {
+  style: myStyle_3
+}).addTo(gettingAroundMap)
 
+var R4 = L.geoJSON(myLines_4, {
+  style: myStyle_4
+}).addTo(gettingAroundMap)
 
+// gettingAroundMap.addLayer(nl_l);
+// gettingAroundMap.addLayer(nl_2);
+// gettingAroundMap.addLayer(nl_3);
 
-
-
-var R1=L.geoJSON(myLines, {
-    style: myStyle_1
-}).addTo(gettingAroundMap);
-
-var R2=L.geoJSON(myLines_2, {
-    style: myStyle_2
-}).addTo(gettingAroundMap);
-
-var R3=L.geoJSON(myLines_3, {
-    style: myStyle_3
-}).addTo(gettingAroundMap);
-
-var R4=L.geoJSON(myLines_4, {
-    style: myStyle_4
-}).addTo(gettingAroundMap);
-
-
-
-//gettingAroundMap.addLayer(nl_l);
-//gettingAroundMap.addLayer(nl_2);
-//gettingAroundMap.addLayer(nl_3);
-
-
-
-d3.select("#bikes-checkbox").on("click", function() {
-
-  let cb = d3.select(this);
+d3.select('#bikes-checkbox').on('click', function () {
+  let cb = d3.select(this)
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-      cb.classed('active', false);
+      cb.classed('active', false)
       if (gettingAroundMap.hasLayer(bikesCluster)) {
-         gettingAroundMap.removeLayer(bikesCluster);
+        gettingAroundMap.removeLayer(bikesCluster)
 
-        //gettingAroundMap.fitBounds(luasCluster.getBounds());
+        // gettingAroundMap.fitBounds(luasCluster.getBounds());
       }
-
     } else {
-      cb.classed('active', true);
+      cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(bikesCluster)) {
-         gettingAroundMap.addLayer(bikesCluster);
-
+        gettingAroundMap.addLayer(bikesCluster)
       }
     }
   }
-});
+})
 
-d3.select("#bus-checkbox").on("click", function() {
-
-    let cb = d3.select(this);
-    if (!cb.classed('disabled')) {
+d3.select('#bus-checkbox').on('click', function () {
+  let cb = d3.select(this)
+  if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-      cb.classed('active', false);
+      cb.classed('active', false)
       if (gettingAroundMap.hasLayer(busCluster)) {
-        gettingAroundMap.removeLayer(busCluster);
+        gettingAroundMap.removeLayer(busCluster)
 
-        //gettingAroundMap.fitBounds(luasCluster.getBounds());
+        // gettingAroundMap.fitBounds(luasCluster.getBounds());
       }
-
     } else {
-      cb.classed('active', true);
+      cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(busCluster)) {
-        gettingAroundMap.addLayer(busCluster);
-
+        gettingAroundMap.addLayer(busCluster)
       }
     }
   }
-});
+})
 
-d3.select("#carparks-checkbox").on("click", function() {
-  let cb = d3.select(this);
+d3.select('#carparks-checkbox').on('click', function () {
+  let cb = d3.select(this)
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-      cb.classed('active', false);
+      cb.classed('active', false)
       if (gettingAroundMap.hasLayer(carparkCluster)) {
-        gettingAroundMap.removeLayer(carparkCluster);
-        gettingAroundMap.fitBounds(luasCluster.getBounds());
+        gettingAroundMap.removeLayer(carparkCluster)
+        gettingAroundMap.fitBounds(luasCluster.getBounds())
       }
     } else {
-      cb.classed('active', true);
+      cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(carparkCluster)) {
-        gettingAroundMap.addLayer(carparkCluster);
-
+        gettingAroundMap.addLayer(carparkCluster)
       }
     }
   }
-});
+})
 
-//TODO: catch cluster or layer
-d3.select("#luas-checkbox").on("click", function() {
-
-  let cb = d3.select(this);
+// TODO: catch cluster or layer
+d3.select('#luas-checkbox').on('click', function () {
+  let cb = d3.select(this)
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-      cb.classed('active', false);
+      cb.classed('active', false)
       if (gettingAroundMap.hasLayer(luasLineRed)) {
-        gettingAroundMap.removeLayer(luasLineRed);
-        gettingAroundMap.removeLayer(luasLineGreen);
-        gettingAroundMap.removeLayer(luasIcons);
-        gettingAroundMap.removeLayer(luasLayer);
+        gettingAroundMap.removeLayer(luasLineRed)
+        gettingAroundMap.removeLayer(luasLineGreen)
+        gettingAroundMap.removeLayer(luasIcons)
+        gettingAroundMap.removeLayer(luasLayer)
       }
-
     } else {
-      cb.classed('active', true);
+      cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(luasLineRed)) {
-        gettingAroundMap.addLayer(luasLineRed);
-        gettingAroundMap.addLayer(luasLineGreen);
-        //console.log('8888888');
-        //gettingAroundMap.addLayer(R1);
-        //gettingAroundMap.addLayer(R2);
-        //gettingAroundMap.addLayer(R3);
-        //gettingAroundMap.addLayer(R4);
-        chooseLookByZoom();
+        gettingAroundMap.addLayer(luasLineRed)
+        gettingAroundMap.addLayer(luasLineGreen)
+        // console.log('8888888');
+        // gettingAroundMap.addLayer(R1);
+        // gettingAroundMap.addLayer(R2);
+        // gettingAroundMap.addLayer(R3);
+        // gettingAroundMap.addLayer(R4);
+        chooseLookByZoom()
       }
     }
   }
-});
+})
 
-
-d3.select("#motorways-checkbox").on("click", function() {
-  //console.log('mway');
- let cb = d3.select(this);
+d3.select('#motorways-checkbox').on('click', function () {
+  // console.log('mway');
+  let cb = d3.select(this)
   if (!cb.classed('disabled')) {
     if (cb.classed('active')) {
-      cb.classed('active', false);
+      cb.classed('active', false)
 
-      if (gettingAroundMap.hasLayer(R1) ) {
-         gettingAroundMap.removeLayer(R1);
-      //}
-        //if (gettingAroundMap.hasLayer(R2))
+      if (gettingAroundMap.hasLayer(R1)) {
+        gettingAroundMap.removeLayer(R1)
+      // }
+        // if (gettingAroundMap.hasLayer(R2))
        // {
-        gettingAroundMap.removeLayer(R2);
-      //}
-       //if (gettingAroundMap.hasLayer(R3))
+        gettingAroundMap.removeLayer(R2)
+      // }
+       // if (gettingAroundMap.hasLayer(R3))
        // {
-        gettingAroundMap.removeLayer(R3);
-        gettingAroundMap.removeLayer(R4);
+        gettingAroundMap.removeLayer(R3)
+        gettingAroundMap.removeLayer(R4)
       }
      // }
-
     } else {
-      cb.classed('active', true);
+      cb.classed('active', true)
       if (!gettingAroundMap.hasLayer(R1)) {
-        gettingAroundMap.addLayer(R1);
-      //}
+        gettingAroundMap.addLayer(R1)
+      // }
        // if (!gettingAroundMap.hasLayer(R2)) {
-        gettingAroundMap.addLayer(R2);
-      //}
-        //if (!gettingAroundMap.hasLayer(R3)) {
-        gettingAroundMap.addLayer(R3);
-        gettingAroundMap.addLayer(R4);
+        gettingAroundMap.addLayer(R2)
+      // }
+        // if (!gettingAroundMap.hasLayer(R3)) {
+        gettingAroundMap.addLayer(R3)
+        gettingAroundMap.addLayer(R4)
      // }
-         //console.log('8888888');
-           chooseLookByZoom();
+         // console.log('8888888');
+        chooseLookByZoom()
       }
     }
   }
-   
-});
+})
 
-
-//initalise API activity icons
+// initalise API activity icons
 d3.json('/data/api-status.json')
-  .then(function(data) {
-    //console.log("api status "+JSON.stringify(data));
-    if (data["dublinbikes"].status === 200 && !(d3.select('#bikes-checkbox').classed('disabled'))) {
-      d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg');
+  .then(function (data) {
+    // console.log("api status "+JSON.stringify(data));
+    if (data['dublinbikes'].status === 200 && !(d3.select('#bikes-checkbox').classed('disabled'))) {
+      d3.select('#bike-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#bike-age')
-        .text('Awaitng data...'); //TODO: call to getAge function from here
-
+        .text('Awaitng data...') // TODO: call to getAge function from here
     } else {
-      d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#bike-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#bike-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
 
-    if (data["dublinbus"].status === 200 && !(d3.select('#bus-checkbox').classed('disabled'))) {
-      d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg');
+    if (data['dublinbus'].status === 200 && !(d3.select('#bus-checkbox').classed('disabled'))) {
+      d3.select('#bus-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#bus-age')
-        .text('Awaitng data...'); //TODO: call to getAge function from here
+        .text('Awaitng data...') // TODO: call to getAge function from here
     } else {
-      d3.select('#bus-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#bus-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#bus-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
 
-    if (data["carparks"].status === 200 && !(d3.select('#carparks-checkbox').classed('disabled'))) {
-      d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg');
+    if (data['carparks'].status === 200 && !(d3.select('#carparks-checkbox').classed('disabled'))) {
+      d3.select('#parking-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#parking-age')
-        .text('Awaitng data...'); //TODO: call to getAge function from here
-
+        .text('Awaitng data...') // TODO: call to getAge function from here
     } else {
-      d3.select('#parking-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#parking-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#parking-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
 
-    if (data["luas"].status === 200 && !(d3.select('#luas-checkbox').classed('disabled'))) {
-      d3.select('#luas-activity-icon').attr('src', '/images/icons/activity.svg');
+    if (data['luas'].status === 200 && !(d3.select('#luas-checkbox').classed('disabled'))) {
+      d3.select('#luas-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#luas-age')
-        .text('Awaitng data...');
+        .text('Awaitng data...')
     } else {
-      d3.select('#luas-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#luas-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#luas-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
 
-    if (data["train"].status === 200 && !(d3.select('#trains-checkbox').classed('disabled'))) {
-      d3.select('#train-activity-icon').attr('src', '/images/icons/activity.svg');
+    if (data['train'].status === 200 && !(d3.select('#trains-checkbox').classed('disabled'))) {
+      d3.select('#train-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#train-age')
-        .text('Awaitng data...');
+        .text('Awaitng data...')
     } else {
-      d3.select('#train-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#train-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#train-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
 
-    if (data["traveltimes"].status === 200 && !(d3.select('#motorways-checkbox').classed('disabled'))) {
-      d3.select('#motorway-activity-icon').attr('src', '/images/icons/activity.svg');
+    if (data['traveltimes'].status === 200 && !(d3.select('#motorways-checkbox').classed('disabled'))) {
+      d3.select('#motorway-activity-icon').attr('src', '/images/icons/activity.svg')
       d3.select('#motorway-age')
-        .text('Awaitng data...');
+        .text('Awaitng data...')
     } else {
-      d3.select('#motorway-activity-icon').attr('src', '/images/icons/alert-triangle.svg');
+      d3.select('#motorway-activity-icon').attr('src', '/images/icons/alert-triangle.svg')
       d3.select('#motorway-age')
-        .text('Unavailable');
+        .text('Unavailable')
     }
-
   })
-  .catch(function(err) {
-    console.error("Error fetching API status file data");
-  });
+  .catch(function (err) {
+    console.error('Error fetching API status file data')
+  })
