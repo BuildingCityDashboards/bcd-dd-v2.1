@@ -15,12 +15,13 @@ const getData = async url => {
 exports.getTrafficPerSiteByQuery = async (req, res, next) => {
   console.log('\n\ngetTrafficPerSiteByQuery\n\n')
   console.log(req.query.q)
-  // try {
-  //
-  // } catch (e) {
-  //   console.error('Error in getTrafficPerSiteForDate' + e)
-  //   return [] // todo: return null object
-  // }
+  try {
+    const data = await getData(BASE_URL_TRAFFIC + req.query.q)
+    res.send(data)
+  } catch (e) {
+    console.error('Error in getAllStationsDataHourly' + e)
+    res.send([]) // todo: return null object
+  }
 }
 
 // This should happen in controller, with logic in service
@@ -40,57 +41,9 @@ exports.getTrafficPerSiteYesterday = async (req, res, next) => {
   console.log('\n*\n*\n' + yesterdayQuery + '\n*\n*\n')
   try {
     const data = await getData(BASE_URL_TRAFFIC + yesterdayQuery)
-
     res.send(data)
-    // console.log('\n***\nTraffic res 1 ' + res[2] + '\n***\n')
-    // responses.push(response);
-    // let availableBikesSum = 0,
-    //   availableStandsSum = 0,
-    //   bikesInMotionSum = 0 // sum of values at a particluar hour
-    //
-    //   // console.log("\n\n\n bikes total: " + totalBikes + "\n\n\n");
-    // response.forEach(r => {
-    //   availableBikesSum += r.historic[0].available_bikes
-    //   availableStandsSum += r.historic[0].available_bike_stands
-    // })
-    // if (h == hStart) {
-    //   totalBikesDay = availableBikesSum
-    // }
-    // const date = moment(response[0].historic[0].time)
-    // const dateLabel = moment(response[0].historic[0].time).format('ha, dddd MMMM Do')
-    //   // console.log("\n\nmoment: " + dateLabel + "\n\n\n");
-    // let label = dateLabel
-
-    /* Data formatted for Multiline Chart */
-    // hourlyValues.push({
-    //   "key": "available_bikes",
-    //   "date": date,
-    //   "value": availableBikesSum,
-    //   "label": label
-    // });
-    // hourlyValues.push({
-    //   "key": "total_available_bikes",
-    //   "date": date,
-    //   "value": availableBikesSum > totalBikesDay ? availableBikesSum : totalBikesDay,
-    //   "label": label
-    // });
-    // hourlyValues.push({
-    //   "key": "bikes_in_motion",
-    //   "date": date,
-    //   "value": totalBikesDay - availableBikesSum,
-    //   "label": label
-    // });
-
-    /* Data formatted for StackedAreaChart, (actually not stacking the data) */
-    // hourlyValues.push({
-    //   'date': date,
-    //   'Bikes in use': (totalBikesDay - availableBikesSum) > 0 ? (totalBikesDay - availableBikesSum) : 0, // // TODO: Fix hack!
-    //   'Bikes available': availableBikesSum,
-    //   'label': label,
-    //   'year': '2019' // if this is a number it gets added to the yAxis domain calc !!!
-    // })
   } catch (e) {
     console.error('Error in getAllStationsDataHourly' + e)
-    return [] // todo: return null object
+    res.send([]) // todo: return null object
   }
 }
