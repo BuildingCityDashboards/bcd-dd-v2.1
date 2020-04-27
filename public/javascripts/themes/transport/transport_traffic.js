@@ -1,4 +1,7 @@
 import { getDateFromToday } from '../../modules/bcd-date.mjs'
+import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.mjs'
+import { readingsArrayToObject } from '../../modules/bcd-helpers-traffic.mjs'
+import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
 (async () => {
 /************************************
@@ -26,56 +29,53 @@ import { getDateFromToday } from '../../modules/bcd-date.mjs'
       return obj
     })
 
-    let dateObj = getDateFromToday(-1)
+    let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
+    // console.log('yesterdayQuery: ' + yesterdayQuery)
 
-    const y = dateObj.getFullYear()
-    let m = dateObj.getMonth()
-    m += 1 // correct for 1-indexed months
-    m = m.toString().padStart(2, '0')
-    let day = dateObj.getDate()
-    day = day.toString().padStart(2, '0')
-    const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
-    console.log('yesterdayQuery: ' + yesterdayQuery)
-    let dataCSVQuery = await d3.csv('api/traffic?q=' + yesterdayQuery)
-    console.log('dataCSVQuery' + dataCSVQuery.length)
+    let minus7DaysQuery = getTrafficQueryForDate(getDateFromToday(-7))
+    // console.log('minus7Days: ' + minus7DaysQuery)
 
-    // console.log(dublinSensors)
-    // get the data for a date
+    let minus28DaysQuery = getTrafficQueryForDate(getDateFromToday(-28))
+    // console.log('minus28DaysQuery: ' + minus28DaysQuery)
 
-    // let dataCSVDay = await d3.csv('api/traffic/yesterday')
-    //
-    // // console.log('traffic raw ' + JSON.stringify(dataCSVDay[0]))
-    // // console.log(+dataCSVDay[0].cosit)
-    //
+    let minus84DaysQuery = getTrafficQueryForDate(getDateFromToday(-84))
+    // console.log('minus84DaysQuery: ' + minus84DaysQuery)
+
+    let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
+    console.log('dataCSVQuery[0]: ')
+    console.log(dataCSVQuery1[0])
+
+    let dataCSVQuery7 = await d3.csv('api/traffic?q=' + minus7DaysQuery)
+    // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
+
+    let dataCSVQuery28 = await d3.csv('api/traffic?q=' + minus28DaysQuery)
+    // console.log('dataCSVQuery: ' + dataCSVQuery28.length)
+
+    let dataCSVQuery84 = await d3.csv('api/traffic?q=' + minus84DaysQuery)
+    // console.log('dataCSVQuery :' + dataCSVQuery84.length)
+
     // need the vehicle count, indexed by cosit number
-    let dataObj = dataCSVQuery.reduce((obj, d) => {
-      obj[`${+d.cosit}`] = {
-        count: +d.VehicleCount,
-        class: +d.class,
-        date: `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
-      }
-      return obj
-    }, {})
-    // console.log(dataObjDay)
+    let dataObj1 = readingsArrayToObject(dataCSVQuery1)
+    let dataObj7 = readingsArrayToObject(dataCSVQuery7)
+    let dataObj28 = readingsArrayToObject(dataCSVQuery28)
+    let dataObj84 = readingsArrayToObject(dataCSVQuery84)
+
+    console.log('dataObj1: ')
+    console.log(dataObj1)
 
     // for each dublin sensor object in the array, join the count
     // mutates original array
-    dublinSensors.forEach((s) => {
-      // console.log(s.id)
-      try {
-        s.count = dataObj[s.id].count
-        s.class = dataObj[s.id].class
-        s.date = dataObj[s.id].date
-      } catch (e) {
-        console.log('error looking up ' + s.id) // TODO: return null object to catch this
-      }
-    })
+
+    trafficJoin(dublinSensors, dataObj1)
+
+    console.log('dublinSensors final -')
     console.log(dublinSensors)
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
   }
 })()
+
     // const dayFormat = d3.timeFormat("%a, %I:%M");
 //     let keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
 //
