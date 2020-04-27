@@ -1,7 +1,10 @@
+import { getDateShiftedByNDays } from '../../modules/bcd-date.mjs'
+
 (async () => {
 /************************************
  * Traffic counter data
  ************************************/
+
   let trafficChart
   try {
     // need to be able to look up the static data using cosit as key
@@ -54,8 +57,7 @@
     })
     // console.log(dublinSensors)
 
-    const dateObj = new Date()
-    dateObj.setDate(dateObj.getDate() - 1) // yesterday
+    let dateObj = getDateShiftedByNDays(-1)
     const y = dateObj.getFullYear()
     let m = dateObj.getMonth()
     m += 1 // correct for 1-indexed months
@@ -63,9 +65,11 @@
     let day = dateObj.getDate()
     day = day.toString().padStart(2, '0')
     const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
-
+    console.log('yesterdayQuery: ' + yesterdayQuery)
     let dataCSVQuery = await d3.csv('api/traffic?q=' + yesterdayQuery)
     console.log(dataCSVQuery.length)
+
+    //
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
