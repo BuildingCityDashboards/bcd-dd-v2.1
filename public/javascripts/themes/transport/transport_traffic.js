@@ -1,4 +1,4 @@
-import { getDateShiftedByNDays } from '../../modules/bcd-date.mjs'
+import { getDateFromToday } from '../../modules/bcd-date.mjs'
 
 (async () => {
 /************************************
@@ -26,19 +26,33 @@ import { getDateShiftedByNDays } from '../../modules/bcd-date.mjs'
       return obj
     })
 
+    let dateObj = getDateFromToday(-1)
+
+    const y = dateObj.getFullYear()
+    let m = dateObj.getMonth()
+    m += 1 // correct for 1-indexed months
+    m = m.toString().padStart(2, '0')
+    let day = dateObj.getDate()
+    day = day.toString().padStart(2, '0')
+    const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
+    console.log('yesterdayQuery: ' + yesterdayQuery)
+    let dataCSVQuery = await d3.csv('api/traffic?q=' + yesterdayQuery)
+    console.log('dataCSVQuery' + dataCSVQuery.length)
+
     // console.log(dublinSensors)
     // get the data for a date
 
-    let dataCSVDay = await d3.csv('api/traffic/yesterday')
-
-    // console.log('traffic raw ' + JSON.stringify(dataCSVDay[0]))
-    // console.log(+dataCSVDay[0].cosit)
-
+    // let dataCSVDay = await d3.csv('api/traffic/yesterday')
+    //
+    // // console.log('traffic raw ' + JSON.stringify(dataCSVDay[0]))
+    // // console.log(+dataCSVDay[0].cosit)
+    //
     // need the vehicle count, indexed by cosit number
-    let dataObjDay = dataCSVDay.reduce((obj, d) => {
+    let dataObj = dataCSVQuery.reduce((obj, d) => {
       obj[`${+d.cosit}`] = {
         count: +d.VehicleCount,
-        class: +d.class
+        class: +d.class,
+        date: `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
       }
       return obj
     }, {})
@@ -49,27 +63,14 @@ import { getDateShiftedByNDays } from '../../modules/bcd-date.mjs'
     dublinSensors.forEach((s) => {
       // console.log(s.id)
       try {
-        s.count = dataObjDay[s.id].count
-        s.class = dataObjDay[s.id].class
+        s.count = dataObj[s.id].count
+        s.class = dataObj[s.id].class
+        s.date = dataObj[s.id].date
       } catch (e) {
         console.log('error looking up ' + s.id) // TODO: return null object to catch this
       }
     })
-    // console.log(dublinSensors)
-
-    let dateObj = getDateShiftedByNDays(-1)
-    const y = dateObj.getFullYear()
-    let m = dateObj.getMonth()
-    m += 1 // correct for 1-indexed months
-    m = m.toString().padStart(2, '0')
-    let day = dateObj.getDate()
-    day = day.toString().padStart(2, '0')
-    const yesterdayQuery = `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
-    console.log('yesterdayQuery: ' + yesterdayQuery)
-    let dataCSVQuery = await d3.csv('api/traffic?q=' + yesterdayQuery)
-    console.log(dataCSVQuery.length)
-
-    //
+    console.log(dublinSensors)
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
