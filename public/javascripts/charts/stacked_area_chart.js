@@ -291,7 +291,7 @@ class StackedAreaChart extends Chart {
       .attr("id", d => d.key)
       .attr("dy", ".01em")
       .text(d => d.key)
-      // .call(c.textWrap, 110, 6)
+      .call(c.textWrap, 110, 10)
       .attr("fill", d => z(d.key))
       .attr("alignment-baseline", "middle")
       .attr("dx", ".5em")
