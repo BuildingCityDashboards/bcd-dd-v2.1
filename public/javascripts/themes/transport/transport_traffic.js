@@ -8,12 +8,34 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
  * Traffic counter data
  ************************************/
 
-  let trafficChart
+  let osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
+  })
+  let trafficCountersMap = new L.Map('map-traffic-counters')
+  trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+  trafficCountersMap.addLayer(osmTrafficCounters)
+  let markerRefTrafficCounters // TODO: fix horrible hack!!!
+  trafficCountersMap.on('popupopen', function (e) {
+    markerRefDisabledPark = e.popup._source
+
+   // console.log("ref: "+JSON.stringify(e));
+  })
+
+  let trafficCountersMapIcon = L.icon({
+    iconUrl: '/images/transport/car-15.svg',
+    iconSize: [30, 30], // orig size
+    iconAnchor: [iconAX, iconAY] //,
+   // popupAnchor: [-3, -76]
+  })
+  let trafficCountersCluster = L.markerClusterGroup()
+
   try {
     // need to be able to look up the static data using cosit as key
     // want an array of objects for dublin sensors
-    const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
-    let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
+    const counterSiteData = await d3.text('./data/transport/tmu-traffic-counters.dat')
+    let rows = await d3.tsvParseRows(counterSiteData)
     // console.log(rows.length)
     let dublinSensors = rows
     .filter(row => {
@@ -29,36 +51,38 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
       return obj
     })
 
+    counterSiteData.forEach()
+
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
     // console.log('yesterdayQuery: ' + yesterdayQuery)
 
-    let minus7DaysQuery = getTrafficQueryForDate(getDateFromToday(-7))
+    let minus8DaysQuery = getTrafficQueryForDate(getDateFromToday(-8))
     // console.log('minus7Days: ' + minus7DaysQuery)
 
-    let minus28DaysQuery = getTrafficQueryForDate(getDateFromToday(-28))
-    // console.log('minus28DaysQuery: ' + minus28DaysQuery)
+    let minus29DaysQuery = getTrafficQueryForDate(getDateFromToday(-29))
+    // console.log('minus29DaysQuery: ' + minus29DaysQuery)
 
-    let minus84DaysQuery = getTrafficQueryForDate(getDateFromToday(-84))
-    // console.log('minus84DaysQuery: ' + minus84DaysQuery)
+    let minus85DaysQuery = getTrafficQueryForDate(getDateFromToday(-85))
+    // console.log('minus85DaysQuery: ' + minus85DaysQuery)
 
     let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
     console.log('dataCSVQuery[0]: ')
     console.log(dataCSVQuery1[0])
 
-    let dataCSVQuery7 = await d3.csv('api/traffic?q=' + minus7DaysQuery)
+    let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
     // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
 
-    let dataCSVQuery28 = await d3.csv('api/traffic?q=' + minus28DaysQuery)
+    let dataCSVQuery29 = await d3.csv('api/traffic?q=' + minus29DaysQuery)
     // console.log('dataCSVQuery: ' + dataCSVQuery28.length)
 
-    let dataCSVQuery84 = await d3.csv('api/traffic?q=' + minus84DaysQuery)
+    let dataCSVQuery85 = await d3.csv('api/traffic?q=' + minus85DaysQuery)
     // console.log('dataCSVQuery :' + dataCSVQuery84.length)
 
     // need the vehicle count, indexed by cosit number
     let dataObj1 = groupByNumber(dataCSVQuery1, 'cosit')
-    // let dataObj7 = readingsArrayToObject(dataCSVQuery7)
-    // let dataObj28 = readingsArrayToObject(dataCSVQuery28)
-    // let dataObj84 = readingsArrayToObject(dataCSVQuery84)
+    // let dataObj8 = groupByNumber(dataCSVQuery8, 'cosit')
+    // let dataObj29 = groupByNumber(dataCSVQuery29, 'cosit')
+    // let dataObj85 = groupByNumber(dataCSVQuery85, 'cosit')
 
     console.log('dataObj1: ')
     console.log(dataObj1)
