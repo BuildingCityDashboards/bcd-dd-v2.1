@@ -25,10 +25,22 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
   let trafficCountersMapIcon = L.icon({
     iconUrl: '/images/transport/car-15.svg',
-    iconSize: [30, 30], // orig size
-    iconAnchor: [iconAX, iconAY] //,
+    iconSize: [20, 20] // orig size
+    // iconAnchor: [iconAX, iconAY] //,
    // popupAnchor: [-3, -76]
   })
+
+  const trafficCountersMarker = L.Marker.extend({
+    options: {
+      id: 0
+    }
+  })
+
+  const trafficCountersPopupOptons = {
+    // 'maxWidth': '500',
+    className: 'trafficCounterPopup'
+  }
+
   let trafficCountersCluster = L.markerClusterGroup()
 
   try {
@@ -51,7 +63,21 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
       return obj
     })
 
-    counterSiteData.forEach()
+    // console.log(dublinSensors)
+    dublinSensors.forEach(d => {
+      let marker = new trafficCountersMarker(
+        new L.LatLng(d.lat, d.lng), {
+          id: d.id,
+          icon: trafficCountersMapIcon,
+          opacity: 0.9,
+          title: d.description.split(',')[0], // shoen in rollover tooltip
+          alt: 'traffic counter icon'
+
+        })
+
+      marker.bindPopup(getDefaultPopup(d))
+      trafficCountersMap.addLayer(marker)
+    })
 
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
     // console.log('yesterdayQuery: ' + yesterdayQuery)
@@ -66,8 +92,8 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // console.log('minus85DaysQuery: ' + minus85DaysQuery)
 
     let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
-    console.log('dataCSVQuery[0]: ')
-    console.log(dataCSVQuery1[0])
+    // console.log('dataCSVQuery[0]: ')
+    // console.log(dataCSVQuery1[0])
 
     let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
     // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
@@ -91,17 +117,60 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // mutates original array
 
     trafficJoin(dublinSensors, dataObj1)
+    dublinSensors.forEach(s => {
+      updatePopup(s)
+    })
     // trafficJoin(dublinSensors, dataObj7)
     // trafficJoin(dublinSensors, dataObj28)
     // trafficJoin(dublinSensors, dataObj84)
 
     console.log('dublinSensors final -')
-    // console.log(dublinSensors[0])
+    console.log(dublinSensors[0])
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
   }
 })()
+
+function getDefaultPopup (d_) {
+  if (!d_.id) {
+    const str = '<div class="popup-error">' +
+      '<div class="row ">' +
+      "We can't get this traffic counter data right now, please try again later" +
+      '</div>' +
+      '</div>'
+    return str
+  }
+  let str = '<div class="traffic-counter-popup-container">'
+  str += '<div class="row ">'
+  str += '<span id="traffic-counter-id-' + d_.id + '" class="col-9">' // id for name div
+  if (d_.description) {
+    str += '<strong>' + d_.description.split(',')[1] + '\t #' + d_.id + '</strong>'
+  }
+  str += '</span>' // close bike name div
+  str += '</div>' // close row
+  str += '<div class="row">'
+  if (d_.description) {
+    str += '<span class="col-9">' + d_.description.split(',')[0] + '</span>'
+  }
+  str += '</div>' // close row
+  str += '<div class="row ">'
+  str += '<span class="col-12" id="traffic-counter-' + d_.id + '-total" > <i>No data</i></span>'
+  str += '</div>' // close row
+
+  // initialise div to hold chart with id linked to station id
+  // if (d_.st_ID) {
+  //   str += '<div class="row ">'
+  //   str += '<span id="bike-spark-' + d_.st_ID + '"></span>'
+  //   str += '</div>'
+  // }
+  str += '</div>' // closes container
+  return str
+}
+
+function updatePopup (s_) {
+  document.getElementById('traffic-counter-1113-total').innerHTML = '50000'
+}
 
     // const dayFormat = d3.timeFormat("%a, %I:%M");
 //     let keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
