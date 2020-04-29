@@ -68,13 +68,16 @@ localhost.key
 /public/data/Environment/sound_levels/**
 /public/data/Environment/water_levels/
 /public/data/Environment/waterlevel.json
+# /public/data/Transport/
+/public/data/Transport/M50
 /public/data/Transport/dublinBikes/*.json
 /public/data/Transport/cpdata.xml
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
 /public/data/Transport/bikesData.json
 /public/data/Transport/Train_data.xml
-/public/data/Transport/
+/public/data/Transport/getAllStationsXML.xml
+
 /public/data/Environment/waterlevel.json
 # /public/data/Stories/Housing/housetype.csv
 

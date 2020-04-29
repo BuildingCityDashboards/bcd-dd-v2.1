@@ -24,7 +24,7 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
   })
 
   let trafficCountersMapIcon = L.icon({
-    iconUrl: '/images/transport/parking-15.svg',
+    iconUrl: '/images/transport/car-15.svg',
     iconSize: [30, 30], // orig size
     iconAnchor: [iconAX, iconAY] //,
    // popupAnchor: [-3, -76]
@@ -34,8 +34,8 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
   try {
     // need to be able to look up the static data using cosit as key
     // want an array of objects for dublin sensors
-    const STATIC_SENSOR_DATA = await d3.text('./data/transport/tmu-traffic-counters.dat')
-    let rows = await d3.tsvParseRows(STATIC_SENSOR_DATA)
+    const counterSiteData = await d3.text('./data/transport/tmu-traffic-counters.dat')
+    let rows = await d3.tsvParseRows(counterSiteData)
     // console.log(rows.length)
     let dublinSensors = rows
     .filter(row => {
@@ -50,6 +50,8 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
       }
       return obj
     })
+
+    counterSiteData.forEach()
 
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
     // console.log('yesterdayQuery: ' + yesterdayQuery)
