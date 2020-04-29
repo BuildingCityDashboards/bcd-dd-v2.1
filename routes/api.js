@@ -62,6 +62,5 @@ router.get('/weather/latest', weatherController.getWeatherLatest)
 
 const trafficService = require('../services/traffic-query-service')
 router.get('/traffic/', trafficService.getTrafficPerSiteByQuery)
-router.get('/traffic/yesterday', trafficService.getTrafficPerSiteYesterday)
 
 module.exports = router

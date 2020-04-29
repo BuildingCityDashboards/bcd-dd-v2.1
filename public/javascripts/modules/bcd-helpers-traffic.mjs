@@ -23,29 +23,37 @@ export { getTrafficQueryForDate }
 
 /**
  * Convert the array of readings returned from the API to an object keyed by
- * the 'cosit' variable
+ * the 2nd argument -> groupBy operation
+ * In this case, the key is coerce to a number before indexing
  *
- * @param {arra} readings
+ * @param {array} readings
+ * @param {string} key
  * @return {Obj} Nested object keyed by 'cosit'
  *
  * @example
  *
- *     getTrafficQueryForDate(Mon Apr 27 2020 16:55:40 GMT+0100 (Irish Standard Time))
+ *     groupByNumber( array, 'cosit')
  */
 
-const readingsArrayToObject = readings => {
+const groupByNumber = (readings, key) => {
   let obj = readings.reduce((obj, d) => {
-    obj[`${+d.cosit}`] = {
-      count: +d.VehicleCount,
-      class: +d.class,
-      date: `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
-    }
+    // create the key if it doesn't exist
+    if (!obj.hasOwnProperty(`${+d.cosit}`)) {
+		obj[`${+d[key]}`] = {
+      date: `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`,
+      values : []}
+	  }
+    obj[`${+d[key]}`].values.push({
+        count: +d.VehicleCount,
+        class: +d.class
+      })
+      //
     return obj
   }, {})
   return obj
 }
 
-export { readingsArrayToObject }
+export { groupByNumber }
 
 
 const trafficJoin = (sensors, readings) => {

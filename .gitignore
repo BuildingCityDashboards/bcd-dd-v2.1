@@ -78,7 +78,7 @@ localhost.key
 /public/data/Environment/waterlevel.json
 # /public/data/Stories/Housing/housetype.csv
 
-public/images/.DS_Store
-public/.DS_Store
 .DS_Store
-public/data/.DS_Store
+/public/.DS_Store
+/public/data/.DS_Store
+/public/images/.DS_Store

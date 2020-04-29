@@ -1,6 +1,6 @@
 import { getDateFromToday } from '../../modules/bcd-date.mjs'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.mjs'
-import { readingsArrayToObject } from '../../modules/bcd-helpers-traffic.mjs'
+import { groupByNumber } from '../../modules/bcd-helpers-traffic.mjs'
 import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
 (async () => {
@@ -55,10 +55,10 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // console.log('dataCSVQuery :' + dataCSVQuery84.length)
 
     // need the vehicle count, indexed by cosit number
-    let dataObj1 = readingsArrayToObject(dataCSVQuery1)
-    let dataObj7 = readingsArrayToObject(dataCSVQuery7)
-    let dataObj28 = readingsArrayToObject(dataCSVQuery28)
-    let dataObj84 = readingsArrayToObject(dataCSVQuery84)
+    let dataObj1 = groupByNumber(dataCSVQuery1, 'cosit')
+    // let dataObj7 = readingsArrayToObject(dataCSVQuery7)
+    // let dataObj28 = readingsArrayToObject(dataCSVQuery28)
+    // let dataObj84 = readingsArrayToObject(dataCSVQuery84)
 
     console.log('dataObj1: ')
     console.log(dataObj1)
@@ -67,9 +67,12 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // mutates original array
 
     trafficJoin(dublinSensors, dataObj1)
+    // trafficJoin(dublinSensors, dataObj7)
+    // trafficJoin(dublinSensors, dataObj28)
+    // trafficJoin(dublinSensors, dataObj84)
 
     console.log('dublinSensors final -')
-    console.log(dublinSensors)
+    // console.log(dublinSensors[0])
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
