@@ -8,7 +8,29 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
  * Traffic counter data
  ************************************/
 
-  let trafficChart
+  let osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
+  })
+  let trafficCountersMap = new L.Map('map-traffic-counters')
+  trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+  trafficCountersMap.addLayer(osmTrafficCounters)
+  let markerRefTrafficCounters // TODO: fix horrible hack!!!
+  trafficCountersMap.on('popupopen', function (e) {
+    markerRefDisabledPark = e.popup._source
+
+   // console.log("ref: "+JSON.stringify(e));
+  })
+
+  let trafficCountersMapIcon = L.icon({
+    iconUrl: '/images/transport/parking-15.svg',
+    iconSize: [30, 30], // orig size
+    iconAnchor: [iconAX, iconAY] //,
+   // popupAnchor: [-3, -76]
+  })
+  let trafficCountersCluster = L.markerClusterGroup()
+
   try {
     // need to be able to look up the static data using cosit as key
     // want an array of objects for dublin sensors
