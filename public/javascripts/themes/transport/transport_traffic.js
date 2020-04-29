@@ -75,7 +75,7 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
         })
 
-      marker.bindPopup(d.description)
+      marker.bindPopup(getDefaultPopup(d))
       trafficCountersMap.addLayer(marker)
     })
 
@@ -128,6 +128,44 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     console.error(e)
   }
 })()
+
+function getDefaultPopup (d_) {
+  if (!d_.id) {
+    const str = '<div class="popup-error">' +
+      '<div class="row ">' +
+      "We can't get this traffic counter data right now, please try again later" +
+      '</div>' +
+      '</div>'
+    return str
+  }
+  let str = '<div class="traffic-counter-popup-container">'
+  str += '<div class="row ">'
+  str += '<span id="traffic-counter-id-' + d_.id + '" class="col-9">' // id for name div
+  if (d_.description) {
+    str += '<strong>' + d_.description.split(',')[1] + '</strong>'
+  }
+  str += '</span>' // close bike name div
+  str += '</div>' // close row
+  str += '<div class="row">'
+  if (d_.description) {
+    str += '<span class="col-9">' + d_.description.split(',')[0] + '</span>'
+  }
+  str += '</div>' // close row
+  str += '<div class="row ">'
+  str += '<span class="col-12" id="traffic-counter-' + d_.id + '-total" > <i>No data</i></span>'
+  str += '</div>' // close row
+
+  // initialise div to hold chart with id linked to station id
+  // if (d_.st_ID) {
+  //   str += '<div class="row ">'
+  //   str += '<span id="bike-spark-' + d_.st_ID + '"></span>'
+  //   str += '</div>'
+  // }
+  str += '</div>' // closes container
+  return str
+
+  // d.description
+}
 
     // const dayFormat = d3.timeFormat("%a, %I:%M");
 //     let keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
