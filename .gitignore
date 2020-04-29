@@ -77,6 +77,7 @@ localhost.key
 /public/data/Transport/bikesData.json
 /public/data/Transport/Train_data.xml
 /public/data/Transport/getAllStationsXML.xml
+/public/data/Transport/multiline-chart-bikes.json
 
 /public/data/Environment/waterlevel.json
 # /public/data/Stories/Housing/housetype.csv
