@@ -25,10 +25,22 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
   let trafficCountersMapIcon = L.icon({
     iconUrl: '/images/transport/car-15.svg',
-    iconSize: [30, 30], // orig size
-    iconAnchor: [iconAX, iconAY] //,
+    iconSize: [20, 20] // orig size
+    // iconAnchor: [iconAX, iconAY] //,
    // popupAnchor: [-3, -76]
   })
+
+  const trafficCountersMarker = L.Marker.extend({
+    options: {
+      id: 0
+    }
+  })
+
+  const trafficCountersPopupOptons = {
+    // 'maxWidth': '500',
+    className: 'trafficCounterPopup'
+  }
+
   let trafficCountersCluster = L.markerClusterGroup()
 
   try {
@@ -53,10 +65,16 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
 
     // console.log(dublinSensors)
     dublinSensors.forEach(d => {
-      // console.log(d.lat + '|' + d.lng)
-      let marker = L.marker(new L.LatLng(d.lat, d.lng), {
-        icon: trafficCountersMapIcon
-      })
+      let marker = new trafficCountersMarker(
+        new L.LatLng(d.lat, d.lng), {
+          id: d.id,
+          icon: trafficCountersMapIcon,
+          opacity: 0.9,
+          title: d.description.split(',')[0], // shoen in rollover tooltip
+          alt: 'traffic counter icon'
+
+        })
+
       marker.bindPopup(d.description)
       trafficCountersMap.addLayer(marker)
     })
