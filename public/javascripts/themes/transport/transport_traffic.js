@@ -51,7 +51,15 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
       return obj
     })
 
-    counterSiteData.forEach()
+    // console.log(dublinSensors)
+    dublinSensors.forEach(d => {
+      // console.log(d.lat + '|' + d.lng)
+      let marker = L.marker(new L.LatLng(d.lat, d.lng), {
+        icon: trafficCountersMapIcon
+      })
+      marker.bindPopup(d.description)
+      trafficCountersMap.addLayer(marker)
+    })
 
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
     // console.log('yesterdayQuery: ' + yesterdayQuery)
@@ -66,8 +74,8 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // console.log('minus85DaysQuery: ' + minus85DaysQuery)
 
     let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
-    console.log('dataCSVQuery[0]: ')
-    console.log(dataCSVQuery1[0])
+    // console.log('dataCSVQuery[0]: ')
+    // console.log(dataCSVQuery1[0])
 
     let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
     // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
