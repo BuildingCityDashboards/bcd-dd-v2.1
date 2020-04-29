@@ -117,12 +117,15 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // mutates original array
 
     trafficJoin(dublinSensors, dataObj1)
+    dublinSensors.forEach(s => {
+      updatePopup(s)
+    })
     // trafficJoin(dublinSensors, dataObj7)
     // trafficJoin(dublinSensors, dataObj28)
     // trafficJoin(dublinSensors, dataObj84)
 
     console.log('dublinSensors final -')
-    // console.log(dublinSensors[0])
+    console.log(dublinSensors[0])
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
@@ -142,7 +145,7 @@ function getDefaultPopup (d_) {
   str += '<div class="row ">'
   str += '<span id="traffic-counter-id-' + d_.id + '" class="col-9">' // id for name div
   if (d_.description) {
-    str += '<strong>' + d_.description.split(',')[1] + '</strong>'
+    str += '<strong>' + d_.description.split(',')[1] + '\t #' + d_.id + '</strong>'
   }
   str += '</span>' // close bike name div
   str += '</div>' // close row
@@ -163,8 +166,10 @@ function getDefaultPopup (d_) {
   // }
   str += '</div>' // closes container
   return str
+}
 
-  // d.description
+function updatePopup (s_) {
+  document.getElementById('traffic-counter-1113-total').innerHTML = '50000'
 }
 
     // const dayFormat = d3.timeFormat("%a, %I:%M");

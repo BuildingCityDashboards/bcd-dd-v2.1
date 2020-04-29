@@ -69,16 +69,15 @@ const groupByNumber = (readings, key) => {
 
 export { groupByNumber }
 
+// TODO: remove mutation
 
 const trafficJoin = (sensors, readings) => {
   let result = sensors.forEach(s => {
     // console.log(s.id)
     try {
-      s.count = readings[s.id].count
-      s.class = readings[s.id].class
-      s.date = readings[s.id].date
+      s.dates = readings[s.id].dates
     } catch (e) {
-      console.log('error looking up ' + s.id) // TODO: return null object to catch this
+      console.log('error joining data for cosit ' + s.id) // TODO: return null object to catch this
     }
   })
   return result
