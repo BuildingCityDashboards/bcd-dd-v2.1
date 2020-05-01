@@ -99,7 +99,7 @@ function initMapWaterLevels (data__) {
     waterOPWCluster.addLayer(m)
     // m.bindPopup(getstr(fname));
     m.bindPopup(bikesStationPopupInit(d), bikesStationPopupOptons)
-    m.on('popupopen', getBikesStationPopup)
+    m.on('popupopen', getOPWPopup)
 
     waterMap.addLayer(waterOPWCluster)
   })
@@ -192,10 +192,10 @@ function bikesStationPopupInit (d_) {
   str += '</div>' // closes container
   return str
 }
-function getBikesStationPopup () {
+function getOPWPopup () {
   let ts = this.options.sfn
   let sid_ = this.options.sid
-  // console.log(ts+ '--'+ sid_)
+  // console.log('getOPW')
 
  // let ts='19045_0001'
 /* d3.csv('/api/wlstations/stations/'+ts)
@@ -383,6 +383,7 @@ function initMapHydronet (data__) {
       icon: waterMapIcon
     })
     marker.bindPopup(getHydronetContent(d, k))
+    marker.on('popupopen', console.log('OPW open'))
     hydronetCluster.addLayer(marker)
   })
   waterMapLayerSizes[1] = data__.length
