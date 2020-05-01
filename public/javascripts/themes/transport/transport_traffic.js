@@ -90,13 +90,13 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
     // console.log('dataCSVQuery :' + dataCSVQuery84.length)
 
     // need the vehicle count, indexed by cosit number
-    let dataObj1 = groupByNumber(dataCSVQuery1, 'cosit')
+    let dataObj = groupByNumber(dataCSVQuery1, 'cosit')
     // let dataObj8 = groupByNumber(dataCSVQuery8, 'cosit')
     // let dataObj29 = groupByNumber(dataCSVQuery29, 'cosit')
     // let dataObj85 = groupByNumber(dataCSVQuery85, 'cosit')
 
-    console.log('dataObj1: ')
-    console.log(dataObj1)
+    console.log('dataObj: ')
+    console.log(dataObj)
 
     // for each dublin sensor object in the array, join the count
     // mutates original array
@@ -171,6 +171,6 @@ function unpackSensorData (d_) {
   try {
     return Object.keys(d_.dates)
   } catch (e) {
-    return 'Error getting data for ' + d_.id
+    return 'No data for counter #' + d_.id
   }
 }
