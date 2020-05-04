@@ -231,7 +231,7 @@ function initMapHydronet (data__) {
       icon: waterMapIcon
     })
     marker.bindPopup(getHydronetContent(d, k))
-    marker.on('popupopen', console.log('OPW open'))
+    // marker.on('popupopen', console.log('OPW open'))
     hydronetCluster.addLayer(marker)
   })
   waterMapLayerSizes[1] = data__.length
