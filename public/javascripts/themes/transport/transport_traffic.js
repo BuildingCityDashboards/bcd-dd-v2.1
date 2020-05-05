@@ -67,35 +67,26 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
 
     console.log(dublinSensors)
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
-    // console.log('yesterdayQuery: ' + yesterdayQuery)
-
     let minus8DaysQuery = getTrafficQueryForDate(getDateFromToday(-8))
-    // console.log('minus7Days: ' + minus7DaysQuery)
-
     let minus29DaysQuery = getTrafficQueryForDate(getDateFromToday(-29))
-    // console.log('minus29DaysQuery: ' + minus29DaysQuery)
-
     let minus85DaysQuery = getTrafficQueryForDate(getDateFromToday(-85))
-    // console.log('minus85DaysQuery: ' + minus85DaysQuery)
+    let minus162DaysQuery = getTrafficQueryForDate(getDateFromToday(-162))
+    let minus169DaysQuery = getTrafficQueryForDate(getDateFromToday(-169))
 
     let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
-    console.log('dataCSVQuery[0]: ')
-    console.log(dataCSVQuery1[0])
-
     let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
-    // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
-
-    let dataCSVQuery29 = await d3.csv('api/traffic?q=' + minus29DaysQuery)
-    // console.log('dataCSVQuery: ' + dataCSVQuery28.length)
-
-    let dataCSVQuery85 = await d3.csv('api/traffic?q=' + minus85DaysQuery)
-    // console.log('dataCSVQuery :' + dataCSVQuery84.length)
+    let dataCSVQuery29 = await d3.csv('api/traffic?q=' + minus29DaysQuery)    // 4 wks
+    let dataCSVQuery85 = await d3.csv('api/traffic?q=' + minus85DaysQuery)    // 12 wks
+    let dataCSVQuery162 = await d3.csv('api/traffic?q=' + minus162DaysQuery)
+    let dataCSVQuery169 = await d3.csv('api/traffic?q=' + minus169DaysQuery)  // 24 wks
 
     // need the vehicle count, indexed by cosit number
     let readingsGrouped = groupByNumber(dataCSVQuery1, 'cosit')
-    // let readingsGrouped8 = groupByNumber(dataCSVQuery8, 'cosit')
-    // let readingsGrouped29 = groupByNumber(dataCSVQuery29, 'cosit')
-    // let readingsGrouped85 = groupByNumber(dataCSVQuery85, 'cosit')
+    readingsGrouped = groupByNumber(dataCSVQuery8, 'cosit', readingsGrouped)
+    readingsGrouped = groupByNumber(dataCSVQuery29, 'cosit', readingsGrouped)
+    readingsGrouped = groupByNumber(dataCSVQuery85, 'cosit', readingsGrouped)
+    readingsGrouped = groupByNumber(dataCSVQuery162, 'cosit', readingsGrouped)
+    readingsGrouped = groupByNumber(dataCSVQuery169, 'cosit', readingsGrouped)
 
     console.log('readingsGrouped: ')
     console.log(readingsGrouped)
