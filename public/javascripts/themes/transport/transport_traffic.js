@@ -1,7 +1,7 @@
 import { getDateFromToday } from '../../modules/bcd-date.js'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
 import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
-import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
+// import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
 
 (async () => {
 /************************************
@@ -32,7 +32,9 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
 
   const trafficCountersMarker = L.Marker.extend({
     options: {
-      id: 0
+      id: 0,
+      total: 0,
+      readings: 'No readings'
     }
   })
 
@@ -63,7 +65,7 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
       return obj
     })
 
-    // console.log(dublinSensors)
+    console.log(dublinSensors)
     let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
     // console.log('yesterdayQuery: ' + yesterdayQuery)
 
@@ -77,8 +79,8 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
     // console.log('minus85DaysQuery: ' + minus85DaysQuery)
 
     let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
-    // console.log('dataCSVQuery[0]: ')
-    // console.log(dataCSVQuery1[0])
+    console.log('dataCSVQuery[0]: ')
+    console.log(dataCSVQuery1[0])
 
     let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
     // console.log('dataCSVQuery: ' + dataCSVQuery7.length)
@@ -90,27 +92,29 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
     // console.log('dataCSVQuery :' + dataCSVQuery84.length)
 
     // need the vehicle count, indexed by cosit number
-    let dataObj = groupByNumber(dataCSVQuery1, 'cosit')
-    // let dataObj8 = groupByNumber(dataCSVQuery8, 'cosit')
-    // let dataObj29 = groupByNumber(dataCSVQuery29, 'cosit')
-    // let dataObj85 = groupByNumber(dataCSVQuery85, 'cosit')
+    let readingsGrouped = groupByNumber(dataCSVQuery1, 'cosit')
+    // let readingsGrouped8 = groupByNumber(dataCSVQuery8, 'cosit')
+    // let readingsGrouped29 = groupByNumber(dataCSVQuery29, 'cosit')
+    // let readingsGrouped85 = groupByNumber(dataCSVQuery85, 'cosit')
 
-    console.log('dataObj: ')
-    console.log(dataObj)
+    console.log('readingsGrouped: ')
+    console.log(readingsGrouped)
 
     // for each dublin sensor object in the array, join the count
     // mutates original array
 
-    trafficJoin(dublinSensors, dataObj1)
+    // groupByNumber(dublinSensors, readingsGrouped)
 
-    // trafficJoin(dublinSensors, dataObj7)
-    // trafficJoin(dublinSensors, dataObj28)
-    // trafficJoin(dublinSensors, dataObj84)
+    // trafficJoin(dublinSensors, readingsGrouped7)
+    // trafficJoin(dublinSensors, readingsGrouped28)
+    // trafficJoin(dublinSensors, readingsGrouped84)
 
     console.log('dublinSensors final -')
     console.log(dublinSensors[0])
 
+    // create markers for each sensor, join readinfg to static site data and add to map
     dublinSensors.forEach(d => {
+      d.values = unpackSensorData(readingsGrouped, d)
       let marker = new trafficCountersMarker(
         new L.LatLng(d.lat, d.lng), {
           id: d.id,
@@ -118,7 +122,6 @@ import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
           opacity: 0.9,
           title: d.description.split(',')[0], // shown in rollover tooltip
           alt: 'traffic counter icon'
-
         })
       trafficCountersMap.addLayer(marker)
       marker.bindPopup(getPopup(d))
@@ -154,7 +157,7 @@ function getPopup (d_) {
   }
   str += '</div>' // close row
   str += '<div class="row ">'
-  str += '<span class="col-12" id="traffic-counter-' + d_.id + '-total" >' + unpackSensorData(d_) + '</span>'
+  str += '<span class="col-12" id="traffic-counter-' + d_.id + '-total" >' + JSON.stringify(d_.values) + '</span>'
   str += '</div>' // close row
 
   // initialise div to hold chart with id linked to station id
@@ -167,10 +170,17 @@ function getPopup (d_) {
   return str
 }
 
-function unpackSensorData (d_) {
+function unpackSensorData (rs_, d_) {
   try {
-    return Object.keys(d_.dates)
+    let dateKeys = Object.keys(rs_[d_.id].dates)
+    let values = dateKeys.map(
+      date => {
+        return { date: date, total: rs_[d_.id].dates[date].total}
+      })
+    return values
   } catch (e) {
-    return 'No data for counter #' + d_.id
+    console.error('traffic sensor #' + d_.id + ' ' + e)
+    return {date: `none`, total: 0}
+    // No data for counter # + ${d_.id}`
   }
 }

@@ -10,13 +10,13 @@
  */
 
 const getTrafficQueryForDate = date => {
-    const y = date.getFullYear()
-    let m = date.getMonth()
-    m += 1 // correct for 1-indexed months
-    m = m.toString().padStart(2, '0')
-    let day = date.getDate()
-    day = day.toString().padStart(2, '0')
-    return `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
+  const y = date.getFullYear()
+  let m = date.getMonth()
+  m += 1 // correct for 1-indexed months
+  m = m.toString().padStart(2, '0')
+  let day = date.getDate()
+  day = day.toString().padStart(2, '0')
+  return `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
 }
 
 export { getTrafficQueryForDate }
@@ -36,35 +36,35 @@ export { getTrafficQueryForDate }
  */
 
 const groupByNumber = (readings, key) => {
-  let obj = readings.reduce((obj, d) => {
+  let grouped = readings.reduce((obj, d) => {
     // create the key if it doesn't exist
     if (!obj.hasOwnProperty(`${+d[key]}`)) {
 		    obj[`${+d[key]}`] = {
-          dates: {}
-        }
+      dates: {}
+    }
     }
     let dateKey = `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
     // add to date object if it doesn't has the date as a key
-    if (!obj[`${+d[key]}`].dates.hasOwnProperty(dateKey)){
-
-        obj[`${+d[key]}`].dates[dateKey] = {
-        values : [],
+    if (!obj[`${+d[key]}`].dates.hasOwnProperty(dateKey)) {
+      obj[`${+d[key]}`].dates[dateKey] = {
+        values: [],
         total: 0
-        }
+      }
     }
+    // TODO: generalise by passing keys as args
     // add an object with the values
     obj[`${+d[key]}`].dates[dateKey].values.push(
       {
-          count: +d.VehicleCount,
-          class: +d.class
+        count: +d.VehicleCount,
+        class: +d.class
       })
 
-    //add a convenience property to keep a total
+    // add a convenience property to keep a total
     obj[`${+d[key]}`].dates[dateKey].total += +d.VehicleCount
 
     return obj
   }, {})
-  return obj
+  return grouped
 }
 
 export { groupByNumber }
