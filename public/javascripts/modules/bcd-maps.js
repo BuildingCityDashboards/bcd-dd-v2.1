@@ -1,3 +1,7 @@
+/**
+ * Common functions used on leaflet maps
+ */
+
 // TODO: import leaflet class for LatLng etc
 
 const DUBLIN_BOUNDS = { 'southwest': {

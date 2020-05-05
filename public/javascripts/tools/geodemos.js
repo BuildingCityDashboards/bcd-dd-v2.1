@@ -14,7 +14,7 @@ if we add SA to group as it comes up we're rewriting gorup layers repeatedly
 Solve with async await
 
 **/
-import { getDublinBoundsLatLng } from '../modules/bcd-maps.mjs'
+import { getDublinBoundsLatLng } from '../modules/bcd-maps'
 
 let dub_lng = -6.2603
 let dub_lat = 53.42

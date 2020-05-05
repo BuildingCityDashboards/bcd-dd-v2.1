@@ -1,3 +1,8 @@
+# Tools
+* JSDocs
+
+Run `./node_modules/.bin/jsdoc filename.js` to generate JSDocs in /out
+
 # Design patterns and practices
 
 
