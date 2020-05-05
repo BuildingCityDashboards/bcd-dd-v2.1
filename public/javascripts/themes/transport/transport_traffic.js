@@ -1,7 +1,7 @@
-import { getDateFromToday } from '../../modules/bcd-date.mjs'
-import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.mjs'
-import { groupByNumber } from '../../modules/bcd-helpers-traffic.mjs'
-import { trafficJoin } from '../../modules/bcd-helpers-traffic.mjs'
+import { getDateFromToday } from '../../modules/bcd-date.js'
+import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
+import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
+import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
 
 (async () => {
 /************************************
