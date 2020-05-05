@@ -1,5 +1,5 @@
-import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { datalist } from 'https://unpkg.com/jsonstat-utils@2.5.5/export.mjs'
+import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.js'
+import { datalist } from 'https://unpkg.com/jsonstat-utils@2.5.5/export.js'
 
 const getTableMetadata = (tableJson) => {
   // /***
