@@ -17,6 +17,24 @@ const getDateFromToday = n => {
 export { getDateFromToday }
 
 /**
+ * Formats a date in the form: DD-MM-YY
+ *
+ * @param {date} date - a date
+ * @return {string} - date formatted as a string
+ *
+ * @example
+ *
+ *
+ */
+
+function formatDateAsShortString (date) {
+  let dateString = date.getDate() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getFullYear().toString().substr(-2)
+  return dateString
+}
+
+export { formatDateAsShortString }
+
+/**
  * Formats a date as a quarter year string of the form: YYYY-QN
  *
  * @param {date} date - a date

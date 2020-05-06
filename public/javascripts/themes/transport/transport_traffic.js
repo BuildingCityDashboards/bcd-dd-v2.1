@@ -1,4 +1,5 @@
 import { getDateFromToday } from '../../modules/bcd-date.js'
+import { formatDateAsShortString } from '../../modules/bcd-date.js'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
 import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
 
@@ -155,6 +156,7 @@ function getPlot (d_) {
   d_.values.forEach(d => {
     d.date = new Date(d.date) // convert key date string to date
     d.total = +d.total
+    d.label = formatDateAsShortString(d.date)
   })
   // console.log(div);
   // document.getElementById(div).innerHTML = 'changed'
