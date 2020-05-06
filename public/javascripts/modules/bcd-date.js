@@ -27,12 +27,12 @@ export { getDateFromToday }
  *
  */
 
-function formatDateAsShortString (date) {
-  let dateString = date.getDate() + '-' + (parseInt(date.getMonth()) + 1) + '-' + date.getFullYear().toString().substr(-2)
+function formatDateAsDDMMYY (date, delim = '-') {
+  let dateString = '' + date.getDate() + delim + (parseInt(date.getMonth()) + 1) + delim + date.getFullYear().toString().substr(-2)
   return dateString
 }
 
-export { formatDateAsShortString }
+export { formatDateAsDDMMYY }
 
 /**
  * Formats a date as a quarter year string of the form: YYYY-QN
