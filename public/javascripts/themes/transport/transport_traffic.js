@@ -1,55 +1,52 @@
 import { getDateFromToday } from '../../modules/bcd-date.js'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
 import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
-// import { trafficJoin } from '../../modules/bcd-helpers-traffic.js'
 
 /************************************
  * Traffic counter data
  ************************************/
 
-let osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
-  minZoom: min_zoom,
-  maxZoom: max_zoom,
-  attribution: stamenTonerAttrib
-})
-let trafficCountersMap = new L.Map('map-traffic-counters')
-trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
-trafficCountersMap.addLayer(osmTrafficCounters)
+(async () => {
+  let osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
+  })
+  let trafficCountersMap = new L.Map('map-traffic-counters')
+  trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+  trafficCountersMap.addLayer(osmTrafficCounters)
 
-let trafficCounterMapIcon = L.icon({
-  iconUrl: '/images/transport/car-15.svg',
-  iconSize: [20, 20] // orig size
+  let trafficCounterMapIcon = L.icon({
+    iconUrl: '/images/transport/car-15.svg',
+    iconSize: [20, 20] // orig size
     // iconAnchor: [iconAX, iconAY] //,
    // popupAnchor: [-3, -76]
-})
+  })
 
-const trafficCounterMarker = L.Marker.extend({
-  options: {
-    id: 0
-  }
-})
+  const trafficCounterMarker = L.Marker.extend({
+    options: {
+      id: 0
+    }
+  })
 
-const trafficCounterPopupOptons = {
+  const trafficCounterPopupOptons = {
     // 'maxWidth': '500',
-  'className': 'bikesStationPopup'
-}
+    'className': 'bikesStationPopup'
+  }
 
-let trafficCountersCluster = L.markerClusterGroup()
+  let trafficCountersCluster = L.markerClusterGroup()
 
-function init () {
   try {
-    getCounters()
-    .then(dublinCounters => {
-      getReadings()
-      .then(readingsGrouped => {
-        console.log('readingsGrouped: ')
-        console.log(readingsGrouped)
-        console.log(dublinCounters)
+    let dublinCounters = await getCounters()
+    let readingsGrouped = await getReadings()
+    console.log('readingsGrouped: ')
+    console.log(readingsGrouped)
+    console.log(dublinCounters)
 
-        // create markers for each counter, join reading to static site data and add to map
-        dublinCounters.forEach(d => {
-          d.values = getReadingsForCounter(readingsGrouped, d)
-          let marker = new trafficCounterMarker(
+    // create markers for each counter, join reading to static site data and add to map
+    dublinCounters.forEach(d => {
+      d.values = getReadingsForCounter(readingsGrouped, d)
+      let marker = new trafficCounterMarker(
             new L.LatLng(d.lat, d.lng), {
               id: d.id,
               icon: trafficCounterMapIcon,
@@ -58,13 +55,11 @@ function init () {
               alt: 'traffic counter icon'
             })
 
-          marker.bindPopup(getPopup(d), trafficCounterPopupOptons)
-          marker.on('popupopen', () => {
-            getPlot(d)
-          })
-          trafficCountersMap.addLayer(marker)
-        })
+      marker.bindPopup(getPopup(d), trafficCounterPopupOptons)
+      marker.on('popupopen', () => {
+        getPlot(d)
       })
+      trafficCountersMap.addLayer(marker)
     })
     // console.log('dublinCounters final -')
     // console.log(dublinCounters[0])
@@ -74,7 +69,7 @@ function init () {
     console.error('error fetching traffic data')
     console.error(e)
   }
-}
+})()
 
 async function getCounters () {
   // need to be able to look up the static data using cosit as key
@@ -125,15 +120,16 @@ async function getReadings () {
 }
 
 function getPopup (d_) {
+  let str = ''
   if (!d_.id) {
-    const str = '<div class="popup-error">' +
+    str += '<div class="popup-error">' +
       '<div class="row ">' +
       "We can't get this traffic counter data right now, please try again later" +
       '</div>' +
       '</div>'
     return str
   }
-  let str = '<div class="traffic-counter-popup-container" >'
+  // let str = '<div class="traffic-counter-popup-container" >'
   str += '<div class="row ">'
   str += '<span id="traffic-counter-id-' + d_.id + '" class="col-12">' // id for name div
   if (d_.description) {
@@ -147,21 +143,18 @@ function getPopup (d_) {
   }
   str += '</div>' // close row
   str += '<div class="row ">'
-  str += '<div class="col-12 traffic-popup-chart" id="traffic-counter-' + d_.id + '-total" style="height:50px;" >' + '' + '</div>'
+  str += '<div class="col-12 leaflet-popup-chart" id="traffic-counter-' + d_.id + '-total">' + '' + '</div>'
   str += '</div>' // close row
-
-  // initialise div to hold chart with id linked to station id
-  // if (d_.st_ID) {
-  //   str += '<div class="row ">'
-  //   str += '<span id="bike-spark-' + d_.st_ID + '"></span>'
-  //   str += '</div>'
-  // }
-  str += '</div>' // closes container
+  // str += '</div>' // closes container
   return str
 }
 
 function getPlot (d_) {
   let div = `#traffic-counter-${d_.id}-total`
+  d_.values.forEach(d => {
+    d.date = new Date(d.date) // convert key date string to date
+    d.total = +d.total
+  })
   // console.log(div);
   // document.getElementById(div).innerHTML = 'changed'
 
@@ -172,14 +165,14 @@ function getPlot (d_) {
   //   // showSendToCloud: false,
   //   // responsive: true
   // })
-  const data = [{x: 0, y: 0}, {x: 1, y: 10}, {x: 2, y: 0}]
+
   const config = {
-    d: data,
+    d: d_.values,
     e: div,
-    yV: 'y',
-    xV: 'x'
+    yV: 'date',
+    xV: 'total',
   // sN: 'region',
-    // dL: 'label'
+    dL: 'label'
   }
   let chart = new CardLineChart(config)
   return chart
@@ -199,4 +192,3 @@ function getReadingsForCounter (rs_, d_) {
     // No data for counter # + ${d_.id}`
   }
 }
-init()
