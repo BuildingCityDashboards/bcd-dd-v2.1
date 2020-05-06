@@ -45,6 +45,20 @@
   	text-align: center;
   }
 
+.leaflet-popup-chart{
+  width: 100%;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+}
+
+.leaflet-popup-chart svg{
+  width: 100%;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+}
+
 .bikesStationPopup .leaflet-popup-content-wrapper {
     background: #001f35;
 }

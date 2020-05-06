@@ -17,17 +17,30 @@ const getDateFromToday = n => {
 export { getDateFromToday }
 
 /**
- * This is a function.
+ * Formats a date as a quarter year of the form: YYYY-QN
  *
- * @param {string} n - A string param
- * @return {string} A good string
+ * @param {date} date - a date
+ * @return {string} date formatted as a string
  *
  * @example
  *
- *     foo('hello')
+ *
  */
 
-const formatDate = () =>{
-
-
+function formatDateAsQuarterString (date) {
+  const newDate = new Date()
+  newDate.setMonth(date.getMonth() + 1)
+  const year = (date.getFullYear())
+  const q = Math.ceil((newDate.getMonth()) / 3)
+  return year + '-Q' + q
 }
+
+export { formatDateAsQuarterString }
+
+ // function convertQuarter (q) {
+ //   const splitted = q.split('Q')
+ //   const year = splitted[0]
+ //   const quarterEndMonth = splitted[1] * 3 - 2
+ //   const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
+ //   return date
+ // }
