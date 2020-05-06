@@ -4,8 +4,6 @@
  * @param {number} n - Number of days to shift from today's date
  * @return {Date} A Date
  *
- * @example
- *
  *     getDateFromToday(-1) //yesterday's date
  */
 const getDateFromToday = n => {
@@ -22,7 +20,7 @@ export { getDateFromToday }
  * @param {date} date - a date
  * @return {string} - date formatted as a string
  *
- * @example
+ * @example tbc
  *
  *
  */
@@ -40,7 +38,7 @@ export { formatDateAsDDMMYY }
  * @param {date} date - a date
  * @return {string} - date formatted as a string
  *
- * @example
+ * @example tbc
  *
  *
  */

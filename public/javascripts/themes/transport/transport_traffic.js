@@ -2,7 +2,7 @@ import { getDateFromToday } from '../../modules/bcd-date.js'
 import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
 import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
-
+import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 /************************************
  * Traffic counter data
  ************************************/
@@ -38,9 +38,9 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
   try {
     let dublinCounters = await getCounters()
     let readingsGrouped = await getReadings()
-    console.log('readingsGrouped: ')
-    console.log(readingsGrouped)
-    console.log(dublinCounters)
+    // console.log('readingsGrouped: ')
+    // console.log(readingsGrouped)
+    // console.log(dublinCounters)
 
     // create markers for each counter, join reading to static site data and add to map
     let trafficCounters = new L.LayerGroup()
@@ -157,16 +157,6 @@ function getPlot (d_) {
     d.total = +d.total
     d.label = formatDateAsDDMMYY(d.date)
   })
-  // console.log(div);
-  // document.getElementById(div).innerHTML = 'changed'
-
-  // return values Plotly.newPlot('', , , {
-  //   // modeBarButtons: multilineModeBarButtonsInclude,
-  //   // displayModeBar: true,
-  //   // displaylogo: false,
-  //   // showSendToCloud: false,
-  //   // responsive: true
-  // })
 
   const config = {
     d: d_.values,
@@ -176,7 +166,7 @@ function getPlot (d_) {
   // sN: 'region',
     dL: 'label'
   }
-  let chart = new CardLineChart(config)
+  let chart = new ChartLinePopup(config)
   return chart
 }
 

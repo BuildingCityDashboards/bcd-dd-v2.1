@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: bcd-queries.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: bcd-queries.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Get a traffic query for a date
+ *
+ * @param {Date} date
+ * @return {string} string to query the traffic API
+ *
+ * @example
+ *
+ *     getTrafficQueryForDate()
+ */
 
+const getTrafficQueryForDate = date => {
+    const y = date.getFullYear()
+    let m = date.getMonth()
+    m += 1 // correct for 1-indexed months
+    m = m.toString().padStart(2, '0')
+    let day = date.getDate()
+    day = day.toString().padStart(2, '0')
+    return `${y}/${m}/${day}/per-site-class-aggr-${y}-${m}-${day}.csv`
+}
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+export { getTrafficQueryForDate }
+</code></pre>
+        </article>
+    </section>
 
 
 
