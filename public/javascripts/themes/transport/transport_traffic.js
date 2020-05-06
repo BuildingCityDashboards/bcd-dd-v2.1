@@ -1,4 +1,5 @@
 import { getDateFromToday } from '../../modules/bcd-date.js'
+import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
 import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
 import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
 
@@ -31,7 +32,7 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
 
   const trafficCounterPopupOptons = {
     // 'maxWidth': '500',
-    'className': 'bikesStationPopup'
+    // 'className': 'leaflet-popup'
   }
 
   let trafficCountersCluster = L.markerClusterGroup()
@@ -109,12 +110,12 @@ async function getReadings () {
   let dataCSVQuery169 = await d3.csv('api/traffic?q=' + minus169DaysQuery)  // 24 wks
 
   // need the vehicle count, indexed by cosit number
-  let readings = groupByNumber(dataCSVQuery1, 'cosit')
-  readings = groupByNumber(dataCSVQuery8, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery29, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery85, 'cosit', readings)
+  let readings = groupByNumber(dataCSVQuery169, 'cosit')
   readings = groupByNumber(dataCSVQuery162, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery169, 'cosit', readings)
+  readings = groupByNumber(dataCSVQuery85, 'cosit', readings)
+  readings = groupByNumber(dataCSVQuery29, 'cosit', readings)
+  readings = groupByNumber(dataCSVQuery8, 'cosit', readings)
+  readings = groupByNumber(dataCSVQuery1, 'cosit', readings)
 
   return readings
 }
@@ -122,7 +123,7 @@ async function getReadings () {
 function getPopup (d_) {
   let str = ''
   if (!d_.id) {
-    str += '<div class="popup-error">' +
+    str += '<div class="leaflet-popup-error">' +
       '<div class="row ">' +
       "We can't get this traffic counter data right now, please try again later" +
       '</div>' +
@@ -130,21 +131,22 @@ function getPopup (d_) {
     return str
   }
   // let str = '<div class="traffic-counter-popup-container" >'
-  str += '<div class="row ">'
-  str += '<span id="traffic-counter-id-' + d_.id + '" class="col-12">' // id for name div
+  str += '<div class="leaflet-popup-title">'
+  str += '<span id="traffic-counter-id-' + d_.id + '">' // id for name div
   if (d_.description) {
     str += '<strong>' + d_.description.split(',')[1] + '\t #' + d_.id + '</strong>'
   }
-  str += '</span>' // close name div
-  str += '</div>' // close row
-  str += '<div class="row">'
+  str += '</span>' //
+  str += '</div>' // close title div
+  str += '<div class="leaflet-popup-subtitle">'
+  // str += '<div class="row">'
   if (d_.description) {
-    str += '<span class="col-12">' + d_.description.split(',')[0] + '</span>'
+    str += '<span>' + d_.description.split(',')[0] + '</span>'
   }
-  str += '</div>' // close row
-  str += '<div class="row ">'
-  str += '<div class="col-12 leaflet-popup-chart" id="traffic-counter-' + d_.id + '-total">' + '' + '</div>'
-  str += '</div>' // close row
+  str += '</div>' // close subtitle
+  // str += '<div class="row ">'
+  str += '<div class="leaflet-popup-chart" id="traffic-counter-' + d_.id + '-total">' + '' + '</div>'
+  // str += '</div>' // close row
   // str += '</div>' // closes container
   return str
 }
@@ -154,6 +156,7 @@ function getPlot (d_) {
   d_.values.forEach(d => {
     d.date = new Date(d.date) // convert key date string to date
     d.total = +d.total
+    d.label = formatDateAsDDMMYY(d.date)
   })
   // console.log(div);
   // document.getElementById(div).innerHTML = 'changed'
@@ -169,8 +172,8 @@ function getPlot (d_) {
   const config = {
     d: d_.values,
     e: div,
-    yV: 'date',
-    xV: 'total',
+    yV: 'total',
+    xV: 'date',
   // sN: 'region',
     dL: 'label'
   }
