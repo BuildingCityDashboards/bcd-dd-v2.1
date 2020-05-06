@@ -35,8 +35,6 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
     // 'className': 'leaflet-popup'
   }
 
-  let trafficCountersCluster = L.markerClusterGroup()
-
   try {
     let dublinCounters = await getCounters()
     let readingsGrouped = await getReadings()
@@ -45,6 +43,7 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
     console.log(dublinCounters)
 
     // create markers for each counter, join reading to static site data and add to map
+    let trafficCounters = new L.LayerGroup()
     dublinCounters.forEach(d => {
       d.values = getReadingsForCounter(readingsGrouped, d)
       let marker = new trafficCounterMarker(
@@ -60,12 +59,12 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
       marker.on('popupopen', () => {
         getPlot(d)
       })
-      trafficCountersMap.addLayer(marker)
+      trafficCounters.addLayer(marker)
     })
     // console.log('dublinCounters final -')
     // console.log(dublinCounters[0])
 
-    // trafficCountersMap.addLayer(trafficCountersCluster)
+    trafficCountersMap.addLayer(trafficCounters)
   } catch (e) {
     console.error('error fetching traffic data')
     console.error(e)
