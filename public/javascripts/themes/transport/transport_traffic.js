@@ -31,7 +31,7 @@ import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
 
   const trafficCounterPopupOptons = {
     // 'maxWidth': '500',
-    'className': 'bikesStationPopup'
+    // 'className': 'leaflet-popup'
   }
 
   let trafficCountersCluster = L.markerClusterGroup()
@@ -169,8 +169,8 @@ function getPlot (d_) {
   const config = {
     d: d_.values,
     e: div,
-    yV: 'date',
-    xV: 'total',
+    yV: 'total',
+    xV: 'date',
   // sN: 'region',
     dL: 'label'
   }
