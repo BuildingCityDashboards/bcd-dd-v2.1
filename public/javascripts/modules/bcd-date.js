@@ -17,10 +17,10 @@ const getDateFromToday = n => {
 export { getDateFromToday }
 
 /**
- * Formats a date as a quarter year of the form: YYYY-QN
+ * Formats a date as a quarter year string of the form: YYYY-QN
  *
  * @param {date} date - a date
- * @return {string} date formatted as a string
+ * @return {string} - date formatted as a string
  *
  * @example
  *
