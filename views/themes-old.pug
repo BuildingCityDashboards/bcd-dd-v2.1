@@ -1,12 +1,12 @@
 extends layout
 
 block append head
-  //- link(rel='stylesheet', href='/stylesheets/themes/health/dc.css')
-  link(rel='stylesheet', href='/stylesheets/themes/themes.css')
+  link(rel='stylesheet', href='/stylesheets/themes/health/dc.css')
   link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
-  //- link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
+  link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
   link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
-
+  //append this for text styling e.g. align-justify
+  //link(rel='stylesheet', href='/stylesheets/text-style.css') 
 
 block navigation
   +navbar("navbar navbar-expand-lg bg-dark fixed-top","/","Dublin Dashboard", "Themes")

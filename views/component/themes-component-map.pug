@@ -1,0 +1,17 @@
+mixin themes-component__chart(id, dataSource, title, subtitle, chartId)
+  div(id=id class="themes-component" )
+    .themes-component__left
+      .themes-component__title=title
+      .themes-component__subtitle=subtitle
+      .themes-component__source=dataSource
+      .themes-component__text
+      .themes-component__kpi
+      //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
+    .themes-component__right
+      .themes-component__buttons
+        a(href=data-source class="bcd-btn").button 
+        a(href=data-source class="bcd-btn").button 
+        a(href=data-source class="bcd-btn").button 
+      div(id=chartId class= "themes-component__plot")
+         
+      
