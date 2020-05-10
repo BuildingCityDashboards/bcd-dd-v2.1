@@ -14,7 +14,7 @@ block navigation
 
 block content
   .content.bg-dark-blue
-    .container
+    //- .container
       header.mt-5
         .row
           .col-md-12
@@ -35,40 +35,43 @@ block content
 
     .subnav
       +subnavbar("bcd-nav")
-    section.bg-dark-blue.pt-5
-      .position-anchor#transport
-      .wrap
+    //- section.bg-dark-blue.pt-5
+    .position-anchor#transport
+      //- theme(title, number of charts)
+      +theme('Transport', 3) 
+      //- .wrap
         .container
-          include themes/themes_transport_charts
+      include themes/theme_transport
+      include themes/theme_transport_charts
 
-    section.bg-dark-blue.pt-5
+    //- section.bg-dark-blue.pt-5
       .position-anchor#environment
       .wrap
         .container
           include themes/themes_environment_charts
 
-    section.bg-dark-blue.pt-5
+    //- section.bg-dark-blue.pt-5
       .position-anchor#housing
       .wrap
         .container
           include themes/themes_housing_charts
 
-    #economy.position-anchor.section-header.bg-dark-blue
+    //- #economy.position-anchor.section-header.bg-dark-blue
       .wrap
         .container
           include themes/themes_economy_charts
 
-    section#education.section-header.bg-dark-blue.hidden 
+    //- section#education.section-header.bg-dark-blue.hidden 
       .wrap
         .container
           include themes/themes_education_charts
 
-    section#health.section-header.bg-dark.hidden 
+    //- section#health.section-header.bg-dark.hidden 
       .wrap
         .container
           include themes/themes_health_charts
 
-    section.bg-dark-blue.pt-5 
+    //- section.bg-dark-blue.pt-5 
       .position-anchor#demographics
       .wrap
         .container
