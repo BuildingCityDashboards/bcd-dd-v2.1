@@ -12,10 +12,10 @@
     attribution: stamenTonerAttrib
   })
   let noiseMap = new L.Map('map-noise-monitors')
-  noiseMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+  noiseMap.setView(new L.LatLng(dubLat, dubLng), 11)
   noiseMap.addLayer(osmnoiseMonitors)
-  let trafficCounterMapIcon = L.icon({
-    iconUrl: '/images/transport/car-15.svg',
+  let noiseMapIcon = L.icon({
+    iconUrl: './images/environment/microphone-black-shape.svg',
     iconSize: [20, 20] // orig size
     // iconAnchor: [iconAX, iconAY] //,
    // popupAnchor: [-3, -76]
@@ -32,59 +32,94 @@
   }
 
   try {
-    // let noiseSites = await getSites('public/data/Environment/soundsites.json')
+    let noiseSitesLayer = new L.LayerGroup()
+    let noiseSites = await getSites('./data/Environment/soundsites.json', 'sound_monitoring_sites')
+
+    noiseSites.forEach(d => {
+      let marker = new noiseMarker(
+        new L.LatLng(d.lng, d.lat), {
+          id: d.id,
+          // icon: trafficCounterMapIcon,
+          opacity: 0.9,
+          title: 'Noise Monitor Site', // shown in rollover tooltip
+          alt: 'noise monitor icon',
+          icon: noiseMapIcon
+        })
+      marker.bindPopup(getPopup(d), noisePopupOptons)
+      marker.on('popupopen', () => {
+        getReading(d)
+      })
+      noiseSitesLayer.addLayer(marker)
+    })
+    noiseMap.addLayer(noiseSitesLayer)
+    // noiseMap.fitBounds(noiseCluster.getBounds())
+    console.log(noiseSites)
   } catch (e) {
     console.log(e)
   }
 })()
 
-// let noiseCluster = L.markerClusterGroup()
-
-function initMapnoisesites (data__) {
-  data__.forEach(data__, function (d, i) {
-    let m = L.marker(new L.LatLng(+d['lon'], +d['lat']), {
-      // icon: noiseMapIcon
-    })
-    m.bindPopup(getnoisesiteContent(d))
-    m.on('click', function (e) {
-      var p = e.target.getPopup()
-      getnoiseReading(p, d)
-    })
-    noiseCluster.addLayer(m)
+async function getSites (url, key) {
+  // need to be able to look up the static data using cosit as key
+  // want an array of objects for dublin counters
+  let siteData = await d3.json(url)
+  siteData = siteData[key].map(site => {
+    let obj = {
+      id: +site.site_id,
+      name: site.name,
+      'lat': +site.lat,
+      'lng': +site.lon
+    }
+    return obj
   })
-  noiseMap.addLayer(noiseCluster)
-  noiseMap.fitBounds(noiseCluster.getBounds())
+  return siteData
 }
 
-function getnoisesiteContent (d_) {
+function getPopup (d_) {
   let str = ''
-  if (d_['name']) {
-    str += '<b>' + d_['name'] + '</b><br>'
+  if (!d_.id) {
+    str += '<div class="leaflet-popup-error">' +
+      '<div class="row ">' +
+      "We can't get this data right now, please try again later" +
+      '</div>' +
+      '</div>'
+    return str
   }
-  if (d_.type) {
-    str += d_.type + '<br>'
+  str += '<div class="leaflet-popup-title">'
+  str += '<span id="noise-site-id-' + d_.id + '">' // id for name div
+  if (d_.name) {
+    str += '<strong>' + d_.name + '</strong>'
   }
+  str += '</span>' //
+  str += '</div>' // close title div
+  str += '<div class="leaflet-popup-subtitle">'
+  if (d_.id) {
+    str += '<span> Noise Monitor #' + d_.id + '</span>'
+  }
+  str += '</div>' // close subtitle
+  str += '<div class="leaflet-popup-chart" id="noise-site-' + d_.id + '">' + '' + '</div>'
+
   return str
 }
 
-function getnoiseReading (p_, d_) {
-  d3.json('../data/Environment/noise_levels/noise_reading_' + d_.site_id + '.json')
+function getReading (d_) {
+  d3.json('../data/Environment/sound_levels/sound_reading_' + d_.id + '.json')
     .then(function (reading) {
       if (reading.aleq) {
         let lastRead = reading.aleq[reading.aleq.length - 1]
         let lastTime = reading.times[reading.times.length - 1]
         let lastDate = reading.dates[reading.dates.length - 1]
-        p_.setContent(getnoisesiteContent(d_, ) +
-          '<h2>' + lastRead + ' dB</h2>' +
-          'Updated at ' +
-          lastTime +
-          ' on ' + lastDate
-        )
-        p_.update()
+      //   p_.setContent(getnoisesiteContent(d_, ) +
+      //     '<h2>' + lastRead + ' dB</h2>' +
+      //     'Updated at ' +
+      //     lastTime +
+      //     ' on ' + lastDate
+      //   )
+      //   p_.update()
       } else {
-        p_.setContent(p_.getContent() +
-          '<br> Data currently unavailable')
-        p_.update()
+        // p_.setContent(p_.getContent() +
+        //   '<br> Data currently unavailable')
+        // p_.update()
       }
     })
 }
@@ -112,8 +147,8 @@ function getnoiseReadings (p_, d_) {
     })
 }
 
-function getnoisesitePopup () {
-  let sid_ = this.options.id
+function getPlot (d) {
+  let sid_ = d.options.id
   d3.json('/api/noise/noisesites/' + sid_ + '/today').then(function (stationData) {
     let noisesiteSpark = dc.lineChart('#noise-spark-' + sid_)
     if (stationData.length == 0) {
