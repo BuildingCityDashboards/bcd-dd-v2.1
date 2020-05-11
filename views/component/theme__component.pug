@@ -1,4 +1,4 @@
-mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, description, chartId)
+mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartId)
   div(id=id class="theme__component" )
     .theme__component__text
       .theme__component__sources
@@ -10,8 +10,10 @@ mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, descri
         .theme__component__info-source
           a(href=infoLink)= infoName
             img( src='../images/external-link.svg')
-      .theme__component__title= title
-      .theme__component__description= description
+      .theme__component__title
+        h1= title
+      p.theme__component__description= description
+      p.theme__component__info= chartInfo
       .theme__component__kpi
       //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
     .theme__component__chart

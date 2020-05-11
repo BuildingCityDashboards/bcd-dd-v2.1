@@ -2,6 +2,7 @@
 
 .theme {
   width                 : 100vw;
+  max-width             : 100%;
   padding-right         : 48px;
   padding-left          : 48px;
   background-color      : #1c2022;
@@ -12,6 +13,7 @@
   grid-gap              : 24px;
   grid-template-columns : repeat(12,1fr);
   grid-template-rows    : auto;
+  /* height: 100vh; */
 }
 
 .theme__header {
@@ -77,7 +79,7 @@
   padding-left   : 24px;
   align-self     : center;
   flex-direction : column;
-  grid-column    : 2/ 5;
+  grid-column    : 1/ 5;
   grid-row       : 2;
 }
 
@@ -105,7 +107,6 @@
   width        : 10px;
   height       : 10px;
   padding-left : 2px;
-  stroke: white;
 }
 
 .theme__component__data-source {
@@ -115,15 +116,21 @@
 .theme__component__info-source {}
 
 .theme__component__title {
-  padding-top    : 24px;
-  padding-bottom : 24px;
+  /* padding-top    : 12px;
+  padding-bottom : 24px; */
   color          : #6fd1f6;
+}
+
+.theme__component__title h1 {
+  padding-bottom : 24px;
   font-size      : 28px;
+  font-weight    : 200;
   line-height    : 24px;
   letter-spacing : 0.18px;
 }
 
-.theme__component__description {
+.theme__component__description,
+.theme__component__info {
   color          : white;
   font-size      : 18px;
   font-weight    : 200;
@@ -138,20 +145,26 @@
 .button .theme-btn {}
 
 .theme__component__chart {
-  height      : 700px;
-  align-self  : center;
-  grid-column : 6/13;
-  grid-row    : 2;
+  display         : flex;
+  height          : 700px;
+  flex-direction  : column;
+  justify-content : center;
+  grid-column     : 6/13;
+  grid-row        : 2;
 }
 
 .theme__component__plot {
-  height : inherit;
-  align-self  : center;
+  width  : 800px;
+  height : 400px;
 }
 
-.theme__component__plot svg{
-  height : inherit;
-  align-self  : center;
+.theme__component__plot svg {
+  /* height : inherit; */
+  /**
+  * align-self
+  *
+  * : center;
+  */
 }
 
 .tooltiptext {
