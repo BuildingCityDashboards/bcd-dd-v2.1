@@ -4,10 +4,12 @@ mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, descri
       .theme__component__sources
         p Source: 
         .theme__component__data-source 
-          a(href=dataLink)= dataName
+          a(href=dataLink target='_blank')= dataName
+            img( src='../images/external-link.svg')
         p Website:
         .theme__component__info-source
           a(href=infoLink)= infoName
+            img( src='../images/external-link.svg')
       .theme__component__title= title
       .theme__component__description= description
       .theme__component__kpi

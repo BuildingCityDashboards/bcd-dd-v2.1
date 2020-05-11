@@ -101,6 +101,13 @@
   color : #8ebfd6;
 }
 
+.theme__component .theme__component__sources img {
+  width        : 10px;
+  height       : 10px;
+  padding-left : 2px;
+  stroke: white;
+}
+
 .theme__component__data-source {
   padding-right : 24px;
 }
@@ -138,9 +145,14 @@
 }
 
 .theme__component__plot {
-  height : 500px;
+  height : inherit;
+  align-self  : center;
 }
 
+.theme__component__plot svg{
+  height : inherit;
+  align-self  : center;
+}
 
 .tooltiptext {
   z-index       : 1;

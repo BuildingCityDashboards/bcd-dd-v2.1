@@ -5,6 +5,8 @@
     'Travel and transport trends for Dublin',
     'For comprehensive and up-to-date travel information including live availablity, arrivals and departures, and Real-Time Passenger Information, see our Getting Around query',
     '')
+    
+  
     +theme__component(
     'dublin-bikes',
     'https://dublinbikes.staging.derilinx.com/',
@@ -14,6 +16,18 @@
     'Dublin Bikes',
     'Just Eat dublinbikes is a self-service bike rental system open to everyone from 14 years of age. Users can travel through the city centre, commute between home and work and get out and about to enjoy Dublin City at their leisure. Visit the Dublin Bikes website for more information.',
     'chart-dublinbikes'
+    )
+    
+    
+    +theme__component(
+    'traffic-counters',
+    'https://data.tii.ie/',
+    'TII Data Portal',
+    'https://www.nratrafficdata.ie/c2/gmapbasic.asp?sgid=ZvyVmXU8jBt9PJE$c7UXt6',
+    'NRA Traffic Data',
+    'Traffic Counters',
+    'ossumus eu summis laboris iis cernantur veniam incurreret, est id cillum quid multos et ut ubi veniam expetendis. Offendit se elit iis enim quamquam arbitror, sed irure aliquip, aliqua pariatur nam efflorescere, illum admodum nam ingeniis',
+    'map-traffic-counters'
     )
 
 
@@ -121,24 +135,7 @@
       div#chart-transport-parking.map-holder
 
 
-  div.row.wrapper.pt-3
-    .position-anchor#traffic-counters
-    .col-lg-4 
-      h3 Traffic Counters <img height='15px' width='15px' src='/images/calendar-w.svg'>
-      p Source: 
-        a(href="" target="_blank") TII 
-          img(src='../images/external-link.svg' height='11px' width='11px')          
-
-      #traffic-counter-text.p Possumus eu summis laboris iis cernantur veniam incurreret, 
-      | est id cillum quid multos et ut ubi veniam expetendis. 
-      | Offendit se elit iis enim quamquam arbitror, sed irure aliquip, 
-      | aliqua pariatur nam efflorescere, illum admodum nam ingeniis, 
-      | mandaremus te dolor, aliquip summis irure officia nulla non veniam occaecat ut 
-      |  elit legam. Ut sed consectetur, si minim dolor ut nescius. 
-
-      //- div#chart-tr-select
-    .col-lg-8
-      div#map-traffic-counters.map-holder
+  
         
 block append scripts
   //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")
