@@ -1,14 +1,8 @@
-//- header
-  div#transport-header.row
-    .col-12
-      h1 Transport
-      p.lead Transport and travel data for Dublin
-      // is available for the Airport <i>(coming soon)</i>, 
-        |Bike Hire, Bus, Luas, Port <i>(coming soon)</i>, Tram, and Private Car Parking.
-      p For comprehensive and up-to-date travel information 
-        | including live availablity, arrivals and departures, and   
-        | Real-Time Passenger Information, see our  
-        |<a href="../queries"> Getting Around</a> query.
+.theme
+    +theme__header('transport-header',
+    'Transport',
+    'Travel and transport trends for Dublin',
+    'For comprehensive and up-to-date travel information including live availablity, arrivals and departures, and Real-Time Passenger Information, see our Getting Around query')
 
 
 article.article
