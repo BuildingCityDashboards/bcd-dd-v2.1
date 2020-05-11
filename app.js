@@ -238,13 +238,13 @@ cron.schedule('*/1 * * * *', function () {
 // })
 
 // Weather (from old Dublin Dashboard)
-cron.schedule('*/5 * * * *', function () {
-  let http = require('https')
-  let file = fs.createWriteStream('./public/data/Environment/met_eireann_forecast.xml')
-  http.get('https://dublindashboard.ie/met_eireann_forecast.xml', function (response) {
-    response.pipe(file)
-  })
-})
+// cron.schedule('*/5 * * * *', function () {
+//   let http = require('https')
+//   let file = fs.createWriteStream('./public/data/Environment/met_eireann_forecast.xml')
+//   http.get('https://dublindashboard.ie/met_eireann_forecast.xml', function (response) {
+//     response.pipe(file)
+//   })
+// })
 
 // Sound level readings
 cron.schedule('*/15 * * * *', function () {

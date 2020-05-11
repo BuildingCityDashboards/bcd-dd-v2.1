@@ -1,9 +1,10 @@
-mixin theme__component__chart(id, dataSource, title, subtitle, chartId)
+mixin theme__component__chart(id, infoSource, dataSource, title, subtitle, chartId)
   div(id=id class="theme__component" )
     .theme__component__left
       .theme__component__title=title
       .theme__component__subtitle=subtitle
-      .theme__component__source=dataSource
+      .theme__component__info-source=infoSource
+      .theme__component__data-source=dataSource
       .theme__component__text
       .theme__component__kpi
       //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
