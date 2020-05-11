@@ -2,7 +2,8 @@
 
 .theme {
   width                 : 100vw;
-  padding               : 24px;
+  padding-right         : 48px;
+  padding-left          : 48px;
   background-color      : #1c2022;
   font-family           : 'Roboto',
                           sans-serif;
@@ -57,94 +58,71 @@
 }
 
 .theme__component {
-  position    : relative;
-  height      : 75vh;
-  overflow-y  : hidden;
-  text-align  : center;
-  align-self  : center;
-  font-family : 'Roboto',
-                sans-serif;
-  /**
-  * min-width
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : 360px;
-  */
-  /**
-  * min-height
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : 540px;
-  */
-  /**
-  * max-height
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  *
-  * : 768px;
-  */
-  /**
-  * background-image
-  *
-  *
-  *
-  * : url('../images/home/hero-background-image-mobile.png');
-  */
-  /**
-  * background-repeat
-  *
-  * : no-repeat;
-  */
-  /* background-position : top; */
-  /**
-  * background-size
-  *
-  *
-  *
-  * : 100vw auto;
-  */
-  /**
-  * background-size
-  *
-  *
-  *
-  * : cover;
-  */
+  display               : grid;
+  position              : relative;
+  width                 : 100vw;
+  height                : 100vh;
+  text-align            : left;
+  align-self            : center;
+  font-family           : 'Roboto',
+                          sans-serif;
+  grid-gap              : 24px;
+  grid-template-columns : repeat(12, 1fr);
+  grid-template-rows    : auto 700px auto;
+  /* grid-auto-rows: auto; */
 }
 
-.theme__component__left {}
+.theme__component__text {
+  display        : flex;
+  padding-left   : 24px;
+  align-self     : center;
+  flex-direction : column;
+  grid-column    : 2/ 5;
+  grid-row       : 2;
+}
 
-.theme__component__right {}
+.theme__component__sources {
+  display        : flex;
+  font-size      : 10px;
+  font-weight    : 500;
+  flex-direction : row;
+  line-height    : 1.6;
+  letter-spacing : 1.5px;
+}
 
-.theme__component__title {}
+.theme__component__sources p {
+  font-size      : 10px;
+  font-weight    : 300;
+  line-height    : 1.6;
+  letter-spacing : 1.5px;
+}
 
-.theme__component__subtitle {}
+.theme__component__sources a {
+  color : #8ebfd6;
+}
+
+.theme__component__data-source {
+  padding-right : 24px;
+}
 
 .theme__component__info-source {}
 
-.theme__component__data-source {}
+.theme__component__title {
+  padding-top    : 24px;
+  padding-bottom : 24px;
+  color          : #6fd1f6;
+  font-size      : 28px;
+  line-height    : 24px;
+  letter-spacing : 0.18px;
+}
 
-.theme__component__text {}
+.theme__component__description {
+  color          : white;
+  font-size      : 18px;
+  font-weight    : 200;
+  line-height    : 24px;
+  letter-spacing : 0.5px;
+}
 
 .theme__component__kpi {}
 
@@ -152,151 +130,17 @@
 
 .button .theme-btn {}
 
+.theme__component__chart {
+  height      : 700px;
+  align-self  : center;
+  grid-column : 6/13;
+  grid-row    : 2;
+}
+
 .theme__component__plot {
-  height : 400px;
+  height : 500px;
 }
 
-#hero-grid {
-  display               : grid;
-  width                 : 100vw;
-  min-width             : inherit;
-  height                : 100vh;
-  min-height            : inherit;
-  max-height            : inherit;
-  margin                : 0;
-  padding               : 4.4vw;
-  justify-content       : center;
-  grid-gap              : 16px;
-  grid-template-columns : repeat(4,1fr);
-  grid-template-rows    : repeat(8,1fr);
-}
-
-#hero-title {
-  display         : flex;
-  display         : -ms-flexbox;
-  min-width       : 168px;
-  min-height      : 43px;
-  padding-left    : 8px;
-  text-align      : left;
-  align-self      : top;
-  font-size       : 28px;
-  font-weight     : bold;
-  flex-direction  : column;
-  justify-content : flex-start;
-  grid-column     : 1 / 3;
-  grid-row        : 2 / 3;
-  line-height     : 0.71;
-  letter-spacing  : -0.5px;
-}
-
-#hero-title > div {
-  transform : translate(0, -50%);
-}
-
-#hero-title__text--top {
-  color : rgba(111, 209, 246, 0.5);
-}
-
-#hero-title__text--bottom {
-  color : rgba(35, 145, 216, 0.39);
-}
-
-#hero-time-weather {
-  display         : flex;
-  flex-direction  : column;
-  justify-content : flex-end;
-  grid-column     : 2 /5;
-  grid-row        : 2 / 3;
-  transform       : translate(4.4vw, 0);
-}
-
-#hero-time {
-  display         : flex;
-  background      : transparent;
-  justify-content : flex-end;
-}
-
-#hero-time__box {
-  display         : flex;
-  display         : -ms-flexbox;
-  width           : 139px;
-  height          : 24px;
-  background      : rgba(28, 32, 34, 0.38);
-  align-items     : center;
-  flex-wrap       : nowrap;
-  justify-content : space-around;
-  /* background-color : rgba(28, 32, 34, 0.38); */
-}
-
-#hero-time__clock {
-  width          : 49px;
-  height         : 12px;
-  color          : #6fd1f6;
-  font-size      : 12px;
-  font-weight    : 500;
-  line-height    : 1;
-  letter-spacing : 0.15px;
-}
-
-#hero-time__date {
-  width          : 66px;
-  height         : 12px;
-  color          : rgba(255, 255, 255, 0.6);
-  font-size      : 12px;
-  font-weight    : 300;
-  line-height    : 1;
-  letter-spacing : 0.15px;
-}
-
-#hero-weather {
-  display         : flex;
-  padding-top     : 4px;
-  justify-content : flex-end;
-}
-
-#hero-weather__box {
-  display         : flex;
-  position        : relative;
-  width           : 150px;
-  height          : 24px;
-  padding-top     : 0px;
-  padding-bottom  : 0px;
-  background      : rgba(28, 32, 34, 0.38);
-  align-items     : center;
-  font-weight     : 500;
-  flex-direction  : row;
-  flex-wrap       : nowrap;
-  justify-content : space-around;
-  line-height     : 1.2;
-  letter-spacing  : 0.15px;
-  word-wrap       : break-word;
-}
-
-#hero-weather__left-top {
-  height         : 12px;
-  color          : #6fd1f6;
-  font-size      : 12px;
-  line-height    : 1;
-  letter-spacing : 0.15px;
-}
-
-#hero-weather__left-bottom {
-  display : none;
-}
-
-#hero-weather__symbol {
-  display     : flex;
-  width       : 16px;
-  height      : 16px;
-  align-items : center;
-  /* background-color : rgba(255, 255, 255, 0.3); */
-}
-
-#hero-weather__symbol img {
-  width  : inherit;
-  height : inherit;
-  /* background-color : rgba(255, 255, 255, 0.3); */
-}
 
 .tooltiptext {
   z-index       : 1;
