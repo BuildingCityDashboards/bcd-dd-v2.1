@@ -8,7 +8,7 @@ mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, descri
             img( src='../images/external-link.svg')
         p Website:
         .theme__component__info-source
-          a(href=infoLink)= infoName
+          a(href=infoLink target='_blank')= infoName
             img( src='../images/external-link.svg')
       .theme__component__title
         h1= title
