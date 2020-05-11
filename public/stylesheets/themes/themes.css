@@ -18,43 +18,42 @@
   display               : grid;
   height                : 75vh;
   color                 : #6fd1f6;
+  grid-gap              : 24px;
   grid-template-columns : repeat(12,1fr);
   grid-template-rows    : 1fr auto 1fr;
 }
 
 .theme__header__content {
+  min-height     : 372px;
   grid-column    : 2/7;
   grid-row       : 2;
   letter-spacing : -0.5px;
-  min-height: 372px;
 }
 
 .theme__header__title {
-  font-size   : 60px;
-  font-weight : 200;
-  line-height : 1.2;
-  padding-bottom: 60px;
+  padding-bottom : 60px;
+  font-size      : 60px;
+  font-weight    : 200;
+  line-height    : 1.2;
 }
 
-
 .theme__header__description {
-
-font-size: 34px;
-font-weight: 200;
-font-style: normal;
-line-height: 1.06;
-letter-spacing: -0.5px;
-color: #6fd1f6;
-padding-bottom: 34px;
+  padding-bottom : 34px;
+  color          : #6fd1f6;
+  font-size      : 34px;
+  font-style     : normal;
+  font-weight    : 200;
+  line-height    : 1.06;
+  letter-spacing : -0.5px;
 }
 
 .theme__header__info {
-  font-size: 34px;
-  font-weight: 200;
-  font-style: normal;
-  line-height: 1.06;
-  letter-spacing: -0.5px;
-  color: #6fd1f6;
+  color          : #6fd1f6;
+  font-size      : 34px;
+  font-style     : normal;
+  font-weight    : 200;
+  line-height    : 1.06;
+  letter-spacing : -0.5px;
 }
 
 .theme__component {
