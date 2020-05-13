@@ -228,14 +228,14 @@ cron.schedule('*/1 * * * *', function () {
 })
 
 // Water Levels
-cron.schedule('*/15 * * * *', function () {
-  var http = require('http')
-  var fs = require('fs')
-  var file = fs.createWriteStream('./public/data/Environment/waterlevel.json')
-  http.get('http://waterlevel.ie/geojson/latest/', function (response) {
-    response.pipe(file)
-  })
-})
+// cron.schedule('*/15 * * * *', function () {
+//   var http = require('http')
+//   var fs = require('fs')
+//   var file = fs.createWriteStream('./public/data/Environment/waterlevel.json')
+//   http.get('http://waterlevel.ie/geojson/latest/', function (response) {
+//     response.pipe(file)
+//   })
+// })
 
 // Weather (from old Dublin Dashboard)
 cron.schedule('*/5 * * * *', function () {
@@ -292,7 +292,6 @@ const readFileAsync = () => {
           let fname = station_ref.concat('_', sensor_ref)
 
    // console.log(i + '---'+ fname);
-          var fs = require('fs')
           var file = fs.createWriteStream('./public/data/Environment/water_levels/' + fname + '.csv')
           var http = require('http')
    // http://waterlevel.ie/data/month/25017_0001.csv
@@ -307,6 +306,6 @@ const readFileAsync = () => {
     }
   })
 }
-readFileAsync()
+// readFileAsync()
 
 module.exports = app

@@ -26,12 +26,26 @@ block content
               include portal/cso.pug
             //+accordion-item("Dublin City Council (DCC)",  "")
               include portal/dcc.pug
+            +accordion-item("Dept. of Housing, Planning & Local Government",  "")
+              include portal/hplc.pug
             +accordion-item("Dublin Bikes API",  "")
               include portal/dublin-bikes.pug
             +accordion-item("Environmental Protection Agency (EPA)",  "")
               include portal/epa.pug
-            +accordion-item("Housing, Planning & Local Government, Dept. of",  "")
-              include portal/hplc.pug
+            +accordion-item("Irish Rail Realtime API",  "")
+              include portal/irish-rail-realtime-api.pug
+            +accordion-item("Luas Forecasting API",  "")
+               include portal/luas-forecasting-api.pug
+            +accordion-item("Met Éireann Weather Forecast",  "")
+               include portal/met-eireann-weather-forecast.pug
+               
+            +accordion-item("Residential Property Price Register",  "")
+               include portal/residential-property-price-register.pug
+            +accordion-item("Transport for Ireland",  "")
+               include portal/transport-for-ireland.pug
+            +accordion-item("Transport Infrastructure Ireland",  "")
+              include portal/transport-infrastructure-ireland.pug
+            
     div#other-sources.portal-section.row
       div.col-lg-12
         h2 Other Sources
@@ -40,18 +54,24 @@ block content
           +accordion("one")
             +accordion-item("All-Island Research Observatory (AIRO) Data Store",  "")
               include portal/airo-store.pug 
+            +accordion-item("BikeMaps",  "")
+              include portal/BikeMaps.pug  
             +accordion-item("Dublinked",  "")
               include portal/dublinked.pug
             +accordion-item("Dublin Multi Story Car Parking",  "")
                include portal/dublin-multi-story-carparking.pug  
             +accordion-item("EPA Geoportal",  "")
               include portal/epa-geoportal.pug
+            +accordion-item("Eurofound",  "")
+              include portal/Eurofound.pug
             +accordion-item("Eurostat Urban Audit",  "")
               include portal/eurostat.pug
             +accordion-item("Fingal Open Data",  "")
               include portal/fingal-open-data.pug
             +accordion-item("GeoHive",  "")
               include portal/geohive.pug 
+            +accordion-item("Ireland after NAMA",  "")
+              include portal/IrelandafNA.pug
             +accordion-item("Ireland'S Open Data Portal",  "")
               include portal/datagov.pug
             +accordion-item("Irish OpenStreetMap Community",  "")
@@ -63,14 +83,17 @@ block content
             +accordion-item("OSI Open Data",  "")
               include portal/osiod.pug
            
+           
     div#services.portal-section.row
       div.col-lg-12
         h2 Services
         p.lead Data visualisations and tools relevant to Dublin
         div.col-sm-12
           +accordion("one")
-            +accordion-item("All-Island Research Observatory (AIRO)  Visualisations",  "")
+            +accordion-item("All-Island Research Observatory (AIRO) Visualisations",  "")
               include portal/airo-vis.pug
+            +accordion-item("Civictech.ie Waste Disposal Tool",  "")
+              include portal/waste-disposal-civictech.pug
             +accordion-item("Digital Ocean",  "")
               include portal/digital-ocean.pug
             +accordion-item("Dublin Bay Ship Wrecks",  "")
@@ -79,40 +102,35 @@ block content
               include portal/dublin-growth.pug
             +accordion-item("Dublin's Historic Environment",  "")
               include portal/historic-environment.pug
+            +accordion-item("Fingal Planning Applications",  "")
+              include portal/fingal-planning.pug
             +accordion-item("Fix My Street",  "")
               include portal/fix-my-street.pug
             +accordion-item("Fix Your Street",  "")
               include portal/fix-your-street.pug
-            +accordion-item("Fingal Planning Applications",  "")
-              include portal/fingal-planning.pug
+            
             //- +accordion-item("Flight Radar",  "")
               include portal/flight-radar.pug
             +accordion-item("Heritage Maps",  "")
               include portal/heritage-maps.pug
             +accordion-item("Hit The Road",  "")
               include portal/hit-the-road.pug
-            +accordion-item("Irish Rail Realtime API",  "")
-              include portal/irish-rail-realtime-api.pug
             +accordion-item("Inside Airbnb",  "")
               include portal/inside-airbnb.pug
-            +accordion-item("Luas Forecasting API",  "")
-               include portal/luas-forecasting-api.pug
-            +accordion-item("Mapnificent",  "")
-              include portal/mapnificent.pug
             +accordion-item("Marine Traffic",  "")
               include portal/marine-traffic.pug
+            +accordion-item("Mapnificent",  "")
+              include portal/mapnificent.pug
             +accordion-item("MyHome",  "")
               include portal/myhome.pug
             +accordion-item("MyPlan",  "")
               include portal/myplan.pug
             +accordion-item("Residential Land Survey 2014",  "")
               include portal/land-survey.pug
-            +accordion-item("Residential Property Price Register",  "")
-               include portal/residential-property-price-register.pug
-            +accordion-item("Transport Infrastructure Ireland",  "")
-              include portal/transport-infrastructure-ireland.pug
-            +accordion-item("Transport for Ireland",  "")
-               include portal/transport-for-ireland.pug
+            +accordion-item("Civictech.ie Waste Disposal Tool",  "")
+              include portal/waste-disposal-civictech.pug
+            
+            
             //- - +accordion-item("SEAI Heat Demand Map",  "")
             //-   include portal/seai-heat.pug
             //- +accordion-item("Dublin Sentinel Hub",  "")

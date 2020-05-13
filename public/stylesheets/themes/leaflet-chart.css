@@ -45,8 +45,59 @@
   	text-align: center;
   }
 
-.bikesStationPopup .leaflet-popup-content-wrapper {
+
+/* .leaflet-popup-chart .leaflet-popup-content{
+  width: 250px !important;
+  height: 175px !important;
+  padding: 0;
+  margin: 0;
+} */
+
+/* .leaflet-popup-chart svg{
+  width: 100%;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+  /* transform: translate(0,100px) */
+/* } */
+
+.leaflet-popup-error{
+    margin: 40px;
+}
+
+.leaflet-popup-content-wrapper {
     background: #001f35;
+    width: 220px;
+    height: 180px;
+}
+
+.leaflet-popup-title {
+  width: 100%;
+  height: 28px;
+  color: white;
+}
+
+.leaflet-popup-subtitle {
+  width: 100%;
+  height: 28px;
+  color: white;
+}
+
+/* Need to set height of svg plot in px here*/
+.leaflet-popup-chart {
+  width: 100%;
+  height: 100px;
+}
+
+.leaflet-popup-chart svg{
+    width: 100%;
+    height: inherit;
+}
+
+.bikesStationPopup {
+    background: #001f35;
+    width: 250px !important;
+    height: 175px !important;
 }
 
 .bikesStationPopup .leaflet-popup-content {

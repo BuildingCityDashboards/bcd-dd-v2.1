@@ -1,0 +1,49 @@
+extends layout
+
+block append head
+  link(rel="stylesheet", href="/stylesheets/tabs.css")
+
+block navigation
+
+block content
+  section.hero
+    .bg-img(style='background-image:url("images/dublin-3.jpg")')
+      .content-wrapper.content-wrapper--grad-overlay
+        .container
+          .row
+            .col-sm-12.mb-2
+              h2.text-center.hero__title DUBLIN DASHBOARD
+          include component/carousel-charts.pug
+          //- include component/searchbar.pug
+          include component/icon-nav.pug
+          //- include component/toggle-button.pug
+
+  section.map
+    .content-wrapper.content-wrapper--darkblue
+      .container
+      .position-anchor#lp-map
+      .position-anchor#about-dublin
+        include component/lp-map.pug
+        
+  section.map
+    .content-wrapper.content-wrapper--very-dark-blue
+      .container
+      .position-anchor#about-dublin-dashboard
+        include component/about-dd.pug
+
+  //- include component/scroll-to-top
+
+block append scripts
+  script(src="lib/d3v5/d3.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
+  script(src="https://unpkg.com/set-interval-async" type="text/javascript")
+  script(src='javascripts/dublinco.js')
+  script(src='javascripts/map.js')
+  script(src='javascripts/charts/card_line_chart.js')
+  script(src='javascripts/charts/card_bar_chart.js')
+  script(src='javascripts/home/data_glance.js')
+  script(src='javascripts/home/card_weather.js')
+  script(src='javascripts/home/card_bikes.js')
+  script(src='javascripts/home/card_traveltimes.js')
+  script(src='javascripts/home/card_time.js')
+  //- script(src='javascripts/search.js')

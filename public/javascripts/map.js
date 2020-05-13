@@ -1,7 +1,6 @@
 const HOVER_COLOR = '#16c1f3',
   element = '#map__container',
   center = [-6.398681, 53.410675],
-  dublin = d3.select('#dublin-text'),
   dData = dublincoco.features[0].properties,
   percentage = d3.format('.2%'),
   thousands = d3.format(',.3s'),
@@ -13,16 +12,6 @@ const HOVER_COLOR = '#16c1f3',
   euro = maplocale.format('$,.5r'),
   diff = (getPerChange(dData.POPULATION, dData.PREVPOPULATION)),
   diffIncome = (getPerChange(dData.INCOME, dData.PREVINCOME))
-dublin.selectAll('#region__population').text(thousands(dData.POPULATION) + '')
-dublin.select('#region__area').text(dData.AREA + '')
-dublin.select('#region__age').text(dData.AGE + '')
-dublin.selectAll('#region__income').text(euro(dData.INCOME) + '')
-dublin.select('#region__prePopulation').text(thousands(dData.PREVPOPULATION) + '')
-dublin.select('#region__populationIndicator').text(indicatorText(diff, '#region__populationIndicator', 'increased', false))
-dublin.select('#region__populationChange').text(percentage(diff) + indicator_f(diff, '#region__populationChange', false))
-dublin.select('#region__incomeIndicator').text(indicatorText(diff, '#region__incomeIndicator', 'grew', false))
-dublin.select('#region__income__prev').text(euro(dData.PREVINCOME) + '')
-dublin.select('#region__income__change').text(percentage(diffIncome) + indicator_f(diffIncome, '#region__income__change', false))
 
 // Event Handlers
 function mouseOverHandler (d, i) {
@@ -160,59 +149,8 @@ let clickEvent = new MouseEvent('click', {
 })
 
 const ids = ['local1', 'local7', 'local11', 'local16']
+
 let laElement = document.getElementById(ids[Math.floor(Math.random() * 4)])
 laElement.dispatchEvent(clickEvent)
 // console.log("e type" + laElement);
 
-function getPerChange (d1, d0) {
-  let value = (d1 - d0) / d0
-  if (value === Infinity) {
-    return d1
-  } else if (isNaN(value)) {
-    return 0
-  }
-  return value
-}
-
-function indicator_f (value, selector, negative) {
-  let indicatorColour,
-    indicatorSymbol = value > 0 ? ' ▲ increase' : value < 0 ? ' ▼ decrease' : ''
-
-  if (negative === true) {
-    indicatorColour = value < 0 ? '#20c997' : value > 0 ? '#da1e4d' : '#f8f8f8'
-  } else {
-    indicatorColour = value > 0 ? '#20c997' : value < 0 ? '#da1e4d' : '#f8f8f8'
-  }
-
-  d3.select(selector).style('color', indicatorColour)
-  return indicatorSymbol
-}
-
-function indicatorText (value, selector, text, negative) {
-  let indicatorColour,
-    indicatorText
-  // indicatorSymbol = value > 0 ? " ▲ " : value < 0 ? " ▼ " : "";
-
-  if (negative === true) {
-    indicatorColour = value < 0 ? '#20c997' : value > 0 ? '#da1e4d' : '#f8f8f8'
-  } else {
-    indicatorColour = value > 0 ? '#20c997' : value < 0 ? '#da1e4d' : '#f8f8f8'
-  }
-
-  switch (text) {
-    case 'increased':
-      indicatorText = value < 0 ? 'decreased ' : value > 0 ? 'increased ' : "hasn't changed "
-      break
-
-    case 'grew':
-      indicatorText = value < 0 ? 'shrunk ' : value > 0 ? 'grew ' : "hasn't changed "
-      break
-
-    default:
-      indicatorText = 'undefined'
-      break
-  }
-
-  // d3.select(selector).style("color", indicatorColour);
-  return indicatorText
-}

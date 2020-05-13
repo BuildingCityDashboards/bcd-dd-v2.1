@@ -637,11 +637,423 @@
  "content": "Dublin is the capital and largest city in Ireland. It is located in the province of Leinster and covers a total area of 921 km². Dublin has a total population of 1.35M people, with a median age of 36.7 years. The median household income is €42821.Between 2011 and 2016, the population of Dublin increased from 1.27M to 1.35M, a 5.68% ▲ increase. The median household income for the region grew from €41035 to €42821, a 4.35% ▲ increase. There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. Select a council to see specific information.",
  "section-name":"Home",
  "link": "/#about-dublin"
-},{
-	"id": 999,
-	"type": "themes-chart-component",
+},
+{
+	"id": 84,
+	"type": "portal-component",
+	"title": "AIRO Data Store",
+	"subtitle": "",
+	"content": "The AIRO Data Store has been created by the team at AIRO and NIRSA as a means of making the working data more accessible to the public. Instead of just dumping out masses of raw data, they are cleaned up, adding additional value and hopefully making it useful for use. The main trick is to ensure that it has a spatial component for use in GIS.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 85,
+	"type": "portal-component",
+	"title": "Central Statistics Office (CSO)",
+	"subtitle": "",
+	"content": "The Central Statistics Office (CSO) is Ireland's national statistical office whose purpose is to impartially collect, analyse and make available statistics about Ireland’s people, society and economy.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+	"id": 86,
+	"type": "portal-component",
+	"title": "Dublin Bikes API",
+	"subtitle": "",
+	"content": "Dublin Bikes API provides real time and static data. Static data provides stable information like station position, number of bike stands, payment terminal availability, etc.' Dynamic data provides station state, number of available bikes, number of free bike stands, etc.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+    "id": 87,
+	"type": "portal-component",
+	"title": "Environmental Protection Agency (EPA)",
+	"subtitle": "",
+	"content": "The Environmental Protection Agency (EPA) is at the front line of environmental protection and policing. EPA ensures that Ireland's environment is protected, and  monitors changes in environmental trends to detect early warning signs of neglect or deterioration.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+    "id": 88,
+	"type": "portal-component",
+	"title": "Dept. of Housing, Planning & Local Government",
+	"subtitle": "",
+	"content": "A Government department that is responsible for housing, planning and local government.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+    "id": 89,
+	"type": "portal-component",
+	"title": "Irish Rail Realtime API",
+	"subtitle": "",
+	"content": "Irish Rail is Irelandâ€™s national railway operator, providing passenger and freight rail services. The Irish Rail Realtime API provides realtime station and train data including estimation of train times based on current train location. This is a REST API returning XML formatted data.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+    "id": 90,
+	"type": "portal-component",
+	"title": "Luas Forecasting API",
+	"subtitle": "",
+	"content": "The LUAS Forecasts system provides a real-time feed of expected LUAS arrivals for every stop on the Red and Green Lines. The LUAS uses an Automatic Vehicle Location System (AVLS) to locate trams. The Forecasting system uses these updates to predict arrival times at platforms on the lines.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+    "id": 91,
+	"type": "portal-component",
+	"title": "Residential Property Price Register",
+	"subtitle": "",
+	"content": "The Residential Property Price Register is produced by the Property Services Regulatory Authority (PSRA) pursuant to section 86 of the Property Services (Regulation) Act 2011. It includes Date of Sale, Price and Address of all residential properties purchased in Ireland since the 1st January 2010, as declared to the Revenue Commissioners for stamp duty purposes.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+	"id": 92,
+	"type": "portal-component",
+	"title": "Transport Infrastructure Ireland",
+	"subtitle": "",
+	"content": "TII was established following the statutory merger of the National Roads Authority and the Railway Procurement Agency under the Roads Act 2015. The data sets on TII are complied with the DATEX II standard for real-time travel information exchange,and updated at 5 minute intervals.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+{
+	"id": 93,
+	"type": "portal-component",
+	"title": "Transport for Ireland",
+	"subtitle": "",
+	"content": "Transport for Ireland is the “single public transport brand” established by the National Transport Authority to promote and integrate public transport services in Ireland. Transportforireland.ie unites service information across all modes to help make public transport even easier to navigate.The information is summarised to keep the site as user-friendly as possible.",
+	"section-name":"Portal",
+	"link": "/portal#our-sources"
+},
+
+{
+	"id": 94,
+	"type": "portal-component",
+	"title": "Dublinked",
+	"subtitle": "",
+	"content": "It is an initiative of the four Dublin Local Authorities to engage with smart technology providers, researchers and citizens to solve challenges and improve city life.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 95,
+	"type": "portal-component",
+	"title": "Dublin Multi Story Car Parking",
+	"subtitle": "",
+	"content": "Multi Storey Car Parking Space Availability Dublin City Councils 'Live Parking Spaces' service gathers information from car parks around Dublin to show you what parking spaces are available. Updated every 5 mins.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 96,
+	"type": "portal-component",
+	"title": "EPA Geoportal",
+	"subtitle": "",
+	"content": "This geoportal is designed to make data about the environment easier to find, browse and understand. The EPA has a large GIS database all of which is freely available under Creative Commons Attribution license 4.0 unless it states otherwise.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 97,
+	"type": "portal-component",
+	"title": "Eurostat Urban Audit",
+	"subtitle": "",
+	"content": "Eurostat is the statistical office of the European Union situated in Luxembourg. Its mission is to provide high quality statistics for Europe. While fulfilling its mission Eurostat promotes the following values: respect and trust, fostering excellence, promoting innovation, service orientation, professional independence. Looking for ways to continually improve its products and services, Eurostat gained the European Foundation for Quality Management 'Committed to Excellence' recognition in November 2016.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 98,
+	"type": "portal-component",
+	"title": "Fingal Open Data",
+	"subtitle": "",
+	"content": "Fingal Open Data has been created by Fingal County Council  to enable citizens to access data relating to Fingal. It provides access to data from Fingal County Council and other public sector organisations that publish Fingal related data.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 99,
+	"type": "portal-component",
+	"title": "GeoHive",
+	"subtitle": "",
+	"content": "GeoHive is an initiative by Ordnance Survey Ireland to provide easy access to publically available spatial data. GeoHive gives government departments and public sector bodies access to Ordnance Survey Ireland’s (OSi) geospatial data.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 100,
+	"type": "portal-component",
+	"title": "Ireland'S Open Data Portal",
+	"subtitle": "",
+	"content": "Ireland's Open Data Portal is intended to provide easy access to datasets that are free to use, reuse, and redistribute. The portal is operated by the Government Reform Unit of the Department of Public Expenditure and Reform.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 101,
+	"type": "portal-component",
+	"title": "Irish OpenStreetMap Community",
+	"subtitle": "",
+	"content": "Almost 3,500 people from all walks of life have contributed nearly 12 million points of geodata to the current map of Ireland since the inception of OpenStreetMap in 2004.OpenStreetMap Ireland as an entity, provides an advocate voice for the OpenStreetMap project on the island of Ireland, in relation to interacting with other Open initiatives.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 102,
+	"type": "portal-component",
+	"title": "Irish Townlands",
+	"subtitle": "",
+	"content": "The Irish OpenStreetMap community are currently actively tracing all townland boundaries from GSGS 3906 map sheets into the OpenStreetMap database. If you wish to take part in this project, please see this guide for full instructions, including step-by-step videos, on how to take part.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 103,
+	"type": "portal-component",
+	"title": "Northern Ireland's Open Data Portal",
+	"subtitle": "",
+	"content": "Northern Ireland's Open Data Portal, developed by the Open Data Team as part of the Digital NI initiative. The portal has been created to facilitate easy access to Northern Ireland public sector data for both reuse and redistribution. The data that is available will not be of a sensitive or personal nature, but is the raw data that drives the public sector and its services.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 104,
+	"type": "portal-component",
+	"title": "OSI Open Data",
+	"subtitle": "",
+	"content": "Ordnance Survey Ireland are the official national mapping agency for the Republic of Ireland. The release of open data by the OSI supports the growth of the Data.gov.ie open data platform and initiative. Ordnance Survey Ireland products and services are widely used to support the social, economic, legislative and administrative functions of the state in Ireland.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 105,
+	"type": "portal-component",
+	"title": "Eurofound",
+	"subtitle": "",
+	"content": "Eurofound is the EU Agency for the improvement of living and working conditions. Follow the links below to learn more about who we are, what we do, procurement opportunities and vacancies.",
+	"section-name":"Portal",
+	"link": "/portal#other-sources"
+},
+{
+	"id": 106,
+	"type": "portal-component",
+	"title": "All-Island Research Observatory (AIRO)  Visualisations",
+	"subtitle": "",
+	"content": "The All-Island Research Observatory (AIRO) undertakes academic and applied mapping research and produces spatial datasets and specialist tools to aid in their analysis. | Based at Maynooth University, AIRO is the leading spatial analysis and planning unit | within the National Institute for Regional and Spatial Analysis (NIRSA).",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 107,
+	"type": "portal-component",
+	"title": "Digital Ocean",
+	"subtitle": "",
+	"content": "This website is a portal to data collected in and around Ireland’s maritime zone. It collects together data and information provided by a number of organisations into one place. The development of this website has been funded by the Marine Institute.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 108,
+	"type": "portal-component",
+	"title": "Dublin Bay Ship Wrecks",
+	"subtitle": "",
+	"content": "This viewer displays data regarding the known wreck locations contained within the Wreck Inventory of Ireland Database (WIID).",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 109,
+	"type": "portal-component",
+	"title": "Dublin's Growth (Google Earth Timelapse)",
+	"subtitle": "",
+	"content": "Timelapse is a global, zoomable video that lets you see how the Earth has changed over the past 35 years.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 110,
+	"type": "portal-component",
+	"title": "Dublin's Historic Environment",
+	"subtitle": "",
+	"content": "It is a map search facility that provides access to the records of the National Monuments Service 'Sites and Monuments Record' (SMR) and the National Inventory of Architectural Heritage.The SMR records are represented on the map canvas as red dots. It is important to note that only records that are precisely located are visible on the map. The red dot equates with the known approximate centre of the record and is not indicative of its geographic extent. The records of the National Inventory of Architectural Heritage (NIAH) are represented on the map canvas as blue dots.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 111,
+	"type": "portal-component",
+	"title": "Fix My Street",
+	"subtitle": "",
+	"content": "FixMyStreet is a site to help people report, view, or discuss local problems they’ve found to their local council by simply locating them on a map.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 112,
+	"type": "portal-component",
+	"title": "Fix Your Street",
+	"subtitle": "",
+	"content": "fixyourstreet.ie is a service launched on 2nd of August, 2011 whereby you can report issues to your local Council. fixyourstreet.ie consists of a accessible web site with associated mobile technologies on which non emergencyissues such as graffiti, road defects, issues with street lighting, water leaks/ drainage issues, and litter or illegal dumping can be reported.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 113,
+	"type": "portal-component",
+	"title": "Fingal Planning Applications",
+	"subtitle": "",
+	"content": "The Fingal County Council Development Plan 2017 - 2023 was made by the elected Members at a Special Council Meeting on 16th February 2017.The Fingal Development Plan will have effect from 16th March 2017 and will be used in the determination of all planning applications from this date.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 114,
+	"type": "portal-component",
+	"title": "Heritage Maps",
+	"subtitle": "",
+	"content": "The Heritage Maps viewer site is owned by the Heritage Council (HC) and operated on  their behalf by Compass Informatics Ltd. The HC Heritage Maps viewer has been provided to enable visitors visualise heritage data and is intended as a tool for the personal investigation of heritage issues.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 115,
+	"type": "portal-component",
+	"title": "Hit The Road",
+	"subtitle": "",
+	"content": "Hit The Road is a public transport journey-planning service, which you can use to find directions in and around Dublin. Hit the Road was launched in May 2010, and currently supports Dublin Bus, Luas, DART and commuter rail services.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 116,
+	"type": "portal-component",
+	"title": "Inside Airbnb",
+	"subtitle": "",
+	"content": "Inside Airbnb is an independent,non-commercial set of tools and data that allows you to explore how Airbnb is really being used in cities around the world. By analyzing publicly available information about a city's Airbnb's listings, Inside Airbnb provides filters and key metrics so you can see how Airbnb is being used to compete with the residential housing market.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 117,
+	"type": "portal-component",
+	"title": "Mapnificent",
+	"subtitle": "",
+	"content": "Mapnificent shows you the area you can reach with public transport from any point in a given time. It is available for major cities in the US and world wide",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 118,
+	"type": "portal-component",
+	"title": "Marine Traffic",
+	"subtitle": "",
+	"content": "MarineTraffic is an open, community-based project, which provides real-time information on the movements of ships and the current location of ships in harbours |and ports. A database of information on the vessels includes for example details of the location where they were built plus dimensions of the vessels, gross tonnage and International Maritime Organisation (IMO) number.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 119,
+	"type": "portal-component",
+	"title": "MyHome",
+	"subtitle": "",
+	"content": "MyHome.ie is Ireland's premium online property platform covering multiple property searches allowing users to search for new and second hand homes, rentals, shared accommodation, Irish holiday homes, commercial property, overseas property for sale and overseas holiday rentals.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 120,
+	"type": "portal-component",
+	"title": "MyPlan",
+	"subtitle": "",
+	"content": "A web map portal providing spatial information relevant to the planning process in Ireland. This site is an initiative of the Department of Housing, Planning and Local |Government in conjunction with Irish Local Authorities.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 121,
+	"type": "portal-component",
+	"title": "Residential Land Survey 2014",
+	"subtitle": "",
+	"content": "A secure online national map viewer provides access to lands zoned for residential or primarey residential purposes in statutory local authority development plans and local area plans across Ireland and the location and quantity of lands that may be regarded as being undeveloped and available for residential development as of the 31st March 2014.",
+	"section-name":"Portal",
+	"link": "/portal#services"
+},
+{
+	"id": 122,
+	"type": "portal-component",
+	"title": "Dublin Airport Official",
+	"subtitle": "",
+	"content": "The Dublin Airport App helps you on your journey",
+	"section-name":"Portal",
+	"link": "/portal#mobile-apps"
+},
+{
+	"id": 123,
+	"type": "portal-component",
+	"title": "Dublin Bus",
+	"subtitle": "",
+	"content": "Dublin Bus App on iPhone and Android helps to access Real Time Information which will estimate the times that your bus is due at your stop. Both apps are free to download.The Apps also include a Fare Calculator, Bus Timetables and a Route Planner.",
+	"section-name":"Portal",
+	"link": "/portal#mobile-apps"
+},
+{
+	"id": 124,
+	"type": "portal-component",
+	"title": "Irish Rail",
+	"subtitle": "",
+	"content": "Irish Rail on mobile devices is a Free to download and will provide customers with Real time train information (real-time) including delays and remaining time to departure as well as Journey planner ",
+	"section-name":"Portal",
+	"link": "/portal#mobile-apps"
+},
+{
+	"id": 125,
+	"type": "portal-component",
+	"title": "Luas",
+	"subtitle": "",
+	"content": "This App gives you all the information you need to make use of Luas direct from Luas.",
+	"section-name":"Portal",
+	"link": "/portal#mobile-apps"
+},
+{
+	"id": 126,
+	"type": "portal-component",
 	"title": "",
 	"subtitle": "",
 	"content": "",
-	"section-name":"", "link": "/themes"
-}]
+	"section-name":"Portal",
+	"link": "/portal#mobile-apps"
+},
+{
+	"id": 127,
+	"type": "portal-component",
+	"title": "Health",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#health"
+},
+{
+	"id": 128,
+	"type": "portal-component",
+	"title": "Education",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#education"
+},
+{
+	"id": 129,
+	"type": "portal-component",
+	"title": "Economy",
+	"subtitle": "",
+	"content": "",
+	"section-name":"Page",
+	"link": "/themes#economy"
+}
+
+
+
+]

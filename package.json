@@ -1,6 +1,6 @@
 {
-  "name": "bcd-express",
-  "version": "0.0.0",
+  "name": "bcd-dd-v2.x",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -32,6 +32,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "jsdoc": "^3.6.4",
     "nodemon": "^1.19.0"
   }
 }

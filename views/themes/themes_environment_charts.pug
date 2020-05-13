@@ -8,7 +8,7 @@ header
         |collected on various environmental factors. 
 
 article.article
-  div.row
+  div.row.wrapper
     #environment-monitoring.position-anchor
     .col-lg-12
       h2.mb-2 Environment Monitioring Sites
@@ -39,18 +39,12 @@ article.article
 
       div#water-site-count
       br
-
-      //- p See also: 
-        li <a href="../queries"> Environment Live!</a>
-        li <a href="../tools">Environment Tool</a>
-
-
+     
     .col-lg-8
-      div.pt-2.ml-4
-        <button type="button" class="btn btn-bcd btn-sm" id="water-opw-btn" value="">OPW Water </button>
-        <button type="button" class="btn btn-bcd btn-sm" id="water-hydronet-btn" value="">EPA Hydronet Water</button>
-        <button type="button" class="btn btn-bcd btn-sm active" data-toggle="button" id="water-all-btn" value="">All Monitor Sites</button>
-
+      .pt-2.ml-4
+        <button id="water-opw-btn" type="button" class="btn btn-bcd btn-sm">OPW Water </button>
+        <button id="water-hydronet-btn" type="button" class="btn btn-bcd btn-sm">EPA Hydronet Water</button>
+        <button id="water-all-btn" type="button" class="btn btn-bcd btn-sm active">All Monitor Sites</button>
       div#chart-water-map
 
   //- .section-body.row.wrapper

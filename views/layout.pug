@@ -22,25 +22,28 @@ html(lang='en')
     title= title
 
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+    link(href="https://fonts.googleapis.com/css?family=Roboto:300,500,700&display=swap" rel="stylesheet")
 
     link(rel='stylesheet', href='/stylesheets/landing-page.css')
     link(rel='stylesheet', href='/stylesheets/bcd-root.css')
     link(rel='stylesheet', href='/stylesheets/base-style.css')
     link(rel='stylesheet', href='/stylesheets/type.css')
     link(rel='stylesheet', href='/stylesheets/side-menu.css')
+    link(rel='stylesheet', href='/stylesheets/icon-nav.css')
+        
     link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
-    link(rel='stylesheet', href='/stylesheets/icon-nav.css')
-    link(rel='stylesheet', href='/stylesheets/grid.css')
+    
+    //- link(rel='stylesheet', href='/stylesheets/grid.css')
     link(rel='stylesheet', href='/stylesheets/card.css')
     link(rel='stylesheet', href='/stylesheets/footer.css')
     link(rel='stylesheet', href='/stylesheets/toggle-button.css')
     link(rel='stylesheet', href='/stylesheets/tool-tip.css')
       
     
-    //<link rel="preload" href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
-    //<meta name="shareaholic:site_id" content="5f038f076462240e9f7a22354b10a9e3" />
-    //<script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
+    //- //<link rel="preload" href="https://cdn.shareaholic.net/assets/pub/shareaholic.js" as="script" />
+    //- //<meta name="shareaholic:site_id" content="5f038f076462240e9f7a22354b10a9e3" />
+    //- //<script data-cfasync="false" async src="https://cdn.shareaholic.net/assets/pub/shareaholic.js"></script>
     
 
   block head
@@ -54,10 +57,10 @@ html(lang='en')
       block navigation
 
       include component/side-menu.pug
-      .bcd-container
-        main
-          //-add subnav.pug here if its the themes page
-          block content
+        //- .bcd-container
+      main
+      //-add subnav.pug here if its the themes page
+      block content
 
     include component/footer.pug
 

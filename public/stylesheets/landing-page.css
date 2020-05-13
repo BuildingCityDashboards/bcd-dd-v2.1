@@ -1,16 +1,4 @@
 
-.hero {
-    position: relative;
-    padding-top: 1rem;
-    /* min-height: 100vh; */
-    /* overflow-y:inherit; */
-}
-
-.hero__title{
-    font-weight: 500;
-    letter-spacing: .25rem;
-    font-size: 1.25rem;
-}
 
 .bg-img {
     /* min-height: 662px; */
@@ -73,92 +61,31 @@
 
 
 
-.about__header{
-    font-size:2rem;
-    text-transform:uppercase;
 
-}
-
-
-#about-dd-title #twitter-button{
-  display:flex;
-  align-items: center;
-  justify-content: flex-end;
-
-}
-
-#about-dublin-dashboard{
-  display:flex;
-  flex-direction: column;
-
-}
-
-#about-dd-title{
-
-}
-
-#twitter-follow{
-  align-self: center;
-  /* align-content: flex-end; */
-  text-align: right;
-
-}
-
-#about-dublin-dashboard-text{
-  text-align: justify;
-}
-
-#region__total-population, #region__total-house, #region__total-vacant{
+/* #region__total-population, #region__total-house, #region__total-vacant{
     font-weight: 600;
-}
+} */
 
-#region__population, #region__house, #region__vacant, .map span{
+/* #region__population, #region__house, #region__vacant, .map span{
     font-weight: 600;
-}
+} */
 
-#local__title{
+/* #local__title{
     color:#f8f8f8;
-}
+} */
 
-#local__title__small, #local__open, #dublin-text p{
+/* #local__title__small, #local__open, #dublin-text p{
     color: #f8f8f8;
     font-weight: 100;
-}
+} */
 
-#lp-tabs{
+/* #lp-tabs{
   display: flex;
-  
-}
+
+} */
 
 
 /* default adjusted in media query min 992 */
 .columns-2{
     column-count: 1;
-}
-
-.local-on{
-    fill: #16c1f3;
-}
-
-.lp-map__compare{
-    visibility: hidden;
-    border: 0.25rem solid var(--vivid-cyan);
-    border-radius: 1rem;
-    padding: 1rem;
-    margin: 0;
-
-}
-
-@media (min-width: 576px){
-    .hero__title{
-        font-size: 2.5rem;
-    }
-}
-
-@media (min-width: 992px){
-    .columns-2{
-        column-count: 2;
-
-
-    }
 }

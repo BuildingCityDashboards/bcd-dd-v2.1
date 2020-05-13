@@ -6,15 +6,15 @@ const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
 const indicatorRightSymbol = "<span class='right-arrow'>&#x25BA;</span>"
 let prevBikesAvailableDirection = indicatorRightSymbol // '▶'
 let prevStandsAvailableDirection = indicatorRightSymbol // '▶'
-let prevBikesTrendString = '(no change)'
-let prevStandsTrendString = '(no change)'
+let prevBikesTrendString = ''// '(no change)'
+let prevStandsTrendString = '' // '(no change)'
 
 // indicatorUpSymbol.style.color = 'green';
 
 const updateBikesCountdown = function () {
   const cd = bikesCountdown / 1000
   d3.select('#bikes-bikesCountdown').text('Update in ' + cd)
-  if (bikesCountdown > 0) bikesCountdown -= 1000
+  if (bikesCountdown >= 0) bikesCountdown -= 1000
 }
 
 let bikesTimer = setInterval(updateBikesCountdown, 1000)
@@ -22,7 +22,8 @@ let bikesTimer = setInterval(updateBikesCountdown, 1000)
 const fetchBikesData = function () {
   d3.json('/api/dublinbikes/stations/all/snapshot') // get latest snapshot of all stations
     .then((data) => {
-      // console.log("Fetched Dublin Bikes card data ");
+      // console.log('Fetched Dublin Bikes card data ')
+      // console.log(data)
       // The derilinx API sometimes returns an empty JSON array- need to check for that
       if (data.length > 0) {
         const cardData = getCardData(data)
@@ -30,7 +31,7 @@ const fetchBikesData = function () {
         clearInterval(bikesTimer)
       } else {
         initialiseCardDisplay()
-        updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
+        // updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
         // restart the timer
         clearInterval(bikesTimer)
         bikesCountdown = bikesInterval
@@ -40,7 +41,7 @@ const fetchBikesData = function () {
     .catch((err) => {
       console.error('Dublin Bikes data error: ' + JSON.stringify(err))
       initialiseCardDisplay()
-      updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond with data- we will try again soon')
+      updateInfo('#bikes-card a', 'Dublin Bikes did not respond with data- we will try again soon')
       // restart the timer
       clearInterval(bikesTimer)
       bikesCountdown = bikesInterval
@@ -78,35 +79,18 @@ function getCardData (data_) {
 function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-  d3.select('#bikes-card').select('.card__header')
-    .html(
-      "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      'Dublin Bikes' +
-      '</div>' +
-      "<div class = 'col-5' align='right'>" +
-      "<div id ='bikes-bikesCountdown' ></div>" +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      '</div>' +
-      '</div>'
-    )
+  d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
+
+  d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg'>")
 
   d3.select('#rt-bikes').select('#card-left')
-    .html("<div align='center'>" +
-      '<h3>--</h3>' +
-      '<p>bikes</p>' +
-      '</div>')
-
-  d3.select('#rt-bikes').select('#card-center')
-    .html("<div align='center'>" +
-      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
-      '</div>')
+    .html('<h3>--</h3>' +
+      '<p>bikes</p>')
 
   d3.select('#rt-bikes').select('#card-right')
-    .html("<div align='center'>" +
+    .html(
       '<h3>--</h3>' +
-      '<p> stands </p>' +
-      '</div>')
+      '<p> stands </p>')
 }
 
 function updateBikesDisplay (ab, as, age) {
@@ -137,57 +121,39 @@ function updateBikesDisplay (ab, as, age) {
 
   const bikesAgeDisplay = age > 0 ? age + 'm ago' : 'Just now'
 
-  d3.select('#bikes-card').select('.card__header')
-    .html(
-      "<div class = 'row'>" +
-      "<div class = 'col-7' align='left'>" +
-      'Dublin Bikes' +
-      '</div>' +
-      "<div class = 'col-5' align='right'>" +
-      "<span class = '" + animateClass + "'>" +
-      bikesAgeDisplay + '</span>' +
-      // "<img height='15px' width='15px' src='/images/clock-circular-outline-w.svg'>" +
-      '</div>' +
-      '</div>'
-    )
+  d3.select('#bikes-card').select('#bikes-bikesCountdown').html("<span class='" + animateClass + "'>" + bikesAgeDisplay + '</span>')
 
   d3.select('#rt-bikes').select('#card-left')
     .html("<div class = '" + animateClass + "'align='center'>" +
-      '<h3>' + bikesAvailableDirection + ' ' + ab + '</h3>' +
+      '<h1>' + bikesAvailableDirection + ' ' + ab + '</h1>' +
       '</div>' +
       "<div align='center'>" +
       '<p> bikes </p>' +
       '</div>')
 
-  d3.select('#rt-bikes').select('#card-center')
-    .html("<div align='center'>" +
-      '<img src = "/images/transport/bicycle-w-15.svg" width="60">' +
-      '</div>')
-
   d3.select('#rt-bikes').select('#card-right')
     .html("<div class = '" + animateClass + "'align='center'>" +
-      '<h3>' + standsAvailableDirection + ' ' + as + '</h3>' +
+      '<h1>' + standsAvailableDirection + ' ' + as + '</h1>' +
       '</div>' +
       "<div align='center'>" +
       '<p> stands </p>' +
       '</div>')
 
-  updateInfo('#bikes-card a',
-      `<b>Dublin Bikes</b> currently have <b> ${ab} bikes ${bikesTrendString}</b> and <b> ${as} stands  ${standsTrendString}</b> available across the city`)
+  d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has ${ab} bikes ${bikesTrendString} and ${as} stands  ${standsTrendString} available across the city</p>`)
 }
 
-function updateInfo (selector, infoText) {
-  const text = d3.select('#data-text p')
-  const textString = '<b>Hover over these charts for more information, click to go to the data page </b>'
-
-  d3.select(selector)
-    .on('mouseover', (d) => {
-      text.html(infoText)
-    })
-    .on('mouseout', (d) => {
-      text.html(textString)
-    })
-}
+// function updateInfo (selector, infoText) {
+//   const text = d3.select('#data-text p')
+//   const textString = '<b>Hover over these charts for more information, click to go to the data page </b>'
+//
+//   d3.select(selector)
+//     .on('mouseover', (d) => {
+//       text.html(infoText)
+//     })
+//     .on('mouseout', (d) => {
+//       text.html(textString)
+//     })
+// }
 
 const bikesCardTimer = setIntervalAsync(
   () => {

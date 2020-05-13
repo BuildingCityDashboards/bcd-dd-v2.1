@@ -1,0 +1,871 @@
+/* About Dublin * */
+
+#about-dublin {
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : auto;
+  padding               : 16px;
+  justify-content       : center;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
+}
+
+#about-dublin__header {
+  align-self  : flex-end;
+  grid-column : span 4;
+  grid-row    : 1/2;
+}
+
+#about-dublin__header > h1 {
+  /* width: 136px; */
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 20px;
+  font-weight    : normal;
+  line-height    : 0.73;
+  letter-spacing : -0.5px;
+}
+
+#about-dublin__card {
+  padding          : 16px 16px 0 16px;
+  overflow-y       : auto;
+  background-color : rgba(142, 191, 214, 0.15);
+  grid-column      : span 4;
+  grid-row         : 2/9;
+}
+
+#about-scroll-arrow {
+  display         : flex;
+  align-items     : flex-end;
+  justify-content : center;
+  grid-column     : 2 / 4;
+  grid-row        : 8/9;
+}
+
+#about-dublin__card > p {
+  /* width: 296px; height: 371px; */
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 14px;
+  font-weight    : normal;
+  line-height    : 1.71;
+  letter-spacing : 0.5px;
+}
+
+#regions-info {
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : 100vh;
+  padding               : 16px;
+  justify-content       : center;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
+}
+
+#regions-info__map {
+  display         : flex;
+  justify-content : center;
+  grid-column     : span 4;
+  grid-row        : 1/6;
+}
+
+#regions-info__map svg {
+  width  : 100%;
+  height : auto;
+}
+
+#regions-info__cta {
+  display        : flex;
+  margin         : 0;
+  color          : #6fd1f6;
+  text-align     : center;
+  font-size      : 16px;
+  font-style     : normal;
+  font-weight    : normal;
+  font-stretch   : normal;
+  grid-column    : span 4;
+  grid-row       : 7/9;
+  line-height    : 1.5;
+  letter-spacing : 1.5px;
+}
+
+#regions-info__cta-arrow {
+  display : none;
+}
+
+#regions-info__card {
+  display          : none;
+  visibility       : hidden;
+  padding          : 16px;
+  opacity          : 0;
+  overflow-y       : scroll;
+  background-color : rgba(142, 191, 214, 0.15);
+  flex-direction   : column;
+  grid-column      : span 4;
+  grid-row         : 6/9;
+  transition       : all 1s linear;
+}
+
+#regions-info__card__header {
+  padding-bottom : 8px;
+}
+
+#regions-info__card__header h1 {
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 20px;
+  font-weight    : normal;
+  line-height    : 20px;
+  letter-spacing : 0.18px;
+}
+
+#regions-info__card__body {}
+
+#regions-info__card__body > p {
+  margin         : 0 0 8px 0;
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 14px;
+  font-weight    : normal;
+  line-height    : 24px;
+  letter-spacing : 0.5px;
+}
+
+#about-dublin-dashboard {
+  display               : grid;
+  width                 : 100vw;
+  min-width             : 360px;
+  height                : auto;
+  min-height            : 540px;
+  padding               : 16px;
+  grid-gap              : 16px;
+  grid-template-columns : repeat(4, 1fr);
+  grid-template-rows    : repeat(8, 1fr);
+}
+
+#about-dublin-dashboard__header {
+  align-self  : flex-end;
+  grid-column : span 4;
+  grid-row    : 1/2;
+}
+
+#about-dublin-dashboard__header > h1 {
+  /* width: 271px; height: 18px; */
+  margin         : 0;
+  color          : #6fd1f6;
+  font-size      : 20px;
+  font-style     : normal;
+  font-weight    : normal;
+  font-stretch   : normal;
+  line-height    : 0.73;
+  letter-spacing : -0.5px;
+}
+
+#about-dublin-dashboard__twitter {
+  display : none;
+}
+
+#about-dublin-dashboard__card {
+  padding          : 16px 16px 0 16px;
+  overflow-y       : auto;
+  background-color : rgba(142, 191, 214, 0.15);
+  grid-column      : span 4;
+  grid-row         : 2/9;
+}
+
+#about-dublin-dashboard__card > p {
+  /* width: 296px; height: 371px; */
+  color          : rgba(255, 255, 255, 0.87);
+  font-size      : 14px;
+  font-weight    : normal;
+  line-height    : 1.71;
+  letter-spacing : 0.5px;
+}
+
+@media
+  only screen
+  and (min-width : 768px) {
+  /* About Dublin * */
+
+  #about-dublin {
+    height                : 50vh;
+    padding               : 24px;
+    background-color      : #1c2022;
+    justify-content       : center;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(6, 1fr);
+  }
+
+  #about-dublin__header {
+    text-align  : left;
+    grid-column : 2/7;
+    grid-row    : 2/3;
+  }
+
+  #about-dublin__header > h1 {
+    margin         : 0;
+    font-size      : 24px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+    /* width: 333px; height: 34px; */
+  }
+
+  #about-dublin__card {
+    padding          : 32px;
+    overflow-y       : scroll;
+    border-radius    : 4px;
+    background-color : #21272a;
+    grid-column      : 2/12;
+    grid-row         : 3/7;
+  }
+
+  #about-dublin__card > p {
+    /* width: 746px; height: 246px; */
+    font-size      : 14px;
+    font-weight    : normal;
+    line-height    : 1.25;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info {
+    width                 : 100vw;
+    min-width             : 360px;
+    height                : 50vh;
+    min-height            : 512px;
+    padding               : 24px;
+    background-color      : #1c2022;
+    justify-content       : center;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(6, 1fr);
+  }
+
+  #regions-info__map {
+    grid-column : 7 / 13;
+    grid-row    : 1/7;
+  }
+
+  #regions-info__cta {
+    display        : flex;
+    margin         : 0;
+    color          : #6fd1f6;
+    text-align     : center;
+    font-size      : 16px;
+    font-style     : normal;
+    font-weight    : normal;
+    grid-column    : 2/6;
+    grid-row       : 3/5;
+    line-height    : 1.5;
+    letter-spacing : 1.5px;
+  }
+
+  #regions-info__card {
+    padding     : 32px;
+    grid-column : 2/7;
+    grid-row    : 1 / 6;
+  }
+
+  #regions-info__card__header {
+    padding-bottom : 16px;
+    text-align     : left;
+  }
+
+  #regions-info__card__header > h1 {
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 24px;
+    letter-spacing : 0.18px;
+  }
+
+  #regions-info__card__body {
+    overflow-y : auto;
+  }
+
+  #regions-info__card__body > p {
+    margin         : 0;
+    padding-bottom : 8px;
+    color          : rgba(255, 255, 255, 0.87);
+    font-size      : 14px;
+    font-weight    : normal;
+    line-height    : 1.25;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin-dashboard {
+    height                : 50vh;
+    min-height            : 700px;
+    padding               : 24px;
+    background-color      : #1c2022;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(6, 1fr);
+  }
+
+  #about-dublin-dashboard__header {
+    text-align  : left;
+    align-self  : center;
+    grid-column : 2 / 8;
+    grid-row    : 2/3;
+  }
+
+  #about-dublin-dashboard__header > h1 {
+    /* width: 388px; height: 34px; */
+    margin         : 0;
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin-dashboard__twitter {
+    display     : inline;
+    text-align  : center;
+    align-self  : flex-end;
+    grid-column : 7 / 12;
+    grid-row    : 2/3;
+  }
+
+  #about-dublin-dashboard__twitter > p {
+    /* width: 303px; height: 24px; */
+    color          : #6fd1f6;
+    font-size      : 14px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.33;
+    letter-spacing : 0.18px;
+  }
+
+  #about-dublin-dashboard__card {
+    padding          : 24px;
+    overflow-y       : auto;
+    background-color : #21272a;
+    grid-column      : 2 / 12;
+    grid-row         : 3/6;
+  }
+
+  #about-dublin-dashboard__card > p {
+    /* width: 746px; height: 256px; */
+    font-size      : 14px;
+    line-height    : 1.25;
+    letter-spacing : 0.5px;
+  }
+}
+
+/* iPad Pro */
+
+@media
+  only screen
+  and (min-width : 1024px) {
+  #about-dublin {}
+
+  #about-dublin__header {}
+
+  #about-dublin__header > h1 {
+    font-size      : 34px;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin__card {}
+
+  #about-dublin__card > p {
+    /* width: 702px; height: 245px; */
+    font-size      : 16px;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+  /* Regions */
+
+  #regions-map__header {}
+
+  #regions-map__header > h1 {
+    /* width: 326px; */
+    /* min-height: 50px; */
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 16px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.5;
+    letter-spacing : 1.5px;
+  }
+
+  #regions-info__map {}
+
+  #regions-info {}
+
+  #regions-info__cta {
+    display        : flex;
+    margin         : 0;
+    color          : #6fd1f6;
+    text-align     : center;
+    font-size      : 24px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.5;
+    letter-spacing : 1.5px;
+  }
+
+  #regions-info__card {
+    display    : block;
+    padding    : 32px;
+    overflow-y : auto;
+  }
+
+  #regions-info__card__header {
+    padding-bottom : 32px;
+  }
+
+  #regions-info__card__header > h1 {
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__card__body {}
+
+  #regions-info__card__body > p {
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin-dashboard {
+    height     : auto;
+    min-height : 700px;
+    padding    : 32px;
+    grid-gap   : 32px;
+    /**
+    * grid-template-columns : repeat(12, 1fr); grid-template-rows
+    *
+    *
+    *
+    * : repeat(6, 1fr);
+    */
+  }
+
+  #about-dublin-dashboard__header {}
+
+  #about-dublin-dashboard__header > h1 {
+    margin         : 0;
+    font-size      : 32px;
+    font-weight    : normal;
+    line-height    : 1.06;
+    letter-spacing : -0.5px;
+  }
+
+  #about-dublin-dashboard__twitter {
+    display    : inline;
+    text-align : right;
+    align-self : flex-end;
+  }
+
+  #about-dublin-dashboard__twitter > p {
+    color          : #6fd1f6;
+    font-size      : 18px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.33;
+    letter-spacing : 0.18px;
+  }
+
+  #about-dublin-dashboard__card {
+    height     : auto;
+    padding    : 32px;
+    overflow-y : auto;
+  }
+
+  #about-dublin-dashboard__card > p {
+    /* width: 746px; height: 256px; */
+    font-size      : 16px;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+}
+
+/* Laptop with MDPI height = 800px */
+
+@media
+  only screen
+  and (min-width : 1280px) {
+  #about-dublin {
+    height          : 50vh;
+    padding         : 24px;
+    padding-bottom  : 0px;
+    justify-content : center;
+    grid-gap        : 24px;
+  }
+
+  #about-dublin__header {
+    text-align : left;
+    align-self : flex-end;
+  }
+
+  #about-dublin__header > h1 {
+    font-size      : 34px;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+    /* width: 333px; height: 34px; */
+  }
+
+  #about-dublin__card {
+    height     : auto;
+    padding    : 24px;
+    overflow-y : auto;
+  }
+
+  #about-dublin__card > p {
+    /* width: 702px; height: 245px; */
+    font-size      : 16px;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__cta {
+    z-index      : 1;
+    display      : flex;
+    margin       : 0;
+    padding-left : 24px;
+    color        : #6fd1f6;
+    text-align   : left;
+    align-self   : center;
+    font-size    : 16px;
+    font-style   : normal;
+    font-weight  : normal;
+    font-stretch : normal;
+    grid-column  : 2/8;
+    grid-row     : 3/5;
+  }
+
+  #regions-info__cta-arrow {
+    z-index     : 0;
+    display     : flex;
+    grid-column : 7/8;
+    grid-row    : 3/5;
+    justify-content: flex-end;
+
+  }
+
+  #regions-info__cta-arrow svg {
+    background-color: transparent;
+    width : 24px;
+    transform: rotate(180deg);
+    fill:   #6fd1f6;
+  }
+
+
+  #regions-map__header {
+    display : none;
+  }
+
+  #regions-map__header > h1 {
+    /* width: 326px; */
+    /* min-height: 50px; */
+    margin         : 0;
+    color          : #6fd1f6;
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 1.5px;
+  }
+
+  #regions-info {
+    height          : 50vh;
+    min-height      : 50vh;
+    padding         : 24px;
+    justify-content : center;
+    grid-gap        : 24px;
+  }
+
+  #regions-info__map {
+    padding-bottom : 0px;
+    grid-column    : 8/13;
+    justify-content: center;
+  }
+
+  #regions-info__card {
+    padding    : 24px;
+    overflow-y : auto;
+    grid-row   : 1 / 7;
+  }
+
+  #regions-info__card__header {
+    padding-bottom : 24px;
+  }
+
+  #regions-info__card__header > h1 {
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__card__body {}
+
+  #regions-info__card__body > p {
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 24px;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin-dashboard {
+    height     : auto;
+    padding    : 24px;
+    overflow-y : auto;
+    grid-gap   : 24px;
+  }
+
+  #about-dublin-dashboard__header {
+    text-align : center;
+  }
+
+  #about-dublin-dashboard__header > h1 {
+    margin         : 0;
+    text-align     : left;
+    font-size      : 34px;
+    font-weight    : normal;
+    line-height    : 1.06;
+    letter-spacing : -0.5px;
+  }
+
+  #about-dublin-dashboard__twitter {
+    display    : inline;
+    text-align : right;
+    align-self : flex-end;
+  }
+
+  #about-dublin-dashboard__twitter > p {
+    /* width: 303px; height: 24px; */
+    color          : #6fd1f6;
+    font-size      : 18px;
+    font-style     : normal;
+    font-weight    : normal;
+    font-stretch   : normal;
+    line-height    : 1.33;
+    letter-spacing : 0.18px;
+  }
+
+  #about-dublin-dashboard__card {
+    padding    : 24px;
+    overflow-y : auto;
+    /**
+    * column-count : 2; column-gap
+    *
+    * : 32px;
+    */
+  }
+  /**
+  * #about-dublin-dashboard__card .box{ page-break-inside: avoid;
+  * -webkit-column-break-inside: avoid; break-inside: avoid; }
+  */
+
+  #about-dublin-dashboard__card > p {
+    font-size      : 16px;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+}
+
+/* laptop with touch */
+
+@media
+  only screen
+  and (min-width  : 1280px)
+  and (min-height : 950px) {
+  #about-dublin {
+    height          : 50vh;
+    min-height      : 50vh;
+    padding         : 24px;
+    justify-content : center;
+    grid-gap        : 24px;
+  }
+
+  #about-dublin__card {
+    padding    : 24px;
+    overflow-y : auto;
+  }
+
+  #about-dublin__card > p {
+    /* width: 702px; height: 245px; */
+    font-size      : 16px;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__card {
+    padding    : 24px;
+    overflow-y : auto;
+  }
+
+  #regions-info__card__header {
+    padding-bottom : 24px;
+  }
+
+  #regions-info__card__header > h1 {
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__card__body {}
+
+  #regions-info__card__body > p {
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 24px;
+    letter-spacing : 0.5px;
+  }
+}
+
+/* xl */
+
+@media
+  only screen
+  and (min-width : 1920px) {
+  #about-dublin {
+    height          : 45vh;
+    min-height      : 45vh;
+    padding         : 24px;
+    justify-content : center;
+    grid-gap        : 24px;
+  }
+
+  #about-dublin__header > h1 {
+    font-size      : 34px;
+    font-weight    : normal;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin__card {
+    height       : auto;
+    padding      : 24px;
+    overflow-y   : auto;
+    column-count : 2;
+    column-gap   : 24px;
+    /* grid-row: 3/; */
+  }
+
+  #about-dublin__card > p {
+    /* width: 702px; height: 245px; */
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info {
+    height      : 55vh;
+    min-height  : 55vh;
+    padding-top : 0;
+  }
+
+  #regions-info__cta {
+    font-size      : 24px;
+    font-weight    : normal;
+    grid-column    : 2/7;
+    line-height    : 1.06;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__cta-arrow {
+
+    justify-content: flex-start;
+
+  }
+
+  #regions-info__map {
+    grid-column : 7/12;
+  }
+
+  #regions-info__card {
+    display     : block;
+    padding     : 24px;
+    overflow-y  : auto;
+    grid-column : 2/7;
+    grid-row    : 1/5;
+  }
+
+  #regions-info__card__header {
+    padding-bottom : 32px;
+  }
+
+  #regions-info__card__header > h1 {
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #regions-info__card__body {}
+
+  #regions-info__card__body > p {
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+
+  #about-dublin-dashboard {
+    height     : 60vh;
+    min-height : 500px;
+    padding    : 24px;
+    grid-gap   : 24px;
+  }
+
+  #about-dublin-dashboard__header {
+    text-align : center;
+  }
+
+  #about-dublin-dashboard__header > h1 {
+    /* width: 388px; height: 34px; */
+    margin         : 0;
+    font-size      : 34px;
+    font-weight    : normal;
+    line-height    : 1.06;
+    letter-spacing : -0.5px;
+  }
+
+  #about-dublin-dashboard__twitter {
+    display         : flex;
+    text-align      : right;
+    justify-content : flex-end;
+  }
+
+  #about-dublin-dashboard__twitter > p {
+    /* width: 303px; height: 24px; */
+    font-size      : 24px;
+    font-weight    : normal;
+    line-height    : 1.33;
+    letter-spacing : 0.18px;
+  }
+
+  #about-dublin-dashboard__card {
+    padding      : 24px;
+    column-count : 2;
+    column-gap   : 24px;
+  }
+
+  #about-dublin-dashboard__card > p {
+    font-size      : 16px;
+    font-weight    : normal;
+    line-height    : 1.5;
+    letter-spacing : 0.5px;
+  }
+}

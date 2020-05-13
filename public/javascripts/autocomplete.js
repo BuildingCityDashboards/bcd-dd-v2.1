@@ -11,7 +11,7 @@
     }
   })
 
-  fetch('/api/data/')
+  fetch('/api/data/search/site')
     .then((response) => {
       return response.json()
     })

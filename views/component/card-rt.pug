@@ -1,12 +1,22 @@
-mixin card-rt(href, style, Header, title, Chartid)
-  a(href=href||null class="card__link")
+mixin card-rt(href, style, title, subtitle, chartid)
+
     div(class=style)
-      .card__header=Header
-      .card__body(id=Chartid width="205" height="70")
-          //- .container-fluid
-          //- .row
-          #card-left.card-left.col-4
-          #card-center.card-center.col-4
-          #card-right.card-right.col-4
+      .card__header
+        .card__title=title
+        .card__sub-title=subtitle
+          
+      .card__body(id=chartid min-width="256" min-height="72")
+        #card-left.card__left
+        #card-center.card__center
+        #card-right.card__right
+      
+      .card__info
+        .card__info-border 
+        #card-info-text
+          p Information will appear here when available
+        .card__info__buttons 
+          a(href=href class="card__link").button Go to live map
+          a(href=href class="card__link").button See trends
+        
                         
                     
