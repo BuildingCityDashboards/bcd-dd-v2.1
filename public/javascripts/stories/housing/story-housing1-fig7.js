@@ -88,7 +88,7 @@ d3.csv(srcPathFig7 + srcFileFig7)
     layoutFig7.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title);
     //layoutFig7.title.text = titleFig7;
     layoutFig7.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin);
-    layoutFig7.margin.t = 100;
+    //layoutFig7.margin.t = 100;
     layoutFig7.height = 600;
 
 

@@ -16,6 +16,38 @@ let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design<
 let iconAX = 15; //icon Anchor X
 let iconAY = 15; //icon Anchor Y
 
+L.UnNumberedDivIcon = L.Icon.extend({
+  options: {
+    iconUrl: '/images/map_icons/one-house.svg',
+    number: '',
+    shadowUrl: null,
+    iconSize: [20, 20],
+    iconAnchor: new L.Point(13, 41),
+    popupAnchor: new L.Point(0, -33),
+    /*
+    iconAnchor: (Point)
+    popupAnchor: (Point)
+    */
+    className: 'leaflet-div-icon'
+  },
+
+  createIcon: function() {
+    var div = document.createElement('div');
+    var img = this._createImg(this.options['iconUrl']);
+    var numdiv = document.createElement('div');
+    numdiv.setAttribute("class", "number");
+    numdiv.innerHTML = this.options['number'] || '';
+    div.appendChild(img);
+    div.appendChild(numdiv);
+    this._setIconStyles(div, 'icon');
+    return div;
+  },
+  
+  createShadow: function() {
+    return null;
+  }
+});
+
 L.NumberedDivIcon = L.Icon.extend({
   options: {
     iconUrl: '/images/map_icons/two-houses.svg',
@@ -42,8 +74,10 @@ L.NumberedDivIcon = L.Icon.extend({
     this._setIconStyles(div, 'icon');
     return div;
   },
-
+  
   createShadow: function() {
     return null;
   }
+
 });
+

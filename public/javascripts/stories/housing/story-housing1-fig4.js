@@ -55,12 +55,13 @@ d3.csv(srcPathFig4 + srcFileFig4)
     layout.yaxis.title = '€';
     layout.yaxis.fixedrange = false;
     layout.yaxis.range = [1, 520000];
+    layout.yaxis.hoverformat = ',d';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 20,
       r: 180, //annotations space
       b: 40, //x axis tooltip
-      t: 100 //button row
+      t: 0 //button row
     };
 
     // layout.hidesources = false;

@@ -38,6 +38,8 @@ d3.csv(srcPathFig5 + srcFileFig5)
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont);
     layout.yaxis.titlefont.size = 16; //bug? need to call this
+    layout.yaxis.tickmode = 'array';
+    layout.yaxis.tickvals = [50, 75, 100, 125]
     // layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
     layout.yaxis.title = '€bn';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);

@@ -71,7 +71,7 @@ Promise.all([
     layoutFig8.margin = {
       l: 65,
       r: marginRUnauth,
-      t: 100, //button row
+      t: 0, //button row
       b: 40
     };
     // // layoutFig8.hidesources = false;

@@ -130,11 +130,14 @@ d3.csv(srcPathFig1 + srcFileFig11)
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
     layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
     layout.yaxis.title.text = 'Pop'
-    layout.yaxis.range = [90000, 600000]
+    layout.yaxis.range = [0, 600000]
     layout.yaxis.tickmode = 'array'
     layout.yaxis.tickvals = [100000, 200000, 300000, 400000, 500000, 600000]
+    layout.yaxis.hoverformat = ',d'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
     layout.margin.r = 210 // Dun Laoghaire!!!
+    layout.margin.l = 110
+    layout.yaxis.title.standoff = 5
     layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
 
     // Set annotations per chart with config per trace
@@ -251,11 +254,11 @@ d3.csv(srcPathFig1 + srcFileFig11)
         {
           title: popTitle,
           annotations: popAnnotations,
-          'yaxis.title.text': '',
+          'yaxis.title.text': 'Pop',
           //  'yaxis.title.standoff': 0,
-          'yaxis.range': [90000, 600000],
-          'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000]
-          
+          'yaxis.range': [0, 600000],
+          'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
+          'yaxis.hoverformat' : ',d'
         }],
         label: 'Population',
         method: 'update',
@@ -272,10 +275,11 @@ d3.csv(srcPathFig1 + srcFileFig11)
         {
           title: houseTitle,
           annotations: houseAnnotations,
-          'yaxis.title.text': '',
-          //  'yaxis.title.standoff': 0,
+          'yaxis.title.text': 'Hholds',
+          //'yaxis.title.standoff': 10,
           'yaxis.range': [-2, 250000],
-          'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000]
+          'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000],
+          'yaxis.hoverformat' : ',d'
         }
         ],
         label: 'Households',
@@ -296,7 +300,8 @@ d3.csv(srcPathFig1 + srcFileFig11)
           'yaxis.title.text': '%',
           //  'yaxis.title.standoff': 20,
           'yaxis.range': [-2, 125],
-          'yaxis.tickvals': [0, 50, 100]
+          'yaxis.tickvals': [0, 50, 100],
+          'yaxis.hoverformat' : '.3r'
 
         }
         ],
@@ -319,7 +324,8 @@ d3.csv(srcPathFig1 + srcFileFig11)
           //  'yaxis.title.standoff': 20,
           //  'updatemenus.pad.l': -60,
           'yaxis.range': [-2, 151],
-          'yaxis.tickvals': [0, 50, 100, 150]
+          'yaxis.tickvals': [0, 50, 100, 150],
+          'yaxis.hoverformat' : '.3r'
         }
         ],
         label: 'Household % change',

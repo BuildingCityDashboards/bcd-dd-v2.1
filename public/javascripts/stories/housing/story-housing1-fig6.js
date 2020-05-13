@@ -55,7 +55,7 @@ d3.csv(srcPathFig6 + srcFileFig6)
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       r: 210, //Dun Laoghaire!!!
-      t: 100, //button row
+      t: 0, //button row
       b: 40
     };
 

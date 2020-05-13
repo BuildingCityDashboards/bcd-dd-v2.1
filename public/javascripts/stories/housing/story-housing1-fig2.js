@@ -95,7 +95,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title)
     //fig2Layout.title.text = titleFig2
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
-    fig2Layout.margin.t = 100
+    //fig2Layout.margin.t = 100
     fig2Layout.margin.r = 50
 
     const xaxisRange = [0, 80000] // TODO: get the max value from the data

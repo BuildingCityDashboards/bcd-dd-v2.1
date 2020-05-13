@@ -191,7 +191,7 @@ const MULTILINE_CHART_LAYOUT = {
     l: 0,
     r: 0, //change in chart based on annotations
     b: 40,
-    t: 100
+    t: 0
   },
 
   title: {
@@ -244,7 +244,6 @@ const MULTILINE_CHART_LAYOUT = {
     tickvals: null,
     ticks: '', //inside/ outside
     automargin: true,
-    
     tickfont: {
       //family: 'PT Sans',
       size: 10,
@@ -351,7 +350,7 @@ const ROW_CHART_LAYOUT_SUBPLOTS = {
     l: 0,
     r: 0,
     b: 0,
-    t: 40
+    t: 0
   },
   title: {
     text: '',
@@ -445,7 +444,7 @@ const STACKED_AREA_CHART_LAYOUT = {
     l: 0,
     r: 0, //change in chart based on annotations
     b: 20,
-    t: 100
+    t: 0
   },
   title: {
     text: '',

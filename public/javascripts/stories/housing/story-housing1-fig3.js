@@ -62,12 +62,13 @@ d3.csv(srcPathFig3 + srcFileFig3)
     layout.yaxis.title = "Units";
     layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 10,
+      l: 65,
       r: 215, //annotations space
       b: 40, //x axis tooltip
-      t: 50 //button row
+      t: 0 //button row
     };
-
+    layout.yaxis.title.standoff = 100;
+    layout.yaxis.hoverformat = ',d';
     // layout.hidesources = false;
 
     let chartAnnotations = [];

@@ -101,7 +101,8 @@ d3.csv(srcPathFig1)
     layout.margin = {
       l : 60,
       r : 140,
-      b : 40
+      b : 40,
+      t : 0
     }
     // layout.hidesources = false
 

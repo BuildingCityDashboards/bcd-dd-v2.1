@@ -62,7 +62,7 @@ d3.csv(srcPathFig6)
 
     });
     arrears100PercentTrace.y = data.map((y) => {
-      return 102;
+      return 100;
     });
     arrears100PercentTrace.name = 'All Outstanding Mortgages';
     arrears100PercentTrace.mode = 'lines+markers';
@@ -128,11 +128,12 @@ d3.csv(srcPathFig6)
     layout.yaxis.range = yAxisRangeCount;
     // layout.yaxis.visible = false;
     layout.yaxis.title = 'Accounts';
+    layout.yaxis.hoverformat = ',d';
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 80,
       r: marginRCount,
-      t: 100, //button row
+      t: 0, //button row
       b: 40
     };
 
@@ -183,7 +184,8 @@ d3.csv(srcPathFig6)
               'annotations': countAnnotations,
               'yaxis.range': yAxisRangeCount,
               'yaxis.title.text': 'Accounts',
-              'margin.r': marginRCount
+              'margin.r': marginRCount,
+              'yaxis.hoverformat' : ',d'
 
             }
           ],
@@ -200,7 +202,8 @@ d3.csv(srcPathFig6)
               'annotations': rateAnnotations,
               'yaxis.range': yAxisRangePercent,
               'yaxis.title.text': '%',
-              'margin.r': marginRPercent
+              'margin.r': marginRPercent,
+              'yaxis.hoverformat' : '.3r'
             }
           ],
           label: "Proportion of Mortgages in Arrears (%)",

@@ -55,7 +55,7 @@ Promise.all([
     layout.margin= {
       l: 75,
       r: 210,
-      t: 100, //button row
+      t: 0, //button row
       b: 40
     };
     let annotationsHectares = [];
@@ -135,7 +135,8 @@ Promise.all([
 
               //'title': titleFig4,
               'yaxis.range': [10, 70000],
-              'yaxis.title' : 'Units'
+              'yaxis.title' : 'Units',
+              'yaxis.hoverformat' : ',d'
             }
           ],
           label: 'Expected Units',

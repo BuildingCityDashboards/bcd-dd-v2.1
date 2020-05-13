@@ -21,21 +21,32 @@
   position: relative;
   height: 500px;
   width: 100%;
-  margin-bottom: 100px;
+  /*margin-bottom: 100px;*/
+  margin-top: 40px;
 }
 
 #unfinished-estates-map{
   position: relative;
   height: 500px;
   width: 100%;
-  margin-bottom: 80px;
+  /*margin-bottom: 80px;*/
+  margin-top: 40px;
 }
 
 #airbnb-properties-map{
   position: relative;
-  /*height: 500px; */
+  height: 500px;
   width: 100%;
-  margin-bottom: 50px;
+  /*margin-bottom: 50px;*/
+  margin-top: 40px;
+}
+
+#planning-permissions-map {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  /*margin-bottom: 80px;*/
+  margin-top: 40px;
 }
 
 #phase_container {
@@ -96,6 +107,18 @@ svg{
   /*580 is the guarenteed size of the plotly medium plot*/
   height:580px;
   
+}
+
+#chart-and-source{
+  font-size: 10px;
+  /*ensures that there is double the spacing between each plot/map and the next heading
+    (3rem here and 3rem top margin on headings)*/
+  margin-bottom: 3rem;
+}
+
+.data-source{
+  font-size: 10px;
+  text-align: right;
 }
 
 /*

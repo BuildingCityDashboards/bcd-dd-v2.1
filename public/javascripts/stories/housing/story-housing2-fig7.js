@@ -49,11 +49,12 @@ d3.csv(srcPathFig7)
     layout.yaxis.range = [1, 100000];
     // layout.yaxis.visible = false;
     layout.yaxis.title = 'People';
+    layout.yaxis.hoverformat = ',d'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 75,
       r: marginRNat,
-      t: 100, //button row
+      t: 0, //button row
       b: 40
     };
     // // layout.hidesources = false;

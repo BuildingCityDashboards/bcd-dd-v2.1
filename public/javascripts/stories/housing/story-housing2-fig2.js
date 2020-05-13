@@ -104,13 +104,15 @@ d3.csv(srcPathFig2)
     layout.yaxis.title = 'Units'
     layout.yaxis.tickmode = 'array'
     layout.yaxis.tickvals = [500000,1000000,1500000,2000000]
+    layout.yaxis.hoverformat = '.2s'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
     layout.margin = {
-      l: 65,
+      l: 70,
       r: 210,
-      t: 100, // button row
+      t: 0, // button row
       b: 40
     }
+    layout.yaxis.title.standoff = 10
     //  layout.hidesources = false
 
     const stateAnnotations = []
@@ -163,7 +165,8 @@ d3.csv(srcPathFig2)
           'yaxis.range': [0.1, 2100000],
           'yaxis.title': 'Units',
           'yaxis.tickmode' : 'array',
-          'yaxis.tickvals' :[500000,1000000,1500000,2000000]
+          'yaxis.tickvals' :[500000,1000000,1500000,2000000],
+          'yaxis.hoverformat' : '.2s'
         }
         ],
         label: 'State Count',
@@ -180,7 +183,8 @@ d3.csv(srcPathFig2)
           'yaxis.range': [0.1, 16],
           'yaxis.tickmode' : 'array',
           'yaxis.tickvals' : [2.5, 5, 7.5, 10, 12.5, 15],
-          'yaxis.title': '%'
+          'yaxis.title': '%',
+          'yaxis.hoverformat' : '.3r'
         }
         ],
         label: 'Vacancy % Rate',
