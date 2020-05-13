@@ -59,7 +59,7 @@
   letter-spacing : -0.5px;
 }
 
-.theme__component {
+.theme__text-chart {
   display               : grid;
   position              : relative;
   width                 : 100vw;
@@ -74,7 +74,7 @@
   /* grid-auto-rows: auto; */
 }
 
-.theme__component__text {
+.theme__text-chart__text {
   display        : flex;
   padding-left   : 24px;
   align-self     : center;
@@ -83,7 +83,7 @@
   grid-row       : 2;
 }
 
-.theme__component__sources {
+.theme__text-chart__sources {
   display        : flex;
   font-size      : 10px;
   font-weight    : 500;
@@ -92,36 +92,36 @@
   letter-spacing : 1.5px;
 }
 
-.theme__component__sources p {
+.theme__text-chart__sources p {
   font-size      : 10px;
   font-weight    : 300;
   line-height    : 1.6;
   letter-spacing : 1.5px;
 }
 
-.theme__component__sources a {
+.theme__text-chart__sources a {
   color : #8ebfd6;
 }
 
-.theme__component .theme__component__sources img {
+.theme__text-chart .theme__text-chart__sources img {
   width        : 10px;
   height       : 10px;
   padding-left : 2px;
 }
 
-.theme__component__data-source {
+.theme__text-chart__data-source {
   padding-right : 24px;
 }
 
-.theme__component__info-source {}
+.theme__text-chart__info-source {}
 
-.theme__component__title {
+.theme__text-chart__title {
   /* padding-top    : 12px;
   padding-bottom : 24px; */
   color          : #6fd1f6;
 }
 
-.theme__component__title h1 {
+.theme__text-chart__title h1 {
   padding-bottom : 24px;
   font-size      : 28px;
   font-weight    : 200;
@@ -129,8 +129,8 @@
   letter-spacing : 0.18px;
 }
 
-.theme__component__description,
-.theme__component__info {
+.theme__text-chart__description,
+.theme__text-chart__info {
   color          : white;
   font-size      : 18px;
   font-weight    : 200;
@@ -138,13 +138,13 @@
   letter-spacing : 0.5px;
 }
 
-.theme__component__kpi {}
+.theme__text-chart__kpi {}
 
-.theme__component__button-row {}
+.theme__text-chart__button-row {}
 
 .button .theme-btn {}
 
-.theme__component__chart {
+.theme__text-chart__chart {
   display         : flex;
   height          : 700px;
   flex-direction  : column;
@@ -153,12 +153,12 @@
   grid-row        : 2;
 }
 
-.theme__component__plot {
+.theme__text-chart__plot {
   width  : 800px;
   height : 400px;
 }
 
-.theme__component__plot svg {
+.theme__text-chart__plot svg {
   /* height : inherit; */
   /**
   * align-self

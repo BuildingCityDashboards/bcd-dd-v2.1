@@ -1,26 +1,26 @@
-mixin theme__component(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartId)
-  div(id=id class="theme__component" )
-    .theme__component__text
-      .theme__component__sources
+mixin theme__text-chart(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartId)
+  div(id=id class="theme__text-chart" )
+    .theme__text-chart__text
+      .theme__text-chart__sources
         p Source: 
-        .theme__component__data-source 
+        .theme__text-chart__data-source 
           a(href=dataLink target='_blank')= dataName
             img( src='../images/external-link.svg')
         p Website:
-        .theme__component__info-source
+        .theme__text-chart__info-source
           a(href=infoLink target='_blank')= infoName
             img( src='../images/external-link.svg')
-      .theme__component__title
+      .theme__text-chart__title
         h1= title
-      p.theme__component__description= description
-      p.theme__component__info= chartInfo
-      .theme__component__kpi
+      p.theme__text-chart__description= description
+      p.theme__text-chart__info= chartInfo
+      .theme__text-chart__kpi
       //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
-    .theme__component__chart
-      .theme__component__button-row
+    .theme__text-chart__chart
+      .theme__text-chart__button-row
         //- a(href=data-source class="theme-btn").button 
         //- a(href=data-source class="theme-btn").button 
         //- a(href=data-source class="theme-btn").button 
-      div(id=chartId class= "theme__component__plot")
+      div(id=chartId class= "theme__text-chart__plot")
          
       
