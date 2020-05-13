@@ -5,6 +5,30 @@
     'For more information on housing please click on this link <a href="../stories"> Housing Stories </a> ',
     '')
     
+    +theme__text-chart(
+    'average-house-prices',
+    'https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics',
+    'housing.gov',
+    '',
+    '',
+    'Average House Prices',
+    'Figures are derived from data supplied by the mortgage lending agencies on all loans approved by them. In comparing house prices figures from one period to another, account should be taken of the fact that changes in the mix of dwellings will affect the average figures. This chart shows the trend for the average house price across the four Dublin local authorities for each quarter since the beginning of 2008',
+    '',
+    'chart-housePrices'
+    )
+    
+    +theme__text-chart(
+    'property-price-monthly',
+    'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0',
+    'CSO',
+    'https://www.cso.ie/en/releasesandpublications/ep/p-rppi/residentialpropertypriceindexoctober2018/',
+    'RPPI October 2018',
+    'Monthly Residential Property Price Index',
+    'In Dublin, residential property prices rose by 6.3% in the year 2018 to October, with house prices rising by 6.6% and apartments by 5.7%.The highest house price growth in Dublin was in Dún Laoghaire-Rathdown at 8.2%, while the lowest growth was in South Dublin at 5.0%. National residential property prices in Ireland excluding Dublin were 10.6% higher in the year to October, with house prices up by 10.3% and apartments by 14.5%. The region outside of Dublin that saw thelargest rise in property prices was the Mid-West at 21.5%, while thesmallest was recorded in the Mid-East at 8.3%',
+    '',
+    'chart-HPM06'
+    )
+    
     +theme__text-chart-chart(
     'monthly-rent-prices-private',
     'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0',
@@ -16,6 +40,8 @@
     '',
     ['chart-rentPrices', 'chart-rentByBeds']
     )
+    
+
 
         
 block append scripts

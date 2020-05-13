@@ -239,7 +239,9 @@ Promise.all([
     contributionChart.yScaleFormat = 'millions'
     contributionChart.drawChart()
     contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+  }
 
+  if (document.getElementById('chart-housePrices')) {
   // setup chart and data for quarterly house prices chart
   // process the data
     const housePricesData = datafiles[4],
@@ -447,7 +449,8 @@ Promise.all([
   //
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
-
+  }
+  if (document.getElementById('chart-HPM06')) {
   // new chart Price Index
     const HPM06 = datafiles[11],
       HPM06R = HPM06.columns[1],
