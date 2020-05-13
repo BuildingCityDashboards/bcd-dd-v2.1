@@ -4,7 +4,20 @@
     'The housing data highlights the distribution of residential properties throughout Dublin and seeks to highlight the current housing supply and affordability',
     'For more information on housing please click on this link <a href="../stories"> Housing Stories </a> ',
     '')
+    
+    +theme__text-chart-chart(
+    'monthly-rent-prices-private',
+    'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0',
+    'CSO',
+    'https://onestopshop.rtb.ie/research/ar',
+    'RTB',
+    'Monthly Rent Prices for Private Dwellings',
+    '<p> The <strong>Average Rents Dataset</strong> contains average rents being paid for particular time periods for five different categories of dwelling types in 446 locations throughout the country. The dataset is useful for checking the actual rent being paid for, say, a semi-detached house or a two-bed apartment in an area. However, average rent changes if the mix of properties rented changes, therefore there is a need to mix–adjust to get a standardised rent </p> <p> The <strong>Standardised Rent</strong> (see the <a href=\'https://onestopshop.rtb.ie/research/ar\' target=\'blank\'>Rent Index</a> for more details) is a mix-adjusted rent i.e. a measure of rents that takes account of the changing mix of properties rented in different time periods. The key point of the standardised index is that it takes into account the changing mix of properties rented in different time periods, whereas the average rents on their own do not </p>',
+    '',
+    ['chart-rentPrices', 'chart-rentByBeds']
+    )
 
         
 block append scripts
-  //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")
+    script(src="/lib/d3v5/d3.js" type="text/javascript")
+    //- script(src="/javascripts/themes/housing.js" type="text/javascript")

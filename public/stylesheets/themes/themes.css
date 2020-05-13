@@ -167,6 +167,32 @@
   */
 }
 
+/* For double charts i.e. text-chart-chart*/
+
+.theme__text-chart-chart__chart {
+  display         : flex;
+  height          : 700px;
+  flex-direction  : column;
+  justify-content : center;
+  grid-column     : 6/13;
+  grid-row        : 2;
+}
+
+.theme__text-chart-chart__plot {
+  width  : 800px;
+  height : 400px;
+}
+
+.theme__text-chart-chart__plot svg {
+  /* height : inherit; */
+  /**
+  * align-self
+  *
+  * : center;
+  */
+}
+
+
 .tooltiptext {
   z-index       : 1;
   visibility    : hidden;

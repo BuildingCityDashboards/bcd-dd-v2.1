@@ -129,7 +129,8 @@
 	"title": "Monthly Rent Prices for Private Dwellings",
 	"subtitle": "",
 	"content": "The <strong>Average Rents Dataset</strong> contains average rents being paid for particular time periods for five different categories of dwelling types in 446 locations throughout the country. The dataset is useful for checking the actual rent being paid for, say, a semi-detached house or a two-bed apartment in an area. However, average rent changes if the mix of properties rented changes, therefore there is a need to mix–adjust to get a standardised rent. The <strong>Standardised Rent</strong> (see the <a href='https://onestopshop.rtb.ie/research/ar' target='blank'>Rent Index</a> for more details) is a mix-adjusted rent i.e. a measure of rents that takes account of the changing mix of properties rented in different time periods. The key point of the standardised index is that it takes into account the changing mix of properties rented in different time periods, whereas the average rents on their own do not.",
-	"section-name":"", "link": "#monthly-rent-prices-private"
+	"section-name":"",
+	"link": "#monthly-rent-prices-private"
 }, {
 	"id": 19,
 	"type": "themes-chart",

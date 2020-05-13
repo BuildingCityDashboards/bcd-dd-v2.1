@@ -1,4 +1,4 @@
-mixin theme__text-chart(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartId)
+mixin theme__text-chart-chart(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartIds)
   div(id=id class="theme__text-chart" )
     .theme__text-chart__text
       .theme__text-chart__sources
@@ -7,7 +7,7 @@ mixin theme__text-chart(id, dataLink, dataName, infoLink, infoName, title, descr
           a(href=dataLink target='_blank')= dataName
             img( src='../images/external-link.svg')
         p Website:
-        .theme__text-chart__info-source
+        .theme__text-chart-chart__info-source
           a(href=infoLink target='_blank')= infoName
             img( src='../images/external-link.svg')
       .theme__text-chart__title
@@ -16,11 +16,12 @@ mixin theme__text-chart(id, dataLink, dataName, infoLink, infoName, title, descr
       p.theme__text-chart__info= chartInfo
       .theme__text-chart__kpi
       //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
-    .theme__text-chart__chart
-      .theme__text-chart__button-row
+    .theme__text-chart-chart__chart
+      .theme__text-chart-chart__button-row
         //- a(href=data-source class="theme-btn").button 
         //- a(href=data-source class="theme-btn").button 
-        //- a(href=data-source class="theme-btn").button 
-      div(id=chartId class= "theme__text-chart__plot")
-         
+        //- a(href=data-source class="theme-btn").button
+      each val in chartIds   
+        div(id=val class= 'theme__text-chart-chart__plot') 
+      
       

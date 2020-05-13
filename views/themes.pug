@@ -1,6 +1,7 @@
 extends layout
 include component/theme__header
 include component/theme__text-chart
+include component/theme__text-chart-chart
 
 block append head
   //- link(rel='stylesheet', href='/stylesheets/themes/health/dc.css')
@@ -116,7 +117,7 @@ append scripts
   script(src="/javascripts/themes/environment/environment_water_levels.js" type="text/javascript")
   script(src="/javascripts/themes/environment/environment_noise.js" type="module")
   //-script(src="/javascripts/charts/treemap.js" type="text/javascript")
-  //- script(src="/javascripts/themes/housing.js" type="text/javascript")
+  script(src="/javascripts/themes/housing.js" type="text/javascript")
   //- script(src="/javascripts/themes/education.js" type="text/javascript")
   //- script(src="/javascripts/themes/health.js" type="text/javascript")
   //- script(src="/javascripts/themes/demographics.js" type="text/javascript")
