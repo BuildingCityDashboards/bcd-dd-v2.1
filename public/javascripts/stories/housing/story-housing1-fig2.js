@@ -10,7 +10,7 @@ const srcFileFig2 = 'housetype.csv'
 d3.csv(srcPathFig2 + srcFileFig2)
   .then((data) => {
     // Options for chart
-    const titleFig2 = 'Number of Households by Type, by Region (2002-2016)'
+    const titleFig2 = 'Number of Households by Type, by Region 2002-2016'
     //  titleFig2 = popTitle  // set default on load
     const divIDFig2 = 'housing-types-chart'
     // This array controls the order in which subplotsare drawn
@@ -42,7 +42,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // Nested for each loops are undesriable here
     years.forEach((year) => {
       regionsFig2.forEach((region) => {
-        fig2Plots.push(getSubplot(completionsByYearByRegion[year][region], 'value', 'type'))
+        fig2Plots.push(getSubplot(completionsByYearByRegion[year][region], 'value', ['type','percent']))
       })
     })
     // TODO remove this additional loop
@@ -64,7 +64,12 @@ d3.csv(srcPathFig2 + srcFileFig2)
           return shortNames[v[xVar]] || v[xVar] // type - if there's a shortNames entry, use it
         }),
         y: data.map((v) => {
-          return shortNames[v[yVar]] || v[yVar] // region
+          let regiontxt = v[yVar[0]];
+          let septxt = ' -- ';
+          let percenttxt = v[yVar[1]];
+          let percsigntxt = '%';
+          return regiontxt.concat(septxt, percenttxt, percsigntxt); //type
+          //return shortNames[v[yVar]] || v[yVar]
         }),
         xaxis: null,
         yaxis: null,
@@ -88,9 +93,10 @@ d3.csv(srcPathFig2 + srcFileFig2)
     // Configure the layout object common to all plots
     const fig2Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS)
     fig2Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title)
-    fig2Layout.title.text = titleFig2
+    //fig2Layout.title.text = titleFig2
     fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
-    fig2Layout.margin.t = 100
+    //fig2Layout.margin.t = 100
+    fig2Layout.margin.r = 50
 
     const xaxisRange = [0, 80000] // TODO: get the max value from the data
     // configure the axes for each subplot
@@ -152,7 +158,7 @@ d3.csv(srcPathFig2 + srcFileFig2)
       annotation.opacity = 1.0
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
       annotation.font.color = CHART_COLORS_BY_REGION[plot.name] || 'grey'
-      annotation.font.size = 18
+      annotation.font.size = 16
       return annotation
     }
 
@@ -246,7 +252,13 @@ d3.csv(srcPathFig2 + srcFileFig2)
       displayModeBar: true,
       displaylogo: false,
       showSendToCloud: false,
-      responsive: true
+      responsive: true,
+      toImageButtonOptions: {
+        filename: 'Dublin Dashboard - ' + titleFig2,
+        width: null,
+        height: null,
+        format: 'png'
+      }
     })
 
     // workaround to place y axis labels on bars

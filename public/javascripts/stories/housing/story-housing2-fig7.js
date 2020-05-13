@@ -1,6 +1,6 @@
 //Options for chart
 const srcPathFig7 = "../data/Stories/Housing/part_2/processed/social_housing_wait_list.csv";
-let titleFig7 = "Social Housing Waiting List, by Region (2005-2018)";
+let titleFig7 = "Social Housing Waiting List by Region 2005-2018";
 const divIDFig7 = "social-housing-wait-chart";
 
 d3.csv(srcPathFig7)
@@ -9,8 +9,8 @@ d3.csv(srcPathFig7)
     const regionsFig7 = [...REGIONS_ORDERED_DUBLIN];
     regionsFig7.push("National");
     const marginRNat = 75;
-    const marginRDub = 185;
-    const marginRBoth = 75;
+    const marginRDub = 230;
+    const marginRBoth = 230;
 
     let tracesFig7 = [];
 
@@ -28,7 +28,7 @@ d3.csv(srcPathFig7)
         return y[yVar];
       });
       trace.connectgaps = true;
-      trace.mode = 'lines';
+      trace.mode = 'lines+markers';
       trace.name === 'National' ? trace.visible = true : trace.visible = false;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey';
@@ -38,22 +38,24 @@ d3.csv(srcPathFig7)
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig7;
+    //layout.title.text = titleFig7;
     layout.height = 500;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
-    layout.xaxis.title = '';
+    layout.xaxis.title = 'Year';
     layout.xaxis.nticks = 6;
-    layout.xaxis.range = [1991, 2018];
+    layout.xaxis.range = [1990.85, 2018.15];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.range = [1, 100000];
     // layout.yaxis.visible = false;
-    layout.yaxis.title = '';
+    layout.yaxis.title = 'People';
+    layout.yaxis.hoverformat = ',d'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
-      l: 0,
+      l: 75,
       r: marginRNat,
-      t: 100 //button row
+      t: 0, //button row
+      b: 40
     };
     // // layout.hidesources = false;
 
@@ -91,10 +93,11 @@ d3.csv(srcPathFig7)
               'visible': [false, false, false, false, true]
             },
             {
-              'title': titleFig7,
+              //'title': titleFig7,
               'annotations': nationalAnnotations,
               'margin.r': marginRNat,
-              'yaxis.range': [1, 100000]
+              'yaxis.range': [1, 100000],
+              'xaxis.range': [1990.85, 2018.15]
             }
           ],
           label: 'National',
@@ -106,10 +109,11 @@ d3.csv(srcPathFig7)
               'visible': [true, true, true, true, false]
             },
             {
-              'title': titleFig7,
+              //'title': titleFig7,
               'annotations': dublinAnnotations,
               'margin.r': marginRDub,
-              'yaxis.range': [1, 21000]
+              'yaxis.range': [1, 21000],
+              'xaxis.range' : [1992.85,2018.15]
             }
           ],
           label: 'Dublin',
@@ -121,11 +125,11 @@ d3.csv(srcPathFig7)
               'visible': [true, true, true, true, true]
             },
             {
-              'title': titleFig7,
+              //'title': titleFig7,
               'annotations': bothAnnotations,
               'margin.r': marginRDub,
-              'yaxis.range': [1, 100000]
-
+              'yaxis.range': [1, 100000],
+              'xaxis.range': [1990.85, 2018.15]              
             }
           ],
           label: 'Both',

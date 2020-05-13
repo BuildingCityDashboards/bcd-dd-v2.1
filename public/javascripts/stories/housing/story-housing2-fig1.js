@@ -1,6 +1,6 @@
 // Options for chart
 const srcPathFig1 = '../data/Housing/HPM06.csv'
-let titleFig1 = 'Monthly Property Price Index, by Type (2005-2018)'
+let titleFig1 = 'Monthly Property Price Index by Type 2005-2018'
 const divIDFig1 = 'ppi-monthly-chart'
 
 d3.csv(srcPathFig1)
@@ -81,22 +81,28 @@ d3.csv(srcPathFig1)
     // Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
-    layout.title.text = titleFig1
+    //layout.title.text = titleFig1
     layout.height = 500
     layout.showlegend = false
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
-    layout.xaxis.title = ''
-    layout.xaxis.nticks = 5
-    // layout.xaxis.range = [1991, 2016]
+    layout.xaxis.title = 'Year-Month'
+    //layout.xaxis.nticks = 7
+    layout.xaxis.range = [0,175]
+    layout.xaxis.tickmode = 'array'
+    //this changes the range manually in a categorical xaxis type - the values are indices in the trace x values
+    layout.xaxis.tickvals = [0,28,56,84,112,140,168]
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
     layout.yaxis.range = [0.1, 150]
+    layout.yaxis.tickmode = 'array'
+    layout.yaxis.tickvals = [25, 50, 75, 100, 125, 150]
     // layout.yaxis.visible = false
-    layout.yaxis.title = ''
+    layout.yaxis.title = 'PPI'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
     layout.margin = {
-      l: 0,
-      r: 0,
-      t: 100 // button row
+      l : 60,
+      r : 140,
+      b : 40,
+      t : 0
     }
     // layout.hidesources = false
 
@@ -113,6 +119,7 @@ d3.csv(srcPathFig1)
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
       ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey'; // magic number!!!
+      annotation.arrowcolor = 'transparent';
       houseAnnotations.push(annotation)
     })
 
@@ -127,6 +134,7 @@ d3.csv(srcPathFig1)
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
       ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey'; // magic number!!!
+      annotation.arrowcolor = 'transparent';
       apartAnnotations.push(annotation)
     })
 
@@ -141,6 +149,7 @@ d3.csv(srcPathFig1)
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
       ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey'; // magic number!!!
+      annotation.arrowcolor = 'transparent';
       allAnnotations.push(annotation)
     })
 
@@ -169,7 +178,7 @@ d3.csv(srcPathFig1)
           ]
         },
           {
-            'title': titleFig1,
+            //'title': titleFig1,
             'annotations': houseAnnotations
 
           }
@@ -186,7 +195,7 @@ d3.csv(srcPathFig1)
             ]
           },
             {
-              'title': titleFig1,
+              //'title': titleFig1,
               'annotations': apartAnnotations
             }
           ],
@@ -202,7 +211,7 @@ d3.csv(srcPathFig1)
             ]
           },
             {
-              'title': titleFig1,
+              //'title': titleFig1,
               'annotations': allAnnotations
 
             }
