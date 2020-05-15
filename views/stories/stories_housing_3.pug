@@ -1,96 +1,129 @@
 extends ../layout
 
 block append head
-  //- link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
-  link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
-  link(rel='stylesheet', href='/stylesheets/stories/housing.css')
-  link(rel='stylesheet', href='/stylesheets/maplegend.css')
+    link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+    link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
+    link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
+    link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
+    link(rel='stylesheet', href='/stylesheets/lib/L.Control.Zoomslider.css')
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
+    link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
+    link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
+    link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
+    link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
+    link(rel='stylesheet', href='/stylesheets/stories/housing.css')
+    link(rel='stylesheet', href='/stylesheets/maplegend.css')
 
 block navigation
   +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
 
-block content  
-   header.header.mt-5.py-5
-    .container
-     .position-anchor#phase3-top.row.justify-content-md-center
-      .col-md-8
-       a(href="/stories").backlink Back to All Stories
-       h1.mb-5.mt-5 Housing in the Dublin Region, 1991 to Present - Phase 3
-       img(class="story-image" src="/images/stories/house_crisis3.jpg" alt="")
- 
-   section.position-anchor#phase3-intro
-    .container
-     .row.justify-content-md-center
-       article.col-md-8
-          p This is the concluding part of the data story examining housing in the capital through the housing and planning data available for the city. The two previous parts describe the preceding historical phases:
-          ul.lead 
-           li 
-            a(href="housing-dublin-phase-1") Phase 1: 1993-2006 (the Celtic Tiger years); 
-           li
-            a(href="housing-dublin-phase-2") Phase 2: 2007-2012 (the crash).
-         
-       article.position-anchor#phase3-heading.col-md-8
-        h2.mt-5.mb-4 Housing crisis phase 3: 2013 onwards (post-crash)
-          
-          //- .position-anchor#phase3-1
-        p The levelling off in the fall in <a href="housing-dublin-phase-1#property-price-growth-chart"> house prices</a>, followed by a gradual and then rapid increase of prices in Dublin (rising by 24.1% between October 2012 and 2013, before levelling off again in response to Central Bank interventions), is indicative of a new phase in the ongoing housing crisis.
-       
-        p This phase sees the continuation of the serious problems of phase 2, such as social housing need, private rent rises, mortgage arrears, negative equity, unfinished estates, but varying levels of change depending on the extent to which solutions are put in place and the wider economy starts to recover. For example, there was large-scale dezoning of serviced zoned land. By Q2 2018 <a href='housing-dublin-phase-2#home-mortgage-arrears-chart'> mortgage accounts remaining in arrears </a> had dropped to less than 67,000 (9.2%), with 46,000 in arrears for more than 90 days (6.3%). With respect to <a href='housing-dublin-phase-2#btl-mortgage-arrears-chart'> buy-to-let (BTL) mortgages</a>, 21,300 (18%) were in arrears, with 17,300 (14.7%) in arrears of more than 90 days.
-       
-        p The new or deepening crises in this period are a lack of supply in some areas and associated rising housing and rental prices, continued problems of social housing provision, and rising homelessness in response to a changing rental market.
-        
-        p Whilst there was oversupply in every single local authority nationwide for both houses and apartments (with the exception of South Dublin for houses) in 2011, the extent of this oversupply varied geographically. Much of rural Ireland had extensive levels of vacancy. In Dublin, the <a href='housing-dublin-phase-2#vacant-housing-chart'>overall vacancy rate</a> for the four local authorities was 8.4% (44,468 units). While the vacancy rate of houses was low, the vacancy rate for apartments was 16-19%.
-       
-        p Despite emigration during the crash, <a href='housing-dublin-phase-1#population-households-chart'>population and households have been growing</a> in Dublin through natural increase, labour migration, and household fragmentation. The levelling off of prices instilled confidence that the bottom of the market had been reached. In combination, the result was an increase in demand by investors trying to maximize return on investment and rental yields and households looking to enter the market. What oversupply there was in the capital was thus absorbed.
-       
-        p With respect to new supply, however, construction remained moribund. In 2016 only 4234 units were <a href='housing-dublin-phase-1#housing-completions-chart'> built in Dublin</a>. Assessments by both the Housing Agency and the Economic Social Research Institute (ESRI) suggest that c.8000 units are required per annum in the four Dublin local authorities. This is a very modest figure that is significantly below pre-crash construction rates and is unlikely to quell present demand.
-       
-        p The effect of very little new supply for either purchase or rent, but rising demand, led to the inflation of prices.
-        //- fig1 - rent
-        #rent-prices-chart.plotly-chart-medium
-                 
-        .position-anchor#phase3-2
-        p One the effects of rent increases is that families who are income insecure – low wage, uncertain hours, flexible working, dependent on welfare – who reside in private rental accommodation cannot afford rent increases and rent supplement is not sufficient to cover the gap, with more than half of those receiving rent supplement having to top up their rent. Consequently, they are being priced out of their homes in favour of those who can afford the new rental price. These families find it difficult to find alternative private rented accommodation due to rent inflation across the rental sector and landlord preferences for tenants not reliant on rent supplement. With no social housing available, these families find themselves homeless.
-         
-        p Nationally, the Simon Community reported that in 2012, there was an increase of 24% in those using their services, to over 5,000 individuals. The Dublin Region Homeless Executive (DRHE) detail that a total of 5,480 adult individuals accessed homeless accommodation during 2015 in Dublin. As of April 2018, there were 1444 families homeless in Dublin living in emergency homeless accommodation.
-        //- //fig 2
-        #homelessness-chart.plotly-chart-medium
-         
-        .position-anchor#phase3-3
-        p Without a significant increase in the level of supply competition for property continues to intensify, with rising purchase and rental prices and increasing homelessness. 
-         
-        p In theory, a lot of the right criteria for creating supply exist. There is an excess of demand; there was 6,400 acres of zoned  <a href='housing-dublin-phase-2#serviced-land-chart'>serviced land</a> available in the four Dublin authorities for 132,000 units in 2014 and there are a lot of outstanding planning permissions still in effect and local authorities want to give permission for developments that meet development plan/zoning criteria.
-        p Yet despite these conditions and the need to create supply it is clear that a hangover from <a href='housing-dublin-phase-2'>phase 2</a> of the crisis is blocking development. The state’s finances are limited, there are competing demands for scarce resources, and they are reluctant to significantly increase capital spending on housing and associated infrastructure. The banks are in a weak state and reluctant to lend for development. Builders and developers have limited initial capital to draw down additional finance. With respect to land, it may be the case that owners are reluctant to put into development because they bought it in the boom and cannot afford to develop at present housing prices. With respect to planning, it may be that developers are seeking permissions that contravene development plans or are trying to alter existing permissions. The property industry also argues that the system needs streamlining and simplifying. 
-      
+block content    
+  .content.bg-dark-blue
+    header.header.mt-5.py-5
+      .container
+        .position-anchor#phase3-top.row.justify-content-md-center
+          .col-md-12
+            a(href="/stories").backlink Back to All Stories
+            h1.mb-4.mt-5 Housing in the Dublin Region, 1991 to Present
+            h2.mb-5.mt-4 Phase 3 - 2013-present (post-crash)
+            img(class="story-image" src="/images/stories/house_crisis3.jpg" alt="")
+            section.position-anchor#phase2-intro
+              .div(style="margin-top:30px")
+                p This is the concluding part of the data story examining housing in the capital through the housing and planning data available for the city. The two previous parts describe the preceding historical phases:
+                ul 
+                  li 
+                    a(href="housing-dublin-phase-1") Phase 1: 1993-2006 (the Celtic Tiger years); 
+                  li
+                    a(href="housing-dublin-phase-2") Phase 2: 2007-2012 (the crash).
+
+    section
+      .container
+        article#phase3-content
+          #phase3-1-heading
+          .position-anchor     
+            h2.mt-5.mb-5 Rent prices jumped, particularly in Dublin
+          #phase3-1
+            p The effect of very little new supply for either purchase or rent, but rising demand, led to the inflation of prices, increasing by 60.1% between 2010 and 2019. House prices are being suppressed by the Central Bank rules on deposits.
+            //- fig1 - rent
+          #chart-and-source
+            #rent-prices-chart.plotly-chart-medium
+            .data-source data source: <a href="https://www.cso.ie/px/pxeirestat/statire/SelectTable/Omrade0.asp">CSO Statbank</a>
+
+                    
+          #phase3-2-heading
+          .position-anchor
+            h2.mt-5.mb-5 High rents and comparatively low wages drove homelessness rates higher
+          #phase3-2
+            p One of the effects of rent increases is that families who are income insecure cannot afford rent increases, and with no social housing available, these families find themselves homeless. 
+            p The Dublin Region Homeless Executive (DRHE) detail that in June 2014, 913 adults and dependents were in emergency accomodation. By November 2018, this number had risen to 4,635. Of these 848 families live in hotels and B and Bs, and 459 in other provided accommodation.
+            
+            //- //fig 2
+          #chart-and-source
+            #homelessness-chart.plotly-chart-medium
+            .data-source data source: <a href="https://www.homelessdublin.ie/info/figures">Dublin Region Homeless Executive</a>
+          #phase3-3-heading
+          .position-anchor
+            h2.mt-5.mb-5 The short term rental market displaces housing stock for residents
+          #phase3-3
+            p Airbnb was introduced in Ireland in 2015 with the intention of raising tourism and providing financial relief for property owners. Instead, a majority of the Airbnb rental market is owned by individuals or real-estate companies who never live there during the year. Short term rental properties, like those throughout the Dublin area, remove units from the available housing market. 
+          #chart-and-source
+            #airbnb-properties-map
+            .data-source data source: <a href="http://insideairbnb.com/get-the-data.html">insideairbnb.com</a>
+
+          #phase3-4-heading
+          .position-anchor
+            h2.mt-5.mb-5 Regulations have not curbed the short-term rental problem
+          #phase3-4
+            p On December 24 2016, Dublin was declared a Rent Pressure Zone to restrict rampant price rises and require planning permission for short-term renting and for renting out multiple properties. From January 2016 through July 2018, the number of short-term rental properties on Airbnb increased by 4610 in Dublin City, 658 in Dun Laoghaire-Rathdown, 471 in FIngal, and 254 in South Dublin. Since then, however, the number of properties has decreased in each local authority except for Fingal.
+            p Part of these regulations were meant to curb the use of full-time rental properties. If a property is available for more than 90 days, written planning permission from DHS is required<sup>1</sup>. Over time, the average number of days in which Airbnb properties were available yearly has decreased. In January 2016, the average property in each local authority was available at least 200 days of the year. The average now is around 100 days.
+            p Planning permission is also required for homeowners renting their non-primary place of residence. But this has not deterred owners of multiple properties from short-term renting. The average number of properties on Airbnb by the same host has risen. Dublin City hosts own an average of 4.3 properties, up from 2.2 in 2016.
+          #chart-and-source
+            #airbnb_counts_chart.plotly-chart-medium
+            .data-source data source: <a href="http://insideairbnb.com/get-the-data.html">insideairbnb.com</a>
+
+          #phase3-5-heading
+          .position-anchor
+            h2.mt-5.mb-5 Development continues to expand, especially in higher income areas
+          #phase3-5 
+            p The four local authorities grant planning permissions to develop land for housing. In the third quarter of 2019, permissions for new developments have been proposed under a Tier 2A classification, while permissions already granted either continue or have been paused under a classification of Tier 1.
+            p Many of those permissions are granted in Dublin City, South Dublin, and Dun Laoghaire. The area of Dublin currently being development or proposed to further develop into housing is staggering.
+          #chart-and-source
+            #planning-permissions-map
+            .data-source data source: Housing.gov.ie, <a href="https://data-housinggovie.opendata.arcgis.com/datasets/tier-1-sites-with-planning-permission-2?geometry=-8.129%2C53.127%2C-4.424%2C53.700">Tier 1</a>, <a href="https://data-housinggovie.opendata.arcgis.com/datasets/tier-2a-sites-with-planning-applications-under-consideration-3?geometry=-8.130%2C53.145%2C-4.425%2C53.718">Tier 2A</a>
+
         .position-anchor#phase3-conclusion
-        h2 Conclusion
-        p The last twenty five years has seen a tumultuous set of changes with regards to Ireland’s housing sector and market. Throughout the entire period it has been transitioning through three phases of crisis. 
-        p In the <a href='housing-dublin-phase-1'> first phase</a>, there were crises of creating enough supply, very quickly rising prices to levels that were unaffordable for low and middle income households and reduced competitiveness, a significant increase in household debt and bank debt to precarious levels, over-zoning of land and dramatic price increases, the expansion of urban sprawl and long distance commuting. 
-        p In the <a href='housing-dublin-phase-2'>second phase</a>, the property bubble burst, the fallout was catastrophic for households, the state, and the wider economy. House prices plunged, estates remained unfinished, households were faced with extensive mortgage arrears and negative equity and/or poor build quality, the social housing waiting list extended, and more households became homeless. 
-        p In the <a href='housing-dublin-phase-3'>third phase</a>, instead of the market returning and fixing the problems, there has been uneven mopping up of oversupply and little new supply of housing units. This has driven up purchase and rental prices in the cities and also created rising homelessness. This present phase is likely to last a number of years and is unlikely to address issues that have persisted since the 1990s, such as housing (to buy or rent) becoming increasingly unaffordable for ordinary citizens.
+          h2.mt-5.mb-5 Conclusion
+          p In theory, a lot of the right criteria for creating supply exist. There is an excess of demand; there was 6,400 acres of zoned  <a href='housing-dublin-phase-2#serviced-land-chart'>serviced land</a> available in the four Dublin authorities for 132,000 units in 2014 and there are a lot of outstanding planning permissions still in effect and local authorities want to give permission for developments that meet development plan/zoning criteria.
+          p Yet despite these conditions and the need to create supply it is clear that a hangover from <a href='housing-dublin-phase-2'>phase 2</a> of the crisis is blocking development. The state’s finances are limited, there are competing demands for scarce resources, and they are reluctant to significantly increase capital spending on housing and associated infrastructure. The banks are in a weak state and reluctant to lend for development. Builders and developers have limited initial capital to draw down additional finance. With respect to land, it may be the case that owners are reluctant to put into development because they bought it in the boom and cannot afford to develop at present housing prices. With respect to planning, it may be that developers are seeking permissions that contravene development plans or are trying to alter existing permissions. The property industry also argues that the system needs streamlining and simplifying. 
+          p The last twenty five years has seen a tumultuous set of changes with regards to Ireland’s housing sector and market. Throughout the entire period it has been transitioning through three phases of crisis. 
+          p In the <a href='housing-dublin-phase-1'> first phase</a>, there were crises of creating enough supply, very quickly rising prices to levels that were unaffordable for low and middle income households and reduced competitiveness, a significant increase in household debt and bank debt to precarious levels, over-zoning of land and dramatic price increases, the expansion of urban sprawl and long distance commuting. 
+          p In the <a href='housing-dublin-phase-2'>second phase</a>, the property bubble burst, the fallout was catastrophic for households, the state, and the wider economy. House prices plunged, estates remained unfinished, households were faced with extensive mortgage arrears and negative equity and/or poor build quality, the social housing waiting list extended, and more households became homeless. 
+          p In the <a href='housing-dublin-phase-3'>third phase</a>, instead of the market returning and fixing the problems, there has been uneven mopping up of oversupply and little new supply of housing units. This has driven up purchase and rental prices in the cities and also created rising homelessness. This present phase is likely to last a number of years and is unlikely to address issues that have persisted since the 1990s, such as housing (to buy or rent) becoming increasingly unaffordable for ordinary citizens.
         
-       article.col-md-8.py-5
-         h2 Acknowledgement
-         p This extended data story is an updated and modified version Kitchin, R., Hearne, R. and O’Callaghan, C. (2016) Housing. In Roche, W.K., O’Connell, P. and Prothero, A. (eds) Austerity and Recovery in Ireland: Europe’s Poster Child and the Great Recession. Oxford University Press. pp. 272-289.
+        .position-anchor#phase3-acknowledgement
+          h2.mt-5.mb-4 Acknowledgement
+        .div
+          p This extended data story is an updated and modified version Kitchin, R., Hearne, R. and O’Callaghan, C. (2016) Housing. In Roche, W.K., O’Connell, P. and Prothero, A. (eds) Austerity and Recovery in Ireland: Europe’s Poster Child and the Great Recession. Oxford University Press. pp. 272-289.
 
-       article.col-md-8.pb-5
-         h2 Reference
-         p <sup>1</sup> Household data is taken from the Census, which runs April 2002 – April 2006). Completions data has been estimated based on two thirds of 2002 and one third 2006 to approximate April dates.
-         p <sup>2</sup> Brawn, D. 2009. Ireland’s House Party: What Estates Agents Don’t Want You to Know Dublin: Gill and Macmillan. 
-         p <sup>3</sup> Central Statistics Office, CSO. 2008. Construction and Housing in Ireland. Available at: 
-          a( href="http://www.cso.ie/en/media/csoie/releasespublications/documents/construction/current/constructhousing.pdf" target="blank") www.cso.ie
-          p <sup>4</sup> O’Riain, S. 2014. The Rise and Fall of Ireland’s Celtic Tiger: Liberalism, Boom, and Bust Cambridge: Cambridge University Press.
-          p <sup>5</sup> Savills HOK 2007. Values Approach €60,000 Hectare. Irish Agricultural Land Research May. 
-          p <sup>6</sup> O’Toole, F. 2009. Ship of Fools: How Stupidity and Corruption Sank the Celtic Tiger. London: Faber and Faber.
-          p <sup>7</sup> Honohan, P. 2010. The Irish Banking Crisis: Regulatory and Financial Stability Policy 2003 – 2008. Irish Central Bank. 
-          | Available at: 
-          a(href="http://www.bankinginquiry.gov.ie/the%20irish%20banking%20crisis%20regulatory%20and%20financial%20stability%20policy%202003-2008.pdf" target="blank") www.bankinginquiry.gov.ie
-
+        .position-anchor#phase3-references
+          h2.mt-5.mb-4 References
+        .div
+            p(style='padding-bottom: 1rem; margin-bottom: 0px') <sup>1</sup> Department of Housing, Planning, and Local Government. July 2019. <a href="https://www.housing.gov.ie/sites/default/files/publications/files/30.07.19_short-term_lettings_faqs_0.pdf">New Regulations of Short-Term Lettings FAQs</a>
+          
 block append scripts
- //- //script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" type="text/javascript")
- script(src="/lib/d3v5/d3.js" type="text/javascript")
- script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
- script(src="/javascripts/charts/plotly/plotly_config_stories.js" type="text/javascript")
- script(src="/javascripts/stories/housing/story-housing3-fig1.js" type="text/javascript")
- script(src="/javascripts/stories/housing/story-housing3-fig2.js" type="text/javascript")
- script(src="/javascripts/charts/plotly/plotly_resize_fix.js" type="text/javascript")
+  script(src="/lib/proj4.js" type="text/javascript")
+  script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" type="text/javascript")
+  script(src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js" type="text/javascript")
+  script(src="/lib/L.Control.Locate.modified.js" type="text/javascript")
+  script(src="/lib/Control.OSMGeocoder.modified.js" type="text/javascript")
+  script(src="/lib/d3v5/d3.js" type="text/javascript")
+  script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
+  script(src="/javascripts/themes/maps_common.js" type="text/javascript")
+  script(src="/lib/underscore-min.js" type="text/javascript")
+  script(src="/javascripts/charts/plotly/plotly_config_stories.js" type="text/javascript")
+  script(src="/javascripts/stories/housing/story-housing3-fig1.js" type="text/javascript")
+  script(src="/javascripts/stories/housing/story-housing3-fig2.js" type="text/javascript")
+  script(src="/javascripts/stories/housing/story-housing3-fig3.js" type="text/javascript")
+  script(src="/javascripts/stories/housing/story-housing3-fig4.js" type="text/javascript")
+  script(src="/javascripts/stories/housing/story-housing3-fig5.js" type="text/javascript")
+  script(src="/javascripts/charts/plotly/plotly_resize_fix.js" type="text/javascript")

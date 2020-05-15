@@ -113,7 +113,7 @@ d3.csv(srcPathFig9 + srcFileFig9)
       l: 50,
       r: marginREuros, //annotations space
       b: 40, //x axis tooltip
-      t: 100 //button row
+      //t: 100 //button row
     };
 
     //Set annotations per chart with config per trace

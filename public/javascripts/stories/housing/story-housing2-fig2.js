@@ -1,6 +1,6 @@
 // Options for chart
 const srcPathFig2 = '../data/Stories/Housing/part_2/processed/E1071.csv'
-const titleFig2 = 'Housing Stock and Vacancy Rates (1991-2016)'
+const titleFig2 = 'Housing Stock and Vacncy Rates 1991-2016'
 const divIDFig2 = 'vacant-housing-chart'
 
 d3.csv(srcPathFig2)
@@ -17,21 +17,22 @@ d3.csv(srcPathFig2)
     const stateTraces = []
 
     const stateVacantTrace = getTrace(dataByRegion, 'State', 'date', 'Vacant (Number)')
-    stateVacantTrace.text = stateVacantTrace.y.map(String)
+    //stateVacantTrace.text = stateVacantTrace.y.map(String)
     stateVacantTrace.name = 'State' + ' vacant houses'
-    //  stateVacantTrace.type = 'scatter'
-    stateVacantTrace.mode = 'lines'
-    stateVacantTrace.fill = 'tozeroy'
+    stateVacantTrace.type = 'line'
+    stateVacantTrace.mode = 'lines+markers'
+    //stateVacantTrace.fill = 'tozeroy'
     stateVacantTrace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     stateVacantTrace.marker.color = CHART_COLORS_BY_REGION['State'] || 'grey'
     stateTraces.push(stateVacantTrace)
 
     const stateStockTrace = getTrace(dataByRegion, 'State', 'date', 'Total housing stock (Number)')
-    stateStockTrace.text = stateStockTrace.y.map(String)
+    //stateStockTrace.text = stateStockTrace.y.map(String)
     stateStockTrace.name = 'State' + ' total houses'
-    //  stateStockTrace.type = 'scatter'
+    //stateStockTrace.name = 'T'
+    stateStockTrace.type = 'line'
     stateStockTrace.mode = 'lines+markers'
-    stateStockTrace.fill = 'tozeroy'
+    //stateStockTrace.fill = 'tozeroy'
     stateStockTrace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     stateStockTrace.marker.color = CHART_COLORS_BY_REGION['State'] || 'grey'
     stateTraces.push(stateStockTrace)
@@ -44,7 +45,7 @@ d3.csv(srcPathFig2)
       trace.y = dataByRegion[key].map((y) => {
         return y[yVar]
       })
-      trace.hoverinfo = 'y'
+      //-trace.hoverinfo = 'y'
       return trace
     }
 
@@ -87,26 +88,31 @@ d3.csv(srcPathFig2)
     // Set layout options
     const layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
-    layout.title.text = titleFig2
+    //layout.title.text = titleFig2
     layout.height = 500
     layout.showlegend = false
     // layout.barmode = 'relative'
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
     layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title)
     layout.xaxis.title.text = 'Census Years'
-    layout.xaxis.range = [1991, 2016]
+    layout.xaxis.range = [1990.85, 2016.15]
     layout.xaxis.tickmode = 'array'
     layout.xaxis.tickvals = [1991, 1996, 2002, 2006, 2011, 2016]
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
     layout.yaxis.range = [0.1, 2100000]
     //  layout.yaxis.visible = false
-    layout.yaxis.title = ''
+    layout.yaxis.title = 'Units'
+    layout.yaxis.tickmode = 'array'
+    layout.yaxis.tickvals = [500000,1000000,1500000,2000000]
+    layout.yaxis.hoverformat = '.2s'
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
     layout.margin = {
-      l: 10,
-      r: 190,
-      t: 100 // button row
+      l: 70,
+      r: 210,
+      t: 0, // button row
+      b: 40
     }
+    layout.yaxis.title.standoff = 10
     //  layout.hidesources = false
 
     const stateAnnotations = []
@@ -132,6 +138,7 @@ d3.csv(srcPathFig2)
       CHART_COLORS_BY_REGION[trace.name] ? annotation.opacity = 1.0 : annotation.opacity = 0.5
       annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
       annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'
+      annotation.arrowcolor = 'transparent'
       rateAnnotations.push(annotation)
     })
 
@@ -153,10 +160,13 @@ d3.csv(srcPathFig2)
           visible: [true, true, false, false, false, false, false, false, false, false]
         },
         {
-          title: titleFig2,
+          //title: titleFig2,
           annotations: stateAnnotations,
           'yaxis.range': [0.1, 2100000],
-          'yaxis.title': ''
+          'yaxis.title': 'Units',
+          'yaxis.tickmode' : 'array',
+          'yaxis.tickvals' :[500000,1000000,1500000,2000000],
+          'yaxis.hoverformat' : '.2s'
         }
         ],
         label: 'State Count',
@@ -168,10 +178,13 @@ d3.csv(srcPathFig2)
           visible: [false, false, true, true, true, true, true, true, true, true]
         },
         {
-          title: titleFig2,
+          //title: titleFig2,
           annotations: rateAnnotations,
-          'yaxis.range': [0.1, 18],
-          'yaxis.title': '%'
+          'yaxis.range': [0.1, 16],
+          'yaxis.tickmode' : 'array',
+          'yaxis.tickvals' : [2.5, 5, 7.5, 10, 12.5, 15],
+          'yaxis.title': '%',
+          'yaxis.hoverformat' : '.3r'
         }
         ],
         label: 'Vacancy % Rate',

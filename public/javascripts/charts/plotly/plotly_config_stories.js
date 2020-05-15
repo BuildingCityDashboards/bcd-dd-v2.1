@@ -24,7 +24,7 @@ const MARGINS = {
   pad: 0
 };
 
-const CHART_COLOR = '#ffffff';
+const CHART_COLOR = '#ffffff00';
 // constCHART_COLOR = '#d8d8d8'; //nearly same as background
 //CHART_COLORWAY is used in charts and high_annotations- defaults here
 let CHART_COLORWAY = ['#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72', '#182844'];
@@ -124,14 +124,14 @@ const CHART_OPACITY_BY_VARIABLE = {
 }
 
 const CHART_FONT = {
-  family: 'PT Sans',
+  //family: 'PT Sans',
   size: 16,
-  color: '#313131'
+  color: '#EEEEEE'
 };
 const CHART_TITLE_FONT = {
-  family: 'PT Sans',
+  //family: 'PT Sans',
   size: 20,
-  color: '#313131'
+  color: '#EEEEEE'
 }
 
 const ANNOTATIONS_DEFAULT = {
@@ -165,16 +165,19 @@ const TRACES_DEFAULT = {
   marker: {
     symbol: null,
     color: null, //lines + markers, defaults to colorway
+    size: 10,
     line: {
       width: null
     }
+    
   },
   fill: null,
   fillcolor: null,
   hoveron: 'points', //'points+fills',
   line: {
     color: null,
-    shape: 'spline'
+    shape: 'spline',
+    width: 4
   },
   text: null,
   hoverinfo: null,
@@ -188,8 +191,9 @@ const MULTILINE_CHART_LAYOUT = {
     l: 0,
     r: 0, //change in chart based on annotations
     b: 40,
-    t: 100
+    t: 0
   },
+
   title: {
     text: '',
     font: CHART_TITLE_FONT,
@@ -202,7 +206,10 @@ const MULTILINE_CHART_LAYOUT = {
     yanchor: 'top'
   },
   xaxis: {
-    title: '',
+    title: {
+      text: '',
+      standoff: 10
+    },
     titlefont: CHART_FONT,
     visible: true,
     type: null,
@@ -215,15 +222,16 @@ const MULTILINE_CHART_LAYOUT = {
     ticks: '', //inside/ outside
     automargin: true,
     tickfont: {
-      family: 'PT Sans',
-      size: 12,
-      color: '#313131'
-    }
+      //family: 'PT Sans',
+      size: 10,
+      color: '#EEEEEE'
+    },
+    gridcolor: '#535353'
   },
   yaxis: {
     title: {
       text: '',
-      standoff: 20
+      standoff: 40
     },
     titlefont: CHART_FONT,
     visible: true,
@@ -237,10 +245,11 @@ const MULTILINE_CHART_LAYOUT = {
     ticks: '', //inside/ outside
     automargin: true,
     tickfont: {
-      family: 'PT Sans',
-      size: 12,
-      color: '#313131'
-    }
+      //family: 'PT Sans',
+      size: 10,
+      color: '#EEEEEE'
+    },
+    gridcolor: '#535353'
   },
   paper_bgcolor: CHART_COLOR, //'#E0E0E0',
   plot_bgcolor: CHART_COLOR,
@@ -336,12 +345,12 @@ const ROW_CHART_LAYOUT = {
 };
 
 const ROW_CHART_LAYOUT_SUBPLOTS = {
-  height: 700,
+  height: 650,
   margin: {
     l: 0,
     r: 0,
-    b: 40,
-    t: 40
+    b: 0,
+    t: 0
   },
   title: {
     text: '',
@@ -433,8 +442,8 @@ const STACKED_AREA_CHART_LAYOUT = {
   height: 500,
   margin: {
     l: 0,
-    r: 0,
-    b: 50,
+    r: 0, //change in chart based on annotations
+    b: 20,
     t: 0
   },
   title: {
@@ -463,11 +472,15 @@ const STACKED_AREA_CHART_LAYOUT = {
     automargin: true,
     tickfont: {
       family: null,
-      size: 12
-    }
+      size: 10
+    },
+    gridcolor: '#535353'
   },
   yaxis: {
-    title: '',
+    title: {
+      text: '',
+      standoff: 20
+    },
     titlefont: {
       size: 16
     },
@@ -481,8 +494,10 @@ const STACKED_AREA_CHART_LAYOUT = {
     automargin: true,
     tickfont: {
       family: null,
-      size: 12
-    }
+      size: 10,
+      color: '#EEEEEE'
+    },
+    gridcolor: '#535353'
   },
   paper_bgcolor: CHART_COLOR,
   plot_bgcolor: CHART_COLOR,
@@ -503,18 +518,18 @@ const UPDATEMENUS_BUTTONS_BASE = {
     'l': 0
   },
   font: {
-    family: 'PT Sans',
+    //family: 'PT Sans',
     size: 14,
-    color: '#313131'
+    color: '#00c0f5'
   },
   fillcolor: 'lightgrey',
-  bordercolor: 'white',
+  bordercolor: '#00c0f5',
   showactive: true,
-  bgcolor: '#e6e6e6',
+  bgcolor: '#transparent',
   active: 0,
   xref: 'container',
-  x: 0.5,
-  xanchor: 'center',
+  x: 0,
+  xanchor: 'left',
   yref: 'container',
   y: 1.01, //place above plot area with >1.0
   yanchor: 'bottom'

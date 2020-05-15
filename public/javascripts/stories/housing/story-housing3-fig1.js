@@ -1,6 +1,6 @@
 //Options for chart
 const srcPathFig1 = "../data/Stories/Housing/part_3/processed/ave_monthly_rent.csv";
-let titleFig1 = "Average Price of Rent in Euros by Quarter-Year (2007-2018)";
+let titleFig1 = "Average Price of Rent in Euros by Quarter-Year 2007-2018";
 const divIDFig1 = "rent-prices-chart";
 
 d3.csv(srcPathFig1)
@@ -16,7 +16,7 @@ d3.csv(srcPathFig1)
       let trace = Object.assign({}, TRACES_DEFAULT);
       trace.name = yVar;
       trace.visible = true;
-      trace.hoverinfo = 'y';
+      //trace.hoverinfo = 'y';
       trace.x = data.map((x) => {
         return x[xVar];
       });
@@ -25,7 +25,7 @@ d3.csv(srcPathFig1)
         return y[yVar];
       });
       // trace.connectgaps = true;
-      trace.mode = 'lines';
+      trace.mode = 'lines+markers';
       // trace.name === 'state' ? trace.visible = true : trace.visible = true;
       trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
       REGIONS_ORDERED_DUBLIN.includes(trace.name) ? trace.opacity = 1.0 : trace.opacity = 0.5;
@@ -36,12 +36,12 @@ d3.csv(srcPathFig1)
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title);
-    layout.title.text = titleFig1;
+    //layout.title.text = titleFig1;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);
     layout.xaxis.nticks = 7;
-    layout.xaxis.title = '';
-    // layout.xaxis.range = ['Jun-14', 'Nov-18'];
+    layout.xaxis.title = 'Quarter-Year';
+    layout.xaxis.range = [-0.2, 42.2];
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis);
     layout.yaxis.range = [1, 2000];
     // layout.yaxis.visible = false;
@@ -49,8 +49,9 @@ d3.csv(srcPathFig1)
     layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin);
     layout.margin = {
       l: 10,
-      r: 100,
-      t: 50 //button row
+      r: 150,
+      t: 0, //button row
+      b: 40
     };
 
     let annotations = [];
