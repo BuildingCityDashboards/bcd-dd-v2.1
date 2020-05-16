@@ -63,7 +63,7 @@ if (document.getElementById('chart-population')) {
   })
 }
 
-if (document.getElementById('chart-bornOutsideStat')) {
+if (document.getElementById('chart-bornOutsideState')) {
   d3.csv('../data/Demographics/CNA14.csv').then(data => {
     data.forEach(d => {
       d.Dublin = +d.Dublin
