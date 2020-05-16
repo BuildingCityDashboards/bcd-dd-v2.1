@@ -7,10 +7,8 @@
     
     +theme__text-chart-chart(
     'employment',
-    'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
-    'CSO',
-    '',
-    '',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
     'Employment',
     '<p> *** content tbc *** </p>',
     '',
@@ -19,11 +17,9 @@
     
     +theme__text-chart-chart(
     'unemployment',
-    'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
-    'CSO',
-    '',
-    '',
-    'Unemployment',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
+    'Unemploy',
     '<p> *** content tbc *** </p>',
     '',
     ['chart-unemployment', 'chart-unemp-rate']

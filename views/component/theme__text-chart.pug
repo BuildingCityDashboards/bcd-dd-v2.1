@@ -1,15 +1,12 @@
-mixin theme__text-chart(id, dataLink, dataName, infoLink, infoName, title, description, chartInfo, chartId)
+mixin theme__text-chart(id, sources, title, description, chartInfo, chartId)
   div(id=id class="theme__text-chart" )
     .theme__text-chart__text
       .theme__text-chart__sources
-        p Source: 
-        .theme__text-chart__data-source 
-          a(href=dataLink target='_blank')= dataName
-            img( src='../images/external-link.svg')
-        p Info:
-        .theme__text-chart__info-source
-          a(href=infoLink target='_blank')= infoName
-            img( src='../images/external-link.svg')
+        p Sources:
+        each val in sources
+          div(id=val class= 'theme__text-chart__data-source')  
+            a(href=val.link target='_blank')= val.name
+              img( src='../images/external-link.svg')
       .theme__text-chart__title
         h1= title
       .theme__text-chart__description!= description
