@@ -49,6 +49,7 @@ Promise.all([
   }
 
   if (document.getElementById('chart-emp-rate')) {
+    console.log('emp')
     const empContent = {
       e: '#chart-emp-rate',
       d: aNest,
