@@ -116,9 +116,14 @@
 .theme__text-chart__info-source {}
 
 .theme__text-chart__title {
-  /* padding-top    : 12px;
-  padding-bottom : 24px; */
-  color          : #6fd1f6;
+  /**
+  * padding-top
+  *
+  *
+  *
+  * : 12px; padding-bottom : 24px;
+  */
+  color : #6fd1f6;
 }
 
 .theme__text-chart__title h1 {
@@ -142,7 +147,33 @@
 
 .theme__text-chart__button-row {}
 
-.button .theme-btn {}
+.theme-btn {
+  margin-right   : 24px;
+  padding        : 10px 16px 10px 16px;
+  color          : #8ebfd6;
+  border         : solid 1px rgba(255, 255, 255, 0.12);
+  border-radius  : 4px;
+  background     : transparent;
+  font-family    : 'Roboto';
+  font-size      : 14px;
+  font-style     : normal;
+  font-weight    : 500;
+  font-stretch   : normal;
+  line-height    : 1.14;
+  letter-spacing : 1.25px;
+  outline: none;
+  box-shadow: none;
+}
+
+.theme-btn:hover, .theme-btn:active {
+  border         : solid 1px rgba(255, 255, 255, 0.5);
+}
+
+.theme-btn:focus {
+  outline: none;
+  box-shadow: none;
+
+}
 
 .theme__text-chart__chart {
   display         : flex;
@@ -154,6 +185,7 @@
 }
 
 /* altering height does not make the plot bigger */
+
 .theme__text-chart__plot {
   width  : 800px;
   height : 400px;
@@ -168,7 +200,7 @@
   */
 }
 
-/* For double charts i.e. text-chart-chart*/
+/* For double charts i.e. text-chart-chart */
 
 .theme__text-chart-chart__chart {
   display         : flex;
@@ -192,7 +224,6 @@
   * : center;
   */
 }
-
 
 .tooltiptext {
   z-index       : 1;
