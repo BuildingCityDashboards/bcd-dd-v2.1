@@ -1,0 +1,30 @@
+.theme
+    +theme__header('economy-header',
+    'Economy',
+    '***economy description here***',
+    '',
+    '')
+    
+    +theme__text-chart-chart(
+    'employment',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
+    'Employment',
+    '<p> *** content tbc *** </p>',
+    '',
+    ['chart-employment', 'chart-emp-rate']
+    )
+    
+    +theme__text-chart-chart(
+    'unemployment',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
+    'Unemploy',
+    '<p> *** content tbc *** </p>',
+    '',
+    ['chart-unemployment', 'chart-unemp-rate']
+    )
+
+        
+block append scripts
+  //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")

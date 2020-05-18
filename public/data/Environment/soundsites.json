@@ -3,21 +3,14 @@
 	{"name":"Bull Island", "site_id":2, "lon":53.3677341, "lat":-6.144104},
 	{"name":"Ballyfermot Civic Centre", "site_id":3, "lon":53.343177, "lat":-6.361949},
 	{"name":"Ballymun Library", "site_id":4, "lon":53.390414, "lat":-6.26506},
-
-
-
 	{"name":"Dublin City Council Rowing Club", "site_id":5, "lon":53.346298, "lat":-6.319952},
 	{"name":"Walkinstown Library", "site_id":6, "lon":53.318712, "lat":-6.321846},
 	{"name":"Woodstock Gardens", "site_id":7, "lon":53.3231889, "lat":-6.2477192},
 	{"name":"Navan Road", "site_id":8, "lon":53.370603, "lat": -6.324597},
-
-
 	{"name":"Raheny Library", "site_id":9, "lon":53.3801645, "lat":-6.173062},
 	{"name":"Irishtown Stadium", "site_id":10, "lon":53.3402752, "lat":-6.2199704},
 	{"name":"Chancery Park", "site_id":11, "lon":53.346731,  "lat":-6.272272},
 	{"name":"Blessington St. Basin", "site_id":12, "lon":53.3569812, "lat":-6.2698956},
-
-	
 	{"name":"Dolphins Barn", "site_id":13, "lon":53.331685, "lat": -6.292713},
 	{"name":"Finglas", "site_id":14, "lon":53.390772, "lat":  -6.304237}
 	]

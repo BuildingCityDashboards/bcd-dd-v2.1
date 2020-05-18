@@ -1,0 +1,79 @@
+.theme
+    +theme__header('housing-header',
+    'Homes & Housing',
+    'The housing data highlights the distribution of residential properties throughout Dublin and seeks to highlight the current housing supply and affordability',
+    'For more information on housing please click on this link <a href="../stories"> Housing Stories </a> ',
+    '')
+    
+    +theme__text-chart(
+    'average-house-prices',
+    [{
+    link :'https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics',
+    name: 'housing.gov'}],
+    'Average House Prices',
+    '<p>Figures are derived from data supplied by the mortgage lending agencies on all loans approved by them. In comparing house prices figures from one period to another, account should be taken of the fact that changes in the mix of dwellings will affect the average figures. This chart shows the trend for the average house price across the four Dublin local authorities for each quarter since the beginning of 2008</p>',
+    '',
+    'chart-housePrices'
+    )
+    
+    +theme__text-chart(
+    'property-price-monthly',
+    [{
+    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0',
+    name: 'CSO'
+    },
+    {
+    link: 'https://www.cso.ie/en/releasesandpublications/ep/p-rppi/residentialpropertypriceindexoctober2018/',
+    name:'RPPI October 2018'
+    }],
+    'Monthly Residential Property Price Index',
+    'In Dublin, residential property prices rose by 6.3% in the year 2018 to October, with house prices rising by 6.6% and apartments by 5.7%.The highest house price growth in Dublin was in Dún Laoghaire-Rathdown at 8.2%, while the lowest growth was in South Dublin at 5.0%. National residential property prices in Ireland excluding Dublin were 10.6% higher in the year to October, with house prices up by 10.3% and apartments by 14.5%. The region outside of Dublin that saw thelargest rise in property prices was the Mid-West at 21.5%, while thesmallest was recorded in the Mid-East at 8.3%',
+    '',
+    'chart-HPM06'
+    )
+    
+    +theme__text-chart-chart(
+    'monthly-rent-prices-private',
+    [{
+    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0',
+    name: 'CSO'
+    },
+    {
+    link :'https://onestopshop.rtb.ie/research/ar',
+    name: 'RTB'
+    }],
+    'Monthly Rent Prices for Private Dwellings',
+    '<p> The <strong>Average Rents Dataset</strong> contains average rents being paid for particular time periods for five different categories of dwelling types in 446 locations throughout the country. The dataset is useful for checking the actual rent being paid for, say, a semi-detached house or a two-bed apartment in an area. However, average rent changes if the mix of properties rented changes, therefore there is a need to mix–adjust to get a standardised rent </p> <p> The <strong>Standardised Rent</strong> (see the <a href=\'https://onestopshop.rtb.ie/research/ar\' target=\'blank\'>Rent Index</a> for more details) is a mix-adjusted rent i.e. a measure of rents that takes account of the changing mix of properties rented in different time periods. The key point of the standardised index is that it takes into account the changing mix of properties rented in different time periods, whereas the average rents on their own do not </p>',
+    '',
+    ['chart-rentPrices', 'chart-rentByBeds']
+    )
+    
+    +theme__text-chart(
+    'quarterly-new-dwelling-completions',
+    [{
+    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=NDQ06&PLanguage=0',
+    name: 'CSO'}],
+    'Quarterly New Dwelling Completions in Dublin County by Type',
+    'The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as <ul><li> apartment</li> <li> scheme home</li><li>single house</li></ul></p>',
+    '',
+    'chart-newCompByType'
+    )
+    
+    +theme__text-chart(
+    'available-housing-land',
+    [{
+    link :'https://www.housing.gov.ie/search/archived/current?query=residential%20land%20survey',
+    name: 'DHPCLG'
+    }],
+    'Available Supply of Housing Land (2014)',
+    '<p>The <b>2014 Residential Land Availability Survey</b> measured the total amount of lands that had at that time been development plans and that were the highest priority for development. In effect, these lands were the areas within which much, if not all, new urban housing in the state was expected to be provided in the five or six years following the survey completion</p> <p>The area of such lands amounted to <b>17,434 hectares</b>, which gave a range of densities appropriate to whether the areas were in small villages or larger towns and cities and, as determined by the relevant local authorities, could theoretically enable the construction of over <b>414,000 dwellings</b></p>',
+    '',
+    'chart-houseSupply'
+    )
+    
+
+
+        
+block append scripts
+    script(src="/lib/d3v5/d3.js" type="text/javascript")
+    //- script(src="/javascripts/themes/housing.js" type="text/javascript")

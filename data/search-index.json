@@ -129,7 +129,8 @@
 	"title": "Monthly Rent Prices for Private Dwellings",
 	"subtitle": "",
 	"content": "The <strong>Average Rents Dataset</strong> contains average rents being paid for particular time periods for five different categories of dwelling types in 446 locations throughout the country. The dataset is useful for checking the actual rent being paid for, say, a semi-detached house or a two-bed apartment in an area. However, average rent changes if the mix of properties rented changes, therefore there is a need to mix–adjust to get a standardised rent. The <strong>Standardised Rent</strong> (see the <a href='https://onestopshop.rtb.ie/research/ar' target='blank'>Rent Index</a> for more details) is a mix-adjusted rent i.e. a measure of rents that takes account of the changing mix of properties rented in different time periods. The key point of the standardised index is that it takes into account the changing mix of properties rented in different time periods, whereas the average rents on their own do not.",
-	"section-name":"", "link": "#monthly-rent-prices-private"
+	"section-name":"",
+	"link": "#monthly-rent-prices-private"
 }, {
 	"id": 19,
 	"type": "themes-chart",
@@ -156,7 +157,7 @@
 	"type": "themes-chart-component",
 	"title": "Monthly Residential Property Price Index",
 	"subtitle": "",
-	"content": "In Dublin, residential property prices rose by 6.3% in the year 2018 to October, with house prices rising by 6.6% and apartments by 5.7%.The highest house price growth in Dublin was in Dún Laoghaire-Rathdown at 8.2%, while the lowest growth was in South Dublin at 5.0%. National residential property prices in Ireland excluding Dublin were 10.6% higher in the year to October, with house prices up by 10.3% and apartments by 14.5%. The region outside of Dublin that saw thelargest rise in property prices was the Mid-West at 21.5%, while thesmallest was recorded in the Mid-East at 8.3%.",
+	"content": "In Dublin, residential property prices rose by 6.3% in the year 2018 to October, with house prices rising by 6.6% and apartments by 5.7%.The highest house price growth in Dublin was in Dún Laoghaire-Rathdown at 8.2%, while the lowest growth was in South Dublin at 5.0%. National residential property prices in Ireland excluding Dublin were 10.6% higher in the year to October, with house prices up by 10.3% and apartments by 14.5%. The region outside of Dublin that saw thelargest rise in property prices was the Mid-West at 21.5%, while the smallest was recorded in the Mid-East at 8.3%.",
 	"section-name":"", "link": "/themes#property-price-monthly"
 }, {
 	"id": 23,

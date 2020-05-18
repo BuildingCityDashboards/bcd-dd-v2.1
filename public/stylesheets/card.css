@@ -4,7 +4,6 @@
 }
 
 .card {
-  display            : -ms-flexbox;
   display            : flex;
   position           : relative;
   min-width          : 256px;
@@ -12,18 +11,15 @@
   min-height         : 192px;
   padding            : 8px 16px;
   background-color   : rgba(39, 52, 57, 0.56);
-  -ms-flex-direction : column;
   flex-direction     : column;
   justify-content    : space-between;
   word-wrap          : break-word;
 }
 
 .card__header {
-  display            : -ms-flexbox;
   display            : flex;
   position           : relative;
   background-color   : transparent;
-  -ms-flex-direction : column;
   flex-direction     : column;
 }
 
@@ -91,11 +87,9 @@
 
 .card__left,
 .card__right {
-  display            : -ms-flexbox;
   display            : flex;
   width              : 40%;
   text-align         : center;
-  -ms-flex-direction : column;
   flex-direction     : column;
   justify-content    : flex-start;
 }
@@ -144,14 +138,8 @@
   border                     : 2px solid #16c1f37a;
   box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
   text-decoration            : none;
-  transition-property        : -webkit-box-shadow,
-                               -webkit-transform;
   transition-property        : box-shadow,
                                transform;
-  transition-property        : box-shadow,
-                               transform,
-                               -webkit-box-shadow,
-                               -webkit-transform;
   transition-duration        : .6s;
   transition-timing-function : cubic-bezier(.16,1,.29,.99);
 }
@@ -469,14 +457,8 @@
     border                     : 2px solid #16c1f37a;
     box-shadow                 : 0 12px 30px 0 rgba(0,0,0,.2);
     text-decoration            : none;
-    transition-property        : -webkit-box-shadow,
-                                 -webkit-transform;
     transition-property        : box-shadow,
                                  transform;
-    transition-property        : box-shadow,
-                                 transform,
-                                 -webkit-box-shadow,
-                                 -webkit-transform;
     transition-duration        : .6s;
     transition-timing-function : cubic-bezier(.16,1,.29,.99);
   }
@@ -801,10 +783,8 @@
 
   .card__left,
   .card__right {
-    display            : -ms-flexbox;
     display            : flex;
     text-align         : center;
-    -ms-flex-direction : column;
     flex-direction     : column;
     justify-content    : flex-start;
   }

@@ -69,9 +69,6 @@ a {
   -moz-font-smoothing    : antialiased;
   -webkit-font-smoothing : antialiased;
   font-smoothing         : antialiased;
-  -moz-transition        : all 0.15s;
-  -o-transition          : all 0.15s;
-  -webkit-transition     : all 0.15s;
   transition             : all 0.15s;
   /* text-decoration: none; */
 }
@@ -84,34 +81,6 @@ a:hover {
 /* animations */
 
 @keyframes updateAnimation {
-  0% {
-    opacity : 1;
-  }
-
-  50% {
-    opacity : 0;
-  }
-
-  100% {
-    opacity : 1;
-  }
-}
-
-@-o-keyframes updateAnimation {
-  0% {
-    opacity : 1;
-  }
-
-  50% {
-    opacity : 0;
-  }
-
-  100% {
-    opacity : 1;
-  }
-}
-
-@-moz-keyframes updateAnimation {
   0% {
     opacity : 1;
   }
@@ -140,19 +109,14 @@ a:hover {
 }
 
 .animate-update {
-  -moz-animation    : updateAnimation 1s 3;
-  -o-animation      : updateAnimation 1s 3;
   -webkit-animation : updateAnimation 1s 3;
   animation         : updateAnimation 1s 3;
 }
 
 .bcd-container {
-  display            : -ms-flexbox;
   display            : flex;
   width              : 100%;
-  -ms-flex-direction : column;
   flex-direction     : column;
-  -ms-flex-pack      : justify;
   justify-content    : space-between;
   /* overflow-x: hidden; */
 }
@@ -166,13 +130,11 @@ a:hover {
 }
 
 .bcd-nav {
-  display         : -ms-flexbox;
   display         : flex;
   padding         : .25rem;
   align-items     : center;
   -ms-flex-align  : center;
   -ms-flex-pack   : justify;
-  -ms-flex-wrap   : wrap;
   flex-wrap       : wrap;
   justify-content : space-between;
 }
@@ -240,8 +202,6 @@ a:hover {
   z-index            : 10;
   content            : "";
   display            : inline-block;
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
   box-sizing         : border-box;
   position           : absolute;
   bottom             : -1.5px;
@@ -249,12 +209,7 @@ a:hover {
   width              : 80%;
   height             : 4px;
   background         : var(--vivid-cyan);
-  -ms-transform      : translate(0%, -50%);
-  -webkit-transform  : translate(0%, -50%);
   transform          : translate(0%, -50%);
-  -moz-transition    : all 0.25s ease;
-  -o-transition      : all 0.25s ease;
-  -webkit-transition : all 0.25s ease;
   transition         : all 0.25s ease;
 }
 
@@ -449,6 +404,16 @@ a:hover {
  * background-size: 1000px 1000px; height: 480px; position: relative; overflow:
  * hidden; }
  */
+
+@-webkit-keyframes placeHolderShimmer {
+  0% {
+    background-position : -468px 0;
+  }
+
+  100% {
+    background-position : 468px 0;
+  }
+}
 
 @keyframes placeHolderShimmer {
   0% {

@@ -1,0 +1,43 @@
+.theme
+    +theme__header('environment-header',
+    'Environment',
+    'Explore the sensors placed throughout Dublin to monitor environmental conditions, and charts presenting historical statistics collected on various environmental factors.',
+    '',
+    '')
+    
+    +theme__text-chart(
+    'noise-monitoring',
+    [{
+    link :'http://dublincitynoise.sonitussystems.com/applications/api/api-doc.html',
+    name: 'Dublin City Noise API'
+    },
+    {
+    link: 'https://data.gov.ie/dataset/noise_monitoring1',
+    name: 'data.gov.ie'
+    }],
+    'Noise Level Monitoring Sites',
+    '<p>Dublin City Council monitors ambient sound levels at 12 locations throughout the city. Click on an icon to see the name of the site and latest reading measured there</p>',
+    '',
+    'map-noise-monitors'
+    )
+    
+    +theme__text-chart(
+    'water-monitoring',
+    [{
+    link :'http://waterlevel.ie',
+    name: 'OPW Water Level'
+    },
+    {
+    link: 'http://www.epa.ie/hydronet/#Water%20Levels',
+    name: 'EPA Hydronet'
+    }],
+    'Water Monitoring Sites',
+    '<p>Two sources, the Office of Public Works (OPW) and the Environmental Protection Agency (EPA), monitor water levels and flows along Dublin’s rivers, canals, and coastline. Use the buttons to switch between the OPW water level monitoring sites and the EPA Hydronet system sites. Click a map icon to get information for that location<p>',
+    '',
+    'chart-water-map'
+    )
+
+
+        
+block append scripts
+  

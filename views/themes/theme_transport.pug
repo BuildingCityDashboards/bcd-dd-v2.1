@@ -1,0 +1,85 @@
+.theme
+    +theme__header(
+    'transport-header',
+    'Transport',
+    'Travel and transport trends for Dublin',
+    'For comprehensive and up-to-date travel information including live availablity, arrivals and departures, and Real-Time Passenger Information, see our Getting Around query',
+    '')
+    
+  
+    +theme__text-chart(
+    'dublin-bikes',
+    [{
+    link: 'https://dublinbikes.staging.derilinx.com/',
+    name: 'Derilinx API'},
+    {
+    link: 'http://www.dublinbikes.ie/',
+    name: 'dublinbikes.ie'
+    }],
+    'Dublin Bikes',
+    'Just Eat dublinbikes is a self-service bike rental system open to everyone from 14 years of age. Users can travel through the city centre, commute between home and work and get out and about to enjoy Dublin City at their leisure. Visit the Dublin Bikes website for more information',
+    'The chart shows the general trend of bikes availability for the past day, week and month- click on a button to move between views',
+    'chart-dublinbikes'
+    )
+    
+    
+    +theme__text-chart(
+    'traffic-counters',
+    [{
+    link: 'https://data.tii.ie/',
+    name: 'TII Data Portal'},
+    {
+    link: 'https://www.nratrafficdata.ie/c2/gmapbasic.asp?sgid=ZvyVmXU8jBt9PJE$c7UXt6',
+    name: 'NRA Traffic Data'
+    }],
+    'Traffic Counters',
+    '*** content tbc ***',
+    '',
+    'map-traffic-counters'
+    )
+
+
+
+    
+    //- div#bikes-info-text
+      p In the past day, the maximum number of bikes in use at any given time was <b id='bikes-in-use-count'></b> at <b id='max-bikes-use-time'></b>, meaning there were then still <b id='bikes-available'></b> bikes available.
+
+    //- bike stations around 
+        //-   |the city with <b id='stands-count'></b> stands.
+        //- //- p See also: 
+          li <a href="../queries"> Getting Around</a> for <b>all</b> transport & travel on one map
+
+    //- .col-lg-8
+      .div.my-2
+        <button id="dublinbikes_day" type="button" class="btn btn-bcd btn-sm active">Day</button>
+        <button id="dublinbikes_week" type="button" class="btn btn-bcd btn-sm">Week</button>
+        <button id="dublinbikes_month" type="button" class="btn btn-bcd btn-sm">Month</button>
+        //- <button id="dublinbikes_year" type="button" class="btn btn-bcd btn-sm">Year</button>
+        div#chart-dublinbikes.chart-holder_PH
+      
+      //- div.row.wrapper.pt-3
+      .position-anchor#fingal-disabled-parking
+      .col-lg-4 
+        h3 Fingal Disabled Parking Bays <img height='15px' width='15px' src='/images/calendar-w.svg'>
+        p Source: 
+          a(href="https://data.gov.ie/dataset/disabled-parking-spaces" target="_blank") Data.gov 
+            img(src='../images/external-link.svg' height='11px' width='11px')          
+        p The map shows the locations of disabled car parking bays within the 
+            |Fingal County Council local authority area. In total there are
+            |<b id='fingal-disabled_parking-count'></b> bays located in this data  
+            |from 2011.
+
+        p City center multi-story car park locations appear on our 
+          |<a href="../queries"> Getting Around</a> query. There you can see
+          | the numbers of free spaces currently available, along with
+          | other real-time travel information.
+
+        div#chart-transport-parking-select
+      .col-lg-8
+        div#chart-transport-parking.map-holder
+
+
+  
+        
+block append scripts
+  //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")

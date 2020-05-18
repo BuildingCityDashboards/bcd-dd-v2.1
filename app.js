@@ -238,13 +238,13 @@ cron.schedule('*/1 * * * *', function () {
 // })
 
 // Weather (from old Dublin Dashboard)
-cron.schedule('*/5 * * * *', function () {
-  let http = require('https')
-  let file = fs.createWriteStream('./public/data/Environment/met_eireann_forecast.xml')
-  http.get('https://dublindashboard.ie/met_eireann_forecast.xml', function (response) {
-    response.pipe(file)
-  })
-})
+// cron.schedule('*/5 * * * *', function () {
+//   let http = require('https')
+//   let file = fs.createWriteStream('./public/data/Environment/met_eireann_forecast.xml')
+//   http.get('https://dublindashboard.ie/met_eireann_forecast.xml', function (response) {
+//     response.pipe(file)
+//   })
+// })
 
 // Sound level readings
 cron.schedule('*/15 * * * *', function () {
@@ -291,14 +291,14 @@ const readFileAsync = () => {
           let sensor_ref = d.properties['sensor.ref']
           let fname = station_ref.concat('_', sensor_ref)
 
-   // console.log(i + '---'+ fname);
+            // console.log(i + '---'+ fname);
           var file = fs.createWriteStream('./public/data/Environment/water_levels/' + fname + '.csv')
           var http = require('http')
-   // http://waterlevel.ie/data/month/25017_0001.csv
+ // http://waterlevel.ie/data/month/25017_0001.csv
           http.get('http://waterlevel.ie/data/month/' + fname + '.csv',
-     function (response) {
-       response.pipe(file)
-     })
+   function (response) {
+     response.pipe(file)
+   })
         })
       } catch (error) {
         console.log(error)
