@@ -41,7 +41,7 @@ Promise.all([
     format: 'thousands'
   }
 
-  let pupilsPrimaryChart = new MultiLineChart(pupilsPrimaryPlot)
+  let pupilsPrimaryChart = new GroupedBarChart(pupilsPrimaryPlot)
   pupilsPrimaryChart.addTooltip(pupilsPrimaryToolTip)
 
   // let pSLevelContent = {
