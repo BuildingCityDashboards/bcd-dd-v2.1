@@ -92,6 +92,7 @@ Promise.all([
     updateTextInfo(dataDay)
 
     d3.select('#dublinbikes_day').on('click', function () {
+      console.log('day')
       activeBtn(this, dublinBikesChart)
       dublinBikesChart.d = dataDay
       dublinBikesChart.drawChart()
@@ -100,6 +101,7 @@ Promise.all([
     })
 
     d3.select('#dublinbikes_week').on('click', function () {
+      console.log('week')
       activeBtn(this, dublinBikesChart)
       dublinBikesChart.d = dataWeek
       dublinBikesChart.drawChart()
@@ -108,6 +110,7 @@ Promise.all([
     })
 
     d3.select('#dublinbikes_month').on('click', function () {
+      console.log('month')
       activeBtn(this, dublinBikesChart)
       dublinBikesChart.d = dataMonth
       dublinBikesChart.drawChart()

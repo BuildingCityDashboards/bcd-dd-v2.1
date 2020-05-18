@@ -1,4 +1,4 @@
-mixin theme__text-chart(id, sources, title, description, chartInfo, chartId)
+mixin theme__text-chart(id, sources, title, description, chartInfo, chartId, buttons = [])
   div(id=id class="theme__text-chart" )
     .theme__text-chart__text
       .theme__text-chart__sources
@@ -10,14 +10,13 @@ mixin theme__text-chart(id, sources, title, description, chartInfo, chartId)
       .theme__text-chart__title
         h1= title
       .theme__text-chart__description!= description
-      p.theme__text-chart__info= chartInfo
+      .theme__text-chart__info= chartInfo
       .theme__text-chart__kpi
       //- img(height='15px' width='15px' class="float-right" title="This is a static historical dataset" src=img)
     .theme__text-chart__chart
       .theme__text-chart__button-row
-        //- a(href=data-source class="theme-btn").button 
-        //- a(href=data-source class="theme-btn").button 
-        //- a(href=data-source class="theme-btn").button 
+        each button in buttons
+          <button id=#{button.id} type="button" class="btn btn-bcd btn-sm active">#{button.name}</button>
       div(id=chartId class= "theme__text-chart__plot")
          
       
