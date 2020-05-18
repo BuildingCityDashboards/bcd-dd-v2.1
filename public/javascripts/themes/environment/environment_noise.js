@@ -53,7 +53,7 @@
     })
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
-    console.log(noiseSites)
+    // console.log(noiseSites)
   } catch (e) {
     console.log(e)
   }
