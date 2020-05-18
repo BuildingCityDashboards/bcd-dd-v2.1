@@ -5,7 +5,7 @@ d3.csv('/data/Housing/processed/NDQ05.csv')
   const completionsColumnNames = completionsData.columns.slice(5)
   const completionsColumnName = completionsColumnNames[0]
   const completionsDataSet = coerceData(completionsData, completionsColumnNames)
-// console.log(completionsDataSet)
+ console.log(completionsDataSet)
 
   completionsDataSet.forEach(d => {
     d.quarter = convertQuarter(d.quarter)
