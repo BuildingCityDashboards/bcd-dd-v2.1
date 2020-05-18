@@ -10,26 +10,25 @@ Promise.all([
 
 ]).then(datafiles => {
   const QNQ22 = datafiles[1]
-  const annual = datafiles[0]
+
   const keys = QNQ22.columns.slice(3) // 0-2 is date, quarter, region
   const groupBy = 'region'
-  const keysA = annual.columns.slice(2)
-  const test = d3Nest(QNQ22, 'date') // annual rate keys
 
     // coerce values and parse dates
-  convertThousands(QNQ22, keys)
-  convertThousands(annual, keysA)
+  coerceData(QNQ22, keys)
   parseQuarter(QNQ22, 'quarter')
-  parseYearDates(annual, 'date')
 
   const emp = keys[2]
   const unemp = QNQ22.columns[4]
+  const unempRate = QNQ22.columns[6]
   const fData = filterbyDate(QNQ22, 'date', 'Jan 01  2001')
-  const aNest = d3Nest(annual, groupBy)
   const unempData = stackNest(fData, 'label', 'region', unemp)
+  const unempRateData = stackNest(fData, 'label', 'region', unempRate)
   const empData = stackNest(fData, 'label', 'region', emp)
+
   const grouping = ['Dublin', 'Rest of Ireland']
 
+  let employmentStack
   if (document.getElementById('chart-employment')) {
     const empCStack = {
       e: '#chart-employment',
@@ -40,7 +39,7 @@ Promise.all([
       tY: '',
       ySF: ''
     }
-    let employmentStack = new StackedAreaChart(empCStack)
+    employmentStack = new StackedAreaChart(empCStack)
     employmentStack.tickNumber = 12
     //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
     //   employmentStack.getData(empData);
@@ -48,6 +47,14 @@ Promise.all([
     employmentStack.addTooltip('Quarter:', '', 'label')
   }
 
+  const annual = datafiles[0]
+  const keysA = annual.columns.slice(2)
+  // d3Nest(QNQ22, 'date') // annual rate keys
+  coerceData(annual, keysA)
+  parseYearDates(annual, 'date')
+  const aNest = d3Nest(annual, groupBy)
+
+  let employmentLine
   if (document.getElementById('chart-emp-rate')) {
     // console.log('emp')
 
@@ -61,13 +68,18 @@ Promise.all([
       tY: '%',
       ySF: 'percentage'
     }
-    let employmentLine = new MultiLineChart(empContent)
+    console.log('employ line')
+    console.log('aNest :')
+    console.log(aNest)
+    console.log('keysA[0]: ' + keysA[0])
+    employmentLine = new MultiLineChart(empContent)
     employmentLine.tickNumber = 12
     employmentLine.drawChart()
     employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
     employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
   }
 
+  let unemploymentStack
   if (document.getElementById('chart-unemployment')) {
     const unempCStack = {
       e: '#chart-unemployment',
@@ -75,75 +87,83 @@ Promise.all([
       ks: grouping,
       xV: 'date',
       tX: 'Quarters',
-      tY: 'Thousands',
-      ySF: 'millions'
+      tY: '',
+      ySF: 'thousands'
     }
     unemploymentStack = new StackedAreaChart(unempCStack)
     unemploymentStack.tickNumber = 12
     //   unemploymentStack.getData(unempData);
     unemploymentStack.drawChart()
-    unemploymentStack.addTooltip('Thousands - Quarter:', 'thousands', 'label')
+    unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
     //   employmentLine.createScales();
   }
+  let unemploymentLine
+  console.log('unemploy line')
+  console.log('aNest :')
+  console.log(aNest)
+  console.log('keysA[2]: ' + keysA[2])
 
   if (document.getElementById('chart-unemp-rate')) {
     const unempContent = {
       e: '#chart-unemp-rate',
       d: aNest,
       xV: 'date',
-      yV: keysA[1],
+      yV: keysA[2],
       tX: 'Years',
       tY: '%',
-      ySF: 'percentage'
+      ySF: ''
     }
 
     unemploymentLine = new MultiLineChart(unempContent)
     unemploymentLine.tickNumber = 12
     unemploymentLine.drawChart()
-    unemploymentLine.addTooltip('Unemployment Annual % Change - ', 'percentage2', 'label')
+    unemploymentLine.addTooltip('Unemployment rate (%)', '', '')
     unemploymentLine.hideRate(true)
   }
 
   d3.select('#chart-emp-rate').style('display', 'none')
 
-  d3.select('.employment_count').on('click', function () {
+  d3.select('#employment-count-btn').on('click', function () {
     activeBtn(this)
     d3.select('#chart-employment').style('display', 'block')
     d3.select('#chart-emp-rate').style('display', 'none')
       // need to redraw in case window size has changed
     employmentStack.tickNumber = 12
+      //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
+      //   employmentStack.getData(empData);
     employmentStack.drawChart()
-    employmentStack.addTooltip('Thousands - Quarter:', 'thousands', 'label')
+    employmentStack.addTooltip('Quarter:', '', 'label')
   })
 
-  d3.select('.employment_arate').on('click', function () {
+  d3.select('#employment-rate-btn').on('click', function () {
     activeBtn(this)
     d3.select('#chart-employment').style('display', 'none')
     d3.select('#chart-emp-rate').style('display', 'block')
-    employmentLine.tickNumber = 10
+    employmentLine.tickNumber = 12
     employmentLine.drawChart()
     employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
-    employmentLine.hideRate(true)
+    employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
   })
 
   d3.select('#chart-unemp-rate').style('display', 'none')
 
-  d3.select('.unemployment_count').on('click', function () {
+  d3.select('#unemployment-count-btn').on('click', function () {
     activeBtn(this)
     d3.select('#chart-unemployment').style('display', 'block')
     d3.select('#chart-unemp-rate').style('display', 'none')
     unemploymentStack.tickNumber = 12
+    //   unemploymentStack.getData(unempData);
     unemploymentStack.drawChart()
-    unemploymentStack.addTooltip('Thousands - Quarter:', 'thousands', 'label')
+    unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
   })
 
-  d3.select('.unemployment_arate').on('click', function () {
+  d3.select('#unemployment-rate-btn').on('click', function () {
     activeBtn(this)
     d3.select('#chart-unemployment').style('display', 'none')
     d3.select('#chart-unemp-rate').style('display', 'block')
-    unemploymentLine.tickNumber = 10
+    unemploymentLine.tickNumber = 12
     unemploymentLine.drawChart()
-    unemploymentLine.addTooltip('Unemployment Annual % Change - ', 'percentage2', 'label')
+    unemploymentLine.addTooltip('Unemployment rate (%)', '', 'label')
     unemploymentLine.hideRate(true)
   })
 })
@@ -352,7 +372,7 @@ Promise.all([
 //        console.log(error)
 //      })
 
-function convertThousands (d, k) {
+function coerceData (d, k) {
   d.forEach(d => {
     for (var i = 0, n = k.length; i < n; i++) {
       d[k[i]] = d[k[i]] !== 'null' ? +d[k[i]] : 'unavailable'
