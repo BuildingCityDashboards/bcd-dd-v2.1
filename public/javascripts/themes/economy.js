@@ -17,12 +17,12 @@ Promise.all([
   const test = d3Nest(QNQ22, 'date') // annual rate keys
 
     // coerce values and parse dates
-  coerceNum(QNQ22, keys)
-  coerceNum(annual, keysA)
+  convertThousands(QNQ22, keys)
+  convertThousands(annual, keysA)
   parseQuarter(QNQ22, 'quarter')
   parseYearDates(annual, 'date')
 
-  const emp = keys[0]
+  const emp = keys[2]
   const unemp = QNQ22.columns[4]
   const fData = filterbyDate(QNQ22, 'date', 'Jan 01  2001')
   const aNest = d3Nest(annual, groupBy)
@@ -37,19 +37,20 @@ Promise.all([
       ks: grouping,
       xV: 'date',
       tX: 'Quarters',
-      tY: 'Thousands',
-      ySF: 'millions'
+      tY: '',
+      ySF: ''
     }
     let employmentStack = new StackedAreaChart(empCStack)
     employmentStack.tickNumber = 12
     //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
     //   employmentStack.getData(empData);
     employmentStack.drawChart()
-    employmentStack.addTooltip('Thousands - Quarter:', 'thousands', 'label')
+    employmentStack.addTooltip('Quarter:', '', 'label')
   }
 
   if (document.getElementById('chart-emp-rate')) {
-    console.log('emp')
+    // console.log('emp')
+
     const empContent = {
       e: '#chart-emp-rate',
       d: aNest,
@@ -350,6 +351,15 @@ Promise.all([
 //      .catch(function (error) {
 //        console.log(error)
 //      })
+
+function convertThousands (d, k) {
+  d.forEach(d => {
+    for (var i = 0, n = k.length; i < n; i++) {
+      d[k[i]] = d[k[i]] !== 'null' ? +d[k[i]] : 'unavailable'
+    }
+    return d
+  })
+}
 
 function join (lookupTable, mainTable, lookupKey, mainKey, select) {
   var l = lookupTable.length,
