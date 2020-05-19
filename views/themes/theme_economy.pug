@@ -15,7 +15,7 @@
     ['chart-employment', 'chart-emp-rate'],
     [{
     id: 'employment-count-btn',
-    name: 'Count'
+    name: 'Number employed'
     },{
     id: 'employment-rate-btn',
     name: 'Annual % change'
@@ -32,12 +32,32 @@
     ['chart-unemployment', 'chart-unemp-rate'],
     [{
     id: 'unemployment-count-btn',
-    name: 'Count'
+    name: 'Number unemployed'
     },{
     id: 'unemployment-rate-btn',
     name: 'Unemployment rate'
     }]
     )
+    
+    +theme__text-chart(
+    'grossValue',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
+    'Gross Value Added per Capita at Basic Prices',
+    '<p> </p>',
+    '<p> </p>',
+    ['chart-gva']
+    )
+    //- [{
+    //- id: 'unemployment-count-btn',
+    //- name: 'Number unemployed'
+    //- },{
+    //- id: 'unemployment-rate-btn',
+    //- name: 'Unemployment rate'
+    //- }]
+    
+    
+    
 
         
 block append scripts
