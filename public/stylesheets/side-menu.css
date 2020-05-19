@@ -75,7 +75,6 @@
   overflow-y         : scroll;
   background-color   : var(--black-blue);
   box-shadow         : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-  -ms-flex-direction : column;
   flex-direction     : column;
   transform          : translateX(-100%);
   transition         : 250ms ease;
@@ -113,11 +112,9 @@
 }
 
 .side-menu__nav {
-  display            : -ms-flexbox;
   display            : flex;
   margin-bottom      : 0;
   padding            : 4rem 0;
-  -ms-flex-direction : column;
   flex-direction     : column;
   list-style         : none;
 }
@@ -339,8 +336,6 @@
 
 .sidenav-group {
   display            : block;
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
   box-sizing         : border-box;
   border-bottom      : 1px solid #f8f8f8;
 }
@@ -368,6 +363,7 @@
 
   .bcd-nav {
     padding : 0 1rem;
+    
   }
 
   .subnav-link {

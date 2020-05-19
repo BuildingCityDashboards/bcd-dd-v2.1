@@ -539,7 +539,6 @@ class StackedAreaChart extends Chart {
   }
 
   getTooltipPosition ([mouseX, mouseY]) {
-    console.log(mouseX + ',' + mouseY)
     let c = this
     let ttX,
       ttY = mouseY,

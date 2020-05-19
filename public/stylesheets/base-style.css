@@ -137,6 +137,7 @@ a:hover {
   -ms-flex-pack   : justify;
   flex-wrap       : wrap;
   justify-content : space-between;
+
 }
 
 .nav-link {
