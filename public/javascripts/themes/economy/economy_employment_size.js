@@ -9,12 +9,17 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'BRA08'
   let STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
-  let EXCLUDE = 'All persons engaged size classes'
 
   let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
   let sizeDataset = JSONstat(json).Dataset(0)
-  console.log(sizeDataset)
+  // the categories will be the label on each plot trace
+  let categories = sizeDataset.Dimension(0).Category().map(c => {
+    return c.label
+  })
+  // console.log(categories)
+
+  let EXCLUDE = categories[0]
   //
   let sizeFiltered = sizeDataset.toTable(
      { type: 'arrobj' },
@@ -37,13 +42,13 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     yV: 'value',
     d: sizeFiltered,
     k: 'Employment Size',
-    ks: [],
+    ks: categories, // used for the tooltip
     tX: 'Years',
-    tY: ''
+    tY: 'Persons employed'
 
   }
 
   const sizeChart = new MultiLineChart(sizeContent)
   sizeChart.drawChart()
-  // sizeChart.addTooltip(STATS[2] + 'Year:', '', 'label')
+  sizeChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
 })()
