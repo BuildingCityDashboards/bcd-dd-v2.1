@@ -18,7 +18,7 @@ class StackedAreaChart extends Chart {
     c.createScales()
     super.drawGridLines()
     c.drawArea()
-    c.drawLegend()
+    // c.drawLegend()
   }
 
   updateChart (obj) {
@@ -220,6 +220,7 @@ class StackedAreaChart extends Chart {
       // sF = d.data.length -1;
       obj.key = d.key
       // obj.last = vs[s][v];
+
       obj.x = c.x(vs[s].data[c.xV])
       // obj.y = sF === s ? c.y(vs[s][v]) : c.y(vs[s][v]) - 15;
       obj.y = c.y(vs[s][1])
