@@ -4,7 +4,7 @@ import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 
 (async () => {
-  console.log('fetch cso json')
+  // console.log('fetch cso json')
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'BRA08'
