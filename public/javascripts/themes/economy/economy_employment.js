@@ -23,6 +23,8 @@ Promise.all([
   const unempRate = QNQ22.columns[6]
   const fData = filterbyDate(QNQ22, 'date', 'Jan 01  2001')
   const unempData = stackNest(fData, 'label', 'region', unemp)
+  console.log('unemp data')
+  console.log(JSON.stringify(unempData[0]))
   const unempRateData = stackNest(fData, 'label', 'region', unempRate)
   const empData = stackNest(fData, 'label', 'region', emp)
 
