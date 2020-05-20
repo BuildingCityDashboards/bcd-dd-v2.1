@@ -53,10 +53,12 @@ function formatDateAsQuarterString (date) {
 
 export { formatDateAsQuarterString }
 
- // function convertQuarter (q) {
- //   const splitted = q.split('Q')
- //   const year = splitted[0]
- //   const quarterEndMonth = splitted[1] * 3 - 2
- //   const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
- //   return date
- // }
+function convertQuarterToDate (q) {
+  const splitted = q.split('Q')
+  const year = splitted[0]
+  const quarterEndMonth = splitted[1] * 3 - 2
+  const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
+  return date
+}
+
+export { convertQuarterToDate }
