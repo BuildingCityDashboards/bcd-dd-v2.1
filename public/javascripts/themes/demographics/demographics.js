@@ -102,8 +102,7 @@ if (document.getElementById('chart-bornOutsideState')) {
       obj.State = d.value.state
       array.push(obj)
     })
-    console.log('array')
-    console.log(array)
+
     outsideStateContent = {
       e: '#chart-bornOutsideState',
       d: array,

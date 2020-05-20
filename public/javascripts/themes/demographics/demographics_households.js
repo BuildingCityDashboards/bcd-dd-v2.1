@@ -13,19 +13,16 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 
   // CNA29 - Private Permanent Households by Number of Persons, Province County or City and CensusYear
 
-  console.log('fetch cso json: ' + TABLE_CODE)
   const DIMENSION = 'Province County or City'
   let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
   let dataset = JSONstat(json).Dataset(0)
-  console.log(dataset)
 
   // // the categories will be the label on each plot trace
   let categories = dataset.Dimension(DIMENSION).Category().map(c => {
     return c.label
   })
-  console.log('categories')
-  console.log(categories)
+
   let dublinLAs = [categories[3], categories[4], categories[5], categories[6]]
   //
   // let EXCLUDE = categories[0] // exclude 'All NACE economic sectors' trace
@@ -48,8 +45,6 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
          return d
        }
      })
-
-  console.log(householdsFiltered)
 
   const houseHoldsContent = {
     e: '#chart-households',
@@ -76,37 +71,6 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
 })()
 
-// if (document.getElementById('chart-households')) {
-//   d3.csv('../data/Demographics/CNA33.csv').then(data => {
-//     const columnNames = data.columns.slice(1)
-//     const xValue = data.columns[0]
-//
-//     const valueData = data.map(d => {
-//       for (var i = 0, n = columnNames.length; i < n; i++) {
-//         d[columnNames[i]] = +d[columnNames[i]]
-//       }
-//       return d
-//     })
-//     houseHoldsContent = {
-//       e: '#chart-households',
-//       d: valueData,
-//       ks: columnNames,
-//       xV: xValue,
-//       tX: 'Years',
-//       tY: 'Number of Households',
-//       ySF: 'millions'
-//     }
-//
-//     houseHoldsTT = {
-//       title: 'Number of Households - Year:',
-//       datelabel: xValue,
-//       format: 'thousands'
-//     }
-//
-//     houseHoldsChart = new GroupedBarChart(houseHoldsContent)
-//     houseHoldsChart.drawChart()
-//     houseHoldsChart.addTooltip(houseHoldsTT)
-//
 //   // d3.select(window).on("resize", function() {
 //   //   // houseHoldsChart.drawChart();
 //   //   // houseHoldsChart.addTooltip(houseHoldsTT);
@@ -116,44 +80,44 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 //   })
 // }
 
-// if (document.getElementById('chart-householdComposition')) {
-//   d3.csv('../data/Demographics/CNA29.csv').then(data => {
-//     const columnNames = data.columns.slice(2)
-//     const xValue = data.columns[0]
-//
-//     const valueData = data.map(d => {
-//       for (var i = 0, n = columnNames.length; i < n; i++) {
-//         d[columnNames[i]] = +d[columnNames[i]]
-//       }
-//       return d
-//     })
-//     houseHoldCompositionContent = {
-//       e: '#chart-householdComposition',
-//       d: valueData,
-//       ks: columnNames,
-//       xV: xValue,
-//       tX: 'Person per Household',
-//       tY: 'Number of Households',
-//       ySF: 'millions'
-//     }
-//
-//     houseHoldCompositionTT = {
-//       title: 'Person per Household:',
-//       datelabel: xValue,
-//       format: 'thousands'
-//     }
-//
-//     houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
-//     houseHoldCompositionChart.drawChart()
-//     houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
-//     houseHoldCompositionChart.hideRate(true)
-//
-//   // d3.select(window).on("resize", function() {
-//   //   console.log("Resize");
-//   //   houseHoldCompositionChart.drawChart();
-//   //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
-//   // });
-//   }).catch(function (error) {
-//     console.log(error)
-//   })
-// }
+if (document.getElementById('chart-householdComposition')) {
+  d3.csv('../data/Demographics/CNA29.csv').then(data => {
+    const columnNames = data.columns.slice(2)
+    const xValue = data.columns[0]
+
+    const valueData = data.map(d => {
+      for (var i = 0, n = columnNames.length; i < n; i++) {
+        d[columnNames[i]] = +d[columnNames[i]]
+      }
+      return d
+    })
+    houseHoldCompositionContent = {
+      e: '#chart-householdComposition',
+      d: valueData,
+      ks: columnNames,
+      xV: xValue,
+      tX: 'Person per Household',
+      tY: 'Number of Households',
+      ySF: 'millions'
+    }
+
+    houseHoldCompositionTT = {
+      title: 'Person per Household:',
+      datelabel: xValue,
+      format: 'thousands'
+    }
+
+    houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
+    houseHoldCompositionChart.drawChart()
+    houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
+    houseHoldCompositionChart.hideRate(true)
+
+  // d3.select(window).on("resize", function() {
+  //   console.log("Resize");
+  //   houseHoldCompositionChart.drawChart();
+  //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
+  // });
+  }).catch(function (error) {
+    console.log(error)
+  })
+}
