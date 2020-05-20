@@ -102,7 +102,8 @@ if (document.getElementById('chart-bornOutsideState')) {
       obj.State = d.value.state
       array.push(obj)
     })
-
+    console.log('array')
+    console.log(array)
     outsideStateContent = {
       e: '#chart-bornOutsideState',
       d: array,
@@ -130,86 +131,6 @@ if (document.getElementById('chart-bornOutsideState')) {
   // d3.select(window).on("resize", function() {
   //   outsideStateChart.drawChart();
   //   outsideStateChart.addTooltip(outsideStateTT);
-  // });
-  }).catch(function (error) {
-    console.log(error)
-  })
-}
-if (document.getElementById('chart-households')) {
-  d3.csv('../data/Demographics/CNA33.csv').then(data => {
-    const columnNames = data.columns.slice(1)
-    const xValue = data.columns[0]
-
-    const valueData = data.map(d => {
-      for (var i = 0, n = columnNames.length; i < n; i++) {
-        d[columnNames[i]] = +d[columnNames[i]]
-      }
-      return d
-    })
-    houseHoldsContent = {
-      e: '#chart-households',
-      d: valueData,
-      ks: columnNames,
-      xV: xValue,
-      tX: 'Years',
-      tY: 'Number of Households',
-      ySF: 'millions'
-    }
-
-    houseHoldsTT = {
-      title: 'Number of Households - Year:',
-      datelabel: xValue,
-      format: 'thousands'
-    }
-
-    houseHoldsChart = new GroupedBarChart(houseHoldsContent)
-    houseHoldsChart.drawChart()
-    houseHoldsChart.addTooltip(houseHoldsTT)
-
-  // d3.select(window).on("resize", function() {
-  //   // houseHoldsChart.drawChart();
-  //   // houseHoldsChart.addTooltip(houseHoldsTT);
-  // });
-  }).catch(function (error) {
-    console.log(error)
-  })
-}
-if (document.getElementById('chart-householdComposition')) {
-  d3.csv('../data/Demographics/CNA29.csv').then(data => {
-    const columnNames = data.columns.slice(2)
-    const xValue = data.columns[0]
-
-    const valueData = data.map(d => {
-      for (var i = 0, n = columnNames.length; i < n; i++) {
-        d[columnNames[i]] = +d[columnNames[i]]
-      }
-      return d
-    })
-    houseHoldCompositionContent = {
-      e: '#chart-householdComposition',
-      d: valueData,
-      ks: columnNames,
-      xV: xValue,
-      tX: 'Person per Household',
-      tY: 'Number of Households',
-      ySF: 'millions'
-    }
-
-    houseHoldCompositionTT = {
-      title: 'Person per Household:',
-      datelabel: xValue,
-      format: 'thousands'
-    }
-
-    houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
-    houseHoldCompositionChart.drawChart()
-    houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
-    houseHoldCompositionChart.hideRate(true)
-
-  // d3.select(window).on("resize", function() {
-  //   console.log("Resize");
-  //   houseHoldCompositionChart.drawChart();
-  //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
   // });
   }).catch(function (error) {
     console.log(error)

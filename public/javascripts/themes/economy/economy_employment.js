@@ -10,8 +10,8 @@ Promise.all([
 
 ]).then(datafiles => {
   const QNQ22 = datafiles[1]
-  console.log('QNQ22')
-  console.log(QNQ22[0])
+  // console.log('QNQ22')
+  // console.log(QNQ22[0])
 
   const keys = QNQ22.columns.slice(3) // 0-2 is date, quarter, region
   const groupBy = 'region'
@@ -26,8 +26,8 @@ Promise.all([
   const fData = filterbyDate(QNQ22, 'date', 'Jan 01  2001')
 
   const unempData = stackNest(fData, 'label', 'region', unemp)
-  console.log('unemp data nested')
-  console.log(JSON.stringify(unempData[0]))
+  // console.log('unemp data nested')
+  // console.log(JSON.stringify(unempData[0]))
 
   const unempRateData = stackNest(fData, 'label', 'region', unempRate)
   const empData = stackNest(fData, 'label', 'region', emp)
