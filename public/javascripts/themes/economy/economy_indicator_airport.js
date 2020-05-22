@@ -8,14 +8,12 @@ Promise.all([
 ]).then(data => {
   if (document.getElementById('chart-indicator-airport')) {
     let airportData = data[0]
-
     let airportColumns = airportData.columns.slice(1)
-    // console.log(airportColumns)
-  // airportColumns.pop() // remove total column for 'Dublin'
 
-    console.log('airportData')
-    console.log(airportData[0])
+    // console.log('airportData')
+    // console.log(airportData[0])
 
+// Need data flat with a varibale to group traces by for multiline chart...
     let longData = airportData.map(d => {
       let obj = {
         label: d.Quarter,
@@ -26,18 +24,9 @@ Promise.all([
       return obj
     })
 
-    console.log('long')
-    console.log(longData[0])
+    // console.log('long')
+    // console.log(longData[0])
 
-  //
-  //   airportData.forEach(d => {
-  //     d.label = d.Quarter
-  //     d.value = +d[airportColumns[0]]
-  //     d.date = convertQuarterToDate(d.Quarter)
-  //   })
-  // //
-  //   console.log(airportData[0])
-  //
     const airportPaxContent = {
       e: '#chart-indicator-airport',
       d: longData,
