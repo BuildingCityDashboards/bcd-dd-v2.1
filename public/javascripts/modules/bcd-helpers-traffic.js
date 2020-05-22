@@ -25,7 +25,7 @@ export { getTrafficQueryForDate }
  * Convert the array of readings returned from the API to an object keyed by
  * the 2nd argument -> groupBy operation
  * In this case, the key is coerced to a number before indexing
- * An optional argument allows passing an exisiting object into which the new readings are merged
+ * An optional argument allows passing an existing object into which the new readings are merged
  *
  * @param {array} readings
  * @param {string} key
