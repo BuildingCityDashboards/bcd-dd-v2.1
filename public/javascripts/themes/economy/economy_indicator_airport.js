@@ -5,7 +5,8 @@ let airportPax = '../data/Economy/data_gov_economic_monitor/indicator-.9.-dublin
 
 Promise.all([
   d3.csv(airportPax)
-]).then(data => {
+])
+.then(data => {
   if (document.getElementById('chart-indicator-airport')) {
     let airportData = data[0]
     let airportColumns = airportData.columns.slice(1)
@@ -13,12 +14,11 @@ Promise.all([
     // console.log('airportData')
     // console.log(airportData[0])
 
-// Need data flat with a varibale to group traces by for multiline chart...
     let longData = airportData.map(d => {
       let obj = {
         label: d.Quarter,
-        value: parseInt(d[airportColumns[1]].replace(/,/g, '')) * 1000,
-        variable: airportColumns[1],
+        value: parseInt(d[airportColumns[0]].replace(/,/g, '')),
+        variable: airportColumns[0],
         date: convertQuarterToDate(d.Quarter)
       }
       return obj
@@ -26,11 +26,10 @@ Promise.all([
 
     // console.log('long')
     // console.log(longData[0])
-
     const airportPaxContent = {
       e: '#chart-indicator-airport',
       d: longData,
-      k: 'variable', // give the key whose value will name the trace
+      k: 'variable', // give the key whose value will name the traces (group by)
       xV: 'date',
       yV: 'value',
       tX: 'Quarter',
@@ -45,6 +44,7 @@ Promise.all([
   // // houseCompCharts.tickNumber = 4;
     // houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
   }
+})
 
   // const keys = airportData.columns.slice(3) // 0-2 is date, quarter, region
   // const groupBy = 'region'
@@ -205,10 +205,10 @@ Promise.all([
   //   unemploymentLine.addTooltip('Unemployment rate (%)', '', 'label')
   //   unemploymentLine.hideRate(true)
   // })
-})
-  .catch(function (error) {
-    console.log(error)
-  })
+// })
+//   .catch(function (error) {
+//     console.log(error)
+//   })
 
 // // #chart-employees-by-size
 // // load csv data and turn value into a number
@@ -284,76 +284,3 @@ Promise.all([
 //      .catch(function (error) {
 //        console.log(error)
 //      })
-
-function coerceData (d, k) {
-  d.forEach(d => {
-    for (var i = 0, n = k.length; i < n; i++) {
-      d[k[i]] = d[k[i]] !== 'null' ? +d[k[i]] : 'unavailable'
-    }
-    return d
-  })
-}
-
-function join (lookupTable, mainTable, lookupKey, mainKey, select) {
-  var l = lookupTable.length,
-    m = mainTable.length,
-    lookupIndex = [],
-    output = []
-
-  for (var i = 0; i < l; i++) { // loop through the lookup array
-    var row = lookupTable[i]
-    lookupIndex[row[lookupKey]] = row // create a index for lookup table
-  }
-
-  for (var j = 0; j < m; j++) { // loop through m items
-    var y = mainTable[j]
-    var x = lookupIndex[y[mainKey]] // get corresponding row from lookupTable
-    output.push(select(y, x)) // select only the columns you need
-  }
-
-  return output
-}
-
-function d3Nest (d, n) {
-  let nest = d3.nest()
-    .key(name => {
-      return name[n]
-    })
-    .entries(d)
-  return nest
-}
-
-function filterByDateRange (data, dateField, dateOne, dateTwo) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo)
-  })
-}
-
-function filterbyDate (data, dateField, date) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(date)
-  })
-}
-
-function stackNest (data, date, name, value) {
-  let nested_data = d3Nest(data, date),
-    mqpdata = nested_data.map(function (d) {
-      let obj = {
-        label: d.key
-      }
-      d.values.forEach(function (v) {
-        obj.date = v.date
-        obj.year = v.year
-        obj[v[name]] = v[value]
-      })
-      return obj
-    })
-  return mqpdata
-}
-
-function activeBtn (e) {
-  let btn = e
-  $(btn).siblings().removeClass('active')
-  $(btn).addClass('active')
-}
-// d3.selectAll(".chart-holder_PH").attr("class", "chart-holder");

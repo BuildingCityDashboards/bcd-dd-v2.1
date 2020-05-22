@@ -1,17 +1,18 @@
 
 /**
- * // TODO: Coerce data for each column in wide-format table (csv)
+ * Coerce data for each column in wide-format table (csv)
  *
- * @param {}
- * @return {}
+ * @param { Object[] } data
+ * @param { string[] } columnNames
+ * @return {Object[] }
  *
  *
  */
-function coerceWideTable (data, columns) {
+function coerceWideTable (data, columnNames) {
   let coercedData = data.map(d => {
-    for (var i = 0, n = columns.length; i < n; i++) {
+    for (var i = 0, n = columnNames.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
-      d[columns[i]] = +d[columns[i]]
+      d[columnNames[i]] = +d[columnNames[i]]
     }
     return d
   })
@@ -19,6 +20,35 @@ function coerceWideTable (data, columns) {
 }
 
 export { coerceWideTable}
+
+function extractObjectArrayWithKey (dataArray, key) {
+  let outArray = dataArray.map(d => {
+    let obj = {
+      label: d.Quarter,
+      value: parseInt(d[key].replace(/,/g, '')),
+      variable: key,
+      date: convertQuarterToDate(d.Quarter)
+    }
+    return obj
+  })
+  return outArray
+}
+
+/**
+ * // TODO: Change tabular data from wide to long (flattened) format
+ *
+ * @param {}
+ * @return {}
+ *
+ *
+ */
+
+const formatWideToLong = csv => {
+// TODO:
+  return csv
+}
+
+export { formatWideToLong }
 
 const stackNest = (data, date, name, value) => {
   let nested_data = d3Nest(data, date)
@@ -37,22 +67,6 @@ const stackNest = (data, date, name, value) => {
 }
 
 export { stackNest}
-
-/**
- * // TODO: Change tabular data from wide to long (flattened) format
- *
- * @param {}
- * @return {}
- *
- *
- */
-
-const wideToLong = (csv) => {
-// TODO:
-  return csv
-}
-
-export { wideToLong }
 
 /**
  * // TODO: Change tabular data from long (flat) to wide format
