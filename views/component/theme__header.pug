@@ -1,9 +1,9 @@
 mixin theme__header(id, title, description, moreInfo, img)
-  div(id=id class="theme__header" )
+  div(id=id class="theme__header" style="background: url(/images/themes/backgrounds/"+img+")")
     .theme__header__content
-      h1.theme__header__title=title
-      p.theme__header__description=description
-      p.theme__header__info=moreInfo
+      .theme__header__title!=title
+      .theme__header__description!=description
+      .theme__header__info!=moreInfo
 
       
          
