@@ -1,5 +1,3 @@
-/** * This the Gross Value Added per Capita at Basic Prices Chart ***/
-
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { stackNest } from '../../modules/bcd-data.js'
@@ -9,11 +7,11 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'QNQ40'
-  // console.log('fetch cso json: ' + TABLE_CODE)
+  console.log('fetch cso json: ' + TABLE_CODE)
   let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
   let dataset = JSONstat(json).Dataset(0)
-  // console.log(dataset)
+  console.log(dataset)
   const DIMENSION = 'NACE Rev'
   // the categories will be the label on each plot trace
   let categories = dataset.Dimension(DIMENSION).Category().map(c => {
