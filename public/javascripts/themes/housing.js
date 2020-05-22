@@ -15,11 +15,11 @@ Promise.all([
   d3.csv('../data/Housing/HPM06.csv'),
   d3.csv('../data/Housing/HPM06Rate.csv')
 ]).then(datafiles => {
-  const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
+  // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
 
   // 1.  data processing for house completion chart
 
-  if (document.getElementById('#chart-houseComp')) {
+  if (document.getElementById('chart-houseComp')) {
     const completionsData = datafiles[0]
     let completionsColumns = completionsData.columns.slice(1)
   // completionsColumns.pop() // remove total column for 'Dublin'
@@ -42,7 +42,8 @@ Promise.all([
       tY: 'Units'
     }
 
-  // console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
+    console.log('\n\ncompDataProcessed: ')
+    console.log(compDataProcessed[0])
   // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
     houseCompCharts = new MultiLineChart(houseCompContent)
@@ -61,10 +62,16 @@ Promise.all([
       newCompByTypeRegions = newCompByTypeData.columns[1],
       newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
 
+    // console.log('newCompByTypeData')
+    // console.log(newCompByTypeData[0])
+
     newCompByTypeDataProcessed.forEach(d => {
-      d.label = (d[newCompByTypeDate])
+      d.label = d[newCompByTypeDate]
       d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
     })
+
+    // console.log('newCompByTypeDataProcessed')
+    // console.log(newCompByTypeDataProcessed[0])
 
     const newCompByTypeContent = {
       e: '#chart-newCompByType',
@@ -76,6 +83,8 @@ Promise.all([
       tY: 'Numbers'
     }
 
+    // console.log('newCompByTypeRegions')
+    // console.log(newCompByTypeRegions)
   // draw the chart
     newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
     newCompByTypeChart.drawChart()
@@ -529,7 +538,7 @@ function qToQuarter (q) {
 }
 
 function dataSets (data, columns) {
-  coercedData = data.map(d => {
+  let coercedData = data.map(d => {
     for (var i = 0, n = columns.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
       d[columns[i]] = +d[columns[i]]

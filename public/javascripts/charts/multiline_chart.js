@@ -8,6 +8,7 @@ class MultiLineChart extends Chart {
 
   drawChart () {
     let c = this
+
     super.nestData()
     super.init()
     super.addAxis()
