@@ -13,7 +13,7 @@ Promise.all([
     let longData = airportData.map(d => {
       let obj = {
         label: d.Quarter,
-        value: parseInt(d[airportColumns[0]].replace(/,/g, '')),
+        value: parseInt(d[airportColumns[0]].replace(/,/g, '')) / 1000000,
         variable: airportColumns[0],
         date: convertQuarterToDate(d.Quarter)
       }
@@ -27,7 +27,7 @@ Promise.all([
       xV: 'date',
       yV: 'value',
       tX: 'Quarter',
-      tY: ''
+      tY: 'Passengers (millions)'
     }
     airportPaxCountChart = new MultiLineChart(airportPaxCount)
     airportPaxCountChart.drawChart()
