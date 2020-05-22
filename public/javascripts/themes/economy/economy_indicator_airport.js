@@ -1,13 +1,61 @@
-let employmentLine, unemploymentLine, employmentStack, unemploymentStack
+import { convertQuarterToDate } from '../../modules/bcd-date.js'
+import { coerceWideTable } from '../../modules/bcd-data.js'
+let airportPaxChart
 let airportPax = '../data/Economy/data_gov_economic_monitor/indicator-.9.-dublin-airport-pax.csv'
 
 Promise.all([
   d3.csv(airportPax)
+]).then(data => {
+  if (document.getElementById('chart-indicator-airport')) {
+    let airportData = data[0]
 
-]).then(datafile => {
-  const airportData = datafile
-  console.log('airportData')
-  console.log(airportData)
+    let airportColumns = airportData.columns.slice(1)
+    // console.log(airportColumns)
+  // airportColumns.pop() // remove total column for 'Dublin'
+
+    console.log('airportData')
+    console.log(airportData[0])
+
+    let longData = airportData.map(d => {
+      let obj = {
+        label: d.Quarter,
+        value: parseInt(d[airportColumns[1]].replace(/,/g, '')) * 1000,
+        variable: airportColumns[1],
+        date: convertQuarterToDate(d.Quarter)
+      }
+      return obj
+    })
+
+    console.log('long')
+    console.log(longData[0])
+
+  //
+  //   airportData.forEach(d => {
+  //     d.label = d.Quarter
+  //     d.value = +d[airportColumns[0]]
+  //     d.date = convertQuarterToDate(d.Quarter)
+  //   })
+  // //
+  //   console.log(airportData[0])
+  //
+    const airportPaxContent = {
+      e: '#chart-indicator-airport',
+      d: longData,
+      k: 'variable', // give the key whose value will name the trace
+      xV: 'date',
+      yV: 'value',
+      tX: 'Quarter',
+      tY: ''
+    }
+  //
+
+  //
+    airportPaxChart = new MultiLineChart(airportPaxContent)
+    airportPaxChart.drawChart()
+    airportPaxChart.addTooltip('Passengers, ', 'thousands', 'label')
+  // // houseCompCharts.tickNumber = 4;
+    // houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+  }
 
   // const keys = airportData.columns.slice(3) // 0-2 is date, quarter, region
   // const groupBy = 'region'
