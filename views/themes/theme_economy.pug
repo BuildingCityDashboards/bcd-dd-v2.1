@@ -113,9 +113,20 @@
     ['chart-indicator-airport-count']
     )
     
+    +theme__text-chart(
+    'indicator-port',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/f6297d1e-2d25-4a35-a499-164f24511dd7',
+    name: 'data.gov'},
+    { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/f6297d1e-2d25-4a35-a499-164f24511dd7/download/indicator-.9.-dublin-airport-pax.csv',
+    name: 'download'}
+    ],
+    'Dublin Port Tonnage',
+    '<p> </p>',
+    '',
+    ['chart-indicator-port']
+    )
     
     
-
         
 block append scripts
   //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")
