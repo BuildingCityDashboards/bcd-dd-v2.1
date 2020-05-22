@@ -62,16 +62,16 @@ Promise.all([
       newCompByTypeRegions = newCompByTypeData.columns[1],
       newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
 
-    console.log('newCompByTypeData')
-    console.log(newCompByTypeData[0])
+    // console.log('newCompByTypeData')
+    // console.log(newCompByTypeData[0])
 
     newCompByTypeDataProcessed.forEach(d => {
       d.label = d[newCompByTypeDate]
       d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
     })
 
-    console.log('newCompByTypeDataProcessed')
-    console.log(newCompByTypeDataProcessed[0])
+    // console.log('newCompByTypeDataProcessed')
+    // console.log(newCompByTypeDataProcessed[0])
 
     const newCompByTypeContent = {
       e: '#chart-newCompByType',
@@ -83,8 +83,8 @@ Promise.all([
       tY: 'Numbers'
     }
 
-    console.log('newCompByTypeRegions')
-    console.log(newCompByTypeRegions)
+    // console.log('newCompByTypeRegions')
+    // console.log(newCompByTypeRegions)
   // draw the chart
     newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
     newCompByTypeChart.drawChart()
