@@ -13,6 +13,7 @@ Promise.all([
   console.log(publicTransportColumns)
   if (document.getElementById('chart-public-transport-trips')) {
     let busEireannData = getData(publicTransportColumns[1])
+    console.log(busEireannData)
     let dublinBusData = getData(publicTransportColumns[2])
     let irishRailData = getData(publicTransportColumns[3])
     let luasData = getData(publicTransportColumns[4])
@@ -43,6 +44,8 @@ Promise.all([
           date: convertQuarterToDate(yearQuarter)
         }
         return obj
+      }).filter(d => {
+        return !Number.isNaN(d['value'])
       })
       return longArray
     }
