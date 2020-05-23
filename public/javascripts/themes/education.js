@@ -1,3 +1,4 @@
+import { coerceWideTable } from '../modules/bcd-data.js'
 
 Promise.all([
   d3.csv('../data/Education/EDA56.csv'), // number of nat schools
@@ -7,7 +8,7 @@ Promise.all([
 ]).then(datafiles => {
   const pupilsPrimary = datafiles[1]
   const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
-  let pupilsPrimaryData = dataSets(pupilsPrimary, pupilsPrimaryColNames)
+  let pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
   // console.log(pupilsPrimary)
 
   let pupilsPrimaryPlot = {
@@ -31,7 +32,7 @@ Promise.all([
 
   const pupilsSecondary = datafiles[2]
   const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
-  let pupilsSecondaryData = dataSets(pupilsSecondary, pupilsSecondaryColNames)
+  let pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
   // console.log(pupilsSecondary)
 
   let pupilsSecondaryPlot = {
@@ -64,9 +65,9 @@ Promise.all([
   // let xValue3 = dataFile3.columns[0]
   // let xValue4 = dataFile4.columns[0]
   //
-  // const dataSet2 = dataSets(dataFile2, columnNames2)
-  // const dataSet3 = dataSets(dataFile3, columnNames3)
-  // const dataSet4 = dataSets(dataFile4, columnNames4)
+  // const dataSet2 = coerceWideTable(dataFile2, columnNames2)
+  // const dataSet3 = coerceWideTable(dataFile3, columnNames3)
+  // const dataSet4 = coerceWideTable(dataFile4, columnNames4)
   //
   // let pSLevelContent = {
   //   e: '#chart-pupilsSecondLevel',
@@ -146,12 +147,3 @@ Promise.all([
   console.log(error)
 })
 
-function dataSets (data, columns) {
-  coercedData = data.map(d => {
-    for (var i = 0, n = columns.length; i < n; i++) {
-      d[columns[i]] = +d[columns[i]]
-    }
-    return d
-  })
-  return coercedData
-}
