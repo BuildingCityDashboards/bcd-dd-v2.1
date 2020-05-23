@@ -40,13 +40,16 @@
     )
     
     +theme__text-chart(
-    'employment-sector',
-    [{ link:'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ40&PLanguage=0',
-    name: 'CSO'}],
+    'indicator-employment-sector',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+        name: 'data.gov'
+    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+    name: 'download'
+    }],
     'Employment by Broad Sector',
     '<p> </p>',
     '',
-    ['chart-employment-sector']
+    ['chart-indicator-employment-sector']
     )
     
     //- //emp sector data.gov version

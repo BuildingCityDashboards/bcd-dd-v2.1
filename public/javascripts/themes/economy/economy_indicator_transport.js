@@ -8,12 +8,9 @@ Promise.all([
 ])
 .then(data => {
   let publicTransportData = data[0]
-  console.log(publicTransportData)
   let publicTransportColumns = publicTransportData.columns.slice(1)
-  console.log(publicTransportColumns)
   if (document.getElementById('chart-public-transport-trips')) {
     let busEireannData = getData(publicTransportColumns[1])
-    console.log(busEireannData)
     let dublinBusData = getData(publicTransportColumns[2])
     let irishRailData = getData(publicTransportColumns[3])
     let luasData = getData(publicTransportColumns[4])
