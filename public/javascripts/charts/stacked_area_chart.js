@@ -18,7 +18,7 @@ class StackedAreaChart extends Chart {
     c.createScales()
     super.drawGridLines()
     c.drawArea()
-    // c.drawLegend()
+    c.drawLegend()
   }
 
   updateChart (obj) {
@@ -319,52 +319,51 @@ class StackedAreaChart extends Chart {
     }
   }
 
-  // addLegend(){
-  //     let c = this;
+  addLegend () {
+    let c = this
 
-  //     // create legend group
-  //     var legend = c.g.append("g")
-  //         .attr("transform", "translate(0,0)");
+      // create legend group
+    var legend = c.g.append('g')
+          .attr('transform', 'translate(0,0)')
 
-  //     // create legend array, this needs to come from the data.
-  //     c.legendArray = [];
+      // create legend array, this needs to come from the data.
+    c.legendArray = []
 
-  //     c.ks.forEach( (d) => {
+    c.ks.forEach((d) => {
+      let obj = {}
+      obj.label = d
+      obj.colour = c.colour(d)
+      c.legendArray.push(obj)
+    })
+    c.legendArray.reverse()
 
-  //         let obj = {};
-  //             obj.label = d;
-  //             obj.colour = c.colour(d);
-  //             c.legendArray.push(obj);
-  //     });
-  //     c.legendArray.reverse();
+      // get data and enter onto the legend group
+    let legends = legend.selectAll('.legend')
+          .data(c.legendArray)
+          .enter().append('g')
+          .attr('class', 'legend')
+          .attr('transform', (d, i) => { return 'translate(0,' + i * 40 + ')' })
+          .attr('id', (d, i) => 'legend-item' + i)
+          .style('font', '12px sans-serif')
 
-  //     // get data and enter onto the legend group
-  //     let legends = legend.selectAll(".legend")
-  //         .data(c.legendArray)
-  //         .enter().append("g")
-  //         .attr("class", "legend")
-  //         .attr("transform", (d, i) => { return "translate(0," + i * 40 + ")"; })
-  //         .attr("id", (d,i) => "legend-item" + i )
-  //         .style("font", "12px sans-serif");
+      // add legend boxes
+    legends.append('rect')
+          .attr('class', 'legendRect')
+          .attr('x', c.w + 10)
+          .attr('width', 25)
+          .attr('height', 25)
+          .attr('fill', d => { return d.colour })
+          .attr('fill-opacity', 0.75)
 
-  //     // add legend boxes
-  //     legends.append("rect")
-  //         .attr("class", "legendRect")
-  //         .attr("x", c.w + 10)
-  //         .attr("width", 25)
-  //         .attr("height", 25)
-  //         .attr("fill", d => { return d.colour; })
-  //         .attr("fill-opacity", 0.75);
-
-  //     legends.append("text")
-  //         .attr("class", "legendText")
-  //         // .attr("x", c.w + 40)
-  //         .attr("y", 12)
-  //         .attr("dy", ".025em")
-  //         .attr("text-anchor", "start")
-  //         .text(d => { return d.label; })
-  //         .call(c.textWrap, 110, c.w + 34);
-  // }
+    legends.append('text')
+          .attr('class', 'legendText')
+          // .attr("x", c.w + 40)
+          .attr('y', 12)
+          .attr('dy', '.025em')
+          .attr('text-anchor', 'start')
+          .text(d => { return d.label })
+          .call(c.textWrap, 110, c.w + 34)
+  }
 
   drawFocus () {
     let c = this,
