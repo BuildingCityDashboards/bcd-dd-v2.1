@@ -8,13 +8,11 @@ Promise.all([
 ])
 .then(data => {
   let employmentSectorData = data[0]
-  console.log(employmentSectorData)
+
   let employmentSectorColumns = employmentSectorData.columns.slice(1)
-  console.log(employmentSectorColumns)
 
   if (document.getElementById('chart-indicator-employment-sector')) {
     let broadSectorCols = employmentSectorColumns.slice(16, 21)
-    console.log(broadSectorCols)
 
     let broadSectorData = employmentSectorData.map(d => {
       let yearQuarter = '20' + d.Quarter.split(' ')[1] + d.Quarter.split(' ')[0]
@@ -29,8 +27,6 @@ Promise.all([
       return !Number.isNaN(d.Education)
       // parseInt(d.Quarter.split(' ')[1]) < 50
     })
-
-    console.log(broadSectorData)
 
     const employmentSector = {
       e: '#chart-indicator-employment-sector',
