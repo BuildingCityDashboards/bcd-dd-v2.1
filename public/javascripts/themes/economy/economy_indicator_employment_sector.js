@@ -38,11 +38,11 @@ Promise.all([
       delete d[longKeys[i]]
     }
   })
-  console.log(employmentSectorData)
+  // console.log(employmentSectorData)
 
   let employmentSectorColumns = Object.keys(employmentSectorData[0]).slice(1)
-  console.log('employmentSectorColumns')
-  console.log(employmentSectorColumns)
+  // console.log('employmentSectorColumns')
+  // console.log(employmentSectorColumns)
 
   if (document.getElementById('chart-indicator-employment-sector')) {
     let broadSectorCols = employmentSectorColumns.slice(0, 5)
@@ -52,7 +52,7 @@ Promise.all([
       d.label = yearQuarter
       d.date = convertQuarterToDate(yearQuarter)
       for (var i = 0, n = broadSectorCols.length; i < n; i++) {
-        d[broadSectorCols[i]] = parseInt(parseFloat(d[broadSectorCols[i]]))
+        d[broadSectorCols[i]] = parseFloat(d[broadSectorCols[i]])
       }
       return d
     })
@@ -72,15 +72,15 @@ Promise.all([
     }
     employmentSectorChart = new StackedAreaChart(employmentSector)
     employmentSectorChart.drawChart()
-    employmentSectorChart.addTooltip(', ', 'thousands', 'label')
+    employmentSectorChart.addTooltip('Employees (thousands), ', 'thousands', 'label')
   }
 
   if (document.getElementById('chart-indicator-employment-services')) {
-    console.log('employmentSectorColumns')
-    console.log(employmentSectorColumns)
+    // console.log('employmentSectorColumns')
+    // console.log(employmentSectorColumns)
     let serviceCols = employmentSectorColumns.slice(6, 15).concat(employmentSectorColumns.slice(18, 19))
-    console.log('serviceCols')
-    console.log(serviceCols)
+    // console.log('serviceCols')
+    // console.log(serviceCols)
 
     let serviceData = employmentSectorData.map(d => {
       let yearQuarter = '20' + d.Quarter.split(' ')[1] + d.Quarter.split(' ')[0]
@@ -96,7 +96,7 @@ Promise.all([
     .filter(d => {
       return parseInt(d.date.getFullYear()) < 2050
     })
-    console.log(serviceData)
+    // console.log(serviceData)
 
     const employmentService = {
       e: '#chart-indicator-employment-services',
