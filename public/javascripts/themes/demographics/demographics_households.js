@@ -66,9 +66,29 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   const houseHoldsChart = new MultiLineChart(houseHoldsContent)
   houseHoldsChart.tickNumber = 31
   houseHoldsChart.drawChart()
-  houseHoldsChart.addTooltip(houseHoldsTT)
+  // houseHoldsChart.addTooltip(houseHoldsTT)
   houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
   houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
+
+  d3.select('#chart-households').style('display', 'block')
+  d3.select('#chart-households-size').style('display', 'none')
+
+  d3.select('#btn-households').on('click', function () {
+    activeBtn(this)
+    d3.select('#chart-households').style('display', 'block')
+    d3.select('#chart-households-size').style('display', 'none')
+    houseHoldsChart.tickNumber = 31
+    houseHoldsChart.drawChart()
+    // houseHoldsChart.addTooltip(houseHoldsTT)
+    houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
+    houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
+  })
+
+  d3.select('#btn-households-size').on('click', function () {
+    activeBtn(this)
+    d3.select('#chart-households').style('display', 'none')
+    d3.select('#chart-households-size').style('display', 'block')
+  })
 })()
 
 //   // d3.select(window).on("resize", function() {
