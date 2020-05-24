@@ -14,10 +14,11 @@ Promise.all([
       // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
       let yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
       let obj = {
-        label: d.Quarter,
+
         value: parseFloat(d[portColumns[0]].replace(/,/g, '')) / 1000000,
         variable: portColumns[0],
-        date: convertQuarterToDate(yearQuarter)
+        date: convertQuarterToDate(yearQuarter),
+        label: yearQuarter.replace(/Q/, ' Q')
       }
       return obj
     })
@@ -33,7 +34,7 @@ Promise.all([
     }
     portTotalChart = new MultiLineChart(portTonnageCount)
     portTotalChart.drawChart()
-    portTotalChart.addTooltip('Tonnage, ', 'thousands', 'label')
+    portTotalChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
   }
 
   if (document.getElementById('chart-indicator-port-breakdown')) {
@@ -41,7 +42,7 @@ Promise.all([
 
     let portBreakdownData = portData.map(d => {
       let yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
-      d.label = yearQuarter
+      d.label = yearQuarter.replace(/Q/, ' Q')
       d.date = convertQuarterToDate(yearQuarter)
       for (var i = 0, n = breakdownCols.length; i < n; i++) {
         d[breakdownCols[i]] = parseFloat(d[breakdownCols[i]].replace(/,/g, '')) / 1000000
@@ -62,7 +63,7 @@ Promise.all([
     }
     portBreakdownChart = new StackedAreaChart(portTonnageBreakdown)
     portBreakdownChart.drawChart()
-    portBreakdownChart.addTooltip('Tonnage, ', 'thousands', 'label')
+    portBreakdownChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
   }
 
   d3.select('#chart-indicator-port-total').style('display', 'block')
@@ -73,8 +74,7 @@ Promise.all([
     d3.select('#chart-indicator-port-total').style('display', 'block')
     d3.select('#chart-indicator-port-breakdown').style('display', 'none')
     portTotalChart.drawChart()
-    // portTotalChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
-      // employedChart.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    portTotalChart.addTooltip('Tonnage, ', 'thousands', 'label')
   })
 
   d3.select('#btn-indicator-port-breakdown').on('click', function () {
@@ -82,7 +82,6 @@ Promise.all([
     d3.select('#chart-indicator-port-total').style('display', 'none')
     d3.select('#chart-indicator-port-breakdown').style('display', 'block')
     portBreakdownChart.drawChart()
-    // portTotalChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
-      // employedChart.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    portBreakdownChart.addTooltip('Tonnage, ', 'thousands', 'label')
   })
 })
