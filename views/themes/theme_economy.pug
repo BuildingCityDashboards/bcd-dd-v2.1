@@ -40,28 +40,32 @@
     )
     
     +theme__text-chart(
-    'employment-sector',
-    [{ link:'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QNQ40&PLanguage=0',
-    name: 'CSO'}],
+    'indicator-employment-sector',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+        name: 'data.gov'
+    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+    name: 'download'
+    }],
     'Employment by Broad Sector',
     '<p> </p>',
     '',
-    ['chart-employment-sector']
+    ['chart-indicator-employment-sector']
     )
     
-    //- //emp sector data.gov version
-    //- +theme__text-chart(
-    //- 'employment-sector',
-    //- [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
-    //-     name: 'data.gov'
-    //- },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
-    //- name: 'download as csv'
-    //- }],
-    //- 'Employment by Broad Sector',
-    //- '<p> </p>',
-    //- '',
-    //- ['chart-employment-sector']
-    //- )
+    +theme__text-chart(
+    'indicator-employment-services',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+        name: 'data.gov'
+    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+    name: 'download'
+    }],
+    'Employment in Services',
+    '<p> </p>',
+    '',
+    ['chart-indicator-employment-services']
+    )
+    
+  
     
     +theme__text-chart(
     'employment-size',
@@ -92,13 +96,21 @@
     '<p> </p>',
     ['chart-gva']
     )
-    //- [{
-    //- id: 'unemployment-count-btn',
-    //- name: 'Number unemployed'
-    //- },{
-    //- id: 'unemployment-rate-btn',
-    //- name: 'Unemployment rate'
-    //- }]
+    
+    +theme__text-chart(
+    'public-transport-trips',
+    [{ 
+    link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/2da5e1ce-2a77-40f8-8d8d-c7f03885ab6b',
+    name: 'data.gov'},
+    { 
+    link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/2da5e1ce-2a77-40f8-8d8d-c7f03885ab6b/download/indicator-.8.-public-transport.csv',  
+    name: 'download'
+    }],
+    'Public Transport Usage',
+    '<p> </p>',
+    '<p> </p>',
+    ['chart-public-transport-trips']
+    )
     
     +theme__text-chart(
     'indicator-airport',
