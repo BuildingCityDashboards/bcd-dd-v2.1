@@ -57,12 +57,6 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     tY: STATS[0].split('(')[0]
   }
 
-  // const houseHoldsTT = {
-  //   title: 'Number of Households, ',
-  //   // datelabel: 'year',
-  //   format: 'thousands'
-  // }
-
   const houseHoldsChart = new MultiLineChart(houseHoldsContent)
   houseHoldsChart.tickNumber = 31
   houseHoldsChart.drawChart()
