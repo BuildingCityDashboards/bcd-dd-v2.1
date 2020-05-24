@@ -9,34 +9,43 @@ Promise.all([
   const pupilsPrimary = datafiles[1]
   const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
   let pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
+  pupilsPrimaryData.forEach(d => {
+    d.label = d.date
+    d.date = new Date(d.date, 1, 1)
+  })
   // console.log(pupilsPrimary)
-
+  console.log(pupilsPrimaryData[0])
   let pupilsPrimaryPlot = {
-    e: '#chart-pupilsFirstLevel',
+    e: '#chart-pupils-primary',
     d: pupilsPrimaryData,
     ks: pupilsPrimaryColNames,
-    xV: pupilsPrimary.columns[0],
+    xV: 'date',
     yV: pupilsPrimaryColNames,
     tX: 'Years',
     tY: 'No. of Pupils'
   }
 
-  let pupilsPrimaryToolTip = {
-    title: 'Primary school pupil numbers for ',
-    datelabel: pupilsPrimary.columns[0],
-    format: 'thousands'
-  }
+  // let pupilsPrimaryToolTip = {
+  //   title: 'Primary school pupil numbers for ',
+  //   datelabel: pupilsPrimary.columns[0],
+  //   format: 'thousands'
+  // }
 
-  let pupilsPrimaryChart = new GroupedBarChart(pupilsPrimaryPlot)
-  pupilsPrimaryChart.addTooltip(pupilsPrimaryToolTip)
+  let pupilsPrimaryChart = new StackedAreaChart(pupilsPrimaryPlot)
+  pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
+  // employmentServiceChart.addTooltip(', ', '', 'label')
 
   const pupilsSecondary = datafiles[2]
   const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
   let pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
+  pupilsSecondaryData.forEach(d => {
+    d.label = d.date
+    d.date = new Date(d.date, 1, 1)
+  })
   // console.log(pupilsSecondary)
 
   let pupilsSecondaryPlot = {
-    e: '#chart-pupilsSecondLevel',
+    e: '#chart-pupils-secondary',
     d: pupilsSecondaryData,
     ks: pupilsSecondaryColNames,
     xV: pupilsSecondary.columns[0],
@@ -51,8 +60,26 @@ Promise.all([
     format: 'thousands'
   }
 
-  let pupilsSecondaryChart = new GroupedBarChart(pupilsSecondaryPlot)
-  pupilsSecondaryChart.addTooltip(pupilsSecondaryToolTip)
+  let pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
+  pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
+
+  d3.select('#chart-pupils-primary').style('display', 'block')
+  d3.select('#chart-pupils-secondary').style('display', 'none')
+
+  d3.select('#btn-pupils-primary').on('click', function () {
+    activeBtn(this)
+    d3.select('#chart-pupils-primary').style('display', 'block')
+    d3.select('#chart-pupils-secondary').style('display', 'none')
+    pupilsPrimaryChart.drawChart()
+    pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
+  })
+  d3.select('#btn-pupils-secondary').on('click', function () {
+    activeBtn(this)
+    d3.select('#chart-pupils-primary').style('display', 'none')
+    d3.select('#chart-pupils-secondary').style('display', 'block')
+    pupilsSecondaryChart.drawChart()
+    pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
+  })
 
   // const dataFile2 = datafiles[1]
   // const dataFile3 = datafiles[2]
@@ -146,4 +173,3 @@ Promise.all([
 }).catch(function (error) {
   console.log(error)
 })
-

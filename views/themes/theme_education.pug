@@ -5,14 +5,21 @@
     '',
     'education_background.png')
     
-    +theme__text-chart-chart(
+    +theme__text-chart(
     'pupil-numbers',
     [{ link:'https://www.cso.ie/en/statistics/education/',
     name: 'CSO'}],
     'Pupil Numbers',
     '<p> These charts from the CSO show the numbers of <b>primary</b> and <b>secondary</b> school pupils across the four Dublin local authorities </p>',
     '',
-    ['chart-pupilsFirstLevel', 'chart-pupilsSecondLevel']
+    ['chart-pupils-primary', 'chart-pupils-secondary'],
+    [{
+    id: 'btn-pupils-primary',
+    name: 'Primary level'
+    },{
+    id: 'btn-pupils-secondary',
+    name: 'Secondary level'
+    }]
     )
     
 
