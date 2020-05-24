@@ -96,7 +96,7 @@ class StackedAreaChart extends Chart {
         return key === c.xV || typeof d[key] === 'string' ? 0 : d[key]
         // return key !== c.xV ? d[key] : 0;
       })
-      // console.log("Vals: " + vals);
+      // console.log('Vals: ' + vals)
       return d3.sum(vals)
     })
 
@@ -105,7 +105,7 @@ class StackedAreaChart extends Chart {
       return (d[c.xV])
     }))
 
-    c.y.domain([0, maxVal * 1.2])
+    c.y.domain([0, maxVal ])//* 1.2])
 
     // Update X axis
     c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x)
@@ -205,7 +205,7 @@ class StackedAreaChart extends Chart {
 
   // replacing old legend method with new inline labels
   drawLegend () {
-    // chart (c) object, vlaue (v), colour (z), line height(lH)
+    // chart (c) object, value (v), colour (z), line height(lH)
     let c = this,
       g = c.g,
       v = c.value,
@@ -267,6 +267,7 @@ class StackedAreaChart extends Chart {
 
     // Add labels
     const legendNames = g.selectAll('.label-legend').data(lines, d => d.y)
+    // console.log(legendNames)
     legendNames.exit().remove()
 
     // const legendCircles = g.selectAll(".legend-circles").data(circles, d => d.y);
