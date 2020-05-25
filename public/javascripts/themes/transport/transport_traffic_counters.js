@@ -37,7 +37,8 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 
   try {
     let dublinCounters = await getCounters()
-    let readingsGrouped = await getReadings()
+    const daysToFetch = [-1, -2, -3, -8, -15, -22, -29, -36, -43, -85, -183]
+    let readingsGrouped = await getReadings(daysToFetch)
 
     // create markers for each counter, join reading to static site data and add to map
     let trafficCounters = new L.LayerGroup()
@@ -91,32 +92,22 @@ async function getCounters () {
   return counters
 }
 
-async function getReadings () {
-  let yesterdayQuery = getTrafficQueryForDate(getDateFromToday(-1))
-  let minus8DaysQuery = getTrafficQueryForDate(getDateFromToday(-8))
-  let minus29DaysQuery = getTrafficQueryForDate(getDateFromToday(-29))
-  let minus85DaysQuery = getTrafficQueryForDate(getDateFromToday(-85))
-  let minus162DaysQuery = getTrafficQueryForDate(getDateFromToday(-162))
-  let minus169DaysQuery = getTrafficQueryForDate(getDateFromToday(-169))
+async function getReadings (days) {
+  const queries = days.map(d => {
+    return getTrafficQueryForDate(getDateFromToday(d))
+  })
 
-  let dataCSVQuery1 = await d3.csv('api/traffic?q=' + yesterdayQuery) // returns array of objects
-  let dataCSVQuery8 = await d3.csv('api/traffic?q=' + minus8DaysQuery)
-  let dataCSVQuery29 = await d3.csv('api/traffic?q=' + minus29DaysQuery)    // 4 wks
-  let dataCSVQuery85 = await d3.csv('api/traffic?q=' + minus85DaysQuery)    // 12 wks
-  let dataCSVQuery162 = await d3.csv('api/traffic?q=' + minus162DaysQuery)
-  let dataCSVQuery169 = await d3.csv('api/traffic?q=' + minus169DaysQuery)  // 24 wks
+  const responsePromises = queries.map(async q => {
+    const response = await d3.csv('api/traffic?q=' + q)
+    return response
+  })
+  const responses = await Promise.all(responsePromises)
 
-  // console.log(dataCSVQuery1)
+  let readings = groupByNumber(responses[responses.length - 1], 'cosit')
+  for (let i = responses.length - 2; i >= 0; i -= 1) {
+    readings = groupByNumber(responses[i], 'cosit', readings)
+  }
 
-  // need the vehicle count, indexed by cosit number
-  let readings = groupByNumber(dataCSVQuery169, 'cosit')
-  readings = groupByNumber(dataCSVQuery162, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery85, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery29, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery8, 'cosit', readings)
-  readings = groupByNumber(dataCSVQuery1, 'cosit', readings)
-  // console.log('readings')
-  // console.log(readings)
   return readings
 }
 
@@ -164,8 +155,8 @@ function getPlot (d_) {
     e: div,
     yV: 'total',
     xV: 'date',
-  // sN: 'region',
-    dL: 'label'
+    dL: 'label',
+    titleLabel: 'daily vehicles'
   }
   let chart = new ChartLinePopup(config)
   return chart
