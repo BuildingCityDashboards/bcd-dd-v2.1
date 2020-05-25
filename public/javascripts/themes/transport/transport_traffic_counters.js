@@ -103,8 +103,6 @@ async function getReadings (days) {
   })
   const responses = await Promise.all(responsePromises)
 
-  console.log(responses)
-
   let readings = groupByNumber(responses[responses.length - 1], 'cosit')
   for (let i = responses.length - 2; i >= 0; i -= 1) {
     readings = groupByNumber(responses[i], 'cosit', readings)
