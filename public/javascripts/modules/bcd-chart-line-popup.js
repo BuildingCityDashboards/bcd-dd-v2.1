@@ -174,6 +174,21 @@ class ChartLinePopup {
       .style('stroke', '#16c1f3') // move to css
       .style('stroke-width', '2px') // move to css
   }
+
+  setTitleLabel (title) {
+    let c = this,
+      l = c.d.length,
+      lD = c.d[l - 1],
+      fD = c.d[0]
+
+    c.svg.append('text')
+        .attr('x', c.w / 2)
+        .attr('y', -0)
+        .attr('text-anchor', 'centre') // move to css
+        .attr('class', '')
+        .attr('fill', '#16c1f3') // move to css
+        .text(title)
+  }
 }
 
 export { ChartLinePopup }

@@ -37,7 +37,8 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 
   try {
     let dublinCounters = await getCounters()
-    let readingsGrouped = await getReadings()
+    const daysToFetch = [-1, -2, -3, -8, -15, -22, -29, -36, -43, -85, -183]
+    let readingsGrouped = await getReadings(daysToFetch)
 
     // create markers for each counter, join reading to static site data and add to map
     let trafficCounters = new L.LayerGroup()
@@ -91,9 +92,8 @@ async function getCounters () {
   return counters
 }
 
-async function getReadings () {
-  const daysAgo = [-1, -2, -3, -8, -15, -22, -29, -36, -43, -85]
-  const queries = daysAgo.map(d => {
+async function getReadings (days) {
+  const queries = days.map(d => {
     return getTrafficQueryForDate(getDateFromToday(d))
   })
 
@@ -157,10 +157,10 @@ function getPlot (d_) {
     e: div,
     yV: 'total',
     xV: 'date',
-  // sN: 'region',
     dL: 'label'
   }
   let chart = new ChartLinePopup(config)
+  chart.setTitleLabel('Daily vehicles')
   return chart
 }
 
