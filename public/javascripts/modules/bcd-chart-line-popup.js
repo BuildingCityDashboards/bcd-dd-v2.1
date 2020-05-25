@@ -123,11 +123,11 @@ class ChartLinePopup {
       // value label start
     c.svg.append('text')
         .attr('x', -10)
-        .attr('y', c.y(lD[c.yV]) - 10)
-        .attr('text-anchor', 'end') // move to css
+        .attr('y', c.y(fD[c.yV]) - 10)
+        .attr('text-anchor', 'start') // move to css
         .attr('class', 'label')
-        .attr('fill', '#f8f9fabd') // move to css
-        .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
+        .attr('fill', '#16c1f3') // move to css
+        .text(c.fV ? c.fV(fD[c.yV]) : fD[c.yV])
 
     // value label end
     c.svg.append('text')
@@ -135,7 +135,7 @@ class ChartLinePopup {
       .attr('y', c.y(lD[c.yV]) - 10)
       .attr('text-anchor', 'end') // move to css
       .attr('class', 'label')
-      .attr('fill', '#f8f9fabd') // move to css
+      .attr('fill', '#16c1f3') // move to css
       .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
 
     // latest date label
@@ -159,6 +159,15 @@ class ChartLinePopup {
     c.svg.append('circle')
       .attr('cx', c.x(lD[c.xV]))
       .attr('cy', c.y(lD[c.yV]))
+      .attr('r', 3)
+      .attr('transform', 'translate(0,0)') // move to css
+      .attr('class', 'cursor')
+      .style('stroke', '#16c1f3') // move to css
+      .style('stroke-width', '2px') // move to css
+
+    c.svg.append('circle')
+      .attr('cx', c.x(fD[c.xV]))
+      .attr('cy', c.y(fD[c.yV]))
       .attr('r', 3)
       .attr('transform', 'translate(0,0)') // move to css
       .attr('class', 'cursor')
