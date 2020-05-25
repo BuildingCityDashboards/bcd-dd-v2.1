@@ -35,8 +35,7 @@ import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
   try {
     let noiseSitesLayer = new L.LayerGroup()
     let noiseSites = await getSites('./data/Environment/soundsites.json', 'sound_monitoring_sites')
-
-    noiseSites.forEach(d => {
+    let allSitesPromises = noiseSites.map(async d => {
       let marker = new noiseMarker(
         new L.LatLng(d.lng, d.lat), {
           id: d.id,
@@ -51,10 +50,46 @@ import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
         getPlot(d)
       })
       noiseSitesLayer.addLayer(marker)
+      let siteReadings = await getSiteReadings(d)
+      return siteReadings
     })
+    let allSitesData = await Promise.all(allSitesPromises)
+
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
-    // console.log(noiseSites)
+    console.log(allSitesData)
+
+    const noiseChartOptions = {
+      e: '#chart-noise-monitors',
+      d: allSitesData[1],
+      k: 'id', // ?
+      // ks: keys, // For StackedAreaChart-formatted data need to provide keys
+      xV: 'date', // expects a date object
+      yV: 'value',
+      tX: 'Time', // string axis title
+      tY: 'dB'
+    }
+
+    let noiseChart = new MultiLineChart(noiseChartOptions)
+    noiseChart.drawChart()
+    // noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+
+    d3.select('#map-noise-monitors').style('display', 'block')
+    d3.select('#chart-noise-monitors').style('display', 'none')
+
+    d3.select('#btn-noise-chart').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-noise-monitors').style('display', 'block')
+      d3.select('#map-noise-monitors').style('display', 'none')
+      noiseChart.drawChart()
+      // noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+    })
+
+    d3.select('#btn-noise-map').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-noise-monitors').style('display', 'none')
+      d3.select('#map-noise-monitors').style('display', 'block')
+    })
   } catch (e) {
     console.log(e)
   }
@@ -102,8 +137,7 @@ function getPopup (d_) {
   return str
 }
 
-async function getPlot (d_) {
-  let divId = `noise-site-${d_.id}`
+async function getSiteReadings (d_) {
   // console.log(d_)
 
   let readings = await d3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
@@ -120,16 +154,25 @@ async function getPlot (d_) {
     date.setHours(h)
     date.setMinutes(min)
     // console.log(date)
+
+    // let divId = `noise-site-${d_.id}`
+    // document.getElementById(divId + '-subtitle').innerHTML = `Latest data for ${readings.dates[0]}`
     return {
       date: date,
       value: +readings.aleq[i],
       label: date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0')
     }
   })
+  return data
+}
+
+async function getPlot (d_) {
+  let divId = `noise-site-${d_.id}`
+  let data = await getSiteReadings(d_)
 
   // console.log(data[0])
-  document.getElementById(divId + '-subtitle').innerHTML = `Latest data for ${readings.dates[0]}`
-  console.log(divId + '-subtitle')
+
+  // console.log(divId + '-subtitle')
   const options = {
     d: data,
     e: '#' + divId + '-plot',
