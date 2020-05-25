@@ -38,35 +38,45 @@ export { getTrafficQueryForDate }
  */
 
 const groupByNumber = (readings, key, object = {}) => {
-  let grouped = readings.reduce((obj, d) => {
+  try {
+    let grouped = readings.reduce((obj, d) => {
     // create the key if it doesn't exist
-    if (!obj.hasOwnProperty(`${+d[key]}`)) {
+      // console.log(obj)
+      if (!obj.hasOwnProperty(`${+d[key]}`)) {
 		    obj[`${+d[key]}`] = {
       dates: {}
     }
-    }
-    let dateKey = `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
-    // add to date object if it doesn't have the date as a key
-    if (!obj[`${+d[key]}`].dates.hasOwnProperty(dateKey)) {
-      obj[`${+d[key]}`].dates[dateKey] = {
-        values: [],
-        total: 0
       }
-    }
+      let dateKey = `${d.year}-${d.month.padStart(2, '0')}-${d.day.padStart(2, '0')}`
+    // add to date object if it doesn't have the date as a key
+      if (!obj[`${+d[key]}`].dates.hasOwnProperty(dateKey)) {
+        obj[`${+d[key]}`].dates[dateKey] = {
+          values: [],
+          total: 0
+        }
+      }
     // TODO: generalise by passing keys as args
     // add an object with the values
-    obj[`${+d[key]}`].dates[dateKey].values.push(
-      {
-        count: +d.VehicleCount,
-        class: +d.class
-      })
+      obj[`${+d[key]}`].dates[dateKey].values.push(
+        {
+          count: +d.VehicleCount,
+          class: +d.class
+        })
 
     // add a convenience property to keep a total
-    obj[`${+d[key]}`].dates[dateKey].total += +d.VehicleCount
+      obj[`${+d[key]}`].dates[dateKey].total += +d.VehicleCount
 
-    return obj
-  }, object)
-  return grouped
+      return obj
+    }, object)
+
+    return grouped
+  } catch (e) {
+    // console.log('error parsing traffic counter response- returning input')
+    // console.log('object: ')
+    // console.log(object)
+    // console.log(e)
+    return object
+  }
 }
 
 export { groupByNumber }

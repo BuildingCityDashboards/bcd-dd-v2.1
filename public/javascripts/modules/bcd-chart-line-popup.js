@@ -120,7 +120,16 @@ class ChartLinePopup {
       .attr('fill', '#16c1f3') // move to css
       .text(lD[c.sN]) // needs to be a d.name
 
-    // value label
+      // value label start
+    c.svg.append('text')
+        .attr('x', -10)
+        .attr('y', c.y(lD[c.yV]) - 10)
+        .attr('text-anchor', 'end') // move to css
+        .attr('class', 'label')
+        .attr('fill', '#f8f9fabd') // move to css
+        .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
+
+    // value label end
     c.svg.append('text')
       .attr('x', c.w + 10)
       .attr('y', c.y(lD[c.yV]) - 10)

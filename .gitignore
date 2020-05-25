@@ -70,7 +70,7 @@ localhost.key
 /public/data/Environment/waterlevel.json
 # /public/data/Transport/
 /public/data/Transport/M50
-/public/data/Transport/dublinBikes/*.json
+# /public/data/Transport/dublinBikes/*.json
 /public/data/Transport/cpdata.xml
 /public/data/Transport/traveltimesroad.json
 /public/data/Transport/traveltimes.json
