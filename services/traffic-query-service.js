@@ -12,9 +12,11 @@ const getData = async url => {
 }
 // This should happen in controller, with logic in service
 exports.getTrafficPerSiteByQuery = async (req, res, next) => {
-  console.log('\n\ngetTrafficPerSiteByQuery\n\n')
-  console.log(req.query.q)
+  // console.log('\n\ngetTrafficPerSiteByQuery\n\n')
+  // console.log(req.query.q)
   try {
+    // console.log('query')
+    // console.log(BASE_URL_TRAFFIC + req.query.q)
     const data = await getData(BASE_URL_TRAFFIC + req.query.q)
     res.send(data)
   } catch (e) {

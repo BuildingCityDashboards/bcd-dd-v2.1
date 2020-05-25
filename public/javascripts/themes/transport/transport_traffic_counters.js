@@ -38,9 +38,6 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
   try {
     let dublinCounters = await getCounters()
     let readingsGrouped = await getReadings()
-    console.log('readingsGrouped: ')
-    // console.log(readingsGrouped)
-    // console.log(dublinCounters)
 
     // create markers for each counter, join reading to static site data and add to map
     let trafficCounters = new L.LayerGroup()
@@ -76,7 +73,7 @@ async function getCounters () {
   // want an array of objects for dublin counters
   const counterSiteData = await d3.text('./data/transport/tmu-traffic-counters.dat')
   let rows = await d3.tsvParseRows(counterSiteData)
-  console.log(rows.length)
+  // console.log(rows.length)
   let counters = rows
   .filter(row => {
     return row[0].includes('Dublin')
@@ -90,7 +87,7 @@ async function getCounters () {
     }
     return obj
   })
-  console.log(counters)
+  // console.log(counters)
   return counters
 }
 
@@ -109,19 +106,17 @@ async function getReadings () {
   let dataCSVQuery162 = await d3.csv('api/traffic?q=' + minus162DaysQuery)
   let dataCSVQuery169 = await d3.csv('api/traffic?q=' + minus169DaysQuery)  // 24 wks
 
-  console.log(dataCSVQuery1)
+  // console.log(dataCSVQuery1)
 
   // need the vehicle count, indexed by cosit number
   let readings = groupByNumber(dataCSVQuery169, 'cosit')
   readings = groupByNumber(dataCSVQuery162, 'cosit', readings)
   readings = groupByNumber(dataCSVQuery85, 'cosit', readings)
   readings = groupByNumber(dataCSVQuery29, 'cosit', readings)
-
   readings = groupByNumber(dataCSVQuery8, 'cosit', readings)
-
-  // readings = groupByNumber(dataCSVQuery1, 'cosit', readings)
-  console.log('grand')
-
+  readings = groupByNumber(dataCSVQuery1, 'cosit', readings)
+  // console.log('readings')
+  // console.log(readings)
   return readings
 }
 
@@ -183,10 +178,10 @@ function getReadingsForCounter (rs_, d_) {
       date => {
         return { date: date, total: rs_[d_.id].dates[date].total}
       })
+
     return values
   } catch (e) {
-    console.error('traffic sensor #' + d_.id + ' ' + e)
-    return {date: `none`, total: 0}
-    // No data for counter # + ${d_.id}`
+    console.warn('traffic sensor #' + d_.id + ' ' + e)
+    return []
   }
 }
