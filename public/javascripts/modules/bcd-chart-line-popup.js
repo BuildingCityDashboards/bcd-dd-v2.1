@@ -32,6 +32,9 @@ class ChartLinePopup {
     this.fV = obj.fV
     /** @private */
     this.dL = obj.dL
+    /** @private */
+    this.titleLabel = obj.titleLabel
+
     // create the chart area
     this.init()
   }
@@ -121,13 +124,14 @@ class ChartLinePopup {
       .text(lD[c.sN]) // needs to be a d.name
 
       // value label start
+    let valueLabelStart = c.fV ? c.fV(fD[c.yV]) : fD[c.yV]
     c.svg.append('text')
         .attr('x', -10)
         .attr('y', c.y(fD[c.yV]) - 10)
         .attr('text-anchor', 'start') // move to css
         .attr('class', 'label')
         .attr('fill', '#16c1f3') // move to css
-        .text(c.fV ? c.fV(fD[c.yV]) : fD[c.yV])
+        .text(valueLabelStart + ' ' + c.titleLabel)
 
     // value label end
     c.svg.append('text')
@@ -175,20 +179,20 @@ class ChartLinePopup {
       .style('stroke-width', '2px') // move to css
   }
 
-  setTitleLabel (title) {
-    let c = this,
-      l = c.d.length,
-      lD = c.d[l - 1],
-      fD = c.d[0]
-
-    c.svg.append('text')
-        .attr('x', c.w / 2)
-        .attr('y', -0)
-        .attr('text-anchor', 'centre') // move to css
-        .attr('class', '')
-        .attr('fill', '#16c1f3') // move to css
-        .text(title)
-  }
+  // setTitleLabel (title) {
+  //   let c = this,
+  //     l = c.d.length,
+  //     lD = c.d[l - 1],
+  //     fD = c.d[0]
+  //
+  //   c.svg.append('text')
+  //     .attr('cx', c.x(fD[c.xV]))
+  //     .attr('cy', c.y(fD[c.yV]))
+  //       .attr('text-anchor', 'centre') // move to css
+  //       .attr('class', '')
+  //       .attr('fill', '#16c1f3') // move to css
+  //       .text(title)
+  // }
 }
 
 export { ChartLinePopup }

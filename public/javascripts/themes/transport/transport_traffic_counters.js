@@ -157,10 +157,10 @@ function getPlot (d_) {
     e: div,
     yV: 'total',
     xV: 'date',
-    dL: 'label'
+    dL: 'label',
+    titleLabel: 'daily vehicles'
   }
   let chart = new ChartLinePopup(config)
-  chart.setTitleLabel('Daily vehicles')
   return chart
 }
 
