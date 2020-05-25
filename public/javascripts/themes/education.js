@@ -14,7 +14,7 @@ Promise.all([
     d.date = new Date(d.date, 1, 1)
   })
   // console.log(pupilsPrimary)
-  console.log(pupilsPrimaryData[0])
+  // console.log(pupilsPrimaryData[0])
   let pupilsPrimaryPlot = {
     e: '#chart-pupils-primary',
     d: pupilsPrimaryData,
