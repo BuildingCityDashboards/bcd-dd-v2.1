@@ -1,5 +1,6 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
+import { isToday } from '../../modules/bcd-date.js'
 
 (async () => {
   proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
@@ -54,15 +55,19 @@ import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
       return siteReadings
     })
     let allSitesData = await Promise.all(allSitesPromises)
+    let allSitesFlat = allSitesData.flat(1)
+    allSitesFlat.filter(s => {
+      return isToday(s.date)
+    })
 
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
-    console.log(allSitesData)
+    // console.log(allSitesFlat)
 
     const noiseChartOptions = {
       e: '#chart-noise-monitors',
-      d: allSitesData[1],
-      k: 'id', // ?
+      d: allSitesFlat,
+      k: 'name', // ?
       // ks: keys, // For StackedAreaChart-formatted data need to provide keys
       xV: 'date', // expects a date object
       yV: 'value',
@@ -157,11 +162,16 @@ async function getSiteReadings (d_) {
 
     // let divId = `noise-site-${d_.id}`
     // document.getElementById(divId + '-subtitle').innerHTML = `Latest data for ${readings.dates[0]}`
-    return {
+    // console.log(date)
+    let datum = {
+      id: d_.id,
+      name: d_.name,
       date: date,
       value: +readings.aleq[i],
       label: date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0')
     }
+    // if (i == 0) console.log(datum)
+    return datum
   })
   return data
 }
@@ -170,7 +180,9 @@ async function getPlot (d_) {
   let divId = `noise-site-${d_.id}`
   let data = await getSiteReadings(d_)
 
-  // console.log(data[0])
+    // isToday(s.date)
+
+  console.log(data[0])
 
   // console.log(divId + '-subtitle')
   const options = {

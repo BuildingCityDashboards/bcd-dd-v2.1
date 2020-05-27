@@ -1,4 +1,22 @@
 /**
+ * Is a given date falling today?
+ *
+ * @param {Date} date
+ * @return {boolean}
+ *
+ *     isToday(Wed Nov 06 2019 00:10:00 GMT+0000 (Greenwich Mean Time))
+ */
+
+const isToday = date => {
+  const today = new Date()
+  return date.getDate() == today.getDate() &&
+    date.getMonth() == today.getMonth() &&
+    date.getFullYear() == today.getFullYear()
+}
+
+export { isToday }
+
+/**
  * Get a date shifted n days from today
  *
  * @param {number} n - Number of days to shift from today's date
