@@ -76,15 +76,15 @@
 
 .leaflet-popup-title {
   width: 100%;
-  height: 28px;
+  height: 32px;
   color: white;
 }
 
 .leaflet-popup-subtitle {
   width: 100%;
-  height: 28px;
+  height: 24px;
   color: white;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 /* Need to set height of svg plot in px here*/
@@ -133,7 +133,9 @@
 }
 
 .popup-error{
-  margin: 40px;
+  font-family: 'Roboto';
+  margin: 16px;
+  color: white;
 }
 
 
