@@ -193,13 +193,14 @@
   flex-direction  : column;
   justify-content : center;
   grid-column     : 6/13;
+  width: auto;
   grid-row        : 2;
 }
 
 /* altering height does not make the plot bigger */
 
 .theme__text-chart__plot {
-  width  : 800px;
+  width  : inherit;
   height : 400px;
 }
 
@@ -214,14 +215,7 @@
 
 /* For double charts i.e. text-chart-chart */
 
-.theme__text-chart-chart__chart {
-  display         : flex;
-  height          : 800px;
-  flex-direction  : column;
-  justify-content : center;
-  grid-column     : 6/13;
-  grid-row        : 2;
-}
+
 
 .theme__text-chart-chart__plot {
   width  : 800px;
