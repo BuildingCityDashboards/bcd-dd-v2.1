@@ -12,7 +12,7 @@ class GroupedBarChart extends Chart {
     super.init()
     super.addAxis()
     super.getKeys()
-    c.drawTooltip()
+    super.drawTooltip()
     c.createScales() // parent once I setup setScales:done and setDomain with switch.
     super.drawGridLines()
     c.drawBars() // child - like createScales could be added to parent with switch.
@@ -190,29 +190,6 @@ class GroupedBarChart extends Chart {
       .text(d => {
         return d.label
       }).call(textWrap, 100, c.w + 22)
-  }
-
-  drawTooltip () {
-    let c = this
-    if (c.sscreens) {
-      // c.newToolTip.style("visibility", "visible");
-
-    } else {
-      c.newToolTip = d3.select(c.e)
-        .append('div')
-        .attr('class', 'tool-tip bcd')
-      c.newToolTip.style('visibility', 'hidden')
-      c.newToolTipTitle = c.newToolTip
-        .append('div')
-        .attr('id', 'bcd-tt-title')
-
-      c.tooltipHeaders()
-      c.tooltipBody()
-    }
-
-    // if (c.sscreens) {
-    //   c.ttContent(c.d[1], c.d[0], c.ks); //initalise tooltip hack
-    // }
   }
 
   tooltipHeaders () {

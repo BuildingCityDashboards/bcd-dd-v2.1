@@ -1,5 +1,6 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
+import { isToday } from '../../modules/bcd-date.js'
 
 (async () => {
   proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
@@ -39,40 +40,44 @@ import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
       let marker = new noiseMarker(
         new L.LatLng(d.lng, d.lat), {
           id: d.id,
-          // icon: trafficCounterMapIcon,
           opacity: 0.9,
           title: 'Noise Monitor Site', // shown in rollover tooltip
           alt: 'noise monitor icon',
-          icon: noiseMapIcon
+          icon: noiseMapIcon,
+          type: 'Noise Level Monitor'
         })
       marker.bindPopup(getPopup(d), noisePopupOptons)
       marker.on('popupopen', () => {
-        getPlot(d)
+        getPopupPlot(d)
       })
       noiseSitesLayer.addLayer(marker)
       let siteReadings = await getSiteReadings(d)
       return siteReadings
     })
     let allSitesData = await Promise.all(allSitesPromises)
+    let allSitesFlat = allSitesData.flat(1)
+    allSitesFlat.filter(s => {
+      return isToday(s.date)
+    })
 
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
-    console.log(allSitesData)
+    // console.log(allSitesFlat)
 
     const noiseChartOptions = {
       e: '#chart-noise-monitors',
-      d: allSitesData[1],
-      k: 'id', // ?
+      d: allSitesFlat,
+      k: 'name', // ?
       // ks: keys, // For StackedAreaChart-formatted data need to provide keys
       xV: 'date', // expects a date object
       yV: 'value',
-      tX: 'Time', // string axis title
+      tX: 'Time today', // string axis title
       tY: 'dB'
     }
 
     let noiseChart = new MultiLineChart(noiseChartOptions)
     noiseChart.drawChart()
-    // noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+    noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
 
     d3.select('#map-noise-monitors').style('display', 'block')
     d3.select('#chart-noise-monitors').style('display', 'none')
@@ -82,7 +87,7 @@ import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
       d3.select('#chart-noise-monitors').style('display', 'block')
       d3.select('#map-noise-monitors').style('display', 'none')
       noiseChart.drawChart()
-      // noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+      noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
     })
 
     d3.select('#btn-noise-map').on('click', function () {
@@ -123,13 +128,13 @@ function getPopup (d_) {
   }
   str += '<div id="noise-site-' + d_.id + '">'
   str += '<div class="leaflet-popup-title">'
-  str += '<span>' // id for name div
+  str += '<span><strong>' + d_.id + '. '// id for name div
   if (d_.name) {
-    str += '<strong>' + d_.name + '</strong>'
+    str += '' + d_.name
   }
-  str += '</span>' //
+  str += '</strong></span>' //
   str += '</div>' // close title div
-  str += '<div id="noise-site-' + d_.id + '-subtitle" class="leaflet-popup-subtitle">Latest data for '
+  str += '<div id="noise-site-' + d_.id + '-subtitle" class="leaflet-popup-subtitle">'
   str += '</div>' // close subtitle
   str += '<div class="leaflet-popup-chart" id="noise-site-' + d_.id + '-plot">' + '' + '</div>'
   str += '</div>' // close popup
@@ -157,129 +162,53 @@ async function getSiteReadings (d_) {
 
     // let divId = `noise-site-${d_.id}`
     // document.getElementById(divId + '-subtitle').innerHTML = `Latest data for ${readings.dates[0]}`
-    return {
+    // console.log(date)
+    let datum = {
+      id: d_.id,
+      name: d_.name,
       date: date,
       value: +readings.aleq[i],
       label: date.getHours().toString().padStart(2, '0') + ':' + date.getMinutes().toString().padStart(2, '0')
+
     }
+    // if (i == 0) console.log(datum)
+    return datum
   })
   return data
 }
 
-async function getPlot (d_) {
+async function getPopupPlot (d_) {
   let divId = `noise-site-${d_.id}`
   let data = await getSiteReadings(d_)
 
+    // isToday(s.date)
+
   // console.log(data[0])
-
-  // console.log(divId + '-subtitle')
-  const options = {
-    d: data,
-    e: '#' + divId + '-plot',
-    yV: 'value',
-    xV: 'date',
-    dL: 'label',
-    titleLabel: 'dB'
+  if (isToday(data[0].date)) {
+    document.getElementById(divId + '-subtitle').innerHTML =
+    data[0].date.toString().split(' ')[0] + ' ' +
+    data[1].date.toString().split(' ')[1] + ' ' +
+    data[2].date.toString().split(' ')[2]
+    const options = {
+      d: data,
+      e: '#' + divId + '-plot',
+      yV: 'value',
+      xV: 'date',
+      dL: 'label',
+      titleLabel: 'dB'
+    }
+    let chart = new ChartLinePopup(options)
+    return chart
   }
-  let chart = new ChartLinePopup(options)
-  return chart
+
+  let str = '<div class="popup-error">' +
+          '<div class="row ">' +
+          "We can't get the noise monitoring data for this location right now, please try again later" +
+          '</div>' +
+          '</div>'
+        // return d3.select('#bike-spark-' + sid_)
+        //   .html(str)
+  document.getElementById(divId + '-plot').innerHTML = str
+  return str
 }
 
-// // Get the readings so far today
-// async function getReadings (d_) {
-//   ld3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
-//     .then(function (reading) {
-//       if (reading.aleq) {
-//         let lastRead = reading.aleq[reading.aleq.length - 1]
-//         let lastTime = reading.times[reading.times.length - 1]
-//         let lastDate = reading.dates[reading.dates.length - 1]
-//         // p_.setContent(getnoisesiteContent(d_, ) +
-//         //   '<h2>' + lastRead + ' dB</h2>' +
-//         //   'Updated at ' +
-//         //   lastTime +
-//         //   ' on ' + lastDate
-//         // )
-//         // p_.update()
-//       } else {
-//         // p_.setContent(p_.getContent() +
-//         //   '<br> Data currently unavailable')
-//         // p_.update()
-//       }
-//     })
-// }
-
-// function getPlot (d) {
-//   let sid_ = d.options.id
-//   d3.json('/api/noise/noisesites/' + sid_ + '/today').then(function (stationData) {
-//     let noisesiteSpark = dc.lineChart('#noise-spark-' + sid_)
-//     if (stationData.length == 0) {
-//       let str = '<div class="popup-error">' +
-//         '<div class="row ">' +
-//         "We can't get the noise monitoring data right now, please try again later" +
-//         '</div>' +
-//         '</div>'
-//       return d3.select('#bike-spark-' + sid_)
-//         .html(str)
-//     }
-//     let standsCount = stationData[0].bike_stands
-//     let ndx = crossfilter(stationData)
-//     let timeDim = ndx.dimension(function (d) {
-//       return d['last_update']
-//     })
-//     let latest = timeDim.top(1)[0].last_update
-//
-//     let availableBikesGroup = timeDim.group().reduceSum(function (d) {
-//       return d['available_bikes']
-//     })
-//
-//     let start = moment.utc().startOf('day').add(3, 'hours')
-//     let end = moment.utc().endOf('day').add(2, 'hours')
-//
-//     noisesiteSpark.width(250).height(100)
-//     noisesiteSpark.dimension(timeDim)
-//     noisesiteSpark.group(availableBikesGroup)
-//
-//     noisesiteSpark.x(d3.scaleTime().domain([start, end]))
-//     noisesiteSpark.y(d3.scaleLinear().domain([0, standsCount]))
-//     noisesiteSpark.margins({
-//       left: 20,
-//       top: 15,
-//       right: 20,
-//       bottom: 20
-//     })
-//     noisesiteSpark.xAxis().ticks(3)
-//     noisesiteSpark.renderArea(true)
-//     noisesiteSpark.renderDataPoints(false)
-//     //        noisesiteSpark.renderDataPoints({radius: 10});//, fillOpacity: 0.8, strokeOpacity: 0.0});
-//     noisesiteSpark.renderLabel(false) //, fillOpacity: 0.8, strokeOpacity: 0.0}); //labels on points -> how to apply to last point only?
-//     noisesiteSpark.label(function (d) {
-//       if (d.x === latest) {
-//         console.log(JSON.stringify(d))
-//         let hour = new Date(d.x).getHours()
-//         let mins = new Date(d.x).getMinutes().toString().padStart(2, '0')
-//         let end = ((d.y == 1) ? ' bike' : ' bikes')
-//         //                let str = hour + ':' + mins +
-//         let str = JSON.stringify(d.y) + end
-//         //                console.log(str);
-//         return str
-//       }
-//       return ''
-//     })
-//
-//     noisesiteSpark.renderVerticalGridLines(true)
-//     noisesiteSpark.useRightYAxis(true)
-//     noisesiteSpark.xyTipsOn(false)
-//     noisesiteSpark.brushOn(false)
-//     noisesiteSpark.clipPadding(15)
-//     noisesiteSpark.render()
-//   })
-// }
-
-function processnoisesites (data_) {
-  // console.log("noise data \n"+ JSON.stringify(data_));
-  data_.forEach(function (d) {
-    d.type = 'noise Level Monitor'
-    // console.log("d:" + JSON.stringify(d["lat"]));
-  })
-  initMapnoisesites(data_)
-}
