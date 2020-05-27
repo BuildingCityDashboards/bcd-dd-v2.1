@@ -48,7 +48,7 @@ import { isToday } from '../../modules/bcd-date.js'
         })
       marker.bindPopup(getPopup(d), noisePopupOptons)
       marker.on('popupopen', () => {
-        getPlot(d)
+        getPopupPlot(d)
       })
       noiseSitesLayer.addLayer(marker)
       let siteReadings = await getSiteReadings(d)
@@ -177,13 +177,13 @@ async function getSiteReadings (d_) {
   return data
 }
 
-async function getPlot (d_) {
+async function getPopupPlot (d_) {
   let divId = `noise-site-${d_.id}`
   let data = await getSiteReadings(d_)
 
     // isToday(s.date)
 
-  console.log(data[0])
+  // console.log(data[0])
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
     data[0].date.toString().split(' ')[0] + ' ' +

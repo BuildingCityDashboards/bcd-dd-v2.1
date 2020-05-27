@@ -250,7 +250,7 @@ Promise.all([
     contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
   }
 
-  if (document.getElementById('chart-housePrices')) {
+  if (document.getElementById('chart-house-prices')) {
   // setup chart and data for quarterly house prices chart
   // process the data
     const housePricesData = datafiles[4],
@@ -266,7 +266,7 @@ Promise.all([
     })
 
     const housePricesContent = {
-      e: '#chart-housePrices',
+      e: '#chart-house-prices',
       d: housePricesDataProcessed,
       k: housePricesRegions,
       xV: housePricesDate,
@@ -282,10 +282,54 @@ Promise.all([
     housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
   }
 
-  // setup chart and data for quarterly house prices chart
-  // process the data
+  if (document.getElementById('chart-HPM06')) {
+  // new chart Price Index
+    const HPM06 = datafiles[11],
+      HPM06R = HPM06.columns[1],
+      HPM06V = HPM06.columns[2],
+      HPM06V2 = HPM06.columns[3],
+      HPM06V3 = HPM06.columns[3],
+      HPM06D = HPM06.columns[0]
 
-  if (document.getElementById('chart-rentPrices')) {
+  // create content object
+    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
+    HPM06Content.tX = 'Months'
+    HPM06Content.tY = 'Price Index (Base 100)'
+
+  // draw the chart
+    HPM06Charts = new MultiLineChart(HPM06Content)
+    HPM06Charts.drawChart() // draw axis
+    HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+    HPM06Charts.addBaseLine(100) // add horizontal baseline
+  }
+
+  if (document.getElementById('chart-HPM06') && document.getElementById('chart-house-prices')) {
+    d3.select('#chart-house-prices').style('display', 'block')
+    d3.select('#chart-HPM06').style('display', 'none')
+
+    d3.select('#btn-house-prices').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-house-prices').style('display', 'block')
+      d3.select('#chart-HPM06').style('display', 'none')
+      housePricesChart.drawChart()
+      housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    })
+
+    d3.select('#btn-HPM06').on('click', function () {
+      activeBtn(this)
+
+      d3.select('#chart-house-prices').style('display', 'none')
+      d3.select('#chart-HPM06').style('display', 'block')
+      HPM06Charts.drawChart() // draw axis
+      HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+      HPM06Charts.addBaseLine(100) // add horizontal baseline
+    })
+  }
+
+  let rentPricesChart
+  let rentByBedsChart
+
+  if (document.getElementById('chart-rent-prices')) {
     const rentPricesData = datafiles[5],
       rentPricesType = rentPricesData.columns.slice(2),
       rentPricesDate = rentPricesData.columns[0],
@@ -300,7 +344,7 @@ Promise.all([
   // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
 
     const rentPricesContent = {
-      e: '#chart-rentPrices',
+      e: '#chart-rent-prices',
       d: rentPricesDataProcessed,
       k: rentPricesRegions,
       xV: rentPricesDate,
@@ -315,14 +359,14 @@ Promise.all([
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
-  if (document.getElementById('chart-rentByBeds')) {
+  if (document.getElementById('chart-rent-by-beds')) {
     const rentByBedsData = datafiles[6],
       rentByBedsTypes = rentByBedsData.columns.slice(2),
       rentByBedsDate = rentByBedsData.columns[0],
       rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
 
       rentByBedContent = {
-        e: '#chart-rentByBeds',
+        e: '#chart-rent-by-beds',
         d: rentByBedsDataProcessed,
         ks: rentByBedsTypes,
         xV: rentByBedsDate,
@@ -341,6 +385,27 @@ Promise.all([
     rentByBedsChart = new GroupedBarChart(rentByBedContent)
     rentByBedsChart.drawChart()
     rentByBedsChart.addTooltip(rentByBedTT)
+  }
+
+  if (document.getElementById('chart-rent-prices') && document.getElementById('chart-rent-by-beds')) {
+    d3.select('#chart-rent-prices').style('display', 'block')
+    d3.select('#chart-rent-by-beds').style('display', 'none')
+
+    d3.select('#btn-rent-prices').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-rent-prices').style('display', 'block')
+      d3.select('#chart-rent-by-beds').style('display', 'none')
+      rentPricesChart.drawChart()
+      rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    })
+
+    d3.select('#btn-rent-by-beds').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-rent-prices').style('display', 'none')
+      d3.select('#chart-rent-by-beds').style('display', 'block')
+      rentByBedsChart.drawChart()
+      rentByBedsChart.addTooltip(rentByBedTT)
+    })
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
@@ -458,26 +523,6 @@ Promise.all([
   //
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
-  }
-  if (document.getElementById('chart-HPM06')) {
-  // new chart Price Index
-    const HPM06 = datafiles[11],
-      HPM06R = HPM06.columns[1],
-      HPM06V = HPM06.columns[2],
-      HPM06V2 = HPM06.columns[3],
-      HPM06V3 = HPM06.columns[3],
-      HPM06D = HPM06.columns[0]
-
-  // create content object
-    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
-    HPM06Content.tX = 'Months'
-    HPM06Content.tY = 'Price Index (Base 100)'
-
-  // draw the chart
-    HPM06Charts = new MultiLineChart(HPM06Content)
-    HPM06Charts.drawChart() // draw axis
-    HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
-    HPM06Charts.addBaseLine(100) // add horizontal baseline
   }
 
   // add buttons to switch between total, housing and apartments
