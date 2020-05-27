@@ -30,7 +30,7 @@
   /* background-image: url('/images/themes/backgrounds/economy_background.png'); */
 }
 
-.theme__header__background {
+.theme__header__background img {
   background-repeat   : no-repeat;
   background-position : center;
   background-size     : cover;
@@ -62,7 +62,7 @@
 
 .theme__header__info {
   color          : #6fd1f6;
-  font-size      : 34px;
+  font-size      : 24px;
   font-style     : normal;
   font-weight    : 200;
   line-height    : 1.06;
@@ -157,7 +157,9 @@
 
 .theme__text-chart__kpi {}
 
-.theme__text-chart__button-row {}
+.theme__text-chart__button-row {
+  padding-bottom: 46px;
+}
 
 .theme-btn {
   margin-right   : 24px;
@@ -201,7 +203,7 @@
 
 .theme__text-chart__plot {
   width  : inherit;
-  height : 400px;
+  height : 500px;
 }
 
 .theme__text-chart__plot svg {
