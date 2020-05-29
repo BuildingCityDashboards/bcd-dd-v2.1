@@ -241,6 +241,7 @@ class Chart {
   }
 
   drawFocusLine () {
+    // console.log('draw focus line')
     let c = this,
       g = c.g
 

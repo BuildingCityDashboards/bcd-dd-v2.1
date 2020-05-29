@@ -206,6 +206,8 @@ class MultiLineChart extends Chart {
     c.prefix = prefix ? prefix : ' '
     c.postfix = postfix ? postfix : ' '
 
+    // console.log(c)
+
     super.drawFocusLine()
     c.drawFocusOverlay() // need to refactor this function
   }
@@ -253,6 +255,8 @@ class MultiLineChart extends Chart {
       c.newToolTip.style('visibility', 'visible')
 
       let mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+      // console.log('ml mouse')
+      // console.log(mouse)
       let x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
       let i = c.bisectDate(c.d[0].values, x0, 1)
       let tooldata = c.sortData(i, x0)

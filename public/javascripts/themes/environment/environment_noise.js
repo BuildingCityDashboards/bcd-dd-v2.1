@@ -59,8 +59,8 @@ import { isToday } from '../../modules/bcd-date.js'
     allSitesFlat = allSitesFlat.filter(s => {
       return isToday(s.date)
     })
-    console.log('allSitesFlat')
-    console.log(allSitesFlat)
+    // console.log('allSitesFlat')
+    // console.log(allSitesFlat)
 
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
