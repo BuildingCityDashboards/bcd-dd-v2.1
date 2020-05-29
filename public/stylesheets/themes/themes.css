@@ -84,8 +84,8 @@
   min-width             : 360px;
   height                : auto;
   min-height            : 100vh;
-  padding-right         : 8px;
-  padding-left          : 8px;
+
+  padding: 16px 8px;
   text-align            : left;
   align-self            : center;
   font-family           : 'Roboto',

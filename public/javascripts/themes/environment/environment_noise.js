@@ -59,8 +59,8 @@ import { isToday } from '../../modules/bcd-date.js'
     allSitesFlat = allSitesFlat.filter(s => {
       return isToday(s.date)
     })
-    // console.log('allSitesFlat')
-    // console.log(allSitesFlat)
+    console.log('allSitesFlat')
+    console.log(allSitesFlat)
 
     noiseMap.addLayer(noiseSitesLayer)
     // noiseMap.fitBounds(noiseCluster.getBounds())
@@ -79,7 +79,7 @@ import { isToday } from '../../modules/bcd-date.js'
 
     let noiseChart = new MultiLineChart(noiseChartOptions)
     noiseChart.drawChart()
-    noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+    noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
 
     d3.select('#map-noise-monitors').style('display', 'block')
     d3.select('#chart-noise-monitors').style('display', 'none')
@@ -89,7 +89,7 @@ import { isToday } from '../../modules/bcd-date.js'
       d3.select('#chart-noise-monitors').style('display', 'block')
       d3.select('#map-noise-monitors').style('display', 'none')
       noiseChart.drawChart()
-      noiseChart.addTooltip('Noise Level % Change - ', 'percentage2', 'label')
+      noiseChart.addTooltip('Noise level (Decibels) - ', '', 'label')
     })
 
     d3.select('#btn-noise-map').on('click', function () {
@@ -213,4 +213,3 @@ async function getPopupPlot (d_) {
   document.getElementById(divId + '-plot').innerHTML = str
   return str
 }
-
