@@ -251,10 +251,10 @@ class MultiLineChart extends Chart {
       focus.style('visibility', 'visible')
       c.newToolTip.style('visibility', 'visible')
 
-      let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
-        x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
-        i = c.bisectDate(c.d[0].values, x0, 1),
-        tooldata = c.sortData(i, x0)
+      let mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+      let x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+      let i = c.bisectDate(c.d[0].values, x0, 1)
+      let tooldata = c.sortData(i, x0)
       // c.moveTooltip(tooldata);
       c.ttContent(tooldata) // add values to tooltip
     }

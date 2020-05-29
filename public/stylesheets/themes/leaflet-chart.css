@@ -25,6 +25,12 @@
  * box-shadow: none; }
  */
 
+
+.leaflet-container {
+min-height: 280px
+
+}
+
 .leaflet-div-icon {
   border     : none;
   background : transparent;
