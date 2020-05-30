@@ -1,5 +1,8 @@
-let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
+let houseCompCharts, contributionChart, housePricesChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
 let rentByBedTT, planningTT
+let rentPricesChart
+let rentByBedsChart
+
 Promise.all([
   d3.csv('../data/Housing/processed/NDQ05.csv'),
   d3.csv('../data/Housing/planningapplications.csv'),
@@ -325,9 +328,6 @@ Promise.all([
       HPM06Charts.addBaseLine(100) // add horizontal baseline
     })
   }
-
-  let rentPricesChart
-  let rentByBedsChart
 
   if (document.getElementById('chart-rent-prices')) {
     const rentPricesData = datafiles[5],

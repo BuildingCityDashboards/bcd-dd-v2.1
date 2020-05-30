@@ -58,6 +58,17 @@ if (document.getElementById('chart-population')) {
   //   populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
   //
   // });
+
+    window.addEventListener('resize', () => {
+    // console.log('redraw outside')
+      populationChart.yLabels = yLabels
+      populationChart.tickNumber = 106
+      populationChart.drawChart()
+
+  // add the tooltip
+      populationChart.addTooltip('Year: ', 'thousands', 'label')
+      populationChart.showSelectedLabels([0, 16, 26, 36, 46, 56, 66, 76, 86, 96, 106])
+    })
   }).catch(function (error) {
     console.log(error)
   })
@@ -131,6 +142,12 @@ if (document.getElementById('chart-bornOutsideState')) {
   //   outsideStateChart.drawChart();
   //   outsideStateChart.addTooltip(outsideStateTT);
   // });
+    window.addEventListener('resize', () => {
+      console.log('redraw outside')
+      outsideStateChart.drawChart()
+      outsideStateChart.addTooltip(outsideStateTT)
+      outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14])
+    })
   }).catch(function (error) {
     console.log(error)
   })

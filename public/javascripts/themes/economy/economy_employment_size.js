@@ -2,7 +2,7 @@
 
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-
+let employedChart
 (async () => {
   // console.log('fetch cso json')
   const STATBANK_BASE_URL =
@@ -98,7 +98,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 
   }
 
-  const employedChart = new MultiLineChart(sizeContent)
+  employedChart = new MultiLineChart(sizeContent)
   employedChart.drawChart()
   employedChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
 

@@ -83,16 +83,21 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     d3.select('#chart-households').style('display', 'none')
     d3.select('#chart-households-size').style('display', 'block')
   })
+
+  window.addEventListener('resize', () => {
+    console.log('redraw households')
+    houseHoldsChart.tickNumber = 31
+    houseHoldsChart.drawChart()
+    // houseHoldsChart.addTooltip(houseHoldsTT)
+    houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
+    houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
+  })
 })()
 
-//   // d3.select(window).on("resize", function() {
-//   //   // houseHoldsChart.drawChart();
-//   //   // houseHoldsChart.addTooltip(houseHoldsTT);
-//   // });
-//   }).catch(function (error) {
-//     console.log(error)
-//   })
-// }
+// d3.select(window).on('resize', function () {
+//     // houseHoldsChart.drawChart();
+//     // houseHoldsChart.addTooltip(houseHoldsTT);
+// })
 
 if (document.getElementById('chart-householdComposition')) {
   d3.csv('../data/Demographics/CNA29.csv').then(data => {
@@ -125,6 +130,14 @@ if (document.getElementById('chart-householdComposition')) {
     houseHoldCompositionChart.drawChart()
     houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
     houseHoldCompositionChart.hideRate(true)
+
+    window.addEventListener('resize', () => {
+      // console.log('redraw households comp')
+      houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
+      houseHoldCompositionChart.drawChart()
+      houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
+      houseHoldCompositionChart.hideRate(true)
+    })
 
   // d3.select(window).on("resize", function() {
   //   console.log("Resize");
