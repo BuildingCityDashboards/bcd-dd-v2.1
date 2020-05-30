@@ -498,6 +498,7 @@ class StackedAreaChart extends Chart {
       // console.log('mousemove')
       focus.style('visibility', 'visible')
       c.newToolTip.style('visibility', 'visible')
+      c.newToolTip.style('display', 'block')
 
       let mouse = this ? d3.mouse(this) : c.w
       // console.log('sa mouse')
