@@ -253,6 +253,7 @@ class MultiLineChart extends Chart {
     function mousemove () {
       focus.style('visibility', 'visible')
       c.newToolTip.style('visibility', 'visible')
+      c.newToolTip.style('display', 'block')
 
       let mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
       // console.log('ml mouse')

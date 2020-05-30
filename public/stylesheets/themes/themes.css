@@ -192,8 +192,10 @@
 
 .theme__text-chart__plot {
   width      : inherit;
-  height     : auto;
-  min-height : 180px;
+  height     : 400px;
+  min-height : 400px;
+  max-height: 400px;
+
 }
 
 .theme__text-chart__plot svg {

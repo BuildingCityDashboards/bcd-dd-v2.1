@@ -139,6 +139,7 @@
     opacity: 0.98;
     padding-right: 0;
     visibility: visible;
+    /* display: none; */
 
   }
   .focus{
