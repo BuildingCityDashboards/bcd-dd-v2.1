@@ -264,7 +264,9 @@
     grid-row    : 2;
   }
 
-  .theme__header__title {}
+  .theme__header__title {
+
+  }
 
   .theme__header__description {}
 
@@ -290,7 +292,7 @@
 
   .theme__text-chart__sources {
     display        : flex;
-    align-items    : center;
+    align-items    : flex-end;
     font-size      : 12px;
     flex-direction : row;
     line-height    : 2;
@@ -324,6 +326,8 @@
     color       : #6fd1f6;
     grid-column : 1/5;
     grid-row    : 2/3;
+    display: flex;
+    align-items    : center;
   }
 
   .theme__text-chart__title h1 {
