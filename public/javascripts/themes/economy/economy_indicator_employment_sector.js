@@ -72,7 +72,7 @@ Promise.all([
     let employmentSectorChart = new StackedAreaChart(employmentSector)
 
     function redraw () {
-      console.log('redraw sector')
+      // console.log('redraw sector')
       employmentSectorChart.drawChart()
       employmentSectorChart.addTooltip('Employees (thousands), ', 'thousands', 'label')
     }
