@@ -6,24 +6,26 @@ Promise.all([
   d3.csv('../data/Education/EDA69.csv'), // number of 2nd level pupils
   d3.csv('../data/Education/educationlevels.csv')
 ]).then(datafiles => {
-  const pupilsPrimary = datafiles[1]
-  const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
-  let pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
-  pupilsPrimaryData.forEach(d => {
-    d.label = d.date
-    d.date = new Date(d.date, 1, 1)
-  })
+  let pupilsPrimaryChart
+  if (document.getElementById('chart-pupils-primary')) {
+    const pupilsPrimary = datafiles[1]
+    const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
+    let pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
+    pupilsPrimaryData.forEach(d => {
+      d.label = d.date
+      d.date = new Date(d.date, 1, 1)
+    })
   // console.log(pupilsPrimary)
   // console.log(pupilsPrimaryData[0])
-  let pupilsPrimaryPlot = {
-    e: '#chart-pupils-primary',
-    d: pupilsPrimaryData,
-    ks: pupilsPrimaryColNames,
-    xV: 'date',
-    yV: pupilsPrimaryColNames,
-    tX: 'Years',
-    tY: 'No. of Pupils'
-  }
+    let pupilsPrimaryPlot = {
+      e: '#chart-pupils-primary',
+      d: pupilsPrimaryData,
+      ks: pupilsPrimaryColNames,
+      xV: 'date',
+      yV: pupilsPrimaryColNames,
+      tX: 'Years',
+      tY: 'No. of Pupils'
+    }
 
   // let pupilsPrimaryToolTip = {
   //   title: 'Primary school pupil numbers for ',
@@ -31,37 +33,59 @@ Promise.all([
   //   format: 'thousands'
   // }
 
-  let pupilsPrimaryChart = new StackedAreaChart(pupilsPrimaryPlot)
-  pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
-  // employmentServiceChart.addTooltip(', ', '', 'label')
+    pupilsPrimaryChart = new StackedAreaChart(pupilsPrimaryPlot)
 
-  const pupilsSecondary = datafiles[2]
-  const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
-  let pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
-  pupilsSecondaryData.forEach(d => {
-    d.label = d.date
-    d.date = new Date(d.date, 1, 1)
-  })
+    function redraw () {
+      pupilsPrimaryChart.drawChart()
+      pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
+  // employmentServiceChart.addTooltip(', ', '', 'label')
+    }
+
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
+  }
+
+  let pupilsSecondaryChart
+  if (document.getElementById('chart-pupils-secondary')) {
+    const pupilsSecondary = datafiles[2]
+    const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
+    let pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
+    pupilsSecondaryData.forEach(d => {
+      d.label = d.date
+      d.date = new Date(d.date, 1, 1)
+    })
   // console.log(pupilsSecondary)
 
-  let pupilsSecondaryPlot = {
-    e: '#chart-pupils-secondary',
-    d: pupilsSecondaryData,
-    ks: pupilsSecondaryColNames,
-    xV: pupilsSecondary.columns[0],
-    yV: pupilsSecondaryColNames,
-    tX: 'Years',
-    tY: 'No. of Pupils'
-  }
+    let pupilsSecondaryPlot = {
+      e: '#chart-pupils-secondary',
+      d: pupilsSecondaryData,
+      ks: pupilsSecondaryColNames,
+      xV: pupilsSecondary.columns[0],
+      yV: pupilsSecondaryColNames,
+      tX: 'Years',
+      tY: 'No. of Pupils'
+    }
 
-  let pupilsSecondaryToolTip = {
-    title: 'Secondary school pupil numbers for ',
-    datelabel: pupilsSecondary.columns[0],
-    format: 'thousands'
-  }
+  // let pupilsSecondaryToolTip = {
+  //   title: 'Secondary school pupil numbers for ',
+  //   datelabel: pupilsSecondary.columns[0],
+  //   format: 'thousands'
+  // }
 
-  let pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
-  pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
+    pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
+
+    function redraw () {
+      pupilsSecondaryChart, drawChart()
+      pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
+    }
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
+  }
 
   d3.select('#chart-pupils-primary').style('display', 'block')
   d3.select('#chart-pupils-secondary').style('display', 'none')

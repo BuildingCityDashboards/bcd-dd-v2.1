@@ -78,8 +78,11 @@ import { isToday } from '../../modules/bcd-date.js'
     }
 
     let noiseChart = new MultiLineChart(noiseChartOptions)
-    noiseChart.drawChart()
-    noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
+    function redraw () {
+      noiseChart.drawChart()
+      noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
+    }
+    redraw()
 
     d3.select('#map-noise-monitors').style('display', 'block')
     d3.select('#chart-noise-monitors').style('display', 'none')
@@ -96,6 +99,10 @@ import { isToday } from '../../modules/bcd-date.js'
       activeBtn(this)
       d3.select('#chart-noise-monitors').style('display', 'none')
       d3.select('#map-noise-monitors').style('display', 'block')
+    })
+
+    window.addEventListener('resize', () => {
+      redraw()
     })
   } catch (e) {
     console.log(e)

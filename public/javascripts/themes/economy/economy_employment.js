@@ -51,6 +51,12 @@ Promise.all([
     //   employmentStack.getData(empData);
     employmentStack.drawChart()
     employmentStack.addTooltip('Quarter:', '', 'label')
+
+    window.addEventListener('resize', () => {
+      employmentStack.tickNumber = 12
+      employmentStack.drawChart()
+      employmentStack.addTooltip('Quarter:', '', 'label')
+    })
   }
 
   const annual = datafiles[0]
@@ -79,10 +85,16 @@ Promise.all([
     // console.log(aNest)
     // console.log('keysA[0]: ' + keysA[0])
     employmentLine = new MultiLineChart(empContent)
-    employmentLine.tickNumber = 12
-    employmentLine.drawChart()
-    employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
-    employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    function redraw () {
+      employmentLine.tickNumber = 12
+      employmentLine.drawChart()
+      employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
+      employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    }
+    redraw()
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   let unemploymentStack
@@ -97,11 +109,18 @@ Promise.all([
       ySF: 'thousands'
     }
     unemploymentStack = new StackedAreaChart(unempCStack)
-    unemploymentStack.tickNumber = 12
+
+    function redraw () {
+      unemploymentStack.tickNumber = 12
     //   unemploymentStack.getData(unempData);
-    unemploymentStack.drawChart()
-    unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
+      unemploymentStack.drawChart()
+      unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
     //   employmentLine.createScales();
+    }
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
   let unemploymentLine
   // console.log('unemploy line')
@@ -121,10 +140,15 @@ Promise.all([
     }
 
     unemploymentLine = new MultiLineChart(unempContent)
-    unemploymentLine.tickNumber = 12
-    unemploymentLine.drawChart()
-    unemploymentLine.addTooltip('Unemployment rate (%)', '', '')
-    unemploymentLine.hideRate(true)
+    function redraw () {
+      unemploymentLine.tickNumber = 12
+      unemploymentLine.drawChart()
+      unemploymentLine.addTooltip('Unemployment rate (%)', '', '')
+      unemploymentLine.hideRate(true)
+    }
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   d3.select('#chart-emp-rate').style('display', 'none')
