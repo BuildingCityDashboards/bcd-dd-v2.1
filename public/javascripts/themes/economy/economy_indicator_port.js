@@ -33,8 +33,15 @@ Promise.all([
       tY: 'Tonnes (millions)'
     }
     portTotalChart = new MultiLineChart(portTonnageCount)
-    portTotalChart.drawChart()
-    portTotalChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
+    function redraw () {
+      portTotalChart.drawChart()
+      portTotalChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-indicator-port-breakdown')) {

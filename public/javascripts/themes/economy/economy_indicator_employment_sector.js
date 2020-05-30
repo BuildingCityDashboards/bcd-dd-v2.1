@@ -1,6 +1,5 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { coerceWideTable } from '../../modules/bcd-data.js'
-let employmentSectorChart, employmentServiceChart
 let employmentSectorURL = '../data/Economy/data_gov_economic_monitor/indicator-2-employment-by-sector.csv'
 
 Promise.all([
@@ -70,9 +69,18 @@ Promise.all([
       tX: 'Quarter',
       tY: 'Employees (thousands)'
     }
-    employmentSectorChart = new StackedAreaChart(employmentSector)
-    employmentSectorChart.drawChart()
-    employmentSectorChart.addTooltip('Employees (thousands), ', 'thousands', 'label')
+    let employmentSectorChart = new StackedAreaChart(employmentSector)
+
+    function redraw () {
+      console.log('redraw sector')
+      employmentSectorChart.drawChart()
+      employmentSectorChart.addTooltip('Employees (thousands), ', 'thousands', 'label')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-indicator-employment-services')) {
@@ -107,8 +115,16 @@ Promise.all([
       tX: 'Quarter',
       tY: 'Employees'
     }
-    employmentServiceChart = new StackedAreaChart(employmentService)
-    employmentServiceChart.drawChart()
-    employmentServiceChart.addTooltip(', ', '', 'label')
+    let employmentServiceChart = new StackedAreaChart(employmentService)
+
+    function redraw () {
+      employmentServiceChart.drawChart()
+      employmentServiceChart.addTooltip(', ', '', 'label')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 })

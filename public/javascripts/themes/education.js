@@ -78,7 +78,7 @@ Promise.all([
     pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
 
     function redraw () {
-      pupilsSecondaryChart, drawChart()
+      pupilsSecondaryChart.drawChart()
       pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
     }
 

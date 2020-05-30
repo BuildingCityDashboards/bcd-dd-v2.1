@@ -41,7 +41,15 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   }
 
   const gvaChart = new MultiLineChart(gvaContent)
-  gvaChart.drawChart()
-  gvaChart.addTooltip(STAT + 'Year:', '', 'label')
+
+  function redraw () {
+    gvaChart.drawChart()
+    gvaChart.addTooltip(STAT + 'Year:', '', 'label')
+  }
+  redraw()
+
+  window.addEventListener('resize', () => {
+    redraw()
+  })
 })()
 
