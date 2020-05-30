@@ -146,4 +146,13 @@ let employedChart
     activeChart.addTooltip(STATS[0] + ' for Year ', '', 'label')
     // activeChart.hideRate(true)
   })
+
+  window.addEventListener('resize', () => {
+    activeChart.drawChart()
+    activeChart.addTooltip(STATS[0] + ' for Year ', '', 'label')
+    engagedChart.drawChart()
+    engagedChart.addTooltip(STATS[1] + ' for Year ', '', 'label')
+    employedChart.drawChart()
+    employedChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
+  })
 })()

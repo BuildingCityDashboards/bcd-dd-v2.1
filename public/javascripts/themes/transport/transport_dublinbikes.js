@@ -117,6 +117,12 @@ Promise.all([
       // dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
     })
+
+    window.addEventListener('resize', () => {
+      dublinBikesChart.drawChart()
+  // dublinBikesChart.updateChart();
+      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+    })
   }).catch(function (error) {
     console.log(error)
   })

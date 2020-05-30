@@ -45,8 +45,8 @@ Promise.all([
       tY: 'Units'
     }
 
-    console.log('\n\ncompDataProcessed: ')
-    console.log(compDataProcessed[0])
+    // console.log('\n\ncompDataProcessed: ')
+    // console.log(compDataProcessed[0])
   // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
     houseCompCharts = new MultiLineChart(houseCompContent)
@@ -54,6 +54,13 @@ Promise.all([
     houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
   // houseCompCharts.tickNumber = 4;
     houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+
+    window.addEventListener('resize', () => {
+      houseCompCharts.drawChart()
+      houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
+    // houseCompCharts.tickNumber = 4;
+      houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+    })
   }
 
   // setup chart and data for New Dwelling Completion by type chart
@@ -92,6 +99,12 @@ Promise.all([
     newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
     newCompByTypeChart.drawChart()
     newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+
+    window.addEventListener('resize', () => {
+      newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
+      newCompByTypeChart.drawChart()
+      newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    })
   }
 
   // 2.  data processing for planning charts.
@@ -166,15 +179,21 @@ Promise.all([
     fccChart = new GroupedBarChart(fccContent)
     sdccChart = new GroupedBarChart(sdccContent)
 
-    dccChart.drawChart()
-    drccChart.drawChart()
-    fccChart.drawChart()
-    sdccChart.drawChart()
+    function redraw () {
+      dccChart.drawChart()
+      drccChart.drawChart()
+      fccChart.drawChart()
+      sdccChart.drawChart()
+      dccChart.addTooltip(planningTT)
+      drccChart.addTooltip(planningTT)
+      fccChart.addTooltip(planningTT)
+      sdccChart.addTooltip(planningTT)
+    }
+    redraw()
 
-    dccChart.addTooltip(planningTT)
-    drccChart.addTooltip(planningTT)
-    fccChart.addTooltip(planningTT)
-    sdccChart.addTooltip(planningTT)
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-houseSupply')) {
@@ -199,6 +218,7 @@ Promise.all([
       tY: 'Hectares'
     }
     supplyChart = new MultiLineChart(supplyContent)
+
     supplyChart.drawChart()
     supplyChart.addTooltip('Land - Year', 'thousands', 'label')
 
@@ -220,6 +240,11 @@ Promise.all([
       supplyChart.updateChart()
 
       supplyChart.addTooltip('Units - Year', 'thousands', 'label')
+    })
+
+    window.addEventListener('resize', () => {
+      supplyChart.drawChart()
+      supplyChart.addTooltip('Land - Year', 'thousands', 'label')
     })
   }
   // setup chart and data for annual contribution chart
@@ -248,9 +273,16 @@ Promise.all([
 
   // draw the chart
     contributionChart = new MultiLineChart(contriContent)
-    contributionChart.yScaleFormat = 'millions'
-    contributionChart.drawChart()
-    contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+    function redraw () {
+      contributionChart.yScaleFormat = 'millions'
+      contributionChart.drawChart()
+      contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-house-prices')) {
@@ -280,9 +312,17 @@ Promise.all([
 
   // draw the chart
     housePricesChart = new MultiLineChart(housePricesContent)
-    housePricesChart.ySF = 'millions'
-    housePricesChart.drawChart()
-    housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+
+    function redraw () {
+      housePricesChart.ySF = 'millions'
+      housePricesChart.drawChart()
+      housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-HPM06')) {
@@ -301,9 +341,14 @@ Promise.all([
 
   // draw the chart
     HPM06Charts = new MultiLineChart(HPM06Content)
-    HPM06Charts.drawChart() // draw axis
-    HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
-    HPM06Charts.addBaseLine(100) // add horizontal baseline
+    function redraw () {
+      HPM06Charts.drawChart() // draw axis
+      HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+      HPM06Charts.addBaseLine(100) // add horizontal baseline
+    }
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-HPM06') && document.getElementById('chart-house-prices')) {
@@ -327,6 +372,10 @@ Promise.all([
       HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
       HPM06Charts.addBaseLine(100) // add horizontal baseline
     })
+
+    // window.addEventListener('resize', () => {
+    //   redraw()
+    // })
   }
 
   if (document.getElementById('chart-rent-prices')) {
@@ -354,8 +403,15 @@ Promise.all([
     }
 
     rentPricesChart = new MultiLineChart(rentPricesContent)
-    rentPricesChart.drawChart()
-    rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    function redraw () {
+      rentPricesChart.drawChart()
+      rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
@@ -383,8 +439,14 @@ Promise.all([
 
   // drawing charts for planning data.
     rentByBedsChart = new GroupedBarChart(rentByBedContent)
-    rentByBedsChart.drawChart()
-    rentByBedsChart.addTooltip(rentByBedTT)
+    function redraw () {
+      rentByBedsChart.drawChart()
+      rentByBedsChart.addTooltip(rentByBedTT)
+    }
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-rent-prices') && document.getElementById('chart-rent-by-beds')) {
@@ -462,8 +524,14 @@ Promise.all([
 
   // draw the chart
     hCBTChart = new MultiLineChart(hCBTContent)
-    hCBTChart.drawChart()
-    hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    function redraw () {
+      hCBTChart.drawChart()
+      hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    }
+    redraw()
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   d3.select('#houseCompByType_total').on('click', function () {
@@ -524,44 +592,9 @@ Promise.all([
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
   }
+  window.addEventListener('resize', () => {
 
-  // add buttons to switch between total, housing and apartments
-
-  // d3.select(window).on("resize", function() {
-  //   console.log("Resize Housing");
-  //   supplyChart.drawChart();
-  //   supplyChart.addTooltip("Land - Year", "thousands", "label");
-  //
-  //   houseCompCharts.drawChart();
-  //   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
-  //
-  //   contributionChart.drawChart();
-  //   contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
-  //
-  //   housePricesChart.drawChart();
-  //   housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-  //
-  //   rentPricesChart.drawChart();
-  //   rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-  //
-  //   rentByBedsChart.drawChart();
-  //   rentByBedsChart.addTooltip(rentByBedTT);
-  //
-  //   dccChart.drawChart();
-  //   drccChart.drawChart();
-  //   fccChart.drawChart();
-  //   sdccChart.drawChart();
-  //
-  //   dccChart.addTooltip(planningTT);
-  //   drccChart.addTooltip(planningTT);
-  //   fccChart.addTooltip(planningTT);
-  //   sdccChart.addTooltip(planningTT);
-  //
-  //
-  //   HPM06Charts.drawChart(); // draw axis
-  //   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
-  //   HPM06Charts.addBaseLine(100); // add horizontal baseline
-  // });
+  })
 }).catch(function (error) {
   console.log(error)
 })
