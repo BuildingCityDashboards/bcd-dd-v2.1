@@ -13,7 +13,10 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
   })
-  let trafficCountersMap = new L.Map('map-traffic-counters')
+  let trafficCountersMap = new L.Map('map-traffic-counters', {
+    dragging: !L.Browser.mobile,
+    tap: !L.Browser.mobile
+  })
   trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
   trafficCountersMap.addLayer(osmTrafficCounters)
 

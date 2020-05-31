@@ -13,7 +13,10 @@ import { isToday } from '../../modules/bcd-date.js'
     maxZoom: max_zoom,
     attribution: stamenTonerAttrib
   })
-  let noiseMap = new L.Map('map-noise-monitors')
+  let noiseMap = new L.Map('map-noise-monitors', {
+    dragging: !L.Browser.mobile,
+    tap: !L.Browser.mobile
+  })
   noiseMap.setView(new L.LatLng(dubLat, dubLng), 11)
   noiseMap.addLayer(osmnoiseMonitors)
   let noiseMapIcon = L.icon({
