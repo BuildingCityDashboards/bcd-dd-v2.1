@@ -18,8 +18,8 @@
   display               : grid;
   position              : relative;
   height                : 95vh;
+  margin-bottom         : 16px;
   padding               : 16px;
-  margin-bottom: 16px;
   color                 : #6fd1f6;
   grid-gap              : 8px;
   grid-template-columns : repeat(4,1fr);
@@ -46,6 +46,30 @@
   background-repeat   : no-repeat;
   background-position : center;
   background-size     : cover;
+}
+
+#demographics-header {
+  background-image : url('/images/themes/backgrounds/demographics_background_mobile.png');
+}
+
+#economy-header {
+  background-image : url('/images/themes/backgrounds/economy_background_mobile.png');
+}
+
+#education-header {
+  background-image : url('/images/themes/backgrounds/education_background_mobile.png');
+}
+
+#housing-header {
+  background-image : url('/images/themes/backgrounds/housing_background_mobile.png');
+}
+
+#environment-header {
+  background-image : url('/images/themes/backgrounds/environment_background_mobile.png');
+}
+
+#transport-header {
+  background-image : url('/images/themes/backgrounds/transport_background_mobile.png');
 }
 
 .theme__header__content {
@@ -98,6 +122,7 @@
 
 .theme__text-chart__sources {
   display        : flex;
+  align-items    : center;
   font-size      : 8px;
   font-weight    : 300;
   flex-direction : row;
@@ -105,7 +130,6 @@
   grid-row       : 1/2;
   line-height    : 2;
   letter-spacing : 1.5px;
-  align-items: center;
 }
 
 .theme__text-chart__sources p {
@@ -237,30 +261,36 @@
     max-width : 100%;
   }
 
-  .theme__header {
-    /* h should be 100vh - nav hs */
-    /**
-    * background-repeat
-    *
-    *
-    *
-    * : no-repeat; background-position
-    *
-    * : center; background-size
-    *
-    *
-    *
-    *
-    *
-    * : cover;
-    */
-    /* background-image: url('/images/themes/backgrounds/economy_background.png'); */
-  }
+  .theme__header {}
 
   .theme__header__background img {
     background-repeat   : no-repeat;
     background-position : center;
     background-size     : cover;
+  }
+
+  #demographics-header {
+    background-image : url('/images/themes/backgrounds/demographics_background.png');
+  }
+
+  #economy-header {
+    background-image : url('/images/themes/backgrounds/economy_background.png');
+  }
+
+  #education-header {
+    background-image : url('/images/themes/backgrounds/education_background.png');
+  }
+
+  #housing-header {
+    background-image : url('/images/themes/backgrounds/housing_background.png');
+  }
+
+  #environment-header {
+    background-image : url('/images/themes/backgrounds/environment_background.png');
+  }
+
+  #transport-header {
+    background-image : url('/images/themes/backgrounds/transport_background.png');
   }
 
   .theme__header__content {
@@ -414,6 +444,29 @@
 @media
   only screen
   and (min-width : 1280px) {
+  #demographics-header {
+    background-image : url('/images/themes/backgrounds/demographics_background.png');
+  }
+
+  #economy-header {
+    background-image : url('/images/themes/backgrounds/economy_background.png');
+  }
+
+  #education-header {
+    background-image : url('/images/themes/backgrounds/education_background.png');
+  }
+
+  #housing-header {
+    background-image : url('/images/themes/backgrounds/housing_background.png');
+  }
+
+  #environment-header {
+    background-image : url('/images/themes/backgrounds/environment_background.png');
+  }
+
+  #transport-header {
+    background-image : url('/images/themes/backgrounds/transport_background.png');
+  }
 }
 
 /* xl */

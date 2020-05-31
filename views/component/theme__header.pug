@@ -1,7 +1,6 @@
-mixin theme__header(id, title, description, moreInfo, img)
+mixin theme__header(id, title, description, moreInfo)
   div(id=id 
     class="theme__header" 
-    style="background: url(/images/themes/backgrounds/"+img+")"
     )
     .theme__header__content
       .theme__header__title!=title
