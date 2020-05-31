@@ -142,6 +142,11 @@
   letter-spacing : 0.18px;
 }
 
+.theme__text-chart__spinner {
+  width  : 100%;
+  height : 100%;
+}
+
 .theme__text-chart__chart {
   display         : flex;
   width           : auto;
@@ -194,8 +199,7 @@
   width      : inherit;
   height     : 400px;
   min-height : 400px;
-  max-height: 400px;
-
+  max-height : 400px;
 }
 
 .theme__text-chart__plot svg {
@@ -223,7 +227,6 @@
 }
 
 .theme__text-chart__kpi {}
-
 
 @media
   only screen
@@ -264,9 +267,7 @@
     grid-row    : 2;
   }
 
-  .theme__header__title {
-
-  }
+  .theme__header__title {}
 
   .theme__header__description {}
 
@@ -323,11 +324,11 @@
   }
 
   .theme__text-chart__title {
+    display     : flex;
     color       : #6fd1f6;
+    align-items : center;
     grid-column : 1/5;
     grid-row    : 2/3;
-    display: flex;
-    align-items    : center;
   }
 
   .theme__text-chart__title h1 {
@@ -356,17 +357,14 @@
     justify-content : left;
   }
 
-  .theme-btn {
-
-  }
+  .theme-btn {}
 
   .theme-btn:active,
   .theme-btn:hover {
     border : solid 1px rgba(255, 255, 255, 0.5);
   }
 
-  .theme-btn:focus {
-  }
+  .theme-btn:focus {}
   /* altering height does not make the plot bigger */
 
   .theme__text-chart__plot {
