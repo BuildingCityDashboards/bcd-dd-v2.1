@@ -54,7 +54,8 @@ class GroupedBarChart extends Chart {
 
     // Update axes
     xAxisCall.scale(c.x0);
-    c.xAxis.call(xAxisCall).selectAll(".tick text").call(textWrap, 0, 0);
+    //- Original code c.xAxis.call(xAxisCall).selectAll(".tick text").call(textWrap, 0, 0);
+    c.xAxis.call(xAxisCall).selectAll(".tick text").call(textWrap, 0, 9).attr("transform", "rotate(-65)");
 
     // c.ySF ? yAxisCall.scale(c.y).tickFormat(c.formatValue(c.ySF)) : yAxisCall.scale(c.y);
 

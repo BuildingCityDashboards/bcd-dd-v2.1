@@ -42,6 +42,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
         // e.scrollIntoView()
 
         let ref = d3.select(this.parentNode).attr('data-name')
+        //alert(ref)
         updateInfoText(dublinRegionsJson[ref])
         // on click, remove the call to action
         d3.select('#regions-info__cta').style('display', 'none')
