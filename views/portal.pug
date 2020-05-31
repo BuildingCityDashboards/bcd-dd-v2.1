@@ -1,0 +1,163 @@
+extends layout  
+//- Including Accordion mixins
+include component/accordion
+
+block append head
+  //- link(rel='stylesheet', href='/stylesheets/portal.css')
+
+block navigation
+  +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
+
+block content
+  div#portal-container
+    div.row
+      div.col-lg-12
+        h1 Portal
+        p.lead The Portal page contains a list of information resources. This includes
+          |  the sources of our data on the Dublin Dashboard, other data services available for Dublin,
+          |  and mobile apps relating to Dublin.
+    div#our-sources.portal-section.row
+      div.col-lg-12
+        h2 Our Sources
+        p.lead Data sources used on the Dublin Dashboard 
+        div.col-sm-12
+          +accordion("one") 
+            +accordion-item("Central Statistics Office (CSO)",  "")
+              include portal/cso.pug
+            //+accordion-item("Dublin City Council (DCC)",  "")
+              include portal/dcc.pug
+            +accordion-item("Dept. of Housing, Planning & Local Government",  "")
+              include portal/hplc.pug
+            +accordion-item("Dublin Bikes API",  "")
+              include portal/dublin-bikes.pug
+            +accordion-item("Dublin City Air & Noise",  "")
+              include portal/dublin-city-airandnoise.pug   
+            +accordion-item("Environmental Protection Agency (EPA)",  "")
+              include portal/epa.pug
+            +accordion-item("Irish Rail Realtime API",  "")
+              include portal/irish-rail-realtime-api.pug
+            +accordion-item("Luas Forecasting API",  "")
+               include portal/luas-forecasting-api.pug
+            +accordion-item("Met Éireann Weather Forecast",  "")
+               include portal/met-eireann-weather-forecast.pug
+               
+            +accordion-item("Residential Property Price Register",  "")
+               include portal/residential-property-price-register.pug
+            +accordion-item("Transport for Ireland",  "")
+               include portal/transport-for-ireland.pug
+            +accordion-item("Transport Infrastructure Ireland",  "")
+              include portal/transport-infrastructure-ireland.pug
+            
+    div#other-sources.portal-section.row
+      div.col-lg-12
+        h2 Other Sources
+        p.lead Other Dublin data sites available from outside agencies
+        div.col-sm-12
+          +accordion("one")
+            +accordion-item("All-Island Research Observatory (AIRO) Data Store",  "")
+              include portal/airo-store.pug 
+            +accordion-item("BikeMaps",  "")
+              include portal/BikeMaps.pug  
+            +accordion-item("Dublinked",  "")
+              include portal/dublinked.pug
+            +accordion-item("Dublin Multi Story Car Parking",  "")
+               include portal/dublin-multi-story-carparking.pug  
+            +accordion-item("EPA Geoportal",  "")
+              include portal/epa-geoportal.pug
+            +accordion-item("Eurofound",  "")
+              include portal/Eurofound.pug
+            +accordion-item("Eurostat Urban Audit",  "")
+              include portal/eurostat.pug
+            +accordion-item("Fingal Open Data",  "")
+              include portal/fingal-open-data.pug
+            +accordion-item("GeoHive",  "")
+              include portal/geohive.pug 
+            +accordion-item("Ireland after NAMA",  "")
+              include portal/IrelandafNA.pug
+            +accordion-item("Ireland'S Open Data Portal",  "")
+              include portal/datagov.pug
+            +accordion-item("Irish OpenStreetMap Community",  "")
+               include portal/osi-irishcmmity.pug
+            +accordion-item("Irish Townlands",  "")
+               include portal/irish-townlands.pug
+            +accordion-item("Northern Ireland's Open Data Portal",  "")
+              include portal/open-datani.pug
+            +accordion-item("OSI Open Data",  "")
+              include portal/osiod.pug
+           
+           
+    div#services.portal-section.row
+      div.col-lg-12
+        h2 Services
+        p.lead Data visualisations and tools relevant to Dublin
+        div.col-sm-12
+          +accordion("one")
+            +accordion-item("All-Island Research Observatory (AIRO) Visualisations",  "")
+              include portal/airo-vis.pug
+            +accordion-item("Civictech.ie Waste Disposal Tool",  "")
+              include portal/waste-disposal-civictech.pug
+            +accordion-item("Digital Ocean",  "")
+              include portal/digital-ocean.pug
+            +accordion-item("Dublin Bay Ship Wrecks",  "")
+              include portal/shipwrecks.pug
+            +accordion-item("Dublin's Growth (Google Earth Timelapse)",  "")
+              include portal/dublin-growth.pug
+            +accordion-item("Dublin's Historic Environment",  "")
+              include portal/historic-environment.pug
+            +accordion-item("Fingal Planning Applications",  "")
+              include portal/fingal-planning.pug
+            +accordion-item("Fix My Street",  "")
+              include portal/fix-my-street.pug
+            +accordion-item("Fix Your Street",  "")
+              include portal/fix-your-street.pug
+            
+            //- +accordion-item("Flight Radar",  "")
+              include portal/flight-radar.pug
+            +accordion-item("Heritage Maps",  "")
+              include portal/heritage-maps.pug
+            +accordion-item("Hit The Road",  "")
+              include portal/hit-the-road.pug
+            +accordion-item("Inside Airbnb",  "")
+              include portal/inside-airbnb.pug
+            +accordion-item("Marine Traffic",  "")
+              include portal/marine-traffic.pug
+            +accordion-item("Mapnificent",  "")
+              include portal/mapnificent.pug
+            +accordion-item("MyHome",  "")
+              include portal/myhome.pug
+            +accordion-item("MyPlan",  "")
+              include portal/myplan.pug
+            +accordion-item("Residential Land Survey 2014",  "")
+              include portal/land-survey.pug
+            +accordion-item("Civictech.ie Waste Disposal Tool",  "")
+              include portal/waste-disposal-civictech.pug
+            
+            
+            //- - +accordion-item("SEAI Heat Demand Map",  "")
+            //-   include portal/seai-heat.pug
+            //- +accordion-item("Dublin Sentinel Hub",  "")
+            //-   include portal/sentinel-hub.pug
+
+
+    div#mobile-apps.portal-section.row
+      div.col-lg-12
+        h2 Mobile Apps
+        p.lead A selection of mobile apps relevant to the Dublin area
+        div.col-sm-12
+          +accordion("one")
+            +accordion-item("Dublin Airport Official",  "")
+              include portal/app-airport.pug
+            +accordion-item("Dublin Bus",  "")
+              include portal/app-dublin-bus.pug
+            +accordion-item("Irish Rail",  "")
+              include portal/app-irish-rail.pug
+            +accordion-item("Luas",  "")
+              include portal/app-luas.pug
+            +accordion-item("Parking Tag",  "")
+              include portal/app-park-tag.pug
+
+
+
+
+block append scripts
+  script(src='/javascripts/accordion.js' type="text/javascript")
