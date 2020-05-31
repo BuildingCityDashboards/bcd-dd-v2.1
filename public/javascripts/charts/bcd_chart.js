@@ -147,8 +147,8 @@ class Chart {
       .attr('class', 'tool-tip bcd')
 
     // check screen size
-    console.log('c.sscreens')
-    console.log(c.sscreens)
+    // console.log('c.sscreens')
+    // console.log(c.sscreens)
     c.sscreens ?
       c.newToolTip.style('visibility', 'visible') :
       c.newToolTip.style('display', 'none')

@@ -17,7 +17,7 @@
   /* h should be 100vh - nav hs */
   display               : grid;
   position              : relative;
-  height                : 90vh;
+  height                : 95vh;
   padding               : 16px;
   color                 : #6fd1f6;
   grid-gap              : 8px;
@@ -96,6 +96,7 @@
 }
 
 .theme__text-chart__sources {
+  padding-top: 8px;
   display        : flex;
   font-size      : 8px;
   font-weight    : 300;
@@ -197,9 +198,9 @@
 
 .theme__text-chart__plot {
   width      : inherit;
-  height     : 400px;
-  min-height : 400px;
-  max-height : 400px;
+  height     : 300px;
+  min-height : 300px;
+  max-height : 300px;
 }
 
 .theme__text-chart__plot svg {
@@ -369,8 +370,9 @@
 
   .theme__text-chart__plot {
     width      : inherit;
-    height     : auto;
-    min-height : 360px;
+    height     : 400px;
+    min-height : 400px;
+    max-height : 400px;
   }
 
   .theme__text-chart__plot svg {
