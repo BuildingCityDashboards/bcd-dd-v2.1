@@ -147,9 +147,13 @@ class Chart {
       .attr('class', 'tool-tip bcd')
 
     // check screen size
+    // console.log('c.sscreens')
+    // console.log(c.sscreens)
     c.sscreens ?
       c.newToolTip.style('visibility', 'visible') :
       c.newToolTip.style('visibility', 'hidden')
+
+    // c.newToolTip.style('display', 'none')
 
     c.newToolTipTitle = c.newToolTip
       .append('div')
@@ -241,6 +245,7 @@ class Chart {
   }
 
   drawFocusLine () {
+    // console.log('draw focus line')
     let c = this,
       g = c.g
 

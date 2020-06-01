@@ -19,6 +19,7 @@ class StackedAreaChart extends Chart {
     super.drawGridLines()
     c.drawArea()
     c.drawLegend()
+    super.drawFocusLine()
   }
 
   updateChart (obj) {
@@ -376,21 +377,45 @@ class StackedAreaChart extends Chart {
       .style('visibility', 'hidden')
 
     c.drawFocusLine()
+
     c.drawFocusOverlay()
   }
 
-  drawFocusLine () {
-    let c = this,
-      focus = c.focus
+  // drawFocusLine () {
+  //   // console.log('draw focus line')
+  //   let c = this,
+  //     g = c.g
+  //
+  //   c.focus = g.append('g')
+  //     .attr('class', 'focus')
+  //
+  //   c.focus.append('line')
+  //     .attr('class', 'focus_line')
+  //     .attr('y1', 0)
+  //     .attr('y2', c.h)
+  //
+  //   c.focus.append('g')
+  //     .attr('class', 'focus_circles')
+  //
+  //   c.ks.forEach((d, i) => {
+  //     c.drawFocusCircles(d, i)
+  //   })
+  // }
 
-    // Focus line
-    focus.append('line')
-      .attr('class', 'focus_line')
-      .attr('y1', 0)
-      .attr('y2', c.h)
-
-    c.drawFocusCircles()
-  }
+  // drawFocusLine () {
+  //   // console.log('draw focu s line')
+  //   let c = this,
+  //     focus = c.focus
+  //   console.log('focus sa')
+  //   console.log(focus)
+  //   // Focus line
+  //   focus.append('line')
+  //     .attr('class', 'focus_line')
+  //     .attr('y1', 0)
+  //     .attr('y2', c.h)
+  //
+  //   c.drawFocusCircles()
+  // }
 
   drawFocusCircles () {
     let c = this,
@@ -427,7 +452,7 @@ class StackedAreaChart extends Chart {
     c.prefix = prefix ? prefix : ' '
     c.postfix = postfix ? postfix : ' '
     c.valueFormat = c.formatValue(c.valueFormat)
-
+    // super.drawFocusLine()
     c.drawFocus()
   }
 
@@ -444,34 +469,42 @@ class StackedAreaChart extends Chart {
       .style('pointer-events', 'all')
       .style('visibility', 'hidden')
 
-    overlay.on('mouseover', (d) => {
-      focus.style('display', null)
-    }, {
-      passive: true
-    })
-      .on('touchstart', () => {
-        focus.style('display', null)
-      }, {
-        passive: true
-      })
-      .on('mouseout', () => {
-        focus.style('display', 'none')
-        c.newToolTip.style('visibility', 'hidden')
-      })
-      .on('touchmove', mousemove, {
-        passive: true
-      })
-      .on('mousemove', mousemove, {
-        passive: true
-      })
+    if (c.sscreens) {
+      mousemove()
+      overlay
+          .on('touchmove', mousemove, {
+            passive: true
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+    } else {
+      overlay
+          .on('mouseover', (d) => {
+            focus.style('display', null)
+          }, {
+            passive: true
+          })
+          .on('mouseout', () => {
+            focus.style('display', 'none')
+            c.newToolTip.style('visibility', 'hidden')
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+    }
 
     function mousemove () {
+      // console.log('mousemove')
       focus.style('visibility', 'visible')
       c.newToolTip.style('visibility', 'visible')
+      c.newToolTip.style('display', 'block')
 
-      let mouse = d3.mouse(this),
-        ttTextHeights = 0,
-        x0 = c.x.invert(mouse[0]),
+      let mouse = this ? d3.mouse(this) : c.w
+      // console.log('sa mouse')
+      // console.log(mouse)
+      let ttTextHeights = 0,
+        x0 = c.x.invert(mouse[0] || mouse),
         i = c.bisectDate(c.d, x0, 1),
         d0 = c.d[i - 1],
         d1 = c.d[i],
@@ -530,6 +563,7 @@ class StackedAreaChart extends Chart {
   }
 
   updatePosition (xPosition, yPosition) {
+    // console.log('update')
     let c = this,
       g = c.g
     // get the x and y values - y is static

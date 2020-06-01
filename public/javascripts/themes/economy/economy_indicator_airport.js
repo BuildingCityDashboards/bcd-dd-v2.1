@@ -30,8 +30,14 @@ Promise.all([
       tY: 'Passengers (millions)'
     }
     airportPaxCountChart = new MultiLineChart(airportPaxCount)
-    airportPaxCountChart.drawChart()
-    airportPaxCountChart.addTooltip('Passengers, ', 'thousands', 'label')
+    function redraw () {
+      airportPaxCountChart.drawChart()
+      airportPaxCountChart.addTooltip('Passengers, ', 'thousands', 'label')
+    }
+    redraw()
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 })
 

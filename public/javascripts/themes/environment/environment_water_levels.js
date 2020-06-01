@@ -40,7 +40,10 @@ let osmWater = new L.TileLayer(stamenTerrainUrl, {
   attribution: stamenTonerAttrib
 })
 
-let waterMap = new L.Map('chart-water-map')
+let waterMap = new L.Map('chart-water-map', {
+  dragging: !L.Browser.mobile,
+  tap: !L.Browser.mobile
+})
 waterMap.setView(new L.LatLng(dubLat, dubLng), zoom)
 waterMap.addLayer(osmWater)
 let markerRefWater // TODO: fix horrible hack!!!

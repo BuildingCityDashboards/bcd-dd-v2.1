@@ -108,7 +108,7 @@ class MultiLineChart extends Chart {
     }
   }
 
-  setDomains () {
+  setDomains (zeroYAxis = true) {
     let c = this,
       minValue
 
@@ -121,6 +121,7 @@ class MultiLineChart extends Chart {
     }))
 
     // for the y domain to track negative numbers
+
     minValue = d3.min(c.d, d => {
       return d3.min(d.values, d => {
         return d[c.yV]
@@ -205,6 +206,8 @@ class MultiLineChart extends Chart {
     c.prefix = prefix ? prefix : ' '
     c.postfix = postfix ? postfix : ' '
 
+    // console.log(c)
+
     super.drawFocusLine()
     c.drawFocusOverlay() // need to refactor this function
   }
@@ -250,11 +253,14 @@ class MultiLineChart extends Chart {
     function mousemove () {
       focus.style('visibility', 'visible')
       c.newToolTip.style('visibility', 'visible')
+      c.newToolTip.style('display', 'block')
 
-      let mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
-        x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
-        i = c.bisectDate(c.d[0].values, x0, 1),
-        tooldata = c.sortData(i, x0)
+      let mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+      // console.log('ml mouse')
+      // console.log(mouse)
+      let x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+      let i = c.bisectDate(c.d[0].values, x0, 1)
+      let tooldata = c.sortData(i, x0)
       // c.moveTooltip(tooldata);
       c.ttContent(tooldata) // add values to tooltip
     }
@@ -433,10 +439,16 @@ class MultiLineChart extends Chart {
 
         let obj = {}
         obj.key = d.key
-        obj.label = s.label
-        obj.value = s[v]
-        obj.change = c.getPerChange(s, sPrev, v)
-        obj[c.xV] = s[c.xV]
+        if (s) {
+          obj.label = s.label
+          obj.value = s[v]
+          obj.change = c.getPerChange(s, sPrev, v)
+          obj[c.xV] = s[c.xV]
+        } else {
+          // console.log('undefined input to multiline_chart')
+        }
+        // console.log('obj')
+        // console.log(obj)
         return obj
       })
     c.moveTooltip(tD)
@@ -481,6 +493,7 @@ class MultiLineChart extends Chart {
         c.updatePosition(c.x(d[c.xV]), -300)
         c.newToolTipTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
         tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         c.focus.select('.focus_line').attr('transform', 'translate(' + c.x(d[c.xV]) + ', 0)')
       }
     })

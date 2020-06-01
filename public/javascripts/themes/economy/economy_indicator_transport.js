@@ -27,8 +27,16 @@ Promise.all([
       tY: 'Trips (millions)'
     }
     publicTransportChart = new MultiLineChart(publicTransportOptions)
-    publicTransportChart.drawChart()
-    publicTransportChart.addTooltip('Tonnage, ', 'thousands', 'label')
+
+    function redraw () {
+      publicTransportChart.drawChart()
+      publicTransportChart.addTooltip('Tonnage, ', 'thousands', 'label')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
 
     function getData (key) {
       let longArray = publicTransportData.map(d => {
