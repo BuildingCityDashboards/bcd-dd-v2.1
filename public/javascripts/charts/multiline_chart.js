@@ -260,8 +260,6 @@ class MultiLineChart extends Chart {
       // console.log(mouse)
       let x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
       let i = c.bisectDate(c.d[0].values, x0, 1)
-      console.log('i, x0')
-      console.log(i, x0)
       let tooldata = c.sortData(i, x0)
       // c.moveTooltip(tooldata);
       c.ttContent(tooldata) // add values to tooltip
