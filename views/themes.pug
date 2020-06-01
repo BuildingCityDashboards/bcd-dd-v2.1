@@ -12,15 +12,13 @@ block append head
 
 
 block navigation
-  +navbar("navbar navbar-expand-lg bg-dark fixed-top","/","Dublin Dashboard", "Themes")
-  //- include component/side_nav
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Themes")
+    //- include component/side_nav
 
 block content
     //- .content.bg-dark-blue
     //- .container
-    header.mt-5
-      .subnav
-        +subnavbar("bcd-nav")
+    +themes__subnav("themes__subnav")
         //- .row
           .col-md-12
             h1= title
