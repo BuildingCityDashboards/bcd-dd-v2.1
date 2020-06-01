@@ -65,7 +65,7 @@ localhost.crt
 localhost.key
 /public/data/.DS_Store
 /public/data/Environment/met_eireann_forecast.xml
-/public/data/Environment/sound_levels/**
+/public/data/Environment/noise_levels/**
 /public/data/Environment/water_levels/
 /public/data/Environment/waterlevel.json
 # /public/data/Transport/
