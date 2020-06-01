@@ -6,8 +6,8 @@ block append head
   //- link(rel='stylesheet', href='/stylesheets/portal.css')
 
 block navigation
-  +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
-
+  //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Portal")
+  +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Portal")
 block content
   div#portal-container
     div.row
