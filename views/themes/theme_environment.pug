@@ -3,7 +3,7 @@
     'Environment',
     'Explore the sensors placed throughout Dublin to monitor environmental conditions, and charts presenting historical statistics collected on various environmental factors.',
     '',
-    '')
+    'environment_background.png')
     
     +theme__text-chart(
     'noise-monitoring',
@@ -16,10 +16,19 @@
     name: 'data.gov.ie'
     }],
     'Noise Level Monitoring Sites',
-    '<p>Dublin City Council monitors ambient sound levels at 12 locations throughout the city. Click on an icon to see the name of the site and latest reading measured there</p>',
-    '',
-    ['map-noise-monitors']
+    '<p>Dublin City Council monitors ambient sound levels at 15 locations throughout the city.</p><p>Sound is represented in decibels (dB) which measure the amount of sound perceived by humans. Normal conversation is measured at around 60 dB, vacuum cleaners at about 70 dB and a food blender at around 80 dB.</p><p>Currently, 0.57% of sound monitors are measuring sound levels higher than the EPA/WHO-designated desirable level of 55db in the daytime.</p>',
+    '<p>Click on a map icon to see the name of the site, and the latest readings measured there.</p>',
+    ['map-noise-monitors', 'chart-noise-monitors'],
+    [{
+    id: 'btn-noise-map',
+    name: 'Site map'
+    },{
+    id: 'btn-noise-chart',
+    name: 'Noise chart'
+    }]
     )
+    
+      //- <p>Over the past 24 hours, 9 of the citys 14 monitors have recorded sound levels higher that the EPA/WHO-designated undesirably high levels of 70 db during the daytime and 55 db at night.</p>
     
     +theme__text-chart(
     'water-monitoring',

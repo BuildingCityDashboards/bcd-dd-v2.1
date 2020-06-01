@@ -1,251 +1,141 @@
-/*
-    Author     : Liam
-*/
-/*TODO use proper rules here instead of individual repetition*/
-/* .leaflet-popup-content {
-  width: 200px !important;
-  height: 150px !important;
-} */
+/**
+ * Author
+ *
+ *
+ *
+ * : Liam
+ */
 
-/* css to customize Leaflet default styles  */
+/* TODO use proper rules here instead of individual repetition */
+
+/* .leaflet-popup-content { width: 200px !important; height: 150px !important; } */
+
+/* css to customize Leaflet default styles */
+
 /* .custom .leaflet-popup-tip, */
-/*for charts in popoups*/
 
-/* .custom-popup .leaflet-popup-content-wrapper {
-  background:#2c3e50;
-  color:#fff;
-  font-size:16px;
-  line-height:24px;
-  border-radius: 0px;
-  }
-.custom-popup .leaflet-popup-content-wrapper a {
-    color:rgba(255,255,255,0.1);
-  }
-.custom-popup .leaflet-popup-tip-container {
-  width:30px;
-  height:15px;
-  }
-.custom-popup .leaflet-popup-tip {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-  } */
+/* for charts in popoups */
+
+/**
+ * .custom-popup .leaflet-popup-content-wrapper { background:#2c3e50;
+ * color:#fff; font-size:16px; line-height:24px; border-radius: 0px; }
+ * .custom-popup .leaflet-popup-content-wrapper a { color:rgba(255,255,255,0.1);
+ * } .custom-popup .leaflet-popup-tip-container { width:30px; height:15px; }
+ * .custom-popup .leaflet-popup-tip { background: transparent; border: none;
+ * box-shadow: none; }
+ */
+
+
+.leaflet-container {
+min-height: 280px
+
+}
 
 .leaflet-div-icon {
-  	background: transparent;
-  	border: none;
-  }
+  border     : none;
+  background : transparent;
+}
 
-.leaflet-marker-icon .number{
-  	position: relative;
-  	top: -50px;
-  	font-size: 16px;
-    font-weight: bold;
-  	width: 25px;
-  	text-align: center;
-  }
+.leaflet-marker-icon .number {
+  position    : relative;
+  top         : -50px;
+  width       : 25px;
+  text-align  : center;
+  font-size   : 16px;
+  font-weight : bold;
+}
 
+/**
+ * .leaflet-popup-chart .leaflet-popup-content{ width: 250px !important; height:
+ * 175px !important; padding: 0; margin: 0; }
+ */
 
-/* .leaflet-popup-chart .leaflet-popup-content{
-  width: 250px !important;
-  height: 175px !important;
-  padding: 0;
-  margin: 0;
-} */
+/**
+ * .leaflet-popup-chart svg{ width: 100%; height: 100px; padding: 0; margin: 0;
+ * /* transform: translate(0,100px)
+ */
 
-/* .leaflet-popup-chart svg{
-  width: 100%;
-  height: 100px;
-  padding: 0;
-  margin: 0;
-  /* transform: translate(0,100px) */
 /* } */
 
-.leaflet-popup-error{
-    margin: 40px;
+.leaflet-popup-error {
+  margin : 40px;
 }
 
 .leaflet-popup-content-wrapper {
-    background: #001f35;
-    width: 220px;
-    height: 180px;
+  width       : 240px;
+  height      : 200px;
+  background  : #001f35;
+  font-family : 'Roboto';
+  font-weight : 200;
 }
 
 .leaflet-popup-title {
-  width: 100%;
-  height: 28px;
-  color: white;
+  width  : 100%;
+  height : 32px;
+  color  : white;
 }
 
 .leaflet-popup-subtitle {
-  width: 100%;
-  height: 28px;
-  color: white;
+  width         : 100%;
+  height        : 24px;
+  margin-bottom : 8px;
+  color         : white;
 }
 
-/* Need to set height of svg plot in px here*/
+/* Need to set height of svg plot in px here */
+
 .leaflet-popup-chart {
-  width: 100%;
-  height: 100px;
+  width  : 100%;
+  height : 100px;
 }
 
-.leaflet-popup-chart svg{
-    width: 100%;
-    height: inherit;
+.leaflet-popup-chart svg {
+  width  : 100%;
+  height : inherit;
 }
 
 .bikesStationPopup {
-    background: #001f35;
-    width: 250px !important;
-    height: 175px !important;
+  width      : 250px !important;
+  height     : 175px !important;
+  background : #001f35;
 }
 
 .bikesStationPopup .leaflet-popup-content {
-    color: #ffffff;
-    width: 250px !important;
-    height: 175px !important;
-    /* font-size:16px;
-    line-height:24px;
-    border-radius: 0px;
-    */
-
-    /* color:#fff; text colour */
+  width  : 250px !important;
+  height : 175px !important;
+  color  : #ffffff;
+  /* font-size:16px; line-height:24px; border-radius: 0px; */
+  /* color:#fff; text colour */
 }
 
 .carparkPopup .leaflet-popup-content-wrapper {
-    background: #001f35;
+  background : #001f35;
 }
 
 .carparkPopup .leaflet-popup-content {
-    color: #ffffff;
-    width: 250px !important;
-    height: 175px !important;
-    /* font-size:16px;
-    line-height:24px;
-    border-radius: 0px;
-    */
-
-    /* color:#fff; text colour */
+  width  : 250px !important;
+  height : 175px !important;
+  color  : #ffffff;
+  /* font-size:16px; line-height:24px; border-radius: 0px; */
+  /* color:#fff; text colour */
 }
 
-.popup-error{
-  margin: 40px;
+.popup-error {
+  margin      : 16px;
+  color       : white;
+  font-family : 'Roboto';
 }
 
+/* .dc-chart .axis { display: none; } */
 
-/* .dc-chart .axis {
-    display: none;
+/* .dc-chart .axis text { font-size: 50px; fill: #ffffff; } */
 
-} */
-/*
-.dc-chart .axis text {
-   font-size: 50px;
-  fill: #ffffff;
-}*/
 .dc-chart svg g g.axis.y {
-    display: none;
+  display : none;
 }
+
 .dc-chart text {
-    fill: #ffffff;
+  fill : #ffffff;
 }
 
-/*//used for legend on the themes> transport map (bikes))*/
-.legend {
-    text-align: left;
-    line-height: 24px;
-    color: #555;
-    background-color:white;
-    padding:5px;
-}
-.legend i {
-    width: 18px;
-    height: 18px;
-    width: 18px;
-    height: 18px;
-    clear:both;
-    float:right;
-
-}
-/*themes>transport>bikes>legend*/
-.info {
-    padding: 2px 8px;
-    /*//background: rgba(255,255,255,0.8);*/
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    border-radius: 5px;
-}
-.info h4 {
-    margin: 0 0 5px;
-    color: #777;
-}
-
-/* TODO: replace these with map-holder */
-
-#chart-water-map {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-sound-map {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-air-map {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-public-transport {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-private-transport {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-transport-bikes {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-transport-bus {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-#chart-transport-luas {
-    /*height: inherit;*/
-    height: 400px;
-    width: auto;
-    margin: 20px;
-}
-
-/* #chart-transport-parking {
-    /*height: inherit;*/
-    /* height: 400px;
-    width: auto;
-    margin: 20px;
-} */
-
-#chart-environment-map {
-    /*height: inherit;*/
-    height: 500px;
-    width: auto;
-    margin: 20px;
-}
+/*  */

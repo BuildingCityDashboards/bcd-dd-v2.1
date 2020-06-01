@@ -3,19 +3,19 @@
     'Economy',
     'Economic trends for Dublin, highlighting employment patterns.',
     '',
-    '')
+    'economy_background.png')
     
     +theme__text-chart(
     'employment',
     [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
     name: 'CSO'}],
     'Persons aged 15 and over in the labour force',
-    'Employment grew steadily throughout the Celtic Tiger period up until 2007, then fell in the wake of the financial crash, recovering after 2012 as the economy started to grow again. The pattern in Dublin mirrored that of the rest of the country. ',
+    '<p>Employment grew steadily throughout the Celtic Tiger period up until 2007, then fell in the wake of the financial crash, recovering after 2012 as the economy started to grow again. The pattern in Dublin mirrored that of the rest of the country. </p>',
     '',
     ['chart-employment', 'chart-emp-rate'],
     [{
     id: 'employment-count-btn',
-    name: 'Count'
+    name: 'Number employed'
     },{
     id: 'employment-rate-btn',
     name: 'Annual % change'
@@ -32,13 +32,120 @@
     ['chart-unemployment', 'chart-unemp-rate'],
     [{
     id: 'unemployment-count-btn',
-    name: 'Count'
+    name: 'Number unemployed'
     },{
     id: 'unemployment-rate-btn',
     name: 'Unemployment rate'
     }]
     )
-
+    
+    +theme__text-chart(
+    'indicator-employment-sector',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+        name: 'data.gov'
+    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+    name: 'download'
+    }],
+    'Employment by Broad Sector',
+    '<p> </p>',
+    '',
+    ['chart-indicator-employment-sector']
+    )
+    
+    +theme__text-chart(
+    'indicator-employment-services',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+        name: 'data.gov'
+    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+    name: 'download'
+    }],
+    'Employment in Services',
+    '<p> </p>',
+    '',
+    ['chart-indicator-employment-services']
+    )
+    
+  
+    
+    +theme__text-chart(
+    'employment-size',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0',
+    name: 'CSO'}],
+    'Number of Employees by Size of Company',
+    '<p> </p>',
+    '',
+    ['chart-employees-by-size', 'chart-engaged-by-size', 'chart-active-enterprises'],
+    [{
+    id: 'btn-employees-by-size',
+    name: 'Employees'
+    },{
+    id: 'btn-engaged-by-size',
+    name: 'Persons engaged'
+    },{
+    id: 'btn-active-enterprises',
+    name: 'Active enterprises'
+    }]
+    )
+    
+    +theme__text-chart(
+    'grossValue',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01',
+    name: 'CSO'}],
+    'Gross Value Added per Capita at Basic Prices',
+    '<p> </p>',
+    '<p> </p>',
+    ['chart-gva']
+    )
+    
+    +theme__text-chart(
+    'public-transport-trips',
+    [{ 
+    link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/2da5e1ce-2a77-40f8-8d8d-c7f03885ab6b',
+    name: 'data.gov'},
+    { 
+    link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/2da5e1ce-2a77-40f8-8d8d-c7f03885ab6b/download/indicator-.8.-public-transport.csv',  
+    name: 'download'
+    }],
+    'Public Transport Usage',
+    '<p> </p>',
+    '<p> </p>',
+    ['chart-public-transport-trips']
+    )
+    
+    +theme__text-chart(
+    'indicator-airport',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/f6297d1e-2d25-4a35-a499-164f24511dd7',
+    name: 'data.gov'},
+    { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/f6297d1e-2d25-4a35-a499-164f24511dd7/download/indicator-.9.-dublin-airport-pax.csv',
+    name: 'download'}
+    ],
+    'Dublin Airport Passengers',
+    '<p> </p>',
+    '',
+    ['chart-indicator-airport-count']
+    )
+    
+    +theme__text-chart(
+    'indicator-port',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/f6297d1e-2d25-4a35-a499-164f24511dd7',
+    name: 'data.gov'},
+    { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/f6297d1e-2d25-4a35-a499-164f24511dd7/download/indicator-.9.-dublin-airport-pax.csv',
+    name: 'download'}
+    ],
+    'Dublin Port Tonnage',
+    '<p> </p>',
+    '',
+    ['chart-indicator-port-total', 'chart-indicator-port-breakdown'],
+    [{
+    id: 'btn-indicator-port-total',
+    name: 'Total'
+    },{
+    id: 'btn-indicator-port-breakdown',
+    name: 'Import/Exports'
+    }]
+    )
+    
+    
         
 block append scripts
   //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")

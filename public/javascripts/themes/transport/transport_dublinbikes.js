@@ -117,11 +117,15 @@ Promise.all([
       // dublinBikesChart.updateChart();
       dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
     })
+
+    window.addEventListener('resize', () => {
+      dublinBikesChart.drawChart()
+  // dublinBikesChart.updateChart();
+      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+    })
   }).catch(function (error) {
     console.log(error)
   })
-
-// End of bikes data load
 
 function chartContent (data, key, value, date, selector) {
   data.forEach(function (d) { // could pass types array and coerce each matching key using dataSets()

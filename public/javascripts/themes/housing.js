@@ -1,5 +1,8 @@
-let houseCompCharts, contributionChart, housePricesChart, rentByBedsChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
+let houseCompCharts, contributionChart, housePricesChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
 let rentByBedTT, planningTT
+let rentPricesChart
+let rentByBedsChart
+
 Promise.all([
   d3.csv('../data/Housing/processed/NDQ05.csv'),
   d3.csv('../data/Housing/planningapplications.csv'),
@@ -15,11 +18,11 @@ Promise.all([
   d3.csv('../data/Housing/HPM06.csv'),
   d3.csv('../data/Housing/HPM06Rate.csv')
 ]).then(datafiles => {
-  const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
+  // const getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p) // function
 
   // 1.  data processing for house completion chart
 
-  if (document.getElementById('#chart-houseComp')) {
+  if (document.getElementById('chart-houseComp')) {
     const completionsData = datafiles[0]
     let completionsColumns = completionsData.columns.slice(1)
   // completionsColumns.pop() // remove total column for 'Dublin'
@@ -42,7 +45,8 @@ Promise.all([
       tY: 'Units'
     }
 
-  // console.log("\n\ncompDataProcessed: " + JSON.stringify(compDataProcessed[0]) + "\n\n");
+    // console.log('\n\ncompDataProcessed: ')
+    // console.log(compDataProcessed[0])
   // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
 
     houseCompCharts = new MultiLineChart(houseCompContent)
@@ -50,6 +54,13 @@ Promise.all([
     houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
   // houseCompCharts.tickNumber = 4;
     houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+
+    window.addEventListener('resize', () => {
+      houseCompCharts.drawChart()
+      houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
+    // houseCompCharts.tickNumber = 4;
+      houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+    })
   }
 
   // setup chart and data for New Dwelling Completion by type chart
@@ -61,10 +72,16 @@ Promise.all([
       newCompByTypeRegions = newCompByTypeData.columns[1],
       newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
 
+    // console.log('newCompByTypeData')
+    // console.log(newCompByTypeData[0])
+
     newCompByTypeDataProcessed.forEach(d => {
-      d.label = (d[newCompByTypeDate])
+      d.label = d[newCompByTypeDate]
       d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
     })
+
+    // console.log('newCompByTypeDataProcessed')
+    // console.log(newCompByTypeDataProcessed[0])
 
     const newCompByTypeContent = {
       e: '#chart-newCompByType',
@@ -76,10 +93,18 @@ Promise.all([
       tY: 'Numbers'
     }
 
+    // console.log('newCompByTypeRegions')
+    // console.log(newCompByTypeRegions)
   // draw the chart
     newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
     newCompByTypeChart.drawChart()
     newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+
+    window.addEventListener('resize', () => {
+      newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
+      newCompByTypeChart.drawChart()
+      newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    })
   }
 
   // 2.  data processing for planning charts.
@@ -154,15 +179,21 @@ Promise.all([
     fccChart = new GroupedBarChart(fccContent)
     sdccChart = new GroupedBarChart(sdccContent)
 
-    dccChart.drawChart()
-    drccChart.drawChart()
-    fccChart.drawChart()
-    sdccChart.drawChart()
+    function redraw () {
+      dccChart.drawChart()
+      drccChart.drawChart()
+      fccChart.drawChart()
+      sdccChart.drawChart()
+      dccChart.addTooltip(planningTT)
+      drccChart.addTooltip(planningTT)
+      fccChart.addTooltip(planningTT)
+      sdccChart.addTooltip(planningTT)
+    }
+    redraw()
 
-    dccChart.addTooltip(planningTT)
-    drccChart.addTooltip(planningTT)
-    fccChart.addTooltip(planningTT)
-    sdccChart.addTooltip(planningTT)
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   if (document.getElementById('chart-houseSupply')) {
@@ -187,6 +218,7 @@ Promise.all([
       tY: 'Hectares'
     }
     supplyChart = new MultiLineChart(supplyContent)
+
     supplyChart.drawChart()
     supplyChart.addTooltip('Land - Year', 'thousands', 'label')
 
@@ -208,6 +240,11 @@ Promise.all([
       supplyChart.updateChart()
 
       supplyChart.addTooltip('Units - Year', 'thousands', 'label')
+    })
+
+    window.addEventListener('resize', () => {
+      supplyChart.drawChart()
+      supplyChart.addTooltip('Land - Year', 'thousands', 'label')
     })
   }
   // setup chart and data for annual contribution chart
@@ -236,12 +273,19 @@ Promise.all([
 
   // draw the chart
     contributionChart = new MultiLineChart(contriContent)
-    contributionChart.yScaleFormat = 'millions'
-    contributionChart.drawChart()
-    contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+    function redraw () {
+      contributionChart.yScaleFormat = 'millions'
+      contributionChart.drawChart()
+      contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
-  if (document.getElementById('chart-housePrices')) {
+  if (document.getElementById('chart-house-prices')) {
   // setup chart and data for quarterly house prices chart
   // process the data
     const housePricesData = datafiles[4],
@@ -257,7 +301,7 @@ Promise.all([
     })
 
     const housePricesContent = {
-      e: '#chart-housePrices',
+      e: '#chart-house-prices',
       d: housePricesDataProcessed,
       k: housePricesRegions,
       xV: housePricesDate,
@@ -268,15 +312,73 @@ Promise.all([
 
   // draw the chart
     housePricesChart = new MultiLineChart(housePricesContent)
-    housePricesChart.ySF = 'millions'
-    housePricesChart.drawChart()
-    housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+
+    function redraw () {
+      housePricesChart.ySF = 'millions'
+      housePricesChart.drawChart()
+      housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
-  // setup chart and data for quarterly house prices chart
-  // process the data
+  if (document.getElementById('chart-HPM06')) {
+  // new chart Price Index
+    const HPM06 = datafiles[11],
+      HPM06R = HPM06.columns[1],
+      HPM06V = HPM06.columns[2],
+      HPM06V2 = HPM06.columns[3],
+      HPM06V3 = HPM06.columns[3],
+      HPM06D = HPM06.columns[0]
 
-  if (document.getElementById('chart-rentPrices')) {
+  // create content object
+    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
+    HPM06Content.tX = 'Months'
+    HPM06Content.tY = 'Price Index (Base 100)'
+
+  // draw the chart
+    HPM06Charts = new MultiLineChart(HPM06Content)
+    function redraw () {
+      HPM06Charts.drawChart() // draw axis
+      HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+      HPM06Charts.addBaseLine(100) // add horizontal baseline
+    }
+    window.addEventListener('resize', () => {
+      redraw()
+    })
+  }
+
+  if (document.getElementById('chart-HPM06') && document.getElementById('chart-house-prices')) {
+    d3.select('#chart-house-prices').style('display', 'block')
+    d3.select('#chart-HPM06').style('display', 'none')
+
+    d3.select('#btn-house-prices').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-house-prices').style('display', 'block')
+      d3.select('#chart-HPM06').style('display', 'none')
+      housePricesChart.drawChart()
+      housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    })
+
+    d3.select('#btn-HPM06').on('click', function () {
+      activeBtn(this)
+
+      d3.select('#chart-house-prices').style('display', 'none')
+      d3.select('#chart-HPM06').style('display', 'block')
+      HPM06Charts.drawChart() // draw axis
+      HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+      HPM06Charts.addBaseLine(100) // add horizontal baseline
+    })
+
+    // window.addEventListener('resize', () => {
+    //   redraw()
+    // })
+  }
+
+  if (document.getElementById('chart-rent-prices')) {
     const rentPricesData = datafiles[5],
       rentPricesType = rentPricesData.columns.slice(2),
       rentPricesDate = rentPricesData.columns[0],
@@ -291,7 +393,7 @@ Promise.all([
   // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
 
     const rentPricesContent = {
-      e: '#chart-rentPrices',
+      e: '#chart-rent-prices',
       d: rentPricesDataProcessed,
       k: rentPricesRegions,
       xV: rentPricesDate,
@@ -301,19 +403,26 @@ Promise.all([
     }
 
     rentPricesChart = new MultiLineChart(rentPricesContent)
-    rentPricesChart.drawChart()
-    rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    function redraw () {
+      rentPricesChart.drawChart()
+      rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    }
+    redraw()
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
-  if (document.getElementById('chart-rentByBeds')) {
+  if (document.getElementById('chart-rent-by-beds')) {
     const rentByBedsData = datafiles[6],
       rentByBedsTypes = rentByBedsData.columns.slice(2),
       rentByBedsDate = rentByBedsData.columns[0],
       rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
 
       rentByBedContent = {
-        e: '#chart-rentByBeds',
+        e: '#chart-rent-by-beds',
         d: rentByBedsDataProcessed,
         ks: rentByBedsTypes,
         xV: rentByBedsDate,
@@ -330,8 +439,35 @@ Promise.all([
 
   // drawing charts for planning data.
     rentByBedsChart = new GroupedBarChart(rentByBedContent)
-    rentByBedsChart.drawChart()
-    rentByBedsChart.addTooltip(rentByBedTT)
+    function redraw () {
+      rentByBedsChart.drawChart()
+      rentByBedsChart.addTooltip(rentByBedTT)
+    }
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
+  }
+
+  if (document.getElementById('chart-rent-prices') && document.getElementById('chart-rent-by-beds')) {
+    d3.select('#chart-rent-prices').style('display', 'block')
+    d3.select('#chart-rent-by-beds').style('display', 'none')
+
+    d3.select('#btn-rent-prices').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-rent-prices').style('display', 'block')
+      d3.select('#chart-rent-by-beds').style('display', 'none')
+      rentPricesChart.drawChart()
+      rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    })
+
+    d3.select('#btn-rent-by-beds').on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-rent-prices').style('display', 'none')
+      d3.select('#chart-rent-by-beds').style('display', 'block')
+      rentByBedsChart.drawChart()
+      rentByBedsChart.addTooltip(rentByBedTT)
+    })
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
@@ -388,8 +524,14 @@ Promise.all([
 
   // draw the chart
     hCBTChart = new MultiLineChart(hCBTContent)
-    hCBTChart.drawChart()
-    hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    function redraw () {
+      hCBTChart.drawChart()
+      hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    }
+    redraw()
+    window.addEventListener('resize', () => {
+      redraw()
+    })
   }
 
   d3.select('#houseCompByType_total').on('click', function () {
@@ -450,64 +592,9 @@ Promise.all([
   //  nonNewConnectionsChart.tickNumber = 20;
   //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
   }
-  if (document.getElementById('chart-HPM06')) {
-  // new chart Price Index
-    const HPM06 = datafiles[11],
-      HPM06R = HPM06.columns[1],
-      HPM06V = HPM06.columns[2],
-      HPM06V2 = HPM06.columns[3],
-      HPM06V3 = HPM06.columns[3],
-      HPM06D = HPM06.columns[0]
+  window.addEventListener('resize', () => {
 
-  // create content object
-    const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
-    HPM06Content.tX = 'Months'
-    HPM06Content.tY = 'Price Index (Base 100)'
-
-  // draw the chart
-    HPM06Charts = new MultiLineChart(HPM06Content)
-    HPM06Charts.drawChart() // draw axis
-    HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
-    HPM06Charts.addBaseLine(100) // add horizontal baseline
-  }
-
-  // add buttons to switch between total, housing and apartments
-
-  // d3.select(window).on("resize", function() {
-  //   console.log("Resize Housing");
-  //   supplyChart.drawChart();
-  //   supplyChart.addTooltip("Land - Year", "thousands", "label");
-  //
-  //   houseCompCharts.drawChart();
-  //   houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
-  //
-  //   contributionChart.drawChart();
-  //   contributionChart.addTooltip("In Millions - Year ", "millions", "label", "€");
-  //
-  //   housePricesChart.drawChart();
-  //   housePricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-  //
-  //   rentPricesChart.drawChart();
-  //   rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
-  //
-  //   rentByBedsChart.drawChart();
-  //   rentByBedsChart.addTooltip(rentByBedTT);
-  //
-  //   dccChart.drawChart();
-  //   drccChart.drawChart();
-  //   fccChart.drawChart();
-  //   sdccChart.drawChart();
-  //
-  //   dccChart.addTooltip(planningTT);
-  //   drccChart.addTooltip(planningTT);
-  //   fccChart.addTooltip(planningTT);
-  //   sdccChart.addTooltip(planningTT);
-  //
-  //
-  //   HPM06Charts.drawChart(); // draw axis
-  //   HPM06Charts.addTooltip("Price Index - ", "", "label"); // add tooltip
-  //   HPM06Charts.addBaseLine(100); // add horizontal baseline
-  // });
+  })
 }).catch(function (error) {
   console.log(error)
 })
@@ -529,7 +616,7 @@ function qToQuarter (q) {
 }
 
 function dataSets (data, columns) {
-  coercedData = data.map(d => {
+  let coercedData = data.map(d => {
     for (var i = 0, n = columns.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
       d[columns[i]] = +d[columns[i]]

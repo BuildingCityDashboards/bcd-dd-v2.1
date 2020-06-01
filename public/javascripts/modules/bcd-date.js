@@ -1,4 +1,22 @@
 /**
+ * Is a given date falling today?
+ *
+ * @param {Date} date
+ * @return {boolean}
+ *
+ *     isToday(Wed Nov 06 2019 00:10:00 GMT+0000 (Greenwich Mean Time))
+ */
+
+const isToday = date => {
+  const today = new Date()
+  return date.getDate() == today.getDate() &&
+    date.getMonth() == today.getMonth() &&
+    date.getFullYear() == today.getFullYear()
+}
+
+export { isToday }
+
+/**
  * Get a date shifted n days from today
  *
  * @param {number} n - Number of days to shift from today's date
@@ -53,10 +71,12 @@ function formatDateAsQuarterString (date) {
 
 export { formatDateAsQuarterString }
 
- // function convertQuarter (q) {
- //   const splitted = q.split('Q')
- //   const year = splitted[0]
- //   const quarterEndMonth = splitted[1] * 3 - 2
- //   const date = d3.timeParse('%m %Y')(quarterEndMonth + ' ' + year)
- //   return date
- // }
+function convertQuarterToDate (q) {
+  const splitted = q.split('Q')
+  const year = splitted[0]
+  const quarterStartMonth = splitted[1] * 3 - 2
+  const date = d3.timeParse('%m %Y')(quarterStartMonth + ' ' + year)
+  return date
+}
+
+export { convertQuarterToDate }
