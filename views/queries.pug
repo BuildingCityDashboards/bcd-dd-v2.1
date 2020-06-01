@@ -19,8 +19,8 @@ block append head
   link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
 
 block navigation
-  +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
-
+  //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
+  +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Queries")
 block content
   div(class="container mt-2 py-5 px-5")
     div.row
