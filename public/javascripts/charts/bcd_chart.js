@@ -151,7 +151,9 @@ class Chart {
     // console.log(c.sscreens)
     c.sscreens ?
       c.newToolTip.style('visibility', 'visible') :
-      c.newToolTip.style('display', 'none')
+      c.newToolTip.style('visibility', 'hidden')
+
+    // c.newToolTip.style('display', 'none')
 
     c.newToolTipTitle = c.newToolTip
       .append('div')

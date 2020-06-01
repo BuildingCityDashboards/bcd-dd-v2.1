@@ -9,11 +9,11 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'RAA06'
   let STAT = 'Gross Value Added (GVA) per person at Basic Prices (Euro)'
+  try {
+    let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    let gvaDataset = JSONstat(json).Dataset(0)
 
-  let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
-  let gvaDataset = JSONstat(json).Dataset(0)
-
-  let gvaFiltered = gvaDataset.toTable(
+    let gvaFiltered = gvaDataset.toTable(
      { type: 'arrobj' },
      (d, i) => {
        if ((d.Region === 'Dublin'
@@ -28,28 +28,31 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
      }
   )
 
-  const gvaContent = {
-    e: '#chart-gva',
-    xV: 'date',
-    yV: 'value',
-    d: gvaFiltered,
-    k: 'Region',
-    ks: ['Dublin', 'Dublin and Mid-East', 'State'],
-    tX: 'Years',
-    tY: '€'
+    const gvaContent = {
+      e: '#chart-gva',
+      xV: 'date',
+      yV: 'value',
+      d: gvaFiltered,
+      k: 'Region',
+    // ks: ['Dublin', 'Dublin and Mid-East', 'State'],
+      tX: 'Years',
+      tY: '€'
 
-  }
+    }
 
-  const gvaChart = new MultiLineChart(gvaContent)
+    const gvaChart = new MultiLineChart(gvaContent)
 
-  function redraw () {
-    gvaChart.drawChart()
-    gvaChart.addTooltip(STAT + 'Year:', '', 'label')
-  }
-  redraw()
-
-  window.addEventListener('resize', () => {
+    function redraw () {
+      gvaChart.drawChart()
+      gvaChart.addTooltip(STAT + 'Year:', '', 'label')
+    }
     redraw()
-  })
+
+    window.addEventListener('resize', () => {
+      redraw()
+    })
+  } catch (e) {
+    console.log(e)
+  }
 })()
 

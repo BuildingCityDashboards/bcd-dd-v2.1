@@ -127,8 +127,6 @@ Promise.all([
     console.log(error)
   })
 
-// End of bikes data load
-
 function chartContent (data, key, value, date, selector) {
   data.forEach(function (d) { // could pass types array and coerce each matching key using dataSets()
     d.label = d[date]
