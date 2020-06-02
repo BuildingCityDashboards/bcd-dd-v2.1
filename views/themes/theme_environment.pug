@@ -16,7 +16,7 @@
     name: 'data.gov.ie'
     }],
     'Noise Level Monitoring Sites',
-    '<p>Dublin City Council monitors ambient sound levels at 15 locations throughout the city.</p><p>Sound is represented in decibels (dB) which measure the amount of sound perceived by humans. Normal conversation is measured at around 60 dB, vacuum cleaners at about 70 dB and a food blender at around 80 dB.</p><p>Currently, 0.57% of sound monitors are measuring sound levels higher than the EPA/WHO-designated desirable level of 55db in the daytime.</p>',
+    '<p>Dublin City Council monitors ambient sound levels at 15 locations throughout the city.</p><p>Sound is represented in decibels (dB) which measure the amount of sound perceived by humans. Normal conversation is measured at around 60 dB, vacuum cleaners at about 70 dB and a food blender at around 80 dB.</p>',
     '<p>Click on a map icon to see the name of the site, and the latest readings measured there.</p>',
     ['map-noise-monitors', 'chart-noise-monitors'],
     [{
@@ -28,30 +28,32 @@
     }]
     )
     
+    //- <p>Currently, 0.57% of sound monitors are measuring sound levels higher than the EPA/WHO-designated desirable level of 55db in the daytime.</p>
+    
       //- <p>Over the past 24 hours, 9 of the citys 14 monitors have recorded sound levels higher that the EPA/WHO-designated undesirably high levels of 70 db during the daytime and 55 db at night.</p>
     
-    +theme__text-chart(
-    'water-monitoring',
-    [{
-    link :'http://waterlevel.ie',
-    name: 'OPW Water Level'
-    },
-    {
-    link: 'http://www.epa.ie/hydronet/#Water%20Levels',
-    name: 'EPA Hydronet'
-    }],
-    'Water Monitoring Sites',
-    '<p>Two sources, the Office of Public Works (OPW) and the Environmental Protection Agency (EPA), monitor water levels and flows along Dublin’s rivers, canals, and coastline. Use the buttons to switch between the OPW water level monitoring sites and the EPA Hydronet system sites. Click a map icon to get information for that location<p>',
-    '',
-    ['chart-water-map'],
-    [{
-    id: '',
-    name: 'OPW'
-    },{
-    id: '',
-    name: 'Hydronet'
-    }]
-    )
+    //- +theme__text-chart(
+      'water-monitoring',
+      [{
+      link :'http://waterlevel.ie',
+      name: 'OPW Water Level'
+      },
+      {
+      link: 'http://www.epa.ie/hydronet/#Water%20Levels',
+      name: 'EPA Hydronet'
+      }],
+      'Water Monitoring Sites',
+      '<p>Two sources, the Office of Public Works (OPW) and the Environmental Protection Agency (EPA), monitor water levels and flows along Dublin’s rivers, canals, and coastline. Use the buttons to switch between the OPW water level monitoring sites and the EPA Hydronet system sites. Click a map icon to get information for that location<p>',
+      '',
+      ['chart-water-map'],
+      [{
+      id: '',
+      name: 'OPW'
+      },{
+      id: '',
+      name: 'Hydronet'
+      }]
+      )
 
 
         

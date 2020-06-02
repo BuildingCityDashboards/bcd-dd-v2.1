@@ -560,8 +560,9 @@ opacity: 1;
   .theme__text-chart {
     display               : grid;
     position              : relative;
-    width                 : 100vw;
-    height                : 100vh;
+    width                 : auto;
+    min-height: 800px;
+    height                : auto;
     padding-right         : 48px;
     padding-left          : 48px;
     text-align            : left;
@@ -650,7 +651,8 @@ opacity: 1;
   }
 
   .theme__text-chart__button-row {
-    /* padding-bottom : 46px; */
+    padding-bottom : 0;
+    transform: translateY(24px);
     align-self  : flex-end;
     grid-column : 1/7;
     grid-row    : 1/2;
