@@ -697,7 +697,7 @@ opacity: 1;
   /* altering height does not make the plot bigger */
 
   .theme__text-chart__plot {
-    display     : flex;
+    display     : block;
     width       : auto;
     align-self  : flex-start;
     grid-column : 1/7;
