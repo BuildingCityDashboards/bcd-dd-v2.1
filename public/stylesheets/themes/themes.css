@@ -652,7 +652,7 @@ opacity: 1;
 
   .theme__text-chart__button-row {
     padding-bottom : 0;
-    transform: translateY(24px);
+
     align-self  : flex-end;
     grid-column : 1/7;
     grid-row    : 1/2;
@@ -694,6 +694,7 @@ opacity: 1;
     align-self  : flex-start;
     grid-column : 1/7;
     grid-row    : 2/4;
+
     /* height : 500px; */
   }
 
@@ -705,6 +706,7 @@ opacity: 1;
     */
     width  : auto;
     height : auto;
+    transform: translateY(-24px);
   }
 }
 
