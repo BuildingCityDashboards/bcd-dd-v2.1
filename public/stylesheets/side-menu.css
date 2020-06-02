@@ -34,7 +34,8 @@
   display  : block;
   position : relative;
   float    : left;
-  padding  : 3px;
+  padding  : 4px;
+  padding-right: 16px;
   cursor   : pointer;
 }
 
