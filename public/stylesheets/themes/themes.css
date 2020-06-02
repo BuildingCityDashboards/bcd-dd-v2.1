@@ -700,7 +700,7 @@ opacity: 1;
     display     : block;
     width       : auto;
     align-self  : flex-start;
-    grid-column : 1/7;
+    grid-column : 1/8;
     grid-row    : 2/4;
 
     /* height : 500px; */
