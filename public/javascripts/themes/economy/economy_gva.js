@@ -8,7 +8,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'RAA06'
-  let STAT = 'Gross Value Added (GVA) per person at Basic Prices (Euro)'
+  let STAT = 'Gross Value Added (GVA) per Capita at Basic Prices (Euro)'
   try {
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
     let gvaDataset = JSONstat(json).Dataset(0)

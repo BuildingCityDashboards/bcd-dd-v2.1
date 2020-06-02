@@ -13,7 +13,7 @@ Promise.all([
     let longData = airportData.map(d => {
       let obj = {
         label: d.Quarter,
-        value: parseInt(d[airportColumns[0]].replace(/,/g, '')) / 1000000,
+        value: (parseInt(d[airportColumns[0]].replace(/,/g, '')) / 1000000).toFixed(2),
         variable: airportColumns[0],
         date: convertQuarterToDate(d.Quarter)
       }

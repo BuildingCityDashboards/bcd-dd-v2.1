@@ -39,18 +39,18 @@
     }]
     )
     
-    +theme__text-chart(
-    'indicator-employment-sector',
-    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
-        name: 'data.gov'
-    },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
-    name: 'download'
-    }],
-    'Employment by Broad Sector',
-    '<p> </p>',
-    '',
-    ['chart-indicator-employment-sector']
-    )
+    //- +theme__text-chart(
+      'indicator-employment-sector',
+      [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
+          name: 'data.gov'
+      },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
+      name: 'download'
+      }],
+      'Employment by Broad Sector',
+      '<p> </p>',
+      '',
+      ['chart-indicator-employment-sector']
+      )
     
     +theme__text-chart(
     'indicator-employment-services',
@@ -59,8 +59,8 @@
     },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
     name: 'download'
     }],
-    'Employment in Services',
-    '<p> </p>',
+    'Employment by Sector',
+    '<p>Employment in Dublin is split across a broad range of sectors, with services in both the public and private sector dominating. These have also experienced the most growth in employment in line with administering a growing population and Dublin’s role in the domestic and global economy.</p>',
     '',
     ['chart-indicator-employment-services']
     )
@@ -72,7 +72,7 @@
     [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0',
     name: 'CSO'}],
     'Number of Employees by Size of Company',
-    '<p> </p>',
+    '<p>Businesses in Dublin are varied in their size and number of employees. In 2017, most people, 344,000 work for 365 large enterprises, with the rest working for small-to-medium sized businesses. In the same year there were 79,900 businesses that employed between 1 and 10 people, many of them sole enterprises given that they employed 119,000 people in total. Persons engaged are the sum of employees plus working proprietors and employed family members.</p>',
     '',
     ['chart-employees-by-size', 'chart-engaged-by-size', 'chart-active-enterprises'],
     [{
@@ -92,7 +92,7 @@
     [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=raa01',
     name: 'CSO'}],
     'Gross Value Added per Capita at Basic Prices',
-    '<p> </p>',
+    '<p>Gross value added (GVA) is the value generated in a region by any unit engaged in the production of goods and services across 37 sectors of the economy. It differs from household income principally in that company profits are included in GVA, whereas they are not included in household income. GVA in Dublin is exaggerated due to the large number of people commuting to work into the county from adjoining counties, hence why it is much higher than the state value. Since 2000, it has more than doubled.</p>',
     '<p> </p>',
     ['chart-gva']
     )
@@ -119,21 +119,21 @@
     { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/f6297d1e-2d25-4a35-a499-164f24511dd7/download/indicator-.9.-dublin-airport-pax.csv',
     name: 'download'}
     ],
-    'Dublin Airport Passengers',
-    '<p> </p>',
+    'Dublin Airport Passengers Arrival Numbers',
+    '<p>Arrival passengers to Dublin Airport declined post the 2008 financial crisis. With the recovery in the domestic economy and in international tourism, the numbers have steadily increased up until the Covid-19 pandemic, rising from 4.72m in Q1 2012 to 8.25m in Q3 2019</p>',
     '',
     ['chart-indicator-airport-count']
     )
     
     +theme__text-chart(
     'indicator-port',
-    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/f6297d1e-2d25-4a35-a499-164f24511dd7',
+    [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/e64c57d8-eb12-41ae-9d74-632d56bb827d',
     name: 'data.gov'},
-    { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/f6297d1e-2d25-4a35-a499-164f24511dd7/download/indicator-.9.-dublin-airport-pax.csv',
+    { link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/e64c57d8-eb12-41ae-9d74-632d56bb827d/download/indicator-10-dublin-port-tonnage.csv',
     name: 'download'}
     ],
     'Dublin Port Tonnage',
-    '<p> </p>',
+    '<p>Dublin Port is a key site for the import and export of goods in and out of Ireland. After a reduction in the wake of the 2008 financial crash, total trade has increased to 9.75m tonnes in Q1 2019. Consistently, more goods enter the country than leave. In Q1 2019, 5.8m tonnes were imported and 3.9 exported.</p>',
     '',
     ['chart-indicator-port-total', 'chart-indicator-port-breakdown'],
     [{
