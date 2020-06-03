@@ -37,6 +37,7 @@ min-height: 280px
 }
 
 .leaflet-marker-icon .number {
+  color: black;
   position    : relative;
   top         : -50px;
   width       : 25px;
