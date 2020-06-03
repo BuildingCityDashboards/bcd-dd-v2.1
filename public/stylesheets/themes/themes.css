@@ -261,13 +261,34 @@ opacity: 1;
   grid-row       : 4/5;
 }
 
-.theme__text-chart__description,
-.theme__text-chart__info {
+.theme__text-chart__description {
   color          : white;
   font-size      : 10px;
   font-weight    : 200;
   line-height    : 16px;
   letter-spacing : 1.5px;
+}
+
+.theme__text-chart__info {
+  color          : white;
+}
+
+
+.theme__text-chart__info h3{
+  padding: 24px 0px;
+  font-size      : 24px;
+  font-weight    : 200;
+  line-height    : 16px;
+  letter-spacing : 1.5px;
+  text-align: center;
+}
+
+.theme__text-chart__info p{
+  font-size      : 12px;
+  font-weight    : 200;
+  line-height    : 16px;
+  letter-spacing : 1.5px;
+  text-align: center;
 }
 
 .theme__text-chart__kpi {}
