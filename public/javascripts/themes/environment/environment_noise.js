@@ -59,8 +59,8 @@ import { isToday } from '../../modules/bcd-date.js'
     })
     let allSitesData = await Promise.all(allSitesPromises)
     let allSitesFlat = allSitesData.flat(1)
-    allSitesFlat = allSitesFlat.filter(s => {
-      return isToday(s.date)
+    allSitesFlat = allSitesFlat.filter((s, i) => {
+      return isToday(s.date) && (parseInt(s.date.getHours()) < 10) // // TODO: remove demo hack
     })
     // console.log('allSitesFlat')
     // console.log(allSitesFlat)
