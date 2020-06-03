@@ -716,6 +716,11 @@ opacity: 1;
     height : auto;
     transform: translateY(-24px);
   }
+  /* .leaflet-popup-content {
+    transform: translateY(24px)
+
+  } */
+
 }
 
 @media
