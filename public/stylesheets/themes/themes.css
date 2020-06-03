@@ -268,27 +268,38 @@ opacity: 1;
   line-height    : 16px;
   letter-spacing : 1.5px;
 }
-
-.theme__text-chart__info {
+#public-transport-trips .theme__text-chart__info {
   color          : white;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
-.theme__text-chart__info h3{
-  padding: 24px 0px;
+#public-transport-trips .theme__text-chart__info h3{
+  /* padding: 24px 0px; */
+  padding-top: 12px;
   font-size      : 24px;
   font-weight    : 200;
-  line-height    : 16px;
+  line-height    : 48px;
   letter-spacing : 1.5px;
-  text-align: center;
+  text-align: left;
+  width: auto;
 }
 
-.theme__text-chart__info p{
+#public-transport-trips .theme__text-chart__info p{
   font-size      : 12px;
   font-weight    : 200;
   line-height    : 16px;
   letter-spacing : 1.5px;
   text-align: center;
+}
+
+#public-transport-trips .theme__text-chart__info img{
+  width: 48px;
+  height: 48px;
 }
 
 .theme__text-chart__kpi {}
