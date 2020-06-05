@@ -1,5 +1,5 @@
 .side-menu__toggler {
-  z-index          : 10001;
+  z-index          : 10003;
   position         : fixed;
   top              : 0;
   width            : 60px;
@@ -34,7 +34,8 @@
   display  : block;
   position : relative;
   float    : left;
-  padding  : 3px;
+  padding  : 4px;
+  padding-right: 16px;
   cursor   : pointer;
 }
 
@@ -250,7 +251,7 @@
 }
 
 .search-box {
-  z-index    : 9999;
+  z-index    : 10002;
   visibility : hidden;
   position   : fixed;
   top        : 0;
@@ -263,11 +264,11 @@
 
 .search-box--open {
   visibility       : visible;
-  padding          : .75rem;
-  opacity          : 1;
-  opacity          : 0.8;
+  padding          : 16px;
+  opacity          : 0.95;
   background-color : #1c2022;
   outline          : none;
+  height: 60px;
 }
 
 .search-box__input {
@@ -293,7 +294,9 @@
 }
 
 #suggestions {
-  z-index          : 9999;
+  width      : 50vw;
+  max-width  : 328px;
+  padding: 0;
   top              : 0;
   right            : 0;
   width            : 100%;

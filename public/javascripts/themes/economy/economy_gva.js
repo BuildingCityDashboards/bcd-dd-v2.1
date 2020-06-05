@@ -9,6 +9,8 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'RAA06'
   let STAT = 'Gross Value Added (GVA) per person at Basic Prices (Euro)'
+  // document.getElementById('chart-gva').innerHTML = 'Fetching data from CSO...'
+
   try {
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
     let gvaDataset = JSONstat(json).Dataset(0)
@@ -43,6 +45,10 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     const gvaChart = new MultiLineChart(gvaContent)
 
     function redraw () {
+      // let spinner = document.getElementById('grossValue').getElementsByClassName('theme__text-chart__spinner')[0]
+      // spinner.style.display = 'none'
+      // let plot = document.getElementById('chart-gva')
+      // plot.style.display = 'block'
       gvaChart.drawChart()
       gvaChart.addTooltip(STAT + 'Year:', '', 'label')
     }
@@ -55,4 +61,3 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     console.log(e)
   }
 })()
-

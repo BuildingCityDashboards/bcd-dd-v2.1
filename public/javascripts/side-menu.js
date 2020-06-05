@@ -14,9 +14,28 @@ $('.dropdown__toggle').click(function () {
 })
 
 $('.search__trigger').on('click', e => {
-  e.preventDefault()
+  // console.log('open search')
+  // e.preventDefault()
   $('.search-box').toggleClass('search-box--open')
+  // document.getElementById('userinput').focus()
+  setTimeout(function () { $('#userinput').focus() }, 100)
   if (!$('.search-box').hasClass('search-box--open')) {
-    // document.getElementById('search-results').innerHTML = ''
+    // console.log('close search')
+    setTimeout(function () { $('#userinput').blur() }, 100)
   }
 })
+
+document.addEventListener('click', closeSearch)
+
+function closeSearch (e) {
+  // console.log('call close search')
+
+  if (!e.target.closest('.search-box') && !e.target.closest('.search__trigger')) {
+    // console.log('click out')
+
+    if ($('.search-box').hasClass('search-box--open')) {
+      $('.search-box').toggleClass('search-box--open')
+    }
+  }
+}
+

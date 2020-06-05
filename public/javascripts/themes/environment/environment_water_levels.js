@@ -109,8 +109,8 @@ function watersStationPopupInit (d_) {
   let str = '<div class="bike-popup-container">'
   if (d_.properties['station.name']) {
     str += '<div class="row ">'
-    str += '<span id="bike-name-' + d_.id + '" class="col-9">' // id for name div
-    str += '<strong>' + d_.properties['station.name'] + '</strong>'
+    str += '<span id="bike-name-' + d_.id + '" class="leaflet-popup-title col-9">' // id for name div
+    str += '<strong>' + d_.properties['station.name'] + 'test' + '</strong>'
     str += '</span>' // close bike name div
 
     str += '<span id="bike-banking-' + d_.id + '" class= "col-3"></span>'
@@ -243,21 +243,31 @@ function initMapHydronet (data__) {
 
 function getHydronetContent (d_, k_) {
   let str = ''
+  str += '<div class="leaflet-popup-title">'
   if (d_['Station Name']) {
     str += '<b>' + d_['Station Name'] + '</b><br>'
   }
+  str += '</div>' // close title div
   if (d_.type) {
+    str += '<div class="leaflet-popup-subtitle">'
     str += d_.type + '<br>'
+    str += '</div>' // close subtitle
   }
   if (d_.Waterbody) {
+    str += '<div class="leaflet-popup-subtitle">'
     str += 'at ' + d_.Waterbody + '<br>'
+    str += '</div>' // close subtitle
   }
   if (d_.Owner) {
+    str += '<div class="leaflet-popup-subtitle">'
     str += '<br>' + d_.Owner + '<br>'
+    str += '</div>' // close subtitle
   }
 
   if (d_['Station Status']) {
-    str += 'Status: ' + d_['Station Status'] + '<br>'
+    str += '<div class="leaflet-popup-subtitle" style= "color : green;" ">'
+    str += 'Status: <b>' + d_['Station Status'] + '</b><br>'
+    str += '</div>' // close subtitle
   }
 
   return str
