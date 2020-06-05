@@ -273,8 +273,8 @@ opacity: 1;
   padding-top: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 
@@ -294,7 +294,7 @@ opacity: 1;
   font-weight    : 200;
   line-height    : 16px;
   letter-spacing : 1.5px;
-  text-align: center;
+  text-align: left;
 }
 
 #public-transport-trips .theme__text-chart__info img{
