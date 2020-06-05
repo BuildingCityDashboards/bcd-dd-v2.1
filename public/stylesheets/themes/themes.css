@@ -261,13 +261,45 @@ opacity: 1;
   grid-row       : 4/5;
 }
 
-.theme__text-chart__description,
-.theme__text-chart__info {
+.theme__text-chart__description {
   color          : white;
   font-size      : 10px;
   font-weight    : 200;
   line-height    : 16px;
   letter-spacing : 1.5px;
+}
+#public-transport-trips .theme__text-chart__info {
+  color          : white;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+
+#public-transport-trips .theme__text-chart__info h3{
+  /* padding: 24px 0px; */
+  padding-top: 12px;
+  font-size      : 24px;
+  font-weight    : 200;
+  line-height    : 48px;
+  letter-spacing : 1.5px;
+  text-align: left;
+  width: auto;
+}
+
+#public-transport-trips .theme__text-chart__info p{
+  font-size      : 12px;
+  font-weight    : 200;
+  line-height    : 16px;
+  letter-spacing : 1.5px;
+  text-align: left;
+}
+
+#public-transport-trips .theme__text-chart__info img{
+  width: 48px;
+  height: 48px;
 }
 
 .theme__text-chart__kpi {}
