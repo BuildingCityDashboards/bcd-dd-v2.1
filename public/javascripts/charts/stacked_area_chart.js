@@ -453,6 +453,7 @@ class StackedAreaChart extends Chart {
     c.postfix = postfix ? postfix : ' '
     c.valueFormat = c.formatValue(c.valueFormat)
     // super.drawFocusLine()
+    
     c.drawFocus()
   }
 
@@ -547,7 +548,7 @@ class StackedAreaChart extends Chart {
           dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false
 
           div.style('opacity', 1)
-          div.select('.bcd-dot').style('background-color', c.colour(d.key))
+          div.select('.bcd-dot').style('background-color', c.colour(key))
           p.select('.bcd-text-title').text(key)
           p.select('.bcd-text-value').text(isNaN(d[key]) ? 'N/A' : d[key])
           p.select('.bcd-text-rate').text(rate)
