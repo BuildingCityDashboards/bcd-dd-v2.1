@@ -1,12 +1,31 @@
-{
-"1":"Group 1: Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).", 
-"2":"Group 2: Resident composition of this group is mostly young families with young children. The ethnic diversity is high in these peripherally located small areas. Apartment living is another noticeable characteristic for this group. 12.0 % of Dublin population resides under this category. Fingal is the county in Dublin with the highest percentage (50.8 %) followed by South Dublin (24.1 %) and Dublin City (16.8 %).",
 
-"3": "Group 3: This group is mostly presenting a ‘single person’ profile which can be either separated people, single parents or older adults. Households in this group mostly have low internet connectivity.The second highest percentage (15.9 %) of the Dublin population is part of this group. Spatially, the highest percentage is located in Dublin City (67.8 %). South Dublin is the next county in Dublin with a percentage of 14.4 %.",
-"4": "Group 4: The residents of this group are mostly mature families with an Irish background. The population is mostly over 45 of age and married. The children of these families are no longer dependent on their parents. The households represented by this group have a high car ownership rate.This group makes up the highest percentage population of Dublin (28.0 %). The spatial distribution of this group in the four counties of Dublin are: Dun Laoghaire - Rathdown (29.9 %); Dublin City (28.4 %); South Dublin (22.8 %) and Fingal (18.9 %).",
+ [
+       {
+"1":" Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).", 
+"2":" Resident composition of this group is mostly young families with young children. The ethnic diversity is high in these peripherally located small areas. Apartment living is another noticeable characteristic for this group. 12.0 % of Dublin population resides under this category. Fingal is the county in Dublin with the highest percentage (50.8 %) followed by South Dublin (24.1 %) and Dublin City (16.8 %).",
 
-"5": "Group 5: The small areas that are part of this classification are mostly located at the periphery of Dublin. The representation of this group is mostly two or more car households and internet-connected households. The dominant housing type is privately owned houses. The composition of the population in this group is mostly families with kids mostly between the age of 5-14. Working from home is another important characteristic of this group.This group represents the third highest population percentage of Dublin (15.3 %). Fingal (44.1 %) and South Dublin (36.0 %) are the areas that this group is highly located in Dublin.",
-"6": "Group 6: The areas under this category are mostly composed of economically inactive families, separated families and single parents. Unemployment rate within the households of this group is quite high. The residents are born in Ireland. Education qualifications are low and houses are mostly rented through public authorities.9.6 % of the Dublin population is resident of this category. Dublin City is the highly concentrated location of this group with a percentage of 54.8 %. South Dublin (28.3 %) is the next spatially dense area of this group.",
-"7": "Group 7: This group is represented by young single people or young couples without children. Residents of these groups are mostly born in Ireland and higher education qualifications are high. The dominant housing type is apartments and they are mostly rented privately.11.0 % of Dublin population is represented by this group. This group is unequally spatially distributed. 76.0 % of the small areas belonging to this group is in Dublin City borders."
+"3": "This group is mostly presenting a ‘single person’ profile which can be either separated people, single parents or older adults. Households in this group mostly have low internet connectivity.The second highest percentage (15.9 %) of the Dublin population is part of this group. Spatially, the highest percentage is located in Dublin City (67.8 %). South Dublin is the next county in Dublin with a percentage of 14.4 %.",
+"4": "The residents of this group are mostly mature families with an Irish background. The population is mostly over 45 of age and married. The children of these families are no longer dependent on their parents. The households represented by this group have a high car ownership rate.This group makes up the highest percentage population of Dublin (28.0 %). The spatial distribution of this group in the four counties of Dublin are: Dun Laoghaire - Rathdown (29.9 %); Dublin City (28.4 %); South Dublin (22.8 %) and Fingal (18.9 %).",
+
+"5": "The small areas that are part of this classification are mostly located at the periphery of Dublin. The representation of this group is mostly two or more car households and internet-connected households. The dominant housing type is privately owned houses. The composition of the population in this group is mostly families with kids mostly between the age of 5-14. Working from home is another important characteristic of this group.This group represents the third highest population percentage of Dublin (15.3 %). Fingal (44.1 %) and South Dublin (36.0 %) are the areas that this group is highly located in Dublin.",
+"6": "The areas under this category are mostly composed of economically inactive families, separated families and single parents. Unemployment rate within the households of this group is quite high. The residents are born in Ireland. Education qualifications are low and houses are mostly rented through public authorities.9.6 % of the Dublin population is resident of this category. Dublin City is the highly concentrated location of this group with a percentage of 54.8 %. South Dublin (28.3 %) is the next spatially dense area of this group.",
+"7": "Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).",
+"all": "4880 Small Areas from four different county borders (Fingal, Dublin City, South Dublin, Dun Laoghaire – Rathdown) are included in the Dublin Geodemographic Tool. Group 4 is the highly represented group (28% of Dublin population) out of 7 different categories. The second highest population group (15.9%) is part of Group 3. Group 5 is the third in order with a population percentage of 15.3%. Group 1 is the category with the lowest Dublin population (8.2%)." 
 }
+,
+{
+"1":"Group 1:", 
+"2":"Group 2:",
+
+"3": "Group 3:",
+"4": "Group 4:",
+
+"5": "Group 5:",
+"6": "Group 6:",
+"7": "Group 7:",
+"all": "All Groups:" 
+}
+]
+
+
 

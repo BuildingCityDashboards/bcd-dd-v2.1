@@ -14,31 +14,31 @@ block append head
         //- link(rel='stylesheet', href='/stylesheets/spin.css')
 
 block navigation
-    //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Tools")
-    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Tools")
+    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Tools")
+
 block content
        
       .tool-container
         header.header.mt-5.pt-2
         .row
             .col-md-12
-                h2.header__h1 Geodemographics 
+                h1.header__h1 Geodemographics 
                 p.lead 
         .row
             .col-12
                 div.pt-20 
                 p Geodemographic classification is a tool that groups spatial units based on socio-economic characteristics. 
                   |The Dublin Geodemographic Tool is following the Ireland Geodemographic classification method but focusing on Dublin for a better insight. For the Dublin Geodemographic Tool, Small Areas are selected as spatial units and 2016 Census of Population results are used for socio-economic components. 
-                  | To view analysis code, Please visit:   
-                  a(href="https://rpubs.com/burcinwalsh/620510" target="_blank") RPubs
+                p To view analysis code, Please visit:          
+                    a(href="https://rpubs.com/burcinwalsh/620510" target="_blank") RPubs
         #group-buttons
             .row
-                .col-1
+                .col-2
                     .row
-                        p.col-7 Groups
+                        p.col-4 Groupff
                             a(href='#',)
                                 p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='all'>  
-                    .row       
+                    .row        
                         p.col-2 1
                             a(href='#',)
                                 .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_selected.svg' id='1'>  
@@ -68,24 +68,24 @@ block content
                     .row        
                         p.col-2 7
                             a(href='#',)
-                                p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='7'>   
-                
-                    
-                
-                .col
+                                p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='7'>          
+                .col-md-10
                         <div class="row">  
-                            .col
-                                span#group-title
-                                span#group-text
-                                                        
+                            .col-md-8
+                                #group-text.info-div
+                            .col-md-4
+                                .p z-score valueshh: 
+                                    .p.info mean : 
+                                        span#group-text-mean
+                                    .p median : 
+                                        span#group-text-median          
                         
                         </div>
-                      
-                            .row.no-gutters
-                                .col-8
-                                    #map-geodemos
-                                .col-4
-                                    #chart-geodemos
+                        <div class="row">
+                        .col-md-8 
+                            #map-geodemos.mt-2
+                        .col-md-4
+                            #chart-geodemos.mt-2
                         </div>      
               
         //- //- .row  
@@ -206,4 +206,3 @@ block append scripts
     //- //    script(src="leaflet.spin.min.js")
     script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
     script(src="/javascripts/tools/geodemos.js" type="module")  
-    //- script(src="/javascripts/tools/heatmap.js" type="module")
