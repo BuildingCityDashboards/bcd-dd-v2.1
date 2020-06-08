@@ -23,6 +23,7 @@
     "pug": "^2.0.3",
     "sitemap": "^3.2.2",
     "spin.js": "^4.0.0",
+    "waypoints": "^4.0.1",
     "winston": "^3.1.0"
   },
   "devDependencies": {
