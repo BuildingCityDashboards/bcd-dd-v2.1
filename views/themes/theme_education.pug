@@ -1,18 +1,25 @@
 .theme
     +theme__header('education-header',
     'Education',
-    '***education description here***',
+    'Data about pupil numbers at Dublin schools',
     '',
-    '')
+    'education_background.png')
     
-    +theme__text-chart-chart(
+    +theme__text-chart(
     'pupil-numbers',
     [{ link:'https://www.cso.ie/en/statistics/education/',
     name: 'CSO'}],
     'Pupil Numbers',
-    '<p> These charts from the CSO show the numbers of <b>primary</b> and <b>secondary</b> school pupils across the four Dublin local authorities </p>',
+    '<p>As demographics change through child-birth and migration, the number of children entering the education system shifts. Since 2005, the numbers of children attending primary schools has grown.  This is particularly the case for Fingal and South Dublin, which have experienced strong household growth. In the same period, secondary school numbers are relatively static.</p><p> These charts from the CSO show the numbers of <b>primary</b> and <b>secondary</b> school pupils across the four Dublin local authorities </p>',
     '',
-    ['chart-pupilsFirstLevel', 'chart-pupilsSecondLevel']
+    ['chart-pupils-primary', 'chart-pupils-secondary'],
+    [{
+    id: 'btn-pupils-primary',
+    name: 'Primary level'
+    },{
+    id: 'btn-pupils-secondary',
+    name: 'Secondary level'
+    }]
     )
     
 

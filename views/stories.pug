@@ -4,8 +4,8 @@ extends layout
 include component/accordion
 
 block navigation
-    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
-
+    //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Stories")
 block content    
       header.header.mt-5.py-2
         .container
