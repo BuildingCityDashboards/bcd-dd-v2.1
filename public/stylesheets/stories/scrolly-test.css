@@ -3,7 +3,7 @@ body {
 }
 .parent {
     display: flex;
-    max-width: 800px;
+    max-width: 1344px;
     margin: 50px auto;
 }
 .narrative {
