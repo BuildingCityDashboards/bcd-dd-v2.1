@@ -29,11 +29,18 @@ router.get('/housing-dublin-phase-3', function (req, res, next) {
     page: 'page light'
   })
 })
+// static html load
+// router.get('/scrolly-test', function (req, res, next) {
+//   res.sendFile('scrolly_test.html', {
+//     root: 'views/stories',
+//     title: 'Scrolly Mc Scrollface'
+//   })
+// })
 
 router.get('/scrolly-test', function (req, res, next) {
-  res.sendFile('scrolly_test.html', {
-    root: 'views/stories',
-    title: 'Scrolly Mc Scrollface'
+  res.render('stories/scrolly_test', {
+    title: 'Scrolly-wolly test',
+    page: 'page light'
   })
 })
 
