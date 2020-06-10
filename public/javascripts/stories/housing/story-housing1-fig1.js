@@ -1,20 +1,21 @@
 //  Options for chart
 //  TODO: pass these in as config and/or create accessor functions
+
 const srcPathFig1 = '../data/Stories/Housing/part_1/'
 const srcFileFig11 = 'pop_house.csv'
 const regionsFig1 = ['Dublin City', 'Dún Laoghaire-Rathdown', 'Fingal', 'South Dublin', 'Kildare', 'Meath', 'Wicklow']
 let titleFig1 = 'Growth in population and households 1991-2016'
-//const popTitle = 'Population of Dublin and Surrounding Areas (1991-2016)'
-//const houseTitle = 'Number of Households in Dublin and Surrounding Areas (1991-2016)'
-//const popRateTitle = 'Population % Change in Dublin and Surrounding Areas (1991-2016)'
-//const houseRateTitle = 'Households % Change in Dublin and Surrounding Areas (1991-2016)'
-//let titleFig1 = ''
+// const popTitle = 'Population of Dublin and Surrounding Areas (1991-2016)'
+// const houseTitle = 'Number of Households in Dublin and Surrounding Areas (1991-2016)'
+// const popRateTitle = 'Population % Change in Dublin and Surrounding Areas (1991-2016)'
+// const houseRateTitle = 'Households % Change in Dublin and Surrounding Areas (1991-2016)'
+// let titleFig1 = ''
 const popTitle = ''
 const houseTitle = ''
 const popRateTitle = ''
 const houseRateTitle = ''
 
-//titleFig1 = popTitle //  set default on load
+// titleFig1 = popTitle //  set default on load
 const divIDFig1 = 'population-households-chart1'
 
 d3.csv(srcPathFig1 + srcFileFig11)
@@ -118,15 +119,15 @@ d3.csv(srcPathFig1 + srcFileFig11)
     // Set layout options
     const layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
     layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
-    //layout.title.text = titleFig1
+    // layout.title.text = titleFig1
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
     layout.xaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis.title)
     layout.xaxis.title.text = 'Census Years'
-    //hack to make sure the trace marker symbology isn't cut off by the axis ending at 2016
+    // hack to make sure the trace marker symbology isn't cut off by the axis ending at 2016
     layout.xaxis.range = [1990.85, 2016.15]
     layout.xaxis.tickmode = 'array'
     layout.xaxis.tickvals = [1991, 1996, 2002, 2006, 2011, 2016]
-    //layout.xaxis.showgrid = false
+    // layout.xaxis.showgrid = false
     layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
     layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
     layout.yaxis.title.text = 'Pop'
@@ -258,7 +259,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
           //  'yaxis.title.standoff': 0,
           'yaxis.range': [0, 600000],
           'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
-          'yaxis.hoverformat' : ',d'
+          'yaxis.hoverformat': ',d'
         }],
         label: 'Population',
         method: 'update',
@@ -276,10 +277,10 @@ d3.csv(srcPathFig1 + srcFileFig11)
           title: houseTitle,
           annotations: houseAnnotations,
           'yaxis.title.text': 'Hholds',
-          //'yaxis.title.standoff': 10,
+          // 'yaxis.title.standoff': 10,
           'yaxis.range': [-2, 250000],
           'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000],
-          'yaxis.hoverformat' : ',d'
+          'yaxis.hoverformat': ',d'
         }
         ],
         label: 'Households',
@@ -301,7 +302,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
           //  'yaxis.title.standoff': 20,
           'yaxis.range': [-2, 125],
           'yaxis.tickvals': [0, 50, 100],
-          'yaxis.hoverformat' : '.3r'
+          'yaxis.hoverformat': '.3r'
 
         }
         ],
@@ -325,7 +326,7 @@ d3.csv(srcPathFig1 + srcFileFig11)
           //  'updatemenus.pad.l': -60,
           'yaxis.range': [-2, 151],
           'yaxis.tickvals': [0, 50, 100, 150],
-          'yaxis.hoverformat' : '.3r'
+          'yaxis.hoverformat': '.3r'
         }
         ],
         label: 'Household % change',

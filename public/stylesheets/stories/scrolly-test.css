@@ -1,8 +1,7 @@
-body {
-    margin-bottom: 1000px;
-}
+
 .parent {
     display: flex;
+    flex-direction: row;
     max-width: 1344px;
     margin: 50px auto;
 }
@@ -10,9 +9,11 @@ body {
     width: 33.3%;
 }
 .narrative-item {
+
     min-height: 300px;
     color: #ccc;
     transition: color 200ms;
+    padding-top: 400px;
 }
 .narrative-item.active {
     color: black;
