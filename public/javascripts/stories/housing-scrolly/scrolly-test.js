@@ -16,14 +16,17 @@
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+  let plotObjects = []
+  let plotObject = await getPlotObjectFig1()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig2()
+  plotObjects.push(plotObject)
 
   const drawPlot = async (event) => {
-    console.log('Waypoint ' + event.index + ' triggered')
-    let plotObject = await getPlotObject()
-    console.log(plotObject)
-    Plotly.newPlot('chart-sticky-housing-1', plotObject.traces, plotObject.layout, plotObject.options)
-  // var newData = getData(event.index)
-  // desktopChart.series[0].setData(newData)
+    console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    if (event.index >= 0 && event.index < plotObjects.length) {
+      Plotly.newPlot('chart-sticky-housing-1', plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+    }
   }
 
   var ts = new TwoStep({

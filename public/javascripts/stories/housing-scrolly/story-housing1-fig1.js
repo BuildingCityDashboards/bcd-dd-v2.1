@@ -1,4 +1,4 @@
-const getPlotObject = async function () {
+const getPlotObjectFig1 = async function () {
 //  Options for chart
 //  TODO: pass these in as config and/or create accessor functions
   const srcPathFig1 = '../data/Stories/Housing/part_1/'
