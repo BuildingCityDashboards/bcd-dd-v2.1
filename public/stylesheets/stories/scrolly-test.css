@@ -1,12 +1,19 @@
-
-@-webkit-keyframes fade {
-0% {opacity:0;}
-100% {opacity:1;}
+@-webkit-keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; display: block; }
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; display: block; }
 }
 
-@keyframes fade {
-0% {opacity:0;}
-100% {opacity:1;}
+@-webkit-keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; display: hidden; }
+}
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; display: hidden; }
 }
 
 .parent {
@@ -34,27 +41,22 @@
     width: 66.6%;
 
 }
-.rightcol .chart{
+.chart{
   /* opacity: 0; */
+  background-color: black;
 
 }
 
-.rightcol .chart[data-status = "shown"]{
-  animation: fade ease 1s;
-  -webkit-animation: fade ease 1s;
-  -moz-animation: fade ease 1s;
-  -o-animation: fade ease 1s;
-  -ms-animation: fade ease 1s;
-
+.chart[data-status="shown"] {
+ opacity: 1;
+ -webkit-animation: fadeIn 200ms;
+ animation: fadeIn 200ms;
 }
 
-.rightcol .chart[data-status = "hidden"]{
-  animation: fade ease 1s reverse;
-  -webkit-animation: fade ease 1s reverse;
-  -moz-animation: fade ease 1s reverse;
-  -o-animation: fade ease 1s reverse;
-  -ms-animation: fade ease 1s reverse;
-
+.chart[data-status="hidden"] {
+  opacity: 0;
+  -webkit-animation: fadeOut 200ms;
+  animation: fadeOut 200ms;
 }
 
 .mobile-chart {
