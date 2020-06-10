@@ -1,4 +1,22 @@
+/**
+ *
+ *
+ * @param {}
+ * @return {}
+ *
+ *
+ */
+
+// TODO:
+// load page metadata for n narrative objects and n charts
+// load n chart plot objects into array
+// draw chart based on TwoStep interaction
+
 (async () => {
+// init a blank plot
+// TODO: replace with spinner/ loading progress
+  Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+
   const drawPlot = async (event) => {
     console.log('Waypoint ' + event.index + ' triggered')
     let plotObject = await getPlotObject()

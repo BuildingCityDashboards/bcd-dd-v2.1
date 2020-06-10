@@ -1,0 +1,17 @@
+mixin story__chart-sticky(chartIds = [], buttons = [])
+  div(id=id class="story__chart-sticky" )
+    .story-scrolly__narrative-item__chart
+      .story-scrolly__narrative-item__button-row
+          each button in buttons
+            <button id=#{button.id} type='button' class='theme-btn active'>#{button.name}</button>
+      //- .story-scrolly__narrative-item__spinner Data is loading from #{JSON.stringify(sources[0].name)}
+      each val in chartIds   
+            div(id=val class= 'story-scrolly__narrative-item__plot') 
+
+            
+    .story-scrolly__narrative-item__sources
+      p Sources:
+      each val in sources
+        div(id=val class= 'story-scrolly__narrative-item__source')  
+          a(href=val.link target='_blank')= val.name
+            img( src='../images/external-link.svg')

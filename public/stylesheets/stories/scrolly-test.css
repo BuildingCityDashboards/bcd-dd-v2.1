@@ -8,6 +8,7 @@
 .narrative {
     width: 33.3%;
 }
+
 .narrative-item {
 
     min-height: 300px;
@@ -15,6 +16,7 @@
     transition: color 200ms;
     padding-top: 400px;
 }
+
 .narrative-item.active {
     color: black;
 }
