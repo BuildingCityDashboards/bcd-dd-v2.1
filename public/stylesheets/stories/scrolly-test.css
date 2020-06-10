@@ -1,4 +1,14 @@
 
+@-webkit-keyframes fade {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
+@keyframes fade {
+0% {opacity:0;}
+100% {opacity:1;}
+}
+
 .parent {
     display: flex;
     flex-direction: row;
@@ -22,6 +32,29 @@
 }
 .rightcol {
     width: 66.6%;
+
+}
+.rightcol .chart{
+  /* opacity: 0; */
+
+}
+
+.rightcol .chart[data-status = "shown"]{
+  animation: fade ease 1s;
+  -webkit-animation: fade ease 1s;
+  -moz-animation: fade ease 1s;
+  -o-animation: fade ease 1s;
+  -ms-animation: fade ease 1s;
+
+}
+
+.rightcol .chart[data-status = "hidden"]{
+  animation: fade ease 1s reverse;
+  -webkit-animation: fade ease 1s reverse;
+  -moz-animation: fade ease 1s reverse;
+  -o-animation: fade ease 1s reverse;
+  -ms-animation: fade ease 1s reverse;
+
 }
 
 .mobile-chart {
@@ -42,4 +75,5 @@
         color: black;
         height: auto;
     }
+}
 }

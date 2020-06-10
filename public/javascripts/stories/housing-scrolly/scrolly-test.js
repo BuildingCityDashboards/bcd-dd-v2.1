@@ -13,9 +13,10 @@
 // draw chart based on TwoStep interaction
 
 (async () => {
+  const CHART_STICKY_ELEMENT = 'chart-sticky-housing-1'
 // init a blank plot
 // TODO: replace with spinner/ loading progress
-  Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+  // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
   let plotObjects = []
   let plotObject = await getPlotObjectFig1()
   plotObjects.push(plotObject)
@@ -24,8 +25,11 @@
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
+    chartSticky.setAttribute('data-status', 'shown')
+    chartSticky.setAttribute('opacity', 1)
     if (event.index >= 0 && event.index < plotObjects.length) {
-      Plotly.newPlot('chart-sticky-housing-1', plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+      Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
     }
   }
 
@@ -51,4 +55,3 @@
   checkSize()
   $(window).resize(checkSize)
 })()
-
