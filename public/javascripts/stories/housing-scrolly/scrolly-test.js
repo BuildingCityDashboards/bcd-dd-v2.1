@@ -17,12 +17,16 @@
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+
+  // TODO: this is dumb, but must wait for a genralised function to return plot objects
   let plotObjects = []
   let plotObject = await getPlotObjectFig1()
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig2()
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig3()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig4()
   plotObjects.push(plotObject)
 
   const drawPlot = async (event) => {
