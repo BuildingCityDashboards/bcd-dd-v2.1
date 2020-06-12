@@ -28,6 +28,8 @@
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig4()
   plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig5()
+  plotObjects.push(plotObject)
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
