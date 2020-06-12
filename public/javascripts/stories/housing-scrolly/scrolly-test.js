@@ -35,6 +35,12 @@
   plotObject = await getPlotObjectFig7()
   plotObjects.push(plotObject)
 
+  plotObjects.forEach((po) => {
+    po.layout.modebar = {
+      'bgcolor': 'rgba(0, 0, 0, 0)'
+    }
+  })
+
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
@@ -43,6 +49,8 @@
     console.log(state)
     if (state == 'hidden') {
       if (event.index >= 0 && event.index < plotObjects.length) {
+        // fix for modebar bg colour
+
         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
 
         chartSticky.removeAttribute('data-status')
