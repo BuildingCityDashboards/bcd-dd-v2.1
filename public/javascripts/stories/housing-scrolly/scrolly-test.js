@@ -22,6 +22,8 @@
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig2()
   plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig3()
+  plotObjects.push(plotObject)
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -32,9 +34,10 @@
     if (state == 'hidden') {
       if (event.index >= 0 && event.index < plotObjects.length) {
         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+
+        chartSticky.removeAttribute('data-status')
+        chartSticky.setAttribute('data-status', 'shown')
       }
-      chartSticky.removeAttribute('data-status')
-      chartSticky.setAttribute('data-status', 'shown')
     } else if (state == 'shown') {
       chartSticky.removeAttribute('data-status')
       chartSticky.setAttribute('data-status', 'hidden')
