@@ -17,11 +17,29 @@
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+
+  // TODO: this is dumb, but must wait for a genralised function to return plot objects
   let plotObjects = []
   let plotObject = await getPlotObjectFig1()
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig2()
   plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig3()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig4()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig5()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig6()
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig7()
+  plotObjects.push(plotObject)
+
+  plotObjects.forEach((po) => {
+    po.layout.modebar = {
+      'bgcolor': 'rgba(0, 0, 0, 0)'
+    }
+  })
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -31,10 +49,13 @@
     console.log(state)
     if (state == 'hidden') {
       if (event.index >= 0 && event.index < plotObjects.length) {
+        // fix for modebar bg colour
+
         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+
+        chartSticky.removeAttribute('data-status')
+        chartSticky.setAttribute('data-status', 'shown')
       }
-      chartSticky.removeAttribute('data-status')
-      chartSticky.setAttribute('data-status', 'shown')
     } else if (state == 'shown') {
       chartSticky.removeAttribute('data-status')
       chartSticky.setAttribute('data-status', 'hidden')

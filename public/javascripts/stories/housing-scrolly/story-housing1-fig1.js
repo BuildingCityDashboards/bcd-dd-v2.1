@@ -337,6 +337,9 @@ const getPlotObjectFig1 = async function () {
   })
 
   layout.updatemenus = updateMenus
+  // layout.modebar = {
+  //   'bgcolor': 'rgba(0, 0, 0, 0)'
+  // }
 
   const chartTraces = popTraces
       .concat(houseTraces)
@@ -350,12 +353,6 @@ const getPlotObjectFig1 = async function () {
   })
 
   let plotOptions = {
-    modeBar: {
-      orientation: 'v',
-      bgcolor: 'black',
-      color: null,
-      activecolor: null
-    },
     modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
     displayModeBar: true,
     displaylogo: false,
@@ -368,6 +365,7 @@ const getPlotObjectFig1 = async function () {
       format: 'png'
     }
   }
+
   const plotObject = {
     traces: chartTraces,
     layout: layout,
