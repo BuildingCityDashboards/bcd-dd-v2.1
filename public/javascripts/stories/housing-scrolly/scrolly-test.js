@@ -26,10 +26,25 @@
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
-    chartSticky.setAttribute('data-status', 'shown')
-    chartSticky.setAttribute('opacity', 1)
-    if (event.index >= 0 && event.index < plotObjects.length) {
-      Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+
+    let state = chartSticky.getAttribute('data-status')
+    console.log(state)
+    if (state == 'hidden') {
+      if (event.index >= 0 && event.index < plotObjects.length) {
+        Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+      }
+      chartSticky.removeAttribute('data-status')
+      chartSticky.setAttribute('data-status', 'shown')
+    } else if (state == 'shown') {
+      chartSticky.removeAttribute('data-status')
+      chartSticky.setAttribute('data-status', 'hidden')
+      setTimeout(function () {
+        if (event.index >= 0 && event.index < plotObjects.length) {
+          Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+          chartSticky.removeAttribute('data-status')
+          chartSticky.setAttribute('data-status', 'shown')
+        }
+      }, 200)
     }
   }
 
