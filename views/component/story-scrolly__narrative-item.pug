@@ -1,0 +1,15 @@
+mixin story-scrolly__narrative-item({id='', title='', narrative='', info=''})
+  //- , chartInfo='', chartIds = [], buttons = [])
+  div(id=id class="narrative-item" )
+    .narrative-item__title
+      h2= title
+    .narrative-item__text
+      .narrative-item__narrative!= narrative
+      .narrative-item__info!= info
+            
+    //- .story-scrolly__narrative-item__sources
+      p Sources:
+      each val in sources
+        div(id=val class= 'story-scrolly__narrative-item__source')  
+          a(href=val.link target='_blank')= val.name
+            img( src='../images/external-link.svg')

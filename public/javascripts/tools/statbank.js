@@ -1,7 +1,7 @@
-import { fetchJsonFromUrlAsync } from '../modules/bcd-async'
-import { forEachAsync } from '../modules/bcd-async'
-import { getTableMetadata } from '../modules/bcd-statbank'
-import { populateDropdownFromArray } from '../modules/bcd-ui'
+import { fetchJsonFromUrlAsync } from '../modules/bcd-async.js'
+import { forEachAsync } from '../modules/bcd-async.js'
+import { getTableMetadata } from '../modules/bcd-statbank.js'
+import { populateDropdownFromArray } from '../modules/bcd-ui.js'
 
 (async () => {
   console.log('Statbank Tool')

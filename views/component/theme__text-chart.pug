@@ -1,14 +1,14 @@
 mixin theme__text-chart(id='', sources='', title='', description='', chartInfo='', chartIds = [], buttons = [])
   div(id=id class="theme__text-chart" )
+    .theme__text-chart__sources
+      p Sources:
+      each val in sources
+        div(id=val class= 'theme__text-chart__data-source')  
+          a(href=val.link target='_blank')= val.name
+            img( src='../images/external-link.svg')
+    .theme__text-chart__title
+      h1= title
     .theme__text-chart__text
-      .theme__text-chart__sources
-        p Sources:
-        each val in sources
-          div(id=val class= 'theme__text-chart__data-source')  
-            a(href=val.link target='_blank')= val.name
-              img( src='../images/external-link.svg')
-      .theme__text-chart__title
-        h1= title
       .theme__text-chart__description!= description
       .theme__text-chart__info!= chartInfo
       .theme__text-chart__kpi
@@ -17,7 +17,6 @@ mixin theme__text-chart(id='', sources='', title='', description='', chartInfo='
       .theme__text-chart__button-row
           each button in buttons
             <button id=#{button.id} type='button' class='theme-btn active'>#{button.name}</button>
+      //- .theme__text-chart__spinner Data is loading from #{JSON.stringify(sources[0].name)}
       each val in chartIds   
-            div(id=val class= 'theme__text-chart-chart__plot') 
-         
-      
+            div(id=val class= 'theme__text-chart__plot') 

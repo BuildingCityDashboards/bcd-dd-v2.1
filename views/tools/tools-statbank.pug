@@ -14,7 +14,8 @@ block append head
         //- link(rel='stylesheet', href='/stylesheets/spin.css')
 
 block navigation
-    +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Tools")
+    //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Tools")
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Tools")
 
 block content
       .tool-container
@@ -25,40 +26,6 @@ block content
                 p.lead Quid te incididunt aut fugiat, mandaremus non malis arbitror, export nescius 
                   |despicationes et id labore veniam quem occaecat, voluptate tempor mentitum, 
                   |doctrina quorum incididunt.
-                
-        //- .row.mt-1
-            //- .col-md-2
-            //-     .label.m-1 Search for an application:
-            //- .col-md-3
-            //-     <div class="input-group">
-            //-     <input type="text" class="form-control-sm ml-1 mr-1" id="app-number-search" placeholder="Enter application #" aria-describedby="basic-addon2">
-            //-     <div class="input-group-append  d-flex">
-            //-         //- <button class="btn btn-bcd btn-sm w-100 m-1 " type="button" >Search</button>
-            //-         <button class="btn btn-bcd btn-sm w-100 ml-1 mr-1" type="button" id="clear-search">Clear</button>                    
-            //-     </div>
-            //-     </div>
-            //- #search-result-count.col-md-2  
-            //- 
-            //- .col-md-5      
-            
-        //- .row.mt-1
-            .col-md-3
-                .label.m-1 Choose group:
-                    
-            .col-md-6
-              <div id="group-buttons" class="btn-group d-flex">
-                //- <button id="group-none" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="none">None</button>
-                <button id="group-1" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 active" value="1">1</button>
-                <button id="group-2" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="2">2</button>
-                <button id="group-3" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="3">3</button>
-                <button id="group-4" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="4">4</button>
-                <button id="group-5" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="5">5</button>
-                <button id="group-6" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="6">6</button>
-                <button id="group-7" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="7">7</button>
-                <button id="group-all" type="checkbox" class="btn btn-bcd-toggle btn-sm w-100 ml-1 mr-1 " value="all">All</button>  
-              </div>
-                
-            .col-md-3
             
         .row.mt-1
             .col-sm-3.p-1

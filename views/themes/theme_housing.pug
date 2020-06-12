@@ -3,7 +3,7 @@
     'Housing',
     'Housing trends for Dublin, highlighting affordability and housing supply',
     '',
-    '')
+    'housing_background.png')
     
     +theme__text-chart(
     'average-house-prices',
@@ -17,7 +17,14 @@
     'Average House Prices',
     '<p>Over the past decade house prices have fallen after the financial crash of 2008 followed by a period of recovery. This chart shows average house prices nationally and across the four Dublin local authorities for each quarter since the beginning of 2008. The data are derived from mortgage lending agencies on all loans approved (so excludes cash sales). Also, when comparing house prices figures from one period to another it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms). The CSO monthly residential property price index (RPPI) shows average property prices from a baseline of 100 established in 2005.</p>',
     '',
-    ['chart-housePrices', 'chart-HPM06']
+    ['chart-house-prices', 'chart-HPM06'],
+    [{
+    id: 'btn-house-prices',
+    name: 'Prices'
+    },{
+    id: 'btn-HPM06',
+    name: 'RPPI'
+    }]
     )
     
     
@@ -32,9 +39,16 @@
     name: 'RTB'
     }],
     'Monthly Rent Prices for Private Dwellings',
-    '<p> The top graph shows the average rent being paid in Dublin since 2008. It fell in the wake of the financial crash before steadily starting to rise is now back above the peak a decade ago. The bottom graph shows standardised rent for one, two, three and four bedroom properties since 2016 on a quarterly basis.  In all categories rents have been steadily rising. </p>',
+    '<p> The \'Rent\' prices tab shows the average rent being paid in Dublin since 2008. It fell in the wake of the financial crash before steadily starting to rise is now back above the peak a decade ago. The \'By no. of bedrooms\' tab shows standardised rent for one, two, three and four bedroom properties since 2016 on a quarterly basis.  In all categories, rents have been steadily rising. </p>',
     '',
-    ['chart-rentPrices', 'chart-rentByBeds']
+    ['chart-rent-prices', 'chart-rent-by-beds'],
+    [{
+    id: 'btn-rent-prices',
+    name: 'Rent prices'
+    },{
+    id: 'btn-rent-by-beds',
+    name: 'By no. of bedrooms'
+    }]
     )
     
     +theme__text-chart(

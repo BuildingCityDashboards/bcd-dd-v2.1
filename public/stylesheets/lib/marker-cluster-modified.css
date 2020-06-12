@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 10-May-2018, 19:32:37
     Author     : Liam
 */
@@ -54,6 +54,7 @@ and open the template in the editor.
 .marker-cluster {
 	background-clip: padding-box;
 	border-radius: 20px;
+	color: black;
 	}
 .marker-cluster div {
 	width: 30px;
@@ -63,8 +64,11 @@ and open the template in the editor.
 
 	text-align: center;
 	border-radius: 15px;
-	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
+	font: 12px "Roboto", sans-serif;
+	color: black;
+}
+
 .marker-cluster span {
 	line-height: 30px;
+	color: black;
 	}
