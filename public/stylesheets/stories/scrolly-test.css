@@ -48,10 +48,10 @@
 
 .parent {
   display               : grid;
+  margin                : 0 48px;
   grid-gap              : 24px;
   grid-template-columns : repeat(12, 1fr);
   grid-template-rows    : auto 50vh;
-  margin: 0 48px;
   /* flex-direction: row; */
 }
 
@@ -66,7 +66,7 @@
   display         : flex;
   height          : auto;
   margin          : 0;
-  padding-top     : 30vh;
+  padding-top     : 20vh;
   padding-bottom  : 10vh;
   color           : darkgrey;
   opacity         : 0.1;
@@ -81,10 +81,11 @@
 }
 
 .narrative-item:last-child {
-  padding-bottom: 30vh;
+  padding-bottom : 30vh;
 }
 
 .narrative-item h2 {
+  padding-bottom : 24px;
   color          : #6fd1f6;
   font-family    : 'Roboto';
   font-size      : 28px;
@@ -112,7 +113,7 @@
   top         : 0px;
   height      : auto;
   min-height  : 100vh;
-  padding-top : 30vh;
+  padding-top : 20vh;
 }
 
 .chart {
@@ -138,9 +139,61 @@
 
 @media
   screen
-  and (max-width : 768px) {
+  and (max-width : 1024px) {
+  .parent {
+    margin   : 0 24px;
+    grid-gap : 16px;
+  }
+
   .narrative {
-    width : 100%;
+    /* width: 33.3%; */
+    margin-left : 0px;
+  }
+
+  .narrative-item {
+    padding-top    : 10vh;
+    padding-bottom : 10vh;
+  }
+
+  .rightcol {
+    grid-column : 5/13;
+  }
+
+  .two-step-sticky-wrapper {
+    position    : -webkit-sticky;
+    position    : sticky;
+    top         : 0px;
+    height      : auto;
+    min-height  : 100vh;
+    padding-top : 10vh;
+  }
+}
+
+@media
+  screen
+  and (max-width : 768px) {
+  .parent {
+    display               : grid;
+    margin                : 0 36px;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(4, 1fr);
+    grid-template-rows    : auto 50vh;
+    /* flex-direction: row; */
+  }
+
+  .narrative {
+    /* width: 33.3%; */
+    margin-left : 0px;
+    grid-column : 1/5;
+    grid-row    : 1;
+  }
+
+  .narrative-item {
+    display        : flex;
+    height         : auto;
+    margin         : 0;
+    padding-top    : 10vh;
+    padding-bottom : 10vh;
   }
 
   .rightcol {
@@ -151,8 +204,5 @@
     display : block;
   }
 
-  .narrative-item {
-    height : auto;
-    color  : black;
-  }
+
 }
