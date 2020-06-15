@@ -1,5 +1,6 @@
 extends ../layout
 include ../component/story-scrolly__narrative-item
+include ../component/story-scrolly__title
 //- include component/theme__text-chart
 
 block append head
@@ -8,9 +9,11 @@ block append head
 block navigation
           //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
           +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Stories")
+          
 
 block content
     .parent
+      +story-scrolly__title("Housing in the Dublin Region, 1991 to Present: Phase 1 - 1991-2003 (The Celtic Tiger years)")
       .narrative
         +story-scrolly__narrative-item({
           id:'phase1-1',
