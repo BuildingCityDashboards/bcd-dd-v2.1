@@ -14,6 +14,7 @@
 
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing-1'
+  const MAP_STICKY_ELEMENT = 'map-sticky-housing-1'
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
@@ -34,42 +35,110 @@
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig7()
   plotObjects.push(plotObject)
-
-  plotObjects.forEach((po) => {
-    po.layout.modebar = {
-      'bgcolor': 'rgba(0, 0, 0, 0)'
+  let map = await getMapFig8()
+  plotObjects.push(map)
+  plotObjects.push('Acknowledgement')
+  plotObjects.push('References')
+        // fix for modebar bg colour
+  plotObjects.forEach((po, i) => {
+    if (i != 7 && i != plotObjects.length - 1 && i != plotObjects.length - 2) {
+      po.layout.modebar = {
+        'bgcolor': 'rgba(0, 0, 0, 0)'
+      }
     }
   })
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
-
-    let state = chartSticky.getAttribute('data-status')
-    console.log(state)
-    if (state == 'hidden') {
-      if (event.index >= 0 && event.index < plotObjects.length) {
-        // fix for modebar bg colour
-
-        Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-
+    let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
+    let chartState = chartSticky.getAttribute('data-status')
+    let mapState = mapSticky.getAttribute('data-status')
+    console.log(chartState)
+    // on trigger at index, get state based on index
+    if (event.index == 7) {
+      if (mapState === 'hidden') {
+        console.log('draw map and show')
+        // console.log('map')
+        // console.log(map)
+        // hide current chart
         chartSticky.removeAttribute('data-status')
-        chartSticky.setAttribute('data-status', 'shown')
+        chartSticky.setAttribute('data-status', 'hidden')
+        chartSticky.style.display = 'none'
+
+        // unhide map
+        mapSticky.style.display = 'block'
+        map.invalidateSize(true)
+        mapSticky.removeAttribute('data-status')
+        mapSticky.setAttribute('data-status', 'shown')
       }
-    } else if (state == 'shown') {
-      chartSticky.removeAttribute('data-status')
-      chartSticky.setAttribute('data-status', 'hidden')
-      setTimeout(function () {
-        if (event.index >= 0 && event.index < plotObjects.length) {
-          Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-          chartSticky.removeAttribute('data-status')
-          chartSticky.setAttribute('data-status', 'shown')
-        }
-      }, 200)
+    } else if (event.index >= 0 && event.index < plotObjects.length) {
+      if (mapState === 'shown') {
+        console.log('hide map')
+        // console.log('map')
+        // console.log(map)
+        // hide current chart
+        mapSticky.removeAttribute('data-status')
+        mapSticky.setAttribute('data-status', 'hidden')
+        mapSticky.style.display = 'none'
+      }
+
+      // if (chartState == 'hidden') {
+      //   console.log('draw chart and show')
+      //   chartSticky.style.display = 'block'
+      //   mapSticky.style.display = 'none'
+      // }
     }
+
+    // if (chartState == 'hidden') {
+    //   if (event.index >= 0 && event.index < plotObjects.length) {
+    //       console.log('draw map and show')
+    //
+    //
+    //       mapSticky.style.display = 'block'
+    //       plotObjects[event.index].invalidateSize(false)
+    //       mapSticky.removeAttribute('data-status')
+    //       mapSticky.setAttribute('data-status', 'shown')
+    //     } else {
+    //       console.log('draw plot and show')
+    //       Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+    //       chartSticky.style.display = 'block'
+    //       chartSticky.removeAttribute('data-status')
+    //       chartSticky.setAttribute('data-status', 'shown')
+    //
+    //       mapSticky.style.display = 'none'
+    //       mapSticky.removeAttribute('data-status')
+    //       mapSticky.setAttribute('data-status', 'hidden')
+    //     }
+    //   }
+    // } else if (chartState == 'shown') {
+    //   if (event.index !== 7) {
+    //     mapSticky.removeAttribute('data-status')
+    //     mapSticky.setAttribute('data-status', 'hidden')
+    //   } else {
+    //     chartSticky.removeAttribute('data-status')
+    //     chartSticky.setAttribute('data-status', 'hidden')
+    //   }
+    //
+    //   setTimeout(function () {
+    //     if (event.index >= 0 && event.index < plotObjects.length) {
+    //       if (event.index != 7) {
+    //         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+    //         chartSticky.removeAttribute('data-status')
+    //         chartSticky.setAttribute('data-status', 'shown')
+    //       } else {
+    //         chartSticky.style.display = 'none'
+    //         mapSticky.style.display = 'block'
+    //         plotObjects[event.index].invalidateSize(false)
+    //         mapSticky.removeAttribute('data-status')
+    //         mapSticky.setAttribute('data-status', 'shown')
+    //       }
+    //     }
+    //   }, 200)
+    // }
   }
 
-  var ts = new TwoStep({
+  const ts = new TwoStep({
     elements: document.querySelectorAll('.narrative-item'),
     onChange: drawPlot,
     stick: document.querySelector('.rightcol')
