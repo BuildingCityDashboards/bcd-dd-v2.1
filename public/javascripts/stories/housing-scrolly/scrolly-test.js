@@ -41,7 +41,8 @@
   plotObjects.push('References')
         // fix for modebar bg colour
   plotObjects.forEach((po, i) => {
-    if (i != 7 && i != plotObjects.length - 1 && i != plotObjects.length - 2) {
+    if (po.hasOwnProperty('layout')) {
+      console.log(i + ' has layout')
       po.layout.modebar = {
         'bgcolor': 'rgba(0, 0, 0, 0)'
       }
