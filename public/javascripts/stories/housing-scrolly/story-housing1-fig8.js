@@ -1,117 +1,111 @@
-const pFormat = d3.format(".2%"),
-  pYear = d3.timeParse("%Y"),
-  src = "../data/Stories/Housing/part_1/",
-  getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p);
+const getMapFig8 = async function () {
+  const pFormat = d3.format('.2%'),
+    pYear = d3.timeParse('%Y'),
+    src = '../data/Stories/Housing/part_1/',
+    getKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p)
 
-const srcPathFig8 = "../data/Stories/Housing/part_1/";
-d3.json(srcPathFig8 + "DublinCityDestPOWCAR11_0.js")
-  .then(datafiles => {
+  const srcPathFig8 = '../data/Stories/Housing/part_1/'
 
-    // console.log(datafiles);
+  let datafiles = await d3.json(srcPathFig8 + 'DublinCityDestPOWCAR11_0.js')
 
-    let map = new L.Map("commuter-map", {
-        center: [53.35, -6.8],
-        zoom: 9
-      })
-      .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
+  let map = new L.Map('map-sticky-housing-1', {
+    center: [53.35, -6.8],
+    zoom: 9
+  }).addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'))
 
-    function onEachFeature(f, layer) {
+  function onEachFeature (f, layer) {
+    let t = +f.properties.WORKFORCE,
+      c = +f.properties.DESTDUBLIN,
+      p = pFormat(c / t)
 
-      let t = +f.properties.WORKFORCE,
-        c = +f.properties.DESTDUBLIN,
-        p = pFormat(c / t);
-
-      let popupContent =
-        "<p style=font-weight:400; font-size:14px;>Of the " +
+    let popupContent =
+        '<p style=font-weight:400; font-size:14px;>Of the ' +
         f.properties.WORKFORCE +
-        " workers in this ED (" +
+        ' workers in this ED (' +
 
         f.properties.EDNAME +
-        ")*, " +
+        ')*, ' +
         f.properties.DESTDUBLIN +
-        " (" + p + ")" +
-        " work in Dublin City**";
+        ' (' + p + ')' +
+        ' work in Dublin City**'
 
-      if (f.properties && f.properties.popupContent) {
-        popupContent += f.properties.popupContent;
-      }
-
-      layer.bindPopup(popupContent);
+    if (f.properties && f.properties.popupContent) {
+      popupContent += f.properties.popupContent
     }
 
-    L.geoJSON(datafiles, {
-      style: colour,
-      onEachFeature: onEachFeature
-    }).addTo(map);
+    layer.bindPopup(popupContent)
+  }
 
-    ///--
-    var legend = L.control({
-      position: 'topright'
-    });
+  L.geoJSON(datafiles, {
+    style: colour,
+    onEachFeature: onEachFeature
+  }).addTo(map)
 
-    legend.onAdd = function(map) {
+  let legend = L.control({
+    position: 'topright'
+  })
 
-      var div = L.DomUtil.create('div', 'info legend'),
-        grades = [500, 1500, 2500, 3500, 4500],
-        labels = [];
+  legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend'),
+      grades = [500, 1500, 2500, 3500, 4500],
+      labels = []
 
       // loop through our density intervals and generate a label with a colored square for each interval
-      for (var i = 0; i < grades.length; i++) {
-        div.innerHTML +=
+    for (var i = 0; i < grades.length; i++) {
+      div.innerHTML +=
           '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-      }
-
-      return div;
-    };
-
-    legend.addTo(map);
-
-    function colour(f) {
-      return {
-        fillColor: intensity(f.properties),
-        fillOpacity: 0.85,
-        weight: 2,
-        color: intensity(f.properties)
-      };
+          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+')
     }
 
-    function intensity(d) {
-      let total = +d.WORKFORCE,
-        commute = +d.DESTDUBLIN,
-        percentage = (commute / total);
+    return div
+  }
 
-      switch (true) {
-        case percentage > 0.5:
-          return "#b30000";
-          break;
+  legend.addTo(map)
 
-        case percentage > 0.3:
-          return "#e34a33";
-          break;
+  return map
+}
 
-        case percentage > 0.1:
-          return "#fc8d59";
-          break;
+function colour (f) {
+  return {
+    fillColor: intensity(f.properties),
+    fillOpacity: 0.85,
+    weight: 2,
+    color: intensity(f.properties)
+  }
+}
 
-        case percentage > 0.05:
-          return "#fdcc8a";
-          break;
+function intensity (d) {
+  let total = +d.WORKFORCE,
+    commute = +d.DESTDUBLIN,
+    percentage = (commute / total)
 
-        default:
-          return "#fef0d9";
-      }
-    };
-  }).catch(function(error) {
-    console.log(error);
-  });
+  switch (true) {
+    case percentage > 0.5:
+      return '#b30000'
+      break
 
+    case percentage > 0.3:
+      return '#e34a33'
+      break
 
-function getColor(d) {
+    case percentage > 0.1:
+      return '#fc8d59'
+      break
+
+    case percentage > 0.05:
+      return '#fdcc8a'
+      break
+
+    default:
+      return '#fef0d9'
+  }
+}
+
+function getColor (d) {
   return d > 3500 ? '#b30000' :
     d > 3500 ? '#e34a33' :
     d > 2500 ? '#fc8d59' :
     d > 1500 ? '#fdcc8a' :
     d > 500 ? '#fef0d9' :
-    '#FFEDA0';
+    '#FFEDA0'
 };

@@ -134,6 +134,8 @@
   height      : auto;
   min-height  : 100vh;
   padding-top : 20vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .chart {
@@ -151,6 +153,22 @@
   opacity           : 0;
   -webkit-animation : fadeOut 200ms;
   animation         : fadeOut 200ms;
+}
+
+#map-sticky-housing-1{
+  position: relative;
+  height: 600px;
+  width: 800px;
+  /*margin-bottom: 100px;*/
+  /* margin-top: 40px; */
+}
+
+#chart-sticky-housing-1{
+  position: relative;
+  height: 600px;
+  width: 800px;
+  /*margin-bottom: 100px;*/
+  /* margin-top: 40px; */
 }
 
 .mobile-chart {
