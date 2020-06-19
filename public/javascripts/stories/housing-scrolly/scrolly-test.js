@@ -42,7 +42,7 @@
         // fix for modebar bg colour
   plotObjects.forEach((po, i) => {
     if (po.hasOwnProperty('layout')) {
-      console.log(i + ' has layout')
+      // console.log(i + ' has layout')
       po.layout.modebar = {
         'bgcolor': 'rgba(0, 0, 0, 0)'
       }
