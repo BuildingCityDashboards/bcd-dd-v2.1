@@ -40,10 +40,14 @@
 
   // TODO: this is dumb, but must wait for a genralised function to return plot objects
   let plotObjects = []
-  let plotObject = await getPlotObjectFig1()
+
+  let plotObject = {}
+  plotObject = await getPlotObjectFig1()
   stylePlotlyLayout(plotObject)
   console.log('plot 1 loaded')
   plotObjects.push(plotObject)
+
+  let map = {} // initialise
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -66,9 +70,11 @@
 
         // unhide map
         mapSticky.style.display = 'block'
-        map.invalidateSize(true)
-        mapSticky.removeAttribute('data-status')
-        mapSticky.setAttribute('data-status', 'shown')
+        if (map.hasOwnProperty('options')) {
+          map.invalidateSize(true)
+          mapSticky.removeAttribute('data-status')
+          mapSticky.setAttribute('data-status', 'shown')
+        }
       }
     } else if (event.index >= 0 && event.index < plotObjects.length) {
       if (mapState === 'shown') {
@@ -131,8 +137,9 @@
   console.log('plot 7 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
-  let map = await getMapFig8()
+  map = await getMapFig8()
   console.log('plot 8 loaded')
+
   stylePlotlyLayout(plotObject)
   plotObjects.push(map)
   plotObjects.push('Acknowledgement')
