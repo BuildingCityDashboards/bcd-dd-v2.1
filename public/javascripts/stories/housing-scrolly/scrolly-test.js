@@ -84,11 +84,23 @@
         mapSticky.style.display = 'none'
       }
 
-      // if (chartState == 'hidden') {
-      //   console.log('draw chart and show')
-      //   chartSticky.style.display = 'block'
-      //   mapSticky.style.display = 'none'
-      // }
+      if (chartState == 'hidden') {
+        console.log('draw chart and show')
+        chartSticky.style.display = 'block'
+        if (plotObjects[event.index].hasOwnProperty('layout')) {
+          Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+          chartSticky.removeAttribute('data-status')
+          chartSticky.setAttribute('data-status', 'shown')
+        }
+      } else if (chartState == 'shown') {
+        chartSticky.removeAttribute('data-status')
+        chartSticky.setAttribute('data-status', 'hidden')
+        if (plotObjects[event.index].hasOwnProperty('layout')) {
+          Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+          chartSticky.removeAttribute('data-status')
+          chartSticky.setAttribute('data-status', 'shown')
+        }
+      }
     }
 
     // if (chartState == 'hidden') {
