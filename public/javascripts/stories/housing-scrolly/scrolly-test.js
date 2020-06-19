@@ -19,43 +19,31 @@
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
 
-  // TODO: this is dumb, but must wait for a genralised function to return plot objects
-  let plotObjects = []
-  let plotObject = await getPlotObjectFig1()
-  console.log('plot 1 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig2()
-  console.log('plot 2 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig3()
-  console.log('plot 3 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig4()
-  console.log('plot 4 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig5()
-  console.log('plot 5 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig6()
-  console.log('plot 6 loaded')
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig7()
-  console.log('plot 7 loaded')
-  plotObjects.push(plotObject)
-  let map = await getMapFig8()
-  console.log('plot 8 loaded')
-  plotObjects.push(map)
-  plotObjects.push('Acknowledgement')
-  plotObjects.push('References')
-        // fix for modebar bg colour
-  plotObjects.forEach((po, i) => {
+  /**
+   * Styling on Plotly Laout options object
+   *
+   * @param { Object } po
+   * @return { Object } po
+   *
+   *
+   */
+
+  const stylePlotlyLayout = po => {
     if (po.hasOwnProperty('layout')) {
       // console.log(i + ' has layout')
       po.layout.modebar = {
         'bgcolor': 'rgba(0, 0, 0, 0)'
       }
     }
-  })
+    return po
+  }
+
+  // TODO: this is dumb, but must wait for a genralised function to return plot objects
+  let plotObjects = []
+  let plotObject = await getPlotObjectFig1()
+  stylePlotlyLayout(plotObject)
+  console.log('plot 1 loaded')
+  plotObjects.push(plotObject)
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -111,6 +99,45 @@
         }
       }
     }
+  }
+
+  const ts = new TwoStep({
+    elements: document.querySelectorAll('.narrative-item'),
+    onChange: drawPlot,
+    stick: document.querySelector('.rightcol')
+  })
+
+  plotObject = await getPlotObjectFig2()
+  console.log('plot 2 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig3()
+  console.log('plot 3 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig4()
+  console.log('plot 4 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig5()
+  console.log('plot 5 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig6()
+  console.log('plot 6 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig7()
+  console.log('plot 7 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  let map = await getMapFig8()
+  console.log('plot 8 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(map)
+  plotObjects.push('Acknowledgement')
+  plotObjects.push('References')
+          // fix for modebar bg colour
 
     // if (chartState == 'hidden') {
     //   if (event.index >= 0 && event.index < plotObjects.length) {
@@ -158,13 +185,7 @@
     //     }
     //   }, 200)
     // }
-  }
-
-  const ts = new TwoStep({
-    elements: document.querySelectorAll('.narrative-item'),
-    onChange: drawPlot,
-    stick: document.querySelector('.rightcol')
-  })
+  // }
 
 // TODO: remove jQ
   function checkSize () {
