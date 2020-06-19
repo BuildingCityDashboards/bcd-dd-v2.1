@@ -11,7 +11,7 @@ const getMapFig8 = async function () {
   let map = new L.Map('map-sticky-housing-1', {
     center: [53.35, -6.8],
     zoom: 9
-  }).addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'))
+  }).addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'))
 
   function onEachFeature (f, layer) {
     let t = +f.properties.WORKFORCE,
