@@ -104,7 +104,7 @@
           if (event.index == 1) {
             afterplotFixesFig2(CHART_STICKY_ELEMENT)
           } else if (event.index == 6) {
-
+            afterplotFixesFig7(CHART_STICKY_ELEMENT)
           }
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')

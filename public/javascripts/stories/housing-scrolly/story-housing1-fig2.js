@@ -49,7 +49,6 @@ const getPlotObjectFig2 = async function () {
   fig2Plots.forEach((plot, i) => {
     plot.xaxis = 'x' + ((i % noOfSubplots) + 1) // % no of subplots
     plot.yaxis = 'y' + ((i % noOfSubplots) + 1)
-    console.log(plot.xaxis)
   })
 
     //  // Set default visible traces (i.e. traces on each chart)
