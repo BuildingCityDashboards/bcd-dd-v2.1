@@ -127,8 +127,8 @@ const getPlotObjectFig2 = async function () {
   fig2Layout.xaxis6.domain = [0.35, 0.65]
   fig2Layout.xaxis7.domain = [0.7, 1.0]
 
-  fig2Layout.yaxis.domain = [0.60, 0.95]
-  fig2Layout.yaxis2.domain = [0.60, 0.95]
+  fig2Layout.yaxis.domain = [0.60, 1.0]
+  fig2Layout.yaxis2.domain = [0.60, 1.0]
   fig2Layout.yaxis3.domain = [0.20, 0.55]
   fig2Layout.yaxis4.domain = [0.20, 0.55]
   fig2Layout.yaxis5.domain = [0.0, 0.15]
@@ -166,78 +166,76 @@ const getPlotObjectFig2 = async function () {
 
     // Set button menu
   const updateMenus = []
-  updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE)
-  updateMenus[0] = Object.assign(updateMenus[0], {
-    buttons: [{
+  updateMenus[0] = JSON.parse(JSON.stringify(UPDATEMENUS_BUTTONS_BASE))
+  updateMenus[0].buttons = [{
+    args: [{
+      visible: [true, true, true, true, true, true, true,
+        false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false
+      ]
+    },
+      {
+          //  'title': '2002',
+        annotations: annotations
+      }
+    ],
+    label: '2002',
+    method: 'update',
+    execute: true
+  },
+    {
       args: [{
-        visible: [true, true, true, true, true, true, true,
-          false, false, false, false, false, false, false,
+        visible: [false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true,
           false, false, false, false, false, false, false,
           false, false, false, false, false, false, false
         ]
       },
         {
-          //  'title': '2002',
+          //  'title': '2006',
           annotations: annotations
         }
       ],
-      label: '2002',
+      label: '2006',
       method: 'update',
       execute: true
     },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true,
-            false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false
-          ]
-        },
-          {
-          //  'title': '2006',
-            annotations: annotations
-          }
-        ],
-        label: '2006',
-        method: 'update',
-        execute: true
+    {
+      args: [{
+        visible: [false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true,
+          false, false, false, false, false, false, false
+        ]
       },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true,
-            false, false, false, false, false, false, false
-          ]
-        },
-          {
+        {
         //  'title': '2011',
-            annotations: annotations
-          }
-        ],
-        label: '2011',
-        method: 'update',
-        execute: true
+          annotations: annotations
+        }
+      ],
+      label: '2011',
+      method: 'update',
+      execute: true
+    },
+    {
+      args: [{
+        visible: [false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true
+        ]
       },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true
-          ]
-        },
-          {
+        {
           //  'title': '2016',
-            annotations: annotations
-          }
-        ],
-        label: '2016',
-        method: 'update',
-        execute: true
-      }
-    ]
-  })
+          annotations: annotations
+        }
+      ],
+      label: '2016',
+      method: 'update',
+      execute: true
+    }
+  ]
 
   fig2Layout.updatemenus = updateMenus
 
