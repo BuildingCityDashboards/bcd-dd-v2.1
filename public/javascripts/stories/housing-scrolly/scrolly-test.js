@@ -44,13 +44,13 @@
   let plotObject = {}
   plotObject = await getPlotObjectFig1()
   stylePlotlyLayout(plotObject)
-  console.log('plot 1 loaded')
+  // console.log('plot 1 loaded')
   plotObjects.push(plotObject)
 
   let map = {} // initialise
 
   const drawPlot = async (event) => {
-    console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
     let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
     let chartState = chartSticky.getAttribute('data-status')
@@ -92,6 +92,7 @@
         chartSticky.style.display = 'block'
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')
         }
@@ -100,6 +101,11 @@
         chartSticky.setAttribute('data-status', 'hidden')
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
+          if (event.index == 1) {
+            afterplotFixesFig2(CHART_STICKY_ELEMENT)
+          } else if (event.index == 6) {
+
+          }
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')
         }
@@ -114,31 +120,31 @@
   })
 
   plotObject = await getPlotObjectFig2()
-  console.log('plot 2 loaded')
+  // console.log('plot 2 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig3()
-  console.log('plot 3 loaded')
+  // console.log('plot 3 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig4()
-  console.log('plot 4 loaded')
+  // console.log('plot 4 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig5()
-  console.log('plot 5 loaded')
+  // console.log('plot 5 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig6()
-  console.log('plot 6 loaded')
+  // console.log('plot 6 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig7()
-  console.log('plot 7 loaded')
+  // console.log('plot 7 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
   map = await getMapFig8()
-  console.log('plot 8 loaded')
+  // console.log('plot 8 loaded')
 
   stylePlotlyLayout(plotObject)
   plotObjects.push(map)
