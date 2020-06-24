@@ -36,7 +36,7 @@ const getPlotObjectFig1 = async function () {
     //  traces for chart a
   const popTraces = []
   dataByRegion.forEach((regionData, i) => {
-    const trace = Object.assign({}, TRACES_DEFAULT)
+    const trace = Object.assign({}, TRACES_DEFAULT_MULTILINE)
     trace.name = regionData[0].region
       //  reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 //  magic number!!!

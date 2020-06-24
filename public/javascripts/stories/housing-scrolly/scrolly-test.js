@@ -92,7 +92,11 @@
         chartSticky.style.display = 'block'
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-
+          if (event.index == 1) {
+            afterplotFixesFig2(CHART_STICKY_ELEMENT)
+          } else if (event.index == 6) {
+            afterplotFixesFig7(CHART_STICKY_ELEMENT)
+          }
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')
         }

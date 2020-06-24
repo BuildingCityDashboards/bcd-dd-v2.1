@@ -78,6 +78,10 @@ const getPlotObjectFig2 = async function () {
       mode: 'bars',
       marker: {
         color: CHART_COLORS_BY_REGION[data[0].region] || 'grey'
+      },
+      hoverinfo: 'x',
+      hoverlabel: {
+        namelength: '-1'
       }
         //  text: ['test']
     }
