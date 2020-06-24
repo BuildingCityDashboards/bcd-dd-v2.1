@@ -1,18 +1,21 @@
 extends ../layout
+include ../component/story-scrolly__narrative-item
+include ../component/story-scrolly__title
 
 block append head
     link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
     link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
-    link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
-    link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
-    link(rel='stylesheet', href='/stylesheets/lib/L.Control.Zoomslider.css')
-    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
-    link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
-    link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
-    link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
-    link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
-    link(rel='stylesheet', href='/stylesheets/stories/housing.css')
-    link(rel='stylesheet', href='/stylesheets/maplegend.css')
+    link(rel='stylesheet', href='/stylesheets/stories/scrolly-styles.css')
+    //- link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
+    //- link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
+    //- link(rel='stylesheet', href='/stylesheets/lib/L.Control.Zoomslider.css')
+    //- link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
+    //- link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
+    //- link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
+    //- link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
+    //- link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
+    //- link(rel='stylesheet', href='/stylesheets/stories/housing.css')
+    //- link(rel='stylesheet', href='/stylesheets/maplegend.css')
 block navigation
     
 
