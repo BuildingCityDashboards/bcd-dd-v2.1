@@ -11,7 +11,7 @@ const getPlotObjectFig7 = async function () {
 
   const titleFig7 = 'Social Housing Stock by Type, by Region 1991-2016'
 // titleFig7 = popTitle; //set default on load
-  const divIDFig7 = 'social-housing-units-stock-chart'
+  const e = 'social-housing-units-stock-chart'
 // This array controls the order in which subplotsare drawn
   const regionsFig7 = ['Dublin City', 'Dún Laoghaire-Rathdown', 'Fingal', 'South Dublin', 'Kildare', 'Meath', 'Wicklow']
 
@@ -58,11 +58,7 @@ const getPlotObjectFig7 = async function () {
         return v[xVar]
       }),
       y: data.map((v) => {
-        let regiontxt = v[yVar[0]]
-        let septxt = ' -- '
-        let percenttxt = v[yVar[1]]
-        let percsigntxt = '%'
-        return regiontxt.concat(septxt, percenttxt, percsigntxt) // type
+        return v.type
       }),
       xaxis: null,
       yaxis: null,
@@ -84,49 +80,51 @@ const getPlotObjectFig7 = async function () {
   }
 
     // Configure the layout object common to all plots
-  let layoutFig7 = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS)
-  layoutFig7.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title)
-    // layoutFig7.title.text = titleFig7;
-  layoutFig7.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
-    // layoutFig7.margin.t = 100;
-  layoutFig7.height = 600
+  let fig7Layout = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS)
+  fig7Layout.title = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.title)
+    // fig7Layout.title.text = titleFig7;
+  fig7Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
+    // fig7Layout.margin.t = 100;
+  fig7Layout.height = 600
 
   const xaxisRange = [0, 120000] // TODO: get the max value from the data
     // configure the axes for each subplot
   regionsFig7.forEach((region, i) => {
-    const xAxisName = 'xaxis' + (i + 1)
-    layoutFig7[xAxisName] = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis)
-    layoutFig7[xAxisName].title = region
-    layoutFig7[xAxisName].visible = false
-    layoutFig7[xAxisName].titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont)
-    layoutFig7[xAxisName].titlefont.color = CHART_COLORS_BY_REGION[region] || null
-    layoutFig7[xAxisName].range = xaxisRange
-    layoutFig7[xAxisName].anchor = 'y' + (i + 1)
+    let xAxisName
+    i == 0 ? xAxisName = 'xaxis' : xAxisName = 'xaxis' + (i + 1)
+    fig7Layout[xAxisName] = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis)
+    fig7Layout[xAxisName].title = region
+    fig7Layout[xAxisName].visible = false
+    fig7Layout[xAxisName].titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont)
+    fig7Layout[xAxisName].titlefont.color = CHART_COLORS_BY_REGION[region] || null
+    fig7Layout[xAxisName].range = xaxisRange
+    fig7Layout[xAxisName].anchor = 'y' + (i + 1)
 
-    const yAxisName = 'yaxis' + (i + 1)
-    layoutFig7[yAxisName] = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis)
-    layoutFig7[yAxisName].anchor = 'x' + (i + 1)
-    layoutFig7[yAxisName].titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont)
+    let yAxisName
+    i == 0 ? yAxisName = 'yaxis' : yAxisName = 'yaxis' + (i + 1)
+    fig7Layout[yAxisName] = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis)
+    fig7Layout[yAxisName].anchor = 'x' + (i + 1)
+    fig7Layout[yAxisName].titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.yaxis.titlefont)
     if (region === 'Kildare' || region === 'Meath' || region === 'Wicklow') {
-      layoutFig7[yAxisName].visible = false
+      fig7Layout[yAxisName].visible = false
     }
   })
-  layoutFig7.xaxis.visible = false
-  layoutFig7.xaxis.domain = [0, 0.45]
-  layoutFig7.xaxis2.domain = [0.55, 1.0]
-  layoutFig7.xaxis3.domain = [0.0, 0.45]
-  layoutFig7.xaxis4.domain = [0.55, 1.0]
-  layoutFig7.xaxis5.domain = [0, 0.3]
-  layoutFig7.xaxis6.domain = [0.35, 0.65]
-  layoutFig7.xaxis7.domain = [0.7, 1.0]
+  fig7Layout.xaxis.visible = false
+  fig7Layout.xaxis.domain = [0, 0.45]
+  fig7Layout.xaxis2.domain = [0.55, 1.0]
+  fig7Layout.xaxis3.domain = [0.0, 0.45]
+  fig7Layout.xaxis4.domain = [0.55, 1.0]
+  fig7Layout.xaxis5.domain = [0, 0.3]
+  fig7Layout.xaxis6.domain = [0.35, 0.65]
+  fig7Layout.xaxis7.domain = [0.7, 1.0]
 
-  layoutFig7.yaxis.domain = [0.7, 1.0]
-  layoutFig7.yaxis2.domain = [0.7, 1.0]
-  layoutFig7.yaxis3.domain = [0.30, 0.60]
-  layoutFig7.yaxis4.domain = [0.30, 0.60]
-  layoutFig7.yaxis5.domain = [0.0, 0.15]
-  layoutFig7.yaxis6.domain = [0.0, 0.15]
-  layoutFig7.yaxis7.domain = [0.0, 0.15]
+  fig7Layout.yaxis.domain = [0.60, 0.95]
+  fig7Layout.yaxis2.domain = [0.60, 0.95]
+  fig7Layout.yaxis3.domain = [0.20, 0.55]
+  fig7Layout.yaxis4.domain = [0.20, 0.55]
+  fig7Layout.yaxis5.domain = [0.0, 0.15]
+  fig7Layout.yaxis6.domain = [0.0, 0.15]
+  fig7Layout.yaxis7.domain = [0.0, 0.15]
 
   let annotations = []
   plotsFig7.forEach((plot, i) => {
@@ -162,7 +160,7 @@ const getPlotObjectFig7 = async function () {
     return annotation
   };
 
-  layoutFig7.annotations = annotations
+  fig7Layout.annotations = annotations
 
     // Set button menu
     // Set button menu
@@ -266,9 +264,9 @@ const getPlotObjectFig7 = async function () {
     ]
   })
 
-  layoutFig7.updatemenus = updateMenus
+  fig7Layout.updatemenus = updateMenus
 
-    // layoutFig7.grid = {
+    // fig7Layout.grid = {
     //   rows: 3,
     //   // columns: 2,
     //   pattern: 'independent'
@@ -290,48 +288,50 @@ const getPlotObjectFig7 = async function () {
 
   const plotObject = {
     traces: plotsFig7,
-    layout: layoutFig7,
+    layout: fig7Layout,
     options: plotOptions
   }
 
   return plotObject
+}
 
+const afterplotFixesFig7 = function (e) {
     // workaround to place y axis labels on bars
-  // document.getElementById(divIDFig7).on('plotly_afterplot', function () {
-  //   let y1AxisLabels = [].slice.call(document.getElementById(divIDFig7).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
-  //   for (let i = 0; i < y1AxisLabels.length; i++) {
-  //       // yAxisLabels[i].setAttribute('visible', true);
-  //     y1AxisLabels[i].setAttribute('text-anchor', 'start')
-  //     let y1x = parseInt(y1AxisLabels[i].getAttribute('x'))
-  //     y1x += 5
-  //     y1AxisLabels[i].setAttribute('x', y1x) // add left spacing
-  //   }
-  //
-  //   let y2AxisLabels = [].slice.call(document.getElementById(divIDFig7).querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
-  //   for (let i = 0; i < y2AxisLabels.length; i++) {
-  //       // yAxisLabels[i].setAttribute('visible', true);
-  //     y2AxisLabels[i].setAttribute('text-anchor', 'start')
-  //     let y2x = parseInt(y2AxisLabels[i].getAttribute('x'))
-  //     y2x += 5
-  //     y2AxisLabels[i].setAttribute('x', y2x) // add left spacing
-  //   }
-  //
-  //   let y3AxisLabels = [].slice.call(document.getElementById(divIDFig7).querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
-  //   for (let i = 0; i < y3AxisLabels.length; i++) {
-  //       // yAxisLabels[i].setAttribute('visible', true);
-  //     y3AxisLabels[i].setAttribute('text-anchor', 'start')
-  //     let y3x = parseInt(y3AxisLabels[i].getAttribute('x'))
-  //     y3x += 5
-  //     y3AxisLabels[i].setAttribute('x', y3x) // add left spacing
-  //   }
-  //
-  //   let y4AxisLabels = [].slice.call(document.getElementById(divIDFig7).querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
-  //   for (let i = 0; i < y4AxisLabels.length; i++) {
-  //       // yAxisLabels[i].setAttribute('visible', true);
-  //     y4AxisLabels[i].setAttribute('text-anchor', 'start')
-  //     let y4x = parseInt(y4AxisLabels[i].getAttribute('x'))
-  //     y4x += 5
-  //     y4AxisLabels[i].setAttribute('x', y4x) // add left spacing
-  //   }
-  // })
+  document.getElementById(e).on('plotly_afterplot', function () {
+    let y1AxisLabels = [].slice.call(document.getElementById(e).querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
+    for (let i = 0; i < y1AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+      y1AxisLabels[i].setAttribute('text-anchor', 'start')
+      let y1x = parseInt(y1AxisLabels[i].getAttribute('x'))
+      y1x += 5
+      y1AxisLabels[i].setAttribute('x', y1x) // add left spacing
+    }
+
+    let y2AxisLabels = [].slice.call(document.getElementById(e).querySelectorAll('[class^="yaxislayer"] .y2tick text, [class*=" yaxislayer"] .y2tick text'))
+    for (let i = 0; i < y2AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+      y2AxisLabels[i].setAttribute('text-anchor', 'start')
+      let y2x = parseInt(y2AxisLabels[i].getAttribute('x'))
+      y2x += 5
+      y2AxisLabels[i].setAttribute('x', y2x) // add left spacing
+    }
+
+    let y3AxisLabels = [].slice.call(document.getElementById(e).querySelectorAll('[class^="yaxislayer"] .y3tick text, [class*=" yaxislayer"] .y3tick text'))
+    for (let i = 0; i < y3AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+      y3AxisLabels[i].setAttribute('text-anchor', 'start')
+      let y3x = parseInt(y3AxisLabels[i].getAttribute('x'))
+      y3x += 5
+      y3AxisLabels[i].setAttribute('x', y3x) // add left spacing
+    }
+
+    let y4AxisLabels = [].slice.call(document.getElementById(e).querySelectorAll('[class^="yaxislayer"] .y4tick text, [class*=" yaxislayer"] .y4tick text'))
+    for (let i = 0; i < y4AxisLabels.length; i++) {
+        // yAxisLabels[i].setAttribute('visible', true);
+      y4AxisLabels[i].setAttribute('text-anchor', 'start')
+      let y4x = parseInt(y4AxisLabels[i].getAttribute('x'))
+      y4x += 5
+      y4AxisLabels[i].setAttribute('x', y4x) // add left spacing
+    }
+  })
 }

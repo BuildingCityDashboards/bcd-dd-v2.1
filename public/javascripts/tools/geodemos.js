@@ -104,18 +104,21 @@ let traces = []
 let layout = {}
 let tracesIndx = []
 let hmlayout = {}
+
 d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
 
   let columnNames = Object.keys(zScores[0])
   
   columnNames = columnNames.filter(e=>e!=='cluster')
+  
   zScores.forEach((row, i) => {
     let trace = Object.assign({}, TRACES_DEFAULT);
     trace.type = 'bar'
     trace.orientation = 'h'
+    trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     trace.marker = {
-      color: getLayerColor(i), // lines + markers, defaults to colorway
+      color: getLayerColor(i) // lines + markers, defaults to colorway
     }
    
     trace.x = columnNames.map( name => {
@@ -135,7 +138,7 @@ layout = Object.assign({}, ROW_CHART_LAYOUT);
 layout.mode = 'bars'
 layout.height = 500
 //layout.barmode = 'group';
-layout.colorway = GEODEMOS_COLORWAY
+// layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'zscores';
 layout.showlegend = false;
@@ -461,9 +464,12 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
       
       mapGeodemos.addLayer(mapLayers[layerNo])
       //Plotly.addTraces('chart-geodemos',{y:dd,x:traces[1].x},layout)
-      Plotly.addTraces('chart-geodemos',{x: traces[layerNo].x,type:'bar','marker.color':GEODEMOS_COLORWAY_CATEGORICAL[layerNo],evaluate: 'TRUE'},0)
+      Plotly.addTraces('chart-geodemos',{ x: traces[layerNo].x, type:'bar'}, layerNo)
       TrackingArray.push(gn) 
-      
+
+      console.log('layerno: '+ layerNo);
+      console.log(traces[layerNo]);
+        
     }
   }
 
