@@ -370,6 +370,6 @@ const getPlotObjectFig1 = async function () {
     layout: layout,
     options: plotOptions
   }
-  console.log(plotObject)
+  // console.log(plotObject)
   return plotObject
 }

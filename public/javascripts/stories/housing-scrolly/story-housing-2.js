@@ -13,8 +13,8 @@
 // draw chart based on TwoStep interaction
 
 (async () => {
-  const CHART_STICKY_ELEMENT = 'chart-sticky-housing-1'
-  const MAP_STICKY_ELEMENT = 'map-sticky-housing-1'
+  const CHART_STICKY_ELEMENT = 'chart-sticky-housing-2'
+  const MAP_STICKY_ELEMENT = 'map-sticky-housing-2'
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
@@ -92,11 +92,11 @@
         chartSticky.style.display = 'block'
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-          if (event.index == 1) {
-            afterplotFixesFig2(CHART_STICKY_ELEMENT)
-          } else if (event.index == 6) {
-            afterplotFixesFig7(CHART_STICKY_ELEMENT)
-          }
+          // if (event.index == 1) {
+          //   afterplotFixesFig2(CHART_STICKY_ELEMENT)
+          // } else if (event.index == 6) {
+          //   afterplotFixesFig7(CHART_STICKY_ELEMENT)
+          // }
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')
         }
@@ -105,11 +105,11 @@
         chartSticky.setAttribute('data-status', 'hidden')
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-          if (event.index == 1) {
-            afterplotFixesFig2(CHART_STICKY_ELEMENT)
-          } else if (event.index == 6) {
-            afterplotFixesFig7(CHART_STICKY_ELEMENT)
-          }
+          // if (event.index == 1) {
+          //   afterplotFixesFig2(CHART_STICKY_ELEMENT)
+          // } else if (event.index == 6) {
+          //   afterplotFixesFig7(CHART_STICKY_ELEMENT)
+          // }
           chartSticky.removeAttribute('data-status')
           chartSticky.setAttribute('data-status', 'shown')
         }
@@ -127,31 +127,31 @@
   // console.log('plot 2 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig3()
-  // console.log('plot 3 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig4()
-  // console.log('plot 4 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig5()
-  // console.log('plot 5 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig6()
-  // console.log('plot 6 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  plotObject = await getPlotObjectFig7()
-  // console.log('plot 7 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  map = await getMapFig8()
-  // console.log('plot 8 loaded')
-
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(map)
+  // plotObject = await getPlotObjectFig3()
+  // // console.log('plot 3 loaded')
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(plotObject)
+  // plotObject = await getPlotObjectFig4()
+  // // console.log('plot 4 loaded')
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(plotObject)
+  // plotObject = await getPlotObjectFig5()
+  // // console.log('plot 5 loaded')
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(plotObject)
+  // plotObject = await getPlotObjectFig6()
+  // // console.log('plot 6 loaded')
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(plotObject)
+  // plotObject = await getPlotObjectFig7()
+  // // console.log('plot 7 loaded')
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(plotObject)
+  // map = await getMapFig8()
+  // // console.log('plot 8 loaded')
+  //
+  // stylePlotlyLayout(plotObject)
+  // plotObjects.push(map)
   plotObjects.push('Read more')
   plotObjects.push('Acknowledgement')
   plotObjects.push('References')
