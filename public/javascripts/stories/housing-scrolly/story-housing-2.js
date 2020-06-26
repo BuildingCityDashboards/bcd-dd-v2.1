@@ -13,11 +13,11 @@
 // draw chart based on TwoStep interaction
 
 (async () => {
-  const CHART_STICKY_ELEMENT = 'chart-sticky-housing-2'
-  const MAP_STICKY_ELEMENT = 'map-sticky-housing-2'
+  const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
+  const MAP_STICKY_ELEMENT = 'map-sticky-housing'
 // init a blank plot
 // TODO: replace with spinner/ loading progress
-  // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+  // Plotly.newPlot('chart-sticky-housing', {}, {}, {})
 
   /**
    * Styling on Plotly Laout options object
@@ -42,12 +42,11 @@
   let plotObjects = []
 
   let plotObject = {}
+  let map = {} // initialise
   plotObject = await getPlotObjectFig1()
   stylePlotlyLayout(plotObject)
   // console.log('plot 1 loaded')
   plotObjects.push(plotObject)
-
-  let map = {} // initialise
 
   const drawPlot = async (event) => {
     // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -58,7 +57,10 @@
     // console.log(chartState)
     // on trigger at index, get state based on index
     console.log(event.index + ' map state: ' + mapState + ' c state: ' + chartState)
-    if (event.index == 7) {
+    // TODO: don't use indexes of map elements here in this way
+
+    // indexes of map elements
+    if (event.index == 2) {
       if (mapState === 'hidden') {
         console.log('draw map and show')
         // console.log('map')
@@ -81,7 +83,7 @@
         console.log('hide map')
         // console.log('map')
         // console.log(map)
-        // hide current chart
+        // hide current map
         mapSticky.removeAttribute('data-status')
         mapSticky.setAttribute('data-status', 'hidden')
         mapSticky.style.display = 'none'
@@ -105,7 +107,7 @@
         chartSticky.setAttribute('data-status', 'hidden')
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-          // if (event.index == 1) {
+          // if (event.index == ) {
           //   afterplotFixesFig2(CHART_STICKY_ELEMENT)
           // } else if (event.index == 6) {
           //   afterplotFixesFig7(CHART_STICKY_ELEMENT)
@@ -127,10 +129,9 @@
   // console.log('plot 2 loaded')
   stylePlotlyLayout(plotObject)
   plotObjects.push(plotObject)
-  // plotObject = await getPlotObjectFig3()
-  // // console.log('plot 3 loaded')
-  // stylePlotlyLayout(plotObject)
-  // plotObjects.push(plotObject)
+  map = await getMapFig3()
+  console.log('map fig 3 loaded')
+  plotObjects.push(map)
   // plotObject = await getPlotObjectFig4()
   // // console.log('plot 4 loaded')
   // stylePlotlyLayout(plotObject)
@@ -155,55 +156,6 @@
   plotObjects.push('Read more')
   plotObjects.push('Acknowledgement')
   plotObjects.push('References')
-          // fix for modebar bg colour
-
-    // if (chartState == 'hidden') {
-    //   if (event.index >= 0 && event.index < plotObjects.length) {
-    //       console.log('draw map and show')
-    //
-    //
-    //       mapSticky.style.display = 'block'
-    //       plotObjects[event.index].invalidateSize(false)
-    //       mapSticky.removeAttribute('data-status')
-    //       mapSticky.setAttribute('data-status', 'shown')
-    //     } else {
-    //       console.log('draw plot and show')
-    //       Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-    //       chartSticky.style.display = 'block'
-    //       chartSticky.removeAttribute('data-status')
-    //       chartSticky.setAttribute('data-status', 'shown')
-    //
-    //       mapSticky.style.display = 'none'
-    //       mapSticky.removeAttribute('data-status')
-    //       mapSticky.setAttribute('data-status', 'hidden')
-    //     }
-    //   }
-    // } else if (chartState == 'shown') {
-    //   if (event.index !== 7) {
-    //     mapSticky.removeAttribute('data-status')
-    //     mapSticky.setAttribute('data-status', 'hidden')
-    //   } else {
-    //     chartSticky.removeAttribute('data-status')
-    //     chartSticky.setAttribute('data-status', 'hidden')
-    //   }
-    //
-    //   setTimeout(function () {
-    //     if (event.index >= 0 && event.index < plotObjects.length) {
-    //       if (event.index != 7) {
-    //         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-    //         chartSticky.removeAttribute('data-status')
-    //         chartSticky.setAttribute('data-status', 'shown')
-    //       } else {
-    //         chartSticky.style.display = 'none'
-    //         mapSticky.style.display = 'block'
-    //         plotObjects[event.index].invalidateSize(false)
-    //         mapSticky.removeAttribute('data-status')
-    //         mapSticky.setAttribute('data-status', 'shown')
-    //       }
-    //     }
-    //   }, 200)
-    // }
-  // }
 
 // TODO: remove jQ
   function checkSize () {

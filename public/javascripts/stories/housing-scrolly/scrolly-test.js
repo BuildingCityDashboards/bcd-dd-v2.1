@@ -13,11 +13,11 @@
 // draw chart based on TwoStep interaction
 
 (async () => {
-  const CHART_STICKY_ELEMENT = 'chart-sticky-housing-1'
-  const MAP_STICKY_ELEMENT = 'map-sticky-housing-1'
+  const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
+  const MAP_STICKY_ELEMENT = 'map-sticky-housing'
 // init a blank plot
 // TODO: replace with spinner/ loading progress
-  // Plotly.newPlot('chart-sticky-housing-1', {}, {}, {})
+  // Plotly.newPlot('chart-sticky-housing', {}, {}, {})
 
   /**
    * Styling on Plotly Laout options object

@@ -155,7 +155,7 @@
   animation         : fadeOut 200ms;
 }
 
-#map-sticky-housing-1{
+#map-sticky-housing{
   position: relative;
   height: 600px;
   width: 800px;
@@ -163,7 +163,7 @@
   /* margin-top: 40px; */
 }
 
-#chart-sticky-housing-1{
+#chart-sticky-housing{
   position: relative;
   height: 600px;
   width: 800px;
