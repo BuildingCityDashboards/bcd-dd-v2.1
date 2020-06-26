@@ -178,6 +178,11 @@
   display : none;
 }
 
+#conclusion{
+  min-width: 90vw;
+
+}
+
 @media
   screen
   and (max-width : 1024px) {
