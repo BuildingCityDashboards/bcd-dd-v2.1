@@ -73,6 +73,10 @@ const getPlotObjectFig7 = async function () {
       mode: 'bars+text',
       marker: {
         color: CHART_COLORS_BY_REGION[data[0]['region']] || 'grey'
+      },
+      hoverinfo: 'x',
+      hoverlabel: {
+        namelength: '-1'
       }
         // text: ['test']
     }
@@ -118,8 +122,8 @@ const getPlotObjectFig7 = async function () {
   fig7Layout.xaxis6.domain = [0.35, 0.65]
   fig7Layout.xaxis7.domain = [0.7, 1.0]
 
-  fig7Layout.yaxis.domain = [0.60, 0.95]
-  fig7Layout.yaxis2.domain = [0.60, 0.95]
+  fig7Layout.yaxis.domain = [0.60, 1.0]
+  fig7Layout.yaxis2.domain = [0.60, 1.0]
   fig7Layout.yaxis3.domain = [0.20, 0.55]
   fig7Layout.yaxis4.domain = [0.20, 0.55]
   fig7Layout.yaxis5.domain = [0.0, 0.15]

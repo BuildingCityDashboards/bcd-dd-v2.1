@@ -171,7 +171,6 @@ const TRACES_DEFAULT = {
     line: {
       width: null
     }
-
   },
   fill: null,
   fillcolor: null,
@@ -182,9 +181,18 @@ const TRACES_DEFAULT = {
     width: 4
   },
   text: null,
-  hoverinfo: null,
+  hoverinfo: 'y',
+  hoverlabel: {
+    namelength: '-1'
+  },
   visible: true // 'legendonly'
 }
+
+const TRACES_DEFAULT_MULTILINE = JSON.parse(JSON.stringify(TRACES_DEFAULT))
+
+// TRACES_DEFAULT_MULTILINE.hovertemplate = '<i>Price</i>: $%{y:.2f}' +
+//                         '<br><b>X</b>: %{x}<br>' +
+//                         '<b>%{x}</b>'
 
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
@@ -516,7 +524,7 @@ const UPDATEMENUS_BUTTONS_BASE = {
   pad: {
     't': 0,
     'r': 0,
-    'b': 0,
+    'b': 32,
     'l': 0
   },
   font: {
@@ -530,7 +538,7 @@ const UPDATEMENUS_BUTTONS_BASE = {
   bgcolor: '#transparent',
   active: 0,
   xref: 'container',
-  x: 0,
+  x: -0,
   xanchor: 'left',
   yref: 'container',
   y: 1.01, // place above plot area with >1.0

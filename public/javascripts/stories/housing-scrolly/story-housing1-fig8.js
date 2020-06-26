@@ -8,7 +8,7 @@ const getMapFig8 = async function () {
 
   let datafiles = await d3.json(srcPathFig8 + 'DublinCityDestPOWCAR11_0.js')
 
-  let map = new L.Map('map-sticky-housing-1', {
+  let map = new L.Map('map-sticky-housing', {
     center: [53.35, -6.8],
     zoom: 9
   }).addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'))
@@ -37,7 +37,7 @@ const getMapFig8 = async function () {
   }
 
   L.geoJSON(datafiles, {
-    style: colour,
+    style: getAreaColor,
     onEachFeature: onEachFeature
   }).addTo(map)
 
@@ -53,7 +53,7 @@ const getMapFig8 = async function () {
       // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
       div.innerHTML +=
-          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+          '<i style="background:' + getLegendColor(grades[i] + 1) + '"></i> ' +
           grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+')
     }
 
@@ -65,16 +65,16 @@ const getMapFig8 = async function () {
   return map
 }
 
-function colour (f) {
+function getAreaColor (f) {
   return {
-    fillColor: intensity(f.properties),
+    fillColor: getCommuterIntensity(f.properties),
     fillOpacity: 0.85,
     weight: 2,
-    color: intensity(f.properties)
+    color: getCommuterIntensity(f.properties)
   }
 }
 
-function intensity (d) {
+function getCommuterIntensity (d) {
   let total = +d.WORKFORCE,
     commute = +d.DESTDUBLIN,
     percentage = (commute / total)
@@ -101,7 +101,7 @@ function intensity (d) {
   }
 }
 
-function getColor (d) {
+function getLegendColor (d) {
   return d > 3500 ? '#b30000' :
     d > 3500 ? '#e34a33' :
     d > 2500 ? '#fc8d59' :

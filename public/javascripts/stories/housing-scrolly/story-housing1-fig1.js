@@ -36,7 +36,7 @@ const getPlotObjectFig1 = async function () {
     //  traces for chart a
   const popTraces = []
   dataByRegion.forEach((regionData, i) => {
-    const trace = Object.assign({}, TRACES_DEFAULT)
+    const trace = Object.assign({}, TRACES_DEFAULT_MULTILINE)
     trace.name = regionData[0].region
       //  reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 //  magic number!!!
@@ -242,99 +242,98 @@ const getPlotObjectFig1 = async function () {
 
     // Set button menu
   const updateMenus = []
-  updateMenus[0] = Object.assign({}, UPDATEMENUS_BUTTONS_BASE)
-  updateMenus[0] = Object.assign(updateMenus[0], {
-    buttons: [{
+  updateMenus[0] = JSON.parse(JSON.stringify(UPDATEMENUS_BUTTONS_BASE))
+  updateMenus[0].x = -0.1
+  updateMenus[0].buttons = [{
+    args: [{
+      visible: [true, true, true, true, true, true, true,
+        false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false
+      ]
+    },
+      {
+        title: popTitle,
+        annotations: popAnnotations,
+        'yaxis.title.text': 'Pop',
+          //  'yaxis.title.standoff': 0,
+        'yaxis.range': [0, 600000],
+        'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
+        'yaxis.hoverformat': ',d'
+      }],
+    label: 'Population',
+    method: 'update',
+    execute: true
+  },
+    {
       args: [{
-        visible: [true, true, true, true, true, true, true,
-          false, false, false, false, false, false, false,
+        visible: [false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true,
           false, false, false, false, false, false, false,
           false, false, false, false, false, false, false
         ]
       },
         {
-          title: popTitle,
-          annotations: popAnnotations,
-          'yaxis.title.text': 'Pop',
-          //  'yaxis.title.standoff': 0,
-          'yaxis.range': [0, 600000],
-          'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
+          title: houseTitle,
+          annotations: houseAnnotations,
+          'yaxis.title.text': 'Hholds',
+          // 'yaxis.title.standoff': 10,
+          'yaxis.range': [-2, 250000],
+          'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000],
           'yaxis.hoverformat': ',d'
-        }],
-      label: 'Population',
+        }
+      ],
+      label: 'Households',
       method: 'update',
       execute: true
     },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true,
-            false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false
-          ]
-        },
-          {
-            title: houseTitle,
-            annotations: houseAnnotations,
-            'yaxis.title.text': 'Hholds',
-          // 'yaxis.title.standoff': 10,
-            'yaxis.range': [-2, 250000],
-            'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000],
-            'yaxis.hoverformat': ',d'
-          }
-        ],
-        label: 'Households',
-        method: 'update',
-        execute: true
+    {
+      args: [{
+        visible: [false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true,
+          false, false, false, false, false, false, false
+        ]
       },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true,
-            false, false, false, false, false, false, false
-          ]
-        },
-          {
-            title: popRateTitle,
-            annotations: popRateAnnotations,
-            'yaxis.title.text': '%',
+        {
+          title: popRateTitle,
+          annotations: popRateAnnotations,
+          'yaxis.title.text': '%',
           //  'yaxis.title.standoff': 20,
-            'yaxis.range': [-2, 125],
-            'yaxis.tickvals': [0, 50, 100],
-            'yaxis.hoverformat': '.3r'
+          'yaxis.range': [-2, 125],
+          'yaxis.tickvals': [0, 50, 100],
+          'yaxis.hoverformat': '.3r'
 
-          }
-        ],
-        label: 'Population % change',
-        method: 'update',
-        execute: true
+        }
+      ],
+      label: 'Population % change',
+      method: 'update',
+      execute: true
+    },
+    {
+      args: [{
+        visible: [false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          false, false, false, false, false, false, false,
+          true, true, true, true, true, true, true
+        ]
       },
-      {
-        args: [{
-          visible: [false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false,
-            true, true, true, true, true, true, true
-          ]
-        },
-          {
-            title: houseRateTitle,
-            annotations: houseRateAnnotations,
-            'yaxis.title.text': '%',
+        {
+          title: houseRateTitle,
+          annotations: houseRateAnnotations,
+          'yaxis.title.text': '%',
           //  'yaxis.title.standoff': 20,
           //  'updatemenus.pad.l': -60,
-            'yaxis.range': [-2, 151],
-            'yaxis.tickvals': [0, 50, 100, 150],
-            'yaxis.hoverformat': '.3r'
-          }
-        ],
-        label: 'Household % change',
-        method: 'update',
-        execute: true
-      }
-    ]
-  })
+          'yaxis.range': [-2, 151],
+          'yaxis.tickvals': [0, 50, 100, 150],
+          'yaxis.hoverformat': '.3r'
+        }
+      ],
+      label: 'Household % change',
+      method: 'update',
+      execute: true
+    }
+  ]
 
   layout.updatemenus = updateMenus
   // layout.modebar = {
@@ -371,6 +370,6 @@ const getPlotObjectFig1 = async function () {
     layout: layout,
     options: plotOptions
   }
-  console.log(plotObject)
+  // console.log(plotObject)
   return plotObject
 }
