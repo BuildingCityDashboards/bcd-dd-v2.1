@@ -1,11 +1,11 @@
 const getPlotObjectFig4 = async function () {
 // Options for chart
 // TODO: pass these in as config and/or create accessor functions
-  const srcPathFig4a = '../data/Stories/Housing/part_2/processed/serviced_land_hectares.csv',
-    srcPathFig4b = '../data/Stories/Housing/part_2/processed/serviced_land_expected_units.csv'
+  const srcPathFig4a = '../data/Stories/Housing/part_2/processed/serviced_land_hectares.csv'
+  const srcPathFig4b = '../data/Stories/Housing/part_2/processed/serviced_land_expected_units.csv'
   const regionsFig4 = ['Dublin City', 'Dún Laoghaire-Rathdown', 'Fingal', 'South Dublin', 'Kildare', 'Meath', 'Wicklow']
   const titleFig4 = 'Serviced Land in Dublin and Surrounding Areas 1991-2016'
-  const divIDFig4 = 'serviced-land-chart'
+
   let data = []
   let d1 = await d3.csv(srcPathFig4a)
   let d2 = await d3.csv(srcPathFig4b)
