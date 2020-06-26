@@ -26,3 +26,29 @@ export function getDublinBoundsLatLng () {
 export function isWithinDublin (lat, lng) {
   return (DUBLIN_BOUNDS.southwest.lat < lat && lat < DUBLIN_BOUNDS.northeast.lat && DUBLIN_BOUNDS.southwest.lng < lng && lng < DUBLIN_BOUNDS.northeast.lng)
 }
+
+/**
+ * Return a map with default options for Dublin
+ *
+ * @param {Object} options
+ * @return {L.Map}
+ *
+ *
+ */
+
+const getDefaultMap = options => {
+  // TODO:
+
+  // let base = new L.TileLayer(stamenTonerUrl_Lite, {
+  //   minZoom: min_zoom,
+  //   maxZoom: max_zoom,
+  //   attribution: stamenTonerAttrib
+  // })
+  // let trafficCountersMap = new L.Map(e, {
+  //   dragging: !L.Browser.mobile,
+  //   tap: !L.Browser.mobile
+  // })
+  // trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+  // return map
+}
+export { getDefaultMap }

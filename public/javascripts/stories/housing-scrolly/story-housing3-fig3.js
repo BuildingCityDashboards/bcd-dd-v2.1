@@ -1,6 +1,6 @@
 const getMapFig3 = async function () {
-  let southWest = L.latLng(52.9754658325, -6.8639598864),
-    northEast = L.latLng(53.7009607624, -5.9835178395),
+  let southWest = L.latLng(52.9754658325, -6.8639598864)
+  northEast = L.latLng(53.7009607624, -5.9835178395),
     dublinBounds = L.latLngBounds(southWest, northEast) // greater Dublin & surrounds
   zoom = 10
 // tile layer with correct attribution
@@ -20,29 +20,20 @@ const getMapFig3 = async function () {
 
   let data = await d3.csv('/data/Stories/Housing/part_3/processed/Airbnb_listings_Mar2020.csv')
 
-  let osm = new L.TileLayer(stamenTonerUrl_Lite, {
-    minZoom: min_zoom,
-    maxZoom: max_zoom,
-    attribution: stamenTonerAttrib
-  })
-  let airbnbMap = new L.Map('map-sticky-housing')
-  airbnbMap.setView(new L.LatLng(dubLat, dubLng), zoom)
-  airbnbMap.addLayer(osm)
+  // let legend = L.control({
+  //   position: 'bottomright'
+  // })
 
-  let legend = L.control({
-    position: 'bottomright'
-  })
+  // legend.onAdd = function (map) {
+  //   let div = L.DomUtil.create('div', 'info-legend')
+  //     // div.innerHTML = '<div class="map-key">' +
+  //     //  '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
+  //     //  '\t\t  is an estate with 8 houses' +
+  //     //  '</div>';
+  //   return div
+  // }
 
-  legend.onAdd = function (map) {
-    let div = L.DomUtil.create('div', 'info-legend')
-      // div.innerHTML = '<div class="map-key">' +
-      //  '<img src="/images/map_icons/8-houses-example.png" alt="house icon" style="width:35px;height:42px;">' +
-      //  '\t\t  is an estate with 8 houses' +
-      //  '</div>';
-    return div
-  }
-
-  legend.addTo(airbnbMap)
+  // legend.addTo(airbnbMap)
 
   let cluster = L.markerClusterGroup()
 
@@ -62,9 +53,11 @@ const getMapFig3 = async function () {
     cluster.addLayer(marker)
   })
 
-  airbnbMap.addLayer(cluster)
+  return cluster
+}
+  // airbnbMap.addLayer(cluster)
 
-  function getIcon (totalHouses) {
+function getIcon (totalHouses) {
       // console.log(totalHouses);
       // let fraction = +totalHouses / 2314;
       // iconConfig.iconSize = [totalHouses, totalHouses];
@@ -72,58 +65,56 @@ const getMapFig3 = async function () {
       // let icon = new L.NumberedDivIcon({
       //  number: totalHouses
       // });
-    let icon = new L.Icon()
-    return icon
-  }
+  let icon = new L.Icon()
+  return icon
+}
 
-  function getTooltipContent (property) {
-    return getPopupContent(property) // pass through
-  }
+function getTooltipContent (property) {
+  return getPopupContent(property) // pass through
+}
 
-  function getPopupContent (property) {
-    let key = 'id'
-    let str = ``;
+function getPopupContent (property) {
+  let key = 'id'
+  let str = ``;
       // Catch null development names or blanks or single space
-    (property[key] && property[key] !== '' && property[key] !== ' ') ? str += `<b>${property[key]}</b><br>` : str += '<b>Unknown property</b><br>'
-    key = 'id'
+  (property[key] && property[key] !== '' && property[key] !== ' ') ? str += `<b>${property[key]}</b><br>` : str += '<b>Unknown property</b><br>'
+  key = 'id'
       // str += `<i>${property[key]}</i><br><br>` || '';
 
-    let keys = ['room_type', 'availability_365', 'calculated_host_listings_count']
-    keys.forEach(key => {
-      str += getDataString(property, key) || ''
-    })
+  let keys = ['room_type', 'availability_365', 'calculated_host_listings_count']
+  keys.forEach(key => {
+    str += getDataString(property, key) || ''
+  })
+
+  return str
+}
+
+function getDataString (property, key) {
+  if (property[key] && property[key] !== ' ') {
+    let str = ''
+    if (key == 'room_type') {
+      str = `<b>Room type</b>: ${property[key]}<br>`
+    }
+    if (key == 'availability_365') {
+      str = `<b>Days available yearly</b>: ${property[key]}<br>`
+    }
+    if (key == 'calculated_host_listings_count') {
+      str = `<b>Properties owned by this host</b>: ${property[key]}<br>`
+    }
 
     return str
   }
-
-  function getDataString (property, key) {
-    if (property[key] && property[key] !== ' ') {
-      let str = ''
-      if (key == 'room_type') {
-        str = `<b>Room type</b>: ${property[key]}<br>`
-      }
-      if (key == 'availability_365') {
-        str = `<b>Days available yearly</b>: ${property[key]}<br>`
-      }
-      if (key == 'calculated_host_listings_count') {
-        str = `<b>Properties owned by this host</b>: ${property[key]}<br>`
-      }
-
-      return str
-    }
-  }
-
-  L.control.locate({
-    strings: {
-      title: 'Zoom to your location'
-    }
-  }).addTo(airbnbMap)
-
-  let osmGeocoder = new L.Control.OSMGeocoder({
-    placeholder: 'Enter street name, area etc.',
-    bounds: dublinBounds
-  })
-  airbnbMap.addControl(osmGeocoder)
-
-  return airbnbMap
 }
+
+  // L.control.locate({
+  //   strings: {
+  //     title: 'Zoom to your location'
+  //   }
+  // }).addTo(airbnbMap)
+
+  // let osmGeocoder = new L.Control.OSMGeocoder({
+  //   placeholder: 'Enter street name, area etc.',
+  //   bounds: dublinBounds
+  // })
+  // airbnbMap.addControl(osmGeocoder)
+
