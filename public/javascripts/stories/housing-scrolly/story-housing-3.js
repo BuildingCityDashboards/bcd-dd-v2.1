@@ -42,11 +42,37 @@
   let plotObjects = []
 
   let plotObject = {}
-  let map = {} // initialise
+  let mapObject
+  let southWest = L.latLng(52.9754658325, -6.8639598864)
+  let northEast = L.latLng(53.7009607624, -5.9835178395)
+  let dublinBounds = L.latLngBounds(southWest, northEast) // greater Dublin & surrounds
+  let mapZoom = 10
+  let osm = new L.TileLayer(stamenTonerUrl_Lite, {
+    minZoom: min_zoom,
+    maxZoom: max_zoom,
+    attribution: stamenTonerAttrib
+  })
+  let map = new L.Map('map-sticky-housing')
+  map.setView(new L.LatLng(dubLat, dubLng), zoom)
+  map.addLayer(osm)
+
   plotObject = await getPlotObjectFig1()
   stylePlotlyLayout(plotObject)
   // console.log('plot 1 loaded')
   plotObjects.push(plotObject)
+  plotObject = await getPlotObjectFig2()
+  // console.log('plot 2 loaded')
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  mapObject = await getMapFig3()
+  plotObjects.push(mapObject)
+  plotObject = await getPlotObjectFig4()
+  // console.log('plot 4 loaded')
+  // console.log(plotObject)
+  stylePlotlyLayout(plotObject)
+  plotObjects.push(plotObject)
+  mapObject = await getMapFig5()
+  plotObjects.push(mapObject)
 
   const drawPlot = async (event) => {
     // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
@@ -60,7 +86,7 @@
     // TODO: don't use indexes of map elements here in this way
 
     // indexes of map elements
-    if (event.index == 2) {
+    if (event.index == 2 || event.index == 4) {
       if (mapState === 'hidden') {
         console.log('draw map and show')
         // console.log('map')
@@ -69,7 +95,7 @@
         chartSticky.removeAttribute('data-status')
         chartSticky.setAttribute('data-status', 'hidden')
         chartSticky.style.display = 'none'
-
+        map.addLayer(plotObjects[event.index])
         // unhide map
         mapSticky.style.display = 'block'
         if (map.hasOwnProperty('options')) {
@@ -87,6 +113,11 @@
         mapSticky.removeAttribute('data-status')
         mapSticky.setAttribute('data-status', 'hidden')
         mapSticky.style.display = 'none'
+        if (map.hasLayer(plotObjects[2])) {
+          map.removeLayer(plotObjects[2])
+        } else if (map.hasLayer(plotObjects[4])) {
+          map.removeLayer(plotObjects[4])
+        }
       }
 
       if (chartState == 'hidden') {
@@ -125,18 +156,7 @@
     stick: document.querySelector('.rightcol')
   })
 
-  plotObject = await getPlotObjectFig2()
-  // console.log('plot 2 loaded')
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  map = await getMapFig3()
-  plotObjects.push(map)
-  plotObject = await getPlotObjectFig4()
-  // console.log('plot 4 loaded')
-  // console.log(plotObject)
-  stylePlotlyLayout(plotObject)
-  plotObjects.push(plotObject)
-  // map = await getMapFig3()
+  // map = await getMapFig5()
   // plotObjects.push(map)
 
   plotObjects.push('Conclusion')
