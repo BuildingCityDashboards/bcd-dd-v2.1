@@ -1,10 +1,74 @@
 mixin subnavbar(classes)
-  nav( class=classes )
-    #subnav.mx-auto 
-      a.subnav-link(href = "#transport") Transport
-      a.subnav-link(href = "#environment") Environment
-      a.subnav-link(href = "#housing") Housing
-      a.subnav-link(href = "#economy") Economy
-      a.subnav-link(href = "#education") Education
-      a.subnav-link(href = "#health") Health
-      a.subnav-link(href = "#demographics") Demographics
+  
+  
+  
+  .row
+  #subnav
+    
+    nav.nav-nav-pills-justify-content-center
+      ul.nav.nav-tabs
+        .col
+          li.nav-item.active
+            a.nav-link.active(data-toggle='tab', href='#transport') Transport
+                  
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#environment') Environment
+              
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#housing') Housing
+                  
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#economy') Economy
+
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#education') Education  
+
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#health') Health
+
+        .col
+          li.nav-item
+            a.nav-link(data-toggle='tab', href='#demographics') Demographics     
+                
+   
+   
+   
+   
+    //- nav.nav.nav-tabs(role='tablist')
+    //-   //- a.nav-item.nav-link(href='#transport') Transport
+    //-   a.nav-link(data-toggle='tab', href='#transport') Transport
+    //-   a.nav-link(data-toggle='tab', href='#transport') Env.
+    //-   a.nav-link(data-toggle='tab', href='#transport') Rte
+    //-   a.nav-link(data-toggle='tab', href='#transport') sport
+    //-   a.nav-link(data-toggle='tab', href='#transport') fffff
+
+      
+      
+      //- a.nav-item.nav-link(href='#environment') Environment
+      //- a.nav-item.nav-link(href='#housing') Housing
+      //- a.nav-item.nav-link(href='#economy') Economy
+      //- a.nav-item.nav-link(href='#education') Education
+      //- a.nav-item.nav-link(href='#health') Health
+      //- a.nav-item.nav-link(href='#demographics') Demographics
+
+    //- #subnav.mx-auto 
+    //-       a.nav-item.nav-link.active(href='#transport') Transport
+    //-       a.nav-item.nav-link(href='#environment') Environment
+    //-       a.nav-item.nav-link(href='#housing') Housing
+    //-       a.nav-item.nav-link(href='#economy') Economy
+    //-       a.nav-item.nav-link(href='#education') Education
+    //-       a.nav-item.nav-link(href='#health') Health
+    //-       a.nav-item.nav-link(href='#demographics') Demographics
+          
+          //- a.subnav-link(href = "#transport") Transport
+          //- a.subnav-link(href = "#environment") Environment
+          //- a.subnav-link(href = "#housing") Housing
+          //- a.subnav-link(href = "#economy") Economy
+          //- a.subnav-link(href = "#education") Education
+          //- a.subnav-link(href = "#health") Health
+          //- a.subnav-link(href = "#demographics") Demographics

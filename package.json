@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "bcd-dd-v2.x",
   "version": "2.1.0",
   "private": true,

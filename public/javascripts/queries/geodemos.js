@@ -28,13 +28,10 @@ Solve with async await
     let dJson = files[0]
     alert(dJson)
   }))*/
-//alert(GroupJson)
-
- 
+//alert('GroupJson8888')
   
 import { getDublinBoundsLatLng } from '../modules/bcd-maps.js'
-
-let TrackingArray = []
+//alert('sssssssss')
 let dub_lng = -6.2603
 let dub_lat = 53.42
 let dublinX, dublinY
@@ -58,6 +55,9 @@ let CARTODB_POSITRON = 'https://{s}.basemaps.cartocdn.com/rastertiles/light_nola
 let CARTODB_ATTRIBUTION = '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, © <a href="https://carto.com/">CartoDB </a> contributors'
 
 //let mapGeodemos = new L.Map('map-geodemos')
+
+
+
 let mapGeodemos = new L.Map('map-geodemos')
 let osm = new L.TileLayer(CARTODB_POSITRON, {
   minZoom: min_zoom,
@@ -107,8 +107,8 @@ let hmlayout = {}
 d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
 
-  let columnNames = Object.keys(zScores[0])
-  
+  let columnNames = Object.keys(zScores[0]).reverse();
+  //const zScores2=zScores.reverse();
   columnNames = columnNames.filter(e=>e!=='cluster')
   zScores.forEach((row, i) => {
     let trace = Object.assign({}, TRACES_DEFAULT);
@@ -137,7 +137,7 @@ layout.height = 500
 //layout.barmode = 'group';
 layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-layout.title.text = 'zscores';
+layout.title.text = 'Variables Value Distribution (z-scores)';
 layout.showlegend = false;
 layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
 layout.legend.xanchor = 'right';
@@ -185,7 +185,7 @@ Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
   //   format: 'png'
   // }
   })
-  TrackingArray.push(1)
+  //TrackingArray.push(1)
   updateGroupTxt(1);
   //getzscorstat(0)
     
@@ -316,8 +316,9 @@ function updateGroupTxt(no)
 {
 // getLayerColor(index)
   d3.json("/data/home/geodem-text-data.json").then(function(dublinRegionsJson) {  
-  d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size','22px');
-  d3.select('#group-title').text(dublinRegionsJson[1][no]).style("color",getLayerColor(no-1));
+  d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size','26px').style('font-weight','bold');
+  //
+  d3.select('#group-title').text(dublinRegionsJson[1][no]); //.style("color",getLayerColor(no-1));
   d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size','15px');
   
   })
@@ -381,13 +382,10 @@ function getMed(array)
 {
   
   const arr = array;
-  
   const len = arr.length;
-  
-
   const arrSort = arr.sort();
   const mid = Math.ceil(len / 2);
-  
+ 
   const median =
     len % 2 == 0 ? (arrSort[mid] + arrSort[mid - 1]) / 2 : arrSort[mid - 1];
   
@@ -417,31 +415,34 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
   let cb= $(this);
   let myv= $(this).attr("id");
   
-  if (cb.attr("src") ==='/images/icons/Icon_eye_deselected.svg') {
+  //if (cb.attr("src") ==='/images/icons/Icon_eye_deselected.svg') {
   
-  cb.attr("src","/images/icons/Icon_eye_selected.svg")
+  //cb.attr("src","/images/icons/Icon_eye_selected.svg")
   
-  } 
-  else  {
+  //} 
+  //else  {
   
-    cb.attr("src","/images/icons/Icon_eye_deselected.svg")
+    //cb.attr("src","/images/icons/Icon_eye_deselected.svg")
   
-  }
+  //}
   
   let layerNo = myv === 'all' ? 'all' : parseInt(myv) -1
   
   if (layerNo !== 'all') {
-  
-  
+  /*alert(layerNo)
+        
     if(mapGeodemos.hasLayer(mapLayers[layerNo])){
+      //alert('yes')
       cb.clicked = false
-       mapGeodemos.removeLayer(mapLayers[layerNo])
-       Plotly.deleteTraces('chart-geodemos', 0,layout);
-       TrackingArray.pop()
+      
+  
+      //mapGeodemos.removeLayer(mapLayers[layerNo])
+       //Plotly.deleteTraces('chart-geodemos', 0,layout);
+       //TrackingArray.pop()
        //alert(TrackingArray)
-       let litemindex=TrackingArray.slice(-1)[0];
+       //let litemindex=TrackingArray.slice(-1)[0];
        
-       updateGroupTxt(litemindex)
+       //updateGroupTxt(litemindex)
        //var data_update = {
         //'marker.color': getLayerColor(layerNo+1)
         //}
@@ -450,72 +451,95 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
        //Plotly.react('chart-geodemos', [traces[layerNo]] ,layout)
      }
       else if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
-      cb.clicked = true
-      let gn=layerNo+1;
+      //cb.clicked = true*/
+
+
       
-      updateGroupTxt(gn)
       //getzscorstat(layerNo)
       //if (TrackingArray[gn] !==''){
-      let n = TrackingArray.includes(gn);
+      //let n = TrackingArray.includes(gn);
       
-      
-      mapGeodemos.addLayer(mapLayers[layerNo])
+  
+  
+      mapLayers.forEach( l =>{
+        //if(!mapGeodemos.hasLayer(l)){
+          mapGeodemos.removeLayer(l)
+          //Plotly.react('chart-geodemos', [traces,traces[myv]] ,layout)
+        
+        
+      })
+      for(let i=1; i <8 ; i++)
+ {
+   let myimg=document.getElementById(i)    
+  myimg.src="/images/icons/Icon_eye_deselected.svg"
+ }
+ let ssimg=document.getElementById('all')    
+ ssimg.src="/images/icons/Icon_eye_deselected.svg"
+
+
+ let gn=layerNo+1;
+      //mapGeodemos.removeLayer(mapLayers[layerNo-1])
+      updateGroupTxt(gn)
+    mapGeodemos.addLayer(mapLayers[layerNo])
       //Plotly.addTraces('chart-geodemos',{y:dd,x:traces[1].x},layout)
-      Plotly.addTraces('chart-geodemos',{x: traces[layerNo].x,type:'bar','marker.color':GEODEMOS_COLORWAY_CATEGORICAL[layerNo],evaluate: 'TRUE'},0)
-      TrackingArray.push(gn) 
+      //Plotly.addTraces('chart-geodemos',{x: traces[layerNo].x,type:'bar','marker.color':GEODEMOS_COLORWAY_CATEGORICAL[layerNo],evaluate: 'TRUE'},0)
+      Plotly.react('chart-geodemos', [traces[layerNo]], layout)
+      let myimg1=document.getElementById(gn)    
+      myimg1.src="/images/icons/Icon_eye_selected.svg"
+      //TrackingArray.push(gn) 
       
     }
-  }
+  //}
 
-  
-else if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
+
+
+
+   if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
  //alert('all') 
  
  for(let i=1; i<8; i++)
  {
-  let myimg=document.getElementById(i)    
-  myimg.src="/images/icons/Icon_eye_deselected.svg"
+  let myimg2=document.getElementById(i)    
+  myimg2.src="/images/icons/Icon_eye_deselected.svg"
  }
+ let simg=document.getElementById('all')    
+ simg.src="/images/icons/Icon_eye_selected.svg"
 
-
-
-  
- 
- 
-
+ //alert('all two')
 
 let cb= $(this);
-var srrc = cb.attr("src");
- 
+let srrc = cb.attr("src");
+//alert(srrc)
+//srrc="/images/icons/Icon_eye_selected.svg" 
     
-    if (srrc=="/images/icons/Icon_eye_selected.svg")
-    {
+    //if (srrc=="/images/icons/Icon_eye_selected.svg")
+    //{
     mapLayers.forEach( l =>{
-      //if(!mapGeodemos.hasLayer(l)){
-        mapGeodemos.addLayer(l)
-        //Plotly.react('chart-geodemos', [traces,traces[myv]] ,layout)
-      
-      
-    })
+    if(!mapGeodemos.hasLayer(l)){
+    mapGeodemos.addLayer(l)
+    //Plotly.react('chart-geodemos', [traces,traces[myv]] ,layout)
+  }})
 
-   
-     
-    addheatmap()
+
+    
+  addheatmap()    
+  updateGroupTxt('all')
+
+  //let seim =document.getElementById("1")
       
-    updateGroupTxt('all')
-      let myim =document.getElementById("1")
       
       
-      myim.src="/images/icons/Icon_eye_deselected.svg"
-  }
-  else if (srrc=="/images/icons/Icon_eye_deselected.svg")
-  {
-    mapLayers.forEach( l =>{
-      if(mapGeodemos.hasLayer(l)){
-        mapGeodemos.removeLayer(l)
-      }
-    })
-      mapGeodemos.addLayer(mapLayers[0])
+  //let myim =document.getElementById("1")
+  //myim.src="/images/icons/Icon_eye_deselected.svg"
+ // }
+  //else if (srrc=="/images/icons/Icon_eye_deselected.svg")
+  //{
+    //mapLayers.forEach( l =>{
+    //if(mapGeodemos.hasLayer(l)){
+    //mapGeodemos.removeLayer(l)
+    //}
+   // })
+      /*mapGeodemos.addLayer(mapLayers[0])
       Plotly.newPlot('chart-geodemos', [traces[0]],layout)
       updateGroupTxt(1)
       //d3.select('#group-text').text(dublinRegionsJson[0]).style('font-size','15px');  
@@ -523,27 +547,9 @@ var srrc = cb.attr("src");
       
       myim.src="/images/icons/Icon_eye_selected.svg"
       
-  }
-
-
-
-    
-
+  }*/
 
   }
-
-
-
-
-
-
-
-
-
-
-
-  
-
 })
   
 
@@ -610,7 +616,7 @@ function addheatmap ()
   //layout.barmode = 'group';
   hmlayout.colorway = GEODEMOS_COLORWAY
   hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-  hmlayout.title.text = 'zscores';
+  hmlayout.title.text = 'Variables Value Distribution (z-scores)';
   hmlayout.showlegend = false;
   hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
   hmlayout.legend.xanchor = 'right';
@@ -628,7 +634,9 @@ function addheatmap ()
   hmlayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
   hmlayout.yaxis.titlefont.size = 16; //bug? need to call this
   hmlayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
-  
+  //-hmlayout.hovermode ='closest';
+  //-hmlayout.hoverinfo = "z";
+  //-hmlayout.domain =[0.85,0.9];
   hmlayout.yaxis.title = '';
   hmlayout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
   hmlayout.margin = {
@@ -679,10 +687,11 @@ function addheatmap ()
           x: GroupsArray,
           y: header.split(','),
           type: 'heatmap',
+          hoverinfo: true,
           hoverongaps: true,
           showticker: true, 
-          colorscale: 'Portland',
-          linecolor: 'White',
+          colorscale: [[0, 'rgb(166,206,227)'], [0.25, 'rgb(31,120,180)'], [0.45, 'rgb(178,223,138)'], [0.65, 'rgb(51,160,44)'], [0.85, 'rgb(251,154,153)'], [1, 'rgb(227,26,28)']]
+          ,linecolor: 'White',
          
       }  
           
