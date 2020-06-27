@@ -267,6 +267,7 @@ const getPlotObjectFig2 = async function () {
 
   return plotObject
 }
+export { getPlotObjectFig2 }
 
     // workaround to place y axis labels on bars
 const afterplotFixesFig2 = function (e) {
@@ -310,3 +311,5 @@ const afterplotFixesFig2 = function (e) {
     }
   })
 }
+
+export { afterplotFixesFig2 }

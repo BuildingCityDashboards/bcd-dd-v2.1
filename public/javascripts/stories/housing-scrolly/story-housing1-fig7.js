@@ -299,6 +299,8 @@ const getPlotObjectFig7 = async function () {
   return plotObject
 }
 
+export { getPlotObjectFig7 }
+
 const afterplotFixesFig7 = function (e) {
     // workaround to place y axis labels on bars
   document.getElementById(e).on('plotly_afterplot', function () {
@@ -339,3 +341,5 @@ const afterplotFixesFig7 = function (e) {
     }
   })
 }
+
+export { afterplotFixesFig7 }

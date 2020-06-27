@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig1 = async function () {
 //  Options for chart
 //  TODO: pass these in as config and/or create accessor functions
@@ -373,3 +375,5 @@ const getPlotObjectFig1 = async function () {
   // console.log(plotObject)
   return plotObject
 }
+
+export { getPlotObjectFig1 }
