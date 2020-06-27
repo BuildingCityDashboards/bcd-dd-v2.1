@@ -86,11 +86,23 @@ CHART_COLORWAY.push('grey') // add grey as last element to allow muted colors fo
 
 // Allows color get by name when data order is not guaranteed
 const CHART_COLORS_BY_REGION = {
-  'Dublin City': CHART_COLORWAY[0],
-  'South Dublin': CHART_COLORWAY[3],
-  'Dún Laoghaire-Rathdown': CHART_COLORWAY[1],
-  'Fingal': CHART_COLORWAY[2],
-  'Dublin': CHART_COLORWAY[0],
+  // --la-colour-dcc: #5680b4;
+  'Dublin City': '#5680b4',
+  // --la-colour-dlr: #52be7f;
+  'Dún Laoghaire-Rathdown': '#52be7f',
+  // --la-colour-f: #af7ac4;
+  'Fingal': '#af7ac4',
+  // --la-colour-sdc: #fa9b57;
+  'South Dublin': '#fa9b57',
+  // --la-colour-dcc: #5680b4;
+  'dcc': '#5680b4',
+  // --la-colour-dlr: #52be7f;
+  'dlr': '#52be7f',
+  // --la-colour-f: #af7ac4;
+  'f': '#af7ac4',
+  // --la-colour-sdc: #fa9b57;
+  'sdcc': '#fa9b57',
+  'Dublin': '#5680b4',
   'State': 'grey'
 }
 // TODO: placeholder- implement with design system
