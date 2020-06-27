@@ -285,6 +285,7 @@ const MULTILINE_CHART_LAYOUT = {
   },
   annotations: [],
   hovermode: 'x'
+
 }
 
 const ROW_CHART_LAYOUT = {

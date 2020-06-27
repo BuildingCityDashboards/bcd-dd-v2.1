@@ -43,7 +43,8 @@ const getPlotObjectFig1 = async function () {
       //  reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 //  magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    i < 4 ? trace.marker.color = null : trace.marker.color = 'grey'
+    trace.marker.color = getColourForLA(trace.name)
+    trace.hoverinfo = 'x+y'
 
     trace.x = regionData.map((v) => {
       return v.date
@@ -64,7 +65,8 @@ const getPlotObjectFig1 = async function () {
       // reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 // magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    i < 4 ? trace.marker.color = null : trace.marker.color = 'grey' // magic number!!!
+    trace.marker.color = getColourForLA(trace.name)
+    trace.hoverinfo = 'x+y'
 
     trace.x = regionData.map((v) => {
       return v.date
@@ -86,7 +88,8 @@ const getPlotObjectFig1 = async function () {
       // reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 // magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    i < 4 ? trace.marker.color = null : trace.marker.color = 'grey' // magic number!!!
+    trace.marker.color = getColourForLA(trace.name)
+    trace.hoverinfo = 'x+y'
 
     trace.x = regionData.map((v) => {
       return v.date
@@ -106,7 +109,8 @@ const getPlotObjectFig1 = async function () {
       // reassign colour to -defocus some traces
     i < 4 ? trace.opacity = 1.0 : trace.opacity = 0.5 // magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    i < 4 ? trace.marker.color = null : trace.marker.color = 'grey' // magic number!!!
+    trace.marker.color = getColourForLA(trace.name)
+    trace.hoverinfo = 'x+y'
 
     trace.x = regionData.map((v) => {
       return v.date
@@ -132,7 +136,7 @@ const getPlotObjectFig1 = async function () {
     // layout.xaxis.showgrid = false
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
-  layout.yaxis.title.text = 'Pop'
+  layout.yaxis.title.text = 'Population'
   layout.yaxis.range = [0, 600000]
   layout.yaxis.tickmode = 'array'
   layout.yaxis.tickvals = [100000, 200000, 300000, 400000, 500000, 600000]
@@ -155,9 +159,8 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
     i < 4 ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    i < 4 ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
 
-      //  console.log(annotation.font.color)
     popAnnotations.push(annotation)
   })
 
@@ -172,7 +175,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
     i < 4 ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    i < 4 ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
 
       //  console.log(annotation.font.color)
     houseAnnotations.push(annotation)
@@ -189,7 +192,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
     i < 4 ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    i < 4 ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
 
       //  console.log(annotation.font.color)
     popRateAnnotations.push(annotation)
@@ -206,7 +209,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
     i < 4 ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    i < 4 ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
 
       //  console.log(annotation.font.color)
     houseRateAnnotations.push(annotation)
@@ -217,8 +220,9 @@ const getPlotObjectFig1 = async function () {
   popAnnotations[1].yshift = -6 // move DLR down
   popAnnotations[2].yshift = 4 // move Fingal up
   popAnnotations[3].yshift = -4 // move SD down
-  popAnnotations[4].yshift = 6 // move K up
+  popAnnotations[4].yshift = 12 // move K up
   popAnnotations[5].yshift = -8 // move M down
+  popAnnotations[6].yshift = -8 // move W down
 
   houseAnnotations[1].yshift = 3 // move DLR up
   houseAnnotations[2].yshift = 4 // move Fingal up
