@@ -11,6 +11,17 @@
 // load page metadata for n narrative objects and n charts
 // load n chart plot objects into array
 // draw chart based on TwoStep interaction
+import { getPlotObjectFig1 } from '/javascripts/stories/housing-scrolly/story-housing1-fig1.js'
+import { getPlotObjectFig2 } from '/javascripts/stories/housing-scrolly/story-housing1-fig2.js'
+import { getPlotObjectFig3 } from '/javascripts/stories/housing-scrolly/story-housing1-fig3.js'
+import { getPlotObjectFig4 } from '/javascripts/stories/housing-scrolly/story-housing1-fig4.js'
+import { getPlotObjectFig5 } from '/javascripts/stories/housing-scrolly/story-housing1-fig5.js'
+import { getPlotObjectFig6 } from '/javascripts/stories/housing-scrolly/story-housing1-fig6.js'
+import { getPlotObjectFig7 } from '/javascripts/stories/housing-scrolly/story-housing1-fig7.js'
+// import { getMapFig8 } from '/javascripts/stories/housing-scrolly/story-housing1-fig8.js'
+
+import { afterplotFixesFig2 } from '/javascripts/stories/housing-scrolly/story-housing1-fig2.js'
+import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-housing1-fig7.js'
 
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
@@ -69,7 +80,7 @@
         chartSticky.style.display = 'none'
 
         // unhide map
-        mapSticky.style.display = 'block'
+        mapSticky.style.display = 'flex'
         if (map.hasOwnProperty('options')) {
           map.invalidateSize(true)
           mapSticky.removeAttribute('data-status')
@@ -89,7 +100,7 @@
 
       if (chartState == 'hidden') {
         console.log('draw chart and show')
-        chartSticky.style.display = 'block'
+        chartSticky.style.display = 'flex'
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
           if (event.index == 1) {
@@ -156,54 +167,6 @@
   plotObjects.push('Acknowledgement')
   plotObjects.push('References')
           // fix for modebar bg colour
-
-    // if (chartState == 'hidden') {
-    //   if (event.index >= 0 && event.index < plotObjects.length) {
-    //       console.log('draw map and show')
-    //
-    //
-    //       mapSticky.style.display = 'block'
-    //       plotObjects[event.index].invalidateSize(false)
-    //       mapSticky.removeAttribute('data-status')
-    //       mapSticky.setAttribute('data-status', 'shown')
-    //     } else {
-    //       console.log('draw plot and show')
-    //       Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-    //       chartSticky.style.display = 'block'
-    //       chartSticky.removeAttribute('data-status')
-    //       chartSticky.setAttribute('data-status', 'shown')
-    //
-    //       mapSticky.style.display = 'none'
-    //       mapSticky.removeAttribute('data-status')
-    //       mapSticky.setAttribute('data-status', 'hidden')
-    //     }
-    //   }
-    // } else if (chartState == 'shown') {
-    //   if (event.index !== 7) {
-    //     mapSticky.removeAttribute('data-status')
-    //     mapSticky.setAttribute('data-status', 'hidden')
-    //   } else {
-    //     chartSticky.removeAttribute('data-status')
-    //     chartSticky.setAttribute('data-status', 'hidden')
-    //   }
-    //
-    //   setTimeout(function () {
-    //     if (event.index >= 0 && event.index < plotObjects.length) {
-    //       if (event.index != 7) {
-    //         Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
-    //         chartSticky.removeAttribute('data-status')
-    //         chartSticky.setAttribute('data-status', 'shown')
-    //       } else {
-    //         chartSticky.style.display = 'none'
-    //         mapSticky.style.display = 'block'
-    //         plotObjects[event.index].invalidateSize(false)
-    //         mapSticky.removeAttribute('data-status')
-    //         mapSticky.setAttribute('data-status', 'shown')
-    //       }
-    //     }
-    //   }, 200)
-    // }
-  // }
 
 // TODO: remove jQ
   function checkSize () {

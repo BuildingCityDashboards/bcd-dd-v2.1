@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig2 = async function () {
 //  Chart of house completions over time, by type of house, for each region in Dublin+
 //  This chart will have multiple plots for each year loaded by buttons.
@@ -77,7 +79,8 @@ const getPlotObjectFig2 = async function () {
       type: 'bar',
       mode: 'bars',
       marker: {
-        color: CHART_COLORS_BY_REGION[data[0].region] || 'grey'
+        color: getColourForLA(data[0].region),
+        opacity: 0.56
       },
       hoverinfo: 'x',
       hoverlabel: {
@@ -105,7 +108,7 @@ const getPlotObjectFig2 = async function () {
     fig2Layout[xAxisName].title = region
     fig2Layout[xAxisName].visible = false
     fig2Layout[xAxisName].titlefont = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.xaxis.titlefont)
-    fig2Layout[xAxisName].titlefont.color = CHART_COLORS_BY_REGION[region] || null
+    fig2Layout[xAxisName].titlefont.color = getColourForLA(region)
     fig2Layout[xAxisName].range = xaxisRange
     fig2Layout[xAxisName].anchor = 'y' + (i + 1)
 
@@ -157,7 +160,7 @@ const getPlotObjectFig2 = async function () {
     annotation.text = plot.name
     annotation.opacity = 0.9
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    annotation.font.color = CHART_COLORS_BY_REGION[plot.name] || 'grey'
+    annotation.font.color = getColourForLA(plot.name)
     annotation.font.size = 16
     return annotation
   }
@@ -267,6 +270,7 @@ const getPlotObjectFig2 = async function () {
 
   return plotObject
 }
+export { getPlotObjectFig2 }
 
     // workaround to place y axis labels on bars
 const afterplotFixesFig2 = function (e) {
@@ -310,3 +314,5 @@ const afterplotFixesFig2 = function (e) {
     }
   })
 }
+
+export { afterplotFixesFig2 }

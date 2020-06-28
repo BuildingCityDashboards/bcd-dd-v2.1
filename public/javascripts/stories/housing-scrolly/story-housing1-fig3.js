@@ -58,6 +58,7 @@ const getPlotObjectFig3 = async function () {
   layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis)
   layout.yaxis.fixedrange = false
   layout.yaxis.range = [1, 70000]
+  layout.yaxis.title = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis.title)
   layout.yaxis.title = 'Units'
   layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin)
   layout.margin = {
@@ -66,7 +67,7 @@ const getPlotObjectFig3 = async function () {
     b: 40, // x axis tooltip
     t: 0 // button row
   }
-  layout.yaxis.title.standoff = 100
+  // layout.yaxis.title.standoff = 100
   layout.yaxis.hoverformat = ',d'
     // layout.hidesources = false;
 
@@ -145,3 +146,5 @@ const getPlotObjectFig3 = async function () {
   }
   return plotObject
 }
+
+export { getPlotObjectFig3 }

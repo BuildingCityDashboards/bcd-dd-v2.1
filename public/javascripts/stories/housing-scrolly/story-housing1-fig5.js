@@ -16,6 +16,7 @@ const getPlotObjectFig5 = async function () {
   let trace = Object.assign({}, TRACES_DEFAULT)
   trace.name = data[0].type
   trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
+  trace.hoverinfo = 'x+y'
 
   trace.x = data.map((v) => {
     return v.date
@@ -36,14 +37,18 @@ const getPlotObjectFig5 = async function () {
   layout.xaxis.range = [2001.98, 2007.02]
   layout.xaxis.title = 'Year'
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
+  layout.yaxis.range = [0, 175]
+  layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
   layout.yaxis.titlefont = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.titlefont)
   layout.yaxis.titlefont.size = 16 // bug? need to call this
   layout.yaxis.tickmode = 'array'
-  layout.yaxis.tickvals = [50, 75, 100, 125]
+  layout.yaxis.tickvals = [50, 100, 150]
     // layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title);
-  layout.yaxis.title = '€bn'
+  layout.yaxis.title.text = '€bn'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin.r = 195
+  layout.margin.r = 32
+  layout.margin.t = 0
+
     /*
     layout.margin = {
       l: 60,
@@ -57,8 +62,12 @@ const getPlotObjectFig5 = async function () {
   mortgageDebtTraces.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
     let annotation = Object.assign({}, ANNOTATIONS_DEFAULT)
-    annotation.x = trace.x[trace.x.length - 1]
-    annotation.y = trace.y[trace.y.length - 1]
+    annotation.x = trace.x[3]
+    annotation.y = trace.y[3]
+    // annotation.width = 100
+    // annotation.align = 'right'
+    // annotation.xshift = -200
+    annotation.yshift = -48
     annotation.text = trace.name
     annotation.font.color = CHART_COLORWAY[i]
     mortgageDebtAnnotations.push(annotation)
@@ -74,7 +83,9 @@ const getPlotObjectFig5 = async function () {
       color: null,
       activecolor: null
     },
-    modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
+    modeBarButtons: [
+      ['toImage']
+    ],
     displayModeBar: true,
     displaylogo: false,
     showSendToCloud: false,
@@ -95,3 +106,5 @@ const getPlotObjectFig5 = async function () {
 
   return plotObject
 }
+
+export { getPlotObjectFig5 }

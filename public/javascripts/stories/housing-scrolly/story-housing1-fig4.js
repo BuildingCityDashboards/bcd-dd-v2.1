@@ -49,7 +49,8 @@ const getPlotObjectFig4 = async function () {
   layout.xaxis.range = [1974.8, 2016.2]
   layout.xaxis.title = 'Year'
   layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis)
-  layout.yaxis.title = '€'
+  layout.yaxis.title = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis.title)
+  layout.yaxis.title.text = '€'
   layout.yaxis.fixedrange = false
   layout.yaxis.range = [1, 520000]
   layout.yaxis.hoverformat = ',d'
@@ -111,3 +112,5 @@ const getPlotObjectFig4 = async function () {
 
   return plotObject
 }
+
+export { getPlotObjectFig4 }

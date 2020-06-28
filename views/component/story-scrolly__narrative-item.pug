@@ -1,4 +1,4 @@
-mixin story-scrolly__narrative-item({id='', title='', narrative='', info=''})
+mixin story-scrolly__narrative-item({id='', title='', narrative='', info='', cta=''})
   //- , chartInfo='', chartIds = [], buttons = [])
   div(id=id class="narrative-item" )
     .narrative-item__title
@@ -6,6 +6,8 @@ mixin story-scrolly__narrative-item({id='', title='', narrative='', info=''})
     .narrative-item__text
       .narrative-item__narrative!= narrative
       .narrative-item__info!= info
+    .narrative-item__cta!=cta
+      
             
     //- .story-scrolly__narrative-item__sources
       p Sources:
