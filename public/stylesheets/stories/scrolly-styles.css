@@ -146,6 +146,7 @@
   min-height     : 100vh;
   padding-top    : 20vh;
   flex-direction : column;
+  /* background-color : #21272a; */
 }
 
 .chart {
@@ -155,6 +156,7 @@
   flex-direction: column;
   background-color : #21272a;
   justify-content: center;
+  width: inherit;
 }
 
 .chart[data-status="shown"] {
