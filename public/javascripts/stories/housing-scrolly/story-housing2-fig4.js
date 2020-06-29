@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig4 = async function () {
 // Options for chart
 // TODO: pass these in as config and/or create accessor functions
@@ -36,7 +38,7 @@ const getPlotObjectFig4 = async function () {
       // trace.name === 'state' ? trace.visible = true : trace.visible = true;
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     REGIONS_ORDERED_DUBLIN.includes(trace.name) ? trace.opacity = 1.0 : trace.opacity = 0.5
-    trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'
+    trace.marker.color = getColourForLA(trace.name)
     return trace
   }
     //
@@ -70,9 +72,8 @@ const getPlotObjectFig4 = async function () {
       // de-focus some annotations
       // TODO: function for this
     (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
-    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    (i < 4) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
-
+    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
+    annotation.font.color = getColourForLA(trace.name)
       // console.log(annotation.font.color);
     annotationsHectares.push(annotation)
   })
@@ -186,3 +187,5 @@ const getPlotObjectFig4 = async function () {
 
   return plotObject
 }
+
+export { getPlotObjectFig4 }

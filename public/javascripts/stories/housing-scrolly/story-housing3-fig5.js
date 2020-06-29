@@ -28,6 +28,7 @@ const getMapFig5 = async function () {
   // processPlanningPermissions(data2.features, 2)
 }
 
+export { getMapFig5 }
 // //************
 
 function processPlanningPermissions (data_, tier) {
@@ -70,8 +71,8 @@ function initMapPlanning (data__) {
     }
   })
   data__.forEach((d, i) => {
-    planning_ref = d.properties['Planning_Reference']
-    fname = planning_ref
+    let planning_ref = d.properties['Planning_Reference']
+    let fname = planning_ref
 
     // console.log(d.lat, ", ", d.lng)
     let m = new customPlanningMarker(
@@ -103,7 +104,7 @@ function planningPermissionsPopupInit (d_) {
 
     str += `<b>${d_.type}</b><br>`
     str += `<b>Units permitted</b>: ${d_.properties['Planning_Permission__Units_Perm']}<br>`
-    str += `<b>Units comleted</b>: ${d_.properties['Units_Completed_to_Date']}<br>`
+    str += `<b>Units completed</b>: ${d_.properties['Units_Completed_to_Date']}<br>`
     str += `<b>Units under construction</b>: ${d_.properties['Units_Under_Construction']}<br>`
     str += `<b>Units permitted, not started</b>: ${d_.properties['Units_Permitted_But_Not_Commenc']}<br>`
     str += `<b>Activity on site</b>: ${d_.properties['Activity_On_Site']}<br>`

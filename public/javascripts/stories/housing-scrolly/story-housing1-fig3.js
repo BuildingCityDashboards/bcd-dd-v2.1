@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig3 = async function () {
 // Options for chart
 // TODO: pass these in as config and/or create accessor functions
@@ -28,8 +30,8 @@ const getPlotObjectFig3 = async function () {
       // trace.stackgroup = 'one';
       // reassign colour to -defocus some traces
     (i < 4) ? trace.opacity = 1.0 : trace.opacity = 0.75 // magic number!!!
-    trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    (i < 4) ? trace.marker.color = null : trace.marker.color = 'grey' // magic number!!!
+    trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
+    trace.marker.color = getColourForLA(trace.name)
       // (i < 4) ? trace.marker.opacity = 1.0: trace.marker.opacity = 0.1; //magic number!!!
     trace.marker.opacity = 1 // magic number!!!
 
@@ -78,14 +80,12 @@ const getPlotObjectFig3 = async function () {
     annotation.x = trace.x[trace.x.length - 1]
     annotation.y = trace.y[trace.y.length - 1];
     (i < 4 || i == 7) ? annotation.text = trace.name : null;
+    (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0;
+    (i < 4) ? annotation.showarrow = true : annotation.showarrow = false
+    annotation.arrowcolor = getColourForLA(trace.name)
+    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
+    annotation.font.color = getColourForLA(trace.name)
 
-      // de-focus some annotations
-      // TODO: function for this
-    (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0
-    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    (i < 4) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey'; // magic number!!!
-    (i < 4) ? annotation.showarrow = true : annotation.showarrow = false;
-    (i < 4) ? annotation.arrowcolor = CHART_COLORWAY[i] : annotation.arrowcolor = 'grey' // magic number!!!
       // console.log(annotation.font.color);
     chartAnnotations.push(annotation)
   })

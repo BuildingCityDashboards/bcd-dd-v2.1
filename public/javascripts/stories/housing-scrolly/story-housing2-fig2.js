@@ -113,7 +113,7 @@ const getPlotObjectFig2 = async function () {
     t: 0, // button row
     b: 40
   }
-  layout.yaxis.title.standoff = 10
+  // layout.yaxis.title.standoff = 10
     //  layout.hidesources = false
 
   const stateAnnotations = []
@@ -226,3 +226,4 @@ const getPlotObjectFig2 = async function () {
   return plotObject
 }
 
+export { getPlotObjectFig2 }
