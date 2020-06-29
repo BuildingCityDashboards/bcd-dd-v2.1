@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig1 = async function () {
 // Options for chart
   const srcPathFig1 = '../data/Stories/Housing/part_3/processed/ave_monthly_rent.csv'
@@ -28,8 +30,8 @@ const getPlotObjectFig1 = async function () {
     trace.mode = 'lines+markers'
       // trace.name === 'state' ? trace.visible = true : trace.visible = true;
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    REGIONS_ORDERED_DUBLIN.includes(trace.name) ? trace.opacity = 1.0 : trace.opacity = 0.5
-    trace.marker.color = CHART_COLORS_BY_REGION[trace.name] || 'grey'
+    trace.name === 'Dublin' ? trace.opacity = 1.0 : trace.opacity = 0.5
+    trace.marker.color = getColourForLA(trace.name)
     return trace
   }
 
@@ -61,7 +63,7 @@ const getPlotObjectFig1 = async function () {
     annotation.x = trace.x[trace.x.length - 1]
     annotation.y = trace.y[trace.y.length - 1]
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-    annotation.font.color = CHART_COLORS_BY_REGION[trace.name] || 'grey' // Is this order smae as fetching from object in trace?
+    annotation.font.color = getColourForLA(trace.name)
     annotation.text = trace.name
     annotations.push(annotation)
   })
@@ -97,3 +99,5 @@ const getPlotObjectFig1 = async function () {
   // console.log(plotObject)
   return plotObject
 }
+
+export { getPlotObjectFig1 }

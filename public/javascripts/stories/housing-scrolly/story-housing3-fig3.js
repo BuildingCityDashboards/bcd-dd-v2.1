@@ -1,8 +1,8 @@
 const getMapFig3 = async function () {
   let southWest = L.latLng(52.9754658325, -6.8639598864)
-  northEast = L.latLng(53.7009607624, -5.9835178395),
-    dublinBounds = L.latLngBounds(southWest, northEast) // greater Dublin & surrounds
-  zoom = 10
+  let northEast = L.latLng(53.7009607624, -5.9835178395)
+  let dublinBounds = L.latLngBounds(southWest, northEast) // greater Dublin & surrounds
+  let zoom = 10
 // tile layer with correct attribution
   let iconConfig = {
     title: '',
@@ -55,6 +55,8 @@ const getMapFig3 = async function () {
 
   return cluster
 }
+
+export { getMapFig3 }
   // airbnbMap.addLayer(cluster)
 
 function getIcon (totalHouses) {

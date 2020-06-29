@@ -12,6 +12,12 @@
 // load n chart plot objects into array
 // draw chart based on TwoStep interaction
 
+import { getPlotObjectFig1 } from '/javascripts/stories/housing-scrolly/story-housing3-fig1.js'
+import { getPlotObjectFig2 } from '/javascripts/stories/housing-scrolly/story-housing3-fig2.js'
+import { getMapFig3 } from '/javascripts/stories/housing-scrolly/story-housing3-fig3.js'
+import { getPlotObjectFig4 } from '/javascripts/stories/housing-scrolly/story-housing3-fig4.js'
+import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-fig5.js'
+
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
   const MAP_STICKY_ELEMENT = 'map-sticky-housing'
