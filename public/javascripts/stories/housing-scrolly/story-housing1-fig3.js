@@ -31,7 +31,7 @@ const getPlotObjectFig3 = async function () {
       // reassign colour to -defocus some traces
     (i < 4) ? trace.opacity = 1.0 : trace.opacity = 0.75 // magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    trace.marker.color = getColourForLA(trace.name) // magic number!!!
+    trace.marker.color = getColourForLA(trace.name)
       // (i < 4) ? trace.marker.opacity = 1.0: trace.marker.opacity = 0.1; //magic number!!!
     trace.marker.opacity = 1 // magic number!!!
 

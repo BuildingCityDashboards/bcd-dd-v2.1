@@ -115,3 +115,5 @@ const getMapFig3 = async function () {
 
   return unfinishedEstatesMap
 }
+
+export { getMapFig3 }

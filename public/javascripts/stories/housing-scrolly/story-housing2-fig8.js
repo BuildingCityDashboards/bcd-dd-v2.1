@@ -243,3 +243,7 @@ const getPlotObjectFig8 = async function () {
 
   return plotObject
 }
+
+
+
+export { getPlotObjectFig8 }

@@ -170,3 +170,5 @@ const getPlotObjectFig7 = async function () {
 
   return plotObject
 }
+
+export { getPlotObjectFig7 }

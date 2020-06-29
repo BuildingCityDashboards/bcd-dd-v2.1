@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig1 = async function () {
 // Options for chart
   const srcPathFig1 = '../data/Housing/HPM06.csv'
@@ -23,7 +25,7 @@ const getPlotObjectFig1 = async function () {
       // reassign colour to -defocus some traces
       ;(i < 1) ? trace.opacity = 1.0 : trace.opacity = 0.5 // magic number!!!
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    trace.marker.color = CHART_COLORS_BY_REGION[regionName] || 'grey'
+    trace.marker.color = getColourForLA(trace.name)
     trace.x = dataByRegion[regionName].map((v) => {
       return v.date
     })
@@ -119,7 +121,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-      ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
     annotation.arrowcolor = 'transparent'
     houseAnnotations.push(annotation)
   })
@@ -134,7 +136,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-      ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
     annotation.arrowcolor = 'transparent'
     apartAnnotations.push(annotation)
   })
@@ -149,7 +151,7 @@ const getPlotObjectFig1 = async function () {
       // TODO: function for this
       ;(i < 1) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
     annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
-      ;(i < 1) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font.color = getColourForLA(trace.name)
     annotation.arrowcolor = 'transparent'
     allAnnotations.push(annotation)
   })
@@ -261,3 +263,5 @@ const getPlotObjectFig1 = async function () {
     // console.log(plotObject)
   return plotObject
 }
+
+export { getPlotObjectFig1 }
