@@ -42,8 +42,111 @@
   }
 }
 
+.bcd-navbar {
+  background-color : transparent;
+}
+
 .page {
   background-color : #1c2022;
+}
+
+.story-scrolly__hero {
+  display             : flex;
+  width               : auto;
+  height              : 100vh;
+  background-repeat   : no-repeat;
+  background-position : center;
+  background-size     : cover;
+  flex-direction      : column;
+}
+
+.story-scrolly__hero__title {
+  display         : flex;
+  width           : auto;
+  height          : 30vh;
+  padding-top     : 10vh;
+  text-align      : center;
+  font-family     : 'Roboto';
+  font-style      : normal;
+  flex-direction  : column;
+  justify-content : center;
+}
+
+.story-scrolly__hero__title h1 {
+  margin-bottom  : 48px;
+  color          : #21272a;
+  font-size      : 36px;
+  font-style     : normal;
+  font-weight    : bold;
+  font-stretch   : normal;
+  line-height    : 0.44;
+  letter-spacing : 1.5px;
+}
+
+.story-scrolly__hero__title h2 {
+  color          : #293135;
+  font-size      : 28px;
+  font-style     : normal;
+  font-weight    : bold;
+  font-stretch   : normal;
+  line-height    : 0.57;
+  letter-spacing : 1.5px;
+}
+
+#housing-crisis-2-hero .story-scrolly__hero__title h1 {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-2-hero .story-scrolly__hero__title h2{
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-3-hero .story-scrolly__hero__title h1 {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-3-hero .story-scrolly__hero__title h2{
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.story-scrolly__hero__text {
+  display          : flex;
+  width            : 60vw;
+  height           : 50vh;
+  margin           : 0 auto;
+  padding          : 0 56px;
+  background-color : rgba(33, 39, 42, 0.78);
+  text-align       : justify;
+  flex-direction   : column;
+  justify-content  : center;
+}
+
+.story-scrolly__hero__text h1 {
+  color          : #6fd1f6;
+  font-size      : 28px;
+  line-height    : 24px;
+  letter-spacing : 0.18px;
+  margin-bottom: 28px;
+}
+
+.story-scrolly__hero__text p {
+  color          : white;
+  font-size      : 16px;
+  font-weight    : 500;
+  line-height    : 24px;
+  letter-spacing : 0.15px;
+}
+
+#housing-crisis-1-hero {
+  background-image : url('/images/stories/desktop/housing_1_background.png');
+}
+
+#housing-crisis-2-hero {
+  background-image : url('/images/stories/desktop/housing_2_background.png');
+}
+
+#housing-crisis-3-hero {
+  background-image : url('/images/stories/desktop/housing_3_background.png');
 }
 
 .parent {
@@ -57,7 +160,7 @@
 
 .story-scrolly__title {
   z-index          : 100;
-  display          : flex;
+  display          : none;
   position         : fixed;
   top              : 60px;
   width            : 100%;
@@ -125,10 +228,10 @@
 }
 
 .narrative-item__cta {
-  text-align: center;
-  align-self: center;
-  padding-top: 96px;
-  color          : #6fd1f6;
+  padding-top : 96px;
+  color       : #6fd1f6;
+  text-align  : center;
+  align-self  : center;
 }
 
 .rightcol {
@@ -153,10 +256,10 @@
   /* opacity: 0; */
   /* background-color : transparent; */
   display          : flex;
-  flex-direction: column;
+  width            : inherit;
   background-color : #21272a;
-  justify-content: center;
-  width: inherit;
+  flex-direction   : column;
+  justify-content  : center;
 }
 
 .chart[data-status="shown"] {
@@ -172,10 +275,10 @@
 }
 
 #map-sticky-housing {
-  position : relative;
-  width    : 800px;
-  min-height   : 600px;
-  height: auto;
+  position   : relative;
+  width      : 800px;
+  height     : auto;
+  min-height : 600px;
   /* margin-bottom: 100px; */
   /* margin-top: 40px; */
 }
@@ -184,7 +287,6 @@
   position : relative;
   width    : 800px;
   height   : 600px;
-
   /* margin-bottom: 100px; */
   /* margin-top: 40px; */
 }
