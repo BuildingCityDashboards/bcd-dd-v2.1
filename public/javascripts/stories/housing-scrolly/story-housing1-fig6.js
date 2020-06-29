@@ -1,3 +1,5 @@
+import { getColourForLA } from '../../modules/bcd-style.js'
+
 const getPlotObjectFig6 = async function () {
 // Options for chart
 // TODO: pass these in as config and/or create accessor functions
@@ -25,8 +27,8 @@ const getPlotObjectFig6 = async function () {
       // trace.name = regionData[0].region;
       // reassign colour to -defocus some traces
     (i < 4) ? trace.opacity = 1.0 : trace.opacity = 0.5 // magic number!!!
-    trace.marker = Object.assign({}, TRACES_DEFAULT.marker);
-    (i < 4) ? trace.marker.color = null : trace.marker.color = 'grey' // magic number!!!
+    trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
+    trace.marker.color = getColourForLA(trace.name) // magic number!!!
       // trace.marker.opacity = 0.0;
     trace.x = regionData.map((v) => {
       return v.date
@@ -71,24 +73,20 @@ const getPlotObjectFig6 = async function () {
     annotation.text = trace.name;
       // de-focus some annotations
       // TODO: function for this
-    (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
-    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    (i < 4) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey'; // magic number!!!
-    (i < 4) ? annotation.visible = true : annotation.visible = false
-    annotation.arrowcolor = 'transparent'
+    (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0
+    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
+    annotation.font.color = getColourForLA(trace.name)
+    annotation.showarrow = false
       // console.log(annotation.font.color);
     socialHousingBuildAnnotations.push(annotation)
   })
 
     // set individual annotation stylings
     // TODO: be better! Don't use array index for access
-  socialHousingBuildAnnotations[0].ay = 5 // move DC
-  socialHousingBuildAnnotations[1].ay = -8 // move DLR
-  socialHousingBuildAnnotations[2].ay = -10 // move Fingal
-  socialHousingBuildAnnotations[3].ay = 0 // move SD
-  socialHousingBuildAnnotations[4].ay = 0 // move K
-  socialHousingBuildAnnotations[5].ay = 0 // move M
-  socialHousingBuildAnnotations[6].ay = 0 // move M
+  socialHousingBuildAnnotations[0].yshift = -8 // move DC
+  socialHousingBuildAnnotations[1].yshift = 8 // move DLR
+  socialHousingBuildAnnotations[2].yshift = 16 // move Fingal
+  socialHousingBuildAnnotations[3].yshift = 0 // move SD
 
     // Set default view annotations
   layout.annotations = socialHousingBuildAnnotations // set default
