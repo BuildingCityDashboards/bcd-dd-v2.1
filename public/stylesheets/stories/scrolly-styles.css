@@ -101,6 +101,14 @@
   color: rgba(255, 255, 255, 0.87);
 }
 
+#housing-crisis-3-hero .story-scrolly__hero__title h1 {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-3-hero .story-scrolly__hero__title h2{
+  color: rgba(255, 255, 255, 0.87);
+}
+
 .story-scrolly__hero__text {
   display          : flex;
   width            : 60vw;
