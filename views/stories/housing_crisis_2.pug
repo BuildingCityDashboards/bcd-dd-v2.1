@@ -1,6 +1,7 @@
 extends ../layout
 include ../component/story-scrolly__narrative-item
 include ../component/story-scrolly__title
+include ../component/story-scrolly__hero
 //- include component/theme__text-chart
 
 block append head
@@ -21,6 +22,16 @@ block navigation
           +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Stories")
           
 block content
+    +story-scrolly__hero({
+      id: 'housing-crisis-2-hero',
+      title: 'Housing in the Dublin Region, 1991 to Present',
+      subtitle: 'Phase 2',
+      texttitle: 'Phase 2 - 2007-2012 (the crash)',
+      texts: [
+        'This is the second part of the data story examining housing in the capital through the housing and planning data available for the city. The previous part described the preceding historical phase:',
+        '<ul><li><a href="housing-dublin-phase-1"> Phase 1: 1993-2006 (the Celtic Tiger years)</a></li></ul>'
+      ]
+    })
     .parent
       +story-scrolly__title("Housing in the Dublin Region, 1991 to Present: Phase 2 - 2007-2012 (the crash)")
       .narrative
