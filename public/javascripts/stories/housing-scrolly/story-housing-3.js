@@ -185,4 +185,17 @@ import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-
 // and set up event listener for future changes
   checkSize()
   $(window).resize(checkSize)
+
+  window.onscroll = function () { stickTitle() }
+  let stickyTitle = document.getElementsByClassName('story-scrolly__title')[0]
+  let sticky = stickyTitle.offsetTop
+  console.log(stickyTitle)
+
+  function stickTitle () {
+    if (window.pageYOffset >= sticky) {
+      stickyTitle.classList.add('sticky')
+    } else {
+      stickyTitle.classList.remove('sticky')
+    }
+  }
 })()

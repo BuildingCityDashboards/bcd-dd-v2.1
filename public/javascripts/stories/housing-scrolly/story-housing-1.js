@@ -171,7 +171,7 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
 // TODO: remove jQ
   function checkSize () {
     // if desktop...
-    if ($(window).width() > 700) {
+    if ($(window).width() > 768) {
       ts.enable()
     // if mobile...
     } else {
@@ -183,4 +183,17 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
 // and set up event listener for future changes
   checkSize()
   $(window).resize(checkSize)
+
+  window.onscroll = function () { stickTitle() }
+  let stickyTitle = document.getElementsByClassName('story-scrolly__title')[0]
+  let sticky = stickyTitle.offsetTop
+  console.log(stickyTitle)
+
+  function stickTitle () {
+    if (window.pageYOffset >= sticky) {
+      stickyTitle.classList.add('sticky')
+    } else {
+      stickyTitle.classList.remove('sticky')
+    }
+  }
 })()
