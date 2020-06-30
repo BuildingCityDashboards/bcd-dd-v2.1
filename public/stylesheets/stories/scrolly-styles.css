@@ -123,6 +123,7 @@
   text-align       : justify;
   flex-direction   : column;
   justify-content  : flex-start;
+  border-radius: 4px;
 }
 
 .story-scrolly__hero__text h1 {
