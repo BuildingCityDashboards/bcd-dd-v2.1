@@ -116,6 +116,10 @@ const getPlotObjectFig2 = async function () {
   // layout.yaxis.title.standoff = 10
     //  layout.hidesources = false
 
+  const marginCount = 166
+  const marginRate = 200
+  layout.margin.r = marginCount
+
   const stateAnnotations = []
   const rateAnnotations = []
 
@@ -167,7 +171,8 @@ const getPlotObjectFig2 = async function () {
           'yaxis.title': 'Units',
           'yaxis.tickmode': 'array',
           'yaxis.tickvals': [500000, 1000000, 1500000, 2000000],
-          'yaxis.hoverformat': '.2s'
+          'yaxis.hoverformat': '.2s',
+          'margin.r': marginCount
         }
       ],
       label: 'State Count',
@@ -185,7 +190,8 @@ const getPlotObjectFig2 = async function () {
             'yaxis.tickmode': 'array',
             'yaxis.tickvals': [2.5, 5, 7.5, 10, 12.5, 15],
             'yaxis.title': '%',
-            'yaxis.hoverformat': '.3r'
+            'yaxis.hoverformat': '.3r',
+            'margin.r': marginRate
           }
         ],
         label: 'Vacancy % Rate',
