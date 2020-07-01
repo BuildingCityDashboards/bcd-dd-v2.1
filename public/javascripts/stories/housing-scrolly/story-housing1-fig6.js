@@ -44,7 +44,7 @@ const getPlotObjectFig6 = async function () {
     // Set layout options
   let layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
     // layout.title.text = titleFig6;
-  layout.height = 500
+  // // layout.height = 500
   layout.showlegend = false
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.range = [1993.9, 2016.1]

@@ -58,7 +58,7 @@ const getPlotObjectFig8 = async function () {
     // Set layout options
   let layout = Object.assign({}, STACKED_AREA_CHART_LAYOUT)
     // layout.title.text = titleFig8;
-    // layout.height = 500;
+    // // layout.height = 500;
   layout.showlegend = false
   layout.xaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.xaxis)
   layout.xaxis.title = 'Year'

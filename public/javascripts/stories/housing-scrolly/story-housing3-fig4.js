@@ -110,7 +110,7 @@ const getPlotObjectFig4 = async function () {
   let layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
   layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
     // layout.title.text = titleFig4
-  layout.height = 500
+  // // layout.height = 500
   layout.showlegend = false
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.title = 'Year-Month'
@@ -126,12 +126,7 @@ const getPlotObjectFig4 = async function () {
     // layout.yaxis.visible = false
   layout.yaxis.title = 'Properties'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 90,
-    r: 210,
-    b: 40,
-    t: 0
-  }
+
     // layout.hidesources = false
 
     // Set annotations per chart with config per trace

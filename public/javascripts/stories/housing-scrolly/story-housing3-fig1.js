@@ -42,19 +42,19 @@ const getPlotObjectFig1 = async function () {
   layout.showlegend = false
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.nticks = 7
-  layout.xaxis.title = 'Quarter-Year'
+  layout.xaxis.title = 'Year-Quarter'
   layout.xaxis.range = [-0.2, 42.2]
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.range = [1, 2000]
     // layout.yaxis.visible = false;
   layout.yaxis.title = '€'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 10,
-    r: 150,
-    t: 0, // button row
-    b: 40
-  }
+  // layout.margin = {
+  //   l: 10,
+  //   r: 150,
+  //   t: 0, // button row
+  //   b: 40
+  // }
 
   let annotations = []
   traces.forEach((trace, i) => {
