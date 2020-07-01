@@ -208,14 +208,12 @@ const TRACES_DEFAULT_MULTILINE = JSON.parse(JSON.stringify(TRACES_DEFAULT))
 
 const MULTILINE_CHART_LAYOUT = {
   responsive: true,
-  height: 500,
   margin: {
-    l: 0,
-    r: 0, // change in chart based on annotations
-    b: 40,
-    t: 0
+    l: 96,
+    r: 240, // change in chart based on annotations
+    b: 96,
+    t: 96
   },
-
   title: {
     text: '',
     font: CHART_TITLE_FONT,
@@ -230,7 +228,7 @@ const MULTILINE_CHART_LAYOUT = {
   xaxis: {
     title: {
       text: '',
-      standoff: 10
+      standoff: 48
     },
     titlefont: CHART_FONT,
     visible: true,
@@ -242,7 +240,7 @@ const MULTILINE_CHART_LAYOUT = {
     nticks: 7,
     tickvals: null,
     ticks: '', // inside/ outside
-    automargin: true,
+    // automargin: true,
     tickfont: {
       // family: 'PT Sans',
       size: 10,
@@ -253,7 +251,7 @@ const MULTILINE_CHART_LAYOUT = {
   yaxis: {
     title: {
       text: '',
-      standoff: 40
+      standoff: 48
     },
     titlefont: CHART_FONT,
     visible: true,
@@ -265,7 +263,7 @@ const MULTILINE_CHART_LAYOUT = {
     nticks: 5,
     tickvals: null,
     ticks: '', // inside/ outside
-    automargin: true,
+    // automargin: true,
     tickfont: {
       // family: 'PT Sans',
       size: 10,
@@ -285,11 +283,10 @@ const MULTILINE_CHART_LAYOUT = {
   },
   annotations: [],
   hovermode: 'x'
-
 }
 
 const ROW_CHART_LAYOUT = {
-  height: 400,
+  responsive: true,
   margin: {
     l: 50,
     r: 0,
@@ -368,12 +365,12 @@ const ROW_CHART_LAYOUT = {
 }
 
 const ROW_CHART_LAYOUT_SUBPLOTS = {
-  height: 600,
+  responsive: true,
   margin: {
-    l: 0,
-    r: 0,
+    l: 24,
+    r: 24,
     b: 0,
-    t: 0
+    t: 96
   },
   title: {
     text: '',
@@ -462,12 +459,11 @@ const GROUPED_COLUMN_CHART_LAYOUT = {
 
 const STACKED_AREA_CHART_LAYOUT = {
   responsive: true,
-  height: 500,
   margin: {
-    l: 0,
-    r: 0, // change in chart based on annotations
-    b: 20,
-    t: 0
+    l: 96,
+    r: 240,
+    b: 96,
+    t: 96
   },
   title: {
     text: '',
@@ -502,7 +498,7 @@ const STACKED_AREA_CHART_LAYOUT = {
   yaxis: {
     title: {
       text: '',
-      standoff: 20
+      standoff: 48
     },
     titlefont: {
       size: 16
@@ -551,7 +547,7 @@ const UPDATEMENUS_BUTTONS_BASE = {
   bgcolor: '#transparent',
   active: 0,
   xref: 'container',
-  x: -0,
+  x: 0,
   xanchor: 'left',
   yref: 'container',
   y: 1.01, // place above plot area with >1.0

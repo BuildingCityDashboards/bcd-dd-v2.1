@@ -63,12 +63,13 @@ const getPlotObjectFig3 = async function () {
   layout.yaxis.title = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis.title)
   layout.yaxis.title = 'Units'
   layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 65,
-    r: 215, // annotations space
-    b: 40, // x axis tooltip
-    t: 0 // button row
-  }
+
+  // layout.margin = {
+  //   l: 65,
+  //   r: 215, // annotations space
+  //   b: 40, // x axis tooltip
+  //   t: 0 // button row
+  // }
   // layout.yaxis.title.standoff = 100
   layout.yaxis.hoverformat = ',d'
     // layout.hidesources = false;

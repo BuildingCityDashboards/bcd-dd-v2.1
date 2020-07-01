@@ -1,8 +1,6 @@
-mixin bcd-navbar(classes, href, navTitle, pageTitle)
-  //- - var style = (typeof style === 'undefined') ? "default" : style
-  //- - var href = (typeof style === 'undefined') ? "#" : href
+mixin bcd-navbar(classes, homeRef, navTitle, pageTitle)
   nav(role="navigation", class=classes )
-        a(href=href) 
+        a(href=homeRef) 
           =navTitle
         span : 
           =pageTitle

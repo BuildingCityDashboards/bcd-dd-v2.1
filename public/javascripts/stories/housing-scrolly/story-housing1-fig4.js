@@ -48,19 +48,20 @@ const getPlotObjectFig4 = async function () {
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.range = [1974.8, 2016.2]
   layout.xaxis.title = 'Year'
-  layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis)
-  layout.yaxis.title = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis.title)
+  layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
+  layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
   layout.yaxis.title.text = '€'
+  layout.yaxis.title.standoff = 16
   layout.yaxis.fixedrange = false
   layout.yaxis.range = [1, 520000]
   layout.yaxis.hoverformat = ',d'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 20,
-    r: 180, // annotations space
-    b: 40, // x axis tooltip
-    t: 0 // button row
-  }
+  // layout.margin = {
+  //   l: 20,
+  //   r: 180, // annotations space
+  //   b: 40, // x axis tooltip
+  //   t: 0 // button row
+  // }
 
     // layout.hidesources = false;
 

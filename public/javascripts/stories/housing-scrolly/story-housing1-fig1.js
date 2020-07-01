@@ -124,6 +124,7 @@ const getPlotObjectFig1 = async function () {
 
     // Set layout options
   const layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
+
   layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
     // layout.title.text = titleFig1
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
@@ -137,15 +138,16 @@ const getPlotObjectFig1 = async function () {
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
   layout.yaxis.title.text = 'Population'
+  layout.yaxis.title.standoff = 16
   layout.yaxis.range = [0, 600000]
   layout.yaxis.tickmode = 'array'
   layout.yaxis.tickvals = [100000, 200000, 300000, 400000, 500000, 600000]
   layout.yaxis.hoverformat = ',d'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
   layout.margin.r = 210 // Dun Laoghaire!!!
-  layout.margin.l = 110
-  layout.yaxis.title.standoff = 5
-  layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
+  layout.margin.l = 96
+
+  // layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
 
     // Set annotations per chart with config per trace
   const popAnnotations = []
@@ -261,7 +263,7 @@ const getPlotObjectFig1 = async function () {
       {
         title: popTitle,
         annotations: popAnnotations,
-        'yaxis.title.text': 'Pop',
+        'yaxis.title.text': 'Population',
           //  'yaxis.title.standoff': 0,
         'yaxis.range': [0, 600000],
         'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
@@ -358,6 +360,12 @@ const getPlotObjectFig1 = async function () {
   })
 
   let plotOptions = {
+    modeBar: {
+      orientation: 'h',
+      bgcolor: 'black',
+      color: null,
+      activecolor: null
+    },
     modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
     displayModeBar: true,
     displaylogo: false,

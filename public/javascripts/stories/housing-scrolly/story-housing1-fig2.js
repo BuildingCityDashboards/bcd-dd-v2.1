@@ -97,7 +97,7 @@ const getPlotObjectFig2 = async function () {
     // fig2Layout.title.text = titleFig2
   fig2Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
   // fig2Layout.margin.t = 100 //buttons are placed below this
-  fig2Layout.margin.r = 5 // space at RHS (under mode bar)
+  // fig2Layout.margin.r = 5 // space at RHS (under mode bar)
 
   const xaxisRange = [0, 75000] // TODO: get the max value from the data
     // configure the axes for each subplot

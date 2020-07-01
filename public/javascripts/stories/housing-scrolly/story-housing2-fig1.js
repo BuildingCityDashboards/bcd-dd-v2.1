@@ -85,7 +85,6 @@ const getPlotObjectFig1 = async function () {
   let layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
   layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
     // layout.title.text = titleFig1
-  layout.height = 500
   layout.showlegend = false
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.title = 'Year-Month'
@@ -99,14 +98,11 @@ const getPlotObjectFig1 = async function () {
   layout.yaxis.tickmode = 'array'
   layout.yaxis.tickvals = [25, 50, 75, 100, 125, 150]
     // layout.yaxis.visible = false
-  layout.yaxis.title = 'PPI'
+  layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
+  layout.yaxis.title.text = 'PPI'
+  layout.yaxis.title.standoff = 16
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 60,
-    r: 140,
-    b: 40,
-    t: 0
-  }
+  layout.margin.r = 144
     // layout.hidesources = false
 
     // Set annotations per chart with config per trace

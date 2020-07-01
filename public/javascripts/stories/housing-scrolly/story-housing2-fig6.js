@@ -127,12 +127,7 @@ const getPlotObjectFig6 = async function () {
   layout.yaxis.title = 'Accounts'
   layout.yaxis.hoverformat = ',d'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 80,
-    r: marginRCount,
-    t: 0, // button row
-    b: 40
-  }
+  layout.margin.r = marginRCount
 
   let countAnnotations = []
   let rateAnnotations = []
@@ -240,7 +235,5 @@ const getPlotObjectFig6 = async function () {
 
   return plotObject
 }
-
-
 
 export { getPlotObjectFig6 }
