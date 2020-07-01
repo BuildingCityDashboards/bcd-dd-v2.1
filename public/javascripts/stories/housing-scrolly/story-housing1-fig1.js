@@ -124,6 +124,7 @@ const getPlotObjectFig1 = async function () {
 
     // Set layout options
   const layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
+
   layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
     // layout.title.text = titleFig1
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
@@ -146,7 +147,7 @@ const getPlotObjectFig1 = async function () {
   layout.margin.r = 210 // Dun Laoghaire!!!
   layout.margin.l = 96
 
-  layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
+  // layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
 
     // Set annotations per chart with config per trace
   const popAnnotations = []
@@ -262,7 +263,7 @@ const getPlotObjectFig1 = async function () {
       {
         title: popTitle,
         annotations: popAnnotations,
-        'yaxis.title.text': 'Pop',
+        'yaxis.title.text': 'Population',
           //  'yaxis.title.standoff': 0,
         'yaxis.range': [0, 600000],
         'yaxis.tickvals': [100000, 200000, 300000, 400000, 500000, 600000],
@@ -359,13 +360,21 @@ const getPlotObjectFig1 = async function () {
   })
 
   let plotOptions = {
+    modeBar: {
+      orientation: 'h',
+      bgcolor: 'black',
+      color: null,
+      activecolor: null
+    },
     modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
-    displayModeBar: false,
+    displayModeBar: true,
     displaylogo: false,
     showSendToCloud: false,
     responsive: true,
     toImageButtonOptions: {
       filename: 'Dublin Dashboard - ' + titleFig1,
+      width: null,
+      height: null,
       format: 'png'
     }
   }

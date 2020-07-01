@@ -90,7 +90,7 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
 
       if (chartState == 'hidden') {
         console.log('draw chart and show')
-        chartSticky.style.display = 'flex'
+        chartSticky.style.display = 'block'
         if (plotObjects[event.index].hasOwnProperty('layout')) {
           Plotly.newPlot(CHART_STICKY_ELEMENT, plotObjects[event.index].traces, plotObjects[event.index].layout, plotObjects[event.index].options)
           if (event.index == 1) {
