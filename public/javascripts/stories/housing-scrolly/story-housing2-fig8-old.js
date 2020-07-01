@@ -28,7 +28,7 @@ d3.csv(srcPathFig8 + srcFileFig8)
 
     //Set layout options
     let layout = Object.assign({}, MULTILINE_CHART_LAYOUT);
-    layout.height = 500;
+    // layout.height = 500;
     layout.title.text = titleFig8;
     layout.showlegend = false;
     layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis);

@@ -48,7 +48,7 @@ const getPlotObjectFig3 = async function () {
 
     // Set layout options
   let layout = Object.assign({}, STACKED_AREA_CHART_LAYOUT)
-  layout.height = 500
+  // // layout.height = 500
     // layout.title.text = titleFig3;
   layout.marker = Object.assign({}, STACKED_AREA_CHART_LAYOUT.marker)
   layout.marker.opacity = 0

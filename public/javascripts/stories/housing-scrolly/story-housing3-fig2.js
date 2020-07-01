@@ -40,7 +40,7 @@ const getPlotObjectFig2 = async function () {
   let layout = Object.assign({}, MULTILINE_CHART_LAYOUT)
   layout.title = Object.assign({}, MULTILINE_CHART_LAYOUT.title)
     // layout.title.text = titleFig2;
-  layout.height = 500
+  // // layout.height = 500
   layout.showlegend = false
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
     // layout.xaxis.nticks = 7;
@@ -53,12 +53,12 @@ const getPlotObjectFig2 = async function () {
     // layout.yaxis.visible = false;
   layout.yaxis.title = 'People'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 80,
-    r: 220,
-    t: 0, // button row
-    b: 40
-  }
+  // layout.margin = {
+  //   l: 80,
+  //   r: 220,
+  //   t: 0, // button row
+  //   b: 40
+  // }
   layout.colorway = CHART_COLORWAY_VARIABLES
 
   let annotationsCount = []
