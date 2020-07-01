@@ -89,7 +89,7 @@ const getPlotObjectFig7 = async function () {
     // fig7Layout.title.text = titleFig7;
   fig7Layout.margin = Object.assign({}, ROW_CHART_LAYOUT_SUBPLOTS.margin)
     // fig7Layout.margin.t = 100;
-  fig7Layout.height = 600
+  // fig7Layout.height = 600
 
   const xaxisRange = [0, 120000] // TODO: get the max value from the data
     // configure the axes for each subplot

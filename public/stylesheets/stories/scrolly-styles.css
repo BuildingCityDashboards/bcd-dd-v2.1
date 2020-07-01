@@ -119,11 +119,11 @@
   margin           : 0 auto;
   padding          : 48px;
   overflow-y       : auto;
+  border-radius    : 4px;
   background-color : rgba(33, 39, 42, 0.78);
   text-align       : justify;
   flex-direction   : column;
   justify-content  : flex-start;
-  border-radius: 4px;
 }
 
 .story-scrolly__hero__text h1 {
@@ -143,9 +143,9 @@
 }
 
 .story-scrolly__hero__text ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  margin          : 0;
+  padding         : 0;
+  list-style-type : none;
 }
 
 #housing-crisis-1-hero {
@@ -162,7 +162,7 @@
 
 .parent {
   display               : grid;
-  margin                : 60px 60px;
+  margin                : 60px 0px 0px 60px;
   grid-gap              : 24px;
   grid-template-columns : repeat(12, 1fr);
   grid-template-rows    : auto 50vh;
@@ -269,18 +269,30 @@
   height         : auto;
   min-height     : 100vh;
   padding-top    : 20vh;
-  flex-direction : column;
+  flex-direction : row;
   /* background-color : #21272a; */
+
+}
+
+.sticky-chart-wrapper {
+background-color : #21272a;
+  display          : flex;
+  width            : 100%;
+  height: 80vh;
+  align-items      : center;
+  flex-direction   : column;
+  justify-content  : flex-start;
+
 }
 
 .chart {
   /* opacity: 0; */
   /* background-color : transparent; */
-  display          : flex;
-  width            : inherit;
-  background-color : #21272a;
-  flex-direction   : column;
-  justify-content  : center;
+  display : flex;
+  width   : 100%;
+  height: 60vh;
+  min-height: 500px;
+
 }
 
 .chart[data-status="shown"] {
@@ -295,19 +307,24 @@
   animation         : fadeOut 200ms;
 }
 
+.modebar-container{
+  position: absolute;
+  top: 100px;
+}
+
 #map-sticky-housing {
-  position   : relative;
+  /* position   : relative;
   width      : 800px;
   height     : auto;
-  min-height : 600px;
+  min-height : 600px; */
   /* margin-bottom: 100px; */
   /* margin-top: 40px; */
 }
 
 #chart-sticky-housing {
-  position : relative;
+  /* position : relative;
   width    : 800px;
-  height   : 600px;
+  height   : 600px; */
   /* margin-bottom: 100px; */
   /* margin-top: 40px; */
 }
@@ -386,4 +403,5 @@
   .mobile-chart {
     display : block;
   }
+}
 }

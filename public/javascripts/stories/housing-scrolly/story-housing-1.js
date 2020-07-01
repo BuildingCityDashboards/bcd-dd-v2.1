@@ -48,20 +48,10 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
     }
     return po
   }
-
-  // TODO: this is dumb, but must wait for a genralised function to return plot objects
-  let plotObjects = []
-
-  let plotObject = {}
-  plotObject = await getPlotObjectFig1()
-  stylePlotlyLayout(plotObject)
-  // console.log('plot 1 loaded')
-  plotObjects.push(plotObject)
-
   let map = {} // initialise
 
   const drawPlot = async (event) => {
-    // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
     let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
     let chartState = chartSticky.getAttribute('data-status')
@@ -133,7 +123,17 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
     onChange: drawPlot,
     stick: document.querySelector('.rightcol')
   })
+  // TODO: this is dumb, but must wait for a genralised function to return plot objects
 
+  let plotObjects = []
+  let plotObject = {}
+  plotObject = await getPlotObjectFig1()
+  stylePlotlyLayout(plotObject)
+  // used to initialise on page load
+  let dummyEvent = {'element': {}, 'index': 0, 'direction': 'down'}
+  drawPlot(dummyEvent)
+
+  plotObjects.push(plotObject)
   plotObject = await getPlotObjectFig2()
   // console.log('plot 2 loaded')
   stylePlotlyLayout(plotObject)

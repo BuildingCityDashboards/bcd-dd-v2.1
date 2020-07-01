@@ -49,16 +49,16 @@ const getPlotObjectFig6 = async function () {
   layout.xaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.xaxis)
   layout.xaxis.range = [1993.9, 2016.1]
   layout.xaxis.title = 'Year'
-  layout.yaxis = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis)
+  layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.fixedrange = false
   layout.yaxis.range = [1, 8000]
   layout.yaxis.title = 'Units'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    r: 210, // Dun Laoghaire!!!
-    t: 0, // button row
-    b: 40
-  }
+  // layout.margin = {
+  //   r: 210, // Dun Laoghaire!!!
+  //   t: 0, // button row
+  //   b: 40
+  // }
 
     // layout.hidesources = false;
 

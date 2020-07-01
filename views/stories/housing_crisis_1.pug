@@ -27,7 +27,6 @@ block content
     })
     +story-scrolly__title("Housing in the Dublin Region, 1991 to Present: Phase 1 - 1991-2003 (The Celtic Tiger years)")
     .parent
-      
       .narrative
         +story-scrolly__narrative-item({
           id:'phase1-1',
@@ -87,8 +86,10 @@ block content
         })
                
       .rightcol
-        .chart(id ="chart-sticky-housing" data-status="hidden" style="display: block;")
-        div(id ="map-sticky-housing" data-status="hidden" style="display: none;")
+        .sticky-chart-wrapper
+          .chart(id ="chart-sticky-housing" data-status="hidden" style="display: block;")
+          .chart(id ="map-sticky-housing" data-status="hidden" style="display: none;")
+        
 
         
 block append scripts

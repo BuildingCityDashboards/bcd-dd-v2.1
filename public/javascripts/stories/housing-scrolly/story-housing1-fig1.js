@@ -137,14 +137,15 @@ const getPlotObjectFig1 = async function () {
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.title = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis.title)
   layout.yaxis.title.text = 'Population'
+  layout.yaxis.title.standoff = 16
   layout.yaxis.range = [0, 600000]
   layout.yaxis.tickmode = 'array'
   layout.yaxis.tickvals = [100000, 200000, 300000, 400000, 500000, 600000]
   layout.yaxis.hoverformat = ',d'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
   layout.margin.r = 210 // Dun Laoghaire!!!
-  layout.margin.l = 110
-  layout.yaxis.title.standoff = 5
+  layout.margin.l = 96
+
   layout.legend = Object.assign({}, MULTILINE_CHART_LAYOUT.legend)
 
     // Set annotations per chart with config per trace
@@ -359,14 +360,12 @@ const getPlotObjectFig1 = async function () {
 
   let plotOptions = {
     modeBarButtons: MULTILINE_CHART_MODE_BAR_BUTTONS_TO_INCLUDE,
-    displayModeBar: true,
+    displayModeBar: false,
     displaylogo: false,
     showSendToCloud: false,
     responsive: true,
     toImageButtonOptions: {
       filename: 'Dublin Dashboard - ' + titleFig1,
-      width: null,
-      height: null,
       format: 'png'
     }
   }
