@@ -51,13 +51,14 @@ const getPlotObjectFig7 = async function () {
   layout.yaxis.title = 'People'
   layout.yaxis.hoverformat = ',d'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 75,
-    r: marginRNat,
-    t: 0, // button row
-    b: 40
-  }
-    // // layout.hidesources = false;
+  layout.margin.r = marginRNat
+  // {
+  //   l: 75,
+  //   r: marginRNat,
+  //   t: 0, // button row
+  //   b: 40
+  // }
+  //   // // layout.hidesources = false;
 
     // Set annotations per chart with config per trace
   let nationalAnnotations = []

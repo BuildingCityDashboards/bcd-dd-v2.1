@@ -56,12 +56,12 @@ const getPlotObjectFig4 = async function () {
   layout.yaxis.range = [1, 1520]
   layout.yaxis.title = 'Hectares'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 75,
-    r: 210,
-    t: 0, // button row
-    b: 40
-  }
+  // layout.margin = {
+  //   l: 75,
+  //   r: 210,
+  //   t: 0, // button row
+  //   b: 40
+  // }
   let annotationsHectares = []
   tracesHectares.forEach((trace, i) => {
       // console.log("trace: " + JSON.stringify(trace));
@@ -97,8 +97,8 @@ const getPlotObjectFig4 = async function () {
       // de-focus some annotations
       // TODO: function for this
     (i < 4) ? annotation.opacity = 1.0 : annotation.opacity = 0.5
-    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font);
-    (i < 4) ? annotation.font.color = CHART_COLORWAY[i] : annotation.font.color = 'grey' // magic number!!!
+    annotation.font = Object.assign({}, ANNOTATIONS_DEFAULT.font)
+    annotation.font.color = getColourForLA(trace.name)
 
       // console.log(annotation.font.color);
     annotationsExpectedUnits.push(annotation)

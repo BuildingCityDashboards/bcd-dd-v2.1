@@ -107,12 +107,12 @@ const getPlotObjectFig2 = async function () {
   layout.yaxis.tickvals = [500000, 1000000, 1500000, 2000000]
   layout.yaxis.hoverformat = '.2s'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 70,
-    r: 210,
-    t: 0, // button row
-    b: 40
-  }
+  // layout.margin = {
+  //   l: 70,
+  //   r: 210,
+  //   t: 0, // button row
+  //   b: 40
+  // }
   // layout.yaxis.title.standoff = 10
     //  layout.hidesources = false
 

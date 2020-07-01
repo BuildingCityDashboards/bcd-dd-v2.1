@@ -70,14 +70,7 @@ const getPlotObjectFig8 = async function () {
   layout.yaxis.range = [1, 1000]
     // layout.yaxis.visible = false;
   layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 65,
-    r: marginRUnauth,
-    t: 0, // button row
-    b: 40
-  }
-    // // layout.hidesources = false;
-
+  layout.margin.r = marginRUnauth
     // Set annotations per chart with config per trace
   let unauthorisedAnnotations = []
   let accomodatedAnnotations = []
@@ -243,7 +236,5 @@ const getPlotObjectFig8 = async function () {
 
   return plotObject
 }
-
-
 
 export { getPlotObjectFig8 }

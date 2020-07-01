@@ -101,12 +101,7 @@ const getPlotObjectFig1 = async function () {
     // layout.yaxis.visible = false
   layout.yaxis.title = 'PPI'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
-  layout.margin = {
-    l: 60,
-    r: 140,
-    b: 40,
-    t: 0
-  }
+
     // layout.hidesources = false
 
     // Set annotations per chart with config per trace
