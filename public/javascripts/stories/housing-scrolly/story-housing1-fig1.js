@@ -284,7 +284,7 @@ const getPlotObjectFig1 = async function () {
         {
           title: houseTitle,
           annotations: houseAnnotations,
-          'yaxis.title.text': 'Hholds',
+          'yaxis.title.text': 'No. of Households',
           // 'yaxis.title.standoff': 10,
           'yaxis.range': [-2, 250000],
           'yaxis.tickvals': [0, 50000, 100000, 150000, 200000, 150000],
@@ -306,7 +306,7 @@ const getPlotObjectFig1 = async function () {
         {
           title: popRateTitle,
           annotations: popRateAnnotations,
-          'yaxis.title.text': '%',
+          'yaxis.title.text': '% Population Change',
           //  'yaxis.title.standoff': 20,
           'yaxis.range': [-2, 125],
           'yaxis.tickvals': [0, 50, 100],
@@ -329,7 +329,7 @@ const getPlotObjectFig1 = async function () {
         {
           title: houseRateTitle,
           annotations: houseRateAnnotations,
-          'yaxis.title.text': '%',
+          'yaxis.title.text': '% Households Change',
           //  'yaxis.title.standoff': 20,
           //  'updatemenus.pad.l': -60,
           'yaxis.range': [-2, 151],

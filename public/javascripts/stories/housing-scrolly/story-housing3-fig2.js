@@ -23,6 +23,7 @@ const getPlotObjectFig2 = async function () {
     trace.name = yVar
     trace.stackgroup = 'one'
     trace.visible = true
+    trace.hoverinfo = 'x+y'
     trace.x = data.map((x) => {
       return x[xVar]
     })
@@ -51,7 +52,7 @@ const getPlotObjectFig2 = async function () {
   layout.yaxis = Object.assign({}, MULTILINE_CHART_LAYOUT.yaxis)
   layout.yaxis.range = [1, 5000]
     // layout.yaxis.visible = false;
-  layout.yaxis.title = 'People'
+  layout.yaxis.title = 'No. of people homeless'
   layout.margin = Object.assign({}, MULTILINE_CHART_LAYOUT.margin)
   // layout.margin = {
   //   l: 80,
