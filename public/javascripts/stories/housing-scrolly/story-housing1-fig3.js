@@ -61,7 +61,7 @@ const getPlotObjectFig3 = async function () {
   layout.yaxis.fixedrange = false
   layout.yaxis.range = [1, 70000]
   layout.yaxis.title = Object.assign({}, STACKED_AREA_CHART_LAYOUT.yaxis.title)
-  layout.yaxis.title = 'Units'
+  layout.yaxis.title = 'Units Completed'
   layout.margin = Object.assign({}, STACKED_AREA_CHART_LAYOUT.margin)
 
   // layout.margin = {
