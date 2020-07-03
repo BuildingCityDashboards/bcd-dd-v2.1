@@ -52,7 +52,7 @@
 
 .story-scrolly__hero {
   display             : flex;
-  width               : auto;
+  width               : 100vw;
   height              : 100vh;
   background-repeat   : no-repeat;
   background-position : center;
@@ -315,6 +315,7 @@
   min-width : 90vw;
 }
 
+
 @media
   screen
   and (max-width : 1024px) {
@@ -335,7 +336,10 @@
     background-image : url('/images/stories/tablet/housing3_background_tablet.png');
   }
 
-  .story-scrolly__hero__title {}
+  .story-scrolly__hero__title {
+    max-width: 70vw;
+    margin: 0 auto;
+  }
 
   .story-scrolly__hero__title h1 {
     margin-bottom : 36px;
@@ -391,27 +395,26 @@
   }
 
   .story-scrolly__hero__title {
-    padding-top: 72px;
+    padding-top : 72px;
+    max-width: 80vw;
   }
 
   .story-scrolly__hero__title h1 {
-    font-size: 28px;
     margin-bottom : 36px;
+    font-size     : 28px;
     line-height   : 1.5;
   }
 
   .story-scrolly__hero__title h2 {
-    font-size: 24px;
-
+    font-size : 24px;
   }
 
   .story-scrolly__hero__text {
-    min-width        : 60vw;
-    max-width        : 80vw;
-    height           : auto;
-    max-height       : 65vh;
-    padding          : 32px;
-
+    min-width  : 60vw;
+    max-width  : 80vw;
+    height     : auto;
+    max-height : 65vh;
+    padding    : 32px;
   }
 
   .story-scrolly__hero__text h1 {
@@ -428,8 +431,7 @@
     letter-spacing : 0.15px;
   }
 
-  .story-scrolly__hero__text ul {
-    }
+  .story-scrolly__hero__text ul {}
 
   .narrative {
     /* width: 33.3%; */
@@ -455,57 +457,53 @@
   }
 }
 
-/* Galaxy S3*/
+/* Galaxy S3 */
+
 @media
   screen
-  and (max-width : 768px)
-  and (max-height : 640px){
+  and (max-width  : 768px)
+  and (max-height : 640px) {
+  .story-scrolly__hero__title {
+    padding-top : 60px;
+    /* justify-content: flex-start; */
+  }
 
-    .story-scrolly__hero__title {
-      padding-top: 60px;
-      /* justify-content: flex-start; */
-    }
+  .story-scrolly__hero__title h1 {
+    margin-bottom : 18px;
+    font-size     : 18px;
+    line-height   : 1.25;
+  }
 
-    .story-scrolly__hero__title h1 {
-      font-size: 18px;
-      margin-bottom : 18px;
-      line-height   : 1.25;
-    }
+  .story-scrolly__hero__title h2 {
+    font-size : 14px;
+  }
 
-    .story-scrolly__hero__title h2 {
-      font-size: 14px;
+  .story-scrolly__hero__text {
+    min-width  : 60vw;
+    max-width  : 80vw;
+    height     : auto;
+    max-height : 65vh;
+    padding    : 18px;
+  }
 
-    }
+  .story-scrolly__hero__text h1 {
+    margin-bottom  : 18px;
+    font-size      : 14px;
+    line-height    : 1.25;
+    letter-spacing : 0.18px;
+  }
 
-    .story-scrolly__hero__text {
-      min-width        : 60vw;
-      max-width        : 80vw;
-      height           : auto;
-      max-height       : 65vh;
-      padding          : 18px;
+  .story-scrolly__hero__text p {
+    font-size      : 10px;
+    font-weight    : 200;
+    line-height    : 1.5;
+    letter-spacing : 0.15px;
+  }
 
-    }
-
-    .story-scrolly__hero__text h1 {
-      margin-bottom  : 18px;
-      font-size      : 14px;
-      line-height    : 1.25;
-      letter-spacing : 0.18px;
-    }
-
-    .story-scrolly__hero__text p {
-      font-size      : 10px;
-      font-weight    : 200;
-      line-height    : 1.5;
-      letter-spacing : 0.15px;
-    }
-
-    .story-scrolly__hero__text ul {
-      font-size      : 10px;
-      font-weight    : 200;
-      line-height    : 1.5;
-      letter-spacing : 0.15px;
-      }
-
-
+  .story-scrolly__hero__text ul {
+    font-size      : 10px;
+    font-weight    : 200;
+    line-height    : 1.5;
+    letter-spacing : 0.15px;
+  }
 }
