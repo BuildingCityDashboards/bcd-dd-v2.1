@@ -175,12 +175,12 @@
   z-index          : 100;
   display          : flex;
   width            : 100%;
-  height           : 60px;
-  padding-top      : 78px;
+  height           : 120px;
+  padding-top      : 60px;
   padding-right    : 60px;
   padding-left     : 60px;
   background-color : #1c2022;
-  align-items      : center;
+  align-items      : flex-start;
 }
 
 .story-scrolly__title h1 {
@@ -324,6 +324,7 @@
 @media
   screen
   and (max-width : 1024px) {
+
   .parent {
     margin   : 0 0 0 48px;
     grid-gap : 16px;
