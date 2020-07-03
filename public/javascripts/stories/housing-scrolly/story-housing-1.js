@@ -77,7 +77,7 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
           mapSticky.setAttribute('data-status', 'shown')
         }
       }
-    } else if (event.index >= 0 && event.index < plotObjects.length) {
+    } else if (event.index >= 0 && event.index < plotObjects.length - 3) {
       if (mapState === 'shown') {
         console.log('hide map')
         // console.log('map')
