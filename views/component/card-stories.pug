@@ -1,11 +1,14 @@
 mixin card-stories({id='',title='Story title', icon='', description='Description of story', links=[]})
     div(class='stories-home__card')
       .card__header
-        .card__icon=icon
-        .card__title=title
-          
-      .card__body(id=chartid min-width="256" min-height="72")
+        //- img(src= icon).card__icon
+        h1.card__title=title
+      .card__body
         p!=description
+        each l in links
+          p
+            <a href= #{l.href}>#{l.name} </a>
+          
         
       
       //- .card__info

@@ -24,13 +24,19 @@ block content
       #stories-home__carousel
         <div class="carousel" data-flickity='{ "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
           .carousel-cell
-            #stories-home__geodemos
               +card-stories({
               title: "Housing in the Dublin Region, 1991 to present",
-              description: "A three-part story describing the historical phases of the housing crisis in Dublin."
+              description: "A three-part story describing the historical phases of the housing crisis in Dublin.",
+              links: [
+              {href :"/stories/housing-crisis-phase-1",
+              name:'Phase 1: 1991-2003 (The Celtic Tiger years)'},
+              {href :"/stories/housing-crisis-phase-2",
+              name: 'Phase 2: 2007-2012 (the crash)'},
+              {href :"/stories/housing-crisis-phase-3",
+              name: 'Phase 3: 2013-present (post-crash)'}
+              ]
               })
           .carousel-cell
-            #stories-home__getting-around
               +card-stories({})
         </div>
 
