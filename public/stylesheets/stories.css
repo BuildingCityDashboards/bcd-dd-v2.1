@@ -82,6 +82,11 @@ html {}
   grid-row    : 4 / 8;
 }
 
+.stories-home__card {
+  background-color: #21272a;
+
+}
+
 .carousel {
   margin     : 0 20px;
   background : transparent;
