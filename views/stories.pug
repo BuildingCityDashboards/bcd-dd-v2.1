@@ -1,6 +1,5 @@
 extends layout
-include component/card-rt
-include component/card-chart 
+include component/card-stories
 
 block append head
 
@@ -25,8 +24,10 @@ block content
       #stories-home__carousel
         <div class="carousel" data-flickity='{ "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
           .carousel-cell
-            #stories-home-geodemos
-              +card-rt("themes#dublin-bikes", "card text-white o-hidden border-yellow", "Geodemographics", "", "")
+            #stories-home__geodemos
+              +card-stories("stories/house_crisis", "card text-white o-hidden border-yellow", "Geodemographics", "", "")
+            #stories-home__getting-around
+              +card-stories("stories/", "card text-white o-hidden border-yellow", "Getting Around", "", "")
         </div>
 
 block append scripts
