@@ -9,6 +9,8 @@ html {}
   height           : 100vh;
   min-height       : 540px;
   max-height       : 768px;
+  margin           : 0;
+  padding          : 0;
   overflow-y       : hidden;
   background-color : #1c2022;
   text-align       : center;
@@ -25,8 +27,7 @@ html {}
   height                : 100vh;
   min-height            : inherit;
   max-height            : inherit;
-  margin                : 0;
-  padding               : 0 8px;
+  padding               : 0 16px;
   justify-content       : center;
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
@@ -34,23 +35,39 @@ html {}
 }
 
 #stories-home__icon {
-  display     : flex;
-  align-items : center;
-  grid-column : 1 / 3;
-  grid-row    : 2 / 3;
+  display         : flex;
+  flex-direction: row;
+  align-items     : center;
+  /* align-self      : center; */
+  justify-content : center;
+  grid-column     : 1 / 2;
+  grid-row        : 2 / 3;
+}
+
+#stories-home__icon img {
+  width: auto;
+  height: auto;
 }
 
 #stories-home__title {
   display         : flex;
   display         : -ms-flexbox;
-  align-self      : top;
+  align-items     : center;
   font-size       : 28px;
   flex-direction  : row;
   justify-content : flex-start;
-  grid-column     : 3 / 5;
+  grid-column     : 2 / 5;
   grid-row        : 2 / 3;
   line-height     : 0.71;
   letter-spacing  : -0.5px;
+}
+
+#stories-home__title h1 {
+  color       : #6fd1f6;
+  font-family : 'Roboto',
+                sans-serif;
+  font-weight : 200;
+  margin: 0;
 }
 
 #stories-home__description {
