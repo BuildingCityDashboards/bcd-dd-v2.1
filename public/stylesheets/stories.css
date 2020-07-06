@@ -135,8 +135,8 @@ html {}
 }
 
 .stories-home__card .card__header h1 {
+  margin    : 0;
   font-size : 16px;
-  margin: 0;
 }
 
 .stories-home__card .card__body {
@@ -150,10 +150,10 @@ html {}
 }
 
 .stories-home__card .card__body p {
-  font-size   : 14px;
-  line-height : 1.5;
-  margin: 0;
-  margin-bottom: 8px;
+  margin        : 0;
+  margin-bottom : 8px;
+  font-size     : 14px;
+  line-height   : 1.5;
 }
 
 .stories-home__card .card__body a {
@@ -342,6 +342,7 @@ html {}
 
   .stories-home__card .card__header {
     display         : flex;
+    height          : 96px;
     padding-bottom  : 16px;
     border-bottom   : 1px solid rgba(83, 89, 92, 0.8);
     align-items     : center;
@@ -349,20 +350,33 @@ html {}
     justify-content : center;
   }
 
-  .stories-home__card .card__header h1 {}
+  .stories-home__card .card__header h1 {
+    font-size : 20px;
+  }
 
   .stories-home__card .card__body {
-    display     : block;
-    width       : auto;
-    height      : auto;
-    padding-top : 24px;
-    overflow-y  : auto;
-    text-align  : left;
+    display         : flex;
+    width           : auto;
+    height          : 304px;
+    padding-top     : 24px;
+    overflow-y      : auto;
+    text-align      : left;
+    flex-direction  : column;
+    justify-content : center;
+    /* vertical-align: middle; */
     /* justify-content: space-between; */
   }
 
-  .stories-home__card .card__body p,
-  a {
+  .stories-home__card .card__body p {
+    margin         : 0;
+    padding        : 0;
+    padding-bottom : 8px;
+    font-size      : 14px;
+  }
+
+  .stories-home__card .card__body a {
+    margin         : 0;
+    padding        : 0;
     padding-bottom : 8px;
     font-size      : 14px;
   }
@@ -402,6 +416,183 @@ html {}
 
   .flickity-prev-next-button.next {
     right : -24px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .stories-home-carousel__card {}
+}
+
+@media
+  only screen
+  and (min-width : 1980px) {
+  #stories-home {
+    position   : relative;
+    width      : 100vw;
+    min-width  : 1280px;
+    height     : auto;
+    min-height : 100vh;
+    max-height : none;
+    margin     : 0;
+    padding    : 0;
+    overflow-y : scroll;
+  }
+
+  #stories-home__grid {
+    display               : grid;
+    width                 : inherit;
+    min-width             : inherit;
+    height                : auto;
+    min-height            : 700px;
+    max-height            : none;
+    padding               : 0 16px;
+    overflow-y            : scroll;
+    justify-content       : center;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : 160px repeat(4, auto);
+  }
+
+  #stories-home__icon {}
+
+  #stories-home__icon img {}
+
+  #stories-home__title {}
+
+  #stories-home__title h1 {
+    margin         : 0;
+    color          : #6fd1f6;
+    font-family    : 'Roboto',
+                     sans-serif;
+    font-size      : 60px;
+    font-weight    : 200;
+    line-height    : 72px;
+    letter-spacing : -0.5px;
+  }
+
+  #stories-home__description {
+    display     : flex;
+    color       : #6fd1f6;
+    align-items : center;
+    grid-column : 5 / 12;
+    grid-row    : 3 / 4;
+  }
+
+  #stories-home__description p {
+    padding-right : 32px;
+    font-size     : 28px;
+    line-height   : 32px;
+  }
+
+  #stories-home__carousel {
+    height      : 600px;
+    min-height  : 600px;
+    grid-column : 2 / 12;
+    grid-row    : 4 / 5;
+  }
+
+  .carousel {
+    height     : inherit;
+    margin     : 0 64px;
+    padding    : 64px 0;
+    background : transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width         : 33%;
+    height        : inherit;
+    margin-right  : 24px;
+    border-radius : 4px;
+    background    : transparent;
+    /* counter-increment : gallery-cell; */
+    /* gap between cards */
+  }
+
+  .carousel-cell:before {}
+
+  .stories-home__card {
+    padding : 24px;
+  }
+
+  .stories-home__card .card__header {
+    display         : flex;
+    height          : 128px;
+    padding-bottom  : 32px;
+    border-bottom   : 1px solid rgba(83, 89, 92, 0.8);
+    align-items     : center;
+    flex-direction  : row;
+    justify-content : center;
+  }
+
+  .stories-home__card .card__header h1 {
+    font-size : 32px;
+  }
+
+  .stories-home__card .card__body {
+    display         : flex;
+    width           : auto;
+    height          : 304px;
+    padding-top     : 24px;
+    overflow-y      : auto;
+    text-align      : left;
+    flex-direction  : column;
+    justify-content : center;
+    /* vertical-align: middle; */
+    /* justify-content: space-between; */
+  }
+
+  .stories-home__card .card__body p {
+    margin         : 0;
+    padding        : 0;
+    padding-bottom : 8px;
+    font-size      : 24px;
+  }
+
+  .stories-home__card .card__body a {
+    margin         : 0;
+    padding        : 0;
+    padding-bottom : 8px;
+    font-size      : 24px;
+  }
+
+  .stories-home__card .card__icon {
+    border : none;
+  }
+
+  .stories-home__card .card__icon img {}
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 32px;
+    height        : 32px;
+    border-radius : 4px;
+  }
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left : -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
   }
 
   .flickity-button:focus {
