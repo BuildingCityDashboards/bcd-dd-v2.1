@@ -5,9 +5,9 @@ include component/accordion
 block append head
   
   link(rel='stylesheet', href='https://unpkg.com/leaflet@1.3.1/dist/leaflet.css')
-  link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
+  //-link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
   link(rel='stylesheet', href='/stylesheets/tools/tools-geodemos.css')
-  link(rel='stylesheet', href='/stylesheets/tools/dc-tools.css')
+  //-link(rel='stylesheet', href='/stylesheets/tools/dc-tools.css')
   link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
   link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
   link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
@@ -63,33 +63,74 @@ block content
         p.lead Interact with maps and charts to find answers to common questions.
         
         // Nav tabs
-        #main_page
-        br
-        .row
-        ul.nav.nav-tabs
-          .col-sm-3
-            li.nav-item.active
-              a.nav-link.active(data-toggle='tab', href='queries/q1') 
-                .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> GeoDemo.
-          .col-sm-3
-            li.nav-item
-              a.nav-link(data-toggle='tab', href='queries/q2') 
-                .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query2 
+        //- #main_page
+        //- br
+        //- .row
+        //- ul.nav.nav-tabs
+        //-   .col-sm-3
+        //-     li.nav-item.active
+        //-       a.nav-link.active(data-toggle='tab', href='queries/q1') 
+        //-         .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> GeoDemo.
+        //-   .col-sm-3
+        //-     li.nav-item
+        //-       a.nav-link(data-toggle='tab', href='queries/q2') 
+        //-         .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query2 
               
-          .col-sm-3
-            li.nav-item
-              a.nav-link(data-toggle='tab', href='queries/q3') 
-                .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query3
-          .col-sm-3
-            li.nav-item
-              a.nav-link(data-toggle='tab', href='queries/q4') 
-                .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query4    
+        //-   .col-sm-3
+        //-     li.nav-item
+        //-       a.nav-link(data-toggle='tab', href='queries/q3') 
+        //-         .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query3
+        //-   .col-sm-3
+        //-     li.nav-item
+        //-       a.nav-link(data-toggle='tab', href='queries/q4') 
+        //-         .col-1 <img  height='40px' width='40px' src='/images/Icons/Query-img.png'> Query4    
         .row
             .col-12
                     .row  
-                        .col
+                        .col-9
                             span#group-title  
-                            span#group-text  
+                            span#group-text
+                        .col-3
+                            label(for='soci-eco') Choose a Soci-eco Variable:
+                            select#seco(name='seco')
+                                option(value=0) Age0_4
+                                option(value=1) Age5_14
+                                option(value=2) Age25_44
+                                option(value=3) Age45_64
+                                option(value=4) Age65over
+                                option(value=5) EU_National
+                                option(value=6) ROW_National
+                                option(value=7) Born_outside_Ireland
+                                option(value=8) Separated
+                                option(value=9) SinglePerson
+                                option(value=10) Pensioner
+                                option(value=11) LoneParent
+                                option(value=12) DINK
+                                option(value=13) NonDependentKids
+                                option(value=14) RentPublic
+                                option(value=15) RentPrivate
+                                option(value=16) Flats
+                                option(value=17) SepticTank
+                                option(value=18) HEQual
+                                option(value=19) Employed
+                                option(value=20) TwoCars
+                                option(value=21) JTWPublic
+                                option(value=22) HomeWork
+                                option(value=23) Students
+                                option(value=24) Unemployed
+                                option(value=25) EconInactFam
+                                option(value=26) Manufacturing
+                                option(value=27) Commerce
+                                option(value=28) Transport
+                                option(value=29) Public
+                                option(value=30) Professional
+                                option(value=31) Internet
+                                option(value=32) Broadband
+                                
+
+                                
+                                //- ,,,,,,,,,,,,,,,,,,HEQual,Employed,TwoCars,JTWPublic,HomeWork,Students,Unemployed,EconInactFam,Manufacturing,Commerce,
+      
                     .row 
                     
         #group-buttons
