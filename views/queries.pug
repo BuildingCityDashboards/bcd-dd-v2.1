@@ -15,7 +15,7 @@ block content
       #queries-home__icon
         img(src='/images/icons/icons-48px/queries_Icon_48px.svg')
       #queries-home__title
-        h1 queries
+        h1 Queries
       #queries-home__description
         p Data queries add context and meaning to 
           |the raw data available for the city. The 
@@ -25,16 +25,18 @@ block content
         <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
         
           .carousel-cell
-              +card-queries({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
+              +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})
           .carousel-cell
-              +card-queries({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
+              +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})
+          .carousel-cell
+              +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})
               
         </div>
 
 block append scripts
   //- script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
   
-  script(src="lib/flickity.pkgd.min.js" type="text/javascript")
+  script(src="./lib/flickity.pkgd.min.js" type="text/javascript")
   //- script(src="lib/d3v5/d3.js" type="text/javascript")
   //- script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js")
   //- script(src='lib/set-interval-async.iife.js' type="text/javascript")
