@@ -24,10 +24,14 @@ form(class="form-inline float-right search-box")
     input(class="search-box__input" type="text" id="userinput" placeholder="Search" aria-label="Search")
     #suggestions
 
-button.side-menu__toggler.side-menu__right.search__trigger
-    .menu-button
+button.side-menu__toggler.side-menu__right
+    .menu-button.search__trigger
         img(height='20px' width='20px' class="float-right" title="Click to open search box" src="../images/magnifying-glass.svg")
-    
+    .menu-button
+        a(href="/portal")
+          img(height='20px' width='20px' class="float-right" title="Go to Portal" src="../images/icons/icons-24px/portal_icon.svg") 
+          //- <a href="../html-link.htm"><img src="flower.jpg" style="width:82px; height:86px" title="White flower" alt="Flower"></a>     
+ 
 
 
 button.side-menu__toggler.s-m__trigger.side-menu__left
@@ -35,6 +39,8 @@ button.side-menu__toggler.s-m__trigger.side-menu__left
         .menu-button__bar.menu-button__bar--top 
         .menu-button__bar.menu-button__bar--middle 
         .menu-button__bar.menu-button__bar--bottom
+
+
 
 nav.side-menu
         ul.side-menu__nav
@@ -52,7 +58,6 @@ nav.side-menu
 
 .side-menu__overlay.s-m__trigger
   
-
   
 append scripts
   script(src='/lib/flexsearch.compact.js' type='text/javascript')

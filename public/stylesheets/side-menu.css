@@ -1,10 +1,10 @@
 .side-menu__toggler {
-  z-index          : 8000;
+  z-index          : 10003;
   position         : fixed;
   top              : 0;
-  width            : 3rem;
-  height           : 3rem;
-  padding          : .75rem;
+  width            : 60px;
+  height           : 60px;
+  padding          : 12px;
   border           : none;
   border-radius    : 0;
   background-color : rgba(0, 0, 0, 0.0);
@@ -18,6 +18,10 @@
 
 .side-menu__right {
   right : 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .side-menu__toggler:focus {
@@ -30,7 +34,8 @@
   display  : block;
   position : relative;
   float    : left;
-  padding  : 3px;
+  padding  : 4px;
+  padding-right: 16px;
   cursor   : pointer;
 }
 
@@ -75,7 +80,6 @@
   overflow-y         : scroll;
   background-color   : var(--black-blue);
   box-shadow         : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-  -ms-flex-direction : column;
   flex-direction     : column;
   transform          : translateX(-100%);
   transition         : 250ms ease;
@@ -113,11 +117,9 @@
 }
 
 .side-menu__nav {
-  display            : -ms-flexbox;
   display            : flex;
   margin-bottom      : 0;
   padding            : 4rem 0;
-  -ms-flex-direction : column;
   flex-direction     : column;
   list-style         : none;
 }
@@ -249,7 +251,7 @@
 }
 
 .search-box {
-  z-index    : 9999;
+  z-index    : 10002;
   visibility : hidden;
   position   : fixed;
   top        : 0;
@@ -262,11 +264,11 @@
 
 .search-box--open {
   visibility       : visible;
-  padding          : .75rem;
-  opacity          : 1;
-  opacity          : 0.8;
+  padding          : 16px;
+  opacity          : 0.95;
   background-color : #1c2022;
   outline          : none;
+  height: 60px;
 }
 
 .search-box__input {
@@ -292,7 +294,9 @@
 }
 
 #suggestions {
-  z-index          : 9999;
+  width      : 50vw;
+  max-width  : 328px;
+  padding: 0;
   top              : 0;
   right            : 0;
   width            : 100%;
@@ -339,8 +343,6 @@
 
 .sidenav-group {
   display            : block;
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
   box-sizing         : border-box;
   border-bottom      : 1px solid #f8f8f8;
 }
@@ -368,6 +370,7 @@
 
   .bcd-nav {
     padding : 0 1rem;
+
   }
 
   .subnav-link {

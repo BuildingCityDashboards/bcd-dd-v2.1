@@ -1,0 +1,664 @@
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity : 0;
+  }
+
+  100% {
+    display : block;
+    opacity : 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity : 0;
+  }
+
+  100% {
+    display : block;
+    opacity : 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity : 1;
+  }
+
+  100% {
+    display : hidden;
+    opacity : 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity : 1;
+  }
+
+  100% {
+    display : hidden;
+    opacity : 0;
+  }
+}
+
+.bcd-navbar {
+  background-color : transparent;
+}
+
+.page {
+  background-color : #1c2022;
+}
+
+.story-scrolly__hero {
+  display             : flex;
+  width               : 100vw;
+  height              : 100vh;
+  background-repeat   : no-repeat;
+  background-position : center;
+  background-size     : cover;
+  flex-direction      : column;
+}
+
+.story-scrolly__hero__title {
+  display         : flex;
+  width           : auto;
+  height          : 30vh;
+  padding         : 10vh 24px 0 24px;
+  text-align      : center;
+  font-family     : 'Roboto';
+  font-style      : normal;
+  flex-direction  : column;
+  justify-content : center;
+}
+
+.story-scrolly__hero__title h1 {
+  margin-bottom  : 48px;
+  color          : #21272a;
+  font-size      : 36px;
+  font-style     : normal;
+  font-weight    : bold;
+  font-stretch   : normal;
+  line-height    : 0.44;
+  letter-spacing : 1.5px;
+}
+
+.story-scrolly__hero__title h2 {
+  color          : #293135;
+  font-size      : 28px;
+  font-style     : normal;
+  font-weight    : bold;
+  font-stretch   : normal;
+  line-height    : 0.57;
+  letter-spacing : 1.5px;
+}
+
+/* headings are a different colour for parts 2 and 3 */
+
+#housing-crisis-2-hero .story-scrolly__hero__title h1 {
+  color : rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-2-hero .story-scrolly__hero__title h2 {
+  color : rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-3-hero .story-scrolly__hero__title h1 {
+  color : rgba(255, 255, 255, 0.87);
+}
+
+#housing-crisis-3-hero .story-scrolly__hero__title h2 {
+  color : rgba(255, 255, 255, 0.87);
+}
+
+.story-scrolly__hero__text {
+  display          : flex;
+  width            : auto;
+  min-width        : 60vw;
+  max-width        : 75vw;
+  height           : auto;
+  max-height       : 60vh;
+  margin           : 0 auto;
+  padding          : 48px;
+  overflow-y       : auto;
+  border-radius    : 4px;
+  background-color : rgba(33, 39, 42, 0.78);
+  text-align       : justify;
+  flex-direction   : column;
+  justify-content  : flex-start;
+}
+
+.story-scrolly__hero__text h1 {
+  margin-bottom  : 28px;
+  color          : #6fd1f6;
+  font-size      : 28px;
+  line-height    : 24px;
+  letter-spacing : 0.18px;
+}
+
+.story-scrolly__hero__text p {
+  color          : white;
+  font-size      : 16px;
+  font-weight    : 200;
+  line-height    : 24px;
+  letter-spacing : 0.15px;
+}
+
+.story-scrolly__hero__text ul {
+  margin          : 0;
+  padding         : 0;
+  list-style-type : none;
+}
+
+#housing-crisis-1-hero {
+  background-image : url('/images/stories/desktop/housing_1_background.png');
+}
+
+#housing-crisis-2-hero {
+  background-image : url('/images/stories/desktop/housing_2_background.png');
+}
+
+#housing-crisis-3-hero {
+  background-image : url('/images/stories/desktop/housing_3_background.png');
+}
+
+.parent {
+  display               : grid;
+  margin                : 60px 0px 0px 60px;
+  grid-gap              : 24px;
+  grid-template-columns : repeat(12, 1fr);
+  grid-template-rows    : auto;
+  /* flex-direction: row; */
+}
+
+.story-scrolly__title {
+  z-index          : 100;
+  display          : flex;
+  width            : 100%;
+  height           : 120px;
+  padding-top      : 60px;
+  padding-right    : 60px;
+  padding-left     : 60px;
+  background-color : #1c2022;
+  align-items      : flex-start;
+}
+
+.story-scrolly__title h1 {
+  margin         : 0;
+  color          : #6fd1f6;
+  font-family    : 'Roboto';
+  font-size      : 24px;
+  font-style     : normal;
+  font-weight    : 200;
+  font-stretch   : normal;
+  line-height    : 1;
+  letter-spacing : 0.18px;
+}
+
+.sticky {
+  position : fixed;
+  top      : 0;
+  width    : 100%;
+}
+
+.sticky + .parent {
+  padding-top : 60px;
+}
+
+.narrative {
+  /* width: 33.3%; */
+  margin-left : 24px;
+  grid-column : 1/5;
+  grid-row    : 1;
+}
+
+.narrative-item {
+  display         : flex;
+  height          : auto;
+  margin          : 0;
+  padding-top     : 20vh;
+  padding-bottom  : 10vh;
+  color           : darkgrey;
+  opacity         : 0.1;
+  flex-direction  : column;
+  justify-content : space-between;
+  transition      : color 200ms;
+}
+
+.narrative-item:first-child {
+  padding-top     : calc( 20vh + 120px);
+}
+
+.narrative-item.active {
+  color   : white;
+  opacity : 1.0;
+}
+
+.narrative-item:last-child {
+  padding-bottom : 30vh;
+}
+
+.narrative-item h2 {
+  padding-bottom : 36px;
+  color          : #6fd1f6;
+  font-family    : 'Roboto';
+  font-size      : 28px;
+  font-weight    : 200;
+  line-height    : 1.14;
+  letter-spacing : 0.18px;
+}
+
+.narrative-item p {
+  font-size      : 18px;
+  line-height    : 1.14;
+  letter-spacing : 0.15px;
+  /* font-weight: 500; */
+}
+
+.narrative-item__cta {
+  padding-top : 96px;
+  color       : #6fd1f6;
+  text-align  : center;
+  align-self  : center;
+}
+
+.rightcol {
+  /* width: 66.6%; */
+  grid-column : 6/13;
+  grid-row    : 1;
+}
+
+.two-step-sticky-wrapper {
+  display        : flex;
+  position       : -webkit-sticky;
+  position       : sticky;
+  top            : 0px;
+  height         : auto;
+  min-height     : 100vh;
+  padding-top    : 20vh;
+  flex-direction : row;
+  /* background-color : #21272a; */
+}
+
+.sticky-chart-wrapper {
+  z-index          : 100;
+  display          : flex;
+  width            : 100%;
+  height           : 80vh;
+  background-color : #21272a;
+  align-items      : center;
+  flex-direction   : column;
+  justify-content  : flex-start;
+}
+
+.chart {
+  /* opacity: 0; */
+  /* background-color : transparent; */
+  display    : flex;
+  width      : 100%;
+  height     : 60vh;
+  min-height : 500px;
+}
+
+.chart[data-status="shown"] {
+  opacity           : 1;
+  -webkit-animation : fadeIn 200ms;
+  animation         : fadeIn 200ms;
+}
+
+.chart[data-status="hidden"] {
+  opacity           : 0;
+  -webkit-animation : fadeOut 200ms;
+  animation         : fadeOut 200ms;
+}
+
+.mobile-chart {
+  display : none;
+}
+
+#conclusion {
+  min-width : 90vw;
+}
+
+
+@media
+  screen
+  and (max-width : 1024px) {
+
+  .parent {
+    margin   : 0 0 0 48px;
+    grid-gap : 16px;
+  }
+
+  #housing-crisis-1-hero {
+    background-image : url('/images/stories/tablet/housing1_background_tablet.png');
+  }
+
+  #housing-crisis-2-hero {
+    background-image : url('/images/stories/tablet/housing2_background_tablet.png');
+  }
+
+  #housing-crisis-3-hero {
+    background-image : url('/images/stories/tablet/housing3_background_tablet.png');
+  }
+
+  .story-scrolly__hero__title {
+    max-width : 70vw;
+    margin    : 0 auto;
+  }
+
+  .story-scrolly__hero__title h1 {
+    margin-bottom : 36px;
+    line-height   : 1.5;
+  }
+
+  .narrative {
+    /* width: 33.3%; */
+    margin-left   : 0;
+    padding-right : 16px;
+    grid-column   : 1/5;
+    grid-row      : 1;
+  }
+
+  .narrative-item {
+    padding-top    : 25vh;
+    padding-bottom : 10vh;
+  }
+  .narrative-item:first-child {
+    padding-top     : calc( 25vh + 180px);
+  }
+
+  .narrative-item h2 {
+    padding-bottom : 16px;
+    color          : #6fd1f6;
+    font-family    : 'Roboto';
+    font-size      : 24px;
+    font-weight    : 200;
+    line-height    : 1.14;
+    letter-spacing : 0.18px;
+  }
+
+  .narrative-item p {
+    font-size      : 18px;
+    line-height    : 1.14;
+    letter-spacing : 0.15px;
+    /* font-weight: 500; */
+  }
+
+  .rightcol {
+    grid-column : 5/13;
+  }
+
+  .two-step-sticky-wrapper {
+    position    : -webkit-sticky;
+    position    : sticky;
+    top         : 0px;
+    height      : auto;
+    min-height  : 100vh;
+    padding-top : 30vh;
+  }
+
+  .sticky-chart-wrapper {
+    display          : flex;
+    width            : 100%;
+    height           : 80vh;
+    max-height       : 600px;
+    background-color : #21272a;
+    align-items      : center;
+    flex-direction   : column;
+    justify-content  : flex-start;
+  }
+}
+
+@media
+  screen
+  and (max-width  : 1024px)
+  and (max-height : 768px) {
+  .story-scrolly__hero__title {
+    max-width   : 80vw;
+    padding-top : 72px;
+  }
+
+  .story-scrolly__hero__title h1 {
+    margin-bottom : 36px;
+    font-size     : 28px;
+    line-height   : 1.5;
+  }
+
+  .story-scrolly__hero__title h2 {
+    font-size : 24px;
+  }
+
+  .story-scrolly__hero__text {
+    min-width  : 60vw;
+    max-width  : 80vw;
+    height     : auto;
+    max-height : 65vh;
+    padding    : 32px;
+  }
+
+  .story-scrolly__hero__text h1 {
+    margin-bottom  : 18px;
+    font-size      : 24px;
+    line-height    : 24px;
+    letter-spacing : 0.18px;
+  }
+
+  .story-scrolly__hero__text p {
+    font-size      : 16px;
+    font-weight    : 200;
+    line-height    : 24px;
+    letter-spacing : 0.15px;
+  }
+
+  .story-scrolly__hero__text ul {}
+
+  .narrative {
+    /* width: 33.3%; */
+    margin-left   : 0;
+    padding-right : 16px;
+    grid-column   : 1/5;
+    grid-row      : 1;
+  }
+
+  .narrative-item {
+    padding-top    : 20vh;
+    padding-bottom : 10vh;
+  }
+
+  .narrative-item h2 {
+    padding-bottom : 16px;
+    color          : #6fd1f6;
+    font-family    : 'Roboto';
+    font-size      : 24px;
+    font-weight    : 200;
+    line-height    : 1.14;
+    letter-spacing : 0.18px;
+  }
+
+  .narrative-item p {
+    font-size      : 18px;
+    line-height    : 1.14;
+    letter-spacing : 0.15px;
+    /* font-weight: 500; */
+  }
+}
+
+@media
+  screen
+  and (max-width : 768px) {
+  .parent {
+    display               : grid;
+    margin                : 0 36px;
+    grid-gap              : 16px;
+    grid-template-columns : repeat(4, 1fr);
+    grid-template-rows    : auto 50vh;
+    /* flex-direction: row; */
+  }
+
+  #housing-crisis-1-hero {
+    background-image : url('/images/stories/mobile/housing1_background_mobile.png');
+  }
+
+  #housing-crisis-2-hero {
+    background-image : url('/images/stories/mobile/housing2_background_mobile.png');
+  }
+
+  #housing-crisis-3-hero {
+    background-image : url('/images/stories/mobile/housing3_background_mobile.png');
+  }
+
+  .story-scrolly__hero__title {
+    max-width   : 80vw;
+    padding-top : 72px;
+  }
+
+  .story-scrolly__hero__title h1 {
+    margin-bottom : 36px;
+    font-size     : 28px;
+    line-height   : 1.5;
+  }
+
+  .story-scrolly__hero__title h2 {
+    font-size : 24px;
+  }
+
+  .story-scrolly__hero__text {
+    min-width  : 60vw;
+    max-width  : 80vw;
+    height     : auto;
+    max-height : 65vh;
+    padding    : 32px;
+  }
+
+  .story-scrolly__hero__text h1 {
+    margin-bottom  : 18px;
+    font-size      : 24px;
+    line-height    : 24px;
+    letter-spacing : 0.18px;
+  }
+
+  .story-scrolly__hero__text p {
+    font-size      : 16px;
+    font-weight    : 200;
+    line-height    : 24px;
+    letter-spacing : 0.15px;
+  }
+
+  .story-scrolly__hero__text ul {}
+
+  .narrative {
+    /* width: 33.3%; */
+    margin-left : 0px;
+    grid-column : 1/5;
+    grid-row    : 1;
+  }
+
+  .narrative-item {
+    display        : flex;
+    height         : auto;
+    margin         : 0;
+    padding-top    : 10vh;
+    padding-bottom : 10vh;
+  }
+
+  .narrative-item {
+    display         : flex;
+    height          : auto;
+    margin          : 0;
+    padding-top     : 20vh;
+    padding-bottom  : 10vh;
+    color           : white;
+    opacity         : 1.0;
+    flex-direction  : column;
+    justify-content : space-between;
+    transition      : color 200ms;
+  }
+
+  .narrative-item:last-child {
+    padding-bottom : 30vh;
+  }
+
+  .narrative-item h2 {
+    padding-bottom : 36px;
+    color          : #6fd1f6;
+    font-family    : 'Roboto';
+    font-size      : 28px;
+    font-weight    : 200;
+    line-height    : 1.14;
+    letter-spacing : 0.18px;
+  }
+
+  .narrative-item p {
+    font-size      : 18px;
+    line-height    : 1.14;
+    letter-spacing : 0.15px;
+    /* font-weight: 500; */
+  }
+
+  .narrative-item__cta {
+    padding-top : 96px;
+    color       : #6fd1f6;
+    text-align  : center;
+    align-self  : center;
+  }
+
+  .rightcol {
+    display : none;
+  }
+
+  .mobile-chart {
+    display : block;
+  }
+}
+
+/* Galaxy S3 */
+
+@media
+  screen
+  and (max-width  : 768px)
+  and (max-height : 640px) {
+  .story-scrolly__hero__title {
+    padding-top : 60px;
+    /* justify-content: flex-start; */
+  }
+
+  .story-scrolly__hero__title h1 {
+    margin-bottom : 18px;
+    font-size     : 18px;
+    line-height   : 1.25;
+  }
+
+  .story-scrolly__hero__title h2 {
+    font-size : 14px;
+  }
+
+  .story-scrolly__hero__text {
+    min-width  : 60vw;
+    max-width  : 80vw;
+    height     : auto;
+    max-height : 65vh;
+    padding    : 18px;
+  }
+
+  .story-scrolly__hero__text h1 {
+    margin-bottom  : 18px;
+    font-size      : 14px;
+    line-height    : 1.25;
+    letter-spacing : 0.18px;
+  }
+
+  .story-scrolly__hero__text p {
+    font-size      : 10px;
+    font-weight    : 200;
+    line-height    : 1.5;
+    letter-spacing : 0.15px;
+  }
+
+  .story-scrolly__hero__text ul {
+    font-size      : 10px;
+    font-weight    : 200;
+    line-height    : 1.5;
+    letter-spacing : 0.15px;
+  }
+}

@@ -1,0 +1,75 @@
+extends layout
+
+//- Including component mixins
+include component/accordion
+
+block navigation
+    //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Stories")
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Stories")
+block content    
+      header.header.mt-5.py-2
+        .container
+          .row
+            .col-sm-8
+              h1= title
+              p.header__lead.text-justify Data stories add context and meaning to 
+                |the raw data available for the city. The 
+                |stories below offer a narrative for issues affecting citizens 
+                |of Dublin, with key points supported through interactive visualisations.
+      section
+        .container
+          h2.py-2 Latest Stories
+          .row
+            .col-sm-12
+              h2 Housing in the Dublin Region, 1991 to present
+              p.lead A three-part story describing the historical phases of the housing crisis in Dublin.
+            .col-sm-4
+              .card.mt-3.mb-3
+                .card__header=Header
+                  a(href="/stories/housing-crisis-phase-1")
+                    img(class="story-image" src="/images/stories/house_crisis.jpg" alt="")
+                //- .card__body.mb-3
+                  a(href="stories/housing-dublin-phase-1").h3 Housing Crisis Phase 1: 1993-2006 (the Celtic Tiger years)
+            
+            .col-sm-4
+              .card.mt-3.mb-3
+                .card__header=Header
+                  a(href="/stories/housing-crisis-phase-2")
+                    img(class="story-image" src="/images/stories/house_crisis2.jpg" alt="")
+                //- .card__body.mb-3
+                  a(href="/housing-dublin-phase-2").h3 Housing Crisis Phase 2: 2007-2012 (the crash)
+            .col-sm-4
+              .card.mt-3.mb-3 
+                .card__header=Header
+                  a(href="/stories/housing-crisis-phase-3")
+                    img(class="story-image" src="/images/stories/house_crisis3.jpg" alt="")
+                //- .card__body.mb-3
+                  a(href="/housing-dublin-phase-3").h3 Housing Crisis Phase 3: 2013 onwards (post-crash)
+
+
+          .row.py-5
+          //-   .col-4
+          //-     .card
+          //-       .card__header=Header
+          //-         a(href="housing-dublin#phase3") Crisis phase 3: 2013- (post-crash)
+          //-       .card__body
+            //- .col-4
+            //-   .card
+            //- .col-4
+            //-   .card
+  
+
+
+                //- +accordion("one")
+                //-   +accordion-item("New Story One")
+                //-     |Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat.
+                //-   +accordion-item("New Story Two")
+                //-     |  Some content here
+                //-     |Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                //-     | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                //-     |Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                //-     |nisi ut aliquip ex ea commodo consequat. 

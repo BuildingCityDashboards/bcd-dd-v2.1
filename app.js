@@ -247,12 +247,12 @@ cron.schedule('*/1 * * * *', function () {
 // })
 
 // Sound level readings
-cron.schedule('*/15 * * * *', function () {
+cron.schedule('*/5 * * * *', function () {
   let http = require('https')
   let files = []
   for (let i = 0; i < 15; i += 1) {
     let n = i + 1
-    files[i] = fs.createWriteStream('./public/data/Environment/sound_levels/sound_reading_' + n + '.json')
+    files[i] = fs.createWriteStream('./public/data/Environment/noise_levels/sound_reading_' + n + '.json')
     http.get('https://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location=' + n,
       function (response) {
         response.pipe(files[i])
@@ -261,7 +261,7 @@ cron.schedule('*/15 * * * *', function () {
 })
 
 // get train data from the API evey minute
-cron.schedule('*/1 * * * *', function () {
+cron.schedule('*/5 * * * *', function () {
   var http = require('http')
   var fs = require('fs')
   var file = fs.createWriteStream('./public/data/Transport/Train_data.xml')

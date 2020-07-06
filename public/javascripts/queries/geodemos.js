@@ -125,6 +125,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
     let trace = Object.assign({}, TRACES_DEFAULT);
     trace.type = 'bar'
     trace.orientation = 'h'
+    trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     trace.marker = {
     color: getLayerColor(i), // lines + markers, defaults to colorway
     }
@@ -146,7 +147,7 @@ layout = Object.assign({}, ROW_CHART_LAYOUT);
 layout.mode = 'bars'
 layout.height = 500
 //layout.barmode = 'group';
-layout.colorway = GEODEMOS_COLORWAY
+// layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'Variables Value Distribution (z-scores)';
 layout.showlegend = false;

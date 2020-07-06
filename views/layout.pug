@@ -4,13 +4,15 @@ html(lang='en')
   head
     meta(http-equiv='content-type' charset='text/html utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    //- meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1")
+
     meta(name='description', content="The DublinDashboard provides an interface to access and visualise data related to Dublin in Ireland.  It combines historic, near real-time and real-time data to show how Dublin is performing across a number of key indicators.")
     meta(name='author', content='Building City Dashboards')
     meta(name='google-site-verification' content='rGwQFRYPMqN9vFb8PWU3GCe5NjV_7LHhjZw1XGN4Dno')
-    meta(name='keywords' content='Dublindashboard, Dashboard, Dublin, Ireland, City Indicators, data, population, demographics, real-time, housing')
+    meta(name='keywords' content='Dublindashboard, Dashboard, Dublin, Ireland, City Indicators, data, population, demographics, real-time, housing, transport, statistics')
     meta(property='og:site_name' content='')
-    meta(property='og:title' content='The Dublin Dashboard - beta')
+    meta(property='og:title' content='The Dublin Dashboard')
     meta(property='og:type' content='website')
     meta(property='og:url' content='https://dublindashboard-beta.azurewebsites.net/')
     meta(property='og:image' content='https://dublindashboard-beta.azurewebsites.net/images/BCD_logo.png')
@@ -35,7 +37,7 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
     
     //- link(rel='stylesheet', href='/stylesheets/grid.css')
-    link(rel='stylesheet', href='/stylesheets/card.css')
+    //- link(rel='stylesheet', href='/stylesheets/card.css')
     link(rel='stylesheet', href='/stylesheets/footer.css')
     link(rel='stylesheet', href='/stylesheets/toggle-button.css')
     link(rel='stylesheet', href='/stylesheets/tool-tip.css')
@@ -52,7 +54,7 @@ html(lang='en')
     include component/icons.pug
     .page__root
       include component/navbar.pug
-      include component/subnavbar.pug
+      include component/themes_subnav.pug
 
       block navigation
 

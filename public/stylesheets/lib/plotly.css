@@ -16,6 +16,7 @@
 
 .js-plotly-plot .plotly .modebar {
     orientation: 'v';
+
 }
 
 .infolayer [class^='y'][class$='title'] {
