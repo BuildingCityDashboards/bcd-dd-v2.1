@@ -123,6 +123,17 @@ html {}
   padding          : 16px;
   background-color : #21272a;
   flex-direction   : column;
+  border: 1px solid rgba(0,0,0,0);
+}
+
+.stories-home__card:hover {
+  background-color : #242c2f;
+
+}
+
+.stories-home__card:active {
+  background-color : #242c2f;
+  border: 1px solid #6fd1f6;
 }
 
 .stories-home__card .card__header {
@@ -427,7 +438,7 @@ html {}
 
 @media
   only screen
-  and (min-width : 1980px) {
+  and (min-width : 1920px) {
   #stories-home {
     position   : relative;
     width      : 100vw;
