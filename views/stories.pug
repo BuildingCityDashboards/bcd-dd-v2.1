@@ -5,7 +5,7 @@ block append head
 
   link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/stories.css")
-  link(rel="stylesheet", href="/stylesheets/card.css")
+  //- link(rel="stylesheet", href="/stylesheets/card.css")
 
 block navigation
 
@@ -22,7 +22,7 @@ block content
           |stories below offer a narrative for issues affecting citizens 
           |of Dublin, with key points supported through interactive visualisations.
       #stories-home__carousel
-        <div class="carousel" data-flickity='{ "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
+        <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
           .carousel-cell
               +card-stories({
               title: "Housing in the Dublin Region, 1991 to present",
@@ -37,7 +37,10 @@ block content
               ]
               })
           .carousel-cell
-              +card-stories({})
+              +card-stories({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
+          .carousel-cell
+              +card-stories({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
+              
         </div>
 
 block append scripts

@@ -4,10 +4,11 @@ mixin card-stories({id='',title='Story title', icon='', description='Description
         //- img(src= icon).card__icon
         h1.card__title=title
       .card__body
-        p!=description
-        each l in links
-          p
-            <a href= #{l.href}>#{l.name} </a>
+        div
+          p!=description
+          each l in links
+            p
+              <a href= #{l.href}>#{l.name} </a>
           
         
       
