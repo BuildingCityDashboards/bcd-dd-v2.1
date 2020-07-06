@@ -525,7 +525,7 @@ html {}
   .carousel-cell:before {}
 
   .stories-home__card {
-    padding : 24px;
+    padding : 48px;
   }
 
   .stories-home__card .card__header {
@@ -559,14 +559,14 @@ html {}
     margin         : 0;
     padding        : 0;
     padding-bottom : 8px;
-    font-size      : 24px;
+    font-size      : 16px;
   }
 
   .stories-home__card .card__body a {
     margin         : 0;
     padding        : 0;
     padding-bottom : 8px;
-    font-size      : 24px;
+    font-size      : 16px;
   }
 
   .stories-home__card .card__icon {
