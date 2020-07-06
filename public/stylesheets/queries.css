@@ -220,6 +220,30 @@ html {}
 @media
   only screen
   and (min-width : 768px) {
+    
+  #stories-home__carousel {
+    height      : 320px;
+    min-height  : 320px;
+    grid-column : span 4;
+    grid-row    : 4 / 8;
+  }
+
+  .carousel {
+    height     : inherit;
+    margin     : 0;
+    background : transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width         : calc(50% - 8px);
+    height        : inherit;
+    margin-right  : 16px;
+    border-radius : 4px;
+    background    : transparent;
+    /* counter-increment : gallery-cell; */
+    /* gap between cards */
+  }
 }
 
 /* iPad Pro */
@@ -331,9 +355,9 @@ html {}
   }
 
   .carousel-cell {
-    width         : calc(33% - (2*24px));
+    width         : calc(33% - 14px);
     height        : inherit;
-    margin-right  : 24px;
+    margin-right  : 28px;
     border-radius : 4px;
     background    : transparent;
     /* counter-increment : gallery-cell; */
