@@ -70,7 +70,7 @@
 }
 
 .side-menu {
-  z-index            : 7000;
+  z-index            : 10004;
   display            : flex;
   display            : -ms-flexbox;
   position           : fixed;
@@ -163,7 +163,7 @@
 }
 
 .side-menu__overlay {
-  z-index    : 1030;
+  z-index    : 10003;
   display    : none;
   position   : fixed;
   top        : 0;
@@ -223,7 +223,7 @@
 }
 
 .dropdown--show .dropdown__menu {
-  display : block;
+  /* display : block; */
 }
 
 .dropdown--show .dropdown__toggle {
@@ -251,7 +251,7 @@
 }
 
 .search-box {
-  z-index    : 10002;
+  z-index    : 10003;
   visibility : hidden;
   position   : fixed;
   top        : 0;
@@ -333,12 +333,12 @@
   z-index         : 10;
   display         : flex;
   position        : fixed;
-  top             : 0;
+  top             : 500;
   height          : 100vh;
   flex-direction  : column;
   justify-content : center;
   transition      : opacity 0.5s;
-  /* opacity: 0; */
+
 }
 
 .sidenav-group {
@@ -383,3 +383,5 @@
     width : 14rem;
   }
 }
+}
+*/}
