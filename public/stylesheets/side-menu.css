@@ -17,11 +17,11 @@
 }
 
 .side-menu__right {
-  display         : flex;
-  right           : 0;
-  align-items     : center;
-  flex-direction  : row;
-  justify-content : center;
+  right : 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .side-menu__toggler:focus {
@@ -31,12 +31,12 @@
 /* .side-menu__toggler--close{ left: 10rem; } */
 
 .menu-button {
-  display       : block;
-  position      : relative;
-  float         : left;
-  padding       : 4px;
-  padding-right : 16px;
-  cursor        : pointer;
+  display  : block;
+  position : relative;
+  float    : left;
+  padding  : 4px;
+  padding-right: 16px;
+  cursor   : pointer;
 }
 
 .menu-button__bar {
@@ -70,19 +70,19 @@
 }
 
 .side-menu {
-  z-index          : 10004;
-  display          : flex;
-  display          : -ms-flexbox;
-  position         : fixed;
-  width            : 70%;
-  height           : 100%;
-  padding          : 0 0 1rem;
-  overflow-y       : auto;
-  background-color : var(--black-blue);
-  box-shadow       : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-  flex-direction   : column;
-  transform        : translateX(-100%);
-  transition       : 250ms ease;
+  z-index            : 10002;
+  display            : flex;
+  display            : -ms-flexbox;
+  position           : fixed;
+  width              : 70%;
+  height             : 100%;
+  padding            : 0 0 1rem;
+  overflow-y         : auto;
+  background-color   : #121212;
+  box-shadow         : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  flex-direction     : column;
+  transform          : translateX(-100%);
+  transition         : 250ms ease;
 }
 
 .side-menu--open {
@@ -117,11 +117,11 @@
 }
 
 .side-menu__nav {
-  display        : flex;
-  margin-bottom  : 0;
-  padding        : 4rem 0;
-  flex-direction : column;
-  list-style     : none;
+  display            : flex;
+  margin-bottom      : 0;
+  padding            : 4rem 0;
+  flex-direction     : column;
+  list-style         : none;
 }
 
 .side-menu__nav-link {
@@ -163,7 +163,7 @@
 }
 
 .side-menu__overlay {
-  z-index    : 10003;
+  z-index    : 10001;
   display    : none;
   position   : fixed;
   top        : 0;
@@ -223,7 +223,7 @@
 }
 
 .dropdown--show .dropdown__menu {
-  /* display : block; */
+  display : block;
 }
 
 .dropdown--show .dropdown__toggle {
@@ -251,7 +251,7 @@
 }
 
 .search-box {
-  z-index    : 10003;
+  z-index    : 10002;
   visibility : hidden;
   position   : fixed;
   top        : 0;
@@ -264,11 +264,11 @@
 
 .search-box--open {
   visibility       : visible;
-  height           : 60px;
   padding          : 16px;
   opacity          : 0.95;
   background-color : #1c2022;
   outline          : none;
+  height: 60px;
 }
 
 .search-box__input {
@@ -294,13 +294,13 @@
 }
 
 #suggestions {
+  width      : 50vw;
+  max-width  : 328px;
+  padding: 0;
   top              : 0;
   right            : 0;
-  width            : 50vw;
   width            : 100%;
-  max-width        : 328px;
   max-height       : 50vh;
-  padding          : 0;
   overflow-x       : hidden;
   overflow-y       : auto;
   background-color : #1c2022;
@@ -333,17 +333,18 @@
   z-index         : 10;
   display         : flex;
   position        : fixed;
-  top             : 500;
+  top             : 0;
   height          : 100vh;
   flex-direction  : column;
   justify-content : center;
   transition      : opacity 0.5s;
+  /* opacity: 0; */
 }
 
 .sidenav-group {
-  display       : block;
-  box-sizing    : border-box;
-  /* border-bottom : 1px solid #f8f8f8; */
+  display            : block;
+  box-sizing         : border-box;
+  border-bottom      : 1px solid #f8f8f8;
 }
 
 .sidenav-item {
@@ -369,6 +370,7 @@
 
   .bcd-nav {
     padding : 0 1rem;
+
   }
 
   .subnav-link {
