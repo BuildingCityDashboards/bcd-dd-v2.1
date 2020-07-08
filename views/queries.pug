@@ -8,6 +8,7 @@ block append head
   //- link(rel="stylesheet", href="/stylesheets/card.css")
 
 block navigation
+  
 
 block content
   #queries-home 
@@ -23,9 +24,15 @@ block content
           |of Dublin, with key points supported through interactive visualisations.
       #queries-home__carousel
         <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
-        
           .carousel-cell
-              +card-queries({title: 'Geodemographics', description: 'New data query under construction, please check back soon.'})
+              +card-queries({
+                title: 'Geodemographics', 
+                description: 'Geodemographic classification is a statistical tool that groups spatial units based on socio-economic characteristics.  This Query follows the Ireland Geodemographic classification method with a focus on Dublin.  Small Areas (SAs) are selected as spatial units and 2016 Census of Population results are used for socio-economic components.', 
+                links: [{
+                  href :"/queries/geomdemos",
+                  name:'Geodemographic query'
+                  }]
+              })
           .carousel-cell
               +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})
           .carousel-cell
