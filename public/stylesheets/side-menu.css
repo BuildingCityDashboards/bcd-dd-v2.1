@@ -17,11 +17,11 @@
 }
 
 .side-menu__right {
-  right : 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  display         : flex;
+  right           : 0;
+  align-items     : center;
+  flex-direction  : row;
+  justify-content : center;
 }
 
 .side-menu__toggler:focus {
@@ -31,12 +31,12 @@
 /* .side-menu__toggler--close{ left: 10rem; } */
 
 .menu-button {
-  display  : block;
-  position : relative;
-  float    : left;
-  padding  : 4px;
-  padding-right: 16px;
-  cursor   : pointer;
+  display       : block;
+  position      : relative;
+  float         : left;
+  padding       : 4px;
+  padding-right : 16px;
+  cursor        : pointer;
 }
 
 .menu-button__bar {
@@ -70,19 +70,19 @@
 }
 
 .side-menu {
-  z-index            : 10004;
-  display            : flex;
-  display            : -ms-flexbox;
-  position           : fixed;
-  width              : 70%;
-  height             : 100%;
-  padding            : 0 0 1rem;
-  overflow-y         : scroll;
-  background-color   : var(--black-blue);
-  box-shadow         : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
-  flex-direction     : column;
-  transform          : translateX(-100%);
-  transition         : 250ms ease;
+  z-index          : 10004;
+  display          : flex;
+  display          : -ms-flexbox;
+  position         : fixed;
+  width            : 70%;
+  height           : 100%;
+  padding          : 0 0 1rem;
+  overflow-y       : auto;
+  background-color : var(--black-blue);
+  box-shadow       : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  flex-direction   : column;
+  transform        : translateX(-100%);
+  transition       : 250ms ease;
 }
 
 .side-menu--open {
@@ -117,11 +117,11 @@
 }
 
 .side-menu__nav {
-  display            : flex;
-  margin-bottom      : 0;
-  padding            : 4rem 0;
-  flex-direction     : column;
-  list-style         : none;
+  display        : flex;
+  margin-bottom  : 0;
+  padding        : 4rem 0;
+  flex-direction : column;
+  list-style     : none;
 }
 
 .side-menu__nav-link {
@@ -159,7 +159,7 @@
   width      : 100%;
   min-height : 4rem;
   padding    : 1rem;
-  border-top : 1px solid;
+  border-top : none;
 }
 
 .side-menu__overlay {
@@ -264,11 +264,11 @@
 
 .search-box--open {
   visibility       : visible;
+  height           : 60px;
   padding          : 16px;
   opacity          : 0.95;
   background-color : #1c2022;
   outline          : none;
-  height: 60px;
 }
 
 .search-box__input {
@@ -294,13 +294,13 @@
 }
 
 #suggestions {
-  width      : 50vw;
-  max-width  : 328px;
-  padding: 0;
   top              : 0;
   right            : 0;
+  width            : 50vw;
   width            : 100%;
+  max-width        : 328px;
   max-height       : 50vh;
+  padding          : 0;
   overflow-x       : hidden;
   overflow-y       : auto;
   background-color : #1c2022;
@@ -338,13 +338,12 @@
   flex-direction  : column;
   justify-content : center;
   transition      : opacity 0.5s;
-
 }
 
 .sidenav-group {
-  display            : block;
-  box-sizing         : border-box;
-  border-bottom      : 1px solid #f8f8f8;
+  display       : block;
+  box-sizing    : border-box;
+  /* border-bottom : 1px solid #f8f8f8; */
 }
 
 .sidenav-item {
@@ -370,7 +369,6 @@
 
   .bcd-nav {
     padding : 0 1rem;
-
   }
 
   .subnav-link {
@@ -383,5 +381,3 @@
     width : 14rem;
   }
 }
-}
-*/}
