@@ -734,8 +734,8 @@ let srrc = cb.attr("src");
 
 
   //getl()    
-  //addheatmap()    
-  //updateGroupTxt('all')
+  addheatmap()    
+  updateGroupTxt('all')
 
   //let seim =document.getElementById("1")
       
