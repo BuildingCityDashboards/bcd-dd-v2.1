@@ -18,25 +18,22 @@ block content
       #queries-home__title
         h1 Queries
       #queries-home__description
-        p Data queries add context and meaning to 
-          |the raw data available for the city. The 
-          |queries below offer a narrative for issues affecting citizens 
-          |of Dublin, with key points supported through interactive visualisations.
+        p Interact with maps and charts to find answers to common questions about Dublin. 
       #queries-home__carousel
         <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
           .carousel-cell
               +card-queries({
                 title: 'Geodemographics', 
-                description: 'Geodemographic classification is a statistical tool that groups spatial units based on socio-economic characteristics.  This Query follows the Ireland Geodemographic classification method with a focus on Dublin.  Small Areas (SAs) are selected as spatial units and 2016 Census of Population results are used for socio-economic components.', 
+                description: 'Geodemographic classification is a statistical tool that groups spatial units based on socio-economic characteristics.  This query follows the Ireland Geodemographic classification method with a focus on Dublin.  Small Areas (SAs) are selected as spatial units and 2016 Census of Population results are used for socio-economic components.', 
                 links: [{
-                  href :"/queries/geomdemos",
-                  name:'Geodemographic query'
+                  href :"/queries/geodemos",
+                  name:'Go to Geodemographics query'
                   }]
               })
           .carousel-cell
-              +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})
+              +card-queries({title: 'Live Travel Map', description: 'The Live Travel Map is under construction, please check back soon.'})
           .carousel-cell
-              +card-queries({title: 'Query coming soon', description: 'New data query under construction, please check back soon.'})    
+              +card-queries({title: 'Economy at a Glance', description: 'Economy at a Glance is under construction, please check back soon.'})    
         </div>
 
 block append scripts
