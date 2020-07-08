@@ -8,7 +8,7 @@ block append head
   //- link(rel="stylesheet", href="/stylesheets/card.css")
 
 block navigation
-
+  +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Stories")
 block content
   #stories-home 
     #stories-home__grid
@@ -38,9 +38,7 @@ block content
               })
           .carousel-cell
               +card-stories({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
-          .carousel-cell
-              +card-stories({title: 'Story coming soon', description: 'New data story under construction, please check back soon.'})
-              
+          
         </div>
 
 block append scripts

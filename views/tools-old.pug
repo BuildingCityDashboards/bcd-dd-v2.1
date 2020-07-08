@@ -1,0 +1,17 @@
+extends ./layout
+
+block navigation
+    //- +navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard", "Tools")
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Tools")
+block content
+    .container.mt-5.py-5
+        //- h1= title
+        h1 tools
+        //p Welcome to the #{title}
+        p Tools provide more functionality for exploring Dublin Dashboard data. 
+          |Please wait for the tool to load, as a large amount of data may be included.
+          |On mobile devices, we recommend using our apps <i>(coming soon)</i>.
+          //- include tools//tools-cards.html
+
+ 
+    
