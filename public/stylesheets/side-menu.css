@@ -70,15 +70,15 @@
 }
 
 .side-menu {
-  z-index            : 7000;
+  z-index            : 10002;
   display            : flex;
   display            : -ms-flexbox;
   position           : fixed;
   width              : 70%;
   height             : 100%;
   padding            : 0 0 1rem;
-  overflow-y         : scroll;
-  background-color   : var(--black-blue);
+  overflow-y         : auto;
+  background-color   : #121212;
   box-shadow         : 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   flex-direction     : column;
   transform          : translateX(-100%);
@@ -159,11 +159,11 @@
   width      : 100%;
   min-height : 4rem;
   padding    : 1rem;
-  border-top : 1px solid;
+  border-top : none;
 }
 
 .side-menu__overlay {
-  z-index    : 1030;
+  z-index    : 10001;
   display    : none;
   position   : fixed;
   top        : 0;
