@@ -42,15 +42,7 @@ html {}
   justify-content : center;
   grid-column     : 1 / 2;
   grid-row        : 2 / 3;
-  /**
-  * align-self
-  *
-  *
-  *
-  *
-  *
-  * : center;
-  */
+
 }
 
 #queries-home__icon img {
@@ -262,13 +254,12 @@ html {}
     position    : relative;
     width       : 100%;
     min-width   : 1280px;
-    max-width: 1280px;
+    /* max-width: 1280px; */
     height      : auto;
     min-height  : 700px;
     max-height  : none;
     margin      : 0;
     padding     : 0;
-    overflow-x  : hidden;
     overflow-y  : scroll;
     text-align  : center;
     text-align  : left;
