@@ -65,7 +65,7 @@ min-height: 280px
 .leaflet-popup-content-wrapper {
   width       : 240px;
   height      : 200px;
-  background  : #001f35;
+  background  : #f8fafc;
   font-family : 'Roboto';
   font-weight : 200;
 }
