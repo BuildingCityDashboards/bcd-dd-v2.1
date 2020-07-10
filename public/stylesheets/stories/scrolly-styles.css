@@ -312,7 +312,7 @@
   animation         : fadeOut 200ms;
 }
 
-.mobile-chart {
+.scrolly__mobile-chart {
   display : none;
 }
 
@@ -607,7 +607,7 @@
     display : none;
   }
 
-  .mobile-chart {
+  .scrolly__mobile-chart {
     display : block;
   }
 }
@@ -787,8 +787,10 @@
     }
 
 
-    .mobile-chart {
+    .scrolly__mobile-chart {
       display : block;
+      height: 200px;
+      padding-bottom:16px;
 
     }
   }
