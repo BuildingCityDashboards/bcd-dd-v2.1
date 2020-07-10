@@ -11,6 +11,7 @@ html{
   overflow-y: scroll;
   /*Check compatibility*/
   /* scroll-behavior:smooth; */
+  overflow-x: hidden;
 }
 
 .page{
@@ -97,7 +98,7 @@ p, .p{
 .n-text{
   font-weight: 100;
   font-style: normal;
-  
+
 }
 
 /* end typography */

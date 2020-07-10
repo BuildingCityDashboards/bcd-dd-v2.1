@@ -42,7 +42,6 @@ html {}
   justify-content : center;
   grid-column     : 1 / 2;
   grid-row        : 2 / 3;
-
 }
 
 #queries-home__icon img {
@@ -212,7 +211,6 @@ html {}
 @media
   only screen
   and (min-width : 768px) {
-
   #stories-home__carousel {
     height      : 320px;
     min-height  : 320px;
@@ -254,18 +252,19 @@ html {}
     position    : relative;
     width       : 100%;
     min-width   : 1280px;
-    /* max-width: 1280px; */
     height      : auto;
     min-height  : 700px;
     max-height  : none;
     margin      : 0;
     padding     : 0;
+    overflow-x  : hidden;
     overflow-y  : scroll;
     text-align  : center;
     text-align  : left;
     align-self  : flex-start;
     font-family : 'Roboto',
                   sans-serif;
+    /* max-width: 1280px; */
   }
 
   #queries-home__grid {
@@ -276,7 +275,7 @@ html {}
     min-height            : 700px;
     max-height            : none;
     padding               : 0 16px;
-    padding-right: 0;
+
     overflow-y            : scroll;
     justify-content       : center;
     grid-gap              : 16px;

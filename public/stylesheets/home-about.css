@@ -10,6 +10,7 @@
   grid-gap              : 16px;
   grid-template-columns : repeat(4, 1fr);
   grid-template-rows    : repeat(8, 1fr);
+  overflow-x: hidden;
 }
 
 #about-dublin__header {
@@ -757,8 +758,10 @@
     height       : auto;
     padding      : 24px;
     overflow-y   : auto;
-    column-count : 2;
-    column-gap   : 24px;
+    -moz-column-count : 2;
+         column-count : 2;
+    -moz-column-gap   : 24px;
+         column-gap   : 24px;
     /* grid-row: 3/; */
   }
 
@@ -858,8 +861,10 @@
 
   #about-dublin-dashboard__card {
     padding      : 24px;
-    column-count : 2;
-    column-gap   : 24px;
+    -moz-column-count : 2;
+         column-count : 2;
+    -moz-column-gap   : 24px;
+         column-gap   : 24px;
   }
 
   #about-dublin-dashboard__card > p {
