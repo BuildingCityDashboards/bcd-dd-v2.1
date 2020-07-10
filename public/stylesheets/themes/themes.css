@@ -53,7 +53,7 @@ opacity: 1;
   /* h should be 100vh - nav hs */
   display               : grid;
   position              : relative;
-  height                : 95vh;
+  height                : 100vh;
   margin-bottom         : 16px;
   padding               : 16px;
   color                 : #6fd1f6;
