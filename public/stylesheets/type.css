@@ -11,12 +11,14 @@ html{
   overflow-y: scroll;
   /*Check compatibility*/
   /* scroll-behavior:smooth; */
+  overflow-x: hidden;
 }
 
 .page{
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 200;
+
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -97,7 +99,7 @@ p, .p{
 .n-text{
   font-weight: 100;
   font-style: normal;
-  
+
 }
 
 /* end typography */

@@ -13,6 +13,7 @@ html {
   min-height          : 540px;
   max-height          : 768px;
   overflow-y          : hidden;
+
   background-image    : url('../images/home/hero-background-image-mobile.png');
   background-repeat   : no-repeat;
   background-position : top;
@@ -70,9 +71,7 @@ html {
 }
 
 #hero-time-weather {
-  display            : -ms-flexbox;
   display            : flex;
-  -ms-flex-direction : column;
   flex-direction     : column;
   justify-content    : flex-end;
   grid-column        : 2 /5;
@@ -81,7 +80,6 @@ html {
 }
 
 #hero-time {
-  display         : -ms-flexbox;
   display         : flex;
   background      : transparent;
   justify-content : flex-end;
@@ -120,14 +118,12 @@ html {
 }
 
 #hero-weather {
-  display         : -ms-flexbox;
   display         : flex;
   padding-top     : 4px;
   justify-content : flex-end;
 }
 
 #hero-weather__box {
-  display            : -ms-flexbox;
   display            : flex;
   position           : relative;
   width              : 150px;
@@ -137,7 +133,6 @@ html {
   background         : rgba(28, 32, 34, 0.38);
   align-items        : center;
   font-weight        : 500;
-  -ms-flex-direction : row;
   flex-direction     : row;
   flex-wrap          : nowrap;
   justify-content    : space-around;
@@ -293,10 +288,8 @@ html {
 .hero-carousel__card {}
 
 #hero-icon-navs {
-  display            : -ms-flexbox;
   display            : flex;
   align-self         : flex-end;
-  -ms-flex-direction : row;
   flex-direction     : row;
   justify-content    : space-around;
   grid-column        : span 4;
@@ -308,7 +301,6 @@ html {
 }
 
 .icon-nav__box {
-  display            : -ms-flexbox;
   display            : flex;
   width              : 64px;
   min-height         : 72px;
@@ -318,7 +310,6 @@ html {
   border-radius      : 4px;
   background         : transparent;
   align-items        : center;
-  -ms-flex-direction : column;
   flex-direction     : column;
   justify-content    : space-evenly;
 }
@@ -396,7 +387,6 @@ html {
   }
 
   #hero-time {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
@@ -434,18 +424,15 @@ html {
   }
 
   #hero-weather {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
 
   #hero-weather__box {
-    display            : -ms-flexbox;
     display            : flex;
     width              : 366px;
     height             : 64px;
     font-style         : normal;
-    -ms-flex-direction : row;
     flex-direction     : row;
     flex-wrap          : nowrap;
     justify-content    : space-evenly;
@@ -462,7 +449,6 @@ html {
   }
 
   #hero-weather__left-bottom {
-    display        : -ms-flexbox;
     display        : flex;
     color          : rgba(255, 255, 255, 0.6);
     font-size      : 16px;
@@ -500,7 +486,6 @@ html {
   }
 
   #hero-weather__right-bottom {
-    display        : -ms-flexbox;
     display        : flex;
     color          : rgba(255, 255, 255, 0.6);
     align-items    : center;
@@ -567,11 +552,9 @@ html {
   .hero-carousel__card {}
 
   #hero-icon-navs {
-    display            : -ms-flexbox;
     display            : flex;
     border             : none;
     align-self         : center;
-    -ms-flex-direction : row;
     flex-direction     : row;
     justify-content    : space-around;
     grid-column        : span 12;
@@ -587,7 +570,6 @@ html {
   }
 
   .icon-nav__box {
-    display            : -ms-flexbox;
     display            : flex;
     width              : 165px;
     height             : 72px;
@@ -597,7 +579,6 @@ html {
     border-radius      : 4px;
     background-color   : rgba(142, 191, 214, 0.12);
     align-items        : center;
-    -ms-flex-direction : row;
     flex-direction     : row;
     justify-content    : space-around;
   }
@@ -685,7 +666,6 @@ html {
   }
 
   #hero-time {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
@@ -723,18 +703,15 @@ html {
   }
 
   #hero-weather {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
 
   #hero-weather__box {
-    display            : -ms-flexbox;
     display            : flex;
     width              : 366px;
     height             : 64px;
     font-style         : normal;
-    -ms-flex-direction : row;
     flex-direction     : row;
     flex-wrap          : nowrap;
     justify-content    : space-evenly;
@@ -850,6 +827,7 @@ html {
   #hero {
     min-height       : 800px;
     background-image : url('../images/home/hero-background-image.png');
+
   }
 
   #hero-grid {
@@ -857,6 +835,7 @@ html {
     grid-gap              : 24px;
     grid-template-columns : repeat(12, 1fr);
     grid-template-rows    : repeat(8, 1fr);
+
   }
 
   #hero-title > div {
@@ -881,7 +860,6 @@ html {
   }
 
   #hero-time {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
@@ -919,18 +897,15 @@ html {
   }
 
   #hero-weather {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
 
   #hero-weather__box {
-    display            : -ms-flexbox;
     display            : flex;
     width              : 366px;
     height             : 64px;
     font-style         : normal;
-    -ms-flex-direction : row;
     flex-direction     : row;
     flex-wrap          : nowrap;
     justify-content    : space-evenly;
@@ -1140,7 +1115,6 @@ html {
   }
 
   #hero-time {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
@@ -1178,18 +1152,15 @@ html {
   }
 
   #hero-weather {
-    display         : -ms-flexbox;
     display         : flex;
     justify-content : flex-end;
   }
 
   #hero-weather__box {
-    display            : -ms-flexbox;
     display            : flex;
     width              : 366px;
     height             : 64px;
     font-style         : normal;
-    -ms-flex-direction : row;
     flex-direction     : row;
     flex-wrap          : nowrap;
     justify-content    : space-evenly;
