@@ -42,19 +42,19 @@ block content
               
               .carousel-cell
                 #population-card.card-wrapper
-                  +card-chart("themes#population", "card", "Population", "Count","population-chart")
+                  +card-chart("themes#chart-population", "card", "Population", "Count","population-chart")
               
               .carousel-cell
                 #employment-card.card-wrapper 
-                  +card-chart("themes#employment", "card", "Unemployment", "Count", "unemployment-chart") 
+                  +card-chart("themes#chart-unemployment", "card", "Unemployment", "Count", "unemployment-chart") 
               
               .carousel-cell
                 #property-price-card.card-wrapper
-                  +card-chart("themes#property-price-monthly", "card", "Property Price", "Index", "property-price-chart")    
+                  +card-chart("themes#chart-house-prices", "card", "Property Price", "Index", "property-price-chart")    
               
               .carousel-cell
                 #house-completions-card.card-wrapper
-                  +card-chart("themes#unitscompmonth", "card", "House Completions", "Units","house-completions-chart")
+                  +card-chart("themes#chart-newCompByType", "card", "House Completions", "Units","house-completions-chart")
               
               //- .carousel-cell
                p MORE    
