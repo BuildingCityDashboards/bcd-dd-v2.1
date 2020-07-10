@@ -312,7 +312,7 @@
   animation         : fadeOut 200ms;
 }
 
-.mobile-chart {
+.scrolly__mobile-chart {
   display : none;
 }
 
@@ -607,12 +607,10 @@
     display : none;
   }
 
-  .mobile-chart {
+  .scrolly__mobile-chart {
     display : block;
   }
 }
-
-/* Galaxy S3 */
 
 @media
   screen
@@ -662,3 +660,145 @@
     letter-spacing : 0.15px;
   }
 }
+
+
+@media
+  screen
+  and (max-width  : 576px){
+    .story-scrolly__hero__title {
+      padding-top : 60px;
+      /* justify-content: flex-start; */
+    }
+
+    .story-scrolly__hero__title h1 {
+      margin-bottom : 18px;
+      font-size     : 18px;
+      line-height   : 1.25;
+    }
+
+    .story-scrolly__hero__title h2 {
+      font-size : 14px;
+    }
+
+    .story-scrolly__hero__text {
+      min-width  : 60vw;
+      max-width  : 80vw;
+      height     : auto;
+      max-height : 65vh;
+      padding    : 18px;
+    }
+
+    .story-scrolly__hero__text h1 {
+      margin-bottom  : 18px;
+      font-size      : 14px;
+      line-height    : 1.25;
+      letter-spacing : 0.18px;
+    }
+
+    .story-scrolly__hero__text p {
+      font-size      : 10px;
+      font-weight    : 200;
+      line-height    : 1.5;
+      letter-spacing : 0.15px;
+    }
+
+    .story-scrolly__hero__text ul {
+      font-size      : 10px;
+      font-weight    : 200;
+      line-height    : 1.5;
+      letter-spacing : 0.15px;
+    }
+
+
+
+    .story-scrolly__title {
+      display          : flex;
+      width            : 100%;
+      height           : auto;
+      padding     : 60px 16px 8px;
+
+
+    }
+
+    .story-scrolly__title h1 {
+      margin         : 0px;
+      font-size      : 16px;
+      line-height    : 1;
+      letter-spacing : 0.18px;
+    }
+
+    .parent {
+      display               : grid;
+      margin                : 60px 0 0 0;
+      grid-gap              : 8px;
+      grid-template-columns : repeat(4, 1fr);
+      grid-template-rows    : auto;
+      /* flex-direction: row; */
+    }
+
+    .narrative {
+      /* width: 33.3%; */
+      margin-left : 0;
+      padding: 16px;
+      grid-column : 1/5;
+      grid-row    : 1;
+    }
+
+    .narrative-item {
+      display        : flex;
+      height         : auto;
+      margin         : 0;
+      padding: 0;
+      color           : white;
+      opacity         : 1.0;
+      flex-direction  : column;
+      justify-content : space-between;
+      margin-bottom: 32px;
+
+    }
+
+    .narrative-item:first-child {
+      padding-top     : 0;
+    }
+
+
+    .narrative-item:last-child {
+      padding-bottom : 0;
+    }
+
+    .narrative-item h2 {
+      padding-bottom : 16px;
+      color          : #6fd1f6;
+      font-family    : 'Roboto';
+      font-size      : 12px;
+      font-weight    : 200;
+      line-height    : 1.14;
+      letter-spacing : 0.18px;
+    }
+
+    .narrative-item p {
+      font-size      : 10px;
+      line-height    : 1.14;
+      letter-spacing : 0.15px;
+      /* font-weight: 500; */
+    }
+
+    .narrative-item__cta {
+      display: none;
+    }
+
+
+    .scrolly__mobile-chart {
+      display : block;
+      height: 200px;
+      padding-bottom:16px;
+
+    }
+    #more .scrolly__mobile-chart,
+    #acknowledgement .scrolly__mobile-chart,
+    #references .scrolly__mobile-chart  {
+      display : none;
+
+    }
+
+  }
