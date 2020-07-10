@@ -753,6 +753,7 @@
       opacity         : 1.0;
       flex-direction  : column;
       justify-content : space-between;
+      margin-bottom: 32px;
 
     }
 
@@ -793,4 +794,11 @@
       padding-bottom:16px;
 
     }
+    #more .scrolly__mobile-chart,
+    #acknowledgement .scrolly__mobile-chart,
+    #references .scrolly__mobile-chart  {
+      display : none;
+
+    }
+
   }
