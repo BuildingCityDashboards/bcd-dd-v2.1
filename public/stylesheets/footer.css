@@ -141,6 +141,8 @@
   padding    : 16px 0px;
   border-top : 1px solid #343a40;
   font-size  : 12px;
+  color: #f8f8f8;
+  border-bottom: none;
 }
 
 @media
