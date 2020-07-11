@@ -1,10 +1,11 @@
-mixin story-scrolly__narrative-item({id='', title='', narrative='', info='', chartimages = [''], cta=''})
+mixin story-scrolly__narrative-item({id='', title='', narrative='', info='', chartimages=[], cta=''})
   //- , chartInfo='', chartIds = [], buttons = [])
   div(id=id class="narrative-item" )
     .narrative-item__title
       h2= title
+    //- if chartimages[0]
     each img in chartimages
-      img(src = img class = "scrolly__mobile-chart")
+      img(src = img class = "scrolly__mobile-chart" loading = "lazy" alt = "image of chart")
     .narrative-item__text
       .narrative-item__narrative!= narrative
       .narrative-item__info!= info
