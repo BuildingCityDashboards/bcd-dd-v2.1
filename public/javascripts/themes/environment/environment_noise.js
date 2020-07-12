@@ -1,4 +1,5 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
 import { isToday } from '../../modules/bcd-date.js'
 
@@ -222,4 +223,10 @@ async function getPopupPlot (d_) {
         //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
+}
+
+function activeBtn (e) {
+  let btn = e
+  $(btn).siblings().removeClass('active')
+  $(btn).addClass('active')
 }
