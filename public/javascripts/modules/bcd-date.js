@@ -80,3 +80,10 @@ function convertQuarterToDate (q) {
 }
 
 export { convertQuarterToDate }
+
+// const parseTime = d3.timeParse('%d/%m/%Y')
+// const parseYear = d3.timeParse('%Y')
+// const formatYear = d3.timeFormat('%Y')
+// const parseMonth = d3.timeParse('%Y-%b')
+// const formatMonth = d3.timeFormat('%b %Y')
+
