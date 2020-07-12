@@ -1,4 +1,7 @@
 import { coerceWideTable } from '../modules/bcd-data.js'
+import { StackedAreaChart } from '../modules/StackedAreaChart.js'
+import { MultiLineChart } from '../modules/MultiLineChart.js'
+import { activeBtn } from '../modules/bcd-ui.js'
 
 Promise.all([
   d3.csv('../data/Education/EDA56.csv'), // number of nat schools
@@ -6,6 +9,7 @@ Promise.all([
   d3.csv('../data/Education/EDA69.csv'), // number of 2nd level pupils
   d3.csv('../data/Education/educationlevels.csv')
 ]).then(datafiles => {
+  console.log('edu data loaded')
   let pupilsPrimaryChart
   if (document.getElementById('chart-pupils-primary')) {
     const pupilsPrimary = datafiles[1]
