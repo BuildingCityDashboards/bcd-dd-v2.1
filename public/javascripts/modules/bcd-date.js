@@ -86,4 +86,5 @@ export { convertQuarterToDate }
 // const formatYear = d3.timeFormat('%Y')
 // const parseMonth = d3.timeParse('%Y-%b')
 // const formatMonth = d3.timeFormat('%b %Y')
+// const parseYearMonth = d3.timeParse('%Y-%b') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
 
