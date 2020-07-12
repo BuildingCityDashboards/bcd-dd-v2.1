@@ -1,4 +1,4 @@
-
+// import { locale } from from './bcd-date.js'
 class Chart {
   /**
    * @description
@@ -30,6 +30,7 @@ class Chart {
     this.tY = options.tY
     this.ySF = options.ySF || 'thousands' // format for y axis
   }
+
   // initialise method to draw c area
   init () {
     let c = this,

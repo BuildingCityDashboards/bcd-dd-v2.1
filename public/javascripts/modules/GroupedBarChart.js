@@ -1,4 +1,5 @@
 import { Chart } from './Chart.js'
+import { textWrap } from '../modules/bcd-chart-utils.js'
 
 class GroupedBarChart extends Chart {
 

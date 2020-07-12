@@ -1,6 +1,6 @@
 import { MultiLineChart } from '../modules/MultiLineChart.js'
 import { GroupedBarChart } from '../modules/GroupedBarChart.js'
-import { textWrap } from '../modules/bcd-chart-utils.js'
+
 let houseCompCharts, contributionChart, housePricesChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
 let rentByBedTT, planningTT
 let rentPricesChart
@@ -199,8 +199,8 @@ Promise.all([
         redraw()
       })
     } catch (e) {
-      console.log('error in housing.js')
-      console.log(e)
+      console.log('error in housing.js' + e)
+      // console.log(e)
     }
   }
 
