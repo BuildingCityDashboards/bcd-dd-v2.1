@@ -8,17 +8,32 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
  ************************************/
 
 (async () => {
-  let osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
-    minZoom: min_zoom,
-    maxZoom: max_zoom,
-    attribution: stamenTonerAttrib
-  })
-  let trafficCountersMap = new L.Map('map-traffic-counters', {
-    dragging: !L.Browser.mobile,
-    tap: !L.Browser.mobile
-  })
-  trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
-  trafficCountersMap.addLayer(osmTrafficCounters)
+  let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>'
+  let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
+  let dubLat = 53.3498
+  let dubLng = -6.2603
+  let min_zoom = 8
+  let max_zoom = 18
+  let zoom = 10
+
+  let osmTrafficCounters
+  let trafficCountersMap
+  try {
+    osmTrafficCounters = new L.TileLayer(stamenTonerUrl_Lite, {
+      minZoom: min_zoom,
+      maxZoom: max_zoom,
+      attribution: stamenTonerAttrib
+    })
+
+    trafficCountersMap = new L.Map('map-traffic-counters', {
+      dragging: !L.Browser.mobile,
+      tap: !L.Browser.mobile
+    })
+    trafficCountersMap.setView(new L.LatLng(dubLat, dubLng), zoom)
+    trafficCountersMap.addLayer(osmTrafficCounters)
+  } catch (e) {
+    console.log(e)
+  }
 
   let trafficCounterMapIcon = L.icon({
     iconUrl: '/images/transport/car-15.svg',
@@ -60,6 +75,7 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
       marker.on('popupopen', () => {
         getPlot(d)
       })
+
       trafficCounters.addLayer(marker)
     })
     // console.log('dublinCounters final -')
@@ -91,7 +107,7 @@ async function getCounters () {
     }
     return obj
   })
-  // console.log(counters)
+
   return counters
 }
 
@@ -162,6 +178,7 @@ function getPlot (d_) {
     titleLabel: 'daily vehicles'
   }
   let chart = new ChartLinePopup(config)
+
   return chart
 }
 

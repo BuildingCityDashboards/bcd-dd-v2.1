@@ -1,5 +1,6 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { coerceWideTable } from '../../modules/bcd-data.js'
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
 let employmentSectorURL = '../data/Economy/data_gov_economic_monitor/indicator-2-employment-by-sector.csv'
 
 Promise.all([

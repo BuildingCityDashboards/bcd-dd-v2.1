@@ -1,5 +1,9 @@
-let populationChart, outsideStateChart, houseHoldsChart, houseHoldCompositionChart
-let population, outsideStateContent, outsideStateTT, houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { GroupedBarChart } from '../../modules/GroupedBarChart.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
+
+const parseYear = d3.timeParse('%Y')
+let populationChart
 
 if (document.getElementById('chart-population')) {
   d3.csv('../data/Demographics/CNA13.csv').then(data => {
@@ -31,7 +35,7 @@ if (document.getElementById('chart-population')) {
 
     const grouping = types.map(d => d.key)
 
-    population = {
+    let population = {
       e: '#chart-population',
       ks: grouping,
       xV: 'date',
@@ -85,9 +89,9 @@ if (document.getElementById('chart-bornOutsideState')) {
   })
 
   d3.csv('../data/Demographics/CNA31.csv').then(data => {
-    const columnNames = data.columns.slice(2),
-      xValue = data.columns[1]
-    yLabels = ['Population (000s)']
+    const columnNames = data.columns.slice(2)
+    const xValue = data.columns[1]
+    const yLabels = ['Population (000s)']
 
     const combinedData = d3.nest()
     .key(function (g) {
@@ -114,7 +118,7 @@ if (document.getElementById('chart-bornOutsideState')) {
       array.push(obj)
     })
 
-    outsideStateContent = {
+    let outsideStateContent = {
       e: '#chart-bornOutsideState',
       d: array,
       ks: columnNames,
@@ -124,7 +128,7 @@ if (document.getElementById('chart-bornOutsideState')) {
       ySF: 'millions'
     }
 
-    outsideStateTT = {
+    let outsideStateTT = {
       title: 'Born Outside the State - Year:',
       datelabel: xValue,
       format: 'thousands'
@@ -132,7 +136,7 @@ if (document.getElementById('chart-bornOutsideState')) {
 
   //  for each d in combineData get the key and assign to each d in d.values
 
-    outsideStateChart = new GroupedBarChart(outsideStateContent)
+    let outsideStateChart = new GroupedBarChart(outsideStateContent)
   // outsideStateChart.tickNumber = 1;
     outsideStateChart.drawChart()
     outsideStateChart.addTooltip(outsideStateTT)
