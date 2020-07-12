@@ -1,5 +1,8 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { coerceWideTable } from '../../modules/bcd-data.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
 let portTotalChart, portBreakdownChart
 let portTonnage = '../data/Economy/data_gov_economic_monitor/indicator-10-dublin-port-tonnage.csv'
 

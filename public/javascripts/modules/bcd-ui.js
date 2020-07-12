@@ -18,3 +18,20 @@ const populateDropdownFromArray = (element, optionsArray) => {
 }
 
 export { populateDropdownFromArray }
+
+/**
+ * Toggle UI button active class
+ *
+ * @param { Stirng } e DOM element reference string
+ *
+ * @return { null }
+ *
+ */
+
+const activeBtn = function (e) {
+  let btn = e
+  $(btn).siblings().removeClass('active')
+  $(btn).addClass('active')
+}
+
+export { activeBtn }

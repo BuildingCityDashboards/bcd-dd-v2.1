@@ -1,7 +1,10 @@
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
+
 let employmentLine, unemploymentLine, employmentStack, unemploymentStack
-let annual = '../data/Economy/annualemploymentchanges.csv',
-  QNQ22 = '../data/Economy/QNQ22_2.csv',
-  pageSize = 12
+let annual = '../data/Economy/annualemploymentchanges.csv'
+let QNQ22 = '../data/Economy/QNQ22_2.csv'
+let pageSize = 12
 
 /** * This QNQ22 employment and unemployment Charts ***/
 Promise.all([
@@ -9,6 +12,7 @@ Promise.all([
   d3.csv(QNQ22)
 
 ]).then(datafiles => {
+  console.log('loaded emp data')
   const QNQ22 = datafiles[1]
   // console.log('QNQ22')
   // console.log(QNQ22[0])
