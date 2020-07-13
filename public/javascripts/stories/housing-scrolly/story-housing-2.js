@@ -28,18 +28,10 @@ import { getPlotObjectFig8 } from '/javascripts/stories/housing-scrolly/story-ho
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
   const MAP_STICKY_ELEMENT = 'map-sticky-housing'
-// init a blank plot
-// TODO: replace with spinner/ loading progress
-  // Plotly.newPlot('chart-sticky-housing', {}, {}, {})
+  const chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
+  const mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
 
-  /**
-   * Styling on Plotly Laout options object
-   *
-   * @param { Object } po
-   * @return { Object } po
-   *
-   *
-   */
+  const chartWrapper = document.querySelector('.sticky-chart-wrapper')
 
   const stylePlotlyLayout = po => {
     if (po.hasOwnProperty('layout')) {
@@ -63,8 +55,6 @@ import { getPlotObjectFig8 } from '/javascripts/stories/housing-scrolly/story-ho
 
   const drawPlot = async (event) => {
     // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
-    let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
-    let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
     let chartState = chartSticky.getAttribute('data-status')
     let mapState = mapSticky.getAttribute('data-status')
     // console.log(chartState)
@@ -75,9 +65,10 @@ import { getPlotObjectFig8 } from '/javascripts/stories/housing-scrolly/story-ho
     // indexes of map elements
     if (event.index == 2) {
       if (mapState === 'hidden') {
-        console.log('draw map and show')
+        // console.log('draw map and show')
         // console.log('map')
         // console.log(map)
+
         // hide current chart
         chartSticky.removeAttribute('data-status')
         chartSticky.setAttribute('data-status', 'hidden')
@@ -91,7 +82,8 @@ import { getPlotObjectFig8 } from '/javascripts/stories/housing-scrolly/story-ho
           mapSticky.setAttribute('data-status', 'shown')
         }
       }
-    } else if (event.index >= 0 && event.index < plotObjects.length) {
+    } else if (event.index >= 0 && event.index < 8) {
+      chartWrapper.style.setProperty('background-color', '#21272a')
       if (mapState === 'shown') {
         console.log('hide map')
         // console.log('map')
@@ -129,6 +121,18 @@ import { getPlotObjectFig8 } from '/javascripts/stories/housing-scrolly/story-ho
           chartSticky.setAttribute('data-status', 'shown')
         }
       }
+    } else if (event.index >= 8 && event.index <= 10) {
+      if (chartState === 'shown') {
+        // console.log('hide map')
+        // console.log('map')
+        // console.log(map)
+        // hide current chart
+        chartSticky.removeAttribute('data-status')
+        chartSticky.setAttribute('data-status', 'hidden')
+        chartSticky.style.display = 'none'
+      }
+
+      chartWrapper.style.setProperty('background-color', 'transparent')
     }
   }
 
