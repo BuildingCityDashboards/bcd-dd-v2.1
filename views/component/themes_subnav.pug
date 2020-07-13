@@ -1,10 +1,42 @@
+include subnav__icon-nav
 mixin themes__subnav(classes)
   nav( class=classes )
       //- #subnav 
-      a.active(href = "#transport") Transport
-      a(href = "#environment") Environment
-      a(href = "#housing") Housing
-      a(href = "#economy") Economy
-      a(href = "#education") Education
-      //- a.subnav-link(href = "#health") Health
-      a(href = "#demographics") Demographics
+      +subnav__icon-nav({
+      title: "Transport",
+      link: "#transport", 
+      img: "../../images/icons/themes/transport.svg",
+      classActive: ''
+      })
+      +subnav__icon-nav({
+      title: "Environment",
+      link: "#environment", 
+      img: "../../images/icons/themes/environment.svg",
+      })
+      +subnav__icon-nav({
+      title: "Housing",
+      link: "#housing", 
+      img: "../../images/icons/themes/housing.svg",
+      })
+      +subnav__icon-nav({
+      title: "Economy",
+      link: "#economy", 
+      img: "../../images/icons/themes/economy.svg",
+      })
+      +subnav__icon-nav({
+      title: "Education",
+      link: "#education", 
+      img: "../../images/icons/themes/education.svg",
+      })
+      +subnav__icon-nav({
+      title: "Demographics",
+      link: "#demographics", 
+      img: "../../images/icons/themes/demographics.svg",
+      })
+      //- a.active(href = "#transport") Transport
+      //- a.active(href = "#environment") Environment
+      //- a(href = "#housing") Housing
+      //- a(href = "#economy") Economy
+      //- a(href = "#education") Education
+      //- //- a.subnav-link(href = "#health") Health
+      //- a(href = "#demographics") Demographics

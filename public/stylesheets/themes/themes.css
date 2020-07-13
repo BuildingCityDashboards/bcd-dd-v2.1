@@ -1,39 +1,76 @@
 /* xs: 360px x 540px <MOCKUP> */
+/* unvisited link */
+a:link {
+text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+text-decoration: none;
+}
+
+/* selected link */
+a:active {
+text-decoration: none;
+}
 
 .themes__subnav {
-  position: fixed;
-  top: 48px;
-  left: 0;
-  display         : flex;
-  padding         : .25rem;
+  z-index          : 10000;
+  display          : flex;
+  position         : fixed;
+  top              : 48px;
+  left             : 0;
+  width            : 100%;
+  height           : 60px;
+  padding          : .25rem;
   opacity          : 1;
   background-color : #1c2022;
-  align-items     : center;
-  -ms-flex-align  : center;
-  -ms-flex-pack   : justify;
-  flex-wrap       : wrap;
-  justify-content : space-around;
-  height: 60px;
-  width: 100%;
-  z-index: 10000;
+  align-items      : center;
+  -ms-flex-align   : center;
+  -ms-flex-pack    : justify;
+  flex-wrap        : wrap;
+  justify-content  : space-around;
 }
 
-.themes__subnav a {
-  color          : #6fd1f6;
-  opacity        : 0.8;
-  font-family    : 'Roboto',
-                   sans-serif;
-  font-size      : 14px;
-  font-style     : normal;
-  font-weight    : 200;
-  font-stretch   : normal;
-  line-height    : 1.14;
-  letter-spacing : 1.25px;
-  text-decoration: none;
+.subnav__icon-nav {
+  display         : flex;
+  color           : #6fd1f6;
+  opacity         : 0.7;
+  border-bottom   : 2px solid transparent;
+  text-decoration : none;
+  font-family     : 'Roboto',
+                    sans-serif;
+  font-size       : 14px;
+  font-style      : normal;
+  font-weight     : 200;
+  font-stretch    : normal;
+  line-height     : 1.14;
+  letter-spacing  : 1.25px;
+  padding-bottom: 2px;
 }
 
-.themes__subnav a:active, .themes__subnav a:hover{
-opacity: 1;
+.active,
+.subnav__icon-nav:hover{
+  opacity       : 1;
+  border-bottom : 2px solid;
+}
+
+.subnav__icon-nav__icon {
+  display : block;
+}
+
+.subnav__icon-nav__icon img {
+  width  : 24px;
+  height : auto;
+}
+
+.subnav__icon-nav__title {
+  display : none;
 }
 
 .theme {
@@ -268,38 +305,38 @@ opacity: 1;
   line-height    : 16px;
   letter-spacing : 1.5px;
 }
+
 #public-transport-trips .theme__text-chart__info {
-  color          : white;
-  padding-top: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  display         : flex;
+  padding-top     : 24px;
+  color           : white;
+  align-items     : flex-start;
+  flex-direction  : column;
+  justify-content : flex-start;
 }
 
-
-#public-transport-trips .theme__text-chart__info h3{
+#public-transport-trips .theme__text-chart__info h3 {
   /* padding: 24px 0px; */
-  padding-top: 12px;
+  width          : auto;
+  padding-top    : 12px;
+  text-align     : left;
   font-size      : 24px;
   font-weight    : 200;
   line-height    : 48px;
   letter-spacing : 1.5px;
-  text-align: left;
-  width: auto;
 }
 
-#public-transport-trips .theme__text-chart__info p{
+#public-transport-trips .theme__text-chart__info p {
+  text-align     : left;
   font-size      : 12px;
   font-weight    : 200;
   line-height    : 16px;
   letter-spacing : 1.5px;
-  text-align: left;
 }
 
-#public-transport-trips .theme__text-chart__info img{
-  width: 48px;
-  height: 48px;
+#public-transport-trips .theme__text-chart__info img {
+  width  : 48px;
+  height : 48px;
 }
 
 .theme__text-chart__kpi {}
@@ -307,6 +344,48 @@ opacity: 1;
 @media
   only screen
   and (min-width : 768px) {
+  .themes__subnav {
+    width  : 100%;
+    height : 72px;
+  }
+
+  .subnav__icon-nav {
+    display         : flex;
+    justify-content: center;
+  }
+
+  .subnav__icon-nav h2 {
+    display         : flex;
+    font-size       : 14px;
+    font-style      : normal;
+    font-weight     : 200;
+    font-stretch    : normal;
+    line-height     : 1.14;
+    letter-spacing  : 1.25px;
+  }
+
+  .active,
+  .subnav__icon-nav:hover {
+    opacity       : 1;
+    /* border-bottom : 2px solid; */
+    text-decoration: none;
+  }
+
+  .subnav__icon-nav__icon {
+    display : flex;
+    justify-content: center;
+  }
+
+  .subnav__icon-nav__icon img {
+    width  : 32px;
+    height : auto;
+
+  }
+
+  .subnav__icon-nav__title {
+    display : block;
+  }
+
   .theme {
     width     : 100vw;
     max-width : 100%;
@@ -449,23 +528,23 @@ opacity: 1;
   }
 
   .theme-btn:focus {}
-
   /* altering height does not make the plot bigger */
-  /* use max-width to clamp chart size, height adjusts automatically*/
+  /* use max-width to clamp chart size, height adjusts automatically */
+
   .theme__text-chart__plot {
     width      : auto;
-    max-width : 800px;
+    max-width  : 800px;
     height     : 400px;
     min-height : 400px;
     max-height : 400px;
   }
 
   .theme__text-chart__plot svg {
-    padding-left: 12px;
+    width        : auto;
+    height       : auto;
+    padding-left : 12px;
     /* height : inherit; */
-    width  : auto;
     /* max-width: 900px; */
-    height : auto;
     /* max-height : 400px; /* d3 chart will be cropped if too tall */
   }
 
@@ -597,8 +676,8 @@ opacity: 1;
     display               : grid;
     position              : relative;
     width                 : auto;
-    min-height: 800px;
     height                : auto;
+    min-height            : 800px;
     padding-right         : 48px;
     padding-left          : 48px;
     text-align            : left;
@@ -688,10 +767,9 @@ opacity: 1;
 
   .theme__text-chart__button-row {
     padding-bottom : 0;
-
-    align-self  : flex-end;
-    grid-column : 1/7;
-    grid-row    : 1/2;
+    align-self     : flex-end;
+    grid-column    : 1/7;
+    grid-row       : 1/2;
   }
 
   .theme-btn {
@@ -722,14 +800,25 @@ opacity: 1;
     outline    : none;
     box-shadow : none;
   }
-
-  /* .theme__text-chart__spinner {
-    display     : none;
-    width       : auto;
-    align-self  : center;
-    grid-column : 3/5;
-    grid-row    : 3/4;
-  } */
+  /**
+  * .theme__text-chart__spinner { display
+  *
+  *
+  *
+  * : none; width
+  *
+  *
+  *
+  *
+  *
+  * : auto; align-self
+  *
+  * : center; grid-column : 3/5; grid-row
+  *
+  *
+  *
+  * : 3/4; }
+  */
   /* altering height does not make the plot bigger */
 
   .theme__text-chart__plot {
@@ -738,7 +827,6 @@ opacity: 1;
     align-self  : flex-start;
     grid-column : 1/8;
     grid-row    : 2/4;
-
     /* height : 500px; */
   }
 
@@ -748,15 +836,15 @@ opacity: 1;
     *
     * ;
     */
-    width  : auto;
-    height : auto;
-    transform: translateY(-24px);
+    width     : auto;
+    height    : auto;
+    transform : translateY(-24px);
   }
-  /* .leaflet-popup-content {
-    transform: translateY(24px)
-
-  } */
-
+  /**
+  * .leaflet-popup-content { transform: translateY(24px)
+  *
+  * }
+  */
 }
 
 @media
