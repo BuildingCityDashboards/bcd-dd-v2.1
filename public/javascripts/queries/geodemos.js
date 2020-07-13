@@ -84,7 +84,13 @@ mapGeodemos.addControl(new L.Control.OSMGeocoder({
   bounds: getDublinBoundsLatLng()
 }))
 
-const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
+//const GEODEMOS_COLORWAY_CATEGORICAL= ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
+
+// const GEODEMOS_COLORWAY_CATEGORICAL=['#800026','#BD0026','#E31A1C','#FC4E2A','#FD8D3C', 
+//            '#FEB24C',
+//            '#FED976',
+//         '#FFEDA0']
+ const GEODEMOS_COLORWAY_CATEGORICAL=['#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d','#666666']       
 const GEODEMOS_COLORWAY_CBSAFE = ['#d73027','#f46d43','#fdae61','#fee090','#abd9e9','#74add1','#4575b4']
 const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
 //const gToLa =['Group1','Group2','Group3','Group4','Group5','Group6','Group7'] 
@@ -308,7 +314,7 @@ function getEmptyLayersArray (total) {
   for (let i = 0; i < total; i += 1) {
     layersArr.push(L.geoJSON(null, {
 //      style: subteStyle,
-      //style: getLayerStyle(i),
+      style: getLayerStyle(i),
       onEachFeature: onEachFeature
       // filter: filterInitialView
     })
@@ -325,11 +331,11 @@ function getEmptyLayersArray (total) {
 function subteStyle(feature) {
   return {
     color: getFColor(feature.properties.groupColor),
-    weight: 0.2,
+    weight: 2.5,
     opacity: .5,
     fillColor: getFColor(feature.properties.groupColor),
     dashArray: '3',
-		fillOpacity: .6,
+		fillOpacity: 1.6,
   };
 }    
 
@@ -357,12 +363,12 @@ function addFeatureToLayer (feature, layerNo) {
 function getLayerStyle (index) {
   // console.log("style feature "+f.properties.COUNTYNAME)
   return {
-    //fillColor: getLayerColor(index),
-    //weight: 0.3,
-    //opacity: 0.3,
-    //color: getLayerColor(index),
+    fillColor: getLayerColor(index),
+    weight: 0.3,
+    opacity: 0.3,
+    color: getLayerColor(index),
     //dashArray: '1',
-    //fillOpacity: 0.9
+    fillOpacity: 0.9
   }
 }
 
@@ -370,11 +376,11 @@ function getLayerStyle2 (index) {
   // console.log("style feature "+f.properties.COUNTYNAME)
   return {
     fillColor: getFColor(index),
-    weight: 0.3,
+    weight: 2.5,
     opacity: 0.3,
     color: getFColor(index),
     dashArray: '1',
-    fillOpacity: 0.9
+    fillOpacity: 1.7
   }
 }
 
@@ -505,13 +511,13 @@ d3.select('#seco').on('change' , function()
      cov=traces[k].x[value];
     //let feature.properties.groupColor=cov
     mapGeodemos.addLayer(l)
-    mlay.setStyle({color: '#da0101',//getFColor(cov),
-    fillColor: getFColor(cov),
-    weight: 1, //parseFloat(cov),
+    mlay.setStyle({color: getLayerColor(k),//'#da0101',//getFColor(cov),
+    fillColor: getLayerColor(k),//getFColor(cov),
+    weight: 2.5, //parseFloat(cov),
     opacity: parseFloat(cov),
       
       dashArray: '1',
-      fillOpacity: 0.5 //parseFloat(cov)
+      fillOpacity: 1.8 //parseFloat(cov)
       
     
       //fillColor: 'grey',
@@ -527,7 +533,8 @@ d3.select('#seco').on('change' , function()
 })
 //addheatmap() 
 //alert('yes1' + value)
-addheatmap_Sv(value,text)
+//addheatmap_Sv(value,text)
+addHorizrntalBars(value,text)
 updateGroupTxt('all')
 }
 )
@@ -699,12 +706,12 @@ let srrc = cb.attr("src");
 
     //mlay.setStyle(getLayerStyle2(cov))
      mlay.setStyle({color: getFColor(cov),
-      fillColor: getFColor(cov),
-    weight: 0.3,
+    fillColor: getFColor(cov),
+    weight: 2.5,
     opacity: 0.3,
     color: getFColor(cov),
     dashArray: '1',
-    fillOpacity: 0.9
+    fillOpacity: 1.7
     
     
     }
@@ -734,8 +741,8 @@ let srrc = cb.attr("src");
 
 
   //getl()    
-  //addheatmap()    
-  //updateGroupTxt('all')
+  addheatmap()    
+  updateGroupTxt('all')
 
   //let seim =document.getElementById("1")
       
@@ -957,7 +964,9 @@ function addheatmap_Sv (value,text)
   //layout.barmode = 'group';
   hmlayout.colorway = GEODEMOS_COLORWAY
   hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-  hmlayout.title.text = 'Variables Value Distribution (z-scores)';
+  hmlayout.title.text =  text +' ' +'Value Distribution (z-scores)',//'Variables Value Distribution (z-scores)';
+  
+  
   hmlayout.showlegend = false;
   hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
   hmlayout.legend.xanchor = 'right';
@@ -1033,7 +1042,7 @@ zArray.push(columnData[value][r])
           //y: header.split(','),
           //z: [[2.053633391,0.261867764,-0.412739154,-0.588462387,-0.466565008,-0.694338304,0.894616436]],
           x: GroupsArray, // ['', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-          y: [text],
+         // y: [text],
           type: 'heatmap',
           hoverongaps: false,
           
@@ -1069,3 +1078,156 @@ zArray.push(columnData[value][r])
 
 
 }
+
+//-- Adding a Horizental Bar Exam
+
+
+function addHorizrntalBars (value,text)
+{
+  //alert(value + text)
+  let GroupsArray=['Group1', 'Group2', 'Group3', 'Group4', 'Group5','Group6','Group7']
+  hmlayout = Object.assign({}, ROW_CHART_LAYOUT);
+  //layout.mode = 'bars'
+  hmlayout.height = 500
+  hmlayout.width = 360
+  //layout.barmode = 'group';
+  hmlayout.colorway = GEODEMOS_COLORWAY
+  hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+  hmlayout.title.text = text +' ' +'Value Distribution (z-scores)';
+  hmlayout.showlegend = false;
+  hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+  hmlayout.legend.xanchor = 'right';
+  hmlayout.legend.y = 0.1;
+  hmlayout.legend.traceorder = 'reversed';
+  hmlayout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+  hmlayout.xaxis.title = "";
+  //hmlayout.xaxis.range = [-2, 2]
+  hmlayout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+  hmlayout.yaxis.tickfont ={
+    family: 'PT Sans',
+    size: 10,
+    color: '#313131'
+  }
+  hmlayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+  hmlayout.yaxis.titlefont.size = 16; //bug? need to call this
+  hmlayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+  //-hmlayout.hovermode ='closest';
+  //-hmlayout.hoverinfo = "z";
+  //-hmlayout.domain =[0.85,0.9];
+  hmlayout.yaxis.title = '';
+  hmlayout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
+  hmlayout.margin = {
+    l: 20,
+    r: 20, //annotations space
+    t: 20,
+    b: 0
+    
+  };
+  
+
+
+  d3.text('/data/tools/geodemographics/dublin_zscores.csv')
+  .then((zScores)=>{
+    let newCsv = zScores.split('\n').map(function(line) {
+      let columns = line.split(','); // get the columns
+      columns.splice(0, 1); // remove total column
+      return columns;
+  }).join('\n');
+
+  const rows = newCsv.split('\n');
+  //alert(rows)
+  // get the first row as header
+  const header = rows.shift(); //.revers();
+  //alert(header)
+  //const header = columnNames;
+  const numberOfColumns = header.split(',').length
+  
+  // initialize 2D-array with a fixed size
+  const columnData = [...Array(numberOfColumns)].map(item => new Array());
+  
+  for(let i=0; i<rows.length; i++) {
+    let row = rows[i];
+    let rowData = row.split(',');
+  
+   
+    for(let j=0; j<numberOfColumns; j++) {
+      columnData[j].push((rowData[j]));
+    
+    
+  }
+}
+let zArray=[]
+for (let r=0;r<7;r++)
+{
+//alert(columnData[value][r])
+zArray.push((columnData[value][r]))
+} 
+
+ let farr=[]
+ //let tc ={}
+for (let f=0; f< zArray.length; f++)
+{
+    let tc = Object.assign({}, TRACES_DEFAULT);
+    tc.type = 'bar'
+    tc.orientation = 'h'
+    tc.x=parseFloat(zArray[f])
+    tc.y=GroupsArray[f]
+    //alert(JSON.stringify(tc))
+    farr.push(tc)
+}
+//   zArray.forEach((i) => {
+  
+//      let trc = Object.assign({}, TRACES_DEFAULT);
+//      trc.type = 'bar'
+//      trc.orientation = 'h'
+//     // trc.marker = Object.assign({}, TRACES_DEFAULT.marker)
+//     // trc.marker = {
+//     // color: 'red', // lines + markers, defaults to colorway
+//    //  }
+   
+//      //trc.x = zArray[i]
+//      trc.x = +i
+     
+//      trc.y = GroupsArray[i]
+    
+//      farr.push(trc)
+//  })
+
+//alert(JSON.stringify(farr))
+   let data = [
+     {
+         x: zArray, //columnData,
+         //color: getLayerColor(GroupsArray.indexOf("Banana");), 
+         y: GroupsArray, // ['', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+         
+         type: 'bar',
+         orientation: 'h',
+         indxArr: [0,1,2,3,4,5,6],
+
+marker:{
+//     color: ['#800026','#BD0026','#E31A1C','#FC4E2A','#FD8D3C', 
+//     '#FEB24C',
+//     '#FED976',
+//    '#FFEDA0']
+  
+    //color: ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
+color: ['#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d','#666666']   
+},
+         
+//         //color: 'red', // lines + markers, defaults to colorway
+      
+      } 
+                 ];
+      //Plotly.purge('chart-geodemos'); 
+     Plotly.newPlot('chart-geodemos', data, hmlayout)
+        //TrackingArray.push(1)
+        //updateGroupTxt(1);
+        //getzscorstat(0)
+          
+      })
+    }
+
+
+
+
+//---
