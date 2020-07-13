@@ -1,6 +1,8 @@
 /************************************
  * Bikes
  ************************************/
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+
 let dublinBikesChart
 Promise.all([
   d3.json('/data/Transport/dublinbikes/day.json'),

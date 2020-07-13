@@ -12,6 +12,7 @@ const locale = d3.formatLocale({
   months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   shortMonths: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 })
+
 const parseTime = d3.timeParse('%d/%m/%Y')
 const formatTime = d3.timeFormat('%d/%m/%Y')
 const formatYear = d3.timeFormat('%Y')

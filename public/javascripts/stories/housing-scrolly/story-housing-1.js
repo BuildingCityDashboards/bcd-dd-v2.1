@@ -52,6 +52,8 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
 
   const drawPlot = async (event) => {
     console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    console.log('w:' + screen.width)
+
     let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
     let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
     let chartState = chartSticky.getAttribute('data-status')

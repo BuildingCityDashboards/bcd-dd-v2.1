@@ -1,42 +1,43 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
 import { isToday } from '../../modules/bcd-date.js'
-
+import { getDefaultMapOptions } from '../../modules/bcd-maps.js'
+import { getDublinLatLng } from '../../modules/bcd-maps.js'
 (async () => {
-  proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
-  +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
-  var firstProjection = 'EPSG:29902'
-  var secondProjection = 'EPSG:4326'
-
-  let osmnoiseMonitors = new L.TileLayer(stamenTonerUrl_Lite, {
-    minZoom: min_zoom,
-    maxZoom: max_zoom,
-    attribution: stamenTonerAttrib
-  })
-  let noiseMap = new L.Map('map-noise-monitors', {
-    dragging: !L.Browser.mobile,
-    tap: !L.Browser.mobile
-  })
-  noiseMap.setView(new L.LatLng(dubLat, dubLng), 11)
-  noiseMap.addLayer(osmnoiseMonitors)
-  let noiseMapIcon = L.icon({
-    iconUrl: './images/environment/microphone-black-shape.svg',
-    iconSize: [20, 20] // orig size
-    // iconAnchor: [iconAX, iconAY] //,
-   // popupAnchor: [-3, -76]
-  })
-  const noiseMarker = L.Marker.extend({
-    options: {
-      id: 0
-    }
-  })
-
-  const noisePopupOptons = {
-    // 'maxWidth': '500',
-    // 'className': 'leaflet-popup'
-  }
+  console.log('load noise charts')
+  let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 
   try {
+    proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
+  +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
+    var firstProjection = 'EPSG:29902'
+    var secondProjection = 'EPSG:4326'
+
+    let osmnoiseMonitors = new L.TileLayer(stamenTonerUrl_Lite, getDefaultMapOptions())
+    let noiseMap = new L.Map('map-noise-monitors', {
+      dragging: !L.Browser.mobile,
+      tap: !L.Browser.mobile
+    })
+    noiseMap.setView(getDublinLatLng(), 11)
+    noiseMap.addLayer(osmnoiseMonitors)
+    let noiseMapIcon = L.icon({
+      iconUrl: './images/environment/microphone-black-shape.svg',
+      iconSize: [20, 20] // orig size
+    // iconAnchor: [iconAX, iconAY] //,
+   // popupAnchor: [-3, -76]
+    })
+    const noiseMarker = L.Marker.extend({
+      options: {
+        id: 0
+      }
+    })
+
+    const noisePopupOptons = {
+    // 'maxWidth': '500',
+    // 'className': 'leaflet-popup'
+    }
+
     let noiseSitesLayer = new L.LayerGroup()
     let noiseSites = await getSites('./data/Environment/soundsites.json', 'sound_monitoring_sites')
     let allSitesPromises = noiseSites.map(async d => {
@@ -222,4 +223,10 @@ async function getPopupPlot (d_) {
         //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
+}
+
+function activeBtn (e) {
+  let btn = e
+  $(btn).siblings().removeClass('active')
+  $(btn).addClass('active')
 }

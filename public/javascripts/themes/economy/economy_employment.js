@@ -1,7 +1,13 @@
-let employmentLine, unemploymentLine, employmentStack, unemploymentStack
-let annual = '../data/Economy/annualemploymentchanges.csv',
-  QNQ22 = '../data/Economy/QNQ22_2.csv',
-  pageSize = 12
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
+
+let employmentLine
+let unemploymentLine
+let employmentStack
+let unemploymentStack
+let annual = '../data/Economy/annualemploymentchanges.csv'
+let QNQ22 = '../data/Economy/QNQ22_2.csv'
+let pageSize = 12
 
 /** * This QNQ22 employment and unemployment Charts ***/
 Promise.all([

@@ -1,3 +1,6 @@
+import { MultiLineChart } from '../modules/MultiLineChart.js'
+import { GroupedBarChart } from '../modules/GroupedBarChart.js'
+
 let houseCompCharts, contributionChart, housePricesChart, dccChart, drccChart, fccChart, sdccChart, newCompByTypeChart, hCBTChart, HPM06Charts
 let rentByBedTT, planningTT
 let rentPricesChart
@@ -109,91 +112,96 @@ Promise.all([
 
   // 2.  data processing for planning charts.
   if (document.getElementById('chart-planningDCC')) {
-    const planningData = datafiles[1],
-      types = planningData.columns.slice(2),
-      date = planningData.columns[0],
-      planningDataProcessed = dataSets(planningData, types),
+    try {
+      const planningData = datafiles[1],
+        types = planningData.columns.slice(2),
+        date = planningData.columns[0],
+        planningDataProcessed = dataSets(planningData, types),
 
-      dcc = planningDataProcessed.filter(d => {
-        return d.region === 'Dublin'
-      }),
-      drcc = planningDataProcessed.filter(d => {
-        return d.region === 'Dun Laoghaire- Rathdown'
-      }),
-      fcc = planningDataProcessed.filter(d => {
-        return d.region === 'Fingal'
-      }),
-      sdcc = planningDataProcessed.filter(d => {
-        return d.region === 'South Dublin'
-      }),
+        dcc = planningDataProcessed.filter(d => {
+          return d.region === 'Dublin'
+        }),
+        drcc = planningDataProcessed.filter(d => {
+          return d.region === 'Dun Laoghaire- Rathdown'
+        }),
+        fcc = planningDataProcessed.filter(d => {
+          return d.region === 'Fingal'
+        }),
+        sdcc = planningDataProcessed.filter(d => {
+          return d.region === 'South Dublin'
+        }),
 
-      dccContent = {
-        e: '#chart-planningDCC',
-        d: dcc,
-        ks: types,
-        xV: date,
-        tX: 'Years',
-        tY: 'Applications'
+        dccContent = {
+          e: '#chart-planningDCC',
+          d: dcc,
+          ks: types,
+          xV: date,
+          tX: 'Years',
+          tY: 'Applications'
       // ySF: "percentage"
-      },
+        },
 
-      drccContent = {
-        e: '#chart-planningDRCC',
-        d: drcc,
-        ks: types,
-        xV: date,
-        tX: 'Years',
-        tY: 'Applications'
+        drccContent = {
+          e: '#chart-planningDRCC',
+          d: drcc,
+          ks: types,
+          xV: date,
+          tX: 'Years',
+          tY: 'Applications'
       // ySF: "percentage"
-      },
+        },
 
-      fccContent = {
-        e: '#chart-planningFCC',
-        d: fcc,
-        ks: types,
-        xV: date,
-        tX: 'Years',
-        tY: 'Applications'
+        fccContent = {
+          e: '#chart-planningFCC',
+          d: fcc,
+          ks: types,
+          xV: date,
+          tX: 'Years',
+          tY: 'Applications'
       // ySF: "percentage"
-      },
+        },
 
-      sdccContent = {
-        e: '#chart-planningSDCC',
-        d: sdcc,
-        ks: types,
-        xV: date,
-        tX: 'Years',
-        tY: 'Applications'
+        sdccContent = {
+          e: '#chart-planningSDCC',
+          d: sdcc,
+          ks: types,
+          xV: date,
+          tX: 'Years',
+          tY: 'Applications'
       // ySF: "percentage"
+        }
+
+      planningTT = {
+        title: 'Planning Applications - Year',
+        datelabel: date,
+        format: 'thousands'
       }
 
-    planningTT = {
-      title: 'Planning Applications - Year',
-      datelabel: date,
-      format: 'thousands'
-    }
-
   // drawing charts for planning data.
-    dccChart = new GroupedBarChart(dccContent)
-    drccChart = new GroupedBarChart(drccContent)
-    fccChart = new GroupedBarChart(fccContent)
-    sdccChart = new GroupedBarChart(sdccContent)
+      dccChart = new GroupedBarChart(dccContent)
+      drccChart = new GroupedBarChart(drccContent)
+      fccChart = new GroupedBarChart(fccContent)
+      sdccChart = new GroupedBarChart(sdccContent)
 
-    function redraw () {
-      dccChart.drawChart()
-      drccChart.drawChart()
-      fccChart.drawChart()
-      sdccChart.drawChart()
-      dccChart.addTooltip(planningTT)
-      drccChart.addTooltip(planningTT)
-      fccChart.addTooltip(planningTT)
-      sdccChart.addTooltip(planningTT)
-    }
-    redraw()
-
-    window.addEventListener('resize', () => {
+      function redraw () {
+        dccChart.drawChart()
+        drccChart.drawChart()
+        fccChart.drawChart()
+        sdccChart.drawChart()
+        dccChart.addTooltip(planningTT)
+        drccChart.addTooltip(planningTT)
+        fccChart.addTooltip(planningTT)
+        sdccChart.addTooltip(planningTT)
+      }
       redraw()
-    })
+
+      window.addEventListener('resize', () => {
+        redraw()
+      })
+    } catch (e) {
+      console.log('error in housing.js' + e)
+      // console.log(e)
+    }
   }
 
   if (document.getElementById('chart-houseSupply')) {
@@ -416,37 +424,42 @@ Promise.all([
 
   //  Setup data and chart for rent prices by quarter by bed numbers
   if (document.getElementById('chart-rent-by-beds')) {
-    const rentByBedsData = datafiles[6],
-      rentByBedsTypes = rentByBedsData.columns.slice(2),
-      rentByBedsDate = rentByBedsData.columns[0],
-      rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
+    try {
+      const rentByBedsData = datafiles[6],
+        rentByBedsTypes = rentByBedsData.columns.slice(2),
+        rentByBedsDate = rentByBedsData.columns[0],
+        rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
 
-      rentByBedContent = {
-        e: '#chart-rent-by-beds',
-        d: rentByBedsDataProcessed,
-        ks: rentByBedsTypes,
-        xV: rentByBedsDate,
-        tX: 'Quarters',
-        tY: 'Price',
-        ySF: 'euros'
+        rentByBedContent = {
+          e: '#chart-rent-by-beds',
+          d: rentByBedsDataProcessed,
+          ks: rentByBedsTypes,
+          xV: rentByBedsDate,
+          tX: 'Quarters',
+          tY: 'Price',
+          ySF: 'euros'
+        }
+
+      rentByBedTT = {
+        title: 'Rent Prices - Year:',
+        datelabel: rentByBedsDate,
+        format: 'euros2'
       }
 
-    rentByBedTT = {
-      title: 'Rent Prices - Year:',
-      datelabel: rentByBedsDate,
-      format: 'euros2'
-    }
-
   // drawing charts for planning data.
-    rentByBedsChart = new GroupedBarChart(rentByBedContent)
-    function redraw () {
-      rentByBedsChart.drawChart()
-      rentByBedsChart.addTooltip(rentByBedTT)
-    }
+      rentByBedsChart = new GroupedBarChart(rentByBedContent)
+      function redraw () {
+        rentByBedsChart.drawChart()
+        rentByBedsChart.addTooltip(rentByBedTT)
+      }
 
-    window.addEventListener('resize', () => {
-      redraw()
-    })
+      window.addEventListener('resize', () => {
+        redraw()
+      })
+    } catch (e) {
+      console.log('error in rent charts')
+      console.log(e)
+    }
   }
 
   if (document.getElementById('chart-rent-prices') && document.getElementById('chart-rent-by-beds')) {
@@ -691,6 +704,8 @@ function chartContent (data, key, value, date, selector) {
     yV: value
   }
 }
+
+const parseYearMonth = d3.timeParse('%Y-%b') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
 
 function activeBtn (e) {
   let btn = e
