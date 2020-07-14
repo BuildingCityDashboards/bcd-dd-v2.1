@@ -8,23 +8,33 @@
     +theme__text-chart(
     'average-house-prices',
     [{
-    link :'https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics',
-    name: 'housing.gov'},
-    {
-    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0',
+    link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM05&PLanguage=0',
     name: 'CSO'
     }],
-    'Average House Prices',
-    '<p>Over the past decade house prices have fallen after the financial crash of 2008 followed by a period of recovery. This chart shows average house prices nationally and across the four Dublin local authorities for each quarter since the beginning of 2008. The data are derived from mortgage lending agencies on all loans approved (so excludes cash sales). Also, when comparing house prices figures from one period to another it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms). The CSO monthly residential property price index (RPPI) shows average property prices from a baseline of 100 established in 2005.</p>',
+    'House Prices',
+    '<p>Over the past decade property prices initally fell following the financial crash of 2008, then exhibitied a period of recovery. This chart shows mean and median house prices nationally ("All") and across the four Dublin local authorities for each month since the beginning of 2010. </p>',
     '',
-    ['chart-house-prices', 'chart-HPM06'],
+    ['chart-house-price-mean', 'chart-house-price-median'],
     [{
-    id: 'btn-house-prices',
-    name: 'Prices'
+    id: 'btn-house-price-mean',
+    name: 'Mean price'
     },{
-    id: 'btn-HPM06',
-    name: 'RPPI'
+    id: 'btn-house-price-median',
+    name: 'Median price'
     }]
+    )
+    
+    +theme__text-chart(
+    'house-rppi',
+    [
+    {
+    link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM09&PLanguage=0',
+    name: 'CSO'
+    }],
+    'Property Price Index',
+    '<p>When comparing house prices figures from one period to another it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms) has an effect. The CSO monthly residential property price index (RPPI) shown here gives the average property price change from a baseline of 100 established in 2015.</p>',
+    '',
+    ['chart-rppi']
     )
     
     
