@@ -78,81 +78,89 @@ if (document.getElementById('chart-population')) {
   })
 }
 
-if (document.getElementById('chart-bornOutsideState')) {
-  d3.csv('../data/Demographics/CNA14.csv').then(data => {
-    data.forEach(d => {
-      d.Dublin = +d.Dublin
-    })
-  // const femaleRateBar = new BarChart( data,"#chart-femalespermales", "date", "Dublin", "Year", "Rate");
-  }).catch(function (error) {
-    console.log(error)
-  })
-
-  d3.csv('../data/Demographics/CNA31.csv').then(data => {
-    const columnNames = data.columns.slice(2)
-    const xValue = data.columns[1]
-    const yLabels = ['Population (000s)']
-
-    const combinedData = d3.nest()
-    .key(function (g) {
-      return g.date
-    })
-    .rollup(function (v) {
-      return {
-        state: d3.sum(v, function (g) {
-          return g.State
-        }),
-        dublin: d3.sum(v, function (g) {
-          return g.Dublin
-        })
-      }
-    })
-    .entries(data)
-    let array = []
-
-    combinedData.forEach(d => {
-      let obj = {}
-      obj.date = d.key
-      obj.Dublin = d.value.dublin
-      obj.State = d.value.state
-      array.push(obj)
-    })
-
-    let outsideStateContent = {
-      e: '#chart-bornOutsideState',
-      d: array,
-      ks: columnNames,
-      xV: xValue,
-      tX: 'Years',
-      tY: 'Population',
-      ySF: 'millions'
-    }
-
-    let outsideStateTT = {
-      title: 'Born Outside the State - Year:',
-      datelabel: xValue,
-      format: 'thousands'
-    }
-
-  //  for each d in combineData get the key and assign to each d in d.values
-
-    let outsideStateChart = new GroupedBarChart(outsideStateContent)
-  // outsideStateChart.tickNumber = 1;
-    outsideStateChart.drawChart()
-    outsideStateChart.addTooltip(outsideStateTT)
-    outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14])
-
-  // d3.select(window).on("resize", function() {
-  //   outsideStateChart.drawChart();
-  //   outsideStateChart.addTooltip(outsideStateTT);
-  // });
-    window.addEventListener('resize', () => {
-      console.log('redraw outside')
-      outsideStateChart.drawChart()
-      outsideStateChart.addTooltip(outsideStateTT)
-      outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14])
-    })
-  }).catch(function (error) {
-    console.log(error)
-  })
-}
+// if (document.getElementById('chart-bornOutsideState')) {
+//   d3.csv('../data/Demographics/CNA14.csv').then(data => {
+//     data.forEach(d => {
+//       d.Dublin = +d.Dublin
+//     })
+//   // const femaleRateBar = new BarChart( data,"#chart-femalespermales", "date", "Dublin", "Year", "Rate");
+//   }).catch(function (error) {
+//     console.log(error)
+//   })
+//
+//   d3.csv('../data/Demographics/CNA31.csv').then(data => {
+//     const columnNames = data.columns.slice(2)
+//     const xValue = data.columns[1]
+//     const yLabels = ['Population (000s)']
+//
+//     console.log('data')
+//
+//     console.log(data)
+//
+//     const groupedData = d3.nest()
+//     .key(function (g) {
+//       return g.date
+//     })
+//     .rollup(function (v) {
+//       return {
+//         state: d3.sum(v, function (g) {
+//           return g.State
+//         }),
+//         dublin: d3.sum(v, function (g) {
+//           return g.Dublin
+//         })
+//       }
+//     })
+//     .entries(data)
+//     let array = []
+//
+//     groupedData.forEach(d => {
+//       let obj = {}
+//       obj.date = d.key
+//       obj.Dublin = d.value.dublin
+//       obj.State = d.value.state
+//       array.push(obj)
+//     })
+//     console.log('array')
+//     console.log(array)
+//     console.log('col names')
+//     console.log(columnNames)
+//
+//     let outsideStateContent = {
+//       e: '#chart-bornOutsideState',
+//       d: array,
+//       ks: columnNames,
+//       xV: xValue,
+//       tX: 'Years',
+//       tY: 'Population',
+//       ySF: 'millions'
+//     }
+//
+//     let outsideStateTT = {
+//       title: 'Born Outside the State - Year:',
+//       datelabel: xValue,
+//       format: 'thousands'
+//     }
+//
+//   //  for each d in combineData get the key and assign to each d in d.values
+//
+//     let outsideStateChart = new GroupedBarChart(outsideStateContent)
+//   // outsideStateChart.tickNumber = 1;
+//     outsideStateChart.drawChart()
+//     outsideStateChart.addTooltip(outsideStateTT)
+//     outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14])
+//
+//   // d3.select(window).on("resize", function() {
+//   //   outsideStateChart.drawChart();
+//   //   outsideStateChart.addTooltip(outsideStateTT);
+//   // });
+//     window.addEventListener('resize', () => {
+//       console.log('redraw outside')
+//       outsideStateChart.drawChart()
+//       outsideStateChart.addTooltip(outsideStateTT)
+//       outsideStateChart.showSelectedLabels([0, 2, 4, 6, 8, 10, 12, 14])
+//     })
+//   }).catch(function (error) {
+//     console.log(error)
+//   })
+// }

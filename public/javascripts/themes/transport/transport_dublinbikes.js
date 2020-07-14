@@ -73,7 +73,8 @@ Promise.all([
     //   });
     // });
 
-    // console.log("Bikes Keys: " + JSON.stringify(keys));
+    console.log('Bikes Keys: ' + JSON.stringify(keys))
+    console.log(dataDay)
 
     const dublinBikesContent = {
       e: '#chart-dublinbikes',
