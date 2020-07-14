@@ -1,16 +1,14 @@
 
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { GroupedBarChart } from '../../modules/GroupedBarChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
 
 (async () => {
-  let outsideStateChart, houseHoldsChart, houseHoldCompositionChart
-  let population, outsideStateContent, outsideStateTT, houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
+  let houseHoldsChart, houseHoldCompositionChart
+  let houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
   const parseYear = d3.timeParse('%Y')
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
@@ -53,6 +51,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
          return d
        }
      })
+  console.log(householdsFiltered)
 
   houseHoldsContent = {
     e: '#chart-households',
@@ -101,11 +100,6 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
   })
 })()
-
-// d3.select(window).on('resize', function () {
-//     // houseHoldsChart.drawChart();
-//     // houseHoldsChart.addTooltip(houseHoldsTT);
-// })
 
 if (document.getElementById('chart-householdComposition')) {
   d3.csv('../data/Demographics/CNA29.csv').then(data => {
