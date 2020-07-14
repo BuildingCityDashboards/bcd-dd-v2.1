@@ -15,20 +15,20 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
   let dataset = JSONstat(json).Dataset(0)
-  console.log('dataset')
-  console.log(dataset)
-  console.log('dim')
+  // console.log('dataset')
+  // console.log(dataset)
+  // console.log('dim')
   let dimensions = dataset.Dimension().map(dim => {
     return dim.label
   })
-  console.log(dimensions)
+  // console.log(dimensions)
 
   let categoriesOfCountry = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
   })
 
-  console.log('categories of country')
-  console.log(categoriesOfCountry)
+  // console.log('categories of country')
+  // console.log(categoriesOfCountry)
 
   // let STATS = ['Population (Number)']
   // = ['Total Birth', 'Great Britain', 'U.S.A.', 'Other Countries']
@@ -39,12 +39,13 @@ import { activeBtn } from '../../modules/bcd-ui.js'
        if (
          // d[DIMENSION] === 'State'||
        // (d[dimensions[0]] === categoriesOfCountry[0] ||
-       (d[dimensions[0]] === categoriesOfCountry[5]
-       || d[dimensions[0]] === categoriesOfCountry[8]
-       || d[dimensions[0]] === categoriesOfCountry[9])
-       && (d['County'] === 'Dublin'
-       || d['County'] === 'State')
-       && +d['Year'] >= 1991) {
+       (d[dimensions[0]] === categoriesOfCountry[0]
+        || d[dimensions[0]] === categoriesOfCountry[5]
+        || d[dimensions[0]] === categoriesOfCountry[8]
+        || d[dimensions[0]] === categoriesOfCountry[9])
+      && (d['County'] === 'Dublin'
+        || d['County'] === 'State')
+      && +d['Year'] >= 1991) {
          d.date = parseYear(+d['Year'])
          d.label = +d['Year']
          d.value = +d.value / 1000
@@ -52,7 +53,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
        }
      })
 
-  console.log(bornOutsideTable)
+  // console.log(bornOutsideTable)
 
   let bornOutsideDublin = {
     e: '#chart-born-outside-dublin',
@@ -99,7 +100,6 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   d3.select('#chart-' + chart2).style('display', 'none')
 
   d3.select('#btn-' + chart1).on('click', function () {
-    console.log('click 1')
     activeBtn(this)
     d3.select('#chart-' + chart1).style('display', 'block')
     d3.select('#chart-' + chart2).style('display', 'none')
@@ -111,7 +111,6 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   })
 
   d3.select('#btn-' + chart2).on('click', function () {
-    console.log('click 2')
     activeBtn(this)
     d3.select('#chart-' + chart1).style('display', 'none')
     d3.select('#chart-' + chart2).style('display', 'block')
@@ -119,11 +118,13 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   })
 
   window.addEventListener('resize', () => {
-    console.log('redraw outsideState')
-    bornOutsideDublinChart.tickNumber = 31
+    // console.log('redraw outsideState')
+    // bornOutsideDublinChart.tickNumber = 31
     bornOutsideDublinChart.drawChart()
+    bornOutsideStateChart.drawChart()
     // bornOutsideDublinChart.addTooltip(outsideStateTT)
-    bornOutsideDublinChart.addTooltip(STATS[0].split('(')[0], '', 'label')
-    bornOutsideDublinChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
+    bornOutsideDublinChart.addTooltip('Population (thousands) in census year ', '', 'label')
+    bornOutsideStateChart.addTooltip('Population (thousands) in census year ', '', 'label')
+    // bornOutsideDublinChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
   })
 })()
