@@ -51,7 +51,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
          return d
        }
      })
-  console.log(householdsFiltered)
+  // console.log(householdsFiltered)
 
   houseHoldsContent = {
     e: '#chart-households',

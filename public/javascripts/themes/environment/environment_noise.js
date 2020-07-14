@@ -5,7 +5,7 @@ import { isToday } from '../../modules/bcd-date.js'
 import { getDefaultMapOptions } from '../../modules/bcd-maps.js'
 import { getDublinLatLng } from '../../modules/bcd-maps.js'
 (async () => {
-  console.log('load noise charts')
+  // console.log('load noise charts')
   let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 
   try {

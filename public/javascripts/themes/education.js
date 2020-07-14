@@ -9,7 +9,7 @@ Promise.all([
   d3.csv('../data/Education/EDA69.csv'), // number of 2nd level pupils
   d3.csv('../data/Education/educationlevels.csv')
 ]).then(datafiles => {
-  console.log('edu data loaded')
+  // console.log('edu data loaded')
   let pupilsPrimaryChart
   if (document.getElementById('chart-pupils-primary')) {
     const pupilsPrimary = datafiles[1]
