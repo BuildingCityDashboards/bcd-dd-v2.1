@@ -1,8 +1,10 @@
-/** * This the Gross Value Added per Capita at Basic Prices Chart ***/
+
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 let employedChart
+
 (async () => {
   const parseYear = d3.timeParse('%Y')
 
