@@ -183,7 +183,7 @@ a:active {
 
 .theme__text-chart__sources {
   display        : flex;
-  align-items    : center;
+  justify-content    : flex-start;
   font-size      : 8px;
   font-weight    : 300;
   flex-direction : row;
@@ -564,7 +564,13 @@ a:active {
 
   .theme__text-chart__description,
   .theme__text-chart__info {
-    color          : white;
+    color : white;
+  }
+
+  .theme__text-chart__description li,
+  .theme__text-chart__description p,
+  .theme__text-chart__info li,
+  .theme__text-chart__info p {
     font-size      : 10px;
     font-weight    : 200;
     line-height    : 16px;
@@ -606,11 +612,10 @@ a:active {
     letter-spacing : 1.25px;
   }
 
-  .active
-  {
+  .active {
     opacity         : 1;
+    border-bottom   : 2px solid;
     text-decoration : none;
-    border-bottom : 2px solid;
   }
 
   .subnav__icon-nav__icon {
@@ -789,6 +794,13 @@ a:active {
   .theme__text-chart__description,
   .theme__text-chart__info {
     color          : white;
+
+  }
+
+  .theme__text-chart__description li,
+  .theme__text-chart__description p,
+  .theme__text-chart__info li,
+  .theme__text-chart__info p {
     font-size      : 18px;
     font-weight    : 200;
     line-height    : 24px;

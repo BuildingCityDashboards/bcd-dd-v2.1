@@ -32,7 +32,7 @@
     name: 'CSO'
     }],
     'Property Price Index',
-    '<p>When comparing house prices figures from one period to another it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms) has an effect. The CSO monthly residential property price index (RPPI) shown here gives the average property price change specific to houses, from a baseline of 100 established in 2015.</p>',
+    '<p>When comparing house price figures from one period to another, it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms) has an effect. The CSO monthly residential property price index (RPPI) shown here gives the average property price change specific to houses, from a baseline of 100 established in 2015.</p>',
     '',
     ['chart-house-rppi']
     )
@@ -62,10 +62,20 @@
     [{
     link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=NDQ06&PLanguage=0',
     name: 'CSO'}],
-    'Quarterly New Dwelling Completions in Dublin County by Type',
-    '<p>The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as <ul><li> apartment</li> <li> scheme home</li><li>single house</li></ul></p>',
+    'Quarterly New Dwelling Completions by Type',
+    '<p>The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as <ul><li>\'House\': a single house build</li><li> \'Scheme\': house build as part of a scheme</li><li>\'Apartment\': an apartment completion.</li></ul></p>',
     '',
-    ['chart-newCompByType']
+    ['chart-completions-house', 'chart-completions-scheme', 'chart-completions-apartment'],
+    [{
+    id: 'btn-completions-house',
+    name: 'House'
+    },{
+    id: 'btn-completions-scheme',
+    name: 'Scheme'
+    },{
+    id: 'btn-completions-apartment',
+    name: 'Apartment'
+    }]
     )
     
     //- +theme__text-chart(

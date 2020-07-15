@@ -15,31 +15,31 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     const TABLE_CODE = 'RIQ02'
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
     let dataset = JSONstat(json).Dataset(0)
-    console.log(dataset)
+    // console.log(dataset)
 
     let dimensions = dataset.Dimension().map(dim => {
       return dim.label
     })
-    console.log(dimensions)
+    // console.log(dimensions)
 
     let categoriesBeds = dataset.Dimension(dimensions[0]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesBeds)
+    // console.log(categoriesBeds)
     let categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesType)
+    // console.log(categoriesType)
   //
     let categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesLocation)
+    // console.log(categoriesLocation)
 
     let categoriesStat = dataset.Dimension(dimensions[4]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesStat)
+    // console.log(categoriesStat)
 
     let rentTable = dataset.toTable(
      { type: 'arrobj' },
@@ -54,7 +54,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
        }
      })
 
-    console.log(rentTable)
+    // console.log(rentTable)
     //
     let rent = {
       e: '#chart-rent-prices',
