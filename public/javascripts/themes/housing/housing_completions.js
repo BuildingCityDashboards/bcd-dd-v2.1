@@ -105,9 +105,9 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     const chart2 = 'completions-scheme'
     const chart3 = 'completions-apartment'
 
-    d3.select('#chart-' + chart1).style('display', 'none')
+    d3.select('#chart-' + chart1).style('display', 'block')
     d3.select('#chart-' + chart2).style('display', 'none')
-    d3.select('#chart-' + chart3).style('display', 'block')
+    d3.select('#chart-' + chart3).style('display', 'none')
 
     function redraw () {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
@@ -120,7 +120,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
       }
       if (document.querySelector('#chart-' + chart3).style.display !== 'none') {
         completionsApartmentChart.drawChart()
-        // completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
+        completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
       }
     }
     redraw()
