@@ -53,7 +53,7 @@ class Chart {
     m.t = eW < bP ? 40 : 50
     m.b = eW < bP ? 30 : 80
     m.r = eW < bP ? 15 : 140
-    m.l = eW < bP ? 9 : 60
+    m.l = eW < bP ? 9 : 72
 
     // dimensions
     w = eW - m.l - m.r
@@ -122,7 +122,7 @@ class Chart {
     yLabel = g.append('text')
       .attr('class', 'titleY')
       .attr('x', -(c.h / 2))
-      .attr('y', -45)
+      .attr('y', -56)
       .attr('text-anchor', 'middle')
       .attr('transform', 'rotate(-90)')
       .text(c.tY)

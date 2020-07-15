@@ -82,9 +82,12 @@ import { getDublinLatLng } from '../../modules/bcd-maps.js'
     }
 
     let noiseChart = new MultiLineChart(noiseChartOptions)
+
     function redraw () {
-      noiseChart.drawChart()
-      noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
+      if (document.querySelector('#chart-noise-monitors').style.display !== 'none') {
+        noiseChart.drawChart()
+        noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
+      }
     }
     redraw()
 
