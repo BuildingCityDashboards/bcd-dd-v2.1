@@ -299,11 +299,13 @@ async function loadSmallAreas (lookup) {
   let fcc = 'FCC_SA_0.geojson'
   let dlr = 'DLR_SA_0.geojson'
   let sdcc = 'SDCC_SA_0.geojson'
+  let testd = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson'
   let pfcc = d3.json(dataBase + fcc)
   let pdlr = d3.json(dataBase + dlr)
   let psdcc = d3.json(dataBase + sdcc)
+  let ts = d3.json(dataBase + testd)
 
-  let otherSAs = await Promise.all([pfcc, pdlr, psdcc])
+  let otherSAs = await Promise.all([pfcc, pdlr, psdcc,ts])
   otherSAs.forEach(sas => {
     // updateMap(sas)
     sas.features.forEach(sa => {
@@ -368,8 +370,8 @@ function addFeatureToLayer (feature, layerNo) {
  
  
   if (layerNo ==='NA'){
-    naLayer.addData(feature)
-    mapGeodemos.addLayer(naLayer)
+    //naLayer.addData(feature)
+    //mapGeodemos.addLayer(naLayer)
   }
   else{
   mapLayers[layerNo].addData(feature)
