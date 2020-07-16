@@ -21,6 +21,9 @@ import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
   const MAP_STICKY_ELEMENT = 'map-sticky-housing'
+  const chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
+  const mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
+  const chartWrapper = document.querySelector('.sticky-chart-wrapper')
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing', {}, {}, {})
@@ -82,8 +85,7 @@ import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-
 
   const drawPlot = async (event) => {
     // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
-    let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
-    let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
+
     let chartState = chartSticky.getAttribute('data-status')
     let mapState = mapSticky.getAttribute('data-status')
     // console.log(chartState)
@@ -110,7 +112,8 @@ import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-
           mapSticky.setAttribute('data-status', 'shown')
         }
       }
-    } else if (event.index >= 0 && event.index < plotObjects.length) {
+    } else if (event.index >= 0 && event.index < 5) {
+      chartWrapper.style.setProperty('background-color', '#21272a')
       if (mapState === 'shown') {
         console.log('hide map')
         // console.log('map')
@@ -153,6 +156,22 @@ import { getMapFig5 } from '/javascripts/stories/housing-scrolly/story-housing3-
           chartSticky.setAttribute('data-status', 'shown')
         }
       }
+    } else if (event.index >= 5 && event.index <= 8) {
+      if (mapState === 'shown') {
+        console.log('hide map')
+        // console.log('map')
+        // console.log(map)
+        // hide current map
+        mapSticky.removeAttribute('data-status')
+        mapSticky.setAttribute('data-status', 'hidden')
+        mapSticky.style.display = 'none'
+        if (map.hasLayer(plotObjects[2])) {
+          map.removeLayer(plotObjects[2])
+        } else if (map.hasLayer(plotObjects[4])) {
+          map.removeLayer(plotObjects[4])
+        }
+      }
+      chartWrapper.style.setProperty('background-color', 'transparent')
     }
   }
 

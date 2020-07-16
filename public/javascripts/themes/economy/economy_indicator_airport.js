@@ -1,5 +1,6 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { coerceWideTable } from '../../modules/bcd-data.js'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
 let airportPaxCountChart, airportPaxRateChart
 let airportPax = '../data/Economy/data_gov_economic_monitor/indicator-.9.-dublin-airport-pax.csv'
 

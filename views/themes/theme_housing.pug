@@ -8,43 +8,49 @@
     +theme__text-chart(
     'average-house-prices',
     [{
-    link :'https://www.housing.gov.ie/housing/statistics/house-prices-loans-and-profile-borrowers/house-price-statistics',
-    name: 'housing.gov'},
-    {
-    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM06&PLanguage=0',
+    link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM05&PLanguage=0',
     name: 'CSO'
     }],
-    'Average House Prices',
-    '<p>Over the past decade house prices have fallen after the financial crash of 2008 followed by a period of recovery. This chart shows average house prices nationally and across the four Dublin local authorities for each quarter since the beginning of 2008. The data are derived from mortgage lending agencies on all loans approved (so excludes cash sales). Also, when comparing house prices figures from one period to another it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms). The CSO monthly residential property price index (RPPI) shows average property prices from a baseline of 100 established in 2005.</p>',
+    'House Prices',
+    '<p>Over the past decade property prices initally fell following the financial crash of 2008, then exhibitied a period of recovery. This chart shows mean and median house prices nationally ("All") and across the four Dublin local authorities for each month since the beginning of 2010. </p>',
     '',
-    ['chart-house-prices', 'chart-HPM06'],
+    ['chart-house-price-mean', 'chart-house-price-median'],
     [{
-    id: 'btn-house-prices',
-    name: 'Prices'
+    id: 'btn-house-price-mean',
+    name: 'Mean price'
     },{
-    id: 'btn-HPM06',
-    name: 'RPPI'
+    id: 'btn-house-price-median',
+    name: 'Median price'
     }]
+    )
+    
+    +theme__text-chart(
+    'house-rppi',
+    [
+    {
+    link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM09&PLanguage=0',
+    name: 'CSO'
+    }],
+    'Property Price Index',
+    '<p>When comparing house price figures from one period to another, it should be noted that changes in the mix of dwellings for sale (houses vs apartments, number of bedrooms) has an effect. The CSO monthly residential property price index (RPPI) shown here gives the average property price change specific to houses, from a baseline of 100 established in 2015.</p>',
+    '',
+    ['chart-house-rppi']
     )
     
     
     +theme__text-chart(
     'monthly-rent-prices-private',
     [{
-    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0',
-    name: 'CSO'
-    },
-    {
-    link :'https://onestopshop.rtb.ie/research/ar',
-    name: 'RTB'
+    link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=RIQ02&ProductID=DB_RI&PLanguage=0',
+    name: 'RTB/CSO'
     }],
     'Monthly Rent Prices for Private Dwellings',
-    '<p> The \'Rent\' prices tab shows the average rent being paid in Dublin since 2008. It fell in the wake of the financial crash before steadily starting to rise is now back above the peak a decade ago. The \'By no. of bedrooms\' tab shows standardised rent for one, two, three and four bedroom properties since 2016 on a quarterly basis.  In all categories, rents have been steadily rising. </p>',
+    '<p> The \'Rent price\' tab shows the average monthly rent being paid in Dublin since 2008. This price fell in the wake of the financial crash, before rising steadily, so that it is now back above the peak of a decade ago. The \'By no. of bedrooms\' tab shows standardised rent broken down by the number of bedrooms for the data available.  A decline in some categories of accomodation is visible towards the end of 2019. </p>',
     '',
     ['chart-rent-prices', 'chart-rent-by-beds'],
     [{
     id: 'btn-rent-prices',
-    name: 'Rent prices'
+    name: 'Rent price'
     },{
     id: 'btn-rent-by-beds',
     name: 'By no. of bedrooms'
@@ -56,10 +62,20 @@
     [{
     link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=NDQ06&PLanguage=0',
     name: 'CSO'}],
-    'Quarterly New Dwelling Completions in Dublin County by Type',
-    '<p>The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as <ul><li> apartment</li> <li> scheme home</li><li>single house</li></ul></p>',
+    'Quarterly New Dwelling Completions by Type',
+    '<p>The chart shows the house unit completion data for each of the Dublin local authorities, categorised by type of dwelling as <ul><li>\'House\': a single house build</li><li> \'Scheme\': house build as part of a scheme</li><li>\'Apartment\': an apartment completion.</li></ul></p>',
     '',
-    ['chart-newCompByType']
+    ['chart-completions-house', 'chart-completions-scheme', 'chart-completions-apartment'],
+    [{
+    id: 'btn-completions-house',
+    name: 'House'
+    },{
+    id: 'btn-completions-scheme',
+    name: 'Scheme'
+    },{
+    id: 'btn-completions-apartment',
+    name: 'Apartment'
+    }]
     )
     
     //- +theme__text-chart(

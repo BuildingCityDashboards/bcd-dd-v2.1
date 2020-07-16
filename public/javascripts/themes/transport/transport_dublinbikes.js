@@ -1,6 +1,8 @@
 /************************************
  * Bikes
  ************************************/
+import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+
 let dublinBikesChart
 Promise.all([
   d3.json('/data/Transport/dublinbikes/day.json'),
@@ -71,7 +73,8 @@ Promise.all([
     //   });
     // });
 
-    // console.log("Bikes Keys: " + JSON.stringify(keys));
+    // console.log('Bikes Keys: ' + JSON.stringify(keys))
+    // console.log(dataDay)
 
     const dublinBikesContent = {
       e: '#chart-dublinbikes',

@@ -8,7 +8,7 @@
  *
  *
  */
-const getShortLabel = (s) => {
+const getShortLabel = function (s) {
   // Allows color get by name when data order is not guaranteed
   const SHORTS = {
     // --la-colour-dcc: #5680b4;
