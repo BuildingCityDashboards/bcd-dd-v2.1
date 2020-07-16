@@ -1,0 +1,7 @@
+mixin subnav__icon-nav({title='title',link='', img='', classActive=''})
+  .subnav__icon-nav(class= classActive )
+      a(href=link).subnav__icon-nav__box
+        .subnav__icon-nav__icon
+          img(src=img alt='Subnav icon')
+        .subnav__icon-nav__title
+          h2=title

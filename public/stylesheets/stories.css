@@ -449,7 +449,7 @@ html {}
     position    : relative;
     width       : 100vw;
     min-width   : 1280px;
-    height      : auto;
+    height      : 100vh;
     min-height  : 700px;
     max-height  : none;
     margin      : 0;
