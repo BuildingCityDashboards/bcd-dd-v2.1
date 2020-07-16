@@ -7,6 +7,8 @@ import { activeBtn } from '../../modules/bcd-ui.js'
 
 (async () => {
   try {
+    // var spinner = new Spinner(getSpinnerOptions()).spin(target)
+
     const parseYear = d3.timeParse('%Y')
     const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
     const STATBANK_BASE_URL =
@@ -14,6 +16,9 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
     const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    if (json) {
+      document.querySelector('#chart-house-rppi .theme__text-chart__spinner').style.display = 'none'
+    }
     let dataset = JSONstat(json).Dataset(0)
 
     let dimensions = dataset.Dimension().map(dim => {
