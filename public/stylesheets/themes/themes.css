@@ -1,5 +1,57 @@
 /* xs: 360px x 540px <MOCKUP> */
 
+
+.spinner {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.spinner div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: #fff;
+  -webkit-animation: spinner 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+          animation: spinner 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.spinner div:nth-child(1) {
+  left: 8px;
+  -webkit-animation-delay: -0.24s;
+          animation-delay: -0.24s;
+}
+.spinner div:nth-child(2) {
+  left: 32px;
+  -webkit-animation-delay: -0.12s;
+          animation-delay: -0.12s;
+}
+.spinner div:nth-child(3) {
+  left: 56px;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+}
+@-webkit-keyframes spinner {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+@keyframes spinner {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
 /* unvisited link */
 
 a:link {
@@ -182,15 +234,15 @@ a:active {
 }
 
 .theme__text-chart__sources {
-  display        : flex;
-  justify-content    : flex-start;
-  font-size      : 8px;
-  font-weight    : 300;
-  flex-direction : row;
-  grid-column    : 1/5;
-  grid-row       : 1/2;
-  line-height    : 2;
-  letter-spacing : 1.5px;
+  display         : flex;
+  font-size       : 8px;
+  font-weight     : 300;
+  flex-direction  : row;
+  justify-content : flex-start;
+  grid-column     : 1/5;
+  grid-row        : 1/2;
+  line-height     : 2;
+  letter-spacing  : 1.5px;
 }
 
 .theme__text-chart__sources p {
@@ -278,13 +330,12 @@ a:active {
 /* altering height does not make the plot bigger */
 
 .theme__text-chart__plot {
-  width      : inherit;
-  height     : auto;
-  min-height : 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  display         : flex;
+  width           : inherit;
+  height          : auto;
+  min-height      : 300px;
+  align-items     : center;
+  justify-content : center;
 }
 
 .theme__text-chart__plot svg {
@@ -293,21 +344,25 @@ a:active {
 }
 
 .theme__text-chart__spinner {
-  width  : 100%;
-  height : 100%;
-  position: relative;
-  color: white;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-
+  display         : flex;
+  position        : relative;
+  width           : 60%;
+  height          : 60%;
+  color           : white;
+  text-align      : center;
+  align-items     : center;
+  align-self      : center;
+  flex-direction  : column;
+  justify-content : center;
 }
 
-.theme__text-chart__spinner p{
+.theme__text-chart__spinner p {
+  text-align : center;
+}
 
-  text-align: center;
-
+.theme__text-chart__spinner img {
+  width  : 48px;
+  height : auto;
 }
 
 .theme__text-chart__text {
@@ -810,8 +865,7 @@ a:active {
 
   .theme__text-chart__description,
   .theme__text-chart__info {
-    color          : white;
-
+    color : white;
   }
 
   .theme__text-chart__description li,

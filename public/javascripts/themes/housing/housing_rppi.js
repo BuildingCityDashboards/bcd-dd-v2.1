@@ -17,8 +17,9 @@ import { addSpinner } from '../../modules/bcd-ui.js'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
     const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
 
-    addSpinner(charts[0], `statbank.cso.ie table ${TABLE_CODE}`)
+    addSpinner(charts[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+
     if (json && document.querySelector('#chart-house-rppi .theme__text-chart__spinner')) {
       document.querySelector('#chart-house-rppi .theme__text-chart__spinner').style.display = 'none'
     }
@@ -81,4 +82,3 @@ import { addSpinner } from '../../modules/bcd-ui.js'
     console.log(e)
   }
 })()
-
