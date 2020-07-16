@@ -1,4 +1,4 @@
-import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
+import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
@@ -18,7 +18,8 @@ import { addSpinner } from '../../modules/bcd-ui.js'
 
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>New Dwelling Completion</i>`)
 
-    let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+
     if (json && document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
       document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
     }
@@ -164,6 +165,9 @@ import { addSpinner } from '../../modules/bcd-ui.js'
   } catch (e) {
     console.log('Error creating housing completion charts')
     console.log(e)
+    if (document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
+      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
+    }
   }
 })()
 
