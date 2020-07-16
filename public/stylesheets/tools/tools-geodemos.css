@@ -3,6 +3,7 @@
   height      : 100vh;
   min-height  : 800px;
   margin      : auto;
+  background-color: #1c2022;
   font-family : 'Roboto',
                 sans-serif;
   font-weight : 300;
@@ -40,6 +41,7 @@
   display: block;
   width  : 100%;
   height : 500px;
+  background-color: #293135;
   
   
 }
@@ -47,6 +49,7 @@
 #chart-geodemos {
   width  : 100%;
   height : 500px;
+  background-color: #293135;
 }
 
 /* #planning_map { height: inherit; width: 100%; } */

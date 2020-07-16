@@ -1,0 +1,227 @@
+.GeoDemographic_Tool {
+    width: 1920px;
+    height: 1080px;
+    background-color: #1c2022;
+  }
+
+.GeoDemographics_Header {
+    width: 1808px;
+    height: 189px;
+  }
+
+  .Dublin-Hero-Landing-Full-Page---Body {
+    width: 1920px;
+    height: 1080px;
+  }  
+
+.Group_Description {
+    width: 1130px;
+    height: 146.6px;
+    max-height: 99%;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    
+    
+  }
+  .Group_Description.text-style-1 {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    color: #6fd1f6;
+  }
+  .Group-Header_item {
+    width: 146px;
+    height: 48px;
+    background-color: #1c2022;
+  } 
+  .Map_Component {
+    width: 935px;
+    height: 555px;
+    border-radius: 4px;
+  }
+
+  .Text {
+    width: 143px;
+    height: 583px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.14;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+  }
+  .Text .text-style-1 {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
+    color: #6fd1f6;
+  }
+  .Text .text-style-2 {
+    font-size: 12px;
+    line-height: 1.17;
+    color: #afd683;
+  }
+  .Background {
+    width: 540px;
+    height: 647px;
+    border-radius: 4px;
+    background-color: #293135;
+  }
+
+  .GeoDemographic-Query_Landing-Page {
+    width: 1920px;
+    height: 1080px;
+    background-color: #1c2022;
+  }
+  .-States {
+    width: 1808px;
+    height: 898px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    background-color: #21272a;
+  }
+  .Icon {
+    width: 24px;
+    height: 24px;
+  } 
+  .-Elevation {
+    width: 146px;
+    height: 48px;
+    background-color: #293135;
+  }
+  .Color {
+    width: 22px;
+    height: 15px;
+    background-color: #6fd1f6;
+  }
+
+.Group_Title {
+  width: 169px;
+  height: 26px;
+  font-family: Roboto;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0.18px;
+  color: #afd683;
+}
+
+.-Subtitle-1 {
+    width: 78.5px;
+    height: 24px;
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.15px;
+    color: #6fd1f6;
+  }
+
+
+  .tool-container {
+    width       : 90%;
+    height      : 100vh;
+    min-height  : 800px;
+    margin      : auto;
+    background-color: #1c2022;
+    font-family : 'Roboto',
+                  sans-serif;
+    font-weight : 300;
+  }
+  
+  .info-div {
+    display: block;
+    
+    position: relative;
+    width: 100%;
+    margin      : auto;
+    z-index: 1;
+    height: 115px;
+    max-height: 99%; 
+    font-family : 'Roboto',
+                  sans-serif;
+    font-weight : 300;
+    overflow    :auto ;
+                                     
+    
+  }
+  
+  
+  .group-text{
+    display:block;
+    width:100%;
+    height:70px;
+    background-color:#475;
+    overflow:scroll;
+    }
+  
+  
+  
+  #map-geodemos {
+    display: block;
+    width  : 100%;
+    height : 500px;
+    background-color: #293135;
+    
+    
+  }
+  
+  #chart-geodemos {
+    width  : 100%;
+    height : 500px;
+    background-color: #293135;
+  }
+  
+  /* #planning_map { height: inherit; width: 100%; } */
+  
+  input:checked {
+    background-color : #086fb8;
+  }
+  
+  select:hover:not([disabled]) {
+    /* border-color: transparent; */
+    /**
+    * box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0
+    * rgba(99,115,129,.2);
+    */
+  }
+  
+  .btn-bcd-toggle {
+    color        : #000;
+    border-color : transparent;
+    /* background-color : transparent; */
+  }
+  
+  .btn-bcd-toggle:hover {
+    color        : #000;
+    border-color : transparent;
+    border-color : #fff;
+  }
+  
+  .btn-bcd-toggle.active {
+    color        : #000;
+    border-color : #fff /* background-color:#00c0f5;
+  }
+  
+  .btn-page.active {
+    font-weight : 600;
+  }
+  
+  /**
+   * .dc-chart g.row text { fill: white; } .dc-chart g.axis label { font-size:
+   * 100px; color: white; fill: white; stroke: white; }
+   */
+  
