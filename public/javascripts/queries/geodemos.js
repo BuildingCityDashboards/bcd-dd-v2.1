@@ -125,11 +125,13 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
   columnNames = Object.keys(zScores[0]);
   //const zScores2=zScores.reverse();
   columnNames = columnNames.filter(e=>e!=='cluster')
+  columnNames.reverse();
 // alert(zScores)
   zScores.forEach((row, i) => {
   
     let trace = Object.assign({}, TRACES_DEFAULT);
     trace.type = 'bar'
+    //trace.hovertemplate= 'z-score: %{x:.2f}<extra></extra>'
     trace.orientation = 'h'
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     trace.marker = {
@@ -145,6 +147,8 @@ d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
     trace.y = columnNames
     
     traces.push(trace)
+    trace.hovertemplate= `%{x:.2f}<extra>Group No: ${i+1}</extra>`
+   // hovertemplate= `z-score: %{trace.x:.2f}<extra></extra>`
 })
 
 
@@ -156,6 +160,11 @@ layout.height = 500
 // layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'Variables Value Distribution (z-scores)';
+layout.title.font= { color: '#6fd1f6',
+family: 'Courier New, monospace',
+size: 17
+
+},
 layout.showlegend = false;
 layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
 layout.legend.xanchor = 'right';
@@ -168,14 +177,25 @@ layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
 layout.yaxis.tickfont ={
   family: 'PT Sans',
   size: 10,
-  color: '#313131'
+  color: '#6fd1f6'
 }
+layout.xaxis.tickfont ={
+  family: 'PT Sans',
+  size: 10,
+  color: '#6fd1f6'
+}
+
 layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
 layout.yaxis.titlefont.size = 16; //bug? need to call this
 layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
 
+layout.plot_bgcolor="#293135",
+layout.paper_bgcolor="#293135"
+
+
 layout.yaxis.title = '';
 layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
+
 layout.margin = {
   l: 40,
   r: 40, //annotations space
@@ -183,6 +203,8 @@ layout.margin = {
   b: 0
   
 };
+
+
 
 Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
   modeBar: {
@@ -393,9 +415,9 @@ function updateGroupTxt(no)
 {
 // getLayerColor(index)
   d3.json("/data/home/geodem-text-data.json").then(function(dublinRegionsJson) {  
-  d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size','26px').style('font-weight','bold');
+  d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size','27px').style('font-weight','bold');
   //
-  d3.select('#group-title').text(dublinRegionsJson[1][no]); //.style("color",getLayerColor(no-1));
+  d3.select('#group-title').text(dublinRegionsJson[1][no]);//.style("color",getLayerColor(no-1));
   d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size','15px');
   
   })
@@ -406,15 +428,14 @@ function updateGroupTxt(no)
 
 
 function getFColor(d) {
-  return  d > 2.0 ? '#c02626' :
-          d > 1.5 ? '#d9c01c' :
+  alert(d)
+  return  d > 2.0 ? '#FFFFFF' :
+          d > 1.5 ? '#BFB6B3' :
           d > 1.0 ? '#d99a1c' :       
-          d > 0.5 ? '#d9871c':
-          d == 0 ? '#d9771c' :
-          d < 0 ? '#d95b1c' :
-          d > -0.5  ? '#d93f1c' :
-          d > -1.0  ? '#d9221c' :
-                   '#b9d91c';
+          d > 1 ? '#989290':
+          d == 1 ? '#746F6D' :
+          
+                   '#000000';
 }
 
 
@@ -534,8 +555,8 @@ d3.select('#seco').on('change' , function()
 //addheatmap() 
 //alert('yes1' + value)
 //addheatmap_Sv(value,text)
-addHorizrntalBars(value,text)
-updateGroupTxt('all')
+//addHorizrntalBars(value,text)
+//updateGroupTxt('all')
 }
 )
 function onEachFeature (feature, layer) {
@@ -558,7 +579,7 @@ function onEachFeature (feature, layer) {
   //let mlay=mapLayers[idx]
     layer.bindPopup(
                 '<p><b>' + feature.properties.EDNAME + '</b></p>' +
-                '<p><b>' + cov + '<p><b>' +
+                //'<p><b>' + cov + '<p><b>' +
               //  '<p><b>' + cov2 + '</b></p>' +
                 '<p>' + feature.properties.COUNTYNAME + '</p>' +
                 '<p>SA ' + feature.properties.SMALL_AREA + '</p>'+
@@ -588,51 +609,10 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
   let cb= $(this);
   let myv= $(this).attr("id");
   
-  //if (cb.attr("src") ==='/images/icons/Icon_eye_deselected.svg') {
-  
-  //cb.attr("src","/images/icons/Icon_eye_selected.svg")
-  
-  //} 
-  //else  {
-  
-    //cb.attr("src","/images/icons/Icon_eye_deselected.svg")
-  
-  //}
   
   let layerNo = myv === 'all' ? 'all' : parseInt(myv) -1
   
   if (layerNo !== 'all') {
-  /*alert(layerNo)
-        
-    if(mapGeodemos.hasLayer(mapLayers[layerNo])){
-      //alert('yes')
-      cb.clicked = false
-      
-  
-      //mapGeodemos.removeLayer(mapLayers[layerNo])
-       //Plotly.deleteTraces('chart-geodemos', 0,layout);
-       //TrackingArray.pop()
-       //alert(TrackingArray)
-       //let litemindex=TrackingArray.slice(-1)[0];
-       
-       //updateGroupTxt(litemindex)
-       //var data_update = {
-        //'marker.color': getLayerColor(layerNo+1)
-        //}
-       //Plotly.update('chart-geodemos', data_update,0)
-
-       //Plotly.react('chart-geodemos', [traces[layerNo]] ,layout)
-     }
-      else if(!mapGeodemos.hasLayer(mapLayers[layerNo])){
-      //cb.clicked = true*/
-
-
-      
-      //getzscorstat(layerNo)
-      //if (TrackingArray[gn] !==''){
-      //let n = TrackingArray.includes(gn);
-      
-  
   
       mapLayers.forEach( l =>{
         //if(!mapGeodemos.hasLayer(l)){
@@ -641,25 +621,15 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
         
         
       })
-      for(let i=1; i <8 ; i++)
- {
-   let myimg=document.getElementById(i)    
-  myimg.src="/images/icons/Icon_eye_deselected.svg"
- }
- let ssimg=document.getElementById('all')    
- ssimg.src="/images/icons/Icon_eye_deselected.svg"
+
 
 
  let gn=layerNo+1;
       //mapGeodemos.removeLayer(mapLayers[layerNo-1])
       updateGroupTxt(gn)
     mapGeodemos.addLayer(mapLayers[layerNo])
-      //Plotly.addTraces('chart-geodemos',{y:dd,x:traces[1].x},layout)
-      //Plotly.addTraces('chart-geodemos',{x: traces[layerNo].x,type:'bar','marker.color':GEODEMOS_COLORWAY_CATEGORICAL[layerNo],evaluate: 'TRUE'},0)
+      
       Plotly.react('chart-geodemos', [traces[layerNo]], layout)
-      let myimg1=document.getElementById(gn)    
-      myimg1.src="/images/icons/Icon_eye_selected.svg"
-      //TrackingArray.push(gn) 
       
     }
   //}
@@ -668,50 +638,25 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
 
    if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
- //alert('all') 
-//alert(parseInt(soc_eco_val)) 
- for(let i=1; i<8; i++)
- {
-  let myimg2=document.getElementById(i)    
-  myimg2.src="/images/icons/Icon_eye_deselected.svg"
- }
- let simg=document.getElementById('all')    
- simg.src="/images/icons/Icon_eye_selected.svg"
-
- //alert('all two')
-
-let cb= $(this);
-let srrc = cb.attr("src");
-//alert(srrc)
-//srrc="/images/icons/Icon_eye_selected.svg" 
-    
-    //if (srrc=="/images/icons/Icon_eye_selected.svg")
-    //{
+ 
     mapLayers.forEach((l,k) =>{
     //alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
     if(!mapGeodemos.hasLayer(l)){
     let mlay=mapLayers[k]
-    let cov=traces[k].x[soc_eco_val];
+    //let cov=traces[k-1].x[soc_eco_val];
     
-    //alert(selText)
-    
-    //l.popup.setContent('<br> <p> <b>'+ cov);
-    //mlay.getPopup().update(+ 'sssd' );
-    // mlay.bindPopup(
-    //   + '<p><b> val2' + cov + '</b></p>' 
-      
-    //   )
+   
     mapGeodemos.addLayer(mlay)
 
 
     //mlay.setStyle(getLayerStyle2(cov))
-     mlay.setStyle({color: getFColor(cov),
-    fillColor: getFColor(cov),
-    weight: 2.5,
-    opacity: 0.3,
-    color: getFColor(cov),
-    dashArray: '1',
-    fillOpacity: 1.7
+     mlay.setStyle({
+     fillColor: getLayerColor(k)//getFColor(cov)
+     //weight: 2.5,
+     //opacity: 0.3,
+     //color: getFColor(cov),
+     //dashArray: '1',
+     //fillOpacity: 1.7
     
     
     }
@@ -722,25 +667,7 @@ let srrc = cb.attr("src");
     //alert(traces[k].x[soc_eco_val]);
     //alert(layerNo + '---' + soc_eco_val)
   }})
-// let tto=7
-//   function getl(tto) {
-//     //let layersArr = []
-//     for (let i = 0; i < tto; i += 1) {
-//       //layersArr.push(L.geoJSON(null, {
-//         //style: subteStyle,
-//         //style: getLayerStyle(i),
-//         //onEachFeature: onEachFeature
-//     alert(traces[i].x + '---' + soc_eco_val)
-//         // filter: filterInitialView
-//       }
-      
-//     }
-    //return layersArr
-  //}
-
-
-
-  //getl()    
+ 
   addheatmap()    
   updateGroupTxt('all')
 
@@ -837,9 +764,15 @@ function addheatmap ()
   hmlayout.height = 500
   hmlayout.width = 360
   //layout.barmode = 'group';
+  hmlayout.plot_bgcolor="#293135",
+  hmlayout.paper_bgcolor="#293135"
+  
   hmlayout.colorway = GEODEMOS_COLORWAY
   hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
   hmlayout.title.text = 'Variables Value Distribution (z-scores)';
+  hmlayout.title.font= { color: '#6fd1f6',
+   family: 'Courier New, monospace',
+   size: 17},
   hmlayout.showlegend = false;
   hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
   hmlayout.legend.xanchor = 'right';
@@ -849,11 +782,29 @@ function addheatmap ()
   hmlayout.xaxis.title = "";
   //hmlayout.xaxis.range = [-2, 2]
   hmlayout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+  // hmlayout.yaxis.tickfont ={
+  //   family: 'PT Sans',
+  //   size: 10,
+  //   color: '#313131'
+  // }
+
+
   hmlayout.yaxis.tickfont ={
     family: 'PT Sans',
     size: 10,
-    color: '#313131'
+    color: '#6fd1f6'
   }
+  hmlayout.xaxis.tickfont ={
+    family: 'PT Sans',
+    size: 10,
+    color: '#6fd1f6'
+  }
+  hmlayout.tickfont ={
+    family: 'PT Sans',
+    size: 10,
+    color: '#6fd1f6'
+  }
+
   hmlayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
   hmlayout.yaxis.titlefont.size = 16; //bug? need to call this
   hmlayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
@@ -877,7 +828,7 @@ function addheatmap ()
     let newCsv = zScores.split('\n').map(function(line) {
       let columns = line.split(','); // get the columns
       columns.splice(0, 1); // remove total column
-      return columns;
+      return columns.reverse();
   }).join('\n');
 
   const rows = newCsv.split('\n');
@@ -907,37 +858,71 @@ function addheatmap ()
   
   let data = [
       {
+          
           z: columnData,
           x: GroupsArray,
           y: header.split(','),
+          hovertemplate: 'z-score: %{z:.2f}<extra></extra>',
           type: 'heatmap',
-         
+          hoverinfo:"z",
+          showscale: true,
+                fixedrange: true,
+                hoverinfo: "z",
+                colorbar: {
+                  //title: 'z-scores',
+                  
+                  tickcolor:'#6fd1f6',
+                  tickfont:{
+                    color:'#6fd1f6'
+                  },
+
+                  //tickvals:[0,50,100],
+                  //valscolor:'white',
+                  //titlefont: { color: '#6fd1f6' },
+                  
+                },
+
+
+          //reversescale:'True', 
+          //colorbar.color:
+          // colorbar:{
+          //     //len: 0.35, //Change size of bar
+          //   title: 'Speed(RPM)<br\><br\>', //set title
+          //   titleside:'top', //set postion
+          //  tickvals:[0,50,100],
+          //   titlefont: {color: 'White'} //title font color
+          // },
+          colorscale : 'Blackbody',
+          //reversescale:True, 
+          //colorbar=dict
+          //ticklen:3, 
+          //tickcolor:'orange',
           //colorscale: [[0, '#800026'], [0.25, 'rgb(31,120,180)'], [0.45, 'rgb(178,223,138)'], [0.65, 'rgb(51,160,44)'], [0.85, 'rgb(251,154,153)'], [1, 'rgb(227,26,28)']]
          
           
-          colorscale: [
+          // colorscale: [
 
-            // Let first 10% (0.1) of the values have color rgb(0, 0, 0)
+          //   // Let first 10% (0.1) of the values have color rgb(0, 0, 0)
             
 
            
           
             
-            // Let values between 10-20% of the min and max of z
-            // have color rgb(20, 20, 20)
+          //   // Let values between 10-20% of the min and max of z
+          //   // have color rgb(20, 20, 20)
             
-                    [0.1, '#FFEDA0'],
-                    [0.7, '#FFEDA0'],
+          //           [0.1, '#FFEDA0'],
+          //           [0.7, '#FFEDA0'],
             
-            // Values between 20-30% of the min and max of z
-            //have color rgb(40, 40, 40)
+          //   // Values between 20-30% of the min and max of z
+          //   //have color rgb(40, 40, 40)
             
-                    [0.7, '#BD0026'],
-                    [1.0, '#BD0026'],
+          //           [0.7, '#BD0026'],
+          //           [1.0, '#BD0026'],
             
                     
                     
-                ]
+          //       ]
 
 
          
@@ -1088,6 +1073,10 @@ function addHorizrntalBars (value,text)
   let GroupsArray=['Group1', 'Group2', 'Group3', 'Group4', 'Group5','Group6','Group7']
   hmlayout = Object.assign({}, ROW_CHART_LAYOUT);
   //layout.mode = 'bars'
+  
+  //hmlayout.hovermode ='closest'
+  //hmlayout.hoverformat= '.1r'
+  
   hmlayout.height = 500
   hmlayout.width = 360
   //layout.barmode = 'group';
@@ -1199,7 +1188,7 @@ for (let f=0; f< zArray.length; f++)
          x: zArray, //columnData,
          //color: getLayerColor(GroupsArray.indexOf("Banana");), 
          y: GroupsArray, // ['', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-         
+         hovertemplate: `${text}: %{x:.2f}<extra></extra>`,
          type: 'bar',
          orientation: 'h',
          indxArr: [0,1,2,3,4,5,6],
