@@ -26,6 +26,11 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
 (async () => {
   const CHART_STICKY_ELEMENT = 'chart-sticky-housing'
   const MAP_STICKY_ELEMENT = 'map-sticky-housing'
+
+  const chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
+  const mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
+  const chartWrapper = document.querySelector('.sticky-chart-wrapper')
+
 // init a blank plot
 // TODO: replace with spinner/ loading progress
   // Plotly.newPlot('chart-sticky-housing', {}, {}, {})
@@ -51,19 +56,19 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
   let map = {} // initialise
 
   const drawPlot = async (event) => {
-    console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
-    console.log('w:' + screen.width)
+    // console.log('Waypoint ' + JSON.stringify(event) + ' triggered')
+    // console.log('w:' + screen.width)
 
-    let chartSticky = document.getElementById(CHART_STICKY_ELEMENT)
-    let mapSticky = document.getElementById(MAP_STICKY_ELEMENT)
     let chartState = chartSticky.getAttribute('data-status')
     let mapState = mapSticky.getAttribute('data-status')
+
     // console.log(chartState)
     // on trigger at index, get state based on index
     console.log(event.index + ' map state: ' + mapState + ' c state: ' + chartState)
     if (event.index == 7) {
       if (mapState === 'hidden') {
-        console.log('draw map and show')
+        // console.log('draw map and show')
+        chartWrapper.style.setProperty('background-color', '#21272a')
         // console.log('map')
         // console.log(map)
         // hide current chart
@@ -117,6 +122,18 @@ import { afterplotFixesFig7 } from '/javascripts/stories/housing-scrolly/story-h
           chartSticky.setAttribute('data-status', 'shown')
         }
       }
+    } else if (event.index >= 8 && event.index <= 10) {
+      if (mapState === 'shown') {
+        console.log('hide map')
+        // console.log('map')
+        // console.log(map)
+        // hide current chart
+        mapSticky.removeAttribute('data-status')
+        mapSticky.setAttribute('data-status', 'hidden')
+        mapSticky.style.display = 'none'
+      }
+
+      chartWrapper.style.setProperty('background-color', 'transparent')
     }
   }
 
