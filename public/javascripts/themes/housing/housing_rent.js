@@ -4,8 +4,10 @@ import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
+import { addSpinner } from '../../modules/bcd-ui.js'
 
 (async () => {
+  let chartDivIds = ['#chart-rent-prices']
   try {
     const parseYear = d3.timeParse('%Y')
     const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
@@ -13,7 +15,11 @@ import { activeBtn } from '../../modules/bcd-ui.js'
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
     const TABLE_CODE = 'RIQ02'
+    addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
     let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    if (json && document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
+      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
+    }
     let dataset = JSONstat(json).Dataset(0)
     // console.log(dataset)
 
