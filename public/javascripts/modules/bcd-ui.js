@@ -36,3 +36,12 @@ const activeBtn = function (e) {
 
 export { activeBtn }
 
+const addSpinner = function (divID, src) {
+  if (document.querySelector(divID)) {
+    let spinner = document.createElement('DIV')
+    spinner.className = 'theme__text-chart__spinner'
+    spinner.innerHTML = `<p> Contacting ${src} </p> <div class="spinner"><div></div><div></div><div></div></div>`
+    document.querySelector(divID).appendChild(spinner)
+  }
+}
+export { addSpinner }
