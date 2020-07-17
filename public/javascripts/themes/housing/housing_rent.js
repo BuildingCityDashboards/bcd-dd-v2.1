@@ -1,4 +1,4 @@
-import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
+import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
@@ -20,7 +20,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   const TABLE_CODE = 'RIQ02'
   try {
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
-    let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
     if (json) {
       removeSpinner(chartDivIds[0])
     }
@@ -136,8 +136,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log('Error creating rent charts')
     console.log(e)
     removeSpinner(chartDivIds[0])
+    e = (e instanceof TimeoutError) ? e : 'An error occured'
     let errBtnID = addErrorMessageButton(chartDivIds[0], e)
-    e = e instanceof TimeoutError ? e : 'An error occured'
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       console.log('retry')

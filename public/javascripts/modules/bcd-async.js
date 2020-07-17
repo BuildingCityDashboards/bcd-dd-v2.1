@@ -10,7 +10,7 @@ export { fetchJsonFromUrlAsync }
 
 const fetchJsonFromUrlAsyncTimeout = async (url) => {
   let res = await Promise.race([fetch(url), new Promise((resolve, reject) =>
-      setTimeout(() => reject(new TimeoutError(`Timeout waiting for <b>${url.split('://')[1].split('/')[0]}</b> to respond to our request for data`)), 1000)
+      setTimeout(() => reject(new TimeoutError(`Timeout waiting for <b>${url.split('://')[1].split('/')[0]}</b> to respond to our request for data`)), 30000)
     )])
   const json = await res.json()
   return json

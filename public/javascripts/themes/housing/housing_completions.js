@@ -170,8 +170,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log(e)
 
     removeSpinner(chartDivIds[0])
-    let errBtnID = addErrorMessageButton(chartDivIds[0], e)
     e = e instanceof TimeoutError ? e : 'An error occured'
+    let errBtnID = addErrorMessageButton(chartDivIds[0], e)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       console.log('retry')

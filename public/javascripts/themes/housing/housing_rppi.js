@@ -11,7 +11,7 @@ import { removeErrorMessageButton } from '../../modules/bcd-ui.js'
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-  let charts = ['chart-house-rppi']
+  let chartDivIds = ['chart-house-rppi']
 
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
@@ -20,7 +20,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
   try {
-    addSpinner(charts[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
+    addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
     let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
     if (json) {
       removeSpinner(chartDivIds[0])
@@ -84,11 +84,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log(e)
 
     removeSpinner(chartDivIds[0])
+    e = (e instanceof TimeoutError) ? e : 'An error occured'
     let errBtnID = addErrorMessageButton(chartDivIds[0], e)
-    e = e instanceof TimeoutError ? e : 'An error occured'
-    // console.log(errBtnID)
+    console.log('e')
+    console.log(e)
     d3.select(`#${errBtnID}`).on('click', function () {
-      console.log('retry')
       removeErrorMessageButton(chartDivIds[0])
       main()
     })
