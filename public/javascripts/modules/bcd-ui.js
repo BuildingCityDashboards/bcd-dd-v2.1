@@ -45,3 +45,32 @@ const addSpinner = function (divID, src) {
   }
 }
 export { addSpinner }
+
+const removeSpinner = function (divID) {
+  if (document.querySelector(`${divID} .theme__text-chart__spinner`)) {
+    // document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
+    document.querySelector(`${divID} .theme__text-chart__spinner`).remove()
+  }
+}
+export { removeSpinner }
+
+const addErrorMessage = function (divID, e) {
+  if (document.querySelector(divID)) {
+    let errMsg = document.createElement('DIV')
+    errMsg.className = 'theme__text-chart__error'
+    errMsg.innerHTML = `<p> ${e} </p>`
+    let errBtn = document.createElement('BUTTON')
+    errBtn.className = 'theme-btn retry-btn'
+    errBtn.innerHTML = 'Try again'
+    errMsg.appendChild(errBtn)
+    document.querySelector(divID).appendChild(errMsg)
+  }
+}
+export { addErrorMessage }
+
+const removeErrorMessage = function (divID) {
+  if (document.querySelector(`${divID} .theme__text-chart__error`)) {
+    document.querySelector(`${divID} .theme__text-chart__error`).remove()
+  }
+}
+export { removeErrorMessage }

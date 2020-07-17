@@ -365,6 +365,28 @@ a:active {
   height : auto;
 }
 
+
+.theme__text-chart__error {
+  display         : flex;
+  position        : relative;
+  width           : 60%;
+  height          : 60%;
+  color           : white;
+  text-align      : center;
+  align-items     : center;
+  align-self      : center;
+  flex-direction  : column;
+  justify-content : center;
+}
+
+..theme__text-chart__error p {
+  text-align : center;
+}
+
+.theme__text-chart__error .retry-btn {
+  margin-right:0;
+}
+
 .theme__text-chart__text {
   display        : grid;
   padding-top    : 8px;

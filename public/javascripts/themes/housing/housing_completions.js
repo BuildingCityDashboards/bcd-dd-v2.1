@@ -5,50 +5,52 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
 import { addSpinner } from '../../modules/bcd-ui.js'
+import { removeSpinner } from '../../modules/bcd-ui.js'
+import { addErrorMessage } from '../../modules/bcd-ui.js'
 
 (async () => {
-  let chartDivIds = ['#chart-completions-house', '#chart-completions-scheme', 'chart-completions-apartment']
+  let chartDivIds = ['#chart-completions-house', '#chart-completions-scheme', '#chart-completions-apartment']
+  const parseYear = d3.timeParse('%Y')
+  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+  const STATBANK_BASE_URL =
+        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+// NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
+  const TABLE_CODE = 'NDQ06'
   try {
-    const parseYear = d3.timeParse('%Y')
-    const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
-    const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
-  // NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
-    const TABLE_CODE = 'NDQ06'
-
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>New Dwelling Completion</i>`)
 
     let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
 
-    if (json && document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
-      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
-    }
+    if (json) {
+      {
+        removeSpinner(chartDivIds[0])
+      }
 
-    let dataset = JSONstat(json).Dataset(0)
+      let dataset = JSONstat(json).Dataset(0)
     // console.log(dataset)
 
-    let dimensions = dataset.Dimension().map(dim => {
-      return dim.label
-    })
+      let dimensions = dataset.Dimension().map(dim => {
+        return dim.label
+      })
     // console.log(dimensions)
 
-    let categoriesLA = dataset.Dimension(dimensions[0]).Category().map(c => {
-      return c.label
-    })
+      let categoriesLA = dataset.Dimension(dimensions[0]).Category().map(c => {
+        return c.label
+      })
     // console.log(categoriesLA)
 
-    let categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
-      return c.label
-    })
+      let categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
+        return c.label
+      })
     // console.log(categoriesType)
 
-    let categoriesStat = dataset.Dimension(dimensions[3]).Category().map(c => {
-      return c.label
-    })
+      let categoriesStat = dataset.Dimension(dimensions[3]).Category().map(c => {
+        return c.label
+      })
     // console.log(categoriesStat)
 
   //
-    let completionsTable = dataset.toTable(
+      let completionsTable = dataset.toTable(
      { type: 'arrobj' },
      (d, i) => {
        if ((d[dimensions[0]] === categoriesLA[6] ||
@@ -66,108 +68,109 @@ import { addSpinner } from '../../modules/bcd-ui.js'
     //
     // console.log(completionsTable)
 
-    let completionsHouse = {
-      e: '#chart-completions-house',
-      d: completionsTable.filter(d => {
-        return d[dimensions[1]] === categoriesType[0]
-      }),
-      ks: categoriesLA,
-      k: dimensions[0],
-      xV: 'date',
-      yV: 'value',
-      tX: 'Year',
-      tY: categoriesStat[0]
-    }
-    //
-    let completionsHouseChart = new MultiLineChart(completionsHouse)
-
-    let completionsScheme = {
-      e: '#chart-completions-scheme',
-      d: completionsTable.filter(d => {
-        return d[dimensions[1]] === categoriesType[1]
-      }),
-      ks: categoriesLA,
-      k: dimensions[0],
-      xV: 'date',
-      yV: 'value',
-      tX: 'Year',
-      tY: categoriesStat[0]
-    }
-    //
-    let completionsSchemeChart = new MultiLineChart(completionsScheme)
-
-    let completionsApartment = {
-      e: '#chart-completions-apartment',
-      d: completionsTable.filter(d => {
-        return d[dimensions[1]] === categoriesType[2]
-      }),
-      ks: categoriesLA,
-      k: dimensions[0],
-      xV: 'date',
-      yV: 'value',
-      tX: 'Year',
-      tY: categoriesStat[0]
-    }
-    //
-    let completionsApartmentChart = new MultiLineChart(completionsApartment)
-
-    const chart1 = 'completions-house'
-    const chart2 = 'completions-scheme'
-    const chart3 = 'completions-apartment'
-
-    d3.select('#chart-' + chart1).style('display', 'block')
-    d3.select('#chart-' + chart2).style('display', 'none')
-    d3.select('#chart-' + chart3).style('display', 'none')
-
-    function redraw () {
-      if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
-        completionsHouseChart.drawChart()
-        completionsHouseChart.addTooltip('Single house completions,  ', '', 'label')
+      let completionsHouse = {
+        e: '#chart-completions-house',
+        d: completionsTable.filter(d => {
+          return d[dimensions[1]] === categoriesType[0]
+        }),
+        ks: categoriesLA,
+        k: dimensions[0],
+        xV: 'date',
+        yV: 'value',
+        tX: 'Year',
+        tY: categoriesStat[0]
       }
-      if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
-        completionsSchemeChart.drawChart()
-        completionsSchemeChart.addTooltip('Scheme house completions, ', '', 'label')
-      }
-      if (document.querySelector('#chart-' + chart3).style.display !== 'none') {
-        completionsApartmentChart.drawChart()
-        completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
-      }
-    }
-    redraw()
+    //
+      let completionsHouseChart = new MultiLineChart(completionsHouse)
 
-    d3.select('#btn-' + chart1).on('click', function () {
-      activeBtn(this)
+      let completionsScheme = {
+        e: '#chart-completions-scheme',
+        d: completionsTable.filter(d => {
+          return d[dimensions[1]] === categoriesType[1]
+        }),
+        ks: categoriesLA,
+        k: dimensions[0],
+        xV: 'date',
+        yV: 'value',
+        tX: 'Year',
+        tY: categoriesStat[0]
+      }
+    //
+      let completionsSchemeChart = new MultiLineChart(completionsScheme)
+
+      let completionsApartment = {
+        e: '#chart-completions-apartment',
+        d: completionsTable.filter(d => {
+          return d[dimensions[1]] === categoriesType[2]
+        }),
+        ks: categoriesLA,
+        k: dimensions[0],
+        xV: 'date',
+        yV: 'value',
+        tX: 'Year',
+        tY: categoriesStat[0]
+      }
+    //
+      let completionsApartmentChart = new MultiLineChart(completionsApartment)
+
+      const chart1 = 'completions-house'
+      const chart2 = 'completions-scheme'
+      const chart3 = 'completions-apartment'
+
       d3.select('#chart-' + chart1).style('display', 'block')
       d3.select('#chart-' + chart2).style('display', 'none')
       d3.select('#chart-' + chart3).style('display', 'none')
-      redraw()
-    })
 
-    d3.select('#btn-' + chart2).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'block')
-      d3.select('#chart-' + chart3).style('display', 'none')
+      function redraw () {
+        if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
+          completionsHouseChart.drawChart()
+          completionsHouseChart.addTooltip('Single house completions,  ', '', 'label')
+        }
+        if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
+          completionsSchemeChart.drawChart()
+          completionsSchemeChart.addTooltip('Scheme house completions, ', '', 'label')
+        }
+        if (document.querySelector('#chart-' + chart3).style.display !== 'none') {
+          completionsApartmentChart.drawChart()
+          completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
+        }
+      }
       redraw()
-    })
 
-    d3.select('#btn-' + chart3).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'none')
-      d3.select('#chart-' + chart3).style('display', 'block')
-      redraw()
-    })
+      d3.select('#btn-' + chart1).on('click', function () {
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'block')
+        d3.select('#chart-' + chart2).style('display', 'none')
+        d3.select('#chart-' + chart3).style('display', 'none')
+        redraw()
+      })
 
-    window.addEventListener('resize', () => {
-      redraw()
-    })
+      d3.select('#btn-' + chart2).on('click', function () {
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'none')
+        d3.select('#chart-' + chart2).style('display', 'block')
+        d3.select('#chart-' + chart3).style('display', 'none')
+        redraw()
+      })
+
+      d3.select('#btn-' + chart3).on('click', function () {
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'none')
+        d3.select('#chart-' + chart2).style('display', 'none')
+        d3.select('#chart-' + chart3).style('display', 'block')
+        redraw()
+      })
+
+      window.addEventListener('resize', () => {
+        redraw()
+      })
+    }
   } catch (e) {
     console.log('Error creating housing completion charts')
     console.log(e)
-    if (document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
-      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
-    }
+
+    removeSpinner(chartDivIds[0])
+    addErrorMessage(chartDivIds[0], e)
   }
 })()
 
