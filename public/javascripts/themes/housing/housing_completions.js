@@ -5,23 +5,26 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
 import { addSpinner } from '../../modules/bcd-ui.js'
+import { removeSpinner } from '../../modules/bcd-ui.js'
+import { addErrorMessageButton } from '../../modules/bcd-ui.js'
+import { removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async () => {
-  let chartDivIds = ['#chart-completions-house', '#chart-completions-scheme', 'chart-completions-apartment']
+(async function main () {
+  let chartDivIds = ['chart-completions-house', 'chart-completions-scheme', 'chart-completions-apartment']
+  const parseYear = d3.timeParse('%Y')
+  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+  const STATBANK_BASE_URL =
+        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+// NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
+  const TABLE_CODE = 'NDQ06'
   try {
-    const parseYear = d3.timeParse('%Y')
-    const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
-    const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
-  // NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
-    const TABLE_CODE = 'NDQ06'
-
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>New Dwelling Completion</i>`)
 
     let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
 
-    if (json && document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
-      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
+    if (json) {
+      removeSpinner(chartDivIds[0])
     }
 
     let dataset = JSONstat(json).Dataset(0)
@@ -165,9 +168,16 @@ import { addSpinner } from '../../modules/bcd-ui.js'
   } catch (e) {
     console.log('Error creating housing completion charts')
     console.log(e)
-    if (document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`)) {
-      document.querySelector(`${chartDivIds[0]} .theme__text-chart__spinner`).style.display = 'none'
-    }
+
+    removeSpinner(chartDivIds[0])
+    e = e instanceof TimeoutError ? e : 'An error occured'
+    let errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    // console.log(errBtnID)
+    d3.select(`#${errBtnID}`).on('click', function () {
+      console.log('retry')
+      removeErrorMessageButton(chartDivIds[0])
+      main()
+    })
   }
 })()
 
