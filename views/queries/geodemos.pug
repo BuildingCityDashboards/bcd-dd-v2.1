@@ -54,16 +54,24 @@ block content
                                 span To view analysis code Please visit:
                                     a(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  RPubs.
                         .col-10
-                               
+                              
                             span#group-text.Group_Description.text-style-1  
-
+                            #desc   
+                                                
 
         .row.no-gutters
             .col-1
                 #group-buttons.Group-Header_item.Group_Description.text-style-1 
-                       
+
+                    .row.-Elevation
+                        a(href='/queries/geodemosHM') 
+                            button.btn-link(type='button', id='all') Heatmap 
                     .row.-Elevation
                         p.-Subtitle-1.col-5 Groups
+                        
+                    .row.-Elevation  
+                        p.-Subtitle-1.col-5 All
+
                         a(href='#',)
                             p.col-1 <img  background-color='#6fd1f6' height='22px' width='18px' src='/images/icons/Icon_eye_deselected.svg' id='all'>      
                             
@@ -100,9 +108,9 @@ block content
                             a(href='#',)
                                 p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-7.svg' id='7'>  
             
-            .col-7
+            .col-6
                 #map-geodemos
-            .col-4
+            .col-5
                 #chart-geodemos
         //- #group-buttons
         //-     .row.no-gutters
@@ -170,7 +178,7 @@ block append scripts
   //- //    script(src="spin/dist/spin.min.js")
   //- //    script(src="leaflet.spin.min.js")
   script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
-  script(type='text/javascript', src='/javascripts/dynamicpage.js')
+  //-script(type='text/javascript', src='/routes/queries.js')
   script(src="/javascripts/queries/geodemos.js" type="module") 
   //- script(src='/javascripts/accordion.js')
   //- script(src="/javascripts/queries/statbank_test.js" type="module") 
