@@ -82,10 +82,12 @@ app.use(function (err, req, res, next) {
 
 let hour = new Date().getHours()
 let min = new Date().getMinutes().toString().padStart(2, '0')
-util.log('\n\nDublin Dashboard Beta App started at ' + hour + ':' + min + '\n\n')
+util.log('\n\nDublin Dashboard App started at ' + hour + ':' + min + '\n\n')
 
 if (app.get('env') === 'development') {
-  util.log('\n\n***Dashboard is in dev***\n\n')
+  util.log('\n\n***App is in dev***\n\n')
+} else {
+  util.log('\n\n***App is in production***\n\n')
 }
 
 /************
