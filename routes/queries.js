@@ -17,4 +17,12 @@ router.get('/geodemos', function (req, res, next) {
   })
 })
 
+router.get('/geodemosHM', function (req, res, next) {
+  // alert('you clicked q1')
+  res.render('queries/geodemosHM', {
+    title: 'Query: Geodemographics',
+    page: ''
+  })
+})
+
 module.exports = router
