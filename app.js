@@ -23,8 +23,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 // console.log(__dirname);
 // logger.debug("Overriding 'Express' logger");
 
-app.use(morgan('combined', {
-  'stream': logger.stream
+// output http logs on the sevrer
+app.use(morgan('tiny', {
+  'stream': logger.stream,
+  skip: function (req, res) { return res.statusCode < 400 }
 }))
 
 // get routes files
