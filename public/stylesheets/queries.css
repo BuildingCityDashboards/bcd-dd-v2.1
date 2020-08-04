@@ -32,7 +32,7 @@ html {}
   justify-content       : center;
   grid-gap              : 8px;
   grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(8, 1fr);
+  grid-template-rows    : repeat(3, 1fr) auto 1fr;
 }
 
 #queries-home__icon {
@@ -83,15 +83,16 @@ html {}
 }
 
 #queries-home__carousel {
-  height      : 250px;
+
   min-height  : 250px;
+  height: auto;
   grid-column : span 4;
-  grid-row    : 4 / 8;
+  grid-row    : 4 / 5 ;
 }
 
 .carousel {
-  height     : inherit;
-  margin     : 0;
+  height     : 320px;
+  margin     : 0 20px;
   background : transparent;
   /* space for prev/next buttons */
 }
@@ -250,15 +251,15 @@ html {}
 
   #queries-home {
     position    : relative;
-    width       : 100%;
+    width       : 100vw;
     min-width   : 1280px;
-    height      : auto;
+    height      : 100vh;
     min-height  : 700px;
     max-height  : none;
     margin      : 0;
     padding     : 0;
     overflow-x  : hidden;
-    overflow-y  : scroll;
+    overflow-y  : auto;
     text-align  : center;
     text-align  : left;
     align-self  : flex-start;
@@ -332,14 +333,14 @@ html {}
   }
 
   #queries-home__carousel {
-    height      : 400px;
+    height      : auto;
     min-height  : 400px;
     grid-column : 1 / 13;
     grid-row    : 4 / 5;
   }
 
   .carousel {
-    height     : inherit;
+    height     : 420px;
     margin     : 0 24px;
     padding    : 32px 0;
     background : transparent;

@@ -40,13 +40,20 @@
     +theme__text-chart(
     'population-born-outside-state',
     [{
-    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CD101&PLanguage=0',
+    link :'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=CNA31&PLanguage=0',
     name: 'CSO'
     }],
     'Population Born Outside the State',
     '<p>Just over a million people living in the state were born outside of Ireland (17.3%) at the time of the last census in 2016. In Dublin 330,000 people were born elsewhere. The rate nationally and in Dublin has been growing since 1996, coinciding with the Celtic Tiger growth in the economy and labour market. The result is the city has become increasingly cosmopolitan.</p><p>The chart excludes members of the population born in Northern Ireland</p>',
     '',
-    ['chart-bornOutsideState']
+    ['chart-born-outside-dublin','chart-born-outside-state'],
+    [{
+    id: 'btn-born-outside-dublin',
+    name: 'Dublin'
+    },{
+    id: 'btn-born-outside-state',
+    name: 'State'
+    }]
     )
     
     

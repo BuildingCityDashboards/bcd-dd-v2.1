@@ -76,7 +76,7 @@ exports.getStationsSnapshot = async (req, res) => {
 //   "name": "HEUSTON BRIDGE (SOUTH)"
 // }]
 exports.getStationDataToday = async (req, res) => {
-  console.log('\n\n**********Get Station Trend ' + req.params.number + '******************\n')
+  // console.log('\n\n**********Get Station Trend ' + req.params.number + '******************\n')
   /* Fetch trend data for the day and display in popup */
   let startQuery = moment.utc().startOf('day').format('YYYYMMDDHHmm')
   let endQuery = moment.utc().endOf('day').format('YYYYMMDDHHmm')

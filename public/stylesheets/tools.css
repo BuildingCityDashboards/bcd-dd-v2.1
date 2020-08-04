@@ -91,7 +91,7 @@ html {}
 
 .carousel {
   height     : inherit;
-  margin     : 0;
+  margin     : 0 20px;
   background : transparent;
   /* space for prev/next buttons */
 }
@@ -250,15 +250,15 @@ html {}
 
   #tools-home {
     position    : relative;
-    width       : 100%;
+    width       : 100vw;
     min-width   : 1280px;
-    height      : auto;
+    height      : 100vh;
     min-height  : 700px;
     max-height  : none;
     margin      : 0;
     padding     : 0;
     overflow-x  : hidden;
-    overflow-y  : scroll;
+    overflow-y  : auto;
     text-align  : center;
     text-align  : left;
     align-self  : flex-start;
@@ -275,7 +275,7 @@ html {}
     min-height            : 700px;
     max-height            : none;
     padding               : 0 16px;
-    
+
     overflow-y            : scroll;
     justify-content       : center;
     grid-gap              : 16px;

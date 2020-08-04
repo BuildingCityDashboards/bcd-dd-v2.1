@@ -1,9 +1,15 @@
+
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
+import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { GroupedBarChart } from '../../modules/GroupedBarChart.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
 
 (async () => {
+  let houseHoldsChart, houseHoldCompositionChart
+  let houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
+  const parseYear = d3.timeParse('%Y')
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // CNA33 - Number of households and number of persons resident by Type of Private Accommodation, Province County or City, CensusYear and Statistic
@@ -45,8 +51,9 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
          return d
        }
      })
+  // console.log(householdsFiltered)
 
-  const houseHoldsContent = {
+  houseHoldsContent = {
     e: '#chart-households',
     d: householdsFiltered,
     ks: dublinLAs,
@@ -57,7 +64,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
     tY: STATS[0].split('(')[0]
   }
 
-  const houseHoldsChart = new MultiLineChart(houseHoldsContent)
+  houseHoldsChart = new MultiLineChart(houseHoldsContent)
   houseHoldsChart.tickNumber = 31
   houseHoldsChart.drawChart()
   // houseHoldsChart.addTooltip(houseHoldsTT)
@@ -94,11 +101,6 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   })
 })()
 
-// d3.select(window).on('resize', function () {
-//     // houseHoldsChart.drawChart();
-//     // houseHoldsChart.addTooltip(houseHoldsTT);
-// })
-
 if (document.getElementById('chart-householdComposition')) {
   d3.csv('../data/Demographics/CNA29.csv').then(data => {
     const columnNames = data.columns.slice(2)
@@ -110,7 +112,7 @@ if (document.getElementById('chart-householdComposition')) {
       }
       return d
     })
-    houseHoldCompositionContent = {
+    let houseHoldCompositionContent = {
       e: '#chart-householdComposition',
       d: valueData,
       ks: columnNames,
@@ -120,13 +122,13 @@ if (document.getElementById('chart-householdComposition')) {
       ySF: 'millions'
     }
 
-    houseHoldCompositionTT = {
+    let houseHoldCompositionTT = {
       title: 'Person per Household:',
       datelabel: xValue,
       format: 'thousands'
     }
 
-    houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
+    let houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
     houseHoldCompositionChart.drawChart()
     houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
     houseHoldCompositionChart.hideRate(true)
