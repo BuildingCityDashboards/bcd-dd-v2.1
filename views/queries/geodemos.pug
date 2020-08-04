@@ -1,4 +1,6 @@
 extends ../layout
+include ../component/theme__header
+include ../component/theme__text-chart
 
 block append head
         link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
@@ -14,7 +16,7 @@ block append head
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css")
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.12/dc.css')
-        link(rel='stylesheet', href='/stylesheets/queries/query.css')
+        //- link(rel='stylesheet', href='/stylesheets/queries/query.css')
         link(rel='stylesheet', href='/stylesheets/queries/queries-geodemos.css')
         link(rel='stylesheet', href='/stylesheets/lib/marker-cluster-modified.css')
         //-link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
@@ -33,13 +35,217 @@ block append head
 
 block navigation
     //-+navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
+    +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Queries")
+    
 
 block content
     
-   
-    .tool-container
-        header.header.mt-5.pt-2
+    
+        .tool-container
+
         
+
+            header.header.mt-5.pt-2
+            .Group_Description
+                
+                        .row 
+                            .col-3.cent
+                        
+                                //- span 
+                                //-     a(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
+
+                                nav.nav.nav-pills.nav-justified
+                                    a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
+                                    a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
+
+
+
+                                
+                                p.cent
+                                    <img  height='48px' width='115px' src='/images/icons/demograph.svg'>
+                                    br 
+                                    
+                                    span#group-title.Group_Title Group 1
+                                    br
+                                    
+                            .col-9
+                                
+                                span#group-text.Group_Description.text-style-2  Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. 
+                                    | Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. 
+                                    | Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).   
+                                #desc   
+                                                    
+
+            .row.no-gutters
+                .col-2
+                    #group-buttons.Group-Header_item.Group_Description.text-style-1 
+
+                        //- .row.-Elevation
+                        //-     a(href='/queries/geodemosHM') 
+                        //-         button.btn-link(type='button', id='all') Heatmap 
+                        //- .row.-Elevation
+                        //-     p.-Subtitle-1.col-5 Groups
+
+                        .row.Elevation
+                            
+                                //- p.TextStys Select a group or compare 
+                                //-    |up to three using the list below
+
+                        .row.-Elevation  
+                            p.-Subtitle-1.col-7 All Groups
+                                a(href='#',)
+                                    .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_deselected.svg' id='all' >  
+                                //- .col-1  
+                                    input.regular-checkbox(type="checkbox"   name="myCheckbox" value="all" id='all' )
+
+                        .row.-Elevation       
+                            p.-Subtitle-1.col-7 1
+                                a(href='#',)  
+                                    //-input.regular-checkbox(type="checkbox" checked="checked" name="myCheckbox" value="1" id='1') 
+                                    //- input.custom-control-input(type='checkbox', checked="checked" name="" value="1" id='1') 
+                                    .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected.svg' id='1' >  
+                                    
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 2
+                                a(href='#',)
+                                    .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-2.svg' id='2'> 
+                                //- .col-1  
+                                //-     input.regular-checkbox(type="checkbox"   name="myCheckbox" value="2" id='2')
+                        
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 3
+                                a(href='#',)
+                                    p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-3.svg' id='3'> 
+                                //- .col-1  
+                                //-     input.regular-checkbox(type="checkbox"  name="myCheckbox" value="3" id='3')
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 4
+                                //- .col-1  
+                                    input.regular-checkbox(type="checkbox"  name="myCheckbox" value="4" id='4')
+                                a(href='#',)
+                                    p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-4.svg' id='4'>
+                                
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 5
+                                //- .col-1  
+                                    input.regular-checkbox(type="checkbox"  name="myCheckbox" value="5" id='5')
+                                a(href='#',)
+                                    p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-5.svg' id='5'> 
+
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 6
+                                //- .col-1  
+                                    input.regular-checkbox(type="checkbox"  name="myCheckbox" value="6" id='6')
+                                a(href='#',)
+                                    p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-6.svg' id='6'>
+                        .row.-Elevation        
+                            p.-Subtitle-1.col-7 7
+                                //- .col-1  
+                                    input.regular-checkbox(type="checkbox"  name="myCheckbox" value="7" id='7')
+                                a(href='#',)
+                                    p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-7.svg' id='7'>  
+                
+                .col-5       
+                    
+                
+                    #map-geodemos
+                .col-5
+                    #chart-geodemos
+            //- #group-buttons
+            //-     .row.no-gutters
+            //-         .col-1
+            //-             .row
+                        
+            //-             h6.col-1 Groups  
+            //-             .row
+            //-                 p.col-1 All
+            //-                     a(href='#',)
+            //-                         p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='all'>      
+                                
+            //-             .row       
+            //-                 p.col-1 1
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_selected.svg' id='1'>  
+            //-             .row        
+            //-                 p.col-1 2
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='2'> 
+            //-             .row        
+            //-                 p.col-1 3
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='3'> 
+
+            //-             .row        
+            //-                 p.col-1 4
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='4'>
+                                
+            //-             .row        
+            //-                 p.col-1 5
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='5'> 
+
+            //-             .row        
+            //-                 p.col-1 6
+            //-                     a(href='#',)
+            //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='6'>
+            //-             .row        
+            //-                 p.col-1 7
+            //-                     a(href='#',)
+            //-                         p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='7'>                   
+                    
+            //-         .col-7
+            //-             #map-geodemos
+            //-         .col-4
+            //-             #chart-geodemos
+            //-             </div>  
+
+        
+        
+                        
+                    
+        
+block append scripts
+  script(src="/lib/proj4.js" type="text/javascript")
+  script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js")
+  script(src="/lib/leaflet-osm-master/leaflet-osm.js" type="text/javascript")
+  script(src="/lib/L.Control.Locate.modified.js" type="text/javascript")
+  script(src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js" type="text/javascript")
+  script(src="/lib/Control.OSMGeocoder.modified.js" type="text/javascript")    
+  script(src="https://d3js.org/d3.v5.js" type="text/javascript")
+  script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
+  //- //    script(src="spin/dist/spin.min.js")
+  //- //    script(src="leaflet.spin.min.js")
+  script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
+  //-script(type='text/javascript', src='/routes/queries.js')
+  script(src="/javascripts/queries/geodemos.js" type="module") 
+
+  script(src="/javascripts/themes/maps_common.js" type="text/javascript")
+  script(src="/javascripts/themes/transport/transport_dublinbikes.js" type="text/javascript")
+  //- script(src="/javascripts/themes/transport/transport_disabled_park_fingal.js" type="text/javascript")
+  script(src="/javascripts/themes/transport/transport_traffic_counters.js" type="module")
+  //- script(src="/javascripts/themes/environment/environment.js" type="text/javascript")
+  script(src="/javascripts/themes/environment/environment_water_levels.js" type="text/javascript")
+  script(src="/javascripts/themes/environment/environment_noise.js" type="module")
+  //-script(src="/javascripts/charts/treemap.js" type="text/javascript")
+  script(src="/javascripts/themes/housing.js" type="text/javascript")
+  script(src="/javascripts/themes/education.js" type="module")
+  //- script(src="/javascripts/themes/health.js" type="text/javascript")
+  
+  //- script(src="/javascripts
+  //- script(src='/javascripts/accordion.js')
+  //- script(src="/javascripts/queries/statbank_test.js" type="module") 
+  //- script(src='Scripts/jquery-1.8.3.min.js', type='text/javascript')
+  //- script(src='Scripts/jquery-1.8.3.js', type='text/javascript')
+  //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+  //-script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+  //-script(src="https://d3js.org/d3.v5.js" type="text/javascript")
+  //-script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js")
+  //- script(type='text/javascript', src='"https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js')
+  //- script(type='text/javascript', src='/javascripts/jquery.ba-hashchange.min.js') 
+  //-script(type='text/javascript', src='/javascripts/dynamicpage.js')
+  //-script(type='text/javascript', src='/javascripts/queries/geodemos.js
+
         .Group_Description
             
                     .row 
@@ -49,15 +255,17 @@ block content
                                 <img  height='48px' width='115px' src='/images/icons/demograph.svg'>
                                 br 
                                 
-                                span#group-title.Group_Title
+                                span#group-title.Group_Title  Group 1
                                 br
                                 span To view analysis code Please visit:
                                     a(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  RPubs.
                         .col-10
                               
-                            span#group-text.Group_Description.text-style-1  
+                            span#group-text.Group_Description.text-style-1  Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. 
+                                | Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. 
+                                | Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %). 
                             #desc   
-                                                
+                                               
 
         .row.no-gutters
             .col-1
@@ -84,21 +292,22 @@ block content
                         p.-Subtitle-1.col-5 2
                             a(href='#',)
                                 .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-2.svg' id='2'> 
+                    //- hr(style='border-top= 0.09px solid #bbb;')
                     .row.-Elevation        
                         p.-Subtitle-1.col-5 3
                             a(href='#',)
                                 .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-3.svg' id='3'> 
-
+                    //- hr(style='border-top= 0.09px solid #bbb;')
                     .row.-Elevation        
                         p.-Subtitle-1.col-5 4
                             a(href='#',)
                                 .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-4.svg' id='4'>
-                             
+                    //- hr(style='border-top= 0.09px solid #bbb;')   
                     .row.-Elevation        
                         p.-Subtitle-1.col-5 5
                             a(href='#',)
                                 .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-5.svg' id='5'> 
-
+                    //- hr(style='border-top= 0.09px solid #bbb;')
                     .row.-Elevation        
                         p.-Subtitle-1.col-5 6
                             a(href='#',)
@@ -106,92 +315,5 @@ block content
                     .row.-Elevation        
                         p.-Subtitle-1.col-5 7
                             a(href='#',)
-                                p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-7.svg' id='7'>  
-            
-            .col-6
-                #map-geodemos
-            .col-5
-                #chart-geodemos
-        //- #group-buttons
-        //-     .row.no-gutters
-        //-         .col-1
-        //-             .row
-                      
-        //-             h6.col-1 Groups  
-        //-             .row
-        //-                 p.col-1 All
-        //-                     a(href='#',)
-        //-                         p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='all'>      
-                            
-        //-             .row       
-        //-                 p.col-1 1
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_selected.svg' id='1'>  
-        //-             .row        
-        //-                 p.col-1 2
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='2'> 
-        //-             .row        
-        //-                 p.col-1 3
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='3'> 
-
-        //-             .row        
-        //-                 p.col-1 4
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='4'>
-                             
-        //-             .row        
-        //-                 p.col-1 5
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='5'> 
-
-        //-             .row        
-        //-                 p.col-1 6
-        //-                     a(href='#',)
-        //-                         .col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='6'>
-        //-             .row        
-        //-                 p.col-1 7
-        //-                     a(href='#',)
-        //-                         p.col-1 <img  height='20px' width='20px' src='/images/icons/Icon_eye_deselected.svg' id='7'>                   
-                
-        //-         .col-7
-        //-             #map-geodemos
-        //-         .col-4
-        //-             #chart-geodemos
-        //-             </div>  
-
-      
-      
-                    
-                   
-        
-block append scripts
-  script(src="/lib/proj4.js" type="text/javascript")
-  script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js")
-  script(src="/lib/leaflet-osm-master/leaflet-osm.js" type="text/javascript")
-  script(src="/lib/L.Control.Locate.modified.js" type="text/javascript")
-  script(src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js" type="text/javascript")
-  script(src="/lib/Control.OSMGeocoder.modified.js" type="text/javascript")    
-  script(src="https://d3js.org/d3.v5.js" type="text/javascript")
-  script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript")
-  //- //    script(src="spin/dist/spin.min.js")
-  //- //    script(src="leaflet.spin.min.js")
-  script(src="/javascripts/charts/plotly/plotly_config_tools.js" type="text/javascript")  
-  //-script(type='text/javascript', src='/routes/queries.js')
-  script(src="/javascripts/queries/geodemos.js" type="module") 
-  //- script(src='/javascripts/accordion.js')
-  //- script(src="/javascripts/queries/statbank_test.js" type="module") 
-  //- script(src='Scripts/jquery-1.8.3.min.js', type='text/javascript')
-  //- script(src='Scripts/jquery-1.8.3.js', type='text/javascript')
-  //- script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
-  //-script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
-  //-script(src="https://d3js.org/d3.v5.js" type="text/javascript")
-  //-script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js")
-  //- script(type='text/javascript', src='"https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js')
-  //- script(type='text/javascript', src='/javascripts/jquery.ba-hashchange.min.js') 
-  //-script(type='text/javascript', src='/javascripts/dynamicpage.js')
-  //-script(type='text/javascript', src='/javascripts/queries/geodemos.js
-
-        
+                                p.col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-7.svg' id='7'> 
         
