@@ -493,7 +493,7 @@ async function loadSmallAreas (lookup) {
 })
 //var punti_mappa =  geoJson2heat(sa,Varval)
   mapGeodemos.addLayer(mapLayers[0])
-  updateGroupTxt(1);
+  //updateGroupTxt(1);
 }
 
 function getEmptyLayersArray (total) {
@@ -570,17 +570,17 @@ function updateGroupTxt(no)
    no='all1'
    
    //alert(dd)
-   if (dd.hasChildNodes()) {
-    dd.removeChild(dd.lastChild);
+  //  if (dd.hasChildNodes()) {
+  //   dd.removeChild(dd.lastChild);
   
 
-   let myh = document.createElement('a')
-   myh.href =  '/queries/geodemosHM'; 
-   myh.id='myherf'
-   myh.innerHTML = "Please click here for more info." 
-   myh.style="color:#90E317";
-   dd.appendChild(myh)
-   }
+  //  let myh = document.createElement('a')
+  //  myh.href =  '/queries/geodemosHM'; 
+  //  myh.id='myherf'
+  //  myh.innerHTML = "Please click here for more info." 
+  //  myh.style="color:#90E317";
+  //  dd.appendChild(myh)
+  //  }
 
 }
 
@@ -634,15 +634,19 @@ let text=''
 
 
 function onEachFeature (feature, layer) {
- 
-    layer.bindPopup(
-                '<p><b>' + feature.properties.EDNAME + '</b></p>' +
-               
-                '<p>' + feature.properties.COUNTYNAME + '</p>' +
-                '<p>SA ' + feature.properties.SMALL_AREA + '</p>'+
-                '<p>Group ' + feature.properties.groupnumber + '</p>'
-                
-                )
+  let customOptions =
+    {
+    'maxWidth': '400',
+    'width': '250',
+    'className' : 'popupCustom'
+    }
+ let popTextContent=
+           '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' + 
+           '<p><b>' + feature.properties.EDNAME + '</b></p>' +  
+           '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
+           '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
+           
+ layer.bindPopup(popTextContent,customOptions)
     
   layer.on({
     click: function () {
@@ -654,8 +658,22 @@ function onEachFeature (feature, layer) {
 
 
 
+
+
+
 d3.select('#group-buttons').selectAll('img').on('click' ,function(){
   
+  // function selectOnlyThis(id){
+
+  //  alert(id)
+  //   var myCheckbox = document.getElementsByName("myCheckbox");
+  //   Array.prototype.forEach.call(myCheckbox,function(el){
+  //     el.checked = false;
+  //   });
+  //   id.checked = true;
+  // }
+
+
   let cb= $(this);
   let myv= $(this).attr("id");
   
@@ -675,9 +693,25 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
 
  let gn=layerNo+1;
-      //mapGeodemos.removeLayer(mapLayers[layerNo-1])
+//alert(gn)
+   
+//       //mapGeodemos.removeLayer(mapLayers[layerNo-1])
+//   // let aint=document.getElementById('all')     
+//       for(let j=1; (j <8 && j!== gn) ; j++)
+//   {
+    
+//     let int=document.getElementById(j)
+//      if (int.checked === true)
+//      {
+//       int.checked = false
+//       //aint.checked = false
+//      }
+     
+//   }
+      
+      
       updateGroupTxt(gn)
-    mapGeodemos.addLayer(mapLayers[layerNo])
+      mapGeodemos.addLayer(mapLayers[layerNo])
       
       Plotly.react('chart-geodemos', [traces[layerNo]], layout)
       
@@ -689,7 +723,19 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
    if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
  
-    mapLayers.forEach((l,k) =>{
+  //   for(let i=1; i <8 ; i++)
+  // {
+  //   let int=document.getElementById(i)    
+  //    if (int.checked === true)
+  //    {
+  //     int.checked = false
+  //    }
+  // }
+   
+   
+   
+   
+   mapLayers.forEach((l,k) =>{
     //alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
     if(!mapGeodemos.hasLayer(l)){
     let mlay=mapLayers[k]
@@ -710,7 +756,8 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
     
     );
     
-  }})
+  }
+})
  
   //addheatmap()    
  scatterHM()
