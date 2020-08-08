@@ -27,7 +27,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     }
 
     let dataset = JSONstat(json).Dataset(0)
-  // console.log('dataset')
+    // console.log('dataset')
   // console.log(dataset)
   // console.log('dim')
     let dimensions = dataset.Dimension().map(dim => {

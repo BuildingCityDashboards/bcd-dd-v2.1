@@ -12,32 +12,69 @@
     'Persons aged 15 and over in the labour force',
     '<p>Employment grew steadily throughout the Celtic Tiger period up until 2007, then fell in the wake of the financial crash, recovering after 2012 as the economy started to grow again. The pattern in Dublin mirrored that of the rest of the country. </p>',
     '',
-    ['chart-employment', 'chart-emp-rate'],
+    ['chart-employment', 'chart-labour', 'chart-unemployed'],
     [{
-    id: 'employment-count-btn',
-    name: 'Number employed'
+    id: 'btn-employment',
+    name: 'Employed'
     },{
-    id: 'employment-rate-btn',
-    name: 'Annual % change'
+    id: 'btn-labour',
+    name: 'Labour force'
+    },{
+    id: 'btn-unemployed',
+    name: 'Unemployed'
     }]
-    )
-    
+)
+
     +theme__text-chart(
-    'unemployment',
+    'ilo-employment',
     [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
     name: 'CSO'}],
-    'Unemployed persons aged 15 or over',
-    '<p>From 2000 to 2008 the unemployment rate in Ireland and Dublin was between 4 and 5 percent. As the financial crisis hit, the unemployment rate rose steadily to reach 15 percent nationally and 13 percent in Dublin. From the end of 2012 as the economy recovered it fell steadily. </p>',
+    'Rates of participation & unemployment',
+    '<p>***Explain ILO rates here and describe observations*** </p>',
     '',
-    ['chart-unemployment', 'chart-unemp-rate'],
+    ['chart-ilo-employment', 'chart-ilo-unemployment'],
     [{
-    id: 'unemployment-count-btn',
-    name: 'Number unemployed'
+    id: 'btn-ilo-employment',
+    name: 'Participates'
     },{
-    id: 'unemployment-rate-btn',
-    name: 'Unemployment rate'
+    id: 'btn-ilo-unemployment',
+    name: 'Unemployed'
     }]
-    )
+)
+    
+    //- +theme__text-chart(
+    //- 'employment',
+    //- [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    //- name: 'CSO'}],
+    //- 'Persons aged 15 and over in the labour force',
+    //- '<p>Employment grew steadily throughout the Celtic Tiger period up until 2007, then fell in the wake of the financial crash, recovering after 2012 as the economy started to grow again. The pattern in Dublin mirrored that of the rest of the country. </p>',
+    //- '',
+    //- ['chart-employment', 'chart-emp-rate'],
+    //- [{
+    //- id: 'employment-count-btn',
+    //- name: 'Number employed'
+    //- },{
+    //- id: 'employment-rate-btn',
+    //- name: 'Annual % change'
+    //- }]
+    //- )
+    
+    //- +theme__text-chart(
+    //- 'unemployment',
+    //- [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    //- name: 'CSO'}],
+    //- 'Unemployed persons aged 15 or over',
+    //- '<p>From 2000 to 2008 the unemployment rate in Ireland and Dublin was between 4 and 5 percent. As the financial crisis hit, the unemployment rate rose steadily to reach 15 percent nationally and 13 percent in Dublin. From the end of 2012 as the economy recovered it fell steadily. </p>',
+    //- '',
+    //- ['chart-unemployment', 'chart-unemp-rate'],
+    //- [{
+    //- id: 'unemployment-count-btn',
+    //- name: 'Number unemployed'
+    //- },{
+    //- id: 'unemployment-rate-btn',
+    //- name: 'Unemployment rate'
+    //- }]
+    //- )
     
     //- +theme__text-chart(
       'indicator-employment-sector',
