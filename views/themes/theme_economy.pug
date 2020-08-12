@@ -12,15 +12,30 @@
     'Persons aged 15 and over in the labour force',
     '<p>Employment grew steadily throughout the Celtic Tiger period up until 2007, then fell in the wake of the financial crash, recovering after 2012 as the economy started to grow again. The pattern in Dublin mirrored that of the rest of the country. </p>',
     '',
-    ['chart-employment', 'chart-labour', 'chart-unemployed'],
+    ['chart-employment', 'chart-emp-rate'],
     [{
-    id: 'btn-employment',
-    name: 'Employed'
+    id: 'btn-employment-count',
+    name: 'Number employed'
     },{
-    id: 'btn-labour',
-    name: 'Labour force'
+    id: 'btn-employment-rate',
+    name: 'Annual % change'
+    }]
+    )
+    
+    
+    +theme__text-chart(
+    'unemployment',
+    [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=QLF08&PLanguage=0',
+    name: 'CSO'}],
+    'Unemployed persons aged 15 or over',
+    '<p>From 2000 to 2008 the unemployment rate in Ireland and Dublin was between 4 and 5 percent. As the financial crisis hit, the unemployment rate rose steadily to reach 15 percent nationally and 13 percent in Dublin. From the end of 2012 as the economy recovered it fell steadily. </p>',
+    '',
+    ['chart-unemployment', 'chart-unemp-rate'],
+    [{
+    id: 'btn-unemployment-count',
+    name: 'Number unemployed'
     },{
-    id: 'btn-unemployed',
+    id: 'btn-unemployment-rate',
     name: 'Unemployed'
     }]
 )
@@ -76,19 +91,6 @@
     //- }]
     //- )
     
-    //- +theme__text-chart(
-      'indicator-employment-sector',
-      [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
-          name: 'data.gov'
-      },{ link:'https://data.smartdublin.ie/dataset/4997223b-13b2-4c97-9e88-cd94c6d35aec/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5/download/indicator-2-employment-by-sector.csv',
-      name: 'download'
-      }],
-      'Employment by Broad Sector',
-      '<p> </p>',
-      '',
-      ['chart-indicator-employment-sector']
-      )
-    
     +theme__text-chart(
     'indicator-employment-services',
     [{ link:'https://data.gov.ie/dataset/dublin-economic-monitor/resource/b12a5b77-37dd-4e3f-bb4b-199ba35e94a5',
@@ -102,8 +104,7 @@
     ['chart-indicator-employment-services']
     )
     
-  
-    
+
     +theme__text-chart(
     'employment-size',
     [{ link:'https://www.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=BRA08&PLanguage=0',
