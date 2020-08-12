@@ -10,6 +10,7 @@ let QNQ22 = '../data/Economy/QNQ22_2.csv'
 let pageSize = 12
 
 /** * This QNQ22 employment and unemployment Charts ***/
+
 Promise.all([
   d3.csv(annual),
   d3.csv(QNQ22)
@@ -207,41 +208,6 @@ Promise.all([
     console.log(error)
   })
 
-// // #chart-employees-by-size
-// // load csv data and turn value into a number
-// d3.csv('../data/Economy/BRA08.csv').then(data => {
-//   let columnNames = data.columns.slice(3),
-//     xValue = data.columns[0]
-//
-//   data.forEach(d => {
-//     for (var i = 0, n = columnNames.length; i < n; ++i) {
-//       d[columnNames[i]] = +d[columnNames[i]]
-//       d.label = d.date
-//       d.date = parseYear(d.date)
-//     }
-//     return d
-//   })
-//
-//   const employeesBySizeData = data,
-//     employeesBySize = {
-//       e: '#chart-employees-by-size',
-//       xV: 'date',
-//       yV: 'value',
-//       d: employeesBySizeData,
-//       k: 'type',
-//       tX: 'Years',
-//       tY: 'Persons Engaged',
-//       ySF: 'millions'
-//     }
-//
-//   const employeesBySizeChart = new MultiLineChart(employeesBySize)
-//   employeesBySizeChart.drawChart()
-//   employeesBySizeChart.addTooltip('Persons Engaged by Size of Company - Year:', 'thousands', 'label')
-// })
-// // catch any error and log to console
-//  .catch(function (error) {
-//    console.log(error)
-//  })
 //
 // // #chart-overseas-vistors
 //      // load csv data and turn value into a number
