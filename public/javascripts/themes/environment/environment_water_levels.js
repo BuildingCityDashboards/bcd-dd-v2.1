@@ -70,7 +70,7 @@ try {
 
   let waterOPWCluster = L.markerClusterGroup()
   
-  d3.json('/data/Environment/waterlevel.json')
+  d3.json('/data/Environment/waterlevel_example.json')
   .then(function(data) {
     processWaterLevels(data.features);
   });
@@ -86,7 +86,7 @@ try {
     regionData.forEach(function (d) {
       d.lat = +d.geometry.coordinates[1]
       d.lng = +d.geometry.coordinates[0]
-      console.log(d.lat + '---' + d.lng)
+      //console.log(d.lat + '---' + d.lng)
       d.type = 'OPW GPRS Station Water Level Monitor'
     })
     waterMapLayerSizes[0] = regionData.length
@@ -378,7 +378,7 @@ try {
     if (!waterMap.hasLayer(waterOPWCluster)) {
       waterMap.addLayer(waterOPWCluster)
     }
-    waterMap.fitBounds(waterOPWCluster.getBounds())
+    //waterMap.fitBounds(waterOPWCluster.getBounds())
     cbt.classed('active', true)
   })
 
@@ -406,7 +406,7 @@ try {
     if (!waterMap.hasLayer(hydronetCluster)) {
       waterMap.addLayer(hydronetCluster)
     }
-    waterMap.fitBounds(hydronetCluster.getBounds())
+    //waterMap.fitBounds(hydronetCluster.getBounds())
     cbs.classed('active', true)
   })
 
