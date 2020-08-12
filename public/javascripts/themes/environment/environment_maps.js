@@ -45,12 +45,11 @@ waterMap.setView(new L.LatLng(dubLat, dubLng), zoom)
 waterMap.addLayer(osmWater)
 let markerRefWater // TODO: fix horrible hack!!!
 waterMap.on('popupopen', function (e) {
-markerRefWater = e.popup._source
-  
+  markerRefWater = e.popup._source
 })
 
 let waterOPWCluster = L.markerClusterGroup()
-function processWaterLevels(data_) {
+function processWaterLevels (data_) {
   // will filter out all data bar Greater Dublin
   let regionData = data_.filter(function (d) {
     return d.properties['station.region_id'] === null // Dublin OPW stations have null id
@@ -63,19 +62,18 @@ function processWaterLevels(data_) {
     d.type = 'OPW GPRS Station Water Level Monitor'
   })
   waterMapLayerSizes[0] = regionData.length
-  
+
   initMapWaterLevels(regionData)
 };
 
 function initMapWaterLevels (data__) {
-  
   data__.forEach(function (d, i) {
     station_ref = d.properties['station.ref'].substring(5, 10)
     sensor_ref = d.properties['sensor.ref']
     fname = station_ref.concat('_', sensor_ref).concat('.csv')
     station_name = d.properties['station.name']
 
-    let content = ''    
+    let content = ''
 
     let m = new customWaterStationMarker(
       new L.LatLng(+d.lat, +d.lng), {
@@ -85,14 +83,12 @@ function initMapWaterLevels (data__) {
       })
 
     waterOPWCluster.addLayer(m)
-    
+
     m.bindPopup(watersStationPopupInit(d), watersStationPopupOptons)
     m.on('popupopen', getOPWPopup)
     waterMap.addLayer(waterOPWCluster)
   })
 };
-
-
 
 function watersStationPopupInit (d_) {
   let station_ref = d_.properties['station.ref'].substring(5, 10)
@@ -113,10 +109,10 @@ function watersStationPopupInit (d_) {
     str += '<span id="bike-name-' + d_.id + '" class="col-9">' // id for name div
     str += '<strong>' + d_.properties['station.name'] + '</strong>'
     str += '</span>' // close bike name div
-    
+
     str += '<span id="bike-banking-' + d_.id + '" class= "col-3"></span>'
     str += '</div>' // close row
-  } 
+  }
 
   str += '<div class="row ">'
   str += '<span id="bike-standcount-' + d_.id + '" class="col-9" ></span>'
@@ -141,7 +137,7 @@ function getOPWPopup () {
     md.forEach(function (d) {
       if (value) {
         var value = +d.value
-      }  
+      }
     })
 
     var ndx = crossfilter(md)
@@ -260,7 +256,7 @@ function getHydronetContent (d_, k_) {
   if (d_['Station Status']) {
     str += 'Status: ' + d_['Station Status'] + '<br>'
   }
-  
+
   return str
 }
 
@@ -292,7 +288,6 @@ function initMapSoundsites (data__) {
     m.on('click', function (e) {
       var p = e.target.getPopup()
       getSoundReading(p, d)
-      
     })
     noiseCluster.addLayer(m)
   })
@@ -357,7 +352,6 @@ function getSoundReadings (p_, d_) {
 }
 
 function getSoundsitePopup () {
- 
   let sid_ = this.options.id
 
   d3.json('/api/noise/soundsites/' + sid_ + '/today').then(function (stationData) {
@@ -377,18 +371,18 @@ function getSoundsitePopup () {
       return d['last_update']
     })
     let latest = timeDim.top(1)[0].last_update
-    
+
     let availableBikesGroup = timeDim.group().reduceSum(function (d) {
       return d['available_bikes']
     })
-    
+
     let start = moment.utc().startOf('day').add(3, 'hours')
     let end = moment.utc().endOf('day').add(2, 'hours')
-    
+
     soundsiteSpark.width(250).height(100)
     soundsiteSpark.dimension(timeDim)
     soundsiteSpark.group(availableBikesGroup)
-    
+
     soundsiteSpark.x(d3.scaleTime().domain([start, end]))
     soundsiteSpark.y(d3.scaleLinear().domain([0, standsCount]))
     soundsiteSpark.margins({
@@ -415,7 +409,7 @@ function getSoundsitePopup () {
       }
       return ''
     })
-    
+
     soundsiteSpark.renderVerticalGridLines(true)
     soundsiteSpark.useRightYAxis(true)
     soundsiteSpark.xyTipsOn(false)
@@ -425,27 +419,21 @@ function getSoundsitePopup () {
   })
 }
 
-
 /************************************
  * Button listeners
  ************************************/
 // Note that one button is classed active by default and this must be dealt with
 
 d3.select('#water-opw-btn').on('click', function () {
-
-
   let cb = d3.select('#water-all-btn')
   let cbs = d3.select('#water-hydronet-btn')
   let cbt = d3.select('#water-opw-btn')
   if (cb.classed('active')) {
     cb.classed('active', false)
-
   }
   if (cbs.classed('active')) {
     cbs.classed('active', false)
-
   }
-  
 
   d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>' +
     waterMapLayerSizes[0] + ' OPW sites</h4>')
@@ -470,11 +458,9 @@ d3.select('#water-hydronet-btn').on('click', function () {
   let cbt = d3.select('#water-hydronet-btn')
   if (cb.classed('active')) {
     cb.classed('active', false)
-    
   }
   if (cbs.classed('active')) {
     cbs.classed('active', false)
-    
   }
 
   d3.select('#water-site-count').html('<p>The map currently shows:</p> <h4>' +
@@ -488,7 +474,6 @@ d3.select('#water-hydronet-btn').on('click', function () {
 })
 
 d3.select('#water-all-btn').on('click', function () {
-
   let cb = d3.select('#water-hydronet-btn')
   let cbs = d3.select('#water-opw-btn')
   let cbt = d3.select(this)
@@ -498,9 +483,7 @@ d3.select('#water-all-btn').on('click', function () {
   }
   if (cbs.classed('active')) {
     cbs.classed('active', false)
-
   }
-
 
   d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>All ' +
     (waterMapLayerSizes[0] + waterMapLayerSizes[1]) + ' sites</h4>')

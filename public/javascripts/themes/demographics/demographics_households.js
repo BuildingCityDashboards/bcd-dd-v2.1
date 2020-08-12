@@ -23,7 +23,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
   let dataset = JSONstat(json).Dataset(0)
-
+  // alert(dataset)
   // // the categories will be the label on each plot trace
   let categories = dataset.Dimension(DIMENSION).Category().map(c => {
     return c.label
@@ -51,7 +51,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
          return d
        }
      })
-  // console.log(householdsFiltered)
+  //  console.log(householdsFiltered)
 
   houseHoldsContent = {
     e: '#chart-households',
@@ -76,6 +76,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
 
   d3.select('#btn-households').on('click', function () {
     activeBtn(this)
+    // alert('hi99')
     d3.select('#chart-households').style('display', 'block')
     d3.select('#chart-households-size').style('display', 'none')
     houseHoldsChart.tickNumber = 31
@@ -87,6 +88,8 @@ import { activeBtn } from '../../modules/bcd-ui.js'
 
   d3.select('#btn-households-size').on('click', function () {
     activeBtn(this)
+    console.log(householdsFiltered)
+    // alert('hree')
     d3.select('#chart-households').style('display', 'none')
     d3.select('#chart-households-size').style('display', 'block')
   })
@@ -112,6 +115,7 @@ if (document.getElementById('chart-householdComposition')) {
       }
       return d
     })
+
     let houseHoldCompositionContent = {
       e: '#chart-householdComposition',
       d: valueData,
@@ -121,6 +125,7 @@ if (document.getElementById('chart-householdComposition')) {
       tY: 'Number of Households',
       ySF: 'millions'
     }
+    console.log(houseHoldCompositionContent)
 
     let houseHoldCompositionTT = {
       title: 'Person per Household:',

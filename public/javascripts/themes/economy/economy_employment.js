@@ -10,7 +10,6 @@ let QNQ22 = '../data/Economy/QNQ22_2.csv'
 let pageSize = 12
 
 /** * This QNQ22 employment and unemployment Charts ***/
-
 Promise.all([
   d3.csv(annual),
   d3.csv(QNQ22)
@@ -157,10 +156,10 @@ Promise.all([
       redraw()
     })
   }
-
+  d3.select('#chart-employment').style('display', 'block')
   d3.select('#chart-emp-rate').style('display', 'none')
 
-  d3.select('#employment-count-btn').on('click', function () {
+  d3.select('#btn-employment-count').on('click', function () {
     activeBtn(this)
     d3.select('#chart-employment').style('display', 'block')
     d3.select('#chart-emp-rate').style('display', 'none')
@@ -172,7 +171,7 @@ Promise.all([
     employmentStack.addTooltip('Quarter:', '', 'label')
   })
 
-  d3.select('#employment-rate-btn').on('click', function () {
+  d3.select('#btn-employment-rate').on('click', function () {
     activeBtn(this)
     d3.select('#chart-employment').style('display', 'none')
     d3.select('#chart-emp-rate').style('display', 'block')
@@ -181,10 +180,10 @@ Promise.all([
     employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
     employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
   })
-
+  d3.select('#chart-unemployment').style('display', 'block')
   d3.select('#chart-unemp-rate').style('display', 'none')
 
-  d3.select('#unemployment-count-btn').on('click', function () {
+  d3.select('#btn-unemployment-count').on('click', function () {
     activeBtn(this)
     d3.select('#chart-unemployment').style('display', 'block')
     d3.select('#chart-unemp-rate').style('display', 'none')
@@ -194,7 +193,7 @@ Promise.all([
     unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
   })
 
-  d3.select('#unemployment-rate-btn').on('click', function () {
+  d3.select('#btn-unemployment-rate').on('click', function () {
     activeBtn(this)
     d3.select('#chart-unemployment').style('display', 'none')
     d3.select('#chart-unemp-rate').style('display', 'block')
@@ -208,6 +207,41 @@ Promise.all([
     console.log(error)
   })
 
+// // #chart-employees-by-size
+// // load csv data and turn value into a number
+// d3.csv('../data/Economy/BRA08.csv').then(data => {
+//   let columnNames = data.columns.slice(3),
+//     xValue = data.columns[0]
+//
+//   data.forEach(d => {
+//     for (var i = 0, n = columnNames.length; i < n; ++i) {
+//       d[columnNames[i]] = +d[columnNames[i]]
+//       d.label = d.date
+//       d.date = parseYear(d.date)
+//     }
+//     return d
+//   })
+//
+//   const employeesBySizeData = data,
+//     employeesBySize = {
+//       e: '#chart-employees-by-size',
+//       xV: 'date',
+//       yV: 'value',
+//       d: employeesBySizeData,
+//       k: 'type',
+//       tX: 'Years',
+//       tY: 'Persons Engaged',
+//       ySF: 'millions'
+//     }
+//
+//   const employeesBySizeChart = new MultiLineChart(employeesBySize)
+//   employeesBySizeChart.drawChart()
+//   employeesBySizeChart.addTooltip('Persons Engaged by Size of Company - Year:', 'thousands', 'label')
+// })
+// // catch any error and log to console
+//  .catch(function (error) {
+//    console.log(error)
+//  })
 //
 // // #chart-overseas-vistors
 //      // load csv data and turn value into a number

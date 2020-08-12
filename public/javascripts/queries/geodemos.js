@@ -564,6 +564,13 @@ function updateGroupTxt(no)
     document.getElementById("href").remove();
 }
   
+
+
+
+
+
+
+
   
   let dd = document.getElementById("desc")
   if (no ==='all') {
@@ -676,7 +683,9 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
   let cb= $(this);
   let myv= $(this).attr("id");
+  //alert(myv)
   
+  ResetImages(myv)
   
   let layerNo = myv === 'all' ? 'all' : parseInt(myv) -1
   
@@ -769,7 +778,37 @@ updateGroupTxt('all')
   }
 })
   
+function ResetImages(imgid) 
+{
+  //d3.select('#group-buttons').selectAll('img').each( function(d, i){
+  //d.src="/images/icons/Icon_eye_deselected.svg"
+  //})
 
+  let imgsrcarr=['/images/icons/Icon_eye_selected-all.svg',
+'/images/icons/Icon_eye_selected-1.svg',
+'/images/icons/Icon_eye_selected-2.svg',
+'/images/icons/Icon_eye_selected-3.svg',
+'/images/icons/Icon_eye_selected-4.svg',
+'/images/icons/Icon_eye_selected-5.svg',
+'/images/icons/Icon_eye_selected-6.svg',
+'/images/icons/Icon_eye_selected-7.svg']
+
+let myimg3=document.getElementById('all') 
+myimg3.src="/images/icons/sd.svg"
+  for(let i=1; i<8; i++)
+ {
+  let myimg2=document.getElementById(i) 
+     
+      myimg2.src="/images/icons/sd.svg"
+     
+ }
+
+ //if (imgid ==='all')
+//alert('----'+imgid)
+let selectedImg=document.getElementById(imgid)
+    if(imgid ==='all') {imgid=0} 
+    selectedImg.src=imgsrcarr[imgid] 
+}
 
 // function addheatmap ()
 // {
