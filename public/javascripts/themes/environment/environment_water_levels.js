@@ -69,6 +69,13 @@ try {
   })
 
   let waterOPWCluster = L.markerClusterGroup()
+  
+  d3.json('/data/Environment/waterlevel_example.json')
+  .then(function(data) {
+    processWaterLevels(data.features);
+  });
+
+
   function processWaterLevels (data_) {
   // will filter out all data bar Greater Dublin
     let regionData = data_.filter(function (d) {
@@ -79,6 +86,7 @@ try {
     regionData.forEach(function (d) {
       d.lat = +d.geometry.coordinates[1]
       d.lng = +d.geometry.coordinates[0]
+      //console.log(d.lat + '---' + d.lng)
       d.type = 'OPW GPRS Station Water Level Monitor'
     })
     waterMapLayerSizes[0] = regionData.length
@@ -86,142 +94,190 @@ try {
     initMapWaterLevels(regionData)
   };
 
-  function initMapWaterLevels (data__) {
-    data__.forEach(function (d, i) {
-      station_ref = d.properties['station.ref'].substring(5, 10)
-      sensor_ref = d.properties['sensor.ref']
-      fname = station_ref.concat('_', sensor_ref).concat('.csv')
-      station_name = d.properties['station.name']
 
-      let content = ''
+  function initMapWaterLevels(data__) {
+    data__.forEach(function(d, i) {
+      waterOPWCluster.addLayer(L.marker(new L.LatLng(d.lat, d.lng), {
+          icon: waterMapIcon
+        })
+        .bindPopup(getWaterLevelContent(d)));
+    });
+    waterMap.addLayer(waterOPWCluster);
+  }
 
-      let m = new customWaterStationMarker(
-      new L.LatLng(+d.lat, +d.lng), {
-        icon: waterMapIcon,
-        sid: d.id,
-        sfn: fname
-      })
+  // function initMapWaterLevels (data__) {
+  //   data__.forEach(function (d, i) {
+  //     station_ref = d.properties['station.ref'].substring(5, 10)
+  //     sensor_ref = d.properties['sensor.ref']
+  //     fname = station_ref.concat('_', sensor_ref).concat('.csv')
+  //     station_name = d.properties['station.name']
 
-      waterOPWCluster.addLayer(m)
+  //     let content = ''
 
-      m.bindPopup(watersStationPopupInit(d), watersStationPopupOptons)
-      m.on('popupopen', getOPWPopup)
-      waterMap.addLayer(waterOPWCluster)
-    })
-  };
+  //     let m = new customWaterStationMarker(
+  //     new L.LatLng(+d.lat, +d.lng), {
+  //       icon: waterMapIcon,
+  //       sid: d.id,
+  //       sfn: fname
+  //     })
 
-  function watersStationPopupInit (d_) {
-    let station_ref = d_.properties['station.ref'].substring(5, 10)
-    let sensor_ref = d_.properties['sensor.ref']
-    let fname = station_ref.concat('_', sensor_ref).concat('.csv')
-    if (!d_.id) {
-      let str = '<div class="popup-error">' +
-      '<div class="row ">' +
-      "We can't get the Water station data right now, please try again later" +
-      '</div>' +
-      '</div>'
-      return str
+  //     waterOPWCluster.addLayer(m)
+
+  //     m.bindPopup(watersStationPopupInit(d), watersStationPopupOptons)
+  //     m.on('popupopen', getOPWPopup)
+  //     waterMap.addLayer(waterOPWCluster)
+  //   })
+  // };
+
+
+
+  function getWaterLevelContent(d_) {
+    let str = '';
+    str += '<div class="leaflet-popup-title">'
+    if (d_.properties["station.name"]) {
+      str += '<b>' + d_.properties["station.name"] + '</b><br>' 
+     
     }
 
-    let str = '<div class="bike-popup-container">'
-    if (d_.properties['station.name']) {
-      str += '<div class="row ">'
-      str += '<span id="bike-name-' + d_.id + '" class="leaflet-popup-title col-9">' // id for name div
-      str += '<strong>' + d_.properties['station.name'] + 'test' + '</strong>'
-      str += '</span>' // close bike name div
+    str += '</div>' // close title div
+    
+      
 
-      str += '<span id="bike-banking-' + d_.id + '" class= "col-3"></span>'
-      str += '</div>' // close row
-    }
-
-    str += '<div class="row ">'
-    str += '<span id="bike-standcount-' + d_.id + '" class="col-9" ></span>'
-    str += '</div>' // close row
-
-  // initialise div to hold chart with id linked to station id
-    if (d_.id) {
-      str += '<div class=\"row \">'
-      str += '<span id="bike-spark-' + d_.id + '"></span>'
+    if (d_.properties["sensor.ref"]) {
+      str += '<div class="leaflet-popup-subtitle">'
+      str += '<b>' + d_.properties["sensor.ref"] + '</b><br>' 
       str += '</div>'
+     
     }
-    str += '</div>' // closes container
-    return str
+
+    if (d_.type) {
+      str += '<div class="leaflet-popup-subtitle" style= "color : green;" ">'
+      str += '<b>' + d_.type+ '</b><br>' 
+      str += '</div>'
+       
+    }
+
+    //    if (d_.properties["value"]) {
+    //        str += '<br><b>Water level: </b>' + d_.properties["value"] + '<br>';
+    //    }
+    //    if (d_.properties.datetime) {
+    //        str += '<br>Last updated on ' + popupTime(new Date(d_.properties.datetime)) + '<br>';
+    //    }
+    return str;
   }
 
-  function getOPWPopup () {
-    let ts = this.options.sfn
-    let sid_ = this.options.sid
-    var stationdReadingsPerMonthChart = dc.lineChart('#bike-spark-' + sid_)
+  // function watersStationPopupInit (d_) {
+  //   let station_ref = d_.properties['station.ref'].substring(5, 10)
+  //   let sensor_ref = d_.properties['sensor.ref']
+  //   let fname = station_ref.concat('_', sensor_ref).concat('.csv')
+  //   if (!d_.id) {
+  //     let str = '<div class="popup-error">' +
+  //     '<div class="row ">' +
+  //     "We can't get the Water station data right now, please try again later" +
+  //     '</div>' +
+  //     '</div>'
+  //     return str
+  //   }
 
-    d3.csv('/api/wlstations/stations/' + ts).then(function (md) {
-      md.forEach(function (d) {
-        if (value) {
-          var value = +d.value
-        }
-      })
+  //   let str = '<div class="bike-popup-container">'
+  //   if (d_.properties['station.name']) {
+  //     str += '<div class="row ">'
+  //     str += '<span id="bike-name-' + d_.id + '" class="leaflet-popup-title col-9">' // id for name div
+  //     str += '<strong>' + d_.properties['station.name'] + 'test' + '</strong>'
+  //     str += '</span>' // close bike name div
 
-      var ndx = crossfilter(md)
-      var all = ndx.groupAll()
+  //     str += '<span id="bike-banking-' + d_.id + '" class= "col-3"></span>'
+  //     str += '</div>' // close row
+  //   }
 
-      var datetimeDimension = ndx.dimension(function (d) {
-     // d3.isoParse
-        return d3.isoParse(d.datetime)
-      })
+  //   str += '<div class="row ">'
+  //   str += '<span id="bike-standcount-' + d_.id + '" class="col-9" ></span>'
+  //   str += '</div>' // close row
 
-      var valuePerDayGroup = datetimeDimension.group().reduceSum(function (d) {
-        return d.value
-      })
+  // // initialise div to hold chart with id linked to station id
+  //   if (d_.id) {
+  //     str += '<div class=\"row \">'
+  //     str += '<span id="bike-spark-' + d_.id + '"></span>'
+  //     str += '</div>'
+  //   }
+  //   str += '</div>' // closes container
+  //   return str
+  // }
 
-      function reduceAddAvg (p, v, attr) {
-        ++p.count
-        p.sum += v[attr]
-        p.avg = p.sum / p.count
-        return p
-      }
+  // function getOPWPopup () {
+  //   let ts = this.options.sfn
+  //   let sid_ = this.options.sid
+  //   var stationdReadingsPerMonthChart = dc.lineChart('#bike-spark-' + sid_)
 
-      function reduceRemoveAvg (p, v, attr) {
-        --p.count
-        p.sum -= v[attr]
-        p.avg = p.sum / p.count
-        return p
-      }
+  //   d3.csv('/api/wlstations/stations/' + ts).then(function (md) {
+  //     md.forEach(function (d) {
+  //       if (value) {
+  //         var value = +d.value
+  //       }
+  //     })
 
-      function reduceInitAvg () {
-        return {count: 0, sum: 0, avg: 0}
-      }
+  //     var ndx = crossfilter(md)
+  //     var all = ndx.groupAll()
 
-      var statesAvgGroup = datetimeDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'value')
-      stationdReadingsPerMonthChart
-    .width(200)
-    .height(100)
-    .margins({top: 10, right: 10, bottom: 20, left: 60})
-    .dimension(datetimeDimension)
-    .group(valuePerDayGroup)
-    .x(d3.scaleTime().domain([new Date(md[0].datetime), new Date(md[md.length - 1].datetime)]))
-    .y(d3.scaleLinear().domain([0, d3.max(md, function (d) { return d.value + 100 })]))
-    .elasticX(false)
-    .elasticY(true)
-    .margins({
-      left: 20,
-      top: 15,
-      right: 20,
-      bottom: 20
-    })
-      .renderVerticalGridLines(false)
-      .useRightYAxis(true)
-      .xyTipsOn(false)
-      .brushOn(false)
-      .clipPadding(15)
-      .renderArea(true)
-      .renderDataPoints(true)
-      .yAxisLabel('value')
-      .renderHorizontalGridLines(false)
-      // stationdReadingsPerMonthChart.xAxis(d3.axisTop())
-      stationdReadingsPerMonthChart.xAxis().ticks(6)
-      stationdReadingsPerMonthChart.yAxis().ticks(6)
-      stationdReadingsPerMonthChart.render()
-    })
-  }
+  //     var datetimeDimension = ndx.dimension(function (d) {
+  //    // d3.isoParse
+  //       return d3.isoParse(d.datetime)
+  //     })
+
+  //     var valuePerDayGroup = datetimeDimension.group().reduceSum(function (d) {
+  //       return d.value
+  //     })
+
+  //     function reduceAddAvg (p, v, attr) {
+  //       ++p.count
+  //       p.sum += v[attr]
+  //       p.avg = p.sum / p.count
+  //       return p
+  //     }
+
+  //     function reduceRemoveAvg (p, v, attr) {
+  //       --p.count
+  //       p.sum -= v[attr]
+  //       p.avg = p.sum / p.count
+  //       return p
+  //     }
+
+  //     function reduceInitAvg () {
+  //       return {count: 0, sum: 0, avg: 0}
+  //     }
+
+  //     var statesAvgGroup = datetimeDimension.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg, 'value')
+  //     stationdReadingsPerMonthChart
+  //   .width(200)
+  //   .height(100)
+  //   .margins({top: 10, right: 10, bottom: 20, left: 60})
+  //   .dimension(datetimeDimension)
+  //   .group(valuePerDayGroup)
+  //   .x(d3.scaleTime().domain([new Date(md[0].datetime), new Date(md[md.length - 1].datetime)]))
+  //   .y(d3.scaleLinear().domain([0, d3.max(md, function (d) { return d.value + 100 })]))
+  //   .elasticX(false)
+  //   .elasticY(true)
+  //   .margins({
+  //     left: 20,
+  //     top: 15,
+  //     right: 20,
+  //     bottom: 20
+  //   })
+  //     .renderVerticalGridLines(false)
+  //     .useRightYAxis(true)
+  //     .xyTipsOn(false)
+  //     .brushOn(false)
+  //     .clipPadding(15)
+  //     .renderArea(true)
+  //     .renderDataPoints(true)
+  //     .yAxisLabel('value')
+  //     .renderHorizontalGridLines(false)
+  //     // stationdReadingsPerMonthChart.xAxis(d3.axisTop())
+  //     stationdReadingsPerMonthChart.xAxis().ticks(6)
+  //     stationdReadingsPerMonthChart.yAxis().ticks(6)
+  //     stationdReadingsPerMonthChart.render()
+  //   })
+  // }
 /************************************
  * Hydronet
  ************************************/
@@ -304,78 +360,80 @@ try {
 // Note that one button is classed active by default and this must be dealt with
 
   d3.select('#water-opw-btn').on('click', function () {
-    let cb = d3.select('#water-all-btn')
-    let cbs = d3.select('#water-hydronet-btn')
+    //let cb = d3.select('#water-all-btn')
     let cbt = d3.select('#water-opw-btn')
-    if (cb.classed('active')) {
-      cb.classed('active', false)
+    let cbs = d3.select('#water-Hydronet-btn')
+   
+    if (cbt.classed('active')) {
+      cbt.classed('active', false)
     }
     if (cbs.classed('active')) {
       cbs.classed('active', false)
     }
 
-    d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>' +
-    waterMapLayerSizes[0] + ' OPW sites</h4>')
+    //d3.select('#water-site-count').html('<small>The map currently shows:</>' +
+    //waterMapLayerSizes[0] + ' OPW sites')
 
     waterMap.removeLayer(hydronetCluster)
     if (!waterMap.hasLayer(waterOPWCluster)) {
       waterMap.addLayer(waterOPWCluster)
     }
-    waterMap.fitBounds(waterOPWCluster.getBounds())
+    //waterMap.fitBounds(waterOPWCluster.getBounds())
     cbt.classed('active', true)
   })
 
-  d3.select('#water-hydronet-btn').on('click', function () {
+  d3.select('#water-Hydronet-btn').on('click', function () {
   /* let cb = d3.select('#water-all-btn')
   let cbt = d3.select('#water-hydronet-btn')
   if (cb.classed('active')) {
     cb.classed('active', false)
   } */
 
-    let cb = d3.select('#water-all-btn')
-    let cbs = d3.select('#water-opw-btn')
-    let cbt = d3.select('#water-hydronet-btn')
-    if (cb.classed('active')) {
-      cb.classed('active', false)
+    //let cb = d3.select('#water-all-btn')
+    let cbt = d3.select('#water-opw-btn')
+    let cbs = d3.select('#water-Hydronet-btn')
+    if (cbt.classed('active')) {
+      cbt.classed('active', false)
     }
     if (cbs.classed('active')) {
       cbs.classed('active', false)
     }
 
-    d3.select('#water-site-count').html('<p>The map currently shows:</p> <h4>' +
-    waterMapLayerSizes[1] + ' EPA Hydronet sites</h4>')
+    //d3.select('#water-site-count').html('<small>The map currently shows:</small>' +
+    //waterMapLayerSizes[1] + ' EPA Hydronet sites')
+    
     waterMap.removeLayer(waterOPWCluster)
     if (!waterMap.hasLayer(hydronetCluster)) {
       waterMap.addLayer(hydronetCluster)
     }
-    waterMap.fitBounds(hydronetCluster.getBounds())
-    cbt.classed('active', true)
+    //waterMap.fitBounds(hydronetCluster.getBounds())
+    cbs.classed('active', true)
   })
 
-  d3.select('#water-all-btn').on('click', function () {
-    let cb = d3.select('#water-hydronet-btn')
-    let cbs = d3.select('#water-opw-btn')
-    let cbt = d3.select(this)
-    if (cb.classed('active')) {
-      cb.classed('active', false)
-    // cbt.classed('active', true)
-    }
-    if (cbs.classed('active')) {
-      cbs.classed('active', false)
-    }
+  // d3.select('#water-all-btn').on('click', function () {
+  //   let cb = d3.select('#water-hydronet-btn')
+  //   let cbs = d3.select('#water-opw-btn')
+  //   let cbt = d3.select(this)
+  //   if (cb.classed('active')) {
+  //     cb.classed('active', false)
+  //   // cbt.classed('active', true)
+  //   }
+  //   if (cbs.classed('active')) {
+  //     cbs.classed('active', false)
+  //   }
 
-    d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>All ' +
-    (waterMapLayerSizes[0] + waterMapLayerSizes[1]) + ' sites</h4>')
+  //   d3.select('#water-site-count').html('<p>The map currently shows:</p><h4>All ' +
+  //   (waterMapLayerSizes[0] + waterMapLayerSizes[1]) + ' sites</h4>')
 
-    if (!waterMap.hasLayer(waterOPWCluster)) {
-      waterMap.addLayer(waterOPWCluster)
-    }
-    if (!waterMap.hasLayer(hydronetCluster)) {
-      waterMap.addLayer(hydronetCluster)
-    }
-    waterMap.fitBounds(hydronetCluster.getBounds())
-    cbt.classed('active', true)
-  })
+  //   if (!waterMap.hasLayer(waterOPWCluster)) {
+  //     waterMap.addLayer(waterOPWCluster)
+  //   }
+  //   if (!waterMap.hasLayer(hydronetCluster)) {
+  //     waterMap.addLayer(hydronetCluster)
+  //   }
+  //   waterMap.fitBounds(hydronetCluster.getBounds())
+  //   cbt.classed('active', true)
+  // })
 } catch (e) {
   console.log(e)
 }

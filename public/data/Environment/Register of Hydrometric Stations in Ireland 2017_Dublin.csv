@@ -14,7 +14,7 @@ Station Number,Station Name,Waterbody,Station Status,Station Type,Catchment Area
 09005,CLONDALKIN,CAMMOCK,Inactive,Recorder,35.3,EASTERN RBD,South Dublin County Council,Environmental Protection Agency,Dublin,307937,232053,River,29-Nov-76,01-Mar-84,Water Level and Flow
 09009,WILLBROOK ROAD,OWENDOHER,Active,Recorder,20.5,EASTERN RBD,South Dublin County Council,Environmental Protection Agency,Dublin,314246,228508,River,18-Nov-80,,Water Level and Flow
 09010,WALDRON'S BRIDGE,DODDER,Active,Recorder,94.3,EASTERN RBD,Dublin City Council,Environmental Protection Agency,Dublin,315574,229739,River,02-Jan-86,,Water Level and Flow
-09011,FRANKFORT,SLANG,Active,Recorder,5.5,EASTERN RBD,Dún Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,316908,228850,River,05-May-82,,Water Level and Flow
+09011,FRANKFORT,SLANG,Active,Recorder,5.5,EASTERN RBD,Dï¿½n Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,316908,228850,River,05-May-82,,Water Level and Flow
 09012,LEIXLIP BR.,LIFFEY,Inactive,Staff Gauge Only,"1,054.7",EASTERN RBD,Kildare County Council,Environmental Protection Agency,Dublin,300779,235818,River,11-Apr-78,01-May-02,Flow Measurements
 09015,ISLANDBRIDGE WEIR,LIFFEY,Inactive,Recorder,"1,150.2",EASTERN RBD,Dept. Marine & Natural Resources,Dept. Marine & Natural Resources,Dublin,312146,234185,River,,, 
 09019,DRUMCONDRA,TOLKA,Inactive,Recorder,141.3,EASTERN RBD,Dublin City Council,Environmental Protection Agency,Dublin,316199,236736,River,01-Jan-86,14-Oct-92,Water Level Only
@@ -30,7 +30,7 @@ Station Number,Station Name,Waterbody,Station Status,Station Type,Catchment Area
 09054,RINGSEND STW,S.O. 2 EFFLUENT STR.,Inactive,Staff Gauge Only,,EASTERN RBD,Dublin City Council,Environmental Protection Agency,Dublin,319586,233654,Discharge Outlet,,,No Data Recorded
 09055,POOLBEG POWER STATION, COOLING WATER,Inactive,Recorder,,EASTERN RBD,ESB,ESB,Dublin,320398,233702,Intake,,, 
 09060,BALLSBRIDGE,DODDER,Active,Recorder,,EASTERN RBD,Marine Institute,Marine Institute,Dublin,317927,232590,Tidal,,,Water Level Only
-09061,DUN LAOGHAIRE,IRISH SEA,Active,Recorder,,EASTERN RBD,Dún Laoghaire Port Company,Dún Laoghaire Port Company,Dublin,324700,228700,Tidal,,,Water Level Only
+09061,DUN LAOGHAIRE,IRISH SEA,Active,Recorder,,EASTERN RBD,Dï¿½n Laoghaire Port Company,Dï¿½n Laoghaire Port Company,Dublin,324700,228700,Tidal,,,Water Level Only
 09062,HOWTH,IRISH SEA,Inactive,Recorder,,EASTERN RBD,Dept. Marine & Natural Resources,Dept. Marine & Natural Resources,Dublin,328400,239700,Tidal,,,Water Level Only
 09063,NORTH BANK LIGHT,IRISH SEA,Active,Recorder,,EASTERN RBD,Marine Institute,Marine Institute,Dublin,321500,234300,Tidal,,,Water Level Only
 09064,DUBLIN PORT,DUBLIN BAY,Active,Recorder,,EASTERN RBD,Marine Institute,Marine Institute,Dublin,318699,234294,Tidal,13-Feb-07,,Water Level Only
@@ -58,6 +58,6 @@ Station Number,Station Name,Waterbody,Station Status,Station Type,Catchment Area
 09269,LOCK 10 U/S,ROYAL CANAL,Active,Recorder,,EASTERN RBD,Waterways Ireland,Waterways Ireland,Dublin,310941,237406,Canal,23-Jul-12,,Water Level Only
 09360,LOCK 12 U/S,ROYAL CANAL,Active,Recorder,,EASTERN RBD,Waterways Ireland,Waterways Ireland,Dublin,308657,238101,Canal,23-Jul-12,,Water Level Only
 10012,GLENCULLEN,GLENCULLEN,Inactive,Staff Gauge Only,13.0,EASTERN RBD,Wicklow County Council,Environmental Protection Agency,Dublin,318788,219623,River,15-Jun-77,08-Jan-92,Flow Measurements
-10018,LOUGHLINSTOWN,CABINTEELY,Inactive,Staff Gauge Only,19.9,EASTERN RBD,Dún Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,324363,223413,River,27-Aug-76,11-Sep-91,Flow Measurements
-10021,COMMON'S ROAD,SHANGANAGH,Active,Recorder,32.5,EASTERN RBD,Dún Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,325116,222976,River,12-May-80,,Water Level and Flow
-10022,CARRICKMINES,CABINTEELY,Inactive,Recorder,12.9,EASTERN RBD,Dún Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,321985,224119,River,13-Nov-80,24-Jan-05,Water Level and Flow
+10018,LOUGHLINSTOWN,CABINTEELY,Inactive,Staff Gauge Only,19.9,EASTERN RBD,Dï¿½n Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,324363,223413,River,27-Aug-76,11-Sep-91,Flow Measurements
+10021,COMMON'S ROAD,SHANGANAGH,Active,Recorder,32.5,EASTERN RBD,Dï¿½n Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,325116,222976,River,12-May-80,,Water Level and Flow
+10022,CARRICKMINES,CABINTEELY,Inactive,Recorder,12.9,EASTERN RBD,Dï¿½n Laoghaire -Rathdown Council,Environmental Protection Agency,Dublin,321985,224119,River,13-Nov-80,24-Jan-05,Water Level and Flow
