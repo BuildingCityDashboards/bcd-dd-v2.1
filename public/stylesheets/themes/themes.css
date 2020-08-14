@@ -138,6 +138,7 @@ a:active {
                           sans-serif;
   font-weight           : 200;
   justify-content       : center;
+  justify-items: center;
   grid-gap              : 8px;
   grid-template-columns : repeat(4,1fr);
   grid-template-rows    : auto;
@@ -230,6 +231,7 @@ a:active {
   grid-gap              : 8px;
   grid-template-columns : repeat(4, 1fr);
   grid-template-rows    : repeat(4, auto);
+  scroll-margin-top: 10rem;
   /* grid-auto-rows: auto; */
 }
 
@@ -737,7 +739,11 @@ a:active {
     grid-gap              : 24px;
     grid-template-columns : repeat(12,1fr);
     grid-template-rows    : auto;
+    
+    
     /* height: 100vh; */
+
+    
   }
 
   .theme__header {
