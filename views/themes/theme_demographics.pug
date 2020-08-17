@@ -4,6 +4,7 @@
     'Statistical data relating to the population and particular groups within it',
     '',
     'demographics_background.png')
+    +hrfm('#population-dublin')
     
     +theme__text-chart(
     'population-dublin',
@@ -16,7 +17,7 @@
     '',
     ['chart-population']
     )
-    
+    +hrfm('#population-households')
     +theme__text-chart(
     'population-households',
     [{
@@ -36,7 +37,7 @@
     }]
     
     )
-    
+    +hrfm('#population-born-outside-state')
     +theme__text-chart(
     'population-born-outside-state',
     [{
@@ -57,7 +58,7 @@
     )
     
     
-    
+    +hrfm('#population-household-comp')
     +theme__text-chart(
     'population-household-comp',
     [{
@@ -69,7 +70,7 @@
     '',
     ['chart-householdComposition']
     )
-
-        
+  
+    +hrfmback('#transport')      
 block append scripts
   //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")

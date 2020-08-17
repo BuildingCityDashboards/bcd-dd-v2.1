@@ -1,15 +1,18 @@
 
 .theme
+    
     +theme__header(
       'transport-header',
       'Transport',
       'Travel and transport trends for Dublin',
       '',
       'transport_background_mobile.png')
+      
     
     //- 'For comprehensive and up-to-date travel information including live availablity, arrivals and departures, and Real-Time Passenger Information, see our Getting Around query',
     
-    
+    #ArrowtDiv.theme-scroll-arrow
+      +hrfm('#public-transport-trips') 
     +theme__text-chart(
       'public-transport-trips',
       [{ 
@@ -24,7 +27,8 @@
       '<img src = "../images/transport/bus-w-15.svg"><h3>39.5 Million </h3><p> trips were taken on <b>Dublin Bus</b> in the last quarter of 2019</p>',
       ['chart-public-transport-trips']
       )
-    
+    #ArrowtDiv.theme-scroll-arrow  
+      +hrfm('#dublin-bikes') 
     +theme__text-chart(
       'dublin-bikes',
       [{
@@ -50,8 +54,8 @@
       name: 'Month'
       }]
       )
-    
-    
+    #ArrowtDiv.theme-scroll-arrow
+      +hrfm('#traffic-counters')
     +theme__text-chart(
       'traffic-counters',
       [{
@@ -66,7 +70,8 @@
       '',
       ['map-traffic-counters']
       )
-      
+    #ArrowtDiv.theme-scroll-arrow  
+      +hrfm('#environment')    
 
 
         

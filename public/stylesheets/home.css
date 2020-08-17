@@ -161,6 +161,24 @@ html {
   /* background-color : rgba(255, 255, 255, 0.3); */
 }
 
+#ArrowtDiv {
+  display     : flex;
+  width       : 26px;
+  height      : 26px;
+  align-items : center;
+  justify-content: center;
+  /* background-color : rgba(255, 255, 255, 0.3); */
+}
+
+.theme-scroll-arrow svg {
+  width            : 18px;
+  height           : auto;
+  align-items : center;
+  justify-content: center;
+}
+
+
+
 #hero-weather__symbol img {
   width  : inherit;
   height : inherit;

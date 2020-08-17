@@ -999,3 +999,30 @@ a:active {
   only screen
   and (min-width : 1920px) {
 }
+
+
+/* laptop with MDPI devtools */
+
+
+
+/* tablet Portrait  */
+
+@media
+  only screen
+  and (min-width : 1024px) {
+ .themes_Tablet_Portrait {
+  width: 1024px;
+  height: 1200px;
+  background-color: var(--dark-grey);
+}
+
+
+  }
+
+  #hero-scroll-arrow {
+    
+  }
+
+  .home-scroll-arrow svg {
+    width : 6px;
+  }
