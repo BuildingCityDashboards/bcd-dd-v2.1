@@ -200,6 +200,7 @@ async function getPopupPlot (d_) {
     // isToday(s.date)
 
   // console.log(data[0])
+  if (data[0]) {
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
     data[0].date.toString().split(' ')[0] + ' ' +
@@ -216,7 +217,7 @@ async function getPopupPlot (d_) {
     let chart = new ChartLinePopup(options)
     return chart
   }
-
+  }
   let str = '<div class="popup-error">' +
           '<div class="row ">' +
           "We can't get the noise monitoring data for this location right now, please try again later" +
