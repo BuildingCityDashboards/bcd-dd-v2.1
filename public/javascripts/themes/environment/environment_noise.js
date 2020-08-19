@@ -200,7 +200,7 @@ async function getPopupPlot (d_) {
     // isToday(s.date)
 
   // console.log(data[0])
-  if (data[0]) {
+  if (data[0] && isToday(data[0].date)) {
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
     data[0].date.toString().split(' ')[0] + ' ' +
