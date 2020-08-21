@@ -1026,3 +1026,934 @@ a:active {
   .home-scroll-arrow svg {
     width : 6px;
   }
+  #hero-scroll-arrow {
+    grid-column : 6/8;
+    grid-row    : 12 / 13;
+  }
+
+  .home-scroll-arrow svg {
+    width : 32px;
+  }
+}
+
+
+
+
+#hero-scroll-arrow {
+  align-self  : flex-end;
+  grid-column : 2 / 4;
+  grid-row    : 8 / 9;
+}
+
+.home-scroll-arrow svg {
+  width            : 24px;
+  height           : auto;
+  background-color : transparent;
+  fill             : grey;
+  transform        : rotate(-90deg);
+}
+
+@media
+  only screen
+  and (min-width : 768px) {
+  #hero {
+    min-height       : 1024px;
+    background-image : url('../images/home/hero-background-image-tablet.png');
+  }
+
+  #hero-grid {
+    padding-right         : 24px;
+    padding-left          : 24px;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(12, 1fr);
+  }
+
+  #hero-title {
+    /* width: 453px; height: 180px; */
+    padding-left : 24px;
+    font-size    : 56px;
+  }
+
+  #hero-title > div {
+    /* transform : translate(0, 0); */
+  }
+
+  #hero-time-weather {
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform       : translate(24px,0);
+  }
+
+  #hero-time {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    /* border: solid 2px; */
+    /* max-width: 400px; */
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
+  }
+
+  #hero-time__clock {
+    width     : 80px;
+    height    : 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
+  }
+
+  #hero-time__date {
+    width       : 109px;
+    height      : 22px;
+    color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
+    font-weight : 300;
+  }
+
+  #hero-weather {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : flex;
+    width              : 366px;
+    height             : 64px;
+    font-style         : normal;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-evenly;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__left-top {
+    height         : 20px;
+    color          : #6fd1f6;
+    font-size      : 20px;
+    font-weight    : 500;
+    line-height    : 1.2;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather__left-bottom {
+    display        : flex;
+    color          : rgba(255, 255, 255, 0.6);
+    font-size      : 16px;
+    font-weight    : 500;
+    line-height    : 1.33;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather__left-bottom__icon {
+    padding-right : 4px;
+    /* height: 16px */
+  }
+
+  #hero-weather__left-bottom__icon svg {
+    width        : 13px;
+    height       : 22px;
+    stroke       : rgba(255, 255, 255, 0.6);
+    stroke-width : 48;
+    /* padding-right: 16px; */
+  }
+
+  #hero-weather__left-bottom__text {}
+
+  #hero-weather__symbol {
+    width  : 48px;
+    height : 48px;
+  }
+
+  #hero-weather__right-top {
+    height         : 20px;
+    font-size      : 20px;
+    font-weight    : 500;
+    line-height    : 1.2;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-weather__right-bottom {
+    display        : flex;
+    color          : rgba(255, 255, 255, 0.6);
+    align-items    : center;
+    font-weight    : 500;
+    line-height    : 1.33;
+    letter-spacing : 0.15px;
+  }
+
+  #hero-carousel {
+    grid-column : span 12;
+    grid-row    : 5 / 10;
+  }
+
+  .carousel {
+    height     : 256px;
+    margin     : 0 20px;
+    background : transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width  : 50%;
+    height : 256px;
+  }
+
+  .carousel-cell:before {}
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 32px;
+    height        : 32px;
+    border-radius : 4px;
+  }
+
+  .flickity-button-icon {
+    fill : grey;
+  }
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left : -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
+  }
+
+  .flickity-button:focus {}
+
+  .flickity-page-dots {
+    position : absolute;
+    top      : -25px;
+    bottom   : 100%;
+    width    : 100%;
+  }
+
+  .hero-carousel__card {}
+
+  #hero-icon-navs {
+    display            : flex;
+    border             : none;
+    align-self         : center;
+    flex-direction     : row;
+    justify-content    : space-around;
+    grid-column        : span 12;
+    grid-row           : 10 / 12;
+  }
+
+  .icon-nav a {
+    text-decoration : none;
+  }
+
+  .icon-nav a:hover {
+    text-decoration : none;
+  }
+
+  .icon-nav__box {
+    display            : flex;
+    width              : 165px;
+    height             : 72px;
+    margin             : 0;
+    padding            : 0;
+    border             : none;
+    border-radius      : 4px;
+    background-color   : rgba(142, 191, 214, 0.12);
+    align-items        : center;
+    flex-direction     : row;
+    justify-content    : space-around;
+  }
+
+  .icon-nav__icon {
+    width  : 48px;
+    height : 48px;
+    border : none;
+    /* background-color : rgba(155, 155, 155, 0.0); */
+  }
+
+  .icon-nav__title {
+    width          : 62px;
+    height         : 16px;
+    color          : #6fd1f6;
+    border         : none;
+    font-size      : 14px;
+    font-style     : normal;
+    font-weight    : 500;
+    line-height    : 1.14;
+    letter-spacing : 1.25px;
+  }
+
+  .icon-nav__text {
+    display        : flex;
+    width          : 165px;
+    height         : 40px;
+    color          : rgba(255, 255, 255, 0.6);
+    font-size      : 14px;
+    font-weight    : 300;
+    line-height    : 1.43;
+    letter-spacing : 0.25px;
+  }
+
+  #hero-scroll-arrow {
+    grid-column : 6/8;
+    grid-row    : 12 / 13;
+  }
+
+  .home-scroll-arrow svg {
+    width : 32px;
+  }
+}
+
+/* iPad Pro */
+
+@media
+  only screen
+  and (min-width : 1024px) {
+  #hero {
+    position         : relative;
+    width            : 100vw;
+    height           : 100vh;
+    min-height       : 1200px;
+    max-height       : 1400px;
+    background-image : url('../images/home/hero-background-image.png');
+  }
+
+  #hero-grid {
+    padding               : 24px;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #hero-title > div {
+    /* transform : translate(0, 0); */
+  }
+
+  #hero-title {
+    padding-left   : 0px;
+    align-self     : top;
+    font-size      : 84px;
+    grid-column    : 2 / 6;
+    grid-row       : 2 / 4;
+    line-height    : 0.72;
+    letter-spacing : -0.5px;
+  }
+
+  #hero-time-weather {
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform       : translate(24px,0);
+  }
+
+  #hero-time {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    /* border: solid 2px; */
+    /* max-width: 400px; */
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
+  }
+
+  #hero-time__clock {
+    width     : 80px;
+    height    : 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
+  }
+
+  #hero-time__date {
+    width       : 109px;
+    height      : 22px;
+    color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
+    font-weight : 300;
+  }
+
+  #hero-weather {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : flex;
+    width              : 366px;
+    height             : 64px;
+    font-style         : normal;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-evenly;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__left-top {}
+
+  #hero-weather__left-bottom__icon {
+    padding-right : 8px;
+    /* height: 16px */
+  }
+
+  #hero-weather__symbol {
+    width  : 48px;
+    height : 48px;
+  }
+
+  #hero-weather__right-top {}
+
+  #hero-weather__right-top img {
+    width  : 24px;
+    height : 24px;
+  }
+
+  #hero-weather__right-bottom {}
+
+  #hero-carousel {
+    grid-column : span 12;
+    grid-row    : 4 / 7;
+  }
+
+  .carousel {
+    box-sizing : border-box;
+    height     : 384px;
+    margin     : 0 24px;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width         : 426px;
+    min-height    : 384px;
+    margin-right  : 0px;
+    border-radius : 4px;
+    /* set as per card size */
+    /* counter-increment : gallery-cell; */
+  }
+
+  .carousel-cell:before {}
+
+  .carousel .flickity-viewport {
+    position : absolute;
+    width    : 100%;
+    height   : 100%;
+  }
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 24px;
+    height        : 24px;
+    border-radius : 4px;
+  }
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left : -24px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .hero-carousel__card {}
+
+  #hero-icon-navs {
+    align-self      : top;
+    justify-content : space-between;
+    grid-column     : 2 / 12;
+    grid-row        : 7 / 8;
+  }
+
+  #hero-scroll-arrow {
+    align-self  : center;
+    grid-column : 6 / 8;
+    grid-row    : 8 / 9;
+  }
+}
+
+/* laptop with MDPI devtools */
+
+@media
+  only screen
+  and (min-width : 1280px) {
+  #hero {
+    min-height       : 800px;
+    background-image : url('../images/home/hero-background-image.png');
+
+  }
+
+  #hero-grid {
+    padding               : 24px;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+
+  }
+
+  #hero-title > div {
+    /* transform : translate(0, 0); */
+  }
+
+  #hero-title {
+    padding-left   : 0px;
+    align-self     : top;
+    font-size      : 84px;
+    grid-column    : 2 / 6;
+    grid-row       : 2 / 4;
+    line-height    : 0.72;
+    letter-spacing : -0.5px;
+  }
+
+  #hero-time-weather {
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform       : translate(24px,0);
+  }
+
+  #hero-time {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    /* border: solid 2px; */
+    /* max-width: 400px; */
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
+  }
+
+  #hero-time__clock {
+    width     : 80px;
+    height    : 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
+  }
+
+  #hero-time__date {
+    width       : 109px;
+    height      : 22px;
+    color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
+    font-weight : 300;
+  }
+
+  #hero-weather {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : flex;
+    width              : 366px;
+    height             : 64px;
+    font-style         : normal;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-evenly;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__left-top {}
+
+  #hero-weather__left-bottom {
+    align-items     : center;
+    font-size       : 16px;
+    justify-content : space-evenly;
+  }
+
+  #hero-weather__left-bottom__icon {
+    padding-right : 4px;
+  }
+
+  #hero-weather__left-bottom__icon svg {}
+
+  #hero-weather__left-bottom__text {}
+
+  #hero-weather__symbol {
+    width  : 48px;
+    height : 48px;
+  }
+
+  #hero-weather__right-top {}
+
+  #hero-weather__right-top img {
+    width  : 24px;
+    height : 24px;
+  }
+
+  #hero-weather__right-bottom {}
+
+  #hero-carousel {
+    grid-column : span 12;
+    grid-row    : 4 / 7;
+  }
+
+  .carousel {
+    box-sizing : border-box;
+    height     : 256px;
+    margin     : 0 32px;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width         : 320px;
+    min-height    : 180px;
+    margin-right  : 16px;
+    border-radius : 4px;
+    /* set as per card size */
+    /* counter-increment : gallery-cell; */
+  }
+
+  .carousel-cell:before {}
+
+  .carousel .flickity-viewport {
+    position : absolute;
+    width    : 100%;
+    height   : 100%;
+  }
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 24px;
+    height        : 24px;
+    border-radius : 4px;
+  }
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+  /* position outside */
+
+  .flickity-prev-next-button {
+    top : 80px;
+    /* half of height of card */
+    /* transform: translateY(0%); */
+  }
+
+  .flickity-prev-next-button.previous {
+    left : -24px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -24px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .hero-carousel__card {}
+
+  #hero-icon-navs {
+    align-self      : top;
+    justify-content : space-between;
+    grid-column     : 2 / 12;
+    grid-row        : 7 / 8;
+  }
+
+  .icon-nav {
+    width : 184px;
+  }
+
+  .icon-nav__box {
+    width      : 100%;
+    height     : 56px;
+    min-height : 40px;
+    /* align-items:center; */
+  }
+
+  .icon-nav__title {
+    width          : auto;
+    color          : #6fd1f6;
+    border         : none;
+    font-size      : 18px;
+    font-style     : normal;
+    font-weight    : 500;
+    line-height    : 1.14;
+    letter-spacing : 1.25px;
+    /**
+    * height
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * : 16px;
+    */
+  }
+
+  .icon-nav__text {
+    display        : block;
+    width          : 184px;
+    height         : 40px;
+    margin-right   : 0;
+    color          : rgba(255, 255, 255, 0.6);
+    text-align     : center;
+    font-size      : 14px;
+    font-weight    : 300;
+    line-height    : 1.43;
+    letter-spacing : 0.25px;
+  }
+
+  #hero-scroll-arrow {
+    grid-column : 6/8;
+    grid-row    : 8 / 9;
+  }
+}
+
+/* xl */
+
+@media
+  only screen
+  and (min-width : 1920px) {
+  #hero {
+    position         : relative;
+    width            : 100vw;
+    height           : 100vh;
+    min-height       : 1080px;
+    background-image : url('../images/home/hero-background-image-mobile.png');
+  }
+
+  #hero-grid {
+    padding               : 24px;
+    grid-gap              : 24px;
+    grid-template-columns : repeat(12, 1fr);
+    grid-template-rows    : repeat(8, 1fr);
+  }
+
+  #hero-title > div {
+    /* transform : translate(0, 0); */
+  }
+
+  #hero-title {
+    padding-left   : 0px;
+    align-self     : top;
+    font-size      : 128px;
+    grid-column    : 2 / 6;
+    grid-row       : 2 / 4;
+    line-height    : 0.72;
+    letter-spacing : -0.5px;
+  }
+
+  #hero-time-weather {
+    justify-content : flex-start;
+    grid-column     : 6 / 13;
+    grid-row        : 2 / 4;
+    transform       : translate(24px,0);
+  }
+
+  #hero-time {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-time__box {
+    /* border: solid 2px; */
+    /* max-width: 400px; */
+    display         : flex;
+    display         : -ms-flexbox;
+    width           : 325px;
+    height          : 64px;
+    align-items     : center;
+    font-style      : normal;
+    font-weight     : 500;
+    font-stretch    : normal;
+    flex-wrap       : nowrap;
+    justify-content : space-around;
+    line-height     : 1.2;
+    letter-spacing  : 0.15px;
+  }
+
+  #hero-time__clock {
+    width     : 80px;
+    height    : 22px;
+    color     : #6fd1f6;
+    font-size : 20px;
+  }
+
+  #hero-time__date {
+    width       : 109px;
+    height      : 22px;
+    color       : rgba(255, 255, 255, 0.6);
+    font-size   : 20px;
+    font-weight : 300;
+  }
+
+  #hero-weather {
+    display         : flex;
+    justify-content : flex-end;
+  }
+
+  #hero-weather__box {
+    display            : flex;
+    width              : 366px;
+    height             : 64px;
+    font-style         : normal;
+    flex-direction     : row;
+    flex-wrap          : nowrap;
+    justify-content    : space-evenly;
+    word-wrap          : break-word;
+  }
+
+  #hero-weather__symbol {
+    width  : 48px;
+    height : 48px;
+  }
+
+  #hero-weather__right-top img {
+    width  : 24px;
+    height : 24px;
+  }
+
+  #hero-carousel {
+    grid-column : span 12;
+    grid-row    : 4 / 7;
+  }
+
+  .carousel {
+    height : 360px;
+    margin : 0 24px;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width         : 426px;
+    height        : 360px;
+    margin-right  : 24px;
+    border-radius : 4px;
+    /* set as per card size */
+  }
+
+  .carousel .flickity-viewport {
+    position : absolute;
+    width    : 100%;
+    height   : 100%;
+  }
+  /* smaller, dark, rounded square */
+
+  .flickity-button {
+    background : transparent;
+  }
+
+  .flickity-button:hover {
+    /* background: #F90; */
+    background : transparent;
+  }
+
+  .flickity-prev-next-button {
+    width         : 24px;
+    height        : 24px;
+    border-radius : 4px;
+  }
+  /* icon color */
+
+  .flickity-button-icon {
+    /* fill : #6fd1f6; */
+    fill : grey;
+  }
+  /* position outside */
+
+  .flickity-prev-next-button {
+    top : 110px;
+    /* half of height of card */
+    /* transform: translateY(0%); */
+  }
+
+  .flickity-prev-next-button.previous {
+    left : -24px;
+  }
+
+  .flickity-prev-next-button.next {
+    right : -32px;
+  }
+
+  .flickity-button:focus {
+    /* outline: none; box-shadow: 0 0 0 5px #19F; */
+  }
+
+  .hero-carousel__card {}
+
+  #hero-icon-navs {
+    align-self      : top;
+    justify-content : space-around;
+    grid-column     : 2 / 12;
+    grid-row        : 7 / 8;
+  }
+
+  #hero-scroll-arrow {
+    grid-column : 6/8;
+    grid-row    : 8 / 9;
+  }
+}

@@ -4,7 +4,8 @@
     'Statistical data relating to the population and particular groups within it',
     '',
     'demographics_background.png')
-    //- +hrfm('#population-dublin')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#population-dublin')
     
     +theme__text-chart(
     'population-dublin',
@@ -17,7 +18,8 @@
     '',
     ['chart-population']
     )
-    //- +hrfm('#population-households')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#population-households')
     +theme__text-chart(
     'population-households',
     [{
@@ -37,7 +39,8 @@
     }]
     
     )
-    //- +hrfm('#population-born-outside-state')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#population-born-outside-state')
     +theme__text-chart(
     'population-born-outside-state',
     [{
@@ -57,8 +60,8 @@
     }]
     )
     
-    
-    //- +hrfm('#population-household-comp')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#population-household-comp')
     +theme__text-chart(
     'population-household-comp',
     [{
@@ -70,7 +73,7 @@
     '',
     ['chart-householdComposition']
     )
-  
-    //- +hrfmback('#transport')      
+    //- #hero-scroll-arrow.home-scroll-arrow 
+      +hrfmback('#transport')      
 block append scripts
   //- script(src="/javascripts/themes/transport/transport_traffic.js" type="module")

@@ -1265,7 +1265,7 @@ html {
 
   #hero-icon-navs {
     align-self      : top;
-    justify-content : space-around;
+    justify-content : center;
     grid-column     : 2 / 12;
     grid-row        : 7 / 8;
   }

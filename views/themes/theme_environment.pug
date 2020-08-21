@@ -4,7 +4,8 @@
     'Explore the sensors placed throughout Dublin to monitor environmental conditions, and charts presenting historical statistics collected on various environmental factors.',
     '',
     'environment_background.png')
-    //- +hrfm('#noise-monitoring')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#noise-monitoring')
     
     +theme__text-chart(
     'noise-monitoring',
@@ -32,7 +33,8 @@
     //- <p>Currently, 0.57% of sound monitors are measuring sound levels higher than the EPA/WHO-designated desirable level of 55db in the daytime.</p>
     
       //- <p>Over the past 24 hours, 9 of the citys 14 monitors have recorded sound levels higher that the EPA/WHO-designated undesirably high levels of 70 db during the daytime and 55 db at night.</p>
-    //- +hrfm('#water-monitoring')
+    #hero-scroll-arrow.home-scroll-arrow
+      +hrfm('#water-monitoring')
     +theme__text-chart(
       'water-monitoring',
       [{
@@ -55,7 +57,8 @@
       name: 'Hydronet'
       }]
       )
-    //- +hrfm('#housing') 
+    #hero-scroll-arrow.home-scroll-arrow  
+      +hrfm('#housing') 
 
         
 block append scripts
