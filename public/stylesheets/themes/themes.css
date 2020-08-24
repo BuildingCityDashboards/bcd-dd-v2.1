@@ -163,7 +163,6 @@ a:active {
 }
 
 #demographics-header {
-  scroll-behavior: smooth;
   background-image : url('/images/themes/backgrounds/demographics_background_mobile.png');
 }
 
@@ -200,6 +199,13 @@ a:active {
   align-self  : flex-end;
   display: flex;
   justify-content: center;
+}
+
+.theme__header__scroll-arrow button{
+  background-color : transparent;
+  border: none;
+  outline: none;
+ 
 }
 
 .theme__header__scroll-arrow svg {
