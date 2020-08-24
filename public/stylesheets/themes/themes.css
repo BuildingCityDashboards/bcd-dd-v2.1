@@ -783,7 +783,11 @@ a:active {
     /* background-image: url('/images/themes/backgrounds/economy_background.png'); */
   }
 
-  .theme__header__background img {}
+  .theme__header__scroll-arrow{
+    grid-column    : 6/8;
+    grid-row       : 3;
+  
+  }
 
   #demographics-header {
     background-image : url('/images/themes/backgrounds/demographics_background.png');
