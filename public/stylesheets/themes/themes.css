@@ -1,6 +1,5 @@
 /* xs: 360px x 540px <MOCKUP> */
 
-
 .spinner {
   display: inline-block;
   position: relative;
@@ -131,6 +130,7 @@ a:active {
 }
 
 .theme {
+  
   width                 : 100vw;
   max-width             : 100%;
   background-color      : #1c2022;
@@ -142,10 +142,12 @@ a:active {
   grid-gap              : 8px;
   grid-template-columns : repeat(4,1fr);
   grid-template-rows    : auto;
+
 }
 
 .theme__header {
   /* h should be 100vh - nav hs */
+
   display               : grid;
   position              : relative;
   height                : 100vh;
@@ -160,9 +162,8 @@ a:active {
   grid-template-rows    : 1fr auto 1fr;
 }
 
-.theme__header__background img {}
-
 #demographics-header {
+  scroll-behavior: smooth;
   background-image : url('/images/themes/backgrounds/demographics_background_mobile.png');
 }
 
@@ -192,6 +193,21 @@ a:active {
   grid-column    : 1/5;
   grid-row       : 2;
   letter-spacing : -0.5px;
+}
+.theme__header__scroll-arrow{
+  grid-column    : 2/4;
+  grid-row       : 3;
+  align-self  : flex-end;
+  display: flex;
+  justify-content: center;
+}
+
+.theme__header__scroll-arrow svg {
+  width            : 24px;
+  height           : auto;
+  background-color : transparent;
+  fill             : grey;
+  transform        : rotate(-90deg);
 }
 
 .theme__header__title {

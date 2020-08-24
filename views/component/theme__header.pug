@@ -1,4 +1,4 @@
-mixin theme__header(id, title, description, moreInfo)
+mixin theme__header(id, title, description, moreInfo, scrollRef='')
   div(id=id 
     class="theme__header" 
     )
@@ -6,3 +6,8 @@ mixin theme__header(id, title, description, moreInfo)
       .theme__header__title!=title
       .theme__header__description!=description
       .theme__header__info!=moreInfo
+    .theme__header__scroll-arrow
+      button(type='button', onclick='document.getElementById("'+scrollRef+'").scrollIntoView({behavior: "smooth"})') 
+        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
+
+  
