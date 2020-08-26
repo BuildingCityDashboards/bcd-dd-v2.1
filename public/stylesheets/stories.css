@@ -84,21 +84,21 @@ html {}
 }
 
 #stories-home__carousel {
-  height      : 250px;
-  min-height  : 250px;
+  height      : 320px;
+  min-height  : 320px;
   grid-column : span 4;
   grid-row    : 4 / 8;
 }
 
 .carousel {
-  height     : inherit;
-  margin     : 0 20px;
+  height     : 320px;
+  margin     : 0;
   background : transparent;
-  /* space for prev/next buttons */
+
 }
 
 .carousel-cell {
-  width         : 100%;
+  width         : calc(50% - 8px);
   height        : inherit;
   margin-right  : 16px;
   border-radius : 4px;
@@ -309,14 +309,14 @@ html {}
       grid-column : span 4;
       grid-row    : 4 / 8;
     }
-
+  
     .carousel {
-      height     : inherit;
+      height     : 320px;
       margin     : 0;
       background : transparent;
-      /* space for prev/next buttons */
+  
     }
-
+  
     .carousel-cell {
       width         : calc(50% - 8px);
       height        : inherit;
@@ -327,7 +327,6 @@ html {}
       /* gap between cards */
     }
 
-    .carousel-cell:before {}
 
     .stories-home__card {
       display          : flex;
@@ -438,6 +437,22 @@ html {}
 @media
   only screen
   and (min-width : 1024px) {
+    #stories-home__carousel {
+      height      : 360px;
+      min-height  : 320px;
+      grid-column : span 4;
+      grid-row    : 4 / 8;
+    }
+  
+    .carousel {
+      height     : 360px;
+    }
+  
+    .carousel-cell {
+      width         : calc(50% - 8px);
+      height        : inherit;
+      margin-right  : 16px;
+    }
 }
 
 @media

@@ -220,10 +220,10 @@ html {}
   }
 
   .carousel {
-    height     : inherit;
+    height     : 320px;
     margin     : 0;
     background : transparent;
-    /* space for prev/next buttons */
+
   }
 
   .carousel-cell {
@@ -238,16 +238,33 @@ html {}
 }
 
 /* iPad Pro */
-
 @media
   only screen
   and (min-width : 1024px) {
+
+    #stories-home__carousel {
+      height      : 360px;
+      min-height  : 320px;
+      grid-column : span 4;
+      grid-row    : 4 / 8;
+    }
+  
+    .carousel {
+      height     : 360px;
+    }
+  
+    .carousel-cell {
+      width         : calc(50% - 8px);
+      height        : inherit;
+      margin-right  : 16px;
+    }
 }
 
+  /* laptop with MDPI */
 @media
   only screen
   and (min-width : 1280px) {
-  /* laptop with MDPI */
+
 
   #queries-home {
     position    : relative;
