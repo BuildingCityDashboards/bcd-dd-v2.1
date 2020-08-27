@@ -227,9 +227,9 @@ d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
     
     //trace.orientation = 'h'
     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    trace.marker = {
-    color: getLayerColor(i), // lines + markers, defaults to colorway
-    }
+    //trace.marker = {
+    //color: getLayerColor(i), // lines + markers, defaults to colorway
+    //}
    
     //columnNames = keysSorted; //Object.keys(zScores[0]);
     trace.x = columnNames.map( name => {

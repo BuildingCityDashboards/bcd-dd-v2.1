@@ -441,7 +441,7 @@ async function loadSmallAreas (lookup) {
         //myTestArray.push(sa.geometry.coordinates)
       }
       catch{
-        console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+        //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
         sa.properties.groupnumber= 'NA'
         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
       }
@@ -484,7 +484,7 @@ async function loadSmallAreas (lookup) {
        
       }
       catch{
-        console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+        //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
         sa.properties.groupnumber= 'NA'
         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
       }
