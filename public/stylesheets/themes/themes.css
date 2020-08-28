@@ -573,7 +573,7 @@ a:active {
     height                : auto;
     min-height            : 75vh;
     max-height            : 1024px;
-    padding               : 36px 72px;
+    padding               : 0px 72px;
     text-align            : left;
     align-self            : center;
     font-family           : 'Roboto',
@@ -674,7 +674,7 @@ a:active {
   .theme__text-chart__plot svg {
     width        : auto;
     height       : auto;
-    padding-left : 12px;
+    padding-left : 0;
     /* height : inherit; */
     /* max-width: 900px; */
     /* max-height : 400px; /* d3 chart will be cropped if too tall */
