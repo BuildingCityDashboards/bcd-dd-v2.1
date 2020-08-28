@@ -1124,20 +1124,14 @@ a:active {
 
   .theme {
     width                 : 100vw;
+    min-height: 75vh;
     max-width             : 100%;
     background-color      : #1c2022;
-    font-family           : 'Roboto',
-                            sans-serif;
     font-weight           : 200;
     justify-content       : center;
     grid-gap              : 24px;
     grid-template-columns : repeat(12,1fr);
     grid-template-rows    : auto;
-    
-    
-    /* height: 100vh; */
-
-    
   }
 
   .theme__header {
