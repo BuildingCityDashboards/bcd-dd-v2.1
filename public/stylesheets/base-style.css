@@ -489,34 +489,9 @@ a:hover {
 
 /* TODO: wrap all these sections anchors in a class */
 
-#HPM06 {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#employment {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#property-price-monthly {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#dublin-bikes {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#population {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
 .position-anchor {
-  margin-top  : -100px;
-  padding-top : 100px;
+  /* margin-top  : -100px;
+  padding-top : 100px; */
 }
 
 .chart-holder {
