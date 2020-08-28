@@ -489,34 +489,9 @@ a:hover {
 
 /* TODO: wrap all these sections anchors in a class */
 
-#HPM06 {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#employment {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#property-price-monthly {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#dublin-bikes {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
-#population {
-  margin-top  : -100px;
-  padding-top : 100px;
-}
-
 .position-anchor {
-  margin-top  : -100px;
-  padding-top : 100px;
+  /* margin-top  : -100px;
+  padding-top : 100px; */
 }
 
 .chart-holder {
@@ -529,22 +504,14 @@ a:hover {
   height          : 75px;
   align-items     : center;
   justify-content : center;
-  /* //padding: .5rem; */
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
-  /* align-content: center; */
-  /* background-color: rgba(0,0,0,.3); */
+
 }
 
 #data-text p {
   margin      : 0;
   font-size   : 1.35rem;
   font-weight : 220;
-  /**
-  * box-shadow: inset 0 0 0 0.1rem #5c6ac4, inset 0 0.1rem 0.1rem 0
-  * rgba(99,115,129,.2);
-  */
-  /* height: 75px; */
+
 }
 
 select:hover:not([disabled]) {

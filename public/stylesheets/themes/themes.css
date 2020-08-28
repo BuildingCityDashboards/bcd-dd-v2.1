@@ -573,7 +573,7 @@ a:active {
     height                : auto;
     min-height            : 75vh;
     max-height            : 1024px;
-    padding               : 36px 72px;
+    padding               : 0px 72px;
     text-align            : left;
     align-self            : center;
     font-family           : 'Roboto',
@@ -674,7 +674,7 @@ a:active {
   .theme__text-chart__plot svg {
     width        : auto;
     height       : auto;
-    padding-left : 12px;
+    padding-left : 0;
     /* height : inherit; */
     /* max-width: 900px; */
     /* max-height : 400px; /* d3 chart will be cropped if too tall */
@@ -734,24 +734,340 @@ a:active {
   only screen
   and (min-width : 768px) 
   and (orientation: landscape){
+    .themes__subnav {
+      width  : 100%;
+      height : 72px;
+    }
+  
+    .subnav__icon-nav {
+      display         : flex;
+      justify-content : center;
+    }
+  
+    .subnav__icon-nav h2 {
+      display        : flex;
+      font-size      : 14px;
+      font-style     : normal;
+      font-weight    : 200;
+      font-stretch   : normal;
+      line-height    : 1.14;
+      letter-spacing : 1.25px;
+    }
+  
+    .active {
+      opacity         : 1;
+      border-bottom   : 2px solid;
+      text-decoration : none;
+    }
+  
+    .subnav__icon-nav__icon {
+      display         : flex;
+      justify-content : center;
+    }
+  
+    .subnav__icon-nav__icon img {
+      width  : 32px;
+      height : auto;
+    }
+  
+    .subnav__icon-nav__title {
+      display : block;
+    }
+  
+    .theme {
+      width                 : 100vw;
+      max-width             : 100%;
+      background-color      : #1c2022;
+      font-family           : 'Roboto',
+                              sans-serif;
+      font-weight           : 200;
+      justify-content       : center;
+      grid-gap              : 24px;
+      grid-template-columns : repeat(12,1fr);
+      grid-template-rows    : auto;
+      
+      
+      /* height: 100vh; */
+  
+      
+    }
+  
+    .theme__header {
+      /* h should be 100vh - nav hs */
+      display               : grid;
+      position              : relative;
+      height                : 100vh;
+      color                 : #6fd1f6;
+      background-repeat     : no-repeat;
+      background-position   : center;
+      background-size       : cover;
+      grid-gap              : 24px;
+      grid-template-columns : repeat(12,1fr);
+      grid-template-rows    : 1fr auto 1fr;
+      /* background-image: url('/images/themes/backgrounds/economy_background.png'); */
+    }
+  
+    .theme__header__scroll-arrow{
+      grid-column    : 6/8;
+      grid-row       : 3;
+      padding-bottom: 20px;
+    
+    }
+  
+    #demographics-header {
+      background-image : url('/images/themes/backgrounds/demographics_background.png');
+    }
+  
+    #economy-header {
+      background-image : url('/images/themes/backgrounds/economy_background.png');
+    }
+  
+    #education-header {
+      background-image : url('/images/themes/backgrounds/education_background.png');
+    }
+  
+    #housing-header {
+      background-image : url('/images/themes/backgrounds/housing_background.png');
+    }
+  
+    #environment-header {
+      background-image : url('/images/themes/backgrounds/environment_background.png');
+    }
+  
+    #transport-header {
+      background-image : url('/images/themes/backgrounds/transport_background.png');
+    }
+  
+    .theme__header__content {
+      min-height     : 372px;
+      grid-column    : 2/8;
+      grid-row       : 2;
+      letter-spacing : -0.5px;
+      display:flex;
+      flex-direction: column;
+    }
+  
+    .theme__header__title {
+      padding-bottom : 60px;
+      font-size      : 60px;
+      font-weight    : 200;
+      line-height    : 1.2;
+    }
+  
+    .theme__header__description {
+      padding-bottom : 34px;
+      color          : #6fd1f6;
+      font-size      : 28px;
+      font-style     : normal;
+      font-weight    : 200;
+      line-height    : 1.06;
+      letter-spacing : -0.5px;
+    }
+  
+    .theme__header__info {
+      color          : #6fd1f6;
+      font-size      : 24px;
+      font-style     : normal;
+      font-weight    : 200;
+      line-height    : 1.06;
+      letter-spacing : -0.5px;
+    }
+  
     .theme__text-chart {
-     
-      /* display               : grid;
+      display               : grid;
       position              : relative;
       width                 : auto;
       height                : auto;
-      min-height            : 800px;
-      padding-right         : 48px;
-      padding-left          : 48px;
+      min-height            : 75vh;
+      padding-right         : 36px;
+      padding-left          : 36px;
       text-align            : left;
       align-self            : center;
       font-family           : 'Roboto',
                               sans-serif;
-      grid-gap              : 24px;
+      grid-gap              : 16px;
       grid-template-columns : repeat(12, 1fr);
-      grid-template-rows    : auto minmax(auto, 60px) minmax(auto, 60px) auto auto auto; */
+      grid-template-rows    : auto minmax(auto, 36px) 72px auto auto auto;
       /* grid-auto-rows: auto; */
     }
+  
+    .theme__text-chart__sources {
+      display        : flex;
+      padding-left   : 0;
+      align-items    : flex-end;
+      font-size      : 10px;
+      font-weight    : 300;
+      flex-direction : row;
+      grid-column    : 1/5;
+      grid-row       : 2/3;
+      line-height    : 1.6;
+      letter-spacing : 1.5px;
+    }
+  
+    .theme__text-chart__sources p {
+      font-size      : 10px;
+      font-weight    : 300;
+      line-height    : 1.6;
+      letter-spacing : 1.5px;
+    }
+  
+    .theme__text-chart .theme__text-chart__sources img {
+      width        : 10px;
+      height       : 10px;
+      padding-left : 2px;
+    }
+  
+    .theme__text-chart__data-source {
+      padding-right : 24px;
+    }
+  
+    .theme__text-chart__title {
+      grid-column  : 1 / 5;
+      grid-row     : 3 / 4;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+    }
+  
+    .theme__text-chart__title h1 {
+      padding-bottom : 0;
+      margin: 0;
+      font-size      : 28px;
+      font-weight    : 200;
+      line-height    : 24px;
+      letter-spacing : 0.18px;
+    }
+  
+    .theme__text-chart__text {
+      display        : flex;
+      align-self     : flex-start;
+      flex-direction : column;
+      grid-column    : 1/ 5;
+      grid-row       : 4/5;
+      padding: 0;
+    }
+  
+   
+    .theme__text-chart__info {
+      padding: 24px 0px 24px 0px;
+      display         : inline-flex;
+      align-items     : center;
+      flex-direction  : row;
+      justify-content : space-around;
+      text-align: left;
+    }
+  
+    .theme__text-chart__info img{
+      width: 48px;
+      height: auto;
+    }
+  
+  
+    .theme__text-chart__description li,
+    .theme__text-chart__description p,
+    .theme__text-chart__info li,
+    .theme__text-chart__info p {
+      font-size      : 14px;
+      font-weight    : 200;
+      line-height    : 20px;
+      letter-spacing : 0.5px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .theme__text-chart__info p{
+      padding-left: 16px;
+      line-height    : 16px;
+
+    }
+  
+    .theme__text-chart__info  h3{
+      padding: 0;
+      padding-left: 16px;
+      margin: 0;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: 0.5px;
+      /* color: #f5d566; */
+    }
+  
+    .theme__text-chart__kpi {}
+  
+  
+    .theme__text-chart__chart {
+      display               : grid;
+      width                 : auto;
+      height                : auto;
+      grid-gap              : 24px;
+      grid-column           : 6/13;
+      grid-row              : 2/5;
+      grid-template-columns : repeat(7, 1fr);
+      grid-template-rows    : minmax(auto, 48px) minmax(auto, 60px) auto;
+      min-height: 320px;
+    }
+  
+    .theme__text-chart__button-row {
+      padding-bottom : 0;
+      align-self     : flex-end;
+      grid-column    : 1/7;
+      grid-row       : 1/2;
+    }
+  
+    .theme-btn {
+      max-height     : 36px;
+      margin-right   : 24px;
+      padding        : 10px 16px 10px 16px;
+      color          : #8ebfd6;
+      border         : solid 1px rgba(255, 255, 255, 0.12);
+      border-radius  : 4px;
+      background     : transparent;
+      outline        : none;
+      box-shadow     : none;
+      font-family    : 'Roboto';
+      font-size      : 14px;
+      font-style     : normal;
+      font-weight    : 500;
+      font-stretch   : normal;
+      line-height    : 1.14;
+      letter-spacing : 1.25px;
+    }
+  
+    .theme-btn:active,
+    .theme-btn:hover {
+      border : solid 1px rgba(255, 255, 255, 0.5);
+    }
+  
+    .theme-btn:focus {
+      outline    : none;
+      box-shadow : none;
+    }
+  
+    .theme__text-chart__plot {
+      display     : block;
+      width       : auto;
+      align-self  : flex-start;
+      grid-column : 1/8;
+      grid-row    : 2/4;
+      min-height: 320px;
+      height: auto;
+      max-height: 400px;
+    }
+  
+    .theme__text-chart__plot svg {
+      /**
+      * max-width: 800px
+      *
+      * ;
+      */
+      width     : auto;
+      height    : auto;
+      transform : translateY(-24px);
+    }
+    /**
+    * .leaflet-popup-content { transform: translateY(24px)
+    *
+    * }
+    */
 
 }
 /* iPad Pro */
@@ -808,20 +1124,14 @@ a:active {
 
   .theme {
     width                 : 100vw;
+    min-height: 100vh;
     max-width             : 100%;
     background-color      : #1c2022;
-    font-family           : 'Roboto',
-                            sans-serif;
     font-weight           : 200;
     justify-content       : center;
     grid-gap              : 24px;
     grid-template-columns : repeat(12,1fr);
     grid-template-rows    : auto;
-    
-    
-    /* height: 100vh; */
-
-    
   }
 
   .theme__header {
@@ -908,7 +1218,7 @@ a:active {
     position              : relative;
     width                 : auto;
     height                : auto;
-    min-height            : 800px;
+    min-height            : 75vh;
     padding-right         : 48px;
     padding-left          : 48px;
     text-align            : left;
