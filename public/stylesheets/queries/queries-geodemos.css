@@ -1,3 +1,20 @@
+.theme-btn {
+  margin-right: 8px;
+  padding: 8px 12px;
+  color: #6fd1f6;
+  border: solid 1px rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 200;
+  font-stretch: normal;
+  line-height: 1.14;
+  letter-spacing: 1.25px;
+}
 .GeoDemographic_Tool {
     width: 1920px;
     height: 1080px;
@@ -125,15 +142,15 @@
 }
 
 .-Subtitle-1 {
-    width: 78.5px;
+    width: 90.5px;
     height: 24px;
     font-family: Roboto;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.5;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.1px;
     color: #6fd1f6;
   }
 
@@ -275,8 +292,8 @@ input[type="checkbox"]:not(:checked) {
   {
     width: 116;
     height: 48;
-    font-family :  'Roboto-Medium';
-    font-size   : 12px;
+    font-family :  'Roboto';
+    font-size   : 16px;
     font-style: normal;
     color: #6fd1f6;
     line-height:16px;

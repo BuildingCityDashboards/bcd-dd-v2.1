@@ -8,12 +8,12 @@ block append head
         link(rel='stylesheet', href='/stylesheets/themes/health/marker_cluster_modified.css')
         //- link(rel='stylesheet', href='/stylesheets/tools/tools-geodemos.css')
         link(rel='stylesheet', href='/stylesheets/tools/dc-tools.css')
-        link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
-        link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
+        //-link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
+        //-link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
         link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
         link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
         link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
-        link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css")
+        //-link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css")
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.12/dc.css')
         //- link(rel='stylesheet', href='/stylesheets/queries/query.css')
@@ -22,12 +22,10 @@ block append head
         //-link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
         //-link(rel='stylesheet', href='/stylesheets/themes/To_Lefalet.css')
         link(rel='stylesheet', href='/stylesheets/lib/leaflet-chart-modified.css')  
-        link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
-        link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
+        //-link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css')
+        //-link(rel='stylesheet', href='/stylesheets/lib/L.Control.Locate.modified.css')
         link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
         link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
-        //- link(rel='stylesheet', href='/stylesheets/lib/plotly.css')
-        link(rel="stylesheet" href="/dist/L.Control.Locate.min.css")
         
         //- link(rel='stylesheet', href='/stylesheets/tools/slider-switch.css')
         //- link(rel='stylesheet', href='/stylesheets/nouislider.css')
@@ -54,9 +52,9 @@ block content
                                 //- span 
                                 //-     a(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
 
-                                nav.nav.nav-pills.nav-justified
-                                    a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
-                                    a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
+                                //- nav.nav.nav-pills.nav-justified
+                                //-     a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
+                                //-     a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
 
 
 
@@ -75,7 +73,20 @@ block content
                                     | Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).   
                                 #desc   
                                                     
-
+            
+                
+            .row
+               br
+               .col-2
+                    h6.TextStys Select a Group 
+               .col-5       
+    
+                    nav.nav.nav-pills.nav-justified
+                        a(href="https://rpubs.com/burcinwalsh/620510" target="_blank") 
+                            button.theme-btn(type='button') OVERVIEW
+                        a(href="/queries/geodemosHM") 
+                            button.theme-btn(type='button') HEATMAP   
+                                  
             .row.no-gutters
                 .col-2
                     #group-buttons.Group-Header_item.Group_Description.text-style-1 
@@ -146,9 +157,12 @@ block content
                                     p.col-1 <img  height='22px' width='18px' src='/images/icons/sd.svg' id='7'>  
                 
                 .col-5       
-                    
-                
+    
+                    //- nav.nav.nav-pills.nav-justified
+                    //-     a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
+                    //-     a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
                     #map-geodemos
+                    
                 .col-5
                     #chart-geodemos
             //- #group-buttons
@@ -221,15 +235,15 @@ block append scripts
   script(src="/javascripts/queries/geodemos.js" type="module") 
 
   script(src="/javascripts/themes/maps_common.js" type="text/javascript")
-  script(src="/javascripts/themes/transport/transport_dublinbikes.js" type="text/javascript")
+  //-script(src="/javascripts/themes/transport/transport_dublinbikes.js" type="text/javascript")
   //- script(src="/javascripts/themes/transport/transport_disabled_park_fingal.js" type="text/javascript")
-  script(src="/javascripts/themes/transport/transport_traffic_counters.js" type="module")
+  //-script(src="/javascripts/themes/transport/transport_traffic_counters.js" type="module")
   //- script(src="/javascripts/themes/environment/environment.js" type="text/javascript")
-  script(src="/javascripts/themes/environment/environment_water_levels.js" type="text/javascript")
-  script(src="/javascripts/themes/environment/environment_noise.js" type="module")
+  //-script(src="/javascripts/themes/environment/environment_water_levels.js" type="text/javascript")
+  //-script(src="/javascripts/themes/environment/environment_noise.js" type="module")
   //-script(src="/javascripts/charts/treemap.js" type="text/javascript")
-  script(src="/javascripts/themes/housing.js" type="text/javascript")
-  script(src="/javascripts/themes/education.js" type="module")
+  //-script(src="/javascripts/themes/housing.js" type="text/javascript")
+  //-script(src="/javascripts/themes/education.js" type="module")
   //- script(src="/javascripts/themes/health.js" type="text/javascript")
   
   //- script(src="/javascripts
