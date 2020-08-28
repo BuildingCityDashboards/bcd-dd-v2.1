@@ -840,9 +840,11 @@ a:active {
   
     .theme__header__content {
       min-height     : 372px;
-      grid-column    : 2/7;
+      grid-column    : 2/8;
       grid-row       : 2;
       letter-spacing : -0.5px;
+      display:flex;
+      flex-direction: column;
     }
   
     .theme__header__title {
@@ -855,7 +857,7 @@ a:active {
     .theme__header__description {
       padding-bottom : 34px;
       color          : #6fd1f6;
-      font-size      : 34px;
+      font-size      : 28px;
       font-style     : normal;
       font-weight    : 200;
       line-height    : 1.06;
@@ -883,9 +885,9 @@ a:active {
       align-self            : center;
       font-family           : 'Roboto',
                               sans-serif;
-      grid-gap              : 18px;
+      grid-gap              : 16px;
       grid-template-columns : repeat(12, 1fr);
-      grid-template-rows    : auto minmax(auto, 36px) minmax(auto, 36px) auto auto auto;
+      grid-template-rows    : auto minmax(auto, 36px) 72px auto auto auto;
       /* grid-auto-rows: auto; */
     }
   
@@ -920,8 +922,11 @@ a:active {
     }
   
     .theme__text-chart__title {
-      grid-column  : 1/ 5;
-      grid-row     : 3 /4;
+      grid-column  : 1 / 5;
+      grid-row     : 3 / 4;
+      min-height: 0;
+      display: flex;
+      align-items: center;
     }
   
     .theme__text-chart__title h1 {
@@ -1045,6 +1050,7 @@ a:active {
       grid-row    : 2/4;
       min-height: 320px;
       height: auto;
+      max-height: 400px;
     }
   
     .theme__text-chart__plot svg {
