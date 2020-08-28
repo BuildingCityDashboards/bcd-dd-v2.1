@@ -519,6 +519,11 @@ a:active {
 
   .theme__header {}
 
+  .theme__header__scroll-arrow{
+    padding-bottom: 16px;
+  
+  }
+
   .theme__header__background img {
     background-repeat   : no-repeat;
     background-position : center;
@@ -837,6 +842,7 @@ a:active {
   .theme__header__scroll-arrow{
     grid-column    : 6/8;
     grid-row       : 3;
+    padding-bottom: 20px;
   
   }
 
