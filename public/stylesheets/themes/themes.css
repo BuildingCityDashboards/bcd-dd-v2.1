@@ -1031,26 +1031,6 @@ a:active {
     outline    : none;
     box-shadow : none;
   }
-  /**
-  * .theme__text-chart__spinner { display
-  *
-  *
-  *
-  * : none; width
-  *
-  *
-  *
-  *
-  *
-  * : auto; align-self
-  *
-  * : center; grid-column : 3/5; grid-row
-  *
-  *
-  *
-  * : 3/4; }
-  */
-  /* altering height does not make the plot bigger */
 
   .theme__text-chart__plot {
     display     : block;
@@ -1058,7 +1038,7 @@ a:active {
     align-self  : flex-start;
     grid-column : 1/8;
     grid-row    : 2/4;
-    /* height : 500px; */
+    height : 500px;
   }
 
   .theme__text-chart__plot svg {

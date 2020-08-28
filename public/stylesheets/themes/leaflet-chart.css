@@ -27,7 +27,7 @@
 
 
 .leaflet-container {
-min-height: 280px
+  min-height: 280px
 
 }
 
@@ -152,4 +152,15 @@ min-height: 280px
   fill : #ffffff;
 }
 
+@media
+  only screen
+  and (min-width : 1280px) {
+
+  .leaflet-container {
+    min-height: 320px;
+    height: 360px;
+    width: 100%;
+
+  }
+}
 /*  */
