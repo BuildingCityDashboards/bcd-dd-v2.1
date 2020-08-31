@@ -1074,7 +1074,36 @@ a:active {
 
 @media
   only screen
-  and (min-width : 1024px) {
+  and (min-width : 1024px) 
+  and (orientation : portrait){
+
+    .theme__text-chart {
+      width                 : 100vw;
+      height                : auto;
+      min-height            : 66vh;
+      max-height            : 1024px;
+ 
+      grid-template-rows    : minmax(auto,100px) minmax(auto,56px) minmax(auto,172px) auto auto;
+
+    }
+
+    .theme__text-chart__chart {
+      display: flex;
+      flex-direction: column;
+ 
+
+    }
+
+    .theme__text-chart__plot {
+      margin-left: auto;
+      margin-right: auto;
+      width:100%;
+    }
+    .theme__text-chart__plot svg {
+      
+    }
+  
+    
 }
 
 /* laptop with MDPI devtools */
