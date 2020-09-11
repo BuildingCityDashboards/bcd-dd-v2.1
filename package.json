@@ -18,7 +18,7 @@
     "mongoose": "^5.9.26",
     "morgan": "^1.10.0",
     "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "pug": "^2.0.3",
     "set-interval-async": "^1.0.33",
     "sitemap": "^3.2.2",
