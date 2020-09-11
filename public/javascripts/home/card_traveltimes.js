@@ -1,3 +1,7 @@
+const indicatorUpSymbol = "<span class='up-arrow'>&#x25B2;</span>"
+const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
+const indicatorRightSymbol = "<span class='right-arrow'>&#x25BA;</span>"
+
 let ttInterval = 30000
 let ttCountdown = ttInterval
 let timeSinceUpdate = moment(new Date())
@@ -14,14 +18,17 @@ let ttTimer = setInterval(updateTTCountdown, 1000)
 let prevTTAgeMins, prevLongestDelay
 
 const fetchTTData = function () {
+  //alert('dddddd')
   d3.json('/data/Transport/traveltimes.json')
     .then((data) => {
       // console.log("Fetched Travel Times card data ");
+      //console.log('These is data' + data)
       processTravelTimes(data)
       clearInterval(ttTimer)
       timeSinceUpdate = moment(new Date())
     })
     .catch(function (err) {
+     // console.log('These is no data' + err)
       // console.error("Error fetching Travel Times card data: " + JSON.stringify(err));
       initialiseTTDisplay()
       // restart the timer
