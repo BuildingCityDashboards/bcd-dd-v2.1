@@ -57,11 +57,6 @@ let columnData ={}
 let punti_mappa = []
 let myTestArray=[]
 let cov=0;
-//let soc_eco_val=0
-//let mapGeodemos = new L.Map('map-geodemos')
-
-
-
 let mapGeodemos = new L.Map('map-geodemos')
 let osm = new L.TileLayer(CARTODB_POSITRON, {
   minZoom: min_zoom,
@@ -105,11 +100,7 @@ let naStyle = {
 }
 
 let mapLayers = getEmptyLayersArray(7)
-let naLayer = L.geoJSON(null, {
-  style: naStyle,
-  onEachFeature: onEachFeature
-}) //layer for 'NA' data
-// mapGeodemos.addLayer(mapLayers[0])
+
 
 let traces = []
 let ntraces = []
@@ -121,37 +112,14 @@ let columnNames2={}
 let tarry=[]
 
 
-
-
-
-
-
-
-
-
-
-
 d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
 .then((zScores)=>{
 
-
-
-
-
-
-  zScores.forEach((row, i) => {
-
-    
-    
-    
-    let columnNames = Object.keys(row).sort(function(a,b){return row[a]-row[b]})
+zScores.forEach((row, i) => {
+  
+let columnNames = Object.keys(row).sort(function(a,b){return row[a]-row[b]})
     //alert(keysSorted); 
-    
-
-
-
-
-    let trace = Object.assign({}, TRACES_DEFAULT);
+   let trace = Object.assign({}, TRACES_DEFAULT);
     //trace.type = 'bar'
     //trace.orientation = 'h'
     //trace.mode = ''
@@ -165,7 +133,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
     color: getLayerColor(i), // lines + markers, defaults to colorway
     }
    
-    //columnNames = keysSorted; //Object.keys(zScores[0]);
+    
     trace.x = columnNames.map( name => {
      
       return row[name]
@@ -176,7 +144,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
     
     traces.push(trace)
     trace.hovertemplate= `%{x:.2f}<extra>Group No: ${i+1}</extra>`
-   // hovertemplate= `z-score: %{trace.x:.2f}<extra></extra>`
+   
 })
 
 
@@ -184,8 +152,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
 layout = Object.assign({}, ROW_CHART_LAYOUT);
 //layout.mode = 'bars'
 layout.height = 500
-//layout.barmode = 'group';
-// layout.colorway = GEODEMOS_COLORWAY
+
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
 layout.title.text = 'Variables Value Distribution (z-scores)';
 layout.title.x=0.51
@@ -200,8 +167,7 @@ size: 17
 layout.showlegend = false;
 layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
 layout.legend.xanchor = 'right';
-// layout.legend.y = 0.1;
-// layout.legend.traceorder = 'reversed';
+
 layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
 layout.xaxis.title = "value";
 layout.xaxis.range = [-2, 2.9]
@@ -235,34 +201,10 @@ layout.margin = {
   b: 0
   
 };
+scatterHM()
+updateGroupTxt('all')
 
-
-
-Plotly.newPlot('chart-geodemos', [traces[0]], layout, {
-  modeBar: {
-    orientation: 'v',
-    bgcolor: 'black',
-    color: null,
-    activecolor: null
-  },
-  modeBarButtons: [['toImage']],
-  displayModeBar: true,
-  displaylogo: false,
-  showSendToCloud: false,
-  responsive: true,
-  // toImageButtonOptions: {
-  //   filename: 'Dublin Dashboard - ' + titleFig9,
-  //   width: null,
-  //   height: null,
-  //   format: 'png'
-  // }
-  })
-  
-    
 }) //end then
-
-  
-
 let lyt={}
 
 function scatterHM ()
@@ -274,23 +216,20 @@ function scatterHM ()
   //columnNames = Object.keys(zScores[0]).reverse();
   columnNames2 = Object.keys(zScores[0]);
   //const zScores2=zScores.reverse();
+  columnNames2=columnNames2.reverse();
   columnNames2 = columnNames2.filter(e=>e!=='cluster')
-  //columnNames2.reverse();
-// alert(zScores)
+  
   zScores.forEach((row, i) => {
   
     let ntrace = Object.assign({}, TRACES_DEFAULT);
     ntrace.type = 'scatter'
     ntrace.mode = 'markers+text'
-    //ntrace.name = 'Group'.i,
     
-    //trace.hovertemplate= 'z-score: %{x:.2f}<extra></extra>'
-    //trace.orientation = 'h'
     ntrace.marker = Object.assign({}, TRACES_DEFAULT.marker)
     ntrace.marker = {
     color: getLayerColor(i), 
     size: 11,
-    // lines + markers, defaults to colorway
+    
     }
    
     ntrace.x = columnNames2.map( name2 => {
@@ -314,11 +253,9 @@ lyt.height = 500
 //lyt.width = 300
 lyt.plot_bgcolor="#293135",
 lyt.paper_bgcolor="#293135"
-//lyt.showlegend= true
-//layout.barmode = 'group';
-// layout.colorway = GEODEMOS_COLORWAY
+
 lyt.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-lyt.title.text = 'Variables Value Distribution (z-scores)';
+lyt.title.text = 'Variables Value Distribution';
 lyt.title.x=0.51
 lyt.title.y=0.99
 lyt.title.xanchor='center'
@@ -380,21 +317,7 @@ Plotly.newPlot('chart-geodemos', [ntraces[0],ntraces[1],ntraces[2],ntraces[3],nt
   })
   
 }) //end then
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
 //let soc_eco_val=0;
 loadData()
 function loadData (file) {
@@ -420,11 +343,8 @@ async function loadSmallAreas (lookup) {
   let pDCC0 = d3.json(dataBase + dcc0)
   let pDCC1 = d3.json(dataBase + dcc1)
   let pDCC2 = d3.json(dataBase + dcc2)
-
-
   let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2]) // yields an array of 3 feature collections
-  
-  
+
   dccSAs.forEach(sas => {
     // updateMap(sas)
     
@@ -432,13 +352,11 @@ async function loadSmallAreas (lookup) {
       try{
         let groupNo = lookup[sa.properties.SMALL_AREA]
         sa.properties.groupnumber= groupNo
-        
-       
-        
+               
         //alert(JSON.stringify(sa.geometry.coordinates[0][1]),sa.properties.groupColor)
         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
-        //var punti_mappa = geoJson2heat(sa,Varval)
-        //myTestArray.push(sa.geometry.coordinates)
+        
+       
       }
       catch{
         //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
@@ -451,13 +369,7 @@ async function loadSmallAreas (lookup) {
     })
     //alert(JSON.stringify(sas.features))
   })
- // for (let u=0; u < myTestArray.length; u++)
- // {
-    //alert(parseFloat(myTestArray[1]))
-  //}
-  
-//alert(JSON.stringify(dccSAs))
-  
+ 
 // Fingal, DL/R, SDCC
   let fcc = 'FCC_SA_0.geojson'
   let dlr = 'DLR_SA_0.geojson'
@@ -476,10 +388,7 @@ async function loadSmallAreas (lookup) {
         let groupNo = lookup[sa.properties.SMALL_AREA]
         sa.properties.groupnumber= groupNo
         
-        //let Varval = traces[groupNo-1].x[soc_eco_val];
-        // alert(groupNo)
-        //alert(groupNo + '----' + traces[groupNo].x[0])
-        //sa.properties.groupColor= Varval
+        
         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
        
       }
@@ -491,9 +400,7 @@ async function loadSmallAreas (lookup) {
      
 })
 })
-//var punti_mappa =  geoJson2heat(sa,Varval)
-  mapGeodemos.addLayer(mapLayers[0])
-  //updateGroupTxt(1);
+  AddLayersToMap()
 }
 
 function getEmptyLayersArray (total) {
@@ -509,35 +416,19 @@ function getEmptyLayersArray (total) {
   }
   return layersArr
 }
-
-
-
-
-
-
-
-
-
 function addFeatureToLayer (feature, layerNo) {
-  //alert(JSON.stringify(feature))
-  //alert(geoJson2heat(feature,feature.properties.groupColor))
- 
- 
+  
   if (layerNo ==='NA'){
     //naLayer.addData(feature)
     //mapGeodemos.addLayer(naLayer)
   }
   else{
   mapLayers[layerNo].addData(feature)
- //punti_mappa =  geoJson2heat(mapLayers[layerNo],0.8)
- // alert(punti_mappa)
- //alert(geoJson2heat(mapLayers[layerNo],feature.properties.groupColor))
+ 
   }
  // alert(geoJson2heat(mapLayers[layerNo],feature.properties.groupColor))
 }
 
-//alert(geoJson2heat(mapLayers[0],feature.properties.groupColor))
-//alert(punti_mappa)
 function getLayerStyle (index) {
   // console.log("style feature "+f.properties.COUNTYNAME)
   return {
@@ -564,30 +455,11 @@ function updateGroupTxt(no)
     document.getElementById("href").remove();
 }
   
-
-
-
-
-
-
-
-  
   let dd = document.getElementById("desc")
   if (no ==='all') {
    no='all1'
    
-   //alert(dd)
-  //  if (dd.hasChildNodes()) {
-  //   dd.removeChild(dd.lastChild);
   
-
-  //  let myh = document.createElement('a')
-  //  myh.href =  '/queries/geodemosHM'; 
-  //  myh.id='myherf'
-  //  myh.innerHTML = "Please click here for more info." 
-  //  myh.style="color:#90E317";
-  //  dd.appendChild(myh)
-  //  }
 
 }
 
@@ -601,12 +473,6 @@ function updateGroupTxt(no)
   })
 
 }
-
-
-
-
-
-
 function getFColor(d) {
   //alert(d)
   return  d > 2.0 ? '#FFFFFF' :
@@ -617,28 +483,10 @@ function getFColor(d) {
           
                    '#000000';
 }
-
-
-
-
-
 let ttt=[]
-
-
-
-
-
-
-
-
-
-
-
 //traces[feature.properties.groupnumber].x[strUser]
-
 let value=0
 let text=''
-
 
 function onEachFeature (feature, layer) {
   let customOptions =
@@ -661,29 +509,12 @@ function onEachFeature (feature, layer) {
   })
 }
 
-
-
-
-
-
-
-
 d3.select('#group-buttons').selectAll('img').on('click' ,function(){
-  
-  // function selectOnlyThis(id){
-
-  //  alert(id)
-  //   var myCheckbox = document.getElementsByName("myCheckbox");
-  //   Array.prototype.forEach.call(myCheckbox,function(el){
-  //     el.checked = false;
-  //   });
-  //   id.checked = true;
-  // }
-
 
   let cb= $(this);
   let myv= $(this).attr("id");
-  //alert(myv)
+
+  alert(myv)
   
   ResetImages(myv)
   
@@ -695,28 +526,12 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
         //if(!mapGeodemos.hasLayer(l)){
           mapGeodemos.removeLayer(l)
           //Plotly.react('chart-geodemos', [traces,traces[myv]] ,layout)
-        
-        
+               
       })
 
 
 
  let gn=layerNo+1;
-//alert(gn)
-   
-//       //mapGeodemos.removeLayer(mapLayers[layerNo-1])
-//   // let aint=document.getElementById('all')     
-//       for(let j=1; (j <8 && j!== gn) ; j++)
-//   {
-    
-//     let int=document.getElementById(j)
-//      if (int.checked === true)
-//      {
-//       int.checked = false
-//       //aint.checked = false
-//      }
-     
-//   }
       
       
       updateGroupTxt(gn)
@@ -728,23 +543,23 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
   //}
 
 
+  layerNo=myv;
+
+if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
+  
+scatterHM()
+updateGroupTxt('all')
+AddLayersToMap()
+
+  }
+})
 
 
-   if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
- 
-  //   for(let i=1; i <8 ; i++)
-  // {
-  //   let int=document.getElementById(i)    
-  //    if (int.checked === true)
-  //    {
-  //     int.checked = false
-  //    }
-  // }
-   
-   
-   
-   
-   mapLayers.forEach((l,k) =>{
+function AddLayersToMap ()
+
+{
+
+  mapLayers.forEach((l,k) =>{
     //alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
     if(!mapGeodemos.hasLayer(l)){
     let mlay=mapLayers[k]
@@ -752,54 +567,55 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
     
    
     mapGeodemos.addLayer(mlay)
-
-
-    
+   
      mlay.setStyle({
      fillColor: getLayerColor(k)//getFColor(cov)
-     
-    
-    
+        
     }
      
     
     );
     
   }
-})
- 
-  //addheatmap()    
- scatterHM()
- 
-updateGroupTxt('all')
+  })
 
-  
 
-  }
-})
+}
+
+
   
 function ResetImages(imgid) 
 {
-  //d3.select('#group-buttons').selectAll('img').each( function(d, i){
-  //d.src="/images/icons/Icon_eye_deselected.svg"
-  //})
+  
 
   let imgsrcarr=['/images/icons/Icon_eye_selected-all.svg',
-'/images/icons/Icon_eye_selected-1.svg',
-'/images/icons/Icon_eye_selected-2.svg',
-'/images/icons/Icon_eye_selected-3.svg',
-'/images/icons/Icon_eye_selected-4.svg',
-'/images/icons/Icon_eye_selected-5.svg',
-'/images/icons/Icon_eye_selected-6.svg',
-'/images/icons/Icon_eye_selected-7.svg']
+  '/images/icons/Icon_eye_selected-1.svg',
+  '/images/icons/Icon_eye_selected-2.svg',
+  '/images/icons/Icon_eye_selected-3.svg',
+  '/images/icons/Icon_eye_selected-4.svg',
+  '/images/icons/Icon_eye_selected-5.svg',
+  '/images/icons/Icon_eye_selected-6.svg',
+  '/images/icons/Icon_eye_selected-7.svg']
+
+
+  let Oimgsrcarr=['/images/icons/sdAg.svg',
+  '/images/icons/sd10.svg',
+  '/images/icons/sd2.svg',
+  '/images/icons/sd3.svg',
+  '/images/icons/sd4.svg',
+  '/images/icons/sd5.svg',
+  '/images/icons/sd6.svg',
+  '/images/icons/sd7.svg']
+
 
 let myimg3=document.getElementById('all') 
-myimg3.src="/images/icons/sd.svg"
-  for(let i=1; i<8; i++)
+myimg3.src="/images/icons/sdAg.svg"
+  
+for(let i=1; i<8; i++)
  {
   let myimg2=document.getElementById(i) 
      
-      myimg2.src="/images/icons/sd.svg"
+      myimg2.src=Oimgsrcarr[i]//"/images/icons/sd.svg"
      
  }
 
@@ -810,147 +626,7 @@ let selectedImg=document.getElementById(imgid)
     selectedImg.src=imgsrcarr[imgid] 
 }
 
-// function addheatmap ()
-// {
-//   let GroupsArray=['Group1', 'Group2', 'Group3', 'Group4', 'Group5','Group6','Group7']
-//   hmlayout = Object.assign({}, ROW_CHART_LAYOUT);
-//   //layout.mode = 'bars'
-//   hmlayout.height = 500
-//   hmlayout.width = 360
-//   //layout.barmode = 'group';
-//   hmlayout.plot_bgcolor="#293135",
-//   hmlayout.paper_bgcolor="#293135"
-  
-//   hmlayout.colorway = GEODEMOS_COLORWAY
-//   hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-//   hmlayout.title.text = 'Variables Value Distribution (z-scores)';
-//   hmlayout.title.font= { color: '#6fd1f6',
-//    family: 'Courier New, monospace',
-//    size: 17},
-//   hmlayout.showlegend = false;
-//   hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
-//   hmlayout.legend.xanchor = 'right';
-//   hmlayout.legend.y = 0.1;
-//   hmlayout.legend.traceorder = 'reversed';
-//   hmlayout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
-//   hmlayout.xaxis.title = "";
-//   //hmlayout.xaxis.range = [-2, 2]
-//   hmlayout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
-//   // hmlayout.yaxis.tickfont ={
-//   //   family: 'PT Sans',
-//   //   size: 10,
-//   //   color: '#313131'
-//   // }
 
-
-//   hmlayout.yaxis.tickfont ={
-//     family: 'PT Sans',
-//     size: 10,
-//     color: '#6fd1f6'
-//   }
-//   hmlayout.xaxis.tickfont ={
-//     family: 'PT Sans',
-//     size: 10,
-//     color: '#6fd1f6'
-//   }
-//   hmlayout.tickfont ={
-//     family: 'PT Sans',
-//     size: 10,
-//     color: '#6fd1f6'
-//   }
-
-//   hmlayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
-//   hmlayout.yaxis.titlefont.size = 16; //bug? need to call this
-//   hmlayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
-//   //-hmlayout.hovermode ='closest';
-//   //-hmlayout.hoverinfo = "z";
-//   //-hmlayout.domain =[0.85,0.9];
-//   hmlayout.yaxis.title = '';
-//   hmlayout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
-//   hmlayout.margin = {
-//     l: 20,
-//     r: 20, //annotations space
-//     t: 20,
-//     b: 0
-    
-//   };
-  
-
-
-//   d3.text('/data/tools/geodemographics/dublin_zscores.csv')
-//   .then((zScores)=>{
-//     let newCsv = zScores.split('\n').map(function(line) {
-//       let columns = line.split(','); // get the columns
-//       columns.splice(0, 1); // remove total column
-//       return columns.reverse();
-//   }).join('\n');
-
-//   const rows = newCsv.split('\n');
-//   //alert(rows)
-//   // get the first row as header
-//   const header = rows.shift();
-//   //alert(header)
-//   //const header = columnNames;
-//   const numberOfColumns = header.split(',').length
-  
-//   // initialize 2D-array with a fixed size
-//   const columnData = [...Array(numberOfColumns)].map(item => new Array());
-  
-//   for(let i=0; i<rows.length; i++) {
-//     let row = rows[i];
-//     let rowData = row.split(',');
-  
-//     // assuming that there's always the same
-//     // number of columns in data rows as in header row
-//     for(let j=0; j<numberOfColumns; j++) {
-//       columnData[j].push((rowData[j]));
-    
-    
-//   }
-// }
-// //alert(columnData[1][0])
-  
-//   let data = [
-//       {
-          
-//           z: columnData,
-//           x: GroupsArray,
-//           y: header.split(','),
-          
-//           hovertemplate: 'z-score: %{z:.2f}<extra></extra>',
-//           type: 'heatmap',
-//           hoverinfo:"z",
-//           showscale: true,
-//                 fixedrange: true,
-//                 hoverinfo: "z",
-//                 colorbar: {
-//                   //title: 'z-scores',
-                  
-//                   tickcolor:'#6fd1f6',
-//                   tickfont:{
-//                     color:'#6fd1f6'
-//                   },
-
-                 
-                  
-//                 },
-
-
-         
-//           colorscale : 'Blackbody',
-          
-
-
-         
-//       }  
-          
-//       ];
-//       //Plotly.purge('chart-geodemos'); 
-//       Plotly.newPlot('chart-geodemos', data, hmlayout);
-
-// })
-
-// }
 
 
 function addHorizrntalBars (value,text)
@@ -958,10 +634,7 @@ function addHorizrntalBars (value,text)
   //alert(value + text)
   let GroupsArray=['Group1', 'Group2', 'Group3', 'Group4', 'Group5','Group6','Group7']
   hmlayout = Object.assign({}, ROW_CHART_LAYOUT);
-  //layout.mode = 'bars'
   
-  //hmlayout.hovermode ='closest'
-  //hmlayout.hoverformat= '.1r'
   
   hmlayout.height = 500
   hmlayout.width = 360
@@ -1050,25 +723,7 @@ for (let f=0; f< zArray.length; f++)
     //alert(JSON.stringify(tc))
     farr.push(tc)
 }
-//   zArray.forEach((i) => {
-  
-//      let trc = Object.assign({}, TRACES_DEFAULT);
-//      trc.type = 'bar'
-//      trc.orientation = 'h'
-//     // trc.marker = Object.assign({}, TRACES_DEFAULT.marker)
-//     // trc.marker = {
-//     // color: 'red', // lines + markers, defaults to colorway
-//    //  }
-   
-//      //trc.x = zArray[i]
-//      trc.x = +i
-     
-//      trc.y = GroupsArray[i]
-    
-//      farr.push(trc)
-//  })
 
-//alert(JSON.stringify(farr))
    let data = [
      {
          x: zArray, //columnData,
@@ -1080,29 +735,13 @@ for (let f=0; f< zArray.length; f++)
          indxArr: [0,1,2,3,4,5,6],
 
 marker:{
-//     color: ['#800026','#BD0026','#E31A1C','#FC4E2A','#FD8D3C', 
-//     '#FEB24C',
-//     '#FED976',
-//    '#FFEDA0']
-  
-    //color: ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99','#e31a1c','#fdbf6f']
 color: ['#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d','#666666']   
 },
-         
-//         //color: 'red', // lines + markers, defaults to colorway
-      
-      } 
+  } 
                  ];
       //Plotly.purge('chart-geodemos'); 
      Plotly.newPlot('chart-geodemos', data, hmlayout)
-        //TrackingArray.push(1)
-        //updateGroupTxt(1);
-        //getzscorstat(0)
+       
           
       })
     }
-
-
-
-
-//---
