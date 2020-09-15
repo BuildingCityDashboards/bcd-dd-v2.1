@@ -118,7 +118,7 @@ d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
 zScores.forEach((row, i) => {
   
 let columnNames = Object.keys(row).sort(function(a,b){return row[a]-row[b]})
-    //alert(keysSorted); 
+   
    let trace = Object.assign({}, TRACES_DEFAULT);
     //trace.type = 'bar'
     //trace.orientation = 'h'
@@ -211,11 +211,7 @@ function scatterHM ()
 {
   d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
-
-
-  //columnNames = Object.keys(zScores[0]).reverse();
   columnNames2 = Object.keys(zScores[0]);
-  //const zScores2=zScores.reverse();
   columnNames2=columnNames2.reverse();
   columnNames2 = columnNames2.filter(e=>e!=='cluster')
   
@@ -242,7 +238,7 @@ function scatterHM ()
     
     ntraces.push(ntrace)
     ntrace.hovertemplate= `%{x:.2f}<extra>Group No: ${i+1}</extra>`
-   // hovertemplate= `z-score: %{trace.x:.2f}<extra></extra>`
+  
 })
 
 
@@ -265,7 +261,7 @@ family: 'Courier New, monospace',
 size: 17
 
 },
-//lyt.showlegend = true;
+
 lyt.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
 lyt.legend.xanchor = 'right';
 lyt.legend.y = 0.1;
@@ -332,7 +328,7 @@ function loadData (file) {
 }
 
 async function loadSmallAreas (lookup) {
-  // alert(JSON.stringify(lookup))
+  
   let features = []
 
   let dataBase = '/data/tools/census2016/'
@@ -353,13 +349,13 @@ async function loadSmallAreas (lookup) {
         let groupNo = lookup[sa.properties.SMALL_AREA]
         sa.properties.groupnumber= groupNo
                
-        //alert(JSON.stringify(sa.geometry.coordinates[0][1]),sa.properties.groupColor)
+        
         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
         
        
       }
       catch{
-        //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+        
         sa.properties.groupnumber= 'NA'
         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
       }
@@ -407,10 +403,10 @@ function getEmptyLayersArray (total) {
   let layersArr = []
   for (let i = 0; i < total; i += 1) {
     layersArr.push(L.geoJSON(null, {
-//      style: subteStyle,
+
       style: getLayerStyle(i),
       onEachFeature: onEachFeature
-      // filter: filterInitialView
+      
     })
     )
   }
@@ -419,18 +415,17 @@ function getEmptyLayersArray (total) {
 function addFeatureToLayer (feature, layerNo) {
   
   if (layerNo ==='NA'){
-    //naLayer.addData(feature)
-    //mapGeodemos.addLayer(naLayer)
+    
   }
   else{
   mapLayers[layerNo].addData(feature)
  
   }
- // alert(geoJson2heat(mapLayers[layerNo],feature.properties.groupColor))
+ 
 }
 
 function getLayerStyle (index) {
-  // console.log("style feature "+f.properties.COUNTYNAME)
+ 
   return {
     fillColor: getLayerColor(index),
     weight: 0.3,
@@ -440,17 +435,13 @@ function getLayerStyle (index) {
     fillOpacity: 0.9
   }
 }
-
-
-
-
 function getLayerColor (index) {
   return GEODEMOS_COLORWAY[index]
 }
 
 function updateGroupTxt(no)
 {
-  //alert(no)
+ 
   if (document.contains(document.getElementById("myhref"))) {
     document.getElementById("href").remove();
 }
@@ -474,7 +465,7 @@ function updateGroupTxt(no)
 
 }
 function getFColor(d) {
-  //alert(d)
+ 
   return  d > 2.0 ? '#FFFFFF' :
           d > 1.5 ? '#BFB6B3' :
           d > 1.0 ? '#d99a1c' :       
@@ -484,7 +475,7 @@ function getFColor(d) {
                    '#000000';
 }
 let ttt=[]
-//traces[feature.properties.groupnumber].x[strUser]
+
 let value=0
 let text=''
 
@@ -513,19 +504,15 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
   let cb= $(this);
   let myv= $(this).attr("id");
-
-  alert(myv)
-  
   ResetImages(myv)
-  
   let layerNo = myv === 'all' ? 'all' : parseInt(myv) -1
   
   if (layerNo !== 'all') {
   
       mapLayers.forEach( l =>{
-        //if(!mapGeodemos.hasLayer(l)){
+       
           mapGeodemos.removeLayer(l)
-          //Plotly.react('chart-geodemos', [traces,traces[myv]] ,layout)
+         
                
       })
 
