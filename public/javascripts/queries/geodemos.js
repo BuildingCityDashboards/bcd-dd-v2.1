@@ -160,7 +160,7 @@ layout.title.y=0.99
 layout.title.xanchor='center'
 layout.title.yanchor='top'
 layout.title.font= { color: '#6fd1f6',
-family: 'Courier New, monospace',
+family: 'Roboto',
 size: 17
 
 },
@@ -251,13 +251,13 @@ lyt.plot_bgcolor="#293135",
 lyt.paper_bgcolor="#293135"
 
 lyt.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-lyt.title.text = 'Variables Value Distribution';
+lyt.title.text = 'Variables Value Distribution (z-scores)';
 lyt.title.x=0.51
 lyt.title.y=0.99
 lyt.title.xanchor='center'
 lyt.title.yanchor='top'
 lyt.title.font= { color: '#6fd1f6',
-family: 'Courier New, monospace',
+family: 'Roboto',
 size: 17
 
 },
