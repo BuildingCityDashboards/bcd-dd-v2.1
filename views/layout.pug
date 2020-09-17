@@ -2,6 +2,15 @@ doctype html
 html(lang='en')
 
   head
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-157545643-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date())
+      gtag('config', 'UA-157545643-2')
+    </script>
+
     meta(http-equiv='content-type' charset='text/html utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     //- meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
@@ -31,8 +40,7 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/base-style.css')
     link(rel='stylesheet', href='/stylesheets/type.css')
     link(rel='stylesheet', href='/stylesheets/side-menu.css')
-    link(rel='stylesheet', href='/stylesheets/icon-nav.css')
-        
+    link(rel='stylesheet', href='/stylesheets/icon-nav.css')        
     link(rel='stylesheet', href='/stylesheets/accordion.css')
     link(rel='stylesheet', href='/stylesheets/scroll-progress.css')
     
