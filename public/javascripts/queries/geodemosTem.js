@@ -253,7 +253,7 @@ layout.height = 500
 //layout.barmode = 'group';
 // layout.colorway = GEODEMOS_COLORWAY
 layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-layout.title.text = 'Variables Value Distribution (z-scores)';
+layout.title.text = '';
 layout.title.font= { color: '#6fd1f6',
 family: 'Courier New, monospace',
 size: 17
@@ -1034,7 +1034,7 @@ function addheatmap ()
   
   hmlayout.colorway = GEODEMOS_COLORWAY
   hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-  hmlayout.title.text = 'Variables Value Distribution (z-scores)';
+  hmlayout.title.text = '';
   hmlayout.title.x=0.51
   hmlayout.title.y=0.99
   hmlayout.title.xanchor='center'
