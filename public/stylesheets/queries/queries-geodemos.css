@@ -318,4 +318,7 @@ input[type="checkbox"]:not(:checked) {
    * .dc-chart g.row text { fill: white; } .dc-chart g.axis label { font-size:
    * 100px; color: white; fill: white; stroke: white; }
    */
-  
+   #HM-text {
+    text-align:start;
+    text-indent: -2em;
+   }
