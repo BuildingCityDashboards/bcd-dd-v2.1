@@ -18,7 +18,7 @@ async function main (options) {
   // }
 
   const dataset = JSONstat(json).Dataset(0)
-  console.log(dataset)
+  // console.log(dataset)
 
   const dimensions = dataset.Dimension().map(dim => {
     return dim.label
@@ -34,7 +34,7 @@ async function main (options) {
   const employmentTable = dataset.toTable(
     { type: 'arrobj' },
     (d, i) => {
-      if (d[dimensions[0]] === 'Southern' &&
+      if (d[dimensions[0]] === 'Dublin' &&
                 hasCleanValue(d)) {
         d.date = convertQuarterToDate(d.Quarter)
         d.value = +d.value
