@@ -297,6 +297,7 @@ html {
   align-self: flex-end;
   flex-direction: row;
   justify-content: space-around;
+  align-items: flex-end;
   grid-column: span 4;
   grid-row: 7 / 8;
 }
@@ -345,7 +346,7 @@ html {
 }
 
 #hero-scroll-arrow {
-  align-self: flex-end;
+  align-self: center;
   grid-column: 2 / 4;
   grid-row: 8 / 9;
 }
@@ -356,6 +357,7 @@ html {
   background-color: transparent;
   fill: grey;
   transform: rotate(-90deg);
+
 }
 
 @media only screen and (min-width : 768px) {
