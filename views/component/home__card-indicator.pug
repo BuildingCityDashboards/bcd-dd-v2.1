@@ -1,0 +1,30 @@
+mixin home__card-indicator(options = {id:'', title: 'card title', subtitle:'',icon:'', info:'Information will appear here when available', buttons:[], data: {},displayoptions : {}})
+    div(id=options.id class='home__card-indicator')
+        .card
+            .card__header
+                //- img(src= icon).card__icon
+                h1.card__title=options.title
+                h2#subtitle.card__sub-title=options.subtitle
+            .card__body
+                div(id=options.displayoptions.displayid class="card__display")
+                  #card-left.card__left
+                  #card-center.card__center
+                    svg()
+                        use(href=options.icon)
+                  #card-right.card__right
+            .card__info
+                .card__info-border 
+                p.card__info-text=options.info
+                .card__info__buttons
+                    each b in options.buttons
+                        a(href=b.href class="card__link" target=b.target).button #{b.name}
+    script(type="module").
+        'use strict'
+        import { main } from !{JSON.stringify(options.displayoptions.src)}
+        (async function(o){
+           main(o);
+         })(!{JSON.stringify(options)})    
+
+        
+                        
+                    

@@ -1,12 +1,14 @@
 extends layout
 include component/card-rt
 include component/card-chart 
+include component/home__card-chart 
 
 block append head
   
   //- link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
+  link(rel="stylesheet", href="/stylesheets/home-carousel.css")
   link(rel="stylesheet", href="/stylesheets/home-about.css")
   link(rel="stylesheet", href="/stylesheets/card.css")
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
@@ -56,7 +58,29 @@ block content
                 include component/card-weather
       
         #hero-carousel
-            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
+            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
+
+              .carousel-cell
+                #employment-card.card-wrapper 
+                  //-  +home__card-chart("themes#unemployment", "card", "Unemployment", "Count", "unemployment-chart")
+                  +home__card-chart({
+                    title: 'unemployment',
+                    subtitle:  'rate (%)',
+                    id: 'unemployment-card',
+                    info: '',
+                    buttons: [{
+                      href :'/themes#employment',
+                      name:'More in THEMES'
+                    }],
+                    plotoptions:{
+                      chartid: 'unemployment-card__chart',
+                      data:{
+                      href: '../data/statbank/QLF08.json',
+                      },
+                      src: '/javascripts/home/card_employment.js',
+                      format:''
+                    }
+                  }) 
               .carousel-cell
                 #bikes-card.card-wrapper
                   +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
@@ -69,9 +93,7 @@ block content
                 #population-card.card-wrapper
                   +card-chart("themes#population-dublin", "card", "Population", "Count","population-chart")
               
-              .carousel-cell
-                #employment-card.card-wrapper 
-                  +card-chart("themes#unemployment", "card", "Unemployment", "Count", "unemployment-chart") 
+          
               
               .carousel-cell
                 #property-price-card.card-wrapper
@@ -96,7 +118,7 @@ block content
             <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
         
             //- include component/toggle-button.pug
-  #about-dublin 
+  //- #about-dublin 
     //-.position-anchor
     #about-dublin__header 
       h1 ABOUT DUBLIN
@@ -139,7 +161,7 @@ block content
       a(href='#regions-info')
         <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
       
-  #regions-info
+  //- #regions-info
     #regions-info__map
       svg#map
     //- #regions-info_flex
@@ -176,7 +198,7 @@ block content
           |.
       
     
-  #about-dublin-dashboard
+  //- #about-dublin-dashboard
     #about-dublin-dashboard__header 
       h1 ABOUT THE DASHBOARD
     #about-dublin-dashboard__twitter
