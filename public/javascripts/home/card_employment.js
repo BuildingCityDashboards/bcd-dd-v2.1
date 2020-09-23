@@ -44,7 +44,7 @@ async function main (options) {
       }
     })
 
-  console.log(employmentTable)
+  // console.log(employmentTable)
 
   const employedCountConfig = {
     data: employmentTable,
@@ -58,10 +58,6 @@ async function main (options) {
 
   const employmentnCard = new CardChartLine(employedCountConfig)
 
-  window.addEventListener('resize', () => {
-    employmentnCard.drawChart()
-  })
-
   // get latest trend info text
   const prevIndex = employmentTable.length - 2
   const currIndex = employmentTable.length - 1
@@ -72,9 +68,6 @@ async function main (options) {
     const currVal = employmentTable[currIndex].value
     const prevLabel = employmentTable[prevIndex].label
     const currLabel = employmentTable[currIndex].label
-
-    console.log(prevVal)
-    console.log(currVal)
     const delta = (currVal - prevVal).toPrecision(2)
     // const percentChange = getPercentageChange(prevVal, currVal)
     const trendText = delta < 0 ? 'This was <b>DOWN</b> <arrowdown>▼</arrowdown><b>' + Math.abs(delta) + '%</b>' : delta > 0 ? 'This was <b>UP</b>  <arrowup>▲</arrowup><b>' + delta + '%</b>' : 'This was <b>NO CHANGE</b>'
@@ -82,11 +75,11 @@ async function main (options) {
     const info = `In ${currLabel.replace('Q', 'quarter ')}, the <b>UNEMPLOYMENT RATE</b> in Dublin was <b>${currVal}%</b>. ${trendText} on ${prevLabel.replace('Q', 'quarter ')}`
 
     document.getElementById(options.id + '__info-text').innerHTML = info
-
-    console.log(info)
-  } else {
-    console.log('none')
   }
+
+  window.addEventListener('resize', () => {
+    employmentnCard.drawChart()
+  })
 }
 
 export { main }

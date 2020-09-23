@@ -25,12 +25,51 @@ export { isToday }
  *     getDateFromToday(-1) //yesterday's date
  */
 const getDateFromToday = n => {
-  let d = new Date()
+  const d = new Date()
   d.setDate(d.getDate() + parseInt(n))
   return d
 }
 
 export { getDateFromToday }
+
+function getDateFromYearMonth () {
+  return d3.timeParse('%Y-%b')
+}
+export { getDateFromYearMonth }
+
+/**
+ * Return the short name of the month indexed from 0
+ *
+ * @param {number} n - month index
+ * @return {String} - month name
+ *
+ *
+ */
+
+function getMonthNameShort (i) {
+  const shortMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  return shortMonths[i]
+}
+
+export { getMonthNameShort }
+
+/**
+ * Return the full name of the month indexed from 0
+ *
+ * @param {number} n - month index
+ * @return {String} - month name
+ *
+ *
+ */
+
+function getMonthNameLong (i) {
+  const longMonths = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
+  return longMonths[i]
+}
+
+export { getMonthNameLong }
 
 /**
  * Formats a date in the form: DD-MM-YY
@@ -44,7 +83,7 @@ export { getDateFromToday }
  */
 
 function formatDateAsDDMMYY (date, delim = '-') {
-  let dateString = '' + date.getDate() + delim + (parseInt(date.getMonth()) + 1) + delim + date.getFullYear().toString().substr(-2)
+  const dateString = '' + date.getDate() + delim + (parseInt(date.getMonth()) + 1) + delim + date.getFullYear().toString().substr(-2)
   return dateString
 }
 
@@ -104,4 +143,3 @@ export { locale }
 // const parseMonth = d3.timeParse('%Y-%b')
 // const formatMonth = d3.timeFormat('%b %Y')
 // const parseYearMonth = d3.timeParse('%Y-%b') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
-
