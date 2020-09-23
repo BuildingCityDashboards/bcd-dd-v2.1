@@ -104,10 +104,9 @@ async function main (options) {
     const currVal = housePricesAverage[currIndex].value
     const prevLabel = housePricesAverage[prevIndex].label
     const currLabel = housePricesAverage[currIndex].label
-    const delta = (currVal - prevVal).toPrecision(2)
     const percentChange = getPercentageChange(prevVal, currVal)
 
-    const trendText = percentChange < 0 ? 'This was <b>DOWN</b> <arrowdown>▼</arrowdown><b>' + percentChange + '%</b>' : percentChange > 0 ? 'This was <b>UP</b>  <arrowup>▲</arrowup><b>' + percentChange + '%</b>' : 'This was <b>NO CHANGE</b>'
+    const trendText = percentChange < 0 ? 'This was <b>DOWN</b> <arrowdown>▼</arrowdown><b>' + Math.abs(percentChange) + '%</b>' : percentChange > 0 ? 'This was <b>UP</b>  <arrowup>▲</arrowup><b>' + percentChange + '%</b>' : 'This was <b>NO CHANGE</b>'
 
     const info = `In ${currLabel}, the average <b>HOUSE PRICE</b> in Dublin was <b>€${Math.floor(currVal)}</b>. ${trendText} on ${prevLabel}`
 
