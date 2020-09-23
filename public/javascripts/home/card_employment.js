@@ -69,7 +69,6 @@ async function main (options) {
     const prevLabel = employmentTable[prevIndex].label
     const currLabel = employmentTable[currIndex].label
     const delta = (currVal - prevVal).toPrecision(2)
-    // const percentChange = getPercentageChange(prevVal, currVal)
     const trendText = delta < 0 ? 'This was <b>DOWN</b> <arrowdown>▼</arrowdown><b>' + Math.abs(delta) + '%</b>' : delta > 0 ? 'This was <b>UP</b>  <arrowup>▲</arrowup><b>' + delta + '%</b>' : 'This was <b>NO CHANGE</b>'
 
     const info = `In ${currLabel.replace('Q', 'quarter ')}, the <b>UNEMPLOYMENT RATE</b> in Dublin was <b>${currVal}%</b>. ${trendText} on ${prevLabel.replace('Q', 'quarter ')}`

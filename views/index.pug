@@ -34,9 +34,9 @@ block append head
   script(src='javascripts/home/card_weather_current.js' type="text/javascript" defer)
   script(src='javascripts/home/card_bikes.js' type="module")
   script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_population.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/card_population.js' type="text/javascript" defer)
   script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_propertyprice.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/card_propertyprice.js' type="text/javascript" defer)
   script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
 
 block navigation
@@ -59,6 +59,25 @@ block content
         #hero-carousel
             <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
 
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'population',
+                      subtitle:  'All Dublin',
+                      id: 'population-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#population',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'population-card__chart',
+                        data:{
+                        href: '../data/statbank/CNA13.json',
+                        },
+                        src: '/javascripts/home/card_population.js',
+                        format:''
+                      }
+                    })
               .carousel-cell
                   +home__card-chart({
                       title: 'house prices',
@@ -109,11 +128,11 @@ block content
                 #traveltimes-card.card-wrapper
                   +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes")
               
-              .carousel-cell
-                #population-card.card-wrapper
-                  +card-chart("themes#population-dublin", "card", "Population", "Count","population-chart")
+              //- .carousel-cell
+              //-   #population-card.card-wrapper
+              //-     +card-chart("themes#population-dublin", "card", "Population", "Count","population-chart")
               
-              .carousel-cell
+              //- .carousel-cell
                 #property-price-card.card-wrapper
                   +card-chart("themes#house-rppi", "card", "Property Price", "Index", "property-price-chart")    
               
