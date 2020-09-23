@@ -68,10 +68,13 @@ async function main (options) {
 
   if ((prevIndex in employmentTable) &&
     (currIndex in employmentTable)) {
-    const prevVal = employmentTable[prevIndex]
-    const currVal = employmentTable[currIndex]
+    const prevVal = employmentTable[prevIndex].value
+    const currVal = employmentTable[currIndex].value
 
-    const percentChange = getPercentageChange(prevVal, currVal)
+    console.log(prevVal)
+    console.log(currVal)
+
+    const percentChange = getPercentageChange(currVal, prevVal)
     console.log(percentChange + '%')
   } else {
     console.log('none')

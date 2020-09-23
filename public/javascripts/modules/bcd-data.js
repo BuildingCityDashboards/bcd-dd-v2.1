@@ -101,22 +101,23 @@ const longToWide = (csv) => {
 export { longToWide }
 
 /**
- * // TODO: Change tabular data from long (flat) to wide format
+ * Return the percentage change between 2 numbers
  *
- * @param {}
- * @return {}
+ * @param { Number } curr
+ * @param { Number } prev
+ * @return { Number } percent
  *
  *
  */
 
-function getPercentageChange (d1, d0) {
-  const value = (d1 - d0) / d0
-  if (value === Infinity) {
-    return d1
-  } else if (isNaN(value)) {
+function getPercentageChange (curr, prev) {
+  const percent = (curr - prev) * 100 / prev
+  if (percent === Infinity) {
+    return curr
+  } else if (isNaN(percent)) {
     return 0
   }
-  return value
+  return percent.toPrecision(3)
 }
 
 export { getPercentageChange }
