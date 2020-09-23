@@ -105,7 +105,7 @@ async function main (options) {
   }
 
   window.addEventListener('resize', () => {
-    completionsCardChart.redraw()
+    completionsCardChart.drawChart()
   })
 }
 
