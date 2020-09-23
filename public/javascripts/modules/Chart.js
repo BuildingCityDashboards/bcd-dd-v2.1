@@ -33,21 +33,21 @@ class Chart {
 
   // initialise method to draw c area
   init () {
-    let c = this,
-      eN,
-      eW,
-      aR,
-      cScheme,
-      m = c.m = {},
-      w,
-      h,
-      bP
+    const c = this
+    let eN
+    let eW
+    let aR
+    let cScheme
+    const m = c.m = {}
+    let w
+    let h
+    let bP
 
     eN = d3.select(c.e).node(),
-      eW = eN.getBoundingClientRect().width,
-      aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-      cScheme = c.cS || d3.schemeBlues[5],
-      bP = 450
+    eW = eN.getBoundingClientRect().width,
+    aR = eW < 800 ? eW * 0.55 : eW * 0.5,
+    cScheme = c.cS || d3.schemeBlues[5],
+    bP = 450
     // console.log("ew: " + eW);
     // margins
     m.t = eW < bP ? 40 : 50
@@ -62,7 +62,7 @@ class Chart {
     c.w = w
     c.h = h
     c.eN = eN
-    c.sscreens = eW < bP ? true : false
+    c.sscreens = eW < bP
 
     // to remove existing svg on resize
     d3.select(c.e).select('svg').remove()
@@ -94,11 +94,11 @@ class Chart {
   }
 
   addAxis () {
-    let c = this,
-      g = c.g,
-      gLines,
-      xLabel,
-      yLabel
+    const c = this
+    const g = c.g
+    let gLines
+    let xLabel
+    let yLabel
 
     gLines = g.append('g')
       .attr('class', 'grid-lines')
@@ -129,8 +129,8 @@ class Chart {
   }
 
   getKeys () {
-    let c = this,
-      findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p)
+    const c = this
+    const findKeys = (d) => d.filter((e, p, a) => a.indexOf(e) === p)
     c.colour.domain(c.d.map(d => {
       return d.key
     }))
@@ -139,7 +139,7 @@ class Chart {
   }
 
   drawTooltip () {
-    let c = this
+    const c = this
 
     d3.select(c.e).select('.tool-tip.bcd').remove()
 
@@ -150,9 +150,9 @@ class Chart {
     // check screen size
     // console.log('c.sscreens')
     // console.log(c.sscreens)
-    c.sscreens ?
-      c.newToolTip.style('visibility', 'visible') :
-      c.newToolTip.style('visibility', 'hidden')
+    c.sscreens
+      ? c.newToolTip.style('visibility', 'visible')
+      : c.newToolTip.style('visibility', 'hidden')
 
     // c.newToolTip.style('display', 'none')
 
@@ -165,9 +165,9 @@ class Chart {
   }
 
   tooltipHeaders () {
-    let c = this,
-      div,
-      p
+    const c = this
+    let div
+    let p
 
     div = c.newToolTip
       .append('div')
@@ -197,10 +197,10 @@ class Chart {
   }
 
   tooltipBody () {
-    let c = this,
-      keys = c.ks,
-      div,
-      p
+    const c = this
+    const keys = c.ks
+    let div
+    let p
 
     keys.forEach((d, i) => {
       div = c.newToolTip
@@ -219,8 +219,8 @@ class Chart {
   }
 
   drawGridLines () {
-    let c = this,
-      gLines
+    const c = this
+    let gLines
 
     gLines = c.getElement('.grid-lines')
 
@@ -239,16 +239,16 @@ class Chart {
   }
 
   getElement (name) {
-    let c = this,
-      s = d3.select(c.e),
-      e = s.selectAll(name)
+    const c = this
+    const s = d3.select(c.e)
+    const e = s.selectAll(name)
     return e
   }
 
   drawFocusLine () {
     // console.log('draw focus line')
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
 
     c.focus = g.append('g')
       .attr('class', 'focus')
@@ -267,10 +267,10 @@ class Chart {
   }
 
   drawFocusCircles (d, i) {
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
 
-    let tooltip = g.select('.focus_circles')
+    const tooltip = g.select('.focus_circles')
       .append('g')
       .attr('class', 'tooltip_' + i)
 
@@ -285,9 +285,10 @@ class Chart {
   // for data that needs to be nested
   // check if the data needs to be nested or not!!
   nestData () {
-    let c = this
+    const c = this
     c.d = c.d[0].key ? c.d : c.nest(c.d, c.k)
   }
+
   nest (data, key) {
     return d3.nest().key(d => {
       return d[key]
@@ -326,7 +327,6 @@ class Chart {
         return 'undefined'
     }
   }
-
 }
 
 export { Chart }

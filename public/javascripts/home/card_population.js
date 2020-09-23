@@ -23,7 +23,7 @@ async function main (options) {
   // }
 
   const dataset = JSONstat(json).Dataset(0)
-  console.log(dataset)
+  // console.log(dataset)
 
   const dimensions = dataset.Dimension().map(dim => {
     return dim.label

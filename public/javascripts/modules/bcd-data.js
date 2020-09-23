@@ -90,7 +90,29 @@ export { stackNest }
  * @param {}
  * @return {}
  *
- *
+
+const populationNested = d3.nest()
+      .key(function (d) { return d.date })
+      .entries(populationFiltered)
+
+    // console.log('populationNested')
+    // console.log(populationNested)
+
+    const populationWide = populationNested.map(function (d) {
+      const obj = {
+        label: d.key
+      }
+      d.values.forEach(function (v) {
+        if (v.Statistic === categoriesStat[0] & v.Sex !== categoriesSex[0]) {
+          obj.date = v.date
+          obj[v.Sex] = v.value
+        }
+      })
+      return obj
+    })
+
+    // console.log('populationWide')
+
  */
 
 const longToWide = (csv) => {

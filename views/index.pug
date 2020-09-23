@@ -34,7 +34,7 @@ block append head
   script(src='javascripts/home/card_weather_current.js' type="text/javascript" defer)
   script(src='javascripts/home/card_bikes.js' type="module")
   script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
   script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
 
 block navigation
@@ -56,6 +56,26 @@ block content
       
         #hero-carousel
             <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
+
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'house completions',
+                      subtitle:  'total dublin units',
+                      id: 'house-completions-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#housing',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'house-completions-card__chart',
+                        data:{
+                        href: '../data/statbank/NDQ06.json',
+                        },
+                        src: '/javascripts/home/card_housing_completions.js',
+                        format:''
+                      }
+                    })
 
               .carousel-cell
                   +home__card-chart({
@@ -125,7 +145,7 @@ block content
                 #traveltimes-card.card-wrapper
                   +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
               
-              .carousel-cell
+              //- .carousel-cell
                 #house-completions-card.card-wrapper
                   +card-chart("themes#quarterly-new-dwelling-completions", "card", "House Completions", "Units","house-completions-chart")
               
