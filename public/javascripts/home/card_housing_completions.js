@@ -30,7 +30,7 @@ async function main (options) {
   const categoriesStat = dataset.Dimension(dimensions[3]).Category().map(c => {
     return c.label
   })
-  // console.log(categoriesStat)
+  console.log(categoriesStat)
 
   //
   const completionsTable = dataset.toTable(
@@ -83,53 +83,29 @@ async function main (options) {
     dL: 'label'
   }
 
-  const completionsCard = new CardChartLine(completionsConfig)
+  const completionsCardChart = new CardChartLine(completionsConfig)
 
-  //     const completionsHouse = {
-  //       e: '#chart-completions-house',
-  //       d: completionsTable.filter(d => {
-  //         return d[dimensions[1]] === categoriesType[0]
-  //       }),
-  //       ks: categoriesLA,
-  //       k: dimensions[0],
-  //       xV: 'date',
-  //       yV: 'value',
-  //       tX: 'Year',
-  //       tY: categoriesStat[0]
-  //     }
-  //     //
-  //     const completionsHouseChart = new MultiLineChart(completionsHouse)
+  // get latest trend info text
+  const prevIndex = completionsWide.length - 3 // can use this to set the desired trend interval
+  const currIndex = completionsWide.length - 1
 
-  //     const completionsScheme = {
-  //       e: '#chart-completions-scheme',
-  //       d: completionsTable.filter(d => {
-  //         return d[dimensions[1]] === categoriesType[1]
-  //       }),
-  //       ks: categoriesLA,
-  //       k: dimensions[0],
-  //       xV: 'date',
-  //       yV: 'value',
-  //       tX: 'Year',
-  //       tY: categoriesStat[0]
-  //     }
-  //     //
-  //     const completionsSchemeChart = new MultiLineChart(completionsScheme)
+  if ((prevIndex in completionsWide) &&
+    (currIndex in completionsWide)) {
+    const prevVal = completionsWide[prevIndex].value
+    const currVal = completionsWide[currIndex].value
+    const prevLabel = completionsWide[prevIndex].label
+    const currLabel = completionsWide[currIndex].label
+    const percentChange = getPercentageChange(currVal, prevVal)
 
-  //     const completionsApartment = {
-  //       e: '#chart-completions-apartment',
-  //       d: completionsTable.filter(d => {
-  //         return d[dimensions[1]] === categoriesType[2]
-  //       }),
-  //       ks: categoriesLA,
-  //       k: dimensions[0],
-  //       xV: 'date',
-  //       yV: 'value',
-  //       tX: 'Year',
-  //       tY: categoriesStat[0]
-  //     }
-  //     //
+    const trendText = percentChange < 0 ? '<b>DOWN</b> <arrowdown>▼</arrowdown><b>' + Math.abs(percentChange) + '%</b>' : percentChange > 0 ? '<b>UP</b>  <arrowup>▲</arrowup><b>' + percentChange + '%</b>' : '<b>NO CHANGE</b>'
+
+    const info = `In ${currLabel.replace('Q', 'quarter ')}, the number of total <b>HOUSE COMPLETIONS</b> in Dublin was <b>${currVal}</b> units. This was ${trendText} on ${prevLabel.replace('Q', 'quarter ')}`
+
+    document.getElementById(options.id + '__info-text').innerHTML = info
+  }
+
   window.addEventListener('resize', () => {
-    // redraw()
+    completionsCardChart.redraw()
   })
 }
 
