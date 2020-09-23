@@ -4,7 +4,7 @@
 
 // ***/
 import { hasCleanValue, getPercentageChange } from '../modules/bcd-data.js'
-import { getMonthNameLong, getMonthNameShort } from '../modules/bcd-date.js'
+import { getMonthNameShort } from '../modules/bcd-date.js'
 import { CardChartLine } from '../modules/CardChartLine.js'
 import { fetchJsonFromUrlAsync } from '../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
