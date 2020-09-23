@@ -39,7 +39,7 @@ async function main (options) {
                 hasCleanValue(d)) {
         d.date = convertQuarterToDate(d.Quarter)
         d.value = +d.value
-        d.label = d.Quarter.replace('Q', '-Q')
+        d.label = d.Quarter.replace('Q', ' Q')
         return d
       }
     })
@@ -77,9 +77,9 @@ async function main (options) {
     console.log(currVal)
     const delta = (currVal - prevVal).toPrecision(2)
     // const percentChange = getPercentageChange(prevVal, currVal)
-    const trendText = delta < 0 ? '<b>decreased</b> by <b>' + Math.abs(delta) + '%</b>' : delta > 0 ? '<b>increased</b> by <b>' + delta + '%</b>' : 'did not change, remaining at <b>' + currVal + '%</b>'
+    const trendText = delta < 0 ? 'This was <b>DOWN</b> <arrowdown>▼</arrowdown><b>' + Math.abs(delta) + '%</b>' : delta > 0 ? 'This was <b>UP</b>  <arrowup>▲</arrowup><b>' + delta + '%</b>' : 'This was <b>NO CHANGE</b>'
 
-    const info = `Between ${prevLabel.replace('-Q', ' quarter ')} and ${currLabel.replace('-Q', ' quarter ')}, the <b>unemployment rate</b> in Dublin ${trendText}`
+    const info = `In ${currLabel.replace('Q', 'quarter ')}, the <b>UNEMPLOYMENT RATE</b> in Dublin was <b>${currVal}%</b>. ${trendText} on ${prevLabel.replace('Q', 'quarter ')}`
 
     document.getElementById(options.id + '__info-text').innerHTML = info
 
@@ -87,13 +87,6 @@ async function main (options) {
   } else {
     console.log('none')
   }
-
-  // const info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
-
-  //   //       // d3.select('#population-card__chart')
-  //   //       //   .select('#card-info-text')
-  //   //       //   .html('<p>' + info + '</p>')
-  //   //     })
 }
 
 export { main }

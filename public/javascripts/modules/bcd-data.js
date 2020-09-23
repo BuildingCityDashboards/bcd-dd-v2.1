@@ -122,6 +122,20 @@ function getPercentageChange (curr, prev) {
 
 export { getPercentageChange }
 
+// function getTrendArrow (value, selector, negative) {
+//   let indicatorColour,
+//     indicatorSymbol = value > 0 ? ' ▲ increase' : value < 0 ? ' ▼ decrease' : ''
+
+//   if (negative === true) {
+//     indicatorColour = value < 0 ? '#20c997' : value > 0 ? '#da1e4d' : '#f8f8f8'
+//   } else {
+//     indicatorColour = value > 0 ? '#20c997' : value < 0 ? '#da1e4d' : '#f8f8f8'
+//   }
+
+//   d3.select(selector).style('color', indicatorColour)
+//   return indicatorSymbol
+// }
+
 // function formatQuarter (date) {
 //   let newDate = new Date()
 //   newDate.setMonth(date.getMonth() + 1)
