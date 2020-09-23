@@ -39,7 +39,7 @@ async function main (options) {
                 hasCleanValue(d)) {
         d.date = convertQuarterToDate(d.Quarter)
         d.value = +d.value
-        d.label = d.Quarter
+        d.label = d.Quarter.replace('Q', '-Q')
         return d
       }
     })
@@ -70,12 +70,20 @@ async function main (options) {
     (currIndex in employmentTable)) {
     const prevVal = employmentTable[prevIndex].value
     const currVal = employmentTable[currIndex].value
+    const prevLabel = employmentTable[prevIndex].label
+    const currLabel = employmentTable[currIndex].label
 
     console.log(prevVal)
     console.log(currVal)
+    const delta = (currVal - prevVal).toPrecision(2)
+    // const percentChange = getPercentageChange(prevVal, currVal)
+    const trendText = delta < 0 ? '<b>decreased</b> by <b>' + Math.abs(delta) + '%</b>' : delta > 0 ? '<b>increased</b> by <b>' + delta + '%</b>' : 'did not change, remaining at <b>' + currVal + '%</b>'
 
-    const percentChange = getPercentageChange(currVal, prevVal)
-    console.log(percentChange + '%')
+    const info = `Between ${prevLabel.replace('-Q', ' quarter ')} and ${currLabel.replace('-Q', ' quarter ')}, the <b>unemployment rate</b> in Dublin ${trendText}`
+
+    document.getElementById(options.id + '__info-text').innerHTML = info
+
+    console.log(info)
   } else {
     console.log('none')
   }

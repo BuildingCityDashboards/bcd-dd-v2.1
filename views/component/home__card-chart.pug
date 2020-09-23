@@ -8,7 +8,7 @@ mixin home__card-chart(options = {id:'', title:'card title', subtitle:'', info:'
                 div(id=options.plotoptions.chartid class="card__line-chart")
             .card__info
                 .card__info-border 
-                p.card__info-text=options.info
+                p(id=options.id+'__info-text').card__info-text=options.info
                 .card__info__buttons
                     each b in options.buttons
                         a(href=b.href class="card__link").button #{b.name}
