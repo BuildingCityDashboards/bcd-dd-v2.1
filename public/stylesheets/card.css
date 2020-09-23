@@ -7,10 +7,11 @@
 .home__card-chart,
 .home__card-indicator {
   height: 100%;
+  width: 100%;
 }
 
 .card {
-  min-width: 276px;
+  min-width: 256px;
   width: 100%;
   max-width: 384px;
   min-height: 156px;
@@ -103,7 +104,7 @@ h2.card__sub-title {
 .card__line-chart {
   position: relative;
   width: 100%;
-  height: 72px;
+  height: 100%;
   margin-right: 0px;
   padding-right: 0px;
   padding-left: 0px;
@@ -123,6 +124,7 @@ h2.card__sub-title {
 .card__body svg {
   /* height: 72px; */
   width: 100%;
+  height: 100%;
   /* stroke: white; */
 
 }

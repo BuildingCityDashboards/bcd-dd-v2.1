@@ -1,14 +1,21 @@
 /* xs/ iPhone 5 :  320px x 568px <MOCKUP> */
 .carousel {
-  margin: 0 20px;
+  margin: 0 16px;
   background: transparent;
   height: 100%;
 
   /* space for prev/next buttons */
 }
 
-.carousel-cell {
+.flickity-viewport {
+  /* overflow: hidden; */
+  position: relative;
+  height: 100%;
   width: 100%;
+}
+
+.carousel-cell {
+  width: calc(100%- 32px);
   height: 100%;
   margin-right: 16px;
   border-radius: 4px;
@@ -21,11 +28,7 @@
 /* cell number */
 .carousel-cell:before {}
 
-.flickity-viewport {
-  /* overflow: hidden; */
-  position: relative;
-  height: 100%;
-}
+
 
 /* smaller, dark, rounded square */
 
