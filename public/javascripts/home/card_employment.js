@@ -2,7 +2,7 @@
 //   Population card
 // ***/
 
-import { hasCleanValue } from '../modules/bcd-data.js'
+import { hasCleanValue, getPercentageChange } from '../modules/bcd-data.js'
 import { convertQuarterToDate } from '../modules/bcd-date.js'
 import { CardChartLine } from '../modules/CardChartLine.js'
 import { fetchJsonFromUrlAsync } from '../modules/bcd-async.js'
@@ -35,6 +35,7 @@ async function main (options) {
     { type: 'arrobj' },
     (d, i) => {
       if (d[dimensions[0]] === 'Dublin' &&
+      d[dimensions[2]] === categoriesStat[3] &&
                 hasCleanValue(d)) {
         d.date = convertQuarterToDate(d.Quarter)
         d.value = +d.value
@@ -43,12 +44,10 @@ async function main (options) {
       }
     })
 
-  // console.log(employmentTable)
+  console.log(employmentTable)
 
   const employedCountConfig = {
-    data: employmentTable.filter(d => {
-      return d[dimensions[2]] === categoriesStat[3]
-    }),
+    data: employmentTable,
     elementid: '#' + options.plotoptions.chartid,
     yvaluename: 'value',
     xvaluename: 'date',
@@ -63,7 +62,22 @@ async function main (options) {
     employmentnCard.drawChart()
   })
 
-  //   //       // const info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
+  // get latest trend info text
+  const prevIndex = employmentTable.length - 2
+  const currIndex = employmentTable.length - 1
+
+  if ((prevIndex in employmentTable) &&
+    (currIndex in employmentTable)) {
+    const prevVal = employmentTable[prevIndex]
+    const currVal = employmentTable[currIndex]
+
+    const percentChange = getPercentageChange(prevVal, currVal)
+    console.log(percentChange + '%')
+  } else {
+    console.log('none')
+  }
+
+  // const info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
 
   //   //       // d3.select('#population-card__chart')
   //   //       //   .select('#card-info-text')

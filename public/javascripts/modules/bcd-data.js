@@ -100,6 +100,27 @@ const longToWide = (csv) => {
 
 export { longToWide }
 
+/**
+ * // TODO: Change tabular data from long (flat) to wide format
+ *
+ * @param {}
+ * @return {}
+ *
+ *
+ */
+
+function getPercentageChange (d1, d0) {
+  const value = (d1 - d0) / d0
+  if (value === Infinity) {
+    return d1
+  } else if (isNaN(value)) {
+    return 0
+  }
+  return value
+}
+
+export { getPercentageChange }
+
 // function formatQuarter (date) {
 //   let newDate = new Date()
 //   newDate.setMonth(date.getMonth() + 1)
