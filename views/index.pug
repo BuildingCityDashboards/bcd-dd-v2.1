@@ -34,9 +34,7 @@ block append head
   script(src='javascripts/home/card_weather_current.js' type="text/javascript" defer)
   script(src='javascripts/home/card_bikes.js' type="module")
   script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
-  //- script(src='javascripts/home/card_population.js' type="text/javascript" defer)
   script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
-  //- script(src='javascripts/home/card_propertyprice.js' type="text/javascript" defer)
   script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
 
 block navigation
@@ -66,7 +64,7 @@ block content
                       id: 'population-card',
                       info: '',
                       buttons: [{
-                        href :'/themes#population',
+                        href :'/themes#population-dublin',
                         name:'More in THEMES'
                       }],
                       plotoptions:{
@@ -99,14 +97,13 @@ block content
                     }) 
               .carousel-cell
                 #employment-card.card-wrapper 
-                  //-  +home__card-chart("themes#unemployment", "card", "Unemployment", "Count", "unemployment-chart")
                   +home__card-chart({
                     title: 'unemployment',
                     subtitle:  'rate (%)',
                     id: 'unemployment-card',
                     info: '',
                     buttons: [{
-                      href :'/themes#employment',
+                      href :'/themes#unemployment',
                       name:'More in THEMES'
                     }],
                     plotoptions:{
@@ -126,15 +123,7 @@ block content
               
               .carousel-cell
                 #traveltimes-card.card-wrapper
-                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes")
-              
-              //- .carousel-cell
-              //-   #population-card.card-wrapper
-              //-     +card-chart("themes#population-dublin", "card", "Population", "Count","population-chart")
-              
-              //- .carousel-cell
-                #property-price-card.card-wrapper
-                  +card-chart("themes#house-rppi", "card", "Property Price", "Index", "property-price-chart")    
+                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
               
               .carousel-cell
                 #house-completions-card.card-wrapper
