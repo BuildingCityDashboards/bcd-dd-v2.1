@@ -1,0 +1,31 @@
+/* xs/ iPhone 5 :  320px x 568px <MOCKUP> */
+
+/* iPhone 5 horizontal */
+@media only screen and (orientation: landscape) {}
+
+/* iPhone 6/7/8 vertical */
+@media only screen and (min-width : 375px) and (orientation: portrait) {}
+
+/* iPhone 6/7/8 horizontal */
+@media only screen and (min-width : 375px) and (orientation: landscape) {}
+
+/* iPad vertical */
+
+@media only screen and (min-width : 768px) and (orientation: portrait) {}
+
+@media only screen and (min-width : 768px) and (orientation: landscape) {}
+
+/* iPad Pro vertical */
+
+@media only screen and (min-width : 1024px) and (orientation: portrait) {}
+
+/* iPad Pro horizontal */
+
+@media only screen and (min-width : 1024px) and (orientation: landscape) {}
+
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen and (min-device-width: 1280px) and (-webkit-min-device-pixel-ratio: 1) {}
+
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {}

@@ -50,7 +50,7 @@ html {
   display: -ms-flexbox;
   min-width: 168px;
   min-height: 43px;
-  padding-left: 8px;
+  padding-left: 0px;
   text-align: left;
   align-self: top;
   font-size: 28px;
@@ -64,7 +64,7 @@ html {
 }
 
 #hero-title>div {
-  transform: translate(0, -50%);
+  transform: translate(0, -60%);
 }
 
 #hero-title__text--top {
@@ -230,67 +230,6 @@ html {
   grid-row: 3 / 7;
 }
 
-/* { box-sizing : border-box; } */
-
-.carousel {
-  margin: 0 20px;
-  background: transparent;
-  /* space for prev/next buttons */
-}
-
-.carousel-cell {
-  width: 100%;
-  height: 200px;
-  margin-right: 16px;
-  border-radius: 4px;
-  background: transparent;
-  /* counter-increment : gallery-cell; */
-  /* gap between cards */
-}
-
-/* cell number */
-
-.carousel-cell:before {}
-
-/* smaller, dark, rounded square */
-
-.flickity-button {
-  background: transparent;
-}
-
-.flickity-button:hover {
-  /* background: #F90; */
-  background: transparent;
-}
-
-.flickity-prev-next-button {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-}
-
-/* icon color */
-
-.flickity-button-icon {
-  /* fill : #6fd1f6; */
-  fill: grey;
-}
-
-/* position outside */
-
-.flickity-prev-next-button.previous {
-  left: -32px;
-}
-
-.flickity-prev-next-button.next {
-  right: -32px;
-}
-
-.flickity-button:focus {
-  /* outline: none; box-shadow: 0 0 0 5px #19F; */
-}
-
-.hero-carousel__card {}
 
 #hero-icon-navs {
   display: flex;
@@ -360,7 +299,20 @@ html {
 
 }
 
-@media only screen and (min-width : 768px) {
+/* iPhone 5 horizontal */
+@media only screen and (orientation: landscape) {}
+
+/* iPhone 6/7/8 vertical */
+@media only screen and (min-width : 375px) and (orientation: portrait) {
+
+  #hero-title {
+    padding-left: 16px;
+    font-size: 36px;
+
+  }
+}
+
+@media only screen and (min-width : 768px) and (orientation: portrait) {
   #hero {
     min-height: 1024px;
     background-image: url('../images/home/hero-background-image-tablet.png');
@@ -370,24 +322,24 @@ html {
     padding-right: 24px;
     padding-left: 24px;
     grid-gap: 24px;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
   }
 
   #hero-title {
-    /* width: 453px; height: 180px; */
+
     padding-left: 24px;
     font-size: 56px;
   }
 
   #hero-title>div {
-    /* transform : translate(0, 0); */
+    transform: translate(0, -50%);
   }
 
   #hero-time-weather {
     justify-content: flex-start;
-    grid-column: 6 / 13;
-    grid-row: 2 / 4;
+    grid-column: 5 / 9;
+    grid-row: 2 / 3;
     transform: translate(24px, 0);
   }
 
@@ -399,10 +351,10 @@ html {
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
+    height: 48px;
     display: flex;
     display: -ms-flexbox;
     width: 325px;
-    height: 64px;
     align-items: center;
     font-style: normal;
     font-weight: 500;
@@ -500,62 +452,11 @@ html {
   }
 
   #hero-carousel {
-    grid-column: span 12;
-    grid-row: 5 / 10;
+    grid-column: span 8;
+    grid-row: 3 / 7;
+
   }
 
-  .carousel {
-    height: 256px;
-    margin: 0 20px;
-    background: transparent;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width: 50%;
-    height: 256px;
-  }
-
-  .carousel-cell:before {}
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    background: transparent;
-  }
-
-  .flickity-prev-next-button {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
-  }
-
-  .flickity-button-icon {
-    fill: grey;
-  }
-
-  /* position outside */
-
-  .flickity-prev-next-button.previous {
-    left: -32px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -32px;
-  }
-
-  .flickity-button:focus {}
-
-  .flickity-page-dots {
-    position: absolute;
-    top: -25px;
-    bottom: 100%;
-    width: 100%;
-  }
-
-  .hero-carousel__card {}
 
   #hero-icon-navs {
     display: flex;
@@ -563,8 +464,8 @@ html {
     align-self: center;
     flex-direction: row;
     justify-content: space-around;
-    grid-column: span 12;
-    grid-row: 10 / 12;
+    grid-column: span 8;
+    grid-row: 7 / 8;
   }
 
   .icon-nav a {
@@ -620,8 +521,8 @@ html {
   }
 
   #hero-scroll-arrow {
-    grid-column: 6/8;
-    grid-row: 12 / 13;
+    grid-column: 4 /6;
+    grid-row: 8/ 9;
   }
 
   .home-scroll-arrow svg {
@@ -748,69 +649,6 @@ html {
     grid-row: 4 / 7;
   }
 
-  .carousel {
-    box-sizing: border-box;
-    height: 384px;
-    margin: 0 24px;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width: 426px;
-    min-height: 384px;
-    margin-right: 0px;
-    border-radius: 4px;
-    /* set as per card size */
-    /* counter-increment : gallery-cell; */
-  }
-
-  .carousel-cell:before {}
-
-  .carousel .flickity-viewport {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* smaller, dark, rounded square */
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    /* background: #F90; */
-    background: transparent;
-  }
-
-  .flickity-prev-next-button {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-  }
-
-  /* icon color */
-
-  .flickity-button-icon {
-    /* fill : #6fd1f6; */
-    fill: grey;
-  }
-
-  /* position outside */
-
-  .flickity-prev-next-button.previous {
-    left: -24px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -32px;
-  }
-
-  .flickity-button:focus {
-    /* outline: none; box-shadow: 0 0 0 5px #19F; */
-  }
-
-  .hero-carousel__card {}
 
   #hero-icon-navs {
     align-self: top;
@@ -952,75 +790,6 @@ html {
     grid-row: 4 / 7;
   }
 
-  .carousel {
-    box-sizing: border-box;
-    height: 256px;
-    margin: 0 32px;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width: 320px;
-    min-height: 180px;
-    margin-right: 16px;
-    border-radius: 4px;
-    /* set as per card size */
-    /* counter-increment : gallery-cell; */
-  }
-
-  .carousel-cell:before {}
-
-  .carousel .flickity-viewport {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* smaller, dark, rounded square */
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    /* background: #F90; */
-    background: transparent;
-  }
-
-  .flickity-prev-next-button {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-  }
-
-  /* icon color */
-
-  .flickity-button-icon {
-    /* fill : #6fd1f6; */
-    fill: grey;
-  }
-
-  /* position outside */
-
-  .flickity-prev-next-button {
-    top: 80px;
-    /* half of height of card */
-    /* transform: translateY(0%); */
-  }
-
-  .flickity-prev-next-button.previous {
-    left: -24px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -24px;
-  }
-
-  .flickity-button:focus {
-    /* outline: none; box-shadow: 0 0 0 5px #19F; */
-  }
-
-  .hero-carousel__card {}
 
   #hero-icon-navs {
     align-self: top;
@@ -1188,71 +957,6 @@ html {
     grid-row: 4 / 7;
   }
 
-  .carousel {
-    height: 360px;
-    margin: 0 24px;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width: 426px;
-    height: 360px;
-    margin-right: 24px;
-    border-radius: 4px;
-    /* set as per card size */
-  }
-
-  .carousel .flickity-viewport {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* smaller, dark, rounded square */
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    /* background: #F90; */
-    background: transparent;
-  }
-
-  .flickity-prev-next-button {
-    width: 24px;
-    height: 24px;
-    border-radius: 4px;
-  }
-
-  /* icon color */
-
-  .flickity-button-icon {
-    /* fill : #6fd1f6; */
-    fill: grey;
-  }
-
-  /* position outside */
-
-  .flickity-prev-next-button {
-    top: 110px;
-    /* half of height of card */
-    /* transform: translateY(0%); */
-  }
-
-  .flickity-prev-next-button.previous {
-    left: -24px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -32px;
-  }
-
-  .flickity-button:focus {
-    /* outline: none; box-shadow: 0 0 0 5px #19F; */
-  }
-
-  .hero-carousel__card {}
 
   #hero-icon-navs {
     align-self: top;

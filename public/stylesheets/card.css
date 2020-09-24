@@ -363,6 +363,16 @@ p.card__info-text b {
   border-color: var(--teal);
 }
 
+/* iPhone 6/7/8 vertical */
+@media only screen and (min-width : 375px) and (orientation: portrait) {
+  p.card__info-text {
+    font-size: 12px;
+  }
+}
+
+/* iPhone 6/7/8 Plus */
+@media only screen and (min-width : 414px) and (orientation: portrait) {}
+
 /* iPad */
 
 @media only screen and (min-width : 768px) {
