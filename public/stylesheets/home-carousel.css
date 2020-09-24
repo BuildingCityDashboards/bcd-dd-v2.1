@@ -3,7 +3,6 @@
   margin: 0 16px;
   background: transparent;
   height: 100%;
-
   /* space for prev/next buttons */
 }
 
@@ -12,12 +11,19 @@
   position: relative;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.flickity-slider {
+  display: flex;
+  /* transform: translateX(0px); */
 }
 
 .carousel-cell {
-  width: calc(100%- 32px);
+  width: 100%;
   height: 100%;
-  margin-right: 16px;
+  margin: 0 8px;
   border-radius: 4px;
   background: transparent;
   padding: 0;
@@ -147,18 +153,19 @@
 @media only screen and (min-width : 768px) and (orientation: portrait) {
 
   .carousel {
-    height: 256px;
-    margin: 0 20px;
+    margin: 0 24px;
     background: transparent;
+
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width: 50%;
-    height: 256px;
+    align-self: center;
+    width: calc(50% - 8px);
+    max-height: 320px;
   }
 
-  .carousel-cell:before {}
+
 
   .flickity-button {
     background: transparent;
