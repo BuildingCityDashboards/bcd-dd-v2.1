@@ -37,6 +37,7 @@ Promise.all([
 
   const unempRateData = stackNest(fData, 'label', 'region', unempRate)
   const empData = stackNest(fData, 'label', 'region', emp)
+  // console.log(empData)
 
   const grouping = ['Dublin', 'Rest of Ireland']
 
