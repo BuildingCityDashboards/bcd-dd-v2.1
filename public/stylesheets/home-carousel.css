@@ -1,4 +1,9 @@
 /* xs/ iPhone 5 :  320px x 568px <MOCKUP> */
+.flickity-page-dots .dot {
+
+  background: grey;
+}
+
 .carousel {
   margin: 0 16px;
   background: transparent;
@@ -117,6 +122,15 @@
 /* iPhone 6/7/8 horizontal */
 @media only screen and (min-width : 375px) and (orientation: landscape) {}
 
+/* surface pro */
+@media only screen and (min-width : 540px) and (orientation: portrait) {
+  .carousel-cell {
+    align-self: center;
+    width: 66%;
+    max-height: 320px;
+  }
+}
+
 /* iPad vertical */
 
 @media only screen and (min-width : 768px) and (orientation: portrait) {
@@ -133,8 +147,6 @@
     width: calc(50% - 8px);
     max-height: 320px;
   }
-
-
 
   .flickity-button {
     background: transparent;
@@ -172,6 +184,8 @@
     bottom: 100%;
     width: 100%;
   }
+
+  .flickity-page-dots .dot {}
 }
 
 
