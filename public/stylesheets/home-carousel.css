@@ -268,15 +268,14 @@
 @media only screen and (min-width : 1024px) and (orientation: portrait) {
 
   .carousel {
-    height: 256px;
-    margin: 0 20px;
+    margin: 0 24px;
     background: transparent;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width: 50%;
-    height: 256px;
+    max-height: 420px;
+
   }
 
   .carousel-cell:before {}

@@ -504,13 +504,11 @@ p.card__info-text b {
 
 /* iPad Pro */
 
-@media only screen and (min-width : 1024px) {
+@media only screen and (min-width : 1024px) and (orientation : portrait) {
   .card {
-    width: 95%;
-    min-width: 256px;
-    max-width: 426px;
+
+    max-width: 480px;
     min-height: 384px;
-    padding: 8px 16px;
     justify-content: space-around;
   }
 

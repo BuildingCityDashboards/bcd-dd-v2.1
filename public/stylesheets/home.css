@@ -542,31 +542,20 @@ html {
     background-image: url('../images/home/hero-background-image.png');
   }
 
-  #hero-grid {
-    padding: 24px;
-    grid-gap: 24px;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-  }
-
   #hero-title>div {
-    /* transform : translate(0, 0); */
+    transform: translate(24px, -50%);
   }
 
   #hero-title {
     padding-left: 0px;
     align-self: top;
     font-size: 84px;
-    grid-column: 2 / 6;
-    grid-row: 2 / 4;
     line-height: 0.72;
     letter-spacing: -0.5px;
   }
 
   #hero-time-weather {
     justify-content: flex-start;
-    grid-column: 6 / 13;
-    grid-row: 2 / 4;
     transform: translate(24px, 0);
   }
 
@@ -644,23 +633,18 @@ html {
 
   #hero-weather__right-bottom {}
 
-  #hero-carousel {
-    grid-column: span 12;
-    grid-row: 4 / 7;
-  }
+  #hero-carousel {}
 
 
   #hero-icon-navs {
     align-self: top;
-    justify-content: space-between;
-    grid-column: 2 / 12;
-    grid-row: 7 / 8;
+    justify-content: space-around;
+
   }
 
   #hero-scroll-arrow {
     align-self: center;
-    grid-column: 6 / 8;
-    grid-row: 8 / 9;
+
   }
 }
 
