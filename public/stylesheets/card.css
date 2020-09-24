@@ -363,6 +363,22 @@ p.card__info-text b {
   border-color: var(--teal);
 }
 
+/* iPhone 5 horizontal */
+@media only screen and (orientation: landscape) {
+
+  .home__card-chart,
+  .home__card-indicator {
+    height: 100%;
+    width: 100%;
+    min-width: 220px;
+  }
+
+  .card {
+    width: 100%;
+    min-width: inherit;
+  }
+}
+
 /* iPhone 6/7/8 vertical */
 @media only screen and (min-width : 375px) and (orientation: portrait) {
   p.card__info-text {

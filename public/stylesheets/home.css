@@ -300,7 +300,46 @@ html {
 }
 
 /* iPhone 5 horizontal */
-@media only screen and (orientation: landscape) {}
+@media only screen and (orientation: landscape) {
+  #hero {
+    height: 200vw;
+    max-height: 640px;
+  }
+
+  #hero-grid {
+    height: inherit;
+    max-height: inherit;
+  }
+
+  #hero-title {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    font-size: 48px;
+    ;
+  }
+
+  #hero-title>div {
+    transform: translate(32px, 32px);
+  }
+
+  #hero-time-weather {
+    transform: translate(16px, -24px);
+  }
+
+  #hero-time {
+
+    /* justify-content: center; */
+  }
+
+  #hero-weather {
+    /* padding-top: 0;
+    padding-left: 8px;
+    justify-content: center; */
+  }
+
+
+
+}
 
 /* iPhone 6/7/8 vertical */
 @media only screen and (min-width : 375px) and (orientation: portrait) {
@@ -537,7 +576,7 @@ html {
 
 /* iPad Pro */
 
-@media only screen and (min-width : 1024px) {
+@media only screen and (min-width : 1024px) and (orientation : portrait) {
   #hero {
     position: relative;
     width: 100vw;
