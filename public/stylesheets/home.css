@@ -310,6 +310,10 @@ html {
     font-size: 36px;
 
   }
+
+  #hero-icon-navs {
+    transform: translate(0, 20%);
+  }
 }
 
 @media only screen and (min-width : 768px) and (orientation: portrait) {
@@ -466,6 +470,7 @@ html {
     justify-content: space-around;
     grid-column: span 8;
     grid-row: 7 / 8;
+    transform: translate(0, 0);
   }
 
   .icon-nav a {

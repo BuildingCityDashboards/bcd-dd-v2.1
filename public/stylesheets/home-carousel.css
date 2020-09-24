@@ -199,12 +199,10 @@
 
   .flickity-page-dots {
     position: absolute;
-    top: -25px;
+    top: 50px;
     bottom: 100%;
     width: 100%;
   }
-
-
 }
 
 
@@ -251,14 +249,14 @@
     right: -32px;
   }
 
-  .flickity-button:focus {}
+  /* .flickity-button:focus {}
 
   .flickity-page-dots {
     position: absolute;
     top: -25px;
     bottom: 100%;
     width: 100%;
-  }
+  } */
 
 
 }
@@ -311,10 +309,7 @@
   .flickity-button:focus {}
 
   .flickity-page-dots {
-    position: absolute;
-    top: -25px;
-    bottom: 100%;
-    width: 100%;
+    top: 72px;
   }
 
 
@@ -368,15 +363,6 @@
   }
 
   .flickity-button:focus {}
-
-  .flickity-page-dots {
-    position: absolute;
-    top: -25px;
-    bottom: 100%;
-    width: 100%;
-  }
-
-
 
 }
 
