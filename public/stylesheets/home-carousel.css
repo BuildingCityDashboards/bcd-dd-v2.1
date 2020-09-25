@@ -291,6 +291,13 @@
     align-items: flex-start;
 
   }
+
+  .flickity-prev-next-button {
+    position: absolute;
+    top: 30%;
+    /* width: 60%;
+    height: 60%; */
+  }
 }
 
 /* iPad Pro  landscape*/
