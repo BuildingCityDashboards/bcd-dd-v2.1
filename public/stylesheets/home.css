@@ -3,6 +3,7 @@
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  width: 100vw;
 
 }
 
@@ -631,8 +632,205 @@ html {
   }
 }
 
-/* iPad Pro */
+@media only screen and (min-width : 768px) and (orientation: landscape) {
+  #hero {
+    min-height: 768px;
+    height: 100vh;
+    max-height: none;
+    background-image: url('../images/home/hero-background-image.png');
+  }
 
+  #hero-grid {
+    max-height: none;
+    height: inherit;
+    padding: 0 48px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+
+  #hero-title {
+    padding-left: 0px;
+    align-self: top;
+    font-size: 64px;
+    grid-column: 1 / 3;
+    grid-row: 2 / 4;
+    line-height: 0.72;
+    letter-spacing: -0.5px;
+  }
+
+  #hero-title>div {
+    transform: translate(48px, -50%);
+  }
+
+  #hero-time-weather {
+    justify-content: flex-start;
+    grid-column: 6 / 13;
+    grid-row: 2 / 4;
+    transform: translate(48px, 0);
+  }
+
+  #hero-time {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #hero-time__box {
+    display: flex;
+    display: -ms-flexbox;
+    width: 192px;
+    height: 48px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
+  }
+
+  #hero-time__clock {
+    width: auto;
+    font-size: 16px;
+  }
+
+  #hero-time__date {
+    width: auto;
+    font-size: 16px;
+  }
+
+  #hero-weather {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  #hero-weather__box {
+    display: flex;
+    width: 256px;
+    height: 64px;
+    font-style: normal;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    word-wrap: break-word;
+  }
+
+  #hero-weather__left-top {
+    height: auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
+  }
+
+  #hero-weather__left-bottom {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    height: 14px;
+    justify-content: space-evenly;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: 0.15px;
+  }
+
+  #hero-weather__left-bottom__icon {
+    padding-right: 4px;
+  }
+
+  #hero-weather__left-bottom__icon svg {}
+
+  #hero-weather__left-bottom__text {}
+
+  #hero-weather__symbol {
+    width: 36px;
+    height: 36px;
+  }
+
+  #hero-weather__right-top {
+    height: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
+  }
+
+  #hero-weather__right-top img {
+    width: 24px;
+    height: 24px;
+  }
+
+  #hero-weather__right-bottom {
+    font-size: 14px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.6);
+    align-items: center;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: 0.15px;
+  }
+
+  #hero-carousel {
+    grid-column: span 12;
+    grid-row: 4 / 7;
+  }
+
+
+  #hero-icon-navs {
+    align-self: top;
+    justify-content: space-between;
+    grid-column: 2 / 12;
+    grid-row: 7 / 8;
+  }
+
+  .icon-nav {
+    width: 184px;
+  }
+
+  .icon-nav__box {
+    width: 100%;
+    height: 56px;
+    min-height: 40px;
+    /* align-items:center; */
+  }
+
+  .icon-nav__title {
+    width: auto;
+    color: #6fd1f6;
+    border: none;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: 1.25px;
+
+  }
+
+  .icon-nav__text {
+    display: block;
+    width: 184px;
+    height: 40px;
+    margin-right: 0;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
+  }
+
+  #hero-scroll-arrow {
+    grid-column: 6/8;
+    grid-row: 8 / 9;
+  }
+}
+
+/* iPad Pro */
 @media only screen and (min-width : 1024px) and (orientation : portrait) {
   #hero {
     position: relative;
@@ -749,25 +947,32 @@ html {
   }
 }
 
-/* laptop with MDPI devtools */
 
-@media only screen and (min-width : 1280px) {
+
+/* ----------- Non-Retina Screens ----------- */
+/* laptop with MDPI devtools */
+@media screen and (min-width: 1280px) {
+
+  /* and (-webkit-min-device-pixel-ratio: 1) and (orientation : landscape) { */
   #hero {
     min-height: 800px;
+    max-height: none;
+    height: 100vh;
     background-image: url('../images/home/hero-background-image.png');
 
   }
 
   #hero-grid {
-    padding: 24px;
+    max-height: none;
+    height: inherit;
+    padding: 48px;
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, 1fr);
-
   }
 
   #hero-title>div {
-    /* transform : translate(0, 0); */
+    transform: translate(0, -50%);
   }
 
   #hero-title {
@@ -780,11 +985,12 @@ html {
     letter-spacing: -0.5px;
   }
 
+
   #hero-time-weather {
     justify-content: flex-start;
     grid-column: 6 / 13;
     grid-row: 2 / 4;
-    transform: translate(24px, 0);
+    transform: translate(48px, 0);
   }
 
   #hero-time {
@@ -793,11 +999,9 @@ html {
   }
 
   #hero-time__box {
-    /* border: solid 2px; */
-    /* max-width: 400px; */
     display: flex;
     display: -ms-flexbox;
-    width: 325px;
+    width: 256px;
     height: 64px;
     align-items: center;
     font-style: normal;
@@ -843,6 +1047,7 @@ html {
   #hero-weather__left-top {}
 
   #hero-weather__left-bottom {
+    display: flex;
     align-items: center;
     font-size: 16px;
     justify-content: space-evenly;

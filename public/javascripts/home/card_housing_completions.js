@@ -10,7 +10,7 @@ async function main (options) {
   //   const parseYear = d3.timeParse('%Y')
   //   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const dataset = JSONstat(json).Dataset(0)
-  console.log(dataset)
+  // console.log(dataset)
 
   const dimensions = dataset.Dimension().map(dim => {
     return dim.label
@@ -20,17 +20,17 @@ async function main (options) {
   const categoriesLA = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
   })
-  console.log(categoriesLA)
+  // console.log(categoriesLA)
 
   const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
     return c.label
   })
-  console.log(categoriesType)
+  // console.log(categoriesType)
 
   const categoriesStat = dataset.Dimension(dimensions[3]).Category().map(c => {
     return c.label
   })
-  console.log(categoriesStat)
+  // console.log(categoriesStat)
 
   //
   const completionsTable = dataset.toTable(
@@ -49,14 +49,14 @@ async function main (options) {
       }
     })
   //
-  console.log(completionsTable)
+  // console.log(completionsTable)
 
   const completionsNested = d3.nest()
     .key(function (d) { return d.date })
     .entries(completionsTable)
 
   // console.log('completionsNested')
-  console.log(completionsNested)
+  // console.log(completionsNested)
 
   const completionsWide = completionsNested.map(function (d) {
     const obj = {
@@ -70,8 +70,8 @@ async function main (options) {
     return obj
   })
 
-  console.log('completionsWide')
-  console.log(completionsWide)
+  // console.log('completionsWide')
+  // console.log(completionsWide)
 
   const completionsConfig = {
     data: completionsWide,
