@@ -131,7 +131,7 @@
   }
 }
 
-/* iPad vertical */
+/* iPad portrait */
 
 @media only screen and (min-width : 768px) and (orientation: portrait) {
 
@@ -188,18 +188,17 @@
   .flickity-page-dots .dot {}
 }
 
-
-@media only screen and (min-width : 768px) and (orientation: landscape) {
+/* iPad landscape */
+@media only screen and (min-width : 1024px) and (orientation: landscape) {
   .carousel {
-    height: 256px;
-    margin: 0 20px;
+    margin: 0 24px;
     background: transparent;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width: 50%;
-    height: 256px;
+    width: calc(33% - 8px);
+    height: 100%;
   }
 
   .carousel-cell:before {}
@@ -232,19 +231,19 @@
     right: -32px;
   }
 
-  /* .flickity-button:focus {}
+  .flickity-button:focus {}
 
   .flickity-page-dots {
     position: absolute;
-    top: -25px;
+    top: -32px;
     bottom: 100%;
     width: 100%;
-  } */
+  }
 
 
 }
 
-/* iPad Pro vertical */
+/* iPad Pro portrait */
 
 @media only screen and (min-width : 1024px) and (orientation: portrait) {
 
@@ -298,57 +297,6 @@
 
 
 }
-
-/* iPad Pro horizontal */
-
-@media only screen and (min-width : 1024px) and (orientation: landscape) {
-
-  .carousel {
-    height: 256px;
-    margin: 0 20px;
-    background: transparent;
-    /* space for prev/next buttons */
-  }
-
-  .carousel-cell {
-    width: 50%;
-    height: 256px;
-  }
-
-  .carousel-cell:before {}
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    background: transparent;
-  }
-
-  .flickity-prev-next-button {
-    width: 32px;
-    height: 32px;
-    border-radius: 4px;
-  }
-
-  .flickity-button-icon {
-    fill: grey;
-  }
-
-  /* position outside */
-
-  .flickity-prev-next-button.previous {
-    left: -32px;
-  }
-
-  .flickity-prev-next-button.next {
-    right: -32px;
-  }
-
-  .flickity-button:focus {}
-
-}
-
 
 /* ----------- Non-Retina Screens ----------- */
 @media screen and (min-device-width: 1280px) and (-webkit-min-device-pixel-ratio: 1) {}
