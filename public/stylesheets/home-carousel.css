@@ -287,6 +287,9 @@
   .carousel-cell {
     width: calc(25% - 12px);
     height: 100%;
+    display: flex;
+    align-items: flex-start;
+
   }
 }
 
