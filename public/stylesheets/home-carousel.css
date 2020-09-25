@@ -201,27 +201,11 @@
     height: 100%;
   }
 
-  .carousel-cell:before {}
-
-  .flickity-button {
-    background: transparent;
-  }
-
-  .flickity-button:hover {
-    background: transparent;
-  }
-
   .flickity-prev-next-button {
     width: 32px;
     height: 32px;
     border-radius: 4px;
   }
-
-  .flickity-button-icon {
-    fill: grey;
-  }
-
-  /* position outside */
 
   .flickity-prev-next-button.previous {
     left: -32px;
@@ -230,8 +214,6 @@
   .flickity-prev-next-button.next {
     right: -32px;
   }
-
-  .flickity-button:focus {}
 
   .flickity-page-dots {
     position: absolute;
@@ -299,7 +281,25 @@
 }
 
 /* ----------- Non-Retina Screens ----------- */
-@media screen and (min-device-width: 1280px) and (-webkit-min-device-pixel-ratio: 1) {}
+@media screen and (min-width: 1280px) {
+
+  /* and (-webkit-min-device-pixel-ratio: 1) { */
+  .carousel-cell {
+    width: calc(25% - 12px);
+    height: 100%;
+  }
+}
+
+/* iPad Pro  landscape*/
+/* @media only screen and (min-width : 1366px) and (orientation : landscape) {
+  .carousel-cell {
+    width: calc(25% - 64px);
+    height: 100%;
+  }
+
+} */
+
+
 
 /* ----------- Retina Screens ----------- */
 @media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {}

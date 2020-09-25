@@ -828,9 +828,6 @@ html {
   }
 }
 
-
-
-
 /* iPad Pro */
 @media only screen and (min-width : 1024px) and (orientation : portrait) {
   #hero {
@@ -948,8 +945,6 @@ html {
   }
 }
 
-
-
 /* ----------- Non-Retina Screens ----------- */
 /* laptop with MDPI devtools */
 @media screen and (min-width: 1280px) {
@@ -966,20 +961,20 @@ html {
   #hero-grid {
     max-height: none;
     height: inherit;
-    padding: 48px;
+    padding: 0 48px;
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, 1fr);
   }
 
   #hero-title>div {
-    transform: translate(0, -50%);
+    transform: translate(-48px, -33%);
   }
 
   #hero-title {
     padding-left: 0px;
     align-self: top;
-    font-size: 84px;
+    font-size: 96px;
     grid-column: 2 / 6;
     grid-row: 2 / 4;
     line-height: 0.72;
@@ -1154,6 +1149,9 @@ html {
     grid-row: 8 / 9;
   }
 }
+
+/* iPad Pro  landscape*/
+@media only screen and (min-width : 1366px) and (orientation : landscape) {}
 
 /* xl */
 
