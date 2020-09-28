@@ -1,7 +1,8 @@
 extends layout
 include component/card-rt
 include component/card-chart 
-include component/home__card-chart 
+include component/home__card-chart
+include component/home__card-indicator  
 
 block append head
   
@@ -57,6 +58,36 @@ block content
         #hero-carousel
             <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
 
+              .carousel-cell
+                  +home__card-indicator({
+                      title: 'Air quality - city',
+                      subtitle:  'Fetching data...',
+                      id: 'air-quality-card',
+                      icon: '/images/icons/air-pollution.svg#Layer_1',
+                      info: '',
+                      buttons: [
+                      {
+                        href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
+                        name:'EPA source data',
+                        target: '_blank'
+                      }],
+                      displayoptions:{
+                        displayid: 'air-quality-card__display',
+                        data:{
+                        href: '/api/air-quality/latest',
+                        },
+                        src: '/javascripts/home/card_air_quality.js',
+                        format:''
+                      }
+                    })
+              .carousel-cell
+                #bikes-card.card-wrapper
+                  +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
+              
+              .carousel-cell
+                #traveltimes-card.card-wrapper
+                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
+              
               .carousel-cell
                   +home__card-chart({
                       title: 'house completions',
@@ -134,22 +165,7 @@ block content
                       format:''
                     }
                   })
-
-            
-              .carousel-cell
-                #bikes-card.card-wrapper
-                  +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
-              
-              .carousel-cell
-                #traveltimes-card.card-wrapper
-                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
-              
-              //- .carousel-cell
-                #house-completions-card.card-wrapper
-                  +card-chart("themes#quarterly-new-dwelling-completions", "card", "House Completions", "Units","house-completions-chart")
-              
-              //- .carousel-cell
-               p MORE    
+   
                   
               //- </div>
             </div>

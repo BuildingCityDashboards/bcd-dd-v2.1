@@ -184,40 +184,66 @@ h2.card__sub-title {
   letter-spacing: 0.15px;
 }
 
-.card__center {}
+.card__display {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-content: center;
+}
 
-.card__center img {
-  width: 24px;
+.card__center {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.card__center svg {
+  width: 48px;
+  height: 48px;
+  fill: rgba(255, 255, 255, 0.7);
 }
 
 .card__left,
 .card__right {
   display: flex;
-  width: 40%;
+  width: 30%;
   text-align: center;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+}
+
+.card__left h1,
+.card__right h1,
+.card__left h2,
+.card__right h2 {
+  /* align-self: center; */
+  /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
+  color: #6fd1f6;
+  opacity: 0.9;
+  padding: 4px 0;
+  margin: 0;
+  text-align: top;
+  text-transform: capitalize;
+  font-style: normal;
+  font-weight: 500;
+  font-stretch: normal;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
 }
 
 .card__left h1,
 .card__right h1 {
-  /* align-self: center; */
-  /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
-  padding: 0px;
-  color: #6fd1f6;
-  text-align: top;
-  text-transform: capitalize;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  font-stretch: normal;
-  line-height: 2;
-  letter-spacing: 0.15px;
+  font-size: 20px;
 }
 
-.card__left p,
-.card__right p {
-  color: rgba(255, 255, 255, 0.6);
+.card__left h2,
+.card__right h2 {
+  color: rgba(255, 255, 255);
+  opacity: 0.6;
   text-transform: capitalize;
   font-size: 12px;
   font-style: normal;
@@ -226,6 +252,9 @@ h2.card__sub-title {
   line-height: 1;
   letter-spacing: 0.15px;
 }
+
+.card__left p,
+.card__right p {}
 
 .card__link {
   padding: 0 .5rem;
