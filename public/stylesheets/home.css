@@ -2,188 +2,188 @@
 
 html {
 
-    scroll-behavior: smooth;
-  }
+  scroll-behavior: smooth;
+}
 
 #hero {
-  position            : relative;
-  width               : 100vw;
-  min-width           : 360px;
-  height              : 100vh;
-  min-height          : 540px;
-  max-height          : 100vh;
-  overflow-y          : hidden;
+  position: relative;
+  width: 100vw;
+  min-width: 320px;
+  height: 100vh;
+  min-height: 540px;
+  max-height: 100vh;
+  overflow-y: hidden;
 
-  background-image    : url('../images/home/hero-background-image-mobile.png');
-  background-repeat   : no-repeat;
-  background-position : top;
+  background-image: url('../images/home/hero-background-image-mobile.png');
+  background-repeat: no-repeat;
+  background-position: top;
   /* background-size     : 100vw 100vh; */
-  background-size     : cover;
-  text-align          : center;
-  align-self          : center;
-  font-family         : 'Roboto',
-                        sans-serif;
+  background-size: cover;
+  text-align: center;
+  align-self: center;
+  font-family: 'Roboto',
+    sans-serif;
 }
 
 #hero-grid {
-  display               : grid;
-  width                 : 100vw;
-  min-width             : inherit;
-  height                : 100vh;
-  min-height            : inherit;
-  max-height            : inherit;
-  margin                : 0;
-  padding               : 4.4vw;
-  justify-content       : center;
-  grid-gap              : 16px;
-  grid-template-columns : repeat(4, 1fr);
-  grid-template-rows    : repeat(8, 1fr);
+  display: grid;
+  width: 100vw;
+  min-width: inherit;
+  height: 100vh;
+  min-height: inherit;
+  max-height: inherit;
+  margin: 0;
+  padding: 4.4vw;
+  justify-content: center;
+  grid-gap: 16px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 }
 
 #hero-title {
-  display         : flex;
-  display         : -ms-flexbox;
-  min-width       : 168px;
-  min-height      : 43px;
-  padding-left    : 8px;
-  text-align      : left;
-  align-self      : top;
-  font-size       : 28px;
-  font-weight     : bold;
-  flex-direction  : column;
-  justify-content : flex-start;
-  grid-column     : 1 / 3;
-  grid-row        : 2 / 3;
-  line-height     : 0.71;
-  letter-spacing  : -0.5px;
+  display: flex;
+  display: -ms-flexbox;
+  min-width: 168px;
+  min-height: 43px;
+  padding-left: 8px;
+  text-align: left;
+  align-self: top;
+  font-size: 28px;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: flex-start;
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  line-height: 0.71;
+  letter-spacing: -0.5px;
 }
 
-#hero-title > div {
-  transform : translate(0, -50%);
+#hero-title>div {
+  transform: translate(0, -50%);
 }
 
 #hero-title__text--top {
-  color : rgba(111, 209, 246, 0.5);
+  color: rgba(111, 209, 246, 0.5);
 }
 
 #hero-title__text--bottom {
-  color : rgba(35, 145, 216, 0.39);
+  color: rgba(35, 145, 216, 0.39);
 }
 
 #hero-time-weather {
-  display            : flex;
-  flex-direction     : column;
-  justify-content    : flex-end;
-  grid-column        : 2 /5;
-  grid-row           : 2 / 3;
-  transform          : translate(4.4vw, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  grid-column: 2 /5;
+  grid-row: 2 / 3;
+  transform: translate(4.4vw, 0);
 }
 
 #hero-time {
-  display         : flex;
-  background      : transparent;
-  justify-content : flex-end;
+  display: flex;
+  background: transparent;
+  justify-content: flex-end;
 }
 
 #hero-time__box {
-  display         : flex;
-  display         : -ms-flexbox;
-  width           : 139px;
-  height          : 24px;
-  background      : rgba(28, 32, 34, 0.38);
-  align-items     : center;
-  flex-wrap       : nowrap;
-  justify-content : space-around;
+  display: flex;
+  display: -ms-flexbox;
+  width: 139px;
+  height: 24px;
+  background: rgba(28, 32, 34, 0.38);
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   /* background-color : rgba(28, 32, 34, 0.38); */
 }
 
 #hero-time__clock {
-  width          : 49px;
-  height         : 12px;
-  color          : #6fd1f6;
-  font-size      : 12px;
-  font-weight    : 500;
-  line-height    : 1;
-  letter-spacing : 0.15px;
+  width: 49px;
+  height: 12px;
+  color: #6fd1f6;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.15px;
 }
 
 #hero-time__date {
-  width          : 66px;
-  height         : 12px;
-  color          : rgba(255, 255, 255, 0.6);
-  font-size      : 12px;
-  font-weight    : 300;
-  line-height    : 1;
-  letter-spacing : 0.15px;
+  width: 66px;
+  height: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.15px;
 }
 
 #hero-weather {
-  display         : flex;
-  padding-top     : 4px;
-  justify-content : flex-end;
+  display: flex;
+  padding-top: 4px;
+  justify-content: flex-end;
 }
 
 #hero-weather__box {
-  display            : flex;
-  position           : relative;
-  width              : 150px;
-  height             : 24px;
-  padding-top        : 0px;
-  padding-bottom     : 0px;
-  background         : rgba(28, 32, 34, 0.38);
-  align-items        : center;
-  font-weight        : 500;
-  flex-direction     : row;
-  flex-wrap          : nowrap;
-  justify-content    : space-around;
-  line-height        : 1.2;
-  letter-spacing     : 0.15px;
-  word-wrap          : break-word;
+  display: flex;
+  position: relative;
+  width: 150px;
+  height: 24px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background: rgba(28, 32, 34, 0.38);
+  align-items: center;
+  font-weight: 500;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  line-height: 1.2;
+  letter-spacing: 0.15px;
+  word-wrap: break-word;
 }
 
 #hero-weather__left-top {
-  height         : 12px;
-  color          : #6fd1f6;
-  font-size      : 12px;
-  line-height    : 1;
-  letter-spacing : 0.15px;
+  height: 12px;
+  color: #6fd1f6;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.15px;
 }
 
 #hero-weather__left-bottom {
-  display : none;
+  display: none;
 }
 
 #hero-weather__symbol {
-  display     : flex;
-  width       : 16px;
-  height      : 16px;
-  align-items : center;
+  display: flex;
+  width: 16px;
+  height: 16px;
+  align-items: center;
   /* background-color : rgba(255, 255, 255, 0.3); */
 }
 
 #hero-weather__symbol img {
-  width  : inherit;
-  height : inherit;
+  width: inherit;
+  height: inherit;
   /* background-color : rgba(255, 255, 255, 0.3); */
 }
 
 .tooltiptext {
-  z-index       : 1;
-  visibility    : hidden;
-  position      : absolute;
-  bottom        : 90%;
-  left          : 50%;
-  min-width         : 100px;
+  z-index: 1;
+  visibility: hidden;
+  position: absolute;
+  bottom: 90%;
+  left: 50%;
+  min-width: 100px;
   /* margin-top    : -5px; */
-  padding       : 8px;
-  color         : rgba(255, 255, 255, 0.6);
-  opacity       : 1;
-  border-radius : 6px;
-  background    : rgba(28, 32, 34, 0.8);
-  text-align    : center;
-  font-family   : 'Roboto',
-                  sans-serif;
-  font-size     : 16px;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+  border-radius: 6px;
+  background: rgba(28, 32, 34, 0.8);
+  text-align: center;
+  font-family: 'Roboto',
+    sans-serif;
+  font-size: 16px;
 }
 
 /**
@@ -193,52 +193,52 @@ html {
  */
 
 #hero-weather__center:hover .tooltiptext {
-  visibility : visible;
+  visibility: visible;
 }
 
 #hero-weather__right-top {
-  display        : flex;
-  color          : #6fd1f6;
-  align-items    : center;
-  font-size      : 12px;
-  flex-direction : row;
-  line-height    : 1;
-  letter-spacing : 0.15px;
+  display: flex;
+  color: #6fd1f6;
+  align-items: center;
+  font-size: 12px;
+  flex-direction: row;
+  line-height: 1;
+  letter-spacing: 0.15px;
 }
 
 #hero-weather__right-top__icon {
-  padding-right : 4px;
+  padding-right: 4px;
 }
 
 #hero-weather__right-top__icon svg {
-  width  : auto;
-  height : 24px;
-  fill   : rgba(255, 255, 255, 0.6);
+  width: auto;
+  height: 24px;
+  fill: rgba(255, 255, 255, 0.6);
 }
 
 #hero-weather__right-bottom {
-  display : none;
+  display: none;
 }
 
 #hero-carousel {
-  grid-column : span 4;
-  grid-row    : 3 / 7;
+  grid-column: span 4;
+  grid-row: 3 / 7;
 }
 
 /* { box-sizing : border-box; } */
 
 .carousel {
-  margin     : 0 20px;
-  background : transparent;
+  margin: 0 20px;
+  background: transparent;
   /* space for prev/next buttons */
 }
 
 .carousel-cell {
-  width         : 100%;
-  height        : 200px;
-  margin-right  : 16px;
-  border-radius : 4px;
-  background    : transparent;
+  width: 100%;
+  height: 200px;
+  margin-right: 16px;
+  border-radius: 4px;
+  background: transparent;
   /* counter-increment : gallery-cell; */
   /* gap between cards */
 }
@@ -250,35 +250,35 @@ html {
 /* smaller, dark, rounded square */
 
 .flickity-button {
-  background : transparent;
+  background: transparent;
 }
 
 .flickity-button:hover {
   /* background: #F90; */
-  background : transparent;
+  background: transparent;
 }
 
 .flickity-prev-next-button {
-  width         : 24px;
-  height        : 24px;
-  border-radius : 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
 }
 
 /* icon color */
 
 .flickity-button-icon {
   /* fill : #6fd1f6; */
-  fill : grey;
+  fill: grey;
 }
 
 /* position outside */
 
 .flickity-prev-next-button.previous {
-  left : -32px;
+  left: -32px;
 }
 
 .flickity-prev-next-button.next {
-  right : -32px;
+  right: -32px;
 }
 
 .flickity-button:focus {
@@ -288,474 +288,471 @@ html {
 .hero-carousel__card {}
 
 #hero-icon-navs {
-  display            : flex;
-  align-self         : flex-end;
-  flex-direction     : row;
-  justify-content    : space-around;
-  grid-column        : span 4;
-  grid-row           : 7 / 8;
+  display: flex;
+  align-self: flex-end;
+  flex-direction: row;
+  justify-content: space-around;
+  grid-column: span 4;
+  grid-row: 7 / 8;
 }
 
 .icon-nav a {
-  text-decoration : none;
+  text-decoration: none;
 }
 
 .icon-nav__box {
-  display            : flex;
-  width              : 64px;
-  min-height         : 72px;
-  margin             : 0;
-  padding            : 0;
-  border             : none;
-  border-radius      : 4px;
-  background         : transparent;
-  align-items        : center;
-  flex-direction     : column;
-  justify-content    : space-evenly;
+  display: flex;
+  width: 64px;
+  min-height: 72px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .icon-nav__icon {
-  width  : 24px;
-  height : 24px;
-  border : none;
+  width: 24px;
+  height: 24px;
+  border: none;
 }
 
 .icon-nav__icon img {
-  width  : 100%;
-  height : 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .icon-nav__title {
-  width          : 54px;
-  height         : 12px;
-  color          : rgba(111, 209, 246, 0.5);
-  font-size      : 12px;
-  font-weight    : 500;
-  line-height    : 1.33;
-  letter-spacing : 1.25px;
+  width: 54px;
+  height: 12px;
+  color: rgba(111, 209, 246, 0.5);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  letter-spacing: 1.25px;
 }
 
 .icon-nav__text {
-  display : none;
+  display: none;
 }
 
 #hero-scroll-arrow {
-  align-self  : flex-end;
-  grid-column : 2 / 4;
-  grid-row    : 8 / 9;
+  align-self: flex-end;
+  grid-column: 2 / 4;
+  grid-row: 8 / 9;
 }
 
 .home-scroll-arrow svg {
-  width            : 24px;
-  height           : auto;
-  background-color : transparent;
-  fill             : grey;
-  transform        : rotate(-90deg);
+  width: 24px;
+  height: auto;
+  background-color: transparent;
+  fill: grey;
+  transform: rotate(-90deg);
 }
 
-@media
-  only screen
-  and (min-width : 768px) {
+@media only screen and (min-width : 768px) {
   #hero {
-    min-height       : 1024px;
-    background-image : url('../images/home/hero-background-image-tablet.png');
+    min-height: 1024px;
+    background-image: url('../images/home/hero-background-image-tablet.png');
   }
 
   #hero-grid {
-    padding-right         : 24px;
-    padding-left          : 24px;
-    grid-gap              : 24px;
-    grid-template-columns : repeat(12, 1fr);
-    grid-template-rows    : repeat(12, 1fr);
+    padding-right: 24px;
+    padding-left: 24px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
   }
 
   #hero-title {
     /* width: 453px; height: 180px; */
-    padding-left : 24px;
-    font-size    : 56px;
+    padding-left: 24px;
+    font-size: 56px;
   }
 
-  #hero-title > div {
+  #hero-title>div {
     /* transform : translate(0, 0); */
   }
 
   #hero-time-weather {
-    justify-content : flex-start;
-    grid-column     : 6 / 13;
-    grid-row        : 2 / 4;
-    transform       : translate(24px,0);
+    justify-content: flex-start;
+    grid-column: 6 / 13;
+    grid-row: 2 / 4;
+    transform: translate(24px, 0);
   }
 
   #hero-time {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display         : flex;
-    display         : -ms-flexbox;
-    width           : 325px;
-    height          : 64px;
-    align-items     : center;
-    font-style      : normal;
-    font-weight     : 500;
-    font-stretch    : normal;
-    flex-wrap       : nowrap;
-    justify-content : space-around;
-    line-height     : 1.2;
-    letter-spacing  : 0.15px;
+    display: flex;
+    display: -ms-flexbox;
+    width: 325px;
+    height: 64px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-time__clock {
-    width     : 80px;
-    height    : 22px;
-    color     : #6fd1f6;
-    font-size : 20px;
+    width: 80px;
+    height: 22px;
+    color: #6fd1f6;
+    font-size: 20px;
   }
 
   #hero-time__date {
-    width       : 109px;
-    height      : 22px;
-    color       : rgba(255, 255, 255, 0.6);
-    font-size   : 20px;
-    font-weight : 300;
+    width: 109px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    font-weight: 300;
   }
 
   #hero-weather {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-weather__box {
-    display            : flex;
-    width              : 366px;
-    height             : 64px;
-    font-style         : normal;
-    flex-direction     : row;
-    flex-wrap          : nowrap;
-    justify-content    : space-evenly;
-    word-wrap          : break-word;
+    display: flex;
+    width: 366px;
+    height: 64px;
+    font-style: normal;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    word-wrap: break-word;
   }
 
   #hero-weather__left-top {
-    height         : 20px;
-    color          : #6fd1f6;
-    font-size      : 20px;
-    font-weight    : 500;
-    line-height    : 1.2;
-    letter-spacing : 0.15px;
+    height: 20px;
+    color: #6fd1f6;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-weather__left-bottom {
-    display        : flex;
-    color          : rgba(255, 255, 255, 0.6);
-    font-size      : 16px;
-    font-weight    : 500;
-    line-height    : 1.33;
-    letter-spacing : 0.15px;
+    display: flex;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: 0.15px;
   }
 
   #hero-weather__left-bottom__icon {
-    padding-right : 4px;
+    padding-right: 4px;
     /* height: 16px */
   }
 
   #hero-weather__left-bottom__icon svg {
-    width        : 13px;
-    height       : 22px;
-    stroke       : rgba(255, 255, 255, 0.6);
-    stroke-width : 48;
+    width: 13px;
+    height: 22px;
+    stroke: rgba(255, 255, 255, 0.6);
+    stroke-width: 48;
     /* padding-right: 16px; */
   }
 
   #hero-weather__left-bottom__text {}
 
   #hero-weather__symbol {
-    width  : 48px;
-    height : 48px;
+    width: 48px;
+    height: 48px;
   }
 
   #hero-weather__right-top {
-    height         : 20px;
-    font-size      : 20px;
-    font-weight    : 500;
-    line-height    : 1.2;
-    letter-spacing : 0.15px;
+    height: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-weather__right-bottom {
-    display        : flex;
-    color          : rgba(255, 255, 255, 0.6);
-    align-items    : center;
-    font-weight    : 500;
-    line-height    : 1.33;
-    letter-spacing : 0.15px;
+    display: flex;
+    color: rgba(255, 255, 255, 0.6);
+    align-items: center;
+    font-weight: 500;
+    line-height: 1.33;
+    letter-spacing: 0.15px;
   }
 
   #hero-carousel {
-    grid-column : span 12;
-    grid-row    : 5 / 10;
+    grid-column: span 12;
+    grid-row: 5 / 10;
   }
 
   .carousel {
-    height     : 256px;
-    margin     : 0 20px;
-    background : transparent;
+    height: 256px;
+    margin: 0 20px;
+    background: transparent;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width  : 50%;
-    height : 256px;
+    width: 50%;
+    height: 256px;
   }
 
   .carousel-cell:before {}
 
   .flickity-button {
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-button:hover {
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-prev-next-button {
-    width         : 32px;
-    height        : 32px;
-    border-radius : 4px;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
   }
 
   .flickity-button-icon {
-    fill : grey;
+    fill: grey;
   }
+
   /* position outside */
 
   .flickity-prev-next-button.previous {
-    left : -32px;
+    left: -32px;
   }
 
   .flickity-prev-next-button.next {
-    right : -32px;
+    right: -32px;
   }
 
   .flickity-button:focus {}
 
   .flickity-page-dots {
-    position : absolute;
-    top      : -25px;
-    bottom   : 100%;
-    width    : 100%;
+    position: absolute;
+    top: -25px;
+    bottom: 100%;
+    width: 100%;
   }
 
   .hero-carousel__card {}
 
   #hero-icon-navs {
-    display            : flex;
-    border             : none;
-    align-self         : center;
-    flex-direction     : row;
-    justify-content    : space-around;
-    grid-column        : span 12;
-    grid-row           : 10 / 12;
+    display: flex;
+    border: none;
+    align-self: center;
+    flex-direction: row;
+    justify-content: space-around;
+    grid-column: span 12;
+    grid-row: 10 / 12;
   }
 
   .icon-nav a {
-    text-decoration : none;
+    text-decoration: none;
   }
 
   .icon-nav a:hover {
-    text-decoration : none;
+    text-decoration: none;
   }
 
   .icon-nav__box {
-    display            : flex;
-    width              : 165px;
-    height             : 72px;
-    margin             : 0;
-    padding            : 0;
-    border             : none;
-    border-radius      : 4px;
-    background-color   : rgba(142, 191, 214, 0.12);
-    align-items        : center;
-    flex-direction     : row;
-    justify-content    : space-around;
+    display: flex;
+    width: 165px;
+    height: 72px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(142, 191, 214, 0.12);
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   .icon-nav__icon {
-    width  : 48px;
-    height : 48px;
-    border : none;
+    width: 48px;
+    height: 48px;
+    border: none;
     /* background-color : rgba(155, 155, 155, 0.0); */
   }
 
   .icon-nav__title {
-    width          : 62px;
-    height         : 16px;
-    color          : #6fd1f6;
-    border         : none;
-    font-size      : 14px;
-    font-style     : normal;
-    font-weight    : 500;
-    line-height    : 1.14;
-    letter-spacing : 1.25px;
+    width: 62px;
+    height: 16px;
+    color: #6fd1f6;
+    border: none;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: 1.25px;
   }
 
   .icon-nav__text {
-    display        : flex;
-    width          : 165px;
-    height         : 40px;
-    color          : rgba(255, 255, 255, 0.6);
-    font-size      : 14px;
-    font-weight    : 300;
-    line-height    : 1.43;
-    letter-spacing : 0.25px;
+    display: flex;
+    width: 165px;
+    height: 40px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
   }
 
   #hero-scroll-arrow {
-    grid-column : 6/8;
-    grid-row    : 12 / 13;
+    grid-column: 6/8;
+    grid-row: 12 / 13;
   }
 
   .home-scroll-arrow svg {
-    width : 32px;
+    width: 32px;
   }
 }
 
 /* iPad Pro */
 
-@media
-  only screen
-  and (min-width : 1024px) {
+@media only screen and (min-width : 1024px) {
   #hero {
-    position         : relative;
-    width            : 100vw;
-    height           : 100vh;
-    min-height       : 1200px;
-    max-height       : 1400px;
-    background-image : url('../images/home/hero-background-image.png');
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 1200px;
+    max-height: 1400px;
+    background-image: url('../images/home/hero-background-image.png');
   }
 
   #hero-grid {
-    padding               : 24px;
-    grid-gap              : 24px;
-    grid-template-columns : repeat(12, 1fr);
-    grid-template-rows    : repeat(8, 1fr);
+    padding: 24px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
   }
 
-  #hero-title > div {
+  #hero-title>div {
     /* transform : translate(0, 0); */
   }
 
   #hero-title {
-    padding-left   : 0px;
-    align-self     : top;
-    font-size      : 84px;
-    grid-column    : 2 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 0.72;
-    letter-spacing : -0.5px;
+    padding-left: 0px;
+    align-self: top;
+    font-size: 84px;
+    grid-column: 2 / 6;
+    grid-row: 2 / 4;
+    line-height: 0.72;
+    letter-spacing: -0.5px;
   }
 
   #hero-time-weather {
-    justify-content : flex-start;
-    grid-column     : 6 / 13;
-    grid-row        : 2 / 4;
-    transform       : translate(24px,0);
+    justify-content: flex-start;
+    grid-column: 6 / 13;
+    grid-row: 2 / 4;
+    transform: translate(24px, 0);
   }
 
   #hero-time {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display         : flex;
-    display         : -ms-flexbox;
-    width           : 325px;
-    height          : 64px;
-    align-items     : center;
-    font-style      : normal;
-    font-weight     : 500;
-    font-stretch    : normal;
-    flex-wrap       : nowrap;
-    justify-content : space-around;
-    line-height     : 1.2;
-    letter-spacing  : 0.15px;
+    display: flex;
+    display: -ms-flexbox;
+    width: 325px;
+    height: 64px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-time__clock {
-    width     : 80px;
-    height    : 22px;
-    color     : #6fd1f6;
-    font-size : 20px;
+    width: 80px;
+    height: 22px;
+    color: #6fd1f6;
+    font-size: 20px;
   }
 
   #hero-time__date {
-    width       : 109px;
-    height      : 22px;
-    color       : rgba(255, 255, 255, 0.6);
-    font-size   : 20px;
-    font-weight : 300;
+    width: 109px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    font-weight: 300;
   }
 
   #hero-weather {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-weather__box {
-    display            : flex;
-    width              : 366px;
-    height             : 64px;
-    font-style         : normal;
-    flex-direction     : row;
-    flex-wrap          : nowrap;
-    justify-content    : space-evenly;
-    word-wrap          : break-word;
+    display: flex;
+    width: 366px;
+    height: 64px;
+    font-style: normal;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    word-wrap: break-word;
   }
 
   #hero-weather__left-top {}
 
   #hero-weather__left-bottom__icon {
-    padding-right : 8px;
+    padding-right: 8px;
     /* height: 16px */
   }
 
   #hero-weather__symbol {
-    width  : 48px;
-    height : 48px;
+    width: 48px;
+    height: 48px;
   }
 
   #hero-weather__right-top {}
 
   #hero-weather__right-top img {
-    width  : 24px;
-    height : 24px;
+    width: 24px;
+    height: 24px;
   }
 
   #hero-weather__right-bottom {}
 
   #hero-carousel {
-    grid-column : span 12;
-    grid-row    : 4 / 7;
+    grid-column: span 12;
+    grid-row: 4 / 7;
   }
 
   .carousel {
-    box-sizing : border-box;
-    height     : 384px;
-    margin     : 0 24px;
+    box-sizing: border-box;
+    height: 384px;
+    margin: 0 24px;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width         : 426px;
-    min-height    : 384px;
-    margin-right  : 0px;
-    border-radius : 4px;
+    width: 426px;
+    min-height: 384px;
+    margin-right: 0px;
+    border-radius: 4px;
     /* set as per card size */
     /* counter-increment : gallery-cell; */
   }
@@ -763,40 +760,43 @@ html {
   .carousel-cell:before {}
 
   .carousel .flickity-viewport {
-    position : absolute;
-    width    : 100%;
-    height   : 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
+
   /* smaller, dark, rounded square */
 
   .flickity-button {
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-button:hover {
     /* background: #F90; */
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-prev-next-button {
-    width         : 24px;
-    height        : 24px;
-    border-radius : 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
   }
+
   /* icon color */
 
   .flickity-button-icon {
     /* fill : #6fd1f6; */
-    fill : grey;
+    fill: grey;
   }
+
   /* position outside */
 
   .flickity-prev-next-button.previous {
-    left : -24px;
+    left: -24px;
   }
 
   .flickity-prev-next-button.next {
-    right : -32px;
+    right: -32px;
   }
 
   .flickity-button:focus {
@@ -806,122 +806,120 @@ html {
   .hero-carousel__card {}
 
   #hero-icon-navs {
-    align-self      : top;
-    justify-content : space-between;
-    grid-column     : 2 / 12;
-    grid-row        : 7 / 8;
+    align-self: top;
+    justify-content: space-between;
+    grid-column: 2 / 12;
+    grid-row: 7 / 8;
   }
 
   #hero-scroll-arrow {
-    align-self  : center;
-    grid-column : 6 / 8;
-    grid-row    : 8 / 9;
+    align-self: center;
+    grid-column: 6 / 8;
+    grid-row: 8 / 9;
   }
 }
 
 /* laptop with MDPI devtools */
 
-@media
-  only screen
-  and (min-width : 1280px) {
+@media only screen and (min-width : 1280px) {
   #hero {
-    min-height       : 800px;
-    background-image : url('../images/home/hero-background-image.png');
+    min-height: 800px;
+    background-image: url('../images/home/hero-background-image.png');
 
   }
 
   #hero-grid {
-    padding               : 24px;
-    grid-gap              : 24px;
-    grid-template-columns : repeat(12, 1fr);
-    grid-template-rows    : repeat(8, 1fr);
+    padding: 24px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
 
   }
 
-  #hero-title > div {
+  #hero-title>div {
     /* transform : translate(0, 0); */
   }
 
   #hero-title {
-    padding-left   : 0px;
-    align-self     : top;
-    font-size      : 84px;
-    grid-column    : 2 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 0.72;
-    letter-spacing : -0.5px;
+    padding-left: 0px;
+    align-self: top;
+    font-size: 84px;
+    grid-column: 2 / 6;
+    grid-row: 2 / 4;
+    line-height: 0.72;
+    letter-spacing: -0.5px;
   }
 
   #hero-time-weather {
-    justify-content : flex-start;
-    grid-column     : 6 / 13;
-    grid-row        : 2 / 4;
-    transform       : translate(24px,0);
+    justify-content: flex-start;
+    grid-column: 6 / 13;
+    grid-row: 2 / 4;
+    transform: translate(24px, 0);
   }
 
   #hero-time {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display         : flex;
-    display         : -ms-flexbox;
-    width           : 325px;
-    height          : 64px;
-    align-items     : center;
-    font-style      : normal;
-    font-weight     : 500;
-    font-stretch    : normal;
-    flex-wrap       : nowrap;
-    justify-content : space-around;
-    line-height     : 1.2;
-    letter-spacing  : 0.15px;
+    display: flex;
+    display: -ms-flexbox;
+    width: 325px;
+    height: 64px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-time__clock {
-    width     : 80px;
-    height    : 22px;
-    color     : #6fd1f6;
-    font-size : 20px;
+    width: 80px;
+    height: 22px;
+    color: #6fd1f6;
+    font-size: 20px;
   }
 
   #hero-time__date {
-    width       : 109px;
-    height      : 22px;
-    color       : rgba(255, 255, 255, 0.6);
-    font-size   : 20px;
-    font-weight : 300;
+    width: 109px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    font-weight: 300;
   }
 
   #hero-weather {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-weather__box {
-    display            : flex;
-    width              : 366px;
-    height             : 64px;
-    font-style         : normal;
-    flex-direction     : row;
-    flex-wrap          : nowrap;
-    justify-content    : space-evenly;
-    word-wrap          : break-word;
+    display: flex;
+    width: 366px;
+    height: 64px;
+    font-style: normal;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    word-wrap: break-word;
   }
 
   #hero-weather__left-top {}
 
   #hero-weather__left-bottom {
-    align-items     : center;
-    font-size       : 16px;
-    justify-content : space-evenly;
+    align-items: center;
+    font-size: 16px;
+    justify-content: space-evenly;
   }
 
   #hero-weather__left-bottom__icon {
-    padding-right : 4px;
+    padding-right: 4px;
   }
 
   #hero-weather__left-bottom__icon svg {}
@@ -929,36 +927,36 @@ html {
   #hero-weather__left-bottom__text {}
 
   #hero-weather__symbol {
-    width  : 48px;
-    height : 48px;
+    width: 48px;
+    height: 48px;
   }
 
   #hero-weather__right-top {}
 
   #hero-weather__right-top img {
-    width  : 24px;
-    height : 24px;
+    width: 24px;
+    height: 24px;
   }
 
   #hero-weather__right-bottom {}
 
   #hero-carousel {
-    grid-column : span 12;
-    grid-row    : 4 / 7;
+    grid-column: span 12;
+    grid-row: 4 / 7;
   }
 
   .carousel {
-    box-sizing : border-box;
-    height     : 256px;
-    margin     : 0 32px;
+    box-sizing: border-box;
+    height: 256px;
+    margin: 0 32px;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width         : 320px;
-    min-height    : 180px;
-    margin-right  : 16px;
-    border-radius : 4px;
+    width: 320px;
+    min-height: 180px;
+    margin-right: 16px;
+    border-radius: 4px;
     /* set as per card size */
     /* counter-increment : gallery-cell; */
   }
@@ -966,46 +964,49 @@ html {
   .carousel-cell:before {}
 
   .carousel .flickity-viewport {
-    position : absolute;
-    width    : 100%;
-    height   : 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
+
   /* smaller, dark, rounded square */
 
   .flickity-button {
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-button:hover {
     /* background: #F90; */
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-prev-next-button {
-    width         : 24px;
-    height        : 24px;
-    border-radius : 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
   }
+
   /* icon color */
 
   .flickity-button-icon {
     /* fill : #6fd1f6; */
-    fill : grey;
+    fill: grey;
   }
+
   /* position outside */
 
   .flickity-prev-next-button {
-    top : 80px;
+    top: 80px;
     /* half of height of card */
     /* transform: translateY(0%); */
   }
 
   .flickity-prev-next-button.previous {
-    left : -24px;
+    left: -24px;
   }
 
   .flickity-prev-next-button.next {
-    right : -24px;
+    right: -24px;
   }
 
   .flickity-button:focus {
@@ -1015,32 +1016,32 @@ html {
   .hero-carousel__card {}
 
   #hero-icon-navs {
-    align-self      : top;
-    justify-content : space-between;
-    grid-column     : 2 / 12;
-    grid-row        : 7 / 8;
+    align-self: top;
+    justify-content: space-between;
+    grid-column: 2 / 12;
+    grid-row: 7 / 8;
   }
 
   .icon-nav {
-    width : 184px;
+    width: 184px;
   }
 
   .icon-nav__box {
-    width      : 100%;
-    height     : 56px;
-    min-height : 40px;
+    width: 100%;
+    height: 56px;
+    min-height: 40px;
     /* align-items:center; */
   }
 
   .icon-nav__title {
-    width          : auto;
-    color          : #6fd1f6;
-    border         : none;
-    font-size      : 18px;
-    font-style     : normal;
-    font-weight    : 500;
-    line-height    : 1.14;
-    letter-spacing : 1.25px;
+    width: auto;
+    color: #6fd1f6;
+    border: none;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.14;
+    letter-spacing: 1.25px;
     /**
     * height
     *
@@ -1055,188 +1056,189 @@ html {
   }
 
   .icon-nav__text {
-    display        : block;
-    width          : 184px;
-    height         : 40px;
-    margin-right   : 0;
-    color          : rgba(255, 255, 255, 0.6);
-    text-align     : center;
-    font-size      : 14px;
-    font-weight    : 300;
-    line-height    : 1.43;
-    letter-spacing : 0.25px;
+    display: block;
+    width: 184px;
+    height: 40px;
+    margin-right: 0;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
   }
 
   #hero-scroll-arrow {
-    grid-column : 6/8;
-    grid-row    : 8 / 9;
+    grid-column: 6/8;
+    grid-row: 8 / 9;
   }
 }
 
 /* xl */
 
-@media
-  only screen
-  and (min-width : 1920px) {
+@media only screen and (min-width : 1920px) {
   #hero {
-    position         : relative;
-    width            : 100vw;
-    height           : 100vh;
-    min-height       : 1080px;
-    background-image : url('../images/home/hero-background-image-mobile.png');
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 1080px;
+    background-image: url('../images/home/hero-background-image-mobile.png');
   }
 
   #hero-grid {
-    padding               : 24px;
-    grid-gap              : 24px;
-    grid-template-columns : repeat(12, 1fr);
-    grid-template-rows    : repeat(8, 1fr);
+    padding: 24px;
+    grid-gap: 24px;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
   }
 
-  #hero-title > div {
+  #hero-title>div {
     /* transform : translate(0, 0); */
   }
 
   #hero-title {
-    padding-left   : 0px;
-    align-self     : top;
-    font-size      : 128px;
-    grid-column    : 2 / 6;
-    grid-row       : 2 / 4;
-    line-height    : 0.72;
-    letter-spacing : -0.5px;
+    padding-left: 0px;
+    align-self: top;
+    font-size: 128px;
+    grid-column: 2 / 6;
+    grid-row: 2 / 4;
+    line-height: 0.72;
+    letter-spacing: -0.5px;
   }
 
   #hero-time-weather {
-    justify-content : flex-start;
-    grid-column     : 6 / 13;
-    grid-row        : 2 / 4;
-    transform       : translate(24px,0);
+    justify-content: flex-start;
+    grid-column: 6 / 13;
+    grid-row: 2 / 4;
+    transform: translate(24px, 0);
   }
 
   #hero-time {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-time__box {
     /* border: solid 2px; */
     /* max-width: 400px; */
-    display         : flex;
-    display         : -ms-flexbox;
-    width           : 325px;
-    height          : 64px;
-    align-items     : center;
-    font-style      : normal;
-    font-weight     : 500;
-    font-stretch    : normal;
-    flex-wrap       : nowrap;
-    justify-content : space-around;
-    line-height     : 1.2;
-    letter-spacing  : 0.15px;
+    display: flex;
+    display: -ms-flexbox;
+    width: 325px;
+    height: 64px;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-stretch: normal;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
   }
 
   #hero-time__clock {
-    width     : 80px;
-    height    : 22px;
-    color     : #6fd1f6;
-    font-size : 20px;
+    width: 80px;
+    height: 22px;
+    color: #6fd1f6;
+    font-size: 20px;
   }
 
   #hero-time__date {
-    width       : 109px;
-    height      : 22px;
-    color       : rgba(255, 255, 255, 0.6);
-    font-size   : 20px;
-    font-weight : 300;
+    width: 109px;
+    height: 22px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    font-weight: 300;
   }
 
   #hero-weather {
-    display         : flex;
-    justify-content : flex-end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #hero-weather__box {
-    display            : flex;
-    width              : 366px;
-    height             : 64px;
-    font-style         : normal;
-    flex-direction     : row;
-    flex-wrap          : nowrap;
-    justify-content    : space-evenly;
-    word-wrap          : break-word;
+    display: flex;
+    width: 366px;
+    height: 64px;
+    font-style: normal;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    word-wrap: break-word;
   }
 
   #hero-weather__symbol {
-    width  : 48px;
-    height : 48px;
+    width: 48px;
+    height: 48px;
   }
 
   #hero-weather__right-top img {
-    width  : 24px;
-    height : 24px;
+    width: 24px;
+    height: 24px;
   }
 
   #hero-carousel {
-    grid-column : span 12;
-    grid-row    : 4 / 7;
+    grid-column: span 12;
+    grid-row: 4 / 7;
   }
 
   .carousel {
-    height : 360px;
-    margin : 0 24px;
+    height: 360px;
+    margin: 0 24px;
     /* space for prev/next buttons */
   }
 
   .carousel-cell {
-    width         : 426px;
-    height        : 360px;
-    margin-right  : 24px;
-    border-radius : 4px;
+    width: 426px;
+    height: 360px;
+    margin-right: 24px;
+    border-radius: 4px;
     /* set as per card size */
   }
 
   .carousel .flickity-viewport {
-    position : absolute;
-    width    : 100%;
-    height   : 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
+
   /* smaller, dark, rounded square */
 
   .flickity-button {
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-button:hover {
     /* background: #F90; */
-    background : transparent;
+    background: transparent;
   }
 
   .flickity-prev-next-button {
-    width         : 24px;
-    height        : 24px;
-    border-radius : 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
   }
+
   /* icon color */
 
   .flickity-button-icon {
     /* fill : #6fd1f6; */
-    fill : grey;
+    fill: grey;
   }
+
   /* position outside */
 
   .flickity-prev-next-button {
-    top : 110px;
+    top: 110px;
     /* half of height of card */
     /* transform: translateY(0%); */
   }
 
   .flickity-prev-next-button.previous {
-    left : -24px;
+    left: -24px;
   }
 
   .flickity-prev-next-button.next {
-    right : -32px;
+    right: -32px;
   }
 
   .flickity-button:focus {
@@ -1246,14 +1248,14 @@ html {
   .hero-carousel__card {}
 
   #hero-icon-navs {
-    align-self      : top;
-    justify-content : space-around;
-    grid-column     : 2 / 12;
-    grid-row        : 7 / 8;
+    align-self: top;
+    justify-content: space-around;
+    grid-column: 2 / 12;
+    grid-row: 7 / 8;
   }
 
   #hero-scroll-arrow {
-    grid-column : 6/8;
-    grid-row    : 8 / 9;
+    grid-column: 6/8;
+    grid-row: 8 / 9;
   }
 }
