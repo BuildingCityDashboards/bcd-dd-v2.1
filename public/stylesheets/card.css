@@ -470,10 +470,6 @@ p.card__info-text b {
     justify-content: space-around;
   }
 
-  .card__line-chart {
-    height: 96px;
-  }
-
   .card__line-chart .label,
   .no-axis {
     font-size: 12px;
@@ -481,76 +477,37 @@ p.card__info-text b {
     letter-spacing: 0.15px;
   }
 
-  .card__body svg {
-    /* height: 96px; */
-  }
-
-  .card__center {}
-
   .card__center img {
     width: 36px;
   }
 
-  .card__left,
-  .card__right {}
-
   .card__left h1,
   .card__right h1 {
-    font-size: 16px;
-    line-height: 2;
-    letter-spacing: 0.15px;
+    font-size: 18px;
   }
 
+  .card__left h2,
+  .card__right h2 {
+    font-size: 12px;
+
+  }
+
+  /* deprecated */
   .card__left p,
   .card__right p {
-    font-size: 14px;
-    line-height: 1;
-    letter-spacing: 0.15px;
+    font-size: 12px;
   }
-
-  .card__link {
-    padding: 0 .5rem;
-    color: #f8f8f8;
-  }
-
-  .card__link:hover {
-    text-decoration: none;
-  }
-
-  .card__title {}
 
   .card__info {
-    display: flex;
-    min-height: 84px;
-    margin-top: 4px;
-    padding-top: 4px;
-    flex-direction: column;
-    justify-content: space-around;
+    min-height: 128px;
   }
 
   .card__info p {
     font-size: 12px;
   }
 
-  .card__info__buttons {}
-
   .card__info__buttons .button {
     font-size: 12px;
-  }
-
-  .card__g {
-    fill: currentColor;
-  }
-
-  .card__body h3,
-  .card__body p,
-  .card__info p,
-  .card__left h1,
-  .card__left p,
-  .card__right h1,
-  .card__right p {
-    margin: 0px;
-    padding: 0px;
   }
 }
 
@@ -566,28 +523,14 @@ p.card__info-text b {
     justify-content: space-around;
   }
 
-  .card__header {}
-
-  .card__title {
+  h1.card__title {
     font-size: 20px;
-    line-height: 1.14;
-    letter-spacing: 1.5px;
   }
 
   /* Usually used for time of last update etc. */
 
-  .card__sub-title {
-    padding-top: 8px;
-    font-size: 16px;
-    line-height: 1.2;
-    letter-spacing: 1.5px;
-  }
-
-  .card__body {
-    display: flex;
-    min-height: 128px;
-    align-items: center;
-    justify-content: space-around;
+  h2.card__sub-title {
+    font-size: 14px;
   }
 
   .card__line-chart {
@@ -631,23 +574,6 @@ p.card__info-text b {
   .card__link {
     padding: 0 .5rem;
     color: #f8f8f8;
-  }
-
-  .card__link:hover {
-    text-decoration: none;
-  }
-
-  .card__link:focus .card,
-  .card__link:hover .card {
-    /* background: #1d21244d; */
-    color: #ffffff;
-    border: 2px solid #16c1f37a;
-    box-shadow: 0 12px 30px 0 rgba(0, 0, 0, .2);
-    text-decoration: none;
-    transition-property: box-shadow,
-      transform;
-    transition-duration: .6s;
-    transition-timing-function: cubic-bezier(.16, 1, .29, .99);
   }
 
   .card__title {}
