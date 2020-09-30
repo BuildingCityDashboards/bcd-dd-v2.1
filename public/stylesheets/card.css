@@ -101,7 +101,8 @@ h2.card__sub-title {
   padding: 8px 16px;
 }
 
-.card__line-chart {
+.card__line-chart,
+.card__display {
   position: relative;
   width: 100%;
   height: 100%;
@@ -338,7 +339,7 @@ p.card__info-text b {
 
 .card__info__buttons {
   display: flex;
-  padding-top: 8px;
+  /* padding-top: 8px; */
   color: transparent;
   flex-direction: row;
   justify-content: space-around;
@@ -604,7 +605,7 @@ p.card__info-text b {
     border-right     : solid 1px transparent;
     border-left      : solid 1px transparent;*/
     border-radius: 0px;
-    background-color: rgba(41, 51, 55, 0.63);
+    /* background-color: rgba(41, 51, 55, 0.63); */
     /* flex-direction: column;
     justify-content: flex-start;
   } */
@@ -654,6 +655,7 @@ p.card__info-text b {
     /* align-items: center; */
 
   }
+
 
   /* .card__body svg { height : 136px; } */
   /* use this to set height of svg */
