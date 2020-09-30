@@ -111,6 +111,13 @@ h2.card__sub-title {
   padding-left: 0px;
 }
 
+.card__display {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
 .card__line-chart .label,
 .no-axis {
   color: rgba(255, 255, 255, 0.6);
@@ -183,14 +190,6 @@ h2.card__sub-title {
   font-stretch: normal;
   line-height: 1.2;
   letter-spacing: 0.15px;
-}
-
-.card__display {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
-  align-content: center;
 }
 
 .card__center {
@@ -796,58 +795,16 @@ p.card__info-text b {
 /* xl */
 
 @media only screen and (min-width : 1920px) {
-  .card-wrapper {
-    display: flex;
-    justify-content: center;
+
+  .card__header {}
+
+  h1.card__title {
+    font-size: 18px;
   }
 
-  .card {
-    box-sizing: border-box;
-    width: 384px;
-    height: 220px;
-    min-height: 220px;
-    padding: 0px;
-    border: none;
-    border-radius: 4px 4px 0px 0px;
-    background-color: rgba(41, 51, 55, 0.63);
-    flex-direction: column;
-    justify-content: flex-start;
-  }
 
-  .card__header {
-    min-height: 40px;
-    padding-top: 16px;
-  }
-
-  .card__title {
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    font-stretch: normal;
-    line-height: 0.8;
-    letter-spacing: 1.5px;
-  }
-
-  /* Usually used for time of last update etc. */
-
-  .card__sub-title {
-    padding-top: 4px;
-    color: rgba(255, 255, 255, 0.87);
+  h2.card__sub-title {
     font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    font-stretch: normal;
-    line-height: 1.14;
-    letter-spacing: 1.5px;
-  }
-
-  .card__body {
-    display: flex;
-    min-height: 180px;
-    padding-right: 16px;
-    padding-left: 16px;
-    align-items: center;
-    justify-content: space-around;
   }
 
   .card__line-chart {
@@ -857,16 +814,6 @@ p.card__info-text b {
     margin-right: 0px;
     padding-right: 0px;
     padding-left: 0px;
-  }
-
-  .card__body svg {
-    height: 126px;
-  }
-
-  .card__svg {
-    /* color: var(--vivid-cyan); */
-    /* display: inline-block; */
-    /* vertical-align: middle; */
   }
 
   .card__line-chart {
@@ -885,127 +832,42 @@ p.card__info-text b {
     letter-spacing: 0.15px;
   }
 
-  .card__center {}
-
   .card__center img {
     width: 48px;
+    height: 48px;
   }
 
-  .card__left,
-  .card__right {
-    display: flex;
-    text-align: center;
-    flex-direction: column;
-    justify-content: flex-start;
+  .card__center svg {
+    width: 48px;
+    height: 48px;
   }
 
   .card__left h1,
   .card__right h1 {
-    font-size: 28px;
-    line-height: 1.06;
-    letter-spacing: 0.15px;
+    font-size: 24px;
+
+  }
+
+  .card__left h2,
+  .card__right h2 {
+    font-size: 14px;
+
   }
 
   .card__left p,
   .card__right p {
-    color: rgba(255, 255, 255, 0.6);
-    color: rgba(255, 255, 255, 0.6);
-    text-transform: capitalize;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    font-stretch: normal;
-    font-stretch: normal;
-    line-height: 1.2;
-    letter-spacing: 0.15px;
+
+    font-size: 14px;
+
   }
-
-  .card__link {
-    padding: 0 .5rem;
-    color: #f8f8f8;
-  }
-
-  .card__title {}
-
-  .card__info {
-    display: flex;
-    width: inherit;
-    height: 0;
-    min-height: 0;
-    margin-top: 0;
-    padding: 0px 16px 0px 16px;
-    overflow: hidden;
-    border-top: none;
-    background-color: rgba(41, 51, 55, 0.63);
-    flex-direction: column;
-    justify-content: space-around;
-    transition: all 0.3s ease-out;
-  }
-
-  .card:hover .card__info {
-    height: 120px;
-    min-height: 120px;
-    padding-bottom: 8px;
-  }
-
-  /**
-  * .card__info-bor
-  *
-  * #card-info-text { padding-top: 16px; border-top
-  *
-  *
-  *
-  *
-  *
-  * : 1px solid; border-top-color : rgba(255, 255, 255, 0.1); }
-  */
 
   .card__info p {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 300;
-    font-stretch: normal;
-    line-height: 1.4;
-    letter-spacing: 0.25px;
-    /* position: absolute; bottom: -100px; */
-  }
+    font-size: 14px;
 
-  .card__info__buttons {
-    display: flex;
-    padding-top: 4px;
-    color: transparent;
-    flex-direction: row;
-    justify-content: space-around;
   }
 
   .card__info__buttons .button {
-    color: #8ebfd6;
     font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    font-stretch: normal;
-    line-height: 1.14;
-    letter-spacing: 1.25px;
   }
 
-  .card__icon {
-    /* position : absolute; */
-    width: 48px;
-    height: auto;
-  }
-
-  .card__g {
-    fill: currentColor;
-  }
-
-  .card__body h3,
-  .card__body p,
-  .card__info p,
-  .card__left h1,
-  .card__left p,
-  .card__right h1,
-  .card__right p {
-    margin: 0px;
-    padding: 0px;
-  }
 }

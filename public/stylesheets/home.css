@@ -959,6 +959,8 @@ html {
   }
 
   #hero-grid {
+    max-width: 1440px;
+    margin: auto;
     max-height: none;
     height: inherit;
     padding: 0 48px;
@@ -1165,6 +1167,8 @@ html {
   }
 
   #hero-grid {
+    max-width: 1920px;
+    margin: auto;
     padding: 24px;
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
