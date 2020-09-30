@@ -283,6 +283,11 @@
 /* ----------- Non-Retina Screens ----------- */
 @media screen and (min-width: 1280px) {
 
+  .carousel {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+
   /* and (-webkit-min-device-pixel-ratio: 1) { */
   .carousel-cell {
     width: calc(25% - 6px);
@@ -302,6 +307,11 @@
 
 /* ----------- Non-Retina Screens ----------- */
 @media screen and (min-width: 1920px) {
+
+  .carousel {
+    margin: 0 auto;
+    max-width: calc(1920px - 256px);
+  }
 
   /* and (-webkit-min-device-pixel-ratio: 1) { */
   .carousel-cell {

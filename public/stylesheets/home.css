@@ -768,6 +768,7 @@ html {
     grid-column: span 12;
     grid-row: 4 / 7;
     transform: translateY(-24px);
+
   }
 
   #hero-icon-navs {
@@ -959,8 +960,8 @@ html {
   }
 
   #hero-grid {
-    max-width: 1440px;
-    margin: auto;
+    /* max-width: 1440px;
+    margin: auto; */
     max-height: none;
     height: inherit;
     padding: 0 48px;
@@ -1055,27 +1056,27 @@ html {
     padding-right: 4px;
   }
 
-  #hero-weather__left-bottom__icon svg {}
-
-  #hero-weather__left-bottom__text {}
 
   #hero-weather__symbol {
     width: 48px;
     height: 48px;
   }
 
-  #hero-weather__right-top {}
+
 
   #hero-weather__right-top img {
     width: 24px;
     height: 24px;
   }
 
-  #hero-weather__right-bottom {}
 
   #hero-carousel {
+    /* display: flex; */
+
     grid-column: span 12;
     grid-row: 4 / 7;
+    /* justify-self: center; */
+
   }
 
 
@@ -1163,21 +1164,15 @@ html {
     width: 100vw;
     height: 100vh;
     min-height: 1080px;
-    background-image: url('../images/home/hero-background-image-mobile.png');
   }
 
   #hero-grid {
-    max-width: 1920px;
-    margin: auto;
     padding: 24px;
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(8, 1fr);
   }
 
-  #hero-title>div {
-    /* transform : translate(0, 0); */
-  }
 
   #hero-title {
     padding-left: 0px;
@@ -1202,8 +1197,6 @@ html {
   }
 
   #hero-time__box {
-    /* border: solid 2px; */
-    /* max-width: 400px; */
     display: flex;
     display: -ms-flexbox;
     width: 325px;
@@ -1262,14 +1255,17 @@ html {
   #hero-carousel {
     grid-column: span 12;
     grid-row: 4 / 7;
+    max-height: 372px;
+
   }
 
 
   #hero-icon-navs {
     align-self: top;
     justify-content: space-around;
-    grid-column: 2 / 12;
+    grid-column: 3 / 11;
     grid-row: 7 / 8;
+
   }
 
   #hero-scroll-arrow {
