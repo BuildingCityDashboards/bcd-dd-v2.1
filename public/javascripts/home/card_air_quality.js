@@ -8,8 +8,8 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
 
 async function main (options) {
-  const RETRY_INTERVAL = 10000
-  const REFRESH_INTERVAL = 6000 // 0 * 10
+  const RETRY_INTERVAL = 30000
+  const REFRESH_INTERVAL = 60000 * 10
   const REQ_TIMEOUT_INTERVAL = 5000 // time after which TO error generated from request
   //   const refreshInterval = 100
   //   let refreshCountdown = refreshInterval
