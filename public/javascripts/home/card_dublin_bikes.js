@@ -48,6 +48,8 @@ async function main (options) {
         // The derilinx API sometimes returns an empty JSON array- need to check for that
         if (data.length > 0) {
           const cardData = getCardData(data)
+          console.log(cardData)
+
           updateBikesDisplay(cardData.availableBikes, cardData.availableStands, cardData.dataAgeMinutes)
         //   clearInterval(bikesTimer)
         } else {
@@ -108,41 +110,58 @@ async function main (options) {
   }
   fetchData()
 
-  function updateBikesDisplay (ab, as, age) {
-    // console.log("age: " + age);
-    const animateClass = age < prevBikesAgeMins ? 'animate-update' : ''
+  function updateBikesDisplay (currBikesAvailable, currStandsAvailable, dataAge) {
+    // console.log("dataAge: " + dataAge);
 
-    const bikesAvailableDirection = ab > prevBikesAvailable ? indicatorUpSymbol : ab < prevBikesAvailable ? indicatorDownSymbol : prevBikesAvailableDirection
+    const bikesAvailableDirection = currBikesAvailable > prevBikesAvailable ? indicatorUpSymbol : currBikesAvailable < prevBikesAvailable ? indicatorDownSymbol : prevBikesAvailableDirection
 
-    const bikesTrendDelta = Math.abs(prevBikesAvailable - ab)
-    const bikesTrendString = ab > prevBikesAvailable ? `(${indicatorUpSymbol} Up ${bikesTrendDelta})` : ab < prevBikesAvailable ? `(${indicatorDownSymbol} Down ${bikesTrendDelta})` : prevBikesTrendString
+    const bikesTrendDelta = Math.abs(prevBikesAvailable - currBikesAvailable)
+    const bikesTrendString = currBikesAvailable > prevBikesAvailable ? `(${indicatorUpSymbol} Up ${bikesTrendDelta})` : currBikesAvailable < prevBikesAvailable ? `(${indicatorDownSymbol} Down ${bikesTrendDelta})` : prevBikesTrendString
 
-    const standsAvailableDirection = as > prevStandsAvailable ? indicatorUpSymbol : as < prevStandsAvailable ? indicatorDownSymbol : prevStandsAvailableDirection
+    const standsAvailableDirection = currStandsAvailable > prevStandsAvailable ? indicatorUpSymbol : currStandsAvailable < prevStandsAvailable ? indicatorDownSymbol : prevStandsAvailableDirection
 
-    const standsTrendDelta = Math.abs(prevStandsAvailable - as)
-    const standsTrendString = as > prevStandsAvailable ? `(${indicatorUpSymbol} Up ${standsTrendDelta})` : as < prevStandsAvailable ? `(${indicatorDownSymbol} Down ${standsTrendDelta})` : prevStandsTrendString
+    const standsTrendDelta = Math.abs(prevStandsAvailable - currStandsAvailable)
+    const standsTrendString = currStandsAvailable > prevStandsAvailable ? `(${indicatorUpSymbol} Up ${standsTrendDelta})` : currStandsAvailable < prevStandsAvailable ? `(${indicatorDownSymbol} Down ${standsTrendDelta})` : prevStandsTrendString
 
-    if (prevBikesAvailable !== ab) {
-      prevBikesAvailable = ab
+    if (prevBikesAvailable !== currBikesAvailable) {
+      prevBikesAvailable = currBikesAvailable
       prevBikesAvailableDirection = bikesAvailableDirection
       prevBikesTrendString = bikesTrendString
     }
-    if (prevStandsAvailable !== as) {
-      prevStandsAvailable = as
+    if (prevStandsAvailable !== currStandsAvailable) {
+      prevStandsAvailable = currStandsAvailable
       prevStandsAvailableDirection = standsAvailableDirection
       prevStandsTrendString = standsTrendString
     }
-    prevBikesAgeMins = age
-    const bikesAgeDisplay = age === 0 ? 'Just now' : age > 1 ? age + ' mins ago' : '1 min ago'
+
+    const animateClass = dataAge < prevBikesAgeMins ? 'animate-update' : 'no-animate'
+    prevBikesAgeMins = dataAge
+    const bikesAgeDisplay = dataAge === 0 ? 'Just now' : dataAge > 1 ? dataAge + ' mins ago' : '1 min ago'
+
     const cardElement = document.getElementById('dublin-bikes-card')
     const subtitleElement = cardElement.querySelector('#subtitle')
+    subtitleElement.classList.remove('animate-update')
+    subtitleElement.classList.remove('no-animate')
+    subtitleElement.classList.add(animateClass)
     subtitleElement.innerHTML = '' + bikesAgeDisplay
+
+    const leftElement = cardElement.querySelector('#card-left')
+    leftElement.innerHTML = '<h1>' + bikesAvailableDirection + ' ' + currBikesAvailable + '</h1>' +
+          '<h2>Bikes Available</h2>'
+
+    const rightElement = cardElement.querySelector('#card-right')
+    rightElement.innerHTML =
+          '<h1>' + standsAvailableDirection + ' ' + currStandsAvailable + '</h1>' +
+          '<h2>Stands Available</h2>'
+
+    // const infoElement = cardElement.querySelector('.card__info-text')
+    // infoElement.innerHTML = 'The latest air quality reading in Dublin city was taken at <b>' + lastReadTime + '</b>  and indicated a <b>QUALITY INDEX of ' + corkData[0].aqih.split(',')[0] + '</b> in the <b>' + corkData[0].aqih.split(',')[1].toUpperCase() + '</b> quality band'
 
     // d3.select('#bikes-card').select('#bikes-bikesCountdown').html("<span class='" + animateClass + "'>" + bikesAgeDisplay + '</span>')
 
     // d3.select('#rt-bikes').select('#card-left')
     //   .html("<div class = '" + animateClass + "'align='center'>" +
-    //     '<h1>' + bikesAvailableDirection + ' ' + ab + '</h1>' +
+    //     '<h1>' + bikesAvailableDirection + ' ' + currBikesAvailable + '</h1>' +
     //     '</div>' +
     //     "<div align='center'>" +
     //     '<p> bikes </p>' +
@@ -150,13 +169,13 @@ async function main (options) {
 
     // d3.select('#rt-bikes').select('#card-right')
     //   .html("<div class = '" + animateClass + "'align='center'>" +
-    //     '<h1>' + standsAvailableDirection + ' ' + as + '</h1>' +
+    //     '<h1>' + standsAvailableDirection + ' ' + currStandsAvailable + '</h1>' +
     //     '</div>' +
     //     "<div align='center'>" +
     //     '<p> stands </p>' +
     //     '</div>')
 
-    // d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has ${ab} bikes ${bikesTrendString} and ${as} stands  ${standsTrendString} available across the city</p>`)
+    // d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has ${currBikesAvailable} bikes ${bikesTrendString} and ${currStandsAvailable} stands  ${standsTrendString} available across the city</p>`)
   }
 }
 
@@ -182,7 +201,7 @@ function getCardData (data_) {
   })
   const now = moment(new Date())
   const bikesAgeMins = Math.floor(((now - latestUpdate) / 1000) / 60)
-  // console.log("bikes age: " + bikesAgeMins)
+  // console.log("bikes dataAge: " + bikesAgeMins)
 
   const cardData = { availableBikes: availableBikes, availableStands: availableStands, dataAgeMinutes: bikesAgeMins }
   console.log(cardData)
