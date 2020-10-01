@@ -8,9 +8,6 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
 
 async function main (options) {
-  // console.log('createChart')
-  // console.log(options)
-
   // addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Annual Rate of Population Increase</i>`)
 
   //   const refreshInterval = 100

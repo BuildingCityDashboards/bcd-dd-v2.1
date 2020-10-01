@@ -81,6 +81,27 @@ block content
                       }
                     })
               .carousel-cell
+                  +home__card-indicator({
+                      title: 'Dublin Bikes',
+                      subtitle:  'Fetching data...',
+                      id: 'dublin-bikes-card',
+                      icon: '/images/icons/icons-48px/Bicycle_Icon_48px.svg#Layer_1',
+                      info: 'Information will appear here when available',
+                      buttons: [
+                      {
+                        href :'themes#dublin-bikes',
+                        name:'More in THEMES'
+                      }],
+                      displayoptions:{
+                        displayid: 'dublin-bikes-card__display',
+                        data:{
+                        href: '/api/dublinbikes/stations/all/snapshot',
+                        },
+                        src: '/javascripts/home/card_dublin_bikes.js',
+                        format:''
+                      }
+                    })
+              .carousel-cell
                 #bikes-card.card-wrapper
                   +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
               
