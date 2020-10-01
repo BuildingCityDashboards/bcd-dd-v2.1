@@ -146,36 +146,22 @@ async function main (options) {
     subtitleElement.innerHTML = '' + bikesAgeDisplay
 
     const leftElement = cardElement.querySelector('#card-left')
+    leftElement.classList.remove('animate-update')
+    leftElement.classList.remove('no-animate')
+    leftElement.classList.add(animateClass)
     leftElement.innerHTML = '<h1>' + bikesAvailableDirection + ' ' + currBikesAvailable + '</h1>' +
           '<h2>Bikes Available</h2>'
 
     const rightElement = cardElement.querySelector('#card-right')
+    rightElement.classList.remove('animate-update')
+    rightElement.classList.remove('no-animate')
+    rightElement.classList.add(animateClass)
     rightElement.innerHTML =
           '<h1>' + standsAvailableDirection + ' ' + currStandsAvailable + '</h1>' +
           '<h2>Stands Available</h2>'
 
-    // const infoElement = cardElement.querySelector('.card__info-text')
-    // infoElement.innerHTML = 'The latest air quality reading in Dublin city was taken at <b>' + lastReadTime + '</b>  and indicated a <b>QUALITY INDEX of ' + corkData[0].aqih.split(',')[0] + '</b> in the <b>' + corkData[0].aqih.split(',')[1].toUpperCase() + '</b> quality band'
-
-    // d3.select('#bikes-card').select('#bikes-bikesCountdown').html("<span class='" + animateClass + "'>" + bikesAgeDisplay + '</span>')
-
-    // d3.select('#rt-bikes').select('#card-left')
-    //   .html("<div class = '" + animateClass + "'align='center'>" +
-    //     '<h1>' + bikesAvailableDirection + ' ' + currBikesAvailable + '</h1>' +
-    //     '</div>' +
-    //     "<div align='center'>" +
-    //     '<p> bikes </p>' +
-    //     '</div>')
-
-    // d3.select('#rt-bikes').select('#card-right')
-    //   .html("<div class = '" + animateClass + "'align='center'>" +
-    //     '<h1>' + standsAvailableDirection + ' ' + currStandsAvailable + '</h1>' +
-    //     '</div>' +
-    //     "<div align='center'>" +
-    //     '<p> stands </p>' +
-    //     '</div>')
-
-    // d3.select('#bikes-card').select('#card-info-text').html(`<p>Dublin Bikes currently has ${currBikesAvailable} bikes ${bikesTrendString} and ${currStandsAvailable} stands  ${standsTrendString} available across the city</p>`)
+    const infoElement = cardElement.querySelector('.card__info-text')
+    infoElement.innerHTML = `Dublin Bikes currently has ${currBikesAvailable} bikes ${bikesTrendString} and ${currStandsAvailable} stands  ${standsTrendString} available across the city`
   }
 }
 

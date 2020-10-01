@@ -33,7 +33,6 @@ block append head
   script(src='javascripts/home/card_time.js' type="text/javascript" defer)
   //- script(src='javascripts/home/card_weather.js' type="text/javascript")
   script(src='javascripts/home/card_weather_current.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_bikes.js' type="module")
   script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
   //- script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
   //- script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
@@ -101,9 +100,6 @@ block content
                         format:''
                       }
                     })
-              .carousel-cell
-                #bikes-card.card-wrapper
-                  +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
               
               .carousel-cell
                 #traveltimes-card.card-wrapper
