@@ -8,9 +8,9 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
 
 async function main (options) {
-  const RETRY_INTERVAL = 5000 // time to try to fetch again after error
-  const REFRESH_INTERVAL = 5000 // time to try to fetch again after previous success
-  const REQ_TIMEOUT_INTERVAL = 10000 // time after which TO error generated
+  const RETRY_INTERVAL = 20000 // time to try to fetch again after error
+  const REFRESH_INTERVAL = 50000 // time to try to fetch again after previous success
+  const REQ_TIMEOUT_INTERVAL = 5000 // time after which TO error generated from request
   let refreshTimeout
   let prevBikesAgeMins
   let prevBikesAvailable
@@ -18,8 +18,8 @@ async function main (options) {
   const indicatorUpSymbol = "<span class='up-arrow'>&#x25B2;</span>"
   const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
   const indicatorNoChangeSymbol = '<span></span>'
-  let prevBikesAvailableDirection = indicatorNoChangeSymbol // '▶'
-  let prevStandsAvailableDirection = indicatorNoChangeSymbol // '▶'
+  let prevBikesAvailableDirection = indicatorNoChangeSymbol // ''
+  let prevStandsAvailableDirection = indicatorNoChangeSymbol // ''
   let prevBikesTrendString = ''// '(no change)'
   let prevStandsTrendString = '' // '(no change)'
 
