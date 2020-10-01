@@ -8,19 +8,6 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
 
 async function main (options) {
-  // addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Annual Rate of Population Increase</i>`)
-
-  //   const refreshInterval = 100
-  //   let refreshCountdown = refreshInterval
-
-  const updateCountdown = function () {
-    // const cd = refreshCountdown / 1000
-    // d3.select('#bikes-bikesCountdown').text('Update in ' + cd)
-    // console.log('Countdown: ' + cd)
-    // if (refreshCountdown > 0) refreshCountdown -= refreshInterval / 2
-  }
-
-  //   let refreshTimer = setInterval(updateCountdown, refreshInterval)
   const RETRY_INTERVAL = 5000 // time to try to fetch again after error
   const REFRESH_INTERVAL = 5000 // time to try to fetch again after previous success
   const REQ_TIMEOUT_INTERVAL = 10000 // time after which TO error generated
@@ -36,8 +23,17 @@ async function main (options) {
   let prevBikesTrendString = ''// '(no change)'
   let prevStandsTrendString = '' // '(no change)'
 
+  //   const refreshInterval = 100
+  //   let refreshCountdown = refreshInterval
+
+  // const updateCountdown = function () {
+  //   // const cd = refreshCountdown / 1000
+  //   // d3.select('#bikes-bikesCountdown').text('Update in ' + cd)
+  //   // console.log('Countdown: ' + cd)
+  //   // if (refreshCountdown > 0) refreshCountdown -= refreshInterval / 2
+  // }
+
   async function fetchData () {
-    console.log('fetch data')
     clearTimeout(refreshTimeout)
     let data
     try {
@@ -115,7 +111,7 @@ async function main (options) {
           '<h2>Stands Available</h2>'
 
     const infoElement = cardElement.querySelector('.card__info-text')
-    infoElement.innerHTML = `Dublin Bikes currently has ${currBikesAvailable} bikes ${bikesTrendString} and ${currStandsAvailable} stands  ${standsTrendString} available across the city`
+    infoElement.innerHTML = `Dublin Bikes currently has ${currBikesAvailable} BIKES ${bikesTrendString} and ${currStandsAvailable} STANDS  ${standsTrendString} available across the city`
   }
 }
 
@@ -144,7 +140,7 @@ function getCardData (data_) {
   // console.log("bikes dataAge: " + bikesAgeMins)
 
   const cardData = { availableBikes: availableBikes, availableStands: availableStands, dataAgeMinutes: bikesAgeMins }
-  console.log(cardData)
+  // console.log(cardData)
   return cardData
 }
 
@@ -162,14 +158,14 @@ function initialiseCardDisplay () {
   const leftElement = cardElement.querySelector('#card-left')
   leftElement.classList.remove('animate-update')
   leftElement.classList.remove('no-animate')
-  leftElement.innerHTML = '<h1></h1>' +
+  leftElement.innerHTML = '<h1>- -</h1>' +
           '<h2>Bikes Available</h2>'
 
   const rightElement = cardElement.querySelector('#card-right')
   rightElement.classList.remove('animate-update')
   rightElement.classList.remove('no-animate')
   rightElement.innerHTML =
-          '<h1></h1>' +
+          '<h1>- -</h1>' +
           '<h2>Stands Available</h2>'
 
   const infoElement = cardElement.querySelector('.card__info-text')
