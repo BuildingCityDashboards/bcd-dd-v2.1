@@ -130,10 +130,8 @@ h2.card__sub-title {
 }
 
 .card__body svg {
-  /* height: 72px; */
   width: 100%;
   height: 100%;
-  /* stroke: white; */
 
 }
 
@@ -205,6 +203,7 @@ h2.card__sub-title {
   width: 36px;
   height: 36px;
   fill: rgba(255, 255, 255, 0.7);
+  stroke: rgba(255, 255, 255, 0.7);
 }
 
 .card__center img {
@@ -605,7 +604,6 @@ p.card__info-text b {
   }
 
   .card:hover {
-
     border: none;
     background-color: rgba(39, 52, 57, 0.82);
   }

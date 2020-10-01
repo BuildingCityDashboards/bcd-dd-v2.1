@@ -21,8 +21,8 @@ async function main (options) {
   }
 
   //   let refreshTimer = setInterval(updateCountdown, refreshInterval)
-  const RETRY_INTERVAL = 30000 // time to try to fetch again after error
-  const REFRESH_INTERVAL = 15000 // time to try to fetch again after previous success
+  const RETRY_INTERVAL = 5000 // time to try to fetch again after error
+  const REFRESH_INTERVAL = 5000 // time to try to fetch again after previous success
   const REQ_TIMEOUT_INTERVAL = 10000 // time after which TO error generated
   let refreshTimeout
   let prevBikesAgeMins
@@ -30,89 +30,43 @@ async function main (options) {
   let prevStandsAvailable
   const indicatorUpSymbol = "<span class='up-arrow'>&#x25B2;</span>"
   const indicatorDownSymbol = "<span class='down-arrow'>&#x25BC;</span>"
-  const indicatorRightSymbol = "<span class='right-arrow'>&#x25BA;</span>"
-  let prevBikesAvailableDirection = indicatorRightSymbol // '▶'
-  let prevStandsAvailableDirection = indicatorRightSymbol // '▶'
+  const indicatorNoChangeSymbol = '<span></span>'
+  let prevBikesAvailableDirection = indicatorNoChangeSymbol // '▶'
+  let prevStandsAvailableDirection = indicatorNoChangeSymbol // '▶'
   let prevBikesTrendString = ''// '(no change)'
   let prevStandsTrendString = '' // '(no change)'
 
   async function fetchData () {
-    // console.log('fetch data')
-    let data
+    console.log('fetch data')
     clearTimeout(refreshTimeout)
+    let data
     try {
-      console.log('fetching data')
       data = await fetchJsonFromUrlAsyncTimeout(options.displayoptions.data.href, REQ_TIMEOUT_INTERVAL)
       if (data) {
-        console.log(data)
         // The derilinx API sometimes returns an empty JSON array- need to check for that
         if (data.length > 0) {
           const cardData = getCardData(data)
-          console.log(cardData)
-
           updateBikesDisplay(cardData.availableBikes, cardData.availableStands, cardData.dataAgeMinutes)
+          clearTimeout(refreshTimeout)
+          refreshTimeout = setTimeout(fetchData, REFRESH_INTERVAL)
         //   clearInterval(bikesTimer)
         } else {
-        //   initialiseCardDisplay()
-        //   // updateInfo('#bikes-card a', '<b>Dublin Bikes</b> did not respond to our request for data- we will try again soon')
-        //   // restart the timer
-        //   clearInterval(bikesTimer)
-        //   bikesCountdown = bikesInterval
-        //   bikesTimer = setInterval(updateBikesCountdown, 1000)
+          initialiseCardDisplay()
+          clearTimeout(refreshTimeout)
+          refreshTimeout = setTimeout(fetchData, RETRY_INTERVAL)
         }
-        // const corkData = json.aqihsummary.filter((d) => {
-        //   if (d['aqih-region'] === 'Dublin_City') {
-        //     return d
-        //   }
-        // })
-
-        // const lastReadTime = json.generatedAt.split(' ')[1] ? json.generatedAt.split(' ')[1] : ''
-
-        // const cardElement = document.getElementById('air-quality-card')
-        // const subtitleElement = cardElement.querySelector('#subtitle')
-        // subtitleElement.innerHTML = 'Latest reading ' + lastReadTime
-
-        // const leftElement = cardElement.querySelector('#card-left')
-        // leftElement.innerHTML = '<h1>' + corkData[0].aqih.split(',')[1] + '</h1>' +
-        //             '<h2>Quality</h2>'
-
-        // const rightElement = cardElement.querySelector('#card-right')
-        // rightElement.innerHTML =
-        //             '<h1>' + corkData[0].aqih.split(',')[0] + '</h1>' +
-        //             '<h2>Index</h2>'
-
-        // const infoElement = cardElement.querySelector('.card__info-text')
-        // infoElement.innerHTML = 'The latest air quality reading in Dublin city was taken at <b>' + lastReadTime + '</b>  and indicated a <b>QUALITY INDEX of ' + corkData[0].aqih.split(',')[0] + '</b> in the <b>' + corkData[0].aqih.split(',')[1].toUpperCase() + '</b> quality band'
-
-        clearTimeout(refreshTimeout)
-        refreshTimeout = setTimeout(fetchData, REFRESH_INTERVAL)
       } else data = null // nullify for GC (necessary?)
     } catch (e) {
       data = null // nullify for GC (necessary?)
       console.log('data fetch error' + e)
+      initialiseCardDisplay()
+      clearTimeout(refreshTimeout)
       refreshTimeout = setTimeout(fetchData, RETRY_INTERVAL)
-
-      //   console.error('Data fetch error: ' + JSON.stringify(error))
-      //     // // initialiseDisplay()
-      //     // // updateInfo('#bikes-card a', 'Source did not respond with data- we will try again soon')
-      // // restart the timer
-      //   clearInterval(refreshTimer)
-      //   refreshCountdown = refreshInterval
-      //   refreshTimer = setInterval(updateCountdown, refreshInterval)
     }
-    //     //   //       // const info = getInfoText('#population-card a', 'The population of Dublin in ', ' on 2011', populationDataSet, populationColumnName, 'date', d3.format('.2s'))
-
-    //     //   //       // d3.select('#population-card__chart')
-    //     //   //       //   .select('#card-info-text')
-    //     //   //       //   .html('<p>' + info + '</p>')
-    //     //   //     })
-    // }
   }
-  fetchData()
+  fetchData() // trigger initial fetch
 
   function updateBikesDisplay (currBikesAvailable, currStandsAvailable, dataAge) {
-    // console.log("dataAge: " + dataAge);
-
     const bikesAvailableDirection = currBikesAvailable > prevBikesAvailable ? indicatorUpSymbol : currBikesAvailable < prevBikesAvailable ? indicatorDownSymbol : prevBikesAvailableDirection
 
     const bikesTrendDelta = Math.abs(prevBikesAvailable - currBikesAvailable)
@@ -197,17 +151,28 @@ function getCardData (data_) {
 function initialiseCardDisplay () {
   // let bikeTimeShort = d3.timeFormat("%a, %H:%M");
 
-  d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
+  // d3.select('#bikes-card').select('.card__header').select('.card__sub-title').html("<div id ='bikes-bikesCountdown' > </div>")
 
-  d3.select('#rt-bikes').select('#card-center').html("<img src = '/images/transport/bicycle-w-15.svg'>")
+  const cardElement = document.getElementById('dublin-bikes-card')
+  const subtitleElement = cardElement.querySelector('#subtitle')
+  subtitleElement.classList.remove('animate-update')
+  subtitleElement.classList.remove('no-animate')
+  subtitleElement.innerHTML = 'Fetching Data...'
 
-  d3.select('#rt-bikes').select('#card-left')
-    .html('<h3>--</h3>' +
-        '<p>bikes</p>')
+  const leftElement = cardElement.querySelector('#card-left')
+  leftElement.classList.remove('animate-update')
+  leftElement.classList.remove('no-animate')
+  leftElement.innerHTML = '<h1></h1>' +
+          '<h2>Bikes Available</h2>'
 
-  d3.select('#rt-bikes').select('#card-right')
-    .html(
-      '<h3>--</h3>' +
-        '<p> stands </p>')
+  const rightElement = cardElement.querySelector('#card-right')
+  rightElement.classList.remove('animate-update')
+  rightElement.classList.remove('no-animate')
+  rightElement.innerHTML =
+          '<h1></h1>' +
+          '<h2>Stands Available</h2>'
+
+  const infoElement = cardElement.querySelector('.card__info-text')
+  infoElement.innerHTML = 'Information will appear here when available'
 }
 export { main }
