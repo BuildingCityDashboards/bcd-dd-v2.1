@@ -499,11 +499,12 @@
 
 @media only screen and (min-width : 1280px) {
   #about-dublin {
-    height: 50vh;
-    padding: 24px;
-    padding-bottom: 0px;
+    height: 45vh;
+    padding: 0 24px;
     justify-content: center;
     grid-gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
   #about-dublin__header {
@@ -522,6 +523,10 @@
     height: auto;
     padding: 24px;
     overflow-y: auto;
+    -moz-column-count: 2;
+    column-count: 2;
+    -moz-column-gap: 24px;
+    column-gap: 24px;
   }
 
   #about-dublin__card>p {
@@ -580,23 +585,25 @@
   }
 
   #regions-info {
-    height: 50vh;
+    height: 55vh;
     min-height: 50vh;
     padding: 24px;
     justify-content: center;
     grid-gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
   #regions-info__map {
-    padding-bottom: 0px;
-    grid-column: 8/13;
+    padding-bottom: 0;
+    grid-column: 7/12;
     justify-content: center;
   }
 
   #regions-info__card {
     padding: 24px;
     overflow-y: auto;
-    grid-row: 1 / 7;
+    grid-row: 1 / 6;
   }
 
   #regions-info__card__header {
@@ -624,6 +631,8 @@
     padding: 24px;
     overflow-y: auto;
     grid-gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
   #about-dublin-dashboard__header {
@@ -678,55 +687,6 @@
   }
 }
 
-/* laptop with touch */
-
-@media only screen and (min-width : 1280px) and (min-height : 950px) {
-  #about-dublin {
-    height: 50vh;
-    min-height: 50vh;
-    padding: 24px;
-    justify-content: center;
-    grid-gap: 24px;
-  }
-
-  #about-dublin__card {
-    padding: 24px;
-    overflow-y: auto;
-  }
-
-  #about-dublin__card>p {
-    /* width: 702px; height: 245px; */
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.5px;
-  }
-
-  #regions-info__card {
-    padding: 24px;
-    overflow-y: auto;
-  }
-
-  #regions-info__card__header {
-    padding-bottom: 24px;
-  }
-
-  #regions-info__card__header>h1 {
-    font-size: 24px;
-    font-weight: normal;
-    line-height: 1.5;
-    letter-spacing: 0.5px;
-  }
-
-  #regions-info__card__body {}
-
-  #regions-info__card__body>p {
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 24px;
-    letter-spacing: 0.5px;
-  }
-}
-
 /* xl */
 
 @media only screen and (min-width : 1920px) {
@@ -749,10 +709,6 @@
     height: auto;
     padding: 24px;
     overflow-y: auto;
-    -moz-column-count: 2;
-    column-count: 2;
-    -moz-column-gap: 24px;
-    column-gap: 24px;
     /* grid-row: 3/; */
   }
 
@@ -768,6 +724,7 @@
     height: 55vh;
     min-height: 55vh;
     padding-top: 0;
+
   }
 
   #regions-info__cta {
