@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // output http logs on the sevrer
 app.use(morgan('tiny', {
-  'stream': logger.stream,
+  stream: logger.stream,
   skip: function (req, res) { return res.statusCode < 400 }
 }))
 
@@ -82,8 +82,8 @@ app.use(function (err, req, res, next) {
   res.render('error')
 })
 
-let hour = new Date().getHours()
-let min = new Date().getMinutes().toString().padStart(2, '0')
+const hour = new Date().getHours()
+const min = new Date().getMinutes().toString().padStart(2, '0')
 util.log('\n\nDublin Dashboard App started at ' + hour + ':' + min + '\n\n')
 
 if (app.get('env') === 'development') {
@@ -95,11 +95,11 @@ if (app.get('env') === 'development') {
 /************
  Fetching dublin bikes data via Derilinx API for various time resolutions and spans
  ************/
-let bikesQuery = require('./services/derilinx-api-query.js')
+const bikesQuery = require('./services/derilinx-api-query.js')
 
 // Every night at 3.45 am
 cron.schedule('45 3 * * *', () => {
-  util.log(`\n\nRunning bikes cron\n\n`)
+  util.log('\n\nRunning bikes cron\n\n')
 
   // Generating date queries to GET each night in cron
   const yesterdayStart = moment.utc().subtract(1, 'days').startOf('day')
@@ -117,7 +117,7 @@ cron.schedule('45 3 * * *', () => {
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
         // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
-        const fileName = `day.json`
+        const fileName = 'day.json'
         const fullPath = path.join(filePath, fileName)
         fs.writeFile(fullPath, JSON.stringify(data, null, 2), (err) => {
           if (!err) {
@@ -142,7 +142,7 @@ cron.schedule('45 3 * * *', () => {
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
         // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
-        const fileName = `week.json`
+        const fileName = 'week.json'
         const fullPath = path.join(filePath, fileName)
         fs.writeFile(fullPath, JSON.stringify(data, null, 2), (err) => {
           if (!err) {
@@ -167,7 +167,7 @@ cron.schedule('45 3 * * *', () => {
         const durHrs = Math.ceil(durMs / 1000 / 60 / 60)
         // util.log("\nQuery duration (hours): " + durHrs);
         const filePath = path.normalize('./public/data/Transport/dublinbikes/')
-        const fileName = `month.json`
+        const fileName = 'month.json'
         const fullPath = path.join(filePath, fileName)
         fs.writeFile(fullPath, JSON.stringify(data, null, 2), (err) => {
           if (!err) {
@@ -186,11 +186,11 @@ cron.schedule('45 3 * * *', () => {
 
 /* TODO: refactor to await/async to remove dupliation */
 cron.schedule('*/1 * * * *', function () {
-  let http = require('https')
+  const http = require('https')
   const fetch = require('node-fetch')
-  let travelTimesFile = fs.createWriteStream('./public/data/Transport/traveltimes.json')
+  const travelTimesFile = fs.createWriteStream('./public/data/Transport/traveltimes.json')
   http.get('https://dataproxy.mtcc.ie/v1.5/api/traveltimes', function (response, error) {
-    let d = new Date()
+    const d = new Date()
     if (error) {
       return util.log('>>>Error on traveltimes GET @ ' + d + '\n')
     }
@@ -210,7 +210,7 @@ cron.schedule('*/1 * * * *', function () {
     //   // });
   })
 
-  let travelTimesRoadsFile = fs.createWriteStream('./public/data/Transport/traveltimesroad.json')
+  const travelTimesRoadsFile = fs.createWriteStream('./public/data/Transport/traveltimesroad.json')
   http.get('https://dataproxy.mtcc.ie/v1.5/api/fs/traveltimesroad', function (response, error) {
     if (error) {
       return util.log('>>>Error on traveltimesroads GET\n')
@@ -252,10 +252,10 @@ cron.schedule('*/1 * * * *', function () {
 
 // Sound level readings
 cron.schedule('*/5 * * * *', function () {
-  let http = require('https')
-  let files = []
+  const http = require('https')
+  const files = []
   for (let i = 0; i < 15; i += 1) {
-    let n = i + 1
+    const n = i + 1
     files[i] = fs.createWriteStream('./public/data/Environment/noise_levels/sound_reading_' + n + '.json')
     http.get('https://dublincitynoise.sonitussystems.com/applications/api/dublinnoisedata.php?location=' + n,
       function (response) {
@@ -285,24 +285,24 @@ const readFileAsync = () => {
     } else {
       try {
         const dataJson = JSON.parse(data)
-        let data_ = dataJson.features
-        let regionData = data_.filter(function (d) {
+        const data_ = dataJson.features
+        const regionData = data_.filter(function (d) {
           return d.properties['station.region_id'] === null || d.properties['station.region_id'] === 10
         })
 
         regionData.forEach(function (d, i) {
-          let station_ref = d.properties['station.ref'].substring(5, 10)
-          let sensor_ref = d.properties['sensor.ref']
-          let fname = station_ref.concat('_', sensor_ref)
+          const station_ref = d.properties['station.ref'].substring(5, 10)
+          const sensor_ref = d.properties['sensor.ref']
+          const fname = station_ref.concat('_', sensor_ref)
 
-            // console.log(i + '---'+ fname);
+          // console.log(i + '---'+ fname);
           var file = fs.createWriteStream('./public/data/Environment/water_levels/' + fname + '.csv')
           var http = require('http')
- // http://waterlevel.ie/data/month/25017_0001.csv
+          // http://waterlevel.ie/data/month/25017_0001.csv
           http.get('http://waterlevel.ie/data/month/' + fname + '.csv',
-   function (response) {
-     response.pipe(file)
-   })
+            function (response) {
+              response.pipe(file)
+            })
         })
       } catch (error) {
         console.log(error)

@@ -1,0 +1,335 @@
+/* xs/ iPhone 5 :  320px x 568px <MOCKUP> */
+.flickity-page-dots .dot {
+
+  background: grey;
+}
+
+.carousel {
+  margin: 0 16px;
+  background: transparent;
+  height: 100%;
+  /* space for prev/next buttons */
+}
+
+.flickity-viewport {
+  /* overflow: hidden; */
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.flickity-slider {
+  display: flex;
+  /* transform: translateX(0px); */
+}
+
+.carousel-cell {
+  width: 100%;
+  height: 100%;
+  margin: 0 8px;
+  border-radius: 4px;
+  background: transparent;
+  padding: 0;
+  /* counter-increment : gallery-cell; */
+  /* gap between cards */
+}
+
+/* cell number */
+.carousel-cell:before {}
+
+/* smaller, dark, rounded square */
+
+.flickity-button {
+  background: transparent;
+}
+
+.flickity-button:hover {
+  /* background: #F90; */
+  background: transparent;
+}
+
+.flickity-prev-next-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+/* icon color */
+
+.flickity-button-icon {
+  /* fill : #6fd1f6; */
+  fill: white;
+}
+
+/* position outside */
+
+.flickity-prev-next-button.previous {
+  left: -32px;
+}
+
+.flickity-prev-next-button.next {
+  right: -32px;
+}
+
+.flickity-button:focus {
+  /* outline: none; box-shadow: 0 0 0 5px #19F; */
+}
+
+.hero-carousel__card {}
+
+
+
+/* iPhone 5 horizontal */
+@media only screen and (orientation: landscape) {
+
+  .carousel {
+    margin: 0 24px;
+  }
+
+  .flickity-viewport {
+    /* overflow: hidden; */
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .carousel-cell {
+    width: calc(50% - 8px);
+  }
+
+  .flickity-page-dots {
+    top: -25px;
+    bottom: 100%;
+    width: 100%;
+
+  }
+
+  .flickity-page-dots .dot {
+
+    background: grey;
+  }
+
+
+}
+
+/* iPhone 6/7/8 vertical */
+@media only screen and (min-width : 375px) and (orientation: portrait) {}
+
+/* iPhone 6/7/8 horizontal */
+@media only screen and (min-width : 375px) and (orientation: landscape) {}
+
+/* surface pro */
+@media only screen and (min-width : 540px) and (orientation: portrait) {
+  .carousel-cell {
+    align-self: center;
+    width: 66%;
+    max-height: 320px;
+  }
+}
+
+/* iPad portrait */
+
+@media only screen and (min-width : 768px) and (orientation: portrait) {
+
+  .carousel {
+    margin: 0 24px;
+    background: transparent;
+
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    align-self: center;
+    width: calc(50% - 8px);
+    max-height: 320px;
+  }
+
+  .flickity-button {
+    background: transparent;
+  }
+
+  .flickity-button:hover {
+    background: transparent;
+  }
+
+  .flickity-prev-next-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+  }
+
+  .flickity-button-icon {
+    fill: grey;
+  }
+
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left: -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right: -32px;
+  }
+
+  .flickity-button:focus {}
+
+  .flickity-page-dots {
+    position: absolute;
+    top: 50px;
+    bottom: 100%;
+    width: 100%;
+  }
+
+  .flickity-page-dots .dot {}
+}
+
+/* iPad landscape */
+@media only screen and (min-width : 1024px) and (orientation: landscape) {
+  .carousel {
+    margin: 0 24px;
+    background: transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    width: calc(33% - 8px);
+    height: 100%;
+  }
+
+  .flickity-prev-next-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+  }
+
+  .flickity-prev-next-button.previous {
+    left: -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right: -32px;
+  }
+
+  .flickity-page-dots {
+    position: absolute;
+    top: -32px;
+    bottom: 100%;
+    width: 100%;
+  }
+
+
+}
+
+/* iPad Pro portrait */
+
+@media only screen and (min-width : 1024px) and (orientation: portrait) {
+
+  .carousel {
+    margin: 0 24px;
+    background: transparent;
+    /* space for prev/next buttons */
+  }
+
+  .carousel-cell {
+    max-height: 420px;
+
+  }
+
+  .carousel-cell:before {}
+
+  .flickity-button {
+    background: transparent;
+  }
+
+  .flickity-button:hover {
+    background: transparent;
+  }
+
+  .flickity-prev-next-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+  }
+
+  .flickity-button-icon {
+    fill: grey;
+  }
+
+  /* position outside */
+
+  .flickity-prev-next-button.previous {
+    left: -32px;
+  }
+
+  .flickity-prev-next-button.next {
+    right: -32px;
+  }
+
+  .flickity-button:focus {}
+
+  .flickity-page-dots {
+    top: 72px;
+  }
+
+
+
+}
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen and (min-width: 1280px) {
+
+  .carousel {
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+
+  /* and (-webkit-min-device-pixel-ratio: 1) { */
+  .carousel-cell {
+    width: calc(25% - 6px);
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin: 0 4px;
+  }
+
+  .flickity-prev-next-button {
+    position: absolute;
+    top: 30%;
+    /* width: 60%;
+    height: 60%; */
+  }
+}
+
+/* ----------- Non-Retina Screens ----------- */
+@media screen and (min-width: 1920px) {
+
+  .carousel {
+    margin: 0 auto;
+    max-width: calc(1920px - 256px);
+  }
+
+  /* and (-webkit-min-device-pixel-ratio: 1) { */
+  .carousel-cell {
+    width: calc(20% - 6px);
+    margin: 0 4px;
+  }
+}
+
+/* iPad Pro  landscape*/
+/* @media only screen and (min-width : 1366px) and (orientation : landscape) {
+  .carousel-cell {
+    width: calc(25% - 64px);
+    height: 100%;
+  }
+
+} */
+
+
+
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {}

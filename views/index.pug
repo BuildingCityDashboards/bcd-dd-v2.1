@@ -1,12 +1,15 @@
 extends layout
 include component/card-rt
 include component/card-chart 
+include component/home__card-chart
+include component/home__card-indicator  
 
 block append head
   
   //- link(rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/lib/flickity.min.css")
   link(rel="stylesheet", href="/stylesheets/home.css")
+  link(rel="stylesheet", href="/stylesheets/home-carousel.css")
   link(rel="stylesheet", href="/stylesheets/home-about.css")
   link(rel="stylesheet", href="/stylesheets/card.css")
   //- link(rel="stylesheet", href="/stylesheets/tabs.css")
@@ -30,13 +33,9 @@ block append head
   script(src='javascripts/home/card_time.js' type="text/javascript" defer)
   //- script(src='javascripts/home/card_weather.js' type="text/javascript")
   script(src='javascripts/home/card_weather_current.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_bikes.js' type="module")
-  script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_population.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_unemployment.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
-  script(src='javascripts/home/card_propertyprice.js' type="text/javascript" defer)
-  script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/card_traveltimes.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/card_housecompletions.js' type="text/javascript" defer)
+  //- script(src='javascripts/home/home_resize.js' type="text/javascript" defer)
 
 block navigation
 
@@ -56,33 +55,134 @@ block content
                 include component/card-weather
       
         #hero-carousel
-            <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
+            <div class="carousel" data-flickity='{ "contain": true, "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
+
               .carousel-cell
-                #bikes-card.card-wrapper
-                  +card-rt("themes#dublin-bikes", "card", "Dublin Bikes", "Updating", "rt-bikes")
-              
+                  +home__card-indicator({
+                      title: 'Air quality - city',
+                      subtitle:  'Fetching data...',
+                      id: 'air-quality-card',
+                      icon: '/images/icons/air-pollution.svg#Layer_1',
+                      info: '',
+                      buttons: [
+                      {
+                        href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
+                        name:'EPA source data',
+                        target: '_blank'
+                      }],
+                      displayoptions:{
+                        displayid: 'air-quality-card__display',
+                        data:{
+                        href: '/api/air-quality/latest',
+                        },
+                        src: '/javascripts/home/card_air_quality.js',
+                        format:''
+                      }
+                    })
               .carousel-cell
-                #traveltimes-card.card-wrapper
-                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes")
-              
-              .carousel-cell
-                #population-card.card-wrapper
-                  +card-chart("themes#population-dublin", "card", "Population", "Count","population-chart")
-              
-              .carousel-cell
-                #employment-card.card-wrapper 
-                  +card-chart("themes#unemployment", "card", "Unemployment", "Count", "unemployment-chart") 
-              
-              .carousel-cell
-                #property-price-card.card-wrapper
-                  +card-chart("themes#house-rppi", "card", "Property Price", "Index", "property-price-chart")    
-              
-              .carousel-cell
-                #house-completions-card.card-wrapper
-                  +card-chart("themes#quarterly-new-dwelling-completions", "card", "House Completions", "Units","house-completions-chart")
+                  +home__card-indicator({
+                      title: 'Dublin Bikes',
+                      subtitle:  'Fetching data...',
+                      id: 'dublin-bikes-card',
+                      icon: '/images/icons/transport/Bicycle_Icon_48px.svg#Layer_1',
+                      info: 'Information will appear here when available',
+                      buttons: [
+                      {
+                        href :'themes#dublin-bikes',
+                        name:'More in THEMES'
+                      }],
+                      displayoptions:{
+                        displayid: 'dublin-bikes-card__display',
+                        data:{
+                        href: '/api/dublinbikes/stations/all/snapshot',
+                        },
+                        src: '/javascripts/home/card_dublin_bikes.js',
+                        format:''
+                      }
+                    })
               
               //- .carousel-cell
-               p MORE    
+                #traveltimes-card.card-wrapper
+                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
+              
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'house completions',
+                      subtitle:  'total dublin units',
+                      id: 'house-completions-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#housing',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'house-completions-card__chart',
+                        data:{
+                        href: '../data/statbank/NDQ06.json',
+                        },
+                        src: '/javascripts/home/card_housing_completions.js',
+                        format:''
+                      }
+                    })
+
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'population',
+                      subtitle:  'All Dublin',
+                      id: 'population-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#population-dublin',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'population-card__chart',
+                        data:{
+                        href: '../data/statbank/CNA13.json',
+                        },
+                        src: '/javascripts/home/card_population.js',
+                        format:''
+                      }
+                    })
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'house prices',
+                      subtitle:  'dublin average (€)',
+                      id: 'house-prices-card',
+                      info: 'Information will appear here when available',
+                      buttons: [{
+                        href :'/themes/#average-house-prices',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'house-prices-card__chart',
+                        data:{
+                        href: '../data/statbank/HPM05.json',
+                        },
+                        src: '/javascripts/home/card_house_prices.js',
+                        format:''
+                      }
+                    }) 
+              .carousel-cell
+                  +home__card-chart({
+                    title: 'unemployment',
+                    subtitle:  'rate (%)',
+                    id: 'unemployment-card',
+                    info: '',
+                    buttons: [{
+                      href :'/themes#unemployment',
+                      name:'More in THEMES'
+                    }],
+                    plotoptions:{
+                      chartid: 'unemployment-card__chart',
+                      data:{
+                      href: '../data/statbank/QLF08.json',
+                      },
+                      src: '/javascripts/home/card_employment.js',
+                      format:''
+                    }
+                  })
+   
                   
               //- </div>
             </div>

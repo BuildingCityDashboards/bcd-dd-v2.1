@@ -1,3 +1,19 @@
+/**
+ *
+ *
+ * @param { Object }
+ * @return { boolean } isClean
+ *
+ *
+ */
+
+'use strict'
+
+const hasCleanValue = d => {
+  return d.value != null && !isNaN(+d.value)
+}
+
+export { hasCleanValue }
 
 /**
  * Coerce data for each column in wide-format table (csv)
@@ -9,7 +25,7 @@
  *
  */
 function coerceWideTable (data, columnNames) {
-  let coercedData = data.map(d => {
+  const coercedData = data.map(d => {
     for (var i = 0, n = columnNames.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
       d[columnNames[i]] = +d[columnNames[i]]
@@ -19,11 +35,11 @@ function coerceWideTable (data, columnNames) {
   return coercedData
 }
 
-export { coerceWideTable}
+export { coerceWideTable }
 
 function extractObjectArrayWithKey (dataArray, key) {
-  let outArray = dataArray.map(d => {
-    let obj = {
+  const outArray = dataArray.map(d => {
+    const obj = {
       label: d.Quarter,
       value: parseInt(d[key].replace(/,/g, '')),
       variable: key,
@@ -51,9 +67,9 @@ const formatWideToLong = csv => {
 export { formatWideToLong }
 
 const stackNest = (data, date, name, value) => {
-  let nested_data = d3Nest(data, date)
-  let mqpdata = nested_data.map(function (d) {
-    let obj = {
+  const nested_data = d3Nest(data, date)
+  const mqpdata = nested_data.map(function (d) {
+    const obj = {
       label: d.key
     }
     d.values.forEach(function (v) {
@@ -66,7 +82,7 @@ const stackNest = (data, date, name, value) => {
   return mqpdata
 }
 
-export { stackNest}
+export { stackNest }
 
 /**
  * // TODO: Change tabular data from long (flat) to wide format
@@ -74,7 +90,29 @@ export { stackNest}
  * @param {}
  * @return {}
  *
- *
+
+const populationNested = d3.nest()
+      .key(function (d) { return d.date })
+      .entries(populationFiltered)
+
+    // console.log('populationNested')
+    // console.log(populationNested)
+
+    const populationWide = populationNested.map(function (d) {
+      const obj = {
+        label: d.key
+      }
+      d.values.forEach(function (v) {
+        if (v.Statistic === categoriesStat[0] & v.Sex !== categoriesSex[0]) {
+          obj.date = v.date
+          obj[v.Sex] = v.value
+        }
+      })
+      return obj
+    })
+
+    // console.log('populationWide')
+
  */
 
 const longToWide = (csv) => {
@@ -83,6 +121,42 @@ const longToWide = (csv) => {
 }
 
 export { longToWide }
+
+/**
+ * Return the percentage change between 2 numbers
+ *
+ * @param { Number } curr
+ * @param { Number } prev
+ * @return { Number } percent
+ *
+ *
+ */
+
+function getPercentageChange (curr, prev) {
+  const percent = (curr - prev) * 100 / prev
+  if (percent === Infinity) {
+    return curr
+  } else if (isNaN(percent)) {
+    return 0
+  }
+  return percent.toPrecision(3)
+}
+
+export { getPercentageChange }
+
+// function getTrendArrow (value, selector, negative) {
+//   let indicatorColour,
+//     indicatorSymbol = value > 0 ? ' ▲ increase' : value < 0 ? ' ▼ decrease' : ''
+
+//   if (negative === true) {
+//     indicatorColour = value < 0 ? '#20c997' : value > 0 ? '#da1e4d' : '#f8f8f8'
+//   } else {
+//     indicatorColour = value > 0 ? '#20c997' : value < 0 ? '#da1e4d' : '#f8f8f8'
+//   }
+
+//   d3.select(selector).style('color', indicatorColour)
+//   return indicatorSymbol
+// }
 
 // function formatQuarter (date) {
 //   let newDate = new Date()

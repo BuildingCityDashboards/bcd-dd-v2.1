@@ -1,20 +1,20 @@
-import { getDateFromToday } from '../../modules/bcd-date.js'
-import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
-import { getTrafficQueryForDate } from '../../modules/bcd-helpers-traffic.js'
-import { groupByNumber } from '../../modules/bcd-helpers-traffic.js'
+import { getDateFromToday, formatDateAsDDMMYY } from '../../modules/bcd-date.js'
+
+import { getTrafficQueryForDate, groupByNumber } from '../../modules/bcd-helpers-traffic.js'
+
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 /************************************
  * Traffic counter data
  ************************************/
 
 (async () => {
-  let stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>'
-  let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
-  let dubLat = 53.3498
-  let dubLng = -6.2603
-  let min_zoom = 8
-  let max_zoom = 18
-  let zoom = 10
+  const stamenTonerAttrib = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetprivateMap.org/copyright">OpenStreetMap</a>'
+  const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
+  const dubLat = 53.3498
+  const dubLng = -6.2603
+  const min_zoom = 8
+  const max_zoom = 18
+  const zoom = 10
 
   let osmTrafficCounters
   let trafficCountersMap
@@ -35,11 +35,11 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
     console.log(e)
   }
 
-  let trafficCounterMapIcon = L.icon({
+  const trafficCounterMapIcon = L.icon({
     iconUrl: '/images/transport/car-15.svg',
     iconSize: [20, 20] // orig size
     // iconAnchor: [iconAX, iconAY] //,
-   // popupAnchor: [-3, -76]
+    // popupAnchor: [-3, -76]
   })
 
   const trafficCounterMarker = L.Marker.extend({
@@ -54,22 +54,22 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
   }
 
   try {
-    let dublinCounters = await getCounters()
+    const dublinCounters = await getCounters()
     const daysToFetch = [-1, -2, -3, -8, -15, -22, -29, -36, -43, -85, -183]
-    let readingsGrouped = await getReadings(daysToFetch)
+    const readingsGrouped = await getReadings(daysToFetch)
 
     // create markers for each counter, join reading to static site data and add to map
-    let trafficCounters = new L.LayerGroup()
+    const trafficCounters = new L.LayerGroup()
     dublinCounters.forEach(d => {
       d.values = getReadingsForCounter(readingsGrouped, d)
-      let marker = new trafficCounterMarker(
-            new L.LatLng(d.lat, d.lng), {
-              id: d.id,
-              icon: trafficCounterMapIcon,
-              opacity: 0.9,
-              title: d.description.split(',')[0], // shown in rollover tooltip
-              alt: 'traffic counter icon'
-            })
+      const marker = new trafficCounterMarker(
+        new L.LatLng(d.lat, d.lng), {
+          id: d.id,
+          icon: trafficCounterMapIcon,
+          opacity: 0.9,
+          title: d.description.split(',')[0], // shown in rollover tooltip
+          alt: 'traffic counter icon'
+        })
 
       marker.bindPopup(getPopup(d), trafficCounterPopupOptons)
       marker.on('popupopen', () => {
@@ -92,21 +92,21 @@ async function getCounters () {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
   const counterSiteData = await d3.text('./data/transport/tmu-traffic-counters.dat')
-  let rows = await d3.tsvParseRows(counterSiteData)
+  const rows = await d3.tsvParseRows(counterSiteData)
   // console.log(rows.length)
-  let counters = rows
-  .filter(row => {
-    return row[0].includes('Dublin')
-  })
-  .map(row => {
-    let obj = {
-      id: +row[1],
-      'description': row[0],
-      'lat': +row[5],
-      'lng': +row[6]
-    }
-    return obj
-  })
+  const counters = rows
+    .filter(row => {
+      return row[0].includes('Dublin')
+    })
+    .map(row => {
+      const obj = {
+        id: +row[1],
+        description: row[0],
+        lat: +row[5],
+        lng: +row[6]
+      }
+      return obj
+    })
 
   return counters
 }
@@ -162,7 +162,7 @@ function getPopup (d_) {
 }
 
 function getPlot (d_) {
-  let div = `#traffic-counter-${d_.id}-total`
+  const div = `#traffic-counter-${d_.id}-total`
   d_.values.forEach(d => {
     d.date = new Date(d.date) // convert key date string to date
     d.total = +d.total
@@ -177,17 +177,17 @@ function getPlot (d_) {
     dL: 'label',
     titleLabel: 'daily vehicles'
   }
-  let chart = new ChartLinePopup(config)
+  const chart = new ChartLinePopup(config)
 
   return chart
 }
 
 function getReadingsForCounter (rs_, d_) {
   try {
-    let dateKeys = Object.keys(rs_[d_.id].dates)
-    let values = dateKeys.map(
+    const dateKeys = Object.keys(rs_[d_.id].dates)
+    const values = dateKeys.map(
       date => {
-        return { date: date, total: rs_[d_.id].dates[date].total}
+        return { date: date, total: rs_[d_.id].dates[date].total }
       })
 
     return values
