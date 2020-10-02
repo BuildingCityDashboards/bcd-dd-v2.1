@@ -100,7 +100,7 @@ async function main (options) {
     leftElement.classList.remove('no-animate')
     leftElement.classList.add(animateClass)
     leftElement.innerHTML = '<h1>' + bikesAvailableDirection + ' ' + currBikesAvailable + '</h1>' +
-          '<h2>Bikes Available</h2>'
+          '<h2>Bikes<br>Available</h2>'
 
     const rightElement = cardElement.querySelector('#card-right')
     rightElement.classList.remove('animate-update')
@@ -108,7 +108,7 @@ async function main (options) {
     rightElement.classList.add(animateClass)
     rightElement.innerHTML =
           '<h1>' + standsAvailableDirection + ' ' + currStandsAvailable + '</h1>' +
-          '<h2>Stands Available</h2>'
+          '<h2>Stands<br>Available</h2>'
 
     const infoElement = cardElement.querySelector('.card__info-text')
     infoElement.innerHTML = `Dublin Bikes currently has ${currBikesAvailable} BIKES ${bikesTrendString} and ${currStandsAvailable} STANDS  ${standsTrendString} available across the city`

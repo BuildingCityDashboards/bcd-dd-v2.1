@@ -148,7 +148,6 @@ html {
 }
 
 #hero-weather__left-top {
-  height: 12px;
   color: #6fd1f6;
   font-size: 12px;
   line-height: 1;
@@ -706,7 +705,6 @@ html {
   }
 
   #hero-weather__left-top {
-    height: auto;
     font-size: 16px;
     font-weight: 500;
     line-height: 1.2;
@@ -717,7 +715,6 @@ html {
     display: flex;
     align-items: center;
     font-size: 14px;
-    height: 14px;
     justify-content: space-evenly;
     color: rgba(255, 255, 255, 0.6);
     font-weight: 500;
@@ -729,21 +726,13 @@ html {
     padding-right: 4px;
   }
 
-  #hero-weather__left-bottom__icon svg {}
-
-  #hero-weather__left-bottom__text {}
-
   #hero-weather__symbol {
     width: 36px;
     height: 36px;
   }
 
   #hero-weather__right-top {
-    height: 16px;
     font-size: 16px;
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: 0.15px;
   }
 
   #hero-weather__right-top img {
@@ -753,7 +742,6 @@ html {
 
   #hero-weather__right-bottom {
     font-size: 14px;
-    height: 14px;
     display: flex;
     justify-content: center;
     color: rgba(255, 255, 255, 0.6);
@@ -1043,13 +1031,12 @@ html {
     word-wrap: break-word;
   }
 
-  #hero-weather__left-top {}
+  #hero-weather__left-top {
+    font-size: 18px;
+  }
 
   #hero-weather__left-bottom {
-    display: flex;
-    align-items: center;
     font-size: 16px;
-    justify-content: space-evenly;
   }
 
   #hero-weather__left-bottom__icon {
@@ -1062,7 +1049,13 @@ html {
     height: 48px;
   }
 
+  #hero-weather__right-top {
+    font-size: 18px;
+  }
 
+  #hero-weather__right-bottom {
+    font-size: 16px;
+  }
 
   #hero-weather__right-top img {
     width: 24px;
