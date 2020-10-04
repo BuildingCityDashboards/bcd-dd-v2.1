@@ -484,9 +484,11 @@
   }
 }
 
+@media only screen and (min-width : 768px) and (orientation : landscape) {}
+
 /* iPad Pro */
 
-@media only screen and (min-width : 1024px) {
+@media only screen and (min-width : 1024px) and (orientation : portrait) {
   #about-dublin {}
 
   #about-dublin__header {}
@@ -622,7 +624,7 @@
 
 /* Laptop with MDPI height = 800px */
 
-@media only screen and (min-width : 1280px) {
+@media only screen and (min-width : 1280px) and (orientation : landscape) {
   #about-dublin {
     height: 45vh;
     padding: 0 24px;
