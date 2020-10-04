@@ -624,7 +624,7 @@
 
 /* Laptop with MDPI height = 800px */
 
-@media only screen and (min-width : 1280px) and (orientation : landscape) {
+@media only screen and (min-width : 1280px) {
   #about-dublin {
     height: 45vh;
     padding: 0 24px;
