@@ -18,6 +18,29 @@ class CardChartLine {
     this.tY = options.tY
     this.ySF = options.ySF || 'thousands' // format for y axis
 
+    const defaultLabelAdjustments = {
+      xfirst: {
+        x: 0,
+        y: 0
+      },
+      xlast: {
+        x: 0,
+        y: 0
+      },
+      yfirst: {
+        x: 0,
+        y: -8
+      },
+      ylast: {
+        x: 0,
+        y: -8
+      }
+    }
+
+    this.labelAdjustments = Object.assign(defaultLabelAdjustments, options.labeladjustments)
+    console.log(options.labeladjustments)
+    console.log(this.labelAdjustments)
+
     this.drawChart()
   }
 
@@ -79,7 +102,7 @@ class CardChartLine {
 
   drawLine () {
     const c = this
-    console.log(c.m)
+    // console.log(c.m)
 
     // Adds the svg canvas
     const headroom = '24'
@@ -110,33 +133,33 @@ class CardChartLine {
       .attr('fill', '#16c1f3') // move to css
       .text(lD[c.sN]) // needs to be a d.name
 
-    // first y-value label
-    c.svg.append('text')
-      .attr('x', 0)
-      .attr('y', c.y(fD[c.yV]) - 10)
-      .attr('class', 'label-y-data-first')
-      .text(c.fV ? c.fV(fD[c.yV]) : fD[c.yV])
-
-    // last y-value label
-    c.svg.append('text')
-      .attr('x', c.w)
-      .attr('y', c.y(lD[c.yV]) - 10)
-      .attr('class', 'label-y-data-last')
-      .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
-
     // first x-axis label
     c.svg.append('text')
-      .attr('x', 0)
-      .attr('y', c.h - 5)
       .attr('class', 'label-x-data-first')
+      .attr('x', 0 + c.labelAdjustments.xfirst.x)
+      .attr('y', c.h + c.labelAdjustments.xfirst.y)
       .text(fD[c.dL])
 
     // last x-axis label
     c.svg.append('text')
-      .attr('x', c.w)
-      .attr('y', c.h - 5)
+      .attr('x', c.w + c.labelAdjustments.xlast.x)
+      .attr('y', c.h + c.labelAdjustments.xlast.y)
       .attr('class', 'label-x-data-last')
       .text(lD[c.dL])
+
+    // first y-value label
+    c.svg.append('text')
+      .attr('class', 'label-y-data-first')
+      .attr('x', 0 + +c.labelAdjustments.yfirst.x)
+      .attr('y', c.y(fD[c.yV]) + c.labelAdjustments.yfirst.y)
+      .text(c.fV ? c.fV(fD[c.yV]) : fD[c.yV])
+
+    // last y-value label
+    c.svg.append('text')
+      .attr('class', 'label-y-data-last')
+      .attr('x', c.w + c.labelAdjustments.ylast.x)
+      .attr('y', c.y(lD[c.yV]) + c.labelAdjustments.ylast.y)
+      .text(c.fV ? c.fV(lD[c.yV]) : lD[c.yV])
 
     // circle on first data point
     c.svg.append('circle')

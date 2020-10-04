@@ -73,6 +73,13 @@ async function main (options) {
   // console.log('completionsWide')
   // console.log(completionsWide)
 
+  const labelAdjustments = {
+    ylast: {
+      x: 0,
+      y: 16
+    }
+  }
+
   const completionsConfig = {
     data: completionsWide,
     elementid: '#' + options.plotoptions.chartid,
@@ -80,7 +87,8 @@ async function main (options) {
     xvaluename: 'date',
     // sN: dimensions[1],
     fV: d3.format('.2s'), // format y value
-    dL: 'label'
+    dL: 'label',
+    labeladjustments: labelAdjustments
   }
 
   const completionsCardChart = new CardChartLine(completionsConfig)
