@@ -31,9 +31,16 @@ class CardChartLine {
     // console.log(c.eH)
 
     // dimensions margins, width and height
-    c.m = [20, 12, 4, 12] // affects visability of axis/ data point labels
-    c.w = c.eW - c.m[1] - c.m[3]
-    c.h = c.eH - c.m[0] - c.m[2]
+    c.m = {
+      top: 0,
+      right: 12,
+      bottom: 24,
+      left: 12
+    }
+
+    // c.m = [20, 12, 4, 12] // affects visability of axis/ data point labels
+    c.w = c.eW - c.m.right - c.m.left
+    c.h = c.eH - c.m.top - c.m.bottom
 
     c.setScales()
     c.drawLine()
@@ -72,15 +79,16 @@ class CardChartLine {
 
   drawLine () {
     const c = this
+    console.log(c.m)
 
     // Adds the svg canvas
     const headroom = '24'
     c.svg = d3.select(c.e)
       .append('svg')
-      .attr('width', c.w + c.m[1] + c.m[3])
-      .attr('height', c.h + c.m[0])
+      .attr('width', c.w + c.m.right + c.m.left)
+      .attr('height', c.h + c.m.top)
       .append('g')
-      .attr('transform', 'translate(' + c.m[3] + ',' + headroom + ')')
+      .attr('transform', 'translate(' + c.m.left + ',' + headroom + ')')
 
     // add the data
     c.svg.append('path')
