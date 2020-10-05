@@ -77,7 +77,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
-      tX: 'Year',
+      tX: '',
       tY: getShortLabel(categoriesStat[0])
     }
     // //
@@ -92,7 +92,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
-      tX: 'Year',
+      tX: '',
       tY: getShortLabel(categoriesStat[4])
     }
 
@@ -127,7 +127,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
-      tX: 'Year',
+      tX: '',
       tY: getShortLabel(categoriesStat[1])
     }
 
@@ -142,7 +142,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
-      tX: 'Year',
+      tX: '',
       tY: getShortLabel(categoriesStat[3])
     }
 
