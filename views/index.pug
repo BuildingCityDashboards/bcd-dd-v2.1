@@ -57,28 +57,7 @@ block content
         #hero-carousel
             <div class="carousel" data-flickity='{ "contain": true, "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
 
-              .carousel-cell
-                  +home__card-indicator({
-                      title: 'Air quality - city',
-                      subtitle:  'Fetching data...',
-                      id: 'air-quality-card',
-                      icon: '/images/icons/air-pollution.svg#Layer_1',
-                      info: '',
-                      buttons: [
-                      {
-                        href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
-                        name:'EPA source data',
-                        target: '_blank'
-                      }],
-                      displayoptions:{
-                        displayid: 'air-quality-card__display',
-                        data:{
-                        href: '/api/air-quality/latest',
-                        },
-                        src: '/javascripts/home/card_air_quality.js',
-                        format:''
-                      }
-                    })
+             
               .carousel-cell
                   +home__card-indicator({
                       title: 'Dublin Bikes',
@@ -100,47 +79,28 @@ block content
                         format:''
                       }
                     })
-              
               //- .carousel-cell
                 #traveltimes-card.card-wrapper
                   +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
-              
               .carousel-cell
-                  +home__card-chart({
-                      title: 'house completions',
-                      subtitle:  'total dublin units',
-                      id: 'house-completions-card',
+                  +home__card-indicator({
+                      title: 'Air quality - city',
+                      subtitle:  'Fetching data...',
+                      id: 'air-quality-card',
+                      icon: '/images/icons/air-pollution.svg#Layer_1',
                       info: '',
-                      buttons: [{
-                        href :'/themes#housing',
-                        name:'More in THEMES'
+                      buttons: [
+                      {
+                        href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
+                        name:'EPA source data',
+                        target: '_blank'
                       }],
-                      plotoptions:{
-                        chartid: 'house-completions-card__chart',
+                      displayoptions:{
+                        displayid: 'air-quality-card__display',
                         data:{
-                        href: '../data/statbank/NDQ06.json',
+                        href: '/api/air-quality/latest',
                         },
-                        src: '/javascripts/home/card_housing_completions.js',
-                        format:''
-                      }
-                    })
-
-              .carousel-cell
-                  +home__card-chart({
-                      title: 'population',
-                      subtitle:  'All Dublin',
-                      id: 'population-card',
-                      info: '',
-                      buttons: [{
-                        href :'/themes#population-dublin',
-                        name:'More in THEMES'
-                      }],
-                      plotoptions:{
-                        chartid: 'population-card__chart',
-                        data:{
-                        href: '../data/statbank/CNA13.json',
-                        },
-                        src: '/javascripts/home/card_population.js',
+                        src: '/javascripts/home/card_air_quality.js',
                         format:''
                       }
                     })
@@ -165,6 +125,25 @@ block content
                     }) 
               .carousel-cell
                   +home__card-chart({
+                      title: 'house completions',
+                      subtitle:  'total dublin units',
+                      id: 'house-completions-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#quarterly-new-dwelling-completions',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'house-completions-card__chart',
+                        data:{
+                        href: '../data/statbank/NDQ06.json',
+                        },
+                        src: '/javascripts/home/card_housing_completions.js',
+                        format:''
+                      }
+                    })
+              .carousel-cell
+                  +home__card-chart({
                     title: 'unemployment',
                     subtitle:  'rate (%)',
                     id: 'unemployment-card',
@@ -182,7 +161,25 @@ block content
                       format:''
                     }
                   })
-   
+              .carousel-cell
+                  +home__card-chart({
+                      title: 'population',
+                      subtitle:  'All Dublin',
+                      id: 'population-card',
+                      info: '',
+                      buttons: [{
+                        href :'/themes#population-dublin',
+                        name:'More in THEMES'
+                      }],
+                      plotoptions:{
+                        chartid: 'population-card__chart',
+                        data:{
+                        href: '../data/statbank/CNA13.json',
+                        },
+                        src: '/javascripts/home/card_population.js',
+                        format:''
+                      }
+                    })
                   
               //- </div>
             </div>
