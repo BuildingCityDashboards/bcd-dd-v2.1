@@ -18,6 +18,12 @@ app.use(express.urlencoded({
   extended: false
 }))
 app.use(cookieParser())
+
+// use cached version of files if age < 1 day when placed in public/data/static dir
+app.use('/data/statbank/', express.static(path.join(__dirname, 'public', 'data', 'statbank'), { maxage: '1d' }))
+
+// uses default cache-control settings for Express
+app.use('/', express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // console.log(__dirname);

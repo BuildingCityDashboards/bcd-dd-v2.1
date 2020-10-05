@@ -14,11 +14,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+
+  const STATIC_URL = '../data/statbank/HPM05.json'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   const TABLE_CODE = 'HPM05' // gives no of outsideState and ave household size
   try {
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
-    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     if (json) {
       removeSpinner(chartDivIds[0])
     }
