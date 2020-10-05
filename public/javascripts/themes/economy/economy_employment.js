@@ -167,10 +167,12 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       if (document.querySelector('#chart-' + chartDivIds[3]).style.display !== 'none') {
         participationRateChart.drawChart()
         participationRateChart.addTooltip(', ', '', 'label')
+        participationRateChart.hideRate(true)
       }
       if (document.querySelector('#chart-' + chartDivIds[4]).style.display !== 'none') {
         unemployedRateChart.drawChart()
         unemployedRateChart.addTooltip(', ', '', 'label')
+        unemployedRateChart.hideRate(true)
       }
     }
     redraw()
