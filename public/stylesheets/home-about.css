@@ -731,7 +731,7 @@
   #regions-info__card {
     padding: 24px;
     overflow-y: auto;
-    grid-row: 1 / 6;
+    grid-row: 1 / 7;
   }
 
   #regions-info__card__header {
@@ -796,11 +796,10 @@
   #about-dublin-dashboard__card {
     padding: 24px;
     overflow-y: auto;
-    /**
-    * column-count : 2; column-gap
-    *
-    * : 32px;
-    */
+
+    column-count: 2;
+    column-gap: 24px;
+
   }
 
   /**
