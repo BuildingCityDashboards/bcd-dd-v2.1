@@ -60,7 +60,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           hasCleanValue(d)) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
-          d.value = +d.value * 1000
+          d.value = +d.value
           return d
         }
       })
@@ -70,6 +70,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const employedCount = {
       elementId: 'chart-' + chartDivIds[0],
       data: employmentTable.filter(d => {
+        if (d[dimensions[2]] === categoriesStat[0]) d.value = d.value * 1000
         return d[dimensions[2]] === categoriesStat[0]
       }),
       tracenames: categoriesRegion,
@@ -119,6 +120,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const unemployedCount = {
       elementId: 'chart-' + chartDivIds[2],
       data: employmentTable.filter(d => {
+        if (d[dimensions[2]] === categoriesStat[1]) d.value = d.value * 1000
         return d[dimensions[2]] === categoriesStat[1]
       }),
       tracenames: categoriesRegion,

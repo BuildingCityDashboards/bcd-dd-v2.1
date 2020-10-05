@@ -41,7 +41,7 @@ class BCDChart {
     // console.log('#' + c.e)
     const eW = eN.getBoundingClientRect().width
     const aR = eW < 800 ? eW * 0.55 : eW * 0.5
-    const cScheme = c.cS || d3.schemeReds[5]
+    const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
     const bP = 450
 
