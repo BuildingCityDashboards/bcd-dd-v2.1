@@ -1,356 +1,248 @@
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
+import { hasCleanValue } from '../../modules/bcd-data.js'
+import { convertQuarterToDate } from '../../modules/bcd-date.js'
+import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
-let employmentLine
-let unemploymentLine
-let employmentStack
-let unemploymentStack
-let annual = '../data/Economy/annualemploymentchanges.csv'
-let QNQ22 = '../data/Economy/QNQ22_2.csv'
-let pageSize = 12
+import { TimeoutError } from '../../modules/TimeoutError.js'
 
-/** * This QNQ22 employment and unemployment Charts ***/
-Promise.all([
-  d3.csv(annual),
-  d3.csv(QNQ22)
+(async function main () {
+  const chartDivIds = ['employment', 'labour', 'unemployed', 'ilo-employment', 'ilo-unemployment']
 
-]).then(datafiles => {
-  const QNQ22 = datafiles[1]
-  // console.log('QNQ22')
-  // console.log(QNQ22[0])
+  const STATBANK_BASE_URL =
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+  // QLF08: Persons aged 15 years and over by Region, Quarter and Statistic
+  const TABLE_CODE = 'QLF08'
+  const STATIC_DATA_URL = '../data/statbank/QLF08.json'
 
-  const keys = QNQ22.columns.slice(3) // 0-2 is date, quarter, region
-  const groupBy = 'region'
+  try {
+    addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Labour Force</i>`)
+    addSpinner('chart-' + chartDivIds[3], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Labour Force</i>`)
 
-    // coerce values and parse dates
-  coerceData(QNQ22, keys)
-  parseQuarter(QNQ22, 'quarter')
+    const json = await fetchJsonFromUrlAsyncTimeout(STATIC_DATA_URL)
 
-  const emp = keys[2]
-  const unemp = QNQ22.columns[4]
-  const unempRate = QNQ22.columns[6]
-  const fData = filterbyDate(QNQ22, 'date', 'Jan 01  2001')
-
-  const unempData = stackNest(fData, 'label', 'region', unemp)
-  // console.log('unemp data nested')
-  // console.log(JSON.stringify(unempData[0]))
-
-  const unempRateData = stackNest(fData, 'label', 'region', unempRate)
-  const empData = stackNest(fData, 'label', 'region', emp)
-
-  const grouping = ['Dublin', 'Rest of Ireland']
-
-  let employmentStack
-  if (document.getElementById('chart-employment')) {
-    const empCStack = {
-      e: '#chart-employment',
-      d: empData,
-      ks: grouping,
-      xV: 'date',
-      tX: 'Quarters',
-      tY: '',
-      ySF: ''
+    if (json) {
+      removeSpinner('chart-' + chartDivIds[0])
+      removeSpinner('chart-' + chartDivIds[3])
     }
-    employmentStack = new StackedAreaChart(empCStack)
-    employmentStack.tickNumber = 12
-    //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
-    //   employmentStack.getData(empData);
-    employmentStack.drawChart()
-    employmentStack.addTooltip('Quarter:', '', 'label')
 
-    window.addEventListener('resize', () => {
-      employmentStack.tickNumber = 12
-      employmentStack.drawChart()
-      employmentStack.addTooltip('Quarter:', '', 'label')
+    const dataset = JSONstat(json).Dataset(0)
+    // console.log(dataset)
+
+    const dimensions = dataset.Dimension().map(dim => {
+      return dim.label
     })
-  }
+    // console.log(dimensions)
 
-  const annual = datafiles[0]
-  const keysA = annual.columns.slice(2)
-  // d3Nest(QNQ22, 'date') // annual rate keys
-  coerceData(annual, keysA)
-  parseYearDates(annual, 'date')
-  const aNest = d3Nest(annual, groupBy)
+    const categoriesRegion = dataset.Dimension(dimensions[0]).Category().map(c => {
+      return c.label
+    })
+    // console.log(categoriesRegion)
 
-  let employmentLine
-  if (document.getElementById('chart-emp-rate')) {
-    // console.log('emp')
+    // const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
+    //   return c.label
+    // })
+    // console.log(categoriesType)
 
-    const empContent = {
-      e: '#chart-emp-rate',
-      d: aNest,
-      k: 'region',
+    const categoriesStat = dataset.Dimension(dimensions[2]).Category().map(c => {
+      return c.label
+    })
+    // console.log(categoriesStat)
+
+    //
+    const employmentTable = dataset.toTable(
+      { type: 'arrobj' },
+      (d, i) => {
+        if ((d[dimensions[0]] === 'Dublin' ||
+        d[dimensions[0]] === 'Mid-East') &&
+        // || d[dimensions[0]] === categoriesRegion[0])
+          hasCleanValue(d)) {
+          d.date = convertQuarterToDate(d.Quarter)
+          d.label = d.Quarter
+          d.value = +d.value
+          return d
+        }
+      })
+    //
+    // console.log(employmentTable)
+
+    const employedCount = {
+      elementId: 'chart-' + chartDivIds[0],
+      data: employmentTable.filter(d => {
+        if (d[dimensions[2]] === categoriesStat[0]) d.value = d.value * 1000
+        return d[dimensions[2]] === categoriesStat[0]
+      }),
+      tracenames: categoriesRegion,
+      tracekey: dimensions[0],
       xV: 'date',
-      yV: keysA[0],
-      tX: 'Years',
-      tY: '%',
-      ySF: 'percentage'
+      yV: 'value',
+      tX: '',
+      tY: getShortLabel(categoriesStat[0])
     }
-    // console.log('employ line')
-    // console.log('aNest :')
-    // console.log(aNest)
-    // console.log('keysA[0]: ' + keysA[0])
-    employmentLine = new MultiLineChart(empContent)
-    function redraw () {
-      employmentLine.tickNumber = 12
-      employmentLine.drawChart()
-      employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
-      employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    // //
+    const employedCountChart = new BCDMultiLineChart(employedCount)
+
+    const participationRate = {
+      elementId: 'chart-' + chartDivIds[3],
+      data: employmentTable.filter(d => {
+        return d[dimensions[2]] === categoriesStat[4]
+      }),
+      tracenames: categoriesRegion,
+      tracekey: dimensions[0],
+      xV: 'date',
+      yV: 'value',
+      tX: '',
+      tY: getShortLabel(categoriesStat[4])
+    }
+
+    const participationRateChart = new BCDMultiLineChart(participationRate)
+
+    d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+    // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+    d3.select('#chart-' + chartDivIds[3]).style('display', 'none')
+
+    // const labourCount = {
+    //   elementId: 'chart-' + chartDivIds[1],
+    //   data: employmentTable.filter(d => {
+    //     return d[dimensions[2]] === categoriesStat[2]
+    //   }),
+    //   tracenames: categoriesRegion,
+    //   tracekey: dimensions[0],
+    //   xV: 'date',
+    //   yV: 'value',
+    //   tX: 'Year',
+    //   tY: getShortLabel(categoriesStat[2])
+    // }
+
+    // const labourCountChart = new BCDMultiLineChart(labourCount)
+
+    const unemployedCount = {
+      elementId: 'chart-' + chartDivIds[2],
+      data: employmentTable.filter(d => {
+        if (d[dimensions[2]] === categoriesStat[1]) d.value = d.value * 1000
+        return d[dimensions[2]] === categoriesStat[1]
+      }),
+      tracenames: categoriesRegion,
+      tracekey: dimensions[0],
+      xV: 'date',
+      yV: 'value',
+      tX: '',
+      tY: getShortLabel(categoriesStat[1])
+    }
+
+    const unemployedCountChart = new BCDMultiLineChart(unemployedCount)
+
+    const unemployedRate = {
+      elementId: 'chart-' + chartDivIds[4],
+      data: employmentTable.filter(d => {
+        return d[dimensions[2]] === categoriesStat[3]
+      }),
+      tracenames: categoriesRegion,
+      tracekey: dimensions[0],
+      xV: 'date',
+      yV: 'value',
+      tX: '',
+      tY: getShortLabel(categoriesStat[3])
+    }
+
+    const unemployedRateChart = new BCDMultiLineChart(unemployedRate)
+
+    d3.select('#chart-' + chartDivIds[2]).style('display', 'block')
+    d3.select('#chart-' + chartDivIds[4]).style('display', 'none')
+
+    const redraw = () => {
+      if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
+        employedCountChart.drawChart()
+        employedCountChart.addTooltip(',  ', '', 'label')
+      }
+      // if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
+      //   labourCountChart.drawChart()
+      //   labourCountChart.addTooltip(', ', '', 'label')
+      // }
+      if (document.querySelector('#chart-' + chartDivIds[2]).style.display !== 'none') {
+        unemployedCountChart.drawChart()
+        unemployedCountChart.addTooltip(', ', '', 'label')
+      }
+      if (document.querySelector('#chart-' + chartDivIds[3]).style.display !== 'none') {
+        participationRateChart.drawChart()
+        participationRateChart.addTooltip(', ', '', 'label')
+        participationRateChart.hideRate(true)
+      }
+      if (document.querySelector('#chart-' + chartDivIds[4]).style.display !== 'none') {
+        unemployedRateChart.drawChart()
+        unemployedRateChart.addTooltip(', ', '', 'label')
+        unemployedRateChart.hideRate(true)
+      }
     }
     redraw()
+
+    d3.select('#btn-' + chartDivIds[0]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1], 'btn-' + chartDivIds[2]])
+      d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+      // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+      d3.select('#chart-' + chartDivIds[3]).style('display', 'none')
+      redraw()
+    })
+
+    // d3.select('#btn-' + chartDivIds[1]).on('click', function () {
+    //   activeBtn('btn-' + chartDivIds[1], ['btn-' + chartDivIds[2], 'btn-' + chartDivIds[0]])
+    //   d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+    //   d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
+    //   d3.select('#chart-' + chartDivIds[2]).style('display', 'none')
+    //   redraw()
+    // })
+
+    d3.select('#btn-' + chartDivIds[3]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[3], ['btn-' + chartDivIds[0], 'btn-' + chartDivIds[3]])
+      d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+      // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+      d3.select('#chart-' + chartDivIds[3]).style('display', 'block')
+      redraw()
+    })
+
+    d3.select('#btn-' + chartDivIds[2]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[2], ['btn-' + chartDivIds[4]])
+      d3.select('#chart-' + chartDivIds[2]).style('display', 'block')
+      d3.select('#chart-' + chartDivIds[4]).style('display', 'none')
+      redraw()
+    })
+
+    d3.select('#btn-' + chartDivIds[4]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[4], ['btn-' + chartDivIds[2]])
+      d3.select('#chart-' + chartDivIds[4]).style('display', 'block')
+      d3.select('#chart-' + chartDivIds[2]).style('display', 'none')
+      redraw()
+    })
+
     window.addEventListener('resize', () => {
       redraw()
     })
-  }
+  } catch (e) {
+    console.log('Error creating employment charts')
+    console.log(e)
 
-  let unemploymentStack
-  if (document.getElementById('chart-unemployment')) {
-    const unempCStack = {
-      e: '#chart-unemployment',
-      d: unempData,
-      ks: grouping,
-      xV: 'date',
-      tX: 'Quarters',
-      tY: '',
-      ySF: 'thousands'
-    }
-    unemploymentStack = new StackedAreaChart(unempCStack)
-
-    function redraw () {
-      unemploymentStack.tickNumber = 12
-    //   unemploymentStack.getData(unempData);
-      unemploymentStack.drawChart()
-      unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
-    //   employmentLine.createScales();
-    }
-
-    window.addEventListener('resize', () => {
-      redraw()
+    removeSpinner('chart-' + chartDivIds[0])
+    const eMsg = e instanceof TimeoutError ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton('chart-' + chartDivIds[0], eMsg)
+    // console.log(errBtnID)
+    d3.select(`#${errBtnID}`).on('click', function () {
+      //   console.log('retry')
+      removeErrorMessageButton('chart-' + chartDivIds[0])
+      main()
     })
   }
-  let unemploymentLine
-  // console.log('unemploy line')
-  // console.log('aNest :')
-  // console.log(aNest)
-  // console.log('keysA[2]: ' + keysA[2])
+})()
 
-  if (document.getElementById('chart-unemp-rate')) {
-    const unempContent = {
-      e: '#chart-unemp-rate',
-      d: aNest,
-      xV: 'date',
-      yV: keysA[2],
-      tX: 'Years',
-      tY: '%',
-      ySF: ''
-    }
-
-    unemploymentLine = new MultiLineChart(unempContent)
-    function redraw () {
-      unemploymentLine.tickNumber = 12
-      unemploymentLine.drawChart()
-      unemploymentLine.addTooltip('Unemployment rate (%)', '', '')
-      unemploymentLine.hideRate(true)
-    }
-    window.addEventListener('resize', () => {
-      redraw()
-    })
-  }
-  d3.select('#chart-employment').style('display', 'block')
-  d3.select('#chart-emp-rate').style('display', 'none')
-
-  d3.select('#btn-employment-count').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-employment').style('display', 'block')
-    d3.select('#chart-emp-rate').style('display', 'none')
-      // need to redraw in case window size has changed
-    employmentStack.tickNumber = 12
-      //   employmentStack.pagination(empData, "#chart-employment", 24, 3, "year", "Thousands - Quarter:");
-      //   employmentStack.getData(empData);
-    employmentStack.drawChart()
-    employmentStack.addTooltip('Quarter:', '', 'label')
-  })
-
-  d3.select('#btn-employment-rate').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-employment').style('display', 'none')
-    d3.select('#chart-emp-rate').style('display', 'block')
-    employmentLine.tickNumber = 12
-    employmentLine.drawChart()
-    employmentLine.addTooltip('Employment Annual % Change - ', 'percentage2', 'label')
-    employmentLine.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
-  })
-  d3.select('#chart-unemployment').style('display', 'block')
-  d3.select('#chart-unemp-rate').style('display', 'none')
-
-  d3.select('#btn-unemployment-count').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-unemployment').style('display', 'block')
-    d3.select('#chart-unemp-rate').style('display', 'none')
-    unemploymentStack.tickNumber = 12
-    //   unemploymentStack.getData(unempData);
-    unemploymentStack.drawChart()
-    unemploymentStack.addTooltip('Unemployment in ', 'thousands', 'label')
-  })
-
-  d3.select('#btn-unemployment-rate').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-unemployment').style('display', 'none')
-    d3.select('#chart-unemp-rate').style('display', 'block')
-    unemploymentLine.tickNumber = 12
-    unemploymentLine.drawChart()
-    unemploymentLine.addTooltip('Unemployment rate (%)', '', 'label')
-    unemploymentLine.hideRate(true)
-  })
-})
-  .catch(function (error) {
-    console.log(error)
-  })
-
-// // #chart-employees-by-size
-// // load csv data and turn value into a number
-// d3.csv('../data/Economy/BRA08.csv').then(data => {
-//   let columnNames = data.columns.slice(3),
-//     xValue = data.columns[0]
-//
-//   data.forEach(d => {
-//     for (var i = 0, n = columnNames.length; i < n; ++i) {
-//       d[columnNames[i]] = +d[columnNames[i]]
-//       d.label = d.date
-//       d.date = parseYear(d.date)
-//     }
-//     return d
-//   })
-//
-//   const employeesBySizeData = data,
-//     employeesBySize = {
-//       e: '#chart-employees-by-size',
-//       xV: 'date',
-//       yV: 'value',
-//       d: employeesBySizeData,
-//       k: 'type',
-//       tX: 'Years',
-//       tY: 'Persons Engaged',
-//       ySF: 'millions'
-//     }
-//
-//   const employeesBySizeChart = new MultiLineChart(employeesBySize)
-//   employeesBySizeChart.drawChart()
-//   employeesBySizeChart.addTooltip('Persons Engaged by Size of Company - Year:', 'thousands', 'label')
-// })
-// // catch any error and log to console
-//  .catch(function (error) {
-//    console.log(error)
-//  })
-//
-// // #chart-overseas-vistors
-//      // load csv data and turn value into a number
-// d3.csv('../data/Economy/overseasvisitors.csv').then(data => {
-//   let columnNames = data.columns.slice(1),
-//     xValue = data.columns[0]
-//
-//   data.forEach(d => {
-//     for (var i = 0, n = columnNames.length; i < n; ++i) {
-//       d[columnNames[i]] = +d[columnNames[i]]
-//     }
-//     return d
-//   })
-//
-//   let overseasVisitorsData = data
-//
-//   const tooltipContent = {
-//       title: 'Oversea Vistors (Millions) - Year',
-//       datelabel: xValue,
-//       format: 'thousands'
-//     },
-//
-//     overseasVisitorContent = {
-//       e: '#chart-overseas-vistors',
-//       d: overseasVisitorsData,
-//       ks: columnNames,
-//       xV: xValue,
-//       tX: 'Years',
-//       tY: 'Visitors (Millions)'
-//              // ySF: "percentage"
-//     },
-//
-//     overseasvisitorsChart = new GroupedBarChart(overseasVisitorContent)
-//   overseasvisitorsChart.addTooltip(tooltipContent)
-// })
-//      // catch any error and log to console
-//      .catch(function (error) {
-//        console.log(error)
-//      })
-
-function coerceData (d, k) {
-  d.forEach(d => {
-    for (var i = 0, n = k.length; i < n; i++) {
-      d[k[i]] = d[k[i]] !== 'null' ? +d[k[i]] : 'unavailable'
-    }
-    return d
-  })
-}
-
-function join (lookupTable, mainTable, lookupKey, mainKey, select) {
-  var l = lookupTable.length,
-    m = mainTable.length,
-    lookupIndex = [],
-    output = []
-
-  for (var i = 0; i < l; i++) { // loop through the lookup array
-    var row = lookupTable[i]
-    lookupIndex[row[lookupKey]] = row // create a index for lookup table
+const getShortLabel = function (s) {
+  // Allows color get by name when data order is not guaranteed
+  const SHORTS = {
+    'Persons aged 15 years and over in Employment (Thousand)': 'Persons in Employment',
+    'Unemployed Persons aged 15 years and over (Thousand)': 'Unemployed Persons',
+    'Persons aged 15 years and over in Labour Force (Thousand)': 'Persons in Labour Force',
+    'ILO Unemployment Rate (15 - 74 years) (%)': 'ILO Unemployment Rate (%)',
+    'ILO Participation Rate (15 years and over) (%)': 'ILO Participation Rate (%)'
   }
 
-  for (var j = 0; j < m; j++) { // loop through m items
-    var y = mainTable[j]
-    var x = lookupIndex[y[mainKey]] // get corresponding row from lookupTable
-    output.push(select(y, x)) // select only the columns you need
-  }
-
-  return output
+  return SHORTS[s] || s
 }
-
-function d3Nest (d, n) {
-  let nest = d3.nest()
-    .key(name => {
-      return name[n]
-    })
-    .entries(d)
-  return nest
-}
-
-function filterByDateRange (data, dateField, dateOne, dateTwo) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo)
-  })
-}
-
-function filterbyDate (data, dateField, date) {
-  return data.filter(d => {
-    return d[dateField] >= new Date(date)
-  })
-}
-
-function stackNest (data, date, name, value) {
-  let nested_data = d3Nest(data, date),
-    mqpdata = nested_data.map(function (d) {
-      let obj = {
-        label: d.key
-      }
-      d.values.forEach(function (v) {
-        obj.date = v.date
-        obj.year = v.year
-        obj[v[name]] = v[value]
-      })
-      return obj
-    })
-  return mqpdata
-}
-
-function activeBtn (e) {
-  let btn = e
-  $(btn).siblings().removeClass('active')
-  $(btn).addClass('active')
-}
-// d3.selectAll(".chart-holder_PH").attr("class", "chart-holder");

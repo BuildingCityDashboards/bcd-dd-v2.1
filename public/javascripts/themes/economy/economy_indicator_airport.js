@@ -10,8 +10,8 @@ Promise.all([
   .then(data => {
     const airportData = data[0]
     const airportColumns = airportData.columns.slice(1)
-    console.log('airport')
-    console.log(airportData)
+    // console.log('airport')
+    // console.log(airportData)
     if (document.getElementById('chart-indicator-airport-count')) {
       const longData = airportData.map(d => {
         const obj = {
