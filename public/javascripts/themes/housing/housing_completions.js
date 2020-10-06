@@ -71,7 +71,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       })
     //
     // console.log(completionsTable)
-    console.log(traceNames)
+    // console.log(traceNames)
 
     const completionsHouse = {
       e: '#chart-completions-house',

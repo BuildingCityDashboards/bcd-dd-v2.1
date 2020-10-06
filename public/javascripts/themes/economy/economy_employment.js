@@ -49,7 +49,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       return c.label
     })
     // console.log(categoriesStat)
-
+    const traceNames = []
     //
     const employmentTable = dataset.toTable(
       { type: 'arrobj' },
@@ -61,11 +61,15 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
           d.value = +d.value
+          if (!traceNames.includes(d[dimensions[0]])) {
+            traceNames.push(d[dimensions[0]])
+          }
           return d
         }
       })
     //
     // console.log(employmentTable)
+    // console.log(traceNames)
 
     const employedCount = {
       elementId: 'chart-' + chartDivIds[0],
@@ -73,7 +77,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         if (d[dimensions[2]] === categoriesStat[0]) d.value = d.value * 1000
         return d[dimensions[2]] === categoriesStat[0]
       }),
-      tracenames: categoriesRegion,
+      tracenames: traceNames,
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -88,7 +92,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       data: employmentTable.filter(d => {
         return d[dimensions[2]] === categoriesStat[4]
       }),
-      tracenames: categoriesRegion,
+      tracenames: traceNames,
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -123,7 +127,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         if (d[dimensions[2]] === categoriesStat[1]) d.value = d.value * 1000
         return d[dimensions[2]] === categoriesStat[1]
       }),
-      tracenames: categoriesRegion,
+      tracenames: traceNames,
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -138,7 +142,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       data: employmentTable.filter(d => {
         return d[dimensions[2]] === categoriesStat[3]
       }),
-      tracenames: categoriesRegion,
+      tracenames: traceNames,
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
