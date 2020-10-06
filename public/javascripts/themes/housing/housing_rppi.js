@@ -65,9 +65,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           return d
         }
       })
-    console.log(traceNames)
+    // console.log(traceNames)
 
-    console.log(houseRppiTable)
+    // console.log(houseRppiTable)
 
     const houseRppi = {
       e: '#chart-house-rppi',
