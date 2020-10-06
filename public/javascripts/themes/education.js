@@ -20,7 +20,7 @@ Promise.all([
     })
     // console.log(pupilsPrimary)
     // console.log(pupilsPrimaryData[0])
-    console.log(pupilsPrimaryColNames)
+    // console.log(pupilsPrimaryColNames )
     const pupilsPrimaryPlot = {
       e: '#chart-pupils-primary',
       d: pupilsPrimaryData,
