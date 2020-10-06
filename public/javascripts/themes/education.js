@@ -1,6 +1,5 @@
 import { coerceWideTable } from '../modules/bcd-data.js'
 import { StackedAreaChart } from '../modules/StackedAreaChart.js'
-import { MultiLineChart } from '../modules/MultiLineChart.js'
 import { activeBtn } from '../modules/bcd-ui.js'
 
 Promise.all([
@@ -14,14 +13,15 @@ Promise.all([
   if (document.getElementById('chart-pupils-primary')) {
     const pupilsPrimary = datafiles[1]
     const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
-    let pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
+    const pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
     pupilsPrimaryData.forEach(d => {
       d.label = d.date
       d.date = new Date(d.date, 1, 1)
     })
-  // console.log(pupilsPrimary)
-  // console.log(pupilsPrimaryData[0])
-    let pupilsPrimaryPlot = {
+    // console.log(pupilsPrimary)
+    // console.log(pupilsPrimaryData[0])
+    console.log(pupilsPrimaryColNames)
+    const pupilsPrimaryPlot = {
       e: '#chart-pupils-primary',
       d: pupilsPrimaryData,
       ks: pupilsPrimaryColNames,
@@ -31,18 +31,18 @@ Promise.all([
       tY: 'No. of Pupils'
     }
 
-  // let pupilsPrimaryToolTip = {
-  //   title: 'Primary school pupil numbers for ',
-  //   datelabel: pupilsPrimary.columns[0],
-  //   format: 'thousands'
-  // }
+    // let pupilsPrimaryToolTip = {
+    //   title: 'Primary school pupil numbers for ',
+    //   datelabel: pupilsPrimary.columns[0],
+    //   format: 'thousands'
+    // }
 
     pupilsPrimaryChart = new StackedAreaChart(pupilsPrimaryPlot)
 
     function redraw () {
       pupilsPrimaryChart.drawChart()
       pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
-  // employmentServiceChart.addTooltip(', ', '', 'label')
+      // employmentServiceChart.addTooltip(', ', '', 'label')
     }
 
     redraw()
@@ -56,14 +56,14 @@ Promise.all([
   if (document.getElementById('chart-pupils-secondary')) {
     const pupilsSecondary = datafiles[2]
     const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
-    let pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
+    const pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
     pupilsSecondaryData.forEach(d => {
       d.label = d.date
       d.date = new Date(d.date, 1, 1)
     })
-  // console.log(pupilsSecondary)
+    // console.log(pupilsSecondary)
 
-    let pupilsSecondaryPlot = {
+    const pupilsSecondaryPlot = {
       e: '#chart-pupils-secondary',
       d: pupilsSecondaryData,
       ks: pupilsSecondaryColNames,
@@ -73,11 +73,11 @@ Promise.all([
       tY: 'No. of Pupils'
     }
 
-  // let pupilsSecondaryToolTip = {
-  //   title: 'Secondary school pupil numbers for ',
-  //   datelabel: pupilsSecondary.columns[0],
-  //   format: 'thousands'
-  // }
+    // let pupilsSecondaryToolTip = {
+    //   title: 'Secondary school pupil numbers for ',
+    //   datelabel: pupilsSecondary.columns[0],
+    //   format: 'thousands'
+    // }
 
     pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
 
@@ -193,11 +193,11 @@ Promise.all([
 
   // sSLevelChart.addTooltip(sSLevelTT)
 
-    // highestEducationChart.selectAll(".tick text").call(texTrap, 100, 50);
+  // highestEducationChart.selectAll(".tick text").call(texTrap, 100, 50);
 
-        // xValue = data.columns[0];
-        // groupBy = data.columns[0];
-        // yLabels =["Population (000s)", "Rate %"];
+  // xValue = data.columns[0];
+  // groupBy = data.columns[0];
+  // yLabels =["Population (000s)", "Rate %"];
 }).catch(function (error) {
   console.log(error)
 })

@@ -35,8 +35,6 @@ Promise.all([
     // shorten the long column names
     employmentSectorData.forEach(d => {
       for (let i = 0; i < longKeys.length; i += 1) {
-        console.log(longKeys[i])
-        console.log(SHORT_KEYS[longKeys[i]])
         if (SHORT_KEYS[longKeys[i]]) {
           d[SHORT_KEYS[longKeys[i]]] = d[longKeys[i]]
           delete d[longKeys[i]]
@@ -65,7 +63,7 @@ Promise.all([
           return !Number.isNaN(d.Education) && parseInt(d.date.getFullYear()) < 2050
           // parseInt(d.Quarter.split(' ')[1]) < 50
         })
-      console.log(broadSectorCols)
+      // console.log(broadSectorCols)
 
       const employmentSector = {
         e: '#chart-indicator-employment-sector',
@@ -115,7 +113,7 @@ Promise.all([
         })
       // console.log(serviceData)
 
-      console.log(serviceCols)
+      // console.log(serviceCols)
 
       const employmentService = {
         e: '#chart-indicator-employment-services',
