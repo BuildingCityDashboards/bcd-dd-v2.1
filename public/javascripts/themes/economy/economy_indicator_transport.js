@@ -17,7 +17,7 @@ Promise.all([
           // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
           const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
           const obj = {
-            label: d.Quarter,
+            label: yearQuarter.replace(/Q/, ' Quarter '),
             value: parseFloat(d[key].replace(/,/g, '')) / 1000000,
             variable: key,
             date: convertQuarterToDate(yearQuarter)
@@ -50,7 +50,7 @@ Promise.all([
 
         const redraw = () => {
           publicTransportChart.drawChart()
-          publicTransportChart.addTooltip('Tonnage, ', 'thousands', 'label')
+          publicTransportChart.addTooltip('Millions of trips, ', 'thousands', 'label')
         }
 
         redraw()

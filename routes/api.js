@@ -66,4 +66,7 @@ router.get('/weather/latest', weatherController.getWeatherLatest)
 const trafficService = require('../services/traffic-query-service')
 router.get('/traffic/', trafficService.getTrafficPerSiteByQuery)
 
+const economicMonitorController = require('../controllers/economic_monitor_controller')
+router.get('/economicmonitor/indicator/:string', economicMonitorController.getIndicatorData)
+
 module.exports = router

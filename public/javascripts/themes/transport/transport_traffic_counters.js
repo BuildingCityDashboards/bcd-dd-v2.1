@@ -91,9 +91,8 @@ import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 async function getCounters () {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
-  const counterSiteData = await d3.text('./data/transport/tmu-traffic-counters.dat')
+  const counterSiteData = await d3.text('../../data/Transport/tmu-traffic-counters.dat')
   const rows = await d3.tsvParseRows(counterSiteData)
-  // console.log(rows.length)
   const counters = rows
     .filter(row => {
       return row[0].includes('Dublin')
@@ -117,7 +116,7 @@ async function getReadings (days) {
   })
 
   const responsePromises = queries.map(async q => {
-    const response = await d3.csv('api/traffic?q=' + q)
+    const response = await d3.csv('../api/traffic?q=' + q)
     return response
   })
   const responses = await Promise.all(responsePromises)

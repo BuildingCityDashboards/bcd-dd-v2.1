@@ -43,10 +43,10 @@ class Chart {
     let h
     let bP
 
-    eN = d3.select(c.e).node(),
-    eW = eN.getBoundingClientRect().width,
-    aR = eW < 800 ? eW * 0.55 : eW * 0.5,
-    cScheme = c.cS || d3.schemeBlues[5],
+    eN = d3.select(c.e).node()
+    eW = eN.getBoundingClientRect().width
+    aR = eW < 800 ? eW * 0.55 : eW * 0.5
+    cScheme = c.cS || d3.schemeBlues[5]
     bP = 450
     // console.log("ew: " + eW);
     // margins

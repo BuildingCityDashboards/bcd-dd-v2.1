@@ -60,6 +60,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // let STATS = ['Population (Number)']
     // = ['Total Birth', 'Great Britain', 'U.S.A.', 'Other Countries']
     //
+    const traceNames = []
+
     const housePriceTable = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
@@ -76,18 +78,22 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.date = parseYearMonth(d.Month)
           d.label = d.Month
           d.value = +d.value
+          if (!traceNames.includes(d[dimensions[3]])) {
+            traceNames.push(d[dimensions[3]])
+          }
           return d
         }
       })
     //
     // console.log(housePriceTable)
+    // console.log(traceNames)
 
     const housePriceMean = {
       e: '#chart-house-price-mean',
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[2]
       }),
-      ks: categoriesRegion,
+      ks: traceNames,
       k: dimensions[3],
       xV: 'date',
       yV: 'value',

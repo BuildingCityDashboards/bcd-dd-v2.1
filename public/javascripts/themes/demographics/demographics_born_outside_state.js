@@ -12,18 +12,18 @@ import { activeBtn } from '../../modules/bcd-ui.js'
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // CNA31: Populaton by Country of Birth, County and Year
   const TABLE_CODE = 'CNA31' // gives no of outsideState and ave household size
-  let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+  const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
-  let dataset = JSONstat(json).Dataset(0)
+  const dataset = JSONstat(json).Dataset(0)
   // console.log('dataset')
   // console.log(dataset)
   // console.log('dim')
-  let dimensions = dataset.Dimension().map(dim => {
+  const dimensions = dataset.Dimension().map(dim => {
     return dim.label
   })
   // console.log(dimensions)
 
-  let categoriesOfCountry = dataset.Dimension(dimensions[0]).Category().map(c => {
+  const categoriesOfCountry = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
   })
 
@@ -32,35 +32,40 @@ import { activeBtn } from '../../modules/bcd-ui.js'
 
   // let STATS = ['Population (Number)']
   // = ['Total Birth', 'Great Britain', 'U.S.A.', 'Other Countries']
+
+  const traceNames = []
   //
-  let bornOutsideTable = dataset.toTable(
-     { type: 'arrobj' },
-     (d, i) => {
-       if (
-         // d[DIMENSION] === 'State'||
-       // (d[dimensions[0]] === categoriesOfCountry[0] ||
-       (d[dimensions[0]] === categoriesOfCountry[0]
-        || d[dimensions[0]] === categoriesOfCountry[5]
-        || d[dimensions[0]] === categoriesOfCountry[8]
-        || d[dimensions[0]] === categoriesOfCountry[9])
-      && (d['County'] === 'Dublin'
-        || d['County'] === 'State')
-      && +d['Year'] >= 1991) {
-         d.date = parseYear(+d['Year'])
-         d.label = +d['Year']
-         d.value = +d.value / 1000
-         return d
-       }
-     })
+  const bornOutsideTable = dataset.toTable(
+    { type: 'arrobj' },
+    (d, i) => {
+      if (
+      // d[DIMENSION] === 'State'||
+      // (d[dimensions[0]] === categoriesOfCountry[0] ||
+        (d[dimensions[0]] === categoriesOfCountry[0] ||
+        d[dimensions[0]] === categoriesOfCountry[5] ||
+        d[dimensions[0]] === categoriesOfCountry[8] ||
+        d[dimensions[0]] === categoriesOfCountry[9]) &&
+      (d.County === 'Dublin' ||
+        d.County === 'State') &&
+      +d.Year >= 1991) {
+        d.date = parseYear(+d.Year)
+        d.label = +d.Year
+        d.value = +d.value / 1000
+        if (!traceNames.includes(d[dimensions[0]])) {
+          traceNames.push(d[dimensions[0]])
+        }
+        return d
+      }
+    })
 
   // console.log(bornOutsideTable)
 
-  let bornOutsideDublin = {
+  const bornOutsideDublin = {
     e: '#chart-born-outside-dublin',
     d: bornOutsideTable.filter(d => {
-      return d['County'] === 'Dublin'
+      return d.County === 'Dublin'
     }),
-    ks: categoriesOfCountry,
+    ks: traceNames,
     k: dimensions[0],
     xV: 'date',
     yV: 'value',
@@ -68,7 +73,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     tY: 'Population (thousands)'
   }
   //
-  let bornOutsideDublinChart = new MultiLineChart(bornOutsideDublin)
+  const bornOutsideDublinChart = new MultiLineChart(bornOutsideDublin)
 
   // bornOutsideDublinChart.tickNumber = 31
   bornOutsideDublinChart.drawChart()
@@ -77,12 +82,12 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   // bornOutsideDublinChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
   //
 
-  let bornOutsideState = {
+  const bornOutsideState = {
     e: '#chart-born-outside-state',
     d: bornOutsideTable.filter(d => {
-      return d['County'] === 'State'
+      return d.County === 'State'
     }),
-    ks: categoriesOfCountry,
+    ks: traceNames,
     k: dimensions[0],
     xV: 'date',
     yV: 'value',
@@ -90,7 +95,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     tY: 'Population (thousands)'
   }
 
-  let bornOutsideStateChart = new MultiLineChart(bornOutsideState)
+  const bornOutsideStateChart = new MultiLineChart(bornOutsideState)
   bornOutsideStateChart.drawChart()
   bornOutsideStateChart.addTooltip('Population (thousands) in census year ', '', 'label')
 

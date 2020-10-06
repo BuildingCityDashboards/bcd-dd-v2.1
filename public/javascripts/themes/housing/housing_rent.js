@@ -1,77 +1,81 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
+import { hasCleanValue } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { activeBtn } from '../../modules/bcd-ui.js'
-import { addSpinner } from '../../modules/bcd-ui.js'
-import { removeSpinner } from '../../modules/bcd-ui.js'
-import { addErrorMessageButton } from '../../modules/bcd-ui.js'
-import { removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-  let chartDivIds = ['chart-rent-prices']
+  const chartDivIds = ['chart-rent-prices']
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
         'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
-// RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
+  // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
   const TABLE_CODE = 'RIQ02'
   try {
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
-    let json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
     if (json) {
       removeSpinner(chartDivIds[0])
     }
-    let dataset = JSONstat(json).Dataset(0)
+    const dataset = JSONstat(json).Dataset(0)
     // console.log(dataset)
 
-    let dimensions = dataset.Dimension().map(dim => {
+    const dimensions = dataset.Dimension().map(dim => {
       return dim.label
     })
     // console.log(dimensions)
 
-    let categoriesBeds = dataset.Dimension(dimensions[0]).Category().map(c => {
+    const categoriesBeds = dataset.Dimension(dimensions[0]).Category().map(c => {
       return c.label
     })
     // console.log(categoriesBeds)
-    let categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
+    const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
     // console.log(categoriesType)
-  //
-    let categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
+    //
+    const categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     })
     // console.log(categoriesLocation)
 
-    let categoriesStat = dataset.Dimension(dimensions[4]).Category().map(c => {
+    const categoriesStat = dataset.Dimension(dimensions[4]).Category().map(c => {
       return c.label
     })
     // console.log(categoriesStat)
 
-    let rentTable = dataset.toTable(
-     { type: 'arrobj' },
-     (d, i) => {
-       if (d[dimensions[1]] === categoriesType[0] // type
-           && d[dimensions[2]] === 'Dublin'
-          && !isNaN(+d.value)) {
-         d.date = convertQuarterToDate(d['Quarter'])
-         d.label = d['Quarter']
-         d.value = +d.value
-         return d
-       }
-     })
+    const bedCategoryTraces = []
+
+    const rentTable = dataset.toTable(
+      { type: 'arrobj' },
+      (d, i) => {
+        if (d[dimensions[1]] === categoriesType[0] &&
+           d[dimensions[2]] === 'Dublin' &&
+          hasCleanValue(d)) {
+          d.date = convertQuarterToDate(d.Quarter)
+          d.label = d.Quarter
+          d.value = +d.value
+          if (!bedCategoryTraces.includes(d[dimensions[0]])) {
+            bedCategoryTraces.push(d[dimensions[0]])
+          }
+          return d
+        }
+      })
 
     // console.log(rentTable)
+
+    // console.log(bedCategoryTraces)
     //
-    let rent = {
+    const rent = {
       e: '#chart-rent-prices',
       d: rentTable.filter(d => {
         return d[dimensions[0]] === categoriesBeds[0] // all beds
       }),
-      ks: categoriesLocation,
+      ks: ['Dublin'],
       k: dimensions[2],
       xV: 'date',
       yV: 'value',
@@ -79,15 +83,15 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    let rentChart = new MultiLineChart(rent)
+    const rentChart = new MultiLineChart(rent)
 
-    let rentByBeds = {
+    const rentByBeds = {
       e: '#chart-rent-by-beds',
       d: rentTable,
       // .filter(d => {
-        // return parseInt(d.date.getFullYear()) >= 2010
+      // return parseInt(d.date.getFullYear()) >= 2010
       // }),
-      ks: categoriesBeds,
+      ks: bedCategoryTraces,
       k: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -95,7 +99,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    let rentByBedsChart = new MultiLineChart(rentByBeds)
+    const rentByBedsChart = new MultiLineChart(rentByBeds)
     //
     const chart1 = 'rent-prices'
     const chart2 = 'rent-by-beds'
@@ -137,7 +141,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log(e)
     removeSpinner(chartDivIds[0])
     e = (e instanceof TimeoutError) ? e : 'An error occured'
-    let errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    const errBtnID = addErrorMessageButton(chartDivIds[0], e)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       console.log('retry')
