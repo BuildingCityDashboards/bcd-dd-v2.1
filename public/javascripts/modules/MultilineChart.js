@@ -1,7 +1,6 @@
 import { Chart } from './Chart.js'
 
 class MultiLineChart extends Chart {
-
   constructor (obj) {
     super(obj)
 
@@ -9,7 +8,7 @@ class MultiLineChart extends Chart {
   }
 
   drawChart () {
-    let c = this
+    const c = this
 
     super.nestData()
     super.init()
@@ -23,7 +22,7 @@ class MultiLineChart extends Chart {
   }
 
   updateChart (obj) {
-    let c = this
+    const c = this
 
     if (obj) {
       c.d = obj.d || c.d
@@ -44,11 +43,11 @@ class MultiLineChart extends Chart {
 
   // needs to be called everytime the data changes
   createScales () {
-    let c = this,
-      yAxisCall,
-      xAxisCall,
-      x,
-      y
+    const c = this
+    let yAxisCall
+    let xAxisCall
+    let x
+    let y
 
     yAxisCall = d3.axisLeft()
     xAxisCall = d3.axisBottom()
@@ -68,11 +67,11 @@ class MultiLineChart extends Chart {
   }
 
   setScales (chartType) {
-    let c = this,
-      x,
-      x0,
-      x1,
-      y
+    const c = this
+    let x
+    let x0
+    let x1
+    let y
 
     y = d3.scaleLinear().range([c.h, 0])
 
@@ -111,8 +110,8 @@ class MultiLineChart extends Chart {
   }
 
   setDomains (zeroYAxis = true) {
-    let c = this,
-      minValue
+    const c = this
+    let minValue
 
     // switch (d){
     // }
@@ -141,8 +140,8 @@ class MultiLineChart extends Chart {
   }
 
   drawLines () {
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
 
     // d3 line function
     c.line = d3.line()
@@ -196,7 +195,7 @@ class MultiLineChart extends Chart {
   }
 
   addTooltip (title, format, dateField, prefix, postfix) {
-    let c = this
+    const c = this
 
     d3.select(c.e).select('.focus').remove()
     d3.select(c.e).select('.focus_overlay').remove()
@@ -205,8 +204,8 @@ class MultiLineChart extends Chart {
     c.valueFormat = c.formatValue(format)
     c.dateField = dateField
     c.ttWidth = 305
-    c.prefix = prefix ? prefix : ' '
-    c.postfix = postfix ? postfix : ' '
+    c.prefix = prefix || ' '
+    c.postfix = postfix || ' '
 
     // console.log(c)
 
@@ -215,10 +214,10 @@ class MultiLineChart extends Chart {
   }
 
   drawFocusOverlay () {
-    let c = this,
-      g = c.g,
-      focus = d3.select(c.e).select('.focus'),
-      overlay = g.append('rect')
+    const c = this
+    const g = c.g
+    const focus = d3.select(c.e).select('.focus')
+    const overlay = g.append('rect')
 
     overlay.attr('class', 'focus_overlay')
       .attr('width', c.w)
@@ -257,12 +256,12 @@ class MultiLineChart extends Chart {
       c.newToolTip.style('visibility', 'visible')
       c.newToolTip.style('display', 'block')
 
-      let mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+      const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
       // console.log('ml mouse')
       // console.log(mouse)
-      let x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
-      let i = c.bisectDate(c.d[0].values, x0, 1)
-      let tooldata = c.sortData(i, x0)
+      const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+      const i = c.bisectDate(c.d[0].values, x0, 1)
+      const tooldata = c.sortData(i, x0)
       // c.moveTooltip(tooldata);
       c.ttContent(tooldata) // add values to tooltip
     }
@@ -296,20 +295,20 @@ class MultiLineChart extends Chart {
   }
 
   updatePosition (xPosition, yPosition) {
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
     // get the x and y values - y is static
-    let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
+    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
     // move the tooltip
     g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
     c.newToolTip.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
   }
 
   getTooltipPosition ([mouseX, mouseY]) {
-    let c = this
-    let ttX,
-      ttY = mouseY,
-      cSize = c.w - c.ttWidth
+    const c = this
+    let ttX
+    const ttY = mouseY
+    const cSize = c.w - c.ttWidth
 
     // show right - 60 is the margin large screens
     if (mouseX < cSize) {
@@ -322,17 +321,18 @@ class MultiLineChart extends Chart {
   }
 
   formatQuarter (date, i) {
-    let newDate = new Date()
+    const newDate = new Date()
     newDate.setMonth(date.getMonth() + 1)
-    let year = (date.getFullYear())
-    let q = Math.ceil((newDate.getMonth()) / 3)
+    const year = (date.getFullYear())
+    const q = Math.ceil((newDate.getMonth()) / 3)
     return year + ' Q' + q
   }
+
   // hides the rate column in the tooltip e.g. when showing % change
   hideRate (value) {
-    let c = this,
-      i = c.getElement('.bcd-text-indicator'),
-      r = c.getElement('.bcd-text-rate')
+    const c = this
+    const i = c.getElement('.bcd-text-indicator')
+    const r = c.getElement('.bcd-text-rate')
 
     if (value) {
       i.style('display', 'none')
@@ -345,8 +345,8 @@ class MultiLineChart extends Chart {
   }
 
   addBaseLine (value) {
-    let c = this,
-      gLines = c.getElement('.grid-lines')
+    const c = this
+    const gLines = c.getElement('.grid-lines')
 
     gLines.append('line')
       .attr('x1', 0)
@@ -359,16 +359,16 @@ class MultiLineChart extends Chart {
   pagination (data, selector, sliceBy, pageNumber, label) {
     const c = this
 
-    const slices = c.slicer(data, sliceBy),
-      times = pageNumber,
-      startSet = slices(times - 1)
+    const slices = c.slicer(data, sliceBy)
+    const times = pageNumber
+    const startSet = slices(times - 1)
 
     //  let newStart = [];
     //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
 
     d3.selectAll(selector + ' .pagination-holder').remove()
 
-    let moreButtons = d3.select(selector)
+    const moreButtons = d3.select(selector)
       .append('div')
       .attr('class', 'pagination-holder text-center pb-2')
 
@@ -380,18 +380,18 @@ class MultiLineChart extends Chart {
       // let wg = slices(i)
       // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
 
-      let wg = slices(i),
-        sliceNumber = sliceBy - 1,
-        secondText
+      const wg = slices(i)
+      const sliceNumber = sliceBy - 1
+      let secondText
 
       if (typeof wg[sliceNumber] !== 'undefined') {
         secondText = wg[sliceNumber]
       } else {
-        let lastEl = wg.length - 1
+        const lastEl = wg.length - 1
         secondText = wg[lastEl]
       }
 
-      let textString = label === 'year' ? wg[sliceNumber][label] : wg[0][label] + ' - ' + secondText[label]
+      const textString = label === 'year' ? wg[sliceNumber][label] : wg[0][label] + ' - ' + secondText[label]
 
       moreButtons.append('button')
         .attr('type', 'button')
@@ -415,8 +415,8 @@ class MultiLineChart extends Chart {
     if (sliceBy < 1 || !arr) return () => []
 
     return (p) => {
-      const base = p * sliceBy,
-        size = arr.length
+      const base = p * sliceBy
+      const size = arr.length
 
       let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice(base, base + sliceBy)
 
@@ -427,32 +427,32 @@ class MultiLineChart extends Chart {
   }
 
   sortData (i, x0) {
-    let c = this,
-      tD = c.d.map(d => {
-        let s,
-          sPrev,
-          s0 = d.values[i - 1],
-          s1 = d.values[i],
-          v = c.yV
+    const c = this
+    const tD = c.d.map(d => {
+      let s
+      let sPrev
+      const s0 = d.values[i - 1]
+      const s1 = d.values[i]
+      const v = c.yV
 
-        s1 !== undefined ? s = x0 - s0[c.xV] > s1[c.xV] - x0 ? s1 : s0 : s = s0
-        s1 !== undefined ? sPrev = x0 - s0[c.xV] > s1[c.xV] - x0 ? d.values[i - 1] : d.values[i - 2] : false
-        // c.newToolTipTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
+      s1 !== undefined ? s = x0 - s0[c.xV] > s1[c.xV] - x0 ? s1 : s0 : s = s0
+      s1 !== undefined ? sPrev = x0 - s0[c.xV] > s1[c.xV] - x0 ? d.values[i - 1] : d.values[i - 2] : false
+      // c.newToolTipTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
 
-        let obj = {}
-        obj.key = d.key
-        if (s) {
-          obj.label = s.label
-          obj.value = s[v]
-          obj.change = c.getPerChange(s, sPrev, v)
-          obj[c.xV] = s[c.xV]
-        } else {
-          // console.log('undefined input to multiline_chart')
-        }
-        // console.log('obj')
-        // console.log(obj)
-        return obj
-      })
+      const obj = {}
+      obj.key = d.key
+      if (s) {
+        obj.label = s.label
+        obj.value = s[v]
+        obj.change = c.getPerChange(s, sPrev, v)
+        obj[c.xV] = s[c.xV]
+      } else {
+        // console.log('undefined input to multiline_chart')
+      }
+      // console.log('obj')
+      // console.log(obj)
+      return obj
+    })
     c.moveTooltip(tD)
     tD.sort((a, b) => b.value - a.value)
 
@@ -460,16 +460,16 @@ class MultiLineChart extends Chart {
   }
 
   ttContent (data) {
-    let c = this
+    const c = this
     data.forEach((d, i) => {
-      let id = '#bcd-tt' + i,
-        div = c.newToolTip.select(id),
-        unText = 'N/A',
-        indicatorColour,
-        indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : '',
-        rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null),
-        value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value,
-        p = div.select('.bcd-text')
+      const id = '#bcd-tt' + i
+      const div = c.newToolTip.select(id)
+      const unText = 'N/A'
+      let indicatorColour
+      const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''
+      const rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null)
+      const value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value
+      const p = div.select('.bcd-text')
       if (c.arrowChange === true) {
         indicatorColour = d.change < 0 ? '#20c997' : d.change > 0 ? '#da1e4d' : '#f8f8f8'
       } else {
@@ -485,11 +485,11 @@ class MultiLineChart extends Chart {
   }
 
   moveTooltip (d) {
-    let c = this
+    const c = this
     d.forEach((d, i) => {
-      let id = '.tooltip_' + i,
-        tooltip = d3.select(c.e).select(id),
-        v = 'value'
+      const id = '.tooltip_' + i
+      const tooltip = d3.select(c.e).select(id)
+      const v = 'value'
 
       if (d !== undefined) {
         c.updatePosition(c.x(d[c.xV]), -300)
@@ -504,17 +504,17 @@ class MultiLineChart extends Chart {
   // replacing old legend method with new inline labels
   drawLegend () {
     // chart (c) object, vlaue (v), colour (z), line height(lH)
-    let c = this,
-      g = c.g,
-      v = c.yV,
-      z = c.colour,
-      lH = 12
+    const c = this
+    const g = c.g
+    const v = c.yV
+    const z = c.colour
+    const lH = 12
 
     // data values for last readable value
     const lines = c.d.map(d => {
-      let obj = {},
-        vs = d.values.filter(idFilter),
-        s = vs.length - 1
+      const obj = {}
+      const vs = d.values.filter(idFilter)
+      const s = vs.length - 1
       // sF = d.values.length -1;
       obj.key = d.key
       obj.last = vs[s] ? vs[s][v] : null
@@ -525,9 +525,9 @@ class MultiLineChart extends Chart {
     })
 
     const circles = c.d.map(d => {
-      let obj = {},
-        vs = d.values.filter(idFilter),
-        s = vs.length - 1
+      const obj = {}
+      const vs = d.values.filter(idFilter)
+      const s = vs.length - 1
       obj.key = d.key
       obj.last = vs[s] ? vs[s][v] : null
       obj.x = vs[s] ? c.x(vs[s][c.xV]) : null
@@ -604,13 +604,13 @@ class MultiLineChart extends Chart {
 
     // filter out the NaN
     function idFilter (d) {
-      return isNum(d[v]) && d[v] !== 0 ? true : false
+      return !!(isNum(d[v]) && d[v] !== 0)
     }
   }
 
   showSelectedLabels (array) {
-    let c = this,
-      e = c.xAxis
+    const c = this
+    const e = c.xAxis
     c.axisArray = array || c.axisArray
 
     e.selectAll('.x-axis .tick')
@@ -621,6 +621,5 @@ class MultiLineChart extends Chart {
         .style('display', 'block')
     })
   }
-
 }
 export { MultiLineChart }
