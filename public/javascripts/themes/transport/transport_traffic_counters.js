@@ -93,7 +93,6 @@ async function getCounters () {
   // want an array of objects for dublin counters
   const counterSiteData = await d3.text('../../data/Transport/tmu-traffic-counters.dat')
   const rows = await d3.tsvParseRows(counterSiteData)
-  console.log(rows.length)
   const counters = rows
     .filter(row => {
       return row[0].includes('Dublin')

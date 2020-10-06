@@ -29,11 +29,6 @@ class Chart {
     this.tX = options.tX
     this.tY = options.tY
     this.ySF = options.ySF || 'thousands' // format for y axis
-
-    // console.log('id')
-    // console.log(this.e)
-    // console.log('keys')
-    // console.log(this.ks)
   }
 
   // initialise method to draw c area

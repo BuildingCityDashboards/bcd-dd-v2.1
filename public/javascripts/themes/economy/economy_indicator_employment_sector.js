@@ -1,29 +1,30 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { coerceWideTable } from '../../modules/bcd-data.js'
 import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
-const employmentSectorURL = '../data/Economy/data_gov_economic_monitor/indicator-2-employment-by-sector.csv'
+// const employmentSectorURL = '../data/Economy/data_gov_economic_monitor/indicator-2-employment-by-sector.csv'
+const employmentSectorURL = '/api/economicmonitor/indicator/:string'
 
 Promise.all([
   d3.csv(employmentSectorURL)
 ])
   .then(data => {
     const SHORT_KEYS = {
-      "Dublin Employment ('000) - Construction (F)": 'Construction (F)',
-      "Dublin Employment ('000) - Wholesale and retail trade, repair of motor vehicles and motorcycles (G)": 'Wholesale & retail',
+      "Dublin Employment ('000) - Construction (F)": 'Construction',
+      "Dublin Employment ('000) - Wholesale and retail trade, repair of motor vehicles and motorcycles (G)": 'Motor vehicles',
       "Dublin Employment ('000) - Transportation and storage (H)": 'Transportation',
-      "Dublin Employment ('000) - Accommodation and food service activities (I)":	'Accommodation & food',
+      "Dublin Employment ('000) - Accommodation and food service activities (I)": 'Accommodation & food',
       "Dublin Employment ('000) - Information and communication (J)": 'ICT',
-      "Dublin Employment ('000) - Professional, scientific and technical activities (M)": 'Professional, scientific & technical',
+      "Dublin Employment ('000) - Professional, scientific and technical activities (M)": 'Professional, Scientific & Technical',
       "Dublin Employment ('000) - Administrative and support service activities (N)": 'Admin',
-      "Dublin Employment ('000) - Public administration and defence, compulsory social security (O)": 'Public admin',
-      "Dublin Employment ('000) - Education (P)":	'Education (P)',
-      "Dublin Employment ('000) - Human health and social work activities (Q)": 'Health & social work',
-      "Dublin Employment ('000) - Industry (B to E)": 'Industry (B to E)',
-      "Dublin Employment ('000) - Industry and Construction (B to F)": 'Industry & Construction (B to F)',
-      "Dublin Employment ('000) - Services (G to U)": 'Services (G to U)',
-      "Dublin Employment ('000) - Financial, insurance and real estate activities (K,L)": 'Financial, insurance & real estate',
+      "Dublin Employment ('000) - Public administration and defence, compulsory social security (O)": 'Public Admin',
+      "Dublin Employment ('000) - Education (P)":	'Education',
+      "Dublin Employment ('000) - Human health and social work activities (Q)": 'Health & Social',
+      "Dublin Employment ('000) - Industry (B to E)": 'Industry',
+      "Dublin Employment ('000) - Industry and Construction (B to F)": 'Industry & Construction',
+      "Dublin Employment ('000) - Services (G to U)": 'Services',
+      "Dublin Employment ('000) - Financial, insurance and real estate activities (K,L)": 'Financial',
       "Dublin Employment ('000) - Other NACE activities (R to U)": 'Other',
-      "Dublin Employment ('000) - Not stated":	'Not stated'
+      "Dublin Employment ('000) - Not stated": 'Not stated',
+      'Private Sector': 'Private Sec.'
 
     }
 
@@ -34,8 +35,12 @@ Promise.all([
     // shorten the long column names
     employmentSectorData.forEach(d => {
       for (let i = 0; i < longKeys.length; i += 1) {
-        d[SHORT_KEYS[longKeys[i]]] = d[longKeys[i]]
-        delete d[longKeys[i]]
+        console.log(longKeys[i])
+        console.log(SHORT_KEYS[longKeys[i]])
+        if (SHORT_KEYS[longKeys[i]]) {
+          d[SHORT_KEYS[longKeys[i]]] = d[longKeys[i]]
+          delete d[longKeys[i]]
+        }
       }
     })
     // console.log(employmentSectorData)
@@ -60,11 +65,14 @@ Promise.all([
           return !Number.isNaN(d.Education) && parseInt(d.date.getFullYear()) < 2050
           // parseInt(d.Quarter.split(' ')[1]) < 50
         })
+      console.log(broadSectorCols)
 
       const employmentSector = {
         e: '#chart-indicator-employment-sector',
         d: broadSectorData,
-        ks: broadSectorCols,
+        ks: broadSectorCols.filter(d => {
+          return d !== 'Private Sec.'
+        }),
         xV: 'date',
         yV: broadSectorCols,
         tX: 'Quarter',
@@ -107,6 +115,8 @@ Promise.all([
         })
       // console.log(serviceData)
 
+      console.log(serviceCols)
+
       const employmentService = {
         e: '#chart-indicator-employment-services',
         d: serviceData,
@@ -120,7 +130,7 @@ Promise.all([
 
       function redraw () {
         employmentServiceChart.drawChart()
-        employmentServiceChart.addTooltip(', ', '', 'label')
+        employmentServiceChart.addTooltip('Numbers employed, ', '', 'label')
       }
       redraw()
 

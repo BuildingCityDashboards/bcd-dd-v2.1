@@ -12,59 +12,59 @@ let employedChart
   const STATBANK_BASE_URL =
           'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'BRA08'
-  let STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
+  const STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
 
-  let json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+  const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
-  let dataset = JSONstat(json).Dataset(0)
+  const dataset = JSONstat(json).Dataset(0)
   // the categories will be the label on each plot trace
-  let categories = dataset.Dimension(0).Category().map(c => {
+  const categories = dataset.Dimension(0).Category().map(c => {
     return c.label
   })
   // console.log(categories)
 
-  let EXCLUDE = categories[0] // exclude 'All size...' trace
+  const EXCLUDE = categories[0] // exclude 'All size...' trace
   //
-  let sizeFiltered = dataset.toTable(
-     { type: 'arrobj' },
-     (d, i) => {
-       if (d.County === 'Dublin'
-     && d.Statistic === STATS[2]
-     && d['Employment Size'] !== EXCLUDE) {
-         d.label = d.Year
-         d.date = parseYear(+d.Year)
-         d.value = +d.value
-         return d
-       }
-     }
+  const sizeFiltered = dataset.toTable(
+    { type: 'arrobj' },
+    (d, i) => {
+      if (d.County === 'Dublin' &&
+     d.Statistic === STATS[2] &&
+     d['Employment Size'] !== EXCLUDE) {
+        d.label = d.Year
+        d.date = parseYear(+d.Year)
+        d.value = +d.value
+        return d
+      }
+    }
   )
 
-  let engagedFiltered = dataset.toTable(
-     { type: 'arrobj' },
-     (d, i) => {
-       if (d.County === 'Dublin'
-     && d.Statistic === STATS[1]
-     && d['Employment Size'] !== EXCLUDE) {
-         d.label = d.Year
-         d.date = parseYear(+d.Year)
-         d.value = +d.value
-         return d
-       }
-     }
+  const engagedFiltered = dataset.toTable(
+    { type: 'arrobj' },
+    (d, i) => {
+      if (d.County === 'Dublin' &&
+     d.Statistic === STATS[1] &&
+     d['Employment Size'] !== EXCLUDE) {
+        d.label = d.Year
+        d.date = parseYear(+d.Year)
+        d.value = +d.value
+        return d
+      }
+    }
   )
 
-  let activeFiltered = dataset.toTable(
-     { type: 'arrobj' },
-     (d, i) => {
-       if (d.County === 'Dublin'
-     && d.Statistic === STATS[0]
-     && d['Employment Size'] !== EXCLUDE) {
-         d.label = d.Year
-         d.date = parseYear(+d.Year)
-         d.value = +d.value
-         return d
-       }
-     }
+  const activeFiltered = dataset.toTable(
+    { type: 'arrobj' },
+    (d, i) => {
+      if (d.County === 'Dublin' &&
+     d.Statistic === STATS[0] &&
+     d['Employment Size'] !== EXCLUDE) {
+        d.label = d.Year
+        d.date = parseYear(+d.Year)
+        d.value = +d.value
+        return d
+      }
+    }
   )
 
   const sizeContent = {
@@ -73,7 +73,9 @@ let employedChart
     yV: 'value',
     d: sizeFiltered,
     k: 'Employment Size',
-    ks: categories, // used for the tooltip
+    ks: categories.filter(d => {
+      return d !== EXCLUDE
+    }), // used for the tooltip
     tX: 'Years',
     tY: 'Persons employed'
 
@@ -126,7 +128,7 @@ let employedChart
     // employedChart.tickNumber = 12
     employedChart.drawChart()
     employedChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
-      // employedChart.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
+    // employedChart.hideRate(true) // hides the rate column in the tooltip when the % change chart is shown
   })
   //
   d3.select('#btn-engaged-by-size').on('click', function () {
