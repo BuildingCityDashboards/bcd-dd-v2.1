@@ -66,9 +66,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         }
       })
 
-    console.log(rentTable)
+    // console.log(rentTable)
 
-    console.log(bedCategoryTraces)
+    // console.log(bedCategoryTraces)
     //
     const rent = {
       e: '#chart-rent-prices',

@@ -50,6 +50,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(categoriesStat)
 
     //
+    const traceNames = []
     const completionsTable = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
@@ -62,18 +63,22 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
           d.value = +d.value
+          if (!traceNames.includes(d[dimensions[0]])) {
+            traceNames.push(d[dimensions[0]])
+          }
           return d
         }
       })
     //
     // console.log(completionsTable)
+    console.log(traceNames)
 
     const completionsHouse = {
       e: '#chart-completions-house',
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[0]
       }),
-      ks: categoriesLA,
+      ks: traceNames,
       k: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -88,7 +93,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[1]
       }),
-      ks: categoriesLA,
+      ks: traceNames,
       k: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -103,7 +108,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[2]
       }),
-      ks: categoriesLA,
+      ks: traceNames,
       k: dimensions[0],
       xV: 'date',
       yV: 'value',
