@@ -1,12 +1,12 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { formatDateAsDDMMYY } from '../../modules/bcd-date.js'
-import { isToday } from '../../modules/bcd-date.js'
-import { getDefaultMapOptions } from '../../modules/bcd-maps.js'
-import { getDublinLatLng } from '../../modules/bcd-maps.js'
+import { formatDateAsDDMMYY, isToday } from '../../modules/bcd-date.js'
+
+import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js'
+
 (async () => {
   // console.log('load noise charts')
-  let stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
+  const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 
   try {
     proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
@@ -14,18 +14,18 @@ import { getDublinLatLng } from '../../modules/bcd-maps.js'
     var firstProjection = 'EPSG:29902'
     var secondProjection = 'EPSG:4326'
 
-    let osmnoiseMonitors = new L.TileLayer(stamenTonerUrl_Lite, getDefaultMapOptions())
-    let noiseMap = new L.Map('map-noise-monitors', {
+    const osmnoiseMonitors = new L.TileLayer(stamenTonerUrl_Lite, getDefaultMapOptions())
+    const noiseMap = new L.Map('map-noise-monitors', {
       dragging: !L.Browser.mobile,
       tap: !L.Browser.mobile
     })
     noiseMap.setView(getDublinLatLng(), 11)
     noiseMap.addLayer(osmnoiseMonitors)
-    let noiseMapIcon = L.icon({
-      iconUrl: './images/environment/microphone-black-shape.svg',
+    const noiseMapIcon = L.icon({
+      iconUrl: '../images/environment/microphone-black-shape.svg',
       iconSize: [20, 20] // orig size
     // iconAnchor: [iconAX, iconAY] //,
-   // popupAnchor: [-3, -76]
+      // popupAnchor: [-3, -76]
     })
     const noiseMarker = L.Marker.extend({
       options: {
@@ -38,10 +38,10 @@ import { getDublinLatLng } from '../../modules/bcd-maps.js'
     // 'className': 'leaflet-popup'
     }
 
-    let noiseSitesLayer = new L.LayerGroup()
-    let noiseSites = await getSites('./data/Environment/soundsites.json', 'sound_monitoring_sites')
-    let allSitesPromises = noiseSites.map(async d => {
-      let marker = new noiseMarker(
+    const noiseSitesLayer = new L.LayerGroup()
+    const noiseSites = await getSites('../data/Environment/soundsites.json', 'sound_monitoring_sites')
+    const allSitesPromises = noiseSites.map(async d => {
+      const marker = new noiseMarker(
         new L.LatLng(d.lng, d.lat), {
           id: d.id,
           opacity: 0.9,
@@ -55,10 +55,10 @@ import { getDublinLatLng } from '../../modules/bcd-maps.js'
         getPopupPlot(d)
       })
       noiseSitesLayer.addLayer(marker)
-      let siteReadings = await getSiteReadings(d)
+      const siteReadings = await getSiteReadings(d)
       return siteReadings
     })
-    let allSitesData = await Promise.all(allSitesPromises)
+    const allSitesData = await Promise.all(allSitesPromises)
     let allSitesFlat = allSitesData.flat(1)
     allSitesFlat = allSitesFlat.filter((s, i) => {
       return isToday(s.date) && (parseInt(s.date.getHours()) < 10) // // TODO: remove demo hack
@@ -81,7 +81,7 @@ import { getDublinLatLng } from '../../modules/bcd-maps.js'
       tY: 'dB'
     }
 
-    let noiseChart = new MultiLineChart(noiseChartOptions)
+    const noiseChart = new MultiLineChart(noiseChartOptions)
 
     function redraw () {
       if (document.querySelector('#chart-noise-monitors').style.display !== 'none') {
@@ -121,11 +121,11 @@ async function getSites (url, key) {
   // want an array of objects for dublin counters
   let siteData = await d3.json(url)
   siteData = siteData[key].map(site => {
-    let obj = {
+    const obj = {
       id: +site.site_id,
       name: site.name,
-      'lat': +site.lat,
-      'lng': +site.lon
+      lat: +site.lat,
+      lng: +site.lon
     }
     return obj
   })
@@ -161,17 +161,17 @@ function getPopup (d_) {
 async function getSiteReadings (d_) {
   // console.log(d_)
 
-  let readings = await d3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
+  const readings = await d3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
   // console.log(readings.times)
 
-  let data = readings.dates.map((d, i) => {
+  const data = readings.dates.map((d, i) => {
     let date = d.split('/')[0]
-    let m = parseInt(d.split('/')[1]) - 1
-    let y = d.split('/')[2]
+    const m = parseInt(d.split('/')[1]) - 1
+    const y = d.split('/')[2]
     date = new Date(y, m, date) // convert key date string to date
 
-    let h = readings.times[i].split(':')[0]
-    let min = readings.times[i].split(':')[1]
+    const h = readings.times[i].split(':')[0]
+    const min = readings.times[i].split(':')[1]
     date.setHours(h)
     date.setMinutes(min)
     // console.log(date)
@@ -179,7 +179,7 @@ async function getSiteReadings (d_) {
     // let divId = `noise-site-${d_.id}`
     // document.getElementById(divId + '-subtitle').innerHTML = `Latest data for ${readings.dates[0]}`
     // console.log(date)
-    let datum = {
+    const datum = {
       id: d_.id,
       name: d_.name,
       date: date,
@@ -194,10 +194,10 @@ async function getSiteReadings (d_) {
 }
 
 async function getPopupPlot (d_) {
-  let divId = `noise-site-${d_.id}`
-  let data = await getSiteReadings(d_)
+  const divId = `noise-site-${d_.id}`
+  const data = await getSiteReadings(d_)
 
-    // isToday(s.date)
+  // isToday(s.date)
 
   // console.log(data[0])
   if (isToday(data[0].date)) {
@@ -213,23 +213,23 @@ async function getPopupPlot (d_) {
       dL: 'label',
       titleLabel: 'dB'
     }
-    let chart = new ChartLinePopup(options)
+    const chart = new ChartLinePopup(options)
     return chart
   }
 
-  let str = '<div class="popup-error">' +
+  const str = '<div class="popup-error">' +
           '<div class="row ">' +
           "We can't get the noise monitoring data for this location right now, please try again later" +
           '</div>' +
           '</div>'
-        // return d3.select('#bike-spark-' + sid_)
-        //   .html(str)
+  // return d3.select('#bike-spark-' + sid_)
+  //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
 }
 
 function activeBtn (e) {
-  let btn = e
+  const btn = e
   $(btn).siblings().removeClass('active')
   $(btn).addClass('active')
 }
