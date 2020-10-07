@@ -67,6 +67,6 @@ const trafficService = require('../services/traffic-query-service')
 router.get('/traffic/', trafficService.getTrafficPerSiteByQuery)
 
 const economicMonitorController = require('../controllers/economic_monitor_controller')
-router.get('/economicmonitor/indicator/:string', economicMonitorController.getIndicatorData)
+router.get('/economicmonitor/indicator/:indicatorNumber', economicMonitorController.getIndicatorData)
 
 module.exports = router

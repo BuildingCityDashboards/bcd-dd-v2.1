@@ -20,7 +20,7 @@ export { fetchJsonFromUrlAsyncTimeout }
 
 const fetchCsvFromUrlAsyncTimeout = async (url, duration = 30000) => {
   const res = await Promise.race([fetch(url), new Promise((resolve, reject) =>
-    setTimeout(() => reject(new TimeoutError(`Timeout waiting for <b>${url}</b> to respond to our request for data`)), durationc)
+    setTimeout(() => reject(new TimeoutError(`Timeout waiting for <b>${url}</b> to respond to our request for data`)), duration)
   )])
 
   // TODO: return parsed csv as array of objects as per d3.csv()
