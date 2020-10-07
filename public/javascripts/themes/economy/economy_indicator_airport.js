@@ -24,8 +24,6 @@ Promise.all([
         return obj
       })
 
-      console.log(longData)
-
       const airportPaxCount = {
         e: '#chart-indicator-airport-count',
         d: longData,
