@@ -22,7 +22,7 @@
 #about-dublin__header>h1 {
   /* width: 136px; */
   margin: 0;
-  color: #6fd1f6;
+  color: var(--text-color-1);
   font-size: 20px;
   font-weight: normal;
   line-height: 0.73;
@@ -32,7 +32,7 @@
 #about-dublin__card {
   padding: 16px 16px 0 16px;
   overflow-y: auto;
-  background-color: rgba(142, 191, 214, 0.15);
+  background-color: var(--bg-color-3);
   grid-column: span 4;
   grid-row: 2/9;
 }
@@ -47,7 +47,7 @@
 
 #about-dublin__card>p {
   /* width: 296px; height: 371px; */
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text-color-3);
   font-size: 14px;
   font-weight: normal;
   line-height: 1.71;
@@ -81,7 +81,7 @@
 #regions-info__cta {
   display: flex;
   margin: 0;
-  color: #6fd1f6;
+  color: var(--text-color-1);
   text-align: center;
   font-size: 16px;
   font-style: normal;
@@ -103,7 +103,7 @@
   padding: 16px;
   opacity: 0;
   overflow-y: scroll;
-  background-color: rgba(142, 191, 214, 0.15);
+  background-color: var(--bg-color-3);
   flex-direction: column;
   grid-column: span 4;
   grid-row: 6/9;
@@ -116,7 +116,7 @@
 
 #regions-info__card__header h1 {
   margin: 0;
-  color: #6fd1f6;
+  color: var(--text-color-1);
   font-size: 20px;
   font-weight: normal;
   line-height: 20px;
@@ -127,7 +127,7 @@
 
 #regions-info__card__body>p {
   margin: 0 0 8px 0;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text-color-3);
   font-size: 14px;
   font-weight: normal;
   line-height: 24px;
@@ -155,7 +155,7 @@
 #about-dublin-dashboard__header>h1 {
   /* width: 271px; height: 18px; */
   margin: 0;
-  color: #6fd1f6;
+  color: var(--text-color-1);
   font-size: 20px;
   font-style: normal;
   font-weight: normal;
@@ -171,14 +171,14 @@
 #about-dublin-dashboard__card {
   padding: 16px 16px 0 16px;
   overflow-y: auto;
-  background-color: rgba(142, 191, 214, 0.15);
+  background-color: var(--bg-color-3);
   grid-column: span 4;
   grid-row: 2/9;
 }
 
 #about-dublin-dashboard__card>p {
   /* width: 296px; height: 371px; */
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--text-color-3);
   font-size: 14px;
   font-weight: normal;
   line-height: 1.71;
@@ -247,7 +247,7 @@
   #regions-info__card__body>p {
     margin: 0;
     padding-bottom: 8px;
-    color: rgba(255, 255, 255, 0.87);
+    color: var(--text-color-3);
     font-size: 14px;
     font-weight: normal;
     line-height: 1.7;
@@ -276,7 +276,7 @@
   #about-dublin-dashboard__header>h1 {
     /* width: 271px; height: 18px; */
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 20px;
     font-style: normal;
     font-weight: normal;
@@ -293,14 +293,14 @@
     height: auto;
     padding: 16px 16px 0 16px;
     overflow-y: auto;
-    background-color: rgba(142, 191, 214, 0.15);
+    background-color: var(--bg-color-3);
     grid-column: span 4;
     grid-row: 2/9;
   }
 
   #about-dublin-dashboard__card>p {
     /* width: 296px; height: 371px; */
-    color: rgba(255, 255, 255, 0.87);
+    color: var(--text-color-3);
     font-size: 14px;
     font-weight: normal;
     line-height: 1.71;
@@ -378,7 +378,7 @@
   #regions-info__cta {
     display: flex;
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     text-align: center;
     font-size: 16px;
     font-style: normal;
@@ -402,7 +402,7 @@
 
   #regions-info__card__header>h1 {
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 24px;
     font-weight: normal;
     line-height: 24px;
@@ -416,7 +416,7 @@
   #regions-info__card__body>p {
     margin: 0;
     padding-bottom: 8px;
-    color: rgba(255, 255, 255, 0.87);
+    color: var(--text-color-3);
     font-size: 14px;
     font-weight: normal;
     line-height: 1.25;
@@ -459,7 +459,7 @@
 
   #about-dublin-dashboard__twitter>p {
     /* width: 303px; height: 24px; */
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 14px;
     font-style: normal;
     font-weight: normal;
@@ -516,7 +516,7 @@
     /* width: 326px; */
     /* min-height: 50px; */
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 16px;
     font-style: normal;
     font-weight: normal;
@@ -532,7 +532,7 @@
   #regions-info__cta {
     display: flex;
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     text-align: center;
     font-size: 24px;
     font-style: normal;
@@ -599,7 +599,7 @@
   }
 
   #about-dublin-dashboard__twitter>p {
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 18px;
     font-style: normal;
     font-weight: normal;
@@ -669,7 +669,7 @@
     display: flex;
     margin: 0;
     padding-left: 24px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     text-align: left;
     align-self: center;
     font-size: 16px;
@@ -693,7 +693,7 @@
     background-color: transparent;
     width: 24px;
     transform: rotate(180deg);
-    fill: #6fd1f6;
+    fill: var(--text-color-1);
   }
 
 
@@ -705,7 +705,7 @@
     /* width: 326px; */
     /* min-height: 50px; */
     margin: 0;
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 16px;
     font-weight: normal;
     line-height: 1.5;
@@ -784,7 +784,7 @@
 
   #about-dublin-dashboard__twitter>p {
     /* width: 303px; height: 24px; */
-    color: #6fd1f6;
+    color: var(--text-color-1);
     font-size: 18px;
     font-style: normal;
     font-weight: normal;

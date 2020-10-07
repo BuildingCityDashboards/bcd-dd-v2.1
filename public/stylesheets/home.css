@@ -1,5 +1,16 @@
 /* xs: 360px x 540px <MOCKUP> */
 
+:root {
+  --bg-color-1: rgba(39, 52, 57, 0.56);
+  --bg-color-2: rgba(39, 52, 57, 0.82);
+  --bg-color-3: rgba(142, 191, 214, 0.15);
+  --color-1: rgba(255, 255, 255, 0.87);
+  --color-2: #8ebfd6;
+  --text-color-1: #6fd1f6;
+  --text-color-2: rgba(255, 255, 255, 0.6);
+  --text-color-3: rgba(255, 255, 255, 0.87);
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -106,7 +117,8 @@ html {
 #hero-time__clock {
   width: 49px;
   height: 12px;
-  color: #6fd1f6;
+  color: var(--text-color-1);
+  ;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
@@ -116,7 +128,7 @@ html {
 #hero-time__date {
   width: 66px;
   height: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   font-size: 12px;
   font-weight: 300;
   line-height: 1;
@@ -148,7 +160,8 @@ html {
 }
 
 #hero-weather__left-top {
-  color: #6fd1f6;
+  color: var(--text-color-1);
+  ;
   font-size: 12px;
   line-height: 1;
   letter-spacing: 0.15px;
@@ -181,7 +194,7 @@ html {
   min-width: 100px;
   /* margin-top    : -5px; */
   padding: 8px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   opacity: 1;
   border-radius: 6px;
   background: rgba(28, 32, 34, 0.8);
@@ -203,7 +216,8 @@ html {
 
 #hero-weather__right-top {
   display: flex;
-  color: #6fd1f6;
+  color: var(--text-color-1);
+  ;
   align-items: center;
   font-size: 12px;
   flex-direction: row;
@@ -218,7 +232,7 @@ html {
 #hero-weather__right-top__icon svg {
   width: auto;
   height: 24px;
-  fill: rgba(255, 255, 255, 0.6);
+  fill: var(--text-color-2);
 }
 
 #hero-weather__right-bottom {
@@ -468,14 +482,15 @@ html {
   #hero-time__clock {
     width: 80px;
     height: 22px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     font-size: 20px;
   }
 
   #hero-time__date {
     width: 109px;
     height: 22px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 20px;
     font-weight: 300;
   }
@@ -498,7 +513,8 @@ html {
 
   #hero-weather__left-top {
     height: 20px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     font-size: 20px;
     font-weight: 500;
     line-height: 1.2;
@@ -507,7 +523,7 @@ html {
 
   #hero-weather__left-bottom {
     display: flex;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 16px;
     font-weight: 500;
     line-height: 1.33;
@@ -522,7 +538,7 @@ html {
   #hero-weather__left-bottom__icon svg {
     width: 13px;
     height: 22px;
-    stroke: rgba(255, 255, 255, 0.6);
+    stroke: var(--text-color-2);
     stroke-width: 48;
     /* padding-right: 16px; */
   }
@@ -544,7 +560,7 @@ html {
 
   #hero-weather__right-bottom {
     display: flex;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     align-items: center;
     font-weight: 500;
     line-height: 1.33;
@@ -598,7 +614,7 @@ html {
     width: 100%;
     height: auto;
     margin-right: 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     text-align: center;
     font-size: 14px;
     font-weight: 300;
@@ -716,7 +732,7 @@ html {
     align-items: center;
     font-size: 14px;
     justify-content: space-evenly;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-weight: 500;
     line-height: 1.33;
     letter-spacing: 0.15px;
@@ -744,7 +760,7 @@ html {
     font-size: 14px;
     display: flex;
     justify-content: center;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     align-items: center;
     text-align: center;
     font-weight: 500;
@@ -800,7 +816,7 @@ html {
     width: 100%;
     height: auto;
     margin-right: 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     text-align: center;
     font-size: 14px;
     font-weight: 300;
@@ -870,14 +886,15 @@ html {
   #hero-time__clock {
     width: 80px;
     height: 22px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     font-size: 20px;
   }
 
   #hero-time__date {
     width: 109px;
     height: 22px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 20px;
     font-weight: 300;
   }
@@ -1003,14 +1020,15 @@ html {
   #hero-time__clock {
     width: 80px;
     height: 22px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     font-size: 20px;
   }
 
   #hero-time__date {
     width: 109px;
     height: 22px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 20px;
     font-weight: 300;
   }
@@ -1119,7 +1137,8 @@ html {
   .icon-nav__title {
     width: auto;
     height: auto;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     border: none;
     font-size: 16px;
     font-style: normal;
@@ -1133,7 +1152,7 @@ html {
     display: flex;
     width: 100%;
     /* height: 40px; */
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 14px;
     font-weight: 300;
     line-height: 1.43;
@@ -1207,14 +1226,15 @@ html {
   #hero-time__clock {
     width: 80px;
     height: 22px;
-    color: #6fd1f6;
+    color: var(--text-color-1);
+    ;
     font-size: 20px;
   }
 
   #hero-time__date {
     width: 109px;
     height: 22px;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color-2);
     font-size: 20px;
     font-weight: 300;
   }
