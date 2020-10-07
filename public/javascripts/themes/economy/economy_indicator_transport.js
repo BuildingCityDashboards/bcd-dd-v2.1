@@ -16,13 +16,16 @@ Promise.all([
         const longArray = publicTransportData.map(d => {
           // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
           const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
+          const value = parseFloat(d[key].replace(/,/g, ''))
+
+          // if (!Number.isNaN(value)) value = value.toFixed(2)
           const obj = {
             label: yearQuarter.replace(/Q/, ' Quarter '),
-            value: parseFloat(d[key].replace(/,/g, '')) / 1000000,
+            value: value,
             variable: key,
             date: convertQuarterToDate(yearQuarter)
           }
-          // console.log(obj)
+          console.log(obj)
 
           return obj
         }).filter(d => {
@@ -39,6 +42,8 @@ Promise.all([
 
         const longData = busEireannData.concat(dublinBusData).concat(irishRailData).concat(luasData)
 
+        console.log(longData)
+
         const publicTransportOptions = {
           e: '#chart-public-transport-trips',
           d: longData,
@@ -46,7 +51,8 @@ Promise.all([
           xV: 'date',
           yV: 'value',
           tX: 'Quarter',
-          tY: 'Trips (millions)'
+          tY: 'Trips (millions)',
+          ySF: 'millions'
         }
         publicTransportChart = new MultiLineChart(publicTransportOptions)
 

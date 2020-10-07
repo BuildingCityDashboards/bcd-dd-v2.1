@@ -297,7 +297,7 @@ class Chart {
   }
 
   formatValue (format) {
-    // formats thousands, Millions, Euros and Percentage
+    // formats thousands, millions, euros and percentage
     switch (format) {
       case 'millions':
         return d3.format('.2s')
