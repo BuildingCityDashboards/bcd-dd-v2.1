@@ -1,7 +1,6 @@
 import { Chart } from './Chart.js'
 
 class StackedAreaChart extends Chart {
-
   constructor (obj) {
     super(obj)
 
@@ -9,7 +8,7 @@ class StackedAreaChart extends Chart {
   }
 
   drawChart () {
-    let c = this
+    const c = this
 
     super.init()
     super.addAxis()
@@ -25,7 +24,7 @@ class StackedAreaChart extends Chart {
   }
 
   updateChart (obj) {
-    let c = this
+    const c = this
 
     if (obj) {
       c.d = obj.d || c.d
@@ -46,11 +45,11 @@ class StackedAreaChart extends Chart {
   }
 
   stackData () {
-    let c = this,
-      data = c.d,
-      // keys,
-      // groupData,
-      stack = d3.stack()
+    const c = this
+    const data = c.d
+    // keys,
+    // groupData,
+    const stack = d3.stack()
 
     // keys = c.ks;
 
@@ -78,11 +77,11 @@ class StackedAreaChart extends Chart {
   }
 
   createScales () {
-    let c = this,
-      yAxisCall,
-      xAxisCall,
-      x,
-      y
+    const c = this
+    let yAxisCall
+    let xAxisCall
+    let x
+    let y
 
     yAxisCall = d3.axisLeft()
     xAxisCall = d3.axisBottom()
@@ -94,8 +93,8 @@ class StackedAreaChart extends Chart {
     c.y = d3.scaleLinear().range([c.h, 0])
 
     // get the the combined max value for the y scale
-    let maxVal = d3.max(c.d, d => {
-      let vals = d3.keys(d).map(key => {
+    const maxVal = d3.max(c.d, d => {
+      const vals = d3.keys(d).map(key => {
         return key === c.xV || typeof d[key] === 'string' ? 0 : d[key]
         // return key !== c.xV ? d[key] : 0;
       })
@@ -108,7 +107,7 @@ class StackedAreaChart extends Chart {
       return (d[c.xV])
     }))
 
-    c.y.domain([0, maxVal ])//* 1.2])
+    c.y.domain([0, maxVal])//* 1.2])
 
     // Update X axis
     c.tickNumber ? xAxisCall.scale(c.x).ticks(c.tickNumber) : xAxisCall.scale(c.x)
@@ -120,7 +119,7 @@ class StackedAreaChart extends Chart {
   }
 
   drawArea () {
-    let c = this
+    const c = this
 
     c.arealine = d3.line()
       .defined(function (d) {
@@ -209,17 +208,17 @@ class StackedAreaChart extends Chart {
   // replacing old legend method with new inline labels
   drawLegend () {
     // chart (c) object, value (v), colour (z), line height(lH)
-    let c = this,
-      g = c.g,
-      v = c.value,
-      z = c.colour,
-      lH = 10
+    const c = this
+    const g = c.g
+    const v = c.value
+    const z = c.colour
+    const lH = 10
 
     // data values for last readable value
     const lines = c.dStacked.map(d => {
-      let obj = {},
-        vs = d.filter(idFilter),
-        s = vs.length - 1
+      const obj = {}
+      const vs = d.filter(idFilter)
+      const s = vs.length - 1
       // sF = d.data.length -1;
       obj.key = d.key
       // obj.last = vs[s][v];
@@ -315,7 +314,7 @@ class StackedAreaChart extends Chart {
 
     // filter out the NaN
     function idFilter (d) {
-      return isNum(d[1]) ? true : false
+      return !!isNum(d[1])
     }
 
     function bouncer (arr) {
@@ -324,54 +323,54 @@ class StackedAreaChart extends Chart {
   }
 
   addLegend () {
-    let c = this
+    const c = this
 
-      // create legend group
+    // create legend group
     var legend = c.g.append('g')
-          .attr('transform', 'translate(0,0)')
+      .attr('transform', 'translate(0,0)')
 
-      // create legend array, this needs to come from the data.
+    // create legend array, this needs to come from the data.
     c.legendArray = []
 
     c.ks.forEach((d) => {
-      let obj = {}
+      const obj = {}
       obj.label = d
       obj.colour = c.colour(d)
       c.legendArray.push(obj)
     })
     c.legendArray.reverse()
 
-      // get data and enter onto the legend group
-    let legends = legend.selectAll('.legend')
-          .data(c.legendArray)
-          .enter().append('g')
-          .attr('class', 'legend')
-          .attr('transform', (d, i) => { return 'translate(0,' + i * 40 + ')' })
-          .attr('id', (d, i) => 'legend-item' + i)
-          .style('font', '12px sans-serif')
+    // get data and enter onto the legend group
+    const legends = legend.selectAll('.legend')
+      .data(c.legendArray)
+      .enter().append('g')
+      .attr('class', 'legend')
+      .attr('transform', (d, i) => { return 'translate(0,' + i * 40 + ')' })
+      .attr('id', (d, i) => 'legend-item' + i)
+      .style('font', '12px sans-serif')
 
-      // add legend boxes
+    // add legend boxes
     legends.append('rect')
-          .attr('class', 'legendRect')
-          .attr('x', c.w + 10)
-          .attr('width', 25)
-          .attr('height', 25)
-          .attr('fill', d => { return d.colour })
-          .attr('fill-opacity', 0.75)
+      .attr('class', 'legendRect')
+      .attr('x', c.w + 10)
+      .attr('width', 25)
+      .attr('height', 25)
+      .attr('fill', d => { return d.colour })
+      .attr('fill-opacity', 0.75)
 
     legends.append('text')
-          .attr('class', 'legendText')
-          // .attr("x", c.w + 40)
-          .attr('y', 12)
-          .attr('dy', '.025em')
-          .attr('text-anchor', 'start')
-          .text(d => { return d.label })
-          .call(c.textWrap, 110, c.w + 34)
+      .attr('class', 'legendText')
+    // .attr("x", c.w + 40)
+      .attr('y', 12)
+      .attr('dy', '.025em')
+      .attr('text-anchor', 'start')
+      .text(d => { return d.label })
+      .call(c.textWrap, 110, c.w + 34)
   }
 
   drawFocus () {
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
 
     c.focus = g.append('g')
       .attr('class', 'focus')
@@ -419,29 +418,32 @@ class StackedAreaChart extends Chart {
   //   c.drawFocusCircles()
   // }
 
-  drawFocusCircles () {
-    let c = this,
-      focus = c.focus,
-      // keys = c.getKeys(),
+  // drawFocusCircles () {
+  //   const c = this
+  //   const focus = c.focus
+  //   // keys = c.getKeys(),
 
-      focusCircles = focus.append('g')
-      .attr('class', 'focus_circles')
+  //   const focusCircles = focus.append('g')
+  //     .attr('class', 'focus_circles')
+  //     .attr('r', 0)
 
-    // attach group append circle and text for each region
-    c.ks.forEach((d, i) => {
-      focusCircles.append('g')
-        .attr('class', 'tooltip_' + i)
-        .append('circle')
-        .attr('r', 0)
-        .transition(c.t)
-        .attr('r', 5)
-        .attr('fill', c.colour(d))
-        .attr('stroke', c.colour(d))
-    })
-  }
+  //   console.log('ks')
+  //   console.log(c.ks)
+  //   // attach group append circle and text for each region
+  //   c.ks.forEach((d, i) => {
+  //     focusCircles.append('g')
+  //       .attr('class', 'tooltip_' + i)
+  //       .append('circle')
+  //       .attr('r', 0)
+  //       .transition(c.t)
+  //       .attr('r', 5)
+  //       .attr('fill', c.colour(d))
+  //       .attr('stroke', c.colour(d))
+  //   })
+  // }
 
   addTooltip (title, format, dateField, prefix, postfix) {
-    let c = this
+    const c = this
 
     d3.select(c.e).select('.focus').remove()
     d3.select(c.e).select('.focus_overlay').remove()
@@ -451,8 +453,8 @@ class StackedAreaChart extends Chart {
     c.xVField = dateField || c.xVField
     // c.arrowChange = arrowChange;
     c.ttWidth = 305
-    c.prefix = prefix ? prefix : ' '
-    c.postfix = postfix ? postfix : ' '
+    c.prefix = prefix || ' '
+    c.postfix = postfix || ' '
     c.valueFormat = c.formatValue(c.valueFormat)
     // super.drawFocusLine()
 
@@ -460,10 +462,10 @@ class StackedAreaChart extends Chart {
   }
 
   drawFocusOverlay () {
-    let c = this,
-      g = c.g,
-      focus = c.focus,
-      overlay = g.append('rect')
+    const c = this
+    const g = c.g
+    const focus = c.focus
+    const overlay = g.append('rect')
 
     overlay.attr('class', 'focus_overlay')
       .attr('width', c.w)
@@ -475,26 +477,26 @@ class StackedAreaChart extends Chart {
     if (c.sscreens) {
       mousemove()
       overlay
-          .on('touchmove', mousemove, {
-            passive: true
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
+        .on('touchmove', mousemove, {
+          passive: true
+        })
+        .on('mousemove', mousemove, {
+          passive: true
+        })
     } else {
       overlay
-          .on('mouseover', (d) => {
-            focus.style('display', null)
-          }, {
-            passive: true
-          })
-          .on('mouseout', () => {
-            focus.style('display', 'none')
-            c.newToolTip.style('visibility', 'hidden')
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
+        .on('mouseover', (d) => {
+          focus.style('display', null)
+        }, {
+          passive: true
+        })
+        .on('mouseout', () => {
+          focus.style('display', 'none')
+          c.newToolTip.style('visibility', 'hidden')
+        })
+        .on('mousemove', mousemove, {
+          passive: true
+        })
     }
 
     function mousemove () {
@@ -503,37 +505,37 @@ class StackedAreaChart extends Chart {
       c.newToolTip.style('visibility', 'visible')
       c.newToolTip.style('display', 'block')
 
-      let mouse = this ? d3.mouse(this) : c.w
+      const mouse = this ? d3.mouse(this) : c.w
       // console.log('sa mouse')
       // console.log(mouse)
-      let ttTextHeights = 0,
-        x0 = c.x.invert(mouse[0] || mouse),
-        i = c.bisectDate(c.d, x0, 1),
-        d0 = c.d[i - 1],
-        d1 = c.d[i],
-        d,
-        dPrev,
-        keys = c.ks.map(d => {
-          return d
-        }).reverse()
+      const ttTextHeights = 0
+      const x0 = c.x.invert(mouse[0] || mouse)
+      const i = c.bisectDate(c.d, x0, 1)
+      const d0 = c.d[i - 1]
+      const d1 = c.d[i]
+      let d
+      let dPrev
+      const keys = c.ks.map(d => {
+        return d
+      }).reverse()
 
       d1 !== undefined ? d = x0 - d0[c.xV] > d1[c.xV] - x0 ? d1 : d0 : false
       d1 !== undefined ? dPrev = x0 - d0[c.xV] > d1[c.xV] - x0 ? c.d[i - 1] : c.d[i - 2] : false
 
       keys.forEach((reg, idx) => {
-        let dvalue = c.dStacked[idx],
-          key = reg,
-          id = '#bcd-tt' + idx,
-          div = c.newToolTip.select(id),
-          p = div.select('.bcd-text'),
-          dd0 = dvalue[i - 1],
-          dd1 = dvalue[i],
-          dd,
-          unText = 'N/A',
-          difference = dPrev ? (d[key] - dPrev[key]) / dPrev[key] : 0,
-          indicatorColour,
-          indicator = difference > 0 ? ' ▲' : difference < 0 ? ' ▼' : '',
-          rate = isNaN(difference) ? unText : d3.format('.1%')(difference)
+        const dvalue = c.dStacked[idx]
+        const key = reg
+        const id = '#bcd-tt' + idx
+        const div = c.newToolTip.select(id)
+        const p = div.select('.bcd-text')
+        const dd0 = dvalue[i - 1]
+        const dd1 = dvalue[i]
+        let dd
+        const unText = 'N/A'
+        const difference = dPrev ? (d[key] - dPrev[key]) / dPrev[key] : 0
+        let indicatorColour
+        const indicator = difference > 0 ? ' ▲' : difference < 0 ? ' ▼' : ''
+        const rate = isNaN(difference) ? unText : d3.format('.1%')(difference)
 
         if (c.arrowChange === true) {
           indicatorColour = difference < 0 ? '#20c997' : difference > 0 ? '#da1e4d' : '#f8f8f8'
@@ -542,8 +544,8 @@ class StackedAreaChart extends Chart {
         }
 
         if (d !== undefined) {
-          let dot = '.tooltip_' + idx,
-            tooltip = focus.select(dot)
+          const dot = '.tooltip_' + idx
+          const tooltip = focus.select(dot)
 
           c.updatePosition(c.x(d[c.xV]), -300)
 
@@ -567,20 +569,20 @@ class StackedAreaChart extends Chart {
 
   updatePosition (xPosition, yPosition) {
     // console.log('update')
-    let c = this,
-      g = c.g
+    const c = this
+    const g = c.g
     // get the x and y values - y is static
-    let [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
+    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
     // move the tooltip
     g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
     c.newToolTip.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
   }
 
   getTooltipPosition ([mouseX, mouseY]) {
-    let c = this
-    let ttX,
-      ttY = mouseY,
-      cSize = c.w - c.ttWidth
+    const c = this
+    let ttX
+    const ttY = mouseY
+    const cSize = c.w - c.ttWidth
 
     // show right - 60 is the margin large screens
     if (mouseX < cSize) {
@@ -593,9 +595,9 @@ class StackedAreaChart extends Chart {
   }
 
   getElement (name) {
-    let c = this,
-      s = d3.select(c.e),
-      e = s.selectAll(name)
+    const c = this
+    const s = d3.select(c.e)
+    const e = s.selectAll(name)
     return e
   }
 
@@ -677,10 +679,10 @@ class StackedAreaChart extends Chart {
   }
 
   formatQuarter (date, i) {
-    let newDate = new Date()
+    const newDate = new Date()
     newDate.setMonth(date.getMonth() + 1)
-    let year = (date.getFullYear())
-    let q = Math.ceil((newDate.getMonth()) / 3)
+    const year = (date.getFullYear())
+    const q = Math.ceil((newDate.getMonth()) / 3)
     return year + ' Q' + q
   }
 
@@ -688,8 +690,8 @@ class StackedAreaChart extends Chart {
     if (sliceBy < 1 || !arr) return () => []
 
     return (p) => {
-      const base = p * sliceBy,
-        size = arr.length
+      const base = p * sliceBy
+      const size = arr.length
 
       let slicedArray = p < 0 || base >= arr.length ? [] : arr.slice(base, base + sliceBy)
 
@@ -702,19 +704,19 @@ class StackedAreaChart extends Chart {
   pagination (data, selector, sliceBy, pageNumber, label) {
     const c = this
 
-    const slices = c.slicer(data, sliceBy),
-      times = pageNumber,
-      startSet = slices(times - 1),
-      updateObj = {
-        d: startSet
-      }
+    const slices = c.slicer(data, sliceBy)
+    const times = pageNumber
+    const startSet = slices(times - 1)
+    const updateObj = {
+      d: startSet
+    }
 
     //  let newStart = [];
     //  startSet.length < sliceBy ? newStart = data.slice(50 - sliceBy) : newStart = startSet;
 
     d3.selectAll(selector + ' .pagination-holder').remove()
 
-    let moreButtons = d3.select(selector)
+    const moreButtons = d3.select(selector)
       .append('div')
       .attr('class', 'pagination-holder text-center pb-2')
 
@@ -725,15 +727,15 @@ class StackedAreaChart extends Chart {
       // let wg = slices(i)
       // wg.length < sliceBy ? wg = data.slice(50 - sliceBy) : wg;
 
-      let wg = slices(i),
-        sliceNumber = sliceBy - 1,
-        secondText,
-        textString
+      const wg = slices(i)
+      const sliceNumber = sliceBy - 1
+      let secondText
+      let textString
 
       if (typeof wg[sliceNumber] !== 'undefined') {
         secondText = wg[sliceNumber]
       } else {
-        let lastEl = wg.length - 1
+        const lastEl = wg.length - 1
         secondText = wg[lastEl]
       }
 
@@ -763,8 +765,8 @@ class StackedAreaChart extends Chart {
   }
 
   showSelectedLabels (array) {
-    let c = this,
-      e = c.xAxis
+    const c = this
+    const e = c.xAxis
     c.axisArray = array || c.axisArray
 
     e.selectAll('.x-axis .tick')
@@ -775,7 +777,6 @@ class StackedAreaChart extends Chart {
         .style('display', 'block')
     })
   }
-
 }
 
 export { StackedAreaChart }

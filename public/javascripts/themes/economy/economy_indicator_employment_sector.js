@@ -1,7 +1,7 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
 // const employmentSectorURL = '../data/Economy/data_gov_economic_monitor/indicator-2-employment-by-sector.csv'
-const employmentSectorURL = '/api/economicmonitor/indicator/:string'
+const employmentSectorURL = '/api/economicmonitor/indicator/2'
 
 Promise.all([
   d3.csv(employmentSectorURL)

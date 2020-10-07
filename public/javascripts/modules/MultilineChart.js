@@ -111,10 +111,6 @@ class MultiLineChart extends Chart {
 
   setDomains (zeroYAxis = true) {
     const c = this
-    let minValue
-
-    // switch (d){
-    // }
 
     // set domain range
     c.x.domain(d3.extent(c.d[0].values, d => {
@@ -123,7 +119,7 @@ class MultiLineChart extends Chart {
 
     // for the y domain to track negative numbers
 
-    minValue = d3.min(c.d, d => {
+    const minValue = d3.min(c.d, d => {
       return d3.min(d.values, d => {
         return d[c.yV]
       })
