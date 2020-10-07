@@ -16,9 +16,10 @@ Promise.all([
       const longData = portData.map(d => {
       // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
         const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
+        let value = parseFloat(d[portColumns[0]].replace(/,/g, '')) / 1000000
+        value = value.toPrecision(3)
         const obj = {
-
-          value: parseFloat(d[portColumns[0]].replace(/,/g, '')) / 1000000,
+          value: value,
           variable: portColumns[0],
           date: convertQuarterToDate(yearQuarter),
           label: yearQuarter.replace(/Q/, ' Q')
@@ -38,7 +39,7 @@ Promise.all([
       portTotalChart = new MultiLineChart(portTonnageCount)
       function redraw () {
         portTotalChart.drawChart()
-        portTotalChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
+        portTotalChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
       }
       redraw()
 
@@ -63,7 +64,7 @@ Promise.all([
       }).filter(d => {
         return !Number.isNaN(d.Imports) && d.Imports !== 0
       })
-      console.log(portBreakdownData)
+      // console.log(portBreakdownData)
 
       const portTonnageBreakdown = {
         e: '#chart-indicator-port-breakdown',
@@ -76,7 +77,6 @@ Promise.all([
       }
       portBreakdownChart = new StackedAreaChart(portTonnageBreakdown)
       portBreakdownChart.drawChart()
-      portBreakdownChart.addTooltip('Total tonnage through port, ', 'thousands', 'label')
     }
 
     d3.select('#chart-indicator-port-total').style('display', 'block')
@@ -87,7 +87,7 @@ Promise.all([
       d3.select('#chart-indicator-port-total').style('display', 'block')
       d3.select('#chart-indicator-port-breakdown').style('display', 'none')
       portTotalChart.drawChart()
-      portTotalChart.addTooltip('Tonnage, ', 'thousands', 'label')
+      portTotalChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
     })
 
     d3.select('#btn-indicator-port-breakdown').on('click', function () {
@@ -95,6 +95,6 @@ Promise.all([
       d3.select('#chart-indicator-port-total').style('display', 'none')
       d3.select('#chart-indicator-port-breakdown').style('display', 'block')
       portBreakdownChart.drawChart()
-      portBreakdownChart.addTooltip('Tonnage, ', 'thousands', 'label')
+      portBreakdownChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
     })
   })
