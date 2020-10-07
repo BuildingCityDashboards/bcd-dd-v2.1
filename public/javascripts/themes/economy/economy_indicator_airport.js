@@ -14,14 +14,17 @@ Promise.all([
     // console.log(airportData)
     if (document.getElementById('chart-indicator-airport-count')) {
       const longData = airportData.map(d => {
+        const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
         const obj = {
-          label: d.Quarter,
+          label: yearQuarter.replace(/Q/g, ' qurater '),
           value: (parseInt(d[airportColumns[0]].replace(/,/g, '')) / 1000000).toFixed(2),
           variable: airportColumns[0],
-          date: convertQuarterToDate(d.Quarter)
+          date: convertQuarterToDate(yearQuarter)
         }
         return obj
       })
+
+      console.log(longData)
 
       const airportPaxCount = {
         e: '#chart-indicator-airport-count',
@@ -35,7 +38,7 @@ Promise.all([
       airportPaxCountChart = new MultiLineChart(airportPaxCount)
       function redraw () {
         airportPaxCountChart.drawChart()
-        airportPaxCountChart.addTooltip('Passengers, ', 'thousands', 'label')
+        airportPaxCountChart.addTooltip('Millions of passengers, ', '', 'label')
       }
       redraw()
       window.addEventListener('resize', () => {

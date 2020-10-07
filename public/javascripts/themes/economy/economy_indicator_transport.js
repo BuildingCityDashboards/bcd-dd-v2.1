@@ -22,6 +22,7 @@ Promise.all([
             variable: key,
             date: convertQuarterToDate(yearQuarter)
           }
+
           return obj
         }).filter(d => {
           return !Number.isNaN(d.value)
