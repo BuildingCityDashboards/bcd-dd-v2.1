@@ -22,6 +22,7 @@ Promise.all([
             variable: key,
             date: convertQuarterToDate(yearQuarter)
           }
+          // console.log(obj)
 
           return obj
         }).filter(d => {
