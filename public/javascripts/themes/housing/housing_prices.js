@@ -108,7 +108,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[3]
       }),
-      ks: categoriesRegion,
+      ks: traceNames,
       k: dimensions[3],
       xV: 'date',
       yV: 'value',
