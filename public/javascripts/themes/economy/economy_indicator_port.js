@@ -52,20 +52,23 @@ Promise.all([
 
       const portBreakdownData = portData.map(d => {
         const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
-        d.label = yearQuarter.replace(/Q/, ' Q')
-        d.date = convertQuarterToDate(yearQuarter)
-        for (var i = 0, n = breakdownCols.length; i < n; i++) {
-          d[breakdownCols[i]] = parseFloat(d[breakdownCols[i]].replace(/,/g, '')) / 1000000
+        const obj = {
+          label: yearQuarter.replace(/Q/, ' Q'),
+          date: convertQuarterToDate(yearQuarter)
         }
-        return d
+        for (var i = 0, n = breakdownCols.length; i < n; i++) {
+          obj[breakdownCols[i]] = parseFloat(d[breakdownCols[i]].replace(/,/g, '')) / 1000000
+        }
+        return obj
       }).filter(d => {
         return !Number.isNaN(d.Imports) && d.Imports !== 0
       })
+      console.log(portBreakdownData)
 
       const portTonnageBreakdown = {
         e: '#chart-indicator-port-breakdown',
         d: portBreakdownData,
-        ks: breakdownCols,
+        ks: ['Imports', 'Exports'],
         xV: 'date',
         yV: breakdownCols,
         tX: 'Quarter',
