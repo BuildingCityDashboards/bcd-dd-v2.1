@@ -1,3 +1,12 @@
+:root {
+  --bg-color-1: rgba(39, 52, 57, 0.56);
+  --bg-color-2: rgba(39, 52, 57, 0.82);
+  --color-1: rgba(255, 255, 255, 0.87);
+  --color-2: #8ebfd6;
+  --text-color-1: #6fd1f6;
+  --text-color-2: rgba(255, 255, 255, 0.6);
+}
+
 .card-wrapper {
   display: flex;
   justify-content: center;
@@ -19,11 +28,11 @@
   display: flex;
   position: relative;
   padding: 0;
-  background-color: rgba(39, 52, 57, 0.56);
+  background-color: var(--bg-color-1);
   flex-direction: column;
   justify-content: space-between;
   word-wrap: break-word;
-  color: rgba(255, 255, 255, 0.87);
+  color: var(--color-1);
   border-radius: 4px;
 }
 
@@ -37,7 +46,7 @@
 }
 
 .card__title {
-  color: #6fd1f6;
+  color: var(--text-color-1);
   text-transform: uppercase;
   font-size: 14px;
   font-style: normal;
@@ -53,7 +62,8 @@ h1.card__title {
   margin: 0;
   padding: 0;
   padding-top: 12px;
-  color: #6fd1f6;
+  color: var(--text-color-1);
+  ;
   text-transform: uppercase;
   font-size: 14px;
   font-style: normal;
@@ -67,7 +77,7 @@ h1.card__title {
 
 .card__sub-title {
   padding-top: 6px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   text-transform: uppercase;
   font-size: 10px;
   font-style: normal;
@@ -81,7 +91,7 @@ h2.card__sub-title {
   margin: 0;
   padding: 0;
   padding-top: 6px;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   text-transform: uppercase;
   font-size: 10px;
   font-style: normal;
@@ -120,7 +130,7 @@ h2.card__sub-title {
 
 .card__line-chart .label,
 .no-axis {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -136,16 +146,19 @@ h2.card__sub-title {
 }
 
 .card__line-chart g .activity {
-  stroke: #6fd1f6;
+  stroke: var(--text-color-1);
+  ;
   stroke-width: 2px;
   fill: none;
 }
 
 .card__line-chart g circle {
   r: 2;
-  stroke: #6fd1f6;
+  stroke: var(--text-color-1);
+  ;
   stroke-width: 2px;
-  fill: #6fd1f6;
+  fill: var(--text-color-1);
+  ;
 
 }
 
@@ -153,7 +166,8 @@ h2.card__sub-title {
 .label-x-data-first,
 .label-y-data-last,
 .label-y-data-first {
-  fill: #6fd1f6;
+  fill: var(--text-color-1);
+  ;
   opacity: 0.74;
   font-size: 12px;
   font-style: normal;
@@ -181,7 +195,7 @@ h2.card__sub-title {
 }
 
 .card__line-chart .no-axis {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--text-color-2);
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
@@ -228,7 +242,8 @@ h2.card__sub-title {
 .card__right h2 {
   /* align-self: center; */
   /* -ms-flex: 0 1 33%; flex: 0 1 33%; */
-  color: #6fd1f6;
+  color: var(--text-color-1);
+  ;
   opacity: 0.9;
   padding: 4px 0;
   margin: 0;
@@ -344,7 +359,7 @@ p.card__info-text b {
 }
 
 .card__info__buttons .button {
-  color: #8ebfd6;
+  color: var(--color-2);
   font-size: 10px;
   font-style: normal;
   font-weight: 500;
@@ -441,8 +456,10 @@ p.card__info-text b {
   }
 
   .card:hover {
-    border: solid 1px #6fd1f6;
-    background-color: rgba(39, 52, 57, 0.82);
+    border: solid 1pxvar(--text-color-1);
+    ;
+    background-color: var(--bg-color-2);
+    ;
   }
 
   .card__header {}
@@ -605,7 +622,8 @@ p.card__info-text b {
 
   .card:hover {
     border: none;
-    background-color: rgba(39, 52, 57, 0.82);
+    background-color: var(--bg-color-2);
+    ;
   }
 
   .card__header {
@@ -625,8 +643,7 @@ p.card__info-text b {
 
   .card__sub-title {
     padding-top: 4px;
-    color: rgba(255, 255, 255, 0.87);
-    font-size: 12px;
+    color: var(--color-1) font-size: 12px;
     font-style: normal;
     font-weight: 500;
     font-stretch: normal;
@@ -709,7 +726,8 @@ p.card__info-text b {
     overflow: hidden;
     /* border-top: none; */
     /* border-top: rgba(255, 255, 255, 0.5); */
-    background-color: rgba(39, 52, 57, 0.82);
+    background-color: var(--bg-color-2);
+    ;
     flex-direction: column;
     justify-content: space-evenly;
     transition: all 0.3s ease-out;
@@ -722,7 +740,7 @@ p.card__info-text b {
     /* bottom: 0%;*/
     /* top: 0; */
     /* padding-bottom: 8px; */
-    /* background-color: rgba(39, 52, 57, 0.82); */
+    /* background-color: var(--bg-color-2);; */
   }
 
   p.card__info-text {
@@ -746,7 +764,7 @@ p.card__info-text b {
 
   .card__info__buttons .button {
     padding: 0;
-    color: #8ebfd6;
+    color: var(--color-2);
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
