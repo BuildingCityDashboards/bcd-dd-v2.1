@@ -38,8 +38,8 @@ class CardChartLine {
     }
 
     this.labelAdjustments = Object.assign(defaultLabelAdjustments, options.labeladjustments)
-    console.log(options.labeladjustments)
-    console.log(this.labelAdjustments)
+    // console.log(options.labeladjustments)
+    // console.log(this.labelAdjustments)
 
     this.drawChart()
   }
