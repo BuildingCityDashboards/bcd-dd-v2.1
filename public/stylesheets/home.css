@@ -1,15 +1,6 @@
 /* xs: 360px x 540px <MOCKUP> */
 
-:root {
-  --bg-color-1: rgba(39, 52, 57, 0.56);
-  --bg-color-2: rgba(39, 52, 57, 0.82);
-  --bg-color-3: rgba(142, 191, 214, 0.15);
-  --color-1: rgba(255, 255, 255, 0.87);
-  --color-2: #8ebfd6;
-  --text-color-1: #6fd1f6;
-  --text-color-2: rgba(255, 255, 255, 0.6);
-  --text-color-3: rgba(255, 255, 255, 0.87);
-}
+
 
 html {
   scroll-behavior: smooth;
