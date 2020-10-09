@@ -94,7 +94,7 @@ a:active {
   width: 100%;
   height: 60px;
   padding: .25rem;
-  opacity: 1;
+  opacity: 0.8;
   background-color: #1c2022;
   align-items: center;
   -ms-flex-align: center;
@@ -104,10 +104,11 @@ a:active {
 }
 
 .subnav__icon-nav {
+  background-color: #1c2022;
   display: flex;
   padding-bottom: 2px;
   color: #6fd1f6;
-  opacity: 0.7;
+  opacity: 1;
   border-bottom: 2px solid transparent;
   text-decoration: none;
   font-family: 'Roboto',
@@ -168,37 +169,14 @@ a:active {
   background-size: cover;
   grid-gap: 8px;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr auto 1fr;
+  grid-template-rows: 30% auto 1fr;
 }
 
-#demographics-header {
-  background-image: url('/images/themes/backgrounds/demographics_background_mobile.png');
-}
-
-#economy-header {
-  background-image: url('/images/themes/backgrounds/economy_background_mobile.png');
-}
-
-#education-header {
-  background-image: url('/images/themes/backgrounds/education_background_mobile.png');
-}
-
-#housing-header {
-  background-image: url('/images/themes/backgrounds/housing_background_mobile.png');
-}
-
-#environment-header {
-  background-image: url('/images/themes/backgrounds/environment_background_mobile.png');
-}
-
-#transport-header {
-  background-image: url('/images/themes/backgrounds/transport_background_mobile.png');
-}
 
 .theme__header__content {
   font-style: normal;
   font-weight: 200;
-  grid-column: 1/5;
+  grid-column: span 4;
   grid-row: 2;
   letter-spacing: -0.5px;
 }
@@ -246,6 +224,31 @@ a:active {
   font-size: 24px;
   line-height: 1.06;
   letter-spacing: -0.5px;
+}
+
+
+#demographics-header {
+  background-image: url('/images/themes/backgrounds/demographics_background_mobile.png');
+}
+
+#economy-header {
+  background-image: url('/images/themes/backgrounds/economy_background_mobile.png');
+}
+
+#education-header {
+  background-image: url('/images/themes/backgrounds/education_background_mobile.png');
+}
+
+#housing-header {
+  background-image: url('/images/themes/backgrounds/housing_background_mobile.png');
+}
+
+#environment-header {
+  background-image: url('/images/themes/backgrounds/environment_background_mobile.png');
+}
+
+#transport-header {
+  background-image: url('/images/themes/backgrounds/transport_background_mobile.png');
 }
 
 .theme__text-chart {
@@ -472,7 +475,7 @@ a:active {
 
 
 /* iPad */
-@media only screen and (min-width : 768px) and (orientation: portrait) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1279px) and (orientation: portrait) {
   .themes__subnav {
     width: 100%;
     height: 72px;
@@ -734,7 +737,7 @@ a:active {
 }
 
 
-@media only screen and (min-width : 768px) and (orientation: landscape) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1279px) and (orientation: landscape) {
   .themes__subnav {
     width: 100%;
     height: 72px;
@@ -1075,7 +1078,7 @@ a:active {
 
 /* iPad Pro */
 
-@media only screen and (min-width : 1024px) and (orientation : portrait) {
+/* @media only screen and (min-device-width : 1024px) and (max-device-width : 1279px) {
 
   .theme__text-chart {
     width: 100vw;
@@ -1101,14 +1104,30 @@ a:active {
   }
 
 
-}
+} */
 
 /* laptop with MDPI devtools */
 
-@media only screen and (min-width : 1280px) {
+
+
+@media only screen and (min-device-width : 1280px) {
+
   .themes__subnav {
+    z-index: 10000;
+    display: flex;
+    position: fixed;
+    top: 48px;
+    left: 0;
     width: 100%;
     height: 72px;
+    padding: .25rem;
+    opacity: 1;
+    background-color: #1c2022;
+    align-items: center;
+    -ms-flex-align: center;
+    -ms-flex-pack: justify;
+    flex-wrap: wrap;
+    justify-content: space-around;
   }
 
   .subnav__icon-nav {
@@ -1148,6 +1167,7 @@ a:active {
 
   .theme {
     width: 100vw;
+    min-width: 1280px;
     min-height: 100vh;
     max-width: 100%;
     background-color: #1c2022;
@@ -1173,11 +1193,30 @@ a:active {
     /* background-image: url('/images/themes/backgrounds/economy_background.png'); */
   }
 
+
   .theme__header__scroll-arrow {
     grid-column: 6/8;
     grid-row: 3;
-    padding-bottom: 20px;
+    padding-bottom: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
 
+
+  .theme__header__scroll-arrow button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+
+  }
+
+  .theme__header__scroll-arrow svg {
+    width: 36px;
+    height: auto;
+    background-color: transparent;
+    fill: grey;
+    transform: rotate(-90deg);
   }
 
   #demographics-header {
@@ -1206,7 +1245,7 @@ a:active {
 
   .theme__header__content {
     min-height: 372px;
-    grid-column: 2/7;
+    grid-column: 2/9;
     grid-row: 2;
     letter-spacing: -0.5px;
   }
@@ -1221,7 +1260,7 @@ a:active {
   .theme__header__description {
     padding-bottom: 34px;
     color: #6fd1f6;
-    font-size: 34px;
+    font-size: 28px;
     font-style: normal;
     font-weight: 200;
     line-height: 1.06;
@@ -1397,6 +1436,14 @@ a:active {
   *
   * }
   */
+}
+
+@media only screen and (min-device-width : 1280px) and (max-width : 768px) {
+
+  /* hide the subvan titles when desktop has narrow width */
+  .subnav__icon-nav__title {
+    display: none;
+  }
 }
 
 @media only screen and (min-width : 1920px) {}
