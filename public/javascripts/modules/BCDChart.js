@@ -51,7 +51,7 @@ class BCDChart {
     // console.log('#' + c.e)
     const eW = eN.getBoundingClientRect().width
     const aR = eW < 768 ? eW * 0.55 : eW * 0.5
-    const cScheme = c.cS || ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#99000d']
+    const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
     const bP = 450
 

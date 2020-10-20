@@ -1,27 +1,32 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
-import { hasCleanValue } from '../../modules/bcd-data.js'
 import { convertQuarterToDate, isFutureDate } from '../../modules/bcd-date.js'
+import { hasCleanValue } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-  const chartDivIds = ['rent-prices', 'rent-by-beds']
-  d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
-  d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+  const chartDivIds = ['chart-rent-prices']
+  const chart1 = 'rent-prices'
+  const chart2 = 'rent-by-beds'
+  d3.select('#chart-' + chart1).style('display', 'block')
+  d3.select('#chart-' + chart2).style('display', 'none')
 
+  const parseYear = d3.timeParse('%Y')
+  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
   const TABLE_CODE = 'RIQ02'
 
   const STATIC_URL = '../../data/statbank/RIQ02.json'
   try {
-    addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
+    addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
     const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     if (json) {
-      removeSpinner('chart-' + chartDivIds[0])
+      removeSpinner(chartDivIds[0])
     }
     const dataset = JSONstat(json).Dataset(0)
     // console.log(dataset)
@@ -50,12 +55,15 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
     // console.log(categoriesStat)
 
+    const bedCategoryTraces = []
+
     const rentTable = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if (d[dimensions[1]] === categoriesType[0] && // type
-          (d[dimensions[2]] === 'Dublin') &&
-          hasCleanValue(d)) {
+        if (d[dimensions[1]] === categoriesType[0] &&
+           d[dimensions[2]] === 'Dublin' &&
+          hasCleanValue(d)
+        ) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
           d.value = +d.value
@@ -63,11 +71,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         }
       })
 
-    // console.log(rentTable)
+    console.log(rentTable)
+
+    // console.log(bedCategoryTraces)
     //
     const rent = {
-      elementId: 'chart-' + chartDivIds[0],
-      data: rentTable.filter(d => {
+      e: '#chart-rent-prices',
+      d: rentTable.filter(d => {
         return d[dimensions[0]] === categoriesBeds[0] && !isFutureDate(d.date) // all beds
       }),
       tracenames: ['Dublin'],
@@ -75,56 +85,51 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: 'Monthly rent (€)',
-      margins: {
-        left: 72
-      }
+      tY: 'Monthly rent (€)'
     }
     //
     const rentChart = new BCDMultiLineChart(rent)
 
     const rentByBeds = {
-      elementId: 'chart-' + chartDivIds[1],
-      data: rentTable,
+      e: '#chart-rent-by-beds',
+      d: rentTable,
       // .filter(d => {
       // return parseInt(d.date.getFullYear()) >= 2010
       // }),
-      tracenames: categoriesBeds,
-      tracekey: dimensions[0],
+      ks: bedCategoryTraces,
+      k: dimensions[0],
       xV: 'date',
       yV: 'value',
       tX: 'Year',
       tY: categoriesStat[0]
     }
     //
-    const rentByBedsChart = new BCDMultiLineChart(rentByBeds)
+    // const rentByBedsChart = new MultiLineChart(rentByBeds)
     //
 
-    const redraw = () => {
-      if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
+    function redraw () {
+      if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         rentChart.drawChart()
         rentChart.addTooltip('Rent price,  ', '', 'label')
-        rentChart.showSelectedLabelsX([0, 3, 6, 9, 12])
-        rentChart.showSelectedLabelsY([0, 6, 12])
       }
-      if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
-        rentByBedsChart.drawChart()
-        rentByBedsChart.addTooltip('Rent price, ', '', 'label')
+      if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
+        // rentByBedsChart.drawChart()
+        // rentByBedsChart.addTooltip('Rent price, ', '', 'label')
       }
     }
     redraw()
 
-    d3.select('#btn-' + chartDivIds[0]).on('click', function () {
-      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
-      d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
-      d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+    d3.select('#btn-' + chart1).on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-' + chart1).style('display', 'block')
+      d3.select('#chart-' + chart2).style('display', 'none')
       redraw()
     })
 
-    d3.select('#btn-' + chartDivIds[1]).on('click', function () {
-      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
-      d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
-      d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
+    d3.select('#btn-' + chart2).on('click', function () {
+      activeBtn(this)
+      d3.select('#chart-' + chart1).style('display', 'none')
+      d3.select('#chart-' + chart2).style('display', 'block')
       redraw()
     })
 
