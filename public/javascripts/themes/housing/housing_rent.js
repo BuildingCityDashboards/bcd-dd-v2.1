@@ -77,7 +77,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tX: 'Year',
       tY: 'Monthly rent (€)',
       margins: {
-        left: 72
+        left: 64
       }
     }
     //
@@ -105,7 +105,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         rentChart.drawChart()
         rentChart.addTooltip('Rent price,  ', '', 'label')
         rentChart.showSelectedLabelsX([0, 3, 6, 9, 12])
-        rentChart.showSelectedLabelsY([0, 6, 12])
+        rentChart.showSelectedLabelsY([3, 6, 9])
       }
       if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
         rentByBedsChart.drawChart()
