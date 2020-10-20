@@ -17,6 +17,21 @@ const isToday = date => {
 export { isToday }
 
 /**
+ * @desc Is a given date from the future?
+ *
+ * @param {Date} date
+ * @return {boolean}
+ *
+ *
+ */
+
+function isFutureDate (date) {
+  return date.getTime() > new Date().getTime()
+}
+
+export { isFutureDate }
+
+/**
  * Get a date shifted n days from today
  *
  * @param {number} n - Number of days to shift from today's date

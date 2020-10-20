@@ -15,11 +15,19 @@ class BCDChart {
      * @param { String } options.yV               name of variable for y-axis
      * @param { String } options.tX               title of x-axis
      * @param { String } options.tY               title of y-axis
-     * @param { String } options.ySF              number format for y axis
+     * @param { String } options.ySF || @param { String } options.formaty              number format for y axis
+     *
      *
      */
 
   constructor (options) {
+    const DEFAULT_MARGINS = {
+      top: 32,
+      right: 16,
+      bottom: 16,
+      left: 64
+    }
+
     this.d = options.data // the data
     this.e = options.elementId // selector element
     this.k = options.tracekey // trace key
@@ -31,7 +39,9 @@ class BCDChart {
 
     this.tX = options.tX
     this.tY = options.tY
-    this.ySF = options.ySF || 'thousands' // format for y axis
+    this.ySF = options.ySF || options.formaty || 'thousands' // format for y axis
+    this.margins = Object.assign(DEFAULT_MARGINS, options.margins)
+    // console.log(`${this.e} : ${JSON.stringify(this.margins)}`)
   }
 
   // initialise method to draw c area
@@ -40,17 +50,20 @@ class BCDChart {
     const eN = d3.select('#' + c.e).node()
     // console.log('#' + c.e)
     const eW = eN.getBoundingClientRect().width
-    const aR = eW < 800 ? eW * 0.55 : eW * 0.5
-    const cScheme = c.cS || d3.schemeBlues[5]
+    const aR = eW < 768 ? eW * 0.55 : eW * 0.5
+    const cScheme = c.cS || ['#fc9272', '#fb6a4a', '#ef3b2c', '#cb181d', '#99000d']
     const m = c.m = {}
     const bP = 450
 
     // console.log("ew: " + eW);
     // margins
-    m.t = eW < bP ? 40 : 50
-    m.b = eW < bP ? 30 : 80
-    m.r = eW < bP ? 15 : 140
-    m.l = eW < bP ? 9 : 72
+
+    m.t = eW < bP ? this.margins.top : 50
+    m.r = eW < bP ? this.margins.right : 140
+    m.b = eW < bP ? this.margins.bottom : 80
+    m.l = eW < bP ? this.margins.left : 72
+
+    // console.log(eW < bP)
 
     // dimensions
     const w = eW - m.l - m.r
@@ -73,7 +86,7 @@ class BCDChart {
     // add the g to the svg and transform by top and left margin
     c.g = c.svg.append('g')
       .attr('transform', 'translate(' + m.l +
-                ', ' + m.t + ')')
+        ', ' + m.t + ')')
       .attr('class', 'chart-group')
 
     // set chart transition method
@@ -107,21 +120,21 @@ class BCDChart {
     c.yAxis = g.append('g')
       .attr('class', 'y-axis')
 
+    // const yAxisElement = d3.select('#' + this.e).select('.y-axis')
+    // console.log(yAxisElement.width)
+
     // X title
     xLabel = g.append('text')
       .attr('class', 'titleX')
       .attr('x', c.w / 2)
       .attr('y', c.h + 60)
-      .attr('text-anchor', 'middle')
       .text(c.tX)
 
     // Y title
     yLabel = g.append('text')
       .attr('class', 'titleY')
       .attr('x', -(c.h / 2))
-      .attr('y', -56)
-      .attr('text-anchor', 'middle')
-      .attr('transform', 'rotate(-90)')
+      .attr('y', -c.m.l + 16) // auto position the yAxis label
       .text(c.tY)
   }
 
@@ -255,12 +268,12 @@ class BCDChart {
       .attr('y1', 0)
       .attr('y2', c.h)
 
-    c.focus.append('g')
-      .attr('class', 'focus_circles')
+    // c.focus.append('g')
+    //   .attr('class', 'focus_circles')
 
-    c.ks.forEach((d, i) => {
-      c.drawFocusCircles(d, i)
-    })
+    // c.ks.forEach((d, i) => {
+    //   c.drawFocusCircles(d, i)
+    // })
   }
 
   drawFocusCircles (d, i) {
@@ -315,6 +328,9 @@ class BCDChart {
       case 'millions':
         return d3.format('.2s')
 
+      case 'millionsShort':
+        return d3.format('.2s')
+
       case 'euros':
         return locale.format('$,.0f')
 
@@ -323,6 +339,9 @@ class BCDChart {
 
       case 'thousands':
         return d3.format(',')
+
+      case 'hundredThousandsShort':
+        return d3.format('.3s')
 
       case 'percentage2':
         return d3.format('.2%')

@@ -1,23 +1,30 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
-import { convertQuarterToDate } from '../../modules/bcd-date.js'
+import { convertQuarterToDate, isFutureDate } from '../../modules/bcd-date.js'
 import { hasCleanValue } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
   const chartDivIds = ['chart-rent-prices']
+  const chart1 = 'rent-prices'
+  const chart2 = 'rent-by-beds'
+  d3.select('#chart-' + chart1).style('display', 'block')
+  d3.select('#chart-' + chart2).style('display', 'none')
+
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
         'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
   const TABLE_CODE = 'RIQ02'
+
+  const STATIC_URL = '../../data/statbank/RIQ02.json'
   try {
     addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
-    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     if (json) {
       removeSpinner(chartDivIds[0])
     }
@@ -55,18 +62,19 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       (d, i) => {
         if (d[dimensions[1]] === categoriesType[0] &&
            d[dimensions[2]] === 'Dublin' &&
-          hasCleanValue(d)) {
+          hasCleanValue(d)
+        ) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
           d.value = +d.value
           if (!bedCategoryTraces.includes(d[dimensions[0]])) {
             bedCategoryTraces.push(d[dimensions[0]])
           }
-          return d
+          if (!isFutureDate(d.date)) return d
         }
       })
 
-    // console.log(rentTable)
+    console.log(rentTable)
 
     // console.log(bedCategoryTraces)
     //
@@ -83,7 +91,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    const rentChart = new MultiLineChart(rent)
+    const rentChart = new BCDMultiLineChart(rent)
 
     const rentByBeds = {
       e: '#chart-rent-by-beds',
@@ -99,13 +107,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    const rentByBedsChart = new MultiLineChart(rentByBeds)
+    // const rentByBedsChart = new MultiLineChart(rentByBeds)
     //
-    const chart1 = 'rent-prices'
-    const chart2 = 'rent-by-beds'
-
-    d3.select('#chart-' + chart1).style('display', 'block')
-    d3.select('#chart-' + chart2).style('display', 'none')
 
     function redraw () {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
@@ -113,8 +116,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         rentChart.addTooltip('Rent price,  ', '', 'label')
       }
       if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
-        rentByBedsChart.drawChart()
-        rentByBedsChart.addTooltip('Rent price, ', '', 'label')
+        // rentByBedsChart.drawChart()
+        // rentByBedsChart.addTooltip('Rent price, ', '', 'label')
       }
     }
     redraw()
