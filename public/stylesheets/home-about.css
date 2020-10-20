@@ -313,7 +313,7 @@
   /* About Dublin * */
 
   #about-dublin {
-    height: 40vh;
+    height: 50vh;
     padding: 0 24px;
     background-color: #1c2022;
     justify-content: center;
@@ -360,8 +360,8 @@
   #regions-info {
     width: 100vw;
     min-width: 360px;
-    height: 60vh;
-    min-height: 512px;
+    height: 55vh;
+    min-height: 380px;
     padding: 24px;
     background-color: #1c2022;
     justify-content: center;
