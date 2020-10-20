@@ -731,7 +731,18 @@ html {
 
   #hero-weather__left-bottom__icon {
     padding-right: 4px;
+    display: flex;
+    align-items: center;
   }
+
+  #hero-weather__left-bottom__icon svg {
+    fill: white;
+    stroke: white;
+    opacity: 0.8;
+    stroke-width: 20px;
+    height: 12px;
+  }
+
 
   #hero-weather__symbol {
     width: 36px;

@@ -1440,7 +1440,7 @@ a:active {
 
 @media only screen and (min-device-width : 1280px) and (max-width : 768px) {
 
-  /* hide the subvan titles when desktop has narrow width */
+  /* hide the subnav titles when desktop has narrow width */
   .subnav__icon-nav__title {
     display: none;
   }
