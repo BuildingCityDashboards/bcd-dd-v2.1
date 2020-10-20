@@ -102,7 +102,7 @@
   visibility: hidden;
   padding: 16px;
   opacity: 0;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: var(--bg-color-3);
   flex-direction: column;
   grid-column: span 4;
@@ -313,7 +313,7 @@
   /* About Dublin * */
 
   #about-dublin {
-    height: 40vh;
+    height: 50vh;
     padding: 0 24px;
     background-color: #1c2022;
     justify-content: center;
@@ -342,7 +342,7 @@
 
   #about-dublin__card {
     padding: 32px;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 4px;
     background-color: #21272a;
     grid-column: 2/12;
@@ -360,8 +360,8 @@
   #regions-info {
     width: 100vw;
     min-width: 360px;
-    height: 60vh;
-    min-height: 512px;
+    height: 55vh;
+    min-height: 380px;
     padding: 24px;
     background-color: #1c2022;
     justify-content: center;
@@ -624,8 +624,9 @@
 
 /* Laptop with MDPI height = 800px */
 
-@media only screen and (min-width : 1280px) {
+@media only screen and (min-device-width : 1280px) {
   #about-dublin {
+    min-height: 380px;
     height: 45vh;
     padding: 0 24px;
     justify-content: center;
@@ -663,6 +664,17 @@
     line-height: 1.5;
     letter-spacing: 0.5px;
   }
+
+  #regions-info {
+    height: 55vh;
+    min-height: 440px;
+    padding: 24px;
+    justify-content: center;
+    grid-gap: 24px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
 
   #regions-info__cta {
     z-index: 1;
@@ -710,16 +722,6 @@
     font-weight: normal;
     line-height: 1.5;
     letter-spacing: 1.5px;
-  }
-
-  #regions-info {
-    height: 55vh;
-    min-height: 50vh;
-    padding: 24px;
-    justify-content: center;
-    grid-gap: 24px;
-    max-width: 1440px;
-    margin: 0 auto;
   }
 
   #regions-info__map {
