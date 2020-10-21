@@ -132,7 +132,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: '',
-      tY: getShortLabel(categoriesStat[1])
+      tY: getShortLabel(categoriesStat[1]),
+      formaty: 'hundredThousandsShort'
     }
 
     const unemployedCountChart = new BCDMultiLineChart(unemployedCount)
@@ -158,9 +159,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const redraw = () => {
       if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
         employedCountChart.drawChart()
-        employedCountChart.addTooltip(',  ', '', 'label')
+        employedCountChart.addTooltip('Employed persons in  ', '', 'label')
         employedCountChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
-        employedCountChart.showSelectedLabelsY([ 2, 4, 6, 8, 10])
+        employedCountChart.showSelectedLabelsY([2, 4, 6, 8, 10])
       }
       // if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
       //   labourCountChart.drawChart()
@@ -168,7 +169,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       // }
       if (document.querySelector('#chart-' + chartDivIds[2]).style.display !== 'none') {
         unemployedCountChart.drawChart()
-        unemployedCountChart.addTooltip(', ', '', 'label')
+        unemployedCountChart.addTooltip('Unemployed persons in ', '', 'label')
+        unemployedCountChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+        unemployedCountChart.showSelectedLabelsY([2, 4, 6, 8, 10])
       }
       if (document.querySelector('#chart-' + chartDivIds[3]).style.display !== 'none') {
         participationRateChart.drawChart()
@@ -179,8 +182,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       }
       if (document.querySelector('#chart-' + chartDivIds[4]).style.display !== 'none') {
         unemployedRateChart.drawChart()
-        unemployedRateChart.addTooltip(', ', '', 'label')
+        unemployedRateChart.addTooltip('Unemployment rate (%) for ', '', 'label')
         unemployedRateChart.hideRate(true)
+        unemployedRateChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+        unemployedRateChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
       }
     }
     redraw()

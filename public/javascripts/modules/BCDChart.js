@@ -296,8 +296,6 @@ class BCDChart {
   // check if the data needs to be nested or not!!
   nestData () {
     const c = this
-    console.log(c.e)
-    console.log(c.d)
     c.d = c.d[0].key ? c.d : c.nest(c.d, c.k)
   }
 
