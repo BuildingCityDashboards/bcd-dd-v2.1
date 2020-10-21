@@ -6,9 +6,6 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-
-  console.log('rppi');
-
   const chartDivIds = ['chart-house-rppi']
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =

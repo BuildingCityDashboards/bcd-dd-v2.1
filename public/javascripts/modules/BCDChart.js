@@ -336,6 +336,9 @@ class BCDChart {
 
       case 'thousands':
         return d3.format(',')
+      
+      case 'tenThousandsShort':
+          return d3.format('.2s')
 
       case 'hundredThousandsShort':
         return d3.format('.3s')

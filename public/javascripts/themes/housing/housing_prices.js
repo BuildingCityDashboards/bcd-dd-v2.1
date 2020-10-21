@@ -162,8 +162,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log('Error creating House Price chart')
     console.log(e)
     removeSpinner(chartDivIds[0])
-    e = e instanceof TimeoutError ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    const eMsg = e instanceof TimeoutError ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton(chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       removeErrorMessageButton(chartDivIds[0])
