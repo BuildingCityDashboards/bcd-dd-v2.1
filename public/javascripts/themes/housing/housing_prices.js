@@ -2,8 +2,8 @@ import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
@@ -89,7 +89,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(traceNames)
 
     const housePriceMean = {
-      e: '#chart-house-price-mean',
+      e: 'chart-house-price-mean',
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[2]
       }),
@@ -98,13 +98,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[2]
+      tY: categoriesStat[2],
+      formaty: 'hundredThousandsShort'
     }
     //
     const housePriceMeanChart = new BCDMultiLineChart(housePriceMean)
 
     const housePriceMedian = {
-      e: '#chart-house-price-median',
+      e: 'chart-house-price-median',
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[3]
       }),
@@ -113,7 +114,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[3]
+      tY: categoriesStat[3],
+      formaty: 'hundredThousandsShort'
     }
     //
     const housePriceMedianChart = new BCDMultiLineChart(housePriceMedian)
@@ -124,10 +126,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         housePriceMeanChart.drawChart()
         housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
+        housePriceMeanChart.showSelectedLabelsX([0,2,4,6,8,10])
+        housePriceMeanChart.showSelectedLabelsY([2,4,6,8,10,12,14])
       }
       if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
         housePriceMedianChart.drawChart()
         housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
+        housePriceMedianChart.showSelectedLabelsX([0,2,4,6,8,10])
+        housePriceMedianChart.showSelectedLabelsY([2,4,6,8,10,12,14])
       }
     }
     redraw()
