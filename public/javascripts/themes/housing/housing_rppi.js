@@ -1,16 +1,15 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
-import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { BCDMultiLineChart } from '../../modules/MultiLineChart.js'
+import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main() {
-  const chartDivIds = ['chart-house-rppi']
+(async function main () {
 
-  const parseYear = d3.timeParse('%Y')
+  console.log('rppi');
+
+  const chartDivIds = ['chart-house-rppi']
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
     'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
@@ -70,7 +69,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(houseRppiTable)
 
     const houseRppi = {
-      e: '#chart-house-rppi',
+      e: 'chart-house-rppi',
       d: houseRppiTable.filter(d => {
         return parseInt(d.date.getFullYear()) >= 2010
       }),
@@ -84,7 +83,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     const houseRppiChart = new BCDMultiLineChart(houseRppi)
 
-    function redraw() {
+    function redraw () {
       houseRppiChart.drawChart()
       houseRppiChart.addTooltip('RPPI for ', '', 'label')
     }
