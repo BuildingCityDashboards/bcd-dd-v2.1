@@ -1,11 +1,16 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
 import { MultiLineChart } from '../../modules/MultiLineChart.js'
 import { formatDateAsDDMMYY, isToday } from '../../modules/bcd-date.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
 
 import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js'
 
 (async () => {
   // console.log('load noise charts')
+
+  d3.select('#map-noise-monitors').style('display', 'block')
+  d3.select('#chart-noise-monitors').style('display', 'none')
+  
   const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 
   try {
@@ -90,9 +95,6 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       }
     }
     redraw()
-
-    d3.select('#map-noise-monitors').style('display', 'block')
-    d3.select('#chart-noise-monitors').style('display', 'none')
 
     d3.select('#btn-noise-chart').on('click', function () {
       activeBtn(this)
@@ -226,10 +228,4 @@ async function getPopupPlot(d_) {
   //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
-}
-
-function activeBtn(e) {
-  const btn = e
-  $(btn).siblings().removeClass('active')
-  $(btn).addClass('active')
 }
