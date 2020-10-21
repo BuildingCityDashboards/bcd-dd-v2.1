@@ -176,17 +176,14 @@ class BCDChart {
 
   tooltipHeaders () {
     const c = this
-    let div
-    let p
-
-    div = c.newToolTip
+    let div = c.newToolTip
       .append('div')
       .attr('class', 'headers')
 
     div.append('span')
       .attr('class', 'bcd-dot')
 
-    p = div
+    let p = div
       .append('p')
       .attr('class', 'bcd-text')
 
@@ -323,7 +320,7 @@ class BCDChart {
   }
 
   formatValue (format) {
-    // formats thousands, Millions, Euros and Percentage
+    // formats thousands, Millions, Euros and Percentage etc
     switch (format) {
       case 'millions':
         return d3.format('.2s')
@@ -350,7 +347,7 @@ class BCDChart {
         return d3.format('.0%')
 
       default:
-        return 'undefined'
+        return d3.format(',')
     }
   }
 

@@ -1,15 +1,13 @@
-import { Chart } from './Chart.js'
+import { BCDChart } from './BCDChart.js'
 
-class StackedAreaChart extends Chart {
+class BCDStackedAreaChart extends BCDChart {
   constructor (obj) {
     super(obj)
-
     this.drawChart()
   }
 
   drawChart () {
     const c = this
-
     super.init()
     super.addAxis()
     super.getKeys()
@@ -78,15 +76,11 @@ class StackedAreaChart extends Chart {
 
   createScales () {
     const c = this
-    let yAxisCall
-    let xAxisCall
-    let x
-    let y
-
-    yAxisCall = d3.axisLeft()
-    xAxisCall = d3.axisBottom()
-    x = c.getElement('.titleX').text(c.tX)
-    y = c.getElement('.titleY').text(c.tY)
+    
+    let yAxisCall = d3.axisLeft()
+    let xAxisCall = d3.axisBottom()
+    let x = c.getElement('.titleX').text(c.tX)
+    let y = c.getElement('.titleY').text(c.tY)
 
     // set scales
     c.x = d3.scaleTime().range([0, c.w])
@@ -125,7 +119,7 @@ class StackedAreaChart extends Chart {
       .defined(function (d) {
         return !isNaN(d[1])
       })
-      // .curve(c.area.curve())
+    // .curve(c.area.curve())
       .x(d => {
         return c.x(d.data[c.xV])
       })
@@ -259,7 +253,7 @@ class StackedAreaChart extends Chart {
     const force = d3.forceSimulation()
       .nodes(lines)
       .force('collide', d3.forceCollide(lH / 2))
-      // .force("y", d3.forceY(d => d.y).strength(4))
+    // .force("y", d3.forceY(d => d.y).strength(4))
       .force('x', d3.forceX(d => d.x).strength(4))
       .force('clamp', forceClamp(0, c.h - 4))
       .stop()
@@ -318,7 +312,7 @@ class StackedAreaChart extends Chart {
     }
 
     function bouncer (arr) {
-      return arr.filter(x => {})
+      return arr.filter(x => { })
     }
   }
 
@@ -749,7 +743,7 @@ class StackedAreaChart extends Chart {
         .attr('type', 'button')
         .attr('class', i === times - 1 ? 'btn btn-page mx-1 active' : 'btn btn-page')
         .style('border-right', i === times - 1 ? 'none' : '1px Solid #838586')
-        // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
+      // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
         .text(textString)
         .on('click', function () {
           if (!$(this).hasClass('active')) {
@@ -766,4 +760,4 @@ class StackedAreaChart extends Chart {
 
 }
 
-export { StackedAreaChart }
+export { BCDStackedAreaChart }
