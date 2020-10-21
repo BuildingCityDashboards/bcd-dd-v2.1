@@ -2,11 +2,14 @@
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { GroupedBarChart } from '../../modules/GroupedBarChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
 
-(async () => {
+(async function main () {
+  d3.select('#chart-households').style('display', 'block')
+  d3.select('#chart-households-size').style('display', 'none')
+
   let houseHoldsChart, houseHoldCompositionChart
   let houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
   const parseYear = d3.timeParse('%Y')
@@ -54,104 +57,98 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   //  console.log(householdsFiltered)
 
   houseHoldsContent = {
-    e: '#chart-households',
+    e: 'chart-households',
     d: householdsFiltered,
     ks: dublinLAs,
     k: DIMENSION,
     xV: 'date',
     yV: 'value',
     tX: 'Census years',
-    tY: STATS[0].split('(')[0]
+    tY: STATS[0].split('(')[0],
+    formaty: 'hundredThousandsShort'
   }
 
   houseHoldsChart = new BCDMultiLineChart(houseHoldsContent)
-  houseHoldsChart.tickNumber = 31
-  houseHoldsChart.drawChart()
-  // houseHoldsChart.addTooltip(houseHoldsTT)
-  houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
-  houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
 
-  d3.select('#chart-households').style('display', 'block')
-  d3.select('#chart-households-size').style('display', 'none')
+  redraw(houseHoldsChart)
+  
+  window.addEventListener('resize', () => {
+    redraw(houseHoldsChart)
+  })
 
   d3.select('#btn-households').on('click', function () {
     activeBtn(this)
-    // alert('hi99')
     d3.select('#chart-households').style('display', 'block')
     d3.select('#chart-households-size').style('display', 'none')
-    houseHoldsChart.tickNumber = 31
-    houseHoldsChart.drawChart()
-    // houseHoldsChart.addTooltip(houseHoldsTT)
-    houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
-    houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
+    redraw(houseHoldsChart)
   })
 
   d3.select('#btn-households-size').on('click', function () {
     activeBtn(this)
-    // console.log(householdsFiltered)
-    // alert('hree')
     d3.select('#chart-households').style('display', 'none')
     d3.select('#chart-households-size').style('display', 'block')
   })
 
-  window.addEventListener('resize', () => {
-    // console.log('redraw households')
-    houseHoldsChart.tickNumber = 31
-    houseHoldsChart.drawChart()
-    // houseHoldsChart.addTooltip(houseHoldsTT)
-    houseHoldsChart.addTooltip(STATS[0].split('(')[0], '', 'label')
-    houseHoldsChart.showSelectedLabels([1, 6, 11, 17, 21, 26, 31])
-  })
+  
 })()
 
-if (document.getElementById('chart-householdComposition')) {
-  d3.csv('../data/Demographics/CNA29.csv').then(data => {
-    const columnNames = data.columns.slice(2)
-    const xValue = data.columns[0]
-
-    const valueData = data.map(d => {
-      for (var i = 0, n = columnNames.length; i < n; i++) {
-        d[columnNames[i]] = +d[columnNames[i]]
-      }
-      return d
-    })
-
-    const houseHoldCompositionContent = {
-      e: '#chart-householdComposition',
-      d: valueData,
-      ks: columnNames,
-      xV: xValue,
-      tX: 'Person per Household',
-      tY: 'Number of Households',
-      ySF: 'millions'
-    }
-    // console.log(houseHoldCompositionContent)
-
-    const houseHoldCompositionTT = {
-      title: 'Person per Household:',
-      datelabel: xValue,
-      format: 'thousands'
-    }
-
-    let houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
-    houseHoldCompositionChart.drawChart()
-    houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
-    houseHoldCompositionChart.hideRate(true)
-
-    window.addEventListener('resize', () => {
-      // console.log('redraw households comp')
-      houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
-      houseHoldCompositionChart.drawChart()
-      houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
-      houseHoldCompositionChart.hideRate(true)
-    })
-
-    // d3.select(window).on("resize", function() {
-    //   console.log("Resize");
-    //   houseHoldCompositionChart.drawChart();
-    //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
-    // });
-  }).catch(function (error) {
-    console.log(error)
-  })
+function redraw (chart) {
+  // houseHoldsChart.tickNumber = 31
+  chart.drawChart()
+  // houseHoldsChart.addTooltip(houseHoldsTT)
+  chart.addTooltip('Number of households in ', '', 'label')
+  chart.showSelectedLabelsX([0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])
+  chart.showSelectedLabelsY([2, 4, 6, 8, 10])
 }
+
+// if (document.getElementById('chart-householdComposition')) {
+//   d3.csv('../data/Demographics/CNA29.csv').then(data => {
+//     const columnNames = data.columns.slice(2)
+//     const xValue = data.columns[0]
+
+//     const valueData = data.map(d => {
+//       for (var i = 0, n = columnNames.length; i < n; i++) {
+//         d[columnNames[i]] = +d[columnNames[i]]
+//       }
+//       return d
+//     })
+
+//     const houseHoldCompositionContent = {
+//       e: '#chart-householdComposition',
+//       d: valueData,
+//       ks: columnNames,
+//       xV: xValue,
+//       tX: 'Person per Household',
+//       tY: 'Number of Households',
+//       ySF: 'millions'
+//     }
+//     // console.log(houseHoldCompositionContent)
+
+//     const houseHoldCompositionTT = {
+//       title: 'Person per Household:',
+//       datelabel: xValue,
+//       format: 'thousands'
+//     }
+
+//     let houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
+//     houseHoldCompositionChart.drawChart()
+//     houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
+//     houseHoldCompositionChart.hideRate(true)
+
+//     window.addEventListener('resize', () => {
+//       // console.log('redraw households comp')
+//       houseHoldCompositionChart = new GroupedBarChart(houseHoldCompositionContent)
+//       houseHoldCompositionChart.drawChart()
+//       houseHoldCompositionChart.addTooltip(houseHoldCompositionTT)
+//       houseHoldCompositionChart.hideRate(true)
+//     })
+
+//     // d3.select(window).on("resize", function() {
+//     //   console.log("Resize");
+//     //   houseHoldCompositionChart.drawChart();
+//     //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
+//     // });
+//   }).catch(function (error) {
+//     console.log(error)
+//   })
+// }
