@@ -1,6 +1,6 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { BCDMultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
@@ -78,32 +78,34 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: ''
+      tY: 'RPPI',
+      margins: {
+        left: 48
+      }
     }
 
     const houseRppiChart = new BCDMultiLineChart(houseRppi)
-
-    function redraw () {
-      houseRppiChart.drawChart()
-      houseRppiChart.addTooltip('RPPI for ', '', 'label')
-    }
-    redraw()
+    redraw(houseRppiChart)
 
     window.addEventListener('resize', () => {
-      redraw()
+      redraw(houseRppiChart)
     })
   } catch (e) {
     console.log('Error creating RPPI chart')
-    console.log(e)
-
     removeSpinner(chartDivIds[0])
-    e = (e instanceof TimeoutError) ? e : 'An error occured'
+    const eMsg = (e instanceof TimeoutError) ? e : 'An error occured'
     const errBtnID = addErrorMessageButton(chartDivIds[0], e)
-    console.log('e')
-    console.log(e)
+    console.log(eMsg)
     d3.select(`#${errBtnID}`).on('click', function () {
       removeErrorMessageButton(chartDivIds[0])
       main()
     })
   }
 })()
+
+function redraw (chart) {
+  chart.drawChart()
+  chart.addTooltip('RPPI for ', '', 'label')
+  chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12])
+  chart.addBaseLine(100)
+}
