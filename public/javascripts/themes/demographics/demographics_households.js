@@ -11,7 +11,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   let houseHoldsContent, houseHoldsTT, houseHoldCompositionContent, houseHoldCompositionTT
   const parseYear = d3.timeParse('%Y')
   const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // CNA33 - Number of households and number of persons resident by Type of Private Accommodation, Province County or City, CensusYear and Statistic
 
   const TABLE_CODE = 'CNA33' // gives no of households and ave household size
@@ -38,13 +38,13 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     { type: 'arrobj' },
     (d, i) => {
       if ((d[DIMENSION] === categories[3] ||
-       d[DIMENSION] === categories[4] ||
-       d[DIMENSION] === categories[5] ||
-       d[DIMENSION] === categories[6]) &&
-       d.Statistic === STATS[0] &&
-       d.value !== null &&
-       d['Type of Private Accommodation'] === 'All households' &&
-       +d['Census Year'] >= 1986) {
+        d[DIMENSION] === categories[4] ||
+        d[DIMENSION] === categories[5] ||
+        d[DIMENSION] === categories[6]) &&
+        d.Statistic === STATS[0] &&
+        d.value !== null &&
+        d['Type of Private Accommodation'] === 'All households' &&
+        +d['Census Year'] >= 1986) {
         d.date = parseYear(+d['Census Year'])
         d.label = +d['Census Year']
         d.value = +d.value
@@ -64,7 +64,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     tY: STATS[0].split('(')[0]
   }
 
-  houseHoldsChart = new MultiLineChart(houseHoldsContent)
+  houseHoldsChart = new BCDMultiLineChart(houseHoldsContent)
   houseHoldsChart.tickNumber = 31
   houseHoldsChart.drawChart()
   // houseHoldsChart.addTooltip(houseHoldsTT)
@@ -146,11 +146,11 @@ if (document.getElementById('chart-householdComposition')) {
       houseHoldCompositionChart.hideRate(true)
     })
 
-  // d3.select(window).on("resize", function() {
-  //   console.log("Resize");
-  //   houseHoldCompositionChart.drawChart();
-  //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
-  // });
+    // d3.select(window).on("resize", function() {
+    //   console.log("Resize");
+    //   houseHoldCompositionChart.drawChart();
+    //   houseHoldCompositionChart.addTooltip(houseHoldCompositionTT);
+    // });
   }).catch(function (error) {
     console.log(error)
   })

@@ -27,8 +27,8 @@ Promise.all([
   // need to convert date field to readable js date format
   // nest the processed data by regions
   const wasteDataNested = d3.nest().key(d => {
-      return d[wasteRegions];
-    })
+    return d[wasteRegions];
+  })
     .entries(wasteDataProcessed);
 
   // console.log("wasteDataNested " + JSON.stringify(wasteDataNested));
@@ -43,7 +43,7 @@ Promise.all([
   };
 
   // draw the chart
-  wasteChart = new MultiLineChart(wasteContent);
+  wasteChart = new BCDMultiLineChart(wasteContent);
   wasteChart.drawChart();
   wasteChart.addTooltip("Waste - Year ", "thousands", "label", "", "Kg");
 
@@ -207,8 +207,8 @@ Promise.all([
   // need to convert date field to readable js date format
   // nest the processed data by regions
   const localagendasDataNested = d3.nest().key(d => {
-      return d[localagendasRegions];
-    })
+    return d[localagendasRegions];
+  })
     .entries(localagendasDataProcessed);
 
   // get array of keys from nest
@@ -227,11 +227,11 @@ Promise.all([
   };
   // draw the chart
   // 1.Selector, 2. X axis Label, 3. Y axis Label, 4. , 5
-  localagendasChart = new MultiLineChart(localagendasContent);
+  localagendasChart = new BCDMultiLineChart(localagendasContent);
   localagendasChart.drawChart();
   localagendasChart.addTooltip("Projects - Year ", "thousands", "label", "", "");
 
-}).catch(function(error) {
+}).catch(function (error) {
   console.log(error);
 });
 

@@ -7,7 +7,7 @@ import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErro
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main () {
+(async function main() {
   const chartDivIds = ['chart-rent-prices']
   const chart1 = 'rent-prices'
   const chart2 = 'rent-by-beds'
@@ -17,7 +17,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
   const TABLE_CODE = 'RIQ02'
 
@@ -61,7 +61,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if (d[dimensions[1]] === categoriesType[0] &&
-           d[dimensions[2]] === 'Dublin' &&
+          d[dimensions[2]] === 'Dublin' &&
           hasCleanValue(d)
         ) {
           d.date = convertQuarterToDate(d.Quarter)
@@ -104,10 +104,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    // const rentByBedsChart = new MultiLineChart(rentByBeds)
+    // const rentByBedsChart = new BCDMultiLineChart(rentByBeds)
     //
 
-    function redraw () {
+    function redraw() {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         rentChart.drawChart()
         rentChart.addTooltip('Rent price,  ', '', 'label')

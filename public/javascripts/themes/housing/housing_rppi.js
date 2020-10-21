@@ -7,13 +7,13 @@ import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErro
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main () {
+(async function main() {
   const chartDivIds = ['chart-house-rppi']
 
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
   try {
@@ -50,11 +50,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if ((d[dimensions[0]] === categoriesRegion[4] ||
-           d[dimensions[0]] === categoriesRegion[8] ||
-           d[dimensions[0]] === categoriesRegion[9] ||
-           d[dimensions[0]] === categoriesRegion[10] ||
-           d[dimensions[0]] === categoriesRegion[11]) &&
-         d[dimensions[2]] === categoriesStat[0]) {
+          d[dimensions[0]] === categoriesRegion[8] ||
+          d[dimensions[0]] === categoriesRegion[9] ||
+          d[dimensions[0]] === categoriesRegion[10] ||
+          d[dimensions[0]] === categoriesRegion[11]) &&
+          d[dimensions[2]] === categoriesStat[0]) {
           d.date = parseYearMonth(d.Month)
           d.label = d.Month
           d.value = +d.value
@@ -82,9 +82,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: ''
     }
 
-    const houseRppiChart = new MultiLineChart(houseRppi)
+    const houseRppiChart = new BCDMultiLineChart(houseRppi)
 
-    function redraw () {
+    function redraw() {
       houseRppiChart.drawChart()
       houseRppiChart.addTooltip('RPPI for ', '', 'label')
     }

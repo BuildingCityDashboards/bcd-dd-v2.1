@@ -7,12 +7,12 @@ import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErro
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main () {
+(async function main() {
   const chartDivIds = ['chart-completions-house', 'chart-completions-scheme', 'chart-completions-apartment']
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
   const TABLE_CODE = 'NDQ06'
 
@@ -86,7 +86,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    const completionsHouseChart = new MultiLineChart(completionsHouse)
+    const completionsHouseChart = new BCDMultiLineChart(completionsHouse)
 
     const completionsScheme = {
       e: '#chart-completions-scheme',
@@ -101,7 +101,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    const completionsSchemeChart = new MultiLineChart(completionsScheme)
+    const completionsSchemeChart = new BCDMultiLineChart(completionsScheme)
 
     const completionsApartment = {
       e: '#chart-completions-apartment',
@@ -116,7 +116,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: categoriesStat[0]
     }
     //
-    const completionsApartmentChart = new MultiLineChart(completionsApartment)
+    const completionsApartmentChart = new BCDMultiLineChart(completionsApartment)
 
     const chart1 = 'completions-house'
     const chart2 = 'completions-scheme'
@@ -126,7 +126,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     d3.select('#chart-' + chart2).style('display', 'none')
     d3.select('#chart-' + chart3).style('display', 'none')
 
-    function redraw () {
+    function redraw() {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         completionsHouseChart.drawChart()
         completionsHouseChart.addTooltip('Single house completions,  ', '', 'label')

@@ -10,7 +10,7 @@ let employedChart
 
   // console.log('fetch cso json')
   const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'BRA08'
   const STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
 
@@ -29,8 +29,8 @@ let employedChart
     { type: 'arrobj' },
     (d, i) => {
       if (d.County === 'Dublin' &&
-     d.Statistic === STATS[2] &&
-     d['Employment Size'] !== EXCLUDE) {
+        d.Statistic === STATS[2] &&
+        d['Employment Size'] !== EXCLUDE) {
         d.label = d.Year
         d.date = parseYear(+d.Year)
         d.value = +d.value
@@ -43,8 +43,8 @@ let employedChart
     { type: 'arrobj' },
     (d, i) => {
       if (d.County === 'Dublin' &&
-     d.Statistic === STATS[1] &&
-     d['Employment Size'] !== EXCLUDE) {
+        d.Statistic === STATS[1] &&
+        d['Employment Size'] !== EXCLUDE) {
         d.label = d.Year
         d.date = parseYear(+d.Year)
         d.value = +d.value
@@ -57,8 +57,8 @@ let employedChart
     { type: 'arrobj' },
     (d, i) => {
       if (d.County === 'Dublin' &&
-     d.Statistic === STATS[0] &&
-     d['Employment Size'] !== EXCLUDE) {
+        d.Statistic === STATS[0] &&
+        d['Employment Size'] !== EXCLUDE) {
         d.label = d.Year
         d.date = parseYear(+d.Year)
         d.value = +d.value
@@ -104,15 +104,15 @@ let employedChart
 
   }
 
-  employedChart = new MultiLineChart(sizeContent)
+  employedChart = new BCDMultiLineChart(sizeContent)
   employedChart.drawChart()
   employedChart.addTooltip(STATS[2] + ' for Year ', '', 'label')
 
-  const engagedChart = new MultiLineChart(engagedContent)
+  const engagedChart = new BCDMultiLineChart(engagedContent)
   engagedChart.drawChart()
   engagedChart.addTooltip(STATS[1] + ' for Year ', '', 'label')
 
-  const activeChart = new MultiLineChart(activeContent)
+  const activeChart = new BCDMultiLineChart(activeContent)
   activeChart.drawChart()
   activeChart.addTooltip(STATS[0] + ' for Year ', '', 'label')
 

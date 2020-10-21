@@ -7,11 +7,11 @@ let populationChart
 
 if (document.getElementById('chart-population')) {
   d3.csv('../data/Demographics/CNA13.csv').then(data => {
-// d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
-// d3.select('#population').selectAll(".chart-holder").style("background-image", "none");
-// d3.select('#').selectAll(".chart-holder").style("background-image", "none");
-// d3.select('#').selectAll(".chart-holder").style("background-image", "none");
-// d3.select('#').selectAll(".chart-holder").style("background-color", "#000000");
+    // d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
+    // d3.select('#population').selectAll(".chart-holder").style("background-image", "none");
+    // d3.select('#').selectAll(".chart-holder").style("background-image", "none");
+    // d3.select('#').selectAll(".chart-holder").style("background-image", "none");
+    // d3.select('#').selectAll(".chart-holder").style("background-color", "#000000");
 
     const columnNames = data.columns.slice(2)
 
@@ -29,9 +29,9 @@ if (document.getElementById('chart-population')) {
     })
 
     const types = d3.nest()
-    .key(d => {
-      return d[groupBy]
-    }).entries(valueData)
+      .key(d => {
+        return d[groupBy]
+      }).entries(valueData)
 
     const grouping = types.map(d => d.key)
 
@@ -46,30 +46,30 @@ if (document.getElementById('chart-population')) {
       ySF: 'millions'
     }
 
-    populationChart = new MultiLineChart(population)
+    populationChart = new BCDMultiLineChart(population)
     populationChart.yLabels = yLabels
     populationChart.tickNumber = 106
     populationChart.drawChart()
 
-  // add the tooltip
+    // add the tooltip
     populationChart.addTooltip('Year: ', 'thousands', 'label')
     populationChart.showSelectedLabels([0, 16, 26, 36, 46, 56, 66, 76, 86, 96, 106])
-  // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
+    // populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
 
-  // d3.select(window).on("resize", function() {
-  //   populationChart.drawChart();
-  //   populationChart.addTooltip("Year: ", "thousands", "label");
-  //   populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
-  //
-  // });
+    // d3.select(window).on("resize", function() {
+    //   populationChart.drawChart();
+    //   populationChart.addTooltip("Year: ", "thousands", "label");
+    //   populationChart.showSelectedLabels([0, 16, 26, 36, 41, 46, 51, 56, 61, 69, 71, 76, 81, 86, 92, 96, 101, 106]);
+    //
+    // });
 
     window.addEventListener('resize', () => {
-    // console.log('redraw outside')
+      // console.log('redraw outside')
       populationChart.yLabels = yLabels
       populationChart.tickNumber = 106
       populationChart.drawChart()
 
-  // add the tooltip
+      // add the tooltip
       populationChart.addTooltip('Year: ', 'thousands', 'label')
       populationChart.showSelectedLabels([0, 16, 26, 36, 46, 56, 66, 76, 86, 96, 106])
     })

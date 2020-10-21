@@ -192,7 +192,7 @@ class BCDChart {
 
     p.append('span')
       .attr('class', 'bcd-text-title')
-      .text('Type')
+      .text(c.k || 'Type')
 
     p.append('span')
       .attr('class', 'bcd-text-value')

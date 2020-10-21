@@ -24,7 +24,7 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
     const noiseMapIcon = L.icon({
       iconUrl: '../images/environment/microphone-black-shape.svg',
       iconSize: [20, 20] // orig size
-    // iconAnchor: [iconAX, iconAY] //,
+      // iconAnchor: [iconAX, iconAY] //,
       // popupAnchor: [-3, -76]
     })
     const noiseMarker = L.Marker.extend({
@@ -34,8 +34,8 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
     })
 
     const noisePopupOptons = {
-    // 'maxWidth': '500',
-    // 'className': 'leaflet-popup'
+      // 'maxWidth': '500',
+      // 'className': 'leaflet-popup'
     }
 
     const noiseSitesLayer = new L.LayerGroup()
@@ -43,13 +43,13 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
     const allSitesPromises = noiseSites.map(async d => {
       const marker = new noiseMarker(
         new L.LatLng(d.lng, d.lat), {
-          id: d.id,
-          opacity: 0.9,
-          title: 'Noise Monitor Site', // shown in rollover tooltip
-          alt: 'noise monitor icon',
-          icon: noiseMapIcon,
-          type: 'Noise Level Monitor'
-        })
+        id: d.id,
+        opacity: 0.9,
+        title: 'Noise Monitor Site', // shown in rollover tooltip
+        alt: 'noise monitor icon',
+        icon: noiseMapIcon,
+        type: 'Noise Level Monitor'
+      })
       marker.bindPopup(getPopup(d), noisePopupOptons)
       marker.on('popupopen', () => {
         getPopupPlot(d)
@@ -81,9 +81,9 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       tY: 'dB'
     }
 
-    const noiseChart = new MultiLineChart(noiseChartOptions)
+    const noiseChart = new BCDMultiLineChart(noiseChartOptions)
 
-    function redraw () {
+    function redraw() {
       if (document.querySelector('#chart-noise-monitors').style.display !== 'none') {
         noiseChart.drawChart()
         noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
@@ -116,7 +116,7 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
   }
 })()
 
-async function getSites (url, key) {
+async function getSites(url, key) {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
   let siteData = await d3.json(url)
@@ -132,7 +132,7 @@ async function getSites (url, key) {
   return siteData
 }
 
-function getPopup (d_) {
+function getPopup(d_) {
   let str = ''
   if (!d_.id) {
     str += '<div class="leaflet-popup-error">' +
@@ -158,7 +158,7 @@ function getPopup (d_) {
   return str
 }
 
-async function getSiteReadings (d_) {
+async function getSiteReadings(d_) {
   // console.log(d_)
 
   const readings = await d3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
@@ -193,7 +193,7 @@ async function getSiteReadings (d_) {
   return data
 }
 
-async function getPopupPlot (d_) {
+async function getPopupPlot(d_) {
   const divId = `noise-site-${d_.id}`
   const data = await getSiteReadings(d_)
 
@@ -202,9 +202,9 @@ async function getPopupPlot (d_) {
   // console.log(data[0])
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
-    data[0].date.toString().split(' ')[0] + ' ' +
-    data[1].date.toString().split(' ')[1] + ' ' +
-    data[2].date.toString().split(' ')[2]
+      data[0].date.toString().split(' ')[0] + ' ' +
+      data[1].date.toString().split(' ')[1] + ' ' +
+      data[2].date.toString().split(' ')[2]
     const options = {
       d: data,
       e: '#' + divId + '-plot',
@@ -218,17 +218,17 @@ async function getPopupPlot (d_) {
   }
 
   const str = '<div class="popup-error">' +
-          '<div class="row ">' +
-          "We can't get the noise monitoring data for this location right now, please try again later" +
-          '</div>' +
-          '</div>'
+    '<div class="row ">' +
+    "We can't get the noise monitoring data for this location right now, please try again later" +
+    '</div>' +
+    '</div>'
   // return d3.select('#bike-spark-' + sid_)
   //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
 }
 
-function activeBtn (e) {
+function activeBtn(e) {
   const btn = e
   $(btn).siblings().removeClass('active')
   $(btn).addClass('active')

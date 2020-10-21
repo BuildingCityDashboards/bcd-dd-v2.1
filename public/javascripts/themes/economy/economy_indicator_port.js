@@ -14,7 +14,7 @@ Promise.all([
     const portColumns = portData.columns.slice(1)
     if (document.getElementById('chart-indicator-port-total')) {
       const longData = portData.map(d => {
-      // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
+        // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
         const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
         let value = parseFloat(d[portColumns[0]].replace(/,/g, '')) / 1000000
         value = value.toPrecision(3)
@@ -36,8 +36,8 @@ Promise.all([
         tX: 'Quarter',
         tY: 'Tonnes (millions)'
       }
-      portTotalChart = new MultiLineChart(portTonnageCount)
-      function redraw () {
+      portTotalChart = new BCDMultiLineChart(portTonnageCount)
+      function redraw() {
         portTotalChart.drawChart()
         portTotalChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
       }

@@ -26,182 +26,182 @@ Promise.all([
   // 1.  data processing for house completion chart
 
   if (document.getElementById('chart-houseComp')) {
-  //   const completionsData = datafiles[0]
-  //   let completionsColumns = completionsData.columns.slice(1)
-  // // completionsColumns.pop() // remove total column for 'Dublin'
-  //   const completionsDate = completionsData.columns[0]
-  //   const compDataProcessed = dataSets(completionsData, completionsColumns)
-  //
-  //   compDataProcessed.forEach(function (d) {
-  //     d.label = d[completionsDate]
-  //     d[completionsDate] = convertQuarter(d[completionsDate])
-  //   // d.year = formatYear(d[dateField])
-  //   })
-  //
-  //   const houseCompContent = {
-  //     e: '#chart-houseComp',
-  //     d: compDataProcessed,
-  //     k: completionsColumns,
-  //     xV: completionsDate,
-  //     yV: 'Dublin',
-  //     tX: 'Quarter',
-  //     tY: 'Units'
-  //   }
-  //
-  //   // console.log('\n\ncompDataProcessed: ')
-  //   // console.log(compDataProcessed[0])
-  // // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
-  //
-  //   houseCompCharts = new MultiLineChart(houseCompContent)
-  //   houseCompCharts.drawChart()
-  //   houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
-  // // houseCompCharts.tickNumber = 4;
-  //   houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
-  //
-  //   window.addEventListener('resize', () => {
-  //     houseCompCharts.drawChart()
-  //     houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
-  //   // houseCompCharts.tickNumber = 4;
-  //     houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
-  //   })
+    //   const completionsData = datafiles[0]
+    //   let completionsColumns = completionsData.columns.slice(1)
+    // // completionsColumns.pop() // remove total column for 'Dublin'
+    //   const completionsDate = completionsData.columns[0]
+    //   const compDataProcessed = dataSets(completionsData, completionsColumns)
+    //
+    //   compDataProcessed.forEach(function (d) {
+    //     d.label = d[completionsDate]
+    //     d[completionsDate] = convertQuarter(d[completionsDate])
+    //   // d.year = formatYear(d[dateField])
+    //   })
+    //
+    //   const houseCompContent = {
+    //     e: '#chart-houseComp',
+    //     d: compDataProcessed,
+    //     k: completionsColumns,
+    //     xV: completionsDate,
+    //     yV: 'Dublin',
+    //     tX: 'Quarter',
+    //     tY: 'Units'
+    //   }
+    //
+    //   // console.log('\n\ncompDataProcessed: ')
+    //   // console.log(compDataProcessed[0])
+    // // console.log("\n\nHousing keys " + JSON.stringify(keys) + "\n\n");
+    //
+    //   houseCompCharts = new BCDMultiLineChart(houseCompContent)
+    //   houseCompCharts.drawChart()
+    //   houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
+    // // houseCompCharts.tickNumber = 4;
+    //   houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+    //
+    //   window.addEventListener('resize', () => {
+    //     houseCompCharts.drawChart()
+    //     houseCompCharts.addTooltip('Units by Month:', 'thousands', 'year')
+    //   // houseCompCharts.tickNumber = 4;
+    //     houseCompCharts.showSelectedLabels([1, 3, 5, 7, 9, 11, 13, 15, 17, 19])
+    //   })
   }
 
   // setup chart and data for New Dwelling Completion by type chart
   // process the data
   if (document.getElementById('chart-newCompByType')) {
-  //   const newCompByTypeData = datafiles[10],
-  //     newCompByTypeType = newCompByTypeData.columns.slice(2),
-  //     newCompByTypeDate = newCompByTypeData.columns[0],
-  //     newCompByTypeRegions = newCompByTypeData.columns[1],
-  //     newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
-  //
-  //   // console.log('newCompByTypeData')
-  //   // console.log(newCompByTypeData[0])
-  //
-  //   newCompByTypeDataProcessed.forEach(d => {
-  //     d.label = d[newCompByTypeDate]
-  //     d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
-  //   })
-  //
-  //   // console.log('newCompByTypeDataProcessed')
-  //   // console.log(newCompByTypeDataProcessed[0])
-  //
-  //   const newCompByTypeContent = {
-  //     e: '#chart-newCompByType',
-  //     d: newCompByTypeDataProcessed,
-  //     k: newCompByTypeRegions,
-  //     xV: newCompByTypeDate,
-  //     yV: newCompByTypeType[0],
-  //     tX: 'Quarters',
-  //     tY: 'Numbers'
-  //   }
-  //
-  //   // console.log('newCompByTypeRegions')
-  //   // console.log(newCompByTypeRegions)
-  // // draw the chart
-  //   newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
-  //   newCompByTypeChart.drawChart()
-  //   newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
-  //
-  //   window.addEventListener('resize', () => {
-  //     newCompByTypeChart = new MultiLineChart(newCompByTypeContent)
-  //     newCompByTypeChart.drawChart()
-  //     newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
-  //   })
+    //   const newCompByTypeData = datafiles[10],
+    //     newCompByTypeType = newCompByTypeData.columns.slice(2),
+    //     newCompByTypeDate = newCompByTypeData.columns[0],
+    //     newCompByTypeRegions = newCompByTypeData.columns[1],
+    //     newCompByTypeDataProcessed = dataSets(newCompByTypeData, newCompByTypeType)
+    //
+    //   // console.log('newCompByTypeData')
+    //   // console.log(newCompByTypeData[0])
+    //
+    //   newCompByTypeDataProcessed.forEach(d => {
+    //     d.label = d[newCompByTypeDate]
+    //     d[newCompByTypeDate] = convertQuarter(d[newCompByTypeDate])
+    //   })
+    //
+    //   // console.log('newCompByTypeDataProcessed')
+    //   // console.log(newCompByTypeDataProcessed[0])
+    //
+    //   const newCompByTypeContent = {
+    //     e: '#chart-newCompByType',
+    //     d: newCompByTypeDataProcessed,
+    //     k: newCompByTypeRegions,
+    //     xV: newCompByTypeDate,
+    //     yV: newCompByTypeType[0],
+    //     tX: 'Quarters',
+    //     tY: 'Numbers'
+    //   }
+    //
+    //   // console.log('newCompByTypeRegions')
+    //   // console.log(newCompByTypeRegions)
+    // // draw the chart
+    //   newCompByTypeChart = new BCDMultiLineChart(newCompByTypeContent)
+    //   newCompByTypeChart.drawChart()
+    //   newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    //
+    //   window.addEventListener('resize', () => {
+    //     newCompByTypeChart = new BCDMultiLineChart(newCompByTypeContent)
+    //     newCompByTypeChart.drawChart()
+    //     newCompByTypeChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    //   })
   }
 
   // 2.  data processing for planning charts.
   if (document.getElementById('chart-planningDCC')) {
-  //   try {
-  //     const planningData = datafiles[1],
-  //       types = planningData.columns.slice(2),
-  //       date = planningData.columns[0],
-  //       planningDataProcessed = dataSets(planningData, types),
-  //
-  //       dcc = planningDataProcessed.filter(d => {
-  //         return d.region === 'Dublin'
-  //       }),
-  //       drcc = planningDataProcessed.filter(d => {
-  //         return d.region === 'Dun Laoghaire- Rathdown'
-  //       }),
-  //       fcc = planningDataProcessed.filter(d => {
-  //         return d.region === 'Fingal'
-  //       }),
-  //       sdcc = planningDataProcessed.filter(d => {
-  //         return d.region === 'South Dublin'
-  //       }),
-  //
-  //       dccContent = {
-  //         e: '#chart-planningDCC',
-  //         d: dcc,
-  //         ks: types,
-  //         xV: date,
-  //         tX: 'Years',
-  //         tY: 'Applications'
-  //     // ySF: "percentage"
-  //       },
-  //
-  //       drccContent = {
-  //         e: '#chart-planningDRCC',
-  //         d: drcc,
-  //         ks: types,
-  //         xV: date,
-  //         tX: 'Years',
-  //         tY: 'Applications'
-  //     // ySF: "percentage"
-  //       },
-  //
-  //       fccContent = {
-  //         e: '#chart-planningFCC',
-  //         d: fcc,
-  //         ks: types,
-  //         xV: date,
-  //         tX: 'Years',
-  //         tY: 'Applications'
-  //     // ySF: "percentage"
-  //       },
-  //
-  //       sdccContent = {
-  //         e: '#chart-planningSDCC',
-  //         d: sdcc,
-  //         ks: types,
-  //         xV: date,
-  //         tX: 'Years',
-  //         tY: 'Applications'
-  //     // ySF: "percentage"
-  //       }
-  //
-  //     planningTT = {
-  //       title: 'Planning Applications - Year',
-  //       datelabel: date,
-  //       format: 'thousands'
-  //     }
-  //
-  // // drawing charts for planning data.
-  //     dccChart = new GroupedBarChart(dccContent)
-  //     drccChart = new GroupedBarChart(drccContent)
-  //     fccChart = new GroupedBarChart(fccContent)
-  //     sdccChart = new GroupedBarChart(sdccContent)
-  //
-  //     function redraw () {
-  //       dccChart.drawChart()
-  //       drccChart.drawChart()
-  //       fccChart.drawChart()
-  //       sdccChart.drawChart()
-  //       dccChart.addTooltip(planningTT)
-  //       drccChart.addTooltip(planningTT)
-  //       fccChart.addTooltip(planningTT)
-  //       sdccChart.addTooltip(planningTT)
-  //     }
-  //     redraw()
-  //
-  //     window.addEventListener('resize', () => {
-  //       redraw()
-  //     })
-  //   } catch (e) {
-  //     console.log('error in housing.js' + e)
-  //     // console.log(e)
-  //   }
+    //   try {
+    //     const planningData = datafiles[1],
+    //       types = planningData.columns.slice(2),
+    //       date = planningData.columns[0],
+    //       planningDataProcessed = dataSets(planningData, types),
+    //
+    //       dcc = planningDataProcessed.filter(d => {
+    //         return d.region === 'Dublin'
+    //       }),
+    //       drcc = planningDataProcessed.filter(d => {
+    //         return d.region === 'Dun Laoghaire- Rathdown'
+    //       }),
+    //       fcc = planningDataProcessed.filter(d => {
+    //         return d.region === 'Fingal'
+    //       }),
+    //       sdcc = planningDataProcessed.filter(d => {
+    //         return d.region === 'South Dublin'
+    //       }),
+    //
+    //       dccContent = {
+    //         e: '#chart-planningDCC',
+    //         d: dcc,
+    //         ks: types,
+    //         xV: date,
+    //         tX: 'Years',
+    //         tY: 'Applications'
+    //     // ySF: "percentage"
+    //       },
+    //
+    //       drccContent = {
+    //         e: '#chart-planningDRCC',
+    //         d: drcc,
+    //         ks: types,
+    //         xV: date,
+    //         tX: 'Years',
+    //         tY: 'Applications'
+    //     // ySF: "percentage"
+    //       },
+    //
+    //       fccContent = {
+    //         e: '#chart-planningFCC',
+    //         d: fcc,
+    //         ks: types,
+    //         xV: date,
+    //         tX: 'Years',
+    //         tY: 'Applications'
+    //     // ySF: "percentage"
+    //       },
+    //
+    //       sdccContent = {
+    //         e: '#chart-planningSDCC',
+    //         d: sdcc,
+    //         ks: types,
+    //         xV: date,
+    //         tX: 'Years',
+    //         tY: 'Applications'
+    //     // ySF: "percentage"
+    //       }
+    //
+    //     planningTT = {
+    //       title: 'Planning Applications - Year',
+    //       datelabel: date,
+    //       format: 'thousands'
+    //     }
+    //
+    // // drawing charts for planning data.
+    //     dccChart = new GroupedBarChart(dccContent)
+    //     drccChart = new GroupedBarChart(drccContent)
+    //     fccChart = new GroupedBarChart(fccContent)
+    //     sdccChart = new GroupedBarChart(sdccContent)
+    //
+    //     function redraw () {
+    //       dccChart.drawChart()
+    //       drccChart.drawChart()
+    //       fccChart.drawChart()
+    //       sdccChart.drawChart()
+    //       dccChart.addTooltip(planningTT)
+    //       drccChart.addTooltip(planningTT)
+    //       fccChart.addTooltip(planningTT)
+    //       sdccChart.addTooltip(planningTT)
+    //     }
+    //     redraw()
+    //
+    //     window.addEventListener('resize', () => {
+    //       redraw()
+    //     })
+    //   } catch (e) {
+    //     console.log('error in housing.js' + e)
+    //     // console.log(e)
+    //   }
   }
 
   if (document.getElementById('chart-houseSupply')) {
@@ -225,7 +225,7 @@ Promise.all([
     //   tX: 'Years',
     //   tY: 'Hectares'
     // }
-    // supplyChart = new MultiLineChart(supplyContent)
+    // supplyChart = new BCDMultiLineChart(supplyContent)
     //
     // supplyChart.drawChart()
     // supplyChart.addTooltip('Land - Year', 'thousands', 'label')
@@ -258,44 +258,44 @@ Promise.all([
   // setup chart and data for annual contribution chart
   // process the data
   if (document.getElementById('chart-houseContributions')) {
-  //   const contributionData = datafiles[3],
-  //     contributionType = contributionData.columns.slice(2),
-  //     contributionDate = contributionData.columns[0],
-  //     contributionRegions = contributionData.columns[1],
-  //     contributionDataProcessed = dataSets(contributionData, contributionType)
-  //
-  //   contributionDataProcessed.forEach(d => {
-  //     d.label = d[contributionDate]
-  //     d[contributionDate] = parseYear(d[contributionDate])
-  //   })
-  //
-  //   const contriContent = {
-  //     e: '#chart-houseContributions',
-  //     d: contributionDataProcessed,
-  //     k: contributionRegions,
-  //     xV: contributionDate,
-  //     yV: 'value',
-  //     tX: 'Years',
-  //     tY: '€'
-  //   }
-  //
-  // // draw the chart
-  //   contributionChart = new MultiLineChart(contriContent)
-  //   function redraw () {
-  //     contributionChart.yScaleFormat = 'millions'
-  //     contributionChart.drawChart()
-  //     contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
-  //   }
-  //   redraw()
-  //
-  //   window.addEventListener('resize', () => {
-  //     redraw()
-  //   })
+    //   const contributionData = datafiles[3],
+    //     contributionType = contributionData.columns.slice(2),
+    //     contributionDate = contributionData.columns[0],
+    //     contributionRegions = contributionData.columns[1],
+    //     contributionDataProcessed = dataSets(contributionData, contributionType)
+    //
+    //   contributionDataProcessed.forEach(d => {
+    //     d.label = d[contributionDate]
+    //     d[contributionDate] = parseYear(d[contributionDate])
+    //   })
+    //
+    //   const contriContent = {
+    //     e: '#chart-houseContributions',
+    //     d: contributionDataProcessed,
+    //     k: contributionRegions,
+    //     xV: contributionDate,
+    //     yV: 'value',
+    //     tX: 'Years',
+    //     tY: '€'
+    //   }
+    //
+    // // draw the chart
+    //   contributionChart = new BCDMultiLineChart(contriContent)
+    //   function redraw () {
+    //     contributionChart.yScaleFormat = 'millions'
+    //     contributionChart.drawChart()
+    //     contributionChart.addTooltip('In Millions - Year ', 'millions', 'label', '€')
+    //   }
+    //   redraw()
+    //
+    //   window.addEventListener('resize', () => {
+    //     redraw()
+    //   })
   }
 
   if (document.getElementById('chart-house-prices')) {
-  // setup chart and data for quarterly house prices chart
-  // process the data
+    // setup chart and data for quarterly house prices chart
+    // process the data
     const housePricesData = datafiles[4],
       housePricesType = housePricesData.columns.slice(2),
       housePricesDate = housePricesData.columns[0],
@@ -318,10 +318,10 @@ Promise.all([
       tY: '€'
     }
 
-  // draw the chart
-    housePricesChart = new MultiLineChart(housePricesContent)
+    // draw the chart
+    housePricesChart = new BCDMultiLineChart(housePricesContent)
 
-    function redraw () {
+    function redraw() {
       housePricesChart.ySF = 'millions'
       housePricesChart.drawChart()
       housePricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
@@ -334,29 +334,29 @@ Promise.all([
   }
 
   if (document.getElementById('chart-HPM06')) {
-  // new chart Price Index
-  //   const HPM06 = datafiles[11],
-  //     HPM06R = HPM06.columns[1],
-  //     HPM06V = HPM06.columns[2],
-  //     HPM06V2 = HPM06.columns[3],
-  //     HPM06V3 = HPM06.columns[3],
-  //     HPM06D = HPM06.columns[0]
-  //
-  // // create content object
-  //   const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
-  //   HPM06Content.tX = 'Months'
-  //   HPM06Content.tY = 'Price Index (Base 100)'
-  //
-  // // draw the chart
-  //   HPM06Charts = new MultiLineChart(HPM06Content)
-  //   function redraw () {
-  //     HPM06Charts.drawChart() // draw axis
-  //     HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
-  //     HPM06Charts.addBaseLine(100) // add horizontal baseline
-  //   }
-  //   window.addEventListener('resize', () => {
-  //     redraw()
-  //   })
+    // new chart Price Index
+    //   const HPM06 = datafiles[11],
+    //     HPM06R = HPM06.columns[1],
+    //     HPM06V = HPM06.columns[2],
+    //     HPM06V2 = HPM06.columns[3],
+    //     HPM06V3 = HPM06.columns[3],
+    //     HPM06D = HPM06.columns[0]
+    //
+    // // create content object
+    //   const HPM06Content = chartContent(HPM06, HPM06R, HPM06V, HPM06D, '#chart-HPM06')
+    //   HPM06Content.tX = 'Months'
+    //   HPM06Content.tY = 'Price Index (Base 100)'
+    //
+    // // draw the chart
+    //   HPM06Charts = new BCDMultiLineChart(HPM06Content)
+    //   function redraw () {
+    //     HPM06Charts.drawChart() // draw axis
+    //     HPM06Charts.addTooltip('Price Index - ', '', 'label') // add tooltip
+    //     HPM06Charts.addBaseLine(100) // add horizontal baseline
+    //   }
+    //   window.addEventListener('resize', () => {
+    //     redraw()
+    //   })
   }
 
   if (document.getElementById('chart-HPM06') && document.getElementById('chart-house-prices')) {
@@ -387,79 +387,79 @@ Promise.all([
   }
 
   if (document.getElementById('chart-rent-prices')) {
-  //   const rentPricesData = datafiles[5],
-  //     rentPricesType = rentPricesData.columns.slice(2),
-  //     rentPricesDate = rentPricesData.columns[0],
-  //     rentPricesRegions = rentPricesData.columns[1],
-  //     rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType)
-  //
-  //   rentPricesDataProcessed.forEach(d => {
-  //     d.label = d[rentPricesDate]
-  //     d[rentPricesDate] = convertQuarter(d[rentPricesDate])
-  //   })
-  //
-  // // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
-  //
-  //   const rentPricesContent = {
-  //     e: '#chart-rent-prices',
-  //     d: rentPricesDataProcessed,
-  //     k: rentPricesRegions,
-  //     xV: rentPricesDate,
-  //     yV: 'value',
-  //     tX: 'Quarters',
-  //     tY: '€'
-  //   }
-  //
-  //   rentPricesChart = new MultiLineChart(rentPricesContent)
-  //   function redraw () {
-  //     rentPricesChart.drawChart()
-  //     rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
-  //   }
-  //   redraw()
-  //
-  //   window.addEventListener('resize', () => {
-  //     redraw()
-  //   })
+    //   const rentPricesData = datafiles[5],
+    //     rentPricesType = rentPricesData.columns.slice(2),
+    //     rentPricesDate = rentPricesData.columns[0],
+    //     rentPricesRegions = rentPricesData.columns[1],
+    //     rentPricesDataProcessed = dataSets(rentPricesData, rentPricesType)
+    //
+    //   rentPricesDataProcessed.forEach(d => {
+    //     d.label = d[rentPricesDate]
+    //     d[rentPricesDate] = convertQuarter(d[rentPricesDate])
+    //   })
+    //
+    // // console.log("\n\nrentPricesDataProcessed: " + JSON.stringify(rentPricesDataProcessed));
+    //
+    //   const rentPricesContent = {
+    //     e: '#chart-rent-prices',
+    //     d: rentPricesDataProcessed,
+    //     k: rentPricesRegions,
+    //     xV: rentPricesDate,
+    //     yV: 'value',
+    //     tX: 'Quarters',
+    //     tY: '€'
+    //   }
+    //
+    //   rentPricesChart = new BCDMultiLineChart(rentPricesContent)
+    //   function redraw () {
+    //     rentPricesChart.drawChart()
+    //     rentPricesChart.addTooltip('In thousands - ', 'thousands', 'label', '€')
+    //   }
+    //   redraw()
+    //
+    //   window.addEventListener('resize', () => {
+    //     redraw()
+    //   })
   }
 
   //  Setup data and chart for rent prices by quarter by bed numbers
   if (document.getElementById('chart-rent-by-beds')) {
-  //   try {
-  //     const rentByBedsData = datafiles[6],
-  //       rentByBedsTypes = rentByBedsData.columns.slice(2),
-  //       rentByBedsDate = rentByBedsData.columns[0],
-  //       rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
-  //
-  //       rentByBedContent = {
-  //         e: '#chart-rent-by-beds',
-  //         d: rentByBedsDataProcessed,
-  //         ks: rentByBedsTypes,
-  //         xV: rentByBedsDate,
-  //         tX: 'Quarters',
-  //         tY: 'Price',
-  //         ySF: 'euros'
-  //       }
-  //
-  //     rentByBedTT = {
-  //       title: 'Rent Prices - Year:',
-  //       datelabel: rentByBedsDate,
-  //       format: 'euros2'
-  //     }
-  //
-  // // drawing charts for planning data.
-  //     rentByBedsChart = new GroupedBarChart(rentByBedContent)
-  //     function redraw () {
-  //       rentByBedsChart.drawChart()
-  //       rentByBedsChart.addTooltip(rentByBedTT)
-  //     }
-  //
-  //     window.addEventListener('resize', () => {
-  //       redraw()
-  //     })
-  //   } catch (e) {
-  //     console.log('error in rent charts')
-  //     console.log(e)
-  //   }
+    //   try {
+    //     const rentByBedsData = datafiles[6],
+    //       rentByBedsTypes = rentByBedsData.columns.slice(2),
+    //       rentByBedsDate = rentByBedsData.columns[0],
+    //       rentByBedsDataProcessed = dataSets(rentByBedsData, rentByBedsTypes),
+    //
+    //       rentByBedContent = {
+    //         e: '#chart-rent-by-beds',
+    //         d: rentByBedsDataProcessed,
+    //         ks: rentByBedsTypes,
+    //         xV: rentByBedsDate,
+    //         tX: 'Quarters',
+    //         tY: 'Price',
+    //         ySF: 'euros'
+    //       }
+    //
+    //     rentByBedTT = {
+    //       title: 'Rent Prices - Year:',
+    //       datelabel: rentByBedsDate,
+    //       format: 'euros2'
+    //     }
+    //
+    // // drawing charts for planning data.
+    //     rentByBedsChart = new GroupedBarChart(rentByBedContent)
+    //     function redraw () {
+    //       rentByBedsChart.drawChart()
+    //       rentByBedsChart.addTooltip(rentByBedTT)
+    //     }
+    //
+    //     window.addEventListener('resize', () => {
+    //       redraw()
+    //     })
+    //   } catch (e) {
+    //     console.log('error in rent charts')
+    //     console.log(e)
+    //   }
   }
 
   if (document.getElementById('chart-rent-prices') && document.getElementById('chart-rent-by-beds')) {
@@ -485,135 +485,135 @@ Promise.all([
 
   //  Setup data and chart for rent prices by quarter by bed numbers
   if (document.getElementById('chart-rentInspect')) {
-  //   const rentInspectData = datafiles[7],
-  //     rentInspectTypes = rentInspectData.columns.slice(1),
-  //     rentInspectDate = rentInspectData.columns[0],
-  //     rentInspectDataProcessed = dataSets(rentInspectData, rentInspectTypes),
-  //
-  //     rentInspectContent = {
-  //       e: '#chart-rentInspect',
-  //       d: rentInspectDataProcessed,
-  //       ks: rentInspectTypes,
-  //       xV: rentInspectDate,
-  //       tX: 'Years',
-  //       tY: 'Inspections'
-  //     },
-  //
-  //     rentInspectTT = {
-  //       title: 'Rent Inspections - Year:',
-  //       datelabel: rentInspectDate,
-  //       format: 'thousands'
-  //     }
-  //
-  // // console.log("rentInspect data processed", rentInspectDataProcessed);
-  // // drawing charts for planning data.
-  // //          rentInspectChart = new GroupedBarChart(rentInspectContent);
-  // //          rentInspectChart.addTooltip(rentInspectTT);
-  //
+    //   const rentInspectData = datafiles[7],
+    //     rentInspectTypes = rentInspectData.columns.slice(1),
+    //     rentInspectDate = rentInspectData.columns[0],
+    //     rentInspectDataProcessed = dataSets(rentInspectData, rentInspectTypes),
+    //
+    //     rentInspectContent = {
+    //       e: '#chart-rentInspect',
+    //       d: rentInspectDataProcessed,
+    //       ks: rentInspectTypes,
+    //       xV: rentInspectDate,
+    //       tX: 'Years',
+    //       tY: 'Inspections'
+    //     },
+    //
+    //     rentInspectTT = {
+    //       title: 'Rent Inspections - Year:',
+    //       datelabel: rentInspectDate,
+    //       format: 'thousands'
+    //     }
+    //
+    // // console.log("rentInspect data processed", rentInspectDataProcessed);
+    // // drawing charts for planning data.
+    // //          rentInspectChart = new GroupedBarChart(rentInspectContent);
+    // //          rentInspectChart.addTooltip(rentInspectTT);
+    //
   }
 
   // process the data
   if (document.getElementById('chart-houseCompByType')) {
-  //   const hCBTData = datafiles[8],
-  //     hCBTType = hCBTData.columns.slice(2),
-  //     hCBTDate = hCBTData.columns[0],
-  //     hCBTRegions = hCBTData.columns[1],
-  //     hCBTDataProcessed = dataSets(hCBTData, hCBTType)
-  //
-  //   hCBTDataProcessed.forEach(d => {
-  //     d.label = (d[hCBTDate])
-  //     d[hCBTDate] = convertQuarter(d[hCBTDate])
-  //   })
-  //
-  //   const hCBTContent = {
-  //     e: '#chart-houseCompByType',
-  //     d: hCBTDataProcessed,
-  //     k: hCBTRegions,
-  //     xV: hCBTDate,
-  //     yV: hCBTType[0],
-  //     tX: 'Quarters',
-  //     tY: 'Numbers'
-  //   }
-  //
-  // // draw the chart
-  //   hCBTChart = new MultiLineChart(hCBTContent)
-  //   function redraw () {
-  //     hCBTChart.drawChart()
-  //     hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
-  //   }
-  //   redraw()
-  //   window.addEventListener('resize', () => {
-  //     redraw()
-  //   })
+    //   const hCBTData = datafiles[8],
+    //     hCBTType = hCBTData.columns.slice(2),
+    //     hCBTDate = hCBTData.columns[0],
+    //     hCBTRegions = hCBTData.columns[1],
+    //     hCBTDataProcessed = dataSets(hCBTData, hCBTType)
+    //
+    //   hCBTDataProcessed.forEach(d => {
+    //     d.label = (d[hCBTDate])
+    //     d[hCBTDate] = convertQuarter(d[hCBTDate])
+    //   })
+    //
+    //   const hCBTContent = {
+    //     e: '#chart-houseCompByType',
+    //     d: hCBTDataProcessed,
+    //     k: hCBTRegions,
+    //     xV: hCBTDate,
+    //     yV: hCBTType[0],
+    //     tX: 'Quarters',
+    //     tY: 'Numbers'
+    //   }
+    //
+    // // draw the chart
+    //   hCBTChart = new BCDMultiLineChart(hCBTContent)
+    //   function redraw () {
+    //     hCBTChart.drawChart()
+    //     hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    //   }
+    //   redraw()
+    //   window.addEventListener('resize', () => {
+    //     redraw()
+    //   })
 
-  // d3.select('#houseCompByType_total').on('click', function () {
-  //   activeBtn(this)
-  //
-  //   hCBTChart.yV = hCBTType[0]
-  //   hCBTChart.updateChart()
-  //   hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
-  //   hCBTChart.hideRate(false)
-  // })
-  //
-  // d3.select('#houseCompByType_private').on('click', function () {
-  //   activeBtn(this)
-  //
-  //   hCBTChart.yV = hCBTType[1]
-  //   hCBTChart.updateChart()
-  //   hCBTChart.addTooltip('Private Houses - ', 'thousands', 'label')
-  //   hCBTChart.hideRate(false)
-  // })
-  //
-  // d3.select('#houseCompByType_social').on('click', function () {
-  //   activeBtn(this)
-  //
-  //   hCBTChart.yV = hCBTType[2]
-  //   hCBTChart.updateChart()
-  //   hCBTChart.addTooltip('Social Houses - ', 'thousands', 'label')
-  //   hCBTChart.hideRate(true)
-  // })
+    // d3.select('#houseCompByType_total').on('click', function () {
+    //   activeBtn(this)
+    //
+    //   hCBTChart.yV = hCBTType[0]
+    //   hCBTChart.updateChart()
+    //   hCBTChart.addTooltip('Total Houses - ', 'thousands', 'label')
+    //   hCBTChart.hideRate(false)
+    // })
+    //
+    // d3.select('#houseCompByType_private').on('click', function () {
+    //   activeBtn(this)
+    //
+    //   hCBTChart.yV = hCBTType[1]
+    //   hCBTChart.updateChart()
+    //   hCBTChart.addTooltip('Private Houses - ', 'thousands', 'label')
+    //   hCBTChart.hideRate(false)
+    // })
+    //
+    // d3.select('#houseCompByType_social').on('click', function () {
+    //   activeBtn(this)
+    //
+    //   hCBTChart.yV = hCBTType[2]
+    //   hCBTChart.updateChart()
+    //   hCBTChart.addTooltip('Social Houses - ', 'thousands', 'label')
+    //   hCBTChart.hideRate(true)
+    // })
   }
 
   // setup chart and data for esb non new connections of land chart
   // process the data
   if (document.getElementById('chart-nonNewConnections')) {
-  //   const nonNewConnectionsData = datafiles[9],
-  //     nonNewConnectionsType = nonNewConnectionsData.columns.slice(2),
-  //     nonNewConnectionsDate = nonNewConnectionsData.columns[0],
-  //     nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
-  //     nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
-  //     nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type))
-  //
-  //   nonNewConnectionsDataProcessed.forEach(d => {
-  //     d.label = (d[nonNewConnectionsDate])
-  //     d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate])
-  //   })
-  //
-  //   let nonNewCon = nestData(nonNewConnectionsDataProcessed, 'label', nonNewConnectionsRegions, 'value'),
-  //     nonNewGroupContent = {
-  //       e: '#chart-nonNewConnections',
-  //       d: nonNewCon,
-  //       ks: nonNewGroup,
-  //       xV: nonNewConnectionsDate,
-  //       tX: 'Quarters',
-  //       tY: 'Numbers',
-  //       ySF: 'millions'
-  //     }
-  //
-  // //  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
-  // //
-  // //  nonNewConnectionsChart.tickNumber = 20;
-  // //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
-  //
-  //   window.addEventListener('resize', () => {
-  //
-  //   })
+    //   const nonNewConnectionsData = datafiles[9],
+    //     nonNewConnectionsType = nonNewConnectionsData.columns.slice(2),
+    //     nonNewConnectionsDate = nonNewConnectionsData.columns[0],
+    //     nonNewConnectionsRegions = nonNewConnectionsData.columns[1],
+    //     nonNewConnectionsDataProcessed = dataSets(nonNewConnectionsData, nonNewConnectionsType),
+    //     nonNewGroup = getKeys(nonNewConnectionsData.map(o => o.type))
+    //
+    //   nonNewConnectionsDataProcessed.forEach(d => {
+    //     d.label = (d[nonNewConnectionsDate])
+    //     d[nonNewConnectionsDate] = convertQuarter(d[nonNewConnectionsDate])
+    //   })
+    //
+    //   let nonNewCon = nestData(nonNewConnectionsDataProcessed, 'label', nonNewConnectionsRegions, 'value'),
+    //     nonNewGroupContent = {
+    //       e: '#chart-nonNewConnections',
+    //       d: nonNewCon,
+    //       ks: nonNewGroup,
+    //       xV: nonNewConnectionsDate,
+    //       tX: 'Quarters',
+    //       tY: 'Numbers',
+    //       ySF: 'millions'
+    //     }
+    //
+    // //  const nonNewConnectionsChart = new StackedAreaChart(nonNewGroupContent);
+    // //
+    // //  nonNewConnectionsChart.tickNumber = 20;
+    // //  nonNewConnectionsChart.addTooltip("House Type -", "Units", "label");
+    //
+    //   window.addEventListener('resize', () => {
+    //
+    //   })
   }
 }).catch(function (error) {
   console.log(error)
 })
 
-function convertQuarter (q) {
+function convertQuarter(q) {
   let splitted = q.split('Q')
   let year = splitted[0]
   let quarterEndMonth = splitted[1] * 3 - 2
@@ -621,7 +621,7 @@ function convertQuarter (q) {
   return date
 }
 
-function qToQuarter (q) {
+function qToQuarter(q) {
   let splitted = q.split('Q')
   let year = splitted[0]
   let quarter = splitted[1]
@@ -629,7 +629,7 @@ function qToQuarter (q) {
   return quarterString
 }
 
-function dataSets (data, columns) {
+function dataSets(data, columns) {
   let coercedData = data.map(d => {
     for (var i = 0, n = columns.length; i < n; i++) {
       // d[columns[i]] !== "null" ? d[columns[i]] = +d[columns[i]] : d[columns[i]] = "unavailable";
@@ -640,7 +640,7 @@ function dataSets (data, columns) {
   return coercedData
 }
 
-function formatQuarter (date) {
+function formatQuarter(date) {
   let newDate = new Date()
   newDate.setMonth(date.getMonth() + 1)
   let year = (date.getFullYear())
@@ -648,19 +648,19 @@ function formatQuarter (date) {
   return 'Quarter ' + q + ' ' + year
 }
 
-function filterbyDate (data, dateField, date) {
+function filterbyDate(data, dateField, date) {
   return data.filter(d => {
     return d[dateField] >= new Date(date)
   })
 }
 
-function filterByDateRange (data, dateField, dateOne, dateTwo) {
+function filterByDateRange(data, dateField, dateOne, dateTwo) {
   return data.filter(d => {
     return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo)
   })
 }
 
-function nestData (data, label, name, value) {
+function nestData(data, label, name, value) {
   let nested_data = d3.nest()
     .key(function (d) {
       return d[label]
@@ -680,7 +680,7 @@ function nestData (data, label, name, value) {
   return mqpdata
 }
 
-function chartContent (data, key, value, date, selector) {
+function chartContent(data, key, value, date, selector) {
   data.forEach(function (d) { // could pass types array and coerce each matching key using dataSets()
     d.label = d[date]
     d.date = parseYearMonth(d[date])
@@ -708,7 +708,7 @@ function chartContent (data, key, value, date, selector) {
 
 const parseYearMonth = d3.timeParse('%Y-%b') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
 
-function activeBtn (e) {
+function activeBtn(e) {
   let btn = e
   $(btn).siblings().removeClass('active')
   $(btn).addClass('active')

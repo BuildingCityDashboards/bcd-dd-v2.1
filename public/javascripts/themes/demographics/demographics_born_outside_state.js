@@ -9,7 +9,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
 (async () => {
   const parseYear = d3.timeParse('%Y')
   const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // CNA31: Populaton by Country of Birth, County and Year
   const TABLE_CODE = 'CNA31' // gives no of outsideState and ave household size
   const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
@@ -39,15 +39,15 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     { type: 'arrobj' },
     (d, i) => {
       if (
-      // d[DIMENSION] === 'State'||
-      // (d[dimensions[0]] === categoriesOfCountry[0] ||
+        // d[DIMENSION] === 'State'||
+        // (d[dimensions[0]] === categoriesOfCountry[0] ||
         (d[dimensions[0]] === categoriesOfCountry[0] ||
-        d[dimensions[0]] === categoriesOfCountry[5] ||
-        d[dimensions[0]] === categoriesOfCountry[8] ||
-        d[dimensions[0]] === categoriesOfCountry[9]) &&
-      (d.County === 'Dublin' ||
-        d.County === 'State') &&
-      +d.Year >= 1991) {
+          d[dimensions[0]] === categoriesOfCountry[5] ||
+          d[dimensions[0]] === categoriesOfCountry[8] ||
+          d[dimensions[0]] === categoriesOfCountry[9]) &&
+        (d.County === 'Dublin' ||
+          d.County === 'State') &&
+        +d.Year >= 1991) {
         d.date = parseYear(+d.Year)
         d.label = +d.Year
         d.value = +d.value / 1000
@@ -73,7 +73,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     tY: 'Population (thousands)'
   }
   //
-  const bornOutsideDublinChart = new MultiLineChart(bornOutsideDublin)
+  const bornOutsideDublinChart = new BCDMultiLineChart(bornOutsideDublin)
 
   // bornOutsideDublinChart.tickNumber = 31
   bornOutsideDublinChart.drawChart()
@@ -95,7 +95,7 @@ import { activeBtn } from '../../modules/bcd-ui.js'
     tY: 'Population (thousands)'
   }
 
-  const bornOutsideStateChart = new MultiLineChart(bornOutsideState)
+  const bornOutsideStateChart = new BCDMultiLineChart(bornOutsideState)
   bornOutsideStateChart.drawChart()
   bornOutsideStateChart.addTooltip('Population (thousands) in census year ', '', 'label')
 

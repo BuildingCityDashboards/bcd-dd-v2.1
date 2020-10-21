@@ -33,8 +33,8 @@ Promise.all([
         tX: 'Quarter',
         tY: 'Passengers (millions)'
       }
-      airportPaxCountChart = new MultiLineChart(airportPaxCount)
-      function redraw () {
+      airportPaxCountChart = new BCDMultiLineChart(airportPaxCount)
+      function redraw() {
         airportPaxCountChart.drawChart()
         airportPaxCountChart.addTooltip('Millions of passengers, ', '', 'label')
       }

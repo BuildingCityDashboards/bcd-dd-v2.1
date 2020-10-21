@@ -8,7 +8,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
   const parseYear = d3.timeParse('%Y')
 
   const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   const TABLE_CODE = 'RAA06'
   const STAT = 'Gross Value Added (GVA) per person at Basic Prices (Euro)'
   // document.getElementById('chart-gva').innerHTML = 'Fetching data from CSO...'
@@ -21,9 +21,9 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
       { type: 'arrobj' },
       (d, i) => {
         if ((d.Region === 'Dublin' ||
-       d.Region === 'Dublin and Mid-East' ||
-       d.Region === 'State') &&
-       d.Statistic === STAT) {
+          d.Region === 'Dublin and Mid-East' ||
+          d.Region === 'State') &&
+          d.Statistic === STAT) {
           d.label = d.Year
           d.date = parseYear(+d.Year)
           d.value = +d.value
@@ -44,9 +44,9 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 
     }
 
-    const gvaChart = new MultiLineChart(gvaContent)
+    const gvaChart = new BCDMultiLineChart(gvaContent)
 
-    function redraw () {
+    function redraw() {
       // let spinner = document.getElementById('grossValue').getElementsByClassName('theme__text-chart__spinner')[0]
       // spinner.style.display = 'none'
       // let plot = document.getElementById('chart-gva')

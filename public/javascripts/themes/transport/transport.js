@@ -4,8 +4,8 @@
 Promise.all([
   d3.json("/data/Transport/bikes_dummy_availability_day_hourly.json")
 ]).then(data => {
-   // d3.select('#').selectAll(".chart-holder").style("background-image", "none");
-   // d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
+  // d3.select('#').selectAll(".chart-holder").style("background-image", "none");
+  // d3.selectAll(".chart-holder_PH").attr("class","chart-holder");
   console.log("Bikes theme data: " + JSON.stringify(data));
   // data.length = 1;
   // data[0].length = 20; //readings for each hour?
@@ -33,7 +33,7 @@ Promise.all([
   //     tY: "€"
   //   },
   //
-  //   rentPricesChart = new MultiLineChart(rentPricesContent);
+  //   rentPricesChart = new BCDMultiLineChart(rentPricesContent);
   // rentPricesChart.drawChart();
   // rentPricesChart.addTooltip("In thousands - ", "thousands", "label", "€");
 
@@ -44,10 +44,10 @@ Promise.all([
   //   d.year = formatYear(d[dateField]);
   // });
   //
-  // const dublinbikesChart = new MultiLineChart(houseCompContent);
+  // const dublinbikesChart = new BCDMultiLineChart(houseCompContent);
   // houseCompCharts.addTooltip("Units by Month:", "thousands", "year");
 
-  d3.select("#dublinbikes_day").on("click", function() {
+  d3.select("#dublinbikes_day").on("click", function () {
     activeBtn(this);
     // hCBTChart.yV = hCBTType[0];
     // hCBTChart.updateChart();
@@ -55,7 +55,7 @@ Promise.all([
     // hCBTChart.hideRate(false);
   });
 
-  d3.select("#dublinbikes_week").on("click", function() {
+  d3.select("#dublinbikes_week").on("click", function () {
     activeBtn(this);
 
     // hCBTChart.yV = hCBTType[1];
@@ -64,7 +64,7 @@ Promise.all([
     // hCBTChart.hideRate(false);
   });
 
-  d3.select("#dublinbikes_month").on("click", function() {
+  d3.select("#dublinbikes_month").on("click", function () {
     activeBtn(this);
     // hCBTChart.yV = hCBTType[2];
     // hCBTChart.updateChart();
@@ -72,7 +72,7 @@ Promise.all([
     // hCBTChart.hideRate(true);
   });
 
-  d3.select("#dublinbikes_year").on("click", function() {
+  d3.select("#dublinbikes_year").on("click", function () {
     activeBtn(this);
     // hCBTChart.yV = hCBTType[2];
     // hCBTChart.updateChart();
@@ -83,14 +83,14 @@ Promise.all([
 
   // add buttons to switch between total, housing and apartments
 
-  d3.select(window).on("resize", function() {
+  d3.select(window).on("resize", function () {
     // supplyChart.drawChart();
     // contributionChart.drawChart();
     // housePricesChart.drawChart();
     // rentPricesChart.drawChart();
   });
 
-}).catch(function(error) {
+}).catch(function (error) {
   console.log(error);
 });
 
@@ -145,16 +145,16 @@ function filterByDateRange(data, dateField, dateOne, dateTwo) {
 
 function nestData(data, label, name, value) {
   let nested_data = d3.nest()
-    .key(function(d) {
+    .key(function (d) {
       return d[label];
     })
     .entries(data); // its the string not the date obj
 
-  let mqpdata = nested_data.map(function(d) {
+  let mqpdata = nested_data.map(function (d) {
     let obj = {
       label: d.key
     }
-    d.values.forEach(function(v) {
+    d.values.forEach(function (v) {
       obj[v[name]] = v[value];
       obj.date = v.date;
     })
@@ -165,7 +165,7 @@ function nestData(data, label, name, value) {
 
 function chartContent(data, key, value, date, selector) {
 
-  data.forEach(function(d) { //could pass types array and coerce each matching key using dataSets()
+  data.forEach(function (d) { //could pass types array and coerce each matching key using dataSets()
     d.label = d[date];
     d.date = parseYearMonth(d[date]);
     d[value] = +d[value];
@@ -202,7 +202,7 @@ function activeBtn(e) {
 function processLatestBikes(data_) {
   let bikeStands = 0;
   //console.log("Bike data \n");
-  data_.forEach(function(d) {
+  data_.forEach(function (d) {
     d.lat = +d.position.lat;
     d.lng = +d.position.lng;
     //add a property to act as key for filtering
@@ -865,7 +865,7 @@ function processLatestBikes(data_) {
 /************************************
  * Button listeners
  ************************************/
-d3.select(".public_transport_bikes").on("click", function() {
+d3.select(".public_transport_bikes").on("click", function () {
   //    console.log("bikes");
   bikesMap.removeLayer(busCluster);
   bikesMap.removeLayer(luasCluster);
@@ -874,7 +874,7 @@ d3.select(".public_transport_bikes").on("click", function() {
   }
   bikesMap.fitBounds(bikeCluster.getBounds());
 });
-d3.select(".public_transport_buses").on("click", function() {
+d3.select(".public_transport_buses").on("click", function () {
   //    console.log("buses");
   publicMap.removeLayer(bikeCluster);
   publicMap.removeLayer(luasCluster);
@@ -883,7 +883,7 @@ d3.select(".public_transport_buses").on("click", function() {
   }
   publicMap.fitBounds(busCluster.getBounds());
 });
-d3.select(".public_transport_luas").on("click", function() {
+d3.select(".public_transport_luas").on("click", function () {
   //    console.log("luas");
   publicMap.removeLayer(bikeCluster);
   publicMap.removeLayer(busCluster);
@@ -892,7 +892,7 @@ d3.select(".public_transport_luas").on("click", function() {
   }
   publicMap.fitBounds(luasCluster.getBounds());
 });
-d3.select(".public_transport_all").on("click", function() {
+d3.select(".public_transport_all").on("click", function () {
   //    console.log("all");
   if (!publicMap.hasLayer(busCluster)) {
     publicMap.addLayer(busCluster);
@@ -905,7 +905,7 @@ d3.select(".public_transport_all").on("click", function() {
   }
   publicMap.fitBounds(busCluster.getBounds());
 });
-d3.select(".parking_multi").on("click", function() {
+d3.select(".parking_multi").on("click", function () {
   //    console.log("bikes");
   //    parkingMap.removeLayer(busCluster);
   //    parkingMap.removeLayer(luasCluster);
