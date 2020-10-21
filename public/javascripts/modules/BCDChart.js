@@ -28,10 +28,10 @@ class BCDChart {
       left: 64
     }
 
-    this.d = options.data // the data
-    this.e = options.elementId // selector element
-    this.k = options.tracekey // trace key
-    this.ks = options.tracenames // array of trace names
+    this.d = options.data || options.d// the data
+    this.e = options.elementId || options.e // selector element
+    this.k = options.tracekey || options.k // trace key
+    this.ks = options.tracenames || options.ks// array of trace names
     this.cS = options.colourscheme // colour scheme
 
     this.xV = options.xV // x value
@@ -53,7 +53,7 @@ class BCDChart {
     const aR = eW < 768 ? eW * 0.55 : eW * 0.5
     const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
-    const bP = 450
+    const bP = 414 // 414 is IPhone 6/7/8+
 
     // console.log("ew: " + eW);
     // margins
@@ -296,6 +296,8 @@ class BCDChart {
   // check if the data needs to be nested or not!!
   nestData () {
     const c = this
+    console.log(c.e)
+    console.log(c.d)
     c.d = c.d[0].key ? c.d : c.nest(c.d, c.k)
   }
 

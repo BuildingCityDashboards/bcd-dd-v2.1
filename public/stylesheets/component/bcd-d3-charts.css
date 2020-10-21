@@ -194,10 +194,9 @@
   position: static;
   width: 100%;
   height: auto;
-  overflow-y: scroll;
+  overflow-y: auto;
   /* max-height: 100px; */
   padding: 4px;
-  /* border         : solid 1px rgba(255, 255, 255, 0.12); */
   border-radius: 4px;
   pointer-events: none;
   font-family: 'Roboto';
@@ -214,7 +213,6 @@
 }
 
 .tip-box {
-  opacity: 0.75;
   width: 18px;
   height: 18px;
   margin-right: 5px;
@@ -293,23 +291,18 @@
 } */
 
 
-@media (min-width: 768px) {
+@media (min-device-width: 768px) {
   .tool-tip {
     position: relative;
     width: 305px;
     max-height: 300px;
     height: auto;
-    padding: 8px;
-
-    /* background-color: rgba(0, 0 ,0, 0.95); */
-    border: solid 1px rgba(255, 255, 255, 0.12);
-    opacity: 0.98;
-    padding-right: 0;
+    padding: 12px;
+    opacity: 0.85;
     visibility: visible;
-    overflow-y: visible;
+    overflow-y: auto;
     /* display: none; */
     display: block;
-
   }
 
   .focus {
@@ -321,22 +314,4 @@
   }
 }
 
-/* @media (min-width: 1280px){
-  .tool-tip{
-    position: relative;
-    width: 305px;
-    max-height: none;
-    height: auto;
-    padding: 8px;
-
-    padding-right: 0;
-    visibility: visible;
-    overflow-y: visible;
-  }
-  .focus{
-    visibility: hidden;
-  }
-  .legendText{
-    display:block;
-  }
-} */
+@media (min-device-width: 1280px) {}
