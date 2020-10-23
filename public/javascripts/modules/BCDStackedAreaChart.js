@@ -451,7 +451,7 @@ class BCDStackedAreaChart extends BCDChart {
     c.drawFocus()
   }
 
-  drawFocusOverlay () {
+  drawFocusOverlay () { 
     const c = this
     const g = c.g
     const focus = c.focus
@@ -641,30 +641,6 @@ class BCDStackedAreaChart extends BCDChart {
         }
       }
     })
-  }
-
-  formatValue (format) {
-    // formats thousands, Millions, Euros and Percentage
-    switch (format) {
-      case 'millions':
-        return d3.format('.2s')
-        break
-
-      case 'euros':
-        return 'undefined'
-        break
-
-      case 'thousands':
-        return d3.format(',')
-        break
-
-      case 'percentage':
-        return d3.format('.2%')
-        break
-
-      default:
-        return 'undefined'
-    }
   }
 
   formatQuarter (date, i) {

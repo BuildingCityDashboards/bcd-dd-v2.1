@@ -68,8 +68,8 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
         tY: 'Employees',
         margins: {
           left: 72
-        }
-      // , formaty: 'hundredThousandsShort'
+        }, 
+        formaty: 'hundredThousandsShort'
       }
       const employmentServiceChart = new BCDStackedAreaChart(employmentService)
 
