@@ -32,9 +32,8 @@ Promise.all([
       xV: 'date',
       yV: pupilsPrimaryColNames,
       tX: 'Years',
-      tY: 'No. of Pupils'
-      // ,
-      // formaty: 'hundredThousandsShort'
+      tY: 'No. of Pupils',
+      formaty: 'hundredThousandsShort'
     }
 
     // let pupilsPrimaryToolTip = {
@@ -71,7 +70,8 @@ Promise.all([
       xV: pupilsSecondary.columns[0],
       yV: pupilsSecondaryColNames,
       tX: 'Years',
-      tY: 'No. of Pupils'
+      tY: 'No. of Pupils',
+      formaty: 'hundredThousandsShort'
     }
 
     pupilsSecondaryChart = new BCDStackedAreaChart(pupilsSecondaryPlot)
