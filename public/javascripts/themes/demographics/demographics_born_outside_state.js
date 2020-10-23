@@ -109,7 +109,7 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
       activeBtn(this)
       d3.select('#chart-' + chart1).style('display', 'block')
       d3.select('#chart-' + chart2).style('display', 'none')
-      redraw(bornOutsideDublinChart)
+      // redraw(bornOutsideDublinChart)
     })
 
     d3.select('#btn-' + chart2).on('click', function () {

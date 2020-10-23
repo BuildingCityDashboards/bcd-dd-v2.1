@@ -293,12 +293,13 @@
 
 @media (min-device-width: 768px) {
   .tool-tip {
+    background: #1c2022;
     position: relative;
     width: 305px;
     max-height: 300px;
     height: auto;
     padding: 12px;
-    opacity: 0.85;
+    opacity: 0.9;
     visibility: visible;
     overflow-y: auto;
     /* display: none; */

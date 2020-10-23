@@ -90,7 +90,6 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
       removeErrorMessageButton('chart-indicator-employment-services')
       main()
     })
-
   }
 })()
 
@@ -110,7 +109,7 @@ const SHORT_KEYS = {
   "Dublin Employment ('000) - Professional, scientific and technical activities (M)": 'Professional, Scientific & Technical',
   "Dublin Employment ('000) - Administrative and support service activities (N)": 'Admin',
   "Dublin Employment ('000) - Public administration and defence, compulsory social security (O)": 'Public Admin',
-  "Dublin Employment ('000) - Education (P)":	'Education',
+  "Dublin Employment ('000) - Education (P)": 'Education',
   "Dublin Employment ('000) - Human health and social work activities (Q)": 'Health & Social',
   "Dublin Employment ('000) - Industry (B to E)": 'Industry',
   "Dublin Employment ('000) - Industry and Construction (B to F)": 'Industry & Construction',
