@@ -86,8 +86,11 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
     }
 
     window.addEventListener('resize', () => {
-      redraw(portTotalChart)
-      redraw(portBreakdownChart)
+      if (d3.select('#chart-indicator-port-total').style.display !== 'none') {
+        redraw(portTotalChart)
+      } else {
+        redraw(portBreakdownChart)
+      }
     })
 
     d3.select('#btn-indicator-port-total').on('click', function () {
@@ -102,7 +105,6 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
       d3.select('#chart-indicator-port-total').style('display', 'none')
       d3.select('#chart-indicator-port-breakdown').style('display', 'block')
       redraw(portBreakdownChart)
-
     })
   } catch (e) {
     console.log('Error creating Dublin Port chart')
