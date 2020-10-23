@@ -175,14 +175,14 @@ class BCDChart {
 
   tooltipHeaders () {
     const c = this
-    let div = c.newToolTip
+    const div = c.newToolTip
       .append('div')
       .attr('class', 'headers')
 
     div.append('span')
       .attr('class', 'bcd-dot')
 
-    let p = div
+    const p = div
       .append('p')
       .attr('class', 'bcd-text')
 
@@ -254,15 +254,17 @@ class BCDChart {
   drawFocusLine () {
     // console.log('draw focus line')
     const c = this
+
     const g = c.g
+    if (c.focus != null) {
+      c.focus = g.append('g')
+        .attr('class', 'focus')
 
-    c.focus = g.append('g')
-      .attr('class', 'focus')
-
-    c.focus.append('line')
-      .attr('class', 'focus_line')
-      .attr('y1', 0)
-      .attr('y2', c.h)
+      c.focus.append('line')
+        .attr('class', 'focus_line')
+        .attr('y1', 0)
+        .attr('y2', c.h)
+    }
 
     // c.focus.append('g')
     //   .attr('class', 'focus_circles')
@@ -335,7 +337,7 @@ class BCDChart {
 
       case 'thousands':
         return d3.format(',')
-      
+
       case 'tenThousandsShort':
         return d3.format('.2s')
 
