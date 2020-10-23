@@ -48,7 +48,6 @@ class BCDChart {
   init () {
     const c = this
     const eN = d3.select('#' + c.e).node()
-    // console.log('#' + c.e)
     const eW = eN.getBoundingClientRect().width
     const aR = eW < 768 ? eW * 0.55 : eW * 0.5
     const cScheme = c.cS || d3.schemeBlues[5]

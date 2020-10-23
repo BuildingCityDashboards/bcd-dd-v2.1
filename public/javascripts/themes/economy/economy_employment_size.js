@@ -122,10 +122,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     redraw(employedChart, STATS[2])
 
     const engagedChart = new BCDMultiLineChart(engagedContent)
-    redraw(engagedChart, STATS[1])
+    // redraw(engagedChart, STATS[1])
 
     const activeChart = new BCDMultiLineChart(activeContent)
-    redraw(activeChart, STATS[0])
+    // redraw(activeChart, STATS[0])
 
     d3.select('#btn-employees-by-size').on('click', function () {
       activeBtn(this)

@@ -18,7 +18,6 @@ class BCDStackedAreaChart extends BCDChart {
     super.drawGridLines()
     c.drawArea()
     c.drawLegend()
-    super.drawFocusLine()
   }
 
   updateChart (obj) {
@@ -44,7 +43,6 @@ class BCDStackedAreaChart extends BCDChart {
 
   stackData () {
     const c = this
-    const data = c.d
     // keys,
     // groupData,
     const stack = d3.stack()
@@ -76,7 +74,7 @@ class BCDStackedAreaChart extends BCDChart {
 
   createScales () {
     const c = this
-    
+
     let yAxisCall = d3.axisLeft()
     let xAxisCall = d3.axisBottom()
     let x = c.getElement('.titleX').text(c.tX)
@@ -372,7 +370,6 @@ class BCDStackedAreaChart extends BCDChart {
       .style('visibility', 'hidden')
 
     c.drawFocusLine()
-
     c.drawFocusOverlay()
   }
 
@@ -451,7 +448,6 @@ class BCDStackedAreaChart extends BCDChart {
     c.postfix = postfix || ' '
     c.valueFormat = c.formatValue(c.valueFormat)
     // super.drawFocusLine()
-
     c.drawFocus()
   }
 
@@ -460,7 +456,6 @@ class BCDStackedAreaChart extends BCDChart {
     const g = c.g
     const focus = c.focus
     const overlay = g.append('rect')
-
     overlay.attr('class', 'focus_overlay')
       .attr('width', c.w)
       .attr('height', c.h)

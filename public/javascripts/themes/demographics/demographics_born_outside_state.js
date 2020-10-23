@@ -103,7 +103,7 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
     }
 
     const bornOutsideStateChart = new BCDMultiLineChart(bornOutsideState)
-    redraw(bornOutsideStateChart)
+    // redraw(bornOutsideStateChart)
 
     d3.select('#btn-' + chart1).on('click', function () {
       activeBtn(this)

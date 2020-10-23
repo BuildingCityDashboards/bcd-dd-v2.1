@@ -82,7 +82,7 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
         }
       }
       portBreakdownChart = new BCDStackedAreaChart(portTonnageBreakdown)
-      redraw(portBreakdownChart)
+      // redraw(portBreakdownChart)
     }
 
     window.addEventListener('resize', () => {
