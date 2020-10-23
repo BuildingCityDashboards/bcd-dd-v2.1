@@ -304,14 +304,16 @@ class BCDMultiLineChart extends BCDChart {
     const c = this
     let ttX
     const ttY = mouseY
-    const cSize = c.w - c.ttWidth
+    const cSize = c.w - c.ttWidth + c.m.l
+    console.log(c.ttWidth);
+    console.log(c.w + ' ' + cSize + ' ' + mouseX)
 
     // show right - 60 is the margin large screens
     if (mouseX < cSize) {
-      ttX = mouseX + 60 + 30
+      ttX = mouseX + c.m.l
     } else {
       // show left - 60 is the margin large screens
-      ttX = (mouseX + 60) - c.ttWidth
+      ttX = (mouseX + c.m.l) - c.ttWidth
     }
     return [ttX, ttY]
   }

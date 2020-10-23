@@ -52,7 +52,7 @@ class BCDChart {
     const aR = eW < 768 ? eW * 0.55 : eW * 0.5
     const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
-    const bP = 414 // 414 is IPhone 6/7/8+
+    const bP = 450 // 414 is IPhone 6/7/8+
 
     // console.log("ew: " + eW);
     // margins
