@@ -2,7 +2,6 @@ import { addErrorMessage } from './bcd-ui.js'
 import { BCDChart } from './BCDChart.js'
 
 class BCDMultiLineChart extends BCDChart {
-
   drawChart () {
     const c = this
     try {
@@ -22,25 +21,25 @@ class BCDMultiLineChart extends BCDChart {
     }
   }
 
-  updateChart (obj) {
-    const c = this
+  // updateChart (obj) {
+  //   const c = this
 
-    if (obj) {
-      c.d = obj.d || c.d
-      c.k = obj.k || c.k
-      c.ks = obj.ks || c.ks
-      c.tX = obj.tX || c.tX
-      c.tY = obj.tY || c.tY
-      c.xV = obj.xV || c.xV
-      c.yV = obj.yV || c.yV
-      c.cS = obj.c || c.cS
-      c.ySF = obj.ySF || c.ySF
-    }
+  //   if (obj) {
+  //     c.d = obj.d || c.d
+  //     c.k = obj.k || c.k
+  //     c.ks = obj.ks || c.ks
+  //     c.tX = obj.tX || c.tX
+  //     c.tY = obj.tY || c.tY
+  //     c.xV = obj.xV || c.xV
+  //     c.yV = obj.yV || c.yV
+  //     c.cS = obj.c || c.cS
+  //     c.ySF = obj.ySF || c.ySF
+  //   }
 
-    c.createScales()
-    c.drawLines()
-    c.drawLegend()
-  }
+  //   c.createScales()
+  //   c.drawLines()
+  //   c.drawLegend()
+  // }
 
   // needs to be called everytime the data changes
   createScales () {
@@ -218,7 +217,6 @@ class BCDMultiLineChart extends BCDChart {
     const focus = d3.select(c.e).select('.focus')
 
     if (c.g != null) {
-
       const overlay = g.append('rect')
 
       overlay.attr('class', 'focus_overlay')
@@ -263,7 +261,7 @@ class BCDMultiLineChart extends BCDChart {
         const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
         const i = c.bisectDate(c.d[0].values, x0, 1)
         const tooldata = c.sortData(i, x0)
-        c.moveTooltip(tooldata);
+        c.moveTooltip(tooldata)
         c.ttContent(tooldata) // add values to tooltip
       }
     }
@@ -477,8 +475,6 @@ class BCDMultiLineChart extends BCDChart {
       p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
     })
   }
-
-
 
   // replacing old legend method with new inline labels
   drawLegend () {

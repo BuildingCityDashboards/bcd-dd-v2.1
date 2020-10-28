@@ -251,20 +251,20 @@ class BCDChart {
     return e
   }
 
+  /* draw focus line at origin */
   drawFocusLine () {
     // console.log('draw focus line')
     const c = this
 
     const g = c.g
-    if (c.focus != null) {
-      c.focus = g.append('g')
-        .attr('class', 'focus')
+    let focus = d3.select(c.e).select('.focus')
+    focus = g.append('g')
+      .attr('class', 'focus')
 
-      c.focus.append('line')
-        .attr('class', 'focus_line')
-        .attr('y1', 0)
-        .attr('y2', c.h)
-    }
+    focus.append('line')
+      .attr('class', 'focus_line')
+      .attr('y1', 0)
+      .attr('y2', c.h)
 
     // c.focus.append('g')
     //   .attr('class', 'focus_circles')
