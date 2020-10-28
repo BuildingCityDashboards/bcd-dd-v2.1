@@ -44,7 +44,7 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
 
     const noiseSitesLayer = new L.LayerGroup()
     const noiseSites = await getSites('../data/Environment/soundsites.json', 'sound_monitoring_sites')
-    console.log(noiseSites)
+    // console.log(noiseSites)
 
     const allSitesPromises = noiseSites.map(async d => {
       const marker = new NoiseMarker(
@@ -62,14 +62,14 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       })
       noiseSitesLayer.addLayer(marker)
       const siteReadings = await getSiteReadings(d)
-      console.log(siteReadings);
+      // console.log(siteReadings);
       return siteReadings
     })
     const allSitesData = await Promise.all(allSitesPromises)
-    console.log(allSitesData);
+    // console.log(allSitesData);
     let allSitesFlat = allSitesData.flat(1)
     allSitesFlat = allSitesFlat.filter((s) => {
-      return isToday(s.date) 
+      return isToday(s.date)
     })
 
     noiseMap.addLayer(noiseSitesLayer)
@@ -112,9 +112,9 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
 async function getSites (url, key) {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
-  console.log(url);
+  console.log(url)
   let siteData = await d3.json(url)
-  console.log(siteData);
+  // console.log(siteData);
   siteData = siteData[key].map(site => {
     const obj = {
       id: +site.site_id,
@@ -189,7 +189,7 @@ async function getSiteReadings (d_) {
 async function getPopupPlot (d_) {
   const divId = `noise-site-${d_.id}`
   const data = await getSiteReadings(d_)
-  console.log(data)
+  // console.log(data)
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
       data[0].date.toString().split(' ')[0] + ' ' +
