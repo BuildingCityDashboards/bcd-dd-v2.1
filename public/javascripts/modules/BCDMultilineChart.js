@@ -202,72 +202,14 @@ class BCDMultiLineChart extends BCDChart {
     c.valueFormat = c.formatValue(format)
     c.dateField = dateField
     c.ttWidth = 305
-    c.prefix = prefix || ' '
-    c.postfix = postfix || ' '
+    c.prefix = prefix || ''
+    c.postfix = postfix || ''
 
     // console.log(c)
 
-    super.drawFocusLine()
+    c.drawFocusLine()
     c.drawFocusOverlay() // need to refactor this function
   }
-
-  drawFocusOverlay () {
-    const c = this
-    const g = c.g
-    const focus = d3.select(c.e).select('.focus')
-
-    if (c.g != null) {
-      const overlay = g.append('rect')
-
-      overlay.attr('class', 'focus_overlay')
-        .attr('width', c.w)
-        .attr('height', c.h)
-        .style('fill', 'none')
-        .style('pointer-events', 'all')
-        .style('visibility', 'hidden')
-
-      if (c.sscreens) {
-        mousemove()
-        overlay
-          .on('touchmove', mousemove, {
-            passive: true
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
-      } else {
-        overlay
-          .on('mouseover', (d) => {
-            focus.style('display', null)
-          }, {
-            passive: true
-          })
-          .on('mouseout', () => {
-            focus.style('display', 'none')
-            c.tooltipElement.style('visibility', 'hidden')
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
-      }
-
-      function mousemove () {
-
-        focus.style('visibility', 'visible')
-        c.tooltipElement.style('visibility', 'visible')
-        c.tooltipElement.style('display', 'block')
-        const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
-        // console.log('ml mouse')
-        // console.log(mouse)
-        const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
-        const i = c.bisectDate(c.d[0].values, x0, 1)
-        const tooldata = c.sortData(i, x0)
-        c.moveTooltip(tooldata)
-        c.ttContent(tooldata) // add values to tooltip
-      }
-    }
-  }
-
 
   // might need this method
   // mousemove(d){
@@ -285,42 +227,6 @@ class BCDMultiLineChart extends BCDChart {
   //         focus.style("visibility","visible");
   //         c.tooltipElement.style("visibility","visible");
   // }
-
-  getPerChange (d1, d0, v) {
-    const value = !isNaN(d1[v]) ? d0 ? (d1[v] - d0[v]) / d0[v] : 'null' : null
-    if (value === Infinity) {
-      return 0
-    } else if (isNaN(value)) {
-      return 0
-    }
-    return value
-  }
-
-  updatePosition (xPosition, yPosition) {
-    const c = this
-    const g = c.g
-    // get the x and y values - y is static
-    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
-    // move the tooltip
-    g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
-    c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
-  }
-
-  getTooltipPosition ([mouseX, mouseY]) {
-    const c = this
-    let ttX
-    const ttY = mouseY
-    const cSize = c.w - c.ttWidth + c.m.l
-
-    // show right - 60 is the margin large screens
-    if (mouseX < cSize) {
-      ttX = mouseX + c.m.l
-    } else {
-      // show left - 60 is the margin large screens
-      ttX = (mouseX + c.m.l) - c.ttWidth
-    }
-    return [ttX, ttY]
-  }
 
   addBaseLine (value) {
     const c = this

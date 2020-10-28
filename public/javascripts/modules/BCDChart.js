@@ -224,21 +224,49 @@ class BCDChart {
     })
   }
 
-  moveTooltip (d) {
+  updateTooltip (d) {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
       const id = '.tooltip_' + i
-      const tooltip = d3.select(c.e).select(id)
+      console.log(id);
+      let tooltip = c.focus.select(id)
+
       const v = 'value'
       if (d !== undefined) {
-        c.updatePosition(xPos, -300)
+        c.updateTooltipPosition(xPos, -300)
         c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
         tooltip.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
       }
     })
+  }
+
+  updateTooltipPosition (xPosition, yPosition) {
+    const c = this
+    const g = c.g
+    // get the x and y values - y is static
+    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
+    // move the tooltip
+    g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
+    c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
+  }
+
+  getTooltipPosition ([mouseX, mouseY]) {
+    const c = this
+    let ttX
+    const ttY = mouseY
+    const cSize = c.w - c.ttWidth + c.m.l
+
+    // show right - 60 is the margin large screens
+    if (mouseX < cSize) {
+      ttX = mouseX + c.m.l
+    } else {
+      // show left - 60 is the margin large screens
+      ttX = (mouseX + c.m.l) - c.ttWidth
+    }
+    return [ttX, ttY]
   }
 
   drawGridLines () {
@@ -272,11 +300,8 @@ class BCDChart {
   drawFocusLine () {
     // console.log('draw focus line')
     const c = this
-
     const g = c.g
-    let focus = d3.select(c.e).select('.focus')
-    
-    focus = g.append('g')
+    const focus = g.append('g')
       .attr('class', 'focus')
 
     focus.append('line')
@@ -284,30 +309,87 @@ class BCDChart {
       .attr('y1', 0)
       .attr('y2', c.h)
 
-      c.focus = focus;
+    focus.append('g')
+      .attr('class', 'focus_circles')
 
-    // c.focus.append('g')
-    //   .attr('class', 'focus_circles')
+    c.focus = focus // referred to later when moving tooltip and focus line
 
-    // c.ks.forEach((d, i) => {
-    //   c.drawFocusCircles(d, i)
-    // })
+    c.ks.forEach((d, i) => {
+      c.drawFocusCircles(d, i)
+    })
   }
 
   drawFocusCircles (d, i) {
     const c = this
     const g = c.g
 
-    const tooltip = g.select('.focus_circles')
+    const focusCircles = g.select('.focus_circles')
       .append('g')
       .attr('class', 'tooltip_' + i)
 
-    tooltip.append('circle')
+    focusCircles.append('circle')
       .attr('r', 0)
       .transition(c.t)
       .attr('r', 5)
       .attr('fill', c.colour(d))
       .attr('stroke', c.colour(d))
+    
+  }
+
+  drawFocusOverlay () {
+    const c = this
+    const g = c.g
+    const focus = d3.select(c.e).select('.focus')
+
+    if (c.g != null) {
+      const overlay = g.append('rect')
+
+      overlay.attr('class', 'focus_overlay')
+        .attr('width', c.w)
+        .attr('height', c.h)
+        .style('fill', 'none')
+        .style('pointer-events', 'all')
+        .style('visibility', 'hidden')
+
+      if (c.sscreens) {
+        mousemove()
+        overlay
+          .on('touchmove', mousemove, {
+            passive: true
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      } else {
+        overlay
+          .on('mouseover', (d) => {
+            focus.style('display', null)
+          }, {
+            passive: true
+          })
+          .on('mouseout', () => {
+            focus.style('display', 'none')
+            c.tooltipElement.style('visibility', 'hidden')
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      }
+
+      function mousemove () {
+        focus.style('visibility', 'visible')
+        c.tooltipElement.style('visibility', 'visible')
+        c.tooltipElement.style('display', 'block')
+        const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+        // console.log('ml mouse')
+        // console.log(mouse)
+        const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+        const i = c.bisectDate(c.d[0].values, x0, 1)
+        const tooldata = c.sortData(i, x0)
+        c.updateTooltip(tooldata)
+        c.ttContent(tooldata) // add values to tooltip
+      }
+    }
   }
 
   // for data that needs to be nested
@@ -373,6 +455,16 @@ class BCDChart {
       default:
         return d3.format(',')
     }
+  }
+
+  getPerChange (d1, d0, v) {
+    const value = !isNaN(d1[v]) ? d0 ? (d1[v] - d0[v]) / d0[v] : 'null' : null
+    if (value === Infinity) {
+      return 0
+    } else if (isNaN(value)) {
+      return 0
+    }
+    return value
   }
 
   showSelectedLabelsX (array) {
