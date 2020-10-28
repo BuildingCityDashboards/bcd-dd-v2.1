@@ -134,9 +134,15 @@
   stroke: lightgrey;
 }
 
+.legend-circles .l-circle {
+  display: none;
+
+}
+
 .legendText {
   fill: grey;
   font-size: .75rem;
+  display: none;
 }
 
 .legendRect {
@@ -282,9 +288,7 @@
   opacity: .25;
 }
 
-.legendText {
-  display: none;
-}
+
 
 /* .tip-text{
   line-height: 1.25rem;
@@ -308,6 +312,11 @@
 
   .focus {
     visibility: hidden;
+  }
+
+  .legend-circles .l-circle {
+    display: block;
+
   }
 
   .legendText {

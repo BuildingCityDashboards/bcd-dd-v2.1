@@ -32,7 +32,7 @@ class BCDChart {
     this.e = options.elementId || options.e // selector element
     this.k = options.tracekey || options.k // trace key
     this.ks = options.tracenames || options.ks// array of trace names
-    this.cS = options.colourscheme // colour scheme
+    this.cS = options.colourscheme || options.cS// colour scheme
 
     this.xV = options.xV // x value
     this.yV = options.yV // y value
@@ -224,6 +224,23 @@ class BCDChart {
     })
   }
 
+  moveTooltip (d) {
+    const c = this
+    d.forEach((d, i) => {
+      const xPos = c.x(d[c.xV])
+      const id = '.tooltip_' + i
+      const tooltip = d3.select(c.e).select(id)
+      const v = 'value'
+      if (d !== undefined) {
+        c.updatePosition(xPos, -300)
+        c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
+        tooltip.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
+      }
+    })
+  }
+
   drawGridLines () {
     const c = this
     let gLines
@@ -251,7 +268,7 @@ class BCDChart {
     return e
   }
 
-  /* draw focus line at origin */
+  /* inital draw focus line at origin */
   drawFocusLine () {
     // console.log('draw focus line')
     const c = this

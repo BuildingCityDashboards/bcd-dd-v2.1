@@ -268,21 +268,6 @@ class BCDMultiLineChart extends BCDChart {
     }
   }
 
-  moveTooltip (d) {
-    const c = this
-    d.forEach((d, i) => {
-      const id = '.tooltip_' + i
-      const tooltip = d3.select(c.e).select(id)
-      const v = 'value'
-      if (d !== undefined) {
-        c.updatePosition(c.x(d[c.xV]), -300)
-        c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
-        tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        c.focus.select('.focus_line').attr('transform', 'translate(' + c.x((d[c.xV])) + ', 0)')
-      }
-    })
-  }
 
   // might need this method
   // mousemove(d){
