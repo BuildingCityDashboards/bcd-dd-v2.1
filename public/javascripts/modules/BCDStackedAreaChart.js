@@ -481,7 +481,7 @@ class BCDStackedAreaChart extends BCDChart {
         })
         .on('mouseout', () => {
           focus.style('display', 'none')
-          c.newToolTip.style('visibility', 'hidden')
+          c.tooltipElement.style('visibility', 'hidden')
         })
         .on('mousemove', mousemove, {
           passive: true
@@ -491,8 +491,8 @@ class BCDStackedAreaChart extends BCDChart {
     function mousemove () {
       // console.log('mousemove')
       focus.style('visibility', 'visible')
-      c.newToolTip.style('visibility', 'visible')
-      c.newToolTip.style('display', 'block')
+      c.tooltipElement.style('visibility', 'visible')
+      c.tooltipElement.style('display', 'block')
 
       const mouse = this ? d3.mouse(this) : c.w
       // console.log('sa mouse')
@@ -515,7 +515,7 @@ class BCDStackedAreaChart extends BCDChart {
         const dvalue = c.dStacked[idx]
         const key = reg
         const id = '#bcd-tt' + idx
-        const div = c.newToolTip.select(id)
+        const div = c.tooltipElement.select(id)
         const p = div.select('.bcd-text')
         const dd0 = dvalue[i - 1]
         const dd1 = dvalue[i]
@@ -547,7 +547,7 @@ class BCDStackedAreaChart extends BCDChart {
           p.select('.bcd-text-rate').text(rate)
           p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
 
-          c.newToolTipTitle.text(c.ttTitle + ' ' + (d[c.xVField]))
+          c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.xVField]))
 
           tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(dd[1] ? dd[1] : 0) + ')')
           focus.select('.focus_line').attr('transform', 'translate(' + c.x((d[c.xV])) + ', 0)')
@@ -564,7 +564,7 @@ class BCDStackedAreaChart extends BCDChart {
     const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
     // move the tooltip
     g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
-    c.newToolTip.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
+    c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
   }
 
   getTooltipPosition ([mouseX, mouseY]) {

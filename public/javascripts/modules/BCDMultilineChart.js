@@ -244,7 +244,7 @@ class BCDMultiLineChart extends BCDChart {
           })
           .on('mouseout', () => {
             focus.style('display', 'none')
-            c.newToolTip.style('visibility', 'hidden')
+            c.tooltipElement.style('visibility', 'hidden')
           })
           .on('mousemove', mousemove, {
             passive: true
@@ -252,9 +252,10 @@ class BCDMultiLineChart extends BCDChart {
       }
 
       function mousemove () {
+
         focus.style('visibility', 'visible')
-        c.newToolTip.style('visibility', 'visible')
-        c.newToolTip.style('display', 'block')
+        c.tooltipElement.style('visibility', 'visible')
+        c.tooltipElement.style('display', 'block')
         const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
         // console.log('ml mouse')
         // console.log(mouse)
@@ -269,18 +270,16 @@ class BCDMultiLineChart extends BCDChart {
 
   moveTooltip (d) {
     const c = this
-    const focus = d3.select(c.e).select('.focus')
     d.forEach((d, i) => {
       const id = '.tooltip_' + i
       const tooltip = d3.select(c.e).select(id)
       const v = 'value'
-
       if (d !== undefined) {
         c.updatePosition(c.x(d[c.xV]), -300)
-        c.newToolTipTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
+        c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
         tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        focus.select('.focus_line').attr('transform', 'translate(' + c.x(d[c.xV]) + ', 0)')
+        c.focus.select('.focus_line').attr('transform', 'translate(' + c.x((d[c.xV])) + ', 0)')
       }
     })
   }
@@ -299,7 +298,7 @@ class BCDMultiLineChart extends BCDChart {
   //         c.ttContent(tooldata);// add values to tooltip
 
   //         focus.style("visibility","visible");
-  //         c.newToolTip.style("visibility","visible");
+  //         c.tooltipElement.style("visibility","visible");
   // }
 
   getPerChange (d1, d0, v) {
@@ -319,7 +318,7 @@ class BCDMultiLineChart extends BCDChart {
     const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
     // move the tooltip
     g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
-    c.newToolTip.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
+    c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
   }
 
   getTooltipPosition ([mouseX, mouseY]) {
@@ -431,7 +430,7 @@ class BCDMultiLineChart extends BCDChart {
 
       s1 !== undefined ? s = x0 - s0[c.xV] > s1[c.xV] - x0 ? s1 : s0 : s = s0
       s1 !== undefined ? sPrev = x0 - s0[c.xV] > s1[c.xV] - x0 ? d.values[i - 1] : d.values[i - 2] : false
-      // c.newToolTipTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
+      // c.tooltipElementTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
 
       const obj = {}
       obj.key = d.key
@@ -455,7 +454,7 @@ class BCDMultiLineChart extends BCDChart {
     const c = this
     data.forEach((d, i) => {
       const id = '#bcd-tt' + i
-      const div = c.newToolTip.select(id)
+      const div = c.tooltipElement.select(id)
       const unText = 'N/A'
       let indicatorColour
       const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''

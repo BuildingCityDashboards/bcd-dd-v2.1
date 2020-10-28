@@ -152,7 +152,7 @@ class BCDChart {
 
     d3.select('#' + c.e).select('.tool-tip.bcd').remove()
 
-    c.newToolTip = d3.select('#' + c.e)
+    c.tooltipElement = d3.select('#' + c.e)
       .append('div')
       .attr('class', 'tool-tip bcd')
 
@@ -160,12 +160,12 @@ class BCDChart {
     // console.log('c.sscreens')
     // console.log(c.sscreens)
     c.sscreens
-      ? c.newToolTip.style('visibility', 'visible')
-      : c.newToolTip.style('visibility', 'hidden')
+      ? c.tooltipElement.style('visibility', 'visible')
+      : c.tooltipElement.style('visibility', 'hidden')
 
-    // c.newToolTip.style('display', 'none')
+    // c.tooltipElement.style('display', 'none')
 
-    c.newToolTipTitle = c.newToolTip
+    c.tooltipElementTitle = c.tooltipElement
       .append('div')
       .attr('id', 'bcd-tt-title')
 
@@ -175,7 +175,7 @@ class BCDChart {
 
   tooltipHeaders () {
     const c = this
-    const div = c.newToolTip
+    const div = c.tooltipElement
       .append('div')
       .attr('class', 'headers')
 
@@ -209,7 +209,7 @@ class BCDChart {
     let p
 
     keys.forEach((d, i) => {
-      div = c.newToolTip
+      div = c.tooltipElement
         .append('div')
         .attr('id', 'bcd-tt' + i)
 
@@ -258,6 +258,7 @@ class BCDChart {
 
     const g = c.g
     let focus = d3.select(c.e).select('.focus')
+    
     focus = g.append('g')
       .attr('class', 'focus')
 
@@ -265,6 +266,8 @@ class BCDChart {
       .attr('class', 'focus_line')
       .attr('y1', 0)
       .attr('y2', c.h)
+
+      c.focus = focus;
 
     // c.focus.append('g')
     //   .attr('class', 'focus_circles')
