@@ -255,7 +255,12 @@
   padding-bottom: 8px;
   flex-direction: row;
   justify-content: space-around;
+
 }
+
+/* .theme__text-chart__button-row>button:first-child {
+  border: solid 1px rgba(255, 255, 255, 0.5);
+} */
 
 .theme-btn {
   margin-right: 8px;
@@ -433,6 +438,10 @@
     justify-content: flex-start;
 
   }
+
+  /* .theme__text-chart__button-row>button:first-child {
+    border: solid 1px rgba(255, 255, 255, 0.5);
+  } */
 
   .theme-btn {
     margin-right: 8px;

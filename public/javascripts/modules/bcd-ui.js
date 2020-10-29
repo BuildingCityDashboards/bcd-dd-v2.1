@@ -32,13 +32,9 @@ const activeBtn = function (activate, deactivates = []) {
   // use jQ for legacy calls with first arg
   if (deactivates.length === 0) {
     const btn = activate
-  
     $(btn).siblings().removeClass('active')
     $(btn).addClass('active')
   } else {
-    console.log('active btn')
-    console.log(activate);
-
   // use vanilla if array of siblings passed in second arg
     const btnToActivate = document.getElementById(activate)
     if (!btnToActivate.classList.contains('active')) {
