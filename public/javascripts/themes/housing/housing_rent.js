@@ -34,12 +34,12 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categoriesBeds = dataset.Dimension(dimensions[0]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesBeds)
+    // console.log(categoriesBeds)
 
     const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesType)
+    // console.log(categoriesType)
     //
 
     const regionReg = /(Dublin)(\b [1-4]\b)/
@@ -48,7 +48,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     }).filter(c => {
       return c.search(regionReg) === 0 || (c === 'Dublin') // returns 'Dublin', 'Dublin N' 1 <= N <= 6
     })
-    console.log(categoriesLocation)
+    // console.log(categoriesLocation)
 
     const categoriesStat = dataset.Dimension(dimensions[4]).Category().map(c => {
       return c.label
@@ -66,16 +66,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.label = d.Quarter
           d.value = +d.value
           return d
-        } else if (d[dimensions[1]] === categoriesType[0] && // type
-          (d[dimensions[2]].search(regionReg) === 0 ||
-          d[dimensions[2]] === 'Dublin') &&
-          !hasCleanValue(d)) {
-          console.log(d)
         }
       })
 
-    console.log('rentTable')
-    console.log(rentTable)
+    // console.log('rentTable')
+    // console.log(rentTable)
     //
     const rent = {
       elementId: 'chart-' + chartDivIds[0],
@@ -100,7 +95,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       .filter(d => {
         return d[dimensions[2]] === 'Dublin' && !isFutureDate(d.date)
       })
-    console.log(rentByBedsTable)
+    // console.log(rentByBedsTable)
     const rentByBeds = {
       elementId: 'chart-' + chartDivIds[1],
       data: rentByBedsTable,

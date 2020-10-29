@@ -112,7 +112,7 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
 async function getSites (url, key) {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
-  console.log(url)
+  // console.log(url)
   let siteData = await d3.json(url)
   // console.log(siteData);
   siteData = siteData[key].map(site => {
