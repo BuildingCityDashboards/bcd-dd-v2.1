@@ -42,6 +42,7 @@ class BCDChart {
     this.ySF = options.ySF || options.formaty || 'thousands' // format for y axis
     this.margins = Object.assign(DEFAULT_MARGINS, options.margins)
     // console.log(`${this.e} : ${JSON.stringify(this.margins)}`)
+
   }
 
   // initialise method to draw c area
@@ -96,7 +97,19 @@ class BCDChart {
 
     // set chart colour method
     c.colour = d3.scaleOrdinal(cScheme)
-    // set chart bisecector method
+
+    if (c.e === 'chart-public-transport-trips') {
+      console.log(c.ks);
+
+      c.ks.forEach(d => {
+        console.log('d')
+      console.log(d)
+      console.log(c.colour(d))
+      })
+    }
+
+
+    // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
       return d[c.xV]
     }).left
@@ -147,6 +160,67 @@ class BCDChart {
     c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]))
   }
 
+  addTooltip (title, format, dateField, prefix, postfix) {
+    const c = this
+
+    d3.select(c.e).select('.focus').remove()
+    d3.select(c.e).select('.focus_overlay').remove()
+
+    c.ttTitle = title
+    c.valueFormat = c.formatValue(format)
+    c.dateField = dateField
+    c.ttWidth = 305
+    c.prefix = prefix || ''
+    c.postfix = postfix || ''
+
+    // console.log(c)
+
+    c.drawFocusLine()
+    c.drawFocusOverlay() // need to refactor this function
+  }
+
+  updateTooltipContent (data) {
+    const c = this
+    data.forEach((d, i) => {
+      const id = '#bcd-tt' + i
+      const div = c.tooltipElement.select(id)
+      const unText = 'N/A'
+      let indicatorColour
+      const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''
+      const rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null)
+      const value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value
+      const p = div.select('.bcd-text')
+      if (c.arrowChange === true) {
+        indicatorColour = d.change < 0 ? '#20c997' : d.change > 0 ? '#da1e4d' : '#f8f8f8'
+      } else {
+        indicatorColour = d.change > 0 ? '#20c997' : d.change < 0 ? '#da1e4d' : '#f8f8f8'
+      }
+      div.style('opacity', 1)
+      div.select('.bcd-dot').style('background-color', c.colour(d.key))
+      p.select('.bcd-text-title').text(d.key)
+      p.select('.bcd-text-value').text(value)
+      p.select('.bcd-text-rate').text(rate)
+      p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
+    })
+  }
+
+  // might need this method
+  // mousemove(d){
+  //     let c = this,
+  //         focus = d3.select(c.e).select(".focus"),
+  //         mouse = d3.mouse(d.node()) || c.w,
+
+  //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+  //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+  //         i = c.bisectDate(c.d[0].values, x0, 1),
+  //         tooldata = c.sortData(i, x0);
+
+  //         c.updateTooltipContent(tooldata);// add values to tooltip
+
+  //         focus.style("visibility","visible");
+  //         c.tooltipElement.style("visibility","visible");
+  // }
+
   drawTooltip () {
     const c = this
 
@@ -171,6 +245,106 @@ class BCDChart {
 
     c.tooltipHeaders()
     c.tooltipBody()
+  }
+
+  /* inital draw focus line at origin */
+  drawFocusLine () {
+    console.log('draw focus line')
+    const c = this
+    const g = c.g
+    const focus = g.append('g')
+      .attr('class', 'focus')
+
+    focus.append('line')
+      .attr('class', 'focus_line')
+      .attr('y1', 0)
+      .attr('y2', c.h)
+
+    focus.append('g')
+      .attr('class', 'focus_circles')
+
+    c.focus = focus // referred to later when moving tooltip and focus line
+
+    c.ks.forEach((d, i) => {
+      c.drawFocusCircles(d, i)
+    })
+  }
+
+  drawFocusCircles (d, i) {
+    const c = this
+    const g = c.g
+    // console.log(c.e)
+    if (c.e === 'chart-public-transport-trips') {
+      console.log('d')
+      console.log(d)
+      console.log(c.colour(d))
+    }
+
+    const focusCircle = g.select('.focus_circles')
+      .append('g')
+      .attr('class', 'tooltip_' + i)
+
+    focusCircle.append('circle')
+      .attr('r', 0)
+      .transition(c.t)
+      .attr('r', 5)
+      .attr('fill', c.colour(d))
+      .attr('stroke', c.colour(d))
+  }
+
+  drawFocusOverlay () {
+    const c = this
+    const g = c.g
+
+    if (c.g != null) {
+      const overlay = g.append('rect')
+
+      overlay.attr('class', 'focus_overlay')
+        .attr('width', c.w)
+        .attr('height', c.h)
+        .style('fill', 'none')
+        .style('pointer-events', 'all')
+        .style('visibility', 'hidden')
+
+      if (c.sscreens) {
+        mousemove()
+        overlay
+          .on('touchmove', mousemove, {
+            passive: true
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      } else {
+        overlay
+          .on('mouseover', (d) => {
+            c.focus.style('display', null)
+          }, {
+            passive: true
+          })
+          .on('mouseout', () => {
+            c.focus.style('display', 'none')
+            c.tooltipElement.style('visibility', 'hidden')
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      }
+
+      function mousemove () {
+        c.focus.style('visibility', 'visible')
+        c.tooltipElement.style('visibility', 'visible')
+        c.tooltipElement.style('display', 'block')
+        const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+        // console.log('ml mouse')
+        // console.log(mouse)
+        const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+        const i = c.bisectDate(c.d[0].values, x0, 1)
+        const tooldata = c.sortData(i, x0)
+        c.updateTooltip(tooldata)
+        c.updateTooltipContent(tooldata) // add values to tooltip
+      }
+    }
   }
 
   tooltipHeaders () {
@@ -239,6 +413,15 @@ class BCDChart {
         tooltip.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
+        
+        // const focusCircle = c.focus.select('.focus_circles')
+        //   .select('#tooltip_' + i)
+        //   .select('.circle')
+          
+          tooltip.select('circle').attr('fill', c.colour(d.key))
+          tooltip.select('circle').attr('stroke', c.colour(d.key))
+
+
       }
     })
   }
@@ -258,13 +441,12 @@ class BCDChart {
     let ttX
     const ttY = mouseY
     const cSize = c.w - c.ttWidth + c.m.l
+    const offset = 24
 
-    // show right - 60 is the margin large screens
     if (mouseX < cSize) {
-      ttX = mouseX + c.m.l
+      ttX = mouseX + c.m.l + offset
     } else {
-      // show left - 60 is the margin large screens
-      ttX = (mouseX + c.m.l) - c.ttWidth
+      ttX = (mouseX + c.m.l) - c.ttWidth - offset
     }
     return [ttX, ttY]
   }
@@ -294,101 +476,6 @@ class BCDChart {
     const s = d3.select('#' + c.e)
     const e = s.selectAll(name)
     return e
-  }
-
-  /* inital draw focus line at origin */
-  drawFocusLine () {
-    // console.log('draw focus line')
-    const c = this
-    const g = c.g
-    const focus = g.append('g')
-      .attr('class', 'focus')
-
-    focus.append('line')
-      .attr('class', 'focus_line')
-      .attr('y1', 0)
-      .attr('y2', c.h)
-
-    focus.append('g')
-      .attr('class', 'focus_circles')
-
-    c.focus = focus // referred to later when moving tooltip and focus line
-
-    c.ks.forEach((d, i) => {
-      c.drawFocusCircles(d, i)
-    })
-  }
-
-  drawFocusCircles (d, i) {
-    const c = this
-    const g = c.g
-
-    const focusCircles = g.select('.focus_circles')
-      .append('g')
-      .attr('class', 'tooltip_' + i)
-
-    focusCircles.append('circle')
-      .attr('r', 0)
-      .transition(c.t)
-      .attr('r', 5)
-      .attr('fill', c.colour(d))
-      .attr('stroke', c.colour(d))
-  }
-
-  drawFocusOverlay () {
-    const c = this
-    const g = c.g
-    const focus = d3.select(c.e).select('.focus')
-
-    if (c.g != null) {
-      const overlay = g.append('rect')
-
-      overlay.attr('class', 'focus_overlay')
-        .attr('width', c.w)
-        .attr('height', c.h)
-        .style('fill', 'none')
-        .style('pointer-events', 'all')
-        .style('visibility', 'hidden')
-
-      if (c.sscreens) {
-        mousemove()
-        overlay
-          .on('touchmove', mousemove, {
-            passive: true
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
-      } else {
-        overlay
-          .on('mouseover', (d) => {
-            focus.style('display', null)
-          }, {
-            passive: true
-          })
-          .on('mouseout', () => {
-            focus.style('display', 'none')
-            c.tooltipElement.style('visibility', 'hidden')
-          })
-          .on('mousemove', mousemove, {
-            passive: true
-          })
-      }
-
-      function mousemove () {
-        focus.style('visibility', 'visible')
-        c.tooltipElement.style('visibility', 'visible')
-        c.tooltipElement.style('display', 'block')
-        const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
-        // console.log('ml mouse')
-        // console.log(mouse)
-        const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
-        const i = c.bisectDate(c.d[0].values, x0, 1)
-        const tooldata = c.sortData(i, x0)
-        c.updateTooltip(tooldata)
-        c.ttContent(tooldata) // add values to tooltip
-      }
-    }
   }
 
   // for data that needs to be nested
@@ -464,6 +551,18 @@ class BCDChart {
       return 0
     }
     return value
+  }
+
+  addBaseLine (value) {
+    const c = this
+    const gLines = c.getElement('.grid-lines')
+
+    gLines.append('line')
+      .attr('x1', 0)
+      .attr('x2', c.w)
+      .attr('y1', c.y(value))
+      .attr('y2', c.y(value))
+      .attr('stroke', '#dc3545')
   }
 
   showSelectedLabelsX (array) {

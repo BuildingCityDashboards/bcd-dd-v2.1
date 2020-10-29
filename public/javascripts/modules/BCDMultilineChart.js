@@ -173,6 +173,10 @@ class BCDMultiLineChart extends BCDChart {
       .attr('class', 'regions')
       .append('path')
       .style('stroke', d => {
+        if (c.e === 'chart-public-transport-trips') {
+        console.log(d.key)
+        console.log(c.colour(d.key))
+        }
         return c.colour(d.key)
       })
       .attr('class', 'line')
@@ -190,54 +194,6 @@ class BCDMultiLineChart extends BCDChart {
 
     c.regions.exit()
       .transition(c.t).remove()
-  }
-
-  addTooltip (title, format, dateField, prefix, postfix) {
-    const c = this
-
-    d3.select(c.e).select('.focus').remove()
-    d3.select(c.e).select('.focus_overlay').remove()
-
-    c.ttTitle = title
-    c.valueFormat = c.formatValue(format)
-    c.dateField = dateField
-    c.ttWidth = 305
-    c.prefix = prefix || ''
-    c.postfix = postfix || ''
-
-    // console.log(c)
-
-    c.drawFocusLine()
-    c.drawFocusOverlay() // need to refactor this function
-  }
-
-  // might need this method
-  // mousemove(d){
-  //     let c = this,
-  //         focus = d3.select(c.e).select(".focus"),
-  //         mouse = d3.mouse(d.node()) || c.w,
-
-  //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
-  //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
-  //         i = c.bisectDate(c.d[0].values, x0, 1),
-  //         tooldata = c.sortData(i, x0);
-
-  //         c.ttContent(tooldata);// add values to tooltip
-
-  //         focus.style("visibility","visible");
-  //         c.tooltipElement.style("visibility","visible");
-  // }
-
-  addBaseLine (value) {
-    const c = this
-    const gLines = c.getElement('.grid-lines')
-
-    gLines.append('line')
-      .attr('x1', 0)
-      .attr('x2', c.w)
-      .attr('y1', c.y(value))
-      .attr('y2', c.y(value))
-      .attr('stroke', '#dc3545')
   }
 
   pagination (data, selector, sliceBy, pageNumber, label) {
@@ -339,31 +295,6 @@ class BCDMultiLineChart extends BCDChart {
     })
     tD.sort((a, b) => b.value - a.value)
     return tD
-  }
-
-  ttContent (data) {
-    const c = this
-    data.forEach((d, i) => {
-      const id = '#bcd-tt' + i
-      const div = c.tooltipElement.select(id)
-      const unText = 'N/A'
-      let indicatorColour
-      const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''
-      const rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null)
-      const value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value
-      const p = div.select('.bcd-text')
-      if (c.arrowChange === true) {
-        indicatorColour = d.change < 0 ? '#20c997' : d.change > 0 ? '#da1e4d' : '#f8f8f8'
-      } else {
-        indicatorColour = d.change > 0 ? '#20c997' : d.change < 0 ? '#da1e4d' : '#f8f8f8'
-      }
-      div.style('opacity', 1)
-      div.select('.bcd-dot').style('background-color', c.colour(d.key))
-      p.select('.bcd-text-title').text(d.key)
-      p.select('.bcd-text-value').text(value)
-      p.select('.bcd-text-rate').text(rate)
-      p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
-    })
   }
 
   // replacing old legend method with new inline labels

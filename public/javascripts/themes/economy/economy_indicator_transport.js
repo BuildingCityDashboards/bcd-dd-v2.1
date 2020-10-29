@@ -43,6 +43,7 @@ import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
         e: 'chart-public-transport-trips',
         d: longData,
         k: 'variable', // key whose value will name the traces (group by)
+        ks: ['Bus Éireann', publicTransportColumns[2], publicTransportColumns[3], publicTransportColumns[4]],
         xV: 'date',
         yV: 'value',
         tX: 'Quarter',
