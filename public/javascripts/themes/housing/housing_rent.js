@@ -34,18 +34,18 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categoriesBeds = dataset.Dimension(dimensions[0]).Category().map(c => {
       return c.label
     })
-    // console.log(categoriesBeds)
+    console.log(categoriesBeds)
     const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
-    // console.log(categoriesType)
+    console.log(categoriesType)
     //
 
-    let regionReg = /(Dublin)(\b [1-6]\b)/
+    const regionReg = /(Dublin)(\b [1-4]\b)/
     const categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     }).filter(c => {
-      return c.search(regionReg) === 0 || (c === 'Dublin') // returns 'Dublin N', 'Dublin NN' etc
+      return c.search(regionReg) === 0 || (c === 'Dublin') // returns 'Dublin', 'Dublin N' 1 <= N <= 6
     })
     console.log(categoriesLocation)
 
@@ -72,9 +72,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     //
     const rent = {
       elementId: 'chart-' + chartDivIds[0],
-      data: rentTable.filter(d => {
-        return d[dimensions[0]] === categoriesBeds[0] && !isFutureDate(d.date) // all beds
-      }),
+      data: rentTable
+        .filter(d => {
+          return d[dimensions[0]] === categoriesBeds[0] && !isFutureDate(d.date) // all beds
+        }),
       tracenames: categoriesLocation,
       tracekey: dimensions[2],
       xV: 'date',
@@ -90,16 +91,19 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     const rentByBeds = {
       elementId: 'chart-' + chartDivIds[1],
-      data: rentTable,
-      // .filter(d => {
-      // return parseInt(d.date.getFullYear()) >= 2010
-      // }),
+      data: rentTable
+        .filter(d => {
+          return d[dimensions[2]] === 'Dublin' && !isFutureDate(d.date)
+        }),
       tracenames: categoriesBeds,
       tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Monthly rent (€)',
+      margins: {
+        left: 64
+      }
     }
     //
     const rentByBedsChart = new BCDMultiLineChart(rentByBeds)
@@ -115,6 +119,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
         rentByBedsChart.drawChart()
         rentByBedsChart.addTooltip('Rent price, ', '', 'label')
+        rentByBedsChart.showSelectedLabelsX([0, 3, 6, 9, 12])
+        rentByBedsChart.showSelectedLabelsY([3, 6, 9])
       }
     }
     redraw()

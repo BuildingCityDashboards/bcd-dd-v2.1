@@ -262,7 +262,7 @@ class BCDChart {
   drawFocusCircle (d, i) {
     const c = this
     const g = c.g
-    const focusCircles = g.select('.focus_circles')
+    const focusCircles = c.focus.select('.focus_circles')
       .append('g')
       .attr('class', 'focus_circle_' + i)
 
@@ -270,8 +270,6 @@ class BCDChart {
       .attr('r', 0)
       .transition(c.t)
       .attr('r', 5)
-      .attr('fill', c.colour(d))
-      .attr('stroke', c.colour(d))
   }
 
   drawFocusOverlay () {
