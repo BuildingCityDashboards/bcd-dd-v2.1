@@ -47,7 +47,6 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
         }
       }
       portTotalChart = new BCDMultiLineChart(portTonnageCount)
-
       redraw(portTotalChart)
     }
 

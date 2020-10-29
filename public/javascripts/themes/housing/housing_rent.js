@@ -137,7 +137,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
 
     d3.select('#btn-' + chartDivIds[1]).on('click', function () {
-      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
+      activeBtn('btn-' + chartDivIds[1], ['btn-' + chartDivIds[0]])
       d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
       d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
       redraw()

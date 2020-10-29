@@ -275,15 +275,17 @@
   letter-spacing: 1.25px;
 }
 
-.theme-btn:active,
-.theme-btn:hover {
-  border: solid 1px rgba(255, 255, 255, 0.5);
-}
-
 .theme-btn:focus {
   outline: none;
   box-shadow: none;
 }
+
+.theme-btn:hover {}
+
+.theme-btn.active {
+  border: solid 1px rgba(255, 255, 255, 0.5);
+}
+
 
 /* altering height does not make the plot bigger */
 
@@ -429,15 +431,38 @@
     padding-bottom: 8px;
     flex-direction: row;
     justify-content: flex-start;
+
   }
 
   .theme-btn {
     margin-right: 8px;
     padding: 8px 12px;
+    color: #8ebfd6;
+    border: solid 1px rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+    font-family: 'Roboto';
     font-size: 12px;
+    font-style: normal;
+    font-weight: 200;
+    font-stretch: normal;
     line-height: 1.14;
     letter-spacing: 1.25px;
   }
+
+  .theme-btn:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .theme-btn:hover {}
+
+  .theme-btn.active {
+    border: solid 1px rgba(255, 255, 255, 0.5);
+  }
+
 
   /* .theme__text-chart__plot {
   width: 100%;
@@ -640,15 +665,6 @@
     flex-direction: row;
     justify-content: left;
   }
-
-  .theme-btn {}
-
-  .theme-btn:active,
-  .theme-btn:hover {
-    border: solid 1px rgba(255, 255, 255, 0.5);
-  }
-
-  .theme-btn:focus {}
 
   /* altering height does not make the plot bigger */
   /* use max-width to clamp chart size, height adjusts automatically */
@@ -1020,15 +1036,6 @@
     letter-spacing: 1.25px;
   }
 
-  .theme-btn:active,
-  .theme-btn:hover {
-    border: solid 1px rgba(255, 255, 255, 0.5);
-  }
-
-  .theme-btn:focus {
-    outline: none;
-    box-shadow: none;
-  }
 
   .theme__text-chart__plot {
     display: block;
@@ -1384,16 +1391,6 @@
     font-stretch: normal;
     line-height: 1.14;
     letter-spacing: 1.25px;
-  }
-
-  .theme-btn:active,
-  .theme-btn:hover {
-    border: solid 1px rgba(255, 255, 255, 0.5);
-  }
-
-  .theme-btn:focus {
-    outline: none;
-    box-shadow: none;
   }
 
 
