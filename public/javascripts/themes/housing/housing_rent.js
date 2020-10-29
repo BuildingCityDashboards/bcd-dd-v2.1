@@ -40,10 +40,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
     // console.log(categoriesType)
     //
+
+    let regionReg = /(Dublin)(\b [1-6]\b)/
     const categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
+    }).filter(c => {
+      return c.search(regionReg) === 0 // returns 'Dublin N', 'Dublin NN' etc
     })
-    // console.log(categoriesLocation)
+    console.log(categoriesLocation)
 
     const categoriesStat = dataset.Dimension(dimensions[4]).Category().map(c => {
       return c.label
@@ -54,7 +58,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if (d[dimensions[1]] === categoriesType[0] && // type
-          (d[dimensions[2]] === 'Dublin') &&
+          (d[dimensions[2]].search(regionReg)===0) &&
           hasCleanValue(d)) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
@@ -70,7 +74,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       data: rentTable.filter(d => {
         return d[dimensions[0]] === categoriesBeds[0] && !isFutureDate(d.date) // all beds
       }),
-      tracenames: ['Dublin'],
+      tracenames: categoriesLocation,
       tracekey: dimensions[2],
       xV: 'date',
       yV: 'value',

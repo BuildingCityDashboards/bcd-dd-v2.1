@@ -98,17 +98,6 @@ class BCDChart {
     // set chart colour method
     c.colour = d3.scaleOrdinal(cScheme)
 
-    if (c.e === 'chart-public-transport-trips') {
-      console.log(c.ks);
-
-      c.ks.forEach(d => {
-        console.log('d')
-      console.log(d)
-      console.log(c.colour(d))
-      })
-    }
-
-
     // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
       return d[c.xV]
@@ -249,7 +238,7 @@ class BCDChart {
 
   /* inital draw focus line at origin */
   drawFocusLine () {
-    console.log('draw focus line')
+    // console.log('draw focus line')
     const c = this
     const g = c.g
     const focus = g.append('g')
@@ -266,25 +255,18 @@ class BCDChart {
     c.focus = focus // referred to later when moving tooltip and focus line
 
     c.ks.forEach((d, i) => {
-      c.drawFocusCircles(d, i)
+      c.drawFocusCircle(d, i)
     })
   }
 
-  drawFocusCircles (d, i) {
+  drawFocusCircle (d, i) {
     const c = this
     const g = c.g
-    // console.log(c.e)
-    if (c.e === 'chart-public-transport-trips') {
-      console.log('d')
-      console.log(d)
-      console.log(c.colour(d))
-    }
-
-    const focusCircle = g.select('.focus_circles')
+    const focusCircles = g.select('.focus_circles')
       .append('g')
-      .attr('class', 'tooltip_' + i)
+      .attr('class', 'focus_circle_' + i)
 
-    focusCircle.append('circle')
+    focusCircles.append('circle')
       .attr('r', 0)
       .transition(c.t)
       .attr('r', 5)
@@ -402,26 +384,19 @@ class BCDChart {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
-      const id = '.tooltip_' + i
+      const id = '.focus_circle_'+ i
       // console.log(id);
-      const tooltip = c.focus.select(id)
+      const focusCircle = c.focus.select(id)
 
       const v = 'value'
       if (d !== undefined) {
         c.updateTooltipPosition(xPos, -300)
         c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
-        tooltip.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        focusCircle.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
-        
-        // const focusCircle = c.focus.select('.focus_circles')
-        //   .select('#tooltip_' + i)
-        //   .select('.circle')
-          
-          tooltip.select('circle').attr('fill', c.colour(d.key))
-          tooltip.select('circle').attr('stroke', c.colour(d.key))
-
-
+        focusCircle.select('circle').attr('fill', c.colour(d.key))
+        focusCircle.select('circle').attr('stroke', c.colour(d.key))
       }
     })
   }

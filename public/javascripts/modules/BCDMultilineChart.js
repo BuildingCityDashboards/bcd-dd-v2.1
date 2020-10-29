@@ -173,10 +173,6 @@ class BCDMultiLineChart extends BCDChart {
       .attr('class', 'regions')
       .append('path')
       .style('stroke', d => {
-        if (c.e === 'chart-public-transport-trips') {
-        console.log(d.key)
-        console.log(c.colour(d.key))
-        }
         return c.colour(d.key)
       })
       .attr('class', 'line')
