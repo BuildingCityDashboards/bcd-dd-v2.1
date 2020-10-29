@@ -45,7 +45,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     }).filter(c => {
-      return c.search(regionReg) === 0 // returns 'Dublin N', 'Dublin NN' etc
+      return c.search(regionReg) === 0 || (c === 'Dublin') // returns 'Dublin N', 'Dublin NN' etc
     })
     console.log(categoriesLocation)
 
@@ -58,7 +58,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if (d[dimensions[1]] === categoriesType[0] && // type
-          (d[dimensions[2]].search(regionReg)===0) &&
+          (d[dimensions[2]].search(regionReg) === 0 ||
+          d[dimensions[2]] === 'Dublin') &&
           hasCleanValue(d)) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
