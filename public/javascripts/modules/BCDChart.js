@@ -15,42 +15,55 @@ class BCDChart {
      * @param { String } options.yV               name of variable for y-axis
      * @param { String } options.tX               title of x-axis
      * @param { String } options.tY               title of y-axis
-     * @param { String } options.ySF              number format for y axis
+     * @param { String } options.ySF || @param { String } options.formaty              number format for y axis
+     *
      *
      */
 
   constructor (options) {
-    this.d = options.data // the data
-    this.e = options.elementId // selector element
-    this.k = options.tracekey // trace key
-    this.ks = options.tracenames // array of trace names
-    this.cS = options.colourscheme // colour scheme
+    const DEFAULT_MARGINS = {
+      top: 32,
+      right: 16,
+      bottom: 16,
+      left: 64
+    }
+
+    this.d = options.data || options.d// the data
+    this.e = options.elementId || options.e // selector element
+    this.k = options.tracekey || options.k // trace key
+    this.ks = options.tracenames || options.ks// array of trace names
+    this.cS = options.colourscheme || options.cS// colour scheme
 
     this.xV = options.xV // x value
     this.yV = options.yV // y value
 
     this.tX = options.tX
     this.tY = options.tY
-    this.ySF = options.ySF || 'thousands' // format for y axis
+    this.ySF = options.ySF || options.formaty || 'thousands' // format for y axis
+    this.margins = Object.assign(DEFAULT_MARGINS, options.margins)
+    // console.log(`${this.e} : ${JSON.stringify(this.margins)}`)
+
   }
 
   // initialise method to draw c area
   init () {
     const c = this
     const eN = d3.select('#' + c.e).node()
-    // console.log('#' + c.e)
     const eW = eN.getBoundingClientRect().width
-    const aR = eW < 800 ? eW * 0.55 : eW * 0.5
+    const aR = eW < 768 ? eW * 0.55 : eW * 0.5
     const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
-    const bP = 450
+    const bP = 450 // 414 is IPhone 6/7/8+
 
     // console.log("ew: " + eW);
     // margins
-    m.t = eW < bP ? 40 : 50
-    m.b = eW < bP ? 30 : 80
-    m.r = eW < bP ? 15 : 140
-    m.l = eW < bP ? 9 : 72
+
+    m.t = eW < bP ? this.margins.top : 50
+    m.r = eW < bP ? this.margins.right : 140
+    m.b = eW < bP ? this.margins.bottom : 80
+    m.l = eW < bP ? this.margins.left : 72
+
+    // console.log(eW < bP)
 
     // dimensions
     const w = eW - m.l - m.r
@@ -73,7 +86,7 @@ class BCDChart {
     // add the g to the svg and transform by top and left margin
     c.g = c.svg.append('g')
       .attr('transform', 'translate(' + m.l +
-                ', ' + m.t + ')')
+        ', ' + m.t + ')')
       .attr('class', 'chart-group')
 
     // set chart transition method
@@ -84,7 +97,8 @@ class BCDChart {
 
     // set chart colour method
     c.colour = d3.scaleOrdinal(cScheme)
-    // set chart bisecector method
+
+    // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
       return d[c.xV]
     }).left
@@ -107,21 +121,21 @@ class BCDChart {
     c.yAxis = g.append('g')
       .attr('class', 'y-axis')
 
+    // const yAxisElement = d3.select('#' + this.e).select('.y-axis')
+    // console.log(yAxisElement.width)
+
     // X title
     xLabel = g.append('text')
       .attr('class', 'titleX')
       .attr('x', c.w / 2)
       .attr('y', c.h + 60)
-      .attr('text-anchor', 'middle')
       .text(c.tX)
 
     // Y title
     yLabel = g.append('text')
       .attr('class', 'titleY')
       .attr('x', -(c.h / 2))
-      .attr('y', -56)
-      .attr('text-anchor', 'middle')
-      .attr('transform', 'rotate(-90)')
+      .attr('y', -c.m.l + 16) // auto position the yAxis label
       .text(c.tY)
   }
 
@@ -135,12 +149,73 @@ class BCDChart {
     c.ks = c.ks !== undefined ? c.ks : c.d[0].key ? c.colour.domain() : findKeys(c.d.map(d => d[c.k]))
   }
 
+  addTooltip (title, format, dateField, prefix, postfix) {
+    const c = this
+
+    d3.select(c.e).select('.focus').remove()
+    d3.select(c.e).select('.focus_overlay').remove()
+
+    c.ttTitle = title
+    c.valueFormat = c.formatValue(format)
+    c.dateField = dateField
+    c.ttWidth = 305
+    c.prefix = prefix || ''
+    c.postfix = postfix || ''
+
+    // console.log(c)
+
+    c.drawFocusLine()
+    c.drawFocusOverlay() // need to refactor this function
+  }
+
+  updateTooltipContent (data) {
+    const c = this
+    data.forEach((d, i) => {
+      const id = '#bcd-tt' + i
+      const div = c.tooltipElement.select(id)
+      const unText = 'N/A'
+      let indicatorColour
+      const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''
+      const rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null)
+      const value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value
+      const p = div.select('.bcd-text')
+      if (c.arrowChange === true) {
+        indicatorColour = d.change < 0 ? '#20c997' : d.change > 0 ? '#da1e4d' : '#f8f8f8'
+      } else {
+        indicatorColour = d.change > 0 ? '#20c997' : d.change < 0 ? '#da1e4d' : '#f8f8f8'
+      }
+      div.style('opacity', 1)
+      div.select('.bcd-dot').style('background-color', c.colour(d.key))
+      p.select('.bcd-text-title').text(d.key)
+      p.select('.bcd-text-value').text(value)
+      p.select('.bcd-text-rate').text(rate)
+      p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
+    })
+  }
+
+  // might need this method
+  // mousemove(d){
+  //     let c = this,
+  //         focus = d3.select(c.e).select(".focus"),
+  //         mouse = d3.mouse(d.node()) || c.w,
+
+  //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
+  //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
+  //         i = c.bisectDate(c.d[0].values, x0, 1),
+  //         tooldata = c.sortData(i, x0);
+
+  //         c.updateTooltipContent(tooldata);// add values to tooltip
+
+  //         focus.style("visibility","visible");
+  //         c.tooltipElement.style("visibility","visible");
+  // }
+
   drawTooltip () {
     const c = this
 
     d3.select('#' + c.e).select('.tool-tip.bcd').remove()
 
-    c.newToolTip = d3.select('#' + c.e)
+    c.tooltipElement = d3.select('#' + c.e)
       .append('div')
       .attr('class', 'tool-tip bcd')
 
@@ -148,12 +223,12 @@ class BCDChart {
     // console.log('c.sscreens')
     // console.log(c.sscreens)
     c.sscreens
-      ? c.newToolTip.style('visibility', 'visible')
-      : c.newToolTip.style('visibility', 'hidden')
+      ? c.tooltipElement.style('visibility', 'visible')
+      : c.tooltipElement.style('visibility', 'hidden')
 
-    // c.newToolTip.style('display', 'none')
+    // c.tooltipElement.style('display', 'none')
 
-    c.newToolTipTitle = c.newToolTip
+    c.tooltipElementTitle = c.tooltipElement
       .append('div')
       .attr('id', 'bcd-tt-title')
 
@@ -161,25 +236,113 @@ class BCDChart {
     c.tooltipBody()
   }
 
+  /* inital draw focus line at origin */
+  drawFocusLine () {
+    // console.log('draw focus line')
+    const c = this
+    const g = c.g
+    const focus = g.append('g')
+      .attr('class', 'focus')
+
+    focus.append('line')
+      .attr('class', 'focus_line')
+      .attr('y1', 0)
+      .attr('y2', c.h)
+
+    focus.append('g')
+      .attr('class', 'focus_circles')
+
+    c.focus = focus // referred to later when moving tooltip and focus line
+
+    c.ks.forEach((d, i) => {
+      c.drawFocusCircle(d, i)
+    })
+  }
+
+  drawFocusCircle (d, i) {
+    const c = this
+    const g = c.g
+    const focusCircles = c.focus.select('.focus_circles')
+      .append('g')
+      .attr('class', 'focus_circle_' + i)
+
+    focusCircles.append('circle')
+      .attr('r', 0)
+      .transition(c.t)
+      .attr('r', 5)
+  }
+
+  drawFocusOverlay () {
+    const c = this
+    const g = c.g
+
+    if (c.g != null) {
+      const overlay = g.append('rect')
+
+      overlay.attr('class', 'focus_overlay')
+        .attr('width', c.w)
+        .attr('height', c.h)
+        .style('fill', 'none')
+        .style('pointer-events', 'all')
+        .style('visibility', 'hidden')
+
+      if (c.sscreens) {
+        mousemove()
+        overlay
+          .on('touchmove', mousemove, {
+            passive: true
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      } else {
+        overlay
+          .on('mouseover', (d) => {
+            c.focus.style('display', null)
+          }, {
+            passive: true
+          })
+          .on('mouseout', () => {
+            c.focus.style('display', 'none')
+            c.tooltipElement.style('visibility', 'hidden')
+          })
+          .on('mousemove', mousemove, {
+            passive: true
+          })
+      }
+
+      function mousemove () {
+        c.focus.style('visibility', 'visible')
+        c.tooltipElement.style('visibility', 'visible')
+        c.tooltipElement.style('display', 'block')
+        const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
+        // console.log('ml mouse')
+        // console.log(mouse)
+        const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
+        const i = c.bisectDate(c.d[0].values, x0, 1)
+        const tooldata = c.sortData(i, x0)
+        c.updateTooltip(tooldata)
+        c.updateTooltipContent(tooldata) // add values to tooltip
+      }
+    }
+  }
+
   tooltipHeaders () {
     const c = this
-    let div
-    let p
-
-    div = c.newToolTip
+    const div = c.tooltipElement
       .append('div')
       .attr('class', 'headers')
 
     div.append('span')
       .attr('class', 'bcd-dot')
 
-    p = div
+    const p = div
       .append('p')
       .attr('class', 'bcd-text')
 
     p.append('span')
       .attr('class', 'bcd-text-title')
-      .text('Type')
+      .text(c.k || 'Type')
 
     p.append('span')
       .attr('class', 'bcd-text-value')
@@ -200,7 +363,7 @@ class BCDChart {
     let p
 
     keys.forEach((d, i) => {
-      div = c.newToolTip
+      div = c.tooltipElement
         .append('div')
         .attr('id', 'bcd-tt' + i)
 
@@ -213,6 +376,52 @@ class BCDChart {
       p.append('span').attr('class', 'bcd-text-rate')
       p.append('span').attr('class', 'bcd-text-indicator')
     })
+  }
+
+  updateTooltip (d) {
+    const c = this
+    d.forEach((d, i) => {
+      const xPos = c.x(d[c.xV])
+      const id = '.focus_circle_'+ i
+      // console.log(id);
+      const focusCircle = c.focus.select(id)
+
+      const v = 'value'
+      if (d !== undefined) {
+        c.updateTooltipPosition(xPos, -300)
+        c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
+        focusCircle.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
+        c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
+        focusCircle.select('circle').attr('fill', c.colour(d.key))
+        focusCircle.select('circle').attr('stroke', c.colour(d.key))
+      }
+    })
+  }
+
+  updateTooltipPosition (xPosition, yPosition) {
+    const c = this
+    const g = c.g
+    // get the x and y values - y is static
+    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
+    // move the tooltip
+    g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
+    c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
+  }
+
+  getTooltipPosition ([mouseX, mouseY]) {
+    const c = this
+    let ttX
+    const ttY = mouseY
+    const cSize = c.w - c.ttWidth + c.m.l
+    const offset = 24
+
+    if (mouseX < cSize) {
+      ttX = mouseX + c.m.l + offset
+    } else {
+      ttX = (mouseX + c.m.l) - c.ttWidth - offset
+    }
+    return [ttX, ttY]
   }
 
   drawGridLines () {
@@ -240,43 +449,6 @@ class BCDChart {
     const s = d3.select('#' + c.e)
     const e = s.selectAll(name)
     return e
-  }
-
-  drawFocusLine () {
-    // console.log('draw focus line')
-    const c = this
-    const g = c.g
-
-    c.focus = g.append('g')
-      .attr('class', 'focus')
-
-    c.focus.append('line')
-      .attr('class', 'focus_line')
-      .attr('y1', 0)
-      .attr('y2', c.h)
-
-    c.focus.append('g')
-      .attr('class', 'focus_circles')
-
-    c.ks.forEach((d, i) => {
-      c.drawFocusCircles(d, i)
-    })
-  }
-
-  drawFocusCircles (d, i) {
-    const c = this
-    const g = c.g
-
-    const tooltip = g.select('.focus_circles')
-      .append('g')
-      .attr('class', 'tooltip_' + i)
-
-    tooltip.append('circle')
-      .attr('r', 0)
-      .transition(c.t)
-      .attr('r', 5)
-      .attr('fill', c.colour(d))
-      .attr('stroke', c.colour(d))
   }
 
   // for data that needs to be nested
@@ -310,9 +482,12 @@ class BCDChart {
   }
 
   formatValue (format) {
-    // formats thousands, Millions, Euros and Percentage
+    // formats thousands, Millions, Euros and Percentage etc
     switch (format) {
       case 'millions':
+        return d3.format('.2s')
+
+      case 'millionsShort':
         return d3.format('.2s')
 
       case 'euros':
@@ -324,6 +499,12 @@ class BCDChart {
       case 'thousands':
         return d3.format(',')
 
+      case 'tenThousandsShort':
+        return d3.format('.2s')
+
+      case 'hundredThousandsShort':
+        return d3.format('.3s')
+
       case 'percentage2':
         return d3.format('.2%')
 
@@ -331,8 +512,30 @@ class BCDChart {
         return d3.format('.0%')
 
       default:
-        return 'undefined'
+        return d3.format(',')
     }
+  }
+
+  getPerChange (d1, d0, v) {
+    const value = !isNaN(d1[v]) ? d0 ? (d1[v] - d0[v]) / d0[v] : 'null' : null
+    if (value === Infinity) {
+      return 0
+    } else if (isNaN(value)) {
+      return 0
+    }
+    return value
+  }
+
+  addBaseLine (value) {
+    const c = this
+    const gLines = c.getElement('.grid-lines')
+
+    gLines.append('line')
+      .attr('x1', 0)
+      .attr('x2', c.w)
+      .attr('y1', c.y(value))
+      .attr('y2', c.y(value))
+      .attr('stroke', '#dc3545')
   }
 
   showSelectedLabelsX (array) {

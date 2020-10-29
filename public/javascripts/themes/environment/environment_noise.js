@@ -1,11 +1,15 @@
 import { ChartLinePopup } from '../../modules/bcd-chart-line-popup.js'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { formatDateAsDDMMYY, isToday } from '../../modules/bcd-date.js'
-
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { activeBtn, addErrorMessage } from '../../modules/bcd-ui.js'
+import { isToday } from '../../modules/bcd-date.js'
 import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js'
 
 (async () => {
   // console.log('load noise charts')
+
+  d3.select('#map-noise-monitors').style('display', 'block')
+  d3.select('#chart-noise-monitors').style('display', 'none')
+
   const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
 
   try {
@@ -24,24 +28,26 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
     const noiseMapIcon = L.icon({
       iconUrl: '../images/environment/microphone-black-shape.svg',
       iconSize: [20, 20] // orig size
-    // iconAnchor: [iconAX, iconAY] //,
+      // iconAnchor: [iconAX, iconAY] //,
       // popupAnchor: [-3, -76]
     })
-    const noiseMarker = L.Marker.extend({
+    const NoiseMarker = L.Marker.extend({
       options: {
         id: 0
       }
     })
 
     const noisePopupOptons = {
-    // 'maxWidth': '500',
-    // 'className': 'leaflet-popup'
+      // 'maxWidth': '500',
+      // 'className': 'leaflet-popup'
     }
 
     const noiseSitesLayer = new L.LayerGroup()
     const noiseSites = await getSites('../data/Environment/soundsites.json', 'sound_monitoring_sites')
+    // console.log(noiseSites)
+
     const allSitesPromises = noiseSites.map(async d => {
-      const marker = new noiseMarker(
+      const marker = new NoiseMarker(
         new L.LatLng(d.lng, d.lat), {
           id: d.id,
           opacity: 0.9,
@@ -56,22 +62,20 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       })
       noiseSitesLayer.addLayer(marker)
       const siteReadings = await getSiteReadings(d)
+      // console.log(siteReadings);
       return siteReadings
     })
     const allSitesData = await Promise.all(allSitesPromises)
+    // console.log(allSitesData);
     let allSitesFlat = allSitesData.flat(1)
-    allSitesFlat = allSitesFlat.filter((s, i) => {
-      return isToday(s.date) && (parseInt(s.date.getHours()) < 10) // // TODO: remove demo hack
+    allSitesFlat = allSitesFlat.filter((s) => {
+      return isToday(s.date)
     })
-    // console.log('allSitesFlat')
-    // console.log(allSitesFlat)
 
     noiseMap.addLayer(noiseSitesLayer)
-    // noiseMap.fitBounds(noiseCluster.getBounds())
-    // console.log(allSitesFlat)
 
     const noiseChartOptions = {
-      e: '#chart-noise-monitors',
+      e: 'chart-noise-monitors',
       d: allSitesFlat,
       k: 'name', // ?
       // ks: keys, // For StackedAreaChart-formatted data need to provide keys
@@ -81,25 +85,13 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       tY: 'dB'
     }
 
-    const noiseChart = new MultiLineChart(noiseChartOptions)
-
-    function redraw () {
-      if (document.querySelector('#chart-noise-monitors').style.display !== 'none') {
-        noiseChart.drawChart()
-        noiseChart.addTooltip('Noise Level (Decibels) - ', '', 'label')
-      }
-    }
-    redraw()
-
-    d3.select('#map-noise-monitors').style('display', 'block')
-    d3.select('#chart-noise-monitors').style('display', 'none')
+    const noiseChart = new BCDMultiLineChart(noiseChartOptions)
 
     d3.select('#btn-noise-chart').on('click', function () {
       activeBtn(this)
       d3.select('#chart-noise-monitors').style('display', 'block')
       d3.select('#map-noise-monitors').style('display', 'none')
-      noiseChart.drawChart()
-      noiseChart.addTooltip('Noise level (Decibels) - ', '', 'label')
+      redraw(noiseChart)
     })
 
     d3.select('#btn-noise-map').on('click', function () {
@@ -112,6 +104,7 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
       redraw()
     })
   } catch (e) {
+    console.log('Error creating noise level chart')
     console.log(e)
   }
 })()
@@ -119,7 +112,9 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
 async function getSites (url, key) {
   // need to be able to look up the static data using cosit as key
   // want an array of objects for dublin counters
+  // console.log(url)
   let siteData = await d3.json(url)
+  // console.log(siteData);
   siteData = siteData[key].map(site => {
     const obj = {
       id: +site.site_id,
@@ -154,15 +149,13 @@ function getPopup (d_) {
   str += '</div>' // close subtitle
   str += '<div class="leaflet-popup-chart" id="noise-site-' + d_.id + '-plot">' + '' + '</div>'
   str += '</div>' // close popup
-
+  // console.log(str);
   return str
 }
 
 async function getSiteReadings (d_) {
-  // console.log(d_)
-
-  const readings = await d3.json('../data/Environment/noise_levels/sound_reading_' + d_.id + '.json')
-  // console.log(readings.times)
+  const readings = await d3.json('../data/Environment/sound_levels/sound_reading_' + d_.id + '.json')
+  // console.log(readings)
 
   const data = readings.dates.map((d, i) => {
     let date = d.split('/')[0]
@@ -196,15 +189,12 @@ async function getSiteReadings (d_) {
 async function getPopupPlot (d_) {
   const divId = `noise-site-${d_.id}`
   const data = await getSiteReadings(d_)
-
-  // isToday(s.date)
-
-  // console.log(data[0])
+  // console.log(data)
   if (isToday(data[0].date)) {
     document.getElementById(divId + '-subtitle').innerHTML =
-    data[0].date.toString().split(' ')[0] + ' ' +
-    data[1].date.toString().split(' ')[1] + ' ' +
-    data[2].date.toString().split(' ')[2]
+      data[0].date.toString().split(' ')[0] + ' ' +
+      data[1].date.toString().split(' ')[1] + ' ' +
+      data[2].date.toString().split(' ')[2]
     const options = {
       d: data,
       e: '#' + divId + '-plot',
@@ -218,18 +208,19 @@ async function getPopupPlot (d_) {
   }
 
   const str = '<div class="popup-error">' +
-          '<div class="row ">' +
-          "We can't get the noise monitoring data for this location right now, please try again later" +
-          '</div>' +
-          '</div>'
+    '<div class="row ">' +
+    "We can't get the noise monitoring data for this location right now, please try again later" +
+    '</div>' +
+    '</div>'
   // return d3.select('#bike-spark-' + sid_)
   //   .html(str)
   document.getElementById(divId + '-plot').innerHTML = str
   return str
 }
 
-function activeBtn (e) {
-  const btn = e
-  $(btn).siblings().removeClass('active')
-  $(btn).addClass('active')
+function redraw (chart) {
+  if (document.querySelector('#chart-noise-monitors').style.display !== 'none') {
+    chart.drawChart()
+    chart.addTooltip('Noise Level (Decibels) - ', '', 'label')
+  }
 }

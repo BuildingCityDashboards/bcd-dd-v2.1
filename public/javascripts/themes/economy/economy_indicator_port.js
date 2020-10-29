@@ -1,20 +1,27 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { coerceWideTable } from '../../modules/bcd-data.js'
-import { activeBtn } from '../../modules/bcd-ui.js'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
-let portTotalChart, portBreakdownChart
-const portTonnage = '../data/Economy/data_gov_economic_monitor/indicator-10-dublin-port-tonnage.csv'
+import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
+import { TimeoutError } from '../../modules/TimeoutError.js'
+import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 
-Promise.all([
-  d3.csv(portTonnage)
-])
-  .then(data => {
-    const portData = data[0]
+(async function main () {
+  d3.select('#chart-indicator-port-total').style('display', 'block')
+  d3.select('#chart-indicator-port-breakdown').style('display', 'none')
+  const portTonnage = '../data/Economy/data_gov_economic_monitor/indicator-10-dublin-port-tonnage.csv'
+  let portTotalChart
+  let portBreakdownChart
+  try {
+    addSpinner('chart-indicator-port-total', '<b>data.gov.ie</b> for data: <i>Dublin Economic Monitor, Indicator 10 - Dublin Port</i>')
+    const data = await fetchCsvFromUrlAsyncTimeout(portTonnage)
+    if (data) {
+      removeSpinner('chart-indicator-port-total')
+    }
+    const portData = d3.csvParse(data)
     const portColumns = portData.columns.slice(1)
     if (document.getElementById('chart-indicator-port-total')) {
       const longData = portData.map(d => {
-      // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
+        // the date is re-formatted  "'Q'Q YY" -> "YYYY'Q'Q"
         const yearQuarter = '20' + d.Quarter.toString().split(' ')[1] + d.Quarter.toString().split(' ')[0]
         let value = parseFloat(d[portColumns[0]].replace(/,/g, '')) / 1000000
         value = value.toPrecision(3)
@@ -28,24 +35,20 @@ Promise.all([
       })
 
       const portTonnageCount = {
-        e: '#chart-indicator-port-total',
+        e: 'chart-indicator-port-total',
         d: longData,
         k: 'variable', // key whose value will name the traces (group by)
         xV: 'date',
         yV: 'value',
         tX: 'Quarter',
-        tY: 'Tonnes (millions)'
+        tY: 'Tonnes (millions)',
+        margins: {
+          left: 40
+        }
       }
-      portTotalChart = new MultiLineChart(portTonnageCount)
-      function redraw () {
-        portTotalChart.drawChart()
-        portTotalChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
-      }
-      redraw()
+      portTotalChart = new BCDMultiLineChart(portTonnageCount)
 
-      window.addEventListener('resize', () => {
-        redraw()
-      })
+      redraw(portTotalChart)
     }
 
     if (document.getElementById('chart-indicator-port-breakdown')) {
@@ -67,34 +70,59 @@ Promise.all([
       // console.log(portBreakdownData)
 
       const portTonnageBreakdown = {
-        e: '#chart-indicator-port-breakdown',
+        e: 'chart-indicator-port-breakdown',
         d: portBreakdownData,
         ks: ['Imports', 'Exports'],
         xV: 'date',
         yV: breakdownCols,
         tX: 'Quarter',
-        tY: 'Tonnes (millions)'
+        tY: 'Tonnes (millions)',
+        margins: {
+          left: 40
+        }
       }
-      portBreakdownChart = new StackedAreaChart(portTonnageBreakdown)
-      portBreakdownChart.drawChart()
+      portBreakdownChart = new BCDStackedAreaChart(portTonnageBreakdown)
+      // redraw(portBreakdownChart)
     }
 
-    d3.select('#chart-indicator-port-total').style('display', 'block')
-    d3.select('#chart-indicator-port-breakdown').style('display', 'none')
+    window.addEventListener('resize', () => {
+      if (d3.select('#chart-indicator-port-total').style.display !== 'none') {
+        redraw(portTotalChart)
+      } else {
+        redraw(portBreakdownChart)
+      }
+    })
 
     d3.select('#btn-indicator-port-total').on('click', function () {
       activeBtn(this)
       d3.select('#chart-indicator-port-total').style('display', 'block')
       d3.select('#chart-indicator-port-breakdown').style('display', 'none')
-      portTotalChart.drawChart()
-      portTotalChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
+      redraw(portTotalChart)
     })
 
     d3.select('#btn-indicator-port-breakdown').on('click', function () {
       activeBtn(this)
       d3.select('#chart-indicator-port-total').style('display', 'none')
       d3.select('#chart-indicator-port-breakdown').style('display', 'block')
-      portBreakdownChart.drawChart()
-      portBreakdownChart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
+      redraw(portBreakdownChart)
     })
-  })
+  } catch (e) {
+    console.log('Error creating Dublin Port chart')
+    console.log(e)
+    removeSpinner('chart-indicator-port-total')
+    const eMsg = e instanceof TimeoutError ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton('chart-indicator-port-total', eMsg)
+    // console.log(errBtnID)
+    d3.select(`#${errBtnID}`).on('click', function () {
+      removeErrorMessageButton('chart-indicator-port-total')
+      main()
+    })
+  }
+})()
+
+function redraw (chart) {
+  chart.drawChart()
+  chart.addTooltip('Millions of tonnes, ', 'thousands', 'label')
+  chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12, 14])
+  chart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
+}

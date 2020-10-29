@@ -1,5 +1,5 @@
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 
 (async () => {
   const publicTransportURL = '/api/economicmonitor/indicator/8'
@@ -40,20 +40,26 @@ import { MultiLineChart } from '../../modules/MultiLineChart.js'
       // console.log(longData)
 
       const publicTransportOptions = {
-        e: '#chart-public-transport-trips',
+        e: 'chart-public-transport-trips',
         d: longData,
         k: 'variable', // key whose value will name the traces (group by)
+        ks: ['Bus Éireann', publicTransportColumns[2], publicTransportColumns[3], publicTransportColumns[4]],
         xV: 'date',
         yV: 'value',
         tX: 'Quarter',
         tY: 'Trips (millions)',
-        ySF: 'millions'
+        ySF: 'millions',
+        margins: {
+          left: 56
+        }
       }
-      const publicTransportChart = new MultiLineChart(publicTransportOptions)
+      const publicTransportChart = new BCDMultiLineChart(publicTransportOptions)
 
       const redraw = () => {
         publicTransportChart.drawChart()
         publicTransportChart.addTooltip('Millions of trips, ', 'thousands', 'label')
+        publicTransportChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+        publicTransportChart.showSelectedLabelsY([1, 3, 5, 7])
       }
 
       redraw()

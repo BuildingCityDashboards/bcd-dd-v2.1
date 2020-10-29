@@ -1,0 +1,333 @@
+/* charts */
+
+.chart {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.line-chart {
+  width: 100%;
+  height: 72px;
+  margin-right: 0px;
+}
+
+.line-chart:last-child {
+  margin-right: 0;
+}
+
+.line-chart path.activity {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.line-chart .cursor {
+  fill: black;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.line-chart .label,
+.no-axis {
+  /* color          : rgba(255, 255, 255, 0.6); */
+  color: rgba(155, 155, 155, 0.8);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  font-stretch: normal;
+  line-height: 2;
+  letter-spacing: 0.15px;
+}
+
+.line-chart .label.today {
+  fill: #6c757d;
+}
+
+.line-chart path.reference {
+  stroke: rgba(150, 150, 150, .3);
+}
+
+.line-chart path.today {
+  opacity: 1;
+}
+
+.line-chart .axis line,
+.line-chart .axis path {
+  fill: none;
+  stroke: rgba(0, 0, 0, .1);
+  stroke-width: 1;
+}
+
+.line-chart .y path {
+  fill: none;
+  stroke: none;
+  stroke-width: 0;
+}
+
+.no-axis path {
+  display: none;
+}
+
+.no-axis text {
+  fill: c4cdd5;
+}
+
+.horizontal-line {
+  fill: none;
+}
+
+.y-axis .domain,
+.y-axis .tick line {
+  display: none;
+}
+
+.x-axis line,
+.x-axis path,
+.y-axis line,
+.y-axis path {
+  stroke: #c4cdd5;
+}
+
+.x-axis text,
+.y-axis text {
+  /* fill: #6c757d; */
+  fill: #c4cdd5;
+}
+
+.titleX,
+.titleY {
+  color: white;
+  /* fill: grey; */
+  text-align: center;
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.titleX {
+  display: none;
+}
+
+.titleY {
+  transform: rotate(-90deg);
+}
+
+.light .legendText,
+.light .titleX,
+.light .titleY,
+.light .x-axis text,
+.light .y-axis text {
+  fill: grey;
+}
+
+.light .btn-page.active,
+.light .btn-page:focus,
+.light .btn-page:hover,
+.light .legend-line {
+  color: #6c757d;
+  stroke: #6c757d;
+}
+
+.light .horizontal-line {
+  stroke: lightgrey;
+}
+
+.legend-circles .l-circle {
+  display: none;
+
+}
+
+.legendText {
+  fill: grey;
+  font-size: .75rem;
+  display: none;
+}
+
+.legendRect {
+  width: 16px;
+  height: 16px;
+}
+
+.area-line {
+  fill: none;
+  stroke-width: 1.25;
+}
+
+.chart-holder {
+  /* background-image: linear-gradient(#f8f8f8,gray); */
+  /**
+  * background-image:
+  * url("https://ik.imagekit.io/demo/img/image4.jpeg?tr=w-1,h-1:w-300,h-200");
+  */
+  /* background-color: #f8f8f8; */
+  margin-right: -1rem;
+  border-radius: .325rem;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+/* plot lines */
+.line {
+  fill: none;
+  stroke-width: 2px;
+
+}
+
+.overlay,
+.overlay2 {
+  fill: none;
+  pointer-events: all;
+}
+
+.focus-circles {
+  stroke-width: 2px;
+}
+
+.focus_line {
+  stroke: #6fd1f6;
+  stroke-width: 2px;
+  stroke-dasharray: 5, 5;
+}
+
+.tool-tip {
+  background-color: transparent;
+  position: static;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  /* max-height: 100px; */
+  padding: 4px;
+  border-radius: 4px;
+  pointer-events: none;
+  font-family: 'Roboto';
+  font-size: 12px;
+  line-height: 1.5;
+  color: white;
+  opacity: 0.75;
+  padding: 8px;
+  visibility: visible;
+  transition: 250ms ease;
+  outline: none;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  /* display: none; */
+}
+
+.tip-box {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  float: left;
+}
+
+.tooltip-body {
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+}
+
+.bcd-dot {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 6px;
+  margin-top: 4px;
+}
+
+.bcd-rect {
+  height: 12px;
+  width: 12px;
+  float: left;
+  margin-right: 6px;
+  margin-top: 4px;
+}
+
+.bcd-text {
+  /* font-size: .75rem; */
+  margin: 0;
+  display: flex;
+  width: 92%;
+  font-size: 12px;
+  font-family: 'Roboto';
+}
+
+.bcd-text-rate,
+.bcd-text-value,
+.bcd-text-slice {
+  flex: 0 0 22.5%;
+  max-width: 22.5%;
+  text-align: right;
+  /* border-left: 1px solid #c4cdd5; */
+  /* padding: 0 1px; */
+}
+
+.bcd-text-indicator {
+  flex: 0 0 5%;
+  max-width: 5%;
+  text-align: right;
+}
+
+/* {
+  flex: 0 0 20%;
+  max-width: 20%;
+  text-align: right;
+} */
+
+.bcd-text-title {
+  flex: 0 0 45%;
+  max-width: 45%;
+}
+
+.legend.active {
+  opacity: .25;
+}
+
+
+
+/* .tip-text{
+  line-height: 1.25rem;
+} */
+
+
+@media (min-device-width: 768px) {
+  .tool-tip {
+    background: #1c2022;
+    position: relative;
+    width: 305px;
+    max-height: 300px;
+    height: auto;
+    padding: 12px;
+    opacity: 0.9;
+    visibility: visible;
+    overflow-y: auto;
+    /* display: none; */
+    display: block;
+  }
+
+  .focus {
+    /* visibility: hidden; */
+  }
+
+  .focus_line {
+    display: block;
+    visibility: visible;
+    stroke: #6fd1f6;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
+  }
+
+  .legend-circles .l-circle {
+    display: block;
+
+  }
+
+  .legendText {
+    display: block;
+  }
+}
+
+@media (min-device-width: 1280px) {}

@@ -1,18 +1,18 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
+import { hasCleanValue } from '../../modules/bcd-data.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main () {
+(async function main() {
   const chartDivIds = ['chart-completions-house', 'chart-completions-scheme', 'chart-completions-apartment']
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // NDQ06: New Dwelling Completion by Local Authority, Type of House and Quarter
   const TABLE_CODE = 'NDQ06'
 
@@ -58,7 +58,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d[dimensions[0]] === categoriesLA[25] ||
           d[dimensions[0]] === categoriesLA[26] ||
           d[dimensions[0]] === categoriesLA[28]) &&
-          !isNaN(+d.value)) {
+          hasCleanValue(d)) {
           d[dimensions[0]] = getTraceNameLA(d[dimensions[0]])
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
@@ -74,7 +74,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(traceNames)
 
     const completionsHouse = {
-      e: '#chart-completions-house',
+      e: 'chart-completions-house',
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[0]
       }),
@@ -83,13 +83,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Number of Completions'
     }
     //
-    const completionsHouseChart = new MultiLineChart(completionsHouse)
+    const completionsHouseChart = new BCDMultiLineChart(completionsHouse)
 
     const completionsScheme = {
-      e: '#chart-completions-scheme',
+      e: 'chart-completions-scheme',
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[1]
       }),
@@ -98,13 +98,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Number of Completions'
     }
     //
-    const completionsSchemeChart = new MultiLineChart(completionsScheme)
+    const completionsSchemeChart = new BCDMultiLineChart(completionsScheme)
 
     const completionsApartment = {
-      e: '#chart-completions-apartment',
+      e: 'chart-completions-apartment',
       d: completionsTable.filter(d => {
         return d[dimensions[1]] === categoriesType[2]
       }),
@@ -113,10 +113,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Number of Completions'
     }
     //
-    const completionsApartmentChart = new MultiLineChart(completionsApartment)
+    const completionsApartmentChart = new BCDMultiLineChart(completionsApartment)
 
     const chart1 = 'completions-house'
     const chart2 = 'completions-scheme'
@@ -126,20 +126,28 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     d3.select('#chart-' + chart2).style('display', 'none')
     d3.select('#chart-' + chart3).style('display', 'none')
 
-    function redraw () {
+    function redraw() {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         completionsHouseChart.drawChart()
         completionsHouseChart.addTooltip('Single house completions,  ', '', 'label')
+        completionsHouseChart.showSelectedLabelsX([0, 3, 6, 9])
+        completionsHouseChart.showSelectedLabelsY([2, 4, 6, 8, 10])
+
       }
       if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
         completionsSchemeChart.drawChart()
         completionsSchemeChart.addTooltip('Scheme house completions, ', '', 'label')
+        completionsSchemeChart.showSelectedLabelsX([0, 3, 6, 9])
+        completionsSchemeChart.showSelectedLabelsY([2, 4, 6, 8, 10,12])
       }
       if (document.querySelector('#chart-' + chart3).style.display !== 'none') {
         completionsApartmentChart.drawChart()
         completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
+        completionsApartmentChart.showSelectedLabelsX([0, 3, 6, 9])
+        completionsApartmentChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
       }
     }
+
     redraw()
 
     d3.select('#btn-' + chart1).on('click', function () {
@@ -174,8 +182,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log(e)
 
     removeSpinner(chartDivIds[0])
-    e = e instanceof TimeoutError ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    const eMsg = e instanceof TimeoutError ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton(chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       console.log('retry')

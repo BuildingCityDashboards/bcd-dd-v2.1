@@ -2,18 +2,18 @@ import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main () {
+(async function main() {
   const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-          'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
 
   const STATIC_URL = '../data/statbank/HPM05.json'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
@@ -66,15 +66,15 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if (d[dimensions[0]] === categoriesType[0] &&
-         d[dimensions[1]] === categoriesStatus[0] &&
-         d[dimensions[2]] === categoriesStamp[0] &&
-         (d[dimensions[3]] === categoriesRegion[0] ||
-           d[dimensions[3]] === categoriesRegion[18] ||
-           d[dimensions[3]] === categoriesRegion[19] ||
-           d[dimensions[3]] === categoriesRegion[20] ||
-           d[dimensions[3]] === categoriesRegion[21]) &&
-         (d[dimensions[5]] === categoriesStat[2] ||
-         d[dimensions[5]] === categoriesStat[3])) {
+          d[dimensions[1]] === categoriesStatus[0] &&
+          d[dimensions[2]] === categoriesStamp[0] &&
+          (d[dimensions[3]] === categoriesRegion[0] ||
+            d[dimensions[3]] === categoriesRegion[18] ||
+            d[dimensions[3]] === categoriesRegion[19] ||
+            d[dimensions[3]] === categoriesRegion[20] ||
+            d[dimensions[3]] === categoriesRegion[21]) &&
+          (d[dimensions[5]] === categoriesStat[2] ||
+            d[dimensions[5]] === categoriesStat[3])) {
           d.date = parseYearMonth(d.Month)
           d.label = d.Month
           d.value = +d.value
@@ -89,7 +89,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(traceNames)
 
     const housePriceMean = {
-      e: '#chart-house-price-mean',
+      e: 'chart-house-price-mean',
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[2]
       }),
@@ -98,13 +98,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[2]
+      tY: categoriesStat[2],
+      formaty: 'hundredThousandsShort'
     }
     //
-    const housePriceMeanChart = new MultiLineChart(housePriceMean)
+    const housePriceMeanChart = new BCDMultiLineChart(housePriceMean)
 
     const housePriceMedian = {
-      e: '#chart-house-price-median',
+      e: 'chart-house-price-median',
       d: housePriceTable.filter(d => {
         return d[dimensions[5]] === categoriesStat[3]
       }),
@@ -113,21 +114,26 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[3]
+      tY: categoriesStat[3],
+      formaty: 'hundredThousandsShort'
     }
     //
-    const housePriceMedianChart = new MultiLineChart(housePriceMedian)
+    const housePriceMedianChart = new BCDMultiLineChart(housePriceMedian)
 
     const chart1 = 'house-price-mean'
     const chart2 = 'house-price-median'
-    function redraw () {
+    function redraw() {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         housePriceMeanChart.drawChart()
         housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
+        housePriceMeanChart.showSelectedLabelsX([0,2,4,6,8,10])
+        housePriceMeanChart.showSelectedLabelsY([2,4,6,8,10,12,14])
       }
       if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
         housePriceMedianChart.drawChart()
         housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
+        housePriceMedianChart.showSelectedLabelsX([0,2,4,6,8,10])
+        housePriceMedianChart.showSelectedLabelsY([2,4,6,8,10,12,14])
       }
     }
     redraw()
@@ -156,8 +162,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log('Error creating House Price chart')
     console.log(e)
     removeSpinner(chartDivIds[0])
-    e = e instanceof TimeoutError ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    const eMsg = e instanceof TimeoutError ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton(chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
       removeErrorMessageButton(chartDivIds[0])

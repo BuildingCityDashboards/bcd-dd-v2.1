@@ -1,45 +1,45 @@
+import { addErrorMessage } from './bcd-ui.js'
 import { BCDChart } from './BCDChart.js'
 
 class BCDMultiLineChart extends BCDChart {
-  constructor (obj) {
-    super(obj)
-
-    this.drawChart()
-  }
-
   drawChart () {
     const c = this
-
-    super.nestData()
-    super.init()
-    super.addAxis()
-    super.getKeys()
-    super.drawTooltip()
-    c.createScales() // parent once I setup setScales:done and setDomain with switch.
-    super.drawGridLines()
-    c.drawLines() // child - like createScales could be added to parent with switch.
-    c.drawLegend() // child - like createScales could be added to parent with switch.
-  }
-
-  updateChart (obj) {
-    const c = this
-
-    if (obj) {
-      c.d = obj.d || c.d
-      c.k = obj.k || c.k
-      c.ks = obj.ks || c.ks
-      c.tX = obj.tX || c.tX
-      c.tY = obj.tY || c.tY
-      c.xV = obj.xV || c.xV
-      c.yV = obj.yV || c.yV
-      c.cS = obj.c || c.cS
-      c.ySF = obj.ySF || c.ySF
+    try {
+      super.nestData()
+      super.init()
+      super.addAxis()
+      super.getKeys()
+      super.drawTooltip()
+      c.createScales() // parent once I setup setScales:done and setDomain with switch.
+      super.drawGridLines()
+      c.drawLines() // child - like createScales could be added to parent with switch.
+      c.drawLegend() // child - like createScales could be added to parent with switch.
+    } catch (err) {
+      console.log('Error in MultiLine Chart')
+      console.log(err)
+      addErrorMessage(c.e, 'An error occured getting the data for this chart from the external source.')
     }
-
-    c.createScales()
-    c.drawLines()
-    c.drawLegend()
   }
+
+  // updateChart (obj) {
+  //   const c = this
+
+  //   if (obj) {
+  //     c.d = obj.d || c.d
+  //     c.k = obj.k || c.k
+  //     c.ks = obj.ks || c.ks
+  //     c.tX = obj.tX || c.tX
+  //     c.tY = obj.tY || c.tY
+  //     c.xV = obj.xV || c.xV
+  //     c.yV = obj.yV || c.yV
+  //     c.cS = obj.c || c.cS
+  //     c.ySF = obj.ySF || c.ySF
+  //   }
+
+  //   c.createScales()
+  //   c.drawLines()
+  //   c.drawLegend()
+  // }
 
   // needs to be called everytime the data changes
   createScales () {
@@ -163,7 +163,7 @@ class BCDMultiLineChart extends BCDChart {
     // update the paths
     c.regions.select('.line')
       .transition(c.t)
-    // .attr("d", d => {return c.line(d.values); });
+      // .attr("d", d => {return c.line(d.values); });
       .attr('d', d => {
         return d.disabled ? null : c.line(d.values)
       })
@@ -177,159 +177,19 @@ class BCDMultiLineChart extends BCDChart {
       })
       .attr('class', 'line')
       .attr('id', d => d.key)
-    // .attr("d", d => {return c.line(d.values); })
+      // .attr("d", d => {return c.line(d.values); })
       .attr('d', d => {
         return d.disabled ? null : c.line(d.values)
       })
     // .style("stroke", d => ( c.d.map(function(v,i) {
     //     return c.colour || c.color[i % 10];
     //   }).filter(function(d,i) { return !c.d[i].disabled })))
-      .style('stroke-width', '3px')
-      .style('fill', 'none')
 
     // c.regions.transition(c.t)
     //     .attr("d", function (d) { return c.line(d.values); });
 
     c.regions.exit()
       .transition(c.t).remove()
-  }
-
-  addTooltip (title, format, dateField, prefix, postfix) {
-    const c = this
-
-    d3.select(c.e).select('.focus').remove()
-    d3.select(c.e).select('.focus_overlay').remove()
-
-    c.ttTitle = title
-    c.valueFormat = c.formatValue(format)
-    c.dateField = dateField
-    c.ttWidth = 305
-    c.prefix = prefix || ' '
-    c.postfix = postfix || ' '
-
-    // console.log(c)
-
-    super.drawFocusLine()
-    c.drawFocusOverlay() // need to refactor this function
-  }
-
-  drawFocusOverlay () {
-    const c = this
-    const g = c.g
-    const focus = d3.select(c.e).select('.focus')
-    const overlay = g.append('rect')
-
-    overlay.attr('class', 'focus_overlay')
-      .attr('width', c.w)
-      .attr('height', c.h)
-      .style('fill', 'none')
-      .style('pointer-events', 'all')
-      .style('visibility', 'hidden')
-
-    if (c.sscreens) {
-      mousemove()
-      overlay
-        .on('touchmove', mousemove, {
-          passive: true
-        })
-        .on('mousemove', mousemove, {
-          passive: true
-        })
-    } else {
-      overlay
-        .on('mouseover', (d) => {
-          focus.style('display', null)
-        }, {
-          passive: true
-        })
-        .on('mouseout', () => {
-          focus.style('display', 'none')
-          c.newToolTip.style('visibility', 'hidden')
-        })
-        .on('mousemove', mousemove, {
-          passive: true
-        })
-    }
-
-    function mousemove () {
-      focus.style('visibility', 'visible')
-      c.newToolTip.style('visibility', 'visible')
-      c.newToolTip.style('display', 'block')
-
-      const mouse = this ? d3.mouse(this) : c.w // this check is for small screens < bP
-      // console.log('ml mouse')
-      // console.log(mouse)
-      const x0 = c.x.invert(mouse[0] || mouse) // use this value if it exist else use the c.w
-      const i = c.bisectDate(c.d[0].values, x0, 1)
-      const tooldata = c.sortData(i, x0)
-      // c.moveTooltip(tooldata);
-      c.ttContent(tooldata) // add values to tooltip
-    }
-  }
-  // might need this method
-  // mousemove(d){
-  //     let c = this,
-  //         focus = d3.select(c.e).select(".focus"),
-  //         mouse = d3.mouse(d.node()) || c.w,
-
-  //         // mouse = this ? d3.mouse(this) : c.w, // this check is for small screens < bP
-  //         x0 = c.x.invert(mouse[0] || mouse), // use this value if it exist else use the c.w
-  //         i = c.bisectDate(c.d[0].values, x0, 1),
-  //         tooldata = c.sortData(i, x0);
-
-  //         c.ttContent(tooldata);// add values to tooltip
-
-  //         focus.style("visibility","visible");
-  //         c.newToolTip.style("visibility","visible");
-  // }
-
-  getPerChange (d1, d0, v) {
-    let value
-    value = !isNaN(d1[v]) ? d0 ? (d1[v] - d0[v]) / d0[v] : 'null' : null
-    if (value === Infinity) {
-      return 0
-    } else if (isNaN(value)) {
-      return 0
-    }
-    return value
-  }
-
-  updatePosition (xPosition, yPosition) {
-    const c = this
-    const g = c.g
-    // get the x and y values - y is static
-    const [tooltipX, tooltipY] = c.getTooltipPosition([xPosition, yPosition])
-    // move the tooltip
-    g.select('.bcd-tooltip').attr('transform', 'translate(' + tooltipX + ', ' + tooltipY + ')')
-    c.newToolTip.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
-  }
-
-  getTooltipPosition ([mouseX, mouseY]) {
-    const c = this
-    let ttX
-    const ttY = mouseY
-    const cSize = c.w - c.ttWidth
-
-    // show right - 60 is the margin large screens
-    if (mouseX < cSize) {
-      ttX = mouseX + 60 + 30
-    } else {
-      // show left - 60 is the margin large screens
-      ttX = (mouseX + 60) - c.ttWidth
-    }
-    return [ttX, ttY]
-  }
-
-  addBaseLine (value) {
-    const c = this
-    const gLines = c.getElement('.grid-lines')
-
-    gLines.append('line')
-      .attr('x1', 0)
-      .attr('x2', c.w)
-      .attr('y1', c.y(value))
-      .attr('y2', c.y(value))
-      .attr('stroke', '#dc3545')
   }
 
   pagination (data, selector, sliceBy, pageNumber, label) {
@@ -373,7 +233,7 @@ class BCDMultiLineChart extends BCDChart {
         .attr('type', 'button')
         .attr('class', i === times - 1 ? 'btn btn-page mx-1 active' : 'btn btn-page')
         .style('border-right', i === times - 1 ? 'none' : '1px Solid #838586')
-      // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
+        // .text(label + " " + (1+(i*sliceBy)) +" - "+ ((i+1)*sliceBy)) // pass this to the function
         .text(textString)
         .on('click', function () {
           if (!$(this).hasClass('active')) {
@@ -413,7 +273,7 @@ class BCDMultiLineChart extends BCDChart {
 
       s1 !== undefined ? s = x0 - s0[c.xV] > s1[c.xV] - x0 ? s1 : s0 : s = s0
       s1 !== undefined ? sPrev = x0 - s0[c.xV] > s1[c.xV] - x0 ? d.values[i - 1] : d.values[i - 2] : false
-      // c.newToolTipTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
+      // c.tooltipElementTitle.text(c.ttTitle + " " + (s[c[c.xV]Field]));
 
       const obj = {}
       obj.key = d.key
@@ -429,52 +289,8 @@ class BCDMultiLineChart extends BCDChart {
       // console.log(obj)
       return obj
     })
-    c.moveTooltip(tD)
     tD.sort((a, b) => b.value - a.value)
-
     return tD
-  }
-
-  ttContent (data) {
-    const c = this
-    data.forEach((d, i) => {
-      const id = '#bcd-tt' + i
-      const div = c.newToolTip.select(id)
-      const unText = 'N/A'
-      let indicatorColour
-      const indicator = d.change > 0 ? ' ▲' : d.change < 0 ? ' ▼' : ''
-      const rate = !d.change ? unText : d3.format('.1%')(!isNaN(d.change) ? d.change : null)
-      const value = isNaN(d.value) ? '' : c.valueFormat !== 'undefined' ? c.prefix + c.valueFormat(d.value) : d.value
-      const p = div.select('.bcd-text')
-      if (c.arrowChange === true) {
-        indicatorColour = d.change < 0 ? '#20c997' : d.change > 0 ? '#da1e4d' : '#f8f8f8'
-      } else {
-        indicatorColour = d.change > 0 ? '#20c997' : d.change < 0 ? '#da1e4d' : '#f8f8f8'
-      }
-      div.style('opacity', 1)
-      div.select('.bcd-dot').style('background-color', c.colour(d.key))
-      p.select('.bcd-text-title').text(d.key)
-      p.select('.bcd-text-value').text(value)
-      p.select('.bcd-text-rate').text(rate)
-      p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
-    })
-  }
-
-  moveTooltip (d) {
-    const c = this
-    d.forEach((d, i) => {
-      const id = '.tooltip_' + i
-      const tooltip = d3.select(c.e).select(id)
-      const v = 'value'
-
-      if (d !== undefined) {
-        c.updatePosition(c.x(d[c.xV]), -300)
-        c.newToolTipTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
-        tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        c.focus.select('.focus_line').attr('transform', 'translate(' + c.x(d[c.xV]) + ', 0)')
-      }
-    })
   }
 
   // replacing old legend method with new inline labels
@@ -528,7 +344,7 @@ class BCDMultiLineChart extends BCDChart {
     const force = d3.forceSimulation()
       .nodes(lines)
       .force('collide', d3.forceCollide(lH / 2))
-    // .force("y", d3.forceY(d => d.y).strength(4))
+      // .force("y", d3.forceY(d => d.y).strength(4))
       .force('x', d3.forceX(d => d.x).strength(2))
       .force('clamp', forceClamp(0, c.h))
       .stop()
@@ -556,7 +372,7 @@ class BCDMultiLineChart extends BCDChart {
       .attr('id', d => d.key)
       .attr('dy', '.01em')
       .text(d => d.key)
-    // .call(c.textWrap, 110, 6)
+      // .call(c.textWrap, 110, 6)
       .attr('fill', d => z(d.key))
       .attr('alignment-baseline', 'middle')
       .attr('dx', '.5em')

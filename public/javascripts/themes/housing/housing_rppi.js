@@ -1,19 +1,15 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
-import { convertQuarterToDate } from '../../modules/bcd-date.js'
-import { stackNest } from '../../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
-import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
+import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
   const chartDivIds = ['chart-house-rppi']
-
-  const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
   try {
@@ -50,11 +46,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       { type: 'arrobj' },
       (d, i) => {
         if ((d[dimensions[0]] === categoriesRegion[4] ||
-           d[dimensions[0]] === categoriesRegion[8] ||
-           d[dimensions[0]] === categoriesRegion[9] ||
-           d[dimensions[0]] === categoriesRegion[10] ||
-           d[dimensions[0]] === categoriesRegion[11]) &&
-         d[dimensions[2]] === categoriesStat[0]) {
+          d[dimensions[0]] === categoriesRegion[8] ||
+          d[dimensions[0]] === categoriesRegion[9] ||
+          d[dimensions[0]] === categoriesRegion[10] ||
+          d[dimensions[0]] === categoriesRegion[11]) &&
+          d[dimensions[2]] === categoriesStat[0]) {
           d.date = parseYearMonth(d.Month)
           d.label = d.Month
           d.value = +d.value
@@ -70,7 +66,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // console.log(houseRppiTable)
 
     const houseRppi = {
-      e: '#chart-house-rppi',
+      e: 'chart-house-rppi',
       d: houseRppiTable.filter(d => {
         return parseInt(d.date.getFullYear()) >= 2010
       }),
@@ -79,32 +75,34 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: ''
+      tY: 'RPPI',
+      margins: {
+        left: 48
+      }
     }
 
-    const houseRppiChart = new MultiLineChart(houseRppi)
-
-    function redraw () {
-      houseRppiChart.drawChart()
-      houseRppiChart.addTooltip('RPPI for ', '', 'label')
-    }
-    redraw()
+    const houseRppiChart = new BCDMultiLineChart(houseRppi)
+    redraw(houseRppiChart)
 
     window.addEventListener('resize', () => {
-      redraw()
+      redraw(houseRppiChart)
     })
   } catch (e) {
     console.log('Error creating RPPI chart')
-    console.log(e)
-
     removeSpinner(chartDivIds[0])
-    e = (e instanceof TimeoutError) ? e : 'An error occured'
+    const eMsg = (e instanceof TimeoutError) ? e : 'An error occured'
     const errBtnID = addErrorMessageButton(chartDivIds[0], e)
-    console.log('e')
-    console.log(e)
+    console.log(eMsg)
     d3.select(`#${errBtnID}`).on('click', function () {
       removeErrorMessageButton(chartDivIds[0])
       main()
     })
   }
 })()
+
+function redraw (chart) {
+  chart.drawChart()
+  chart.addTooltip('RPPI for ', '', 'label')
+  chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12])
+  chart.addBaseLine(100)
+}

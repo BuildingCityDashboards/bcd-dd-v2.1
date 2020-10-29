@@ -120,7 +120,7 @@
 //       ySF: 'millions'
 //     }
 //
-//   const employeesBySizeChart = new MultiLineChart(employeesBySize)
+//   const employeesBySizeChart = new BCDMultiLineChart(employeesBySize)
 //   employeesBySizeChart.drawChart()
 //   employeesBySizeChart.addTooltip('Persons Engaged by Size of Company - Year:', 'thousands', 'label')
 // })
@@ -168,7 +168,7 @@
 //        console.log(error)
 //      })
 
-function coerceData (d, k) {
+function coerceData(d, k) {
   d.forEach(d => {
     for (var i = 0, n = k.length; i < n; i++) {
       d[k[i]] = d[k[i]] !== 'null' ? +d[k[i]] : 'unavailable'
@@ -177,7 +177,7 @@ function coerceData (d, k) {
   })
 }
 
-function join (lookupTable, mainTable, lookupKey, mainKey, select) {
+function join(lookupTable, mainTable, lookupKey, mainKey, select) {
   var l = lookupTable.length,
     m = mainTable.length,
     lookupIndex = [],
@@ -197,7 +197,7 @@ function join (lookupTable, mainTable, lookupKey, mainKey, select) {
   return output
 }
 
-function d3Nest (d, n) {
+function d3Nest(d, n) {
   let nest = d3.nest()
     .key(name => {
       return name[n]
@@ -206,19 +206,19 @@ function d3Nest (d, n) {
   return nest
 }
 
-function filterByDateRange (data, dateField, dateOne, dateTwo) {
+function filterByDateRange(data, dateField, dateOne, dateTwo) {
   return data.filter(d => {
     return d[dateField] >= new Date(dateOne) && d[dateField] <= new Date(dateTwo)
   })
 }
 
-function filterbyDate (data, dateField, date) {
+function filterbyDate(data, dateField, date) {
   return data.filter(d => {
     return d[dateField] >= new Date(date)
   })
 }
 
-function stackNest (data, date, name, value) {
+function stackNest(data, date, name, value) {
   let nested_data = d3Nest(data, date),
     mqpdata = nested_data.map(function (d) {
       let obj = {
@@ -234,7 +234,7 @@ function stackNest (data, date, name, value) {
   return mqpdata
 }
 
-function activeBtn (e) {
+function activeBtn(e) {
   let btn = e
   $(btn).siblings().removeClass('active')
   $(btn).addClass('active')

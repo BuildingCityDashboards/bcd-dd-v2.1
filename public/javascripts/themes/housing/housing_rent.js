@@ -1,25 +1,27 @@
 import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
-import { convertQuarterToDate } from '../../modules/bcd-date.js'
 import { hasCleanValue } from '../../modules/bcd-data.js'
+import { convertQuarterToDate, isFutureDate } from '../../modules/bcd-date.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { MultiLineChart } from '../../modules/MultiLineChart.js'
+import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
-
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-  const chartDivIds = ['chart-rent-prices']
-  const parseYear = d3.timeParse('%Y')
-  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+  const chartDivIds = ['rent-prices', 'rent-by-beds']
+  d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+  d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+
   const STATBANK_BASE_URL =
-        'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
   // RIQ02: RTB Average Monthly Rent Report by Number of Bedrooms, Property Type, Location and Quarter
   const TABLE_CODE = 'RIQ02'
+
+  const STATIC_URL = '../../data/statbank/RIQ02.json'
   try {
-    addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
-    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+    addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>RTB Average Monthly Rent Report</i>`)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     if (json) {
-      removeSpinner(chartDivIds[0])
+      removeSpinner('chart-' + chartDivIds[0])
     }
     const dataset = JSONstat(json).Dataset(0)
     // console.log(dataset)
@@ -33,13 +35,18 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       return c.label
     })
     // console.log(categoriesBeds)
+
     const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
     // console.log(categoriesType)
     //
+
+    const regionReg = /(Dublin)(\b [1-4]\b)/
     const categoriesLocation = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
+    }).filter(c => {
+      return c.search(regionReg) === 0 || (c === 'Dublin') // returns 'Dublin', 'Dublin N' 1 <= N <= 6
     })
     // console.log(categoriesLocation)
 
@@ -48,88 +55,91 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
     // console.log(categoriesStat)
 
-    const bedCategoryTraces = []
-
     const rentTable = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if (d[dimensions[1]] === categoriesType[0] &&
-           d[dimensions[2]] === 'Dublin' &&
+        if (d[dimensions[1]] === categoriesType[0] && // type
+          (d[dimensions[2]].search(regionReg) === 0 ||
+          d[dimensions[2]] === 'Dublin') &&
           hasCleanValue(d)) {
           d.date = convertQuarterToDate(d.Quarter)
           d.label = d.Quarter
           d.value = +d.value
-          if (!bedCategoryTraces.includes(d[dimensions[0]])) {
-            bedCategoryTraces.push(d[dimensions[0]])
-          }
           return d
         }
       })
 
+    // console.log('rentTable')
     // console.log(rentTable)
-
-    // console.log(bedCategoryTraces)
     //
     const rent = {
-      e: '#chart-rent-prices',
-      d: rentTable.filter(d => {
-        return d[dimensions[0]] === categoriesBeds[0] // all beds
-      }),
-      ks: ['Dublin'],
-      k: dimensions[2],
+      elementId: 'chart-' + chartDivIds[0],
+      data: rentTable
+        .filter(d => {
+          return d[dimensions[0]] === categoriesBeds[0] && !isFutureDate(d.date) // all beds
+        }),
+      tracenames: categoriesLocation,
+      tracekey: dimensions[2],
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Monthly rent (€)',
+      margins: {
+        left: 64
+      }
     }
     //
-    const rentChart = new MultiLineChart(rent)
+    const rentChart = new BCDMultiLineChart(rent)
 
+    const rentByBedsTable = rentTable
+      .filter(d => {
+        return d[dimensions[2]] === 'Dublin' && !isFutureDate(d.date)
+      })
+    // console.log(rentByBedsTable)
     const rentByBeds = {
-      e: '#chart-rent-by-beds',
-      d: rentTable,
-      // .filter(d => {
-      // return parseInt(d.date.getFullYear()) >= 2010
-      // }),
-      ks: bedCategoryTraces,
-      k: dimensions[0],
+      elementId: 'chart-' + chartDivIds[1],
+      data: rentByBedsTable,
+      tracenames: categoriesBeds,
+      tracekey: dimensions[0],
       xV: 'date',
       yV: 'value',
       tX: 'Year',
-      tY: categoriesStat[0]
+      tY: 'Monthly rent (€)',
+      margins: {
+        left: 64
+      }
     }
     //
-    const rentByBedsChart = new MultiLineChart(rentByBeds)
+    const rentByBedsChart = new BCDMultiLineChart(rentByBeds)
     //
-    const chart1 = 'rent-prices'
-    const chart2 = 'rent-by-beds'
 
-    d3.select('#chart-' + chart1).style('display', 'block')
-    d3.select('#chart-' + chart2).style('display', 'none')
-
-    function redraw () {
-      if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
+    const redraw = () => {
+      if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
         rentChart.drawChart()
         rentChart.addTooltip('Rent price,  ', '', 'label')
+        rentChart.showSelectedLabelsX([0, 3, 6, 9, 12])
+        rentChart.showSelectedLabelsY([3, 6, 9])
       }
-      if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
+      if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
         rentByBedsChart.drawChart()
         rentByBedsChart.addTooltip('Rent price, ', '', 'label')
+        rentByBedsChart.showSelectedLabelsX([0, 3, 6, 9, 12])
+        rentByBedsChart.showSelectedLabelsY([3, 6, 9])
       }
     }
     redraw()
 
-    d3.select('#btn-' + chart1).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'block')
-      d3.select('#chart-' + chart2).style('display', 'none')
+    d3.select('#btn-' + chartDivIds[0]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
+      d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+      d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
       redraw()
     })
 
-    d3.select('#btn-' + chart2).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'block')
+    d3.select('#btn-' + chartDivIds[1]).on('click', function () {
+      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
+      d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+      d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
       redraw()
     })
 
@@ -139,13 +149,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   } catch (e) {
     console.log('Error creating rent charts')
     console.log(e)
-    removeSpinner(chartDivIds[0])
-    e = (e instanceof TimeoutError) ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton(chartDivIds[0], e)
+    removeSpinner('chart-' + chartDivIds[0])
+    const eMsg = (e instanceof TimeoutError) ? e : 'An error occured'
+    const errBtnID = addErrorMessageButton('chart-' + chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
-      console.log('retry')
-      removeErrorMessageButton(chartDivIds[0])
+      // console.log('retry')
+      removeErrorMessageButton('chart-' + chartDivIds[0])
       main()
     })
   }

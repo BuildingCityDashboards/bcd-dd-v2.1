@@ -1,17 +1,21 @@
 import { coerceWideTable } from '../modules/bcd-data.js'
-import { StackedAreaChart } from '../modules/StackedAreaChart.js'
+import { BCDStackedAreaChart } from '../modules/BCDStackedAreaChart.js'
 import { activeBtn } from '../modules/bcd-ui.js'
 
 Promise.all([
-  d3.csv('../data/Education/EDA56.csv'), // number of nat schools
+  // d3.csv('../data/Education/EDA56.csv'), // number of nat schools
   d3.csv('../data/Education/EDA57.csv'), // number of primary pupils
-  d3.csv('../data/Education/EDA69.csv'), // number of 2nd level pupils
-  d3.csv('../data/Education/educationlevels.csv')
+  d3.csv('../data/Education/EDA69.csv')
+  // , // number of 2nd level pupils
+  // d3.csv('../data/Education/educationlevels.csv')
 ]).then(datafiles => {
   // console.log('edu data loaded')
+  d3.select('#chart-pupils-primary').style('display', 'block')
+  d3.select('#chart-pupils-secondary').style('display', 'none')
+
   let pupilsPrimaryChart
   if (document.getElementById('chart-pupils-primary')) {
-    const pupilsPrimary = datafiles[1]
+    const pupilsPrimary = datafiles[0]
     const pupilsPrimaryColNames = pupilsPrimary.columns.slice(1)
     const pupilsPrimaryData = coerceWideTable(pupilsPrimary, pupilsPrimaryColNames)
     pupilsPrimaryData.forEach(d => {
@@ -22,13 +26,14 @@ Promise.all([
     // console.log(pupilsPrimaryData[0])
     // console.log(pupilsPrimaryColNames )
     const pupilsPrimaryPlot = {
-      e: '#chart-pupils-primary',
+      e: 'chart-pupils-primary',
       d: pupilsPrimaryData,
       ks: pupilsPrimaryColNames,
       xV: 'date',
       yV: pupilsPrimaryColNames,
       tX: 'Years',
-      tY: 'No. of Pupils'
+      tY: 'No. of Pupils',
+      formaty: 'hundredThousandsShort'
     }
 
     // let pupilsPrimaryToolTip = {
@@ -37,24 +42,19 @@ Promise.all([
     //   format: 'thousands'
     // }
 
-    pupilsPrimaryChart = new StackedAreaChart(pupilsPrimaryPlot)
-
-    function redraw () {
-      pupilsPrimaryChart.drawChart()
-      pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
-      // employmentServiceChart.addTooltip(', ', '', 'label')
-    }
-
-    redraw()
+    pupilsPrimaryChart = new BCDStackedAreaChart(pupilsPrimaryPlot)
+    redraw(pupilsPrimaryChart, 'Pupils in primary level')
 
     window.addEventListener('resize', () => {
-      redraw()
+      if (document.getElementById(pupilsPrimaryPlot.e).style.display !== 'none') {
+        redraw(pupilsPrimaryChart, 'Pupils in primary level')
+      }
     })
   }
 
   let pupilsSecondaryChart
   if (document.getElementById('chart-pupils-secondary')) {
-    const pupilsSecondary = datafiles[2]
+    const pupilsSecondary = datafiles[1]
     const pupilsSecondaryColNames = pupilsSecondary.columns.slice(1)
     const pupilsSecondaryData = coerceWideTable(pupilsSecondary, pupilsSecondaryColNames)
     pupilsSecondaryData.forEach(d => {
@@ -64,49 +64,38 @@ Promise.all([
     // console.log(pupilsSecondary)
 
     const pupilsSecondaryPlot = {
-      e: '#chart-pupils-secondary',
+      e: 'chart-pupils-secondary',
       d: pupilsSecondaryData,
       ks: pupilsSecondaryColNames,
       xV: pupilsSecondary.columns[0],
       yV: pupilsSecondaryColNames,
       tX: 'Years',
-      tY: 'No. of Pupils'
+      tY: 'No. of Pupils',
+      formaty: 'hundredThousandsShort'
     }
 
-    // let pupilsSecondaryToolTip = {
-    //   title: 'Secondary school pupil numbers for ',
-    //   datelabel: pupilsSecondary.columns[0],
-    //   format: 'thousands'
-    // }
-
-    pupilsSecondaryChart = new StackedAreaChart(pupilsSecondaryPlot)
-
-    function redraw () {
-      pupilsSecondaryChart.drawChart()
-      pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
-    }
+    pupilsSecondaryChart = new BCDStackedAreaChart(pupilsSecondaryPlot)
 
     window.addEventListener('resize', () => {
-      redraw()
+      if (document.getElementById(pupilsSecondaryPlot.e).style.display !== 'none') {
+        console.log('redraw pup sec');
+        redraw(pupilsSecondaryChart, 'Pupils in secondary level')
+      }
     })
-  }
 
-  d3.select('#chart-pupils-primary').style('display', 'block')
-  d3.select('#chart-pupils-secondary').style('display', 'none')
+  }
 
   d3.select('#btn-pupils-primary').on('click', function () {
     activeBtn(this)
     d3.select('#chart-pupils-primary').style('display', 'block')
     d3.select('#chart-pupils-secondary').style('display', 'none')
-    pupilsPrimaryChart.drawChart()
-    pupilsPrimaryChart.addTooltip('Pupils in primary level, ', '', 'label')
+    redraw(pupilsPrimaryChart, 'Pupils in primary level')
   })
   d3.select('#btn-pupils-secondary').on('click', function () {
     activeBtn(this)
     d3.select('#chart-pupils-primary').style('display', 'none')
     d3.select('#chart-pupils-secondary').style('display', 'block')
-    pupilsSecondaryChart.drawChart()
-    pupilsSecondaryChart.addTooltip('Pupils in secondary level, ', '', 'label')
+    redraw(pupilsSecondaryChart, 'Pupils in secondary level')
   })
 
   // const dataFile2 = datafiles[1]
@@ -201,3 +190,11 @@ Promise.all([
 }).catch(function (error) {
   console.log(error)
 })
+
+function redraw (chart, title) {
+  chart.drawChart()
+  chart.addTooltip(title, '', 'label')
+  chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12, 14])
+  chart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
+  // employmentServiceChart.addTooltip(', ', '', 'label')
+}
