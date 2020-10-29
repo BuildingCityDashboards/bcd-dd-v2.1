@@ -35,6 +35,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       return c.label
     })
     console.log(categoriesBeds)
+
     const categoriesType = dataset.Dimension(dimensions[1]).Category().map(c => {
       return c.label
     })
@@ -65,10 +66,16 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.label = d.Quarter
           d.value = +d.value
           return d
+        } else if (d[dimensions[1]] === categoriesType[0] && // type
+          (d[dimensions[2]].search(regionReg) === 0 ||
+          d[dimensions[2]] === 'Dublin') &&
+          !hasCleanValue(d)) {
+          console.log(d)
         }
       })
 
-    // console.log(rentTable)
+    console.log('rentTable')
+    console.log(rentTable)
     //
     const rent = {
       elementId: 'chart-' + chartDivIds[0],
@@ -89,12 +96,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     //
     const rentChart = new BCDMultiLineChart(rent)
 
+    const rentByBedsTable = rentTable
+      .filter(d => {
+        return d[dimensions[2]] === 'Dublin' && !isFutureDate(d.date)
+      })
+    console.log(rentByBedsTable)
     const rentByBeds = {
       elementId: 'chart-' + chartDivIds[1],
-      data: rentTable
-        .filter(d => {
-          return d[dimensions[2]] === 'Dublin' && !isFutureDate(d.date)
-        }),
+      data: rentByBedsTable,
       tracenames: categoriesBeds,
       tracekey: dimensions[0],
       xV: 'date',
