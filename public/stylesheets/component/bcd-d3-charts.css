@@ -309,7 +309,15 @@
   }
 
   .focus {
-    visibility: hidden;
+    /* visibility: hidden; */
+  }
+
+  .focus_line {
+    display: block;
+    visibility: visible;
+    stroke: #6fd1f6;
+    stroke-width: 2px;
+    stroke-dasharray: 5, 5;
   }
 
   .legend-circles .l-circle {

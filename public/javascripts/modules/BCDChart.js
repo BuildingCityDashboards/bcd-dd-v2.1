@@ -229,8 +229,8 @@ class BCDChart {
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
       const id = '.tooltip_' + i
-      console.log(id);
-      let tooltip = c.focus.select(id)
+      // console.log(id);
+      const tooltip = c.focus.select(id)
 
       const v = 'value'
       if (d !== undefined) {
@@ -333,7 +333,6 @@ class BCDChart {
       .attr('r', 5)
       .attr('fill', c.colour(d))
       .attr('stroke', c.colour(d))
-    
   }
 
   drawFocusOverlay () {
