@@ -1007,7 +1007,7 @@
   .theme__text-chart__button-row {
     padding-bottom: 0;
     align-self: flex-end;
-    grid-column: 1/7;
+    grid-column: 1/8;
     grid-row: 1/2;
     justify-content: flex-start;
   }
