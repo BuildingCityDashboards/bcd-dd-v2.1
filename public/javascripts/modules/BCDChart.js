@@ -42,7 +42,6 @@ class BCDChart {
     this.ySF = options.ySF || options.formaty || 'thousands' // format for y axis
     this.margins = Object.assign(DEFAULT_MARGINS, options.margins)
     // console.log(`${this.e} : ${JSON.stringify(this.margins)}`)
-
   }
 
   // initialise method to draw c area
@@ -248,6 +247,7 @@ class BCDChart {
       .attr('class', 'focus_line')
       .attr('y1', 0)
       .attr('y2', c.h)
+      .style('visibility', 'hidden')
 
     focus.append('g')
       .attr('class', 'focus_circles')
@@ -382,7 +382,7 @@ class BCDChart {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
-      const id = '.focus_circle_'+ i
+      const id = '.focus_circle_' + i
       // console.log(id);
       const focusCircle = c.focus.select(id)
 
@@ -392,7 +392,9 @@ class BCDChart {
         c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.dateField]))
         focusCircle.attr('transform', 'translate(' + xPos + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
         // console.log('translate(' + c.x(d[c.xV]) + ',' + c.y(!isNaN(d[v]) ? d[v] : 0) + ')')
-        c.focus.select('.focus_line').attr('transform', 'translate(' + xPos + ', 0)')
+        c.focus.select('.focus_line')
+          .style('visibility', 'visible')
+          .attr('transform', 'translate(' + xPos + ', 0)')
         focusCircle.select('circle').attr('fill', c.colour(d.key))
         focusCircle.select('circle').attr('stroke', c.colour(d.key))
       }
