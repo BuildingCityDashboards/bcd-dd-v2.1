@@ -75,10 +75,10 @@ class BCDStackedAreaChart extends BCDChart {
   createScales () {
     const c = this
 
-    let yAxisCall = d3.axisLeft()
-    let xAxisCall = d3.axisBottom()
-    let x = c.getElement('.titleX').text(c.tX)
-    let y = c.getElement('.titleY').text(c.tY)
+    const yAxisCall = d3.axisLeft()
+    const xAxisCall = d3.axisBottom()
+    const x = c.getElement('.titleX').text(c.tX)
+    const y = c.getElement('.titleY').text(c.tY)
 
     // set scales
     c.x = d3.scaleTime().range([0, c.w])
@@ -360,6 +360,24 @@ class BCDStackedAreaChart extends BCDChart {
       .call(c.textWrap, 110, c.w + 34)
   }
 
+  addTooltip (title, format, dateField, prefix, postfix) {
+    const c = this
+
+    d3.select(c.e).select('.focus').remove()
+    d3.select(c.e).select('.focus_overlay').remove()
+
+    c.ttTitle = title || c.ttTitle
+    c.valueFormat = format || c.valueFormat
+    c.xVField = dateField || c.xVField
+    // c.arrowChange = arrowChange;
+    c.ttWidth = 305
+    c.prefix = prefix || ''
+    c.postfix = postfix || ''
+    c.valueFormat = c.formatValue(c.valueFormat)
+    // super.drawFocusLine()
+    c.drawFocus()
+  }
+
   drawFocus () {
     const c = this
     const g = c.g
@@ -373,85 +391,7 @@ class BCDStackedAreaChart extends BCDChart {
     c.drawFocusOverlay()
   }
 
-  // drawFocusLine () {
-  //   // console.log('draw focus line')
-  //   let c = this,
-  //     g = c.g
-  //
-  //   c.focus = g.append('g')
-  //     .attr('class', 'focus')
-  //
-  //   c.focus.append('line')
-  //     .attr('class', 'focus_line')
-  //     .attr('y1', 0)
-  //     .attr('y2', c.h)
-  //
-  //   c.focus.append('g')
-  //     .attr('class', 'focus_circles')
-  //
-  //   c.ks.forEach((d, i) => {
-  //     c.drawFocusCircles(d, i)
-  //   })
-  // }
-
-  // drawFocusLine () {
-  //   // console.log('draw focu s line')
-  //   let c = this,
-  //     focus = c.focus
-  //   console.log('focus sa')
-  //   console.log(focus)
-  //   // Focus line
-  //   focus.append('line')
-  //     .attr('class', 'focus_line')
-  //     .attr('y1', 0)
-  //     .attr('y2', c.h)
-  //
-  //   c.drawFocusCircles()
-  // }
-
-  // drawFocusCircles () {
-  //   const c = this
-  //   const focus = c.focus
-  //   // keys = c.getKeys(),
-
-  //   const focusCircles = focus.append('g')
-  //     .attr('class', 'focus_circles')
-  //     .attr('r', 0)
-
-  //   console.log('ks')
-  //   console.log(c.ks)
-  //   // attach group append circle and text for each region
-  //   c.ks.forEach((d, i) => {
-  //     focusCircles.append('g')
-  //       .attr('class', 'tooltip_' + i)
-  //       .append('circle')
-  //       .attr('r', 0)
-  //       .transition(c.t)
-  //       .attr('r', 5)
-  //       .attr('fill', c.colour(d))
-  //       .attr('stroke', c.colour(d))
-  //   })
-  // }
-
-  addTooltip (title, format, dateField, prefix, postfix) {
-    const c = this
-
-    d3.select(c.e).select('.focus').remove()
-    d3.select(c.e).select('.focus_overlay').remove()
-
-    c.ttTitle = title || c.ttTitle
-    c.valueFormat = format || c.valueFormat
-    c.xVField = dateField || c.xVField
-    // c.arrowChange = arrowChange;
-    c.ttWidth = 305
-    c.prefix = prefix || ' '
-    c.postfix = postfix || ' '
-    c.valueFormat = c.formatValue(c.valueFormat)
-    // super.drawFocusLine()
-    c.drawFocus()
-  }
-
-  drawFocusOverlay () { 
+  drawFocusOverlay () {
     const c = this
     const g = c.g
     const focus = c.focus
@@ -533,9 +473,8 @@ class BCDStackedAreaChart extends BCDChart {
         }
 
         if (d !== undefined) {
-          const dot = '.tooltip_' + idx
-          const tooltip = focus.select(dot)
-
+          const eKey = key.replaceAll(' ', '')
+          const focusCircle = c.focus.select('.focus_circle_' + eKey)
           c.updatePosition(c.x(d[c.xV]), -300)
 
           dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false
@@ -548,9 +487,14 @@ class BCDStackedAreaChart extends BCDChart {
           p.select('.bcd-text-indicator').text(' ' + indicator).style('color', indicatorColour)
 
           c.tooltipElementTitle.text(c.ttTitle + ' ' + (d[c.xVField]))
-
-          tooltip.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(dd[1] ? dd[1] : 0) + ')')
-          focus.select('.focus_line').attr('transform', 'translate(' + c.x((d[c.xV])) + ', 0)')
+          
+          // console.log(`fill ${eKey} with color ${c.colour(key)}`)
+          focusCircle.select('circle').attr('fill', 'white')
+          focusCircle.select('circle').attr('opacity', '0.5')
+          focusCircle.attr('transform', 'translate(' + c.x(d[c.xV]) + ',' + c.y(dd[1] ? dd[1] : 0) + ')')
+          focus.select('.focus_line')
+            .style('visibility', 'visible')
+            .attr('transform', 'translate(' + c.x((d[c.xV])) + ', 0)')
         }
       })
     }
@@ -567,22 +511,6 @@ class BCDStackedAreaChart extends BCDChart {
     c.tooltipElement.style('left', tooltipX + 'px').style('top', tooltipY + 'px')
   }
 
-  getTooltipPosition ([mouseX, mouseY]) {
-    const c = this
-    let ttX
-    const ttY = mouseY
-    const cSize = c.w - c.ttWidth
-
-    // show right - 60 is the margin large screens
-    if (mouseX < cSize) {
-      ttX = mouseX + 105
-    } else {
-      // show left - 60 is the margin large screens
-      ttX = (mouseX + 90) - c.ttWidth
-    }
-    return [ttX, ttY]
-  }
-
   getElement (name) {
     const c = this
     const s = d3.select(c.e)
@@ -592,24 +520,15 @@ class BCDStackedAreaChart extends BCDChart {
 
   textWrap (text, width, xpos = 0, limit = 2) {
     text.each(function () {
-      let words,
-        word,
-        line,
-        lineNumber,
-        lineHeight,
-        y,
-        dy,
-        tspan
-
       text = d3.select(this)
-
-      words = text.text().split(/\s+/).reverse()
-      line = []
-      lineNumber = 0
-      lineHeight = 1
-      y = text.attr('y')
-      dy = parseFloat(text.attr('dy'))
-      tspan = text
+      let word
+      const words = text.text().split(/\s+/).reverse()
+      let line = []
+      let lineNumber = 0
+      const lineHeight = 1
+      const y = text.attr('y')
+      const dy = parseFloat(text.attr('dy'))
+      let tspan = text
         .text(null)
         .append('tspan')
         .attr('x', xpos)
@@ -728,7 +647,6 @@ class BCDStackedAreaChart extends BCDChart {
         })
     }
   }
-
 }
 
 export { BCDStackedAreaChart }

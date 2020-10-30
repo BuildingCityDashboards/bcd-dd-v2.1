@@ -4,12 +4,13 @@
 import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
 import { activeBtn } from '../../modules/bcd-ui.js'
 
-Promise.all([
-  d3.json('/data/Transport/dublinbikes/day.json'),
-  d3.json('/data/Transport/dublinbikes/week.json'),
-  d3.json('/data/Transport/dublinbikes/month.json')
-])
-  .then(data => {
+(async function main () {
+
+  Promise.all([
+    d3.json('/data/Transport/dublinbikes/day.json'),
+    d3.json('/data/Transport/dublinbikes/week.json'),
+    d3.json('/data/Transport/dublinbikes/month.json')
+  ]).then(data => {
     // console.log("Bikes data length " + data[0].length);
     // const dayFormat = d3.timeFormat("%a, %I:%M");
     const keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
@@ -119,9 +120,12 @@ Promise.all([
       dublinBikesChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12, 14])
       dublinBikesChart.showSelectedLabelsY([0, 3, 6, 9, 12, 15])
     }
-  }).catch(function (error) {
-    console.log(error)
   })
+})()
+
+// .catch(function (error) {
+//   console.log(error)
+// })
 
 function chartContent (data, key, value, date, selector) {
   data.forEach(function (d) { // could pass types array and coerce each matching key using dataSets()
