@@ -132,10 +132,7 @@ function updateTextInfo (data) {
   d3.select('#bikes-in-use-count').text(peakUse['Bikes in use'])
   d3.select('#max-bikes-use-time').text(peakUse.label.split(',')[0])
   d3.select('#bikes-available').text(peakUse['Bikes available'])
-  // d3.select('#stands-count').html(bikeStands);
-
-  // console.log("Bike Station: \n" + JSON.stringify(data_[0].name));
-  // console.log("# of bike stations is " + data_.length + "\n");
+  
 }
 // ars are array and property to be evaluated as a string
 function getMax (data, p) {
