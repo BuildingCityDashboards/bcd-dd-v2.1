@@ -155,6 +155,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     d3.select('#chart-' + chartDivIds[2]).style('display', 'block')
     d3.select('#chart-' + chartDivIds[4]).style('display', 'none')
+    activeBtn('btn-' + chartDivIds[2], ['btn-' + chartDivIds[4]])
 
     const redraw = () => {
       if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
@@ -191,7 +192,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     redraw()
 
     d3.select('#btn-' + chartDivIds[0]).on('click', function () {
-      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1], 'btn-' + chartDivIds[2]])
+      activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[3]])
       d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
       // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
       d3.select('#chart-' + chartDivIds[3]).style('display', 'none')
@@ -207,7 +208,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     // })
 
     d3.select('#btn-' + chartDivIds[3]).on('click', function () {
-      activeBtn('btn-' + chartDivIds[3], ['btn-' + chartDivIds[0], 'btn-' + chartDivIds[3]])
+      activeBtn('btn-' + chartDivIds[3], ['btn-' + chartDivIds[0]])
       d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
       // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
       d3.select('#chart-' + chartDivIds[3]).style('display', 'block')
