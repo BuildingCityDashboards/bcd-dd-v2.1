@@ -2,15 +2,18 @@
  * Bikes
  ************************************/
 import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
-import { activeBtn } from '../../modules/bcd-ui.js'
+import { activeBtn, addSpinner,removeSpinner } from '../../modules/bcd-ui.js'
 
 (async function main () {
 
+  addSpinner('chart-dublinbikes', `<b>Dublin Bikes</b> for data`)
   Promise.all([
     d3.json('/data/Transport/dublinbikes/day.json'),
     d3.json('/data/Transport/dublinbikes/week.json'),
     d3.json('/data/Transport/dublinbikes/month.json')
   ]).then(data => {
+    removeSpinner('chart-dublinbikes')
+
     // console.log("Bikes data length " + data[0].length);
     // const dayFormat = d3.timeFormat("%a, %I:%M");
     const keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
