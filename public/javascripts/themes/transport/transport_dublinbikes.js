@@ -1,9 +1,9 @@
 /************************************
  * Bikes
  ************************************/
-import { StackedAreaChart } from '../../modules/StackedAreaChart.js'
+import { BCDStackedAreaChart } from '../../modules/BCDStackedAreaChart.js'
+import { activeBtn } from '../../modules/bcd-ui.js'
 
-let dublinBikesChart
 Promise.all([
   d3.json('/data/Transport/dublinbikes/day.json'),
   d3.json('/data/Transport/dublinbikes/week.json'),
@@ -12,28 +12,28 @@ Promise.all([
   .then(data => {
     // console.log("Bikes data length " + data[0].length);
     // const dayFormat = d3.timeFormat("%a, %I:%M");
-    let keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
+    const keys = ['Bikes in use', 'Bikes available'] // this controls stacking order
 
-    let dataDay = data[0]
-    let dataWeek = data[1]
-    let dataMonth = data[2]
+    const dataDay = data[0]
+    const dataWeek = data[1]
+    const dataMonth = data[2]
 
     // TODO: is coercing to a date on the client  slow for large query spans (month)?
 
     /* For stacked area chart */
     dataDay.forEach(d => {
       //  d["Total available (daily)"] = +d["Total available (daily)"];
-      d['date'] = new Date(d['date'])
+      d.date = new Date(d.date)
     })
 
     dataWeek.forEach(d => {
       //  d["Total available (daily)"] = +d["Total available (daily)"];
-      d['date'] = new Date(d['date'])
+      d.date = new Date(d.date)
     })
 
     dataMonth.forEach(d => {
       //  d["Total available (daily)"] = +d["Total available (daily)"];
-      d['date'] = new Date(d['date'])
+      d.date = new Date(d.date)
     })
 
     /* For multiline chart */
@@ -77,7 +77,7 @@ Promise.all([
     // console.log(dataDay)
 
     const dublinBikesContent = {
-      e: '#chart-dublinbikes',
+      e: 'chart-dublinbikes',
       d: dataDay,
       // k: dublinBikesData, //?
       ks: keys, // For StackedAreaChart-formatted data need to provide keys
@@ -87,45 +87,38 @@ Promise.all([
       tY: 'No of bikes'
     }
 
-    dublinBikesChart = new StackedAreaChart(dublinBikesContent)
-    dublinBikesChart.drawChart()
-    // addTooltip(title, format, dateField, prefix, postfix)
-    // format just formats comms for thousands etc
-    dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
-    updateTextInfo(dataDay)
+    const dublinBikesChart = new BCDStackedAreaChart(dublinBikesContent)
+    redraw(dataDay)
 
-    d3.select('#dublinbikes_day').on('click', function () {
-      console.log('day')
-      activeBtn(this, dublinBikesChart)
-      dublinBikesChart.d = dataDay
-      dublinBikesChart.drawChart()
-      // dublinBikesChart.updateChart();
-      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+    d3.select('#btn-dublinbikes-day').on('click', function () {
+      redraw(dataDay)
+      activeBtn('#btn-dublinbikes-day')
     })
 
-    d3.select('#dublinbikes_week').on('click', function () {
-      console.log('week')
-      activeBtn(this, dublinBikesChart)
-      dublinBikesChart.d = dataWeek
-      dublinBikesChart.drawChart()
-      // dublinBikesChart.updateChart();
-      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+    d3.select('#btn-dublinbikes-week').on('click', function () {
+      redraw(dataWeek)
+      activeBtn('#btn-dublinbikes-week')
     })
 
-    d3.select('#dublinbikes_month').on('click', function () {
-      console.log('month')
-      activeBtn(this, dublinBikesChart)
-      dublinBikesChart.d = dataMonth
-      dublinBikesChart.drawChart()
-      // dublinBikesChart.updateChart();
-      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+    d3.select('#btn-dublinbikes-month').on('click', function () {
+      redraw(dataMonth)
+      activeBtn('#btn-dublinbikes-month')
     })
 
     window.addEventListener('resize', () => {
-      dublinBikesChart.drawChart()
-  // dublinBikesChart.updateChart();
-      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+      redraw()
     })
+
+    function redraw (data) {
+      if (data) {
+        dublinBikesChart.d = data
+        updateTextInfo(data)
+      }
+      dublinBikesChart.drawChart()
+      dublinBikesChart.addTooltip('Dublin Bikes at ', 'thousands', 'label', '', '')
+      dublinBikesChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12, 14])
+      dublinBikesChart.showSelectedLabelsY([0, 3, 6, 9, 12, 15])
+    }
   }).catch(function (error) {
     console.log(error)
   })
@@ -156,21 +149,11 @@ function chartContent (data, key, value, date, selector) {
   }
 }
 
-function activeBtn (e, dublinBikesChart) {
-  let btn = e
-  // var act = e.active ? true : false
-  // newOpacity = active ? 0 : 1;
-  $(btn).siblings().removeClass('active')
-  $(btn).addClass('active')
-  let G_chart = dublinBikesChart
-  G_chart.updateChart()
-}
-
 function updateTextInfo (data) {
   // console.log("Bikes data " + JSON.stringify(data) + "\n");
-  let peakUse = getMax(data, 'Bikes in use')
+  const peakUse = getMax(data, 'Bikes in use')
   d3.select('#bikes-in-use-count').text(peakUse['Bikes in use'])
-  d3.select('#max-bikes-use-time').text(peakUse['label'].split(',')[0])
+  d3.select('#max-bikes-use-time').text(peakUse.label.split(',')[0])
   d3.select('#bikes-available').text(peakUse['Bikes available'])
   // d3.select('#stands-count').html(bikeStands);
 
@@ -179,7 +162,7 @@ function updateTextInfo (data) {
 }
 // ars are array and property to be evaluated as a string
 function getMax (data, p) {
-  let max = data.reduce((acc, curr) => {
+  const max = data.reduce((acc, curr) => {
     return acc[p] > curr[p] ? acc : curr
   })
   // console.log('Bikes info ' + JSON.stringify(max))
