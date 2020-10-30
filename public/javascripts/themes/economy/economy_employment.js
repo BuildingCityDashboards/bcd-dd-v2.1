@@ -12,7 +12,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
   // d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
   d3.select('#chart-' + chartDivIds[3]).style('display', 'none')
-  activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[3]])
 
   const STATBANK_BASE_URL =
     'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'

@@ -1045,7 +1045,6 @@
     height: auto;
     /* max-height: 400px; */
 
-
   }
 
   .theme__text-chart__plot svg {
@@ -1288,6 +1287,7 @@
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto minmax(auto, 60px) minmax(auto, 60px) auto auto auto;
     scroll-margin-top: 96px;
+
   }
 
   .theme__text-chart__sources {
