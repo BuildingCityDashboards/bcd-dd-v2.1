@@ -99,7 +99,7 @@
 
 .titleX,
 .titleY {
-  color: white;
+  fill: #c4cdd5;
   /* fill: grey; */
   text-align: center;
   font-size: 12px;
@@ -140,14 +140,18 @@
 }
 
 .legendText {
-  fill: grey;
-  font-size: .75rem;
+  fill: #c4cdd5;
+  font-size: 12px;
   display: none;
 }
 
 .legendRect {
   width: 16px;
   height: 16px;
+}
+
+.legend.active {
+  opacity: .25;
 }
 
 .area-line {
@@ -174,7 +178,6 @@
 .line {
   fill: none;
   stroke-width: 2px;
-
 }
 
 .overlay,
@@ -282,9 +285,7 @@
   max-width: 45%;
 }
 
-.legend.active {
-  opacity: .25;
-}
+
 
 
 
@@ -294,6 +295,16 @@
 
 
 @media (min-device-width: 768px) {
+
+  .titleX,
+  .titleY {
+    color: white;
+    /* fill: grey; */
+    text-align: center;
+    font-size: 14px;
+    text-anchor: middle;
+  }
+
   .tool-tip {
     background: #1c2022;
     position: relative;
