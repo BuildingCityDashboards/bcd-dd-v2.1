@@ -474,6 +474,7 @@
   .themes__subnav {
     width: 100%;
     height: 72px;
+    opacity: 0.9;
   }
 
   .themes__subnav.hide {
@@ -731,6 +732,7 @@
   .themes__subnav {
     width: 100%;
     height: 72px;
+    opacity: 0.9;
   }
 
   .themes__subnav.hide {
@@ -1010,6 +1012,7 @@
     grid-column: 1/8;
     grid-row: 1/2;
     justify-content: flex-start;
+    transform: translateY(24px);
   }
 
   .theme-btn {
@@ -1035,12 +1038,14 @@
   .theme__text-chart__plot {
     display: block;
     width: auto;
-    align-self: flex-start;
+    align-self: center;
     grid-column: 1/8;
     grid-row: 2/4;
     min-height: 320px;
     height: auto;
-    max-height: 400px;
+    /* max-height: 400px; */
+
+
   }
 
   .theme__text-chart__plot svg {
@@ -1049,9 +1054,10 @@
       *
       * ;
       */
-    width: auto;
+    width: 100%;
     height: auto;
-    transform: translateY(-24px);
+    transform: translateY(0);
+    padding: 0;
   }
 
   /**
