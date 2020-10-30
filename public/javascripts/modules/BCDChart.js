@@ -57,9 +57,9 @@ class BCDChart {
     // console.log("ew: " + eW);
     // margins
 
-    m.t = eW < bP ? this.margins.top : 50
-    m.r = eW < bP ? this.margins.right : 140
-    m.b = eW < bP ? this.margins.bottom : 80
+    m.t = eW < bP ? this.margins.top : 48
+    m.r = eW < bP ? this.margins.right : 96
+    m.b = eW < bP ? this.margins.bottom : 48
     m.l = eW < bP ? this.margins.left : 72
 
     // console.log(eW < bP)
