@@ -410,26 +410,6 @@
 
 @media only screen and (orientation: landscape) {
 
-  /* .theme__text-chart {
-    width: 100vw;
-    height: auto;
-    min-height: calc(100vh - 120px);
-    padding: 16px 8px;
-    text-align: left;
-    align-self: center;
-    grid-gap: 8px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, auto);
-
-  }
-
-  .theme__text-chart__chart {
-    height: auto;
-    height: calc(100vh - 60px);
-    padding: 16px 8px;
-
-  } */
-
   .theme__text-chart__button-row {
     width: 100%;
     display: flex;
@@ -438,10 +418,6 @@
     justify-content: flex-start;
 
   }
-
-  /* .theme__text-chart__button-row>button:first-child {
-    border: solid 1px rgba(255, 255, 255, 0.5);
-  } */
 
   .theme-btn {
     margin-right: 8px;
@@ -493,9 +469,15 @@
 
 /* iPad */
 @media only screen and (min-device-width : 768px) and (max-device-width : 1279px) and (orientation: portrait) {
+
+
   .themes__subnav {
     width: 100%;
     height: 72px;
+  }
+
+  .themes__subnav.hide {
+    top: 60px;
   }
 
   .subnav__icon-nav {
@@ -604,7 +586,7 @@
     grid-gap: 8px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: minmax(auto, 100px) minmax(auto, 56px) auto auto;
-    /* grid-auto-rows: auto; */
+    scroll-margin-top: 72px;
   }
 
   .theme__text-chart__sources {
@@ -749,6 +731,10 @@
   .themes__subnav {
     width: 100%;
     height: 72px;
+  }
+
+  .themes__subnav.hide {
+    top: 60px;
   }
 
   .subnav__icon-nav {
@@ -900,7 +886,7 @@
     grid-gap: 16px;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto minmax(auto, 36px) 72px auto auto auto;
-    /* grid-auto-rows: auto; */
+    scroll-margin-top: 96px;
   }
 
   .theme__text-chart__sources {
@@ -1116,7 +1102,7 @@
     z-index: 10000;
     display: flex;
     position: fixed;
-    top: 48px;
+    top: 60px;
     left: 0;
     width: 100%;
     height: 72px;
@@ -1128,6 +1114,10 @@
     -ms-flex-pack: justify;
     flex-wrap: wrap;
     justify-content: space-around;
+  }
+
+  .themes__subnav.hide {
+    top: 60px;
   }
 
   .subnav__icon-nav {
@@ -1291,7 +1281,7 @@
     grid-gap: 24px;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto minmax(auto, 60px) minmax(auto, 60px) auto auto auto;
-    /* grid-auto-rows: auto; */
+    scroll-margin-top: 96px;
   }
 
   .theme__text-chart__sources {
