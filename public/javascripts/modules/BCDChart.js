@@ -95,7 +95,9 @@ class BCDChart {
     c.ease = d3.easeQuadInOut
 
     // set chart colour method
+
     c.colour = d3.scaleOrdinal(cScheme)
+    c.colourReversed = d3.scaleOrdinal(cScheme.reverse())
 
     // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
@@ -264,7 +266,7 @@ class BCDChart {
     const g = c.g
     const focusCircles = c.focus.select('.focus_circles')
       .append('g')
-      .attr('class', 'focus_circle_' + i)
+      .attr('class', 'focus_circle_' + d.replaceAll(' ', ''))
 
     focusCircles.append('circle')
       .attr('r', 0)
@@ -310,6 +312,7 @@ class BCDChart {
             passive: true
           })
       }
+
 
       function mousemove () {
         c.focus.style('visibility', 'visible')
@@ -382,7 +385,7 @@ class BCDChart {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
-      const id = '.focus_circle_' + i
+      const id = '.focus_circle_' + d.key.replaceAll(' ', '')
       // console.log(id);
       const focusCircle = c.focus.select(id)
 
