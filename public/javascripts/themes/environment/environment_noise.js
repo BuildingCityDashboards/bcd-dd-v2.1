@@ -88,16 +88,20 @@ import { getDefaultMapOptions, getDublinLatLng } from '../../modules/bcd-maps.js
     const noiseChart = new BCDMultiLineChart(noiseChartOptions)
 
     d3.select('#btn-noise-chart').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-noise-monitors').style('display', 'block')
-      d3.select('#map-noise-monitors').style('display', 'none')
-      redraw(noiseChart)
+      if (document.getElementById('chart-noise-monitors').style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-noise-monitors').style('display', 'block')
+        d3.select('#map-noise-monitors').style('display', 'none')
+        redraw(noiseChart)
+      }
     })
 
     d3.select('#btn-noise-map').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-noise-monitors').style('display', 'none')
-      d3.select('#map-noise-monitors').style('display', 'block')
+      if (document.getElementById('map-noise-monitors').style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-noise-monitors').style('display', 'none')
+        d3.select('#map-noise-monitors').style('display', 'block')
+      }
     })
 
     window.addEventListener('resize', () => {

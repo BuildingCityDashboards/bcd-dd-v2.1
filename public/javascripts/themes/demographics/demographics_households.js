@@ -71,25 +71,27 @@ import { activeBtn } from '../../modules/bcd-ui.js'
   houseHoldsChart = new BCDMultiLineChart(houseHoldsContent)
 
   redraw(houseHoldsChart)
-  
+
   window.addEventListener('resize', () => {
     redraw(houseHoldsChart)
   })
 
   d3.select('#btn-households').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-households').style('display', 'block')
-    d3.select('#chart-households-size').style('display', 'none')
-    redraw(houseHoldsChart)
+    if (document.getElementById('chart-households').style.display === 'none') {
+      activeBtn(this)
+      d3.select('#chart-households').style('display', 'block')
+      d3.select('#chart-households-size').style('display', 'none')
+      redraw(houseHoldsChart)
+    }
   })
 
   d3.select('#btn-households-size').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-households').style('display', 'none')
-    d3.select('#chart-households-size').style('display', 'block')
+    if (document.getElementById('chart-households').style.display === 'none') {
+      activeBtn(this)
+      d3.select('#chart-households').style('display', 'none')
+      d3.select('#chart-households-size').style('display', 'block')
+    }
   })
-
-  
 })()
 
 function redraw (chart) {

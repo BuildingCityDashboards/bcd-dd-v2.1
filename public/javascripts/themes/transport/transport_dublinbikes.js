@@ -56,18 +56,24 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       redraw(dataDay)
 
       d3.select('#btn-dublinbikes-day').on('click', function () {
-        redraw(dataDay)
-        activeBtn('#btn-dublinbikes-day')
+        if (!document.getElementById('btn-dublinbikes-day').classList.contains('active')) {
+          redraw(dataDay)
+          activeBtn('#btn-dublinbikes-day')
+        }
       })
 
       d3.select('#btn-dublinbikes-week').on('click', function () {
-        redraw(dataWeek)
-        activeBtn('#btn-dublinbikes-week')
+        if (!document.getElementById('btn-dublinbikes-week').classList.contains('active')) {
+          redraw(dataWeek)
+          activeBtn('#btn-dublinbikes-week')
+        }
       })
 
       d3.select('#btn-dublinbikes-month').on('click', function () {
-        redraw(dataMonth)
-        activeBtn('#btn-dublinbikes-month')
+        if (!document.getElementById('btn-dublinbikes-month').classList.contains('active')) {
+          redraw(dataMonth)
+          activeBtn('#btn-dublinbikes-month')
+        }
       })
 
       window.addEventListener('resize', () => {
@@ -132,7 +138,6 @@ function updateTextInfo (data) {
   d3.select('#bikes-in-use-count').text(peakUse['Bikes in use'])
   d3.select('#max-bikes-use-time').text(peakUse.label.split(',')[0])
   d3.select('#bikes-available').text(peakUse['Bikes available'])
-  
 }
 // ars are array and property to be evaluated as a string
 function getMax (data, p) {
