@@ -16,6 +16,7 @@ block append head
         link(rel='stylesheet', href='/stylesheets/lib/leaflet-chart-modified.css')  
         link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
         link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
+        script(src="/lib/d3v5/d3.js" type="text/javascript" defer)
 
 block navigation
     //-+navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
@@ -24,5 +25,5 @@ block navigation
 block content
 
 block append scripts
-    script(src = '../lib/d3v355/d3.min.js' )
+    //- script(src = '../lib/d3v355/d3.min.js' )
     script(src = '../javascripts/queries/residential_property_price.js' type ='module' )
