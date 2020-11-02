@@ -1,16 +1,14 @@
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
-import { activeBtn } from '../../modules/bcd-ui.js'
+import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 import { TimeoutError } from '../../modules/TimeoutError.js'
-import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 
 (async function main () {
-  const chart1 = 'born-outside-dublin'
-  const chart2 = 'born-outside-state'
+  const chartDivIds = ['born-outside-dublin', 'born-outside-state']
 
-  d3.select('#chart-' + chart1).style('display', 'block')
-  d3.select('#chart-' + chart2).style('display', 'none')
+  d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+  d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
   const parseYear = d3.timeParse('%Y')
   const STATBANK_BASE_URL =
     'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
@@ -18,10 +16,10 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
   const TABLE_CODE = 'CNA31' // gives no of outsideState and ave household size
 
   try {
-    addSpinner('chart-' + chart1, '<b>CSO</b> for data: <i>Populaton by Country of Birth, County and Year</i>')
+    addSpinner('chart-' + chartDivIds[0], '<b>CSO</b> for data: <i>Populaton by Country of Birth, County and Year</i>')
     const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
     if (json) {
-      removeSpinner('chart-' + chart1)
+      removeSpinner('chart-' + chartDivIds[0])
     }
 
     const dataset = JSONstat(json).Dataset(0)
@@ -60,7 +58,7 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
           +d.Year >= 1991) {
           d.date = parseYear(+d.Year)
           d.label = +d.Year
-          d.value = +d.value 
+          d.value = +d.value
           if (!traceNames.includes(d[dimensions[0]])) {
             traceNames.push(d[dimensions[0]])
           }
@@ -105,39 +103,43 @@ import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageBut
     const bornOutsideStateChart = new BCDMultiLineChart(bornOutsideState)
     // redraw(bornOutsideStateChart)
 
-    d3.select('#btn-' + chart1).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'block')
-      d3.select('#chart-' + chart2).style('display', 'none')
-      // redraw(bornOutsideDublinChart)
+    d3.select('#btn-' + chartDivIds[0]).on('click', function () {
+      if (document.getElementById('chart-' + chartDivIds[0]).style.display === 'none') {
+        activeBtn('btn-' + chartDivIds[0], ['btn-' + chartDivIds[1]])
+        d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+        d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+        redraw(bornOutsideDublinChart)
+      }
     })
 
-    d3.select('#btn-' + chart2).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'block')
-      redraw(bornOutsideStateChart)
+    d3.select('#btn-' + chartDivIds[1]).on('click', function () {
+      if (document.getElementById('chart-' + chartDivIds[1]).style.display === 'none') {
+        activeBtn('btn-' + chartDivIds[1], ['btn-' + chartDivIds[0]])
+        d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+        d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
+        redraw(bornOutsideStateChart)
+      }
     })
 
     window.addEventListener('resize', () => {
       // console.log('redraw outsideState')
       // bornOutsideDublinChart.tickNumber = 31
-      if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
+      if (document.querySelector('#chart-' + chartDivIds[0]).style.display !== 'none') {
         redraw(bornOutsideDublinChart)
       }
-      if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
+      if (document.querySelector('#chart-' + chartDivIds[1]).style.display !== 'none') {
         redraw(bornOutsideStateChart)
       }
     })
   } catch (e) {
     console.log('Error creating demographics chart')
     console.log(e)
-    removeSpinner('chart-' + chart1)
+    removeSpinner('chart-' + chartDivIds[0])
     const eMsg = e instanceof TimeoutError ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton('chart-' + chart1, eMsg)
+    const errBtnID = addErrorMessageButton('chart-' + chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
-      removeErrorMessageButton('chart-' + chart1)
+      removeErrorMessageButton('chart-' + chartDivIds[0])
       main()
     })
   }
