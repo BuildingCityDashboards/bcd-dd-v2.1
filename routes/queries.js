@@ -10,7 +10,6 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/geodemos', function (req, res, next) {
-  // alert('you clicked q1')
   res.render('queries/geodemos', {
     title: 'Query: Geodemographics',
     page: ''
@@ -18,9 +17,15 @@ router.get('/geodemos', function (req, res, next) {
 })
 
 router.get('/geodemosHM', function (req, res, next) {
-  // alert('you clicked q1')
   res.render('queries/geodemosHM', {
     title: 'Query: Geodemographics',
+    page: ''
+  })
+})
+
+router.get('/residentialpropertyprice', function (req, res, next) {
+  res.render('queries/residential_property_price', {
+    title: 'Query: Residential Property Price',
     page: ''
   })
 })

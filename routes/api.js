@@ -69,4 +69,7 @@ router.get('/traffic/', trafficService.getTrafficPerSiteByQuery)
 const economicMonitorController = require('../controllers/economic_monitor_controller')
 router.get('/economicmonitor/indicator/:indicatorNumber', economicMonitorController.getIndicatorData)
 
+const resPropertyPriceController = require('../controllers/res_property_price')
+router.get('/residentialpropertyprice', resPropertyPriceController.getTestData)
+
 module.exports = router
