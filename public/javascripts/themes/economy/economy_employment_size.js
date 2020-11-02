@@ -6,9 +6,10 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
-  d3.select('#chart-employees-by-size').style('display', 'block')
-  d3.select('#chart-engaged-by-size').style('display', 'none')
-  d3.select('#chart-active-enterprises').style('display', 'none')
+  const chartDivIds = ['employees-by-size', 'engaged-by-size', 'active-enterprises']
+  d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+  d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+  d3.select('#chart-' + chartDivIds[2]).style('display', 'none')
 
   const parseYear = d3.timeParse('%Y')
 
@@ -18,11 +19,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   const TABLE_CODE = 'BRA08'
   const STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
   try {
-    addSpinner('chart-employees-by-size', '<b>CSO</b> for data: <i>BRA08 - Business Demography NACE Rev 2 by Employment Size, County, Year and Statistic</i>')
+    addSpinner('chart-' + chartDivIds[0], '<b>CSO</b> for data: <i>BRA08 - Business Demography NACE Rev 2 by Employment Size, County, Year and Statistic</i>')
     const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
 
     if (json) {
-      removeSpinner('chart-employees-by-size')
+      removeSpinner('chart-' + chartDivIds[0])
     }
 
     const dataset = JSONstat(json).Dataset(0)
@@ -77,7 +78,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     )
 
     const sizeContent = {
-      e: 'chart-employees-by-size',
+      e: 'chart-' + chartDivIds[0],
       xV: 'date',
       yV: 'value',
       d: sizeFiltered,
@@ -91,7 +92,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     }
     const engagedContent = {
-      e: 'chart-engaged-by-size',
+      e: 'chart-' + chartDivIds[1],
       xV: 'date',
       yV: 'value',
       d: engagedFiltered,
@@ -101,11 +102,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tY: 'Persons engaged',
       formaty: 'tenThousandsShort'
 
-
     }
 
     const activeContent = {
-      e: 'chart-active-enterprises',
+      e: 'chart-' + chartDivIds[2],
       xV: 'date',
       yV: 'value',
       d: activeFiltered,
@@ -114,7 +114,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       tX: 'Years',
       tY: 'Active enterprises',
       formaty: 'tenThousandsShort'
-
 
     }
 
@@ -127,35 +126,41 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const activeChart = new BCDMultiLineChart(activeContent)
     // redraw(activeChart, STATS[0])
 
-    d3.select('#btn-employees-by-size').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-employees-by-size').style('display', 'block')
-      d3.select('#chart-engaged-by-size').style('display', 'none')
-      d3.select('#chart-active-enterprises').style('display', 'none')
-      redraw(employedChart, STATS[2])
+    d3.select('#btn-' + chartDivIds[0]).on('click', function () {
+      if (document.getElementById('chart-' + chartDivIds[0]).style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-' + chartDivIds[0]).style('display', 'block')
+        d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+        d3.select('#chart-' + chartDivIds[2]).style('display', 'none')
+        redraw(employedChart, STATS[2])
+      }
     })
     //
-    d3.select('#btn-engaged-by-size').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-employees-by-size').style('display', 'none')
-      d3.select('#chart-engaged-by-size').style('display', 'block')
-      d3.select('#chart-active-enterprises').style('display', 'none')
-      redraw(engagedChart, STATS[1])
+    d3.select('#btn-' + chartDivIds[1]).on('click', function () {
+      if (document.getElementById('chart-' + chartDivIds[1]).style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+        d3.select('#chart-' + chartDivIds[1]).style('display', 'block')
+        d3.select('#chart-' + chartDivIds[2]).style('display', 'none')
+        redraw(engagedChart, STATS[1])
+      }
     })
 
-    d3.select('#btn-active-enterprises').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-employees-by-size').style('display', 'none')
-      d3.select('#chart-engaged-by-size').style('display', 'none')
-      d3.select('#chart-active-enterprises').style('display', 'block')
-      // activeChart.tickNumber = 12
-      redraw(activeChart, STATS[0])
+    d3.select('#btn-' + chartDivIds[2]).on('click', function () {
+      if (document.getElementById('chart-' + chartDivIds[2]).style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-' + chartDivIds[0]).style('display', 'none')
+        d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
+        d3.select('#chart-' + chartDivIds[2]).style('display', 'block')
+        // activeChart.tickNumber = 12
+        redraw(activeChart, STATS[0])
+      }
     })
 
     window.addEventListener('resize', () => {
-      if (d3.select('#chart-employees-by-size').style.display !== 'none') {
+      if (d3.select('#chart-' + chartDivIds[0]).style.display !== 'none') {
         redraw(employedChart, STATS[2])
-      } else if (d3.select('#chart-engaged-by-size').style.display !== 'none') {
+      } else if (d3.select('#chart-' + chartDivIds[1]).style.display !== 'none') {
         redraw(engagedChart, STATS[1])
       } else {
         redraw(activeChart, STATS[0])
@@ -164,12 +169,12 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   } catch (e) {
     console.log('Error creating Business Demography chart')
     console.log(e)
-    removeSpinner('chart-employees-by-size')
+    removeSpinner('chart-' + chartDivIds[0])
     const eMsg = e instanceof TimeoutError ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton('chart-employees-by-size', eMsg)
+    const errBtnID = addErrorMessageButton('chart-' + chartDivIds[0], eMsg)
     // console.log(errBtnID)
     d3.select(`#${errBtnID}`).on('click', function () {
-      removeErrorMessageButton('chart-employees-by-size')
+      removeErrorMessageButton('chart-' + chartDivIds[0])
       main()
     })
   }

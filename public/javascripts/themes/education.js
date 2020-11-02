@@ -78,24 +78,27 @@ Promise.all([
 
     window.addEventListener('resize', () => {
       if (document.getElementById(pupilsSecondaryPlot.e).style.display !== 'none') {
-        console.log('redraw pup sec');
+        console.log('redraw pup sec')
         redraw(pupilsSecondaryChart, 'Pupils in secondary level')
       }
     })
-
   }
 
   d3.select('#btn-pupils-primary').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-pupils-primary').style('display', 'block')
-    d3.select('#chart-pupils-secondary').style('display', 'none')
-    redraw(pupilsPrimaryChart, 'Pupils in primary level')
+    if (document.getElementById('chart-pupils-primary').style.display === 'none') {
+      activeBtn(this)
+      d3.select('#chart-pupils-primary').style('display', 'block')
+      d3.select('#chart-pupils-secondary').style('display', 'none')
+      redraw(pupilsPrimaryChart, 'Pupils in primary level')
+    }
   })
   d3.select('#btn-pupils-secondary').on('click', function () {
-    activeBtn(this)
-    d3.select('#chart-pupils-primary').style('display', 'none')
-    d3.select('#chart-pupils-secondary').style('display', 'block')
-    redraw(pupilsSecondaryChart, 'Pupils in secondary level')
+    if (document.getElementById('chart-pupils-secondary').style.display === 'none') {
+      activeBtn(this)
+      d3.select('#chart-pupils-primary').style('display', 'none')
+      d3.select('#chart-pupils-secondary').style('display', 'block')
+      redraw(pupilsSecondaryChart, 'Pupils in secondary level')
+    }
   })
 
   // const dataFile2 = datafiles[1]

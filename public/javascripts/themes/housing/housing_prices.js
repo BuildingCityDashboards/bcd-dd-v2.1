@@ -8,7 +8,7 @@ import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErro
 
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
-(async function main() {
+(async function main () {
   const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
@@ -122,18 +122,18 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     const chart1 = 'house-price-mean'
     const chart2 = 'house-price-median'
-    function redraw() {
+    function redraw () {
       if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
         housePriceMeanChart.drawChart()
         housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
-        housePriceMeanChart.showSelectedLabelsX([0,2,4,6,8,10])
-        housePriceMeanChart.showSelectedLabelsY([2,4,6,8,10,12,14])
+        housePriceMeanChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+        housePriceMeanChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
       }
       if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
         housePriceMedianChart.drawChart()
         housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
-        housePriceMedianChart.showSelectedLabelsX([0,2,4,6,8,10])
-        housePriceMedianChart.showSelectedLabelsY([2,4,6,8,10,12,14])
+        housePriceMedianChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+        housePriceMedianChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
       }
     }
     redraw()
@@ -142,17 +142,21 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     d3.select('#chart-' + chart2).style('display', 'none')
 
     d3.select('#btn-' + chart1).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'block')
-      d3.select('#chart-' + chart2).style('display', 'none')
-      redraw()
+      if (document.getElementById('chart-' + chart1).style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'block')
+        d3.select('#chart-' + chart2).style('display', 'none')
+        redraw()
+      }
     })
 
     d3.select('#btn-' + chart2).on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'block')
-      redraw()
+      if (document.getElementById('chart-' + chart2).style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'none')
+        d3.select('#chart-' + chart2).style('display', 'block')
+        redraw()
+      }
     })
 
     window.addEventListener('resize', () => {

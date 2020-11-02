@@ -2,7 +2,7 @@
 import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
 import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 import { TimeoutError } from '../../modules/TimeoutError.js'
 
 (async function main () {
@@ -73,8 +73,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   }
 })()
 
-function redraw(chart) {
-
+function redraw (chart) {
   chart.drawChart()
   chart.addTooltip('GVA per person in ', '', 'label')
   chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22])

@@ -93,17 +93,21 @@ import { fetchCsvFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
     })
 
     d3.select('#btn-indicator-port-total').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-indicator-port-total').style('display', 'block')
-      d3.select('#chart-indicator-port-breakdown').style('display', 'none')
-      redraw(portTotalChart)
+      if (document.getElementById('chart-indicator-port-total').style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-indicator-port-total').style('display', 'block')
+        d3.select('#chart-indicator-port-breakdown').style('display', 'none')
+        redraw(portTotalChart)
+      }
     })
 
     d3.select('#btn-indicator-port-breakdown').on('click', function () {
-      activeBtn(this)
-      d3.select('#chart-indicator-port-total').style('display', 'none')
-      d3.select('#chart-indicator-port-breakdown').style('display', 'block')
-      redraw(portBreakdownChart)
+      if (document.getElementById('chart-indicator-port-breakdown').style.display === 'none') {
+        activeBtn(this)
+        d3.select('#chart-indicator-port-total').style('display', 'none')
+        d3.select('#chart-indicator-port-breakdown').style('display', 'block')
+        redraw(portBreakdownChart)
+      }
     })
   } catch (e) {
     console.log('Error creating Dublin Port chart')
