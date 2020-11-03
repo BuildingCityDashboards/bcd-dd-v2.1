@@ -313,7 +313,6 @@ class BCDChart {
           })
       }
 
-
       function mousemove () {
         c.focus.style('visibility', 'visible')
         c.tooltipElement.style('visibility', 'visible')
@@ -571,11 +570,12 @@ class BCDChart {
     })
   }
 
-  textWrap (text, width, xpos = 0, limit = 2) {
+  textWrap (text, width, xpos = 8, limit = 2) {
+    const reg = /[\s-]/g
     text.each(function () {
       text = d3.select(this)
       let word
-      const words = text.text().split(/\s+/).reverse()
+      const words = text.text().split(reg).reverse()
       let line = []
       let lineNumber = 0
       const lineHeight = 1
@@ -613,6 +613,15 @@ class BCDChart {
         }
       }
     })
+  }
+
+  adjustLegendPosition (adj = {}) {
+    d3.select('#' + adj.chartid)
+      .selectAll('.label-legend')
+      .select('#' + adj.legendid)
+      .select('tspan')
+      .attr('dx', adj.dx)
+      .attr('dy', adj.dy)
   }
 }
 

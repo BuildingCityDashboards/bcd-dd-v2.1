@@ -137,6 +137,12 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         completionsSchemeChart.addTooltip('Scheme house completions, ', '', 'label')
         completionsSchemeChart.showSelectedLabelsX([0, 3, 6, 9])
         completionsSchemeChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
+        const labelAdjust = {
+          chartid: completionsSchemeChart.e,
+          legendid: 'DublinCity',
+          dy: '16px'
+        }
+        completionsSchemeChart.adjustLegendPosition(labelAdjust)
       }
       if (document.querySelector('#chart-' + chart3).style.display !== 'none') {
         completionsApartmentChart.drawChart()
@@ -170,11 +176,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     d3.select('#btn-' + chart3).on('click', function () {
       if (document.getElementById('chart-' + chart3).style.display === 'none') {
-      activeBtn(this)
-      d3.select('#chart-' + chart1).style('display', 'none')
-      d3.select('#chart-' + chart2).style('display', 'none')
-      d3.select('#chart-' + chart3).style('display', 'block')
-      redraw()
+        activeBtn(this)
+        d3.select('#chart-' + chart1).style('display', 'none')
+        d3.select('#chart-' + chart2).style('display', 'none')
+        d3.select('#chart-' + chart3).style('display', 'block')
+        redraw()
       }
     })
 

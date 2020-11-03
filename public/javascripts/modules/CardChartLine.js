@@ -123,7 +123,7 @@ class CardChartLine {
     const c = this
     const l = c.d.length
     const lD = c.d[l - 1] // last data value
-    const fD = c.d[0] // firrst data value
+    const fD = c.d[0] // first data value
 
     // Region/type name
     c.svg.append('text')
