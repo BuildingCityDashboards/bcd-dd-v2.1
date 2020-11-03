@@ -261,16 +261,18 @@ class BCDChart {
     })
   }
 
-  drawFocusCircle (d, i) {
+  drawFocusCircle (key, i) {
     const c = this
     const g = c.g
     const focusCircles = c.focus.select('.focus_circles')
       .append('g')
-      .attr('class', 'focus_circle_' + d.replaceAll(' ', ''))
+      .attr('class', 'focus_circle')
+      .attr('id', 'focus_circle_' + key.replace(/[\s.&]/g, ''))
+
+    // console.log(key)
+    // console.log(key.replace(/[\s.&]/g, ''))
 
     focusCircles.append('circle')
-      .attr('r', 0)
-      .transition(c.t)
       .attr('r', 5)
   }
 
@@ -384,7 +386,7 @@ class BCDChart {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
-      const id = '.focus_circle_' + d.key.replaceAll(' ', '')
+      const id = '#focus_circle_' + d.key.replace(/[\s.&]/g, '')
       // console.log(id);
       const focusCircle = c.focus.select(id)
 

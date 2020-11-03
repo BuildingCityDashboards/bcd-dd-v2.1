@@ -34,7 +34,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categoriesStat = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesStat)
+    // console.log(categoriesStat)
 
     // to keep track of the trqace namesw that we will plot
     const traceNames = []
@@ -70,7 +70,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           return d
         }
       })
-    console.log(traceNames)
+    // console.log(traceNames)
 
     // console.log(houseRppiTable)
 
@@ -167,5 +167,6 @@ function redraw (chart) {
   chart.drawChart()
   chart.addTooltip('RPPI for ', '', 'label')
   chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12])
+  chart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
   chart.addBaseLine(100)
 }
