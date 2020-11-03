@@ -570,7 +570,7 @@ class BCDChart {
     })
   }
 
-  textWrap (text, width, xpos = 8, limit = 2) {
+  textWrap (text, width, xpos = 8, limit = 3) {
     const reg = /[\s-]/g
     text.each(function () {
       text = d3.select(this)

@@ -372,7 +372,7 @@ class BCDMultiLineChart extends BCDChart {
       .attr('id', d => d.key.replace(' ', ''))
       .attr('dy', '.01em')
       .text(d => d.key)
-      .call(c.textWrap, 110, 8)
+      .call(c.textWrap, 96, 8)
       // .attr('fill', d => z(d.key))
       // .attr('alignment-baseline', 'middle')
       // .attr('dx', '.5em')
