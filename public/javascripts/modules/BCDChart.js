@@ -570,6 +570,50 @@ class BCDChart {
         .style('display', 'block')
     })
   }
+
+  textWrap (text, width, xpos = 0, limit = 2) {
+    text.each(function () {
+      text = d3.select(this)
+      let word
+      const words = text.text().split(/\s+/).reverse()
+      let line = []
+      let lineNumber = 0
+      const lineHeight = 1
+      const y = text.attr('y')
+      const dy = parseFloat(text.attr('dy'))
+      let tspan = text
+        .text(null)
+        .append('tspan')
+        .attr('x', xpos)
+        .attr('y', y)
+        .attr('dy', dy + 'em')
+
+      while ((word = words.pop())) {
+        line.push(word)
+        tspan.text(line.join(' '))
+
+        if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+          line.pop()
+          tspan.text(line.join(' '))
+
+          if (lineNumber < limit - 1) {
+            line = [word]
+            tspan = text.append('tspan')
+              .attr('x', xpos)
+              .attr('y', y)
+              .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+              .text(word)
+            // if we need two lines for the text, move them both up to center them
+            text.classed('move-up', true)
+          } else {
+            line.push('...')
+            tspan.text(line.join(' '))
+            break
+          }
+        }
+      }
+    })
+  }
 }
 
 export { BCDChart }
