@@ -1276,6 +1276,8 @@
     position: relative;
     width: auto;
     height: auto;
+    max-width: 1440px;
+    margin: 0 auto;
     min-height: 75vh;
     padding-right: 48px;
     padding-left: 48px;
