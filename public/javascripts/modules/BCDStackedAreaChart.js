@@ -473,8 +473,8 @@ class BCDStackedAreaChart extends BCDChart {
         }
 
         if (d !== undefined) {
-          const eKey = key.replaceAll(' ', '')
-          const focusCircle = c.focus.select('.focus_circle_' + eKey)
+          const eKey = key.replace(/[\s.&]/g, '')
+          const focusCircle = c.focus.select('#focus_circle_' + eKey)
           c.updatePosition(c.x(d[c.xV]), -300)
 
           dd1 !== undefined ? dd = x0 - dd0.data[c.xV] > dd1.data[c.xV] - x0 ? dd1 : dd0 : false
