@@ -313,7 +313,6 @@ class BCDChart {
           })
       }
 
-
       function mousemove () {
         c.focus.style('visibility', 'visible')
         c.tooltipElement.style('visibility', 'visible')
@@ -569,6 +568,60 @@ class BCDChart {
       d3.select(e._groups[0][0].childNodes[n + 1])
         .style('display', 'block')
     })
+  }
+
+  textWrap (text, width, xpos = 8, limit = 3) {
+    const reg = /[\s-]/g
+    text.each(function () {
+      text = d3.select(this)
+      let word
+      const words = text.text().split(reg).reverse()
+      let line = []
+      let lineNumber = 0
+      const lineHeight = 1
+      const y = text.attr('y')
+      const dy = parseFloat(text.attr('dy'))
+      let tspan = text
+        .text(null)
+        .append('tspan')
+        .attr('x', xpos)
+        .attr('y', y)
+        .attr('dy', dy + 'em')
+
+      while ((word = words.pop())) {
+        line.push(word)
+        tspan.text(line.join(' '))
+
+        if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+          line.pop()
+          tspan.text(line.join(' '))
+
+          if (lineNumber < limit - 1) {
+            line = [word]
+            tspan = text.append('tspan')
+              .attr('x', xpos)
+              .attr('y', y)
+              .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+              .text(word)
+            // if we need two lines for the text, move them both up to center them
+            text.classed('move-up', true)
+          } else {
+            line.push('...')
+            tspan.text(line.join(' '))
+            break
+          }
+        }
+      }
+    })
+  }
+
+  adjustLegendPosition (adj = {}) {
+    d3.select('#' + adj.chartid)
+      .selectAll('.label-legend')
+      .select('#' + adj.legendid)
+      .select('tspan')
+      .attr('dx', adj.dx)
+      .attr('dy', adj.dy)
   }
 }
 
