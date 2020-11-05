@@ -5,7 +5,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { BCDMultiLineChart } from '../modules/BCDMultiLineChart.js'
 import { BCDStackedAreaChart } from '../modules/BCDStackedAreaChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../modules/bcd-ui.js'
-import { getTraceDefaults } from '../modules/bcd-plotly-utils.js'
+import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils.js'
 
 import { TimeoutError } from '../modules/TimeoutError.js'
 
@@ -57,9 +57,11 @@ async function main (options) {
   //   type: 'bar'
   // }
 
-  var traces = [pprTrace]
+  const traces = [pprTrace]
 
-  Plotly.newPlot('chart-property-price', traces, {}, {})
+  let pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
+
+  Plotly.newPlot('chart-property-price', traces, pprLayout, {})
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
