@@ -9,29 +9,46 @@ import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErro
 import { TimeoutError } from '../modules/TimeoutError.js'
 
 async function main (options) {
-  const uri = '/api/residentialpropertyprice/'
+  const API_REQ = '/api/residentialpropertyprice/'
 
-  console.log('res property price')
-
-  var trace1 = {
-    x: [0, 1, 2, 3, 4, 5],
-    y: [1.5, 1, 1.3, 0.7, 0.8, 0.9],
-    type: 'scatter'
-  }
-  
-  var trace2 = {
-    x: [0, 1, 2, 3, 4, 5],
-    y: [1, 0.5, 0.7, -1.2, 0.3, 0.4],
-    type: 'bar'
-  }
-  
-  var data = [trace1, trace2]
-  
-  Plotly.newPlot('chart-property-price', data)
+  const pprCSV = await fetchCsvFromUrlAsyncTimeout('../data/Housing/PPR/PPR-2020-Dublin.csv')
+  console.log(pprCSV)
+  const pprJSON = d3.csvParse(pprCSV)
+  console.log(pprJSON)
 
   // const csv = await fetchCsvFromUrlAsyncTimeout(uri)
   // const json = d3.csvParse(csv)
   // console.log(json)
+
+  //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
+  const dates = pprJSON.map(d =>{
+    return d['Date of Sale (dd/mm/yyyy)']
+  })
+  const values = pprJSON.map(d =>{
+    console.log(d['Price (�)']);
+    let v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+    console.log(v);
+    return v
+  })
+
+  var trace1 = {
+    // x: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05'],
+    // x: ['02/01/2020', '02/01/2020', '02/01/2020', '05/01/2020', '06/01/2020'],
+    x: dates,
+    y: values,
+    type: 'scatter',
+    mode: 'markers'
+  }
+
+  // var trace2 = {
+  //   x: [0, 1, 2, 3, 4, 5],
+  //   y: [1, 0.5, 0.7, -1.2, 0.3, 0.4],
+  //   type: 'bar'
+  // }
+
+  var data = [trace1]
+
+  Plotly.newPlot('chart-property-price', data)
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
@@ -79,113 +96,113 @@ async function main (options) {
   //   })
 
   //   // console.log('categories of ' + dimensions[3])
-    // console.log(categoriesStamp)
+  // console.log(categoriesStamp)
 
-    // let STATS = ['Population (Number)']
-    // = ['Total Birth', 'Great Britain', 'U.S.A.', 'Other Countries']
-    //
-    // const traceNames = []
+  // let STATS = ['Population (Number)']
+  // = ['Total Birth', 'Great Britain', 'U.S.A.', 'Other Countries']
+  //
+  // const traceNames = []
 
-    // const housePriceTable = dataset.toTable(
-    //   { type: 'arrobj' },
-    //   (d, i) => {
-    //     if (d[dimensions[0]] === categoriesType[0] &&
-    //       d[dimensions[1]] === categoriesStatus[0] &&
-    //       d[dimensions[2]] === categoriesStamp[0] &&
-    //       (d[dimensions[3]] === categoriesRegion[0] ||
-    //         d[dimensions[3]] === categoriesRegion[18] ||
-    //         d[dimensions[3]] === categoriesRegion[19] ||
-    //         d[dimensions[3]] === categoriesRegion[20] ||
-    //         d[dimensions[3]] === categoriesRegion[21]) &&
-    //       (d[dimensions[5]] === categoriesStat[2] ||
-    //         d[dimensions[5]] === categoriesStat[3])) {
-    //       d.date = parseYearMonth(d.Month)
-    //       d.label = d.Month
-    //       d.value = +d.value
-    //       if (!traceNames.includes(d[dimensions[3]])) {
-    //         traceNames.push(d[dimensions[3]])
-    //       }
-    //       return d
-    //     }
-    //   })
-    // //
-    // // console.log(housePriceTable)
-    // // console.log(traceNames)
+  // const housePriceTable = dataset.toTable(
+  //   { type: 'arrobj' },
+  //   (d, i) => {
+  //     if (d[dimensions[0]] === categoriesType[0] &&
+  //       d[dimensions[1]] === categoriesStatus[0] &&
+  //       d[dimensions[2]] === categoriesStamp[0] &&
+  //       (d[dimensions[3]] === categoriesRegion[0] ||
+  //         d[dimensions[3]] === categoriesRegion[18] ||
+  //         d[dimensions[3]] === categoriesRegion[19] ||
+  //         d[dimensions[3]] === categoriesRegion[20] ||
+  //         d[dimensions[3]] === categoriesRegion[21]) &&
+  //       (d[dimensions[5]] === categoriesStat[2] ||
+  //         d[dimensions[5]] === categoriesStat[3])) {
+  //       d.date = parseYearMonth(d.Month)
+  //       d.label = d.Month
+  //       d.value = +d.value
+  //       if (!traceNames.includes(d[dimensions[3]])) {
+  //         traceNames.push(d[dimensions[3]])
+  //       }
+  //       return d
+  //     }
+  //   })
+  // //
+  // // console.log(housePriceTable)
+  // // console.log(traceNames)
 
-    // const housePriceMean = {
-    //   e: 'chart-house-price-mean',
-    //   d: housePriceTable.filter(d => {
-    //     return d[dimensions[5]] === categoriesStat[2]
-    //   }),
-    //   ks: traceNames,
-    //   k: dimensions[3],
-    //   xV: 'date',
-    //   yV: 'value',
-    //   tX: 'Year',
-    //   tY: categoriesStat[2],
-    //   formaty: 'hundredThousandsShort'
-    // }
-    // //
-    // const housePriceMeanChart = new BCDMultiLineChart(housePriceMean)
+  // const housePriceMean = {
+  //   e: 'chart-house-price-mean',
+  //   d: housePriceTable.filter(d => {
+  //     return d[dimensions[5]] === categoriesStat[2]
+  //   }),
+  //   ks: traceNames,
+  //   k: dimensions[3],
+  //   xV: 'date',
+  //   yV: 'value',
+  //   tX: 'Year',
+  //   tY: categoriesStat[2],
+  //   formaty: 'hundredThousandsShort'
+  // }
+  // //
+  // const housePriceMeanChart = new BCDMultiLineChart(housePriceMean)
 
-    // const housePriceMedian = {
-    //   e: 'chart-house-price-median',
-    //   d: housePriceTable.filter(d => {
-    //     return d[dimensions[5]] === categoriesStat[3]
-    //   }),
-    //   ks: traceNames,
-    //   k: dimensions[3],
-    //   xV: 'date',
-    //   yV: 'value',
-    //   tX: 'Year',
-    //   tY: categoriesStat[3],
-    //   formaty: 'hundredThousandsShort'
-    // }
-    // //
-    // const housePriceMedianChart = new BCDMultiLineChart(housePriceMedian)
+  // const housePriceMedian = {
+  //   e: 'chart-house-price-median',
+  //   d: housePriceTable.filter(d => {
+  //     return d[dimensions[5]] === categoriesStat[3]
+  //   }),
+  //   ks: traceNames,
+  //   k: dimensions[3],
+  //   xV: 'date',
+  //   yV: 'value',
+  //   tX: 'Year',
+  //   tY: categoriesStat[3],
+  //   formaty: 'hundredThousandsShort'
+  // }
+  // //
+  // const housePriceMedianChart = new BCDMultiLineChart(housePriceMedian)
 
-    // const chart1 = 'house-price-mean'
-    // const chart2 = 'house-price-median'
-    // function redraw () {
-    //   if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
-    //     housePriceMeanChart.drawChart()
-    //     housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
-    //     housePriceMeanChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
-    //     housePriceMeanChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
-    //   }
-    //   if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
-    //     housePriceMedianChart.drawChart()
-    //     housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
-    //     housePriceMedianChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
-    //     housePriceMedianChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
-    //   }
-    // }
-    // redraw()
+  // const chart1 = 'house-price-mean'
+  // const chart2 = 'house-price-median'
+  // function redraw () {
+  //   if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
+  //     housePriceMeanChart.drawChart()
+  //     housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
+  //     housePriceMeanChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+  //     housePriceMeanChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
+  //   }
+  //   if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
+  //     housePriceMedianChart.drawChart()
+  //     housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
+  //     housePriceMedianChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
+  //     housePriceMedianChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
+  //   }
+  // }
+  // redraw()
 
-    // d3.select('#chart-' + chart1).style('display', 'block')
-    // d3.select('#chart-' + chart2).style('display', 'none')
+  // d3.select('#chart-' + chart1).style('display', 'block')
+  // d3.select('#chart-' + chart2).style('display', 'none')
 
-    // d3.select('#btn-' + chart1).on('click', function () {
-    //   if (document.getElementById('chart-' + chart1).style.display === 'none') {
-    //     activeBtn(this)
-    //     d3.select('#chart-' + chart1).style('display', 'block')
-    //     d3.select('#chart-' + chart2).style('display', 'none')
-    //     redraw()
-    //   }
-    // })
+  // d3.select('#btn-' + chart1).on('click', function () {
+  //   if (document.getElementById('chart-' + chart1).style.display === 'none') {
+  //     activeBtn(this)
+  //     d3.select('#chart-' + chart1).style('display', 'block')
+  //     d3.select('#chart-' + chart2).style('display', 'none')
+  //     redraw()
+  //   }
+  // })
 
-    // d3.select('#btn-' + chart2).on('click', function () {
-    //   if (document.getElementById('chart-' + chart2).style.display === 'none') {
-    //     activeBtn(this)
-    //     d3.select('#chart-' + chart1).style('display', 'none')
-    //     d3.select('#chart-' + chart2).style('display', 'block')
-    //     redraw()
-    //   }
-    // })
+  // d3.select('#btn-' + chart2).on('click', function () {
+  //   if (document.getElementById('chart-' + chart2).style.display === 'none') {
+  //     activeBtn(this)
+  //     d3.select('#chart-' + chart1).style('display', 'none')
+  //     d3.select('#chart-' + chart2).style('display', 'block')
+  //     redraw()
+  //   }
+  // })
 
-    // window.addEventListener('resize', () => {
-    //   redraw()
-    // })
+  // window.addEventListener('resize', () => {
+  //   redraw()
+  // })
   // } catch (e) {
   //   console.log('Error creating Property Price query chart')
   //   console.log(e)
