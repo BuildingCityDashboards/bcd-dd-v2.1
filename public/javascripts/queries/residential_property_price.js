@@ -22,13 +22,16 @@ async function main (options) {
   // console.log(json)
 
   //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-
+  const valueRange = {
+    min: 250000,
+    max: 450000
+  }
   let maxValue = 0
   let maxRecord = {}
-  const pprDates = []
+  const pprDates = [] // x-axis data
   const pprValues = pprJSON.map(d => {
     const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    if (v < 1000000) {
+    if (v <= valueRange.max && v >= valueRange.min) {
       pprDates.push(d['Date of Sale (dd/mm/yyyy)'])
       // console.log(d['Price (�)'])
       // console.log(v)
@@ -49,19 +52,21 @@ async function main (options) {
   }
 
   const pprTrace = Object.assign(pprTraceOptions, getTraceDefaults('scatter'))
-  console.log(pprTrace);
+  const pprTraces = [pprTrace]
 
-  // var trace2 = {
-  //   x: [0, 1, 2, 3, 4, 5],
-  //   y: [1, 0.5, 0.7, -1.2, 0.3, 0.4],
-  //   type: 'bar'
-  // }
+  const pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
 
-  const traces = [pprTrace]
-
-  let pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
-
-  Plotly.newPlot('chart-property-price', traces, pprLayout, {})
+  const pprPlot = document.getElementById('chart-property-price')
+  Plotly.newPlot('chart-property-price', pprTraces, pprLayout, {})
+  
+  pprPlot.on('plotly_click', function (data) {
+    var pts = ''
+    for (var i = 0; i < data.points.length; i++) {
+      pts = 'x = ' + data.points[i].x + '\ny = ' +
+            data.points[i].y.toPrecision(4) + '\n\n'
+    }
+    console.log('Closest point clicked:\n\n' + pts)
+  })
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
