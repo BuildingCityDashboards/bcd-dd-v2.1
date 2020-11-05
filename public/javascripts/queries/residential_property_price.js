@@ -5,6 +5,7 @@ import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { BCDMultiLineChart } from '../modules/BCDMultiLineChart.js'
 import { BCDStackedAreaChart } from '../modules/BCDStackedAreaChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../modules/bcd-ui.js'
+import { getTraceDefaults } from '../modules/bcd-plotly-utils.js'
 
 import { TimeoutError } from '../modules/TimeoutError.js'
 
@@ -12,42 +13,43 @@ async function main (options) {
   const API_REQ = '/api/residentialpropertyprice/'
 
   const pprCSV = await fetchCsvFromUrlAsyncTimeout('../data/Housing/PPR/PPR-2020-Dublin.csv')
-  console.log(pprCSV)
+  // console.log(pprCSV)
   const pprJSON = d3.csvParse(pprCSV)
-  console.log(pprJSON)
+  // console.log(pprJSON)
 
   // const csv = await fetchCsvFromUrlAsyncTimeout(uri)
   // const json = d3.csvParse(csv)
   // console.log(json)
 
   //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-  const dates = pprJSON.map(d => {
-    return d['Date of Sale (dd/mm/yyyy)']
-  })
 
-  let max = 0
+  let maxValue = 0
   let maxRecord = {}
-
-  const values = pprJSON.map(d => {
-    console.log(d['Price (�)'])
+  const pprDates = []
+  const pprValues = pprJSON.map(d => {
     const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    console.log(v)
-    if (v > max) {
-      maxRecord = d
-      max = v
+    if (v < 1000000) {
+      pprDates.push(d['Date of Sale (dd/mm/yyyy)'])
+      // console.log(d['Price (�)'])
+      // console.log(v)
+      if (v > maxValue) {
+        maxRecord = d
+        maxValue = v
+      }
+      return v
     }
-    return v
   })
   console.log(maxRecord)
 
-  var trace1 = {
-    // x: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05'],
-    // x: ['02/01/2020', '02/01/2020', '02/01/2020', '05/01/2020', '06/01/2020'],
-    x: dates,
-    y: values,
+  const pprTraceOptions = {
+    x: pprDates,
+    y: pprValues,
     type: 'scatter',
     mode: 'markers'
   }
+
+  const pprTrace = Object.assign(pprTraceOptions, getTraceDefaults('scatter'))
+  console.log(pprTrace);
 
   // var trace2 = {
   //   x: [0, 1, 2, 3, 4, 5],
@@ -55,9 +57,9 @@ async function main (options) {
   //   type: 'bar'
   // }
 
-  var data = [trace1]
+  var traces = [pprTrace]
 
-  Plotly.newPlot('chart-property-price', data)
+  Plotly.newPlot('chart-property-price', traces, {}, {})
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
