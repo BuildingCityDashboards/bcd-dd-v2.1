@@ -21,15 +21,24 @@ async function main (options) {
   // console.log(json)
 
   //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-  const dates = pprJSON.map(d =>{
+  const dates = pprJSON.map(d => {
     return d['Date of Sale (dd/mm/yyyy)']
   })
-  const values = pprJSON.map(d =>{
-    console.log(d['Price (�)']);
-    let v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    console.log(v);
+
+  let max = 0
+  let maxRecord = {}
+
+  const values = pprJSON.map(d => {
+    console.log(d['Price (�)'])
+    const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+    console.log(v)
+    if (v > max) {
+      maxRecord = d
+      max = v
+    }
     return v
   })
+  console.log(maxRecord)
 
   var trace1 = {
     // x: ['2020-01-01', '2020-01-02', '2020-01-03', '2020-01-04', '2020-01-05'],
