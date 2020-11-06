@@ -71,14 +71,7 @@ async function main (options) {
 
   Plotly.newPlot(chartId, [], pprLayout, {})
 
-  // Plotly.d3.csv(rawDataURL, function(err, rawData) {
-  //     if(err) throw err;
-
-  //     var data = prepData(rawData);
-  //
-
-  //     Plotly.newPlot('myDiv', data, layout);
-  // });
+  try {
 
   const API_REQ = '/api/residentialpropertyprice/'
 
@@ -154,7 +147,7 @@ async function main (options) {
   const STATIC_URL = '../data/statbank/HPM04.json'
   // // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   // const TABLE_CODE = 'HPM04' // gives no of outsideState and ave household size
-  try {
+  
   //   addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
     const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     //   if (json) {
