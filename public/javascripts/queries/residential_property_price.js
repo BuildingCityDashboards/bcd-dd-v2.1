@@ -10,7 +10,56 @@ import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils
 import { TimeoutError } from '../modules/TimeoutError.js'
 
 async function main (options) {
-  const pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
+  const selectorOptions = {
+    buttons: [{
+      step: 'month',
+      stepmode: 'backward',
+      count: 1,
+      label: '1m'
+    }, {
+      step: 'month',
+      stepmode: 'backward',
+      count: 6,
+      label: '6m'
+    }, {
+      step: 'year',
+      stepmode: 'todate',
+      count: 1,
+      label: 'YTD'
+    }, {
+      step: 'year',
+      stepmode: 'backward',
+      count: 1,
+      label: '1y'
+    },{
+      step: 'year',
+      stepmode: 'backward',
+      count: 5,
+      label: '5y'
+    },{
+      step: 'year',
+      stepmode: 'backward',
+      count: 10,
+      label: '10y'
+    }, {
+      step: 'all'
+    }]
+  }
+
+  const layoutInitial = {
+    title: 'Property Price Query',
+    xaxis: {
+      rangeselector: selectorOptions,
+      // rangeslider: {}
+    },
+    yaxis: {
+      fixedrange: true
+    }
+  }
+
+  const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial )
+  console.log(pprLayout)
+
   const chartId = 'chart-property-price'
   const pprPlot = document.getElementById(chartId)
   const pprTraceOptions = {
@@ -19,7 +68,17 @@ async function main (options) {
     type: 'scatter',
     mode: 'markers'
   }
+
   Plotly.newPlot(chartId, [], pprLayout, {})
+
+  // Plotly.d3.csv(rawDataURL, function(err, rawData) {
+  //     if(err) throw err;
+
+  //     var data = prepData(rawData);
+  //
+
+  //     Plotly.newPlot('myDiv', data, layout);
+  // });
 
   const API_REQ = '/api/residentialpropertyprice/'
 
@@ -40,7 +99,7 @@ async function main (options) {
   const pprDates = [] // x-axis data
   const pprValues = [] // y-axis data
   const pprCustomData = []
-  
+
   pprJSON.forEach(d => {
     const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
     if (d['Postal Code'] === 'Dublin 1' && v > valueRange.min && v < valueRange.max) {
@@ -48,7 +107,7 @@ async function main (options) {
       pprCustomData.push(d)
       pprValues.push(v)
       // console.log('>'+d['Postal Code']+'<')
-      console.log(v)
+      // console.log(v)
 
       if (v < minValue) {
         minRecord = d
@@ -61,7 +120,7 @@ async function main (options) {
     }
   })
 
-  console.log('len '+pprValues.length)
+  console.log('len ' + pprValues.length)
   console.log(pprValues)
 
   const pprTraceData = {
