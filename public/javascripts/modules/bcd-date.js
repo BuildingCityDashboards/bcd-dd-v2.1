@@ -105,6 +105,26 @@ function formatDateAsDDMMYY (date, delim = '-') {
 export { formatDateAsDDMMYY }
 
 /**
+ * Gets a date from a string of the for  DDMMYYYY
+ *
+ * @param {string} - date formatted as a string
+ * @return {date} - a date
+ *
+ * @example tbc
+ *
+ *
+ */
+function getDateFromCommonString (dateString, delim = '/') {
+
+  var dateParts = dateString.split(delim);
+  // month is 0-based, that's why we need dataParts[1] - 1
+  return new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0])
+
+}
+
+export { getDateFromCommonString }
+
+/**
  * Formats a date as a quarter year string of the form: YYYY-QN
  *
  * @param {date} date - a date

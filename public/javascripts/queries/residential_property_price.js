@@ -1,5 +1,5 @@
 import { fetchCsvFromUrlAsyncTimeout, fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
-import { convertQuarterToDate } from '../modules/bcd-date.js'
+import { convertQuarterToDate, getDateFromCommonString } from '../modules/bcd-date.js'
 import { stackNest } from '../modules/bcd-data.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { BCDMultiLineChart } from '../modules/BCDMultiLineChart.js'
@@ -40,7 +40,7 @@ async function main (options) {
   const pprValues = pprJSON.map(d => {
     const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
     if (v <= valueRange.max && v >= valueRange.min) {
-      pprDates.push(d['Date of Sale (dd/mm/yyyy)'])
+      pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
       pprCustomData.push(d)
       // console.log(d['Price (�)'])
       // console.log(v)
@@ -63,19 +63,17 @@ async function main (options) {
   // const pprTraces = [pprTrace]
   Plotly.addTraces(chartId, pprTrace)
 
-  // Plotly.addTraces(chartId, [{y: [2,1,2]}, {y: [4, 5, 7]}]);
-
-  // pprPlot.on('plotly_click', function (data) {
-  //   let pts = ''
-  //   let d = {}
-  //   for (let i = 0; i < data.points.length; i++) {
-  //     pts = 'x = ' + data.points[i].x + '\ny = ' +
-  //           data.points[i].y + '\n\n'
-  //     d = data.points[i].customdata
-  //   }
-  //   console.log('Closest point clicked:\n\n' + pts)
-  //   console.log(d)
-  // })
+  pprPlot.on('plotly_click', function (data) {
+    let pts = ''
+    let d = {}
+    for (let i = 0; i < data.points.length; i++) {
+      pts = 'x = ' + data.points[i].x + '\ny = ' +
+            data.points[i].y + '\n\n'
+      d = data.points[i].customdata
+    }
+    console.log('Closest point clicked:\n\n' + pts)
+    console.log(d)
+  })
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
@@ -129,7 +127,7 @@ async function main (options) {
 
     // const traceNames = []
 
-    const housePriceTable = dataset.toTable(
+    const ppTrend = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
         d.date = parseYearMonth(d.Month)
@@ -139,26 +137,30 @@ async function main (options) {
           d.year === 2020 &&
           d[dimensions[2]] === categoriesStamp[0] &&
           d[dimensions[3]] === categoriesBuyer[0] &&
-           d[dimensions[5]] === categoriesStat[0]
+           d[dimensions[5]] === categoriesStat[2]
         ) {
           d.label = d.Month
           d.value = +d.value
-          // if (!traceNames.includes(d[dimensions[3]])) {
-          //   traceNames.push(d[dimensions[3]])
-          // }
           return d
         }
       })
-    //
-    // console.log(housePriceTable)
 
-    // Plotly.addTraces(chartId, { x: ['02/01/2020', '01/03/2020', '01/06/2020'], y: [350000, 350000, 350000] })
+    const ppTrendDates = []
+    let ppTrendCustomData
+    const ppTrendVals = ppTrend.map( d => {
+      ppTrendDates.push(d.date)
+      ppTrendCustomData.push(d)
+      return d.value
+    })
+    console.log(ppTrend)
+
+    Plotly.addTraces(chartId, { x: ppTrendDates, y: ppTrendVals })
 
     // console.log(traceNames)
 
     // const housePriceMean = {
     //   e: 'chart-house-price-mean',
-    //   d: housePriceTable.filter(d => {
+    //   d: ppTrend.filter(d => {
     //     return d[dimensions[5]] === categoriesStat[2]
     //   }),
     //   ks: traceNames,
@@ -174,7 +176,7 @@ async function main (options) {
 
     // const housePriceMedian = {
     //   e: 'chart-house-price-median',
-    //   d: housePriceTable.filter(d => {
+    //   d: ppTrend.filter(d => {
     //     return d[dimensions[5]] === categoriesStat[3]
     //   }),
     //   ks: traceNames,
