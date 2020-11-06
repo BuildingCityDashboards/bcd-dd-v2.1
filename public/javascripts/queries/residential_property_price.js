@@ -10,16 +10,23 @@ import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils
 import { TimeoutError } from '../modules/TimeoutError.js'
 
 async function main (options) {
+  const pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
+  const chartId = 'chart-property-price'
+  const pprPlot = document.getElementById(chartId)
+  const pprTraceOptions = {
+    x: [],
+    y: [],
+    type: 'scatter',
+    mode: 'markers'
+  }
+  Plotly.newPlot(chartId, [], pprLayout, {})
+
   const API_REQ = '/api/residentialpropertyprice/'
 
   const pprCSV = await fetchCsvFromUrlAsyncTimeout('../data/Housing/PPR/PPR-2020-Dublin.csv')
   // console.log(pprCSV)
   const pprJSON = d3.csvParse(pprCSV)
   // console.log(pprJSON)
-
-  // const csv = await fetchCsvFromUrlAsyncTimeout(uri)
-  // const json = d3.csvParse(csv)
-  // console.log(json)
 
   //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
   const valueRange = {
@@ -46,34 +53,29 @@ async function main (options) {
   })
   console.log(maxRecord)
 
-  const pprTraceOptions = {
+  const pprTraceData = {
     x: pprDates,
     y: pprValues,
-    customdata: pprCustomData,
-    type: 'scatter',
-    mode: 'markers'
+    customdata: pprCustomData
   }
 
-  const pprTrace = Object.assign(pprTraceOptions, getTraceDefaults('scatter'))
-  const pprTraces = [pprTrace]
+  const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
+  // const pprTraces = [pprTrace]
+  Plotly.addTraces(chartId, pprTrace)
 
-  const pprLayout = Object.assign({}, getLayoutDefaults('scatter'))
+  // Plotly.addTraces(chartId, [{y: [2,1,2]}, {y: [4, 5, 7]}]);
 
-  const chartId = 'chart-property-price'
-  const pprPlot = document.getElementById(chartId)
-  Plotly.newPlot(chartId, pprTraces, pprLayout, {})
-
-  pprPlot.on('plotly_click', function (data) {
-    let pts = ''
-    let d = {}
-    for (let i = 0; i < data.points.length; i++) {
-      pts = 'x = ' + data.points[i].x + '\ny = ' +
-            data.points[i].y + '\n\n'
-      d = data.points[i].customdata
-    }
-    console.log('Closest point clicked:\n\n' + pts)
-    console.log(d)
-  })
+  // pprPlot.on('plotly_click', function (data) {
+  //   let pts = ''
+  //   let d = {}
+  //   for (let i = 0; i < data.points.length; i++) {
+  //     pts = 'x = ' + data.points[i].x + '\ny = ' +
+  //           data.points[i].y + '\n\n'
+  //     d = data.points[i].customdata
+  //   }
+  //   console.log('Closest point clicked:\n\n' + pts)
+  //   console.log(d)
+  // })
 
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
@@ -148,9 +150,9 @@ async function main (options) {
         }
       })
     //
-    console.log(housePriceTable)
+    // console.log(housePriceTable)
 
-    Plotly.addTraces(chartId, { x: ['02/01/2020', '01/03/2020', '01/06/2020'], y: [350000, 350000, 350000] })
+    // Plotly.addTraces(chartId, { x: ['02/01/2020', '01/03/2020', '01/06/2020'], y: [350000, 350000, 350000] })
 
     // console.log(traceNames)
 
