@@ -30,28 +30,39 @@ async function main (options) {
 
   //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
   const valueRange = {
-    min: 250000,
-    max: 450000
+    min: 50000,
+    max: 1000000
   }
-  let maxValue = 0
+  let minValue = valueRange.min
+  let maxValue = valueRange.max
   let maxRecord = {}
+  let minRecord = {}
   const pprDates = [] // x-axis data
+  const pprValues = [] // y-axis data
   const pprCustomData = []
-  const pprValues = pprJSON.map(d => {
+  
+  pprJSON.forEach(d => {
     const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    if (v <= valueRange.max && v >= valueRange.min) {
+    if (d['Postal Code'] === 'Dublin 1' && v > valueRange.min && v < valueRange.max) {
       pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
       pprCustomData.push(d)
-      // console.log(d['Price (�)'])
-      // console.log(v)
+      pprValues.push(v)
+      // console.log('>'+d['Postal Code']+'<')
+      console.log(v)
+
+      if (v < minValue) {
+        minRecord = d
+        minValue = v
+      }
       if (v > maxValue) {
         maxRecord = d
         maxValue = v
       }
-      return v
     }
   })
-  console.log(maxRecord)
+
+  console.log('len '+pprValues.length)
+  console.log(pprValues)
 
   const pprTraceData = {
     x: pprDates,
@@ -146,15 +157,15 @@ async function main (options) {
       })
 
     const ppTrendDates = []
-    let ppTrendCustomData
-    const ppTrendVals = ppTrend.map( d => {
+    const ppTrendCustomData = []
+    const ppTrendVals = ppTrend.map(d => {
       ppTrendDates.push(d.date)
       ppTrendCustomData.push(d)
       return d.value
     })
     console.log(ppTrend)
 
-    Plotly.addTraces(chartId, { x: ppTrendDates, y: ppTrendVals })
+    Plotly.addTraces(chartId, { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData })
 
     // console.log(traceNames)
 
