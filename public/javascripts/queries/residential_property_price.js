@@ -92,19 +92,29 @@ async function main (options) {
   pprPlot.on('plotly_relayout', async function () {
     console.log('Relayout event:\n\n')
     console.log(arguments)
+
+    // check if the trace exists (named by year)
+
+    const graphDiv = document.getElementById(chartId)
+
     if (arguments[0]['xaxis.range[0]'] != null) {
       const startDate = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
+
       for (let i = startDate; i < 2020; i += 1) {
-        try {
-          const trace = await getPPRTraceForYear(i)
-          if (trace != null) {
-            Plotly.addTraces(chartId, trace, 0)
-            console.log('add trace');
-            var graphDiv = document.getElementById(chartId)
-            console.log(graphDiv.data) // => returns the number of traces
+        const currentTraces = graphDiv.data.map(d => {
+          return d.name
+        })
+        console.log(currentTraces) // => returns the number of traces
+        if (!currentTraces.includes(+startDate)) {
+          try {
+            const trace = await getPPRTraceForYear(i)
+            if (trace != null) {
+              Plotly.addTraces(chartId, trace, 0)
+              console.log('add trace')
+            }
+          } catch (e) {
+            console.log(e)
           }
-        } catch (e) {
-          console.log(e)
         }
       }
     }
@@ -140,7 +150,6 @@ function getDataBackToDate (d) {
 }
 
 async function getPPRTraceForYear (year) {
-
   const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
   // console.log(pprCSV)
   const pprJSON = d3.csvParse(pprCSV)
@@ -170,7 +179,7 @@ async function getPPRTraceForYear (year) {
   }
 
   const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-  pprTraceData.name=  year
+  pprTraceData.name = year
   // const pprTraces = [pprTrace]
   return pprTrace
 }
