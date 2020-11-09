@@ -60,7 +60,28 @@ async function main (options) {
     yaxis: {
       fixedrange: true,
       range: [valueRange.min, valueRange.max]
-    }
+    },
+    updatemenus: [{
+      y: 1,
+      yanchor: 'top',
+      buttons: [{
+        method: 'restyle',
+        args: ['visible', [true, false, false, false]],
+        label: 'Data set 0'
+      }, {
+        method: 'restyle',
+        args: ['visible', [false, true, false, false]],
+        label: 'Data set 1'
+      }, {
+        method: 'restyle',
+        args: ['visible', [false, false, true, false]],
+        label: 'Data set 2'
+      }, {
+        method: 'restyle',
+        args: ['visible', [false, false, false, true]],
+        label: 'Data set 3'
+      }]
+    }]
   }
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
@@ -98,19 +119,19 @@ async function main (options) {
     const graphDiv = document.getElementById(chartId)
 
     if (arguments[0]['xaxis.range[0]'] != null) {
-      const startDate = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
+      const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
 
-      for (let i = +startDate; i < 2020; i += 1) {
+      for (let yr = +startYear; yr < 2020; yr += 1) {
         const currentTraces = graphDiv.data.map(d => {
           return d.name
         })
         console.log(currentTraces) // => returns the number of traces
-        if (!currentTraces.includes(i)) {
+        if (!currentTraces.includes('ppr-' + yr)) {
           try {
-            const trace = await getPPRTraceForYear(i)
+            const trace = await getPPRTraceForYear(yr)
             if (trace != null) {
               Plotly.addTraces(chartId, trace, 0)
-              console.log('add trace')
+              // console.log('add trace')
             }
           } catch (e) {
             console.log(e)
@@ -143,16 +164,10 @@ async function main (options) {
 
 export { main }
 
-function getDataBackToDate (d) {
-  if (typeof d.getFullYear === 'function') {
-    console.log('fetching data back to ' + d.getFullYear())
-  }
-}
-
 async function getPPRTraceForYear (year) {
-  const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
   try {
-    console.log(pprCSV)
+    const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
+    // console.log(pprCSV)
     const pprJSON = d3.csvParse(pprCSV)
     // console.log(pprJSON)
     const pprDates = [] // x-axis data
@@ -160,6 +175,7 @@ async function getPPRTraceForYear (year) {
     const pprCustomData = []
     pprJSON.forEach(d => {
       const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+
       if (d['Postal Code'] === 'Dublin 1') { // && v > valueRange.min && v < valueRange.max) {
         //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
         pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
@@ -180,7 +196,7 @@ async function getPPRTraceForYear (year) {
     }
 
     const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-    pprTraceData.name = year
+    pprTraceData.name = 'ppr-' + year
     // const pprTraces = [pprTrace]
     return pprTrace
   } catch (e) {
