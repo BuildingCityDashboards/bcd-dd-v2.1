@@ -261,16 +261,18 @@ class BCDChart {
     })
   }
 
-  drawFocusCircle (d, i) {
+  drawFocusCircle (key, i) {
     const c = this
     const g = c.g
     const focusCircles = c.focus.select('.focus_circles')
       .append('g')
-      .attr('class', 'focus_circle_' + d.replaceAll(' ', ''))
+      .attr('class', 'focus_circle')
+      .attr('id', 'focus_circle_' + key.replace(/[\s.&]/g, ''))
+
+    // console.log(key)
+    // console.log(key.replace(/[\s.&]/g, ''))
 
     focusCircles.append('circle')
-      .attr('r', 0)
-      .transition(c.t)
       .attr('r', 5)
   }
 
@@ -312,7 +314,6 @@ class BCDChart {
             passive: true
           })
       }
-
 
       function mousemove () {
         c.focus.style('visibility', 'visible')
@@ -385,7 +386,7 @@ class BCDChart {
     const c = this
     d.forEach((d, i) => {
       const xPos = c.x(d[c.xV])
-      const id = '.focus_circle_' + d.key.replaceAll(' ', '')
+      const id = '#focus_circle_' + d.key.replace(/[\s.&]/g, '')
       // console.log(id);
       const focusCircle = c.focus.select(id)
 
@@ -569,6 +570,60 @@ class BCDChart {
       d3.select(e._groups[0][0].childNodes[n + 1])
         .style('display', 'block')
     })
+  }
+
+  textWrap (text, width, xpos = 8, limit = 3) {
+    const reg = /[\s-]/g
+    text.each(function () {
+      text = d3.select(this)
+      let word
+      const words = text.text().split(reg).reverse()
+      let line = []
+      let lineNumber = 0
+      const lineHeight = 1
+      const y = text.attr('y')
+      const dy = parseFloat(text.attr('dy'))
+      let tspan = text
+        .text(null)
+        .append('tspan')
+        .attr('x', xpos)
+        .attr('y', y)
+        .attr('dy', dy + 'em')
+
+      while ((word = words.pop())) {
+        line.push(word)
+        tspan.text(line.join(' '))
+
+        if (tspan.node() && tspan.node().getComputedTextLength() > width) {
+          line.pop()
+          tspan.text(line.join(' '))
+
+          if (lineNumber < limit - 1) {
+            line = [word]
+            tspan = text.append('tspan')
+              .attr('x', xpos)
+              .attr('y', y)
+              .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+              .text(word)
+            // if we need two lines for the text, move them both up to center them
+            text.classed('move-up', true)
+          } else {
+            line.push('...')
+            tspan.text(line.join(' '))
+            break
+          }
+        }
+      }
+    })
+  }
+
+  adjustLegendPosition (adj = {}) {
+    d3.select('#' + adj.chartid)
+      .selectAll('.label-legend')
+      .select('#' + adj.legendid)
+      .select('tspan')
+      .attr('dx', adj.dx)
+      .attr('dy', adj.dy)
   }
 }
 

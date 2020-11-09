@@ -34,7 +34,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categoriesStat = dataset.Dimension(dimensions[2]).Category().map(c => {
       return c.label
     })
-    console.log(categoriesStat)
+    // console.log(categoriesStat)
 
     // to keep track of the trqace namesw that we will plot
     const traceNames = []
@@ -44,7 +44,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     //   return d === categoriesRegion[4] || categoriesRegion[8] || categoriesRegion[9] || categoriesRegion[10] || categoriesRegion[11]
     // })
     // console.log('useRegions')
-    console.log(categoriesRegion)
+    // console.log(categoriesRegion)
 
     const houseRppiTable = dataset.toTable(
       { type: 'arrobj' },
@@ -60,6 +60,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d[dimensions[0]] === categoriesRegion[12]) &&
           d[dimensions[2]] === categoriesStat[0] &&
           (parseInt(d.date.getFullYear()) >= 2010)) {
+          d[dimensions[0]] = d[dimensions[0]].replace('excluding', 'ex.')
           d.label = d.Month
           d.value = +d.value
           // track the available values of only the filtered entries
@@ -77,19 +78,15 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       e: 'chart-' + chartDivIds[0],
       d: houseRppiTable
         .filter(d => {
-          return (d[dimensions[0]] === categoriesRegion[4] ||
-          d[dimensions[0]] === categoriesRegion[8] ||
-          d[dimensions[0]] === categoriesRegion[9] ||
-          d[dimensions[0]] === categoriesRegion[10] ||
-          d[dimensions[0]] === categoriesRegion[11])
+          return (d[dimensions[0]].includes('houses'))
+        })
+        .map(d => {
+          d[dimensions[0]] = d[dimensions[0]].split(' - ')[0]
+          return d
         }),
-      ks: traceNames.filter(d => {
-        return (d === categoriesRegion[4] ||
-        d === categoriesRegion[8] ||
-        d === categoriesRegion[9] ||
-        d === categoriesRegion[10] ||
-        d === categoriesRegion[11])
-      }),
+      // ks: traceNames.filter(d => {
+      //   return d.includes('houses')
+      // }),
       k: dimensions[0],
       xV: 'date',
       yV: 'value',
@@ -170,5 +167,6 @@ function redraw (chart) {
   chart.drawChart()
   chart.addTooltip('RPPI for ', '', 'label')
   chart.showSelectedLabelsX([0, 2, 4, 6, 8, 10, 12])
+  chart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
   chart.addBaseLine(100)
 }
