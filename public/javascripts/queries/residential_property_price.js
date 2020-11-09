@@ -100,12 +100,12 @@ async function main (options) {
     if (arguments[0]['xaxis.range[0]'] != null) {
       const startDate = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
 
-      for (let i = startDate; i < 2020; i += 1) {
+      for (let i = +startDate; i < 2020; i += 1) {
         const currentTraces = graphDiv.data.map(d => {
           return d.name
         })
         console.log(currentTraces) // => returns the number of traces
-        if (!currentTraces.includes(+startDate)) {
+        if (!currentTraces.includes(i)) {
           try {
             const trace = await getPPRTraceForYear(i)
             if (trace != null) {
@@ -151,37 +151,41 @@ function getDataBackToDate (d) {
 
 async function getPPRTraceForYear (year) {
   const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
-  // console.log(pprCSV)
-  const pprJSON = d3.csvParse(pprCSV)
-  // console.log(pprJSON)
-  const pprDates = [] // x-axis data
-  const pprValues = [] // y-axis data
-  const pprCustomData = []
-  pprJSON.forEach(d => {
-    const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    if (d['Postal Code'] === 'Dublin 1') { // && v > valueRange.min && v < valueRange.max) {
-    //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-      pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
-      pprCustomData.push(d)
-      pprValues.push(v)
+  try {
+    console.log(pprCSV)
+    const pprJSON = d3.csvParse(pprCSV)
+    // console.log(pprJSON)
+    const pprDates = [] // x-axis data
+    const pprValues = [] // y-axis data
+    const pprCustomData = []
+    pprJSON.forEach(d => {
+      const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+      if (d['Postal Code'] === 'Dublin 1') { // && v > valueRange.min && v < valueRange.max) {
+        //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
+        pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
+        pprCustomData.push(d)
+        pprValues.push(v)
       // console.log('>'+d['Postal Code']+'<')
       // console.log(v)
+      }
+    })
+
+    // console.log('len ' + pprValues.length)
+    // console.log(pprValues)
+
+    const pprTraceData = {
+      x: pprDates,
+      y: pprValues,
+      customdata: pprCustomData
     }
-  })
 
-  // console.log('len ' + pprValues.length)
-  // console.log(pprValues)
-
-  const pprTraceData = {
-    x: pprDates,
-    y: pprValues,
-    customdata: pprCustomData
+    const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
+    pprTraceData.name = year
+    // const pprTraces = [pprTrace]
+    return pprTrace
+  } catch (e) {
+    return null
   }
-
-  const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-  pprTraceData.name = year
-  // const pprTraces = [pprTrace]
-  return pprTrace
 }
 
 async function addTrendTraces () {
