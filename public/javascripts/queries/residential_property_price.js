@@ -67,19 +67,19 @@ async function main (options) {
       buttons: [{
         method: 'restyle',
         args: ['visible', [true, false, false, false]],
-        label: 'Data set 0'
+        label: 'Dublin 1'
       }, {
         method: 'restyle',
         args: ['visible', [false, true, false, false]],
-        label: 'Data set 1'
+        label: 'Dublin 2'
       }, {
         method: 'restyle',
         args: ['visible', [false, false, true, false]],
-        label: 'Data set 2'
+        label: 'Dublin 3'
       }, {
         method: 'restyle',
         args: ['visible', [false, false, false, true]],
-        label: 'Data set 3'
+        label: 'Dublin 4'
       }]
     }]
   }
@@ -117,20 +117,23 @@ async function main (options) {
     // check if the trace exists (named by year)
 
     const graphDiv = document.getElementById(chartId)
+    console.log(graphDiv.data.length)
 
     if (arguments[0]['xaxis.range[0]'] != null) {
       const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
 
       for (let yr = +startYear; yr < 2020; yr += 1) {
-        const currentTraces = graphDiv.data.map(d => {
+        const yearsPlotted = graphDiv.data.map(d => {
           return d.name
         })
-        console.log(currentTraces) // => returns the number of traces
-        if (!currentTraces.includes('ppr-' + yr)) {
+        console.log(yearsPlotted) // => returns the number of traces
+        if (!yearsPlotted.includes('ppr-' + yr)) {
           try {
             const trace = await getPPRTraceForYear(yr)
             if (trace != null) {
-              Plotly.addTraces(chartId, trace, 0)
+              console.log(trace);
+              console.log(graphDiv.data)
+              Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
               // console.log('add trace')
             }
           } catch (e) {
@@ -143,7 +146,6 @@ async function main (options) {
 
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
-
     const trace2020 = await getPPRTraceForYear(2020)
     Plotly.addTraces(chartId, trace2020)
 
@@ -186,8 +188,6 @@ async function getPPRTraceForYear (year) {
       }
     })
 
-    // console.log('len ' + pprValues.length)
-    // console.log(pprValues)
 
     const pprTraceData = {
       x: pprDates,
@@ -284,7 +284,8 @@ async function addTrendTraces () {
   })
   console.log(ppTrend)
 
-  Plotly.addTraces(chartId, { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData })
+  Plotly.prependTraces(chartId, { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData }, [0])
+  console.log();
 }
 
 // console.log(traceNames)
