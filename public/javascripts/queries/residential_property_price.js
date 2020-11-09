@@ -31,12 +31,12 @@ async function main (options) {
       stepmode: 'backward',
       count: 1,
       label: '1y'
-    },{
+    }, {
       step: 'year',
       stepmode: 'backward',
       count: 5,
       label: '5y'
-    },{
+    }, {
       step: 'year',
       stepmode: 'backward',
       count: 10,
@@ -49,7 +49,7 @@ async function main (options) {
   const layoutInitial = {
     title: 'Property Price Query',
     xaxis: {
-      rangeselector: selectorOptions,
+      rangeselector: selectorOptions
       // rangeslider: {}
     },
     yaxis: {
@@ -57,7 +57,7 @@ async function main (options) {
     }
   }
 
-  const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial )
+  const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
   console.log(pprLayout)
 
   const chartId = 'chart-property-price'
@@ -72,83 +72,93 @@ async function main (options) {
   Plotly.newPlot(chartId, [], pprLayout, {})
 
   try {
+    const API_REQ = '/api/residentialpropertyprice/'
 
-  const API_REQ = '/api/residentialpropertyprice/'
+    const pprCSV = await fetchCsvFromUrlAsyncTimeout('../data/Housing/PPR/PPR-2020-Dublin.csv')
+    // console.log(pprCSV)
+    const pprJSON = d3.csvParse(pprCSV)
+    // console.log(pprJSON)
 
-  const pprCSV = await fetchCsvFromUrlAsyncTimeout('../data/Housing/PPR/PPR-2020-Dublin.csv')
-  // console.log(pprCSV)
-  const pprJSON = d3.csvParse(pprCSV)
-  // console.log(pprJSON)
-
-  //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-  const valueRange = {
-    min: 50000,
-    max: 1000000
-  }
-  let minValue = valueRange.min
-  let maxValue = valueRange.max
-  let maxRecord = {}
-  let minRecord = {}
-  const pprDates = [] // x-axis data
-  const pprValues = [] // y-axis data
-  const pprCustomData = []
-
-  pprJSON.forEach(d => {
-    const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
-    if (d['Postal Code'] === 'Dublin 1' && v > valueRange.min && v < valueRange.max) {
-      pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
-      pprCustomData.push(d)
-      pprValues.push(v)
-      // console.log('>'+d['Postal Code']+'<')
-      // console.log(v)
-
-      if (v < minValue) {
-        minRecord = d
-        minValue = v
-      }
-      if (v > maxValue) {
-        maxRecord = d
-        maxValue = v
-      }
+    //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
+    const valueRange = {
+      min: 50000,
+      max: 1000000
     }
-  })
+    let minValue = valueRange.min
+    let maxValue = valueRange.max
+    let maxRecord = {}
+    let minRecord = {}
+    const pprDates = [] // x-axis data
+    const pprValues = [] // y-axis data
+    const pprCustomData = []
 
-  console.log('len ' + pprValues.length)
-  console.log(pprValues)
+    pprJSON.forEach(d => {
+      const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+      if (d['Postal Code'] === 'Dublin 1' && v > valueRange.min && v < valueRange.max) {
+        pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
+        pprCustomData.push(d)
+        pprValues.push(v)
+        // console.log('>'+d['Postal Code']+'<')
+        // console.log(v)
 
-  const pprTraceData = {
-    x: pprDates,
-    y: pprValues,
-    customdata: pprCustomData
-  }
+        if (v < minValue) {
+          minRecord = d
+          minValue = v
+        }
+        if (v > maxValue) {
+          maxRecord = d
+          maxValue = v
+        }
+      }
+    })
 
-  const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-  // const pprTraces = [pprTrace]
-  Plotly.addTraces(chartId, pprTrace)
+    console.log('len ' + pprValues.length)
+    console.log(pprValues)
 
-  pprPlot.on('plotly_click', function (data) {
-    let pts = ''
-    let d = {}
-    for (let i = 0; i < data.points.length; i++) {
-      pts = 'x = ' + data.points[i].x + '\ny = ' +
+    const pprTraceData = {
+      x: pprDates,
+      y: pprValues,
+      customdata: pprCustomData
+    }
+
+    const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
+    // const pprTraces = [pprTrace]
+    Plotly.addTraces(chartId, pprTrace)
+
+    pprPlot.on('plotly_click', function (data) {
+      let pts = ''
+      let d = {}
+      for (let i = 0; i < data.points.length; i++) {
+        pts = 'x = ' + data.points[i].x + '\ny = ' +
             data.points[i].y + '\n\n'
-      d = data.points[i].customdata
-    }
-    console.log('Closest point clicked:\n\n' + pts)
-    console.log(d)
-  })
+        d = data.points[i].customdata
+      }
+      console.log('Closest point clicked:\n\n' + pts)
+      console.log(d)
+    })
 
-  // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
-  // const parseYear = d3.timeParse('%Y')
-  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
-  // const STATBANK_BASE_URL =
-  //   'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    pprPlot.on('plotly_relayout', function () {
+      console.log('Relayout event:\n\n')
+      console.log(arguments)
+      if (arguments[0]['xaxis.range[0]'] != null) {
+        const startDate = new Date(arguments[0]['xaxis.range[0]'])
+        getDataBackToDate(startDate)
+      }
 
-  const STATIC_URL = '../data/statbank/HPM04.json'
-  // // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
-  // const TABLE_CODE = 'HPM04' // gives no of outsideState and ave household size
-  
-  //   addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
+      // getDataForYear(year)
+    })
+
+    // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
+    // const parseYear = d3.timeParse('%Y')
+    const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+    // const STATBANK_BASE_URL =
+    //   'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+
+    const STATIC_URL = '../data/statbank/HPM04.json'
+    // // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
+    // const TABLE_CODE = 'HPM04' // gives no of outsideState and ave household size
+
+    //   addSpinner(chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
     const json = await fetchJsonFromUrlAsyncTimeout(STATIC_URL)
     //   if (json) {
     //     removeSpinner(chartDivIds[0])
@@ -307,6 +317,18 @@ async function main (options) {
   //     main()
   //   })
   }
+}
+
+function getDataBackToDate (d) {
+  if (typeof d.getFullYear === 'function') {
+    console.log('fetching data back to ' + d.getFullYear())
+  }
+
+
+}
+
+function getPPRDateForYear(y){
+  
 }
 
 export { main }
