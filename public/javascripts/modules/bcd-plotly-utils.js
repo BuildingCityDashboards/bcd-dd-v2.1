@@ -53,7 +53,7 @@ const TRACE_DEFAULTS_SCATTER = {
   hoveron: 'points', // 'points+fills',
   text: null,
   hoverinfo: null,
-  visible: true // 'legendonly'
+  visible: false // 'legendonly'
 }
 
 function getTraceDefaults (type = 'line') {

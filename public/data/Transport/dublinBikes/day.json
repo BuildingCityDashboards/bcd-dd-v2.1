@@ -1,170 +1,170 @@
 [
   {
-    "date": "2020-11-08T03:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1347,
-    "label": "3am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T04:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1348,
-    "label": "4am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T05:00:03.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1362,
-    "label": "5am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T06:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1361,
-    "label": "6am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T07:00:03.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1360,
-    "label": "7am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T08:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1360,
-    "label": "8am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T09:00:03.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1352,
-    "label": "9am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T10:00:02.000Z",
-    "Bikes in use": 5,
-    "Bikes available": 1342,
-    "label": "10am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T11:00:02.000Z",
-    "Bikes in use": 21,
-    "Bikes available": 1326,
-    "label": "11am, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T12:00:02.000Z",
-    "Bikes in use": 23,
-    "Bikes available": 1324,
-    "label": "12pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T13:00:03.000Z",
-    "Bikes in use": 72,
-    "Bikes available": 1275,
-    "label": "1pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T14:00:02.000Z",
-    "Bikes in use": 86,
-    "Bikes available": 1261,
-    "label": "2pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T15:00:02.000Z",
-    "Bikes in use": 90,
-    "Bikes available": 1257,
-    "label": "3pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T16:00:02.000Z",
-    "Bikes in use": 98,
-    "Bikes available": 1249,
-    "label": "4pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T17:00:02.000Z",
-    "Bikes in use": 56,
-    "Bikes available": 1291,
-    "label": "5pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T18:00:03.000Z",
-    "Bikes in use": 30,
-    "Bikes available": 1317,
-    "label": "6pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T19:00:03.000Z",
-    "Bikes in use": 10,
-    "Bikes available": 1337,
-    "label": "7pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T20:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1348,
-    "label": "8pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T21:00:03.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1356,
-    "label": "9pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T22:00:03.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1359,
-    "label": "10pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-08T23:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1361,
-    "label": "11pm, Sunday November 8th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-09T00:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1359,
-    "label": "12am, Monday November 9th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-09T01:00:02.000Z",
-    "Bikes in use": 0,
-    "Bikes available": 1363,
-    "label": "1am, Monday November 9th",
-    "year": "2019"
-  },
-  {
-    "date": "2020-11-09T02:00:02.000Z",
+    "date": "2020-11-09T03:00:02.000Z",
     "Bikes in use": 0,
     "Bikes available": 1364,
-    "label": "2am, Monday November 9th",
+    "label": "3am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T04:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1364,
+    "label": "4am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T05:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1364,
+    "label": "5am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T06:00:02.000Z",
+    "Bikes in use": 0,
+    "Bikes available": 1365,
+    "label": "6am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T07:00:02.000Z",
+    "Bikes in use": 13,
+    "Bikes available": 1351,
+    "label": "7am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T08:00:02.000Z",
+    "Bikes in use": 72,
+    "Bikes available": 1292,
+    "label": "8am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T09:00:03.000Z",
+    "Bikes in use": 63,
+    "Bikes available": 1301,
+    "label": "9am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T10:00:02.000Z",
+    "Bikes in use": 38,
+    "Bikes available": 1326,
+    "label": "10am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T11:00:02.000Z",
+    "Bikes in use": 64,
+    "Bikes available": 1300,
+    "label": "11am, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T12:00:02.000Z",
+    "Bikes in use": 58,
+    "Bikes available": 1306,
+    "label": "12pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T13:00:02.000Z",
+    "Bikes in use": 70,
+    "Bikes available": 1294,
+    "label": "1pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T14:00:03.000Z",
+    "Bikes in use": 70,
+    "Bikes available": 1294,
+    "label": "2pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T15:00:02.000Z",
+    "Bikes in use": 43,
+    "Bikes available": 1321,
+    "label": "3pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T16:00:02.000Z",
+    "Bikes in use": 53,
+    "Bikes available": 1311,
+    "label": "4pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T17:00:02.000Z",
+    "Bikes in use": 59,
+    "Bikes available": 1305,
+    "label": "5pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T18:00:02.000Z",
+    "Bikes in use": 71,
+    "Bikes available": 1293,
+    "label": "6pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T19:00:02.000Z",
+    "Bikes in use": 37,
+    "Bikes available": 1327,
+    "label": "7pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T20:00:02.000Z",
+    "Bikes in use": 22,
+    "Bikes available": 1342,
+    "label": "8pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T21:00:02.000Z",
+    "Bikes in use": 11,
+    "Bikes available": 1353,
+    "label": "9pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T22:00:02.000Z",
+    "Bikes in use": 15,
+    "Bikes available": 1349,
+    "label": "10pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-09T23:00:03.000Z",
+    "Bikes in use": 12,
+    "Bikes available": 1352,
+    "label": "11pm, Monday November 9th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-10T00:00:02.000Z",
+    "Bikes in use": 9,
+    "Bikes available": 1355,
+    "label": "12am, Tuesday November 10th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-10T01:00:02.000Z",
+    "Bikes in use": 4,
+    "Bikes available": 1360,
+    "label": "1am, Tuesday November 10th",
+    "year": "2019"
+  },
+  {
+    "date": "2020-11-10T02:00:02.000Z",
+    "Bikes in use": 2,
+    "Bikes available": 1362,
+    "label": "2am, Tuesday November 10th",
     "year": "2019"
   }
 ]
