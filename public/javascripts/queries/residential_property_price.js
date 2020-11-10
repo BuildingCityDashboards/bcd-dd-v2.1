@@ -54,6 +54,26 @@ async function main (options) {
     max: 1000000
   }
 
+  const postcodeButtons = dublinPostcodes.map((p) => {
+    return {
+      method: 'restyle',
+      args: ['visible', dublinPostcodes.map(pc => {
+        return p === pc
+      })],
+      label: p
+    }
+  })
+
+  postcodeButtons.push(
+    {
+      method: 'restyle',
+      args: ['visible', dublinPostcodes.map(pc => {
+        return true
+      })],
+      label: 'All Dublin'
+    }
+  )
+
   const layoutInitial = {
     title: 'Property Price Query',
     xaxis: {
@@ -67,15 +87,7 @@ async function main (options) {
     updatemenus: [{
       y: 1,
       yanchor: 'top',
-      buttons: dublinPostcodes.map((p) => {
-        return {
-          method: 'restyle',
-          args: ['visible', dublinPostcodes.map(pc => {
-            return p === pc
-          })],
-          label: p
-        }
-      })
+      buttons: postcodeButtons
     }]
   }
   console.log(layoutInitial)
@@ -117,33 +129,47 @@ async function main (options) {
 
     if (arguments[0]['xaxis.range[0]'] != null) {
       const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
-
+      // let yearsPlotted = graphDiv.data.map(d => {
+      //   return d.name
+      // })
       for (let yr = +startYear; yr < 2020; yr += 1) {
-        const yearsPlotted = graphDiv.data.map(d => {
-          return d.name
-        })
-        console.log(yearsPlotted) // => returns the number of traces
-        if (!yearsPlotted.includes('ppr-' + yr)) {
-          try {
-            const trace = await getPPRTraceForYear(yr)
-            if (trace != null) {
+        // console.log(yearsPlotted) // => returns the number of traces
+        // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
+        try {
+          const traces = await getPPRTraceForYear(yr)
+          if (traces != null) {
+            let xs = []
+            let ys = []
+            let cs = []
+            let is = []
+            // console.log(graphDiv.data)
+            traces.forEach((trace, i) => {
               console.log(trace)
-              console.log(graphDiv.data)
-              Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
-              // console.log('add trace')
-            }
-          } catch (e) {
-            console.log(e)
+              xs.push(trace.x)
+              ys.push(trace.y)
+              cs.push(trace.customdata)
+              is.push(i)
+            })
+
+            Plotly.extendTraces(chartId, { x: xs, y: ys, customdata: cs }, is)
+
+            // Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
+            // console.log('add trace')
           }
+        } catch (e) {
+          console.log(e)
         }
+        // }
       }
     }
   })
 
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
-    const trace2020 = await getPPRTraceForYear(2020)
-    Plotly.addTraces(chartId, trace2020)
+    const traces2020 = await getPPRTraceForYear(2020)
+    traces2020[0].visible = true
+  
+    Plotly.addTraces(chartId, traces2020)
 
     // addTrendTraces()
   } catch (e) {
@@ -167,7 +193,7 @@ async function getPPRTraceForYear (year) {
     const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
     // console.log(pprCSV)
     const pprJSON = d3.csvParse(pprCSV)
-    // console.log(pprJSON)
+    console.log(pprJSON)
     const pprDates = {} // x-axis data indexed by postcode
     const pprValues = {} // y-axis data indexed by postcode
     const pprCustomData = {}
@@ -195,19 +221,20 @@ async function getPPRTraceForYear (year) {
       // }
     })
 
-    console.log(pprDates)
-    console.log(pprValues)
-    console.log(dublinPostcodes);
+    // console.log(pprDates)
+    // console.log(pprValues)
+    // console.log(dublinPostcodes)
     const pprTraces = dublinPostcodes.map(d => {
-      console.log(d);
-      const pprTraceData = { 
-        x: pprDates[d],
-        y: pprValues[d],
-        customdata: pprCustomData[d]
+      console.log(d)
+      console.log(pprValues[d]);
+      const pprTraceData = {
+        x: pprDates[d] || [],
+        y: pprValues[d] || [],
+        customdata: pprCustomData[d] || []
       }
-      let pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-      pprTrace.name = 'ppr-'+ year + '-'+ d.replace(' ', '-')
-
+      const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
+      pprTrace.name = 'ppr-' + year + '-' + d.replace(' ', '-')
+      console.log(pprTraceData);
       return pprTraceData
     })
 
