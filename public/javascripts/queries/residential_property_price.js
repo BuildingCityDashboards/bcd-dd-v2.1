@@ -10,7 +10,7 @@ import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils
 import { TimeoutError } from '../modules/TimeoutError.js'
 
 const dublinPostcodes =
-['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24']
+['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24', '']
 
 async function main (options) {
   const timeSelectorOptions = {
@@ -60,28 +60,30 @@ async function main (options) {
       args: ['visible', dublinPostcodes.map(pc => {
         return p === pc
       })],
-      label: p
+      label: p || 'Not Given'
     }
   })
 
-  postcodeButtons.push(
-    {
-      method: 'restyle',
-      args: ['visible', dublinPostcodes.map(pc => {
-        return true
-      })],
-      label: 'All Dublin'
-    }
-  )
+  // postcodeButtons.push(
+  //   {
+  //     method: 'restyle',
+  //     args: ['visible', dublinPostcodes.map(pc => {
+  //       return true
+  //     })],
+  //     label: 'All Dublin'
+  //   }
+  // )
 
   const layoutInitial = {
     title: 'Property Price Query',
+    uirevision: 'true',
     xaxis: {
-      rangeselector: timeSelectorOptions
+      rangeselector: timeSelectorOptions,
       // rangeslider: {}
+      range: [new Date(2020, 0, 1), new Date()]
     },
     yaxis: {
-      fixedrange: true,
+      fixedrange: false,
       range: [valueRange.min, valueRange.max]
     },
     updatemenus: [{
@@ -90,7 +92,7 @@ async function main (options) {
       buttons: postcodeButtons
     }]
   }
-  console.log(layoutInitial)
+  // console.log(layoutInitial)
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
   // console.log(pprLayout)
@@ -119,8 +121,8 @@ async function main (options) {
   })
 
   pprPlot.on('plotly_relayout', async function () {
-    console.log('Relayout event:\n\n')
-    console.log(arguments)
+    // console.log('Relayout event:\n\n')
+    // console.log(arguments)
 
     // check if the trace exists (named by year)
 
@@ -136,15 +138,16 @@ async function main (options) {
         // console.log(yearsPlotted) // => returns the number of traces
         // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
         try {
-          const traces = await getPPRTraceForYear(yr)
+          // TODO: data is packed in function and unpacked here, so improve for perf
+          const traces = await getPPRTracesForYear(yr)
           if (traces != null) {
-            let xs = []
-            let ys = []
-            let cs = []
-            let is = []
+            const xs = []
+            const ys = []
+            const cs = []
+            const is = []
             // console.log(graphDiv.data)
             traces.forEach((trace, i) => {
-              console.log(trace)
+              // console.log(trace)
               xs.push(trace.x)
               ys.push(trace.y)
               cs.push(trace.customdata)
@@ -166,12 +169,17 @@ async function main (options) {
 
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
-    const traces2020 = await getPPRTraceForYear(2020)
-    traces2020[0].visible = true
-  
-    Plotly.addTraces(chartId, traces2020)
+    const ppr2020 = await getPPRTracesForYear(2020)
+    ppr2020[0].visible = true
 
-    // addTrendTraces()
+    Plotly.addTraces(chartId, ppr2020)
+
+    const trends2020 = await getTrendTracesForYear(2020)
+
+    const chart = document.getElementById(chartId)
+    // console.log('traces:')
+    // console.log(chart.data.length)
+    Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata }, [chart.data.length])
   } catch (e) {
     console.log('Error creating Property Price query chart')
     console.log(e)
@@ -188,12 +196,12 @@ async function main (options) {
 
 export { main }
 
-async function getPPRTraceForYear (year) {
+async function getPPRTracesForYear (year) {
   try {
     const pprCSV = await fetchCsvFromUrlAsyncTimeout(`../data/Housing/PPR/PPR-${year}-Dublin.csv`)
     // console.log(pprCSV)
     const pprJSON = d3.csvParse(pprCSV)
-    console.log(pprJSON)
+    // console.log(pprJSON)
     const pprDates = {} // x-axis data indexed by postcode
     const pprValues = {} // y-axis data indexed by postcode
     const pprCustomData = {}
@@ -225,8 +233,8 @@ async function getPPRTraceForYear (year) {
     // console.log(pprValues)
     // console.log(dublinPostcodes)
     const pprTraces = dublinPostcodes.map(d => {
-      console.log(d)
-      console.log(pprValues[d]);
+      // console.log(d)
+      // console.log(pprValues[d]);
       const pprTraceData = {
         x: pprDates[d] || [],
         y: pprValues[d] || [],
@@ -234,7 +242,7 @@ async function getPPRTraceForYear (year) {
       }
       const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
       pprTrace.name = 'ppr-' + year + '-' + d.replace(' ', '-')
-      console.log(pprTraceData);
+      // console.log(pprTraceData);
       return pprTraceData
     })
 
@@ -246,7 +254,7 @@ async function getPPRTraceForYear (year) {
   }
 }
 
-async function addTrendTraces () {
+async function getTrendTracesForYear (year) {
   // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
   // const parseYear = d3.timeParse('%Y')
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
@@ -306,7 +314,6 @@ async function addTrendTraces () {
       d.year = d.date.getFullYear()
       if (d[dimensions[0]] === categoriesDwelling[0] &&
           d[dimensions[1]] === categoriesEircode[19] &&
-          d.year === 2020 &&
           d[dimensions[2]] === categoriesStamp[0] &&
           d[dimensions[3]] === categoriesBuyer[0] &&
            d[dimensions[5]] === categoriesStat[2]
@@ -324,10 +331,8 @@ async function addTrendTraces () {
     ppTrendCustomData.push(d)
     return d.value
   })
-  console.log(ppTrend)
-
-  Plotly.prependTraces(chartId, { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData }, [0])
-  console.log()
+  // console.log(ppTrend)
+  return { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData }
 }
 
 // console.log(traceNames)
