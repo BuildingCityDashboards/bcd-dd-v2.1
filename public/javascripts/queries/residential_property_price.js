@@ -171,15 +171,19 @@ async function main (options) {
     // const API_REQ = '/api/residentialpropertyprice/'
     const ppr2020 = await getPPRTracesForYear(2020)
     ppr2020[0].visible = true
-
     Plotly.addTraces(chartId, ppr2020)
+    const chart = document.getElementById(chartId)
+    console.log('traces:')
+    console.log(chart.data.length)
 
     const trends2020 = await getTrendTracesForYear(2020)
+    trends2020[0].visible = true
+    Plotly.addTraces(chartId, trends2020)
+    console.log(' add trend traces:')
+    console.log(chart.data.length)
 
-    const chart = document.getElementById(chartId)
-    // console.log('traces:')
-    // console.log(chart.data.length)
-    Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata }, [chart.data.length])
+
+    // Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata })
   } catch (e) {
     console.log('Error creating Property Price query chart')
     console.log(e)
@@ -255,8 +259,7 @@ async function getPPRTracesForYear (year) {
 }
 
 async function getTrendTracesForYear (year) {
-  // const chartDivIds = ['chart-house-price-mean', 'chart-house-price-median']
-  // const parseYear = d3.timeParse('%Y')
+
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   // const STATBANK_BASE_URL =
   //   'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
@@ -307,32 +310,75 @@ async function getTrendTracesForYear (year) {
 
   // const traceNames = []
 
+  console.log('categoriesEircode');
+  console.log(categoriesEircode);
+
+  const eircodesDublin = categoriesEircode.filter( d => {
+    return d.includes('Dublin')
+  })
+
+  console.log(eircodesDublin);
+
   const ppTrend = dataset.toTable(
     { type: 'arrobj' },
     (d, i) => {
       d.date = parseYearMonth(d.Month)
       d.year = d.date.getFullYear()
       if (d[dimensions[0]] === categoriesDwelling[0] &&
-          d[dimensions[1]] === categoriesEircode[19] &&
           d[dimensions[2]] === categoriesStamp[0] &&
           d[dimensions[3]] === categoriesBuyer[0] &&
-           d[dimensions[5]] === categoriesStat[2]
-      ) {
+          d[dimensions[5]] === categoriesStat[2] && 
+          d.year === year) {
         d.label = d.Month
         d.value = +d.value
         return d
       }
     })
 
-  const ppTrendDates = []
-  const ppTrendCustomData = []
-  const ppTrendVals = ppTrend.map(d => {
-    ppTrendDates.push(d.date)
-    ppTrendCustomData.push(d)
-    return d.value
+  console.log(ppTrend);
+
+  const ppTrendDates = {}
+  const ppTrendVals = {}
+  const ppTrendCustomData = {}
+
+  ppTrend.forEach(d => {
+    const eircodeKey = `${d['Eircode Output'].split(': ')[1]}` 
+    if (!ppTrendDates[eircodeKey]) {
+      ppTrendDates[eircodeKey] = []
+    }
+    //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
+    ppTrendDates[eircodeKey].push(d.date)
+    // pprCustomData.push(d)
+    if (!ppTrendVals[eircodeKey]) {
+      ppTrendVals[eircodeKey] = []
+    }
+    ppTrendVals[eircodeKey].push(d.value)
+
+    if (!ppTrendCustomData[eircodeKey]) {
+      ppTrendCustomData[eircodeKey] = []
+    }
+    ppTrendCustomData[eircodeKey].push(d)
+    // console.log('>'+d['Postal Code']+'<')
+    // console.log(v)
+    // }
   })
-  // console.log(ppTrend)
-  return { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData }
+
+  const trendTraces = eircodesDublin.map(d => {
+    // console.log(d)
+    // console.log(pprValues[d]);
+    const pprTraceData = {
+      x: ppTrendDates[d] || [],
+      y: ppTrendVals[d] || [],
+      customdata: ppTrendCustomData[d] || []
+    }
+    const trendTrace = Object.assign({}, pprTraceData)
+    trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
+    // console.log(pprTraceData);
+    return pprTraceData
+  })
+
+  console.log(trendTraces)
+  return trendTraces
 }
 
 // console.log(traceNames)
