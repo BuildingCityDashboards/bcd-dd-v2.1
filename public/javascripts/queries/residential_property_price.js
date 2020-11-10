@@ -10,6 +10,9 @@ import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils
 import { TimeoutError } from '../modules/TimeoutError.js'
 
 async function main (options) {
+  const dublinPostcodes =
+  [ 'Dublin 1 (D1)', 'Dublin 2 (D2)', 'Dublin 3 (D3)', 'Dublin 4 (D4)', 'Dublin 5 (D5)', 'Dublin 6 (D6)', 'Dublin 7 (D7)', 'Dublin 6W (D6W)', 'Dublin 9 (D9)', 'Dublin 8 (D8)', 'Dublin 11 (D11)', 'Dublin 10 (D10)', 'Dublin 13 (D13)', 'Dublin 12 (D12)', 'Dublin 15 (D15)', 'Dublin 14 (D14)', 'Dublin 17 (D17)', 'Dublin 16 (D16)','Dublin 18 (D18)','Dublin 20 (D20)','Dublin 22 (D22)', 'Dublin 24 (D24)']
+
   const timeSelectorOptions = {
     buttons: [{
       step: 'month',
@@ -131,7 +134,7 @@ async function main (options) {
           try {
             const trace = await getPPRTraceForYear(yr)
             if (trace != null) {
-              console.log(trace);
+              console.log(trace)
               console.log(graphDiv.data)
               Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
               // console.log('add trace')
@@ -187,7 +190,6 @@ async function getPPRTraceForYear (year) {
       // console.log(v)
       }
     })
-
 
     const pprTraceData = {
       x: pprDates,
@@ -285,7 +287,7 @@ async function addTrendTraces () {
   console.log(ppTrend)
 
   Plotly.prependTraces(chartId, { x: ppTrendDates, y: ppTrendVals, customdata: ppTrendCustomData }, [0])
-  console.log();
+  console.log()
 }
 
 // console.log(traceNames)
