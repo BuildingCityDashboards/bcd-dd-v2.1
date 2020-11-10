@@ -9,10 +9,10 @@ import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils
 
 import { TimeoutError } from '../modules/TimeoutError.js'
 
-async function main (options) {
-  const dublinPostcodes =
-  ['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24']
+const dublinPostcodes =
+['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24']
 
+async function main (options) {
   const timeSelectorOptions = {
     buttons: [{
       step: 'month',
@@ -168,32 +168,52 @@ async function getPPRTraceForYear (year) {
     // console.log(pprCSV)
     const pprJSON = d3.csvParse(pprCSV)
     // console.log(pprJSON)
-    const pprDates = [] // x-axis data
-    const pprValues = [] // y-axis data
-    const pprCustomData = []
+    const pprDates = {} // x-axis data indexed by postcode
+    const pprValues = {} // y-axis data indexed by postcode
+    const pprCustomData = {}
     pprJSON.forEach(d => {
-      const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+      // if (d['Postal Code'] === 'Dublin 1') { // && v > valueRange.min && v < valueRange.max) {
 
-      if (d['Postal Code'] === 'Dublin 1') { // && v > valueRange.min && v < valueRange.max) {
-        //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-        pprDates.push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
-        pprCustomData.push(d)
-        pprValues.push(v)
+      if (!pprDates[`${d['Postal Code']}`]) {
+        pprDates[`${d['Postal Code']}`] = []
+      }
+      //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
+      pprDates[`${d['Postal Code']}`].push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
+      // pprCustomData.push(d)
+      if (!pprValues[`${d['Postal Code']}`]) {
+        pprValues[`${d['Postal Code']}`] = []
+      }
+      const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+      pprValues[`${d['Postal Code']}`].push(v)
+
+      if (!pprCustomData[`${d['Postal Code']}`]) {
+        pprCustomData[`${d['Postal Code']}`] = []
+      }
+      pprCustomData[`${d['Postal Code']}`].push(d)
       // console.log('>'+d['Postal Code']+'<')
       // console.log(v)
-      }
+      // }
     })
 
-    const pprTraceData = {
-      x: pprDates,
-      y: pprValues,
-      customdata: pprCustomData
-    }
+    console.log(pprDates)
+    console.log(pprValues)
+    console.log(dublinPostcodes);
+    const pprTraces = dublinPostcodes.map(d => {
+      console.log(d);
+      const pprTraceData = { 
+        x: pprDates[d],
+        y: pprValues[d],
+        customdata: pprCustomData[d]
+      }
+      let pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
+      pprTrace.name = 'ppr-'+ year + '-'+ d.replace(' ', '-')
 
-    const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-    pprTraceData.name = 'ppr-' + year
+      return pprTraceData
+    })
+
+    console.log(pprTraces)
     // const pprTraces = [pprTrace]
-    return pprTrace
+    return pprTraces
   } catch (e) {
     return null
   }
