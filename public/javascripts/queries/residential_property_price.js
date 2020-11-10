@@ -11,7 +11,7 @@ import { TimeoutError } from '../modules/TimeoutError.js'
 
 async function main (options) {
   const dublinPostcodes =
-  [ 'Dublin 1 (D1)', 'Dublin 2 (D2)', 'Dublin 3 (D3)', 'Dublin 4 (D4)', 'Dublin 5 (D5)', 'Dublin 6 (D6)', 'Dublin 7 (D7)', 'Dublin 6W (D6W)', 'Dublin 9 (D9)', 'Dublin 8 (D8)', 'Dublin 11 (D11)', 'Dublin 10 (D10)', 'Dublin 13 (D13)', 'Dublin 12 (D12)', 'Dublin 15 (D15)', 'Dublin 14 (D14)', 'Dublin 17 (D17)', 'Dublin 16 (D16)','Dublin 18 (D18)','Dublin 20 (D20)','Dublin 22 (D22)', 'Dublin 24 (D24)']
+  ['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24']
 
   const timeSelectorOptions = {
     buttons: [{
@@ -67,25 +67,18 @@ async function main (options) {
     updatemenus: [{
       y: 1,
       yanchor: 'top',
-      buttons: [{
-        method: 'restyle',
-        args: ['visible', [true, false, false, false]],
-        label: 'Dublin 1'
-      }, {
-        method: 'restyle',
-        args: ['visible', [false, true, false, false]],
-        label: 'Dublin 2'
-      }, {
-        method: 'restyle',
-        args: ['visible', [false, false, true, false]],
-        label: 'Dublin 3'
-      }, {
-        method: 'restyle',
-        args: ['visible', [false, false, false, true]],
-        label: 'Dublin 4'
-      }]
+      buttons: dublinPostcodes.map((p) => {
+        return {
+          method: 'restyle',
+          args: ['visible', dublinPostcodes.map(pc => {
+            return p === pc
+          })],
+          label: p
+        }
+      })
     }]
   }
+  console.log(layoutInitial)
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
   // console.log(pprLayout)
