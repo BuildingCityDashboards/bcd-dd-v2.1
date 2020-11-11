@@ -402,13 +402,11 @@ async function initialiseMap (mapId) {
 
     const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
     console.log(postcodesJson)
-    postcodesJson.features.forEach((d) => {
+    postcodesJson.features.forEach((d, i) => {
       // postcodesLayer.addData(feature)
       postcodesLayer.addLayer(L.geoJSON(d, {
-
-        // style: getLayerStyle(i),
-        // onEachFeature: onEachFeature
-
+        style: getLayerStyle(i),
+        onEachFeature: onEachFeature
       })
       )
     })
@@ -553,14 +551,21 @@ function addFeatureToLayer (feature, layerNo) {
 function getLayerStyle (index) {
   return {
     fillColor: getLayerColor(index),
-    weight: 0.3,
+    weight: 1.0,
     opacity: 0.9,
     color: getLayerColor(index),
-    // dashArray: '1',
+    dashArray: '1',
     fillOpacity: 0.9
   }
 }
+
 function getLayerColor (index) {
+  const GEODEMOS_COLORWAY_CATEGORICAL = ['#7fc97f','#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17']
+  const GEODEMOS_COLORWAY_CBSAFE = ['#d73027', '#f46d43', '#fdae61', '#fee090', '#abd9e9', '#74add1', '#4575b4']
+  const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
+  // const gToLa =['Group1','Group2','Group3','Group4','Group5','Group6','Group7']
+  index = index% GEODEMOS_COLORWAY.length
+
   return GEODEMOS_COLORWAY[index]
 }
 
@@ -615,35 +620,6 @@ function onEachFeature (feature, layer) {
     }
   })
 }
-
-d3.select('#group-buttons').selectAll('img').on('click', function () {
-  const cb = $(this)
-  const myv = $(this).attr('id')
-  ResetImages(myv)
-  let layerNo = myv === 'all' ? 'all' : parseInt(myv) - 1
-
-  if (layerNo !== 'all') {
-    mapLayers.forEach(l => {
-      mapGeodemos.removeLayer(l)
-    })
-
-    const gn = layerNo + 1
-
-    updateGroupTxt(gn)
-    mapGeodemos.addLayer(mapLayers[layerNo])
-
-    Plotly.react('chart-geodemos', [traces[layerNo]], layout)
-  }
-  // }
-
-  layerNo = myv
-
-  if (layerNo === 'all') { // 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
-    scatterHM()
-    updateGroupTxt('all')
-    AddLayersToMap()
-  }
-})
 
 function AddLayersToMap () {
   mapLayers.forEach((l, k) => {
