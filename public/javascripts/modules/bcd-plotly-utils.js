@@ -37,7 +37,7 @@ const TRACE_DEFAULTS = {
   },
   text: null,
   hoverinfo: null,
-  visible: true // 'legendonly'
+  visible: false // 'legendonly'
 }
 
 const TRACE_DEFAULTS_SCATTER = {

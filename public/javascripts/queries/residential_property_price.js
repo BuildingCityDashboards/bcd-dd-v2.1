@@ -171,16 +171,20 @@ async function main (options) {
     // const API_REQ = '/api/residentialpropertyprice/'
     const ppr2020 = await getPPRTracesForYear(2020)
     ppr2020[0].visible = true
-    Plotly.addTraces(chartId, ppr2020)
+    console.log('ppr2020');
+    console.log(ppr2020);
+    // Plotly.addTraces(chartId, ppr2020)
     const chart = document.getElementById(chartId)
-    console.log('traces:')
-    console.log(chart.data.length)
+    // console.log('traces:')
+    // console.log(chart.data.length)
 
     const trends2020 = await getTrendTracesForYear(2020)
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
-    console.log(' add trend traces:')
-    console.log(chart.data.length)
+    // console.log(' add trend traces:')
+    // console.log(chart.data.length)
+    console.log('trends2020');
+    console.log(trends2020);
 
 
     // Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata })
@@ -250,7 +254,7 @@ async function getPPRTracesForYear (year) {
       return pprTraceData
     })
 
-    console.log(pprTraces)
+    // console.log(pprTraces)
     // const pprTraces = [pprTrace]
     return pprTraces
   } catch (e) {
@@ -281,7 +285,7 @@ async function getTrendTracesForYear (year) {
   const dimensions = dataset.Dimension().map(dim => {
     return dim.label
   })
-  console.log(dimensions)
+  // console.log(dimensions)
 
   const categoriesDwelling = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
@@ -291,7 +295,7 @@ async function getTrendTracesForYear (year) {
     return c.label
   })
 
-  console.log(categoriesEircode)
+  // console.log(categoriesEircode)
 
   const categoriesStamp = dataset.Dimension(dimensions[2]).Category().map(c => {
     return c.label
@@ -310,11 +314,13 @@ async function getTrendTracesForYear (year) {
 
   // const traceNames = []
 
-  console.log('categoriesEircode');
-  console.log(categoriesEircode);
+  // console.log('categoriesEircode');
+  // console.log(categoriesEircode);
 
   const eircodesDublin = categoriesEircode.filter( d => {
     return d.includes('Dublin')
+  }).map( d => {
+    return d.split(': ')[1]
   })
 
   console.log(eircodesDublin);
@@ -325,6 +331,7 @@ async function getTrendTracesForYear (year) {
       d.date = parseYearMonth(d.Month)
       d.year = d.date.getFullYear()
       if (d[dimensions[0]] === categoriesDwelling[0] &&
+          d[dimensions[1]].includes('Dublin') &&
           d[dimensions[2]] === categoriesStamp[0] &&
           d[dimensions[3]] === categoriesBuyer[0] &&
           d[dimensions[5]] === categoriesStat[2] && 
@@ -342,11 +349,11 @@ async function getTrendTracesForYear (year) {
   const ppTrendCustomData = {}
 
   ppTrend.forEach(d => {
-    const eircodeKey = `${d['Eircode Output'].split(': ')[1]}` 
+    const eircodeKey = `${d['Eircode Output'].split(': ')[1]}`
+    // console.log(eircodeKey);
     if (!ppTrendDates[eircodeKey]) {
       ppTrendDates[eircodeKey] = []
     }
-    //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
     ppTrendDates[eircodeKey].push(d.date)
     // pprCustomData.push(d)
     if (!ppTrendVals[eircodeKey]) {
@@ -363,18 +370,23 @@ async function getTrendTracesForYear (year) {
     // }
   })
 
+  console.log(ppTrendDates);
+
   const trendTraces = eircodesDublin.map(d => {
     // console.log(d)
     // console.log(pprValues[d]);
-    const pprTraceData = {
+    const pprTrendData = {
       x: ppTrendDates[d] || [],
       y: ppTrendVals[d] || [],
       customdata: ppTrendCustomData[d] || []
     }
-    const trendTrace = Object.assign({}, pprTraceData)
-    trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
+    const trendTrace = Object.assign(pprTrendData, getTraceDefaults('line'))
+    // trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
+    trendTrace.name =  categoriesStat[2]+' ' + d
+
+   
     // console.log(pprTraceData);
-    return pprTraceData
+    return pprTrendData
   })
 
   console.log(trendTraces)
