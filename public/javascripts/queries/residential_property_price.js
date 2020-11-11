@@ -1,19 +1,21 @@
 import { fetchCsvFromUrlAsyncTimeout, fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
-import { convertQuarterToDate, getDateFromCommonString } from '../modules/bcd-date.js'
-import { stackNest } from '../modules/bcd-data.js'
+import { getDateFromCommonString } from '../modules/bcd-date.js'
+import { getDefaultMapOptions, getDublinLatLng } from '../modules/bcd-maps.js'
+
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { BCDMultiLineChart } from '../modules/BCDMultiLineChart.js'
-import { BCDStackedAreaChart } from '../modules/BCDStackedAreaChart.js'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../modules/bcd-ui.js'
 import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils.js'
 
-import { TimeoutError } from '../modules/TimeoutError.js'
+// import { TimeoutError } from '../modules/TimeoutError.js's
 
 const dublinPostcodes =
 ['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24', '']
 
 async function main (options) {
   const chartId = 'chart-property-price'
+
+  const mapId = 'map-property-price'
+  initialiseMap(mapId)
 
   const timeSelectorOptions = {
     buttons: [{
@@ -66,16 +68,6 @@ async function main (options) {
     }
   })
 
-  // postcodeButtons.push(
-  //   {
-  //     method: 'restyle',
-  //     args: ['visible', dublinPostcodes.map(pc => {
-  //       return true
-  //     })],
-  //     label: 'All Dublin'
-  //   }
-  // )
-
   const layoutInitial = {
     title: 'Property Price Query',
     uirevision: 'true',
@@ -104,27 +96,24 @@ async function main (options) {
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, {})
 
+  // fetch data and draw plot traces
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
+
+    // scatterplot of individual house sales from PPR
     const ppr2020 = await getPPRTracesForYear(2020)
     ppr2020[0].visible = true
-    // console.log('ppr2020')
-    // console.log(ppr2020)
     Plotly.addTraces(chartId, ppr2020)
     const chart = document.getElementById(chartId)
-    // console.log('traces:')
-    // console.log(chart.data.length)
+
+    // line plot of CSO trend data for house price
     const trendDataset = await getTrendDataset()
     const trends2020 = await getTrendTracesForYear(trendDataset, 2020)
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
-    // console.log(' add trend traces:')
-    // console.log(chart.data.length)
-    // console.log('trends2020')
-    // console.log(trends2020)
 
     // TODO: handle this state better
-    let currentDropdownSelectedIndex = 0;
+    let currentDropdownSelectedIndex = 0
 
     pprPlot.on('plotly_click', function (data) {
       let pts = ''
@@ -189,7 +178,6 @@ async function main (options) {
     pprPlot.on('plotly_restyle', (e) => {
       // console.log('restyle')
       currentDropdownSelectedIndex = e[0].visible.indexOf(true)
-
     })
   } catch (e) {
     console.log('Error creating Property Price query chart')
@@ -381,6 +369,75 @@ async function getTrendTracesForYear (dataset, year) {
 
   // console.log(trendTraces)
   return trendTraces
+}
+
+function initialiseMap (mapId) {
+  try {
+    proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
+  +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
+    const firstProjection = 'EPSG:29902'
+    const secondProjection = 'EPSG:4326'
+
+    const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
+    const osmPprMap = new L.TileLayer(stamenTonerUrl_Lite, getDefaultMapOptions())
+    const pprMap = new L.Map(mapId, {
+      dragging: !L.Browser.mobile,
+      tap: !L.Browser.mobile
+    })
+    pprMap.setView(getDublinLatLng(), 11)
+    pprMap.addLayer(osmPprMap)
+    const pprMapIcon = L.icon({
+      iconUrl: '../images/environment/microphone-black-shape.svg',
+      iconSize: [20, 20] // orig size
+    // iconAnchor: [iconAX, iconAY] //,
+    // popupAnchor: [-3, -76]
+    })
+    const PPRMarker = L.Marker.extend({
+      options: {
+        id: 0
+      }
+    })
+
+    // const pprPopupOptons = {
+    //   // 'maxWidth': '500',
+    //   // 'className': 'leaflet-popup'
+    // }
+
+    // const pprSitesLayer = new L.LayerGroup()
+    // const pprSites = await getSites('../data/Environment/soundsites.json', 'sound_monitoring_sites')
+    // // console.log(pprSites)
+
+    // const allSitesPromises = pprSites.map(async d => {
+    //   const marker = new PPRMarker(
+    //     new L.LatLng(d.lng, d.lat), {
+    //       id: d.id,
+    //       opacity: 0.9,
+    //       title: 'PPR Monitor Site', // shown in rollover tooltip
+    //       alt: 'ppr monitor icon',
+    //       icon: pprMapIcon,
+    //       type: 'PPR Level Monitor'
+    //     })
+    //   marker.bindPopup(getPopup(d), pprPopupOptons)
+    //   marker.on('popupopen', () => {
+    //     getPopupPlot(d)
+    //   })
+    //   pprSitesLayer.addLayer(marker)
+    //   const siteReadings = await getSiteReadings(d)
+    //   // console.log(siteReadings);
+    //   return siteReadings
+    // })
+    // const allSitesData = await Promise.all(allSitesPromises)
+    // // console.log(allSitesData);
+    // let allSitesFlat = allSitesData.flat(1)
+    // allSitesFlat = allSitesFlat.filter((s) => {
+    //   return isToday(s.date)
+    // })
+
+  // pprMap.addLayer(pprSitesLayer)
+  } catch (e) {
+    console.log('Errror creating PPR map')
+    console.log(e);
+  }
 }
 
 // console.log(traceNames)
