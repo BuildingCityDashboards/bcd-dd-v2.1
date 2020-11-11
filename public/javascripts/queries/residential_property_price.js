@@ -13,9 +13,9 @@ const dublinPostcodes =
 
 async function main (options) {
   const chartId = 'chart-property-price'
-
   const mapId = 'map-property-price'
   initialiseMap(mapId)
+  addPostcodesToMap(mapId)
 
   const timeSelectorOptions = {
     buttons: [{
@@ -371,7 +371,7 @@ async function getTrendTracesForYear (dataset, year) {
   return trendTraces
 }
 
-function initialiseMap (mapId) {
+async function initialiseMap (mapId) {
   try {
     proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
   +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
@@ -397,6 +397,23 @@ function initialiseMap (mapId) {
         id: 0
       }
     })
+
+    const postcodesLayer = new L.LayerGroup()
+
+    const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
+    console.log(postcodesJson)
+    postcodesJson.features.forEach((d) => {
+      // postcodesLayer.addData(feature)
+      postcodesLayer.addLayer(L.geoJSON(d, {
+
+        // style: getLayerStyle(i),
+        // onEachFeature: onEachFeature
+
+      })
+      )
+    })
+
+    pprMap.addLayer(postcodesLayer)
 
     // const pprPopupOptons = {
     //   // 'maxWidth': '500',
@@ -436,8 +453,215 @@ function initialiseMap (mapId) {
   // pprMap.addLayer(pprSitesLayer)
   } catch (e) {
     console.log('Errror creating PPR map')
-    console.log(e);
+    console.log(e)
   }
+}
+
+async function addPostcodesToMap (mapId) {
+  // let postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
+  // console.log(postcodesJson);
+  // postcodesJson.features.forEach((d)=>{
+
+  // })
+  //   let features = []
+
+  //   let dataBase = '/data/tools/census2016/'
+  //   let dcc0 = 'DCC_SA_0.geojson'
+  //   let dcc1 = 'DCC_SA_1.geojson'
+  //   let dcc2 = 'DCC_SA_2.geojson'
+  // // promises
+  //   let pDCC0 = d3.json(dataBase + dcc0)
+  //   let pDCC1 = d3.json(dataBase + dcc1)
+  //   let pDCC2 = d3.json(dataBase + dcc2)
+  //   let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2]) // yields an array of 3 feature collections
+
+  //   dccSAs.forEach(sas => {
+  //     // updateMap(sas)
+
+  //     sas.features.forEach(sa => {
+  //       try{
+  //         let groupNo = lookup[sa.properties.SMALL_AREA]
+  //         sa.properties.groupnumber= groupNo
+
+  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+
+  //       }
+  //       catch{
+
+  //         sa.properties.groupnumber= 'NA'
+  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
+  //       }
+  //       // console.log(layerNo)
+
+  //     })
+  //     //alert(JSON.stringify(sas.features))
+  //   })
+
+  // // Fingal, DL/R, SDCC
+  //   let fcc = 'FCC_SA_0.geojson'
+  //   let dlr = 'DLR_SA_0.geojson'
+  //   let sdcc = 'SDCC_SA_0.geojson'
+  //   let testd = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson'
+  //   let pfcc = d3.json(dataBase + fcc)
+  //   let pdlr = d3.json(dataBase + dlr)
+  //   let psdcc = d3.json(dataBase + sdcc)
+  //   let ts = d3.json(dataBase + testd)
+
+  //   let otherSAs = await Promise.all([pfcc, pdlr, psdcc,ts])
+  //   otherSAs.forEach(sas => {
+  //     // updateMap(sas)
+  //     sas.features.forEach(sa => {
+  //       try{
+  //         let groupNo = lookup[sa.properties.SMALL_AREA]
+  //         sa.properties.groupnumber= groupNo
+
+  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+
+  //       }
+  //       catch{
+  //         //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+  //         sa.properties.groupnumber= 'NA'
+  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
+  //       }
+
+// })
+// })
+//   AddLayersToMap()
+}
+
+function getEmptyLayersArray (total) {
+  const layersArr = []
+  for (let i = 0; i < total; i += 1) {
+    layersArr.push(L.geoJSON(null, {
+
+      style: getLayerStyle(i),
+      onEachFeature: onEachFeature
+
+    })
+    )
+  }
+  return layersArr
+}
+function addFeatureToLayer (feature, layerNo) {
+  if (layerNo === 'NA') {
+
+  } else {
+    mapLayers[layerNo].addData(feature)
+  }
+}
+
+function getLayerStyle (index) {
+  return {
+    fillColor: getLayerColor(index),
+    weight: 0.3,
+    opacity: 0.9,
+    color: getLayerColor(index),
+    // dashArray: '1',
+    fillOpacity: 0.9
+  }
+}
+function getLayerColor (index) {
+  return GEODEMOS_COLORWAY[index]
+}
+
+function updateGroupTxt (no) {
+  if (document.contains(document.getElementById('myhref'))) {
+    document.getElementById('href').remove()
+  }
+
+  const dd = document.getElementById('desc')
+  if (no === 'all') {
+    no = 'all1'
+  }
+
+  d3.json('/data/home/geodem-text-data.json').then(function (dublinRegionsJson) {
+    d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size', '27px').style('font-weight', 'bold')
+    //
+    d3.select('#group-title').text(dublinRegionsJson[1][no])// .style("color",getLayerColor(no-1));
+    d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size', '15px')
+  })
+}
+function getFColor (d) {
+  return d > 2.0 ? '#FFFFFF'
+    : d > 1.5 ? '#BFB6B3'
+      : d > 1.0 ? '#d99a1c'
+        : d > 1 ? '#989290'
+          : d == 1 ? '#746F6D'
+
+            : '#000000'
+}
+const ttt = []
+
+const value = 0
+const text = ''
+
+function onEachFeature (feature, layer) {
+  const customOptions =
+    {
+      maxWidth: '400',
+      width: '250',
+      className: 'popupCustom'
+    }
+  const popTextContent =
+           '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
+           '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+           '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
+           '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
+
+  layer.bindPopup(popTextContent, customOptions)
+
+  layer.on({
+    click: function () {
+    }
+  })
+}
+
+d3.select('#group-buttons').selectAll('img').on('click', function () {
+  const cb = $(this)
+  const myv = $(this).attr('id')
+  ResetImages(myv)
+  let layerNo = myv === 'all' ? 'all' : parseInt(myv) - 1
+
+  if (layerNo !== 'all') {
+    mapLayers.forEach(l => {
+      mapGeodemos.removeLayer(l)
+    })
+
+    const gn = layerNo + 1
+
+    updateGroupTxt(gn)
+    mapGeodemos.addLayer(mapLayers[layerNo])
+
+    Plotly.react('chart-geodemos', [traces[layerNo]], layout)
+  }
+  // }
+
+  layerNo = myv
+
+  if (layerNo === 'all') { // 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
+    scatterHM()
+    updateGroupTxt('all')
+    AddLayersToMap()
+  }
+})
+
+function AddLayersToMap () {
+  mapLayers.forEach((l, k) => {
+    // alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
+    if (!mapGeodemos.hasLayer(l)) {
+      const mlay = mapLayers[k]
+      // let cov=traces[k-1].x[soc_eco_val];
+
+      mapGeodemos.addLayer(mlay)
+
+      mlay.setStyle({
+        fillColor: getLayerColor(k)// getFColor(cov)
+
+      }
+
+      )
+    }
+  })
 }
 
 // console.log(traceNames)
