@@ -98,78 +98,20 @@ async function main (options) {
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
   // console.log(pprLayout)
-  
+
   const pprPlot = document.getElementById(chartId)
 
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, {})
 
-  pprPlot.on('plotly_click', function (data) {
-    let pts = ''
-    let d = {}
-    for (let i = 0; i < data.points.length; i++) {
-      pts = 'x = ' + data.points[i].x + '\ny = ' +
-          data.points[i].y + '\n\n'
-      d = data.points[i].customdata
-    }
-    console.log('Closest point clicked:\n\n' + pts)
-    console.log(d)
-  })
-
-  pprPlot.on('plotly_relayout', async function () {
-    // console.log('Relayout event:\n\n')
-    // console.log(arguments)
-
-    // check if the trace exists (named by year)
-
-    const graphDiv = document.getElementById(chartId)
-    console.log(graphDiv.data.length)
-
-    if (arguments[0]['xaxis.range[0]'] != null) {
-      const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
-      // let yearsPlotted = graphDiv.data.map(d => {
-      //   return d.name
-      // })
-      for (let yr = +startYear; yr < 2020; yr += 1) {
-        // console.log(yearsPlotted) // => returns the number of traces
-        // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
-        try {
-          // TODO: data is packed in function and unpacked here, so improve for perf
-          const traces = await getPPRTracesForYear(yr)
-          if (traces != null) {
-            const xs = []
-            const ys = []
-            const cs = []
-            const is = []
-            // console.log(graphDiv.data)
-            traces.forEach((trace, i) => {
-              // console.log(trace)
-              xs.push(trace.x)
-              ys.push(trace.y)
-              cs.push(trace.customdata)
-              is.push(i)
-            })
-
-            Plotly.extendTraces(chartId, { x: xs, y: ys, customdata: cs }, is)
-
-            // Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
-            // console.log('add trace')
-          }
-        } catch (e) {
-          console.log(e)
-        }
-        // }
-      }
-    }
-  })
 
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
     const ppr2020 = await getPPRTracesForYear(2020)
     ppr2020[0].visible = true
-    console.log('ppr2020');
-    console.log(ppr2020);
-    // Plotly.addTraces(chartId, ppr2020)
+    // console.log('ppr2020')
+    // console.log(ppr2020)
+    Plotly.addTraces(chartId, ppr2020)
     const chart = document.getElementById(chartId)
     // console.log('traces:')
     // console.log(chart.data.length)
@@ -179,10 +121,77 @@ async function main (options) {
     Plotly.addTraces(chartId, trends2020)
     // console.log(' add trend traces:')
     // console.log(chart.data.length)
-    console.log('trends2020');
-    console.log(trends2020);
+    // console.log('trends2020')
+    // console.log(trends2020)
 
-    // Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata })
+    pprPlot.on('plotly_click', function (data) {
+      let pts = ''
+      let d = {}
+      for (let i = 0; i < data.points.length; i++) {
+        pts = 'x = ' + data.points[i].x + '\ny = ' +
+            data.points[i].y + '\n\n'
+        d = data.points[i].customdata
+      }
+      console.log('Closest point clicked:\n\n' + pts)
+      console.log(d)
+    })
+
+    pprPlot.on('plotly_relayout', async function () {
+      const graphDiv = document.getElementById(chartId)
+      console.log(graphDiv.data.length)
+
+      if (arguments[0]['xaxis.range[0]'] != null) {
+        const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
+        // let yearsPlotted = graphDiv.data.map(d => {
+        //   return d.name
+        // })
+        for (let yr = +startYear; yr < 2020; yr += 1) {
+          // console.log(yearsPlotted) // => returns the number of traces
+          // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
+          try {
+            // TODO: data is packed in function and unpacked here, so improve for perf
+            const traces = await getPPRTracesForYear(yr)
+            if (traces != null) {
+              const xs = []
+              const ys = []
+              const cs = []
+              const is = []
+              // console.log(graphDiv.data)
+              traces.forEach((trace, i) => {
+                // console.log(trace)
+                xs.push(trace.x)
+                ys.push(trace.y)
+                cs.push(trace.customdata)
+                is.push(i)
+              })
+              Plotly.extendTraces(chartId, { x: xs, y: ys, customdata: cs }, is)
+            }
+            // Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
+            // console.log('add trace')
+          } catch (e) {
+            console.log(e)
+          }
+        }
+        const trends = await getTrendTracesForYear(trendDataset, startYear)
+        trends[0].visible = true
+        if (trends != null) {
+          const trendxs = []
+          const trendys = []
+          const trendcs = []
+          const trendis = []
+          // console.log(graphDiv.data)
+          trends.forEach((trend, i) => {
+            // console.log(trace)
+            trendxs.push(trend.x)
+            trendys.push(trend.y)
+            trendcs.push(trend.customdata)
+            trendis.push(i + 23)
+          })
+          Plotly.deleteTraces(graphDiv, trendis);
+          Plotly.addTraces(chartId, trends)
+        }
+      }
+    })
   } catch (e) {
     console.log('Error creating Property Price query chart')
     console.log(e)
@@ -258,8 +267,6 @@ async function getPPRTracesForYear (year) {
 }
 
 async function getTrendDataset () {
-
-  
   // const STATBANK_BASE_URL =
   //   'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
 
@@ -282,7 +289,6 @@ async function getTrendTracesForYear (dataset, year) {
     return dim.label
   })
 
-
   const categoriesDwelling = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
   })
@@ -294,7 +300,7 @@ async function getTrendTracesForYear (dataset, year) {
   const categoriesStamp = dataset.Dimension(dimensions[2]).Category().map(c => {
     return c.label
   })
-  console.log(categoriesStamp);
+  // console.log(categoriesStamp)
 
   const categoriesBuyer = dataset.Dimension(dimensions[3]).Category().map(c => {
     return c.label
@@ -304,13 +310,13 @@ async function getTrendTracesForYear (dataset, year) {
     return c.label
   })
 
-  const eircodesDublin = categoriesEircode.filter( d => {
+  const eircodesDublin = categoriesEircode.filter(d => {
     return d.includes('Dublin')
-  }).map( d => {
+  }).map(d => {
     return d.split(': ')[1]
   })
 
-  console.log(eircodesDublin);
+  // console.log(eircodesDublin)
 
   const ppTrend = dataset.toTable(
     { type: 'arrobj' },
@@ -322,14 +328,14 @@ async function getTrendTracesForYear (dataset, year) {
           d[dimensions[2]] === categoriesStamp[1] && // use exectuions for month of property transfer
           d[dimensions[3]] === categoriesBuyer[0] &&
           d[dimensions[5]] === categoriesStat[2] &&
-          d.year === year) {
+          d.year >= year) {
         d.label = d.Month
         d.value = +d.value
         return d
       }
     })
 
-  console.log(ppTrend);
+  // console.log(ppTrend)
 
   const ppTrendDates = {}
   const ppTrendVals = {}
@@ -357,7 +363,7 @@ async function getTrendTracesForYear (dataset, year) {
     // }
   })
 
-  console.log(ppTrendDates);
+  // console.log(ppTrendDates)
 
   const trendTraces = eircodesDublin.map(d => {
     // console.log(d)
@@ -369,12 +375,12 @@ async function getTrendTracesForYear (dataset, year) {
     }
     const trendTrace = Object.assign(pprTrendData, getTraceDefaults('line'))
     // trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
-    trendTrace.name =  categoriesStat[2]+' ' + d
+    trendTrace.name = categoriesStat[2] + ' ' + d
     // console.log(pprTraceData);
     return pprTrendData
   })
 
-  console.log(trendTraces)
+  // console.log(trendTraces)
   return trendTraces
 }
 
