@@ -104,7 +104,6 @@ async function main (options) {
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, {})
 
-
   try {
     // const API_REQ = '/api/residentialpropertyprice/'
     const ppr2020 = await getPPRTracesForYear(2020)
@@ -124,6 +123,9 @@ async function main (options) {
     // console.log('trends2020')
     // console.log(trends2020)
 
+    // TODO: handle this state better
+    let currentDropdownSelectedIndex = 0;
+
     pprPlot.on('plotly_click', function (data) {
       let pts = ''
       let d = {}
@@ -136,10 +138,12 @@ async function main (options) {
       console.log(d)
     })
 
-    pprPlot.on('plotly_relayout', async function () {
+    // listens for time selector events
+    pprPlot.on('plotly_relayout', async function (event) {
+      console.log(event)
+
       const graphDiv = document.getElementById(chartId)
       console.log(graphDiv.data.length)
-
       if (arguments[0]['xaxis.range[0]'] != null) {
         const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
         // let yearsPlotted = graphDiv.data.map(d => {
@@ -148,49 +152,44 @@ async function main (options) {
         for (let yr = +startYear; yr < 2020; yr += 1) {
           // console.log(yearsPlotted) // => returns the number of traces
           // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
-          try {
-            // TODO: data is packed in function and unpacked here, so improve for perf
-            const traces = await getPPRTracesForYear(yr)
-            if (traces != null) {
-              const xs = []
-              const ys = []
-              const cs = []
-              const is = []
-              // console.log(graphDiv.data)
-              traces.forEach((trace, i) => {
-                // console.log(trace)
-                xs.push(trace.x)
-                ys.push(trace.y)
-                cs.push(trace.customdata)
-                is.push(i)
-              })
-              Plotly.extendTraces(chartId, { x: xs, y: ys, customdata: cs }, is)
-            }
-            // Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
-            // console.log('add trace')
-          } catch (e) {
-            console.log(e)
+
+          // TODO: data is packed in function and unpacked here, so improve for perf
+          const traces = await getPPRTracesForYear(yr)
+          if (traces != null) {
+            const xs = []
+            const ys = []
+            const cs = []
+            const is = []
+            // console.log(graphDiv.data)
+            traces.forEach((trace, i) => {
+              // console.log(trace)
+              xs.push(trace.x)
+              ys.push(trace.y)
+              cs.push(trace.customdata)
+              is.push(i)
+            })
+            Plotly.extendTraces(chartId, { x: xs, y: ys, customdata: cs }, is)
           }
+          // Plotly.extendTraces(chartId, { x: [trace.x], y: [trace.y] }, [0])
+          // console.log('add trace')
         }
         const trends = await getTrendTracesForYear(trendDataset, startYear)
-        trends[0].visible = true
+        trends[currentDropdownSelectedIndex].visible = true
         if (trends != null) {
-          const trendxs = []
-          const trendys = []
-          const trendcs = []
-          const trendis = []
-          // console.log(graphDiv.data)
-          trends.forEach((trend, i) => {
-            // console.log(trace)
-            trendxs.push(trend.x)
-            trendys.push(trend.y)
-            trendcs.push(trend.customdata)
-            trendis.push(i + 23)
+          const trendis = trends.map((trend, i) => {
+            return i + 23
           })
-          Plotly.deleteTraces(graphDiv, trendis);
+          Plotly.deleteTraces(graphDiv, trendis)
           Plotly.addTraces(chartId, trends)
         }
       }
+    })
+
+    // listens for dropdown menu events
+    pprPlot.on('plotly_restyle', (e) => {
+      // console.log('restyle')
+      currentDropdownSelectedIndex = e[0].visible.indexOf(true)
+
     })
   } catch (e) {
     console.log('Error creating Property Price query chart')
