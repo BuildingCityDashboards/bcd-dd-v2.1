@@ -13,6 +13,8 @@ const dublinPostcodes =
 ['Dublin 1', 'Dublin 2', 'Dublin 3', 'Dublin 4', 'Dublin 5', 'Dublin 6', 'Dublin 7', 'Dublin 6W', 'Dublin 9', 'Dublin 8', 'Dublin 11', 'Dublin 10', 'Dublin 13', 'Dublin 12', 'Dublin 15', 'Dublin 14', 'Dublin 17', 'Dublin 16', 'Dublin 18', 'Dublin 20', 'Dublin 22', 'Dublin 24', '']
 
 async function main (options) {
+  const chartId = 'chart-property-price'
+
   const timeSelectorOptions = {
     buttons: [{
       step: 'month',
@@ -96,15 +98,9 @@ async function main (options) {
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
   // console.log(pprLayout)
-
-  const chartId = 'chart-property-price'
+  
   const pprPlot = document.getElementById(chartId)
-  // const pprTraceOptions = {
-  //   x: [],
-  //   y: [],
-  //   type: 'scatter',
-  //   mode: 'markers'
-  // }
+
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, {})
 
@@ -177,15 +173,14 @@ async function main (options) {
     const chart = document.getElementById(chartId)
     // console.log('traces:')
     // console.log(chart.data.length)
-
-    const trends2020 = await getTrendTracesForYear(2020)
+    const trendDataset = await getTrendDataset()
+    const trends2020 = await getTrendTracesForYear(trendDataset, 2020)
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
     // console.log(' add trend traces:')
     // console.log(chart.data.length)
     console.log('trends2020');
     console.log(trends2020);
-
 
     // Plotly.addTraces(chartId, { x: trends2020.x, y: trends2020.y, customdata: trends2020.customdata })
   } catch (e) {
@@ -262,9 +257,9 @@ async function getPPRTracesForYear (year) {
   }
 }
 
-async function getTrendTracesForYear (year) {
+async function getTrendDataset () {
 
-  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+  
   // const STATBANK_BASE_URL =
   //   'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
 
@@ -278,14 +273,15 @@ async function getTrendTracesForYear (year) {
   //     removeSpinner(chartDivIds[0])
   //   }
 
-  const dataset = JSONstat(json).Dataset(0)
-  //   // console.log('dataset')
-  //   // console.log(dataset)
-  //   // console.log('dim')
+  return JSONstat(json).Dataset(0)
+}
+
+async function getTrendTracesForYear (dataset, year) {
+  const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
   const dimensions = dataset.Dimension().map(dim => {
     return dim.label
   })
-  // console.log(dimensions)
+
 
   const categoriesDwelling = dataset.Dimension(dimensions[0]).Category().map(c => {
     return c.label
@@ -295,11 +291,10 @@ async function getTrendTracesForYear (year) {
     return c.label
   })
 
-  // console.log(categoriesEircode)
-
   const categoriesStamp = dataset.Dimension(dimensions[2]).Category().map(c => {
     return c.label
   })
+  console.log(categoriesStamp);
 
   const categoriesBuyer = dataset.Dimension(dimensions[3]).Category().map(c => {
     return c.label
@@ -308,14 +303,6 @@ async function getTrendTracesForYear (year) {
   const categoriesStat = dataset.Dimension(dimensions[5]).Category().map(c => {
     return c.label
   })
-
-  //   // console.log('categories of ' + dimensions[3])
-  // console.log(categoriesStamp)
-
-  // const traceNames = []
-
-  // console.log('categoriesEircode');
-  // console.log(categoriesEircode);
 
   const eircodesDublin = categoriesEircode.filter( d => {
     return d.includes('Dublin')
@@ -332,9 +319,9 @@ async function getTrendTracesForYear (year) {
       d.year = d.date.getFullYear()
       if (d[dimensions[0]] === categoriesDwelling[0] &&
           d[dimensions[1]].includes('Dublin') &&
-          d[dimensions[2]] === categoriesStamp[0] &&
+          d[dimensions[2]] === categoriesStamp[1] && // use exectuions for month of property transfer
           d[dimensions[3]] === categoriesBuyer[0] &&
-          d[dimensions[5]] === categoriesStat[2] && 
+          d[dimensions[5]] === categoriesStat[2] &&
           d.year === year) {
         d.label = d.Month
         d.value = +d.value
@@ -383,8 +370,6 @@ async function getTrendTracesForYear (year) {
     const trendTrace = Object.assign(pprTrendData, getTraceDefaults('line'))
     // trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
     trendTrace.name =  categoriesStat[2]+' ' + d
-
-   
     // console.log(pprTraceData);
     return pprTrendData
   })
