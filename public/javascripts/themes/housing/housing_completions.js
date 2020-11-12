@@ -140,7 +140,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         const labelAdjust = {
           chartid: completionsSchemeChart.e,
           legendid: 'DublinCity',
-          dy: '16px'
+          dy: '10px'
         }
         completionsSchemeChart.adjustLegendPosition(labelAdjust)
       }
@@ -149,6 +149,12 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         completionsApartmentChart.addTooltip('Apartmnent completions, ', '', 'label')
         completionsApartmentChart.showSelectedLabelsX([0, 3, 6, 9])
         completionsApartmentChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12])
+        const labelAdjust = {
+          chartid: completionsApartmentChart.e,
+          legendid: 'DúnLaoghaire-Rathdown',
+          dy: '-12px'
+        }
+        completionsApartmentChart.adjustLegendPosition(labelAdjust)
       }
     }
 

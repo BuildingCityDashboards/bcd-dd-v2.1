@@ -94,7 +94,7 @@ async function main (options) {
   const completionsCardChart = new CardChartLine(completionsConfig)
 
   // get latest trend info text
-  const prevIndex = completionsWide.length - 3 // can use this to set the desired trend interval
+  const prevIndex = completionsWide.length - 2 // can use this to set the desired trend interval
   const currIndex = completionsWide.length - 1
 
   if ((prevIndex in completionsWide) &&
