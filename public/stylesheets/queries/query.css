@@ -122,9 +122,9 @@
     grid-template-rows: 30% auto 1fr;
 }
 
-.query__header__title {
+.query__title {
     padding-bottom: 48px;
-    font-size: 40px;
+    font-size: 24px;
     font-weight: 200;
     line-height: 1.2;
 }
@@ -177,24 +177,19 @@
     background-image: url('/images/queries/backgrounds/transport_background_mobile.png');
 }
 
-.query__chart {
-    display: grid;
+.query__charts {
     position: relative;
-    width: 100vw;
-    min-width: 320px;
-    height: auto;
-    min-height: 100vh;
+    width: 100%;
+    /* min-width: 50%; */
+    /* height: auto; */
+    /* min-height: 100vh; */
     padding: 16px 8px;
     text-align: left;
     align-self: center;
-    grid-gap: 8px;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, auto);
-    scroll-margin-top: 60px;
-    /* grid-auto-rows: auto; */
+
 }
 
-.query__chart__sources {
+.query__sources {
     display: flex;
     font-size: 8px;
     font-weight: 300;
@@ -206,7 +201,7 @@
     letter-spacing: 1.5px;
 }
 
-.query__chart__sources p {
+.query__sources p {
     margin: 0;
     font-size: 8px;
     font-weight: 300;
@@ -214,27 +209,24 @@
     letter-spacing: 1.5px;
 }
 
-.query__chart__sources a {
+.query__sources a {
     color: #8ebfd6;
 }
 
-.query__chart .query__chart__sources img {
+.query__charts .query__sources img {
     width: 10px;
     height: 10px;
     padding-left: 2px;
 }
 
-.query__chart__data-source {
-    padding-right: 8px;
-}
 
-.query__chart__title {
+.query__title {
     color: #6fd1f6;
     grid-column: 1/5;
     grid-row: 2/3;
 }
 
-.query__chart__title h1 {
+.query__title h1 {
     padding-bottom: 0px;
     font-size: 16px;
     font-weight: 200;
@@ -242,18 +234,16 @@
     letter-spacing: 0.18px;
 }
 
-.query__chart__chart {
+.query__chart {
     display: flex;
     width: auto;
     height: auto;
     min-height: 300px;
     flex-direction: column;
     justify-content: center;
-    grid-column: 1/5;
-    grid-row: 3/4;
 }
 
-.query__chart__button-row {
+.query__button-row {
     width: 100%;
     display: flex;
     padding-bottom: 8px;
@@ -321,7 +311,7 @@
     grid-row: 4/5;
 }
 
-.query__chart__description {
+.query__description {
     color: white;
     font-size: 10px;
     font-weight: 200;
@@ -569,13 +559,13 @@
         grid-row: 2;
     }
 
-    .query__header__title {}
+    .query__title {}
 
     .query__header__description {}
 
     .query__header__info {}
 
-    .query__chart {
+    .query__charts {
         display: grid;
         position: relative;
         width: 100vw;
@@ -594,7 +584,7 @@
         scroll-margin-top: 72px;
     }
 
-    .query__chart__sources {
+    .query__sources {
         display: flex;
         max-height: 100%;
         align-items: flex-end;
@@ -604,7 +594,7 @@
         letter-spacing: 1.5px;
     }
 
-    .query__chart__sources p {
+    .query__sources p {
         margin: 0;
         margin-right: 8px;
         font-size: 12px;
@@ -613,11 +603,11 @@
         letter-spacing: 1.5px;
     }
 
-    .query__chart__sources a {
+    .query__sources a {
         color: #8ebfd6;
     }
 
-    .query__chart .query__chart__sources img {
+    .query__charts .query__sources img {
         width: 12px;
         height: 12px;
         padding-left: 4px;
@@ -706,8 +696,8 @@
     }
 
 
-    .query__chart__description li,
-    .query__chart__description p,
+    .query__description li,
+    .query__description p,
     .query__chart__info li,
     .query__chart__info p {
         font-size: 18px;
@@ -851,7 +841,7 @@
         flex-direction: column;
     }
 
-    .query__header__title {
+    .query__title {
         padding-bottom: 60px;
         font-size: 60px;
         font-weight: 200;
@@ -877,7 +867,7 @@
         letter-spacing: -0.5px;
     }
 
-    .query__chart {
+    .query__charts {
         display: grid;
         position: relative;
         width: auto;
@@ -895,7 +885,7 @@
         scroll-margin-top: 96px;
     }
 
-    .query__chart__sources {
+    .query__sources {
         display: flex;
         padding-left: 0;
         align-items: flex-end;
@@ -908,14 +898,14 @@
         letter-spacing: 1.5px;
     }
 
-    .query__chart__sources p {
+    .query__sources p {
         font-size: 10px;
         font-weight: 300;
         line-height: 1.6;
         letter-spacing: 1.5px;
     }
 
-    .query__chart .query__chart__sources img {
+    .query__charts .query__sources img {
         width: 10px;
         height: 10px;
         padding-left: 2px;
@@ -967,8 +957,8 @@
     }
 
 
-    .query__chart__description li,
-    .query__chart__description p,
+    .query__description li,
+    .query__description p,
     .query__chart__info li,
     .query__chart__info p {
         font-size: 14px;
@@ -1043,9 +1033,6 @@
         display: block;
         width: auto;
         align-self: center;
-        grid-column: 1/8;
-        grid-row: 2/4;
-        min-height: 320px;
         height: auto;
         /* max-height: 400px; */
 
@@ -1075,7 +1062,7 @@
 
 /* @media only screen and (min-device-width : 1024px) and (max-device-width : 1279px) {
   
-    .query__chart {
+    .query__charts {
       width: 100vw;
       height: auto;
       min-height: 66vh;
@@ -1165,163 +1152,105 @@
     }
 
     .query {
-        width: 100vw;
-        min-width: 1280px;
-        min-height: 100vh;
+        display: grid;
+        margin: 120px 48px 48px 48px;
+        width: calc(100vw - 96px);
+        height: calc(100vh - 120px - 48px);
+        /* min-width: 1280px; */
+        min-height: 75vh;
         max-width: 100%;
-        background-color: #1c2022;
+        background-color: #293135;
         font-weight: 200;
         justify-content: center;
         grid-gap: 24px;
         grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: auto;
+        grid-template-rows: 1fr 1fr auto;
     }
 
-    .query__header {
-        /* h should be 100vh - nav hs */
-        display: grid;
-        position: relative;
-        height: 100vh;
-        color: #6fd1f6;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        grid-gap: 24px;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: 1fr auto 1fr;
-        /* background-image: url('/images/queries/backgrounds/economy_background.png'); */
-    }
-
-    .query__header__content {
-        min-height: 372px;
-        grid-column: 2/9;
-        grid-row: 2;
-        letter-spacing: -0.5px;
-    }
-
-    .query__header__title {
-        padding-bottom: 60px;
-        font-size: 60px;
-        font-weight: 200;
-        line-height: 1.2;
-    }
-
-    .query__header__description {
-        padding-bottom: 34px;
-        color: #6fd1f6;
-        font-size: 28px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 1.06;
-        letter-spacing: -0.5px;
-    }
-
-    .query__header__info {
-        color: #6fd1f6;
-        font-size: 24px;
-        font-style: normal;
-        font-weight: 200;
-        line-height: 1.06;
-        letter-spacing: -0.5px;
-    }
-
-    #geodemographics-header {
-        background-image: url('/images/queries/backgrounds/demographics_background.png');
-    }
-
-    #economy-header {
-        background-image: url('/images/queries/backgrounds/economy_background.png');
-    }
-
-    #property-price-header {
-        background-image: url('/images/queries/backgrounds/education_background.png');
-    }
-
-    commi t #transport-header {
-        background-image: url('/images/queries/backgrounds/transport_background.png');
-    }
-
-    .query__chart {
-        display: grid;
-        position: relative;
-        width: auto;
-        height: auto;
-        max-width: 1440px;
-        margin: 0 auto;
-        min-height: 75vh;
-        padding-right: 48px;
-        padding-left: 48px;
-        text-align: left;
-        align-self: center;
-        font-family: 'Roboto',
-            sans-serif;
-        grid-gap: 24px;
-        grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: auto minmax(auto, 60px) minmax(auto, 60px) auto auto auto;
-        scroll-margin-top: 96px;
-
-    }
-
-    .query__chart__sources {
+    .query__sources {
         display: flex;
         padding-left: 24px;
-        align-items: flex-end;
-        font-size: 10px;
-        font-weight: 300;
+        justify-content: flex-end;
         flex-direction: row;
-        grid-column: 1/5;
-        grid-row: 2/3;
-        line-height: 1.6;
-        letter-spacing: 1.5px;
+        grid-column: 6 / 13;
+        grid-row: 1 / 2;
+
     }
 
-    .query__chart__sources p {
+    .query__sources p,
+    a {
         font-size: 10px;
         font-weight: 300;
         line-height: 1.6;
         letter-spacing: 1.5px;
     }
 
-    .query__chart .query__chart__sources img {
+    .query__sources img {
         width: 10px;
         height: 10px;
         padding-left: 2px;
     }
 
-    .query__chart__data-source {
+    .query__source {
         padding-right: 24px;
     }
 
-    .query__chart__title {
-        padding-left: 24px;
-        grid-column: 1/ 5;
-        grid-row: 3 /4;
+
+    .query__title {
+        grid-column: span 4;
+        grid-row: 2/3;
     }
 
-    .query__chart__title h1 {
-        padding-bottom: 8px;
+    .query__title h1 {
+        color: #6fd1f6;
         font-size: 28px;
         font-weight: 200;
-        line-height: 24px;
-        letter-spacing: 0.18px;
+        line-height: 1.2;
     }
 
-    .query__chart__text {
+
+    .query__description {
+        grid-column: 5/12;
+        grid-row: 2/3;
+    }
+
+    .query__description p {
+
+        font-size: 18px;
+        font-weight: 200;
+        line-height: 1.2;
+    }
+
+    .query__charts {
+        grid-row: 3/4;
+        grid-column: span 12;
+        display: flex;
+        position: relative;
+        width: 100%;
+        padding: 0;
+        text-align: left;
+        align-self: center;
+        /* grid-gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, auto); */
+    }
+
+    /* .query__chart__text {
         display: flex;
         padding-left: 24px;
         align-self: flex-start;
         flex-direction: column;
         grid-column: 1/ 5;
         grid-row: 4/5;
-    }
+    } */
 
-    .query__chart__description,
+    .query__description,
     .query__chart__info {
         color: white;
     }
 
-    .query__chart__description li,
-    .query__chart__description p,
+    .query__description li,
+    .query__description p,
     .query__chart__info li,
     .query__chart__info p {
         font-size: 18px;
@@ -1332,7 +1261,7 @@
 
     .query__chart__kpi {}
 
-    .query__chart__chart {
+    /* .query__chart__chart {
         display: grid;
         width: auto;
         height: auto;
@@ -1341,9 +1270,9 @@
         grid-row: 2/5;
         grid-template-columns: repeat(7, 1fr);
         grid-template-rows: minmax(auto, 100px) minmax(auto, 60px) auto;
-    }
+    } */
 
-    .query__chart__button-row {
+    /* .query__chart__button-row {
         padding-bottom: 0;
         align-self: flex-end;
         grid-column: 1/7;
@@ -1369,16 +1298,14 @@
         line-height: 1.14;
         letter-spacing: 1.25px;
     }
+    */
 
 
     .query__chart__plot {
         display: block;
         width: auto;
-        align-self: flex-start;
-        grid-column: 1/8;
-        grid-row: 2/4;
-        height: 420px;
-        /* padding: 0; */
+        /* align-self: flex-start; */
+        height: 100%;
     }
 
     .query__chart__plot svg {
@@ -1398,6 +1325,22 @@
     *
     * }
     */
+
+    #geodemographics-header {
+        background-image: url('/images/queries/backgrounds/demographics_background.png');
+    }
+
+    #economy-header {
+        background-image: url('/images/queries/backgrounds/economy_background.png');
+    }
+
+    #property-price-header {
+        background-image: url('/images/queries/backgrounds/education_background.png');
+    }
+
+    #transport-header {
+        background-image: url('/images/queries/backgrounds/transport_background.png');
+    }
 }
 
 @media only screen and (min-device-width : 1280px) and (max-width : 768px) {
@@ -1410,7 +1353,7 @@
 
 @media only screen and (min-device-width : 1920px) {
 
-    .query__chart {
+    .query__charts {
         min-height: 60vh;
     }
 }

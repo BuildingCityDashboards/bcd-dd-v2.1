@@ -1,5 +1,5 @@
 extends ../layout
-include ../component/query__chart
+include ../component/query
 
 
 block append head
@@ -28,14 +28,14 @@ block navigation
     +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Queries")
     
 block content
-    +query__chart({
-        id:'chart-property-prices',
+    +query({
+        id:'query-property-prices',
         sources: [{
-        link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM05&PLanguage=0',
+        link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM04&PLanguage=0',
         name: 'CSO'
         }],
         title: 'Property prices',
-        description: '',
+        description: '<p>This chart combines individual records of property sales form the Residential Property Price register with CSO trend data.</p>',
         chartids: ['chart-property-price', 'map-property-price'],
         buttons: [{
         id: 'btn-property-price-all',
