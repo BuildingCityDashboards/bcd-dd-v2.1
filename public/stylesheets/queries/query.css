@@ -194,8 +194,8 @@
     font-size: 8px;
     font-weight: 300;
     flex-direction: row;
-    justify-content: flex-start;
-    grid-column: 1/5;
+    justify-content: flex-end;
+    grid-column: 8/13;
     grid-row: 1/2;
     line-height: 2;
     letter-spacing: 1.5px;
@@ -224,6 +224,7 @@
     color: #6fd1f6;
     grid-column: 1/5;
     grid-row: 2/3;
+    padding: 0;
 }
 
 .query__title h1 {
@@ -293,12 +294,7 @@
     width: 100%;
     min-height: 288px;
     height: auto;
-}
 
-.query__chart__plot svg {
-    /* height : inherit; */
-    height: auto;
-    padding-bottom: 24px;
 }
 
 .query__chart__text {
@@ -443,21 +439,6 @@
     }
 
 
-    /* .query__chart__plot {
-    width: 100%;
-    height: calc(100vh - 100px);
-    min-height: 220px;
-  
-  }
-  
-  .query__chart__plot svg {
-    width: 100%;
-    min-height: 100%;
-    height: 100%;
-    max-height: 100%;
-    padding-left: 0;
-    /* max-height : 400px; /* d3 chart will be cropped if too tall */
-    /* } */
 }
 
 
@@ -663,14 +644,6 @@
         max-height: 400px;
     }
 
-    .query__chart__plot svg {
-        width: auto;
-        height: auto;
-        padding-left: 0;
-        /* height : inherit; */
-        /* max-width: 900px; */
-        /* max-height : 400px; /* d3 chart will be cropped if too tall */
-    }
 
     .query__chart__text {
         display: flex;
@@ -1034,59 +1007,15 @@
         width: auto;
         align-self: center;
         height: auto;
+        padding: 16px;
         /* max-height: 400px; */
 
     }
 
-    .query__chart__plot svg {
-        /**
-        * max-width: 800px
-        *
-        * ;
-        */
-        width: 100%;
-        height: auto;
-        transform: translateY(0);
-        padding: 0;
-    }
-
-    /**
-      * .leaflet-popup-content { transform: translateY(24px)
-      *
-      * }
-      */
 
 }
 
 /* iPad Pro */
-
-/* @media only screen and (min-device-width : 1024px) and (max-device-width : 1279px) {
-  
-    .query__charts {
-      width: 100vw;
-      height: auto;
-      min-height: 66vh;
-      max-height: 1024px;
-  
-      grid-template-rows: minmax(auto, 100px) minmax(auto, 56px) minmax(auto, 172px) auto auto;
-  
-    }
-  
-    .query__chart__chart {
-      display: flex;
-      flex-direction: column;
-  
-  
-    }
-  
-    .query__chart__plot {
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-    }
-  
-  
-  } */
 
 /* laptop with MDPI devtools */
 
@@ -1162,15 +1091,16 @@
         background-color: #293135;
         font-weight: 200;
         justify-content: center;
-        grid-gap: 24px;
+        grid-gap: 16px;
         grid-template-columns: repeat(12, 1fr);
-        grid-template-rows: 1fr 1fr auto;
+        grid-template-rows: auto auto auto;
     }
 
     .query__sources {
+        padding: 8px 0;
+        height: auto;
         display: flex;
-        padding-left: 24px;
-        justify-content: flex-end;
+        justify-self: flex-end;
         flex-direction: row;
         grid-column: 6 / 13;
         grid-row: 1 / 2;
@@ -1183,6 +1113,7 @@
         font-weight: 300;
         line-height: 1.6;
         letter-spacing: 1.5px;
+        text-align: right;
     }
 
     .query__sources img {
@@ -1306,19 +1237,9 @@
         width: auto;
         /* align-self: flex-start; */
         height: 100%;
-    }
-
-    .query__chart__plot svg {
-        /**
-      * max-width: 800px
-      *
-      * ;
-      */
-        width: 100%;
-        height: 100%;
-        /* transform: translateY(-24px); */
         padding: 0;
     }
+
 
     /**
     * .leaflet-popup-content { transform: translateY(24px)

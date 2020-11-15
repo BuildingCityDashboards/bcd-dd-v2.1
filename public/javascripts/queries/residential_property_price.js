@@ -89,12 +89,15 @@ async function main (options) {
   // console.log(layoutInitial)
 
   const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
-  // console.log(pprLayout)
+  pprLayout.paper_bgcolor = '#2a383d'
+  pprLayout.plot_bgcolor = '#2a383d'
+  // pprLayout.colorway = CHART_COLORWAY
+  console.log(pprLayout)
 
   const pprPlot = document.getElementById(chartId)
 
   // Initialise a blank plot
-  Plotly.newPlot(chartId, [], pprLayout, {})
+  Plotly.newPlot(chartId, [], pprLayout, { responsive: true })
 
   // fetch data and draw plot traces
   try {
@@ -560,11 +563,11 @@ function getLayerStyle (index) {
 }
 
 function getLayerColor (index) {
-  const GEODEMOS_COLORWAY_CATEGORICAL = ['#7fc97f','#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17']
+  const GEODEMOS_COLORWAY_CATEGORICAL = ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17']
   const GEODEMOS_COLORWAY_CBSAFE = ['#d73027', '#f46d43', '#fdae61', '#fee090', '#abd9e9', '#74add1', '#4575b4']
   const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
   // const gToLa =['Group1','Group2','Group3','Group4','Group5','Group6','Group7']
-  index = index% GEODEMOS_COLORWAY.length
+  index = index % GEODEMOS_COLORWAY.length
 
   return GEODEMOS_COLORWAY[index]
 }
