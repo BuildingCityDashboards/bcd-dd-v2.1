@@ -23,7 +23,7 @@ mixin query(options={id:'', sources:'', title:'Title', description:'Description'
 
     .query__charts 
         each chartid, i in options.chartids
-            div(id=chartid class= 'query__chart__plot')(style="width: 50%;") 
+            div(id=chartid class= 'query__chart__plot') 
               //- .query__chart__spinner 
                 p Data is loading from #{JSON.stringify(sources[0].name)}
     
