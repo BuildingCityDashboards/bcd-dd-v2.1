@@ -18,7 +18,10 @@ async function main (options) {
   addPostcodesToMap(mapId)
 
   const timeSelectorOptions = {
-    buttons: [{
+    bgcolor: '#2a383d',
+    activecolor: '#546f78',
+    buttons:
+    [{
       step: 'month',
       stepmode: 'backward',
       count: 1,
@@ -128,8 +131,6 @@ async function main (options) {
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
 
-    styleSelector()
-
     // TODO: handle this state better
     let currentDropdownSelectedIndex = 0
 
@@ -147,9 +148,11 @@ async function main (options) {
 
     // listens for time selector events
     pprPlot.on('plotly_relayout', async function (event) {
+      console.log('relayout')
       console.log(event)
       const graphDiv = document.getElementById(chartId)
       console.log(graphDiv.data.length)
+      // true when range selector changed
       if (arguments[0]['xaxis.range[0]'] != null) {
         const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
         // let yearsPlotted = graphDiv.data.map(d => {
@@ -189,7 +192,6 @@ async function main (options) {
           Plotly.addTraces(chartId, trends)
         }
       }
-      styleSelector()
     })
 
     // listens for dropdown menu events
@@ -656,18 +658,6 @@ function AddLayersToMap () {
       )
     }
   })
-}
-
-function styleSelector(){
-  const rangeSel = document.querySelector('#chart-property-price > div > div > svg:nth-child(3) > g.infolayer > g.rangeselector')
-    console.log(rangeSel)
-    const rects = rangeSel.querySelectorAll('rect')
-    rects.forEach(rect => {
-      rect.style.fill = '#2a383d'
-      rect.style.stroke = 'white'
-    })
-    // selButton.style.fill = 'black'
-    console.log(rects)
 }
 
 // console.log(traceNames)
