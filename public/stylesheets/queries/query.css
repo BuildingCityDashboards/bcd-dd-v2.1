@@ -1037,8 +1037,8 @@
         margin: 120px 48px 48px 48px;
         width: calc(100vw - 96px);
         height: auto;
-        /* min-width: 1280px; */
-        min-height: 500px;
+        min-width: 1024px;
+        min-height: 512px;
         max-width: 1440px;
         background-color: #293135;
         font-weight: 200;
