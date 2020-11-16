@@ -24,6 +24,7 @@ async function main (options) {
     x: 0.5,
     xanchor: 'center',
     active: 2,
+    label: 'test',
     buttons:
     [{
       step: 'year',
@@ -66,6 +67,8 @@ async function main (options) {
   pprLayout.yaxis.fixedrange = false
   pprLayout.yaxis.range = [valueRange.min, valueRange.max]
   pprLayout.updatemenus = [{
+      // bgcolor: 'green',
+      // fillcolor: 'green',
     y: 1.1,
     x: 0.1,
     yanchor: 'bottom',
@@ -73,15 +76,16 @@ async function main (options) {
   }]
   pprLayout.paper_bgcolor = '#2a383d'
   pprLayout.plot_bgcolor = '#2a383d'
-  pprLayout.plot_bgcolor = '#2a383d'
   // pprLayout.title.visible = false
   // pprLayout.colorway = CHART_COLORWAY
   console.log(pprLayout)
 
-  const pprPlot = document.getElementById(chartId)
+  let pprPlot = document.getElementById(chartId)
 
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, { responsive: true })
+  pprPlot = document.getElementById(chartId)
+  console.log(pprPlot);
 
   // fetch data and draw plot traces
   try {
@@ -124,11 +128,12 @@ async function main (options) {
           console.log(startYear + ' is already done')
           return null
         }
-        yearsPlotted.push(startYear)
+        
         for (let yr = +startYear; yr < 2020; yr += 1) {
-          // console.log(yearsPlotted) // => returns the number of traces
+           // => returns the number of traces
           // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
-
+          yearsPlotted.push(yr)
+          // console.log(yearsPlotted)
           // TODO: data is packed in function and unpacked here, so improve for perf
           const traces = await getPPRTracesForYear(yr)
           if (traces != null) {

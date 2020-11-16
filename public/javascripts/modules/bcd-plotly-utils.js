@@ -5,12 +5,12 @@ Default configuration objects for plotly charts used in Stories
 const CHART_FONT = {
   family: 'Roboto, sans serif',
   size: 16,
-  color: 'white'
+  color: '#6fd1f6'
 }
 const CHART_TITLE_FONT = {
   family: 'Roboto, sans serif',
   size: 20,
-  color: 'white'
+  color: '#6fd1f6'
 }
 
 const CHART_COLOR = '#ffffff'
