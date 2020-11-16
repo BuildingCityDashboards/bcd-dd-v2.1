@@ -15,7 +15,6 @@ async function main (options) {
   const chartId = 'chart-property-price'
   const mapId = 'map-property-price'
   initialiseMap(mapId)
-  addPostcodesToMap(mapId)
 
   const timeSelectorOptions = {
     bgcolor: '#2a383d',
@@ -597,15 +596,24 @@ function onEachFeature (feature, layer) {
     {
       maxWidth: '400',
       width: '250',
-      className: 'popupCustom'
+      className: '.leaflet-popup-content'
     }
-  const popTextContent =
-           '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
-           '<p><b>' + feature.properties.EDNAME + '</b></p>' +
-           '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
-           '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
+  const popTextContent = '<p><b>'+feature.properties.Yelp_postc+'</b></p>'
+          //  '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
+          //  '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+          //  '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
+          //  '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
 
   layer.bindPopup(popTextContent, customOptions)
+  // layer.bindTooltip("my tooltip text").openTooltip()
+
+  // let label = L.marker(layer.getBounds().getCenter(), {
+  //   icon: L.divIcon({
+  //     className: 'label',
+  //     html: feature.properties.NAME,
+  //     iconSize: [100, 40]
+  //   })
+  // }).addTo(map);
 
   layer.on({
     click: function () {
