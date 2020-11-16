@@ -5,12 +5,12 @@ Default configuration objects for plotly charts used in Stories
 const CHART_FONT = {
   family: 'Roboto, sans serif',
   size: 16,
-  color: '#313131'
+  color: 'white'
 }
 const CHART_TITLE_FONT = {
   family: 'Roboto, sans serif',
   size: 20,
-  color: '#313131'
+  color: 'white'
 }
 
 const CHART_COLOR = '#ffffff'
@@ -73,10 +73,10 @@ function getTraceDefaults (type = 'line') {
 export { getTraceDefaults }
 
 const LAYOUT_DEFAULTS_SCATTER = {
-  responsive: true,
-  height: 500,
+  // responsive: true,
+  // height: 500,
   margin: {
-    l: 48,
+    l: 96,
     r: 48, // change in chart based on annotations
     b: 48,
     t: 96
@@ -108,7 +108,7 @@ const LAYOUT_DEFAULTS_SCATTER = {
     tickfont: {
       family: CHART_FONT,
       size: 12,
-      color: '#313131'
+      color: 'white'
     }
   },
   yaxis: {
@@ -130,7 +130,7 @@ const LAYOUT_DEFAULTS_SCATTER = {
     tickfont: {
       family: CHART_FONT,
       size: 12,
-      color: '#313131'
+      color: 'white'
     }
   },
   paper_bgcolor: CHART_COLOR, // '#E0E0E0',

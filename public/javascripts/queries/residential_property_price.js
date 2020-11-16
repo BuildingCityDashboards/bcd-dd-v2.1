@@ -69,7 +69,9 @@ async function main (options) {
   })
 
   const layoutInitial = {
-    title: 'Property Price Query',
+    title: {
+      text: 'Property Price Query'
+    },
     uirevision: 'true',
     xaxis: {
       rangeselector: timeSelectorOptions,
@@ -88,9 +90,20 @@ async function main (options) {
   }
   // console.log(layoutInitial)
 
-  const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
+  const pprLayout = JSON.parse(JSON.stringify(getLayoutDefaults('scatter')))
+  pprLayout.xaxis.rangeselector = timeSelectorOptions
+  pprLayout.xaxis.range = [new Date(2020, 0, 1), new Date()]
+  pprLayout.yaxis.fixedrange = false
+  pprLayout.yaxis.range = [valueRange.min, valueRange.max]
+  pprLayout.updatemenus = [{
+    y: 1,
+    yanchor: 'top',
+    buttons: postcodeButtons
+  }]
   pprLayout.paper_bgcolor = '#2a383d'
   pprLayout.plot_bgcolor = '#2a383d'
+  pprLayout.plot_bgcolor = '#2a383d'
+  // pprLayout.title.visible = false
   // pprLayout.colorway = CHART_COLORWAY
   console.log(pprLayout)
 
@@ -115,6 +128,8 @@ async function main (options) {
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
 
+    styleSelector()
+
     // TODO: handle this state better
     let currentDropdownSelectedIndex = 0
 
@@ -133,7 +148,6 @@ async function main (options) {
     // listens for time selector events
     pprPlot.on('plotly_relayout', async function (event) {
       console.log(event)
-
       const graphDiv = document.getElementById(chartId)
       console.log(graphDiv.data.length)
       if (arguments[0]['xaxis.range[0]'] != null) {
@@ -175,6 +189,7 @@ async function main (options) {
           Plotly.addTraces(chartId, trends)
         }
       }
+      styleSelector()
     })
 
     // listens for dropdown menu events
@@ -641,6 +656,18 @@ function AddLayersToMap () {
       )
     }
   })
+}
+
+function styleSelector(){
+  const rangeSel = document.querySelector('#chart-property-price > div > div > svg:nth-child(3) > g.infolayer > g.rangeselector')
+    console.log(rangeSel)
+    const rects = rangeSel.querySelectorAll('rect')
+    rects.forEach(rect => {
+      rect.style.fill = '#2a383d'
+      rect.style.stroke = 'white'
+    })
+    // selButton.style.fill = 'black'
+    console.log(rects)
 }
 
 // console.log(traceNames)
