@@ -67,8 +67,8 @@ async function main (options) {
   pprLayout.yaxis.fixedrange = false
   pprLayout.yaxis.range = [valueRange.min, valueRange.max]
   pprLayout.updatemenus = [{
-      // bgcolor: 'green',
-      // fillcolor: 'green',
+    // bgcolor: 'green',
+    // fillcolor: 'green',
     y: 1.1,
     x: 0.1,
     yanchor: 'bottom',
@@ -78,14 +78,14 @@ async function main (options) {
   pprLayout.plot_bgcolor = '#2a383d'
   // pprLayout.title.visible = false
   // pprLayout.colorway = CHART_COLORWAY
-  console.log(pprLayout)
+  // console.log(pprLayout)
 
   let pprPlot = document.getElementById(chartId)
 
   // Initialise a blank plot
   Plotly.newPlot(chartId, [], pprLayout, { responsive: true })
   pprPlot = document.getElementById(chartId)
-  console.log(pprPlot);
+  // console.log(pprPlot)
 
   // fetch data and draw plot traces
   try {
@@ -125,12 +125,12 @@ async function main (options) {
       if (arguments[0]['xaxis.range[0]'] != null) {
         const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
         if (yearsPlotted.includes(startYear)) {
-          console.log(startYear + ' is already done')
+          // console.log(startYear + ' is already done')
           return null
         }
-        
+
         for (let yr = +startYear; yr < 2020; yr += 1) {
-           // => returns the number of traces
+          // => returns the number of traces
           // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
           yearsPlotted.push(yr)
           // console.log(yearsPlotted)
@@ -393,7 +393,7 @@ async function initialiseMap (mapId) {
     const postcodesLayer = new L.LayerGroup()
 
     const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
-    console.log(postcodesJson)
+    // console.log(postcodesJson)
     postcodesJson.features.forEach((d, i) => {
       // postcodesLayer.addData(feature)
       postcodesLayer.addLayer(L.geoJSON(d, {
@@ -542,11 +542,11 @@ function addFeatureToLayer (feature, layerNo) {
 
 function getLayerStyle (index) {
   return {
-    fillColor: getLayerColor(index),
-    weight: 1.0,
-    opacity: 0.9,
-    color: getLayerColor(index),
-    dashArray: '1',
+    fillColor: 'transparent', //getLayerColor(index),
+    weight: 4.0,
+    opacity: 0.6,
+    color: '#6fd1f6',//getLayerColor(index),
+    // dashArray: '1',
     fillOpacity: 0.9
   }
 }
