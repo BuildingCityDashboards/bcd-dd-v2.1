@@ -1,5 +1,5 @@
-mixin query__chart(options={id:'', sources:'', title:'', description:'', chartInfo:'', chartids : [], buttons : [], plotoptions : {}})
-  div(id=id class="query__chart" )
+mixin query(options={id:'', sources:'', title:'', description:'', chartInfo:'', chartids : [], buttons : [], plotoptions : {}})
+  div(id=id class="query" )
     //- .query__chart__sources
       p Sources:
       each val in sources

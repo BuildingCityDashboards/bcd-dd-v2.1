@@ -1,0 +1,34 @@
+mixin query(options={id:'', sources:'', title:'Title', description:'Description', chartInfo:'', chartids : [], buttons : [], plotoptions : {}})
+  div(id=options.id class="query" )
+    .query__sources
+      p Sources:
+      each val in options.sources
+        div(id=val class= 'query__source')  
+          a(href=val.link target='_blank')= val.name
+            img( src='../images/external-link.svg')
+    .query__title
+      h1= options.title
+    .query__description!= options.description
+    //-   .query__chart__description!= description
+    //-   .query__chart__info!= chartInfo
+    //-   .query__chart__kpi
+    
+    
+        //- .query__chart__button-row
+          each button, index in buttons
+            if index == 0
+              <button id=#{button.id} type='button' class='theme-btn active'>#{button.name}</button>
+            else
+              <button id=#{button.id} type='button' class='theme-btn'>#{button.name}</button>
+
+    .query__charts 
+        each chartid, i in options.chartids
+            div(id=chartid class= 'query__chart__plot') 
+              //- .query__chart__spinner 
+                p Data is loading from #{JSON.stringify(sources[0].name)}
+    
+    script(type="module").
+        import { main } from !{JSON.stringify(options.plotoptions.src)}
+        (async function(o){
+           main(o);
+         })(!{JSON.stringify(options)}) 

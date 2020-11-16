@@ -1,0 +1,108 @@
+/**
+ * Author
+ *
+ * : Liam
+ */
+
+/* TODO use proper rules here instead of individual repetition */
+
+/* .leaflet-popup-content { width: 200px !important; height: 150px !important; } */
+
+/* css to customize Leaflet default styles */
+
+/* .custom .leaflet-popup-tip, */
+
+/* for charts in popoups */
+
+/**
+ * .custom-popup .leaflet-popup-content-wrapper { background:#2c3e50;
+ * color:#fff; font-size:16px; line-height:24px; border-radius: 0px; }
+ * .custom-popup .leaflet-popup-content-wrapper a { color:rgba(255,255,255,0.1);
+ * } .custom-popup .leaflet-popup-tip-container { width:30px; height:15px; }
+ * .custom-popup .leaflet-popup-tip { background: transparent; border: none;
+ * box-shadow: none; }
+ */
+
+.leaflet-container {
+  min-height: 280px
+}
+
+.leaflet-div-icon {
+  border: none;
+  background: transparent;
+}
+
+.leaflet-marker-icon .number {
+  color: black;
+  position: relative;
+  top: -50px;
+  width: 25px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.leaflet-popup-error {
+  margin: 40px;
+}
+
+.leaflet-popup-content-wrapper {
+  width: 240px;
+  height: 200px;
+  background: #001f35;
+  font-family: 'Roboto';
+  font-weight: 200;
+}
+
+.leaflet-popup-content {
+  width: auto;
+  height: auto;
+
+}
+
+.leaflet-popup-content svg {
+  transform: translateY(8px)
+}
+
+.leaflet-popup-title {
+  width: 100%;
+  height: 24px;
+  color: white;
+  margin-bottom: 0px;
+
+}
+
+.leaflet-popup-subtitle {
+  width: 100%;
+  height: 24px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+/* Need to set height of svg plot in px here */
+
+.leaflet-popup-chart {
+  width: 100%;
+  height: 100px;
+}
+
+.leaflet-popup-chart svg {
+  width: 100%;
+  height: inherit;
+}
+
+.popup-error {
+  margin: 16px;
+  color: white;
+  font-family: 'Roboto';
+}
+
+
+@media only screen and (min-device-width : 1280px) {
+
+  .leaflet-container {
+    min-height: 320px;
+    width: 100%;
+
+  }
+}

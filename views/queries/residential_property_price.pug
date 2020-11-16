@@ -1,5 +1,5 @@
 extends ../layout
-include ../component/query__chart
+include ../component/query
 
 
 block append head
@@ -12,34 +12,35 @@ block append head
         //- //-link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css")
         //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         //- link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.12/dc.css')
-        //- //- link(rel='stylesheet', href='/stylesheets/queries/query.css')
-        link(rel='stylesheet', href='/stylesheets/themes/leaflet-chart.css')
-        link(rel='stylesheet', href='/stylesheets/lib/leaflet-chart-modified.css')  
+        link(rel='stylesheet', href='/stylesheets/queries/query.css')
+        link(rel='stylesheet', href='/stylesheets/queries/leaflet-map.css')
+        //- link(rel='stylesheet', href='/stylesheets/lib/leaflet-chart-modified.css')  
         //- link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
         //- link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
         script(src="/lib/d3v5/d3.js" type="text/javascript" defer)
         script(src="https://cdn.plot.ly/plotly-latest.min.js" type="text/javascript" defer)
         script(src="/lib/proj4.js" type="text/javascript" defer)
         script(src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" type="text/javascript" defer)
-        script(src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js" type="text/javascript" defer)
+        //- script(src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js" type="text/javascript" defer)
 
 block navigation
     //-+navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
     +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Queries")
     
 block content
-    +query__chart({
-        id:'chart-property-prices',
+    +query({
+        id:'query-property-prices',
         sources: [{
-        link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM05&PLanguage=0',
+        link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM04&PLanguage=0',
         name: 'CSO'
         }],
         title: 'Property prices',
-        description: '',
+        description: '<p>This query combines individual records of property sales from the Residential Property Price register with CSO trend data.</p>',
         chartids: ['chart-property-price', 'map-property-price'],
         buttons: [{
-        id: 'btn-property-price-all',
-        name: 'All property'
+        id: 'btn-postal-code',
+        name: 'All property',
+        type: 'dropdown'
         },{
         id: 'btn-property-price-house',
         name: 'House'

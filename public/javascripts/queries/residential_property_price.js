@@ -13,31 +13,24 @@ const dublinPostcodes =
 
 async function main (options) {
   const chartId = 'chart-property-price'
-
   const mapId = 'map-property-price'
   initialiseMap(mapId)
+  addPostcodesToMap(mapId)
 
   const timeSelectorOptions = {
-    buttons: [{
-      step: 'month',
-      stepmode: 'backward',
-      count: 1,
-      label: '1m'
-    }, {
-      step: 'month',
-      stepmode: 'backward',
-      count: 6,
-      label: '6m'
-    }, {
-      step: 'year',
-      stepmode: 'todate',
-      count: 1,
-      label: 'YTD'
-    }, {
+    bgcolor: '#2a383d',
+    activecolor: '#546f78',
+    y: 1.1,
+    x: 0.5,
+    xanchor: 'center',
+    active: 2,
+    label: 'test',
+    buttons:
+    [{
       step: 'year',
       stepmode: 'backward',
-      count: 1,
-      label: '1y'
+      count: 10,
+      label: '10y'
     }, {
       step: 'year',
       stepmode: 'backward',
@@ -46,12 +39,12 @@ async function main (options) {
     }, {
       step: 'year',
       stepmode: 'backward',
-      count: 10,
-      label: '10y'
-    }, {
-      step: 'all'
+      count: 1,
+      label: '1y'
     }]
   }
+
+  const yearsPlotted = ['2020']
 
   const valueRange = {
     min: 50000,
@@ -68,33 +61,31 @@ async function main (options) {
     }
   })
 
-  const layoutInitial = {
-    title: 'Property Price Query',
-    uirevision: 'true',
-    xaxis: {
-      rangeselector: timeSelectorOptions,
-      // rangeslider: {}
-      range: [new Date(2020, 0, 1), new Date()]
-    },
-    yaxis: {
-      fixedrange: false,
-      range: [valueRange.min, valueRange.max]
-    },
-    updatemenus: [{
-      y: 1,
-      yanchor: 'top',
-      buttons: postcodeButtons
-    }]
-  }
-  // console.log(layoutInitial)
-
-  const pprLayout = Object.assign(getLayoutDefaults('scatter'), layoutInitial)
+  const pprLayout = JSON.parse(JSON.stringify(getLayoutDefaults('scatter')))
+  pprLayout.xaxis.rangeselector = timeSelectorOptions
+  pprLayout.xaxis.range = [new Date(2020, 0, 1), new Date()]
+  pprLayout.yaxis.fixedrange = false
+  pprLayout.yaxis.range = [valueRange.min, valueRange.max]
+  pprLayout.updatemenus = [{
+    // bgcolor: 'green',
+    // fillcolor: 'green',
+    y: 1.1,
+    x: 0.1,
+    yanchor: 'bottom',
+    buttons: postcodeButtons
+  }]
+  pprLayout.paper_bgcolor = '#2a383d'
+  pprLayout.plot_bgcolor = '#2a383d'
+  // pprLayout.title.visible = false
+  // pprLayout.colorway = CHART_COLORWAY
   // console.log(pprLayout)
 
-  const pprPlot = document.getElementById(chartId)
+  let pprPlot = document.getElementById(chartId)
 
   // Initialise a blank plot
-  Plotly.newPlot(chartId, [], pprLayout, {})
+  Plotly.newPlot(chartId, [], pprLayout, { responsive: true })
+  pprPlot = document.getElementById(chartId)
+  // console.log(pprPlot)
 
   // fetch data and draw plot traces
   try {
@@ -129,19 +120,20 @@ async function main (options) {
 
     // listens for time selector events
     pprPlot.on('plotly_relayout', async function (event) {
-      console.log(event)
-
       const graphDiv = document.getElementById(chartId)
-      console.log(graphDiv.data.length)
+      // true when range selector changed
       if (arguments[0]['xaxis.range[0]'] != null) {
         const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
-        // let yearsPlotted = graphDiv.data.map(d => {
-        //   return d.name
-        // })
-        for (let yr = +startYear; yr < 2020; yr += 1) {
-          // console.log(yearsPlotted) // => returns the number of traces
-          // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
+        if (yearsPlotted.includes(startYear)) {
+          // console.log(startYear + ' is already done')
+          return null
+        }
 
+        for (let yr = +startYear; yr < 2020; yr += 1) {
+          // => returns the number of traces
+          // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {
+          yearsPlotted.push(yr)
+          // console.log(yearsPlotted)
           // TODO: data is packed in function and unpacked here, so improve for perf
           const traces = await getPPRTracesForYear(yr)
           if (traces != null) {
@@ -371,7 +363,7 @@ async function getTrendTracesForYear (dataset, year) {
   return trendTraces
 }
 
-function initialiseMap (mapId) {
+async function initialiseMap (mapId) {
   try {
     proj4.defs('EPSG:29902', '+proj=tmerc +lat_0=53.5 +lon_0=-8 +k=1.000035 \n\
   +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
@@ -397,6 +389,21 @@ function initialiseMap (mapId) {
         id: 0
       }
     })
+
+    const postcodesLayer = new L.LayerGroup()
+
+    const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
+    // console.log(postcodesJson)
+    postcodesJson.features.forEach((d, i) => {
+      // postcodesLayer.addData(feature)
+      postcodesLayer.addLayer(L.geoJSON(d, {
+        style: getLayerStyle(i),
+        onEachFeature: onEachFeature
+      })
+      )
+    })
+
+    pprMap.addLayer(postcodesLayer)
 
     // const pprPopupOptons = {
     //   // 'maxWidth': '500',
@@ -436,8 +443,193 @@ function initialiseMap (mapId) {
   // pprMap.addLayer(pprSitesLayer)
   } catch (e) {
     console.log('Errror creating PPR map')
-    console.log(e);
+    console.log(e)
   }
+}
+
+async function addPostcodesToMap (mapId) {
+  // let postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
+  // console.log(postcodesJson);
+  // postcodesJson.features.forEach((d)=>{
+
+  // })
+  //   let features = []
+
+  //   let dataBase = '/data/tools/census2016/'
+  //   let dcc0 = 'DCC_SA_0.geojson'
+  //   let dcc1 = 'DCC_SA_1.geojson'
+  //   let dcc2 = 'DCC_SA_2.geojson'
+  // // promises
+  //   let pDCC0 = d3.json(dataBase + dcc0)
+  //   let pDCC1 = d3.json(dataBase + dcc1)
+  //   let pDCC2 = d3.json(dataBase + dcc2)
+  //   let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2]) // yields an array of 3 feature collections
+
+  //   dccSAs.forEach(sas => {
+  //     // updateMap(sas)
+
+  //     sas.features.forEach(sa => {
+  //       try{
+  //         let groupNo = lookup[sa.properties.SMALL_AREA]
+  //         sa.properties.groupnumber= groupNo
+
+  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+
+  //       }
+  //       catch{
+
+  //         sa.properties.groupnumber= 'NA'
+  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
+  //       }
+  //       // console.log(layerNo)
+
+  //     })
+  //     //alert(JSON.stringify(sas.features))
+  //   })
+
+  // // Fingal, DL/R, SDCC
+  //   let fcc = 'FCC_SA_0.geojson'
+  //   let dlr = 'DLR_SA_0.geojson'
+  //   let sdcc = 'SDCC_SA_0.geojson'
+  //   let testd = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson'
+  //   let pfcc = d3.json(dataBase + fcc)
+  //   let pdlr = d3.json(dataBase + dlr)
+  //   let psdcc = d3.json(dataBase + sdcc)
+  //   let ts = d3.json(dataBase + testd)
+
+  //   let otherSAs = await Promise.all([pfcc, pdlr, psdcc,ts])
+  //   otherSAs.forEach(sas => {
+  //     // updateMap(sas)
+  //     sas.features.forEach(sa => {
+  //       try{
+  //         let groupNo = lookup[sa.properties.SMALL_AREA]
+  //         sa.properties.groupnumber= groupNo
+
+  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
+
+  //       }
+  //       catch{
+  //         //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
+  //         sa.properties.groupnumber= 'NA'
+  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
+  //       }
+
+// })
+// })
+//   AddLayersToMap()
+}
+
+function getEmptyLayersArray (total) {
+  const layersArr = []
+  for (let i = 0; i < total; i += 1) {
+    layersArr.push(L.geoJSON(null, {
+
+      style: getLayerStyle(i),
+      onEachFeature: onEachFeature
+
+    })
+    )
+  }
+  return layersArr
+}
+function addFeatureToLayer (feature, layerNo) {
+  if (layerNo === 'NA') {
+
+  } else {
+    mapLayers[layerNo].addData(feature)
+  }
+}
+
+function getLayerStyle (index) {
+  return {
+    fillColor: 'transparent', //getLayerColor(index),
+    weight: 4.0,
+    opacity: 0.6,
+    color: '#6fd1f6',//getLayerColor(index),
+    // dashArray: '1',
+    fillOpacity: 0.9
+  }
+}
+
+function getLayerColor (index) {
+  const GEODEMOS_COLORWAY_CATEGORICAL = ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#386cb0', '#f0027f', '#bf5b17']
+  const GEODEMOS_COLORWAY_CBSAFE = ['#d73027', '#f46d43', '#fdae61', '#fee090', '#abd9e9', '#74add1', '#4575b4']
+  const GEODEMOS_COLORWAY = GEODEMOS_COLORWAY_CATEGORICAL
+  // const gToLa =['Group1','Group2','Group3','Group4','Group5','Group6','Group7']
+  index = index % GEODEMOS_COLORWAY.length
+
+  return GEODEMOS_COLORWAY[index]
+}
+
+function updateGroupTxt (no) {
+  if (document.contains(document.getElementById('myhref'))) {
+    document.getElementById('href').remove()
+  }
+
+  const dd = document.getElementById('desc')
+  if (no === 'all') {
+    no = 'all1'
+  }
+
+  d3.json('/data/home/geodem-text-data.json').then(function (dublinRegionsJson) {
+    d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size', '27px').style('font-weight', 'bold')
+    //
+    d3.select('#group-title').text(dublinRegionsJson[1][no])// .style("color",getLayerColor(no-1));
+    d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size', '15px')
+  })
+}
+function getFColor (d) {
+  return d > 2.0 ? '#FFFFFF'
+    : d > 1.5 ? '#BFB6B3'
+      : d > 1.0 ? '#d99a1c'
+        : d > 1 ? '#989290'
+          : d == 1 ? '#746F6D'
+
+            : '#000000'
+}
+const ttt = []
+
+const value = 0
+const text = ''
+
+function onEachFeature (feature, layer) {
+  const customOptions =
+    {
+      maxWidth: '400',
+      width: '250',
+      className: 'popupCustom'
+    }
+  const popTextContent =
+           '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
+           '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+           '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
+           '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
+
+  layer.bindPopup(popTextContent, customOptions)
+
+  layer.on({
+    click: function () {
+    }
+  })
+}
+
+function AddLayersToMap () {
+  mapLayers.forEach((l, k) => {
+    // alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
+    if (!mapGeodemos.hasLayer(l)) {
+      const mlay = mapLayers[k]
+      // let cov=traces[k-1].x[soc_eco_val];
+
+      mapGeodemos.addLayer(mlay)
+
+      mlay.setStyle({
+        fillColor: getLayerColor(k)// getFColor(cov)
+
+      }
+
+      )
+    }
+  })
 }
 
 // console.log(traceNames)
