@@ -20,27 +20,16 @@ async function main (options) {
   const timeSelectorOptions = {
     bgcolor: '#2a383d',
     activecolor: '#546f78',
+    y: 1.1,
+    x: 0.5,
+    xanchor: 'center',
+    active: 2,
     buttons:
     [{
-      step: 'month',
-      stepmode: 'backward',
-      count: 1,
-      label: '1m'
-    }, {
-      step: 'month',
-      stepmode: 'backward',
-      count: 6,
-      label: '6m'
-    }, {
-      step: 'year',
-      stepmode: 'todate',
-      count: 1,
-      label: 'YTD'
-    }, {
       step: 'year',
       stepmode: 'backward',
-      count: 1,
-      label: '1y'
+      count: 10,
+      label: '10y'
     }, {
       step: 'year',
       stepmode: 'backward',
@@ -49,12 +38,12 @@ async function main (options) {
     }, {
       step: 'year',
       stepmode: 'backward',
-      count: 10,
-      label: '10y'
-    }, {
-      step: 'all'
+      count: 1,
+      label: '1y'
     }]
   }
+
+  const yearsPlotted = ['2020']
 
   const valueRange = {
     min: 50000,
@@ -71,36 +60,15 @@ async function main (options) {
     }
   })
 
-  const layoutInitial = {
-    title: {
-      text: 'Property Price Query'
-    },
-    uirevision: 'true',
-    xaxis: {
-      rangeselector: timeSelectorOptions,
-      // rangeslider: {}
-      range: [new Date(2020, 0, 1), new Date()]
-    },
-    yaxis: {
-      fixedrange: false,
-      range: [valueRange.min, valueRange.max]
-    },
-    updatemenus: [{
-      y: 1,
-      yanchor: 'top',
-      buttons: postcodeButtons
-    }]
-  }
-  // console.log(layoutInitial)
-
   const pprLayout = JSON.parse(JSON.stringify(getLayoutDefaults('scatter')))
   pprLayout.xaxis.rangeselector = timeSelectorOptions
   pprLayout.xaxis.range = [new Date(2020, 0, 1), new Date()]
   pprLayout.yaxis.fixedrange = false
   pprLayout.yaxis.range = [valueRange.min, valueRange.max]
   pprLayout.updatemenus = [{
-    y: 1,
-    yanchor: 'top',
+    y: 1.1,
+    x: 0.1,
+    yanchor: 'bottom',
     buttons: postcodeButtons
   }]
   pprLayout.paper_bgcolor = '#2a383d'
@@ -148,16 +116,15 @@ async function main (options) {
 
     // listens for time selector events
     pprPlot.on('plotly_relayout', async function (event) {
-      console.log('relayout')
-      console.log(event)
       const graphDiv = document.getElementById(chartId)
-      console.log(graphDiv.data.length)
       // true when range selector changed
       if (arguments[0]['xaxis.range[0]'] != null) {
         const startYear = new Date(arguments[0]['xaxis.range[0]']).getFullYear()
-        // let yearsPlotted = graphDiv.data.map(d => {
-        //   return d.name
-        // })
+        if (yearsPlotted.includes(startYear)) {
+          console.log(startYear + ' is already done')
+          return null
+        }
+        yearsPlotted.push(startYear)
         for (let yr = +startYear; yr < 2020; yr += 1) {
           // console.log(yearsPlotted) // => returns the number of traces
           // if (!yearsPlotted.includes('ppr-' + yr + '-' + d.replace(' ', '-'))) {

@@ -76,7 +76,7 @@ const LAYOUT_DEFAULTS_SCATTER = {
   // responsive: true,
   // height: 500,
   margin: {
-    l: 96,
+    l: 0,
     r: 48, // change in chart based on annotations
     b: 48,
     t: 96
