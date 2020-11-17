@@ -398,7 +398,10 @@ async function initialiseMap (mapId) {
       postcodesLayer.addLayer(L.geoJSON(d, {
         style: getLayerStyle(i),
         onEachFeature: onEachFeature
-      })
+      }).bindTooltip(function (layer) {
+        // console.log()
+        return d.properties['Yelp_postc'].replace('ublin ', '')
+      },{permanent: true, direction: 'center', opacity: 1.0})
       )
     })
 

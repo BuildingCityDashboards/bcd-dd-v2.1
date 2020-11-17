@@ -99,6 +99,13 @@
   font-family: 'Roboto';
 }
 
+.leaflet-tooltip {
+  background-color: transparent;
+  color: #6fd1f6;
+  font-family: 'Roboto';
+  border: none;
+  box-shadow: none;
+}
 
 @media only screen and (min-device-width : 1280px) {
 
