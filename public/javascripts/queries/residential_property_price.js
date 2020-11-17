@@ -14,6 +14,24 @@ const dublinPostcodes =
 async function main (options) {
   const chartId = 'chart-property-price'
   const mapId = 'map-property-price'
+  
+
+  const mapIcon = L.icon({
+    title: '',
+    // number: '666',
+    iconUrl: '/images/map_icons/house.svg',
+    iconSize: [30, 30],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, 0]
+  })
+  // const pprMapIcon = L.icon(mapIconConfig)
+  
+  // const PPRMarker = L.Marker.extend({
+  //   options: {
+  //     id: 0
+  //   }
+  // })
+
   const mapRef = await initialiseMap(mapId)
 
   const timeSelectorOptions = {
@@ -116,7 +134,7 @@ async function main (options) {
       console.log('Closest point clicked:\n\n' + pts)
       console.log(d)
 
-      const geocodeQuery = `https://nominatim.openstreetmap.org/search/${d.Address}?format=json`  
+      const geocodeQuery = `https://nominatim.openstreetmap.org/search/${d.Address}?format=json`
       const geocodeJson = await fetchJsonFromUrlAsyncTimeout(geocodeQuery, 5000)
       console.log(geocodeJson)
       if (mapRef != null && geocodeJson.length > 0) {
@@ -126,7 +144,7 @@ async function main (options) {
             // opacity: 0.9,
             // title: 'PPR Monitor Site', // shown in rollover tooltip
             // alt: 'ppr monitor icon',
-            // // icon: pprMapIcon,
+            icon: mapIcon
             // type: 'PPR Level Monitor'
           })
         // marker.bindPopup(getPopup(d), pprPopupOptons)
@@ -136,11 +154,9 @@ async function main (options) {
         //   pprSitesLayer.addLayer(marker)
 
         mapRef.addLayer(marker)
+      } else {
+        console.log('Address not found')
       }
-      else{
-        console.log('Address not found');
-      }
-
     })
 
     // listens for time selector events
@@ -403,18 +419,6 @@ async function initialiseMap (mapId) {
     })
     pprMap.setView(getDublinLatLng(), 11)
     pprMap.addLayer(osmPprMap)
-    const pprMapIcon = L.icon({
-      iconUrl: '../images/environment/microphone-black-shape.svg',
-      iconSize: [20, 20] // orig size
-    // iconAnchor: [iconAX, iconAY] //,
-    // popupAnchor: [-3, -76]
-    })
-    const PPRMarker = L.Marker.extend({
-      options: {
-        id: 0
-      }
-    })
-
     const postcodesLayer = new L.LayerGroup()
 
     const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
@@ -441,7 +445,6 @@ async function initialiseMap (mapId) {
       placeholder: 'Enter street name, area etc.',
       bounds: getDublinBoundsLatLng()
     }))
-
 
     // const pprPopupOptons = {
     //   // 'maxWidth': '500',
