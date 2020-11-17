@@ -143,13 +143,14 @@ async function main (options) {
           const marker = new L.Marker(
             latlong, {
             // id: d.id,
-            // opacity: 0.9,
-            // title: 'PPR Monitor Site', // shown in rollover tooltip
-            // alt: 'ppr monitor icon',
+              opacity: 0.9,
+              // title: 'PPR Monitor Site', // shown in rollover tooltip
+              // alt: 'ppr monitor icon',
               icon: mapIcon
             // type: 'PPR Level Monitor'
             })
-          // marker.bindPopup(getPopup(d), pprPopupOptons)
+
+          marker.bindPopup(getPopup(d), {})
           // marker.on('popupopen', () => {
           // getPopupPlot(d)
           // })
@@ -250,12 +251,15 @@ async function getPPRTracesForYear (year) {
         pprDates[`${d['Postal Code']}`] = []
       }
       //  Plotly accepts dates in the format YYY-MM-DD and DD/MM/YYYY
-      pprDates[`${d['Postal Code']}`].push(getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)']))
+      const date = getDateFromCommonString(d['Date of Sale (dd/mm/yyyy)'])
+      pprDates[`${d['Postal Code']}`].push(date)
+      d.date = d['Date of Sale (dd/mm/yyyy)']
       // pprCustomData.push(d)
       if (!pprValues[`${d['Postal Code']}`]) {
         pprValues[`${d['Postal Code']}`] = []
       }
       const v = parseInt(d['Price (�)'].replace(/[�,]/g, ''))
+      d.value = v
       pprValues[`${d['Postal Code']}`].push(v)
 
       if (!pprCustomData[`${d['Postal Code']}`]) {
@@ -684,27 +688,15 @@ function onEachFeature (feature, layer) {
   })
 }
 
-function AddLayersToMap () {
-  mapLayers.forEach((l, k) => {
-    // alert( soc_eco_val+ '---'+ traces[k].x[soc_eco_val])
-    if (!mapGeodemos.hasLayer(l)) {
-      const mlay = mapLayers[k]
-      // let cov=traces[k-1].x[soc_eco_val];
-
-      mapGeodemos.addLayer(mlay)
-
-      mlay.setStyle({
-        fillColor: getLayerColor(k)// getFColor(cov)
-
-      }
-
-      )
-    }
-  })
-}
-
-function addMarkerToMap (json) {
-
+function getPopup (d) {
+  let str = ''
+  d.Address != null ? str += `<p><b>${d.Address}</b></p>` : str += '<p><b>Address unknown</b></p>'
+  d['Postal Code'] != null ? str += `<i>${d['Postal Code']}</i><br>` : str += '<i>Postal code unknown</i>'
+  d.date != null ? str += `<p>Sold on ${d.date}</p>` : str += '<p>Date of sale unknown</p>'
+  d.value != null ? str += `<p>€${d.value}</p>` : str += '<p>Sale price unknown</p>'
+  d['Description of Property'] != null ? str += `<p>${d['Description of Property']}</p>` : str += ''
+  // d['Not Full Market Price'] != null ? str += `<p>${d['Not Full Market Price']}</p>` : str += ''
+  return str
 }
 
 // console.log(traceNames)
