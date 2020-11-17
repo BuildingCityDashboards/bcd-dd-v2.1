@@ -1,6 +1,6 @@
 import { fetchCsvFromUrlAsyncTimeout, fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
 import { getDateFromCommonString } from '../modules/bcd-date.js'
-import { getDefaultMapOptions, getDublinLatLng } from '../modules/bcd-maps.js'
+import { getDefaultMapOptions, getDublinLatLng, getDublinBoundsLatLng } from '../modules/bcd-maps.js'
 
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../modules/bcd-ui.js'
@@ -14,7 +14,25 @@ const dublinPostcodes =
 async function main (options) {
   const chartId = 'chart-property-price'
   const mapId = 'map-property-price'
-  initialiseMap(mapId)
+  
+
+  const mapIcon = L.icon({
+    title: '',
+    // number: '666',
+    iconUrl: '/images/map_icons/house.svg',
+    iconSize: [30, 30],
+    iconAnchor: [0, 0],
+    popupAnchor: [0, 0]
+  })
+  // const pprMapIcon = L.icon(mapIconConfig)
+  
+  // const PPRMarker = L.Marker.extend({
+  //   options: {
+  //     id: 0
+  //   }
+  // })
+
+  const mapRef = await initialiseMap(mapId)
 
   const timeSelectorOptions = {
     bgcolor: '#2a383d',
@@ -105,7 +123,7 @@ async function main (options) {
     // TODO: handle this state better
     let currentDropdownSelectedIndex = 0
 
-    pprPlot.on('plotly_click', function (data) {
+    pprPlot.on('plotly_click', async function (data) {
       let pts = ''
       let d = {}
       for (let i = 0; i < data.points.length; i++) {
@@ -115,6 +133,30 @@ async function main (options) {
       }
       console.log('Closest point clicked:\n\n' + pts)
       console.log(d)
+
+      const geocodeQuery = `https://nominatim.openstreetmap.org/search/${d.Address}?format=json`
+      const geocodeJson = await fetchJsonFromUrlAsyncTimeout(geocodeQuery, 5000)
+      console.log(geocodeJson)
+      if (mapRef != null && geocodeJson.length > 0) {
+        const marker = new L.Marker(
+          new L.LatLng(geocodeJson[0].lat, geocodeJson[0].lon), {
+            // id: d.id,
+            // opacity: 0.9,
+            // title: 'PPR Monitor Site', // shown in rollover tooltip
+            // alt: 'ppr monitor icon',
+            icon: mapIcon
+            // type: 'PPR Level Monitor'
+          })
+        // marker.bindPopup(getPopup(d), pprPopupOptons)
+        // marker.on('popupopen', () => {
+        // getPopupPlot(d)
+        // })
+        //   pprSitesLayer.addLayer(marker)
+
+        mapRef.addLayer(marker)
+      } else {
+        console.log('Address not found')
+      }
     })
 
     // listens for time selector events
@@ -377,18 +419,6 @@ async function initialiseMap (mapId) {
     })
     pprMap.setView(getDublinLatLng(), 11)
     pprMap.addLayer(osmPprMap)
-    const pprMapIcon = L.icon({
-      iconUrl: '../images/environment/microphone-black-shape.svg',
-      iconSize: [20, 20] // orig size
-    // iconAnchor: [iconAX, iconAY] //,
-    // popupAnchor: [-3, -76]
-    })
-    const PPRMarker = L.Marker.extend({
-      options: {
-        id: 0
-      }
-    })
-
     const postcodesLayer = new L.LayerGroup()
 
     const postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
@@ -400,12 +430,21 @@ async function initialiseMap (mapId) {
         onEachFeature: onEachFeature
       }).bindTooltip(function (layer) {
         // console.log()
-        return d.properties['Yelp_postc'].replace('ublin ', '')
-      },{permanent: true, direction: 'center', opacity: 1.0})
+        const label = d.properties.Yelp_postc
+        if (label.indexOf('Dublin') === 0) {
+          return label.replace('ublin ', '')
+        }
+        return ''
+      }, { permanent: true, direction: 'center', opacity: 1.0 })
       )
     })
 
     pprMap.addLayer(postcodesLayer)
+
+    pprMap.addControl(new L.Control.OSMGeocoder({
+      placeholder: 'Enter street name, area etc.',
+      bounds: getDublinBoundsLatLng()
+    }))
 
     // const pprPopupOptons = {
     //   // 'maxWidth': '500',
@@ -442,7 +481,8 @@ async function initialiseMap (mapId) {
     //   return isToday(s.date)
     // })
 
-  // pprMap.addLayer(pprSitesLayer)
+    // pprMap.addLayer(pprSitesLayer)
+    return pprMap
   } catch (e) {
     console.log('Errror creating PPR map')
     console.log(e)
@@ -544,10 +584,10 @@ function addFeatureToLayer (feature, layerNo) {
 
 function getLayerStyle (index) {
   return {
-    fillColor: 'transparent', //getLayerColor(index),
+    fillColor: 'transparent', // getLayerColor(index),
     weight: 4.0,
     opacity: 0.6,
-    color: '#6fd1f6',//getLayerColor(index),
+    color: '#6fd1f6', // getLayerColor(index),
     // dashArray: '1',
     fillOpacity: 0.9
   }
@@ -601,11 +641,11 @@ function onEachFeature (feature, layer) {
       width: '250',
       className: '.leaflet-popup-content'
     }
-  const popTextContent = '<p><b>'+feature.properties.Yelp_postc+'</b></p>'
-          //  '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
-          //  '<p><b>' + feature.properties.EDNAME + '</b></p>' +
-          //  '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
-          //  '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
+  const popTextContent = '<p><b>' + feature.properties.Yelp_postc + '</b></p>'
+  //  '<p><b>Group ' + feature.properties.groupnumber + '</b></p>' +
+  //  '<p><b>' + feature.properties.EDNAME + '</b></p>' +
+  //  '<p><b>' + feature.properties.COUNTYNAME + '</b></p>' +
+  //  '<p><b>SA ' + feature.properties.SMALL_AREA + '</b></p>'
 
   layer.bindPopup(popTextContent, customOptions)
   // layer.bindTooltip("my tooltip text").openTooltip()
@@ -641,6 +681,10 @@ function AddLayersToMap () {
       )
     }
   })
+}
+
+function addMarkerToMap (json) {
+
 }
 
 // console.log(traceNames)
