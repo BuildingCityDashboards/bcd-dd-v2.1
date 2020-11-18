@@ -24,7 +24,8 @@
  */
 
 .leaflet-container {
-  min-height: 280px
+  min-height: 280px;
+  font-family: Roboto, sans-serif;
 }
 
 .leaflet-div-icon {
@@ -113,6 +114,16 @@ i {
   border: none;
   box-shadow: none;
 }
+
+.leaflet-top.leaflet-right>div {
+
+  background-color: white;
+  opacity: 1;
+}
+
+
+
+
 
 @media only screen and (min-device-width : 1280px) {
 

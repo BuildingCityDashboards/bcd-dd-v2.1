@@ -1032,6 +1032,7 @@
         min-width: 1024px;
         min-height: 512px;
         max-width: 1440px;
+
         background-color: #293135;
         font-weight: 200;
         justify-content: center;
@@ -1117,6 +1118,8 @@
         flex-direction: row;
         position: relative;
         width: 100%;
+        min-height: 500px;
+        max-height: 600px;
         padding: 16px;
         text-align: left;
         align-self: center;
@@ -1223,6 +1226,8 @@
 @media only screen and (min-device-width : 1920px) {
 
     .query__charts {
-        min-height: 60vh;
+        /* min-height: 60vh; */
+        min-height: 500px;
+        max-height: 600px;
     }
 }

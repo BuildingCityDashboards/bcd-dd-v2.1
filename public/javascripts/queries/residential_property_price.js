@@ -56,7 +56,7 @@ async function main (options) {
       step: 'year',
       stepmode: 'backward',
       count: 1,
-      label: '1y'
+      label: '1 year'
     }]
   }
 
@@ -162,6 +162,11 @@ async function main (options) {
           console.log('Address not found')
           const findForm = document.querySelector('#map-property-price > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > form > input[type=text]:nth-child(1)')
           findForm.value = `${d.Address}`
+
+          const dialogBox = document.getElementById('geocoder-dialog-box')
+          if (dialogBox.classList.contains('hide')) {
+            dialogBox.classList.remove('hide')
+          }
         }
       }
     })
@@ -451,7 +456,7 @@ async function initialiseMap (mapId) {
 
     pprMap.addLayer(postcodesLayer)
 
-    pprMap.addControl(new L.Control.OSMGeocoder({
+    const geoFinder = new L.Control.OSMGeocoder({
       placeholder: 'Enter street name, area etc.',
       bounds: getDublinBoundsLatLng(),
       collapsed: false, /* Whether its collapsed or not */
@@ -465,124 +470,32 @@ async function initialiseMap (mapId) {
           const	second = new L.LatLng(bbox[1], bbox[3])
           const bounds = new L.LatLngBounds([first, second])
           L.rectangle(bounds, { color: '#ff7800', weight: 1 }).addTo(this._map)
+          // TODO: add marker with address details
           this._map.fitBounds(bounds)
         }
       }
-    }))
+    })
 
-    // const pprPopupOptons = {
-    //   // 'maxWidth': '500',
-    //   // 'className': 'leaflet-popup'
-    // }
+    pprMap.addControl(geoFinder)
 
-    // const pprSitesLayer = new L.LayerGroup()
-    // const pprSites = await getSites('../data/Environment/soundsites.json', 'sound_monitoring_sites')
-    // // console.log(pprSites)
+    // Add a dialog that appears when an address is not found
+    const dialogBox = document.createElement('div')
+    dialogBox.setAttribute('id', 'geocoder-dialog-box')
+    dialogBox.classList.add('hide')
+    // const dialogText = document.createElement('div')
+    // dialogText.setAttribute('id', 'geocoder-dialog-text')
 
-    // const allSitesPromises = pprSites.map(async d => {
-    //   const marker = new PPRMarker(
-    //     new L.LatLng(d.lng, d.lat), {
-    //       id: d.id,
-    //       opacity: 0.9,
-    //       title: 'PPR Monitor Site', // shown in rollover tooltip
-    //       alt: 'ppr monitor icon',
-    //       icon: pprMapIcon,
-    //       type: 'PPR Level Monitor'
-    //     })
-    //   marker.bindPopup(getPopup(d), pprPopupOptons)
-    //   marker.on('popupopen', () => {
-    //     getPopupPlot(d)
-    //   })
-    //   pprSitesLayer.addLayer(marker)
-    //   const siteReadings = await getSiteReadings(d)
-    //   // console.log(siteReadings);
-    //   return siteReadings
-    // })
-    // const allSitesData = await Promise.all(allSitesPromises)
-    // // console.log(allSitesData);
-    // let allSitesFlat = allSitesData.flat(1)
-    // allSitesFlat = allSitesFlat.filter((s) => {
-    //   return isToday(s.date)
-    // })
+    // dialogBox.appendChild(dialogText)
 
-    // pprMap.addLayer(pprSitesLayer)
+    const findForm = document.querySelector('#map-property-price > div.leaflet-control-container > div.leaflet-top.leaflet-right > div')
+    findForm.appendChild(dialogBox)
+   
+
     return pprMap
   } catch (e) {
     console.log('Errror creating PPR map')
     console.log(e)
   }
-}
-
-async function addPostcodesToMap (mapId) {
-  // let postcodesJson = await fetchJsonFromUrlAsyncTimeout('../data/common/Postcode_dissolve_WGS84.json')
-  // console.log(postcodesJson);
-  // postcodesJson.features.forEach((d)=>{
-
-  // })
-  //   let features = []
-
-  //   let dataBase = '/data/tools/census2016/'
-  //   let dcc0 = 'DCC_SA_0.geojson'
-  //   let dcc1 = 'DCC_SA_1.geojson'
-  //   let dcc2 = 'DCC_SA_2.geojson'
-  // // promises
-  //   let pDCC0 = d3.json(dataBase + dcc0)
-  //   let pDCC1 = d3.json(dataBase + dcc1)
-  //   let pDCC2 = d3.json(dataBase + dcc2)
-  //   let dccSAs = await Promise.all([pDCC0, pDCC1, pDCC2]) // yields an array of 3 feature collections
-
-  //   dccSAs.forEach(sas => {
-  //     // updateMap(sas)
-
-  //     sas.features.forEach(sa => {
-  //       try{
-  //         let groupNo = lookup[sa.properties.SMALL_AREA]
-  //         sa.properties.groupnumber= groupNo
-
-  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
-
-  //       }
-  //       catch{
-
-  //         sa.properties.groupnumber= 'NA'
-  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
-  //       }
-  //       // console.log(layerNo)
-
-  //     })
-  //     //alert(JSON.stringify(sas.features))
-  //   })
-
-  // // Fingal, DL/R, SDCC
-  //   let fcc = 'FCC_SA_0.geojson'
-  //   let dlr = 'DLR_SA_0.geojson'
-  //   let sdcc = 'SDCC_SA_0.geojson'
-  //   let testd = 'Small_Areas__Generalised_20m__OSi_National_Boundaries.geojson'
-  //   let pfcc = d3.json(dataBase + fcc)
-  //   let pdlr = d3.json(dataBase + dlr)
-  //   let psdcc = d3.json(dataBase + sdcc)
-  //   let ts = d3.json(dataBase + testd)
-
-  //   let otherSAs = await Promise.all([pfcc, pdlr, psdcc,ts])
-  //   otherSAs.forEach(sas => {
-  //     // updateMap(sas)
-  //     sas.features.forEach(sa => {
-  //       try{
-  //         let groupNo = lookup[sa.properties.SMALL_AREA]
-  //         sa.properties.groupnumber= groupNo
-
-  //         addFeatureToLayer(sa, parseInt(groupNo) - 1) // feature, layer index
-
-  //       }
-  //       catch{
-  //         //console.warn(`Error on lookup for sa. Adding to NA layer \n ${JSON.stringify(sa)} `)
-  //         sa.properties.groupnumber= 'NA'
-  //         addFeatureToLayer(sa, 'NA') //Additional layer for NA sas
-  //       }
-
-// })
-// })
-//   AddLayersToMap()
 }
 
 function getEmptyLayersArray (total) {
@@ -597,13 +510,6 @@ function getEmptyLayersArray (total) {
     )
   }
   return layersArr
-}
-function addFeatureToLayer (feature, layerNo) {
-  if (layerNo === 'NA') {
-
-  } else {
-    mapLayers[layerNo].addData(feature)
-  }
 }
 
 function getLayerStyle (index) {
@@ -698,80 +604,3 @@ function getPopup (d) {
   // d['Not Full Market Price'] != null ? str += `<p>${d['Not Full Market Price']}</p>` : str += ''
   return str
 }
-
-// console.log(traceNames)
-
-// const housePriceMean = {
-//   e: 'chart-house-price-mean',
-//   d: ppTrend.filter(d => {
-//     return d[dimensions[5]] === categoriesStat[2]
-//   }),
-//   ks: traceNames,
-//   k: dimensions[3],
-//   xV: 'date',
-//   yV: 'value',
-//   tX: 'Year',
-//   tY: categoriesStat[2],
-//   formaty: 'hundredThousandsShort'
-// }
-// //
-// const housePriceMeanChart = new BCDMultiLineChart(housePriceMean)
-
-// const housePriceMedian = {
-//   e: 'chart-house-price-median',
-//   d: ppTrend.filter(d => {
-//     return d[dimensions[5]] === categoriesStat[3]
-//   }),
-//   ks: traceNames,
-//   k: dimensions[3],
-//   xV: 'date',
-//   yV: 'value',
-//   tX: 'Year',
-//   tY: categoriesStat[3],
-//   formaty: 'hundredThousandsShort'
-// }
-// //
-// const housePriceMedianChart = new BCDMultiLineChart(housePriceMedian)
-
-// const chart1 = 'house-price-mean'
-// const chart2 = 'house-price-median'
-// function redraw () {
-//   if (document.querySelector('#chart-' + chart1).style.display !== 'none') {
-//     housePriceMeanChart.drawChart()
-//     housePriceMeanChart.addTooltip('Mean house price,  ', '', 'label')
-//     housePriceMeanChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
-//     housePriceMeanChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
-//   }
-//   if (document.querySelector('#chart-' + chart2).style.display !== 'none') {
-//     housePriceMedianChart.drawChart()
-//     housePriceMedianChart.addTooltip('Median house price, ', '', 'label')
-//     housePriceMedianChart.showSelectedLabelsX([0, 2, 4, 6, 8, 10])
-//     housePriceMedianChart.showSelectedLabelsY([2, 4, 6, 8, 10, 12, 14])
-//   }
-// }
-// redraw()
-
-// d3.select('#chart-' + chart1).style('display', 'block')
-// d3.select('#chart-' + chart2).style('display', 'none')
-
-// d3.select('#btn-' + chart1).on('click', function () {
-//   if (document.getElementById('chart-' + chart1).style.display === 'none') {
-//     activeBtn(this)
-//     d3.select('#chart-' + chart1).style('display', 'block')
-//     d3.select('#chart-' + chart2).style('display', 'none')
-//     redraw()
-//   }
-// })
-
-// d3.select('#btn-' + chart2).on('click', function () {
-//   if (document.getElementById('chart-' + chart2).style.display === 'none') {
-//     activeBtn(this)
-//     d3.select('#chart-' + chart1).style('display', 'none')
-//     d3.select('#chart-' + chart2).style('display', 'block')
-//     redraw()
-//   }
-// })
-
-// window.addEventListener('resize', () => {
-//   redraw()
-// })
