@@ -1051,6 +1051,7 @@
         grid-column: 1 / 13;
         grid-row: 1 / 2;
         background-color: #1c2022;
+        gap: 8px;
 
     }
 
