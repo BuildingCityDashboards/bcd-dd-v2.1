@@ -18,15 +18,6 @@
     overflow: hidden;
 }
 
-
-.query-map {
-    /*height: inherit;*/
-    height: 600px;
-    width: 100%;
-    margin: 0;
-}
-
-
 /* xs: 360px x 540px <MOCKUP> */
 
 
@@ -1035,12 +1026,13 @@
 
     .query {
         display: grid;
-        margin: 120px 48px 48px 48px;
+        margin: 120px auto 48px;
         width: calc(100vw - 96px);
         height: auto;
         min-width: 1024px;
         min-height: 512px;
         max-width: 1440px;
+
         background-color: #293135;
         font-weight: 200;
         justify-content: center;
@@ -1059,11 +1051,12 @@
         grid-column: 1 / 13;
         grid-row: 1 / 2;
         background-color: #1c2022;
+        gap: 8px;
 
     }
 
     .query__sources p,
-    a {
+    .query__sources a {
         font-size: 10px;
         font-weight: 300;
         line-height: 1.6;
@@ -1126,6 +1119,8 @@
         flex-direction: row;
         position: relative;
         width: 100%;
+        min-height: 500px;
+        max-height: 600px;
         padding: 16px;
         text-align: left;
         align-self: center;
@@ -1232,6 +1227,8 @@
 @media only screen and (min-device-width : 1920px) {
 
     .query__charts {
-        min-height: 60vh;
+        /* min-height: 60vh; */
+        min-height: 500px;
+        max-height: 600px;
     }
 }

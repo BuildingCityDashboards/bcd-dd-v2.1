@@ -7,13 +7,14 @@ block append head
         //- link(rel='stylesheet', href='/stylesheets/lib/marker-cluster-modified.css')
         //- link(rel='stylesheet', href='/stylesheets/tools/dc-tools.css')
         //- link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
-        link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
+        
         //- link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         //- //-link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@[VERSION]/dist/L.Control.Locate.min.css")
         //- link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
         //- link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/dc/3.0.12/dc.css')
         link(rel='stylesheet', href='/stylesheets/queries/query.css')
         link(rel='stylesheet', href='/stylesheets/queries/leaflet-map.css')
+        link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
         //- link(rel='stylesheet', href='/stylesheets/lib/leaflet-chart-modified.css')  
         //- link(rel='stylesheet', href='https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css')
         //- link(rel='stylesheet', href='/stylesheets/lib/Control.OSMGeocoder.modified.css')
@@ -33,8 +34,9 @@ block content
         id:'query-property-prices',
         sources: [{
         link :'https://statbank.cso.ie/px/pxeirestat/Statire/SelectVarVal/Define.asp?maintable=HPM04&PLanguage=0',
-        name: 'CSO'
-        }],
+        name: 'CSO'},{
+        link :'https://propertypriceregister.ie/Website/NPSRA/pprweb.nsf/page/ppr-home-en',
+        name: 'Property Price Regsiter'}],
         title: 'Property prices',
         description: '<p>This query combines individual records of property sales from the Residential Property Price register with CSO trend data.</p>',
         chartids: ['chart-property-price', 'map-property-price'],

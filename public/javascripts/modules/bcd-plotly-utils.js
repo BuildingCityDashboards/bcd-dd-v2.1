@@ -40,15 +40,24 @@ const TRACE_DEFAULTS = {
   visible: false // 'legendonly'
 }
 
-const TRACE_DEFAULTS_SCATTER = {
+const TRACE_DEFAULTS_LINE = {
   name: 'trace',
   type: 'scatter',
-  mode: 'markers',
+  mode: 'lines+markers',
   opacity: 0.8,
   marker: {
-    symbol: 'square',
-    color: 'red', // lines + markers, defaults to colorway
-    size: 2
+    symbol: 'circle',
+    color: '#2a383d', // lines + markers, defaults to colorway
+    size: 7,
+    line: {
+      color: '#6fd1f6',
+      width: 2
+    }
+  },
+  line: {
+    color: '#6fd1f6',
+    shape: 'spline',
+    width: 5
   },
   hoveron: 'points', // 'points+fills',
   text: null,
@@ -56,10 +65,25 @@ const TRACE_DEFAULTS_SCATTER = {
   visible: false // 'legendonly'
 }
 
+const TRACE_DEFAULTS_SCATTER = {
+  name: 'trace',
+  type: 'scatter',
+  mode: 'markers',
+  opacity: 0.8,
+  marker: {
+    symbol: 'square',
+    color: '#6fd1f6', // lines + markers, defaults to colorway
+    size: 4
+  },
+  hoveron: 'points', // 'points+fills',,
+  hoverinfo: 'test',
+  visible: false // 'legendonly'
+}
+
 function getTraceDefaults (type = 'line') {
   switch (type) {
     case 'line':
-      return TRACE_DEFAULTS
+      return TRACE_DEFAULTS_LINE
       break
 
     case 'scatter':
@@ -144,7 +168,18 @@ const LAYOUT_DEFAULTS_SCATTER = {
     // 'orientation': 'v'
   },
   annotations: [],
-  hovermode: 'closest'
+  hovermode: 'closest',
+  hoverlabel: {
+    bgcolor: '#2a383d',
+    bordercolor: '#2a383d',
+    font: {
+      family: null,
+      size: null,
+      color: '#6fd1f6'
+    },
+    namelength: -1,
+    opacity: 0.7
+  }
 }
 
 function getLayoutDefaults (type = 'line') {

@@ -1,39 +1,73 @@
 .leaflet-control-geocoder a {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	display: block;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: block;
 }
 
 .leaflet-control-geocoder {
-	box-shadow: 0 1px 7px #999;
-	background: #f8f8f9;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	border-radius: 8px;
+    box-shadow: 0 1px 7px #999;
+    background: #f8f8f9;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
 }
 
 .leaflet-control-geocoder a {
-	background-image: url(images/geocoder.png);
-	width: 36px;
-	height: 36px;
+    background-image: url(images/geocoder.png);
+    width: 36px;
+    height: 36px;
 }
 
 .leaflet-touch .leaflet-control-geocoder a {
-	width: 44px;
-	height: 44px;
+    width: 44px;
+    height: 44px;
 }
 
 .leaflet-control-geocoder .leaflet-control-geocoder-form,
 .leaflet-control-geocoder-expanded .leaflet-control-geocoder-toggle {
-	display: none;
+    display: none;
 
 }
 
 .leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
-	display: block;
-	position: relative;
+    display: block;
+    position: relative;
+    padding: 4px;
+    height: 100%;
+
 }
 
-.leaflet-control-geocoder-expanded .leaflet-control-geocoder-form {
-	padding: 2px;
+.leaflet-control {
+    /* height: auto; */
+
+    overflow-y: hidden;
+    float: none;
+}
+
+
+
+/* Help dialog that pops down */
+#geocoder-dialog-box {
+    transition: transform 0.4s ease-out;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    min-height: 0;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    transform: scaleY(1);
+    padding: 4px;
+}
+
+#geocoder-dialog-box.hide {
+    transform: scaleY(0);
+    padding: 0;
+}
+
+#geocoder-dialog-text {
+    display: block;
+    padding: 0;
+
 }
