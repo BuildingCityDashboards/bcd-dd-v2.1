@@ -99,8 +99,22 @@ async function main (options) {
 
   let pprPlot = document.getElementById(chartId)
 
+  let pprOptions = {
+    modeBarButtons: [['toImage', 'zoom2d', 'pan2d', 'select2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d']],
+    displayModeBar: true,
+    displaylogo: false,
+    showSendToCloud: false,
+    responsive: true,
+    toImageButtonOptions: {
+      filename: 'Dublin Dashboard Query - Property Price Register',
+      width: null,
+      height: null,
+      format: 'png'
+    }
+  }
+
   // Initialise a blank plot
-  Plotly.newPlot(chartId, [], pprLayout, { responsive: true })
+  Plotly.newPlot(chartId, [], pprLayout, pprOptions)
   pprPlot = document.getElementById(chartId)
   // console.log(pprPlot)
 
@@ -290,7 +304,7 @@ async function getPPRTracesForYear (year) {
         hovertemplate: `SOLD: %{x}, €%{y:,.0f} <extra></extra>`
       }
       const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-      pprTrace.name = 'Sale:'
+      // pprTrace.name = 'Sale:'
       // console.log(pprTraceData);
       return pprTraceData
     })
@@ -554,7 +568,7 @@ function updateGroupTxt (no) {
     d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size', '27px').style('font-weight', 'bold')
     //
     d3.select('#group-title').text(dublinRegionsJson[1][no])// .style("color",getLayerColor(no-1));
-    d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size', '15px')
+    d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size', '12px')
   })
 }
 function getFColor (d) {
