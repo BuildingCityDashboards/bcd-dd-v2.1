@@ -40,6 +40,31 @@ const TRACE_DEFAULTS = {
   visible: false // 'legendonly'
 }
 
+const TRACE_DEFAULTS_LINE = {
+  name: 'trace',
+  type: 'scatter',
+  mode: 'lines+markers',
+  opacity: 0.8,
+  marker: {
+    symbol: 'circle',
+    color: '#2a383d', // lines + markers, defaults to colorway
+    size: 7,
+    line: {
+      color: '#6fd1f6',
+      width: 2
+    }
+  },
+  line: {
+    color: '#6fd1f6',
+    shape: 'spline',
+    width: 5
+  },
+  hoveron: 'points', // 'points+fills',
+  text: null,
+  hoverinfo: null,
+  visible: false // 'legendonly'
+}
+
 const TRACE_DEFAULTS_SCATTER = {
   name: 'trace',
   type: 'scatter',
@@ -47,8 +72,8 @@ const TRACE_DEFAULTS_SCATTER = {
   opacity: 0.8,
   marker: {
     symbol: 'square',
-    color: 'red', // lines + markers, defaults to colorway
-    size: 2
+    color: '#6fd1f6', // lines + markers, defaults to colorway
+    size: 4
   },
   hoveron: 'points', // 'points+fills',
   text: null,
@@ -59,7 +84,7 @@ const TRACE_DEFAULTS_SCATTER = {
 function getTraceDefaults (type = 'line') {
   switch (type) {
     case 'line':
-      return TRACE_DEFAULTS
+      return TRACE_DEFAULTS_LINE
       break
 
     case 'scatter':
