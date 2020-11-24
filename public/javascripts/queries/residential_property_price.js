@@ -425,9 +425,14 @@ async function initialiseMap (mapId) {
   +x_0=200000 \n\+y_0=250000 +a=6377340.189 +b=6356034.447938534 +units=m +no_defs')
     const firstProjection = 'EPSG:29902'
     const secondProjection = 'EPSG:4326'
-
+    // TODO: move these to bcd-maps module
+    const stamenTonerUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png'
+    const stamenTerrainUrl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png'
     const stamenTonerUrl_Lite = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png'
-    const osmPprMap = new L.TileLayer(stamenTonerUrl_Lite, getDefaultMapOptions())
+    const stamenTonerUrl_BG = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}.png'
+    const stamenTonerUrl_Lines = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lines/{z}/{x}/{y}.png'
+
+    const osmPprMap = new L.TileLayer(stamenTonerUrl, getDefaultMapOptions())
     const pprMap = new L.Map(mapId, {
       dragging: !L.Browser.mobile,
       tap: !L.Browser.mobile
