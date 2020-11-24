@@ -1032,7 +1032,6 @@
         min-width: 1024px;
         min-height: 512px;
         max-width: 1440px;
-
         background-color: #293135;
         font-weight: 200;
         justify-content: center;
@@ -1129,7 +1128,7 @@
     }
 
     .query__chart__plot {
-        display: flex;
+        display: block;
         height: calc(100% - 16px);
     }
 

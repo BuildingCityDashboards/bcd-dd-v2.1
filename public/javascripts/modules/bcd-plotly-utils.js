@@ -50,12 +50,12 @@ const TRACE_DEFAULTS_LINE = {
     color: '#2a383d', // lines + markers, defaults to colorway
     size: 7,
     line: {
-      color: '#6fd1f6',
+      color: 'white',
       width: 2
     }
   },
   line: {
-    color: '#6fd1f6',
+    color: 'white',
     shape: 'spline',
     width: 5
   },
@@ -99,6 +99,12 @@ export { getTraceDefaults }
 const LAYOUT_DEFAULTS_SCATTER = {
   // responsive: true,
   // height: 500,
+  modeBar: {
+    orientation: 'v',
+    bgcolor: '#fff',
+    color: null,
+    activecolor: null
+  },
   margin: {
     l: 0,
     r: 48, // change in chart based on annotations
@@ -122,7 +128,7 @@ const LAYOUT_DEFAULTS_SCATTER = {
     visible: true,
     type: null,
     range: null,
-    fixedrange: true,
+    fixedrange: false,
     showticklabels: true,
     tickmode: 'auto', // 'array',
     nticks: 7,
