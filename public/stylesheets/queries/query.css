@@ -1055,7 +1055,7 @@
     }
 
     .query__sources p,
-    a {
+    .query__sources a {
         font-size: 10px;
         font-weight: 300;
         line-height: 1.6;

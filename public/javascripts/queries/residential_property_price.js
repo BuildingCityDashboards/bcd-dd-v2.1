@@ -489,7 +489,7 @@ async function initialiseMap (mapId) {
 
     const findForm = document.querySelector('#map-property-price > div.leaflet-control-container > div.leaflet-top.leaflet-right > div')
     findForm.appendChild(dialogBox)
-   
+    dialogBox.innerHTML = 'The address was not automatically found.<br>Refine above to search manually.'
 
     return pprMap
   } catch (e) {

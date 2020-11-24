@@ -116,9 +116,9 @@ i {
 }
 
 .leaflet-top.leaflet-right>div {
-
   background-color: white;
   opacity: 1;
+  overflow-y: hidden;
 }
 
 

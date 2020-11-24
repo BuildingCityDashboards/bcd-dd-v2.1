@@ -38,8 +38,10 @@
 }
 
 .leaflet-control {
-    height: 100%;
+    /* height: auto; */
 
+    overflow-y: hidden;
+    float: none;
 }
 
 
@@ -51,6 +53,7 @@
     justify-content: center;
     align-content: center;
     display: flex;
+    min-height: 0;
     width: 100%;
     margin: 0 auto;
     height: auto;
