@@ -75,9 +75,8 @@ const TRACE_DEFAULTS_SCATTER = {
     color: '#6fd1f6', // lines + markers, defaults to colorway
     size: 4
   },
-  hoveron: 'points', // 'points+fills',
-  text: null,
-  hoverinfo: null,
+  hoveron: 'points', // 'points+fills',,
+  hoverinfo: 'test',
   visible: false // 'legendonly'
 }
 
@@ -169,7 +168,18 @@ const LAYOUT_DEFAULTS_SCATTER = {
     // 'orientation': 'v'
   },
   annotations: [],
-  hovermode: 'closest'
+  hovermode: 'closest',
+  hoverlabel: {
+    bgcolor: '#2a383d',
+    bordercolor: '#2a383d',
+    font: {
+      family: null,
+      size: null,
+      color: '#6fd1f6'
+    },
+    namelength: -1,
+    opacity: 0.7
+  }
 }
 
 function getLayoutDefaults (type = 'line') {

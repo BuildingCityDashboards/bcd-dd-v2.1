@@ -80,7 +80,7 @@ async function main (options) {
   const pprLayout = JSON.parse(JSON.stringify(getLayoutDefaults('scatter')))
   pprLayout.xaxis.rangeselector = timeSelectorOptions
   pprLayout.xaxis.range = [new Date(2020, 0, 1), new Date()]
-  pprLayout.yaxis.fixedrange = false
+  pprLayout.yaxis.fixedrange = true
   pprLayout.yaxis.range = [valueRange.min, valueRange.max]
   pprLayout.updatemenus = [{
     // bgcolor: 'green',
@@ -92,6 +92,7 @@ async function main (options) {
   }]
   pprLayout.paper_bgcolor = '#2a383d'
   pprLayout.plot_bgcolor = '#2a383d'
+  // pprLayout.hoverlabel.bgcolor= "#FFF" 
   // pprLayout.title.visible = false
   // pprLayout.colorway = CHART_COLORWAY
   // console.log(pprLayout)
@@ -285,10 +286,11 @@ async function getPPRTracesForYear (year) {
       const pprTraceData = {
         x: pprDates[d] || [],
         y: pprValues[d] || [],
-        customdata: pprCustomData[d] || []
+        customdata: pprCustomData[d] || [],
+        hovertemplate: `SOLD: %{x}, €%{y:,.0f} <extra></extra>`
       }
       const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
-      pprTrace.name = 'ppr-' + year + '-' + d.replace(' ', '-')
+      pprTrace.name = 'Sale:'
       // console.log(pprTraceData);
       return pprTraceData
     })
@@ -406,12 +408,12 @@ async function getTrendTracesForYear (dataset, year) {
     const pprTrendData = {
       x: ppTrendDates[d] || [],
       y: ppTrendVals[d] || [],
-      customdata: ppTrendCustomData[d] || []
+      customdata: ppTrendCustomData[d] || [],
+      hovertemplate: `MEAN: %{x}, €%{y:,.0f} <extra></extra>`
     }
     const trendTrace = Object.assign(pprTrendData, getTraceDefaults('line'))
-    // trendTrace.name = 'ppr-trend-' + year + '-' + d.replace(' ', '-')
-    trendTrace.name = categoriesStat[2] + ' ' + d
-    // console.log(pprTraceData);
+    // trendTrace.name = '' //'Mean sale price: '// categoriesStat[2] + ' ' + d
+
     return pprTrendData
   })
 
