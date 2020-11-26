@@ -1175,6 +1175,7 @@
 
   .theme__header {
     /* h should be 100vh - nav hs */
+    min-height: 768px;
     display: grid;
     position: relative;
     height: 100vh;
