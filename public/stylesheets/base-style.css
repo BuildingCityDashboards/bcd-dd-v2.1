@@ -64,7 +64,7 @@ body {
 /* Links */
 
 a {
-  color: var(--vivid-cyan);
+  color: #6fd1f6;
   -moz-font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
   font-smoothing: antialiased;
