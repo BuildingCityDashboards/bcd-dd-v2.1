@@ -40,257 +40,252 @@ block append head
 block navigation
 
 block content
-  #hero 
-    #hero-grid
-        #hero-title
-            div 
-              #hero-title__text--top DUBLIN
-              #hero-title__text--bottom DASHBOARD
-        #hero-time-weather
-            #hero-time
-                #hero-time__box  
-                    #hero-time__clock  
-                    #hero-time__date
-            #hero-weather
-                include component/card-weather
-      
-        #hero-carousel
-            <div class="carousel" data-flickity='{ "contain": true, "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
+  #home-page
+    #hero 
+      #hero-grid
+          #hero-title
+              div 
+                #hero-title__text--top DUBLIN
+                #hero-title__text--bottom DASHBOARD
+          #hero-time-weather
+              #hero-time
+                  #hero-time__box  
+                      #hero-time__clock  
+                      #hero-time__date
+              #hero-weather
+                  include component/card-weather
+        
+          #hero-carousel
+              <div class="carousel" data-flickity='{ "contain": true, "freeScroll": false, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true, "setGallerySize": false}'>
 
-             
-              .carousel-cell
-                  +home__card-indicator({
-                      title: 'Dublin Bikes',
-                      subtitle:  'Fetching data...',
-                      id: 'dublin-bikes-card',
-                      icon: '/images/icons/transport/Bicycle_Icon_48px.svg#Layer_1',
-                      info: 'Information will appear here when available',
-                      buttons: [
-                      {
-                        href :'themes#dublin-bikes',
-                        name:'More in THEMES'
-                      }],
-                      displayoptions:{
-                        displayid: 'dublin-bikes-card__display',
-                        data:{
-                        href: '/api/dublinbikes/stations/all/snapshot',
-                        },
-                        src: '/javascripts/home/card_dublin_bikes.js',
-                        format:''
-                      }
-                    })
-              //- .carousel-cell
-                #traveltimes-card.card-wrapper
-                  +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
-              .carousel-cell
-                  +home__card-indicator({
-                      title: 'Air quality - city',
-                      subtitle:  'Fetching data...',
-                      id: 'air-quality-card',
-                      icon: '/images/icons/air-pollution.svg#Layer_1',
+              
+                .carousel-cell
+                    +home__card-indicator({
+                        title: 'Dublin Bikes',
+                        subtitle:  'Fetching data...',
+                        id: 'dublin-bikes-card',
+                        icon: '/images/icons/transport/Bicycle_Icon_48px.svg#Layer_1',
+                        info: 'Information will appear here when available',
+                        buttons: [
+                        {
+                          href :'themes#dublin-bikes',
+                          name:'More in THEMES'
+                        }],
+                        displayoptions:{
+                          displayid: 'dublin-bikes-card__display',
+                          data:{
+                          href: '/api/dublinbikes/stations/all/snapshot',
+                          },
+                          src: '/javascripts/home/card_dublin_bikes.js',
+                          format:''
+                        }
+                      })
+                //- .carousel-cell
+                  #traveltimes-card.card-wrapper
+                    +card-rt("queries", "card", "Motorway Delays", "test","rt-travelTimes") 
+                .carousel-cell
+                    +home__card-indicator({
+                        title: 'Air quality - city',
+                        subtitle:  'Fetching data...',
+                        id: 'air-quality-card',
+                        icon: '/images/icons/air-pollution.svg#Layer_1',
+                        info: '',
+                        buttons: [
+                        {
+                          href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
+                          name:'EPA source data',
+                          target: '_blank'
+                        }],
+                        displayoptions:{
+                          displayid: 'air-quality-card__display',
+                          data:{
+                          href: '/api/air-quality/latest',
+                          },
+                          src: '/javascripts/home/card_air_quality.js',
+                          format:''
+                        }
+                      })
+                .carousel-cell
+                    +home__card-chart({
+                        title: 'house prices',
+                        subtitle:  'dublin average (€)',
+                        id: 'house-prices-card',
+                        info: 'Information will appear here when available',
+                        buttons: [{
+                          href :'/themes/#average-house-prices',
+                          name:'More in THEMES'
+                        }],
+                        plotoptions:{
+                          chartid: 'house-prices-card__chart',
+                          data:{
+                          href: '../data/statbank/HPM05.json',
+                          },
+                          src: '/javascripts/home/card_house_prices.js',
+                          format:''
+                        }
+                      }) 
+                .carousel-cell
+                    +home__card-chart({
+                        title: 'house completions',
+                        subtitle:  'total dublin units',
+                        id: 'house-completions-card',
+                        info: '',
+                        buttons: [{
+                          href :'/themes#quarterly-new-dwelling-completions',
+                          name:'More in THEMES'
+                        }],
+                        plotoptions:{
+                          chartid: 'house-completions-card__chart',
+                          data:{
+                          href: '../data/statbank/NDQ06.json',
+                          },
+                          src: '/javascripts/home/card_housing_completions.js',
+                          format:''
+                        }
+                      })
+                .carousel-cell
+                    +home__card-chart({
+                      title: 'unemployment',
+                      subtitle:  'rate (%)',
+                      id: 'unemployment-card',
                       info: '',
-                      buttons: [
-                      {
-                        href :'https://erc.epa.ie/real-time-air/www/aqindex/aqih_json.php',
-                        name:'EPA source data',
-                        target: '_blank'
-                      }],
-                      displayoptions:{
-                        displayid: 'air-quality-card__display',
-                        data:{
-                        href: '/api/air-quality/latest',
-                        },
-                        src: '/javascripts/home/card_air_quality.js',
-                        format:''
-                      }
-                    })
-              .carousel-cell
-                  +home__card-chart({
-                      title: 'house prices',
-                      subtitle:  'dublin average (€)',
-                      id: 'house-prices-card',
-                      info: 'Information will appear here when available',
                       buttons: [{
-                        href :'/themes/#average-house-prices',
+                        href :'/themes#unemployment',
                         name:'More in THEMES'
                       }],
                       plotoptions:{
-                        chartid: 'house-prices-card__chart',
+                        chartid: 'unemployment-card__chart',
                         data:{
-                        href: '../data/statbank/HPM05.json',
+                        href: '../data/statbank/QLF08.json',
                         },
-                        src: '/javascripts/home/card_house_prices.js',
-                        format:''
-                      }
-                    }) 
-              .carousel-cell
-                  +home__card-chart({
-                      title: 'house completions',
-                      subtitle:  'total dublin units',
-                      id: 'house-completions-card',
-                      info: '',
-                      buttons: [{
-                        href :'/themes#quarterly-new-dwelling-completions',
-                        name:'More in THEMES'
-                      }],
-                      plotoptions:{
-                        chartid: 'house-completions-card__chart',
-                        data:{
-                        href: '../data/statbank/NDQ06.json',
-                        },
-                        src: '/javascripts/home/card_housing_completions.js',
+                        src: '/javascripts/home/card_employment.js',
                         format:''
                       }
                     })
-              .carousel-cell
-                  +home__card-chart({
-                    title: 'unemployment',
-                    subtitle:  'rate (%)',
-                    id: 'unemployment-card',
-                    info: '',
-                    buttons: [{
-                      href :'/themes#unemployment',
-                      name:'More in THEMES'
-                    }],
-                    plotoptions:{
-                      chartid: 'unemployment-card__chart',
-                      data:{
-                      href: '../data/statbank/QLF08.json',
-                      },
-                      src: '/javascripts/home/card_employment.js',
-                      format:''
-                    }
-                  })
-              .carousel-cell
-                  +home__card-chart({
-                      title: 'population',
-                      subtitle:  'All Dublin',
-                      id: 'population-card',
-                      info: '',
-                      buttons: [{
-                        href :'/themes#population-dublin',
-                        name:'More in THEMES'
-                      }],
-                      plotoptions:{
-                        chartid: 'population-card__chart',
-                        data:{
-                        href: '../data/statbank/CNA13.json',
-                        },
-                        src: '/javascripts/home/card_population.js',
-                        format:''
-                      }
-                    })
-                  
-              //- </div>
-            </div>
+                .carousel-cell
+                    +home__card-chart({
+                        title: 'population',
+                        subtitle:  'All Dublin',
+                        id: 'population-card',
+                        info: '',
+                        buttons: [{
+                          href :'/themes#population-dublin',
+                          name:'More in THEMES'
+                        }],
+                        plotoptions:{
+                          chartid: 'population-card__chart',
+                          data:{
+                          href: '../data/statbank/CNA13.json',
+                          },
+                          src: '/javascripts/home/card_population.js',
+                          format:''
+                        }
+                      })
+                    
+                //- </div>
+              </div>
+              
             
+              //-         //- include component/carousel-charts.pug
+          #hero-icon-navs
+              include component/icon-nav.pug
+          #hero-scroll-arrow.home-scroll-arrow
+            a(href='#about-dublin')
+              <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
           
-            //-         //- include component/carousel-charts.pug
-        #hero-icon-navs
-            include component/icon-nav.pug
-        #hero-scroll-arrow.home-scroll-arrow
-          a(href='#about-dublin')
-            <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
-        
-            //- include component/toggle-button.pug
-  #about-dublin 
-    //-.position-anchor
-    #about-dublin__header 
-      h1 ABOUT DUBLIN
-    #about-dublin__card
-      p#region__open Dublin is the capital and largest city in Ireland. 
-        |It is located in the province of Leinster and covers a total area of 
-        span#region__area xxx.xx
-        |. 
+              //- include component/toggle-button.pug
+    #about-dublin 
+      //-.position-anchor
+      #about-dublin__header 
+        h1 ABOUT DUBLIN
+      #about-dublin__card
+        p#region__open Dublin is the capital and largest city in Ireland. 
+          |It is located in the province of Leinster and covers a total area of 
+          span#region__area xxx.xx
+          |. 
 
-        |Dublin has a total population of 
-        span#region__population x,xxx,xxx 
-        |  people, with a median age of 
-        span#region__age xx.x 
-        |  years. The median household income is 
-        span#region__income €xx.xx
-        |.
-      p Between 2011 and 2016, the population of Dublin 
-        span#region__populationIndicator declined/increased 
-        |from 
-        span#region__prePopulation xxxxxx 
-        |  to 
-        span#region__population xxxxxx 
-        |, a 
-        span#region__populationChange x.xx% decrease/increase 
-        |. 
-        |  The median household income for the region 
-        span#region__incomeIndicator grew/shrunk 
-        |from 
-        span#region__income__prev €xx.xx 
-        |  to 
-        span#region__income €xx.xx
-        |, a 
-        span#region__income__change x.xx% decrease/increase
-        |.
-      p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. 
-        | Select a council on the map in the next section to see specific information. 
-        //- #regions-map
-        
-    //- #about-scroll-arrow.home-scroll-arrow
-      a(href='#regions-info')
-        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
-      
-  #regions-info
-    #regions-info__map
-      svg#map
-    //- #regions-info_flex
-    #regions-info__cta SELECT A COUNTY COUNCIL ON THE MAP TO LEARN MORE 
-    #regions-info__cta-arrow 
-      <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
-    #regions-info__card
-      #regions-info__card__header
-        h1#local__title Dublin City
-      #regions-info__card__body
-        p 
-          span#local__open 
-          | It covers an area of 
-          span#local__area
-          |.  
-          span#local__title__small  
-          |  has a total population of 
-          span#local__total-popualtion 
+          |Dublin has a total population of 
+          span#region__population x,xxx,xxx 
           |  people, with a median age of 
-          span#local__age xx.x 
-          |  years.
-          //- |and a median household income of 
-          //- span#local__income €xx.xx.
-        p Between 2011 and 2016 the population of  
-          span#local__title__small Dublin
-          |  
-          span#local__populationIndicator  
-          |from 
-          span#local__prePopulation xxxxxx 
-          |  to 
-          span#local__curPopulation xxxxxx 
-          |, a 
-          span#local__populationChange x.xx% decrease/increase
+          span#region__age xx.x 
+          |  years. The median household income is 
+          span#region__income €xx.xx
           |.
-      
-    
-  #about-dublin-dashboard
-    #about-dublin-dashboard__header 
-      h1 ABOUT THE DASHBOARD
-    #about-dublin-dashboard__twitter
-      p 
-        a(href ='https://twitter.com/dublindashboard?lang=en' target="_blank") Follow @dublindashboard on Twitter
-    #about-dublin-dashboard__card
-      p Dublin Dashboard provides citizens, public sector workers and companies with real-time information, time-series indicator data, and interactive maps about all aspects of the city. It enables users to gain detailed, up to date intelligence about the city that aids everyday decision making and fosters evidence-informed analysis. 
-      p Data is pulled together from major  sources -- including Dublin City Council, Dublinked, Central Statistics Office, Eurostat, and government departments, and links to a variety of existing applications -- to provide thousands of interactive data visualisations. The underlying data is freely available so others can undertake their own analysis and build their own applications and visualisations.
+        p Between 2011 and 2016, the population of Dublin 
+          span#region__populationIndicator declined/increased 
+          |from 
+          span#region__prePopulation xxxxxx 
+          |  to 
+          span#region__population xxxxxx 
+          |, a 
+          span#region__populationChange x.xx% decrease/increase 
+          |. 
+          |  The median household income for the region 
+          span#region__incomeIndicator grew/shrunk 
+          |from 
+          span#region__income__prev €xx.xx 
+          |  to 
+          span#region__income €xx.xx
+          |, a 
+          span#region__income__change x.xx% decrease/increase
+          |.
+        p There are four local authorities whose remit collectively encompasses the geographic area of the county and city of Dublin. 
+          | Select a council on the map in the next section to see specific information. 
+          //- #regions-map
+          
+      //- #about-scroll-arrow.home-scroll-arrow
+        a(href='#regions-info')
+          <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
         
+    #regions-info
+      #regions-info__map
+        svg#map
+      //- #regions-info_flex
+      #regions-info__cta SELECT A COUNTY COUNCIL ON THE MAP TO LEARN MORE 
+      #regions-info__cta-arrow 
+        <svg viewBox="0 0 100 100"><path d="M 10,50 L 60,100 L 70,90 L 30,50  L 70,10 L 60,0 Z" ></path></svg>
+      #regions-info__card
+        #regions-info__card__header
+          h1#local__title Dublin City
+        #regions-info__card__body
+          p 
+            span#local__open 
+            | It covers an area of 
+            span#local__area
+            |.  
+            span#local__title__small  
+            |  has a total population of 
+            span#local__total-popualtion 
+            |  people, with a median age of 
+            span#local__age xx.x 
+            |  years.
+            //- |and a median household income of 
+            //- span#local__income €xx.xx.
+          p Between 2011 and 2016 the population of  
+            span#local__title__small Dublin
+            |  
+            span#local__populationIndicator  
+            |from 
+            span#local__prePopulation xxxxxx 
+            |  to 
+            span#local__curPopulation xxxxxx 
+            |, a 
+            span#local__populationChange x.xx% decrease/increase
+            |.
+        
+      
+    #about-dublin-dashboard
+      #about-dublin-dashboard__header 
+        h1 ABOUT THE DASHBOARD
+      #about-dublin-dashboard__twitter
+        p 
+          a(href ='https://twitter.com/dublindashboard?lang=en' target="_blank") Follow @dublindashboard on Twitter
+      #about-dublin-dashboard__card
+        p Dublin Dashboard provides citizens, public sector workers and companies with real-time information, time-series indicator data, and interactive maps about all aspects of the city. It enables users to gain detailed, up to date intelligence about the city that aids everyday decision making and fosters evidence-informed analysis. 
+        p Data is pulled together from major  sources -- including Dublin City Council, Dublinked, Central Statistics Office, Eurostat, and government departments, and links to a variety of existing applications -- to provide thousands of interactive data visualisations. The underlying data is freely available so others can undertake their own analysis and build their own applications and visualisations.
+          
     //- #about-dublin-dashboard.position-anchor
-  //- section.map
-    .content-wrapper.content-wrapper--very-dark-blue
-      .container
-      //- .position-anchor#about-dublin-dashboard
-        include component/about-dd.pug
-
-  //- include component/scroll-to-top
+ 
 
 block append scripts
   //- script(src="https://unpkg.com/flickity@2/dist/flickity.pkgd.js" type="text/javascript")
