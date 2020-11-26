@@ -67,7 +67,6 @@ a {
   color: #6fd1f6;
   -moz-font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
-  font-smoothing: antialiased;
   transition: all 0.15s;
   /* text-decoration: none; */
 }
