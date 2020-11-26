@@ -21,11 +21,44 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
     dublinSvg.attr('viewBox', xmlSVG.attr('viewBox'))
 
     const dccPath = dccRoot.select('path')
+    const dccText = dccRoot.select('text')
     const dlrPath = dlrRoot.select('path')
+    const dlrText = dlrRoot.select('text')
     const sdPath = sdRoot.select('path')
+    const sdText = sdRoot.select('text')
     const fPath = fRoot.select('path')
+    const fText = fRoot.select('text')
 
     const paths = [dccPath, dlrPath, sdPath, fPath]
+    const texts = [dccText, dlrText, sdText, fText]
+
+    texts.forEach(t => {
+      t.on('mouseover', function () {
+        d3.select(this.parentNode).select('path').style('fill', '#6fc6f6')
+      })
+
+      t.on('mouseout', function () {
+        d3.select(this.parentNode).select('path').style('fillDefault')
+      })
+
+      t.on('click', function () {
+        d3.select(this.parentNode).select('path').style('fill', '#6fc6f6')
+
+        const ref = d3.select(this.parentNode).attr('data-name')
+        // alert(ref)
+        updateInfoText(dublinRegionsJson[ref])
+        // on click, remove the call to action
+        d3.select('#regions-info__cta').style('display', 'none')
+        d3.select('#regions-info__cta-arrow').style('display', 'none')
+        d3.select('#regions-info__card').style('display', 'flex')
+        d3.select('#regions-info__card').style('visibility', 'visible')
+        d3.select('#regions-info__card').style('opacity', 1)
+        document.getElementById('regions-info__card').scrollTop = 0
+      })
+    }
+
+    )
+
     paths.forEach(p => {
       p.on('mouseover', function () {
         d3.select(this).style('fill', '#6fc6f6')

@@ -22,6 +22,12 @@
         stroke="#6fc6f6"
         stroke-miterlimit="10">
       </path>
+      <text x="64%" y="85%" text-anchor="middle" style="fill:#ffffff; font-size:12pt font-style:bold;">
+        Dún Laoghaire-
+      </text>
+      <text x="64%" y="88%" text-anchor="middle" style="fill:#ffffff; font-size:12pt font-style:bold;">
+        Rathdown
+      </text>
     </g>
     <g id="South_Dublin" data-name="South Dublin">
       <path
@@ -58,11 +64,5 @@
         Fingal
       </text>
     </g>
-      <text x="64%" y="85%" text-anchor="middle" style="fill:#ffffff; font-size:12pt font-style:bold;">
-        Dún Laoghaire-
-    </text>
-     <text x="64%" y="88%" text-anchor="middle" style="fill:#ffffff; font-size:12pt font-style:bold;">
-        Rathdown
-    </text>
   </g>
 </svg>
