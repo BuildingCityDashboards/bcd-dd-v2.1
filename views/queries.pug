@@ -23,14 +23,23 @@ block content
         <div class="carousel" data-flickity='{ "freeScroll": true, "wrapAround": false, "freeScrollFriction": 0.05,"selectedAttraction": 0.05, "cellSelector": ".carousel-cell", "cellAlign": "left", "percentPosition": false, "pageDots": true, "adaptiveHeight": true}'>
           .carousel-cell
               +card-queries({
+                title: 'Property Price Register', 
+              description: 'View records of sales from the residential Propert Price Register (PPR) and compare prices with historical trend data across the Dublin postal codes.',
+              links: [{
+                href :"/queries/residentialpropertyprice",
+                name:'Go to PPR query'
+                }]
+              })
+          .carousel-cell
+              +card-queries({
                 title: 'Geodemographics', 
                 description: 'Geodemographic classification is a statistical tool that groups spatial units based on socio-economic characteristics.  This query follows the Ireland Geodemographic classification method with a focus on Dublin.  Small Areas (SAs) are selected as spatial units and 2016 Census of Population results are used for socio-economic components.', 
-                
                 links: [{
                   href :"/queries/geodemos",
                   name:'Go to Geodemographics query'
                   }]
               })
+    
           .carousel-cell
               +card-queries({title: 'Live Travel Map', description: '<i>The Live Travel Map is under construction, please check back soon.</i>'})
           .carousel-cell
