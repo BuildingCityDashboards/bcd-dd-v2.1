@@ -1,10 +1,10 @@
-import { fetchCsvFromUrlAsyncTimeout, fetchJsonFromUrlAsyncTimeout } from '../modules/bcd-async.js'
-import { getDateFromCommonString } from '../modules/bcd-date.js'
-import { getDefaultMapOptions, getDublinLatLng, getDublinBoundsLatLng } from '../modules/bcd-maps.js'
+import { fetchCsvFromUrlAsyncTimeout, fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
+import { getDateFromCommonString } from '../../modules/bcd-date.js'
+import { getDefaultMapOptions, getDublinLatLng, getDublinBoundsLatLng } from '../../modules/bcd-maps.js'
 
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
-import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../modules/bcd-ui.js'
-import { getTraceDefaults, getLayoutDefaults } from '../modules/bcd-plotly-utils.js'
+import { activeBtn, addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
+import { getTraceDefaults, getLayoutDefaults } from '../../modules/bcd-plotly-utils.js'
 
 // import { TimeoutError } from '../modules/TimeoutError.js's
 
@@ -92,14 +92,14 @@ async function main (options) {
   }]
   pprLayout.paper_bgcolor = '#2a383d'
   pprLayout.plot_bgcolor = '#2a383d'
-  // pprLayout.hoverlabel.bgcolor= "#FFF" 
+  // pprLayout.hoverlabel.bgcolor= "#FFF"
   // pprLayout.title.visible = false
   // pprLayout.colorway = CHART_COLORWAY
   // console.log(pprLayout)
 
   let pprPlot = document.getElementById(chartId)
 
-  let pprOptions = {
+  const pprOptions = {
     modeBarButtons: [['toImage', 'zoom2d', 'pan2d', 'select2d', 'zoomIn2d', 'zoomOut2d', 'autoScale2d', 'resetScale2d']],
     displayModeBar: true,
     displaylogo: false,
@@ -134,8 +134,19 @@ async function main (options) {
     trends2020[0].visible = true
     Plotly.addTraces(chartId, trends2020)
 
+    const dragLayer = document.getElementsByClassName('nsewdrag')[0]
+    dragLayer.style.cursor = 'crosshair'
+
     // TODO: handle this state better
     let currentDropdownSelectedIndex = 0
+
+    pprPlot.on('plotly_hover', function () {
+      dragLayer.style.cursor = 'pointer'
+    })
+
+    pprPlot.on('plotly_unhover', function () {
+      dragLayer.style.cursor = 'crosshair'
+    })
 
     pprPlot.on('plotly_click', async function (data) {
       let pts = ''
@@ -301,7 +312,7 @@ async function getPPRTracesForYear (year) {
         x: pprDates[d] || [],
         y: pprValues[d] || [],
         customdata: pprCustomData[d] || [],
-        hovertemplate: `SOLD: %{x}, €%{y:,.0f} <extra></extra>`
+        hovertemplate: 'SOLD: %{x}, €%{y:,.0f} <extra></extra>'
       }
       const pprTrace = Object.assign(pprTraceData, getTraceDefaults('scatter'))
       // pprTrace.name = 'Sale:'
@@ -423,7 +434,7 @@ async function getTrendTracesForYear (dataset, year) {
       x: ppTrendDates[d] || [],
       y: ppTrendVals[d] || [],
       customdata: ppTrendCustomData[d] || [],
-      hovertemplate: `MEAN: %{x}, €%{y:,.0f} <extra></extra>`
+      hovertemplate: 'MEAN: %{x}, €%{y:,.0f} <extra></extra>'
     }
     const trendTrace = Object.assign(pprTrendData, getTraceDefaults('line'))
     // trendTrace.name = '' //'Mean sale price: '// categoriesStat[2] + ' ' + d
@@ -519,20 +530,6 @@ async function initialiseMap (mapId) {
   }
 }
 
-function getEmptyLayersArray (total) {
-  const layersArr = []
-  for (let i = 0; i < total; i += 1) {
-    layersArr.push(L.geoJSON(null, {
-
-      style: getLayerStyle(i),
-      onEachFeature: onEachFeature
-
-    })
-    )
-  }
-  return layersArr
-}
-
 function getLayerStyle (index) {
   return {
     fillColor: 'transparent', // getLayerColor(index),
@@ -554,23 +551,6 @@ function getLayerColor (index) {
   return GEODEMOS_COLORWAY[index]
 }
 
-function updateGroupTxt (no) {
-  if (document.contains(document.getElementById('myhref'))) {
-    document.getElementById('href').remove()
-  }
-
-  const dd = document.getElementById('desc')
-  if (no === 'all') {
-    no = 'all1'
-  }
-
-  d3.json('/data/home/geodem-text-data.json').then(function (dublinRegionsJson) {
-    d3.select('#group-title').text(dublinRegionsJson[1][no]).style('font-size', '27px').style('font-weight', 'bold')
-    //
-    d3.select('#group-title').text(dublinRegionsJson[1][no])// .style("color",getLayerColor(no-1));
-    d3.select('#group-text').text(dublinRegionsJson[0][no]).style('font-size', '12px')
-  })
-}
 function getFColor (d) {
   return d > 2.0 ? '#FFFFFF'
     : d > 1.5 ? '#BFB6B3'

@@ -38,7 +38,6 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       })
 
       t.on('mouseout', function () {
-        console.log('mouseout text')
         d3.select(this.parentNode).select('path').style('fill', d3.select(this).style('fillDefault'))
       })
 
@@ -64,15 +63,12 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       })
 
       p.on('mouseout', function () {
-        console.log('mouseout path')
         d3.select(this).style('fill', d3.select(this).style('fillDefault'))
       })
 
       p.on('click', function () {
         d3.select(this).style('fill', '#6fc6f6')
-        // console.log(d3.select(this.parentNode).attr('data-name'))
-        // let e = document.getElementById('about-dublin__card')
-        // e.scrollIntoView()
+
 
         const ref = d3.select(this.parentNode).attr('data-name')
         // alert(ref)
