@@ -38,7 +38,8 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       })
 
       t.on('mouseout', function () {
-        d3.select(this.parentNode).select('path').style('fillDefault')
+        console.log('mouseout text')
+        d3.select(this.parentNode).select('path').style('fill', d3.select(this).style('fillDefault'))
       })
 
       t.on('click', function () {
@@ -55,9 +56,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
         d3.select('#regions-info__card').style('opacity', 1)
         document.getElementById('regions-info__card').scrollTop = 0
       })
-    }
-
-    )
+    })
 
     paths.forEach(p => {
       p.on('mouseover', function () {
@@ -65,6 +64,7 @@ Promise.all([d3.xml('/images/home/dublin-regions-map.svg'),
       })
 
       p.on('mouseout', function () {
+        console.log('mouseout path')
         d3.select(this).style('fill', d3.select(this).style('fillDefault'))
       })
 
