@@ -1,6 +1,6 @@
 /** * This the Gross Value Added per Capita at Basic Prices Chart ***/
 import { BCDMultiLineChart } from '../../modules/BCDMultiLineChart.js'
-import { fetchJsonFromUrlAsync } from '../../modules/bcd-async.js'
+import { fetchJsonFromUrlAsyncTimeout } from '../../modules/bcd-async.js'
 import JSONstat from 'https://unpkg.com/jsonstat-toolkit@1.0.8/import.mjs'
 import { addSpinner, removeSpinner, addErrorMessageButton, removeErrorMessageButton } from '../../modules/bcd-ui.js'
 import { TimeoutError } from '../../modules/TimeoutError.js'
@@ -10,28 +10,30 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   const parseYear = d3.timeParse('%Y')
 
   const STATBANK_BASE_URL =
-    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    // 'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/RAA06/JSON-stat/2.0/en'
   const TABLE_CODE = 'RAA06'
   const STAT = 'Gross Value Added (GVA) per person at Basic Prices (Euro)'
   // document.getElementById('chart-gva').innerHTML = 'Fetching data from CSO...'
 
   try {
     addSpinner('chart-gva', `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>${STAT}</i>`)
-    const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL)
     if (json) {
       removeSpinner('chart-gva')
     }
+
     const gvaDataset = JSONstat(json).Dataset(0)
 
     const gvaFiltered = gvaDataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if ((d.Region === 'Dublin' ||
-          d.Region === 'Dublin and Mid-East' ||
-          d.Region === 'State') &&
-          d.Statistic === STAT) {
-          d.label = d.Year
-          d.date = parseYear(+d.Year)
+        if ((d.C02196V04140 === 'Dublin' ||
+          d.C02196V04140 === 'Dublin and Mid-East' ||
+          d.C02196V04140 === 'State') &&
+          d.STATISTIC === STAT) {
+          d.label = d['TLIST(A1)']
+          d.date = parseYear(+d['TLIST(A1)'])
           d.value = +d.value
           return d
         }
@@ -43,7 +45,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       d: gvaFiltered,
-      k: 'Region',
+      k: 'C02196V04140',
       // ks: ['Dublin', 'Dublin and Mid-East', 'State'],
       tX: 'Years',
       tY: 'GVA pp. (€)',
@@ -51,7 +53,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       margins: {
         left: 52
       }
-
     }
 
     const gvaChart = new BCDMultiLineChart(gvaContent)
