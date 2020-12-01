@@ -53,7 +53,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       margins: {
         left: 52
       }
-
     }
 
     const gvaChart = new BCDMultiLineChart(gvaContent)

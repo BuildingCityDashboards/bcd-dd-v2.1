@@ -13,14 +13,26 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
   const parseYear = d3.timeParse('%Y')
 
+  // The API change on 2020-12-01 resulted in a dimension labelling error which is fixed here
+  const fixLabel = function (l) {
+    const labelMap = {
+      'Employment Size': 'C02175V02621',
+      County: 'C02451V02968',
+      Year: 'TLIST(A1)'
+    }
+    return labelMap[l] || l
+  }
+
   // console.log('fetch cso json')
   const STATBANK_BASE_URL =
-    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    // 'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/BRA08/JSON-stat/2.0/en'
   const TABLE_CODE = 'BRA08'
-  const STATS = ['Active Enterprises (Number)', 'Persons Engaged (Number)', 'Employees (Number)']
+  const STATS = ['Active Enterprises', 'Persons Engaged', 'Employees']
   try {
     addSpinner('chart-' + chartDivIds[0], '<b>CSO</b> for data: <i>BRA08 - Business Demography NACE Rev 2 by Employment Size, County, Year and Statistic</i>')
     const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
+    console.log(json)
 
     if (json) {
       removeSpinner('chart-' + chartDivIds[0])
@@ -28,35 +40,37 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
 
     const dataset = JSONstat(json).Dataset(0)
     // the categories will be the label on each plot trace
-    const categories = dataset.Dimension(0).Category().map(c => {
+    const categories = dataset.Dimension(2).Category().map(c => {
       return c.label
     })
-    // console.log(categories)
+    console.log(categories)
 
-    const EXCLUDE = categories[0] // exclude 'All size...' trace
+    const EXCLUDE = 'All persons engaged size classes' // categories[0] // exclude 'All size...' trace
     //
     const sizeFiltered = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if (d.County === 'Dublin' &&
-        d.Statistic === STATS[2] &&
-        d['Employment Size'] !== EXCLUDE) {
-          d.label = d.Year
-          d.date = parseYear(+d.Year)
+        if (d[fixLabel('County')] === 'Dublin' &&
+        d.STATISTIC === STATS[2] &&
+        d[fixLabel('Employment Size')] !== EXCLUDE) {
+          d.label = d[fixLabel('Year')]
+          d.date = parseYear(+d[fixLabel('Year')])
           d.value = +d.value
           return d
         }
       }
     )
 
+    console.log(sizeFiltered)
+
     const engagedFiltered = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if (d.County === 'Dublin' &&
-        d.Statistic === STATS[1] &&
-        d['Employment Size'] !== EXCLUDE) {
-          d.label = d.Year
-          d.date = parseYear(+d.Year)
+        if (d[fixLabel('County')] === 'Dublin' &&
+        d.STATISTIC === STATS[1] &&
+        d[fixLabel('Employment Size')] !== EXCLUDE) {
+          d.label = d[fixLabel('Year')]
+          d.date = parseYear(+d[fixLabel('Year')])
           d.value = +d.value
           return d
         }
@@ -66,11 +80,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const activeFiltered = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        if (d.County === 'Dublin' &&
-        d.Statistic === STATS[0] &&
-        d['Employment Size'] !== EXCLUDE) {
-          d.label = d.Year
-          d.date = parseYear(+d.Year)
+        if (d[fixLabel('County')] === 'Dublin' &&
+        d.STATISTIC === STATS[0] &&
+        d[fixLabel('Employment Size')] !== EXCLUDE) {
+          d.label = d[fixLabel('Year')]
+          d.date = parseYear(+d[fixLabel('Year')])
           d.value = +d.value
           return d
         }
@@ -82,10 +96,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       d: sizeFiltered,
-      k: 'Employment Size',
+      k: fixLabel('Employment Size'),
       ks: categories.filter(d => {
         return d !== EXCLUDE
-      }), // used for the tooltip
+      }),
       tX: 'Years',
       tY: 'Persons employed',
       formaty: 'tenThousandsShort'
@@ -96,7 +110,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       d: engagedFiltered,
-      k: 'Employment Size',
+      k: fixLabel('Employment Size'),
       ks: categories, // used for the tooltip
       tX: 'Years',
       tY: 'Persons engaged',
@@ -109,7 +123,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       xV: 'date',
       yV: 'value',
       d: activeFiltered,
-      k: 'Employment Size',
+      k: fixLabel('Employment Size'),
       ks: categories, // used for the tooltip
       tX: 'Years',
       tY: 'Active enterprises',
