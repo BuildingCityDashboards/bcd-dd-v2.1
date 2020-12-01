@@ -11,32 +11,51 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   d3.select('#chart-' + chartDivIds[1]).style('display', 'none')
 
   const parseYearMonth = d3.timeParse('%YM%m') // ie 2014-Jan = Wed Jan 01 2014 00:00:00
+
   const STATBANK_BASE_URL =
-    'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    // 'https://statbank.cso.ie/StatbankServices/StatbankServices.svc/jsonservice/responseinstance/'
+    'https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/HPM09/JSON-stat/2.0/en'
   // HPM05: Market-based Household Purchases of Residential Dwellings by Type of Dwelling, Dwelling Status, Stamp Duty Event, RPPI Region, Month and Statistic
   const TABLE_CODE = 'HPM09' // gives no of outsideState and ave household size
+
+  // The API change on 2020-12-01 resulted in a dimension labelling error which is fixed here
+  const fixLabel = function (l) {
+    const labelMap = {
+      'Type of Residential Property': 'C02803V03373',
+      Statistic: 'STATISTIC',
+      County: 'C02451V02968',
+      Month: 'TLIST(M1)'
+    }
+    return labelMap[l] || l
+  }
+
   try {
     addSpinner('chart-' + chartDivIds[0], `<b>statbank.cso.ie</b> for table <b>${TABLE_CODE}</b>: <i>Market-based Household Purchases of Residential Dwellings</i>`)
-    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL + TABLE_CODE)
+    const json = await fetchJsonFromUrlAsyncTimeout(STATBANK_BASE_URL)
     if (json) {
       removeSpinner('chart-' + chartDivIds[0])
     }
     const dataset = JSONstat(json).Dataset(0)
+    console.log(dataset)
 
     const dimensions = dataset.Dimension().map(dim => {
       return dim.label
     })
 
-    const categoriesRegion = dataset.Dimension(dimensions[0]).Category().map(c => {
-      return c.label
-    })
-    //
-    const categoriesStat = dataset.Dimension(dimensions[2]).Category().map(c => {
-      return c.label
-    })
-    // console.log(categoriesStat)
+    console.log(dimensions)
 
-    // to keep track of the trqace namesw that we will plot
+    const categoriesRegion = dataset.Dimension(fixLabel(dimensions[2])).Category().map(c => {
+      return c.label
+    })
+
+    console.log(categoriesRegion)
+    //
+    const categoriesStat = dataset.Dimension(fixLabel(dimensions[0])).Category().map(c => {
+      return c.label
+    })
+    console.log(categoriesStat)
+
+    // to keep track of the trace names that we will plot
     const traceNames = []
 
     // categoriesRegion.filter(d => {
@@ -49,45 +68,43 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const houseRppiTable = dataset.toTable(
       { type: 'arrobj' },
       (d, i) => {
-        d.date = parseYearMonth(d.Month)
-        if ((d[dimensions[0]] === categoriesRegion[4] ||
-          d[dimensions[0]] === categoriesRegion[8] ||
-          d[dimensions[0]] === categoriesRegion[9] ||
-          d[dimensions[0]] === categoriesRegion[10] ||
-          d[dimensions[0]] === categoriesRegion[11] ||
-          d[dimensions[0]] === categoriesRegion[2] ||
-          d[dimensions[0]] === categoriesRegion[7] ||
-          d[dimensions[0]] === categoriesRegion[12]) &&
-          d[dimensions[2]] === categoriesStat[0] &&
-          (parseInt(d.date.getFullYear()) >= 2010)) {
-          d[dimensions[0]] = d[dimensions[0]].replace('excluding', 'ex.')
-          d.label = d.Month
+        d.date = parseYearMonth(d[fixLabel('Month')])
+        if ((d[fixLabel(dimensions[2])] === categoriesRegion[1] ||
+          d[fixLabel(dimensions[2])] === categoriesRegion[2] ||
+          d[fixLabel(dimensions[2])] === categoriesRegion[3] ||
+          d[fixLabel(dimensions[2])] === categoriesRegion[19] ||
+          d[fixLabel(dimensions[2])] === categoriesRegion[4] ||
+          d[fixLabel(dimensions[2])] === categoriesRegion[18]) &&
+          d[fixLabel(dimensions[0])] === categoriesStat[0] &&
+          parseInt(d.date.getFullYear()) >= 2010) {
+          d[fixLabel(dimensions[2])] = d[fixLabel(dimensions[2])].replace('excluding', 'ex.')
+          d.label = d[fixLabel('Month')]
           d.value = +d.value
           // track the available values of only the filtered entries
-          if (!traceNames.includes(d[dimensions[0]])) {
-            traceNames.push(d[dimensions[0]])
+          if (!traceNames.includes(d[fixLabel(dimensions[2])])) {
+            traceNames.push(d[fixLabel(dimensions[2])])
           }
           return d
         }
       })
-    // console.log(traceNames)
+    console.log(traceNames)
 
-    // console.log(houseRppiTable)
+    console.log(houseRppiTable)
 
     const houseRppi = {
       e: 'chart-' + chartDivIds[0],
       d: houseRppiTable
         .filter(d => {
-          return (d[dimensions[0]].includes('houses'))
+          return (d[fixLabel(dimensions[2])].includes('houses'))
         })
         .map(d => {
-          d[dimensions[0]] = d[dimensions[0]].split(' - ')[0]
+          d[fixLabel(dimensions[2])] = d[fixLabel(dimensions[2])].split(' - houses')[0]
           return d
         }),
       // ks: traceNames.filter(d => {
       //   return d.includes('houses')
       // }),
-      k: dimensions[0],
+      k: fixLabel(dimensions[2]),
       xV: 'date',
       yV: 'value',
       tX: 'Year',
@@ -103,16 +120,14 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const apartmentRppi = {
       e: 'chart-' + chartDivIds[1],
       d: houseRppiTable.filter(d => {
-        return (d[dimensions[0]] === categoriesRegion[2] ||
-        d[dimensions[0]] === categoriesRegion[7] ||
-        d[dimensions[0]] === categoriesRegion[12])
-      }),
-      ks: traceNames.filter(d => {
-        return (d === categoriesRegion[2] ||
-        d === categoriesRegion[7] ||
-        d === categoriesRegion[12])
-      }),
-      k: dimensions[0],
+        return (d[fixLabel(dimensions[2])].includes('apartments'))
+      })
+        .map(d => {
+          d[fixLabel(dimensions[2])] = d[fixLabel(dimensions[2])].split(' - apartments')[0]
+          return d
+        }),
+      // ks: ['Test','Test',' Test','Test'],
+      k: fixLabel(dimensions[2]),
       xV: 'date',
       yV: 'value',
       tX: '',
@@ -121,6 +136,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         left: 48
       }
     }
+
+    console.log(apartmentRppi)
     const apartmentRppiChart = new BCDMultiLineChart(apartmentRppi)
 
     d3.select('#btn-' + chartDivIds[0]).on('click', function () {
@@ -142,10 +159,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
 
     window.addEventListener('resize', () => {
-      if (document.querySelector('' + chartDivIds[0]).style.display !== 'none') {
+      if (document.getElementById('chart-' + chartDivIds[0]).style.display !== 'none') {
         redraw(houseRppiChart)
       }
-      if (document.querySelector('' + chartDivIds[1]).style.display !== 'none') {
+      if (document.getElementById('chart-' + chartDivIds[1]).style.display !== 'none') {
         redraw(apartmentRppiChart)
       }
     })
@@ -153,8 +170,8 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     console.log('Error creating RPPI chart')
     console.log(e)
     removeSpinner('chart-' + chartDivIds[0])
-    const eMsg = (e instanceof TimeoutError) ? e : 'An error occured'
-    const errBtnID = addErrorMessageButton(chartDivIds[0], eMsg)
+    const eMsg = (e instanceof TimeoutError) ? e : 'An error occured fetching the data from the external provider (CSO)'
+    const errBtnID = addErrorMessageButton('chart-' + chartDivIds[0], eMsg)
     console.log(eMsg)
     d3.select(`#${errBtnID}`).on('click', function () {
       removeErrorMessageButton(chartDivIds[0])

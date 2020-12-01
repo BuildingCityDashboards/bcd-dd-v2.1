@@ -32,7 +32,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
   try {
     addSpinner('chart-' + chartDivIds[0], '<b>CSO</b> for data: <i>BRA08 - Business Demography NACE Rev 2 by Employment Size, County, Year and Statistic</i>')
     const json = await fetchJsonFromUrlAsync(STATBANK_BASE_URL + TABLE_CODE)
-    console.log(json)
 
     if (json) {
       removeSpinner('chart-' + chartDivIds[0])
@@ -43,7 +42,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     const categories = dataset.Dimension(2).Category().map(c => {
       return c.label
     })
-    console.log(categories)
 
     const EXCLUDE = 'All persons engaged size classes' // categories[0] // exclude 'All size...' trace
     //
@@ -60,8 +58,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
         }
       }
     )
-
-    console.log(sizeFiltered)
 
     const engagedFiltered = dataset.toTable(
       { type: 'arrobj' },
