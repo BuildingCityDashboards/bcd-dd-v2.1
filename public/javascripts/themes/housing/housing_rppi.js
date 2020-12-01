@@ -122,15 +122,11 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       d: houseRppiTable.filter(d => {
         return (d[fixLabel(dimensions[2])].includes('apartments'))
       })
-      .map(d => {
-        d[fixLabel(dimensions[2])] = d[fixLabel(dimensions[2])].split(' - apartments')[0]
-        return d
-      }),
-      // ks: traceNames.filter(d => {
-      //   return (
-      //   d === categoriesRegion[4] ||
-      //   d === categoriesRegion[18])
-      // }),
+        .map(d => {
+          d[fixLabel(dimensions[2])] = d[fixLabel(dimensions[2])].split(' - apartments')[0]
+          return d
+        }),
+      // ks: ['Test','Test',' Test','Test'],
       k: fixLabel(dimensions[2]),
       xV: 'date',
       yV: 'value',
@@ -141,7 +137,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       }
     }
 
-    console.log(apartmentRppi);
+    console.log(apartmentRppi)
     const apartmentRppiChart = new BCDMultiLineChart(apartmentRppi)
 
     d3.select('#btn-' + chartDivIds[0]).on('click', function () {
@@ -163,10 +159,10 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     })
 
     window.addEventListener('resize', () => {
-      if (document.querySelector('' + chartDivIds[0]).style.display !== 'none') {
+      if (document.getElementById('chart-' + chartDivIds[0]).style.display !== 'none') {
         redraw(houseRppiChart)
       }
-      if (document.querySelector('' + chartDivIds[1]).style.display !== 'none') {
+      if (document.getElementById('chart-' + chartDivIds[1]).style.display !== 'none') {
         redraw(apartmentRppiChart)
       }
     })
