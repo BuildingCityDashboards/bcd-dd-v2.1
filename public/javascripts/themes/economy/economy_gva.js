@@ -24,7 +24,6 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
     }
 
     const gvaDataset = JSONstat(json).Dataset(0)
-    console.log(gvaDataset)
 
     const gvaFiltered = gvaDataset.toTable(
       { type: 'arrobj' },
@@ -33,15 +32,13 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           d.C02196V04140 === 'Dublin and Mid-East' ||
           d.C02196V04140 === 'State') &&
           d.STATISTIC === STAT) {
-          // d.label = d.C02196V04140
+          d.label = d['TLIST(A1)']
           d.date = parseYear(+d['TLIST(A1)'])
           d.value = +d.value
           return d
         }
       }
     )
-
-    console.log(gvaFiltered)
 
     const gvaContent = {
       e: 'chart-gva',
