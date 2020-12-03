@@ -36,24 +36,24 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       removeSpinner('chart-' + chartDivIds[0])
     }
     const dataset = JSONstat(json).Dataset(0)
-    console.log(dataset)
+    // console.log(dataset)
 
     const dimensions = dataset.Dimension().map(dim => {
       return dim.label
     })
 
-    console.log(dimensions)
+    // console.log(dimensions)
 
     const categoriesRegion = dataset.Dimension(fixLabel(dimensions[2])).Category().map(c => {
       return c.label
     })
 
-    console.log(categoriesRegion)
+    // console.log(categoriesRegion)
     //
     const categoriesStat = dataset.Dimension(fixLabel(dimensions[0])).Category().map(c => {
       return c.label
     })
-    console.log(categoriesStat)
+    // console.log(categoriesStat)
 
     // to keep track of the trace names that we will plot
     const traceNames = []
@@ -87,9 +87,9 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
           return d
         }
       })
-    console.log(traceNames)
+    // console.log(traceNames)
 
-    console.log(houseRppiTable)
+    // console.log(houseRppiTable)
 
     const houseRppi = {
       e: 'chart-' + chartDivIds[0],
@@ -137,7 +137,7 @@ import { TimeoutError } from '../../modules/TimeoutError.js'
       }
     }
 
-    console.log(apartmentRppi)
+    // console.log(apartmentRppi)
     const apartmentRppiChart = new BCDMultiLineChart(apartmentRppi)
 
     d3.select('#btn-' + chartDivIds[0]).on('click', function () {
