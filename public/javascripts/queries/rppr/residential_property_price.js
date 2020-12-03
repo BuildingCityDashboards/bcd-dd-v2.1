@@ -155,6 +155,20 @@ async function main (options) {
         pts = 'x = ' + data.points[i].x + '\ny = ' +
             data.points[i].y + '\n\n'
         d = data.points[i].customdata
+
+        const annotateText = '' + data.points[i].x + ': €' + data.points[i].y
+        console.log(annotateText)
+
+        const annotation = {
+          text: 'test',
+          x: data.points[i].x,
+          y: parseFloat(data.points[i].y)
+        }
+
+        const annotations = pprLayout.annotations || []
+
+        annotations.push(annotation)
+        Plotly.relayout(chartId, { annotations: annotations })
       }
       console.log('Closest point clicked:\n\n' + pts)
       console.log(d)
