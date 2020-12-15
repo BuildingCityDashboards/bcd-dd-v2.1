@@ -12,44 +12,26 @@ block navigation
     //-+navbar("navbar navbar-expand-lg navbar-dark bg-dark fixed-top","/","Dublin Dashboard","Queries")
     +bcd-navbar("bcd-navbar","/","Dublin Dashboard", "Queries")
     
-
 block content
     .tool-container
-
-        
-
             header.header.mt-5.pt-2
             .Group_Description
                 
-                        .row 
-                            .col-3.cent
+                .row 
+                    .col-3.cent
+                        p.cent
+                            <img  height='48px' width='115px' src='/images/icons/demograph.svg'>
+                            br 
+                            
+                            span#group-title.Group_Title Group 1
+                            br
+                            
+                    .col-9
                         
-                                //- span 
-                                //-     a(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
-
-                                //- nav.nav.nav-pills.nav-justified
-                                //-     a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
-                                //-     a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
-
-
-
-                                
-                                p.cent
-                                    <img  height='48px' width='115px' src='/images/icons/demograph.svg'>
-                                    br 
-                                    
-                                    span#group-title.Group_Title Group 1
-                                    br
-                                    
-                            .col-9
-                                
-                                span#group-text.Group_Description.text-style-2  Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. 
-                                    | Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. 
-                                    | Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).   
-                                #desc   
-                                                    
-            
-                
+                        span#group-text.Group_Description.text-style-2  Students from different levels (undergraduate and postgraduate), single people who are at their early career stage, young professionals, couples without children are represented in this group. 
+                            | Residents of these areas mostly coming from an international background and age range is between 25 to 44. This group consists the lowest percentage of the Dublin population (8.2 %) compared to the other groups. 
+                            | Out of four different authorities Dublin City has the highest percentage of the small areas belonging to this group (86.8 %).   
+                        #desc   
             .row
                br
                .col-2
@@ -65,25 +47,13 @@ block content
             .row.no-gutters
                 .col-2
                     #group-buttons.Group-Header_item.Group_Description.text-style-1 
-
-                        //- .row.-Elevation
-                        //-     a(href='/queries/geodemosHM') 
-                        //-         button.btn-link(type='button', id='all') Heatmap 
-                        //- .row.-Elevation
-                        //-     p.-Subtitle-1.col-5 Groups
-
                         .row.Elevation
-                            
-                                //- p.TextStys Select a group or compare 
-                                //-    |up to three using the list below
-
                         .row.-Elevation  
                             p.-Subtitle-1.col-7 All Groups
                                 a(href='#',)
                                     .col-1 <img  height='22px' width='18px' src='/images/icons/Icon_eye_selected-all.svg' id='all' >  
                                 //- .col-1  
                                     input.regular-checkbox(type="checkbox"   name="myCheckbox" value="all" id='all' )
-
                         .row.-Elevation       
                             p.-Subtitle-1.col-7 1
                                 a(href='#',)  
@@ -132,10 +102,6 @@ block content
                                     p.col-1 <img  height='22px' width='18px' src='/images/icons/sd7.svg' id='7'>  
                 
                 .col-5       
-    
-                    //- nav.nav.nav-pills.nav-justified
-                    //-     a.nav-item.nav-link(href="https://rpubs.com/burcinwalsh/620510" target="_blank")  OVERVIEW
-                    //-     a.nav-item.nav-link(href='/queries/geodemosHM') HEATMAP
                     #map-geodemos
                     
                 .col-5
