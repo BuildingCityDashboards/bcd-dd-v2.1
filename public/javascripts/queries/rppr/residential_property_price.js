@@ -155,13 +155,27 @@ async function main (options) {
         pts = 'x = ' + data.points[i].x + '\ny = ' +
             data.points[i].y + '\n\n'
         d = data.points[i].customdata
+
+        const annotateText = '' + data.points[i].x + ': €' + data.points[i].y
+        // console.log(annotateText)
+
+        const annotation = {
+          text: annotateText,
+          x: data.points[i].x,
+          y: parseFloat(data.points[i].y)
+        }
+
+        const annotations = pprLayout.annotations || []
+
+        // annotations.push(annotation)
+        Plotly.relayout(chartId, { annotations: annotations })
       }
-      console.log('Closest point clicked:\n\n' + pts)
-      console.log(d)
+      // console.log('Closest point clicked:\n\n' + pts)
+      // console.log(d)
 
       const geocodeQuery = `https://nominatim.openstreetmap.org/search/${d.Address}?format=json`
       const geocodeJson = await fetchJsonFromUrlAsyncTimeout(geocodeQuery, 5000)
-      console.log(geocodeJson)
+      // console.log(geocodeJson)
       if (mapRef != null) {
         if (geocodeJson.length > 0) {
           const latlong = new L.LatLng(geocodeJson[0].lat, geocodeJson[0].lon)
@@ -185,7 +199,7 @@ async function main (options) {
           mapRef.addLayer(marker)
           mapRef.panTo(latlong)
         } else {
-          console.log('Address not found')
+          // console.log('Address not found')
           const findForm = document.querySelector('#map-property-price > div.leaflet-control-container > div.leaflet-top.leaflet-right > div > form > input[type=text]:nth-child(1)')
           findForm.value = `${d.Address}`
 
