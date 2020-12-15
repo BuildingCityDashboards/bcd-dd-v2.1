@@ -34,6 +34,8 @@ class BCDChart {
     this.ks = options.tracenames || options.ks// array of trace names
     this.cS = options.colourscheme || options.cS// colour scheme
     this.cScheme = this.cS || d3.schemeBlues[5]
+
+    // set chart colour method
     this.colour = d3.scaleOrdinal(this.cScheme)
     this.colourReversed = d3.scaleOrdinal(this.cScheme.reverse())
 
@@ -95,16 +97,6 @@ class BCDChart {
       return d3.transition().duration(1000)
     }
     c.ease = d3.easeQuadInOut
-
-    // set chart colour method
-
-    
-    if(c.e==='chart-indicator-port-total'){
-    console.log('c.colour');
-    console.log(c.colour);
-    console.log('c.colourReversed');
-    console.log(c.colourReversed);
-    }
 
     // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
