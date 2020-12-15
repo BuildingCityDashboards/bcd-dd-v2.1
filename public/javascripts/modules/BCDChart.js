@@ -33,6 +33,9 @@ class BCDChart {
     this.k = options.tracekey || options.k // trace key
     this.ks = options.tracenames || options.ks// array of trace names
     this.cS = options.colourscheme || options.cS// colour scheme
+    this.cScheme = this.cS || d3.schemeBlues[5]
+    this.colour = d3.scaleOrdinal(this.cScheme)
+    this.colourReversed = d3.scaleOrdinal(this.cScheme.reverse())
 
     this.xV = options.xV // x value
     this.yV = options.yV // y value
@@ -41,7 +44,7 @@ class BCDChart {
     this.tY = options.tY
     this.ySF = options.ySF || options.formaty || 'thousands' // format for y axis
     this.margins = Object.assign(DEFAULT_MARGINS, options.margins)
-    // console.log(`${this.e} : ${JSON.stringify(this.margins)}`)
+
   }
 
   // initialise method to draw c area
@@ -50,7 +53,6 @@ class BCDChart {
     const eN = d3.select('#' + c.e).node()
     const eW = eN.getBoundingClientRect().width
     const aR = eW < 768 ? eW * 0.55 : eW * 0.5
-    const cScheme = c.cS || d3.schemeBlues[5]
     const m = c.m = {}
     const bP = 450 // 414 is IPhone 6/7/8+
 
@@ -96,8 +98,13 @@ class BCDChart {
 
     // set chart colour method
 
-    c.colour = d3.scaleOrdinal(cScheme)
-    c.colourReversed = d3.scaleOrdinal(cScheme.reverse())
+    
+    if(c.e==='chart-indicator-port-total'){
+    console.log('c.colour');
+    console.log(c.colour);
+    console.log('c.colourReversed');
+    console.log(c.colourReversed);
+    }
 
     // set chart bisector method
     c.bisectDate = d3.bisector((d) => {
