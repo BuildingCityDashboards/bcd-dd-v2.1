@@ -1,37 +1,5 @@
-/**  TODOs
-Load group data
-  key-value SA vs group no
-Load SAs
-  Lookup group number for each SA object
-  Add object to layer group based on group number
-Filter layers based on cluster/group number
-Add zscores data
-Display zscores widget and filter based on group selection
-Use zscores widget to filter map
-
-Issue here is having the SAs load by LA and then update map->
-if we add SA to group as it comes up we're rewriting gorup layers repeatedly
-Solve with async await
-
-**/
-
-
-  /*d3.json('/data/home/geodem-text-data.json',
-  function(data) {
-    alert(data);
-  })*/
-
-  /*Promise(
-  d3.json('/data/home/dublin-region-data.json')
-  .then(files => {
-    //let xml = files[0]
-    let dJson = files[0]
-    alert(dJson)
-  }))*/
-//alert('GroupJson8888')
-  
 import { getDublinBoundsLatLng } from '../modules/bcd-maps.js'
-//alert('sssssssss')
+
 let dub_lng = -6.2603
 let dub_lat = 53.42
 let dublinX, dublinY
@@ -112,103 +80,102 @@ let columnNames2={}
 let tarry=[]
 
 
-d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
-.then((zScores)=>{
+// d3.csv('/data/tools/geodemographics/dublin_zscores_t.csv')
+// .then((zScores)=>{
 
-zScores.forEach((row, i) => {
+// zScores.forEach((row, i) => {
   
-let columnNames = Object.keys(row).sort(function(a,b){return row[a]-row[b]})
+// let columnNames = Object.keys(row).sort(function(a,b){return row[a]-row[b]})
    
-   let trace = Object.assign({}, TRACES_DEFAULT);
-    //trace.type = 'bar'
-    //trace.orientation = 'h'
-    //trace.mode = ''
-    //trace.hovertemplate= 'z-score: %{x:.2f}<extra></extra>'
-    trace.mode= 'markers+text'
-    trace.type= 'scatter'
+//    let trace = Object.assign({}, TRACES_DEFAULT);
+//     //trace.type = 'bar'
+//     //trace.orientation = 'h'
+//     //trace.mode = ''
+//     //trace.hovertemplate= 'z-score: %{x:.2f}<extra></extra>'
+//     trace.mode= 'markers+text'
+//     trace.type= 'scatter'
     
-    //trace.orientation = 'h'
-    trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
-    trace.marker = {
-    color: getLayerColor(i), // lines + markers, defaults to colorway
-    }
+//     //trace.orientation = 'h'
+//     trace.marker = Object.assign({}, TRACES_DEFAULT.marker)
+//     trace.marker = {
+//     color: getLayerColor(i), // lines + markers, defaults to colorway
+//     }
    
     
-    trace.x = columnNames.map( name => {
+//     trace.x = columnNames.map( name => {
      
-      return row[name]
+//       return row[name]
       
-    })
+//     })
     
-    trace.y = columnNames
+//     trace.y = columnNames
     
-    traces.push(trace)
-    trace.hovertemplate= `%{x:.2f}<extra>Group No: ${i+1}</extra>`
+//     traces.push(trace)
+//     trace.hovertemplate= `%{x:.2f}<extra>Group No: ${i+1}</extra>`
    
-})
+// })
 
 
 
-layout = Object.assign({}, ROW_CHART_LAYOUT);
-//layout.mode = 'bars'
-layout.height = 500
+// layout = Object.assign({}, ROW_CHART_LAYOUT);
+// //layout.mode = 'bars'
+// layout.height = 500
 
-layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-layout.title.text = 'Variables Value Distribution (z-scores)';
-layout.title.x=0.51
-layout.title.y=0.99
-layout.title.xanchor='center'
-layout.title.yanchor='top'
-layout.title.font= { color: '#6fd1f6',
-family: 'Roboto',
-size: 17
+// layout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+// layout.title.text = 'Variables Value Distribution (z-scores)';
+// layout.title.x=0.51
+// layout.title.y=0.99
+// layout.title.xanchor='center'
+// layout.title.yanchor='top'
+// layout.title.font= { color: '#6fd1f6',
+// family: 'Roboto',
+// size: 17
 
-},
-layout.showlegend = false;
-layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
-layout.legend.xanchor = 'right';
+// },
+// layout.showlegend = false;
+// layout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+// layout.legend.xanchor = 'right';
 
-layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
-layout.xaxis.title = "value";
-layout.xaxis.range = [-2, 2.9]
-layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
-layout.yaxis.tickfont ={
-  family: 'PT Sans',
-  size: 9,
-  color: '#6fd1f6'
-}
-layout.xaxis.tickfont ={
-  family: 'PT Sans',
-  size: 10,
-  color: '#6fd1f6'
-}
+// layout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+// layout.xaxis.title = "value";
+// layout.xaxis.range = [-2, 2.9]
+// layout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+// layout.yaxis.tickfont ={
+//   family: 'PT Sans',
+//   size: 9,
+//   color: '#6fd1f6'
+// }
+// layout.xaxis.tickfont ={
+//   family: 'PT Sans',
+//   size: 10,
+//   color: '#6fd1f6'
+// }
 
-layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
-layout.yaxis.titlefont.size = 16; //bug? need to call this
-layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+// layout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+// layout.yaxis.titlefont.size = 16; //bug? need to call this
+// layout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
 
-layout.plot_bgcolor="#293135",
-layout.paper_bgcolor="#293135"
+// layout.plot_bgcolor="#293135",
+// layout.paper_bgcolor="#293135"
 
 
-layout.yaxis.title = '';
-layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
+// layout.yaxis.title = '';
+// layout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
 
-layout.margin = {
-  l: 40,
-  r: 40, //annotations space
-  t: 40,
-  b: 0
+// layout.margin = {
+//   l: 40,
+//   r: 40, //annotations space
+//   t: 40,
+//   b: 0
   
-};
-scatterHM()
-updateGroupTxt('all')
+// };
+loadChart()
+// updateGroupTxt('all')
 
-}) //end then
-let lyt={}
+// }) //end then
+let chartLayout={}
 
-function scatterHM ()
-{
+function loadChart (){
   d3.csv('/data/tools/geodemographics/dublin_zscores.csv')
 .then((zScores)=>{
   columnNames2 = Object.keys(zScores[0]);
@@ -225,7 +192,6 @@ function scatterHM ()
     ntrace.marker = {
     color: getLayerColor(i), 
     size: 11,
-    
     }
    
     ntrace.x = columnNames2.map( name2 => {
@@ -243,56 +209,56 @@ function scatterHM ()
 
 
 
-lyt = Object.assign({}, ROW_CHART_LAYOUT);
-lyt.mode = 'scatter'
-lyt.height = 500
-//lyt.width = 300
-lyt.plot_bgcolor="#293135",
-lyt.paper_bgcolor="#293135"
+chartLayout = Object.assign({}, ROW_CHART_LAYOUT);
+chartLayout.mode = 'scatter'
+chartLayout.height = 500
+//chartLayout.width = 300
+chartLayout.plot_bgcolor="#293135",
+chartLayout.paper_bgcolor="#293135"
 
-lyt.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-lyt.title.text = 'Variables Value Distribution (z-scores)';
-lyt.title.x=0.51
-lyt.title.y=0.99
-lyt.title.xanchor='center'
-lyt.title.yanchor='top'
-lyt.title.font= { color: '#6fd1f6',
+chartLayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
+chartLayout.title.text = 'Variables Value Distribution (z-scores)';
+chartLayout.title.x=0.51
+chartLayout.title.y=0.99
+chartLayout.title.xanchor='center'
+chartLayout.title.yanchor='top'
+chartLayout.title.font= { color: '#6fd1f6',
 family: 'Roboto',
 size: 17
 
 },
 
-lyt.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
-lyt.legend.xanchor = 'right';
-lyt.legend.y = 0.1;
-lyt.legend.traceorder = 'reversed';
-lyt.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
-lyt.xaxis.title = "";
-lyt.xaxis.range = [-2, 2.9]
-lyt.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
-lyt.yaxis.tickfont ={
+chartLayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
+chartLayout.legend.xanchor = 'right';
+chartLayout.legend.y = 0.1;
+chartLayout.legend.traceorder = 'reversed';
+chartLayout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
+chartLayout.xaxis.title = "";
+chartLayout.xaxis.range = [-2, 2.9]
+chartLayout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
+chartLayout.yaxis.tickfont ={
   family: 'PT Sans',
   size: 9,
   color: '#6fd1f6'
 }
-lyt.xaxis.tickfont ={
+chartLayout.xaxis.tickfont ={
   family: 'PT Sans',
   size: 10,
   color: '#6fd1f6'
 }
 
-lyt.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
-lyt.yaxis.titlefont.size = 16; //bug? need to call this
-lyt.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
+chartLayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
+chartLayout.yaxis.titlefont.size = 16; //bug? need to call this
+chartLayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
 
-lyt.plot_bgcolor="#293135",
-lyt.paper_bgcolor="#293135"
+chartLayout.plot_bgcolor="#293135",
+chartLayout.paper_bgcolor="#293135"
 
 
-lyt.yaxis.title = '';
-lyt.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
+chartLayout.yaxis.title = '';
+chartLayout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
 
-lyt.margin = {
+chartLayout.margin = {
   l: 20,
   r: 60, //annotations space
   t: 40,
@@ -302,7 +268,7 @@ lyt.margin = {
 
 
 
-Plotly.newPlot('chart-geodemos', [ntraces[0],ntraces[1],ntraces[2],ntraces[3],ntraces[4],ntraces[5],ntraces[6]], lyt, {
+Plotly.newPlot('chart-geodemos', [ntraces[0],ntraces[1],ntraces[2],ntraces[3],ntraces[4],ntraces[5],ntraces[6]], chartLayout, {
    modeBar: {
      orientation: 'v',
      bgcolor: 'black',
@@ -534,7 +500,7 @@ d3.select('#group-buttons').selectAll('img').on('click' ,function(){
 
 if (layerNo === 'all') {// 'all' && cb.attr("src")=='/images/icons/Icon_eye_selected.svg') {
   
-scatterHM()
+loadChart()
 updateGroupTxt('all')
 AddLayersToMap()
 
@@ -568,8 +534,6 @@ function AddLayersToMap ()
 
 
 }
-
-
   
 function ResetImages(imgid) 
 {
@@ -613,122 +577,3 @@ let selectedImg=document.getElementById(imgid)
     selectedImg.src=imgsrcarr[imgid] 
 }
 
-
-
-
-function addHorizrntalBars (value,text)
-{
-  //alert(value + text)
-  let GroupsArray=['Group1', 'Group2', 'Group3', 'Group4', 'Group5','Group6','Group7']
-  hmlayout = Object.assign({}, ROW_CHART_LAYOUT);
-  
-  
-  hmlayout.height = 500
-  hmlayout.width = 360
-  //layout.barmode = 'group';
-  hmlayout.colorway = GEODEMOS_COLORWAY
-  hmlayout.title = Object.assign({}, ROW_CHART_LAYOUT.title);
-  hmlayout.title.text = text +' ' +'Value Distribution (z-scores)';
-  hmlayout.showlegend = false;
-  hmlayout.legend = Object.assign({}, ROW_CHART_LAYOUT.legend);
-  hmlayout.legend.xanchor = 'right';
-  hmlayout.legend.y = 0.1;
-  hmlayout.legend.traceorder = 'reversed';
-  hmlayout.xaxis = Object.assign({}, ROW_CHART_LAYOUT.xaxis);
-  hmlayout.xaxis.title = "";
-  //hmlayout.xaxis.range = [-2, 2]
-  hmlayout.yaxis = Object.assign({}, ROW_CHART_LAYOUT.yaxis);
-  hmlayout.yaxis.tickfont ={
-    family: 'PT Sans',
-    size: 10,
-    color: '#313131'
-  }
-  hmlayout.yaxis.titlefont = Object.assign({}, ROW_CHART_LAYOUT.yaxis.titlefont);
-  hmlayout.yaxis.titlefont.size = 16; //bug? need to call this
-  hmlayout.yaxis.title = Object.assign({}, ROW_CHART_LAYOUT.yaxis.title);
-  //-hmlayout.hovermode ='closest';
-  //-hmlayout.hoverinfo = "z";
-  //-hmlayout.domain =[0.85,0.9];
-  hmlayout.yaxis.title = '';
-  hmlayout.margin = Object.assign({}, ROW_CHART_LAYOUT.margin)
-  hmlayout.margin = {
-    l: 20,
-    r: 20, //annotations space
-    t: 20,
-    b: 0
-    
-  };
-  
-
-
-  d3.text('/data/tools/geodemographics/dublin_zscores.csv')
-  .then((zScores)=>{
-    let newCsv = zScores.split('\n').map(function(line) {
-      let columns = line.split(','); // get the columns
-      columns.splice(0, 1); // remove total column
-      return columns;
-  }).join('\n');
-
-  const rows = newCsv.split('\n');
-  //alert(rows)
-  // get the first row as header
-  const header = rows.shift(); //.revers();
-  //alert(header)
-  //const header = columnNames;
-  const numberOfColumns = header.split(',').length
-  
-  // initialize 2D-array with a fixed size
-  const columnData = [...Array(numberOfColumns)].map(item => new Array());
-  
-  for(let i=0; i<rows.length; i++) {
-    let row = rows[i];
-    let rowData = row.split(',');
-  
-   
-    for(let j=0; j<numberOfColumns; j++) {
-      columnData[j].push((rowData[j]));
-    
-    
-  }
-}
-let zArray=[]
-for (let r=0;r<7;r++)
-{
-//alert(columnData[value][r])
-zArray.push((columnData[value][r]))
-} 
-
- let farr=[]
- //let tc ={}
-for (let f=0; f< zArray.length; f++)
-{
-    let tc = Object.assign({}, TRACES_DEFAULT);
-    tc.type = 'bar'
-    tc.orientation = 'h'
-    tc.x=parseFloat(zArray[f])
-    tc.y=GroupsArray[f]
-    //alert(JSON.stringify(tc))
-    farr.push(tc)
-}
-
-   let data = [
-     {
-         x: zArray, //columnData,
-         //color: getLayerColor(GroupsArray.indexOf("Banana");), 
-         y: GroupsArray, // ['', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-         hovertemplate: `${text}: %{x:.2f}<extra></extra>`,
-         type: 'bar',
-         orientation: 'h',
-         indxArr: [0,1,2,3,4,5,6],
-
-marker:{
-color: ['#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d','#666666']   
-},
-  } 
-                 ];
-      //Plotly.purge('chart-geodemos'); 
-     Plotly.newPlot('chart-geodemos', data, hmlayout)
-       
-          
-      })
-    }
