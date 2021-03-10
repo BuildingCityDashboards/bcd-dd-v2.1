@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
 	"name": "bcd-dd-v2.x",
 	"version": "2.1.0",
 	"private": true,
@@ -35,41 +34,3 @@
 		"nodemon": "^2.0.4"
 	}
 }
-=======
-  "type": "module",
-  "name": "bcd-dd-v2.x",
-  "version": "2.1.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
-  },
-  "dependencies": {
-    "cookie-parser": "^1.4.5",
-    "d3": "^5.16.0",
-    "dotenv": "^6.2.0",
-    "express": "^4.17.1",
-    "http-errors": "^1.8.0",
-    "leaflet": "^1.6.0",
-    "moment": "^2.27.0",
-    "mongoose": "^5.9.26",
-    "morgan": "^1.10.0",
-    "node-cron": "^2.0.3",
-    "node-fetch": "^2.6.1",
-    "pug": "^3.0.1",
-    "set-interval-async": "^1.0.33",
-    "sitemap": "^3.2.2",
-    "winston": "^3.3.3"
-  },
-  "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "jsdoc": "^3.6.5",
-    "nodemon": "^2.0.4"
-  }
-}
->>>>>>> 84e8ce1d4e605ec98cb3a74367930015fe6e98d0
