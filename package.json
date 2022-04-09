@@ -13,7 +13,7 @@
 		"express": "^4.17.1",
 		"http-errors": "^1.8.0",
 		"leaflet": "^1.6.0",
-		"moment": "^2.27.0",
+		"moment": "^2.29.2",
 		"mongoose": "^5.9.26",
 		"morgan": "^1.10.0",
 		"node-cron": "^2.0.3",
