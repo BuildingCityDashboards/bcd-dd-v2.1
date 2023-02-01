@@ -14,7 +14,7 @@
 		"http-errors": "^1.8.0",
 		"leaflet": "^1.6.0",
 		"moment": "^2.27.0",
-		"mongoose": "^5.9.26",
+		"mongoose": "^5.13.15",
 		"morgan": "^1.10.0",
 		"node-cron": "^2.0.3",
 		"node-fetch": "^2.6.1",
